@@ -1,0 +1,24 @@
+name: Public source diagnostics
+on:
+  push:
+    branches: [arena/4aae8328-maltaproj3]
+    paths: ['scripts/discover_sources.py', '.github/workflows/source-diagnostics.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect public source responses
+        run: python scripts/discover_sources.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-source-diagnostics
+          path: .cache/discovery/
+          retention-days: 3
