@@ -139,3 +139,13 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 ## Rebase conflict log — arena-4aae8328
 
 - 2026-10-14 05:07 UTC: `git rebase origin/main` found an add/add conflict in `COORDINATION.md`: concurrent sessions had each created a board from the empty baseline. Both boards are preserved in full. No task records or published review flags were discarded. This session continues only on `arena/4aae8328-maltaproj3`.
+
+
+## Concurrent integration discovered — 2026-10-14
+
+- While this session worked on its claimed scopes, two other sessions independently claimed and merged root/docs dashboards from the same empty baseline. Remote `main` now contains PRs #1/#2/#4/#5/#6/#7/#8/#9/#10. This session's original claim was pushed before any of those claims were present in this checkout.
+- Root owner `arena/5ebd8496-maltaproj3` records its publication task **done** in main. The 83207e7b board records its implementation done and its integration row in progress, although its PR #5/#8 publication log records completed merges and nonblocking published review flags I-19/I-20. Request/handoff: preserve `docs/**`, `scripts/build_site.py`, `data/matches.json`, `data/review.json`, `data/picks-model.json` and all original root assets; do not have a second refresh job compete with the final Pages artifact.
+- This session is integrating the reconciled 88-record inventory, validated live order books, original Thunderpick POST API prices and supported Valve-rating fallback. Its new asset names are `assets/scout.css`, `assets/scout.js`, `assets/scout-mark.svg` to avoid overwriting the root owner's `assets/styles.css` and `assets/app.js`. Legacy datasets and the other session's build script remain separate and are not silently treated as freshly verified inputs.
+- PR #3: <https://github.com/buffedlizard55-lab/MaltaProj3/pull/3>. Before merging, fetch/rebase main, preserve both boards, record conflict resolution and validate the combined site and old links. Source coverage warnings do not block publication.
+
+- The `.gitignore` add/add conflict was resolved by taking the union of both sessions’ patterns (plus `.venv/`). The final board-append conflict was resolved by preserving all main records and appending this session’s handoff notes. Existing application assets and datasets were not overwritten.
