@@ -83,17 +83,22 @@ test('all matches and source links remain available with JavaScript disabled', a
   const page = await context.newPage();
   await page.goto('/picks/');
   expect(await page.locator('#match-list > tbody > tr').count()).toBeGreaterThan(0);
-  await expect(page.locator('noscript')).toContainText('Every row and source remains visible');
+  await expect(page.locator('#match-list > tbody > tr').first().locator('.row-source-links a').first()).toBeVisible();
+  await expect(page.locator('#match-list > tbody > tr').first().locator('.team-pair')).toBeVisible();
   await context.close();
 });
 
+for (const width of [390, 1440]) {
 for (const route of routes) {
-  test(`current page ${route} passes WCAG A/AA automated accessibility checks`, async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
+  test(`current page ${route} at ${width}px passes WCAG A/AA automated accessibility checks`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
     await page.goto(route);
     const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+    await fs.mkdir('.cache/a11y', { recursive: true });
+    await fs.writeFile(`.cache/a11y/${`${width}-` + route.replaceAll('/', '_')}.json`, JSON.stringify(result.violations, null, 2));
     expect(result.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.slice(0, 4).map(n => ({ target: n.target, summary: n.failureSummary })) }))).toEqual([]);
   });
+}
 }
 
 test('capture final phone and desktop views for visual verification', async ({ page }) => {

@@ -6,6 +6,7 @@ import csv
 import html
 import io
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -199,13 +200,15 @@ def coverage(data, prefix):
     ledger = [('Fixture identity reconciliation', f'{c["inventory"]} unique CS2 IDs. Both lobby payloads and the unpaginated official fixture array are compared.', 'https://play.hotspawn.com/cs2-pickems', 'Hotspawn CS2 lobby'), ('Line-by-line facts', 'Every match ID, team, competition, schedule, explicit lock, format and source status is replayed against saved source JSON.', 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1', 'Original fixture API'), ('Probability calculations', 'Every output probability, fair line and selected team is recalculated. Unknown inputs cannot become a pick.', 'https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Official order book contract'), ('Rating input integrity', 'Model points and rosters are reparsed from original Valve markdown and checked against its Git blob SHA.', 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'Valve official repository')]
     for title, detail, url, label in ledger:
         out += f'<tr><th scope="row">{e(title)}</th><td>{e(detail)}</td><td>{external(url, label)}</td></tr>'
-    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a><a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a><a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a></div></section>'
+    reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
+    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a></div></section>'
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
             continue
         out += f'<tr><th scope="row">{e(match_name(m))}<small>{e(m["competition"] or "Unverified tournament")} · ID {e(m["id"])}</small></th><td>{local_time(m["starts_at"])}</td><td>{e(m["source_status"] or "")}<small>Current result/status unverified</small></td><td>{external(m["source_url"], "Hotspawn source")}</td></tr>'
     out += '</tbody></table></div></section>'
+    out += f'<div class="limitations-callout"><strong>Earlier session outputs, preserved for review</strong><p>These archived dashboards use older observation times and different identity/model rules. They are not the current picks feed and are not independently reverified by this pipeline.</p><div class="inline-links"><a href="{prefix}docs/index.html">Earlier research snapshot →</a><a href="{prefix}archive/root-session/index.html">Earlier root dashboard →</a></div></div>'
     unknown = [m for m in data['matches'] if m['availability'] == 'unknown']
     if unknown:
         out += '<section class="content-section"><h2>Unverified schedules</h2>' + matches_table(unknown, prefix, table_id='unknown-schedules') + '</section>'
@@ -284,8 +287,25 @@ def build(source: Path, output: Path):
         safe = lambda x: ("'" + str(x)) if str(x).startswith(('=', '+', '-', '@')) else x
         writer.writerow([safe(x) for x in [m['id'], m['teams'][0]['name'] or '', m['teams'][1]['name'] or '', m['starts_at'] or '', m['locks_at'] or '', m['source_status'] or '', m['availability'], a['probabilities'][0] if a else '', a['probabilities'][1] if a else '', m['teams'][m['pick_index']]['name'] if m['pick_index'] is not None else '', a['method'] if a else '', a['observed_at'] if a else '', a.get('snapshot_date', '') if a else '', m['source_url'], a['source_url'] if a else '']])
     (output / 'data/picks.csv').write_text(stream.getvalue())
+    # Preserve the old root URLs without exposing a competing current feed.
+    aliases = {'picks.html': 'picks/', 'methodology.html': 'methodology/', 'flagged.html': 'review/'}
+    for old, target in aliases.items():
+        (output / old).write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="0;url=./{target}"><title>Updated dashboard location</title></head><body><main><h1>This page has moved</h1><p><a href="./{target}">Open the current CS2 dashboard</a></p></main></body></html>')
+    # Other sessions’ files remain unchanged in Git. Only generated artifact
+    # copies receive an unmistakable archive banner.
+    for source_dir, dest_dir, back in [(Path('docs'), output / 'docs', '../'), (Path('archive/root-session'), output / 'archive/root-session', '../../')]:
+        if not source_dir.exists():
+            continue
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        if source_dir.name == 'root-session':
+            shutil.copytree(source_dir, dest_dir, dirs_exist_ok=True)
+        for source_page in source_dir.glob('*.html'):
+            text = source_page.read_text()
+            banner = f'<aside role="note" style="padding:18px;background:#fff0cf;border:2px solid #9b6b20;color:#382509;font:14px/1.7 system-ui"><strong>Archived session snapshot — not the current picks feed.</strong> Original values and timestamps are retained for review, not independently reverified or relabeled as current. <a style="color:#74310c;text-decoration:underline" href="{back}index.html">Open the current executive summary</a> · <a style="color:#74310c;text-decoration:underline" href="{back}review/">Current verification limitations</a></aside>'
+            text = re.sub(r'(<body\b[^>]*>)', lambda m: m.group(1) + banner, text, count=1, flags=re.I)
+            (dest_dir / source_page.name).write_text(text)
     check_links(output)
-    print(f'Built five source-linked Pages views in {output}')
+    print(f'Built five current Pages views, compatible old URLs and explicitly archived session views in {output}')
 
 
 if __name__ == '__main__':
