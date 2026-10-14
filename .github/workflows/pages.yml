@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -42,6 +43,10 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Refresh all Hotspawn CS2 records and supported external lines
         run: python -m scripts.collect
+      - name: Order platform publishers and record Pages configuration
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.publication
       - name: Reconcile every row, replay every probability and build linked pages
         run: python -m scripts.build
       - name: Inspect source freshness for cache eligibility
@@ -67,10 +72,6 @@ jobs:
             data/sources.json
             data/evidence/
           key: ${{ steps.restore.outputs.cache-primary-key }}
-      - name: Make Actions the only Pages publisher
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
