@@ -1,11 +1,14 @@
 {
-  "generatedAt": "2026-10-14T04:42:00Z",
-  "snapshotNote": "Initial verified snapshot. Match listing and schedule: Hotspawn public match pages and Pick\u2019ems lobby. External prices are only copied where an exact official market page was directly checked.",
+  "generatedAt": "2026-10-14T04:49:13.903Z",
+  "snapshotNote": "Public-source refresh at 2026-10-14T04:49:13.903Z. Hotspawn lobby checked (24 linked match pages found). No new external-market payload was applied.",
   "scope": {
     "source": "https://play.hotspawn.com/lobby",
-    "sourceName": "Hotspawn Pick\u2019ems lobby",
+    "sourceName": "Hotspawn Pick’ems lobby",
     "snapshotMatchCount": 28,
-    "refreshCadenceHours": 6
+    "refreshCadenceHours": 6,
+    "lastLobbyCheck": "2026-10-14T04:49:13.903Z",
+    "lobbyReachable": true,
+    "linkedMatchCount": 24
   },
   "matches": [
     {
@@ -20,7 +23,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
+      }
     },
     {
       "id": "gothic-lavked-2026-10-14",
@@ -41,7 +48,11 @@
       },
       "recommendation": "Lavked",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "9z-aurora-2026-10-14",
@@ -62,7 +73,11 @@
       },
       "recommendation": "Aurora",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "astralis-sashi-2026-10-14",
@@ -83,7 +98,11 @@
       },
       "recommendation": "Astralis",
       "status": "verified-line",
-      "limitation": "Normalized reciprocal decimal odds to remove the two-way overround."
+      "limitation": "Normalized reciprocal decimal odds to remove the two-way overround.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "hotu-fnatic-2026-10-14",
@@ -104,7 +123,11 @@
       },
       "recommendation": "Fnatic",
       "status": "verified-line",
-      "limitation": "Normalized reciprocal decimal odds to remove the two-way overround."
+      "limitation": "Normalized reciprocal decimal odds to remove the two-way overround.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "banda-6666-2026-10-14",
@@ -118,7 +141,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
+      }
     },
     {
       "id": "rustec-mellren-2026-10-14",
@@ -132,7 +159,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "falcons-nip-2026-10-14",
@@ -153,7 +184,11 @@
       },
       "recommendation": "Falcons",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "legacy-parivision-2026-10-14",
@@ -174,7 +209,11 @@
       },
       "recommendation": "Legacy",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "ryvex-pcific-2026-10-14",
@@ -188,7 +227,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
+      }
     },
     {
       "id": "g2ares-tlr-2026-10-14",
@@ -202,7 +245,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "furia-betboom-2026-10-14",
@@ -216,7 +263,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "forze-lfo10-2026-10-14",
@@ -230,7 +281,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "wrotberry-eac-2026-10-15",
@@ -244,7 +299,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "ence-bojong-2026-10-15",
@@ -258,7 +317,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "wrotberry-ence-2026-10-15",
@@ -272,7 +335,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "eac-bojong-2026-10-15",
@@ -286,7 +353,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "wrotberry-bojong-2026-10-15",
@@ -300,7 +371,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "eac-ence-2026-10-15",
@@ -314,7 +389,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "mibr-bcgame-2026-10-15",
@@ -335,7 +414,11 @@
       },
       "recommendation": "MIBR",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "heroic-envy-2026-10-15",
@@ -356,7 +439,11 @@
       },
       "recommendation": "Heroic",
       "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture."
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "voca-phantom-2026-10-16",
@@ -370,7 +457,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "havu-roundsgg-2026-10-16",
@@ -384,7 +475,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "voca-havu-2026-10-16",
@@ -398,7 +493,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "phantom-roundsgg-2026-10-16",
@@ -412,7 +511,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "roundsgg-voca-2026-10-16",
@@ -426,7 +529,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "phantom-havu-2026-10-16",
@@ -440,7 +547,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     },
     {
       "id": "mellren-privateer-2026-10-16",
@@ -454,7 +565,11 @@
       "probability": null,
       "recommendation": null,
       "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage."
+      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "sourceCheck": {
+        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "note": "Public Hotspawn lobby checked."
+      }
     }
   ]
 }
