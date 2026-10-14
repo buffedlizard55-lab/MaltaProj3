@@ -187,7 +187,7 @@ def sportsbook_quote(event: dict, match: dict, observed_at: str, now: datetime) 
         return None
     odds = align([s.get('odds') for s in sides], names, match)
     probs = no_vig(odds)
-    return {'provider': 'Thunderpick', 'family': 'thunderpick', 'odds': odds, 'probabilities': probs, 'observed_at': observed_at, 'source_url': 'https://thunderpick.io/api/matches?matchesIds=' + str(event['id']), 'event_id': str(event['id'])}
+    return {'provider': 'Thunderpick', 'family': 'thunderpick', 'odds': odds, 'probabilities': probs, 'observed_at': observed_at, 'source_url': 'https://thunderpick.io/api/matches', 'event_id': str(event['id'])}
 
 
 def consensus(quotes: list, now: datetime) -> dict | None:

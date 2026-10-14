@@ -81,6 +81,7 @@ def evidence(m, prefix):
             for t, q in zip(m['teams'], a['quotes']):
                 body += f'<tr><th scope="row">{e(t["name"])}</th><td>{q["bid"]:.3f} / {q["ask"]:.3f}</td><td>{external(a["source_api"], "Polymarket API")}</td></tr>'
             body += '</tbody></table></div>'
+            body += '<div class="evidence-links">' + ''.join(f'<a href="{prefix}data/evidence/polymarket-{kind}-{a["event_id"]}{suffix}.json">{label} ↓</a>' for kind, suffix, label in [('event', '', 'Saved event'), ('book', '-0', 'First order book'), ('book', '-1', 'Second order book')]) + '</div>'
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
             for r in a['inputs']:
@@ -88,9 +89,11 @@ def evidence(m, prefix):
             body += '</tbody></table></div>'
             for r in a['inputs']:
                 body += f'<p class="tiny"><strong>{e(r["name"])}</strong>: {e(", ".join(r["roster"]))}</p>'
+            body += f'<div class="evidence-links"><a href="{prefix}data/evidence/valve-standings-response.json">Original Valve response ↓</a><a href="{prefix}data/evidence/valve-ratings.json">Parsed official inputs ↓</a></div>'
         elif a['method'] == 'bookmaker':
             for q in a['quotes']:
                 body += f'<p>Quoted decimal odds: {e(q["odds"][0])} / {e(q["odds"][1])}. {external(q["source_url"], q["provider"])}</p>'
+                body += f'<p>Original event ID: <strong>{e(q["event_id"])}</strong>. Source uses a read-only POST with <code>{{"gameIds":[6]}}</code>; opening that endpoint as a browser GET does not reproduce the recorded request.</p><div class="evidence-links"><a href="{prefix}data/evidence/thunderpick-matches.json">Saved original bookmaker response ↓</a><a href="{prefix}data/sources.json">Request method &amp; payload ↓</a></div>'
         body += '<ul class="limitations">' + ''.join(f'<li>{e(x)}</li>' for x in a['limitations']) + '</ul>' + external(a['source_url'], a['source'])
     if m['research']:
         body += '<h4>Resolution trail</h4><ol class="research-trail">'
@@ -133,7 +136,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
         out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'model': 'Research model', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'model': 'purple', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Bookmaker')
+            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Bookmaker API')
         out += '</div>' + evidence(m, prefix) + '</td></tr>'
     out += '</tbody></table><p id="filter-empty" class="empty-state" hidden>No matches fit these filters. <button type="button" class="text-button" data-reset>Clear filters</button></p></div>' if filters else '</tbody></table></div>'
     return out

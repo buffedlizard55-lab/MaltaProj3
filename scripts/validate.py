@@ -41,10 +41,12 @@ def check_data(root: Path):
         return data
     raw = load(evidence / 'hotspawn-fixtures.json')
     context = load(evidence / 'hotspawn-context.json')
+    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
     raw = {str(r['id']): r for r in raw if r.get('sport_alias') == 'cs2'}
     require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
     require(set(raw) == set(context['api_ids']) == set(context['lobby_ids']) == set(context['cs2_ids']), 'Official inventories were not reconciled')
-    fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api']
+    fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api', 'lobby_url', 'availability', 'evidence']
+    require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
     attempts = {r['id']: r for r in data.get('requests', [])}
     valve_rows = None
     for m in rows:
@@ -93,7 +95,13 @@ def check_data(root: Path):
             body = load(evidence / 'thunderpick-matches.json')['data']
             source_rows = body.get('upcoming', body.get('matches', []))
             qs = [sportsbook_quote(r, m, a['observed_at'], now) for r in source_rows]
-            replay = consensus([q for q in qs if q], now)
+            accepted = [q for q in qs if q]
+            require(len(accepted) == 1, f'{m["id"]}: ambiguous original bookmaker events')
+            request = attempts['thunderpick-matches']
+            require(request.get('status') == 'ok' and request.get('url') == a['source_url'], 'Bookmaker source URL is not the actual successful request')
+            require(request['observed_at'] == a['observed_at'], f'{m["id"]}: bookmaker observation timestamp restamped')
+            require(request['method'] == 'POST' and request.get('request_body') == {'gameIds': [6]}, 'Original bookmaker POST query was not recorded')
+            replay = consensus(accepted, now)
             require(replay is not None and replay['quotes'] == a['quotes'], f'{m["id"]}: bookmaker source evidence invalid')
         else:
             raise ValueError(f'{m["id"]}: unsupported analysis method')
