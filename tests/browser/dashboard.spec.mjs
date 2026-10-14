@@ -27,6 +27,10 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await expect(page).toHaveURL(/\/picks\/$/);
   await expect(page.locator('#match-list > tbody > tr')).not.toHaveCount(0);
   await expect(page.locator('.mobile-nav a[aria-current="page"]')).toHaveText('Picks');
+  const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
+  await expect(phoneNav.getByRole('link')).toHaveCount(5);
+  await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
+  await expect(page).toHaveURL(/\/methodology\/$/);
 });
 
 test('search, method filters, sorting and clearing work', async ({ page }) => {

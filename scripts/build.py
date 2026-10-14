@@ -255,7 +255,7 @@ def shell(data, key, body, prefix):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + k + "/"}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('coverage', 'Coverage'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + k + "/"}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
@@ -282,7 +282,7 @@ def build(source: Path, output: Path):
         prefix = './' if key == 'summary' else '../'
         target.write_text(shell(data, key, renderers[key](data, prefix), prefix))
     stream = io.StringIO()
-    writer = csv.writer(stream)
+    writer = csv.writer(stream, lineterminator='\n')
     writer.writerow(['hotspawn_id', 'team_a', 'team_b', 'starts_at_utc', 'locks_at_utc', 'source_status', 'availability_at_snapshot', 'team_a_probability_calculated', 'team_b_probability_calculated', 'suggested_team', 'basis', 'price_or_model_observed_at', 'rating_snapshot_date', 'original_hotspawn_source', 'analysis_source'])
     for m in data['matches']:
         a = m['analysis']

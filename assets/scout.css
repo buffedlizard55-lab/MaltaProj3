@@ -21,3 +21,5 @@
 .muted a,.prose p a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:700px){.filter-tabs button{min-height:44px}.timezone-control select{min-height:40px}.row-details>summary{min-height:44px}.row-source-links .source-link{min-height:28px;align-items:center}.mobile-nav>a{min-height:44px}}
 .sidebar .nav-count{color:#f6d4aa}
+
+@media(max-width:700px){.mobile-nav>a{flex:1;min-width:0;padding-inline:3px}}
