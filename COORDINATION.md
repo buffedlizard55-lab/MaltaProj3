@@ -1,6 +1,26 @@
-# COORDINATION.md — shared task board
+# Coordination Board
+
+> **Repository session constraint:** Arena requires all work in this session to remain on
+> `arena/5ebd8496-maltaproj3`. This is the integration branch for the work below.
+>
+> **Update rule:** Add an entry before changing a new file scope. Do not edit an active,
+> overlapping scope owned by another session.
+
+| Task | Status | Owner | File scope | Started (UTC) | Notes |
+| --- | --- | --- | --- | --- | --- |
+| Build and publish the verified CS2 match-picks GitHub Pages dashboard (final integration) | in progress | arena/5ebd8496-maltaproj3 | `COORDINATION.md`, site source, data, workflows, documentation | 2026-10-14 | Sole active session. Will establish a reproducible data-refresh path, cite every populated row, and flag unavailable/unverified items rather than inventing them. |
+
+## Activity log
+
+- **2026-10-14 — arena/5ebd8496-maltaproj3:** Created the coordination board and claimed the final integration scope. No pre-existing tasks or file ownership records were present.
+
+
+---
+
 
 Repo: `buffedlizard55-lab/MaltaProj3`
+### Session 83207e7b board (added at merge)
+
 Session ID: `83207e7b`
 Session branch: `arena/83207e7b-maltaproj3` (all work is committed and pushed only to this branch; PR opened from it to `main`)
 
@@ -69,7 +89,8 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - None.
 
 ## Conflicts
-- None recorded.
+- C-1 (2026-10-14, session 83207e7b): `main` contained a separate Pages site from session arena/5ebd8496 (root `index.html`, `picks.html`, `assets/`, `data/matches.json`, `data/review.json`, `.github/workflows/pages.yml` and `refresh.yml`, `scripts/refresh-data.mjs`, `scripts/verify-site.mjs`). Both sessions claim the final integration. Resolution (non-destructive): their root site, workflows, `data/matches.json` and `data/review.json` are kept unchanged; this session's site is in `docs/` with data in `data/picks-model.json`; `README.md` and this board keep both sections. Overlap to be decided by the owner: which site is the published one. Until then, both are on `main`.
+- C-2 (session 83207e7b): `scripts/__pycache__` was committed by mistake; removed and ignored in `.gitignore`.
 
 ## PR and merge
 - PR: #5 — `arena/83207e7b-maltaproj3` → `main` (opened by session 83207e7b). Merge executed without waiting for approval; flagged items do not block merge.
