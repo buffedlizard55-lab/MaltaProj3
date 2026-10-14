@@ -97,4 +97,4 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 ## PR and merge
 - PR #5 — `arena/83207e7b-maltaproj3` → `main`. Merged 2026-10-14 04:52:31 UTC, merge commit `cf49606`. Merge conflicts with `main` (another session's site) were resolved non-destructively (see C-1). Merge executed without waiting for approval; flagged items do not block merge.
 - Pages check: the "Deploy GitHub Pages" workflow succeeded on `cf49606` (run completed success 04:52:34 UTC). The live root site loads its data (`data/matches.json`, `data/review.json`). `docs/` is not in the artifact (I-19), so its pages are not live.
-- PR #6 records the above in this board (no change to site content).
+- PR #8 records the above in this board (no change to site content).
