@@ -1137,482 +1137,6 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2822382,
-            "id": 232805297,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 0,
-            "category": 1,
-            "selections": [
-              {
-                "id": 581418056,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 2.3,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 581418055,
-                "name": "Oway",
-                "status": 1,
-                "odds": 1.55,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Round Handicap",
-            "eventId": 2822382,
-            "id": 232805312,
-            "name": "Round Handicap (Incl. Overtime) - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 2,
-            "selections": [
-              {
-                "id": 581418092,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.82,
-                "handicap": 2.5,
-                "total": "2.5",
-                "type": "home"
-              },
-              {
-                "id": 581418091,
-                "name": "Oway",
-                "status": 1,
-                "odds": 1.88,
-                "handicap": -2.5,
-                "total": "-2.5",
-                "type": "away"
-              }
-            ],
-            "order": 1200,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": -2.5,
-            "baseLine": "-2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Mavros",
-              "awayColumn": "Oway"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Rounds",
-            "eventId": 2822382,
-            "id": 232805229,
-            "name": "Total Rounds - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 3,
-            "selections": [
-              {
-                "id": 581417877,
-                "name": "Over",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              },
-              {
-                "id": 581417876,
-                "name": "Under",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              }
-            ],
-            "order": 999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "21.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2822382,
-        "gameId": 6,
-        "startTime": "2026-10-14T05:00:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 63,
-        "totalAvailableMarkets": 100,
-        "bestOfMaps": 1,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "other",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/berserk-cs2-league-2"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": null,
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Mavros vs Oway",
-        "isLive": false,
-        "bestOf": 1,
-        "teams": {
-          "home": {
-            "id": 76834,
-            "name": "Mavros",
-            "hasImage": false,
-            "shortName": "MAV"
-          },
-          "away": {
-            "id": 75390,
-            "name": "Oway",
-            "hasImage": true,
-            "shortName": "OWA"
-          }
-        },
-        "competition": {
-          "id": 4404,
-          "name": "Berserk League 2026",
-          "shortName": "BerserkLeague26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 232805297,
-          "name": "Match Winner",
-          "type": 0,
-          "status": 1,
-          "home": {
-            "id": 581418056,
-            "name": "Mavros",
-            "odds": 2.3,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 581418055,
-            "name": "Oway",
-            "odds": 1.55,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": null,
-        "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
-            "eventId": 2822388,
-            "id": 232805867,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 0,
-            "category": 1,
-            "selections": [
-              {
-                "id": 581419316,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.52,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 581419315,
-                "name": "Quattro",
-                "status": 1,
-                "odds": 2.35,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Round Handicap",
-            "eventId": 2822388,
-            "id": 232805859,
-            "name": "Round Handicap (Incl. Overtime) - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 2,
-            "selections": [
-              {
-                "id": 581419293,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.85,
-                "handicap": -2.5,
-                "total": "-2.5",
-                "type": "home"
-              },
-              {
-                "id": 581419292,
-                "name": "Quattro",
-                "status": 1,
-                "odds": 1.85,
-                "handicap": 2.5,
-                "total": "2.5",
-                "type": "away"
-              }
-            ],
-            "order": 1200,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": 2.5,
-            "baseLine": "2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Mavros",
-              "awayColumn": "Quattro"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Rounds",
-            "eventId": 2822388,
-            "id": 232805802,
-            "name": "Total Rounds - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 3,
-            "selections": [
-              {
-                "id": 581419135,
-                "name": "Over",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              },
-              {
-                "id": 581419136,
-                "name": "Under",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              }
-            ],
-            "order": 999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "21.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2822388,
-        "gameId": 6,
-        "startTime": "2026-10-14T05:08:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 64,
-        "totalAvailableMarkets": 100,
-        "bestOfMaps": 1,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "other",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/berserk-cs2-league-2"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": null,
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Mavros vs Quattro",
-        "isLive": false,
-        "bestOf": 1,
-        "teams": {
-          "home": {
-            "id": 76834,
-            "name": "Mavros",
-            "hasImage": false,
-            "shortName": "MAV"
-          },
-          "away": {
-            "id": 76835,
-            "name": "Quattro",
-            "hasImage": false,
-            "shortName": "QUA"
-          }
-        },
-        "competition": {
-          "id": 4404,
-          "name": "Berserk League 2026",
-          "shortName": "BerserkLeague26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 232805867,
-          "name": "Match Winner",
-          "type": 0,
-          "status": 1,
-          "home": {
-            "id": 581419316,
-            "name": "Mavros",
-            "odds": 1.52,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 581419315,
-            "name": "Quattro",
-            "odds": 2.35,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": null,
-        "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
             "eventId": 2822394,
             "id": 232806315,
             "name": "Match Winner",
@@ -1831,6 +1355,244 @@
             "id": 581420274,
             "name": "Quattro",
             "odds": 2.7,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": false,
+        "freeBetEligible": true
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2822507,
+            "id": 232814357,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 581441078,
+                "name": "Mavros",
+                "status": 1,
+                "odds": 2.3,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 581441077,
+                "name": "Oway",
+                "status": 1,
+                "odds": 1.55,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Round Handicap",
+            "eventId": 2822507,
+            "id": 232814355,
+            "name": "Round Handicap (Incl. Overtime) - Map 1",
+            "status": 1,
+            "type": 0,
+            "category": 2,
+            "selections": [
+              {
+                "id": 581441076,
+                "name": "Mavros",
+                "status": 1,
+                "odds": 1.82,
+                "handicap": 2.5,
+                "total": "2.5",
+                "type": "home"
+              },
+              {
+                "id": 581441075,
+                "name": "Oway",
+                "status": 1,
+                "odds": 1.88,
+                "handicap": -2.5,
+                "total": "-2.5",
+                "type": "away"
+              }
+            ],
+            "order": 1200,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": -2.5,
+            "baseLine": "-2.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Mavros",
+              "awayColumn": "Oway"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Rounds",
+            "eventId": 2822507,
+            "id": 232814397,
+            "name": "Total Rounds - Map 1",
+            "status": 1,
+            "type": 0,
+            "category": 3,
+            "selections": [
+              {
+                "id": 581441167,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.65,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              },
+              {
+                "id": 581441168,
+                "name": "Under",
+                "status": 1,
+                "odds": 2.1,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              }
+            ],
+            "order": 999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "21.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2822507,
+        "gameId": 6,
+        "startTime": "2026-10-14T05:24:00+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 63,
+        "totalAvailableMarkets": 100,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "other",
+            "streamOrder": 1,
+            "url": "https://player.kick.com/berserk-cs2-league-2"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": null,
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "Mavros vs Oway",
+        "isLive": false,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 76834,
+            "name": "Mavros",
+            "hasImage": false,
+            "shortName": "MAV"
+          },
+          "away": {
+            "id": 75390,
+            "name": "Oway",
+            "hasImage": true,
+            "shortName": "OWA"
+          }
+        },
+        "competition": {
+          "id": 4404,
+          "name": "Berserk League 2026",
+          "shortName": "BerserkLeague26",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 232814357,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 581441078,
+            "name": "Mavros",
+            "odds": 2.3,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 581441077,
+            "name": "Oway",
+            "odds": 1.55,
             "status": 1
           },
           "hasCombo": true,
@@ -6551,7 +6313,7 @@
                 "id": 571865659,
                 "name": "9z Team",
                 "status": 1,
-                "odds": 3.5,
+                "odds": 3.4,
                 "handicap": null,
                 "total": null,
                 "type": "home"
@@ -6560,7 +6322,7 @@
                 "id": 571865658,
                 "name": "Aurora",
                 "status": 1,
-                "odds": 1.25,
+                "odds": 1.26,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -6597,7 +6359,7 @@
                 "id": 571865922,
                 "name": "9z Team",
                 "status": 1,
-                "odds": 1.8,
+                "odds": 1.78,
                 "handicap": 1.5,
                 "total": "1.5",
                 "type": "home"
@@ -6606,7 +6368,7 @@
                 "id": 571865921,
                 "name": "Aurora",
                 "status": 1,
-                "odds": 1.9,
+                "odds": 1.92,
                 "handicap": -1.5,
                 "total": "-1.5",
                 "type": "away"
@@ -6646,7 +6408,7 @@
                 "id": 571866019,
                 "name": "Over",
                 "status": 1,
-                "odds": 2.2,
+                "odds": 2.15,
                 "handicap": null,
                 "total": "2.5",
                 "type": "other"
@@ -6655,7 +6417,7 @@
                 "id": 571866018,
                 "name": "Under",
                 "status": 1,
-                "odds": 1.58,
+                "odds": 1.62,
                 "handicap": null,
                 "total": "2.5",
                 "type": "other"
@@ -6738,14 +6500,14 @@
           "home": {
             "id": 571865659,
             "name": "9z Team",
-            "odds": 3.5,
+            "odds": 3.4,
             "status": 1
           },
           "draw": null,
           "away": {
             "id": 571865658,
             "name": "Aurora",
-            "odds": 1.25,
+            "odds": 1.26,
             "status": 1
           },
           "hasCombo": true,
