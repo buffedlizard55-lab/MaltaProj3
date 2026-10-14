@@ -1,84 +1,73 @@
-# CS2 Pick Desk
+# Spawn Scout — Hotspawn CS2 match intelligence
 
-A source-linked, mobile-first GitHub Pages dashboard for the public **Hotspawn Pick'ems** Counter-Strike 2 schedule. It puts the executive summary, full picks table, methodology, and unresolved records in the primary navigation.
+A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record returned by Hotspawn’s scheduled-fixture feed**, including academy and low-tier matches. Obvious picks and both teams’ calculated probabilities are shown only when supported by original external evidence; unresolved values remain blank.
 
-> **Live site (after Pages deploy):** `https://buffedlizard55-lab.github.io/MaltaProj3/`
+**Live dashboard:** https://buffedlizard55-lab.github.io/MaltaProj3/
 
-## What is published
+| View | What it contains |
+| --- | --- |
+| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | Coverage, direct links to the full picks list, upcoming matches and unresolved-pick limitations |
+| [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence |
+| [Coverage & original sources](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/) | Inventory reconciliation, source health, complete past-start archive and JSON/CSV downloads |
+| [Methodology](https://buffedlizard55-lab.github.io/MaltaProj3/methodology/) | Exact matching, formulas, thresholds, source policy and model limitations |
+| [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
 
-- **[Executive summary](./index.html)** — direct links to the full list and the unresolved list, data timestamp, coverage count, and the key limitation.
-- **[All picks](./picks.html)** — every captured Hotspawn Pick'ems CS2 row. Each row has an official Hotspawn source link. A populated probability also has an independent external-market source link.
-- **[Methodology](./methodology.html)** — source rules, external price calculation, and explicit non-inference policy.
-- **[Flagged for Review](./flagged.html)** — visible limitations and conditions that prevent a pick from being published.
+The observation times and counts on the live site are authoritative for that published snapshot. For scale, the first fully replayed snapshot on **14 October 2026** contained **88 records: 28 future starts and 60 past-start records**, with **9 Polymarket estimates, 4 original bookmaker estimates, 8 Valve-model estimates and 7 unresolved future matches**. Past starts still labeled `scheduled` are retained as source anomalies, not invented results.
 
-The initial snapshot contains **28** public lobby match rows (captured 2026-10-14 04:42 UTC). Eight had an exact externally verified match-winner line at capture. The remaining rows are intentionally marked **Unresolved** with blank probabilities and blank picks rather than artificial values.
+## Source and probability rules
 
-## Verification and source rules
+1. **Complete inventory first.** Read both official [Hotspawn lobby](https://play.hotspawn.com/lobby) and [CS2 lobby](https://play.hotspawn.com/cs2-pickems) Angular hydration states, then reconcile their CS2 fixture IDs against the public fixture API used by Hotspawn’s client. No pagination was present in the inspected client. A changed schema, duplicate IDs or disagreement invalidates the completeness claim; it is not silently accepted as an empty or partial successful feed. New matches are rediscovered on every successful refresh.
+2. **Never use Hotspawn “% picked.”** Community participation, offered points and crowd voting do not enter the calculations. Missing best-of formats, lineups and results are not inferred.
+3. **Primary external market.** Discover candidates from [Polymarket’s CS2 directory](https://polymarket.com/esports/cs2), verify an active, unique prematch **full-series match-winner** event with exact normalized team names and start time within 60 seconds, then obtain both original CLOB order books. Validate token/condition IDs, positive bid/ask size, noncrossed books, spread ≤0.12 and observation freshness. Normalize the two bid/ask midpoints. Directory percentages, map markets, props and outrights are not inputs. These are market-implied estimates, not verified true win probabilities.
+4. **Research only missing primary matches.** Attempt [HLTV](https://www.hltv.org/matches) context first, then original esportsbook lines. The public Thunderpick client uses a read-only **POST** `/api/matches` query with `{"gameIds":[6]}`; a failed GET does not establish that POST is unavailable. Require a unique exact fixture and prematch two-way series winner. Decimal odds are converted with `pᵢ = (1/oᵢ) / Σ(1/o)`. A single bookmaker is explicitly a single source, never described as consensus. Unsupported provider aliases stay unresolved.
+5. **Explicit, higher-uncertainty model fallback.** Only after the primary, HLTV and bookmaker stages fail, use unique exact-name, five-player records from [Valve’s official regional standings repository](https://github.com/ValveSoftware/counter-strike_regional_standings). Reproduce the published Glicko expectation with fixed RD 75; use the latest applicable snapshot no older than 35 days. Raw official markdown and Git blob SHA are verified. This is an **uncalibrated research estimate**, not betting odds, and does not confirm today’s roster, stand-ins or veto. It never overrides a primary pick.
+6. **Leave unsupported values blank.** Ambiguous names, stale/wide/one-sided markets, missing ratings or unavailable sources produce no fabricated probability or pick. Each such match remains in the list, unresolved section and review flags. Calculated fair decimal lines are illustrative reciprocals, not executable quotes.
 
-1. **Schedule scope:** The public [Hotspawn Pick'ems lobby](https://play.hotspawn.com/lobby) determines the coverage scope. Every row links either to its public [Hotspawn match page](https://www.hotspawn.com/matches) or, when Hotspawn had not published a match detail page, to the official lobby itself.
-2. **No Hotspawn probability input:** Hotspawn's “% picked” values are not used for any probability or pick.
-3. **CS2 context first:** Exact [HLTV](https://www.hltv.org/matches) pages are linked where directly verified. They can establish match context (event, format, roster, ranking, stats), but their community voting percentages are not treated as probabilities.
-4. **External market line:** An external match-winner line is only displayed after the exact two-team market was verified on a public source. The initial data uses public [Polymarket CS2](https://polymarket.com/esports/cs2) market pages and two directly checked [Stake](https://stake.dk/en/sports) match pages.
-5. **No inference:** If a matching external line cannot be verified, the site does **not** turn team tier, past results, HLTV context, Hotspawn popularity, or an informal rating into a number. It leaves both the probability and pick blank and flags the row.
+Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
 
-### Probability labels
+## Automatic operation: one publisher, every four hours
 
-- **Polymarket match-winner price:** the two published outcome prices from the exact public market, normalized only if the two prices do not total exactly 100 due to display precision.
-- **De-vigged Stake decimal odds:** `1 / decimal odds` for each of the two sides, normalized across those two raw values. The linked page shows the original decimal odds.
-- **Market pick:** the team with the higher displayed external probability. This is an evidence label, **not betting advice** or a guarantee.
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**. GitHub may delay scheduled jobs; this is not a real-time feed.
 
-## Automated refresh
+It restores the last verified snapshot from Actions cache, runs regression tests, discovers the full inventory, collects supported external evidence, **replays every row and calculation**, builds the dashboard and both clearly labeled historical archives, checks internal links/anchors/assets, and deploys one `site/` Pages artifact. A post-deploy check verifies the public HTML, full JSON, category pages, compatible old URLs and both archives. Production uses read-only source requests, not an account, API trading key or user action. Workflow permissions are `contents: read`, `pages: write` and `id-token: write`; the job configures Pages to use Actions to avoid a competing legacy publisher.
 
-`.github/workflows/refresh.yml` runs at **:17 every six hours** on `main` (and supports manual dispatch). It:
+- **Source failures do not manufacture fresh data.** Collection is staged and replayed before replacing last-good files. If inventory reconciliation fails after a partial download, old source evidence and analysis times remain intact; attempted responses get separate audit filenames. Retained coverage is marked unverified and clearly warned. Only a complete, replayed inventory is saved as the next cache fallback.
+- **Unavailable picks do not block publication.** They are visibly unresolved. A broken build, inconsistent evidence or failed deployment does block it and must be fixed.
+- **Staleness is explicit.** Inventory older than eight hours, failed inventory refreshes, expired quotes and past starts are visibly demoted. An open tab checks for newer snapshots without silently replacing the user’s current view. Malta/UTC/local timezone choices and actual observation dates are explicit.
+- **No competing refresh writer.** The former six-hour `refresh.yml` is retired to a manual explanatory job; it no longer writes older datasets to `main` or deploys another artifact. Production snapshots are published with their evidence on Pages and cached, rather than growing Git history on each four-hour run.
 
-1. checks the public Hotspawn lobby is reachable and preserves each existing row's official source record;
-2. checks public active Polymarket esports markets for an exact two-team CS2 **Match Winner** market;
-3. updates only directly matched market probabilities and timestamps;
-4. clears an old Polymarket line if that exact active market is no longer returned, rather than showing it as fresh;
-5. validates the source schema; commits changed JSON; and deploys the static Pages artifact.
+## Local development and verification
 
-No login, account, private endpoint, scraping of user profiles, or Hotspawn pick percentage is required. The [Hotspawn robots file](https://play.hotspawn.com/robots.txt) permits crawling (`Allow: /`) as checked on 2026-10-14.
+Python 3.12+ and Node 22+ are used in CI.
 
-### Important automation limitation
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+npm ci
 
-The refresh can discover and enrich linked public lobby records, but a low-tier card without a public Hotspawn detail link may require Hotspawn to publish that detail record before it can be added automatically. It remains transparently documented as a coverage limitation, rather than being manufactured from a name or social pick percentage. The scheduled resolver is designed to add a line whenever a matching active public market appears.
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python -m scripts.build
+npm test
 
-## Local checks
+# Optional live collection where the public source hosts are reachable:
+.venv/bin/python -m scripts.collect
+.venv/bin/python -m scripts.build
 
-No dependency installation is required.
-
-```bash
-node scripts/verify-site.mjs
+# Preview from a project root, without hardcoded browser-facing localhost APIs:
+.venv/bin/python -m http.server 8000 --bind 0.0.0.0 --directory site
 ```
 
-The check verifies:
+`site/`, virtual environments, dependency trees, caches, browser reports and screenshots are ignored. Do not run the generator with the repository root as its output; keep other sessions’ source files unchanged. The checked-in current HTML is a fallback snapshot; the published artifact is rebuilt from validated data on every production run.
 
-- required static files and local links;
-- at least one match row exists;
-- every row has an official Hotspawn source URL;
-- verified lines contain a pick, HTTPS external source and probabilities summing to 100 (within display rounding);
-- unresolved lines contain no probability or pick.
+**Verification:** 40 Python regression tests cover source contracts, exact identity, time/freshness, rejected markets, no-vig calculations, rating provenance and atomic source-failure handling. 22 Playwright checks cover all five current pages at 320/390/768/1440px, one-tap phone navigation, search/filter/sort, every official row link, expandable evidence, timezone changes, stale behavior, no-JS content and axe WCAG A/AA checks at phone and desktop widths. Automated accessibility checks are not a claim of complete WCAG certification. The CI workflow independently installs the standard Playwright Chromium. In restricted local environments the test config uses npm-packaged Chromium and its bundled NSS libraries; it does not disable web security.
 
-## Publishing
+## Preserved concurrent-session work
 
-`pages.yml` validates and deploys the static site for pushes to `main`. `refresh.yml` performs the six-hour data refresh and deploy. Repository Settings → Pages must be set to **GitHub Actions** if it is not enabled already.
+The original root and independent `docs/` dashboards used different observation times, matching rules and model weights. They are **not silently mixed into the current feed** or relabeled as freshly verified.
 
-## Current review items
+- [Original root-session archive](https://buffedlizard55-lab.github.io/MaltaProj3/archive/root-session/): original HTML, JS/CSS and datasets preserved in [`archive/root-session/`](archive/root-session/). The other session’s original `assets/app.js`, `assets/styles.css`, `data/matches.json`, `data/review.json` and maintenance scripts remain unchanged for provenance.
+- [Independent docs-session archive](https://buffedlizard55-lab.github.io/MaltaProj3/docs/): source pages remain unchanged in [`docs/`](docs/), with `data/picks-model.json` and `scripts/build_site.py` preserved. It originally used 14 picks/14 unresolved and a 70/30 external-market/HLTV-points blend; those historical figures are not the current model.
+- The production build adds unmistakable archive banners and current-feed links to the **artifact copies**, not the other sessions’ source HTML. The old `picks.html`, `methodology.html` and `flagged.html` URLs lead to current categorized pages.
+- Claims, handoffs, source irregularities, checks, PR/merge/deployment records and publication-gap resolution are recorded in [`COORDINATION.md`](COORDINATION.md).
 
-See **[Flagged for Review](./flagged.html)** for the live record. Current irregularities include:
-
-- C-tier / academy match-winner markets are often absent even when a schedule is public;
-- displayed odds are volatile and must be read with their capture time;
-- Hotspawn's public schedule is explicitly UTC, while the lobby was observed displaying opening times four hours earlier in its UI at capture. This is documented in the review data and UTC is used where the public schedule provides it.
-
----
-
-## Second build (session 83207e7b): `docs/`
-
-A second, independent picks build lives in `docs/`. It is merged to `main` but is **not** in the current Pages artifact: `.github/workflows/pages.yml` publishes only the root site, so `docs/` returns 404 on the live site until the owner adds a copy step (see flag I-19 and conflict C-1 in `COORDINATION.md`). The root site above is unchanged.
-
-- Picks come from outside betting lines (Polymarket with a $50 volume rule, Stake and Oddsportal decimal odds, normalised) blended 70/30 with an HLTV world-ranking points model where both teams are in the top 30. Hotspawn pick percentages are not used.
-- Result snapshot: 28 captured match cards, 14 picks, 14 unresolved (with reasons). The 68-match lobby header and the 88-tier total are flagged (I-03, I-04).
-- Data: `data/picks-model.json` (raw inputs with source URLs). Build: `python3 scripts/build_site.py --check` (standard library only).
-- Pages: `docs/index.html` (executive summary), `docs/picks.html`, `docs/unresolved.html`, `docs/matches.html`, `docs/analysis.html`, `docs/methodology.html`, `docs/sources.html`, `docs/flagged.html`.
-- Coordination and irregularities: `COORDINATION.md` (session 83207e7b section).
+Independent informational analysis only. No bets or Hotspawn picks are placed. Estimates are not guarantees; 18+ where applicable.

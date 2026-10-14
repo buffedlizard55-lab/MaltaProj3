@@ -1,0 +1,41 @@
+name: Validate dashboard
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [arena/4aae8328-maltaproj3]
+permissions:
+  contents: read
+concurrency:
+  group: dashboard-checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    name: Rows, build, links, mobile and accessibility
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: pip install -r requirements.txt
+      - run: npm ci
+      - name: Test strict identity, pricing, fallback and failure handling
+        run: python -m unittest discover -s tests -v
+      - name: Replay every row, build all views and check local links
+        run: python -m scripts.build
+      - name: Install browser for independent UI verification
+        run: npx playwright install --with-deps chromium
+      - name: Phone, desktop, no-JS, staleness and WCAG A/AA checks
+        run: npm test
+      - name: Publish test summary
+        if: always()
+        run: |
+          echo '## Dashboard validation' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Checks cover source-row reconciliation, replayed calculations, internal links, 320/390/768/1440px layouts, phone navigation, search/filter/sort, evidence expansion, timezone switching, stale-snapshot behavior, no-JS content, and axe WCAG A/AA checks at phone and desktop widths.' >> "$GITHUB_STEP_SUMMARY"
