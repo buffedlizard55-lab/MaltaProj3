@@ -70,3 +70,15 @@ See **[Flagged for Review](./flagged.html)** for the live record. Current irregu
 - C-tier / academy match-winner markets are often absent even when a schedule is public;
 - displayed odds are volatile and must be read with their capture time;
 - Hotspawn's public schedule is explicitly UTC, while the lobby was observed displaying opening times four hours earlier in its UI at capture. This is documented in the review data and UTC is used where the public schedule provides it.
+
+---
+
+## Second build (session 83207e7b): `docs/`
+
+A second, independent picks build lives in `docs/` (served by GitHub Pages at `/MaltaProj3/docs/` when Pages builds from `main`; the root site above is unchanged).
+
+- Picks come from outside betting lines (Polymarket with a $50 volume rule, Stake and Oddsportal decimal odds, normalised) blended 70/30 with an HLTV world-ranking points model where both teams are in the top 30. Hotspawn pick percentages are not used.
+- Result snapshot: 28 captured match cards, 14 picks, 14 unresolved (with reasons). The 68-match lobby header and the 88-tier total are flagged (I-03, I-04).
+- Data: `data/picks-model.json` (raw inputs with source URLs). Build: `python3 scripts/build_site.py --check` (standard library only).
+- Pages: `docs/index.html` (executive summary), `docs/picks.html`, `docs/unresolved.html`, `docs/matches.html`, `docs/analysis.html`, `docs/methodology.html`, `docs/sources.html`, `docs/flagged.html`.
+- Coordination and irregularities: `COORDINATION.md` (session 83207e7b section).
