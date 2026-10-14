@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Summary · Hotspawn CS2 Picks</title>
+<style>
+:root{--bg:#0f1420;--card:#171e2e;--ink:#e8edf7;--mute:#9aa6bd;--acc:#4cc9f0;--ok:#51cf66;--warn:#ffd43b;--bad:#ff6b6b;--line:#273149}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--acc)}
+header.top{background:#0b0f19;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.brand{font-weight:700;padding:12px 0 6px;font-size:16px}
+nav ul{list-style:none;margin:0;padding:0 0 10px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav a{display:block;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none;font-size:13px;border:1px solid var(--line)}
+nav a.on{background:var(--acc);color:#04111a;border-color:var(--acc)}
+main{padding:18px 0 40px}
+h1{font-size:22px;margin:8px 0 6px}
+h2{font-size:18px;margin:26px 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.lede{color:var(--mute);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi{font-size:26px;font-weight:700}
+.kpi small{display:block;font-size:12px;color:var(--mute);font-weight:500}
+.btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.btns a{display:block;padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.btns a b{color:var(--acc);display:block;margin-bottom:4px}
+.btns a span{color:var(--mute);font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;font-size:13px}
+th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#1d2740;font-weight:600;color:#cdd7ea;position:sticky;top:0}
+td.blank{color:var(--warn);font-style:italic}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.High{background:#1f4d2c;color:#b7f5c4}.Medium{background:#4d4319;color:#ffeaa0}.Low{background:#4a2020;color:#ffc2c2}
+.flag{color:var(--warn);font-weight:600}
+.note{color:var(--mute);font-size:13px}
+.pick{font-weight:700;color:var(--ok)}
+ul.clean{padding-left:18px}
+ul.clean li{margin:4px 0}
+footer{color:var(--mute);font-size:12px;border-top:1px solid var(--line);padding:14px 0 30px}
+@media (max-width:720px){
+  h1{font-size:19px}
+  table.resp thead{display:none}
+  table.resp, table.resp tbody, table.resp tr, table.resp td{display:block;width:100%}
+  table.resp tr{border-bottom:1px solid var(--line);padding:8px 4px}
+  table.resp td{border:0;padding:3px 6px}
+  table.resp td::before{content:attr(data-label);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+<div class="brand">Hotspawn CS2 Picks · snapshot 2026-10-14 (UTC)</div>
+<nav aria-label="Site"><ul><li><a href="index.html" class="on">Summary</a></li><li><a href="picks.html">Picks</a></li><li><a href="unresolved.html">Unresolved</a></li><li><a href="matches.html">All matches</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="sources.html">Sources</a></li><li><a href="flagged.html">Flagged for Review</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<h1>Hotspawn CS2 picks — executive summary</h1>
+<p class="lede">Every Counter-Strike 2 match we could capture from the Hotspawn lobby, with a pick and a win probability per team.
+Probabilities come from outside betting markets (Polymarket, Oddsportal, Stake) and HLTV world-ranking points. Hotspawn's own pick percentages are not used anywhere.</p>
+<div class="grid">
+  <div class="card"><div class="kpi">28<small>matches captured</small></div></div>
+  <div class="card"><div class="kpi">14<small>with picks</small></div></div>
+  <div class="card"><div class="kpi">14<small>unresolved (see limitations)</small></div></div>
+  <div class="card"><div class="kpi">28/68<small>matches captured vs lobby header</small></div></div>
+</div>
+<div class="btns">
+  <a href="picks.html"><b>Picks →</b><span>14 matches with a pick and win % per team, source link on every row</span></a>
+  <a href="unresolved.html"><b>Unresolved →</b><span>14 matches with no usable outside line, and why</span></a>
+  <a href="matches.html"><b>All matches →</b><span>Every captured match with each source's raw prices</span></a>
+  <a href="analysis.html"><b>Analysis →</b><span>Market vs model comparison, HLTV ranking input</span></a>
+  <a href="flagged.html"><b>Flagged for Review →</b><span>Irregularities and data-quality flags (do not block publishing)</span></a>
+  <a href="methodology.html"><b>Methodology →</b><span>How each line is built, rules and thresholds</span></a>
+</div>
+<h2>Key findings</h2>
+<ul class="clean">
+  <li><b>Coverage is partial.</b> The Hotspawn lobby header says 68 matches this week, but its tier and tournament counts sum to 88. We captured 28 match cards. Matches outside the captured window are not on this site (see Flagged, I-03 and I-04).</li>
+  <li><b>14 picks</b> have at least one usable outside market. 5 of them also use the HLTV points model (both teams in HLTV's top 30).</li>
+  <li><b>14 matches are unresolved</b>: no usable outside line (most are Elisa BreakOut and CCT Play-In matches with $0 Polymarket volume), or a team we could not tie to a market or ranking. See the Unresolved page.</li>
+  <li><b>Model vs market disagreements:</b> 1 match(es). Where they disagree we keep the blended pick and lower its confidence. Details on the Analysis page.</li>
+  <li><b>Highest-confidence picks</b> (both sources agree and the margin is large):</li>
+</ul>
+<ul class="clean"><li><span class='pick'>Astralis</span> over Sashi (84.8%) · Stake Pulse Beat III · 2026-10-14 10:00 UTC</li><li><span class='pick'>Falcons</span> over NiP (78.2%) · Thunderpick World Championship 2026 · 2026-10-14 11:00 UTC</li><li><span class='pick'>Aurora</span> over 9z (74.9%) · Thunderpick World Championship 2026 · 2026-10-14 08:30 UTC</li><li><span class='pick'>FURIA</span> over BetBoom (71.9%) · Thunderpick World Championship 2026 · 2026-10-14 16:00 UTC</li><li><span class='pick'>PCIFIC</span> over Ryvex (79.6%) · CCT Europe 2026 Series #12 Play-In · 2026-10-14 14:00 UTC</li></ul>
+<h2>Limitations</h2>
+<ul class="clean">
+  <li>Snapshot date is 2026-10-14; the fetch tool returns no timestamp, so the lobby and prices may have moved since capture. This site is not auto-refreshed; a 4–8 hour refresh is not scheduled (I-16).</li>
+  <li>Polymarket prices changed between fetches for several markets (I-11). Only markets with $50+ volume and an implied total of 95–105% are used.</li>
+  <li>Pinnacle and Thunderpick were not usable from this environment (I-08, I-09).</li>
+  <li>Team names differ across sources; acronym-only matches (for example WBT for WROTBERRY) are not used for picks (I-10).</li>
+  <li>Lobby times are shown in UTC, converted from the ET snapshot (+4h). Cross-checked against Polymarket and Stake times (I-06).</li>
+</ul>
+</main>
+<footer class="wrap">Probabilities are our own lines built from outside betting markets and HLTV ranking points. Hotspawn pick percentages are not used. Not financial or betting advice. Snapshot is not auto-refreshed (see Flagged for Review, I-16).</footer>
+</body></html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology · Hotspawn CS2 Picks</title>
+<style>
+:root{--bg:#0f1420;--card:#171e2e;--ink:#e8edf7;--mute:#9aa6bd;--acc:#4cc9f0;--ok:#51cf66;--warn:#ffd43b;--bad:#ff6b6b;--line:#273149}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--acc)}
+header.top{background:#0b0f19;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.brand{font-weight:700;padding:12px 0 6px;font-size:16px}
+nav ul{list-style:none;margin:0;padding:0 0 10px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav a{display:block;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none;font-size:13px;border:1px solid var(--line)}
+nav a.on{background:var(--acc);color:#04111a;border-color:var(--acc)}
+main{padding:18px 0 40px}
+h1{font-size:22px;margin:8px 0 6px}
+h2{font-size:18px;margin:26px 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.lede{color:var(--mute);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi{font-size:26px;font-weight:700}
+.kpi small{display:block;font-size:12px;color:var(--mute);font-weight:500}
+.btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.btns a{display:block;padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.btns a b{color:var(--acc);display:block;margin-bottom:4px}
+.btns a span{color:var(--mute);font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;font-size:13px}
+th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#1d2740;font-weight:600;color:#cdd7ea;position:sticky;top:0}
+td.blank{color:var(--warn);font-style:italic}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.High{background:#1f4d2c;color:#b7f5c4}.Medium{background:#4d4319;color:#ffeaa0}.Low{background:#4a2020;color:#ffc2c2}
+.flag{color:var(--warn);font-weight:600}
+.note{color:var(--mute);font-size:13px}
+.pick{font-weight:700;color:var(--ok)}
+ul.clean{padding-left:18px}
+ul.clean li{margin:4px 0}
+footer{color:var(--mute);font-size:12px;border-top:1px solid var(--line);padding:14px 0 30px}
+@media (max-width:720px){
+  h1{font-size:19px}
+  table.resp thead{display:none}
+  table.resp, table.resp tbody, table.resp tr, table.resp td{display:block;width:100%}
+  table.resp tr{border-bottom:1px solid var(--line);padding:8px 4px}
+  table.resp td{border:0;padding:3px 6px}
+  table.resp td::before{content:attr(data-label);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+<div class="brand">Hotspawn CS2 Picks · snapshot 2026-10-14 (UTC)</div>
+<nav aria-label="Site"><ul><li><a href="index.html">Summary</a></li><li><a href="picks.html">Picks</a></li><li><a href="unresolved.html">Unresolved</a></li><li><a href="matches.html">All matches</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="methodology.html" class="on">Methodology</a></li><li><a href="sources.html">Sources</a></li><li><a href="flagged.html">Flagged for Review</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<h1>Methodology</h1>
+<p class="lede">How each number on this site is produced. The build script is <code>scripts/build_site.py</code>; the raw inputs are in <code>data/matches.json</code>.</p>
+<ol class="clean">
+  <li><b>Match list.</b> Every match card captured from the Hotspawn lobby (<a href="https://play.hotspawn.com/lobby">play.hotspawn.com/lobby</a>). Times are converted to UTC. Hotspawn's own pick percentages are not read and not used.</li>
+  <li><b>Polymarket.</b> Two-way prices in cents. Used only if volume is at least $50 and the two prices sum to 95–105. Normalised to 100%.</li>
+  <li><b>Stake.</b> Two-way decimal odds from the Stake CS2 listing (German locale). Converted to implied probability (1/odds), normalised to 100%.</li>
+  <li><b>Oddsportal.</b> Two-way decimal odds from the Oddsportal event page, normalised the same way. Where Oddsportal names no bookmaker, that is noted.</li>
+  <li><b>Market consensus.</b> Equal-weight mean of the usable market sources for a match.</li>
+  <li><b>HLTV model.</b> Team points share from the HLTV world ranking (Oct 12 2026), only when both teams are in the top 30: points_A / (points_A + points_B).</li>
+  <li><b>Our line.</b> 70% market consensus + 30% HLTV model when both teams are ranked; market consensus alone otherwise. Shown to one decimal; the two teams sum to 100.</li>
+  <li><b>Pick.</b> The team with the higher line. Confidence: High = at least two sources and a margin of 20+ points; Medium = at least two sources and 10–20 points, or one source and 20+ points; Low = everything else.</li>
+  <li><b>Unresolved.</b> A match with no usable market source. These are not guessed or filled in.</li>
+  <li><b>Name matching.</b> Team names are matched by name or containment (for example "Team Falcons" to "Falcons"). Acronym-only matches (WBT to WROTBERRY, EAC) are not used for picks.</li>
+  <li><b>Verification.</b> Each captured value has a source link on the table row. Values that could not be verified are left blank and flagged ⚑.</li>
+</ol>
+<p class="note">Known weaknesses: market prices change between fetches; a 70/30 blend is a judgment call (I-13); the HLTV points share is a simple model, not a match simulation.</p>
+</main>
+<footer class="wrap">Probabilities are our own lines built from outside betting markets and HLTV ranking points. Hotspawn pick percentages are not used. Not financial or betting advice. Snapshot is not auto-refreshed (see Flagged for Review, I-16).</footer>
+</body></html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources · Hotspawn CS2 Picks</title>
+<style>
+:root{--bg:#0f1420;--card:#171e2e;--ink:#e8edf7;--mute:#9aa6bd;--acc:#4cc9f0;--ok:#51cf66;--warn:#ffd43b;--bad:#ff6b6b;--line:#273149}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--acc)}
+header.top{background:#0b0f19;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.brand{font-weight:700;padding:12px 0 6px;font-size:16px}
+nav ul{list-style:none;margin:0;padding:0 0 10px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav a{display:block;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none;font-size:13px;border:1px solid var(--line)}
+nav a.on{background:var(--acc);color:#04111a;border-color:var(--acc)}
+main{padding:18px 0 40px}
+h1{font-size:22px;margin:8px 0 6px}
+h2{font-size:18px;margin:26px 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.lede{color:var(--mute);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi{font-size:26px;font-weight:700}
+.kpi small{display:block;font-size:12px;color:var(--mute);font-weight:500}
+.btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.btns a{display:block;padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.btns a b{color:var(--acc);display:block;margin-bottom:4px}
+.btns a span{color:var(--mute);font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;font-size:13px}
+th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#1d2740;font-weight:600;color:#cdd7ea;position:sticky;top:0}
+td.blank{color:var(--warn);font-style:italic}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.High{background:#1f4d2c;color:#b7f5c4}.Medium{background:#4d4319;color:#ffeaa0}.Low{background:#4a2020;color:#ffc2c2}
+.flag{color:var(--warn);font-weight:600}
+.note{color:var(--mute);font-size:13px}
+.pick{font-weight:700;color:var(--ok)}
+ul.clean{padding-left:18px}
+ul.clean li{margin:4px 0}
+footer{color:var(--mute);font-size:12px;border-top:1px solid var(--line);padding:14px 0 30px}
+@media (max-width:720px){
+  h1{font-size:19px}
+  table.resp thead{display:none}
+  table.resp, table.resp tbody, table.resp tr, table.resp td{display:block;width:100%}
+  table.resp tr{border-bottom:1px solid var(--line);padding:8px 4px}
+  table.resp td{border:0;padding:3px 6px}
+  table.resp td::before{content:attr(data-label);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+<div class="brand">Hotspawn CS2 Picks · snapshot 2026-10-14 (UTC)</div>
+<nav aria-label="Site"><ul><li><a href="index.html">Summary</a></li><li><a href="picks.html">Picks</a></li><li><a href="unresolved.html">Unresolved</a></li><li><a href="matches.html">All matches</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="sources.html" class="on">Sources</a></li><li><a href="flagged.html">Flagged for Review</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<h1>Sources</h1>
+<p class="lede">Every page fetched for this snapshot. Each row links to the source.</p>
+<div style="overflow-x:auto"><table class="resp"><thead><tr><th>Source</th><th>URL</th><th>Used for</th></tr></thead><tbody><tr><td data-label="Source">Hotspawn lobby (match list)</td><td data-label="URL"><a href="https://play.hotspawn.com/lobby" target="_blank" rel="noopener">https://play.hotspawn.com/lobby</a></td><td data-label="Used for">Match list, times, tournaments, match links</td></tr><tr><td data-label="Source">Hotspawn match page (example)</td><td data-label="URL"><a href="https://www.hotspawn.com/matches/gothic-vs-lavked-cct-europe-2026-series-11-1079621" target="_blank" rel="noopener">https://www.hotspawn.com/matches/gothic-vs-lavked-cct-europe-2026-series-11-1079621</a></td><td data-label="Used for">Confirms match page format and UTC start</td></tr><tr><td data-label="Source">Polymarket CS2 category: CCT Europe</td><td data-label="URL"><a href="https://polymarket.com/esports/cs2/cct-europe" target="_blank" rel="noopener">https://polymarket.com/esports/cs2/cct-europe</a></td><td data-label="Used for">Moneyline prices, volume (CCT and Play-In matches)</td></tr><tr><td data-label="Source">Polymarket CS2 category: Stake Pulse</td><td data-label="URL"><a href="https://polymarket.com/esports/cs2/stake-pulse" target="_blank" rel="noopener">https://polymarket.com/esports/cs2/stake-pulse</a></td><td data-label="Used for">Moneyline prices, volume (Stake Pulse Beat III)</td></tr><tr><td data-label="Source">Polymarket CS2 category: Thunderpick World Championship</td><td data-label="URL"><a href="https://polymarket.com/esports/cs2/thunderpick-world-championship" target="_blank" rel="noopener">https://polymarket.com/esports/cs2/thunderpick-world-championship</a></td><td data-label="Used for">Moneyline prices, volume (TP World Championship)</td></tr><tr><td data-label="Source">Polymarket CS2 category: Elisa BreakOut</td><td data-label="URL"><a href="https://polymarket.com/esports/cs2/elisa-breakout" target="_blank" rel="noopener">https://polymarket.com/esports/cs2/elisa-breakout</a></td><td data-label="Used for">Moneyline prices, volume (Elisa BreakOut)</td></tr><tr><td data-label="Source">Polymarket: Legacy vs PARIVISION match page</td><td data-label="URL"><a href="https://polymarket.com/esports/cs2/general/cs2-lgc-prv-2026-10-14" target="_blank" rel="noopener">https://polymarket.com/esports/cs2/general/cs2-lgc-prv-2026-10-14</a></td><td data-label="Used for">Moneyline 57/44, volume</td></tr><tr><td data-label="Source">Stake CS2 listing (German locale)</td><td data-label="URL"><a href="https://stake.com/de/sports/esports/counter-strike" target="_blank" rel="noopener">https://stake.com/de/sports/esports/counter-strike</a></td><td data-label="Used for">Two-way decimal odds, first 10 CS2 events</td></tr><tr><td data-label="Source">Oddsportal: Thunderpick World Championship</td><td data-label="URL"><a href="https://www.oddsportal.com/esports/counter-strike/counter-strike-thunderpick-world-championship/" target="_blank" rel="noopener">https://www.oddsportal.com/esports/counter-strike/counter-strike-thunderpick-world-championship/</a></td><td data-label="Used for">Two-way decimal odds for 9z–Aurora and Falcons–NiP</td></tr><tr><td data-label="Source">Oddsportal: Stake Pulse Beat III</td><td data-label="URL"><a href="https://www.oddsportal.com/esports/counter-strike/counter-strike-stake-pulse-beat-iii/" target="_blank" rel="noopener">https://www.oddsportal.com/esports/counter-strike/counter-strike-stake-pulse-beat-iii/</a></td><td data-label="Used for">Checked; no odds published at capture</td></tr><tr><td data-label="Source">HLTV world ranking, Oct 12 2026</td><td data-label="URL"><a href="https://www.hltv.org/ranking/teams/2026/october/12" target="_blank" rel="noopener">https://www.hltv.org/ranking/teams/2026/october/12</a></td><td data-label="Used for">Team points for the top 30</td></tr><tr><td data-label="Source">Pinnacle esports (not used)</td><td data-label="URL"><a href="https://www.pinnacle.com/en/esports" target="_blank" rel="noopener">https://www.pinnacle.com/en/esports</a></td><td data-label="Used for">Not reachable (404 / HTTP 500)</td></tr><tr><td data-label="Source">Thunderpick CS2 event pages (not used)</td><td data-label="URL"><a href="https://thunderpick.io/esports/cs2-betting/thunderpick-world-championship-2026/11024" target="_blank" rel="noopener">https://thunderpick.io/esports/cs2-betting/thunderpick-world-championship-2026/11024</a></td><td data-label="Used for">Navigation only; no match list or odds at capture</td></tr></tbody></table></div>
+</main>
+<footer class="wrap">Probabilities are our own lines built from outside betting markets and HLTV ranking points. Hotspawn pick percentages are not used. Not financial or betting advice. Snapshot is not auto-refreshed (see Flagged for Review, I-16).</footer>
+</body></html>
