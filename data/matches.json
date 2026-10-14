@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-14T04:50:44.538Z",
-  "snapshotNote": "Public-source refresh at 2026-10-14T04:50:44.538Z. Hotspawn lobby checked (24 linked match pages found). Polymarket resolver examined 597 active esports markets.",
+  "generatedAt": "2026-10-14T04:52:18.992Z",
+  "snapshotNote": "Public-source refresh at 2026-10-14T04:52:18.992Z. Hotspawn lobby checked (24 linked match pages found). Polymarket resolver examined 597 active esports markets.",
   "scope": {
     "source": "https://play.hotspawn.com/lobby",
     "sourceName": "Hotspawn Pick’ems lobby",
     "snapshotMatchCount": 28,
     "refreshCadenceHours": 6,
-    "lastLobbyCheck": "2026-10-14T04:50:44.538Z",
+    "lastLobbyCheck": "2026-10-14T04:52:18.992Z",
     "lobbyReachable": true,
     "linkedMatchCount": 24
   },
@@ -32,7 +32,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -57,7 +57,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -82,7 +82,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -107,7 +107,7 @@
       "status": "verified-line",
       "limitation": "Normalized reciprocal decimal odds to remove the two-way overround.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -132,7 +132,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -150,7 +150,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -175,7 +175,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -188,12 +188,19 @@
       "team2": "Ninjas in Pyjamas",
       "hotspawnUrl": "https://www.hotspawn.com/matches/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026-1080177",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No active exact external match-winner line was returned by the public resolver on this refresh. Probability and pick are blank rather than stale.",
+      "probability": {
+        "team1": 73.5,
+        "team2": 26.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-fal2-nip-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Falcons",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -218,7 +225,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -236,7 +243,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -261,7 +268,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -286,7 +293,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -304,7 +311,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -322,7 +329,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -347,7 +354,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -365,7 +372,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -383,7 +390,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -401,7 +408,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -419,7 +426,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -444,7 +451,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -469,7 +476,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -494,7 +501,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -519,7 +526,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -544,7 +551,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -562,7 +569,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -587,7 +594,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -612,7 +619,7 @@
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -630,7 +637,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:50:44.538Z",
+        "checkedAt": "2026-10-14T04:52:18.992Z",
         "note": "Public Hotspawn lobby checked."
       }
     }

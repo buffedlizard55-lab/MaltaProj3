@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-14T04:50:44.538Z",
+  "generatedAt": "2026-10-14T04:52:18.992Z",
   "flags": [
     {
       "title": "Coverage snapshot",
       "severity": "review",
-      "detail": "17 of 28 published rows currently have an exact external match-winner line. 11 rows remain unresolved with intentionally blank probabilities. Hotspawn lobby reachability on this refresh: confirmed.",
+      "detail": "18 of 28 published rows currently have an exact external match-winner line. 10 rows remain unresolved with intentionally blank probabilities. Hotspawn lobby reachability on this refresh: confirmed.",
       "source": "https://play.hotspawn.com/lobby"
     },
     {
@@ -22,7 +22,7 @@
     {
       "title": "Time-zone mismatch must be reviewed on refresh",
       "severity": "watch",
-      "detail": "The public Hotspawn matches page displays the schedule in UTC; the Pick\u2019ems lobby displayed the same opening matches four hours earlier in its interface at capture. This dashboard uses the explicitly labelled UTC time from the Hotspawn matches page whenever it was available.",
+      "detail": "The public Hotspawn matches page displays the schedule in UTC; the Pick’ems lobby displayed the same opening matches four hours earlier in its interface at capture. This dashboard uses the explicitly labelled UTC time from the Hotspawn matches page whenever it was available.",
       "source": "https://www.hotspawn.com/matches"
     },
     {
