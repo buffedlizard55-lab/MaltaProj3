@@ -3,7 +3,8 @@ name: Refresh CS2 public-source data
 on:
   # A workflow/resolver trigger change on main immediately validates the
   # public-data resolver once; later refreshes are schedule-driven and
-  # data-only commits do not re-trigger this workflow.
+  # data-only commits do not re-trigger this workflow. This resolver-release
+  # trigger confirms documented team-label aliases against a live public feed.
   push:
     branches: [main]
     paths: ['.github/workflows/refresh.yml']

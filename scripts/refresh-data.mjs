@@ -23,6 +23,10 @@ const aliases = new Map([
   ['aurora', 'auroragaming'], ['auroragaming', 'auroragaming'],
   ['bcgame', 'bcgameesports'], ['bcgameesports', 'bcgameesports'],
   ['betboom', 'betboomteam'], ['betboomteam', 'betboomteam'],
+  // This source uses the official event label "Team Falcons" for the team
+  // Hotspawn lists as "Falcons". The initial audit directly verified that
+  // exact public market pair; no unverified roster/team aliases are accepted.
+  ['falcons', 'teamfalcons'], ['teamfalcons', 'teamfalcons'],
   ['fnatic', 'fnatic'], ['sashi', 'sashi'], ['furia', 'furia']
 ]);
 
