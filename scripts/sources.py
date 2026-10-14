@@ -31,6 +31,7 @@ class Client:
         self.evidence = output / 'evidence'
         self.evidence.mkdir(parents=True, exist_ok=True)
         self.manifest = []
+        self.saved = set()
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': 'HotspawnCS2Coverage/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)', 'Accept': 'application/json,text/html;q=0.9'})
         self.last_request = 0.0
@@ -38,7 +39,9 @@ class Client:
     def save(self, name: str, data):
         path = self.evidence / (name + '.json')
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
-        return 'data/evidence/' + path.name
+        relative = 'data/evidence/' + path.name
+        self.saved.add(relative)
+        return relative
 
     def fetch(self, url: str, label: str, *, method='GET', payload=None, json_body=False):
         delay = 0.2 - (time.monotonic() - self.last_request)

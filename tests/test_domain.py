@@ -194,5 +194,35 @@ class SourceSafetyTests(unittest.TestCase):
             x = collect(Path(tmp)); self.assertEqual(x['inventory_observed_at'], old['inventory_observed_at'])
 
 
+    def test_partial_inventory_failure_cannot_overwrite_last_good_evidence(self):
+        def partial_failure(client):
+            evidence = client.save('hotspawn-fixtures', [{'id': 'new-but-unreconciled'}])
+            client.manifest.append({'id': 'hotspawn-fixtures', 'status': 'ok', 'evidence': evidence})
+            raise SourceError('Lobby and API disagree')
+
+        with tempfile.TemporaryDirectory() as tmp, patch('scripts.collect.hotspawn', side_effect=partial_failure):
+            root = Path(tmp)
+            (root / 'evidence').mkdir()
+            original = '[{"id": "old-evidence"}]\n'
+            (root / 'evidence/hotspawn-fixtures.json').write_text(original)
+            old = {'schema_version': 1, 'matches': [], 'inventory_observed_at': '2026-01-01T00:00:00Z', 'last_attempted_at': '2026-01-01T00:00:00Z', 'flags': [], 'requests': []}
+            (root / 'latest.json').write_text(json.dumps(old))
+            result = collect(root)
+            self.assertEqual((root / 'evidence/hotspawn-fixtures.json').read_text(), original)
+            self.assertTrue(result['requests'][0]['failed_inventory_attempt_only'])
+            audit = root / 'evidence' / Path(result['requests'][0]['evidence']).name
+            self.assertEqual(json.loads(audit.read_text())[0]['id'], 'new-but-unreconciled')
+            self.assertEqual(result['analysis_as_of'], old['last_attempted_at'])
+
+    def test_failed_replay_never_changes_the_published_snapshot(self):
+        with tempfile.TemporaryDirectory() as tmp, patch('scripts.collect.hotspawn', side_effect=SourceError('HTTP 403')), patch('scripts.validate.check_data', side_effect=ValueError('Invalid evidence')):
+            root = Path(tmp)
+            original = json.dumps({'schema_version': 1, 'matches': [], 'inventory_observed_at': None, 'last_attempted_at': '2026-01-01T00:00:00Z', 'flags': []})
+            (root / 'latest.json').write_text(original)
+            with self.assertRaisesRegex(ValueError, 'Invalid evidence'):
+                collect(root)
+            self.assertEqual((root / 'latest.json').read_text(), original)
+
+
 if __name__ == '__main__':
     unittest.main()
