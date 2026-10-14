@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-10-14T04:42:00Z",
+  "flags": [
+    {
+      "title": "No independent match-winner line captured",
+      "severity": "review",
+      "detail": "Entries marked Unresolved have a confirmed Hotspawn listing but did not have an exact external match-winner price captured in the initial source check. Their probabilities and recommendation are deliberately blank rather than estimated.",
+      "source": "https://play.hotspawn.com/lobby"
+    },
+    {
+      "title": "Low-liquidity and newly formed teams",
+      "severity": "review",
+      "detail": "Several C-tier cards use teams for which no directly verified market page was available at capture. HLTV may have match, roster, ranking or map information, but those facts are not converted into an unverified probability.",
+      "source": "https://www.hltv.org/matches"
+    },
+    {
+      "title": "Time-zone mismatch must be reviewed on refresh",
+      "severity": "watch",
+      "detail": "The public Hotspawn matches page displays the schedule in UTC; the Pick’ems lobby displayed the same opening matches four hours earlier in its interface at capture. This dashboard uses the explicitly labelled UTC time from the Hotspawn matches page whenever it was available.",
+      "source": "https://www.hotspawn.com/matches"
+    },
+    {
+      "title": "Market availability is volatile",
+      "severity": "watch",
+      "detail": "Prediction-market prices and sportsbook odds can change or disappear. A displayed probability is a timestamped market quote or the documented de-vig calculation from a quoted two-way price, not a certainty or betting instruction.",
+      "source": "https://polymarket.com/esports/cs2"
+    }
+  ]
+}
