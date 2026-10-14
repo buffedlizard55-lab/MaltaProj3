@@ -1,9 +1,9 @@
 name: Refresh CS2 public-source data
 
 on:
-  # A change to this workflow on main immediately validates the public-data
-  # resolver once; later refreshes are schedule-driven and data-only commits do
-  # not re-trigger this workflow.
+  # A workflow/resolver trigger change on main immediately validates the
+  # public-data resolver once; later refreshes are schedule-driven and
+  # data-only commits do not re-trigger this workflow.
   push:
     branches: [main]
     paths: ['.github/workflows/refresh.yml']

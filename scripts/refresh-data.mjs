@@ -12,7 +12,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 const DATA_FILE = new URL('../data/matches.json', import.meta.url);
 const REVIEW_FILE = new URL('../data/review.json', import.meta.url);
 const HOTSPAWN_LOBBY = 'https://play.hotspawn.com/lobby';
-// Polymarket's public Counter Strike series id returns event records with their\n// constituent Match Winner markets. This avoids relying on an undocumented\n// search query or on a generic all-category page.\nconst POLYMARKET_EVENTS = 'https://gamma-api.polymarket.com/events?series_id=10310&active=true&closed=false&limit=1000&order=updatedAt&ascending=false';
+// Polymarket's public Counter Strike series id returns event records with their
+// constituent Match Winner markets. Small paged requests are deliberate: a
+// very large response can be rejected by a proxy before any audit data arrives.
+const POLYMARKET_EVENTS = 'https://gamma-api.polymarket.com/events?series_id=10310&active=true&closed=false&limit=50&order=updatedAt&ascending=false';
 const now = new Date().toISOString();
 
 const aliases = new Map([
@@ -101,8 +104,16 @@ async function main() {
 
   let markets = [];
   try {
-    const payload = await fetchOrThrow(POLYMARKET_EVENTS);
-    const events = Array.isArray(payload) ? payload : [];
+    const firstPage = await fetchOrThrow(`${POLYMARKET_EVENTS}&offset=0`);
+    const firstEvents = Array.isArray(firstPage) ? firstPage : [];
+    let events = firstEvents;
+    // The active Counter Strike series currently fits in two 50-event pages.
+    // Fetch a second page only when the first one is full.
+    if (firstEvents.length === 50) {
+      const secondPage = await fetchOrThrow(`${POLYMARKET_EVENTS}&offset=50`);
+      const secondEvents = Array.isArray(secondPage) ? secondPage : [];
+      events = events.concat(secondEvents);
+    }
     markets = events.flatMap(event => Array.isArray(event.markets) ? event.markets : []);
   } catch (error) {
     console.warn(`External market refresh failed; preserving prior verified lines: ${error.message}`);
