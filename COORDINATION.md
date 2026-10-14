@@ -84,6 +84,8 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 | I-16 | Refresh not scheduled | A refresh every 4–8 hours was requested. It cannot be scheduled from this session. The snapshot date is shown on the site; a later session must rebuild it. | — | needs review |
 | I-17 | HLTV team identity | "G2 Ares" (Hotspawn) is not confirmed as the HLTV team "G2" (#8). No HLTV points are applied to G2 Ares. | https://www.hltv.org/ranking/teams/2026/october/12 | needs review |
 | I-18 | Hotspawn pick percentages | Hotspawn shows its own pick percentages. These are not used as a probability input anywhere in the model. | https://play.hotspawn.com/lobby | resolved (not used) |
+| I-19 | Publication gap | `docs/` (this session's site) is merged but not in the Pages artifact built by `.github/workflows/pages.yml`, which publishes the root site only. Live `docs/` URL returns 404. Fix: one copy step in that workflow (owner: session arena/5ebd8496). | https://buffedlizard55-lab.github.io/MaltaProj3/ | needs review |
+| I-20 | Two picks sites on main | Root site (session arena/5ebd8496; `data/matches.json`, 18 verified lines, 6-hour refresh) and `docs/` (session 83207e7b; `data/picks-model.json`, 14 picks, HLTV blend). The lines differ in places (e.g., Falcons–NiP, 9z–Aurora, ex-RUSTEC–mellren). Owner must pick the primary site. | https://buffedlizard55-lab.github.io/MaltaProj3/ | needs review |
 
 ## Handoffs / takeovers
 - None.
@@ -93,5 +95,6 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - C-2 (session 83207e7b): `scripts/__pycache__` was committed by mistake; removed and ignored in `.gitignore`.
 
 ## PR and merge
-- PR: #5 — `arena/83207e7b-maltaproj3` → `main` (opened by session 83207e7b). Merge executed without waiting for approval; flagged items do not block merge.
-- Pages: source set to `main` at `/docs` (was `main` at `/`). Deploy check recorded below after merge.
+- PR #5 — `arena/83207e7b-maltaproj3` → `main`. Merged 2026-10-14 04:52:31 UTC, merge commit `cf49606`. Merge conflicts with `main` (another session's site) were resolved non-destructively (see C-1). Merge executed without waiting for approval; flagged items do not block merge.
+- Pages check: the "Deploy GitHub Pages" workflow succeeded on `cf49606` (run completed success 04:52:34 UTC). The live root site loads its data (`data/matches.json`, `data/review.json`). `docs/` is not in the artifact (I-19), so its pages are not live.
+- PR #8 records the above in this board (no change to site content).
