@@ -16,6 +16,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Inspect public source responses
+        env:
+          SOURCE_STAGE: contracts
         run: python scripts/discover_sources.py
       - uses: actions/upload-artifact@v4
         with:

@@ -34,6 +34,34 @@ def fetch(url: str, label: str) -> str:
     return text
 
 
+import os
+
+if os.environ.get('SOURCE_STAGE') == 'contracts':
+    urls = {
+        'hotspawn-fixtures-client': 'https://play.hotspawn.com/chunk-KNRGAKZR.js',
+        'hotspawn-fixtures-api': 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1',
+        'polymarket-cs2-tag': 'https://gamma-api.polymarket.com/tags/slug/cs2',
+        'polymarket-cs2-events': 'https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0',
+        'polymarket-cs2-events-page-2': 'https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=100',
+        'thunderpick-api': 'https://thunderpick.io/api/matches?gameIds=6',
+        'ggbet-cs2': 'https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike',
+        'rivalry-cs2': 'https://www.rivalry.com/esports/counter-strike-betting',
+    }
+    for label, url in urls.items():
+        body = fetch(url, label)
+        if label == 'polymarket-cs2-events':
+            try:
+                events = json.loads(body)
+                event = next(e for e in events if 'gothic' in e.get('slug', ''))
+                market = next(m for m in event['markets'] if m.get('sportsMarketType') == 'moneyline')
+                token = json.loads(market['clobTokenIds'])[0]
+                fetch(f'https://clob.polymarket.com/book?token_id={token}', 'polymarket-example-book')
+            except Exception as exc:
+                print('Order book discovery:', str(exc), flush=True)
+        time.sleep(1)
+    (OUT / 'report.json').write_text(json.dumps(report, indent=2))
+    raise SystemExit(0)
+
 urls = {
     'hotspawn-robots': 'https://play.hotspawn.com/robots.txt',
     'hotspawn-lobby': 'https://play.hotspawn.com/lobby',
