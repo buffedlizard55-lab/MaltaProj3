@@ -28,7 +28,9 @@ def load(path: Path):
 def check_data(root: Path):
     data = load(root / 'latest.json')
     require(data.get('schema_version') == 1, 'Unsupported data schema')
-    now = timestamp(data['last_attempted_at'])
+    # Retained historical analyses replay at their original successful run time,
+    # not the time of a newer FAILED inventory attempt.
+    now = timestamp(data.get('analysis_as_of', data['last_attempted_at']))
     require(now is not None, 'Missing attempt timestamp')
     require(data['counts'] == counts(data['matches']), 'Summary counts do not reconcile to rows')
     rows = data['matches']
@@ -83,6 +85,8 @@ def check_data(root: Path):
             replay, reason = valve_analysis(m, valve_rows, now, a['observed_at'])
             require(replay is not None, f'{m["id"]}: {reason}')
             require(a['inputs'] == replay['inputs'], f'{m["id"]}: model inputs are not exact official records')
+            if data.get('analysis_as_of'):
+                require(a['observed_at'] == attempts['valve-standings-response']['observed_at'], f'{m["id"]}: rating observation timestamp restamped')
             require(any(r['stage'] == 'HLTV research' for r in m['research']) and any(r['stage'] == 'Original esportsbook lines' for r in m['research']), f'{m["id"]}: fallback sequence was not attempted')
             require(not any(r['status'] == 'resolved' and r['stage'].startswith('Primary') for r in m['research']), f'{m["id"]}: fallback overwrote primary pick')
         elif a['method'] == 'bookmaker':

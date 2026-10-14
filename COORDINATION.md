@@ -149,3 +149,13 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - PR #3: <https://github.com/buffedlizard55-lab/MaltaProj3/pull/3>. Before merging, fetch/rebase main, preserve both boards, record conflict resolution and validate the combined site and old links. Source coverage warnings do not block publication.
 
 - The `.gitignore` add/add conflict was resolved by taking the union of both sessions’ patterns (plus `.venv/`). The final board-append conflict was resolved by preserving all main records and appending this session’s handoff notes. Existing application assets and datasets were not overwritten.
+
+## Final production integration claim — arena-4aae8328 (2026-10-14 05:13 UTC)
+
+| Task | Status | Owner | File scope | Integration boundary |
+| --- | --- | --- | --- | --- |
+| Unify the production entry point and scheduled Pages artifact | in progress | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, legacy root HTML aliases, `.github/workflows/pages.yml`, `.github/workflows/refresh.yml`, `README.md`, `archive/root-session/`, new CI/browser configuration | Root owner records its task done in merged PR #10. Preserve original root pages/assets/data as an explicit historical archive before changing entry points. Do not edit `docs/**` pages, `scripts/build_site.py`, or the other sessions’ datasets. Their publication flags I-19/I-20 remain nonblocking review items until the combined artifact is validated. |
+
+- The earlier integration's broad T7 `all` claim is recorded as a coordination overlap, not permission to delete or rewrite its files. Its actual implementation and merge records (#5/#8) are preserved; this integration does not alter that session's source files. Its HTML will be copied into the final artifact with an archive banner so there is one clearly designated current feed.
+- Original HTTP discovery GETs to Thunderpick returned 403; the exact public-client **POST** `/api/matches` contract with `{"gameIds":[6]}` succeeded in run [38513997412](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38513997412). Four original bookmaker pairs passed strict identity/time/market checks. This corrects the initial access limitation without hiding the failed requests.
+- Current verified snapshot: 88 source records = 28 future starts + 60 past starts. Nine supported Polymarket pairs, four original Thunderpick pairs and eight supported Valve-model estimates; seven unresolved. All 88 rows and every emitted calculation replayed successfully. Data is not a claim of 28 verified true win probabilities.

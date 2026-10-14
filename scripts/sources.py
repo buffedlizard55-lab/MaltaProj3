@@ -46,6 +46,8 @@ class Client:
             time.sleep(delay)
         self.last_request = time.monotonic()
         entry = {'id': label, 'url': url, 'method': method, 'observed_at': iso(datetime.now(timezone.utc)), 'http_status': None, 'status': 'error'}
+        if payload is not None:
+            entry['request_body'] = payload  # Public read-only query, no credentials.
         self.manifest.append(entry)
         try:
             response = self.session.request(method, url, json=payload, timeout=(15, 45), allow_redirects=True)
@@ -163,6 +165,8 @@ def hltv_research(client: Client, matches: list):
         start = timestamp(node.get('data-unix'))
         if start:
             candidates.append({'teams': names, 'starts_at': iso(start), 'source_url': 'https://www.hltv.org' + a['href']})
+    # Keep a small structural diagnostic, not an access-challenge bypass.
+    client.save('hltv-structure', {'url': HLTV, 'observed_at': req['observed_at'], 'page_title': soup.title.get_text() if soup.title else None, 'match_links': [{'href': a.get('href'), 'text': a.get_text(' ', strip=True)[:250], 'classes': a.get('class', [])} for a in soup.select('a[href^="/matches/"]')[:12]], 'data_unix_nodes': len(soup.select('[data-unix]'))})
     # An access challenge with HTTP 200 is not a successful empty match index.
     if not candidates:
         raise SourceError('HLTV match schema unavailable; no structured research observations confirmed')

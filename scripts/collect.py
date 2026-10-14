@@ -29,7 +29,7 @@ BOOK_PAGES = [
 
 
 def failed(name, url, exc, now):
-    return {'name': name, 'url': url, 'status': 'unavailable', 'observed_at': iso(now), 'records': None, 'detail': str(exc)}
+    return {'name': name, 'url': url, 'status': 'unavailable', 'observed_at': iso(datetime.now(timezone.utc)), 'records': None, 'detail': str(exc)}
 
 
 def normalize_fixture(raw, links, observed_at, now):
@@ -86,7 +86,10 @@ def collect(output: Path):
         health.append(failed('Hotspawn match inventory', LOBBY, exc, now))
         prior = output / 'latest.json'
         snapshot = json.loads(prior.read_text()) if prior.exists() else {'schema_version': 1, 'matches': [], 'inventory_observed_at': None, 'flags': []}
-        snapshot.update(generated_at=iso(now), last_attempted_at=iso(now), coverage_complete=False, run_status='degraded', sources=health, requests=client.manifest)
+        snapshot.setdefault('analysis_as_of', snapshot.get('last_attempted_at', iso(now)))
+        # A failed attempt cannot reset successful evidence or its observation times.
+        prior_requests = snapshot.get('requests', [])
+        snapshot.update(generated_at=iso(now), last_attempted_at=iso(now), coverage_complete=False, run_status='degraded', sources=health, requests=prior_requests + client.manifest)
         snapshot['flags'] = [f for f in snapshot.get('flags', []) if f['id'] != 'inventory-failed'] + [flag('inventory-failed', 'Hotspawn refresh failed — current coverage unverified', f'{exc}. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='critical')]
         snapshot['counts'] = counts(snapshot['matches'])
         write_snapshot(output, snapshot)
@@ -185,15 +188,17 @@ def collect(output: Path):
                 except (SourceError, ValueError) as exc:
                     health.append(failed(title, url, exc, now))
             ratings = []
+            ratings_observed = None
             try:
                 ratings, h = valve_ratings(client, now)
+                ratings_observed = h['observed_at']
                 health.append(h)
             except (SourceError, ValueError, KeyError, TypeError) as exc:
                 health.append(failed('Valve official rating fallback', 'https://github.com/ValveSoftware/counter-strike_regional_standings', exc, now))
             for m in missing:
                 if m['analysis'] is not None:
                     continue
-                analysis, reason = valve_analysis(m, ratings, now, iso(now)) if ratings else (None, 'Official Valve ratings unavailable')
+                analysis, reason = valve_analysis(m, ratings, now, ratings_observed) if ratings else (None, 'Official Valve ratings unavailable')
                 if analysis:
                     m.update(analysis=analysis, pick_index=selection(analysis))
                 m['research'].append({'stage': 'Valve research model', 'source_url': analysis['source_url'] if analysis else 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'status': 'resolved' if analysis else 'unresolved', 'detail': 'Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.' if analysis else reason})
@@ -227,8 +232,10 @@ def collect(output: Path):
     unresolved = [m for m in active if m['analysis'] is None]
     for m in unresolved:
         flags.append(flag('unresolved-' + m['id'], 'Unresolved: ' + ' vs '.join(t['name'] or 'Unverified team' for t in m['teams']), '; '.join(m['limitations'] + [r['detail'] for r in m['research'] if r['status'] != 'resolved']), [m['source_url']] + [r['source_url'] for r in m['research']], [m['id']]))
+    if (output / 'matches.json').exists() or (output / 'picks-model.json').exists():
+        flags.append(flag('legacy-snapshots', 'Earlier session snapshots are archived, not the current feed', 'Concurrent sessions used different identity rules, source timestamps and model weights. Their datasets, scripts and pages are retained for provenance. The current dashboard uses only data/latest.json and its replayed first-party evidence. Legacy records are not silently merged, relabeled as current, or independently reverified by this pipeline.', ['https://github.com/buffedlizard55-lab/MaltaProj3', LOBBY, POLY_INDEX], severity='notice'))
     snapshot = {
-        'schema_version': 1, 'generated_at': iso(datetime.now(timezone.utc)), 'last_attempted_at': iso(now),
+        'schema_version': 1, 'generated_at': iso(datetime.now(timezone.utc)), 'last_attempted_at': iso(now), 'analysis_as_of': iso(now),
         'inventory_observed_at': observed, 'coverage_complete': True,
         'run_status': 'complete' if not unresolved else 'partial-picks',
         'refresh_interval_hours': 4, 'stale_after_hours': 8,
