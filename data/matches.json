@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-14T04:49:13.903Z",
-  "snapshotNote": "Public-source refresh at 2026-10-14T04:49:13.903Z. Hotspawn lobby checked (24 linked match pages found). No new external-market payload was applied.",
+  "generatedAt": "2026-10-14T04:50:44.538Z",
+  "snapshotNote": "Public-source refresh at 2026-10-14T04:50:44.538Z. Hotspawn lobby checked (24 linked match pages found). Polymarket resolver examined 597 active esports markets.",
   "scope": {
     "source": "https://play.hotspawn.com/lobby",
     "sourceName": "Hotspawn Pick’ems lobby",
     "snapshotMatchCount": 28,
     "refreshCadenceHours": 6,
-    "lastLobbyCheck": "2026-10-14T04:49:13.903Z",
+    "lastLobbyCheck": "2026-10-14T04:50:44.538Z",
     "lobbyReachable": true,
     "linkedMatchCount": 24
   },
@@ -20,12 +20,19 @@
       "team2": "B8 Academy",
       "hotspawnUrl": "https://www.hotspawn.com/matches/enjoy-vs-b8-academy-cct-europe-2026-series-12-play-in-1081111",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 61.5,
+        "team2": 38.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-enjoy-b8acad-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Enjoy",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -42,15 +49,15 @@
         "team1": 49.5,
         "team2": 50.5,
         "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/cct-europe/cs2-gothic-lavked-2026-10-14",
-        "observedAt": "2026-10-14T04:41:30Z",
+        "sourceUrl": "https://polymarket.com/market/cs2-gothic-lavked-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
         "sourceType": "prediction market"
       },
       "recommendation": "Lavked",
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -67,15 +74,15 @@
         "team1": 26.5,
         "team2": 73.5,
         "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-9z-aur1-2026-10-14",
-        "observedAt": "2026-10-14T04:41:30Z",
+        "sourceUrl": "https://polymarket.com/market/cs2-9z-aur1-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
         "sourceType": "prediction market"
       },
       "recommendation": "Aurora",
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -100,7 +107,7 @@
       "status": "verified-line",
       "limitation": "Normalized reciprocal decimal odds to remove the two-way overround.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -114,18 +121,18 @@
       "hotspawnUrl": "https://www.hotspawn.com/matches/hotu-vs-fnatic-stake-pulse-beat-iii-1079439",
       "hltvUrl": "https://www.hltv.org/matches/2399135/hotu-vs-fnatic-stake-pulse-beat-iii",
       "probability": {
-        "team1": 47.3,
-        "team2": 52.7,
-        "method": "De-vigged from Stake decimal match-winner odds 1.95 / 1.75",
-        "sourceUrl": "https://stake.dk/en/sports/counter-strike/international-3/stake-pulse-beat-iii-t6/315926-hotu-fnatic",
-        "observedAt": "2026-10-14T04:42:00Z",
-        "sourceType": "sportsbook"
+        "team1": 45.5,
+        "team2": 54.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-hotu-fnc-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
       },
       "recommendation": "Fnatic",
       "status": "verified-line",
-      "limitation": "Normalized reciprocal decimal odds to remove the two-way overround.",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -143,7 +150,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -156,12 +163,19 @@
       "team2": "mellren",
       "hotspawnUrl": "https://www.hotspawn.com/matches/ex-rustec-vs-mellren-cct-europe-2026-series-11-1079622",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 64,
+        "team2": 36,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-rustec-mellre-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "ex-RUSTEC",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -174,19 +188,12 @@
       "team2": "Ninjas in Pyjamas",
       "hotspawnUrl": "https://www.hotspawn.com/matches/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026-1080177",
       "hltvUrl": null,
-      "probability": {
-        "team1": 73.5,
-        "team2": 26.5,
-        "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-fal2-nip-2026-10-14",
-        "observedAt": "2026-10-14T04:41:30Z",
-        "sourceType": "prediction market"
-      },
-      "recommendation": "Falcons",
-      "status": "verified-line",
-      "limitation": "External market price; it is not a guarantee and can move after capture.",
+      "probability": null,
+      "recommendation": null,
+      "status": "unresolved",
+      "limitation": "No active exact external match-winner line was returned by the public resolver on this refresh. Probability and pick are blank rather than stale.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -203,15 +210,15 @@
         "team1": 56.5,
         "team2": 43.5,
         "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-lgc-prv-2026-10-14",
-        "observedAt": "2026-10-14T04:41:30Z",
+        "sourceUrl": "https://polymarket.com/market/cs2-lgc-prv-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
         "sourceType": "prediction market"
       },
       "recommendation": "Legacy",
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -229,7 +236,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Not present in the linked-match subset of this lobby response; retained pending next refresh."
       }
     },
@@ -242,12 +249,19 @@
       "team2": "The Last Resort",
       "hotspawnUrl": "https://www.hotspawn.com/matches/g2-ares-vs-the-last-resort-cct-europe-2026-series-11-1079623",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 69.5,
+        "team2": 30.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-g2a-tlr-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "G2 Ares",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -260,12 +274,19 @@
       "team2": "BetBoom",
       "hotspawnUrl": "https://www.hotspawn.com/matches/furia-vs-betboom-thunderpick-world-championship-2026-1080179",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 70.5,
+        "team2": 29.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-furia-bb3-2026-10-14",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "FURIA",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -283,7 +304,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -301,7 +322,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -314,12 +335,19 @@
       "team2": "BOJONG",
       "hotspawnUrl": "https://www.hotspawn.com/matches/ence-vs-bojong-elisa-breakout-series-2-1080280",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 65,
+        "team2": 35,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-ence-bojong-2026-10-15",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "ENCE",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -337,7 +365,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -355,7 +383,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -373,7 +401,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -391,7 +419,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -408,15 +436,15 @@
         "team1": 55.5,
         "team2": 44.5,
         "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/stake-pulse/cs2-mibr-bcg-2026-10-15",
-        "observedAt": "2026-10-14T04:41:30Z",
+        "sourceUrl": "https://polymarket.com/market/cs2-mibr-bcg-2026-10-15",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
         "sourceType": "prediction market"
       },
       "recommendation": "MIBR",
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -433,15 +461,15 @@
         "team1": 66.5,
         "team2": 33.5,
         "method": "Polymarket match-winner price",
-        "sourceUrl": "https://polymarket.com/esports/cs2/stake-pulse/cs2-hero-envy-2026-10-15",
-        "observedAt": "2026-10-14T04:37:29Z",
+        "sourceUrl": "https://polymarket.com/market/cs2-hero-envy-2026-10-15",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
         "sourceType": "prediction market"
       },
       "recommendation": "Heroic",
       "status": "verified-line",
       "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -454,12 +482,19 @@
       "team2": "Phantom",
       "hotspawnUrl": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 43.5,
+        "team2": 56.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-voc-pha-2026-10-16",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Phantom",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -472,12 +507,19 @@
       "team2": "RoundsGG",
       "hotspawnUrl": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 69,
+        "team2": 31,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-havu-rgg-2026-10-16",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "HAVU",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -490,12 +532,19 @@
       "team2": "HAVU",
       "hotspawnUrl": "https://www.hotspawn.com/matches/voca-vs-havu-elisa-breakout-series-2-1080287",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 64,
+        "team2": 36,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-voc-havu-2026-10-16",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Voca",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -513,7 +562,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -526,12 +575,19 @@
       "team2": "Voca",
       "hotspawnUrl": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 27.5,
+        "team2": 72.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-voc-rgg-2026-10-16",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Voca",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -544,12 +600,19 @@
       "team2": "HAVU",
       "hotspawnUrl": "https://www.hotspawn.com/matches/phantom-vs-havu-elisa-breakout-series-2-1080290",
       "hltvUrl": null,
-      "probability": null,
-      "recommendation": null,
-      "status": "unresolved",
-      "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
+      "probability": {
+        "team1": 64.5,
+        "team2": 35.5,
+        "method": "Polymarket match-winner price",
+        "sourceUrl": "https://polymarket.com/market/cs2-pha-havu-2026-10-16",
+        "observedAt": "2026-10-14T04:49:29.426767Z",
+        "sourceType": "prediction market"
+      },
+      "recommendation": "Phantom",
+      "status": "verified-line",
+      "limitation": "External market price; it is not a guarantee and can move after capture.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     },
@@ -567,7 +630,7 @@
       "status": "unresolved",
       "limitation": "No independently verifiable match-winner line was captured in this snapshot. Probabilities and pick are intentionally blank; the scheduled refresh will retry public exchange coverage.",
       "sourceCheck": {
-        "checkedAt": "2026-10-14T04:49:13.903Z",
+        "checkedAt": "2026-10-14T04:50:44.538Z",
         "note": "Public Hotspawn lobby checked."
       }
     }
