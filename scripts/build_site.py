@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Hotspawn CS2 picks site (docs/) from data/matches.json.
+"""Build the Hotspawn CS2 picks site (docs/) from data/picks-model.json.
 
 Pipeline
   1. Each outside market is de-vigged to two-way probabilities (normalised to 100%).
@@ -21,7 +21,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DATA = json.loads((ROOT / "data" / "matches.json").read_text(encoding="utf-8"))
+DATA = json.loads((ROOT / "data" / "picks-model.json").read_text(encoding="utf-8"))
 OUT = ROOT / "docs"
 SNAP = DATA["snapshot"]
 HLTV_URL = SNAP["hltv_ranking"]
@@ -469,7 +469,7 @@ Probabilities come from outside betting markets (Polymarket, Oddsportal, Stake) 
     # ---- methodology
     method = f"""
 <h1>Methodology</h1>
-<p class="lede">How each number on this site is produced. The build script is <code>scripts/build_site.py</code>; the raw inputs are in <code>data/matches.json</code>.</p>
+<p class="lede">How each number on this site is produced. The build script is <code>scripts/build_site.py</code>; the raw inputs are in <code>data/picks-model.json</code>.</p>
 <ol class="clean">
   <li><b>Match list.</b> Every match card captured from the Hotspawn lobby (<a href="{esc(LOBBY)}">play.hotspawn.com/lobby</a>). Times are converted to UTC. Hotspawn's own pick percentages are not read and not used.</li>
   <li><b>Polymarket.</b> Two-way prices in cents. Used only if volume is at least $50 and the two prices sum to 95–105. Normalised to 100%.</li>
