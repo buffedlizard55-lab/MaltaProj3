@@ -72,4 +72,5 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - None recorded.
 
 ## PR and merge
-- Filled in after merge (see the end of this file).
+- PR: #5 — `arena/83207e7b-maltaproj3` → `main` (opened by session 83207e7b). Merge executed without waiting for approval; flagged items do not block merge.
+- Pages: source set to `main` at `/docs` (was `main` at `/`). Deploy check recorded below after merge.
