@@ -8,11 +8,11 @@ This session is fixed to the Arena branch above. No alternative session branches
 
 | Task | Status | Owner | File scope | Last update (UTC) |
 | --- | --- | --- | --- | --- |
-| Discover and verify Hotspawn CS2 match sources and external probabilities | in progress | arena-4aae8328 | `scripts/`, `tests/`, `data/`, `docs/` | 2026-10-14 |
-| Mobile-first dashboard, picks, coverage, methodology, review pages | in progress | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, `assets/` | 2026-10-14 |
-| Automation, integration, validation and GitHub Pages publication | in progress | arena-4aae8328 (final integration) | `.github/`, `README.md`, `.gitignore`, dependency/configuration files, `COORDINATION.md` | 2026-10-14 |
+| Discover and verify Hotspawn CS2 match sources and external probabilities | done | arena-4aae8328 | `scripts/`, `tests/`, `data/`, `docs/` | 2026-10-14 |
+| Mobile-first dashboard, picks, coverage, methodology, review pages | done | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, `assets/` | 2026-10-14 |
+| Automation, integration, validation and GitHub Pages publication | done | arena-4aae8328 (final integration) | `.github/`, `README.md`, `.gitignore`, dependency/configuration files, `COORDINATION.md` | 2026-10-14 |
 
-All scopes are claimed by this session and are non-overlapping. Other sessions must log requests here rather than editing claimed files. Unverified source data and unresolved matches are publication warnings, not hidden omissions or invented probabilities. Broken builds are blockers.
+This session’s claimed tasks are complete. The initial scopes were non-overlapping at first inspection; later concurrent integration overlaps and non-destructive handoffs are documented below. Historical boards are preserved unchanged. Unverified source data and unresolved matches are publication warnings, not hidden omissions or invented probabilities. Broken builds are blockers.
 
 ## Activity and handoffs
 
@@ -20,11 +20,11 @@ All scopes are claimed by this session and are non-overlapping. Other sessions m
 
 ## Verification and sources
 
-Pending source discovery. Target match authority: <https://play.hotspawn.com/lobby>. External prices and HLTV research must carry original source URLs, timestamps and evidence. Hotspawn participation/popularity is never a probability input.
+Verified every Hotspawn CS2 fixture against both official lobby payloads and the public fixture API, with original observation times and saved evidence. All current estimates replay from original Polymarket order books, original Thunderpick POST prices or explicitly labeled official Valve-rating inputs. HLTV/access limitations and unsupported identities remain visible. Hotspawn participation/popularity is never a probability input. Full snapshot and evidence: <https://buffedlizard55-lab.github.io/MaltaProj3/coverage/>.
 
 ## Publication
 
-PR [#3](https://github.com/buffedlizard55-lab/MaltaProj3/pull/3) merged on 2026-10-14 at 05:35:34 UTC as `dc4d4818845598885a93a0dd5031465c7cc84d38`. Final-head push/PR CI succeeded. The initial custom deployment stopped at an optional Pages-mode setting change; a permission-safe, ordered-publisher repair is in progress. Live entry point: <https://buffedlizard55-lab.github.io/MaltaProj3/>. See the chronological publication log below for verified deployment results.
+PR [#3](https://github.com/buffedlizard55-lab/MaltaProj3/pull/3) merged at 05:35:34 UTC as `dc4d4818845598885a93a0dd5031465c7cc84d38`; publication repair [#11](https://github.com/buffedlizard55-lab/MaltaProj3/pull/11) merged at 05:45:09 UTC as `63f005bc6e1ea53496c6779ce9729997f2d5faf8`. Production [38518319041](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518319041) **succeeded**, including public post-deploy verification, at **2026-10-14 05:46:22 UTC**. Live: <https://buffedlizard55-lab.github.io/MaltaProj3/>. Four-hour refresh is active. The repository’s Pages-mode restriction is published as a nonblocking review item; publisher ordering was verified.
 
 
 ---
@@ -154,7 +154,7 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 
 | Task | Status | Owner | File scope | Integration boundary |
 | --- | --- | --- | --- | --- |
-| Unify the production entry point and scheduled Pages artifact | in progress | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, legacy root HTML aliases, `.github/workflows/pages.yml`, `.github/workflows/refresh.yml`, `README.md`, `archive/root-session/`, new CI/browser configuration | Root owner records its task done in merged PR #10. Preserve original root pages/assets/data as an explicit historical archive before changing entry points. Do not edit `docs/**` pages, `scripts/build_site.py`, or the other sessions’ datasets. Their publication flags I-19/I-20 remain nonblocking review items until the combined artifact is validated. |
+| Unify the production entry point and scheduled Pages artifact | done | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, legacy root HTML aliases, `.github/workflows/pages.yml`, `.github/workflows/refresh.yml`, `README.md`, `archive/root-session/`, new CI/browser configuration | Root owner records its task done in merged PR #10. Preserve original root pages/assets/data as an explicit historical archive before changing entry points. Do not edit `docs/**` pages, `scripts/build_site.py`, or the other sessions’ datasets. Their publication flags I-19/I-20 remain nonblocking review items until the combined artifact is validated. |
 
 - The earlier integration's broad T7 `all` claim is recorded as a coordination overlap, not permission to delete or rewrite its files. Its actual implementation and merge records (#5/#8) are preserved; this integration does not alter that session's source files. Its HTML will be copied into the final artifact with an archive banner so there is one clearly designated current feed.
 - Original HTTP discovery GETs to Thunderpick returned 403; the exact public-client **POST** `/api/matches` contract with `{"gameIds":[6]}` succeeded in run [38513997412](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38513997412). Four original bookmaker pairs passed strict identity/time/market checks. This corrects the initial access limitation without hiding the failed requests.
@@ -192,3 +192,34 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - **Repair scope (same session/branch):** replace the optional setting-change blocker with `scripts/publication.py`, add explicit `actions: read`, wait for the same commit's platform legacy publisher to complete, then attempt Actions mode. A restricted change is recorded with actual response status/error and read-back mode in public evidence and review flags; the canonical artifact can still deploy last. A running/unverifiable competing publisher remains a blocker. No credentials are logged or persisted.
 - **Additional regression coverage:** eight publication tests exercise existing Actions mode, pending legacy build completion, restricted settings with visible flag and redacted token, timeout preserving original data, unknown mode, failed metadata reads, delayed platform-run discovery, and setting-change network failure with verified readback. Total: **48 Python tests**; UI coverage remains **22 browser tests**.
 - **Full outage integration simulation:** against a temporary copy of the real 88-row snapshot, forced a partial fixture overwrite followed by reconciliation failure. Original rows, source bytes, quote times, inventory observation and analysis replay clock were all retained; all rows/calculations and 372 links still passed; the generated site showed the explicit non-current warning.
+
+
+## Completed production handoff — arena-4aae8328 (2026-10-14 05:49 UTC)
+
+**Status: DONE.** Full inventory discovery, supported external probabilities, transparent model/unresolved handling, mobile dashboard, provenance, combined-site verification, PR merge and production deployment are complete. No user approval or manual source entry is needed for the scheduled refresh.
+
+### Verified release records
+
+| Record | Verified result |
+| --- | --- |
+| Main implementation | [PR #3](https://github.com/buffedlizard55-lab/MaltaProj3/pull/3), merged `2026-10-14T05:35:34Z`; merge `dc4d4818845598885a93a0dd5031465c7cc84d38` |
+| Permission-safe publication repair | [PR #11](https://github.com/buffedlizard55-lab/MaltaProj3/pull/11), merged `2026-10-14T05:45:09Z`; merge `63f005bc6e1ea53496c6779ce9729997f2d5faf8` |
+| Repair PR and push CI | [38518200163](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518200163) and [38518197226](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518197226), both **success**: 48 Python tests, 22 browser checks, strict row/calculation replay and internal-link checks |
+| Canonical production deployment | [38518319041](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518319041), **success**; job completed `2026-10-14T05:46:22Z` |
+| Platform legacy publisher ordered before the canonical artifact | [38518319128](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518319128), completed success by `2026-10-14T05:46:02Z`; the canonical deployment and public verification finished afterward |
+| Public verification | All five current HTML routes and the full snapshot matched this deployment’s generated timestamp/counts; every future/unknown-schedule row was present; three old `.html` URLs worked; both archived dashboards returned the required explicit archive banner |
+| Live URL | <https://buffedlizard55-lab.github.io/MaltaProj3/> |
+| Full picks | <https://buffedlizard55-lab.github.io/MaltaProj3/picks/> |
+| Source/evidence archive | <https://buffedlizard55-lab.github.io/MaltaProj3/coverage/> |
+| Published limitations | <https://buffedlizard55-lab.github.io/MaltaProj3/review/> |
+
+### Published snapshot and remaining nonblocking limitations
+
+- Production source observation **`2026-10-14T05:45:26Z`**, confirmed by the job’s `Publication snapshot` annotation: **88 total = 28 future + 60 archived; 9 market + 5 bookmaker + 8 research-model estimates; 6 unresolved; 22 directional picks, no ties in that observation**. Earlier genuine-tie observations remain historical evidence; market movement is not rewritten as a constant. Later scheduled observations can differ.
+- **Actual Pages setting restriction now confirmed:** HTTP **403**, `Resource not accessible by integration`, read-back `build_type: legacy`. This is a repository configuration permission limit, not a source-data or artifact-deployment failure. It is saved in public `data/evidence/pages-configuration.json`, displayed in source health and on Flagged for Review. The workflow waits for any same-commit legacy publisher before publishing the verified artifact last; its real successful deployment and post-deploy checks demonstrate this path works. No credential workaround or manual intervention was required.
+- The former six-hour writer is retired. `pages.yml` is the only scheduled data collector/deployer: **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**. GitHub scheduling delays/outages are not hidden; inventory failures or snapshots older than eight hours produce explicit warnings and original observation times remain intact.
+- Unavailable HLTV/other-source access, unknown best-of/current lineups, ambiguous provider names, uncalibrated Valve estimates, past-start status anomalies and the six unsupported current picks remain visibly flagged. They do not block publication or become invented values.
+- **I-19 publication gap resolved:** both earlier dashboards are actually published, with archive banners confirmed over public HTTP. **I-20 primary-site ambiguity resolved:** the reconciled, replayed `data/latest.json` dashboard is the sole current feed; root/docs historical models are not mixed into it. Other sessions’ source HTML, original assets, datasets and scripts remain unchanged; their historical boards are retained in this file.
+- All current routes have passing automated WCAG A/AA checks at phone and desktop widths, responsive width checks at 320/390/768/1440px, no-JS data visibility and one-tap phone picks/method navigation. This is not a claim of complete manual WCAG certification.
+
+This documentation-only handoff records the already verified release. Its merge can trigger another ordinary refresh; it does not claim an unobserved future run succeeded.
