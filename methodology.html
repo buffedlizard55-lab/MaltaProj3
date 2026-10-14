@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Source, probability, and verification methodology for CS2 Pick Desk.">
+  <title>Methodology — CS2 Pick Desk</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner">
+    <a class="brand" href="index.html" aria-label="CS2 Pick Desk home"><span class="brand-mark">CS2</span> Pick Desk</a>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="methodology.html" aria-current="page">Methodology</a><a href="flagged.html">Flagged for review</a>
+    </nav>
+  </div></header>
+  <main id="main">
+    <p class="eyebrow">Audit trail</p>
+    <h1>How the dashboard decides what it can publish.</h1>
+    <p class="lede">The directory is deliberately conservative. A match can be included because Hotspawn lists it, but a probability only appears after a directly reviewable external match-winner market is matched to that exact pairing.</p>
+
+    <section class="method-grid" aria-label="Process">
+      <article class="card method-card"><span class="step">1</span><h2>Collect the schedule</h2><p>The public <a href="https://play.hotspawn.com/lobby" target="_blank" rel="noopener noreferrer">Hotspawn Pick’ems lobby</a> is the coverage scope. The public <a href="https://www.hotspawn.com/matches" target="_blank" rel="noopener noreferrer">Hotspawn matches schedule</a> is used to retain explicit UTC schedule information where available.</p></article>
+      <article class="card method-card"><span class="step">2</span><h2>Check CS2 context</h2><p>HLTV match pages are used as a first context check when an exact page can be verified: event, pair, format, time, roster and available stats can be reviewed there. HLTV voting percentages are never used as a probability input.</p></article>
+      <article class="card method-card"><span class="step">3</span><h2>Capture external prices</h2><p>The first automated resolver checks the public Polymarket CS2 market feed for an exact two-team match-winner market. It then records the source URL, price timestamp and outcome names. The initial snapshot also verifies selected published <a href="https://stake.dk/en/sports" target="_blank" rel="noopener noreferrer">Stake</a> sportsbook pages.</p></article>
+      <article class="card method-card"><span class="step">4</span><h2>Publish or leave blank</h2><p>A market pick is the side with the higher recorded external win probability. If a resolver cannot match an exact market or source, probability cells stay blank, the pick says Unresolved, and the limitation moves to <a href="flagged.html">Flagged for Review</a>.</p></article>
+    </section>
+
+    <div class="section-heading"><div><p class="eyebrow">Definitions</p><h2>Verification rules</h2></div></div>
+    <dl class="definition-list">
+      <dt>Verified line</dt><dd>An exact external two-way match-winner price was recorded with a link to the originating market. “Verified” means the displayed number was present on that linked source at the shown capture time; it does not validate a future outcome.</dd>
+      <dt>Prediction-market price</dt><dd>For a two-outcome Polymarket match-winner market, the published outcome price is shown as the corresponding team’s probability. The data refresh records the market’s own update time when present.</dd>
+      <dt>Sportsbook calculation</dt><dd>For a two-way decimal-odds line, each raw implied value is <code>1 / decimal odds</code>. The two raw values are divided by their sum, then expressed as percentages. The source odds and the calculation label are kept on the match.</dd>
+      <dt>Unresolved</dt><dd>Hotspawn lists a real matchup but this site did not capture an exact independent match-winner line. No rating, head-to-head result, popularity percentage or estimated model output is substituted for it.</dd>
+      <dt>“Market pick”</dt><dd>The team with the higher recorded external market probability. It is a label for scanning the table—not betting advice, a certainty, or a claim of proprietary forecasting.</dd>
+      <dt>Refresh behavior</dt><dd>The GitHub Actions refresh job is scheduled every six hours and can also be run manually. It rechecks publicly exposed Hotspawn and Polymarket data, retains a source audit trail, and opens no account or paid feed. A failed refresh preserves the last published verified data instead of fabricating a replacement.</dd>
+    </dl>
+
+    <aside class="notice"><b aria-hidden="true">!</b><div><b>Known limitation:</b> C-tier and academy fixtures frequently have no liquid or listed external match-winner market. The project’s source rule takes priority over coverage claims: unverified values remain unfilled. See the current count and individual limitations on <a href="flagged.html">Flagged for Review</a>.</div></aside>
+  </main>
+  <footer class="footer"><div class="footer-inner">Method rules are part of the public audit record. <a href="picks.html">Return to the match list.</a></div></footer>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
