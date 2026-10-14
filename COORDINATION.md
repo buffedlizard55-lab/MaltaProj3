@@ -1,3 +1,38 @@
+# Shared coordination board
+
+Session: `arena-4aae8328` · Branch: `arena/4aae8328-maltaproj3`
+
+This session is fixed to the Arena branch above. No alternative session branches are created. The repository contained only `README.md` at initial inspection; no other task claims existed.
+
+## Tasks
+
+| Task | Status | Owner | File scope | Last update (UTC) |
+| --- | --- | --- | --- | --- |
+| Discover and verify Hotspawn CS2 match sources and external probabilities | in progress | arena-4aae8328 | `scripts/`, `tests/`, `data/`, `docs/` | 2026-10-14 |
+| Mobile-first dashboard, picks, coverage, methodology, review pages | in progress | arena-4aae8328 | `index.html`, `picks/`, `coverage/`, `methodology/`, `review/`, `assets/` | 2026-10-14 |
+| Automation, integration, validation and GitHub Pages publication | in progress | arena-4aae8328 (final integration) | `.github/`, `README.md`, `.gitignore`, dependency/configuration files, `COORDINATION.md` | 2026-10-14 |
+
+All scopes are claimed by this session and are non-overlapping. Other sessions must log requests here rather than editing claimed files. Unverified source data and unresolved matches are publication warnings, not hidden omissions or invented probabilities. Broken builds are blockers.
+
+## Activity and handoffs
+
+- 2026-10-14: Inspected repository and remote; only the 12-byte README existed. Claimed the tasks above before implementation. No existing source data, application, automation or featured-pick method was present to preserve.
+
+## Verification and sources
+
+Pending source discovery. Target match authority: <https://play.hotspawn.com/lobby>. External prices and HLTV research must carry original source URLs, timestamps and evidence. Hotspawn participation/popularity is never a probability input.
+
+## Publication
+
+Pull request, merge, build/deploy results and live URL will be recorded here after verification.
+
+
+---
+
+## Preserved concurrent-session boards from main
+
+The following records are preserved from main during integration. Their branch constraints describe their own sessions, not a change to this session’s fixed branch.
+
 # Coordination Board
 
 > **Repository session constraint:** Arena requires all work in this session to remain on
@@ -99,3 +134,8 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - PR #5 — `arena/83207e7b-maltaproj3` → `main`. Merged 2026-10-14 04:52:31 UTC, merge commit `cf49606`. Merge conflicts with `main` (another session's site) were resolved non-destructively (see C-1). Merge executed without waiting for approval; flagged items do not block merge.
 - Pages check: the "Deploy GitHub Pages" workflow succeeded on `cf49606` (run completed success 04:52:34 UTC). The live root site loads its data (`data/matches.json`, `data/review.json`). `docs/` is not in the artifact (I-19), so its pages are not live.
 - PR #8 records the above in this board (no change to site content).
+
+
+## Rebase conflict log — arena-4aae8328
+
+- 2026-10-14 05:07 UTC: `git rebase origin/main` found an add/add conflict in `COORDINATION.md`: concurrent sessions had each created a board from the empty baseline. Both boards are preserved in full. No task records or published review flags were discarded. This session continues only on `arena/4aae8328-maltaproj3`.
