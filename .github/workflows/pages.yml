@@ -1,39 +1,81 @@
-name: Deploy GitHub Pages
-
+name: Refresh and deploy CS2 dashboard
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 */4 * * *'
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
+  # The same group covers pushes and scheduled refreshes: no competing publishers.
   group: pages
   cancel-in-progress: false
-
 jobs:
   verify-and-deploy:
     if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - name: Verify published files and source records
-        run: node scripts/verify-site.mjs
-      - name: Assemble static artifact
-        run: |
-          mkdir -p _site/assets _site/data
-          cp index.html picks.html methodology.html flagged.html _site/
-          cp -R assets/. _site/assets/
-          cp -R data/. _site/data/
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          path: _site
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Restore last successfully verified public snapshot
+        id: restore
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            data/latest.json
+            data/sources.json
+            data/evidence/
+          key: cs2-verified-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: cs2-verified-v1-
+      - name: Regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Refresh all Hotspawn CS2 records and supported external lines
+        run: python -m scripts.collect
+      - name: Reconcile every row, replay every probability and build linked pages
+        run: python -m scripts.build
+      - name: Inspect source freshness for cache eligibility
+        id: snapshot
+        run: |
+          python - <<'PY'
+          import json, os
+          d = json.load(open('data/latest.json'))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('inventory_ok=' + str(d['coverage_complete']).lower() + '\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write('## Public-source CS2 snapshot\n\n')
+              f.write('Inventory observed: ' + str(d['inventory_observed_at']) + '\n\n')
+              f.write('Counts: `' + json.dumps(d['counts']) + '`\n\n')
+              f.write('State: ' + d['run_status'] + '. Source limitations and unresolved picks are published on the review page.\n')
+          PY
+      - name: Preserve verified evidence for a future source outage
+        if: steps.snapshot.outputs.inventory_ok == 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            data/latest.json
+            data/sources.json
+            data/evidence/
+          key: ${{ steps.restore.outputs.cache-primary-key }}
+      - name: Make Actions the only Pages publisher
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api --method PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+      - name: Verify the public site, its complete data and category pages
+        run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'

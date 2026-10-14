@@ -1,0 +1,29 @@
+{
+  "name": "hotspawn-cs2-scout",
+  "version": "1.0.0",
+  "description": "Verified Hotspawn CS2 inventory and independently sourced probability dashboard",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:unit": ".venv/bin/python -m unittest discover -s tests -v",
+    "build": ".venv/bin/python -m scripts.build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buffedlizard55-lab/MaltaProj3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/issues"
+  },
+  "homepage": "https://github.com/buffedlizard55-lab/MaltaProj3#readme",
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
+    "@sparticuz/chromium": "153.0.0"
+  },
+  "private": true,
+  "type": "module"
+}

@@ -1,0 +1,153 @@
+"""Reconcile every published row to original source evidence and replay its math."""
+from __future__ import annotations
+
+import argparse
+import base64
+import hashlib
+import json
+from pathlib import Path
+from urllib.parse import urlparse, unquote
+
+from bs4 import BeautifulSoup
+
+from scripts.collect import counts, normalize_fixture
+from scripts.domain import (array, consensus, iso, market_analysis, parse_valve_table,
+                            polymarket_candidate, selection, sportsbook_quote,
+                            timestamp, valve_analysis)
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def load(path: Path):
+    return json.loads(path.read_text())
+
+
+def check_data(root: Path):
+    data = load(root / 'latest.json')
+    require(data.get('schema_version') == 1, 'Unsupported data schema')
+    # Retained historical analyses replay at their original successful run time,
+    # not the time of a newer FAILED inventory attempt.
+    now = timestamp(data.get('analysis_as_of', data['last_attempted_at']))
+    require(now is not None, 'Missing attempt timestamp')
+    require(data['counts'] == counts(data['matches']), 'Summary counts do not reconcile to rows')
+    rows = data['matches']
+    require(len({m['id'] for m in rows}) == len(rows), 'Duplicate fixture ID')
+    evidence = root / 'evidence'
+    if not data['coverage_complete'] and not rows:
+        require(any(f['id'] == 'inventory-failed' for f in data['flags']), 'Empty unverified inventory must have a visible failure flag')
+        return data
+    raw = load(evidence / 'hotspawn-fixtures.json')
+    context = load(evidence / 'hotspawn-context.json')
+    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
+    raw = {str(r['id']): r for r in raw if r.get('sport_alias') == 'cs2'}
+    require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
+    require(set(raw) == set(context['api_ids']) == set(context['lobby_ids']) == set(context['cs2_ids']), 'Official inventories were not reconciled')
+    fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api', 'lobby_url', 'availability', 'evidence']
+    require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
+    attempts = {r['id']: r for r in data.get('requests', [])}
+    valve_rows = None
+    for m in rows:
+        expected = normalize_fixture(raw[m['id']], context['permalinks'], data['inventory_observed_at'], now)
+        for key in fact_keys:
+            require(m[key] == expected[key], f'{m["id"]}: {key} does not equal the official observation')
+        for key in ['source_url', 'source_api']:
+            url = urlparse(m[key])
+            require(url.scheme == 'https' and url.netloc in {'play.hotspawn.com', 'www.hotspawn.com', 'phpstack-1372681-6459848.cloudwaysapps.com'}, f'{m["id"]}: nonofficial match source')
+        require(timestamp(m['observed_at']) is not None, f'{m["id"]}: missing observation time')
+        a = m['analysis']
+        if a is None:
+            require(m['pick_index'] is None, f'{m["id"]}: pick invented without probability evidence')
+            continue
+        require(m['availability'] != 'past', f'{m["id"]}: retrospective prematch price manufactured')
+        require(len(a['probabilities']) == 2 and all(isinstance(p, (float, int)) and 0 < p < 1 for p in a['probabilities']), f'{m["id"]}: invalid probability')
+        require(abs(sum(a['probabilities']) - 1) < 1e-7, f'{m["id"]}: probabilities do not sum to 100%')
+        require(m['pick_index'] == selection(a), f'{m["id"]}: wrong favorite / arbitrary equal-probability pick')
+        if a['method'] == 'market':
+            event_id = a['event_id']
+            event = load(evidence / f'polymarket-event-{event_id}.json')
+            market, reason = polymarket_candidate(event, m, now)
+            require(market is not None, f'{m["id"]}: {reason}')
+            books = [load(evidence / f'polymarket-book-{event_id}-{i}.json') for i in [0, 1]]
+            replay = market_analysis(event, market, books, m, now, a['observed_at'])
+            require(attempts[f'polymarket-book-{event_id}-1']['observed_at'] == a['observed_at'], f'{m["id"]}: quote timestamp restamped')
+            index = load(evidence / 'polymarket-index.json')
+            require(any(str(g['id']) == event_id for g in index), f'{m["id"]}: event was not discovered from the official CS2 directory')
+        elif a['method'] == 'model':
+            if valve_rows is None:
+                source = load(evidence / 'valve-standings-response.json')
+                content = base64.b64decode(source['content'])
+                git_sha = hashlib.sha1(b'blob ' + str(len(content)).encode() + b'\0' + content).hexdigest()
+                require(git_sha == source['sha'], 'Valve evidence fails Git blob integrity verification')
+                saved = load(evidence / 'valve-ratings.json')
+                valve_rows = parse_valve_table(content.decode('utf-8'), source['html_url'], saved['snapshot_date'])
+                require(valve_rows == saved['rows'], 'Valve rating records do not match original official markdown')
+            replay, reason = valve_analysis(m, valve_rows, now, a['observed_at'])
+            require(replay is not None, f'{m["id"]}: {reason}')
+            require(a['inputs'] == replay['inputs'], f'{m["id"]}: model inputs are not exact official records')
+            if data.get('analysis_as_of'):
+                require(a['observed_at'] == attempts['valve-standings-response']['observed_at'], f'{m["id"]}: rating observation timestamp restamped')
+            require(any(r['stage'] == 'HLTV research' for r in m['research']) and any(r['stage'] == 'Original esportsbook lines' for r in m['research']), f'{m["id"]}: fallback sequence was not attempted')
+            require(not any(r['status'] == 'resolved' and r['stage'].startswith('Primary') for r in m['research']), f'{m["id"]}: fallback overwrote primary pick')
+        elif a['method'] == 'bookmaker':
+            body = load(evidence / 'thunderpick-matches.json')['data']
+            source_rows = body.get('upcoming', body.get('matches', []))
+            qs = [sportsbook_quote(r, m, a['observed_at'], now) for r in source_rows]
+            accepted = [q for q in qs if q]
+            require(len(accepted) == 1, f'{m["id"]}: ambiguous original bookmaker events')
+            request = attempts['thunderpick-matches']
+            require(request.get('status') == 'ok' and request.get('url') == a['source_url'], 'Bookmaker source URL is not the actual successful request')
+            require(request['observed_at'] == a['observed_at'], f'{m["id"]}: bookmaker observation timestamp restamped')
+            require(request['method'] == 'POST' and request.get('request_body') == {'gameIds': [6]}, 'Original bookmaker POST query was not recorded')
+            replay = consensus(accepted, now)
+            require(replay is not None and replay['quotes'] == a['quotes'], f'{m["id"]}: bookmaker source evidence invalid')
+        else:
+            raise ValueError(f'{m["id"]}: unsupported analysis method')
+        for key in ['probabilities', 'fair_decimal', 'source_url']:
+            require(a[key] == replay[key], f'{m["id"]}: {key} calculation/provenance does not replay')
+    for f in data['flags']:
+        require(f['source_urls'], f'Flag without original source: {f["id"]}')
+        require(set(f['match_ids']) <= set(raw), f'Flag references nonexistent fixture: {f["id"]}')
+    for m in rows:
+        if m['availability'] in {'open', 'locked', 'unknown_lock'} and m['analysis'] is None:
+            require(any(m['id'] in f['match_ids'] for f in data['flags']), f'{m["id"]}: unresolved row is hidden from review')
+    print(f'PASS: {len(rows)} source rows reconciled; every published probability and pick replayed from first-party evidence.')
+    return data
+
+
+def check_links(site: Path):
+    checked = 0
+    for path in site.rglob('*.html'):
+        soup = BeautifulSoup(path.read_text(), 'html.parser')
+        require(soup.find('main') is not None, f'{path}: no main landmark')
+        require(soup.find('meta', attrs={'name': 'viewport'}) is not None, f'{path}: missing mobile viewport')
+        for el in soup.select('[href], [src]'):
+            value = el.get('href') if el.has_attr('href') else el.get('src')
+            url = urlparse(value)
+            if url.scheme or url.netloc:
+                require(url.scheme in {'https', 'mailto', 'data'}, f'{path}: unsafe external URL {value}')
+                continue
+            require(not url.path.startswith('/'), f'{path}: root-relative link breaks project Pages paths: {value}')
+            target = (path.parent / unquote(url.path)).resolve() if url.path else path.resolve()
+            if target.is_dir():
+                target /= 'index.html'
+            require(target.is_file(), f'{path}: broken local link {value}')
+            require(target.is_relative_to(site.resolve()), f'{path}: link escapes output directory')
+            if url.fragment and target.suffix == '.html':
+                dest = BeautifulSoup(target.read_text(), 'html.parser')
+                require(dest.find(id=unquote(url.fragment)) is not None, f'{path}: missing anchor {value}')
+            checked += 1
+    require(checked > 0, 'No generated pages/links validated')
+    print(f'PASS: {checked} internal links/assets/anchors; project-subpath routing and mobile landmarks checked.')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--data', type=Path, default=Path('data'))
+    parser.add_argument('--site', type=Path)
+    args = parser.parse_args()
+    check_data(args.data)
+    if args.site:
+        check_links(args.site)

@@ -1,0 +1,39 @@
+name: Public source diagnostics
+on:
+  push:
+    branches: [arena/4aae8328-maltaproj3]
+    paths: ['scripts/discover_sources.py', '.github/workflows/source-diagnostics.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect public source responses
+        env:
+          SOURCE_STAGE: contracts
+        run: python scripts/discover_sources.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-source-diagnostics
+          path: .cache/discovery/
+          retention-days: 3
+      - name: Export temporary public diagnostics to session branch
+        if: github.ref == 'refs/heads/arena/4aae8328-maltaproj3'
+        run: |
+          mkdir -p docs/research
+          tar -czf docs/research/source-diagnostics.tar.gz -C .cache discovery
+          cp .cache/discovery/report.json docs/research/source-diagnostics.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/
+          git diff --cached --quiet && exit 0
+          git commit -m 'chore: export temporary public-source diagnostic evidence'
+          git pull --rebase origin arena/4aae8328-maltaproj3
+          git push origin arena/4aae8328-maltaproj3

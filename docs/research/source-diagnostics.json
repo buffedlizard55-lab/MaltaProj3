@@ -1,0 +1,82 @@
+[
+  {
+    "url": "https://play.hotspawn.com/chunk-KNRGAKZR.js",
+    "label": "hotspawn-fixtures-client",
+    "observed_at": "2026-10-14T05:10:47.470963+00:00",
+    "status": 200,
+    "content_type": "text/javascript; charset=utf-8",
+    "final_url": "https://play.hotspawn.com/chunk-KNRGAKZR.js",
+    "date": "Wed, 14 Oct 2026 05:10:47 GMT",
+    "sha256": "00a4ea1e8ac458588e49d6a4542ef8335a4b00e109def0a6af2a2c52c932b26a",
+    "bytes": 11915
+  },
+  {
+    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "label": "hotspawn-fixtures-api",
+    "observed_at": "2026-10-14T05:10:48.924514+00:00",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "date": "Wed, 14 Oct 2026 05:10:49 GMT",
+    "sha256": "c0d694b38a01374ca2e9337177d227549f105a47f76202f3bd10b58fbf3b629a",
+    "bytes": 70061
+  },
+  {
+    "url": "https://gamma-api.polymarket.com/tags/slug/cs2",
+    "label": "polymarket-cs2-tag",
+    "observed_at": "2026-10-14T05:10:50.643627+00:00",
+    "status": 200,
+    "content_type": "application/json",
+    "final_url": "https://gamma-api.polymarket.com/tags/slug/cs2",
+    "date": "Wed, 14 Oct 2026 05:10:50 GMT",
+    "sha256": "ba079da11ba1f4958bd14eb7de0e6cfe7fcd4b51558b26bd536166add11fba05",
+    "bytes": 225
+  },
+  {
+    "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
+    "label": "polymarket-cs2-events",
+    "observed_at": "2026-10-14T05:10:51.862311+00:00",
+    "status": 200,
+    "content_type": "application/json",
+    "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
+    "date": "Wed, 14 Oct 2026 05:10:51 GMT",
+    "sha256": "c42850ff83704352d20cfe99c6e780cfdb3d6c516b119b41337863ea716b4b25",
+    "bytes": 609462
+  },
+  {
+    "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=100",
+    "label": "polymarket-cs2-events-page-2",
+    "observed_at": "2026-10-14T05:10:53.015985+00:00",
+    "status": 200,
+    "content_type": "application/json",
+    "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=100",
+    "date": "Wed, 14 Oct 2026 05:10:53 GMT",
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "bytes": 3
+  },
+  {
+    "url": "https://thunderpick.io/api/matches?gameIds=6",
+    "label": "thunderpick-api",
+    "observed_at": "2026-10-14T05:10:54.229445+00:00",
+    "status": 403,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+    "label": "ggbet-cs2",
+    "observed_at": "2026-10-14T05:10:55.287628+00:00",
+    "status": 403,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://www.rivalry.com/esports/counter-strike-betting",
+    "label": "rivalry-cs2",
+    "observed_at": "2026-10-14T05:10:56.412498+00:00",
+    "status": 200,
+    "content_type": "text/html;charset=utf-8",
+    "final_url": "https://www.rivalry.com/",
+    "date": "Wed, 14 Oct 2026 05:10:56 GMT",
+    "sha256": "2c7fe9efeda1fd250acce257055d8b581173998c8caa7325977e30be2a2251c3",
+    "bytes": 61219
+  }
+]

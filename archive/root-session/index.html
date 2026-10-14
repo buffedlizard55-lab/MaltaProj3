@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A mobile-first, source-linked CS2 Pick'ems dashboard for the public Hotspawn lobby.">
+  <title>CS2 Pick Desk — Executive Summary</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner">
+    <a class="brand" href="index.html" aria-label="CS2 Pick Desk home"><span class="brand-mark">CS2</span> Pick Desk</a>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a href="index.html" aria-current="page">Summary</a><a href="picks.html">All picks</a><a href="methodology.html">Methodology</a><a href="flagged.html">Flagged for review</a>
+    </nav>
+  </div></header>
+  <main id="main">
+    <p class="eyebrow">CS2 · public-source dashboard</p>
+    <h1>Every listed match, with the evidence visible.</h1>
+    <p class="lede">A concise view of the public Hotspawn Pick’ems schedule and independently sourced match-winner market lines. Market prices are never taken from Hotspawn pick percentages.</p>
+
+    <section class="card summary-banner" aria-labelledby="summary-title">
+      <div class="summary-copy">
+        <h2 id="summary-title">Executive summary</h2>
+        <p>Start with <a href="picks.html">All picks</a> for the full, filterable match list. Each row links back to the official Hotspawn listing; each populated probability also links to the external market page used.</p>
+        <div class="stat-grid" aria-label="Coverage counts">
+          <div class="stat"><strong data-total>—</strong><span>Hotspawn Pick’ems matches in this snapshot</span></div>
+          <div class="stat"><strong data-lines>—</strong><span>matches with a verified external line</span></div>
+          <div class="stat"><strong data-unresolved>—</strong><span>unresolved — no percentage invented</span></div>
+        </div>
+        <div class="action-row"><a class="button" href="picks.html">Open all picks</a><a class="button secondary" href="picks.html?status=unresolved">View unresolved picks</a></div>
+        <p class="summary-asof"><strong>Snapshot:</strong> <span data-asof>Loading…</span> · automated refresh target: every <span data-refresh-hours>6</span> hours.</p>
+      </div>
+      <div class="summary-side" aria-label="Coverage status"><p>External line coverage</p><strong><span data-lines>—</span>/<span data-total>—</span></strong><span>verified market lines at capture</span></div>
+    </section>
+
+    <aside class="notice"><b aria-hidden="true">!</b><div><b>Important limitation:</b> A “Market pick” is simply the side with the higher independently captured match-winner probability. It is not a guarantee, a personal recommendation, or a replacement for checking current lines. When no source confirms a line, this site leaves the probability and pick blank and publishes it on the <a href="flagged.html">Flagged for Review</a> page.</div></aside>
+
+    <div class="section-heading"><div><p class="eyebrow">Quick view</p><h2>Verified external-market picks</h2></div><p><a href="picks.html">Full list & filters →</a></p></div>
+    <section id="featured-picks" class="match-list" data-loading aria-live="polite"><p class="loading">Loading published match data…</p></section>
+  </main>
+  <footer class="footer"><div class="footer-inner">Sources are linked at row level. <a href="methodology.html">Read the source and verification rules</a> before relying on a market snapshot.</div></footer>
+  <script src="assets/app.js?v=20261014-2" defer></script>
+</body>
+</html>
