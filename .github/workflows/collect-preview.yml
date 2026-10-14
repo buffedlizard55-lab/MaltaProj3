@@ -1,0 +1,36 @@
+name: Verify live source coverage
+on:
+  push:
+    branches: [arena/4aae8328-maltaproj3]
+    paths: ['scripts/collect.py', 'scripts/domain.py', 'scripts/sources.py', 'scripts/validate.py', 'requirements.txt', '.github/workflows/collect-preview.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: session-source-collection
+  cancel-in-progress: false
+jobs:
+  collect:
+    if: github.ref == 'refs/heads/arena/4aae8328-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect first-party sources without credentials or challenge bypasses
+        run: python -m scripts.collect
+      - name: Replay every published row and calculation
+        run: python -m scripts.validate
+      - name: Export verified snapshot to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/
+          git diff --cached --quiet && exit 0
+          git commit -m 'data: verified complete CS2 inventory and auditable probability snapshot'
+          git pull --rebase origin arena/4aae8328-maltaproj3
+          git push origin arena/4aae8328-maltaproj3

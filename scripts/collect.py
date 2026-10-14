@@ -1,0 +1,254 @@
+"""Collect the entire public Hotspawn CS2 inventory and resolve supported picks.
+
+Run: python -m scripts.collect [--output data]
+Source failures are published as coverage limitations, never invented values.
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+import json
+import re
+from datetime import datetime, timezone
+from pathlib import Path
+
+from bs4 import BeautifulSoup
+
+from scripts.domain import (identity_matches, iso, market_analysis, polymarket_candidate,
+                            selection, sportsbook_quote, consensus, timestamp, valve_analysis)
+from scripts.sources import (Client, SourceError, LOBBY, CS2_LOBBY, FIXTURES_API,
+                             POLY_INDEX, HLTV, hotspawn, poly_index, hltv_research,
+                             thunderpick, book_page_check, valve_ratings)
+
+
+BOOK_PAGES = [
+    ('https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike', 'ggbet-cs2', 'GG.BET esportsbook'),
+    ('https://www.pinnacle.com/en/esports-hub/cs2', 'pinnacle-cs2', 'Pinnacle esportsbook'),
+    ('https://www.rivalry.com/esports/counter-strike-betting', 'rivalry-cs2', 'Rivalry esportsbook'),
+]
+
+
+def failed(name, url, exc, now):
+    return {'name': name, 'url': url, 'status': 'unavailable', 'observed_at': iso(now), 'records': None, 'detail': str(exc)}
+
+
+def normalize_fixture(raw, links, observed_at, now):
+    start, lock = timestamp(raw.get('scheduled_start_time')), timestamp(raw.get('lock_time'))
+    fixture_id = str(raw['id'])
+    availability = 'unknown'
+    if start:
+        availability = 'past' if start <= now else ('unknown_lock' if not lock else ('locked' if lock <= now else 'open'))
+    permalink = links.get(fixture_id)
+    if not isinstance(permalink, str) or not permalink.startswith('https://www.hotspawn.com/matches/'):
+        permalink = None
+    return {
+        'id': fixture_id, 'teams': [{'id': str(raw[f'participants{i}_id']) if raw.get(f'participants{i}_id') is not None else None, 'name': raw.get(f'participants{i}_name')} for i in [0, 1]],
+        'competition': raw.get('competition_name'), 'competition_id': raw.get('competition_id'),
+        'starts_at': iso(start) if start else None, 'locks_at': iso(lock) if lock else None,
+        'source_status': raw.get('status'), 'source_end_at': iso(timestamp(raw.get('end_time'))) if timestamp(raw.get('end_time')) else None,
+        'best_of': raw.get('best_of'), 'series_format': raw.get('series_format'), 'tier': raw.get('tier'),
+        'lock_offset_sec': raw.get('lock_offset_sec'), 'availability': availability,
+        'observed_at': observed_at, 'source_url': permalink or (f'{CS2_LOBBY}#fixture-{fixture_id}' if availability != 'past' else FIXTURES_API),
+        'lobby_url': f'{CS2_LOBBY}#fixture-{fixture_id}' if availability != 'past' else CS2_LOBBY,
+        'source_api': FIXTURES_API, 'evidence': 'data/evidence/hotspawn-fixtures.json',
+        'analysis': None, 'pick_index': None, 'research': [], 'limitations': [],
+    }
+
+
+def counts(matches):
+    upcoming = [m for m in matches if m['availability'] in {'open', 'locked', 'unknown_lock'}]
+    return {
+        'inventory': len(matches), 'upcoming': len(upcoming),
+        'archived': sum(m['availability'] == 'past' for m in matches),
+        'unknown_schedule': sum(m['availability'] == 'unknown' for m in matches),
+        'market': sum(bool(m['analysis']) and m['analysis']['method'] == 'market' for m in upcoming),
+        'bookmaker': sum(bool(m['analysis']) and m['analysis']['method'] == 'bookmaker' for m in upcoming),
+        'model': sum(bool(m['analysis']) and m['analysis']['method'] == 'model' for m in upcoming),
+        'unresolved': sum(m['analysis'] is None for m in upcoming),
+        'picks': sum(m['pick_index'] is not None for m in upcoming),
+        'no_edge': sum(m['analysis'] is not None and m['pick_index'] is None for m in upcoming),
+    }
+
+
+def flag(key, title, detail, urls, ids=None, severity='warning'):
+    return {'id': key, 'title': title, 'detail': detail, 'source_urls': urls, 'match_ids': ids or [], 'severity': severity}
+
+
+def collect(output: Path):
+    now = datetime.now(timezone.utc)
+    output.mkdir(parents=True, exist_ok=True)
+    client = Client(output)
+    health, flags = [], []
+    try:
+        raw, links, inventory = hotspawn(client)
+        health.append(inventory)
+    except (SourceError, ValueError, KeyError) as exc:
+        health.append(failed('Hotspawn match inventory', LOBBY, exc, now))
+        prior = output / 'latest.json'
+        snapshot = json.loads(prior.read_text()) if prior.exists() else {'schema_version': 1, 'matches': [], 'inventory_observed_at': None, 'flags': []}
+        snapshot.update(generated_at=iso(now), last_attempted_at=iso(now), coverage_complete=False, run_status='degraded', sources=health, requests=client.manifest)
+        snapshot['flags'] = [f for f in snapshot.get('flags', []) if f['id'] != 'inventory-failed'] + [flag('inventory-failed', 'Hotspawn refresh failed — current coverage unverified', f'{exc}. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='critical')]
+        snapshot['counts'] = counts(snapshot['matches'])
+        write_snapshot(output, snapshot)
+        print('WARNING: Hotspawn inventory unavailable; retained last-known data without changing its source timestamps.')
+        return snapshot
+
+    observed = inventory['observed_at']
+    matches = [normalize_fixture(r, links, observed, now) for r in raw]
+    matches.sort(key=lambda m: (m['starts_at'] or '9999', m['id']))
+    active = [m for m in matches if m['availability'] in {'open', 'locked', 'unknown_lock'}]
+    for m in matches:
+        if m['availability'] == 'past':
+            m['limitations'].append('Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.')
+        if m['starts_at'] is None:
+            m['limitations'].append('Scheduled start is unverified; no match identity/time join is permitted.')
+        if m['best_of'] is None:
+            m['limitations'].append('Hotspawn best-of format is unverified; left blank.')
+        if not all(t['name'] and t['id'] for t in m['teams']):
+            m['limitations'].append('Team identity is incomplete; no pick generated.')
+
+    games = []
+    try:
+        games, h = poly_index(client)
+        health.append(h)
+    except (SourceError, ValueError, KeyError) as exc:
+        health.append(failed('Polymarket CS2', POLY_INDEX, exc, now))
+    for m in active:
+        if not all(t['name'] and t['id'] for t in m['teams']):
+            continue
+        stage = {'stage': 'Primary: Polymarket', 'source_url': POLY_INDEX, 'status': 'unresolved', 'detail': ''}
+        m['research'].append(stage)
+        found = [g for g in games if identity_matches([g.get('homeName', ''), g.get('awayName', '')], g.get('startTime'), m) and g.get('isLive') is False]
+        if len(found) != 1:
+            stage['detail'] = ('Source unavailable; no absence-of-market claim is made.' if not games else 'No unique exact-name, exact-start-time fixture. Sponsor/abbreviated names are not silently aliased.')
+            continue
+        game = found[0]
+        try:
+            event, event_req = client.json('https://gamma-api.polymarket.com/events/' + str(game['id']), 'polymarket-event-' + str(game['id']))
+            stage['source_url'] = 'https://polymarket.com/event/' + event['slug']
+            market, reason = polymarket_candidate(event, m, now)
+            if market is None:
+                stage['detail'] = reason
+                continue
+            from scripts.domain import array
+            books = []
+            for i, token in enumerate(array(market['clobTokenIds'])):
+                book, req = client.json('https://clob.polymarket.com/book?token_id=' + str(token), f'polymarket-book-{game["id"]}-{i}')
+                books.append(book)
+            analysis = market_analysis(event, market, books, m, now, req['observed_at'])
+            m.update(analysis=analysis, pick_index=selection(analysis))
+            stage.update(status='resolved', detail='Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes.')
+        except (SourceError, ValueError, KeyError, TypeError) as exc:
+            stage['detail'] = str(exc)
+
+    missing = [m for m in active if m['analysis'] is None]
+    if missing:
+        # Research is deliberately restricted to matches the primary method did not resolve.
+        try:
+            research, h = hltv_research(client, missing)
+            health.append(h)
+            for m in missing:
+                found = [r for r in research if identity_matches(r['teams'], r['starts_at'], m)]
+                m['research'].append({'stage': 'HLTV research', 'source_url': found[0]['source_url'] if len(found) == 1 else HLTV, 'status': 'checked', 'detail': 'Match identity found; no original bookmaker price verified.' if len(found) == 1 else 'No unique structured HLTV identity confirmed.'})
+        except (SourceError, ValueError) as exc:
+            health.append(failed('HLTV fallback research', HLTV, exc, now))
+            for m in missing:
+                m['research'].append({'stage': 'HLTV research', 'source_url': HLTV, 'status': 'unavailable', 'detail': str(exc)})
+
+        book_rows = []
+        book_observed = iso(now)
+        try:
+            book_rows, h = thunderpick(client)
+            book_observed = h['observed_at']
+            health.append(h)
+        except (SourceError, ValueError) as exc:
+            health.append(failed('Thunderpick esportsbook', 'https://thunderpick.io/esports/counter-strike', exc, now))
+        for m in missing:
+            qs = []
+            for row in book_rows:
+                try:
+                    q = sportsbook_quote(row, m, book_observed, now)
+                    if q:
+                        qs.append(q)
+                except (ValueError, KeyError, TypeError):
+                    continue
+            # More than one exact event is ambiguous, not independent confirmation.
+            analysis = consensus(qs, now) if len(qs) == 1 else None
+            if analysis:
+                m.update(analysis=analysis, pick_index=selection(analysis))
+            m['research'].append({'stage': 'Original esportsbook lines', 'source_url': 'https://thunderpick.io/esports/counter-strike', 'status': 'resolved' if analysis else 'unresolved', 'detail': 'Verified paired prematch series prices; proportional margin removal.' if analysis else 'No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.'})
+
+        if any(m['analysis'] is None for m in missing):
+            for url, label, title in BOOK_PAGES:
+                try:
+                    health.append(book_page_check(client, url, label, title))
+                except (SourceError, ValueError) as exc:
+                    health.append(failed(title, url, exc, now))
+            ratings = []
+            try:
+                ratings, h = valve_ratings(client, now)
+                health.append(h)
+            except (SourceError, ValueError, KeyError, TypeError) as exc:
+                health.append(failed('Valve official rating fallback', 'https://github.com/ValveSoftware/counter-strike_regional_standings', exc, now))
+            for m in missing:
+                if m['analysis'] is not None:
+                    continue
+                analysis, reason = valve_analysis(m, ratings, now, iso(now)) if ratings else (None, 'Official Valve ratings unavailable')
+                if analysis:
+                    m.update(analysis=analysis, pick_index=selection(analysis))
+                m['research'].append({'stage': 'Valve research model', 'source_url': analysis['source_url'] if analysis else 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'status': 'resolved' if analysis else 'unresolved', 'detail': 'Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.' if analysis else reason})
+                if analysis is None:
+                    m['limitations'].append(reason)
+
+    past = [m['id'] for m in matches if m['availability'] == 'past' and m['source_status'] == 'scheduled']
+    if past:
+        flags.append(flag('past-scheduled', 'Past-start records still marked scheduled', f'{len(past)} source records have past scheduled starts but are still labeled scheduled. They are retained in the source archive, not presented as playable matches or verified results.', [FIXTURES_API, LOBBY], past))
+    unformatted = [m['id'] for m in matches if m['best_of'] is None]
+    if unformatted:
+        flags.append(flag('missing-format', 'Hotspawn series format is unverified', f'{len(unformatted)} fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.', [FIXTURES_API], unformatted))
+    try:
+        rules, req = client.fetch('https://play.hotspawn.com/how-it-works', 'hotspawn-rules')
+        text = BeautifulSoup(rules, 'html.parser').get_text(' ', strip=True)
+        found = re.search(r'picks lock\s+(\d+)\s+minutes before', text, re.I)
+        client.save('hotspawn-rules', {'url': req['url'], 'observed_at': req['observed_at'], 'confirmed_lock_minutes': int(found.group(1)) if found else None, 'text': text})
+        if found:
+            minutes = int(found.group(1))
+            different = [m['id'] for m in matches if m['lock_offset_sec'] is not None and m['lock_offset_sec'] != minutes * 60]
+            if different:
+                flags.append(flag('lock-policy', 'Published lock rule differs from fixture data', f'Help page says {minutes} minutes before start; {len(different)} fixture lock offsets differ. Explicit per-fixture lock timestamps take precedence on this dashboard. Submit in Hotspawn before its countdown expires.', [req['url'], FIXTURES_API], different))
+    except SourceError as exc:
+        flags.append(flag('rules-unavailable', 'Help-page rule could not be refreshed', str(exc), ['https://play.hotspawn.com/how-it-works']))
+    for h in health:
+        if h['status'] != 'ok':
+            flags.append(flag('source-' + re.sub(r'[^a-z0-9]+', '-', h['name'].lower()).strip('-'), h['name'] + ': source limitation', h['detail'] + ' No unsupported prices or statistics are substituted.', [h['url']]))
+    modeled = [m['id'] for m in active if m['analysis'] and m['analysis']['method'] == 'model']
+    if modeled:
+        flags.append(flag('model-limitations', 'Research estimates are not verified betting odds', f'{len(modeled)} matches use published Valve rating inputs after the primary method and fallback book checks did not resolve them. The estimates are uncalibrated; current lineups, stand-ins and map vetoes are unverified. They do not replace or modify primary market picks.', ['https://github.com/ValveSoftware/counter-strike_regional_standings', 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js'], modeled, 'notice'))
+    unresolved = [m for m in active if m['analysis'] is None]
+    for m in unresolved:
+        flags.append(flag('unresolved-' + m['id'], 'Unresolved: ' + ' vs '.join(t['name'] or 'Unverified team' for t in m['teams']), '; '.join(m['limitations'] + [r['detail'] for r in m['research'] if r['status'] != 'resolved']), [m['source_url']] + [r['source_url'] for r in m['research']], [m['id']]))
+    snapshot = {
+        'schema_version': 1, 'generated_at': iso(datetime.now(timezone.utc)), 'last_attempted_at': iso(now),
+        'inventory_observed_at': observed, 'coverage_complete': True,
+        'run_status': 'complete' if not unresolved else 'partial-picks',
+        'refresh_interval_hours': 4, 'stale_after_hours': 8,
+        'counts': counts(matches), 'matches': matches, 'sources': health, 'flags': flags, 'requests': client.manifest,
+        'inventory_definition': 'Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.',
+    }
+    write_snapshot(output, snapshot)
+    print(json.dumps({'status': snapshot['run_status'], 'counts': snapshot['counts'], 'sources': [{k: h[k] for k in ['name', 'status']} for h in health]}, indent=2))
+    return snapshot
+
+
+def write_snapshot(output, snapshot):
+    temp = output / 'latest.json.tmp'
+    temp.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + '\n')
+    temp.replace(output / 'latest.json')
+    (output / 'sources.json').write_text(json.dumps(snapshot['requests'], ensure_ascii=False, indent=2) + '\n')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=Path('data'))
+    args = parser.parse_args()
+    collect(args.output)
