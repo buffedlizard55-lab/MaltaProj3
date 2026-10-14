@@ -6,7 +6,7 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, char => ({
 }[char]));
 
 const utc = value => value
-  ? new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC', timeZoneName: 'short' }).format(new Date(value))
+  ? `${new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' }).format(new Date(value))} UTC`
   : 'Time not verified';
 
 const shortUtc = value => value
