@@ -530,6 +530,8 @@ Probabilities come from outside betting markets (Polymarket, Oddsportal, Stake) 
         ("I-16", "No automatic refresh", "A 4–8 hour refresh was requested. It is not scheduled from this session; the snapshot date is shown on every page.", LOBBY),
         ("I-17", "G2 Ares identity", "'G2 Ares' (Hotspawn) is not confirmed as HLTV's G2 (#8). No HLTV points applied.", HLTV_URL),
         ("I-18", "Hotspawn pick percentages", "Hotspawn shows its own pick percentages; they are not used anywhere in the model.", LOBBY),
+        ("I-19", "Publication gap", "This site (docs/) is merged to main but the Pages workflow (.github/workflows/pages.yml) publishes only the root site, so docs/ is not live. Publishing needs one copy step in that workflow, owned by session arena/5ebd8496.", "https://buffedlizard55-lab.github.io/MaltaProj3/"),
+        ("I-20", "Two picks sites on main", "Session arena/5ebd8496 publishes a root site from data/matches.json with 18 verified lines and a 6-hour refresh. This site uses a different data file (data/picks-model.json), 14 picks, an HLTV blend and a different unresolved list. The two disagree on some lines; the owner must choose which is primary (conflict C-1).", "https://buffedlizard55-lab.github.io/MaltaProj3/"),
     ]
     frows = [[esc(i), esc(t), esc(d), a_link(u, "Source")] for i, t, d, u in flag_items]
     mrows = []

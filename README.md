@@ -75,7 +75,7 @@ See **[Flagged for Review](./flagged.html)** for the live record. Current irregu
 
 ## Second build (session 83207e7b): `docs/`
 
-A second, independent picks build lives in `docs/` (served by GitHub Pages at `/MaltaProj3/docs/` when Pages builds from `main`; the root site above is unchanged).
+A second, independent picks build lives in `docs/`. It is merged to `main` but is **not** in the current Pages artifact: `.github/workflows/pages.yml` publishes only the root site, so `docs/` returns 404 on the live site until the owner adds a copy step (see flag I-19 and conflict C-1 in `COORDINATION.md`). The root site above is unchanged.
 
 - Picks come from outside betting lines (Polymarket with a $50 volume rule, Stake and Oddsportal decimal odds, normalised) blended 70/30 with an HLTV world-ranking points model where both teams are in the top 30. Hotspawn pick percentages are not used.
 - Result snapshot: 28 captured match cards, 14 picks, 14 unresolved (with reasons). The 68-match lobby header and the 88-tier total are flagged (I-03, I-04).
