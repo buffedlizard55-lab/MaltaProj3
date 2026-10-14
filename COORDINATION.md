@@ -8,11 +8,12 @@
 
 | Task | Status | Owner | File scope | Started (UTC) | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Build and publish the verified CS2 match-picks GitHub Pages dashboard (final integration) | in progress | arena/5ebd8496-maltaproj3 | `COORDINATION.md`, site source, data, workflows, documentation | 2026-10-14 | Sole active session. Will establish a reproducible data-refresh path, cite every populated row, and flag unavailable/unverified items rather than inventing them. |
+| Build and publish the verified CS2 match-picks GitHub Pages dashboard (root-site integration) | done | arena/5ebd8496-maltaproj3 | root site, `assets/`, `data/matches.json`, `data/review.json`, `scripts/refresh-data.mjs`, root Pages workflows | 2026-10-14 | Root dashboard is live. Exact public-market resolver refreshed 18/28 lines; remaining 10 are explicitly unresolved and linked to review. The separate `docs/` dashboard merged by session 83207e7b remains a documented non-destructive overlap (I-20), not the root-site production artifact. |
 
 ## Activity log
 
 - **2026-10-14 — arena/5ebd8496-maltaproj3:** Created the coordination board and claimed the final integration scope. No pre-existing tasks or file ownership records were present.
+- **2026-10-14 — arena/5ebd8496-maltaproj3:** Root-site implementation merged through PRs [#1](https://github.com/buffedlizard55-lab/MaltaProj3/pull/1), [#2](https://github.com/buffedlizard55-lab/MaltaProj3/pull/2), [#4](https://github.com/buffedlizard55-lab/MaltaProj3/pull/4), [#6](https://github.com/buffedlizard55-lab/MaltaProj3/pull/6), [#7](https://github.com/buffedlizard55-lab/MaltaProj3/pull/7), and [#9](https://github.com/buffedlizard55-lab/MaltaProj3/pull/9). Verified `node scripts/verify-site.mjs` locally and the successful production Pages run [38513917128](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38513917128). The public refresh run [38513621759](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38513621759) populated 18 independently sourced match-winner lines out of 28 schedule rows. Ten rows remain intentionally blank and are published through the root-site Flagged for Review flow. The root landing and full picks pages were manually rechecked after deploy.
 
 
 ---
