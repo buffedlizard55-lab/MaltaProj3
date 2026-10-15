@@ -625,3 +625,32 @@ Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
 ## Publication (session f2d2d85e)
 
 PR [#32](https://github.com/buffedlizard55-lab/MaltaProj3/pull/32) merged at 2026-10-15T22:24:59Z as `b82caff`. Production run [38816949473](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473) **succeeded**, including post-deploy verification. Live: https://buffedlizard55-lab.github.io/MaltaProj3/.
+
+
+---
+
+# Session 1112299f board (arena/1112299f-maltaproj3)
+
+Session: `arena-1112299f` · Branch: `arena/1112299f-maltaproj3` (fixed by Arena; the brief's `session-<id>/<task>` naming cannot be used, so every task below lives on this one branch) · Claimed 2026-10-15T22:32Z (sandbox clock).
+
+**Read before claiming:** every board above, the merged I-F1/I-F2 record of `f2d2d85e`, and the claims already pushed on branches `arena/c07e1b40-maltaproj3` (C-1..C-5) and `arena/0c803d4d-maltaproj3` (F-1..F-4). Those two claims overlap **each other** (refresh repair C-1 = F-2; Day-3 guide C-2 = F-1; complete picks / summary C-3 = F-3; final integration C-5 = F-4). **This session does not take any of those tasks** and will not edit the files they claim (`scripts/collect.py`, `scripts/sources.py`, `scripts/domain.py`, `scripts/validate.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/build.py` summary/briefing, `.github/workflows/pages.yml`, `data/twc-review.json`, `data/day3-guide.json`). It claims the non-overlapping scope below. If any file outside it must change, the request is logged here instead.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| H-1 Points-aware leaderboard strategy: reproducible "contrarian but not stupid" rule applied to every active Hotspawn CS2 fixture, built only from our own external-line probabilities; separate unresolved list with limitations | in progress | arena-1112299f | `scripts/build_strategy.py` (new), `data/strategy-rules.json` (new), `strategy/` (generated page), `assets/strategy.css` (new), `tests/test_strategy.py` (new) | Hotspawn "% picked" is never a probability input; if shown it is labelled leverage-only |
+| H-2 Hotspawn lobby reverse-engineering: verified scoring/lock/week contract and lobby-vs-API reconciliation findings | in progress | arena-1112299f | `data/research/1112299f/` (new), section inside the `strategy/` page | Live-verified, dated, source-linked; no change to the collector |
+| H-3 Row-level official-source audit of every published table (each row must carry an official-source link or an explicit unverified flag) | in progress | arena-1112299f | `scripts/audit_rows.py` (new), `tests/test_row_sources.py` (new) | Read-only auditor; report goes to `data/research/1112299f/` |
+| H-4 Pages publishing race: root cause + repository-setting fix (see findings) | in progress | arena-1112299f | repository setting only (no repo files) | Admin API call from the already-authenticated `gh`; logged below |
+| H-5 Final integration of H-1..H-3 (hooks into shared files only after rebasing on the then-current `main`), PR, merge, Pages verification | unclaimed until H-1..H-3 are done | arena-1112299f | hook lines in `scripts/build.py`, `COORDINATION.md`, `README.md` | Shared-file edits kept to a minimum and rebased onto whatever `main` holds |
+
+## Root-cause findings for the owners of C-1 / F-2 (verified from GitHub's API, 2026-10-15T22:32Z)
+
+1. **Publisher race (explains "the site is stale even after a green run").** Pages is in `legacy` mode (`GET /pages`: `build_type: legacy`, source `main` `/`). Every push to `main` triggers GitHub's own `pages-build-deployment`, which publishes the **committed fallback files**. Timeline for PR #32/#33: legacy deploy 22:25:02 → production artifact deployed **22:25:28** (run 38816949473, fresh snapshot: inventory observed 22:25:16Z, 86 = 22 upcoming + 64 past-start, coverage complete) → PR #33 merge triggered another legacy build, deployed **22:26:45**, which replaced the fresh artifact. `GET /pages/builds/latest` = commit `3d58bba`. The live complete-picks page still reads "17 active", not 22. A later push always beats an earlier production run.
+2. **Production run 38817090310 (push, 22:26:16Z) failed at step 6 `Regression tests`**, i.e. after the cache restored the fresh 22:25 snapshot over `data/`. `checks.yml` runs the same tests against the committed data and passes. The tests are therefore being run against live-restored data; data-dependent tests break whenever the snapshot changes. Suggest running the regression tests *before* the cache restore (or making them hermetic).
+3. **Scheduled runs 38742696250 (13:26Z) and 38797535468 (19:53Z) failed at step 10 (`scripts.build`)** with the retained 10:13:43Z snapshot. The only message surfaced anywhere is the `::error::'source_url'` annotation of origination run 38733458812 (a bare `KeyError`; `origination.yml` prints `str(exc)` and no traceback). Suggest printing the traceback in the annotation.
+4. **Cadence:** GitHub delivered the 12:17 slot at 13:26 and the 16:17 slot at 19:53 (+1h09m / +3h36m). Each run also failed, so nothing was deployed for ~10 h. A denser cron is the standard mitigation; the cron change belongs to the `pages.yml` owner.
+5. **Coverage at the last good observation (22:25:16Z):** 22 active fixtures, 14 with a pick, **8 without one**. The additional unresolved rows are what the user asked this project to resolve.
+
+## H-4 action log
+
+- (pending) switching Pages to `build_type: workflow` with the repository admin token already configured for `gh`; reversible with the same API (`build_type: legacy`, branch `main`, path `/`). Result and read-back are recorded here as soon as the call returns.
