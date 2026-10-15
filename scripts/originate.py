@@ -146,6 +146,27 @@ class Collector:
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
         return path.name
 
+    def fetch_html(self, url: str, label: str):
+        delay = 0.25 - (time.monotonic() - self.last)
+        if delay > 0:
+            time.sleep(delay)
+        self.last = time.monotonic()
+        entry = {'id': label, 'url': url, 'method': 'GET', 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
+        self.requests.append(entry)
+        try:
+            response = self.session.get(url, timeout=(15, 45))
+            entry.update(http_status=response.status_code,
+                         response_sha256=hashlib.sha256(response.content).hexdigest())
+            response.raise_for_status()
+            entry['status'] = 'ok'
+            path = self.dir / f'{label}.html'
+            path.write_text(response.text)
+            entry['evidence'] = path.name
+            return response.text, entry
+        except requests.RequestException as exc:
+            entry['error'] = str(exc)[:300]
+            raise RuntimeError(f'{label}: {entry["error"]}') from exc
+
     def get_json(self, url: str, label: str, *, method='GET', payload=None):
         delay = 0.25 - (time.monotonic() - self.last)
         if delay > 0:
@@ -167,27 +188,93 @@ class Collector:
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
 
-def polymarket_games(html_index: list) -> list:
-    return list(html_index)
+def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
+    """Refetch every first-party source used by the origination ladder.
 
-
-def live_collect(evidence_dir: Path) -> dict:
-    """Refetch every first-party source used by the origination ladder."""
+    Polymarket discovery reuses the pipeline's public HTML decoder; events and
+    order books are fetched for every game that joins an active fixture through
+    exact names or the verified alias registry, so aliased low-tier matches get
+    fresh books even though the featured pipeline skips them.
+    """
     client = Collector(evidence_dir)
     out = {'requests': [], 'observed_at': iso(datetime.now(UTC))}
-    # Thunderpick public POST contract (gameId 6 = CS2), original paired prices.
     try:
-        body, req = client.get_json(THUNDERPICK_API, 'live-thunderpick-matches', method='POST', payload={'gameIds': [6]})
+        body, _ = client.get_json(THUNDERPICK_API, 'live-thunderpick-matches', method='POST', payload={'gameIds': [6]})
         out['thunderpick'] = body
     except RuntimeError as exc:
         out['thunderpick_error'] = str(exc)
-    # Polymarket CS2 game index (the pipeline keeps this evidence; refetch opportunistically).
+    games = []
     try:
-        index_raw, req = client.get_json('https://gamma-api.polymarket.com/markets?' + urlencode({'closed': 'false', 'tag_id': '100780', 'limit': '200'}), 'live-polymarket-markets')
-        out['polymarket_markets'] = index_raw
-    except RuntimeError as exc:
-        out['polymarket_markets_error'] = str(exc)
-    # Valve official standings (latest snapshot on or before today).
+        html_text, _ = client.fetch_html(POLY_INDEX, 'live-polymarket-index')
+        from scripts.sources import polymarket_games
+        games = polymarket_games(html_text)
+        out['polymarket_games'] = len(games)
+    except (RuntimeError, ValueError) as exc:
+        out['polymarket_index_error'] = str(exc)
+    active = [m for m in matches if m.get('availability') != 'past']
+    events = []
+    books = []
+    for game in games:
+        names = [game.get('homeName', ''), game.get('awayName', '')]
+        joined = any(pair_join(names, game.get('startTime'), m, registry)[2] == 'matched' for m in active)
+        if not joined:
+            continue
+        try:
+            event, _ = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
+        except RuntimeError as exc:
+            continue
+        moneyline = None
+        for market in event.get('markets', []):
+            scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
+            if scope == 'moneyline' and str(market.get('question', '')).startswith('Counter-Strike:'):
+                moneyline = market
+                break
+        if not moneyline:
+            continue
+        tokens = moneyline.get('clobTokenIds')
+        if isinstance(tokens, str):
+            try:
+                tokens = json.loads(tokens)
+            except ValueError:
+                continue
+        if not tokens or len(tokens) != 2:
+            continue
+        bid, ask = [], []
+        for token in tokens:
+            try:
+                book, _ = client.get_json(CLOB_BOOK + str(token), 'live-polymarket-book-' + str(game['id']) + '-' + str(len(bid)))
+            except RuntimeError:
+                book = None
+            if book is None:
+                bid, ask = [], []
+                break
+            bids = [finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None]
+            asks = [finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None]
+            if not bids or not asks:
+                bid, ask = [], []
+                break
+            bid.append(max(bids))
+            ask.append(min(asks))
+            books.append({'asset_id': str(token), 'best_bid': max(bids), 'best_ask': min(asks),
+                          'last_trade_price': finite(book.get('last_trade_price')),
+                          'source_url': CLOB_BOOK + str(token)})
+        record = {
+            'event_id': str(event.get('id')), 'slug': event.get('slug'), 'title': moneyline.get('question'),
+            'source_url': POLY_EVENTS + str(event.get('id')),
+            'public_page': 'https://polymarket.com/event/' + str(event.get('slug', '')),
+            'observed_at': iso(datetime.now(UTC)), 'active': event.get('active'), 'closed': event.get('closed'),
+            'moneyline_market_id': str(moneyline.get('id')),
+            'outcomes': json.loads(moneyline['outcomes']) if isinstance(moneyline.get('outcomes'), str) else moneyline.get('outcomes'),
+            'game_start_time': moneyline.get('gameStartTime') or event.get('startTime'),
+            'clob_token_ids': [str(x) for x in tokens],
+        }
+        if len(bid) == 2:
+            record['book_bid'] = bid
+            record['book_ask'] = ask
+        events.append(record)
+    (evidence_dir / 'live-polymarket-observations.json').write_text(
+        json.dumps({'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
+                   ensure_ascii=False, indent=2) + '\n')
     try:
         now = datetime.now(UTC)
         directory, _ = client.get_json(f'{VALVE_REPO}/contents/live/{now.year}', 'live-valve-directory')
@@ -202,9 +289,11 @@ def live_collect(evidence_dir: Path) -> dict:
             day, path = max(names)
             content, _ = client.get_json(f'{VALVE_REPO}/contents/{path}', 'live-valve-standings')
             text = base64.b64decode(content['content']).decode('utf-8')
-            out['valve'] = {'snapshot_date': day, 'source_url': content['html_url'], 'text_sha256': hashlib.sha256(text.encode()).hexdigest()}
-            self_save = evidence_dir / 'live-valve-standings-text.json'
-            self_save.write_text(json.dumps({'snapshot_date': day, 'source_url': content['html_url'], 'text': text}, ensure_ascii=False, indent=2) + '\n')
+            (evidence_dir / 'live-valve-standings-text.json').write_text(
+                json.dumps({'snapshot_date': day, 'source_url': content['html_url'],
+                            'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'text': text},
+                           ensure_ascii=False, indent=2) + '\n')
+            out['valve'] = {'snapshot_date': day, 'source_url': content['html_url']}
     except RuntimeError as exc:
         out['valve_error'] = str(exc)
     out['requests'] = client.requests
@@ -271,8 +360,28 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
         research = load_json(research_path)
         books = {b['asset_id']: b for b in research.get('polymarket_books', [])}
         for ev in research.get('polymarket_events', []):
-            rows.extend(_rows_from_research_event(ev, books))
-    return out_rows(rows)
+            rows.extend(_rows_from_research_event(ev, books, 'data/origination/evidence/research-fetches.json'))
+    # Fresh aliased events captured by --live collection.
+    live_path = orig_evidence / 'live-polymarket-observations.json'
+    if live_path.exists():
+        live = load_json(live_path)
+        books = {b['asset_id']: b for b in live.get('polymarket_books', [])}
+        for ev in live.get('polymarket_events', []):
+            if ev.get('closed') is True or ev.get('active') is False:
+                continue
+            rows.extend(_rows_from_research_event(ev, books, 'data/origination/evidence/live-polymarket-observations.json'))
+    # One row per event: fresh first-party observations override older saves.
+    priority = {'live-polymarket-observations': 2, 'research-fetches': 1}
+    by_event = {}
+    for row in rows:
+        rank = 0
+        for key, value in priority.items():
+            if key in (row.get('evidence_file') or ''):
+                rank = value
+        current = by_event.get(row['event_id'])
+        if current is None or rank >= current[0]:
+            by_event[row['event_id']] = (rank, row)
+    return [entry[1] for entry in by_event.values()]
 
 
 def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> list:
@@ -340,13 +449,17 @@ def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> lis
     return rows
 
 
-def _rows_from_research_event(ev: dict, books: dict) -> list:
+def _rows_from_research_event(ev: dict, books: dict, evidence_file: str) -> list:
     row = {'family': 'market', 'provider': 'Polymarket', 'names': list(ev.get('outcomes', [])),
            'start': ev.get('game_start_time'), 'event_id': str(ev.get('event_id')),
            'market_id': str(ev.get('moneyline_market_id')),
            'source_url': ev.get('public_page'), 'api_url': ev.get('source_url'),
-           'evidence_file': 'data/origination/evidence/research-fetches.json',
+           'evidence_file': evidence_file,
            'question': ev.get('title', '')}
+    if ev.get('book_bid') and ev.get('book_ask') and len(ev['book_bid']) == 2:
+        row['bid'] = [float(x) for x in ev['book_bid']]
+        row['ask'] = [float(x) for x in ev['book_ask']]
+        return [row]
     bids, asks = [], []
     for token in ev.get('clob_token_ids', []):
         book = books.get(str(token))
@@ -625,9 +738,8 @@ def run(output: Path, *, live: bool = False) -> dict:
     evidence_dir = orig_dir / 'evidence'
     registry = load_registry(orig_dir / 'aliases.json')
     now = datetime.now(UTC)
-    live_payload = live_collect(evidence_dir) if live else None
-
     snapshot = load_json(output / 'latest.json')
+    live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     poly_rows = polymarket_rows(output, evidence_dir)
     book_rows = thunderpick_rows(output, live_payload)
     ratings, valve_meta = valve_rows(output, live_payload)
