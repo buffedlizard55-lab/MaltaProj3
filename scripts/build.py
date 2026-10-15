@@ -107,9 +107,18 @@ def evidence(m, prefix, fallback=None):
                  'The featured exact-name method rejected this fixture; this estimate comes from the audited research '
                  'ladder and never overwrites a featured value.</p>')
         for q in o.get('quotes') or []:
-            body += (f'<p>Quoted decimal odds: {e(q["odds"][0])} / {e(q["odds"][1])} from {e(q["provider"])}. '
-                     f'Original event ID: <strong>{e(q.get("event_id") or "unverified")}</strong>. '
-                     + external(q['source_url'], q['provider'] + ' record') + '</p>')
+            facts = []
+            odds, bid, ask = q.get('odds'), q.get('bid'), q.get('ask')
+            if odds:
+                facts.append(f'decimal odds {e(odds[0])} / {e(odds[1])}')
+            if bid and ask:
+                facts.append(f'bid/ask {bid[0]:.3f}/{ask[0]:.3f} vs {bid[1]:.3f}/{ask[1]:.3f}')
+            if not facts:
+                facts.append('price observation recorded in the saved evidence')
+            body += (f'<p>{e(q.get("provider") or "Provider")} ({e(q.get("family") or "source")}): '
+                     + ' · '.join(facts)
+                     + f'. Original event ID: <strong>{e(q.get("event_id") or "unverified")}</strong>. '
+                     + external(q.get('source_url') or o['source_url'], (q.get('provider') or 'Provider') + ' record') + '</p>')
         for r in o.get('inputs') or []:
             body += (f'<p class="tiny">Valve rating input: <strong>{e(r["name"])}</strong> {e(r["points"])} points, '
                      f'snapshot {e(r.get("snapshot_date") or "unverified")}, roster {e(", ".join(r.get("roster") or []))}. '

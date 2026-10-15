@@ -132,3 +132,46 @@ class ResearchedFallbackDisplayTests(unittest.TestCase):
         covered = sum(1 for m in active if m['analysis'] or str(m['id']) in data['fallbacks'])
         self.assertIn(f'{covered} picks ready', hero)
         self.assertIn(f'{len(active) - covered} left blank', hero)
+
+
+class ConsensusQuoteShapeTests(unittest.TestCase):
+    """Market-family quotes carry bid/ask, bookmaker quotes carry odds; both render."""
+
+    def row(self):
+        data = json.loads(Path('data/latest.json').read_text())
+        match = next(m for m in data['matches'] if m['availability'] != 'past' and m['analysis'] is None)
+        return copy.deepcopy(match)
+
+    def test_mixed_quote_shapes_render_without_key_errors(self):
+        match = self.row()
+        fallback = {'id': match['id'], 'pick_index': 0, 'aliases_used': [],
+                    'origination': {'method': 'consensus', 'label': 'Originated consensus line',
+                                    'probabilities': [0.62, 0.38], 'fair_decimal': [1.61, 2.63],
+                                    'observed_at': match['observed_at'], 'source': 'Polymarket + Thunderpick',
+                                    'source_url': 'https://polymarket.com/event/x',
+                                    'limitations': ['Two independent money sources.'],
+                                    'quotes': [
+                                        {'provider': 'Polymarket', 'family': 'market', 'probabilities': [0.635, 0.365],
+                                         'bid': [0.63, 0.36], 'ask': [0.64, 0.37], 'spread': 0.01, 'thin': False,
+                                         'observed_at': match['observed_at'], 'source_url': 'https://polymarket.com/event/x',
+                                         'event_id': '1'},
+                                        {'provider': 'Thunderpick', 'family': 'bookmaker', 'probabilities': [0.615, 0.385],
+                                         'odds': [1.5, 2.4], 'observed_at': match['observed_at'],
+                                         'source_url': 'https://thunderpick.io/api/matches', 'event_id': '2'}]}}
+        html = matches_table([match], '../', fallbacks={match['id']: fallback})
+        self.assertIn('bid/ask 0.630/0.640', html)
+        self.assertIn('decimal odds 1.5 / 2.4', html)
+        self.assertIn('Researched fallback', html)
+
+    def test_quote_without_any_price_fields_still_links_its_source(self):
+        match = self.row()
+        fallback = {'id': match['id'], 'pick_index': None, 'aliases_used': [],
+                    'origination': {'method': 'bookmaker', 'label': 'Originated esportsbook line',
+                                    'probabilities': [0.5, 0.5], 'fair_decimal': [2.0, 2.0],
+                                    'observed_at': match['observed_at'], 'source': 'Thunderpick',
+                                    'source_url': 'https://thunderpick.io/api/matches', 'limitations': [],
+                                    'quotes': [{'provider': 'Thunderpick', 'family': 'bookmaker',
+                                                'observed_at': match['observed_at'],
+                                                'source_url': 'https://thunderpick.io/api/matches'}]}}
+        html = matches_table([match], '../', fallbacks={match['id']: fallback})
+        self.assertIn('price observation recorded in the saved evidence', html)
