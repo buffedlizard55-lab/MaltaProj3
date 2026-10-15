@@ -223,3 +223,15 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - All current routes have passing automated WCAG A/AA checks at phone and desktop widths, responsive width checks at 320/390/768/1440px, no-JS data visibility and one-tap phone picks/method navigation. This is not a claim of complete manual WCAG certification.
 
 This documentation-only handoff records the already verified release. Its merge can trigger another ordinary refresh; it does not claim an unobserved future run succeeded.
+
+## Session arena-11c1fa20 — renewed coverage and mobile audit (2026-10-15)
+
+This session must use `arena/11c1fa20-maltaproj3`; no other branch is created or pushed. All prior source files and historical boards are preserved. Previous active integration claim 83207e7b is over 60 minutes old; its integration has since been published by arena-4aae8328. This session takes responsibility only for the canonical current dashboard below.
+
+| Task | Status | Owner | File scope | Started UTC |
+| --- | --- | --- | --- | --- |
+| Audit current source coverage; expand safe fallback research; verify line-by-line | in progress | arena-11c1fa20 | `scripts/{collect,domain,sources,validate}.py`, `tests/test_domain.py`, canonical `data/latest.json`, `data/sources.json`, `data/evidence/` | 2026-10-15 |
+| Audit and simplify current mobile summary/picks/unresolved navigation | in progress | arena-11c1fa20 | `scripts/build.py`, `assets/scout.{css,js}`, `tests/browser/dashboard.spec.mjs` | 2026-10-15 |
+| Final integration, CI, PR merge and verified Pages publication | in progress | arena-11c1fa20 | `.github/workflows/{checks,collect-preview,source-diagnostics}.yml`, `README.md`, `COORDINATION.md`, new audit regression tests/scripts | 2026-10-15 |
+
+Initial inspection: canonical collector already reconciles both official lobby hydration inventories with the fixture API, uses original Polymarket order books, then attempts HLTV, Thunderpick and Valve ratings. Four-hour Pages scheduler exists. Latest GitHub scheduled run `38682572464` reports success; source freshness and actual current coverage have not yet been independently inspected in this session. Outbound source hosts are restricted in this sandbox; live first-party inspection will run in GitHub Actions, retaining actual evidence and limitations instead of inventing values.
