@@ -36,3 +36,23 @@ class PublisherCacheTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PublisherScheduleTests(unittest.TestCase):
+    def test_a_dropped_slot_still_leaves_a_refresh_inside_the_eight_hour_bound(self):
+        text = WORKFLOW.read_text()
+        crons = re.findall(r"- cron: '([^']+)'", text)
+        slots = []
+        for cron in crons:
+            minute, hour = cron.split()[:2]
+            rng, _, step = hour.partition('/')
+            start, _, end = rng.partition('-')
+            first = 0 if start == '*' else int(start)
+            last = 23 if not end else int(end)
+            slots += [h * 60 + int(minute) for h in range(first, last + 1, int(step or 24))]
+        slots = sorted(set(slots))
+        self.assertGreaterEqual(len(slots), 12)
+        # Worst case: any single slot is dropped -> the gap spans two intervals.
+        day = slots + [s + 1440 for s in slots]
+        worst = max(day[i + 2] - day[i] for i in range(len(slots)))
+        self.assertLessEqual(worst, 8 * 60, f'worst single-drop gap {worst} min')
