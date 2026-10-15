@@ -29,6 +29,9 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+      # v2 isolates the new HLTV original-markup/format evidence contract.
+      # Restoring v1 over this checkout mixes incompatible derived records and
+      # leaves newer evidence files behind; never relabel that overlay verified.
       - name: Restore last successfully verified public snapshot
         id: restore
         uses: actions/cache/restore@v6
@@ -37,8 +40,8 @@ jobs:
             data/latest.json
             data/sources.json
             data/evidence/
-          key: cs2-verified-v1-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: cs2-verified-v1-
+          key: cs2-verified-v2-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: cs2-verified-v2-
       - name: Regression tests
         run: python -m unittest discover -s tests -v
       - name: Refresh all Hotspawn CS2 records and supported external lines
