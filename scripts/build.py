@@ -202,18 +202,18 @@ def summary(data, prefix):
 
 def picks(data, prefix):
     c = data['counts']
-    active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
-    out = heading('The complete future-match list', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    active = [m for m in data['matches'] if m['availability'] != 'past']
+    out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
     out += '<div class="info-strip">' + icon('clock') + '<span>Snapshot observed ' + local_time(data.get('inventory_observed_at')) + '. Lock times come from each Hotspawn fixture. Picks are not submitted automatically. <a href="#unresolved">Jump to unresolved picks &amp; limitations ↓</a></span></div>'
     out += '<section class="content-section picks-section" aria-label="Searchable match list"><div class="filter-bar"><label class="search-box">' + icon('search') + '<span class="sr-only">Search teams or tournaments</span><input id="match-search" type="search" placeholder="Search teams or tournaments…" autocomplete="off"></label><label class="select-field"><span>Tournament</span><select id="tournament-filter"><option value="all">All tournaments</option>'
     for tournament in sorted(set(m['competition'] or 'Unverified tournament' for m in active)):
         out += f'<option value="{e(tournament)}">{e(tournament)}</option>'
     out += '</select></label><label class="select-field"><span>Sort by</span><select id="match-sort"><option value="start">Soonest first</option><option value="confidence">Highest estimated chance</option><option value="team">Team name</option></select></label></div><div class="filter-second"><div class="filter-tabs" role="group" aria-label="Probability basis">'
-    for value, label, count in [('all', 'All matches', c['upcoming']), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'])]:
+    for value, label, count in [('all', 'All matches', len(active)), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'] + c['unknown_schedule'])]:
         out += f'<button type="button" data-basis="{value}" aria-pressed="{"true" if value == "all" else "false"}">{label}<span>{count}</span></button>'
     out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness/lock checks are unavailable. Status reflects build time only; confirm the published observation and Hotspawn countdown before choosing a team.</p></noscript>'
     out += matches_table(active, prefix, filters=True) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
-    out += f'<p class="muted small">Showing future-start fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
+    out += f'<p class="muted small">Showing future-start and unknown-schedule fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Every gap stays visible</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All flagged findings →</a></div>' + unresolved_table(data, prefix) + '</section>'
     return out
 
