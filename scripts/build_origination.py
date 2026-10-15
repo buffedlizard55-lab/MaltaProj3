@@ -289,7 +289,9 @@ def validate_origination(data, source):
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
         values = []
         for q in o.get('quotes', []):
-            if q.get('family') == 'bookmaker':
+            if q.get('provider') in {'Kalshi', 'Bovada'}:
+                values.append(_replay_extra_quote(q, raw, registry, source))
+            elif q.get('family') == 'bookmaker':
                 p = source.parent / q['evidence_file'] if source.name == 'data' else source / q['evidence_file'].removeprefix('data/')
                 body = json.loads(p.read_text())['data']
                 rows = body.get('upcoming', body.get('matches', []))
@@ -314,6 +316,41 @@ def validate_origination(data, source):
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
+
+
+def _evidence(source: Path, evidence_file: str) -> Path:
+    return source.parent / evidence_file if source.name == 'data' else source / evidence_file.removeprefix('data/')
+
+
+def _replay_extra_quote(q, raw, registry, source):
+    """Recompute a Kalshi or Bovada quote from its saved original response (session c07e1b40)."""
+    from scripts.originate import align_by_name
+    from scripts.domain import no_vig, normalize_pair, finite
+    saved = json.loads(_evidence(source, q['evidence_file']).read_text())
+    if q['provider'] == 'Kalshi':
+        events = [ev for page in saved.get('pages', []) for ev in (page.get('response') or {}).get('events', [])]
+        hits = [ev for ev in events if str(ev.get('event_ticker')) == q['event_id']]
+        assert len(hits) == 1, 'Kalshi event missing or ambiguous in saved evidence'
+        markets = hits[0]['markets']
+        names = [m['yes_sub_title'] for m in markets]
+        bid = align_by_name([finite(m['yes_bid_dollars']) for m in markets], names, raw, registry)
+        ask = align_by_name([finite(m['yes_ask_dollars']) for m in markets], names, raw, registry)
+        assert bid == q['bid'] and ask == q['ask'], 'Kalshi quotes differ from saved evidence'
+        assert max(a - b for b, a in zip(bid, ask)) <= 0.12 + 1e-9, 'Kalshi spread exceeds the accepted ceiling'
+        expected = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
+        assert expected == q['probabilities'], 'Kalshi calculation changed'
+        return q['probabilities'][0]
+    events = [ev for group in saved.get('response', []) for ev in group.get('events', [])]
+    hits = [ev for ev in events if str(ev.get('id')) == q['event_id']]
+    assert len(hits) == 1, 'Bovada event missing or ambiguous in saved evidence'
+    lines = [m for g in hits[0].get('displayGroups', []) for m in g.get('markets', [])
+             if str(m.get('id')) == str(q.get('market_id')) and m.get('key') == '2W-12']
+    assert len(lines) == 1, 'Bovada moneyline missing in saved evidence'
+    outcomes = lines[0]['outcomes']
+    odds = align_by_name([finite(o['price']['decimal']) for o in outcomes], [o['description'] for o in outcomes], raw, registry)
+    assert odds == q['odds'], 'Bovada odds differ from saved evidence'
+    assert no_vig(odds) == q['probabilities'], 'Bovada no-vig calculation changed'
+    return q['probabilities'][0]
 
 
 def build(source: Path, output: Path):

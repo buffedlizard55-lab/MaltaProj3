@@ -341,3 +341,92 @@ class ModelFallbackRenderTests(unittest.TestCase):
         html = build.evidence(canonical, '../', result)
         self.assertIn('Valve rating input', html)
         self.assertIn('standings_global_2026_10_05.md', html)
+
+
+class ExtraMoneySourceTests(unittest.TestCase):
+    """Kalshi (regulated exchange) and Bovada (sportsbook) readers added by session c07e1b40."""
+
+    OBS = '2026-10-15T22:32:24Z'
+
+    def kalshi_event(self, rules_time='4:00 AM EDT', ticker='KXCS2GAME-26OCT160400TLNIP', bids=('0.4500', '0.5300'), asks=('0.4800', '0.5400')):
+        rules = 'If {} wins the Stake Pulse Beat III 2026: Liquid vs. NIP CS2 match originally scheduled for Oct 16, 2026 at ' + rules_time + ', then the market resolves to Yes.'
+        markets = [{'ticker': ticker + '-' + code, 'yes_sub_title': name, 'status': 'active', 'yes_bid_dollars': bid, 'yes_ask_dollars': ask,
+                    'rules_primary': rules.format(name)} for name, code, bid, ask in zip(['Liquid', 'NIP'], ['TL', 'NIP'], bids, asks)]
+        return {'event_ticker': ticker, 'series_ticker': 'KXCS2GAME', 'title': 'Liquid vs. NIP', 'mutually_exclusive': True,
+                'product_metadata': {'competition': 'CS2'}, 'markets': markets}
+
+    def write(self, tmp, name, payload):
+        path = Path(tmp) / name
+        path.write_text(json.dumps(payload))
+        return Path(tmp)
+
+    def match(self):
+        return {'id': '1079586', 'starts_at': '2026-10-16T08:00:00Z', 'competition': 'Stake Pulse Beat III',
+                'source_url': 'https://www.hotspawn.com/matches/x', 'teams': [{'id': '367', 'name': 'Ninjas in Pyjamas'}, {'id': '58', 'name': 'Team Liquid'}]}
+
+    def test_kalshi_start_reads_rules_and_requires_ticker_agreement(self):
+        self.assertEqual(originate.kalshi_start(self.kalshi_event()), '2026-10-16T08:00:00Z')
+        self.assertEqual(originate.kalshi_start(self.kalshi_event('12:00 PM EST', 'KXCS2GAME-26OCT161200TLNIP')), '2026-10-16T17:00:00Z')
+        self.assertIsNone(originate.kalshi_start(self.kalshi_event('5:00 AM EDT')), 'ticker 0400 disagrees with rules 05:00')
+
+    def test_kalshi_rows_skip_started_events_and_keep_paired_books(self):
+        with TemporaryDirectory() as tmp:
+            started = self.kalshi_event()
+            payload = {'pages': [{'observed_at': self.OBS, 'response': {'events': [self.kalshi_event()]}},
+                                 {'observed_at': '2026-10-16T09:00:00Z', 'response': {'events': [started]}}]}
+            rows = originate.kalshi_rows(self.write(tmp, 'live-kalshi-events.json', payload))
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['provider'], 'Kalshi')
+        self.assertEqual(rows[0]['bid'], [0.45, 0.53])
+        self.assertTrue(rows[0]['source_url'].startswith('https://kalshi.com/markets/kxcs2game/'))
+
+    def test_wide_kalshi_book_is_rejected_with_the_observed_quotes_in_the_reason(self):
+        with TemporaryDirectory() as tmp:
+            event = self.kalshi_event(bids=('0.1900', '0.3400'), asks=('0.6400', '0.7600'))
+            rows = originate.kalshi_rows(self.write(tmp, 'live-kalshi-events.json', {'pages': [{'observed_at': self.OBS, 'response': {'events': [event]}}]}))
+        quote, detail = originate.market_estimate(rows[0], self.match(), registry(), originate.timestamp(self.OBS))
+        self.assertIsNone(quote)
+        self.assertIn('0.19/0.64', detail)
+        self.assertIn('not used as a pick input', detail)
+
+    def bovada_payload(self, live=False, status='O'):
+        outcomes = [{'description': 'Ninjas in Pyjamas', 'status': status, 'price': {'decimal': '1.769230'}},
+                    {'description': 'Team Liquid', 'status': 'O', 'price': {'decimal': '2.00'}}]
+        market = {'id': '1', 'key': '2W-12', 'description': 'Moneyline', 'status': 'O', 'period': {'main': True, 'live': False}, 'outcomes': outcomes}
+        event = {'id': '32266578', 'type': 'GAMEEVENT', 'live': live, 'startTime': 1792137600000, 'link': '/esports/counter-strike-2/pulse-beat-iii/x',
+                 'competitors': [{'name': 'Ninjas in Pyjamas'}, {'name': 'Team Liquid'}], 'displayGroups': [{'markets': [market]}]}
+        return {'observed_at': self.OBS, 'response': [{'path': [{'description': 'Pulse Beat III'}], 'events': [event]}]}
+
+    def test_bovada_rows_accept_prematch_moneyline_only(self):
+        with TemporaryDirectory() as tmp:
+            rows = originate.bovada_rows(self.write(tmp, 'live-bovada-cs2.json', self.bovada_payload()))
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]['start'], '2026-10-16T08:00:00Z')
+            self.assertEqual(rows[0]['odds'], [1.76923, 2.0])
+            self.assertEqual(originate.bovada_rows(self.write(tmp, 'live-bovada-cs2.json', self.bovada_payload(live=True))), [])
+            self.assertEqual(originate.bovada_rows(self.write(tmp, 'live-bovada-cs2.json', self.bovada_payload(status='S'))), [])
+
+    def test_consensus_takes_one_vote_per_provider_and_aliases_stay_scoped(self):
+        from datetime import timedelta
+        now = datetime.now(UTC).replace(second=0, microsecond=0)
+        local = (now + timedelta(days=3)).astimezone(timezone(timedelta(hours=-4))).replace(hour=4, minute=0)
+        start = local.astimezone(UTC)
+        ticker = 'KXCS2GAME-' + local.strftime('%y%b%d').upper() + '0400TLNIP'
+        event = self.kalshi_event(ticker=ticker)
+        for m in event['markets']:
+            m['rules_primary'] = m['rules_primary'].replace('Oct 16, 2026', local.strftime('%b ') + str(local.day) + local.strftime(', %Y'))
+        payload = self.bovada_payload()
+        payload['response'][0]['events'][0]['startTime'] = int(start.timestamp() * 1000)
+        payload['observed_at'] = originate.iso(now)
+        with TemporaryDirectory() as tmp:
+            k = originate.kalshi_rows(self.write(tmp, 'live-kalshi-events.json', {'pages': [{'observed_at': originate.iso(now), 'response': {'events': [event]}}]}))
+            b = originate.bovada_rows(self.write(tmp, 'live-bovada-cs2.json', payload))
+        self.assertEqual(len(k), 1)
+        self.assertEqual(len(b), 1)
+        match = dict(self.match(), starts_at=originate.iso(start))
+        result = originate.originate_match(match, k, b, [], None, registry(), now)
+        self.assertEqual(result['origination']['method'], 'consensus')
+        self.assertEqual({q['provider'] for q in result['origination']['quotes']}, {'Kalshi', 'Bovada'})
+        other = dict(match, competition='Some Other Cup')
+        self.assertEqual({q['provider'] for q in originate.originate_match(other, k, b, [], None, registry(), now)['origination']['quotes']}, {'Bovada'},
+                         'Liquid/NIP aliases must not join outside Stake Pulse Beat III; Bovada uses exact names')
