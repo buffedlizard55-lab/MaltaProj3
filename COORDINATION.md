@@ -901,6 +901,7 @@ None blocks publication. No value was filled in: every unverified item stays bla
 | [#36](https://github.com/buffedlizard55-lab/MaltaProj3/pull/36) sources, publisher fixes, review register | 2026-10-15T23:04:45Z | `17983a6` | [38821346854](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38821346854) | failed at regression tests (fixture-coupled tests ran after the now-working cache restore); nothing deployed |
 | [#37](https://github.com/buffedlizard55-lab/MaltaProj3/pull/37) tests before cache restore | 2026-10-15T23:10:31Z | `63b8b36` | [38821960670](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38821960670) | deployed; post-deploy verifier failed (`.pick-card` contract) |
 | [#38](https://github.com/buffedlizard55-lab/MaltaProj3/pull/38) unresolved-card class | 2026-10-15T23:17:30Z | `959ce01` | [38822689181](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38822689181) | **success incl. public verification** |
+| [#40](https://github.com/buffedlizard55-lab/MaltaProj3/pull/40) link dedupe, Kalshi/Bovada audit allow-list, this record | 2026-10-15T23:27:22Z | `0a81b46` | [38823674395](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38823674395) | **success incl. public verification; row-source audit 345 rows / 0 violations** |
 
 Production 38822689181: inventory observed **2026-10-15T23:17:53Z, coverage complete** (86 records, 22 upcoming); public
 complete picks **22 active / 16 resolved / 6 unresolved** (1 consensus, 8 market, 3 bookmaker, 4 model; 2 alias joins).
@@ -909,3 +910,15 @@ Polymarket + Kalshi + Thunderpick + Bovada consensus (NiP 52.8% at the 23:17Z re
 links; unresolved cards and ⚑ registry review notes render; `data/research/c07e1b40/repo-review.json` is published.
 The final polish PR (one link per distinct source URL on pick cards) carries this record. All session c07e1b40 tasks are
 **done**; flagged items remain `needs review` and non-blocking. No active claim remains for this session.
+
+### Final state — session c07e1b40 (2026-10-15T23:30Z)
+
+Production run [38823674395](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38823674395) (`0a81b46`, PR #40)
+succeeded with public verification: inventory **complete at 23:27:51Z** (86 records, 22 upcoming); complete picks
+**22 active / 16 resolved / 6 unresolved**; row-source audit **345 rows, 338 official-source ok, 7 navigation, 0 violations**.
+Independently re-fetched <https://buffedlizard55-lab.github.io/MaltaProj3/origination/>: one link per source on every card;
+NiP vs Team Liquid consensus (Polymarket + Kalshi + Thunderpick + Bovada) live. The six unresolved fixtures
+(ex-RUSTEC–Saint Sinners, JOGA DE TERNO–your end, Procyon–LOS NINOS: books 0.39–0.47 wide; Infinite–Insiders,
+aimclub–BASEMENT BOYS, ASTRAL–Leo: no usable line yet / identity ambiguity) stay blank with per-source research cards and
+are retried on every refresh (12 schedule slots per day). Session c07e1b40 holds **no active claims**. This record PR is
+documentation-only; its deploy result is noted on the PR itself to avoid a recursive record.
