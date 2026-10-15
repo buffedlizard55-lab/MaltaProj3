@@ -8,6 +8,8 @@ out = Path('.cache/source-audit')
 client = Client(out)
 for label, url in [
     ('hltv-matches', 'https://www.hltv.org/matches'),
+    ('hltv-day-one-results', 'https://www.hltv.org/results?startDate=2026-10-13&endDate=2026-10-14'),
+    ('hltv-news', 'https://www.hltv.org/news'),
     ('stake-cs2', 'https://stake.com/sports/esports/counter-strike'),
     ('pinnacle-cs2', 'https://www.pinnacle.com/en/esports-hub/cs2'),
     ('polymarket-api-docs', 'https://docs.polymarket.com/api-reference/events/list-events'),
