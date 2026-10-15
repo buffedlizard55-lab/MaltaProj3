@@ -8,17 +8,17 @@ permissions:
   contents: write
 jobs:
   discover:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
       - name: Inspect original public source responses
         run: python -m scripts.audit_sources
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: public-source-diagnostics
           path: .cache/source-audit/
@@ -27,7 +27,7 @@ jobs:
         if: github.ref == 'refs/heads/arena/11c1fa20-maltaproj3'
         run: |
           mkdir -p data/research
-          cp .cache/source-audit/* data/research/
+          cp .cache/source-audit/*.html.gz .cache/source-audit/report.json data/research/
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/research/
