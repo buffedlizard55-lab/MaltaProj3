@@ -54,7 +54,12 @@ def state_entries(html: str) -> list[dict]:
         url = value.get('u') or ''
         parsed = urlparse(url)
         body = value.get('b')
-        out.append({'path': parsed.path, 'query': dict(parse_qsl(parsed.query)), 'status': value.get('s'),
+        keep = None
+        if parsed.path == '/api/v1/week-prizes/widget' and isinstance(body, dict):
+            keep = body
+        elif parsed.path == '/api/v1/tenants/slug/hotspawn' and isinstance(body, dict):
+            keep = {k: body.get(k) for k in ('features', 'games') if k in body}
+        out.append({'path': parsed.path, 'query': dict(parse_qsl(parsed.query)), 'status': value.get('s'), 'kept_body': keep,
                     'body_type': type(body).__name__, 'records': len(body) if isinstance(body, (list, dict)) else None,
                     'body_keys': sorted(body.keys())[:12] if isinstance(body, dict) else None, '_body': body if isinstance(body, list) else None})
     return out
@@ -71,9 +76,10 @@ def brief(row: dict) -> dict:
             'tier': row.get('tier'), 'total_picks': row.get('total_picks')}
 
 
-def one_round() -> dict:
-    lobby, t1 = get(LOBBY)
-    cs2, t2 = get(CS2_LOBBY)
+def one_round(bust: bool = False) -> dict:
+    stamp = str(int(time.time()))
+    lobby, t1 = get(LOBBY + ('?cb=' + stamp if bust else ''))
+    cs2, t2 = get(CS2_LOBBY + ('?cb=' + stamp if bust else ''))
     api, t3 = get(FIXTURES_API)
     lobby_entries, cs2_entries = state_entries(lobby.text), state_entries(cs2.text)
     api_rows = [r for r in api.json() if isinstance(r, dict) and r.get('sport_alias') == 'cs2']
@@ -91,6 +97,7 @@ def one_round() -> dict:
             diffs[name + '_lacks'] = [brief(by_id[i]) for i in missing]
     now_utc = datetime.now(timezone.utc).timestamp()
     return {
+        'cache_busted': bust,
         'fetched_at': {'lobby': t1, 'cs2_lobby': t2, 'api': t3},
         'http': {'lobby': {'status': lobby.status_code, 'bytes': len(lobby.content), 'headers': header_summary(lobby)},
                  'cs2_lobby': {'status': cs2.status_code, 'bytes': len(cs2.content), 'headers': header_summary(cs2)},
@@ -111,15 +118,18 @@ def main():
     parser.add_argument('--out', type=Path)
     args = parser.parse_args()
     rounds = []
-    for i in range(args.rounds):
+    for i in range(args.rounds + 2):
         if i:
-            time.sleep(args.pause)
+            time.sleep(args.pause if i < args.rounds else 3)
+        bust = i >= args.rounds  # the last two rounds ask for a fresh render with a cache-busting query string
         try:
-            rounds.append(one_round())
+            rounds.append(one_round(bust))
         except Exception as exc:  # a failed round is evidence too
             rounds.append({'error': f'{type(exc).__name__}: {exc}', 'at': now()})
+    plain = [r for r in rounds if 'error' not in r and not r.get('cache_busted')]
+    busted = [r for r in rounds if 'error' not in r and r.get('cache_busted')]
     report = {'schema_version': 1, 'probe': 'scripts/lobby_probe.py', 'urls': {'lobby': LOBBY, 'cs2_lobby': CS2_LOBBY, 'fixture_api': FIXTURES_API}, 'rounds': rounds,
-              'all_rounds_agree': all(r.get('agree') for r in rounds if 'error' not in r) and any('error' not in r for r in rounds)}
+              'all_plain_rounds_agree': bool(plain) and all(r['agree'] for r in plain), 'all_busted_rounds_agree': bool(busted) and all(r['agree'] for r in busted)}
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
@@ -128,14 +138,14 @@ def main():
             print(f'::notice title=lobby-probe round {i}::ERROR {r["error"]}')
             continue
         cache = {k: {h: v['headers'].get(h) for h in ('Age', 'Cache-Control', 'CF-Cache-Status', 'X-Cache', 'Date') if v['headers'].get(h)} for k, v in r['http'].items()}
-        print('::notice title=lobby-probe round %d::%s' % (i, json.dumps({'agree': r['agree'], 'counts': r['counts'], 'api_status_counts': r['api_status_counts'], 'api_future_start': r['api_future_start'], 'cache': cache}, ensure_ascii=False)))
+        print('::notice title=lobby-probe round %d::%s' % (i, json.dumps({'cache_busted': r['cache_busted'], 'agree': r['agree'], 'counts': r['counts'], 'api_status_counts': r['api_status_counts'], 'api_future_start': r['api_future_start'], 'cache': cache}, ensure_ascii=False)))
         for name, rows in r['differences'].items():
             print(f'::notice title=lobby-probe round {i} {name}::' + json.dumps(rows[:12], ensure_ascii=False))
         for source in ('lobby', 'cs2_lobby'):
             calls = [(c['path'], c['query'], c['status'], c['records']) for c in r['hydration_calls'][source]]
             if i == 0:
                 print(f'::notice title=lobby-probe hydration {source}::' + json.dumps(calls, ensure_ascii=False)[:3000])
-    print('::notice title=lobby-probe verdict::all_rounds_agree=' + str(report['all_rounds_agree']))
+    print('::notice title=lobby-probe verdict::plain_agree=%s busted_agree=%s' % (report['all_plain_rounds_agree'], report['all_busted_rounds_agree']))
 
 
 if __name__ == '__main__':
