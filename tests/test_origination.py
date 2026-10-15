@@ -116,7 +116,7 @@ class EstimateTests(unittest.TestCase):
             {'name': 'ENCE', 'points': 1025, 'standing': 105, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
         ]
         meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
-        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime.now(UTC))
+        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
         self.assertIsNotNone(quote)
         self.assertGreater(quote['probabilities'][0], 0.6)
         self.assertTrue(any(a['alias'] == 'WBT' for a in quote['aliases_used']))
@@ -127,7 +127,7 @@ class EstimateTests(unittest.TestCase):
             {'name': 'ENCE', 'points': 1025, 'standing': 105, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
         ]
         meta = {'source_url': 'https://x', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
-        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime.now(UTC))
+        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
         self.assertIsNone(quote)
         self.assertIn('roster', detail)
 
