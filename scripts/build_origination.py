@@ -170,8 +170,7 @@ def section_aliases(data):
 def section_method(data):
     p = data['policy']
     out = ['<section class="block" id="method"><h2>How each pick is produced</h2>',
-           '<p class="lede">The ladder below runs top to bottom. The first rung that verifies a full pair of prices decides the number; '
-           'the later rungs are cross-checks or last resorts. Every rung is outside information — Hotspawn supplies the match list only.</p>',
+           '<p class="lede">Featured estimates remain unchanged. For unresolved fixtures, the recorded HLTV research informs identity checks, then paired external prices are validated. Accepted independent money sources can be combined; official ratings are a final fallback. Hotspawn supplies the match list only.</p>',
            '<ol class="ladder">']
     for step in p['ladder']:
         out.append(f'<li>{e(step)}</li>')
@@ -202,7 +201,7 @@ def section_sources(data):
 def executive_summary(data):
     c = data['counts']
     out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · FULL COVERAGE · INDEPENDENT LINES</p>',
-           '<h2>Every Hotspawn CS2 match.<br>One researched pick each.</h2>']
+           '<h1>Hotspawn CS2 match picks.<br>Source-backed or explicitly unresolved.</h1>']
     out.append(f'<p class="hero-stats"><strong>{c["active"]}</strong> active fixtures · <strong>{c["with_pick"]}</strong> with a pick · '
                f'<strong>{c["unresolved"]}</strong> unresolved · {c["consensus"]} consensus, {c["market"] + c["bookmaker"]} single-source, {c["model"]} model-backed.</p>')
     out.append('<nav class="quick" aria-label="Jump to section">'
@@ -216,7 +215,7 @@ def executive_summary(data):
                '<a class="q" href="../review/">🚩 Flagged for review <small>main register</small></a>'
                '</nav>')
     out.append('<p class="hero-note">Probabilities are calculated from external betting markets and official ratings — '
-               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees.</p></section>')
+               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured estimates are preserved; additional research runs only for fixtures the featured methods did not resolve.</p></section>')
     return ''.join(out)
 
 

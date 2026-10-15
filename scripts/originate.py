@@ -161,8 +161,8 @@ class Collector:
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
             entry['status'] = 'ok'
-            path = self.dir / f'{label}.html'
-            path.write_text(response.text)
+            path = self.dir / f'{label}.json'
+            path.write_text(json.dumps({'url': url, 'observed_at': entry['observed_at'], 'html': response.text}))
             entry['evidence'] = path.name
             return response.text, entry
         except requests.RequestException as exc:
@@ -519,16 +519,6 @@ def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
         detail = ('Verified paired order-book midpoints.' if not thin else
                   f'THIN MARKET: best spread {worst:.2f} is wider than {THIN_SPREAD:.2f}; midpoint shown as indicative only.')
         return quote, detail
-    if row.get('summary_mid') is not None:
-        worst = float(row.get('summary_spread') or 0)
-        if worst > MAX_ACCEPTED_SPREAD:
-            return None, f'Provider top-of-book spread {worst:.2f} exceeds the {MAX_ACCEPTED_SPREAD:.2f} indicative ceiling'
-        aligned = align_by_name(row['summary_mid'], row['names'], match, registry)
-        quote = {'provider': 'Polymarket', 'family': 'market', 'probabilities': aligned,
-                 'spread': worst, 'thin': worst > THIN_SPREAD, 'observed_at': row.get('observed_at'),
-                 'source_url': row['source_url'], 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
-        return quote, ('Provider top-of-book summary prices (both order-book sides were not saved at capture).'
-                       + (' THIN MARKET indicator.' if worst > THIN_SPREAD else ''))
     return None, 'No paired executable prices in the saved response'
 
 
@@ -670,9 +660,12 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': model_detail})
 
     # HLTV research stage (identity/rank context always recorded with its link).
-    trail.append({'stage': 'HLTV research (identity and rankings)', 'status': 'checked',
-                  'source_url': HLTV_EVENT,
-                  'detail': 'HLTV lists this fixture under the event page with published team ranks. HLTV fan voting percentages are recorded nowhere as probability inputs; HLTV identity evidence feeds the alias registry only.'})
+    if name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
+        trail.insert(0, {'stage': 'HLTV identity research', 'status': 'checked', 'source_url': HLTV_EVENT,
+                         'detail': 'Event identity evidence is listed in the reviewed alias registry. HLTV fan votes are never probability inputs; current lineups remain unverified.'})
+    else:
+        trail.insert(0, {'stage': 'HLTV research', 'status': 'unresolved', 'source_url': 'https://www.hltv.org/matches',
+                         'detail': 'See the featured pipeline research trail; no additional fixture-specific HLTV identity was verified by this fallback.'})
 
     # 4. Choose the originated line: consensus of money sources, else model.
     families = {}

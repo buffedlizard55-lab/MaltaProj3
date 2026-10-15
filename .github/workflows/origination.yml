@@ -38,7 +38,16 @@ jobs:
         run: python -m scripts.originate --live
       - name: Build the origination page and check it
         run: |
-          python -m scripts.build
+          python - <<'PY'
+          import traceback
+          from pathlib import Path
+          from scripts.build import build
+          try:
+              build(Path('data'), Path('site'))
+          except Exception as exc:
+              print('::error::' + str(exc).replace('\n', ' '))
+              raise
+          PY
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
@@ -78,6 +87,20 @@ jobs:
               print('Live collection:', d['live_collection'])
           else:
               print('## Origination snapshot missing')
+          PY
+      - name: Record live audit result as annotations
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('data/origination.json')
+          if p.exists():
+              d = json.loads(p.read_text())
+              print('::notice::Origination counts: ' + json.dumps(d['counts']))
+              for m in d['matches']:
+                  if not m.get('featured_method'):
+                      print('::notice::Fallback ' + m['id'] + ': ' + json.dumps(m.get('origination')))
           PY
       - name: Save live origination evidence
         if: always()
