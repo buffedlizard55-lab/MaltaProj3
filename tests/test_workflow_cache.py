@@ -56,3 +56,11 @@ class PublisherScheduleTests(unittest.TestCase):
         day = slots + [s + 1440 for s in slots]
         worst = max(day[i + 2] - day[i] for i in range(len(slots)))
         self.assertLessEqual(worst, 8 * 60, f'worst single-drop gap {worst} min')
+
+
+class PublisherStepOrderTests(unittest.TestCase):
+    def test_regression_tests_run_on_repository_fixtures_before_the_cache_restore(self):
+        text = WORKFLOW.read_text()
+        tests_at = text.index('run: python -m unittest discover -s tests')
+        restore_at = text.index('uses: actions/cache/restore@')
+        self.assertLess(tests_at, restore_at, 'fixture-coupled tests must not run against restored runtime data')
