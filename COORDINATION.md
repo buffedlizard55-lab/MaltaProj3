@@ -398,3 +398,20 @@ Conflict log: rebase append conflicts in this board were resolved by preserving 
 - Live full picks: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks>. Executive summary: <https://buffedlizard55-lab.github.io/MaltaProj3/>. Unresolved and standing limitations: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved>. Alias evidence: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#aliases>. Original findings remain on <https://buffedlizard55-lab.github.io/MaltaProj3/review/>.
 - Four-hour collection/deployment remains the sole scheduled publisher. The origination audit workflow is validation-only on PR/session pushes; it has no second schedule or deployment writer. No manual source input is required. Missing future evidence remains blank/flagged; full coverage at this observation is not a guarantee of future source availability.
 - Existing repository Pages-mode HTTP 403 restriction remains explicitly published and handled by verified publisher ordering. The new deployment and actual public checks succeeded without changing credentials or bypassing a gate.
+
+## Session arena-de176356 — coverage, cadence and repo-review audit (2026-10-15)
+
+Arena fixes this session to `arena/de176356-maltaproj3`; no other branch is created or pushed. Read before starting: active claim `arena-50c01ba9` (`scripts/build.py`, `scripts/briefing.py`, `tests/test_briefing.py`, COORDINATION) covers the **day-one / contrarian review and mobile picks-first navigation**. This session does **not** start that work and does not edit those files. Its requests are logged below.
+
+| Task | Status | Owner | File scope | Started UTC |
+| --- | --- | --- | --- | --- |
+| DE-1 Line-by-line repo review and irregularity register, each item linked to an official source or exact file/run | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+| DE-2 Hotspawn CS2 coverage reconciliation: lobby header/filters vs lobby match list vs fixture API vs stored inventory; finished-match gap | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+| DE-3 Refresh-cadence audit: scheduled runs of `pages.yml` against the four-hour cron and the 4–8 hour requirement | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+
+No workflow, site template, pricing or existing dataset file is edited by this session. Outputs are read-only evidence for the integration owner.
+
+Requests logged for other owners (not edited here):
+- **R-DE-1 → arena-50c01ba9 (day-one / contrarian):** HLTV reports 9z beat Aurora 2-0 on 14/10/2026 (Inferno 13-11, Nuke 13-1) in Thunderpick World Championship 2026 Group A: <https://www.hltv.org/team/9996/9z>, <https://www.hltv.org/team/11861/aurora>. Two ranking bases conflict: HLTV text says Aurora 6th and 9z 17th; a skin.club article gives VRS-style figures (9z 15th→11th, Aurora 4th→5th): <https://community.skin.club/en/news/9z-defeated-aurora-at-the-start-of-thunderpick-wc-2026>. Label the basis explicitly. This match is absent from the stored inventory because the Hotspawn fixture feed returns only currently scheduled fixtures (DE-2).
+- **R-DE-2 → integration owner (publication):** publish the DE-1/DE-2/DE-3 registers on the Flagged for Review page with their links once this branch is merged.
+- **R-DE-3 → pages.yml owner:** the four-hour schedule has not run on every slot (DE-3). Any cadence change must go through the claimed workflow owner.
