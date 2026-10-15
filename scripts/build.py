@@ -453,6 +453,9 @@ def review(data, prefix):
     out += review_note(prefix, data.get('day_one_audit'))
     if data.get('repo_audit'):
         out += audit_register(data['repo_audit'], prefix)
+    if data.get('session_review'):
+        from scripts.review_register import render as session_register
+        out += session_register(data['session_review'], prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
     for f in data['flags']:
@@ -503,6 +506,8 @@ def build(source: Path, output: Path):
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
+    if (source / 'research/c07e1b40/repo-review.json').exists():
+        data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)

@@ -1,0 +1,257 @@
+{
+  "session": "arena-c07e1b40",
+  "branch": "arena/c07e1b40-maltaproj3",
+  "review_clock_utc": "2026-10-15T23:05Z",
+  "scope": "Line-by-line review of the origination layer (scripts/originate.py, scripts/build_origination.py, data/origination/aliases.json), the publishing workflow cache, the collector source readers and the session workflows, against official and first-party sources. Every item links the evidence used; nothing here is a probability input.",
+  "method": "Each item was reproduced locally or on a GitHub runner (runner bundles 38817748368, 38819155716) and checked against the linked source pages and APIs on 2026-10-15 between 22:24Z and 23:05Z. 'fixed' items carry a regression test; 'needs review' items were deliberately not changed by this session.",
+  "items": [
+    {
+      "id": "C07-01",
+      "area": "publisher / build",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "Scheduled publisher runs failed at the build step with KeyError 'source_url' whenever a featured-unresolved fixture was resolved by the Valve-model fallback: scripts/originate.py emitted model inputs without their per-row source_url/snapshot_date while scripts/build.py evidence() renders one linked row per input.",
+      "handling": "originate.py now keeps each input's official source link and snapshot date (already present in the parsed Valve rows). Regression: tests/test_origination.py ModelFallbackRenderTests reproduces the crash through build.evidence().",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38742696250",
+          "detail": "Scheduled run 13:26Z failed at 'Reconcile every row, replay every probability and build linked pages'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38797535468",
+          "detail": "Scheduled run 19:53Z failed at the same build step (site frozen on the 12:13Z deployment)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38733458812",
+          "detail": "Origination audit annotation: failure 'source_url' with fallback 1080281 resolved by method 'model'."
+        }
+      ]
+    },
+    {
+      "id": "C07-02",
+      "area": "publisher / cache",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "PR #34 made the cache restore path list end with data/origination/ while the save list ends with data/origination/evidence/. actions/cache derives the cache version from the exact path list, so no saved snapshot could ever be restored (outage fallback silently degraded to the old checked-in data), and a matching data/origination/ restore would overlay the reviewed alias registry.",
+      "handling": "Restore list made identical to the save list. Reproduced the toolkit hash locally: old save list = 4a521c6345d7 and new save list = 4ad832c41549 (both match this repository's cache API), PR #34 restore list = 20fc7e29e64c (no cache can match). Regression: tests/test_workflow_cache.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/actions/cache/blob/main/README.md#cache-version",
+          "detail": "Official README: the cache version is a hash of the compression tool and the cached path list; different versions never match."
+        },
+        {
+          "url": "https://github.com/actions/toolkit/blob/main/packages/cache/src/internal/cacheUtils.ts",
+          "detail": "getCacheVersion(paths, compressionMethod) hashes paths joined with '|' plus compression method and salt."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/34",
+          "detail": "Pull request that introduced the mismatched restore list."
+        }
+      ]
+    },
+    {
+      "id": "C07-03",
+      "area": "coverage / pick origination",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "Production run 38816949473 (22:25Z) published 22 active fixtures with 8 unresolved: only Polymarket, Thunderpick and the Valve model were consulted, and the consensus kept one quote per family, so a second independent market or book would have been discarded.",
+      "handling": "Added Kalshi (CFTC-regulated exchange, officially documented public API, 12-cent spread ceiling) and Bovada (sportsbook public coupon, prematch series moneyline only) with the same exact-name/registry and 60-second start rules; consensus is now one vote per provider. Live runner check 22:45Z: 16 of 22 resolved; Ninjas in Pyjamas vs Team Liquid became a four-provider consensus (Polymarket + Kalshi + Thunderpick + Bovada, NiP 53.3%).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473",
+          "detail": "Annotation 'Public complete-picks counts': active 22, resolved 14, unresolved 8."
+        },
+        {
+          "url": "https://docs.kalshi.com/api-reference/market/get-markets",
+          "detail": "Official Kalshi market-data API documentation (public, unauthenticated GET)."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
+          "detail": "Kalshi KXCS2GAME event 'Liquid vs. NIP', Stake Pulse Beat III, originally scheduled Oct 16, 2026 4:00 AM EDT."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/pulse-beat-iii/ninjas-in-pyjamas-team-liquid-202610160400",
+          "detail": "Bovada event 32266578 'Ninjas in Pyjamas vs Team Liquid', prematch moneyline 1.769 / 2.00."
+        }
+      ]
+    },
+    {
+      "id": "C07-04",
+      "area": "identity / alias registry",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": "The WBT → WROTBERRY alias evidence could not be reconfirmed: HLTV team 13683 now uses the slug 'wbt' (not 'wrotberry') and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k, not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no WROTBERRY page.",
+      "handling": "Join retained on same-event, same-opponent, same-time evidence (HLTV event 9312 lists exactly one WBT, vs Nexus); a visible review_note is published on the alias registry. Extended to DraculaN Season 7 with that evidence.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13683/wbt",
+          "detail": "HLTV team page: name WBT, Ukraine, lineup Psycho, Smash, s4ltovsk1yy, DemQQ, tyr1k (all 1 month on the team)."
+        },
+        {
+          "url": "https://liquipedia.net/counterstrike/WROTBERRY",
+          "detail": "Liquipedia: 'There is currently no text in this page.'"
+        },
+        {
+          "url": "https://www.hltv.org/events/9312/digital-crusade-draculan-season-7",
+          "detail": "HLTV DraculaN Season 7 bracket: Group B opening round lists WBT vs Nexus; no WROTBERRY entry."
+        }
+      ]
+    },
+    {
+      "id": "C07-05",
+      "area": "identity / alias registry",
+      "severity": "low",
+      "status": "needs review",
+      "finding": "The ROUNDS → RoundsGG alias cites the Liquipedia Rocket League wiki as evidence for a Counter-Strike team; the Counter-Strike wiki has no ROUNDS page. originate.py also listed that Rocket League page as a source link of the alias-registry flag.",
+      "handling": "Visible review_note added; the flag now links the registry file instead. The join remains supported by HLTV's same-event listing (Elisa BreakOut Series 2).",
+      "evidence": [
+        {
+          "url": "https://liquipedia.net/rocketleague/ROUNDS",
+          "detail": "Cited page belongs to the Rocket League wiki."
+        },
+        {
+          "url": "https://liquipedia.net/counterstrike/ROUNDS",
+          "detail": "Counter-Strike wiki: no page."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "detail": "HLTV event page listing ROUNDS in Group B."
+        }
+      ]
+    },
+    {
+      "id": "C07-06",
+      "area": "identity / candidate aliases",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": "Three provider name variants were observed but NOT added to the registry because no official page states the equivalence: 'Insiders Esport' (Polymarket) vs 'Insiders' (HLTV/Hotspawn), 'Leo Team' (Polymarket) vs 'Leo', and 'Procyon Gaming' (Kalshi) vs 'Procyon'. Their books were also too wide at observation time (e.g. Polymarket Infinite vs Insiders Esport spread 0.56).",
+      "handling": "Left unmatched and visible on the unresolved cards; candidates listed here for manual review.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events/1183119",
+          "detail": "Polymarket: 'Counter-Strike: Infinite vs Insiders Esport (BO1) - DraculaN Group A', 5:00 AM ET Oct 19; bestBid 0.41 / bestAsk 0.97."
+        },
+        {
+          "url": "https://www.hltv.org/team/13376/insiders",
+          "detail": "HLTV Insiders (Romania): no active lineup, no VRS or world rank, no full-name evidence."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399597/astral-vs-leo-digital-crusade-draculan-season-7",
+          "detail": "HLTV lists 'Leo' (team 11446) vs ASTRAL, 19 Oct 10:45 UTC."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7",
+          "detail": "HLTV lists 'Procyon' (team 10997) vs LOS NINOS, 16 Oct 16:00 UTC."
+        }
+      ]
+    },
+    {
+      "id": "C07-07",
+      "area": "code hygiene",
+      "severity": "low",
+      "status": "fixed",
+      "finding": "scripts/originate.py defined MAX_PRICE_AGE_HOURS = 12 but never used it; the effective freshness rule is scripts/domain.py MAX_PRICE_AGE_HOURS = 8, so the constant misdescribed the policy. validate_origination also raised a bare StopIteration when a Polymarket observation was missing.",
+      "handling": "Dead constant removed with a pointer to domain.is_fresh; the replay now fails with an explicit assertion message.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/domain.py",
+          "detail": "MAX_PRICE_AGE_HOURS = 8 used by is_fresh()."
+        }
+      ]
+    },
+    {
+      "id": "C07-08",
+      "area": "tests",
+      "severity": "low",
+      "status": "needs review",
+      "finding": "tests/browser/dashboard.spec.mjs 'phone executive summary exposes the source-linked contrarian guardrail' hard-codes '9z vs Aurora', '15.7%' and 'primary pick remains Falcons'. It passes on the checked-in 15 Oct snapshot but fails when the site is built from a fresh snapshot (reproduced on the 22:32Z runner snapshot), so it will break whenever repository data is refreshed.",
+      "handling": "Not edited (another session's test). Suggest asserting the section structure and source links instead of fixed historical values.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/dashboard.spec.mjs",
+          "detail": "Test at line 131."
+        }
+      ]
+    },
+    {
+      "id": "C07-09",
+      "area": "workflows",
+      "severity": "low",
+      "status": "needs review",
+      "finding": "collect-preview.yml (arena/11c1fa20 only) and source-diagnostics.yml (arena/11c1fa20, arena/50c01ba9) are bound to retired session branches; their push triggers can no longer fire and manual dispatch returns HTTP 403 for this integration, so they are dead configuration.",
+      "handling": "Not edited (preserved artifacts of completed sessions); candidates for removal by the repository owner.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/collect-preview.yml",
+          "detail": "push.branches: [arena/11c1fa20-maltaproj3]."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/source-diagnostics.yml",
+          "detail": "push.branches: [arena/11c1fa20-maltaproj3, arena/50c01ba9-maltaproj3]."
+        }
+      ]
+    },
+    {
+      "id": "C07-10",
+      "area": "refresh cadence",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "GitHub delivered the publisher's '17 */4 * * *' schedule on 15 Oct only at 04:39, 13:26 and 19:53 UTC (scheduled-run API), so about half of the slots were dropped and the 04:39 → 13:26 gap was 8.8 hours — above the user's 8-hour bound. Both later runs also failed (C07-01), so the public site stayed on the 12:13Z deployment until the 22:25Z push deploy.",
+      "handling": "Added an offset catch-up schedule ('47 2-22/4 * * *'): 12 slots per day, and any single dropped slot still leaves a refresh within about four hours. Regression: tests/test_workflow_cache.py PublisherScheduleTests (worst single-drop gap ≤ 8 h). Delivery remains best-effort on GitHub's side.",
+      "evidence": [
+        {
+          "url": "https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule",
+          "detail": "Official docs: the schedule event can be delayed during high load, including the start of every hour; if load is high enough some queued jobs may be dropped; a workflow can have multiple schedule events."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38682572464",
+          "detail": "Scheduled run created 2026-10-15T04:39:02Z (success)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38742696250",
+          "detail": "Next scheduled run created 2026-10-15T13:26:23Z (8.8 h later; failed)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38797535468",
+          "detail": "Next scheduled run created 2026-10-15T19:53:31Z (failed)."
+        }
+      ]
+    },
+    {
+      "id": "C07-11",
+      "area": "identity / name collisions",
+      "severity": "informational",
+      "status": "verified",
+      "finding": "Two different teams named ex-RUSTEC play at 11:00 UTC on 16 Oct in different events (vs Bushido Wildcats in NODWIN Clutch Series 13 and vs Saint Sinners in CCT Europe Series 11), and Valve's standings contain duplicate ex-RUSTEC rosters. This confirms why identity joins stay exact and competition-scoped rather than fuzzy.",
+      "handling": "No change; the fixture stays unresolved (books 0.39–0.45 wide) with both observations published on its card.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399084/bushido-wildcats-vs-ex-rustec-nodwin-clutch-series-13",
+          "detail": "HLTV: Bushido Wildcats vs ex-RUSTEC, 16 Oct 11:00 UTC."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399307/ex-rustec-vs-saint-sinners-cct-2026-europe-series-11",
+          "detail": "HLTV: ex-RUSTEC vs Saint Sinners, 16 Oct 11:00 UTC."
+        }
+      ]
+    },
+    {
+      "id": "C07-12",
+      "area": "policy compliance",
+      "severity": "informational",
+      "status": "verified",
+      "finding": "HLTV match pages display 'Pick a winner' fan-vote percentages (e.g. INFINITE 85.2% / Insiders 14.8%) and Hotspawn publishes participant pick percentages; neither is read by any pricing path (originate.py, domain.py, collect.py). HLTV's betting widget showed no prices from the observation region.",
+      "handling": "No change; policy flags hotspawn_votes_used=false and fan_votes_used=false remain accurate.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+          "detail": "HLTV page showing fan vote and a sweepstakes-only betting widget."
+        },
+        {
+          "url": "https://play.hotspawn.com/how-it-works",
+          "detail": "Hotspawn rules page (match list source only)."
+        }
+      ]
+    }
+  ]
+}
