@@ -1,0 +1,51 @@
+[
+  {
+    "id": "hltv-matches",
+    "url": "https://www.hltv.org/matches",
+    "method": "GET",
+    "observed_at": "2026-10-15T08:22:11Z",
+    "http_status": 200,
+    "status": "ok",
+    "final_url": "https://www.hltv.org/matches",
+    "content_type": "text/html; charset=UTF-8",
+    "response_date": "Thu, 15 Oct 2026 08:22:11 GMT",
+    "response_sha256": "2e6920d4fce0d5dc592c2cfb051c26bfaa2312f49b60143885e6cc77358cf491"
+  },
+  {
+    "id": "stake-cs2",
+    "url": "https://stake.com/sports/esports/counter-strike",
+    "method": "GET",
+    "observed_at": "2026-10-15T08:22:11Z",
+    "http_status": 403,
+    "status": "error",
+    "final_url": "https://stake.com/sports/esports/counter-strike",
+    "content_type": "text/html; charset=UTF-8",
+    "response_date": "Thu, 15 Oct 2026 08:22:11 GMT",
+    "response_sha256": "8dd666fbf142a9ffa9a9c782dfc2278f4ca26e4d364bb60c10c066400c848c01",
+    "error": "403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+  },
+  {
+    "id": "pinnacle-cs2",
+    "url": "https://www.pinnacle.com/en/esports-hub/cs2",
+    "method": "GET",
+    "observed_at": "2026-10-15T08:22:12Z",
+    "http_status": 200,
+    "status": "ok",
+    "final_url": "https://www.pinnacle.com/en/",
+    "content_type": "text/html",
+    "response_date": "Thu, 15 Oct 2026 08:22:12 GMT",
+    "response_sha256": "3f7de2cdd588e8d6261ec78ff287ca3a195933d4e5c0f2dbe665a07ba7f7db19"
+  },
+  {
+    "id": "polymarket-api-docs",
+    "url": "https://docs.polymarket.com/api-reference/events/list-events",
+    "method": "GET",
+    "observed_at": "2026-10-15T08:22:12Z",
+    "http_status": 200,
+    "status": "ok",
+    "final_url": "https://docs.polymarket.com/api-reference/events/list-events",
+    "content_type": "text/html; charset=utf-8",
+    "response_date": "Thu, 15 Oct 2026 08:22:13 GMT",
+    "response_sha256": "069f3330a397cb43b8016d77cc93c0951524261d2fa550715d8ee3986cf35293"
+  }
+]
