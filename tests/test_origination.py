@@ -233,3 +233,77 @@ class PageTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class AliasScopeTests(unittest.TestCase):
+    """Every alias declares the competitions it may join, and never crosses them."""
+
+    def test_every_alias_declares_its_competition_scope(self):
+        for entry in registry()['aliases']:
+            self.assertTrue(entry.get('applies_to'), entry['alias'])
+            self.assertTrue(all(isinstance(s, str) and s.strip() for s in entry['applies_to']))
+
+    def test_registry_rejects_an_alias_without_a_declared_scope(self):
+        broken = copy.deepcopy(registry())
+        del broken['aliases'][0]['applies_to']
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'aliases.json'
+            path.write_text(json.dumps(broken))
+            with self.assertRaises(ValueError):
+                originate.load_registry(path)
+
+    def twc(self, a='9z', b='Falcons', starts_at='2026-10-15T11:00:00Z'):
+        return {'id': '1080202', 'starts_at': starts_at,
+                'competition': 'Thunderpick World Championship 2026',
+                'teams': [{'name': a}, {'name': b}]}
+
+    def test_thunderpick_display_names_join_inside_their_own_event(self):
+        values, used, status = originate.pair_join(['9z', 'Team Falcons'], '2026-10-15T11:00:00Z', self.twc(), registry())
+        self.assertEqual(status, 'matched')
+        self.assertTrue(any(a['alias'] == 'Team Falcons' and a['canonical'] == 'Falcons' for a in used))
+        values, used, status = originate.pair_join(['PARIVISION', 'BetBoom Team'], '2026-10-15T13:30:00Z',
+                                                   self.twc('PARIVISION', 'BetBoom', '2026-10-15T13:30:00Z'), registry())
+        self.assertEqual(status, 'matched')
+        self.assertTrue(any(a['alias'] == 'BetBoom Team' for a in used))
+
+    def test_an_alias_never_joins_a_different_competition(self):
+        other = {'id': 'x', 'starts_at': '2026-10-15T11:00:00Z', 'competition': 'Some Other Event',
+                 'teams': [{'name': '9z'}, {'name': 'Falcons'}]}
+        _, used, status = originate.pair_join(['9z', 'Team Falcons'], '2026-10-15T11:00:00Z', other, registry())
+        self.assertEqual(status, 'names')
+        self.assertEqual(used, [])
+
+    def test_elisa_aliases_stay_inside_elisa(self):
+        twc = self.twc('WROTBERRY', 'ENCE')
+        _, _, status = originate.pair_join(['WBT', 'ENCE'], '2026-10-15T11:00:00Z', twc, registry())
+        self.assertEqual(status, 'names')
+
+    def test_resolve_name_honours_the_declared_scope(self):
+        canon, used = originate.resolve_name('Team Falcons', registry(), 'Thunderpick World Championship 2026')
+        self.assertEqual(canon, 'falcons')
+        self.assertTrue(used)
+        canon, used = originate.resolve_name('Team Falcons', registry(), 'Elisa BreakOut Series #2')
+        self.assertEqual(canon, 'team falcons')
+        self.assertEqual(used, [])
+
+    def test_nip_abbreviation_excludes_the_academy_and_women_rosters(self):
+        canon, used = originate.resolve_name('NIP Impact', registry(), 'Thunderpick World Championship 2026')
+        self.assertEqual(canon, 'nip impact')
+        self.assertEqual(used, [])
+        canon, used = originate.resolve_name('NIP', registry(), 'Thunderpick World Championship 2026')
+        self.assertEqual(canon, 'ninjas in pyjamas')
+        self.assertTrue(used)
+
+    def test_reverse_model_lookup_is_also_scope_bound(self):
+        ratings = [
+            {'name': 'Team Falcons', 'points': 1843, 'standing': 6, 'roster': ['a', 'b', 'c', 'd', 'e'], 'snapshot_date': '2026-10-05'},
+            {'name': '9z', 'points': 1543, 'standing': 17, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        quote, detail = originate.model_estimate(self.twc(), ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
+        self.assertIsNotNone(quote, detail)
+        self.assertTrue(any(a['alias'] == 'Team Falcons' for a in quote['aliases_used']))
+        other = dict(self.twc(), competition='Unrelated Cup')
+        quote, detail = originate.model_estimate(other, ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
+        self.assertIsNone(quote)

@@ -19,7 +19,10 @@ from scripts.briefing import render as contrarian_briefing, review_note, audit_r
 
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+# Overridable by build() so the executive summary links the review that ships
+# with this exact data directory.
+EDGE_SOURCE = Path('data/edge-review.json')
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
@@ -29,6 +32,7 @@ ICONS = {
     'arrow': '<path d="M5 12h14m-6-6 6 6-6 6"/>',
     'external': '<path d="M14 3h7v7m0-7L10 14M10 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-6"/>',
     'clock': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    'trend': '<path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
     'check': '<path d="m5 12 4 4L19 6"/>',
     'search': '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
 }
@@ -70,7 +74,7 @@ def match_name(m):
     return ' vs '.join(t['name'] or 'Unverified team' for t in m['teams'])
 
 
-def evidence(m, prefix):
+def evidence(m, prefix, fallback=None):
     a = m['analysis']
     body = '<div class="evidence-box"><p class="eyebrow">Source observations</p><dl class="fact-list">'
     for label, value in [('Hotspawn status', e(m['source_status']) if m['source_status'] else blank()), ('Scheduled start', local_time(m['starts_at'])), ('Pick lock', local_time(m['locks_at'])), ('Best of (Hotspawn)', e(m['best_of']) if m['best_of'] is not None else blank()), ('Inventory observed', local_time(m['observed_at']))]:
@@ -97,6 +101,41 @@ def evidence(m, prefix):
                 body += f'<p>Quoted decimal odds: {e(q["odds"][0])} / {e(q["odds"][1])}. {external(q["source_url"], q["provider"])}</p>'
                 body += f'<p>Original event ID: <strong>{e(q["event_id"])}</strong>. Source uses a read-only POST with <code>{{"gameIds":[6]}}</code>; opening that endpoint as a browser GET does not reproduce the recorded request.</p><div class="evidence-links"><a href="{prefix}data/evidence/thunderpick-matches.json">Saved original bookmaker response ↓</a><a href="{prefix}data/sources.json">Request method &amp; payload ↓</a></div>'
         body += '<ul class="limitations">' + ''.join(f'<li>{e(x)}</li>' for x in a['limitations']) + '</ul>' + external(a['source_url'], a['source'])
+    if not a and fallback and fallback.get('origination'):
+        o = fallback['origination']
+        body += (f'<h4>Researched fallback · {e(o.get("label") or o["method"])}</h4>'
+                 f'<p>Observed {local_time(o["observed_at"])}. Calculated fair lines: '
+                 f'<strong>{e(o["fair_decimal"][0])} / {e(o["fair_decimal"][1])}</strong> (not quoted bookmaker odds). '
+                 'The featured exact-name method rejected this fixture; this estimate comes from the audited research '
+                 'ladder and never overwrites a featured value.</p>')
+        for q in o.get('quotes') or []:
+            facts = []
+            odds, bid, ask = q.get('odds'), q.get('bid'), q.get('ask')
+            if odds:
+                facts.append(f'decimal odds {e(odds[0])} / {e(odds[1])}')
+            if bid and ask:
+                facts.append(f'bid/ask {bid[0]:.3f}/{ask[0]:.3f} vs {bid[1]:.3f}/{ask[1]:.3f}')
+            if not facts:
+                facts.append('price observation recorded in the saved evidence')
+            body += (f'<p>{e(q.get("provider") or "Provider")} ({e(q.get("family") or "source")}): '
+                     + ' · '.join(facts)
+                     + f'. Original event ID: <strong>{e(q.get("event_id") or "unverified")}</strong>. '
+                     + external(q.get('source_url') or o['source_url'], (q.get('provider') or 'Provider') + ' record') + '</p>')
+        for r in o.get('inputs') or []:
+            body += (f'<p class="tiny">Valve rating input: <strong>{e(r["name"])}</strong> {e(r["points"])} points, '
+                     f'snapshot {e(r.get("snapshot_date") or "unverified")}, roster {e(", ".join(r.get("roster") or []))}. '
+                     + external(r['source_url'], 'Valve record') + '</p>')
+        aliases = fallback.get('aliases_used') or []
+        if aliases:
+            body += ('<p class="tiny"><strong>Identity joins</strong>: '
+                     + e('; '.join(f'{a_["alias"]} → {a_["canonical"]} ({a_["kind"]})' for a_ in aliases))
+                     + '. Each join carries its own official evidence links in the '
+                     f'<a href="{prefix}origination/#aliases">alias registry</a>.</p>')
+        if o.get('limitations'):
+            body += '<ul class="limitations">' + ''.join(f'<li>{e(x)}</li>' for x in o['limitations']) + '</ul>'
+        body += external(o['source_url'], o.get('source') or 'Research source')
+        body += (f'<div class="evidence-links"><a href="{prefix}origination/#match-{e(m["id"])}">'
+                 'Full researched audit trail →</a></div>')
     if m['research']:
         if any(r['stage'].startswith('HLTV') and r['status'] != 'unavailable' for r in m['research']):
             body += '<div class="evidence-links"><a href="' + prefix + 'data/evidence/hltv-page.json">Original HLTV markup ↓</a><a href="' + prefix + 'data/evidence/hltv-research.json">Replayed HLTV identities ↓</a></div>'
@@ -108,18 +147,26 @@ def evidence(m, prefix):
     return f'<details class="row-details"><summary>Evidence &amp; analysis <span aria-hidden="true">+</span></summary>{body}</details>'
 
 
-def matches_table(matches, prefix, *, table_id='match-list', filters=False):
+def matches_table(matches, prefix, *, table_id='match-list', filters=False, fallbacks=None):
+    fallbacks = fallbacks or {}
     if not matches:
         return '<div class="empty-state">No verified future fixtures in this snapshot. Check the <a href="' + prefix + 'coverage/">source status</a> before assuming there are no matches.</div>'
     out = f'<div class="matches-wrap"><table class="matches-table" id="{table_id}"><caption class="sr-only">Hotspawn CS2 match picks. Percentages are calculated estimates, never guaranteed outcomes. Times are Europe/Malta unless changed.</caption><thead><tr><th scope="col">Match &amp; start</th><th scope="col">Win probabilities</th><th scope="col">Our pick</th><th scope="col">Basis &amp; verification</th></tr></thead><tbody>'
     now = datetime.now(timezone.utc)
     for m in matches:
         a, pick = m['analysis'], m['pick_index']
+        fallback = None if a else fallbacks.get(str(m['id']))
+        fb = (fallback or {}).get('origination')
+        if a is None and fb:
+            a, pick = fb, fallback.get('pick_index')
+            researched = True
+        else:
+            researched = False
         method = a['method'] if a else 'unresolved'
         names = [t['name'] or 'Unverified team' for t in m['teams']]
         confidence = max(a['probabilities']) if a else 0
-        search = ' '.join(names + [m['competition'] or '', method]).casefold()
-        out += f'<tr id="match-{e(m["id"])}" class="match-row" data-record-id="{e(m["id"])}" data-search="{e(search)}" data-method="{method}" data-tournament="{e(m["competition"] or "Unverified tournament")}" data-confidence="{confidence}" data-start="{e(m["starts_at"] or "")}" data-lock="{e(m["locks_at"] or "")}" data-price-time="{e(a["observed_at"] if a else "")}">'
+        search = ' '.join(names + [m['competition'] or '', method, 'researched fallback' if researched else '']).casefold()
+        out += f'<tr id="match-{e(m["id"])}" class="match-row" data-record-id="{e(m["id"])}" data-search="{e(search)}" data-method="{method}" data-tournament="{e(m["competition"] or "Unverified tournament")}" data-confidence="{confidence}" data-start="{e(m["starts_at"] or "")}" data-lock="{e(m["locks_at"] or "")}" data-price-time="{e(a["observed_at"] if a else "")}" data-researched-fallback="{str(researched).lower()}">'
         tier = ('Tier ' + str(m['tier']).upper()) if m['tier'] else 'Tier unverified'
         start_time, lock_time = timestamp(m['starts_at']), timestamp(m['locks_at'])
         availability = 'Past start · status unverified' if start_time and start_time <= now else 'Closed for picks' if lock_time and lock_time <= now else 'Open for picks' if lock_time else 'Lock time unverified'
@@ -128,7 +175,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
         if a:
             for i, (name, p) in enumerate(zip(names, a['probabilities'])):
                 out += f'<div class="prob-line {"favored" if i == pick else ""}"><span class="prob-team">{e(name)}<small class="fair-line">Fair line {a["fair_decimal"][i]:.3f}</small></span><strong>{p * 100:.1f}%</strong></div>'
-            out += f'<div class="prob-bar" aria-hidden="true"><span class="bar-a" style="width:{a["probabilities"][0] * 100:.4f}%"></span><span class="bar-b" style="width:{a["probabilities"][1] * 100:.4f}%"></span></div><span class="tiny muted">Calculated · full-series winner</span>'
+            out += f'<div class="prob-bar" aria-hidden="true"><span class="bar-a" style="width:{a["probabilities"][0] * 100:.4f}%"></span><span class="bar-b" style="width:{a["probabilities"][1] * 100:.4f}%"></span></div><span class="tiny muted">{"Researched fallback · " if researched else ""}Calculated · full-series winner</span>'
         else:
             out += '<div class="prob-line"><span>' + e(names[0]) + '</span>' + blank() + '</div><div class="prob-line"><span>' + e(names[1]) + '</span>' + blank() + '</div><p class="tiny muted">Insufficient verified inputs. No default 50/50.</p>'
         out += '</td><td class="pick-cell" data-label="Our pick">'
@@ -137,7 +184,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
             inactive = expired or closed or lock is None
-            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance'
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + (' · researched fallback, featured method rejected this fixture' if researched else '')
             status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
             out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
 
@@ -146,20 +193,44 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
         else:
             out += '<strong class="unresolved-text">Not yet resolved</strong><p class="pick-caption">See the research trail.</p>'
         out += '</td><td class="basis-cell" data-label="Basis &amp; sources">'
-        out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'model': 'Research model', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'model': 'purple', 'unresolved': 'amber'}[method])
+        if researched:
+            out += badge('Researched fallback', 'purple')
+        else:
+            out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'model': 'Research model', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'model': 'purple', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
             out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Bookmaker API')
-        out += '</div>' + evidence(m, prefix) + '</td></tr>'
+        if researched:
+            out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
+        out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
     out += '</tbody></table><p id="filter-empty" class="empty-state" hidden>No matches fit these filters. <button type="button" class="text-button" data-reset>Clear filters</button></p></div>' if filters else '</tbody></table></div>'
     return out
 
 
+def effective_basis(m, fallbacks):
+    """Return (method, is_researched_fallback) for what this row actually displays."""
+    if m['analysis']:
+        return m['analysis']['method'], False
+    fb = (fallbacks.get(str(m['id'])) or {}).get('origination')
+    if fb:
+        return fb['method'], True
+    return 'unresolved', False
+
+
 def unresolved_table(data, prefix):
+    fallbacks = data.get('fallbacks') or {}
     rows = [m for m in data['matches'] if m['availability'] != 'past' and m['analysis'] is None]
+    resolved_elsewhere = [m for m in rows if (fallbacks.get(str(m['id'])) or {}).get('origination')]
+    still_blank = [m for m in rows if m not in resolved_elsewhere]
     if not rows:
         return '<p class="positive-note">No unresolved non-archived fixtures in this snapshot. This is not a guarantee of current source coverage; check source health and freshness above.</p>'
-    out = '<div class="table-scroll"><table class="simple-table unresolved-table"><caption class="sr-only">Every unresolved future or unknown-schedule match and the missing evidence</caption><thead><tr><th scope="col">Match</th><th scope="col">Why no pick?</th><th scope="col">Review</th></tr></thead><tbody>'
+    head = ''
+    if resolved_elsewhere:
+        head = ('<p class="section-intro">' + f'{len(resolved_elsewhere)} of these {len(rows)} fixtures were rejected by the '
+                'featured exact-name method but do carry an independently researched estimate, shown in the list above with a '
+                '<strong>Researched fallback</strong> badge and its own audit trail. '
+                f'{len(still_blank)} remain without any supported probability and stay blank below.</p>')
+    out = head + '<div class="table-scroll"><table class="simple-table unresolved-table"><caption class="sr-only">Every unresolved future or unknown-schedule match and the missing evidence</caption><thead><tr><th scope="col">Match</th><th scope="col">Why the featured method produced no pick</th><th scope="col">Review</th></tr></thead><tbody>'
     for m in rows:
         unknown = m['availability'] == 'unknown'
         reason = ('Scheduled start is unverified; a safe team/time market join cannot be made.' if unknown else next((r['detail'] for r in reversed(m['research']) if r['status'] == 'unresolved'), 'No verified inputs are available'))
@@ -173,7 +244,18 @@ def unresolved_table(data, prefix):
                 trail += f'<li><strong>{e(r["stage"])}</strong> · {e(r["status"])}<p>{e(r["detail"])}</p>{external(r["source_url"], "Original source")}</li>'
             trail += '</ol></details>'
         target = 'coverage/#unknown-schedules' if unknown else 'picks/#match-' + m['id']
-        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{primary_note}{identity_notes}<p class="tiny">Missing probabilities remain blank. An unavailable source is not proof that no betting market exists.</p>{trail}</td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}{e(target)}">Full research trail →</a></td></tr>'
+        fb = (fallbacks.get(str(m['id'])) or {}).get('origination')
+        fallback_note = ''
+        if fb:
+            names = [x['name'] or 'Unverified team' for x in m['teams']]
+            fb_row = fallbacks[str(m['id'])]
+            chosen = names[fb_row['pick_index']] if fb_row.get('pick_index') is not None else 'no directional pick'
+            fallback_note = ('<p class="tiny"><strong>Researched fallback available:</strong> '
+                             + e(fb.get('label') or fb['method']) + ' · ' + e(f'{fb["probabilities"][0] * 100:.1f}% / {fb["probabilities"][1] * 100:.1f}%')
+                             + ' · pick ' + e(chosen) + ', observed ' + local_time(fb['observed_at']) + '. '
+                             + external(fb['source_url'], fb.get('source') or 'Research source')
+                             + f' <a class="internal-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail →</a></p>')
+        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{fallback_note}{primary_note}{identity_notes}<p class="tiny">Missing probabilities remain blank. An unavailable source is not proof that no betting market exists.</p>{trail}</td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}{e(target)}">Full research trail →</a></td></tr>'
     return out + '</tbody></table></div>'
 
 
@@ -229,8 +311,8 @@ def summary(data, prefix):
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["unresolved"]} unresolved in the complete researched list. Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}edge/">Day-one upset review ↓</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'
@@ -251,23 +333,75 @@ def summary(data, prefix):
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured estimates are never overwritten.</p></section>'
     out += contrarian_briefing(data, prefix)
+    out += where_everything_lives(data, prefix)
     return out
+
+
+def where_everything_lives(data, prefix):
+    """One obvious map of the site: which list to use for what."""
+    fallbacks = data.get('fallbacks') or {}
+    upcoming = [m for m in data['matches'] if m['availability'] != 'past']
+    basis = [effective_basis(m, fallbacks) for m in upcoming]
+    with_pick = sum(1 for b, _ in basis if b != 'unresolved')
+    researched = sum(1 for _, fb in basis if fb)
+    still_blank = len(upcoming) - with_pick
+    rows = [
+        ('Complete match picks', 'origination/#picks', 'The list to use on your phone: every non-archived Hotspawn CS2 '
+         'fixture with both probabilities, one obvious pick, lock times and expandable evidence.',
+         'Featured estimates plus researched fallbacks'),
+        ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
+         'filters, researched-fallback badges and the unresolved research trails.',
+         f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
+        ('Upset review & edge', 'edge/', 'Dated first-party review of the day-one Thunderpick World Championship '
+         'results, the Aurora roster rebuild behind the 9z upset, verified Valve standings and the seven rules applied '
+         'before disagreeing with a market.', 'Research review · not a live feed'),
+        ('Coverage & sources', 'coverage/', 'Inventory reconciliation, source health, the complete past-start archive '
+         'and JSON/CSV downloads.', 'Every original request'),
+        ('Methodology', 'methodology/', 'Exact matching rules, formulas, thresholds, source policy and model limits.',
+         'How each number is produced'),
+        ('Flagged for Review', 'review/', 'Missing inputs, blocked sources, identity ambiguity and format conflicts.',
+         f'{len(data["flags"])} open flags'),
+    ]
+    out = ('<section class="content-section" id="site-map"><div class="section-heading"><div>'
+           '<p class="eyebrow">No hunting</p><h2>Where every list lives</h2></div>'
+           + badge('One tap from here', 'neutral') + '</div>'
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Every page on this site and '
+           'what it contains</caption><thead><tr><th scope="col">Page</th><th scope="col">What it contains</th>'
+           '</tr></thead><tbody>')
+    for title, url, detail, meta in rows:
+        out += (f'<tr><th scope="row"><a href="{prefix}{e(url)}">{e(title)} →</a><small>{e(meta)}</small></th>'
+                f'<td>{e(detail)}</td></tr>')
+    return out + '</tbody></table></div></section>'
 
 
 def picks(data, prefix):
     c = data['counts']
+    fallbacks = data.get('fallbacks') or {}
     active = [m for m in data['matches'] if m['availability'] != 'past']
+    basis = [effective_basis(m, fallbacks) for m in active]
+    shown = {'all': len(active),
+             'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker')),
+             'model': sum(1 for b, _ in basis if b == 'model'),
+             'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
+    researched = sum(1 for _, fb in basis if fb)
+    with_pick = shown['all'] - shown['unresolved']
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
+            f'{c["market"] + c["bookmaker"]} come from the featured exact-name market or bookmaker method'
+            + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
+            + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
+            f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
+            f'<a href="{prefix}edge/">Day-one upset review &amp; contrarian edge →</a></span></div>')
     out += f'<div class="limitations-callout"><strong>Need a pick for rows unresolved below?</strong> <a style="text-decoration:underline" href="{prefix}origination/#picks">Complete researched picks: featured estimates plus source-backed fallbacks →</a> <a style="text-decoration:underline" href="{prefix}origination/#unresolved">Remaining limitations →</a> <a style="text-decoration:underline" href="{prefix}index.html#contrarian">Day 1 contrarian review →</a></div>'
     out += '<div class="info-strip">' + icon('clock') + '<span>Snapshot observed ' + local_time(data.get('inventory_observed_at')) + '. Lock times come from each Hotspawn fixture. Picks are not submitted automatically. <a href="#unresolved">Jump to unresolved picks &amp; limitations ↓</a></span></div>'
     out += '<section class="content-section picks-section" aria-label="Searchable match list"><div class="filter-bar"><label class="search-box">' + icon('search') + '<span class="sr-only">Search teams or tournaments</span><input id="match-search" type="search" placeholder="Search teams or tournaments…" autocomplete="off"></label><label class="select-field"><span>Tournament</span><select id="tournament-filter"><option value="all">All tournaments</option>'
     for tournament in sorted(set(m['competition'] or 'Unverified tournament' for m in active)):
         out += f'<option value="{e(tournament)}">{e(tournament)}</option>'
     out += '</select></label><label class="select-field"><span>Sort by</span><select id="match-sort"><option value="start">Soonest first</option><option value="confidence">Highest estimated chance</option><option value="team">Team name</option></select></label></div><div class="filter-second"><div class="filter-tabs" role="group" aria-label="Probability basis">'
-    for value, label, count in [('all', 'All matches', len(active)), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'] + c['unknown_schedule'])]:
+    for value, label, count in [('all', 'All matches', shown['all']), ('market', 'Market-backed', shown['market']), ('model', 'Research', shown['model']), ('unresolved', 'Unresolved', shown['unresolved'])]:
         out += f'<button type="button" data-basis="{value}" aria-pressed="{"true" if value == "all" else "false"}">{label}<span>{count}</span></button>'
     out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness/lock checks are unavailable. Status reflects build time only; confirm the published observation and Hotspawn countdown before choosing a team.</p></noscript>'
-    out += matches_table(active, prefix, filters=True) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
+    out += matches_table(active, prefix, filters=True, fallbacks=fallbacks) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Researched fallback', 'purple') + ' Featured method rejected the fixture; audited research ladder produced this estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
     out += f'<p class="muted small">Showing future-start and unknown-schedule fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Every gap stays visible</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All flagged findings →</a></div>' + unresolved_table(data, prefix) + '</section>'
     return out
@@ -343,7 +477,7 @@ def shell(data, key, body, prefix):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
@@ -362,6 +496,9 @@ def build(source: Path, output: Path):
     validate_context(data, data['_contrarian'])
     if (source / 'origination.json').exists():
         data['complete_picks'] = json.loads((source / 'origination.json').read_text())
+        # Researched fallbacks are only displayed for fixtures the featured
+        # exact-name method left blank; featured estimates are never rewritten.
+        data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
     if (source / 'research/de176356/repo-review-register.json').exists():
@@ -372,7 +509,12 @@ def build(source: Path, output: Path):
     if (output / 'data').resolve() != source.resolve():
         shutil.copytree(source, output / 'data', dirs_exist_ok=True)
     (output / '.nojekyll').touch()
-    renderers = {'summary': summary, 'picks': picks, 'coverage': coverage, 'methodology': methodology, 'review': review}
+    from scripts import build as _self
+    from scripts.build_edge import edge_review
+    edge_path = source / 'edge-review.json'
+    _self.EDGE_SOURCE = edge_path
+    renderers = {'summary': summary, 'picks': picks, 'coverage': coverage, 'methodology': methodology,
+                 'review': review, 'edge': lambda d, pfx: edge_review(d, pfx, edge_path)}
     for key, (_, path, _) in PAGES.items():
         target = output / path
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -408,7 +550,7 @@ def build(source: Path, output: Path):
         from scripts.build_origination import build as build_originated
         build_originated(source, output)
     check_links(output)
-    print(f'Built five current Pages views, compatible old URLs and explicitly archived session views in {output}')
+    print(f'Built {len(PAGES)} current Pages views, compatible old URLs and explicitly archived session views in {output}')
 
 
 if __name__ == '__main__':

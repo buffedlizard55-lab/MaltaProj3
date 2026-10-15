@@ -540,3 +540,67 @@ Final follow-up scope: `scripts/build_origination.py` to propagate that same inv
 Final hardening PR: [#26](https://github.com/buffedlizard55-lab/MaltaProj3/pull/26). The original integration task is **done** and publicly verified through #21/#22. The source completeness outage remains **needs review**, published on Coverage / Flagged for Review and, with #26, on complete picks as well; it does not block publication of honestly labeled retained evidence. Four-hour unattended retries remain configured. Follow-up regression suite: **116 Python tests**. Final hardening PR CI/deployment status is not assumed before the actual check result.
 
 Included the completed documentation-only publication handoff from PR #27 in final hardening PR #26, preserving the original commit and full verification note. This prevents another competing board append; no source, probability or site code changed in that handoff.
+
+---
+
+# Session 2e8b83a7 board (arena/2e8b83a7-maltaproj3)
+
+Session: `arena-2e8b83a7` · Branch: `arena/2e8b83a7-maltaproj3` · Claimed 2026-10-15T11:50Z ·
+Status values: `unclaimed` · `in progress` · `done` · `needs review`. All prior boards above were read
+before any file was touched; every listed prior task was `done`, so no active scope was overlapped.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| E-1 Day-1 upset review + contrarian edge page | done | arena-2e8b83a7 | `data/edge-review.json`, `scripts/build_edge.py`, `tests/test_edge.py`, `scripts/build.py` (edge renderer + summary IA), `assets/scout.css` | New `/edge/` page; dated research, never a pricing input |
+| E-2 Complete picks on the primary picks page | done | arena-2e8b83a7 | `scripts/build.py`, `tests/test_build.py`, `tests/browser/dashboard.spec.mjs`, `tests/browser/origination.spec.mjs` | Featured-unresolved rows now show badged researched fallbacks; true gaps stay blank |
+| E-3 Competition-scoped alias registry (incl. TWC display names) | done | arena-2e8b83a7 | `data/origination/aliases.json`, `scripts/originate.py`, `tests/test_origination.py`, `.github/workflows/origination.yml` | Every alias now declares `applies_to`; joins enforced for market/bookmaker/model |
+| E-4 WCAG link-distinction regression | done | arena-2e8b83a7 | `assets/scout.css` | Stale-warning and inline prose links underlined (axe `link-in-text-block`) |
+| E-5 Post-deploy verification of the new route | done | arena-2e8b83a7 | `scripts/verify_live.py` | `/edge/` sections, sources and published research JSON verified after deploy |
+
+## Verification performed
+
+- 127 Python regression tests pass (`python -m unittest discover -s tests`), including 27 new tests for
+  fallback display, scoped aliases and the edge-review contract.
+- 37 Playwright checks pass (`npm test`) across six pages at 320/390/768/1440px, including axe WCAG A/AA.
+  Ten checks previously failed on the axe `link-in-text-block` rule; the underline fix removed them.
+- `python -m scripts.build` replays all 80 rows and validates 467 internal links/assets/anchors.
+- Phone screenshots at 390px captured for summary, picks and edge (repo `.cache/`, ignored by Git).
+- Every edge-review fact was read from an official source during 2026-10-14 → 2026-10-15T10:26Z:
+  [HLTV day-one report 45723](https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc),
+  [HLTV series report 45718](https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026),
+  [HLTV event results](https://www.hltv.org/results?event=8932),
+  [HLTV transfer news 45082](https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan),
+  [HLTV Aurora team page](https://www.hltv.org/team/11861/aurora),
+  [Polymarket Gamma records](https://gamma-api.polymarket.com/markets?slug=cs2-9z-fal2-2026-10-15),
+  [Valve standings 2026-10-05](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md).
+
+## Irregularities / flags (published on the Flagged for Review page where applicable)
+
+| ID | Item | Detail | Status |
+| --- | --- | --- | --- |
+| E-F1 | Aurora vs NiP result unclaimed | The Group A elimination series had started at observation time; HLTV had not published the final score inside the window, so no result is claimed. The in-play Polymarket price (Aurora 0.9865 at 10:25:29Z) is labeled in-play and never used as a pick input. | needs review |
+| E-F2 | Provider start-time disagreement | HLTV's day-two schedule table shows 04:35 for Aurora vs NiP while Polymarket and Hotspawn give 08:30 UTC. Recorded on the edge page as `time_discrepancy`, not smoothed. | needs review |
+| E-F3 | Falcons current lineup unverified | Left blank; Valve's dated 2026-10-05 snapshot (karrigan, kyousuke, m0NESY, NiKo, TeSeS) is published instead with its caveat. Weakens the 9z contrarian case and is stated as such. | needs review |
+| E-F4 | Legacy root verifier `scripts/verify-site.mjs` fails | The preserved root-session verifier still checks the retired single-root `index.html` against the old `data/matches.json` schema, so it reports missing links on the current multi-page dashboard. It is executed by no workflow; left untouched as another session's preserved artifact. | needs review |
+| E-F5 | No live collection in this sandbox | The sandbox cannot reach Hotspawn/HLTV/Polymarket, so `data/latest.json` and `data/origination.json` were not regenerated here. The four-hour publisher applies the new alias scope on its next run; until then the checked-in origination snapshot remains the published one. | needs review |
+| E-F6 | Edge prices are provider outcome prices | Polymarket Gamma `outcomePrices` (dated, with timestamps), not the pipeline's CLOB order-book midpoints. Labeled on the page and in its limitations list. | needs review |
+
+## Handoff / completion
+
+PR link and merge result, plus the production run id and public verification, are recorded by the
+integration step of this session below once the merge completes.
+
+### Merge log — arena-2e8b83a7 integrating origin/main (concurrent sessions 50c01ba9 / 3c292a02 / de176356)
+
+While this session's PR was open, main received the completed day-one/contrarian integration
+(`scripts/contrarian.py`, `scripts/briefing.py`, `data/contrarian.json`, audit registers) and the
+source-completeness hardening. The merge was resolved by keeping **both** complete bodies of work:
+their summary contrarian/complete-picks/briefing structure and phone-nav routing to the complete
+picks list remain authoritative for the executive summary; this session's `/edge/` deep-dive page,
+researched-fallback rendering on `/picks/`, competition-scoped alias registry, WCAG underline fix and
+post-deploy `/edge/` verification are re-applied on top. The only duplicated narrative was removed:
+the executive summary links both the bounded contrarian section (`#contrarian`) and the dated
+deep-dive page (`edge/`), and the "Where every list lives" map points at each route once. No source
+file, dataset or probability from either session was discarded; conflicts in README/COORDINATION were
+resolved by union and the test suites were re-run end to end after the merge: **145 Python tests OK** and **38 Playwright checks pass**, `scripts.build` validates 475 internal links/assets/anchors.
+

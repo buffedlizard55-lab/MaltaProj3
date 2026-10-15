@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs/promises';
 
-const routes = ['/', '/picks/', '/coverage/', '/methodology/', '/review/'];
+const routes = ['/', '/picks/', '/edge/', '/coverage/', '/methodology/', '/review/'];
 
 for (const width of [320, 390, 768, 1440]) {
   test(`all current pages are readable without horizontal overflow at ${width}px`, async ({ page }) => {
@@ -28,7 +28,7 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await expect(page.locator('.pick-card')).not.toHaveCount(0);
   await page.goto('/');
   const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
-  await expect(phoneNav.getByRole('link')).toHaveCount(5);
+  await expect(phoneNav.getByRole('link')).toHaveCount(6);
   await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
   await expect(page).toHaveURL(/\/methodology\/$/);
 });
@@ -175,7 +175,7 @@ test('phone executive summary exposes original sources for unresolved picks', as
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Executive summary', exact: true })).toBeVisible();
-  await page.locator('.hero-secondary').click();
+  await page.locator('.hero-secondary').first().click();
   const details = page.locator('#unresolved .unresolved-table details');
   if (await details.count()) {
     await details.first().locator('summary').click();
@@ -183,4 +183,50 @@ test('phone executive summary exposes original sources for unresolved picks', as
     expect(await details.first().locator('a[href^="https://"]').count()).toBeGreaterThan(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
   }
+});
+
+test('the upset review is one tap from the phone summary and stays source-linked', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
+  await shortcuts.getByRole('link', { name: 'Upset review & edge' }).click();
+  await expect(page).toHaveURL(/\/edge\/$/);
+  await expect(page.locator('.mobile-nav a[aria-current="page"]')).toHaveText('Edge');
+  for (const anchor of ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']) {
+    await expect(page.locator(`#${anchor}`)).toBeVisible();
+  }
+  await expect(page.locator('#day-one tbody tr')).toHaveCount(4);
+  await expect(page.locator('#day-two tbody tr')).toHaveCount(4);
+  expect(await page.locator('#day-one a[href^="https://www.hltv.org"]').count()).toBeGreaterThan(0);
+  expect(await page.locator('#day-two a[href^="https://"]').count()).toBeGreaterThan(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('every match row shows either a pick or an explicit blank, never a silent gap', async ({ page }) => {
+  await page.goto('/picks/');
+  const rows = page.locator('#match-list > tbody > tr');
+  const total = await rows.count();
+  expect(total).toBeGreaterThan(0);
+  for (const row of await rows.all()) {
+    const pick = row.locator('[data-pick-choice]');
+    const blank = row.locator('.unresolved-text');
+    expect(await pick.count() + await blank.count(), 'a row must resolve one way or the other').toBeGreaterThan(0);
+  }
+  const researched = page.locator('#match-list > tbody > tr[data-researched-fallback="true"]');
+  for (const row of await researched.all()) {
+    await expect(row.locator('.badge', { hasText: 'Researched fallback' })).toHaveCount(1);
+    expect(await row.locator('a[href*="origination/#match-"]').count()).toBeGreaterThan(0);
+  }
+});
+
+test('the summary states complete pick coverage and maps every page', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.locator('[aria-label="Complete pick coverage"]')).toContainText(/\d+ \/ \d+/);
+  await expect(page.locator('#site-map')).toBeVisible();
+  const links = await page.locator('#site-map a[href]').allTextContents();
+  expect(links.join(' ')).toContain('Complete match picks');
+  expect(links.join(' ')).toContain('Upset review');
+  expect(links.join(' ')).toContain('Featured method picks');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });

@@ -63,28 +63,39 @@ def load_registry(path: Path) -> dict:
     for entry in data['aliases']:
         if not entry.get('alias') or not entry.get('canonical') or not entry.get('evidence'):
             raise ValueError('Every alias needs alias, canonical and evidence links')
+        scope = entry.get('applies_to')
+        if not isinstance(scope, list) or not scope or not all(isinstance(s, str) and s.strip() for s in scope):
+            raise ValueError(f"Alias {entry.get('alias')!r} must declare the exact competitions it applies to")
         for ev in entry['evidence']:
             if not str(ev.get('url', '')).startswith('https://'):
                 raise ValueError('Alias evidence must carry an https source link')
     return data
 
 
-def resolve_name(name: str, registry: dict) -> tuple[str, list]:
+def scoped_aliases(registry: dict, competition) -> list:
+    """Only aliases that explicitly declare this fixture's competition."""
+    key = name_key(competition or '')
+    return [e for e in registry['aliases'] if key in {name_key(s) for s in e.get('applies_to', [])}]
+
+
+def resolve_name(name: str, registry: dict, competition=None) -> tuple[str, list]:
     """Map a provider display name to its canonical Hotspawn-side name.
 
     Returns (canonical_name, alias_records). Exact names pass through. An alias
     applies only when the provider name is not in that alias's must_not_match
-    list. No fuzzy matching.
+    list and, whenever the fixture competition is known, only inside the
+    competitions that alias explicitly declares. No fuzzy matching.
     """
     key = name_key(name)
     used = []
-    for entry in registry['aliases']:
+    pool = registry['aliases'] if competition is None else scoped_aliases(registry, competition)
+    for entry in pool:
         excluded = {name_key(x) for x in entry.get('must_not_match', [])}
         if key in excluded:
             continue
         if key == name_key(entry['alias']):
             used.append({'alias': entry['alias'], 'canonical': entry['canonical'], 'kind': entry['kind'],
-                         'evidence': entry['evidence']})
+                         'applies_to': list(entry.get('applies_to', [])), 'evidence': entry['evidence']})
             return name_key(entry['canonical']), used
     return key, used
 
@@ -99,13 +110,11 @@ def pair_join(source_names: list, source_start, match: dict, registry: dict) -> 
         return None, [], 'names'
     canon, used = [], []
     for n in source_names:
-        c, u = resolve_name(n, registry)
+        c, u = resolve_name(n, registry, match.get('competition'))
         canon.append(c)
         used.extend(u)
     wanted = [name_key(t['name']) for t in match['teams'] if t.get('name')]
     if len(wanted) != 2 or set(canon) != set(wanted) or len(set(canon)) != 2:
-        return None, [], 'names'
-    if used and name_key(match.get('competition') or '') not in {'elisa breakout series #2', 'elisa breakout series 2'}:
         return None, [], 'names'
     dt, md = timestamp(source_start), timestamp(match.get('starts_at'))
     if dt is None or md is None:
@@ -119,7 +128,7 @@ def pair_join(source_names: list, source_start, match: dict, registry: dict) -> 
 def align_by_name(values: list, source_names: list, match: dict, registry: dict) -> list:
     mapping = {}
     for value, name in zip(values, source_names):
-        canon, _ = resolve_name(name, registry)
+        canon, _ = resolve_name(name, registry, match.get('competition'))
         mapping[canon] = value
     out = []
     for team in match['teams']:
@@ -546,9 +555,8 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
     for row in ratings:
         by_name.setdefault(name_key(row['name']), []).append(row)
     reverse = {}
-    if name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
-        for entry in registry['aliases']:
-            reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
+    for entry in scoped_aliases(registry, match.get('competition')):
+        reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
     inputs = []
     used = []
     for team in match['teams']:

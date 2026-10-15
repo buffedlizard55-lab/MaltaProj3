@@ -29,7 +29,7 @@ def verify(url, expected):
     actual = get('data/latest.json').json()
     if actual.get('generated_at') != expected['generated_at'] or actual.get('counts') != expected['counts']:
         raise ValueError('Public snapshot does not match this verified deployment yet')
-    for route in ['', 'picks/', 'coverage/', 'methodology/', 'review/']:
+    for route in ['', 'picks/', 'edge/', 'coverage/', 'methodology/', 'review/']:
         page = BeautifulSoup(get(route).text, 'html.parser')
         body = page.find('body')
         if not body or body.get('data-snapshot-generated') != expected['generated_at']:
@@ -52,6 +52,18 @@ def verify(url, expected):
             upcoming = [m for m in expected['matches'] if m['availability'] != 'past']
             if len(rows) != len(upcoming):
                 raise ValueError('Public picks page omits a future or unknown-schedule source row')
+    # The dated upset review must publish its own research window, sections and sources.
+    edge_page = BeautifulSoup(get('edge/').text, 'html.parser')
+    for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']:
+        if not edge_page.find(id=anchor):
+            raise ValueError(f'edge/: missing #{anchor} section')
+    if not any('hltv.org' in (a.get('href') or '') for a in edge_page.select('a[href^="https://"]')):
+        raise ValueError('edge/: no official HLTV source link published')
+    edge_data = get('data/edge-review.json').json()
+    if edge_data.get('schema_version') != 1 or not edge_data.get('prepared_at'):
+        raise ValueError('edge/: published research review data is missing its schema or preparation time')
+    if not edge_data.get('day_one') or not edge_data.get('day_two'):
+        raise ValueError('edge/: published research review has no reviewed matches')
     originated = get('data/origination.json').json()
     if originated.get('source_snapshot_at') != expected['inventory_observed_at']:
         raise ValueError('Public fallback lines belong to another inventory observation')
@@ -91,7 +103,7 @@ def main():
             base = verify(args.url, expected)
             if os.environ.get('GITHUB_STEP_SUMMARY'):
                 with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
-                    summary.write('\n## Public deployment verified\n\n' + base + '\n\nAll five current pages, full snapshot, three old URLs and both preserved archives returned the expected content.\n')
+                    summary.write('\n## Public deployment verified\n\n' + base + '\n\nAll six current pages, the dated upset review, full snapshot, three old URLs and both preserved archives returned the expected content.\n')
             return
         except (requests.RequestException, ValueError) as exc:
             if attempt == 11:

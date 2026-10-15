@@ -1,0 +1,808 @@
+{
+  "schema_version": 1,
+  "title": "Day-1 upset review & contrarian edge",
+  "prepared_at": "2026-10-15T10:45:00Z",
+  "research_window": {
+    "from": "2026-10-14T00:00:00Z",
+    "to": "2026-10-15T10:26:00Z"
+  },
+  "policy": "Dated first-party research for review, not a live pricing feed. Every result, ranking, roster fact and market price below was read from the linked official source during the stated research window and carries its own observation time. Nothing here overwrites the automated picks pipeline, and no value is inferred: facts that could not be confirmed from an official source are left blank and labeled unverified. Hotspawn community percentages, offered points and popularity are never read, so 'contrarian' on this page means disagreeing with the external market or ranking consensus only when verified evidence supports it.",
+  "event": {
+    "name": "Thunderpick World Championship 2026",
+    "hltv_event_id": 8932,
+    "url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+    "dates": "2026-10-14 to 2026-10-18",
+    "location": "Malta",
+    "prize_pool_usd": 1000000,
+    "teams": 8,
+    "format_note": "Two GSL-style groups of four; day one played the opening round, day two plays the winners' and elimination matches. HLTV lists every day-one series as bo3.",
+    "sources": [
+      {
+        "url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "source": "HLTV.org event page",
+        "detail": "Official event overview: Oct 14th - Oct 18th 2026, $1,000,000 prize pool, 8 teams, Malta.",
+        "observed_at": "2026-10-15T10:16:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+        "source": "HLTV.org day-one report",
+        "detail": "HLTV's own day-one wrap: all four series ended 2-0, five maps were close, and Aurora were 'the only favorite to falter in Malta after losing to 9z'. The same article publishes the official day-two schedule and match links.",
+        "observed_at": "2026-10-15T10:26:00Z"
+      }
+    ]
+  },
+  "headline": {
+    "text": "9z beat Aurora 2-0 in the Group A opener on 14 October 2026 — 13-11 on Inferno, then 13-1 on Nuke. HLTV ranked 9z #17 and Aurora #6 in the world going into the series, and HLTV's own pre-match analytics listed Aurora's advantages (better form ranking, four wins in their last five, better rank, recent LAN play at ESL Pro League Season 24). Aurora had also beaten 9z 2-0 twelve days earlier, on 3 October 2026, in the ESL Pro League Season 24 opening round.",
+    "sources": [
+      {
+        "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+        "source": "HLTV.org series report",
+        "detail": "Official series report with map scores, the full 9z stats table and the ESL Pro League Season 24 head-to-head result.",
+        "observed_at": "2026-10-15T10:16:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "source": "HLTV.org match page",
+        "detail": "Official match record for the day-one Group A opener.",
+        "observed_at": "2026-10-15T10:16:00Z"
+      }
+    ]
+  },
+  "day_one": [
+    {
+      "hltv_match_id": 2399384,
+      "url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "date": "2026-10-14",
+      "group": "Group A opener",
+      "team_a": "9z",
+      "team_b": "Aurora",
+      "score": "2-0",
+      "best_of": "bo3",
+      "maps": [
+        {
+          "map": "Inferno",
+          "a": 13,
+          "b": 11
+        },
+        {
+          "map": "Nuke",
+          "a": 13,
+          "b": 1
+        }
+      ],
+      "upset": true,
+      "verified_lineup_a": [
+        "max",
+        "HUASOPEEK",
+        "luchov",
+        "meyern",
+        "dgt"
+      ],
+      "verified_lineup_b": [
+        "XANTARES",
+        "woxic",
+        "Jimpphat",
+        "kyxsan",
+        "Wicadia"
+      ],
+      "standout": "luchov (9z): 38-20 K-D, +6.61% swing, 97.4 ADR, 86.8% KAST, 1.61 rating",
+      "read": "The only day-one favorite to lose. 9z took their own Inferno pick 13-11 and then conceded a single round on Nuke, so the series was decided structurally rather than in one lucky map. HLTV reports 9z gained 62 VRS points to reach 1571.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+          "source": "HLTV series report",
+          "detail": "Map scores, 9z player stats table, Inferno described as 9z's pick, and the 62-point VRS gain to 1571.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/results?event=8932",
+          "source": "HLTV event results",
+          "detail": "Official event results list: 9z 2-0 Aurora, bo3, 14 October 2026.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/team/11861/aurora",
+          "source": "HLTV Aurora team page",
+          "detail": "Aurora's published lineup and rankings, observed during this research window.",
+          "observed_at": "2026-10-15T10:17:00Z"
+        }
+      ]
+    },
+    {
+      "hltv_match_id": 2399385,
+      "url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+      "date": "2026-10-14",
+      "group": "Group A opener",
+      "team_a": "Falcons",
+      "team_b": "Ninjas in Pyjamas",
+      "score": "2-0",
+      "best_of": "bo3",
+      "maps": [
+        {
+          "map": "Ancient",
+          "a": 16,
+          "b": 13
+        },
+        {
+          "map": "Dust2",
+          "a": 13,
+          "b": 6
+        }
+      ],
+      "upset": false,
+      "verified_lineup_a": null,
+      "verified_lineup_b": null,
+      "standout": null,
+      "read": "Falcons needed overtime to close Ancient after leading 8-4 and winning the pistol round after the swap, then took Dust2 13-6. The favorite won, but the first map was not comfortable.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Map scores and the overtime detail for Falcons vs Ninjas in Pyjamas.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/results?event=8932",
+          "source": "HLTV event results",
+          "detail": "Official results list: Falcons 2-0 Ninjas in Pyjamas, bo3.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        }
+      ]
+    },
+    {
+      "hltv_match_id": 2399386,
+      "url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026",
+      "date": "2026-10-14",
+      "group": "Group B opener",
+      "team_a": "Legacy",
+      "team_b": "PARIVISION",
+      "score": "2-0",
+      "best_of": "bo3",
+      "maps": [
+        {
+          "map": "Dust2",
+          "a": 13,
+          "b": 11
+        },
+        {
+          "map": "Mirage",
+          "a": 16,
+          "b": 14
+        }
+      ],
+      "upset": false,
+      "verified_lineup_a": null,
+      "verified_lineup_b": null,
+      "standout": "dumau (Legacy): 1.57 rating on Mirage",
+      "read": "Legacy won both maps but led 8-2 and 12-5 on Dust2 before 'falling flat' on their T side, and needed overtime plus a 1.57-rated map from dumau on Mirage. HLTV notes this was Legacy's return to the server with arT. A 2-0 scoreline that hides two near-losses.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Map scores, the squandered 8-2 and 12-5 leads, dumau's 1.57 Mirage rating, arT's return and the overtime finish.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/results?event=8932",
+          "source": "HLTV event results",
+          "detail": "Official results list: Legacy 2-0 PARIVISION, bo3.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        }
+      ]
+    },
+    {
+      "hltv_match_id": 2399387,
+      "url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026",
+      "date": "2026-10-14",
+      "group": "Group B opener",
+      "team_a": "FURIA",
+      "team_b": "BETBOOM",
+      "score": "2-0",
+      "best_of": "bo3",
+      "maps": [
+        {
+          "map": "Ancient",
+          "a": 13,
+          "b": 10
+        },
+        {
+          "map": "Mirage",
+          "a": 13,
+          "b": 9
+        }
+      ],
+      "upset": false,
+      "verified_lineup_a": [
+        "FalleN",
+        "yuurih",
+        "YEKINDAR",
+        "KSCERATO",
+        "molodoy"
+      ],
+      "verified_lineup_b": [
+        "Boombl4",
+        "d1Ledez",
+        "Magnojez",
+        "zorte",
+        "S1ren"
+      ],
+      "standout": "KSCERATO (FURIA): 40-24 K-D, +8.72% swing, 89.6 ADR, 1.72 rating",
+      "read": "BETBOOM let 8-4 leads slip on both Ancient and Mirage. HLTV reports they missed a chance to raise their Major qualification odds to 93% but remain in contention. FURIA won without a comfortable map.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Map scores, both full stats tables, the slipped 8-4 leads and the 93% Major-qualification note.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/results?event=8932",
+          "source": "HLTV event results",
+          "detail": "Official results list: FURIA 2-0 BETBOOM, bo3.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        }
+      ]
+    }
+  ],
+  "roster_watch": [
+    {
+      "team": "Aurora",
+      "hltv_team_id": 11861,
+      "url": "https://www.hltv.org/team/11861/aurora",
+      "status": "Rebuilt leadership, still integrating",
+      "current_lineup": [
+        "XANTARES",
+        "woxic",
+        "Jimpphat",
+        "kyxsan",
+        "Wicadia"
+      ],
+      "coach": "Ashley 'ash' Battye",
+      "rankings": "HLTV world #6 (12 October 2026 ranking) · Valve VRS #5, Europe #5",
+      "change": "Aurora completed a summer rebuild in ten days: coach Fabre out (29 June 2026), MAJ3R and soulfly out (2 July 2026), Jimpphat and coach ash in (3 July 2026), and kyxsan signed from Falcons as the new in-game leader (8 July 2026). Three of the five leadership variables — head coach, IGL and the team's language environment — changed at once.",
+      "so_what": "Ranking points earned by the previous lineup still anchor Aurora's price, while the current five have had fewer than four months together. That gap between published rank and verified integration is exactly where a day-one upset against a #17 team becomes explicable rather than random.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+          "source": "HLTV official transfer news",
+          "detail": "'Official: Aurora complete rebuild with kyxsan', 8 July 2026: kyxsan joins from Falcons, following the additions of Jimpphat and ash, with the trio replacing MAJ3R, soulfly and Fabre.",
+          "observed_at": "2026-10-15T10:24:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/team/11861/aurora",
+          "source": "HLTV team page",
+          "detail": "Current published lineup, coach, HLTV world ranking #6 and Valve VRS #5 (Europe #5).",
+          "observed_at": "2026-10-15T10:17:00Z"
+        }
+      ]
+    },
+    {
+      "team": "9z",
+      "hltv_team_id": 9996,
+      "url": "https://www.hltv.org/team/9996/9z",
+      "status": "No change verified in this window",
+      "current_lineup": [
+        "max",
+        "HUASOPEEK",
+        "luchov",
+        "meyern",
+        "dgt"
+      ],
+      "coach": null,
+      "rankings": "HLTV world #17 (12 October 2026 ranking)",
+      "change": "No roster change was verified inside this research window. The five players above are the ones HLTV's own series stats table lists for the 14 October 2026 match against Aurora.",
+      "so_what": "Continuity is the counterpart to Aurora's churn: the same five had already played each other through the IEM Cologne Major and EPL Season 24 campaign, and HLTV reports the Aurora win added 62 VRS points to reach 1571.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+          "source": "HLTV series report",
+          "detail": "Full five-player 9z stats table for the Aurora series and the 62-point VRS gain to 1571.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/team/9996/9z",
+          "source": "HLTV team page",
+          "detail": "9z team record and HLTV world ranking #17.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ],
+      "valve_snapshot": {
+        "snapshot_date": "2026-10-05",
+        "roster": [
+          "dgt",
+          "HUASOPEEK",
+          "luchov",
+          "max",
+          "meyern"
+        ],
+        "standing": 17,
+        "points": 1543,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "caveat": "Valve's official snapshot of 2026-10-05 lists the same five players HLTV's day-one series stats table lists for 9z."
+      }
+    },
+    {
+      "team": "Falcons",
+      "hltv_team_id": 11283,
+      "url": "https://www.hltv.org/team/11283/falcons",
+      "status": "Lineup not verified in this window",
+      "current_lineup": null,
+      "coach": null,
+      "rankings": null,
+      "change": "No transfer activity was verified inside this research window. Valve's official standings snapshot of 2026-10-05 lists the five players shown below and does not include kyxsan, whose July 2026 move to Aurora is documented in HLTV's transfer news. HLTV's current Falcons roster page was not re-read inside the window, so today's lineup stays unverified here.",
+      "so_what": "Left blank on purpose: an unconfirmed lineup is never used as a pick input.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+          "source": "HLTV official transfer news",
+          "detail": "Records kyxsan's move from Falcons to Aurora on 8 July 2026.",
+          "observed_at": "2026-10-15T10:24:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/team/11283/falcons",
+          "source": "HLTV team page",
+          "detail": "Official page for manual review of the current Falcons roster and ranking.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ],
+      "valve_snapshot": {
+        "snapshot_date": "2026-10-05",
+        "roster": [
+          "karrigan",
+          "kyousuke",
+          "m0NESY",
+          "NiKo",
+          "TeSeS"
+        ],
+        "standing": 6,
+        "points": 1843,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "caveat": "Valve's official snapshot of 2026-10-05, not a confirmed lineup for today. It lists karrigan, kyousuke, m0NESY, NiKo and TeSeS, with no kyxsan, which is consistent with his documented July move to Aurora."
+      }
+    }
+  ],
+  "edge_rules": [
+    {
+      "id": "R1",
+      "title": "Rankings lag; map scores do not",
+      "body": "A world ranking is a trailing average of results earned by whoever played them. Day one proved the point: HLTV #17 beat HLTV #6 by 2-0, and HLTV's own pre-match analytics had listed Aurora's advantages. Before accepting a rank-based price, check the map-level evidence behind it.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+          "source": "HLTV series report",
+          "detail": "The upset result and map scores.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams/2026/october/12",
+          "source": "HLTV world ranking",
+          "detail": "The published ranking snapshot used for pre-match rank comparisons.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Discount teams that just changed their leadership",
+      "body": "A new in-game leader plus a new coach plus a new team language is three integration problems at once. Aurora changed all three between 29 June and 8 July 2026 and still carried a top-six world ranking into Malta. Roster churn is a documented, official-source fact; it is a reason to demand a discount, never a reason to invent a probability.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+          "source": "HLTV official transfer news",
+          "detail": "The dated Aurora rebuild.",
+          "observed_at": "2026-10-15T10:24:00Z"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Do not fade a structurally dominant upset",
+      "body": "9z did not steal one close map: they won their own Inferno pick 13-11 and then allowed a single round on Nuke. When an underdog wins the opponent's map pick convincingly, the result carries information about the matchup, not only about variance.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+          "source": "HLTV series report",
+          "detail": "Inferno identified as 9z's pick; Nuke won 13-1.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Closing weakness is a caution, not an automatic flip",
+      "body": "BETBOOM surrendered 8-4 leads on both maps against FURIA, and Legacy surrendered 8-2 and 12-5 leads against PARIVISION. Both facts are real and both teams still have a day-two series. Lead conversion is worth tracking, but a single day of it does not justify picking against a clear market favorite.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Both slipped-lead sequences.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "A near coin flip is not a pick you should feel good about",
+      "body": "Where two verified prices sit within a few points of each other, the honest output is 'low confidence', not a confident contrarian story. On the day-two card, PARIVISION vs BetBoom traded at 52.5% / 47.5% — a five-point gap inside one map of variance. The automated picks page still shows the higher side; this review labels the confidence, and never manufactures a default 50/50.",
+      "sources": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-prv-bb3-2026-10-15",
+          "source": "Polymarket Gamma API",
+          "detail": "Official provider record for the match-winner market, including outcome prices and its update timestamp.",
+          "observed_at": "2026-10-15T10:14:49Z"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Rest and schedule pressure are equal here — do not invent an edge",
+      "body": "All eight teams played on 14 October and all four day-two series fall on 15 October, so no team has a rest advantage inside this card. Two of the four are elimination matches in which both sides are equally pressured. When a factor is symmetric, it is not an edge.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Official day-two schedule: four series on 15/10/2026, two winners' matches and two elimination matches.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ]
+    },
+    {
+      "id": "R7",
+      "title": "Crowd-fading is out of scope by policy",
+      "body": "This project never reads Hotspawn's '% picked', point multipliers or community votes, so it cannot and does not recommend picking against the Hotspawn crowd. Contrarian here means disagreeing with the external market or ranking consensus when official evidence supports it. Anyone wanting crowd-fade analysis should treat that as an unresolved limitation, not as a hidden feature.",
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/how-it-works",
+          "source": "Hotspawn rules",
+          "detail": "Official Hotspawn Pick'em rules page, kept for manual review of scoring and community displays.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ]
+    }
+  ],
+  "day_two": [
+    {
+      "hotspawn_id": "1080201",
+      "hltv_match_id": 2399408,
+      "hltv_url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+      "competition": "Thunderpick World Championship 2026",
+      "slot": "Group A elimination",
+      "team_a": "Aurora",
+      "team_b": "Ninjas in Pyjamas",
+      "starts_at": "2026-10-15T08:30:00Z",
+      "status_at_observation": "Started; series result not yet published by HLTV inside the research window",
+      "market": {
+        "provider": "Polymarket",
+        "event_url": "https://polymarket.com/event/cs2-aur1-nip-2026-10-15",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-nip-2026-10-15",
+        "observed_at": "2026-10-15T10:25:29Z",
+        "prices": {
+          "Aurora": 0.9865,
+          "Ninjas in Pyjamas": 0.0135
+        },
+        "market_open": true,
+        "note": "In-play observation. The map-1 market for this event closed at 2026-10-15T09:51:36Z resolving to Aurora Gaming; the series market was still open at the observation time. This is a live price, not a prematch line, and it is never used as a pick input."
+      },
+      "assessment": "No pick is produced: the Hotspawn lock time for this fixture has passed and the series was already under way at observation. The review value is retrospective — Aurora, the rebuilt top-six side, were priced at 98.7% to beat a NiP team that lost 2-0 to Falcons on day one.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Official fixture record for the Group A elimination match.",
+          "observed_at": "2026-10-15T10:17:00Z"
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-nip-2026-10-15",
+          "source": "Polymarket Gamma API",
+          "detail": "Provider record with outcome prices, market state and update timestamp.",
+          "observed_at": "2026-10-15T10:25:29Z"
+        },
+        {
+          "url": "https://www.hltv.org/results?event=8932",
+          "source": "HLTV event results",
+          "detail": "Results list checked during the window; the 15 October series was not yet published.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ],
+      "hotspawn_note": "Hotspawn source link is taken from the verified inventory row for this fixture ID at build time; if that row is absent, the link renders as unverified rather than being guessed."
+    },
+    {
+      "hotspawn_id": "1080202",
+      "hltv_match_id": 2399409,
+      "hltv_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+      "competition": "Thunderpick World Championship 2026",
+      "slot": "Group A winners' match",
+      "team_a": "9z",
+      "team_b": "Falcons",
+      "starts_at": "2026-10-15T11:00:00Z",
+      "status_at_observation": "Scheduled; prematch at observation time",
+      "market": {
+        "provider": "Polymarket",
+        "event_url": "https://polymarket.com/event/cs2-9z-fal2-2026-10-15",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-9z-fal2-2026-10-15",
+        "observed_at": "2026-10-15T10:12:50Z",
+        "prices": {
+          "9z": 0.245,
+          "Falcons": 0.755
+        },
+        "market_open": true,
+        "note": "Provider outcome prices read from the official Gamma record for the match-winner market; $98,988 traded on this market at observation. These are provider prices, not the order-book midpoints the automated pipeline calculates, so they are shown as context only."
+      },
+      "assessment": "Market side: Falcons. Contrarian candidate, with evidence and without an override: 9z won 2-0 on day one including 13-1 on Nuke, yet the market still prices them near one chance in four. R1 and R3 say the day-one result carried structural information; R6 says rest is symmetric. The Falcons' current lineup is not verified in this window, which is a real gap in the contrarian case — so this stays flagged as the highest-variance value candidate on the card rather than a recommended fade.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Official fixture record for the Group A winners' match.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-9z-fal2-2026-10-15",
+          "source": "Polymarket Gamma API",
+          "detail": "Provider record with outcome prices, volume and update timestamp.",
+          "observed_at": "2026-10-15T10:12:50Z"
+        },
+        {
+          "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+          "source": "HLTV series report",
+          "detail": "The day-one evidence behind the 9z read.",
+          "observed_at": "2026-10-15T10:16:00Z"
+        }
+      ],
+      "hotspawn_note": "Hotspawn source link is taken from the verified inventory row for this fixture ID at build time; if that row is absent, the link renders as unverified rather than being guessed."
+    },
+    {
+      "hotspawn_id": "1080203",
+      "hltv_match_id": 2399410,
+      "hltv_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+      "competition": "Thunderpick World Championship 2026",
+      "slot": "Group B elimination",
+      "team_a": "PARIVISION",
+      "team_b": "BetBoom",
+      "starts_at": "2026-10-15T13:30:00Z",
+      "status_at_observation": "Scheduled; prematch at observation time",
+      "market": {
+        "provider": "Polymarket",
+        "event_url": "https://polymarket.com/event/cs2-prv-bb3-2026-10-15",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-prv-bb3-2026-10-15",
+        "observed_at": "2026-10-15T10:14:49Z",
+        "prices": {
+          "PARIVISION": 0.525,
+          "BetBoom": 0.475
+        },
+        "market_open": true,
+        "note": "Provider outcome prices from the official Gamma record; $101,558 traded at observation."
+      },
+      "assessment": "Effective coin flip: a five-point gap (R5). Both sides lost 2-0 on day one, so both are in the elimination slot for the same reason. BetBoom's slipped 8-4 leads are documented (R4) but PARIVISION also needed overtime to survive Mirage. Low confidence either way; the picks page shows the higher-priced side without pretending the gap is meaningful.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Official fixture record for the Group B elimination match.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-prv-bb3-2026-10-15",
+          "source": "Polymarket Gamma API",
+          "detail": "Provider record with outcome prices, volume and update timestamp.",
+          "observed_at": "2026-10-15T10:14:49Z"
+        },
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "BetBoom's slipped leads and PARIVISION's overtime survival.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ],
+      "hotspawn_note": "Hotspawn source link is taken from the verified inventory row for this fixture ID at build time; if that row is absent, the link renders as unverified rather than being guessed."
+    },
+    {
+      "hotspawn_id": "1080204",
+      "hltv_match_id": 2399411,
+      "hltv_url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+      "competition": "Thunderpick World Championship 2026",
+      "slot": "Group B winners' match",
+      "team_a": "Legacy",
+      "team_b": "FURIA",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "status_at_observation": "Scheduled; prematch at observation time",
+      "market": {
+        "provider": "Polymarket",
+        "event_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-furia-2026-10-15",
+        "observed_at": "2026-10-15T10:22:49Z",
+        "prices": {
+          "Legacy": 0.415,
+          "FURIA": 0.585
+        },
+        "market_open": true,
+        "note": "Provider outcome prices from the official Gamma record; $86,127 traded at observation. This fixture is also matched by the automated pipeline as a market-backed estimate."
+      },
+      "assessment": "Market side: FURIA at 58.5%. Day-one evidence cuts both ways and is worth reading before accepting the price: FURIA won 2-0 with a 1.72-rated KSCERATO but conceded 13-10 and 13-9 after BetBoom held 8-4 leads, while Legacy won 2-0 only after blowing 8-2 and 12-5 leads and needing overtime. Both teams are 1-0; neither has been tested by a top-tier opponent yet in Malta.",
+      "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Official fixture record for the Group B winners' match.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-furia-2026-10-15",
+          "source": "Polymarket Gamma API",
+          "detail": "Provider record with outcome prices, volume and update timestamp.",
+          "observed_at": "2026-10-15T10:22:49Z"
+        },
+        {
+          "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+          "source": "HLTV day-one report",
+          "detail": "Day-one map scores and stats for both winners' teams.",
+          "observed_at": "2026-10-15T10:26:00Z"
+        }
+      ],
+      "hotspawn_note": "Hotspawn source link is taken from the verified inventory row for this fixture ID at build time; if that row is absent, the link renders as unverified rather than being guessed."
+    }
+  ],
+  "time_discrepancy": {
+    "detail": "HLTV's day-two schedule table publishes local/ET start times (Aurora vs Ninjas in Pyjamas 04:35, 9z vs Falcons 07:00, PARIVISION vs BETBOOM 09:30, Legacy vs FURIA 12:00). Polymarket's official record for the same four fixtures lists gameStartTime values of 08:30, 11:00, 13:30 and 16:00 UTC, matching the Hotspawn fixture feed exactly except for a five-minute difference on the first slot. Times on this page are the Hotspawn/Polymarket UTC values; the HLTV five-minute difference is recorded rather than silently smoothed.",
+    "sources": [
+      {
+        "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+        "source": "HLTV day-two schedule",
+        "detail": "Published day-two start times.",
+        "observed_at": "2026-10-15T10:26:00Z"
+      },
+      {
+        "url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-nip-2026-10-15",
+        "source": "Polymarket Gamma API",
+        "detail": "gameStartTime 2026-10-15 08:30:00+00 for the same fixture.",
+        "observed_at": "2026-10-15T10:25:29Z"
+      }
+    ]
+  },
+  "limitations": [
+    "This is a dated research review prepared between 2026-10-14T00:00:00Z and 2026-10-15T10:26:00Z. It is not refreshed by the four-hour pipeline, and market prices on it are historical observations with their own timestamps.",
+    "The automated picks pipeline remains the source of current probabilities. Nothing on this page overwrites a featured estimate, and no page value is used as a pick input by the collector.",
+    "Polymarket prices shown here are provider outcome prices from the official Gamma record. The pipeline's own estimates use CLOB order-book bid/ask midpoints with a 12-cent spread ceiling, so the two numbers can differ.",
+    "Aurora vs Ninjas in Pyjamas had started at observation time. HLTV had not published the final series score inside the research window, so no result is claimed; the in-play price is labeled as such.",
+    "Falcons' current five-player lineup and ranking were not verified inside the window and are left blank. That gap weakens the 9z contrarian case and is published rather than papered over.",
+    "Best-of formats come from HLTV's event results list (bo3 for every day-one series). Hotspawn's own best-of field remains unverified and blank, per the standing pipeline policy.",
+    "Hotspawn community percentages, point multipliers and crowd votes are never read, so no crowd-fade recommendation is possible from this project.",
+    "Map scores, ratings and rankings are HLTV's published values for these specific series. They are not a model, not calibrated, and not a promise about the next series."
+  ],
+  "valve_standings": {
+    "title": "Official Valve rating snapshot for the day-two field",
+    "snapshot_date": "2026-10-05",
+    "git_blob_sha": "2aa2805394fbc68f36a5752a5b16026f2ab2fed5",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "evidence_file": "data/evidence/valve-ratings.json",
+    "note": "Valve's own published regional standings, snapshot 2026-10-05, verified against Git blob SHA 2aa2805394fbc68f36a5752a5b16026f2ab2fed5 and replayed by this repository's pipeline. A dated snapshot is not proof of today's lineup, and these points are not a probability. Names differ per provider (Valve publishes 'BETBOOM'; Hotspawn lists 'BetBoom'), which is why the reviewed alias registry exists.",
+    "rows": [
+      {
+        "name": "9z",
+        "standing": 17,
+        "points": 1543,
+        "roster": [
+          "dgt",
+          "HUASOPEEK",
+          "luchov",
+          "max",
+          "meyern"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "Falcons",
+        "standing": 6,
+        "points": 1843,
+        "roster": [
+          "karrigan",
+          "kyousuke",
+          "m0NESY",
+          "NiKo",
+          "TeSeS"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "PARIVISION",
+        "standing": 36,
+        "points": 1411,
+        "roster": [
+          "FL1T",
+          "Jame",
+          "slaxejezzz",
+          "xiELO",
+          "zweih"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "BETBOOM",
+        "standing": 11,
+        "points": 1596,
+        "roster": [
+          "Boombl4",
+          "d1Ledez",
+          "Magnojez",
+          "S1ren",
+          "zorte"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "Legacy",
+        "standing": 2,
+        "points": 1931,
+        "roster": [
+          "arT",
+          "dumau",
+          "latto",
+          "n1ssim",
+          "try"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "FURIA",
+        "standing": 7,
+        "points": 1829,
+        "roster": [
+          "FalleN",
+          "KSCERATO",
+          "molodoy",
+          "YEKINDAR",
+          "yuurih"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "Aurora",
+        "standing": 9,
+        "points": 1716,
+        "roster": [
+          "Jimpphat",
+          "kyxsan",
+          "Wicadia",
+          "woxic",
+          "XANTARES"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "name": "Ninjas in Pyjamas",
+        "standing": 18,
+        "points": 1534,
+        "roster": [
+          "adamb",
+          "Krimbo",
+          "sjuush",
+          "stavn",
+          "xKacpersky"
+        ],
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "source": "Valve official standings",
+        "detail": "Published global standings snapshot with five-player rosters and points.",
+        "observed_at": "2026-10-15T08:36:13Z"
+      },
+      {
+        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+        "source": "Valve official repository",
+        "detail": "Source repository for the rating data and the published expectation model.",
+        "observed_at": "2026-10-15T08:36:13Z"
+      }
+    ]
+  }
+}

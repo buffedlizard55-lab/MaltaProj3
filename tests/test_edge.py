@@ -1,0 +1,193 @@
+"""The dated upset review must be source-linked, scoped and never inventive.
+
+These tests protect three properties of `data/edge-review.json` and
+`scripts/build_edge.py`:
+
+1. every published fact carries an official https source *and* its own
+   observation time, so a reviewer can re-check it,
+2. the renderer never fabricates a Hotspawn link — it takes the fixture URL from
+   the verified inventory row and renders 'unverified' when that row is absent,
+3. displayed market prices, map scores and counts are exactly the recorded
+   values, and unconfirmed lineups stay blank.
+"""
+import copy
+import json
+import unittest
+from html import escape
+from pathlib import Path
+
+from bs4 import BeautifulSoup
+
+from scripts import build_edge
+from scripts.build_edge import edge_review, load_edge
+
+ROOT = Path(__file__).resolve().parents[1]
+EDGE = ROOT / 'data' / 'edge-review.json'
+LATEST = ROOT / 'data' / 'latest.json'
+
+
+def review():
+    return load_edge(EDGE)
+
+
+def inventory():
+    return json.loads(LATEST.read_text())
+
+
+class ReviewDataContractTests(unittest.TestCase):
+    def test_every_source_is_https_and_timestamped(self):
+        data = review()
+        seen = 0
+        for group in ['day_one', 'day_two', 'roster_watch', 'edge_rules']:
+            for row in data[group]:
+                self.assertTrue(row.get('sources'), f'{group} row without sources')
+                for src in row['sources']:
+                    self.assertTrue(src['url'].startswith('https://'), src)
+                    self.assertTrue(src.get('observed_at'), src)
+                    seen += 1
+        for src in data['headline']['sources'] + data['event']['sources']:
+            self.assertTrue(src['url'].startswith('https://') and src.get('observed_at'))
+            seen += 1
+        self.assertGreater(seen, 20, 'the review should stay densely sourced')
+
+    def test_research_window_is_bounded_and_preparation_is_inside_it_or_later(self):
+        data = review()
+        window = data['research_window']
+        self.assertLess(window['from'], window['to'])
+        self.assertLessEqual(window['to'], data['prepared_at'])
+
+    def test_day_one_upset_is_the_documented_9z_aurora_series(self):
+        data = review()
+        upset = [r for r in data['day_one'] if r.get('upset')]
+        self.assertEqual(len(upset), 1, 'exactly one day-one series is labeled an upset')
+        row = upset[0]
+        self.assertEqual((row['team_a'], row['team_b'], row['score']), ('9z', 'Aurora', '2-0'))
+        self.assertEqual([m['map'] for m in row['maps']], ['Inferno', 'Nuke'])
+        self.assertTrue(any('hltv.org' in s['url'] for s in row['sources']))
+
+    def test_no_hotspawn_url_is_written_into_the_review_data(self):
+        """Hotspawn links come from the verified inventory, never from prose."""
+        text = EDGE.read_text()
+        self.assertNotIn('hotspawn.com/matches', text)
+        for row in review()['day_two']:
+            self.assertNotIn('url', row)
+
+    def test_unverified_values_stay_null_instead_of_guessed(self):
+        data = review()
+        falcons = next(r for r in data['roster_watch'] if r['team'] == 'Falcons')
+        self.assertIsNone(falcons['current_lineup'], 'an unconfirmed current lineup must stay blank')
+        self.assertIsNone(falcons['rankings'])
+        self.assertIsNotNone(falcons.get('valve_snapshot'), 'the dated official snapshot is published instead')
+
+    def test_loader_rejects_missing_keys_and_unsafe_sources(self):
+        data = json.loads(EDGE.read_text())
+        broken = copy.deepcopy(data)
+        del broken['day_one']
+        with self.assertRaises(ValueError):
+            _write_and_load(broken)
+        unsafe = copy.deepcopy(data)
+        unsafe['day_one'][0]['sources'][0]['url'] = 'http://insecure.example/match'
+        with self.assertRaises(ValueError):
+            _write_and_load(unsafe)
+        unstamped = copy.deepcopy(data)
+        unstamped['day_two'][0]['sources'][0].pop('observed_at')
+        with self.assertRaises(ValueError):
+            _write_and_load(unstamped)
+
+
+def _write_and_load(payload):
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / 'edge-review.json'
+        path.write_text(json.dumps(payload))
+        return load_edge(path)
+
+
+class ReviewRenderingTests(unittest.TestCase):
+    def body(self, data=None):
+        return edge_review(data or inventory(), '../', EDGE)
+
+    def test_required_sections_and_anchors_are_rendered(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']:
+            self.assertIsNotNone(soup.find(id=anchor), anchor)
+        self.assertEqual(len(soup.select('#day-one tbody tr')), len(review()['day_one']))
+        self.assertEqual(len(soup.select('#day-two tbody tr')), len(review()['day_two']))
+        self.assertEqual(len(soup.select('#rules .resolution-step')), len(review()['edge_rules']))
+
+    def test_day_two_rows_use_the_verified_inventory_hotspawn_link(self):
+        data = inventory()
+        soup = BeautifulSoup(self.body(data), 'html.parser')
+        by_id = {str(m['id']): m for m in data['matches']}
+        rendered = {a.get('href') for a in soup.select('#day-two a[href^="https://"]')}
+        checked = 0
+        for row in review()['day_two']:
+            fixture = by_id.get(str(row['hotspawn_id']))
+            if not fixture:
+                continue
+            self.assertIn(fixture['source_url'], rendered, row['hotspawn_id'])
+            checked += 1
+        self.assertEqual(checked, len(review()['day_two']), 'every day-two fixture must exist in the verified inventory')
+
+    def test_missing_inventory_row_renders_unverified_not_a_guessed_link(self):
+        data = inventory()
+        data['matches'] = [m for m in data['matches'] if str(m['id']) != '1080202']
+        html = self.body(data)
+        self.assertIn('Hotspawn row not in this snapshot', html)
+        self.assertNotIn('hotspawn.com/matches/9z-vs-falcons', html)
+
+    def test_displayed_prices_match_the_recorded_observations(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        table = soup.find(id='day-two')
+        for row in review()['day_two']:
+            market = row.get('market') or {}
+            for name, value in (market.get('prices') or {}).items():
+                self.assertIn(f'{value * 100:.1f}%', table.get_text())
+            self.assertIn(name, table.get_text())
+
+    def test_limitations_and_policy_are_published_on_the_page(self):
+        rendered = self.body()
+        for limitation in review()['limitations']:
+            self.assertIn(escape(limitation)[:80], rendered, limitation[:40])
+        self.assertIn('dated research', rendered.lower())
+        self.assertIn('never read', rendered)
+
+    def test_standings_table_replays_the_official_valve_snapshot(self):
+        block = review()['valve_standings']
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        rows = soup.select('#standings tbody tr')
+        self.assertEqual(len(rows), len(block['rows']))
+        for row in rows:
+            text = row.get_text(' ', strip=True)
+            self.assertIn('points', text)
+        self.assertIn(block['git_blob_sha'], EDGE.read_text())
+        self.assertIn(block['source_url'], str(soup))
+
+
+class NavigationIntegrationTests(unittest.TestCase):
+    def test_edge_page_is_part_of_the_published_navigation(self):
+        from scripts.build import PAGES
+        self.assertIn('edge', PAGES)
+        self.assertEqual(PAGES['edge'][1], 'edge/index.html')
+
+    def test_executive_summary_links_to_the_review_and_maps_the_site(self):
+        from scripts.build import summary
+        data = inventory()
+        originated = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        data['fallbacks'] = {str(r['id']): r for r in originated['matches'] if r.get('origination')}
+        originated = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        data['complete_picks'] = originated
+        from scripts.contrarian import derive_context, load_review
+        data['_contrarian'] = derive_context(data, load_review(ROOT / 'data' / 'contrarian.json'))
+        soup = BeautifulSoup(summary(data, './'), 'html.parser')
+        self.assertIsNotNone(soup.find(id='contrarian'), 'the bounded contrarian review stays on the summary')
+        self.assertIsNotNone(soup.find(id='site-map'))
+        links = {a.get('href') for a in soup.select('#site-map a[href]')}
+        for target in ['./picks/', './edge/', './origination/#picks', './coverage/', './methodology/', './review/']:
+            self.assertIn(target, links)
+        shortcuts = {a.get('href') for a in soup.select('.briefing-links a[href]')}
+        self.assertIn('./edge/', shortcuts)
+
+
+if __name__ == '__main__':
+    unittest.main()
