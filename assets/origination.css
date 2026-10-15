@@ -156,7 +156,7 @@ footer .src { font-size: .82rem; }
 }
 
 /* Session c07e1b40: phone-first unresolved cards listing what each source showed. */
-.unresolved-card { border-left: 4px solid var(--amber); }
+.unresolved-card { border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 14px; padding: 14px; background: #fff; }
 .findings { margin: 6px 0 10px; padding-left: 18px; font-size: .86rem; }
 .findings li { margin-bottom: 6px; overflow-wrap: anywhere; }
 .findings .status { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }

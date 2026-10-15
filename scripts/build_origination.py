@@ -134,7 +134,9 @@ def short_stage(stage):
 def unresolved_card(m):
     """Phone-first card: what every source showed for a match that has no verified pick."""
     names = team_names(m)
-    out = [f'<article class="pick-card unresolved-card" id="unresolved-{e(m["id"])}">',
+    # Deliberately NOT .pick-card: the picks list owns exactly one .pick-card per fixture
+    # (scripts/verify_live.py asserts that set after every deployment).
+    out = [f'<article class="unresolved-card" id="unresolved-{e(m["id"])}">',
            f'<header class="card-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
            f'<span class="tier">{badge("No verified pick", "amber")}</span></header>',
            f'<h3 class="teams"><strong>{e(names[0])}</strong><span class="vs">vs</span><strong>{e(names[1])}</strong></h3>',

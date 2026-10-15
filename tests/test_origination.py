@@ -439,3 +439,20 @@ class ReviewNoteTests(unittest.TestCase):
         flagged = [a for a in data['alias_registry']['aliases'] if a.get('review_note')]
         self.assertTrue(flagged, 'session c07e1b40 flagged WBT and ROUNDS evidence for review')
         self.assertEqual(html.count('Flagged for review:'), len(flagged))
+
+
+class PublicContractTests(unittest.TestCase):
+    """Mirror scripts/verify_live.py: exactly one .pick-card per active fixture, even with unresolved cards."""
+
+    def test_unresolved_cards_do_not_add_pick_cards(self):
+        from bs4 import BeautifulSoup
+        data = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        data = copy.deepcopy(data)
+        victim = data['matches'][0]
+        victim['origination'], victim['pick_index'] = None, None
+        victim['research'] = [{'stage': 'Exchange market (Kalshi CS2 match winner)', 'status': 'unresolved',
+                               'source_url': 'https://kalshi.com/markets/kxcs2game', 'detail': 'spread too wide'}]
+        page = BeautifulSoup(build_origination.page(data), 'html.parser')
+        self.assertEqual({el.get('id') for el in page.select('.pick-card')}, {'match-' + m['id'] for m in data['matches']})
+        self.assertEqual(len(page.select('.unresolved-card')), 1)
+        self.assertIsNotNone(page.find(id='unresolved-' + victim['id']))
