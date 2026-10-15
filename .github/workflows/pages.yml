@@ -77,8 +77,14 @@ jobs:
           cp -r data/evidence "$RUNNER_TEMP/last-good/data/evidence"
           cp -r data/origination "$RUNNER_TEMP/last-good/data/origination" 2>/dev/null || true
       - name: Refresh all Hotspawn CS2 records and supported external lines
+        env:
+          # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.collect
       - name: Research only unresolved fixture picks using first-party lines
+        env:
+          # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
       - name: Order platform publishers and record Pages configuration
         env:

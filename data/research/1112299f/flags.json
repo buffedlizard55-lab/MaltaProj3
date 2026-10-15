@@ -68,5 +68,17 @@
       "https://polymarket.com/esports/cs2/thunderpick-world-championship"
     ],
     "match_ids": []
+  },
+  {
+    "id": "github-api-rate-limit",
+    "severity": "notice",
+    "title": "Unauthenticated GitHub API calls from runners were rate-limited; the collectors now authenticate",
+    "detail": "Both collectors read Valve's public standings through api.github.com without credentials. Measured from a GitHub-hosted runner on 2026-10-15 (run 38824422956): three unauthenticated calls in a row returned HTTP 403 with x-ratelimit-remaining 0 of 60 (GitHub documents 60 per hour per originating IP address, a quota shared with other jobs on the same addresses), while the workflow's GITHUB_TOKEN returned HTTP 200 with a limit of 5000. An exhausted quota removed every Valve model estimate, skipped the saved ratings file and, through an unconditional link on the edge page, failed the build (origination audit 38824105919). Fixed: GITHUB_TOKEN is passed to the collect and originate steps and attached to api.github.com requests only (never another host, never written to a manifest or evidence file). The edge page now links the saved ratings only when the file exists and otherwise says it is unverified.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824422956",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824105919",
+      "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api"
+    ],
+    "match_ids": []
   }
 ]

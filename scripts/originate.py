@@ -33,6 +33,7 @@ from urllib.parse import urlencode
 import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite
+from scripts.github_auth import auth_headers
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -178,7 +179,7 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': 'GET', 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.get(url, timeout=(15, 45))
+            response = self.session.get(url, headers=auth_headers(url), timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
@@ -199,7 +200,7 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': method, 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.request(method, url, json=payload, timeout=(15, 45))
+            response = self.session.request(method, url, json=payload, headers=auth_headers(url), timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
