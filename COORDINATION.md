@@ -859,7 +859,7 @@ Session: `arena-1112299f` · Branch: `arena/1112299f-maltaproj3` (fixed by Arena
 - `.github/workflows/checks.yml`: one step runs `python -m scripts.audit_rows --site site --strict`.
 - `.github/workflows/session-1112299f-lobby-probe.yml` was a branch-only diagnostic (read-only, wrote one evidence file) and is removed before merge; `scripts/lobby_probe.py` stays as a documented manual tool.
 
-**Sources** (all read 2026-10-15 22:23Z – 2026-10-16 00:00Z unless stated)
+**Sources** (all read 2026-10-15 22:23Z – 23:15Z unless stated)
 - Hotspawn lobby <https://play.hotspawn.com/lobby>, CS2 lobby <https://play.hotspawn.com/cs2-pickems>, rules <https://play.hotspawn.com/how-it-works>, tournaments <https://play.hotspawn.com/tournaments> and <https://play.hotspawn.com/tournaments/thunderpick-world-championships>.
 - Hotspawn APIs: fixtures <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1>, weekly prizes <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget>, tournament <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1>.
 - HLTV event <https://www.hltv.org/events/8932/thunderpick-world-championship-2026>, results <https://www.hltv.org/results?event=8932>, Day-3 decider <https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026>.
