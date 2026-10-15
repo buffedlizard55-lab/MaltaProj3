@@ -49,7 +49,7 @@ Falcons' current five-player lineup was **not** verified inside the window; the 
 
 ## Day 2 results → Day 3 guide (16 October deciders)
 
-Read from [HLTV's official event results](https://www.hltv.org/results?event=8932) and match pages on 2026-10-15 (22:26–22:35Z window; stored in [`data/day3-guide.json`](data/day3-guide.json), rendered by `scripts/build_day3.py` at [`/edge/#day-three`](https://buffedlizard55-lab.github.io/MaltaProj3/edge/#day-three)):
+Read from [HLTV's official event results](https://www.hltv.org/results?event=8932) and match pages on 2026-10-15 (22:26–22:35Z window; stored in [`data/day3-guide.json`](data/day3-guide.json), rendered by `scripts/build_day3.py` at [`/edge/#day-three-guide`](https://buffedlizard55-lab.github.io/MaltaProj3/edge/#day-three-guide)):
 
 | Day-two series (15 Oct 2026, bo3) | Maps | Guide consequence |
 | --- | --- | --- |

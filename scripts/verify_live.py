@@ -54,7 +54,7 @@ def verify(url, expected):
                 raise ValueError('Public picks page omits a future or unknown-schedule source row')
     # The dated upset review must publish its own research window, sections and sources.
     edge_page = BeautifulSoup(get('edge/').text, 'html.parser')
-    for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-two-results', 'day-three', 'standings', 'edge-limitations']:
+    for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-two-results', 'day-three', 'day-three-guide', 'standings', 'edge-limitations']:
         if not edge_page.find(id=anchor):
             raise ValueError(f'edge/: missing #{anchor} section')
     if not any('hltv.org' in (a.get('href') or '') for a in edge_page.select('a[href^="https://"]')):

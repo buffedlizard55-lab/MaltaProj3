@@ -84,15 +84,16 @@ def render_section(guide: dict, prefix: str) -> str:
                    f'<td>{e(row["record"])}</td><td>{e(row["status"])}</td></tr>')
     out.append('</tbody></table></div></section>')
 
-    out.append('<section class="content-section" id="day-three"><div class="section-heading"><div>'
-               '<p class="eyebrow">Day 3 · 16 Oct 2026 · deciders</p><h2>Day three pick guide</h2></div>'
+    out.append('<section class="content-section" id="day-three-guide"><div class="section-heading"><div>'
+               '<p class="eyebrow">Day 3 · 16 Oct 2026 · deciders · updated priced guide</p><h2>Day three pick guide</h2></div>'
                f'<a class="internal-link" href="{prefix}picks/">Open the full picks list →</a></div>'
                '<p class="section-intro">Two deciders, two semi-final slots. The calculated probabilities for '
                'these fixtures — once the four-hour pipeline joins them — live on the '
                f'<a href="{prefix}picks/">match picks page</a> and in the '
                f'<a href="{prefix}origination/#picks">complete researched picks list</a>. '
                'Guidance below is pick\'em strategy from the verified Day 1–2 evidence; it never overwrites '
-               'those probabilities.</p>'
+               'those probabilities. This priced update (prepared ' + local_time(guide['prepared_at']) + ') supersedes '
+               'the unpriced day-three preview above wherever start times or prices differ.</p>'
                '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-three '
                'decider fixtures with observed market prices, guidance and official sources</caption>'
                '<thead><tr><th scope="col">Fixture &amp; start (UTC)</th>'

@@ -660,3 +660,40 @@ All prior boards above were read before any file was touched; every listed prior
   (recorded discrepancy E-F2) — Day-3 starts here use Polymarket gameStartTime, Hotspawn
   lock remains authoritative; (4) semi-final pairings were TBD at observation, none asserted.
 
+---
+
+## Session f2d2d85e integration claim (2026-10-15)
+
+Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
+
+| Task ID | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| I-F1 | Day-2 result review + day-3 guidance added to edge review | done | f2d2d85e | `data/edge-review.json`, `scripts/build_edge.py`, `tests/test_edge.py` | Day-2 map scores from HLTV match pages (2399408-2399411). Day-3 elimination fixtures 2399412, 2399413 added unpriced. |
+| I-F2 | Final integration: build, link check, PR, merge, Pages verify | done | f2d2d85e | all | PR #32 merged 2026-10-15T22:24:59Z; Pages run 38816949473 succeeded; live https://buffedlizard55-lab.github.io/MaltaProj3/ |
+
+### Sources
+- HLTV results: https://www.hltv.org/results?event=8932
+- HLTV matches: 2399408, 2399409, 2399410, 2399411, 2399412, 2399413
+- Aurora roster: https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan
+
+
+## Publication (session f2d2d85e)
+
+PR [#32](https://github.com/buffedlizard55-lab/MaltaProj3/pull/32) merged at 2026-10-15T22:24:59Z as `b82caff`. Production run [38816949473](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473) **succeeded**, including post-deploy verification. Live: https://buffedlizard55-lab.github.io/MaltaProj3/.
+
+### Merge log — session 0c803d4d integrating session f2d2d85e (PR #32/#33)
+
+Session f2d2d85e merged its Day-2/Day-3 edge-review update to `main` (PR #32,
+production run 38816949473 succeeded 2026-10-15) while this session's PR #34 was
+open. The merge was resolved by union: their `edge-review.json` Day-2 results and
+unpriced Day-3 preview (`#day-three`, observed 12:00Z, no market captured) are
+kept unchanged as dated research; this session's later priced guide
+(`data/day3-guide.json`, observed 22:23–22:35Z, `#day-three-guide`) renders after
+it and explicitly supersedes it wherever start times or prices differ (Gamma
+gameStartTime 14:00/17:00 UTC vs the preview's HLTV-display-derived times, and
+Aurora 0.69 / 9z 0.31 once trading existed). No data, probability or test from
+either session was discarded. The successful 22:24Z production run also shows
+the earlier build-step failures were not permanent; the last-good fallback in
+`pages.yml` remains as insurance so a future failed replay republishes the
+verified pair instead of freezing the site.
+

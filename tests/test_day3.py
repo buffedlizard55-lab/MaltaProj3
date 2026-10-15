@@ -90,7 +90,7 @@ class Day3RenderTest(unittest.TestCase):
 
     def test_sections_and_anchors_exist(self):
         self.assertIsNotNone(self.soup.find(id='day-two-results'))
-        self.assertIsNotNone(self.soup.find(id='day-three'))
+        self.assertIsNotNone(self.soup.find(id='day-three-guide'))
 
     def test_every_row_links_to_official_sources(self):
         hrefs = [a.get('href') or '' for a in self.soup.select('a[href^="https://"]')]
@@ -100,7 +100,7 @@ class Day3RenderTest(unittest.TestCase):
     def test_unpriced_fixture_renders_unverified_not_a_percentage(self):
         text = self.soup.get_text(' ')
         self.assertIn('No traded price at observation', text)
-        legacy_row = next(tr for tr in self.soup.select('#day-three tr')
+        legacy_row = next(tr for tr in self.soup.select('#day-three-guide tr')
                           if 'Legacy' in tr.get_text() and 'No traded price' in tr.get_text())
         self.assertIn('unverified', legacy_row.get_text())
         price_cell = legacy_row.select('td')[0]
