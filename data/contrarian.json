@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "review_scope": "Day 1 of Thunderpick World Championship 2026 and the next Hotspawn fixture in this snapshot",
+  "reviewed_on": "2026-10-15",
+  "historical_match": {
+    "id": "9z-aurora-2026-10-14",
+    "teams": ["9z", "Aurora"],
+    "event": "Thunderpick World Championship 2026",
+    "scheduled_start": "2026-10-14T08:30:00Z",
+    "pre_match_probabilities": [0.265, 0.735],
+    "pre_match_pick": "Aurora",
+    "result": {
+      "winner": "9z",
+      "series_score": "2-0",
+      "maps": [
+        {"map": "Inferno", "score": "13-11", "winner": "9z"},
+        {"map": "Nuke", "score": "13-1", "winner": "9z"}
+      ]
+    },
+    "source_urls": [
+      "https://www.hotspawn.com/matches/9z-vs-aurora-thunderpick-world-championship-2026-1080176",
+      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+      "https://polymarket.com/market/cs2-9z-aur1-2026-10-14"
+    ]
+  },
+  "roster_context": {
+    "team": "Aurora",
+    "reported_on": "2026-07-08",
+    "context": "HLTV reported Aurora's summer rebuild: Jimpphat and kyxsan joined with coach ash, replacing MAJ3R, soulfly and Fabre.",
+    "new_players": ["Jimpphat", "kyxsan"],
+    "new_coach": "ash",
+    "replaced": ["MAJ3R", "soulfly", "Fabre"],
+    "source_urls": [
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan"
+    ]
+  },
+  "watch_profile": {
+    "team": "9z",
+    "opponent": "Falcons",
+    "max_probability": 0.25,
+    "label": "Contrarian watch, not a replacement pick",
+    "source_urls": [
+      "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026"
+    ],
+    "limitations": [
+      "One upset is not enough to recalibrate a win probability.",
+      "The current 9z–Falcons row has a Valve-rating estimate, not a verified betting-market consensus.",
+      "Current lineups, stand-ins, veto and rest/travel effects were not independently confirmed for this fixture; no adjustment is made for them.",
+      "The watch label never overwrites the primary probability or the primary pick."
+    ]
+  },
+  "policy": {
+    "hotspawn_popularity_used": false,
+    "watch_is_a_pick": false,
+    "minimum_evidence": "Require a source-linked recent underdog result and a current independently sourced probability before showing a watch.",
+    "do_not_flip_primary_pick": true
+  }
+}

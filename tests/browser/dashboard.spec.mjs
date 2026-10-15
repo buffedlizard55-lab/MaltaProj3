@@ -24,9 +24,9 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.getByRole('link', { name: 'See all match picks' }).click();
-  await expect(page).toHaveURL(/\/picks\/$/);
-  await expect(page.locator('#match-list > tbody > tr')).not.toHaveCount(0);
-  await expect(page.locator('.mobile-nav a[aria-current="page"]')).toHaveText('Picks');
+  await expect(page).toHaveURL(/\/origination\/#picks$/);
+  await expect(page.locator('.pick-card')).not.toHaveCount(0);
+  await page.goto('/');
   const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
   await expect(phoneNav.getByRole('link')).toHaveCount(6);
   await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
@@ -128,6 +128,19 @@ test('phone briefing shortcuts and picks section expose unresolved limitations',
   await expect(page.locator('#unresolved h2')).toBeVisible();
 });
 
+test('phone executive summary exposes the source-linked contrarian guardrail', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
+  await shortcuts.getByRole('link', { name: 'Contrarian review' }).click();
+  const review = page.locator('#contrarian');
+  await expect(review).toBeVisible();
+  await expect(review).toContainText('9z vs Aurora');
+  await expect(review).toContainText('15.7%');
+  await expect(review).toContainText('primary pick remains Falcons');
+  expect(await review.locator('a[href^="https://"]').count()).toBeGreaterThan(8);
+});
+
 test('research deep link reveals evidence despite a contradictory bookmarked filter', async ({ page }) => {
   await page.goto('/picks/');
   const unresolved = page.locator('#match-list > tbody > tr[data-method="unresolved"]').first();
@@ -209,10 +222,11 @@ test('every match row shows either a pick or an explicit blank, never a silent g
 test('the summary states complete pick coverage and maps every page', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.locator('.hero')).toContainText(/picks ready/);
+  await expect(page.locator('[aria-label="Complete pick coverage"]')).toContainText(/\d+ \/ \d+/);
   await expect(page.locator('#site-map')).toBeVisible();
   const links = await page.locator('#site-map a[href]').allTextContents();
-  expect(links.join(' ')).toContain('Match picks');
+  expect(links.join(' ')).toContain('Complete match picks');
   expect(links.join(' ')).toContain('Upset review');
-  await expect(page.locator('#day-one-review')).toBeVisible();
+  expect(links.join(' ')).toContain('Featured method picks');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });

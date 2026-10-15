@@ -175,12 +175,18 @@ class NavigationIntegrationTests(unittest.TestCase):
         data = inventory()
         originated = json.loads((ROOT / 'data' / 'origination.json').read_text())
         data['fallbacks'] = {str(r['id']): r for r in originated['matches'] if r.get('origination')}
+        originated = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        data['complete_picks'] = originated
+        from scripts.contrarian import derive_context, load_review
+        data['_contrarian'] = derive_context(data, load_review(ROOT / 'data' / 'contrarian.json'))
         soup = BeautifulSoup(summary(data, './'), 'html.parser')
-        self.assertIsNotNone(soup.find(id='day-one-review'))
+        self.assertIsNotNone(soup.find(id='contrarian'), 'the bounded contrarian review stays on the summary')
         self.assertIsNotNone(soup.find(id='site-map'))
         links = {a.get('href') for a in soup.select('#site-map a[href]')}
         for target in ['./picks/', './edge/', './origination/#picks', './coverage/', './methodology/', './review/']:
             self.assertIn(target, links)
+        shortcuts = {a.get('href') for a in soup.select('.briefing-links a[href]')}
+        self.assertIn('./edge/', shortcuts)
 
 
 if __name__ == '__main__':

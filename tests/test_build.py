@@ -126,12 +126,19 @@ class ResearchedFallbackDisplayTests(unittest.TestCase):
 
     def test_summary_reports_complete_pick_coverage(self):
         data = self.inventory()
+        originated = json.loads(Path('data/origination.json').read_text())
+        data['complete_picks'] = originated
         soup = BeautifulSoup(summary(data, './'), 'html.parser')
-        hero = soup.select_one('.hero').get_text(' ')
         active = [m for m in data['matches'] if m['availability'] != 'past']
         covered = sum(1 for m in active if m['analysis'] or str(m['id']) in data['fallbacks'])
-        self.assertIn(f'{covered} picks ready', hero)
-        self.assertIn(f'{len(active) - covered} left blank', hero)
+        callout = soup.select_one('[aria-label="Complete pick coverage"]')
+        self.assertIsNotNone(callout)
+        self.assertIn(f'{originated["counts"]["with_pick"]} / {originated["counts"]["active"]}', callout.get_text(' '))
+        self.assertEqual(originated['counts']['with_pick'], covered)
+        site_map = soup.find(id='site-map')
+        self.assertIsNotNone(site_map)
+        for target in ['./origination/#picks', './picks/', './edge/']:
+            self.assertIn(target, {a.get('href') for a in site_map.select('a[href]')})
 
 
 class ConsensusQuoteShapeTests(unittest.TestCase):

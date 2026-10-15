@@ -221,11 +221,16 @@ def executive_summary(data):
     return ''.join(out)
 
 
-def page(data):
+def page(data, inventory_complete=True):
     c = data['counts']
     stale = not is_fresh(data['source_snapshot_at'], datetime.now(timezone.utc))
     warn = ('<div class="stale" role="status"><strong>Snapshot is older than eight hours.</strong> '
             'Treat these lines as historical. <a class="src" href="../coverage/">Check source status →</a></div>') if stale else ''
+    if not inventory_complete:
+        warn = ('<div class="stale" role="status" id="inventory-warning"><strong>Current Hotspawn inventory is unverified.</strong> '
+                'This page retains the last observed fixtures and their original timestamps. New or changed matches may be missing; '
+                'a pick for every retained row does not establish current full coverage. Do not treat this as a fully current picks list. '
+                '<a class="src" href="../coverage/">Source status</a> · <a class="src" href="../review/">Flagged for Review</a></div>') + warn
     picks = [m for m in data['matches']]
     cards = ''.join(pick_row(m) for m in picks) if picks else '<div class="ok-note">No active fixtures in this snapshot. Check the <a class="src" href="../coverage/">source status</a>.</div>'
     return f'''<!doctype html>
@@ -318,7 +323,8 @@ def build(source: Path, output: Path):
         raise ValueError('data/origination.json is missing its match rows')
     target = output / 'origination'
     target.mkdir(parents=True, exist_ok=True)
-    (target / 'index.html').write_text(page(data))
+    canonical = json.loads((source / 'latest.json').read_text())
+    (target / 'index.html').write_text(page(data, inventory_complete=canonical['coverage_complete']))
     return target / 'index.html'
 
 

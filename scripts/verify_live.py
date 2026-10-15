@@ -36,6 +36,17 @@ def verify(url, expected):
             raise ValueError(f'{route or "/"}: wrong or stale dashboard HTML')
         if not page.find('h1') or not page.find('main'):
             raise ValueError(f'{route or "/"}: missing main page content')
+        if route == '':
+            primary = page.select_one('.hero-actions a.primary')
+            mobile_picks = page.select('.mobile-nav a')
+            if not primary or primary.get('href') != './origination/#picks':
+                raise ValueError('Public primary pick button does not reach complete picks')
+            if len(mobile_picks) < 2 or mobile_picks[1].get('href') != './origination/#picks':
+                raise ValueError('Public phone picks navigation does not reach complete picks')
+            if not page.find(id='contrarian') or not page.find(id='upset-watchlist') or not page.select_one('[aria-label="Complete pick coverage"]'):
+                raise ValueError('Public complete-coverage/contrarian briefing missing')
+        if route == 'review/' and not page.find(id='day-one-review'):
+            raise ValueError('Public day-one verification limitations missing')
         if route == 'picks/':
             rows = page.select('#match-list > tbody > tr')
             upcoming = [m for m in expected['matches'] if m['availability'] != 'past']
@@ -64,6 +75,11 @@ def verify(url, expected):
         raise ValueError('Public complete-picks page differs from its inventory')
     if not page.find(id='unresolved') or not page.find(id='aliases') or not page.find('h1'):
         raise ValueError('Public fallback evidence/limitations sections missing')
+    if not expected['coverage_complete'] and not page.find(id='inventory-warning'):
+        raise ValueError('Public complete-picks page hides unverified inventory status')
+    for finding in actual.get('flags', []):
+        if finding['id'] == 'inventory-failed':
+            print('::notice::Inventory source limitation: ' + finding['detail'])
     get('assets/origination.css')
     print('::notice::Public complete-picks counts: ' + json.dumps(originated['counts']))
     for route in ['docs/index.html', 'archive/root-session/index.html']:
