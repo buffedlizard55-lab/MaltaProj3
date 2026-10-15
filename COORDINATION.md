@@ -223,3 +223,24 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - All current routes have passing automated WCAG A/AA checks at phone and desktop widths, responsive width checks at 320/390/768/1440px, no-JS data visibility and one-tap phone picks/method navigation. This is not a claim of complete manual WCAG certification.
 
 This documentation-only handoff records the already verified release. Its merge can trigger another ordinary refresh; it does not claim an unobserved future run succeeded.
+
+## Session 87b206e2 — follow-up audit and integration (2026-10-15)
+
+| Task | Status | Owner | File scope | Updated UTC |
+| --- | --- | --- | --- | --- |
+| Audit fallback evidence, clarify mobile executive summary and unresolved coverage; verify and publish | in progress | arena/87b206e2-maltaproj3 (final integration) | `scripts/build.py`, `scripts/sources.py`, `scripts/collect.py`, `tests/`, `assets/dashboard.css`, `.github/workflows/`, `README.md`, `COORDINATION.md` | 2026-10-15 |
+
+All previous active historical claims are over 60 minutes old and their completed handoffs are recorded above. This session takes over only the follow-up scope listed here. Arena fixes this session to its existing branch. No source data is declared current until fetched successfully; outbound access here is restricted, so live collection will be verified on GitHub Actions where available.
+
+- First live follow-up collection [38704742081](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38704742081) succeeded: observed 2026-10-15T08:18:50Z, 80 source rows, 18 future, 62 past-start, 7 Polymarket + 2 Thunderpick + 5 Valve-model estimates, 4 unresolved. This is a dated observation, not a permanent coverage claim. HLTV returned a real match directory but the old selector contract failed; investigating its recorded markup rather than labeling this as a confirmed access block. GG.BET returned 403; Pinnacle and Rivalry redirected. Missing Valve names and unacceptable Polymarket spreads remain unresolved, not guessed.
+- The initial branch pull reported no remote ref (branch did not yet exist). Rebased against main before first push; no conflict or discarded work. Subsequent pulls use this session's published branch.
+
+- Verified HLTV's observed public split-link markup from `https://www.hltv.org/matches`: `.match-info` carries time while `.match-teams` carries names, with identical match hrefs. Fixed grouping by exact href, deduplicated pinned cards, and reject conflicting repeats. Replayed the saved official fragments locally and added six synthetic parser regressions. No fan votes, inferred aliases or HLTV percentages become price inputs. The current reader saves the original HTML response for audit.
+- Per-match fallback trails now include actual GG.BET/Pinnacle/Rivalry page-check outcomes only for matches still missing lines. Unknown-start fixtures are visible in summary/review unresolved sections and link to their inventory records. The landing heading explicitly says Executive summary; phone navigation and expandable unresolved trails are tested.
+
+### Final verification before PR #13 merge
+
+- Final integration also owns the automatic `data/` exports on this branch; they are generated solely by the claimed collection workflow, not manually altered prices. Prior source diagnostic samples were replaced by the original HLTV response and all parsed identities on successful refresh.
+- Live collector [38705238962](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705238962) succeeded. Observation `2026-10-15T08:22:59Z`: 80 inventory = 18 future + 62 past-start; 7 primary market + 2 bookmaker + 5 model + 4 unresolved. HLTV now successfully reads **53 deduplicated identities**, replayed against its saved original HTML. The four unresolved names/time pairs still do not uniquely match the HLTV observations; no aliases are inferred.
+- Local checks: 59 Python tests (including original HLTV response replay), 23 browser checks at 320/390/768/1440px including expanded unresolved source trails, every match/estimate replay and internal link validation. Official-source URLs and remaining limitations are on Coverage/Flagged for Review. Tests are automated coverage, not a claim of exhaustive manual WCAG certification or verified true win probabilities.
+- Implementation PR: [#13](https://github.com/buffedlizard55-lab/MaltaProj3/pull/13). Merge and production verification will be recorded after the actual operations succeed.
