@@ -125,3 +125,13 @@ class BriefingTests(unittest.TestCase):
             self.assertIn('unverified as a current value', row.get_text())
             self.assertTrue(row.select('a[href^="https://"]'))
         self.assertIn('within eight hours', soup.get_text())
+
+    def test_complete_page_cannot_hide_unverified_inventory_behind_full_pick_count(self):
+        import json
+        from pathlib import Path
+        from scripts.build_origination import page
+        data = json.loads(Path('data/origination.json').read_text())
+        text = page(data, inventory_complete=False)
+        self.assertIn('id="inventory-warning"', text)
+        self.assertIn('does not establish current full coverage', text)
+        self.assertIn('New or changed matches may be missing', text)

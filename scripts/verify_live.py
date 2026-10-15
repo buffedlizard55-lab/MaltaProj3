@@ -63,6 +63,11 @@ def verify(url, expected):
         raise ValueError('Public complete-picks page differs from its inventory')
     if not page.find(id='unresolved') or not page.find(id='aliases') or not page.find('h1'):
         raise ValueError('Public fallback evidence/limitations sections missing')
+    if not expected['coverage_complete'] and not page.find(id='inventory-warning'):
+        raise ValueError('Public complete-picks page hides unverified inventory status')
+    for finding in actual.get('flags', []):
+        if finding['id'] == 'inventory-failed':
+            print('::notice::Inventory source limitation: ' + finding['detail'])
     get('assets/origination.css')
     print('::notice::Public complete-picks counts: ' + json.dumps(originated['counts']))
     for route in ['docs/index.html', 'archive/root-session/index.html']:
