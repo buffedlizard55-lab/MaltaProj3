@@ -169,7 +169,7 @@ def hltv_research(client: Client, matches: list):
         if start:
             candidates.append({'teams': names, 'starts_at': iso(start), 'source_url': 'https://www.hltv.org' + a['href']})
     # Keep a small structural diagnostic, not an access-challenge bypass.
-    client.save('hltv-structure', {'url': HLTV, 'observed_at': req['observed_at'], 'page_title': soup.title.get_text() if soup.title else None, 'match_links': [{'href': a.get('href'), 'text': a.get_text(' ', strip=True)[:250], 'classes': a.get('class', [])} for a in soup.select('a[href^="/matches/"]')[:12]], 'data_unix_nodes': len(soup.select('[data-unix]'))})
+    client.save('hltv-structure', {'url': HLTV, 'observed_at': req['observed_at'], 'page_title': soup.title.get_text() if soup.title else None, 'match_links': [{'href': a.get('href'), 'text': a.get_text(' ', strip=True)[:250], 'classes': a.get('class', [])} for a in soup.select('a[href^="/matches/"]')[:12]], 'data_unix_nodes': len(soup.select('[data-unix]')), 'timestamp_contexts': [str(n.parent.parent)[:12000] for n in soup.select('[data-unix]')[:6]]})
     # An access challenge with HTTP 200 is not a successful empty match index.
     if not candidates:
         raise SourceError('HLTV match schema unavailable; no structured research observations confirmed')
