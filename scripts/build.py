@@ -507,6 +507,12 @@ def build(source: Path, output: Path):
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
+    # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
+    # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
+    findings = source / 'research/1112299f/flags.json'
+    if findings.exists():
+        have = {f['id'] for f in data['flags']}
+        data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     if (source / 'research/c07e1b40/repo-review.json').exists():

@@ -1,0 +1,60 @@
+[
+  {
+    "id": "pages-legacy-overwrite",
+    "severity": "warning",
+    "title": "Pages is still in legacy mode: a merge can replace a fresh deployment with the committed fallback files",
+    "detail": "Observed 2026-10-15: production run 38816949473 deployed a fresh 22-fixture snapshot at 22:25:28Z, then the legacy pages-build-deployment for the next merge published the committed files at 22:26:45Z, so the live complete-picks page showed the older 17-fixture snapshot until a later run. GET /pages reports build_type legacy. A PUT to switch it to workflow returned HTTP 403: that endpoint requires pages=write and administration=write and the token the sessions use has no Administration permission. Owner action, one click: Settings → Pages → Build and deployment → Source → GitHub Actions (admins and maintainers can change it). Until then the last production run after the last merge decides what is live, and it must be green.",
+    "source_urls": [
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473",
+      "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "hotspawn-lobby-cdn-cache",
+    "severity": "notice",
+    "title": "Hotspawn's lobby HTML is CDN-cached; the fixture API is live",
+    "detail": "Read from a GitHub-hosted runner on 2026-10-15: /lobby was 87-88 minutes old and /cs2-pickems 71-72 minutes old (X-Cache HIT, Age 4,257-5,283 s, identical bytes across three reads) while the fixture API sent no cache headers. A cache-busting query string returned a fresh render (X-Cache MISS, Age 0). Any fixture change inside the cache window therefore looked like 'lobby, CS2 lobby and fixture API disagree' and froze the inventory. The collector now requests the fresh render, retries once and, if it still disagrees, names the differing fixture IDs and the cache state in its error.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/1112299f/lobby-probe.json"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "hotspawn-duplicate-tournament-fixture",
+    "severity": "warning",
+    "title": "Legacy vs FURIA exists twice in Hotspawn's tournament fixtures",
+    "detail": "Fixture 1080204 (16:00 UTC, 33 picks) is still status scheduled with score 0-0, while fixture 1081614 (17:00 UTC, 0 picks) is status ended with score 1-2. HLTV shows a single series, FURIA 2-1 Legacy. Picks made on 1080204 may never be scored from a result; the duplicate is published, not merged or corrected.",
+    "source_urls": [
+      "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+      "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026"
+    ],
+    "match_ids": [
+      "1080204"
+    ]
+  },
+  {
+    "id": "tournament-pickem-uncovered-picks",
+    "severity": "warning",
+    "title": "Tournament pick'em asks for more than the weekly inventory covers",
+    "detail": "The Thunderpick World Championship pick'em pays 7 points for the team and 5 for the correct series score, has a daily Crystal Ball question and player props. The four-hour inventory covers team picks only. The leaderboard plan publishes a model-derived score slip for researched best-of-three fixtures (uncalibrated; it assumes the same chance on every map). Crystal Ball scoring is unverified and player props were not analysed.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+      "https://play.hotspawn.com/tournaments/thunderpick-world-championships"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "hotspawn-scoring-unpublished",
+    "severity": "notice",
+    "title": "Streak bonus and any penalty for wrong picks are not published",
+    "detail": "The rules page says consecutive correct picks earn bonus points and mentions points only for correct picks, but publishes no streak formula and no statement about wrong picks. The leaderboard plan therefore does not quantify what breaking a streak costs. The lock lead time is also unresolved: the rules page says 5 minutes, the fixture API says 6, so submit with margin.",
+    "source_urls": [
+      "https://play.hotspawn.com/how-it-works"
+    ],
+    "match_ids": []
+  }
+]

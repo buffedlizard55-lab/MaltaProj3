@@ -472,6 +472,36 @@ class CommittedResearch(unittest.TestCase):
         self.assertEqual(h['H-05']['value']['weekStartUtc'], '2026-10-12T00:00:00.000Z')
 
 
+class PublishedFindings(unittest.TestCase):
+    def flags(self):
+        return json.loads(Path('data/research/1112299f/flags.json').read_text())
+
+    def test_each_finding_is_complete_unique_and_linked_to_official_sources_only(self):
+        flags = self.flags()
+        self.assertEqual(len({f['id'] for f in flags}), len(flags))
+        for f in flags:
+            self.assertEqual(set(f), {'id', 'severity', 'title', 'detail', 'source_urls', 'match_ids'})
+            self.assertIn(f['severity'], {'warning', 'notice'})
+            self.assertTrue(f['source_urls'])
+            for url in f['source_urls']:
+                self.assertTrue(audit_rows.is_official(url), f"{f['id']}: {url}")
+
+    def test_the_pages_finding_gives_the_exact_owner_action(self):
+        f = next(x for x in self.flags() if x['id'] == 'pages-legacy-overwrite')
+        for needle in ('HTTP 403', 'administration=write', 'Settings → Pages', 'GitHub Actions'):
+            self.assertIn(needle, f['detail'])
+
+    def test_the_review_page_publishes_them_without_changing_the_snapshot_flags(self):
+        from scripts import build as site_build
+        with tempfile.TemporaryDirectory() as tmp:
+            site_build.build(Path('data'), Path(tmp) / 'site')
+            review = (Path(tmp) / 'site/review/index.html').read_text()
+            published = json.loads((Path(tmp) / 'site/data/latest.json').read_text())
+        for f in self.flags():
+            self.assertIn('id="flag-' + f['id'] + '"', review)
+        self.assertFalse({f['id'] for f in self.flags()} & {f['id'] for f in published['flags']})
+
+
 class RulesFile(unittest.TestCase):
     def test_thresholds_are_ordered_and_documented(self):
         t = RULES['thresholds']
