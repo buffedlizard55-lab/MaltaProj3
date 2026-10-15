@@ -25,7 +25,7 @@ import json
 import math
 import re
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import median
 from urllib.parse import urlencode
@@ -38,7 +38,8 @@ UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
 START_TOLERANCE_SEC = 60  # Provider clocks disagree up to ±30 min on delayed fixtures.
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
-MAX_PRICE_AGE_HOURS = 12
+# Price freshness is domain.is_fresh (MAX_PRICE_AGE_HOURS = 8). A former unused 12-hour
+# constant here contradicted it and was removed (session c07e1b40 review).
 THIN_SPREAD = 0.12
 MAX_ACCEPTED_SPREAD = 0.12
 
@@ -50,6 +51,18 @@ THUNDERPICK_API = 'https://thunderpick.io/api/matches'
 THUNDERPICK_PAGE = 'https://thunderpick.io/esports/counter-strike'
 VALVE_REPO = 'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings'
 HLTV_EVENT = 'https://www.hltv.org/events/9332/elisa-breakout-series-2'
+# Independent money sources added by session c07e1b40 for fixtures the featured
+# pipeline cannot price. Both are public, unauthenticated first-party feeds:
+# Kalshi is a CFTC-regulated exchange with an officially documented market-data
+# API; Bovada's coupon feed is the sportsbook's own public client contract.
+KALSHI_EVENTS = 'https://api.elections.kalshi.com/trade-api/v2/events'
+KALSHI_DOCS = 'https://docs.kalshi.com/api-reference/market/get-markets'
+KALSHI_PAGE = 'https://kalshi.com/markets/kxcs2game/counterstrike-2-game/'
+KALSHI_SERIES = 'KXCS2GAME'
+BOVADA_API = ('https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?'
+              + urlencode({'marketFilterId': 'def', 'preMatchOnly': 'true', 'lang': 'en'}))
+BOVADA_SITE = 'https://www.bovada.lv/sports'
+MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
 # ---------------------------------------------------------------------------
@@ -178,7 +191,7 @@ class Collector:
             entry['error'] = str(exc)[:300]
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
-    def get_json(self, url: str, label: str, *, method='GET', payload=None):
+    def get_json(self, url: str, label: str, *, method='GET', payload=None, save=True):
         delay = 0.25 - (time.monotonic() - self.last)
         if delay > 0:
             time.sleep(delay)
@@ -192,7 +205,8 @@ class Collector:
             response.raise_for_status()
             data = response.json()
             entry['status'] = 'ok'
-            entry['evidence'] = self.save(label, data)
+            if save:
+                entry['evidence'] = self.save(label, data)
             return data, entry
         except (requests.RequestException, ValueError) as exc:
             entry['error'] = str(exc)[:300]
@@ -293,6 +307,45 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     (evidence_dir / 'live-polymarket-observations.json').write_text(
         json.dumps({'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
                    ensure_ascii=False, indent=2) + '\n')
+    # Kalshi CS2 match-winner events (officially documented public API). Pages are
+    # bounded; an unfinished cursor is recorded rather than claimed complete.
+    # A failed refetch must never leave an older observation looking current.
+    for stale in ['live-kalshi-events.json', 'live-bovada-cs2.json']:
+        (evidence_dir / stale).unlink(missing_ok=True)
+    pages, cursor, complete = [], '', False
+    for page in range(10):
+        query = {'series_ticker': KALSHI_SERIES, 'status': 'open', 'with_nested_markets': 'true', 'limit': 200}
+        if cursor:
+            query['cursor'] = cursor
+        url = KALSHI_EVENTS + '?' + urlencode(query)
+        try:
+            body, entry = client.get_json(url, f'live-kalshi-events-{page}', save=False)
+        except RuntimeError as exc:
+            out['kalshi_error'] = str(exc)
+            break
+        if not isinstance(body, dict) or not isinstance(body.get('events'), list):
+            out['kalshi_error'] = 'Kalshi events contract unrecognized'
+            break
+        pages.append({'url': url, 'observed_at': entry['observed_at'], 'response': body})
+        cursor = body.get('cursor') or ''
+        if not cursor:
+            complete = True
+            break
+    if pages:
+        (evidence_dir / 'live-kalshi-events.json').write_text(json.dumps(
+            {'source': 'Kalshi public market data API', 'docs': KALSHI_DOCS, 'pagination_complete': complete,
+             'observed_at': pages[0]['observed_at'], 'pages': pages}, ensure_ascii=False) + '\n')
+    # Bovada public Counter-Strike 2 coupon (prematch only).
+    try:
+        body, entry = client.get_json(BOVADA_API, 'live-bovada-cs2', save=False)
+        if isinstance(body, list):
+            (evidence_dir / 'live-bovada-cs2.json').write_text(json.dumps(
+                {'source': 'Bovada public sportsbook coupon', 'url': BOVADA_API,
+                 'observed_at': entry['observed_at'], 'response': body}, ensure_ascii=False) + '\n')
+        else:
+            out['bovada_error'] = 'Bovada coupon contract unrecognized'
+    except RuntimeError as exc:
+        out['bovada_error'] = str(exc)
     try:
         now = datetime.now(UTC)
         directory, _ = client.get_json(f'{VALVE_REPO}/contents/live/{now.year}', 'live-valve-directory')
@@ -485,6 +538,123 @@ def out_rows(rows: list) -> list:
     return rows
 
 
+_KALSHI_SCHEDULE = re.compile(r'originally scheduled for ([A-Z][a-z]{2}) (\d{1,2}), (\d{4}) at (\d{1,2}):(\d{2}) (AM|PM) (EDT|EST)\b')
+_KALSHI_TICKER = re.compile(r'^KXCS2GAME-(\d{2})([A-Z]{3})(\d{2})(\d{2})(\d{2})[A-Z0-9]+$')
+
+
+def kalshi_start(event: dict):
+    """Scheduled start from the contract rules, cross-checked with the event ticker.
+
+    Every market's rules must state the same 'originally scheduled for <date> at
+    <time> EDT/EST' and the ticker's encoded US-Eastern date/time must agree.
+    Anything else returns None (unverified start → no join).
+    """
+    starts = set()
+    markets = event.get('markets') or []
+    if not markets:
+        return None
+    for market in markets:
+        m = _KALSHI_SCHEDULE.search(market.get('rules_primary') or '')
+        if not m or m.group(1) not in MONTHS:
+            return None
+        mon, day, year, hh, mm, ampm, zone = m.groups()
+        hour = int(hh) % 12 + (12 if ampm == 'PM' else 0)
+        tz = timezone(timedelta(hours=-4 if zone == 'EDT' else -5))
+        try:
+            local = datetime(int(year), MONTHS.index(mon) + 1, int(day), hour, int(mm), tzinfo=tz)
+        except ValueError:
+            return None
+        starts.add(local)
+    if len({s.astimezone(UTC) for s in starts}) != 1:
+        return None
+    local = next(iter(starts))
+    t = _KALSHI_TICKER.match(event.get('event_ticker') or '')
+    if not t:
+        return None
+    yy, mon, dd, hh, mm = t.groups()
+    if (local.year % 100, local.strftime('%b').upper(), local.day, local.hour, local.minute) != (int(yy), mon, int(dd), int(hh), int(mm)):
+        return None
+    return iso(local.astimezone(UTC))
+
+
+def kalshi_rows(orig_evidence: Path) -> list:
+    """Kalshi CS2 match-winner rows from the saved original API response."""
+    path = orig_evidence / 'live-kalshi-events.json'
+    if not path.exists():
+        return []
+    saved = load_json(path)
+    rows = []
+    for page in saved.get('pages', []):
+        observed = page.get('observed_at')
+        for ev in (page.get('response') or {}).get('events', []):
+            if ev.get('series_ticker') != KALSHI_SERIES or (ev.get('product_metadata') or {}).get('competition') != 'CS2':
+                continue
+            markets = ev.get('markets') or []
+            if ev.get('mutually_exclusive') is not True or len(markets) != 2:
+                continue
+            start = kalshi_start(ev)
+            names = [m.get('yes_sub_title') for m in markets]
+            if not start or not all(isinstance(n, str) and n.strip() for n in names):
+                continue
+            # In-play or already-started observations are never prematch lines.
+            if timestamp(observed) is None or timestamp(start) <= timestamp(observed):
+                continue
+            ticker = str(ev.get('event_ticker'))
+            row = {'family': 'market', 'provider': 'Kalshi', 'names': names, 'start': start,
+                   'event_id': ticker, 'market_tickers': [str(m.get('ticker')) for m in markets],
+                   'source_url': KALSHI_PAGE + ticker.lower(), 'api_url': KALSHI_EVENTS + '/' + ticker,
+                   'evidence_file': 'data/origination/evidence/live-kalshi-events.json', 'observed_at': observed,
+                   'question': ev.get('title', ''), 'rules': markets[0].get('rules_primary', '')}
+            bids = [finite(m.get('yes_bid_dollars')) for m in markets]
+            asks = [finite(m.get('yes_ask_dollars')) for m in markets]
+            if all(m.get('status') == 'active' for m in markets) and all(v is not None for v in bids + asks):
+                row['bid'], row['ask'] = bids, asks
+            rows.append(row)
+    return rows
+
+
+def bovada_rows(orig_evidence: Path) -> list:
+    """Bovada prematch series moneylines from the saved original coupon response."""
+    path = orig_evidence / 'live-bovada-cs2.json'
+    if not path.exists():
+        return []
+    saved = load_json(path)
+    observed = saved.get('observed_at')
+    rows = []
+    for group in saved.get('response') or []:
+        if not isinstance(group, dict):
+            continue
+        league = ' / '.join(str(p.get('description')) for p in group.get('path', []) if isinstance(p, dict))
+        for ev in group.get('events', []):
+            if ev.get('type') != 'GAMEEVENT' or ev.get('live') is not False or not isinstance(ev.get('startTime'), (int, float)):
+                continue
+            start = iso(datetime.fromtimestamp(ev['startTime'] / 1000, UTC))
+            if timestamp(observed) is None or timestamp(start) <= timestamp(observed):
+                continue
+            lines = [m for g in ev.get('displayGroups', []) for m in g.get('markets', [])
+                     if m.get('key') == '2W-12' and m.get('description') == 'Moneyline'
+                     and (m.get('period') or {}).get('main') is True and (m.get('period') or {}).get('live') is False
+                     and m.get('status') == 'O']
+            if len(lines) != 1:
+                continue
+            outcomes = lines[0].get('outcomes') or []
+            if len(outcomes) != 2 or any(o.get('status') != 'O' for o in outcomes):
+                continue
+            names = [o.get('description') for o in outcomes]
+            competitors = {name_key(c.get('name') or '') for c in ev.get('competitors', [])}
+            if not all(isinstance(n, str) and n.strip() for n in names) or {name_key(n) for n in names} != competitors:
+                continue
+            odds = [finite((o.get('price') or {}).get('decimal')) for o in outcomes]
+            if any(o is None or o <= 1 for o in odds):
+                continue
+            rows.append({'family': 'bookmaker', 'provider': 'Bovada', 'names': names, 'start': start, 'odds': odds,
+                         'event_id': str(ev.get('id')), 'market_id': str(lines[0].get('id')),
+                         'source_url': BOVADA_SITE + str(ev.get('link') or ''), 'api_url': BOVADA_API,
+                         'evidence_file': 'data/origination/evidence/live-bovada-cs2.json', 'observed_at': observed,
+                         'league': league})
+    return rows
+
+
 def valve_rows(repo_data: Path, live: dict | None) -> tuple[list | None, dict | None]:
     from scripts.domain import parse_valve_table
     if live and (repo_data / 'origination' / 'evidence' / 'live-valve-standings-text.json').exists():
@@ -503,7 +673,7 @@ def valve_rows(repo_data: Path, live: dict | None) -> tuple[list | None, dict | 
 # ---------------------------------------------------------------------------
 
 def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
-    """Polymarket series-winner midpoint estimate; wide books are rejected."""
+    """Prediction-market/exchange series-winner midpoint estimate (Polymarket, Kalshi); wide books are rejected."""
     from scripts.domain import is_fresh
     if row.get('observed_at') is not None and not is_fresh(row['observed_at'], now):
         return None, 'Market observation is stale'
@@ -516,15 +686,19 @@ def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
             spreads.append(round(ask - bid, 8))
         worst = max(spreads)
         if worst > MAX_ACCEPTED_SPREAD:
-            return None, f'Order book spread {worst:.2f} exceeds the {MAX_ACCEPTED_SPREAD:.2f} indicative ceiling'
+            seen = ', '.join(f'{n} bid/ask {b:.2f}/{a:.2f}' for n, b, a in zip(row['names'], row['bid'], row['ask']))
+            return None, (f'Order book spread {worst:.2f} exceeds the {MAX_ACCEPTED_SPREAD:.2f} indicative ceiling '
+                          f'({seen}); observation recorded, not used as a pick input.')
         probs = normalize_pair(*mids)
         thin = worst > THIN_SPREAD
         aligned = align_by_name(probs, row['names'], match, registry)
-        quote = {'provider': 'Polymarket', 'family': 'market', 'probabilities': aligned,
+        quote = {'provider': row.get('provider') or 'Polymarket', 'family': 'market', 'probabilities': aligned,
                  'bid': align_by_name(row['bid'], row['names'], match, registry),
                  'ask': align_by_name(row['ask'], row['names'], match, registry),
                  'spread': worst, 'thin': thin, 'observed_at': row.get('observed_at'),
                  'source_url': row['source_url'], 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
+        if row.get('api_url'):
+            quote['api_url'] = row['api_url']
         detail = ('Verified paired order-book midpoints.' if not thin else
                   f'THIN MARKET: best spread {worst:.2f} is wider than {THIN_SPREAD:.2f}; midpoint shown as indicative only.')
         return quote, detail
@@ -544,6 +718,9 @@ def bookmaker_estimate(row: dict, match: dict, registry: dict):
     quote = {'provider': row['provider'], 'family': 'bookmaker', 'probabilities': aligned, 'odds': odds,
              'observed_at': row.get('observed_at'), 'source_url': row['source_url'],
              'api_url': row.get('api_url'), 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
+    for key in ('market_id', 'league'):
+        if row.get(key):
+            quote[key] = row[key]
     return quote, 'Verified paired prematch decimal prices; margin removed by proportional normalization.'
 
 
@@ -584,8 +761,14 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))
     probs = normalize_pair(p, 1 - p)
+    # Every input row keeps its own official source link and snapshot date: the
+    # dashboard renders one linked row per Valve input, and dropping these keys
+    # crashed the production build (KeyError 'source_url') whenever a fallback
+    # was resolved by this model (scheduled runs 38742696250 / 38797535468).
     quote = {'provider': 'Valve official standings', 'family': 'model', 'probabilities': probs,
-             'inputs': [{'name': r['name'], 'points': r['points'], 'standing': r['standing'], 'roster': r['roster']} for r in inputs],
+             'inputs': [{'name': r['name'], 'points': r['points'], 'standing': r['standing'], 'roster': r['roster'],
+                         'snapshot_date': r.get('snapshot_date') or meta['snapshot_date'],
+                         'source_url': r.get('source_url') or meta['source_url']} for r in inputs],
              'snapshot_date': meta['snapshot_date'], 'source_url': meta['source_url'],
              'evidence_file': meta['evidence_file'], 'rd_assumption': VALVE_RD, 'g': g,
              'aliases_used': used, 'observed_at': iso(now)}
@@ -597,7 +780,7 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
-def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
+def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -608,58 +791,53 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     estimates = {'market': [], 'bookmaker': []}
     time_flags = []
 
-    # 1. Identity + market rows (Polymarket).
-    market_notes = []
-    for row in poly_rows:
-        joined, used, status = pair_join(row['names'], row['start'], match, registry)
-        if status != 'matched':
-            continue
-        aliases.extend(used)
-        if used:
-            market_notes.append('joined via verified alias registry')
-        delta = None
-        if timestamp(row.get('start')) and timestamp(match.get('starts_at')):
-            delta = abs((timestamp(row['start']) - timestamp(match['starts_at'])).total_seconds())
-        if delta is not None and delta > TIME_DISAGREEMENT_SEC:
-            time_flags.append(f'{row["provider"]} start time differs by {int(delta)}s')
-        quote, detail = market_estimate(row, match, registry, now)
-        if quote:
-            estimates['market'].append((quote, detail))
+    # 1-2. Money sources, one provider at a time: prediction markets/exchanges
+    # (Polymarket, Kalshi) and esportsbooks (Thunderpick, Bovada). Every provider
+    # gets its own audit-trail stage, including rejected observations.
+    stage_names = {
+        ('market', 'Polymarket'): ('Betting market (Polymarket series winner)', POLY_INDEX),
+        ('market', 'Kalshi'): ('Exchange market (Kalshi CS2 match winner)', KALSHI_PAGE.rstrip('/')),
+        ('bookmaker', 'Thunderpick'): ('Esportsbook line (Thunderpick original prices)', THUNDERPICK_PAGE),
+        ('bookmaker', 'Bovada'): ('Esportsbook line (Bovada original prices)', BOVADA_SITE),
+    }
+    notes = {key: [] for key in stage_names}
+    for family, rows in (('market', poly_rows), ('bookmaker', book_rows)):
+        for row in rows:
+            provider = row.get('provider') or ('Polymarket' if family == 'market' else 'Thunderpick')
+            key = (family, provider)
+            notes.setdefault(key, [])
+            joined, used, status = pair_join(row['names'], row['start'], match, registry)
+            if status != 'matched':
+                continue
+            aliases.extend(used)
+            if used:
+                notes[key].append(('joined via verified alias registry', None))
+            if timestamp(row.get('start')) and timestamp(match.get('starts_at')):
+                delta = abs((timestamp(row['start']) - timestamp(match['starts_at'])).total_seconds())
+                if delta > TIME_DISAGREEMENT_SEC:
+                    time_flags.append(f'{provider} start time differs by {int(delta)}s')
+            if family == 'market':
+                quote, detail = market_estimate(row, match, registry, now)
+            else:
+                quote, detail = bookmaker_estimate(row, match, registry)
+            if quote:
+                estimates[family].append((quote, detail))
+            else:
+                notes[key].append((f'{provider} event {row.get("event_id")}: {detail}', row.get('source_url')))
+    for key, (stage, fallback_url) in stage_names.items():
+        family, provider = key
+        hits = [(q, d) for q, d in estimates[family] if q['provider'] == provider]
+        aliased = any(url is None for _, url in notes[key])
+        rejected = [(text, url) for text, url in notes[key] if url is not None]
+        if hits:
+            quote, detail = hits[0]
+            trail.append({'stage': stage, 'status': 'resolved',
+                          'source_url': quote['source_url'], 'detail': detail + (' Joined via verified alias registry.' if aliased else '')})
         else:
-            market_notes.append(detail)
-    if estimates['market']:
-        quote, detail = estimates['market'][0]
-        trail.append({'stage': 'Betting market (Polymarket series winner)', 'status': 'resolved',
-                      'source_url': quote['source_url'], 'detail': detail + (' ' + ' '.join(market_notes) if market_notes else '')})
-    else:
-        detail = market_notes[0] if market_notes else 'No alias-verified Polymarket series-winner market found for these teams and start time.'
-        trail.append({'stage': 'Betting market (Polymarket series winner)', 'status': 'unresolved',
-                      'source_url': POLY_INDEX, 'detail': detail})
-
-    # 2. Esportsbook rows (Thunderpick).
-    book_notes = []
-    for row in book_rows:
-        joined, used, status = pair_join(row['names'], row['start'], match, registry)
-        if status != 'matched':
-            continue
-        aliases.extend(used)
-        if timestamp(row.get('start')) and timestamp(match.get('starts_at')):
-            delta = abs((timestamp(row['start']) - timestamp(match['starts_at'])).total_seconds())
-            if delta > TIME_DISAGREEMENT_SEC:
-                time_flags.append(f'{row["provider"]} start time differs by {int(delta)}s')
-        quote, detail = bookmaker_estimate(row, match, registry)
-        if quote:
-            estimates['bookmaker'].append((quote, detail))
-        else:
-            book_notes.append(detail)
-    if estimates['bookmaker']:
-        quote, detail = estimates['bookmaker'][0]
-        trail.append({'stage': 'Esportsbook line (original prices)', 'status': 'resolved',
-                      'source_url': quote.get('api_url') or quote['source_url'], 'detail': detail})
-    else:
-        detail = book_notes[0] if book_notes else 'No alias-verified paired esportsbook prices for these teams and start time.'
-        trail.append({'stage': 'Esportsbook line (original prices)', 'status': 'unresolved',
-                      'source_url': THUNDERPICK_PAGE, 'detail': detail})
+            detail = (' '.join(text for text, _ in rejected) if rejected else
+                      f'No alias-verified {provider} match-winner line found for these teams and start time.')
+            url = rejected[0][1] if rejected and str(rejected[0][1]).startswith('https://') else fallback_url
+            trail.append({'stage': stage, 'status': 'unresolved', 'source_url': url, 'detail': detail})
 
     # 3. Research model cross-check (always attempted, never overrides money lines).
     model, model_detail = model_estimate(match, ratings, registry, valve_meta or {}, now)
@@ -674,7 +852,13 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': model_detail})
 
     # HLTV research stage (identity/rank context always recorded with its link).
-    if name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
+    # Prefer the collector's own fixture-specific HLTV records (exact match page,
+    # identity and published format) over a generic placeholder.
+    hltv_records = [dict(r) for r in (hltv or []) if str(r.get('stage', '')).startswith('HLTV') and str(r.get('source_url', '')).startswith('https://www.hltv.org/')]
+    if hltv_records:
+        for record in reversed(hltv_records):
+            trail.insert(0, {k: record[k] for k in ('stage', 'status', 'source_url', 'detail') if k in record})
+    elif name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
         trail.insert(0, {'stage': 'HLTV identity research', 'status': 'checked', 'source_url': HLTV_EVENT,
                          'detail': 'Event identity evidence is listed in the reviewed alias registry. HLTV fan votes are never probability inputs; current lineups remain unverified.'})
     else:
@@ -682,11 +866,10 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                          'detail': 'See the featured pipeline research trail; no additional fixture-specific HLTV identity was verified by this fallback.'})
 
     # 4. Choose the originated line: consensus of money sources, else model.
+    # One vote per independent provider (Polymarket, Kalshi, Thunderpick, Bovada).
     families = {}
-    for quote, _ in estimates['market']:
-        families.setdefault('market', quote)
-    for quote, _ in estimates['bookmaker']:
-        families.setdefault('bookmaker', quote)
+    for quote, _ in estimates['market'] + estimates['bookmaker']:
+        families.setdefault(quote['provider'], quote)
     chosen = None
     method = None
     label = None
@@ -697,9 +880,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         probs = normalize_pair(p0, 1 - p0)
         sources = [q['provider'] for q in families.values()]
         thin = any(q.get('thin') for q in families.values())
-        method = 'consensus' if len(families) > 1 else next(iter(families))
+        only = next(iter(families.values()))
+        method = 'consensus' if len(families) > 1 else only['family']
         label = ('Originated consensus line (median of independent money sources)' if len(families) > 1
-                 else ('Originated market line (Polymarket)' if method == 'market' else 'Originated esportsbook line (no-vig)'))
+                 else (f'Originated market line ({only["provider"]})' if method == 'market'
+                       else f'Originated esportsbook line ({only["provider"]}, no-vig)'))
         chosen = {'method': method, 'label': label, 'probabilities': probs,
                   'fair_decimal': [round(1 / p, 3) for p in probs],
                   'quotes': list(families.values()), 'source': ' + '.join(sources),
@@ -734,6 +919,16 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if key not in seen:
             seen.add(key)
             deduped.append(a)
+    if deduped:
+        # Make the identity basis explicit next to the HLTV record: a registry join is
+        # competition-scoped and evidence-linked, unlike a same-slot observation.
+        position = sum(1 for r in trail if str(r.get('stage', '')).startswith('HLTV'))
+        evidence_url = next((ev['url'] for a in deduped for ev in a.get('evidence', []) if str(ev.get('url', '')).startswith('https://')),
+                            'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json')
+        trail.insert(position, {'stage': 'Identity join (verified alias registry)', 'status': 'resolved', 'source_url': evidence_url,
+                                'detail': '; '.join(f"{a['alias']} → {a['canonical']}" for a in deduped)
+                                + '. Competition-scoped registry entries with official evidence links; this supersedes any earlier '
+                                  '"equivalence not verified" observation for these names in this competition only.'})
     return {
         'origination': chosen,
         'pick_index': pick,
@@ -752,8 +947,8 @@ def run(output: Path, *, live: bool = False) -> dict:
     now = datetime.now(UTC)
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
-    poly_rows = polymarket_rows(output, evidence_dir)
-    book_rows = thunderpick_rows(output, live_payload)
+    poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir)
+    book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
     # Preserve original source observation timestamps. Never stamp retained quotes as new.
     for row in poly_rows:
@@ -771,7 +966,7 @@ def run(output: Path, *, live: bool = False) -> dict:
                       'pick_index': match.get('pick_index'), 'aliases_used': [],
                       'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
         else:
-            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
+            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],
@@ -823,7 +1018,7 @@ def run(output: Path, *, live: bool = False) -> dict:
     flags.append({'id': 'alias-registry', 'severity': 'notice',
                   'title': 'Verified alias registry used for provider name joins',
                   'detail': f'{counts["alias_joined"]} active fixtures required a registry alias to join provider names. Every alias and its evidence links are published on the origination page and in data/origination/aliases.json.',
-                  'match_ids': [], 'source_urls': [HLTV_EVENT, 'https://liquipedia.net/rocketleague/ROUNDS']})
+                  'match_ids': [], 'source_urls': [HLTV_EVENT, 'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json']})
 
     result = {
         'schema_version': 1,
@@ -839,8 +1034,11 @@ def run(output: Path, *, live: bool = False) -> dict:
             'start_tolerance_sec': START_TOLERANCE_SEC,
             'thin_spread': THIN_SPREAD,
             'max_accepted_spread': MAX_ACCEPTED_SPREAD,
-            'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias esportsbook paired prices (no-vig)',
-                       'median consensus across money families', 'Valve-rating research model fallback', 'blank + flagged'],
+            'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias Kalshi CS2 match-winner books',
+                       'verified-alias esportsbook paired prices (Thunderpick, Bovada; no-vig)',
+                       'median consensus across independent money providers', 'Valve-rating research model fallback',
+                       'blank + flagged'],
+            'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada'],
         },
         'matches': matches_out,
         'unresolved_ids': unresolved,
@@ -848,7 +1046,9 @@ def run(output: Path, *, live: bool = False) -> dict:
         'sources': [
             {'name': 'Hotspawn fixture inventory', 'url': snapshot.get('sources', [{}])[0].get('url', 'https://play.hotspawn.com/lobby') if snapshot.get('sources') else 'https://play.hotspawn.com/lobby', 'role': 'match list only; Hotspawn popularity is never a probability input'},
             {'name': 'Polymarket CS2', 'url': POLY_INDEX, 'role': 'series-winner order books (money source)'},
+            {'name': 'Kalshi CS2 match markets', 'url': KALSHI_PAGE.rstrip('/'), 'api_url': KALSHI_EVENTS, 'docs': KALSHI_DOCS, 'role': 'CFTC-regulated exchange; paired yes bid/ask books (money source, 12-cent spread ceiling)'},
             {'name': 'Thunderpick esportsbook', 'url': THUNDERPICK_PAGE, 'api_url': THUNDERPICK_API, 'role': 'original paired prematch prices (money source)'},
+            {'name': 'Bovada esportsbook', 'url': BOVADA_SITE, 'api_url': BOVADA_API, 'role': 'original paired prematch series moneylines (money source)'},
             {'name': 'HLTV.org', 'url': HLTV_EVENT, 'role': 'identity research and published ranks; fan votes never a probability input'},
             {'name': 'Valve official standings', 'url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'), 'role': 'uncalibrated research-model fallback only'},
         ],

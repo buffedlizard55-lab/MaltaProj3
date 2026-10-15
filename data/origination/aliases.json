@@ -2,17 +2,18 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-15T10:45:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope)",
+  "updated_at": "2026-10-15T23:30:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence)",
   "aliases": [
     {
       "alias": "WBT",
       "canonical": "WROTBERRY",
       "kind": "abbreviation",
       "applies_to": [
-        "Elisa BreakOut Series #2"
+        "Elisa BreakOut Series #2",
+        "DraculaN Season 7"
       ],
-      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
+      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332) Extended by session c07e1b40 to DraculaN Season 7 (HLTV match 2399593, Hotspawn fixture 1081529).",
       "evidence": [
         {
           "url": "https://www.hltv.org/team/13683/wrotberry",
@@ -28,8 +29,19 @@
           "url": "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
           "source": "Liquipedia",
           "detail": "Liquipedia lists the Ukrainian roster under the name WROTBERRY with players svemyy/fl1peR/tired73, matching HLTV team 13683's published player records."
+        },
+        {
+          "url": "https://www.hltv.org/events/9312/digital-crusade-draculan-season-7",
+          "source": "HLTV.org event page",
+          "detail": "HLTV's DraculaN Season 7 bracket lists exactly one 'WBT' (Group B opening round vs Nexus) and no separate 'WROTBERRY' competitor; Hotspawn fixture 1081529 lists 'Nexus vs WROTBERRY' in DraculaN Season 7 at that slot. Checked by session c07e1b40 on 2026-10-15."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399593/wbt-vs-nexus-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'WBT' (team id 13683) vs 'Nexus' (team id 7187), Group B opening match, 19 Oct 2026 at 09:00 UTC (BO1 LAN), the exact Hotspawn fixture 1081529 start time."
         }
-      ]
+      ],
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed — HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
     },
     {
       "alias": "ROUNDS",
@@ -50,7 +62,8 @@
           "source": "HLTV.org event page",
           "detail": "HLTV lists team 'ROUNDS' (Finland) as the fourth Group B participant of Elisa BreakOut Series 2, with the exact Hotspawn 'RoundsGG' pairings and start times (HAVU 10:00, Phantom 14:00, Voca 16:00 UTC on 2026-10-16)."
         }
-      ]
+      ],
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): the Liquipedia citation is the Rocket League wiki (https://liquipedia.net/rocketleague/ROUNDS), not Counter-Strike; the Counter-Strike wiki has no ROUNDS page (https://liquipedia.net/counterstrike/ROUNDS). The CS2 join currently rests on HLTV's same-event, same-slot listing."
     },
     {
       "alias": "HAVU Gaming",
@@ -224,9 +237,10 @@
       "canonical": "Ninjas in Pyjamas",
       "kind": "abbreviation",
       "applies_to": [
-        "Thunderpick World Championship 2026"
+        "Thunderpick World Championship 2026",
+        "Stake Pulse Beat III"
       ],
-      "competition_note": "Polymarket abbreviation 'NIP' vs Hotspawn/HLTV 'Ninjas in Pyjamas' in the Thunderpick World Championship 2026 Group A elimination match (HLTV match 2399408, Hotspawn fixture 1080201).",
+      "competition_note": "Polymarket abbreviation 'NIP' vs Hotspawn/HLTV 'Ninjas in Pyjamas' in the Thunderpick World Championship 2026 Group A elimination match (HLTV match 2399408, Hotspawn fixture 1080201). Extended by session c07e1b40 to Stake Pulse Beat III (HLTV match 2399262, Hotspawn fixture 1079586, 2026-10-16T08:00:00Z).",
       "must_not_match": [
         "NIP Impact",
         "NiP Impact",
@@ -243,6 +257,53 @@
           "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
           "source": "HLTV.org match page",
           "detail": "HLTV lists the opponent as 'Ninjas in Pyjamas' (team id 4411) at the same scheduled start."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399262/ninjas-in-pyjamas-vs-liquid-stake-pulse-beat-iii",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Ninjas in Pyjamas' (team id 4411) vs 'Liquid' (team id 5973) in the Stake Pulse Beat III quarter-final on 16 Oct 2026 at 08:00 UTC, the exact Hotspawn fixture 1079586 slot. Checked by session c07e1b40 on 2026-10-15."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
+          "source": "Kalshi market rules (public API event KXCS2GAME-26OCT160400TLNIP)",
+          "detail": "Kalshi's own contract text: 'Stake Pulse Beat III 2026: Liquid vs. NIP CS2 match originally scheduled for Oct 16, 2026 at 4:00 AM EDT' (= 08:00 UTC)."
+        }
+      ]
+    },
+    {
+      "alias": "Liquid",
+      "canonical": "Team Liquid",
+      "kind": "display-name abbreviation",
+      "applies_to": [
+        "Stake Pulse Beat III"
+      ],
+      "competition_note": "Kalshi/Polymarket/HLTV display name 'Liquid' vs Hotspawn/Bovada 'Team Liquid' in the Stake Pulse Beat III quarter-final (HLTV match 2399262, Hotspawn fixture 1079586, 2026-10-16T08:00:00Z). Added by session c07e1b40.",
+      "must_not_match": [
+        "Liquid Academy",
+        "Team Liquid Academy",
+        "Liquid fe",
+        "Team Liquid fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399262/ninjas-in-pyjamas-vs-liquid-stake-pulse-beat-iii",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Liquid' (team id 5973) vs 'Ninjas in Pyjamas' in the Stake Pulse Beat III quarter-final on 16 Oct 2026 at 08:00 UTC, the same slot Hotspawn lists as 'Ninjas in Pyjamas vs Team Liquid'."
+        },
+        {
+          "url": "https://www.hltv.org/team/5973/liquid",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Liquid' (team id 5973)."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/pulse-beat-iii/ninjas-in-pyjamas-team-liquid-202610160400",
+          "source": "Bovada sportsbook event",
+          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) — Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
+          "source": "Kalshi market rules",
+          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP … Oct 16, 2026 at 4:00 AM EDT'."
         }
       ]
     }
