@@ -119,7 +119,9 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
         search = ' '.join(names + [m['competition'] or '', method]).casefold()
         out += f'<tr id="match-{e(m["id"])}" class="match-row" data-record-id="{e(m["id"])}" data-search="{e(search)}" data-method="{method}" data-tournament="{e(m["competition"] or "Unverified tournament")}" data-confidence="{confidence}" data-start="{e(m["starts_at"] or "")}" data-lock="{e(m["locks_at"] or "")}" data-price-time="{e(a["observed_at"] if a else "")}">'
         tier = ('Tier ' + str(m['tier']).upper()) if m['tier'] else 'Tier unverified'
-        out += f'<td class="match-cell"><span class="competition">{e(m["competition"] or "Unverified tournament")}</span><div class="team-pair"><strong>{e(names[0])}</strong><span class="versus">vs</span><strong>{e(names[1])}</strong></div><div class="match-subline">{local_time(m["starts_at"])}<span class="dot-separator">·</span><span>{e(tier)}</span></div><span class="availability" data-availability>{"Open for picks" if m["availability"] == "open" else "Locked" if m["availability"] == "locked" else "Lock time unverified"}</span></td>'
+        start_time, lock_time = timestamp(m['starts_at']), timestamp(m['locks_at'])
+        availability = 'Past start · status unverified' if start_time and start_time <= now else 'Closed for picks' if lock_time and lock_time <= now else 'Open for picks' if lock_time else 'Lock time unverified'
+        out += f'<td class="match-cell"><span class="competition">{e(m["competition"] or "Unverified tournament")}</span><div class="team-pair"><strong>{e(names[0])}</strong><span class="versus">vs</span><strong>{e(names[1])}</strong></div><div class="match-subline">{local_time(m["starts_at"])}<span class="dot-separator">·</span><span>{e(tier)}</span></div><span class="availability" data-availability>{availability}</span></td>'
         out += '<td class="probability-cell" data-label="Win probabilities">'
         if a:
             for i, (name, p) in enumerate(zip(names, a['probabilities'])):
@@ -129,7 +131,14 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
             out += '<div class="prob-line"><span>' + e(names[0]) + '</span>' + blank() + '</div><div class="prob-line"><span>' + e(names[1]) + '</span>' + blank() + '</div><p class="tiny muted">Insufficient verified inputs. No default 50/50.</p>'
         out += '</td><td class="pick-cell" data-label="Our pick">'
         if a and pick is not None:
-            out += f'<div class="pick-choice" data-pick-choice>{icon("check")}<strong>{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption>{max(a["probabilities"]) * 100:.1f}% estimated win chance</p>'
+            lock, start = timestamp(m['locks_at']), timestamp(m['starts_at'])
+            closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
+            inactive = expired or closed or lock is None
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance'
+            status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
+            out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
+
         elif a:
             out += '<strong class="muted">No directional edge</strong><p class="pick-caption">Equal estimate; no arbitrary pick.</p>'
         else:
@@ -151,8 +160,10 @@ def unresolved_table(data, prefix):
     out = '<div class="table-scroll"><table class="simple-table unresolved-table"><caption class="sr-only">Every unresolved future match and the missing evidence</caption><thead><tr><th scope="col">Match</th><th scope="col">Why no pick?</th><th scope="col">Review</th></tr></thead><tbody>'
     for m in rows:
         reason = next((r['detail'] for r in reversed(m['research']) if r['status'] == 'unresolved'), 'No verified inputs are available')
+        primary = next((r for r in m['research'] if r['stage'].startswith('Primary') and r['status'] != 'resolved'), None)
+        primary_note = '<p class="tiny"><strong>Primary-market limitation:</strong> ' + e(primary['detail']) + ' ' + external(primary['source_url'], 'Primary source') + '</p>' if primary else ''
         identity_notes = ''.join('<p class="identity-note">' + e(r['detail']) + ' ' + external(r['source_url'], 'HLTV record for review') + '</p>' for r in m['research'] if r['stage'] == 'HLTV identity review')
-        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{identity_notes}<p class="tiny">Primary market, HLTV and original esportsbook checks did not produce an accepted series line. Missing probabilities remain blank.</p></td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}picks/#match-{e(m["id"])}">Full research trail →</a></td></tr>'
+        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{primary_note}{identity_notes}<p class="tiny">Primary market, HLTV and original esportsbook checks did not produce an accepted series line. Missing probabilities remain blank.</p></td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}picks/#match-{e(m["id"])}">Full research trail →</a></td></tr>'
     return out + '</tbody></table></div>'
 
 
@@ -190,7 +201,7 @@ def picks(data, prefix):
     out += '</select></label><label class="select-field"><span>Sort by</span><select id="match-sort"><option value="start">Soonest first</option><option value="confidence">Highest estimated chance</option><option value="team">Team name</option></select></label></div><div class="filter-second"><div class="filter-tabs" role="group" aria-label="Probability basis">'
     for value, label, count in [('all', 'All matches', c['upcoming']), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'])]:
         out += f'<button type="button" data-basis="{value}" aria-pressed="{"true" if value == "all" else "false"}">{label}<span>{count}</span></button>'
-    out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness checks are unavailable.</p></noscript>'
+    out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness/lock checks are unavailable. Status reflects build time only; confirm the published observation and Hotspawn countdown before choosing a team.</p></noscript>'
     out += matches_table(active, prefix, filters=True) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
     out += f'<p class="muted small">Showing future-start fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Every gap stays visible</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All flagged findings →</a></div>' + unresolved_table(data, prefix) + '</section>'
@@ -214,6 +225,8 @@ def coverage(data, prefix):
     for m in data['matches']:
         if m['availability'] != 'past':
             continue
+        primary = next((r for r in m['research'] if r['stage'].startswith('Primary') and r['status'] != 'resolved'), None)
+        primary_note = '<p class="tiny"><strong>Primary-market limitation:</strong> ' + e(primary['detail']) + ' ' + external(primary['source_url'], 'Primary source') + '</p>' if primary else ''
         identity_notes = ''.join('<p class="identity-note">' + e(r['detail']) + ' ' + external(r['source_url'], 'HLTV record for review') + '</p>' for r in m['research'] if r['stage'] == 'HLTV identity review')
         out += f'<tr><th scope="row">{e(match_name(m))}<small>{e(m["competition"] or "Unverified tournament")} · ID {e(m["id"])}</small></th><td>{local_time(m["starts_at"])}</td><td>{e(m["source_status"] or "")}<small>Current result/status unverified</small></td><td>{external(m["source_url"], "Hotspawn source")}</td></tr>'
     out += '</tbody></table></div></section>'
