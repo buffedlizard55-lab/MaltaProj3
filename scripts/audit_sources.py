@@ -9,7 +9,8 @@ client = Client(out)
 for label, url in [
     ('hltv-matches', 'https://www.hltv.org/matches'),
     ('hltv-day-one-results', 'https://www.hltv.org/results?startDate=2026-10-13&endDate=2026-10-14'),
-    ('hltv-news', 'https://www.hltv.org/news'),
+    ('hltv-news', 'https://www.hltv.org/'),
+    ('hltv-recent-results', 'https://www.hltv.org/results'),
     ('stake-cs2', 'https://stake.com/sports/esports/counter-strike'),
     ('pinnacle-cs2', 'https://www.pinnacle.com/en/esports-hub/cs2'),
     ('polymarket-api-docs', 'https://docs.polymarket.com/api-reference/events/list-events'),
@@ -26,7 +27,7 @@ for label, url in [
 # Artifact downloads may be unavailable in a restricted coding environment;
 # annotations remain accessible through GitHub's official Checks API.
 from bs4 import BeautifulSoup
-for label in ['hltv-day-one-results', 'hltv-news']:
+for label in ['hltv-day-one-results', 'hltv-recent-results', 'hltv-news', 'hltv-matches']:
     path = out / (label + '.html.gz')
     if not path.exists():
         continue
