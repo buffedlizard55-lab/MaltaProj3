@@ -563,14 +563,17 @@ def build(source: Path, output: Path):
         print(f'::warning title=Leaderboard plan not built::{type(exc).__name__}: {exc}')
         strategy_placeholder(output, f'{type(exc).__name__}: {exc}')
     # Row-level official-source audit of what was just built: report, never block.
-    from scripts.audit_rows import audit_site
-    audit = audit_site(output)
-    (output / 'data').mkdir(parents=True, exist_ok=True)
-    (output / 'data/row-source-audit.json').write_text(json.dumps(audit, indent=2, ensure_ascii=False) + '\n')
-    totals = audit['totals']
-    print(f"Row-source audit: {totals['rows']} rows, {totals['ok']} with an official link, {totals['flagged']} flagged unverified, {totals['navigation']} site-map, {totals['violation']} without a source")
-    if totals['violation']:
-        print(f"::warning title=Rows without an official source::{totals['violation']} table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json")
+    try:
+        from scripts.audit_rows import audit_site
+        audit = audit_site(output)
+        (output / 'data').mkdir(parents=True, exist_ok=True)
+        (output / 'data/row-source-audit.json').write_text(json.dumps(audit, indent=2, ensure_ascii=False) + '\n')
+        totals = audit['totals']
+        print(f"Row-source audit: {totals['rows']} rows, {totals['ok']} with an official link, {totals['flagged']} flagged unverified, {totals['navigation']} site-map, {totals['violation']} without a source")
+        if totals['violation']:
+            print(f"::warning title=Rows without an official source::{totals['violation']} table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json")
+    except Exception as exc:  # the audit is a report; it must never stop a data refresh
+        print(f'::warning title=Row-source audit not run::{type(exc).__name__}: {exc}')
     check_links(output)
     print(f'Built {len(PAGES)} current Pages views, compatible old URLs and explicitly archived session views in {output}')
 
