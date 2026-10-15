@@ -1,0 +1,495 @@
+{
+  "schema_version": 1,
+  "probe": "scripts/lobby_probe.py",
+  "urls": {
+    "lobby": "https://play.hotspawn.com/lobby",
+    "cs2_lobby": "https://play.hotspawn.com/cs2-pickems",
+    "fixture_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+  },
+  "rounds": [
+    {
+      "fetched_at": {
+        "lobby": "2026-10-15T22:57:48Z",
+        "cs2_lobby": "2026-10-15T22:57:48Z",
+        "api": "2026-10-15T22:57:49Z"
+      },
+      "http": {
+        "lobby": {
+          "status": 200,
+          "bytes": 350357,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:57:48 GMT",
+            "Age": "5040",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "cs2_lobby": {
+          "status": 200,
+          "bytes": 349348,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:57:49 GMT",
+            "Age": "4068",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "api": {
+          "status": 200,
+          "bytes": 68481,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:57:50 GMT",
+            "ETag": "W/\"10b81-XajpZvIsQ6XqQCjhqnagqedJ+Zw\"",
+            "Server": "nginx",
+            "Content-Type": "application/json; charset=utf-8",
+            "Vary": "Accept-Encoding, Origin"
+          }
+        }
+      },
+      "counts": {
+        "lobby": 86,
+        "cs2_lobby": 86,
+        "api": 86
+      },
+      "agree": true,
+      "differences": {},
+      "api_status_counts": {
+        "scheduled": 86
+      },
+      "api_future_start": 22,
+      "hydration_calls": {
+        "lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ],
+        "cs2_lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fetched_at": {
+        "lobby": "2026-10-15T22:58:15Z",
+        "cs2_lobby": "2026-10-15T22:58:15Z",
+        "api": "2026-10-15T22:58:16Z"
+      },
+      "http": {
+        "lobby": {
+          "status": 200,
+          "bytes": 350357,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:15 GMT",
+            "Age": "5067",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "cs2_lobby": {
+          "status": 200,
+          "bytes": 349348,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:16 GMT",
+            "Age": "4095",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "api": {
+          "status": 200,
+          "bytes": 68481,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:16 GMT",
+            "ETag": "W/\"10b81-XajpZvIsQ6XqQCjhqnagqedJ+Zw\"",
+            "Server": "nginx",
+            "Content-Type": "application/json; charset=utf-8",
+            "Vary": "Accept-Encoding, Origin"
+          }
+        }
+      },
+      "counts": {
+        "lobby": 86,
+        "cs2_lobby": 86,
+        "api": 86
+      },
+      "agree": true,
+      "differences": {},
+      "api_status_counts": {
+        "scheduled": 86
+      },
+      "api_future_start": 22,
+      "hydration_calls": {
+        "lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ],
+        "cs2_lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fetched_at": {
+        "lobby": "2026-10-15T22:58:42Z",
+        "cs2_lobby": "2026-10-15T22:58:42Z",
+        "api": "2026-10-15T22:58:43Z"
+      },
+      "http": {
+        "lobby": {
+          "status": 200,
+          "bytes": 350357,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:42 GMT",
+            "Age": "5094",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "cs2_lobby": {
+          "status": 200,
+          "bytes": 349348,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:43 GMT",
+            "Age": "4122",
+            "X-Cache": "HIT",
+            "Server": "nginx",
+            "Content-Type": "text/html;charset=UTF-8",
+            "Vary": "Accept-Encoding"
+          }
+        },
+        "api": {
+          "status": 200,
+          "bytes": 68481,
+          "headers": {
+            "Date": "Thu, 15 Oct 2026 22:58:43 GMT",
+            "ETag": "W/\"10b81-XajpZvIsQ6XqQCjhqnagqedJ+Zw\"",
+            "Server": "nginx",
+            "Content-Type": "application/json; charset=utf-8",
+            "Vary": "Accept-Encoding, Origin"
+          }
+        }
+      },
+      "counts": {
+        "lobby": 86,
+        "cs2_lobby": 86,
+        "api": 86
+      },
+      "agree": true,
+      "differences": {},
+      "api_status_counts": {
+        "scheduled": 86
+      },
+      "api_future_start": 22,
+      "hydration_calls": {
+        "lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ],
+        "cs2_lobby": [
+          {
+            "path": "/api/v1/week-prizes/widget",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 9,
+            "body_keys": [
+              "countdownTargetUtc",
+              "cutoffUtc",
+              "prizes",
+              "sportAlias",
+              "status",
+              "title",
+              "weekEndUtc",
+              "weekId",
+              "weekStartUtc"
+            ]
+          },
+          {
+            "path": "/api/v1/tenants/slug/hotspawn",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 5,
+            "body_keys": [
+              "features",
+              "games",
+              "pageContexts",
+              "tenant",
+              "theme"
+            ]
+          },
+          {
+            "path": "/api/v1/fixtures",
+            "query": {},
+            "status": 200,
+            "body_type": "list",
+            "records": 86,
+            "body_keys": null
+          },
+          {
+            "path": "/api/v1/admin/gamification/fixtures/permalinks",
+            "query": {},
+            "status": 200,
+            "body_type": "dict",
+            "records": 1,
+            "body_keys": [
+              "permalinks"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "all_rounds_agree": true
+}
