@@ -54,7 +54,7 @@ def verify(url, expected):
                 raise ValueError('Public picks page omits a future or unknown-schedule source row')
     # The dated upset review must publish its own research window, sections and sources.
     edge_page = BeautifulSoup(get('edge/').text, 'html.parser')
-    for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']:
+    for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-two-results', 'day-three', 'standings', 'edge-limitations']:
         if not edge_page.find(id=anchor):
             raise ValueError(f'edge/: missing #{anchor} section')
     if not any('hltv.org' in (a.get('href') or '') for a in edge_page.select('a[href^="https://"]')):
@@ -64,6 +64,11 @@ def verify(url, expected):
         raise ValueError('edge/: published research review data is missing its schema or preparation time')
     if not edge_data.get('day_one') or not edge_data.get('day_two'):
         raise ValueError('edge/: published research review has no reviewed matches')
+    day3_data = get('data/day3-guide.json').json()
+    if day3_data.get('schema_version') != 1 or not day3_data.get('prepared_at'):
+        raise ValueError('edge/: published Day-3 guide data is missing its schema or preparation time')
+    if len(day3_data.get('day_two_results') or []) != 4 or len(day3_data.get('day_three') or []) != 2:
+        raise ValueError('edge/: published Day-3 guide does not cover all Day-2 results and Day-3 deciders')
     originated = get('data/origination.json').json()
     if originated.get('source_snapshot_at') != expected['inventory_observed_at']:
         raise ValueError('Public fallback lines belong to another inventory observation')

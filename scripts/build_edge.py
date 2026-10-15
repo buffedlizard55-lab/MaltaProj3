@@ -250,6 +250,10 @@ def edge_review(data, prefix, edge_path: Path):
     out += roster_section(review)
     out += rules_section(review)
     out += day_two_section(review, data)
+    day3_path = edge_path.parent / 'day3-guide.json'
+    if day3_path.exists():
+        from scripts.build_day3 import load_day3, render_section
+        out += render_section(load_day3(day3_path), prefix)
     out += standings_section(review)
     out += ('<section class="content-section prose" id="edge-limitations"><p class="eyebrow">What this review cannot tell you</p>'
             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{e(x)}</li>' for x in review['limitations']) + '</ul>'

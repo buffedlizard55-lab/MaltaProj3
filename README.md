@@ -47,6 +47,19 @@ Why the upset was not random: Aurora replaced its head coach, in-game leader and
 
 Falcons' current five-player lineup was **not** verified inside the window; the page publishes Valve's dated official snapshot instead (karrigan, kyousuke, m0NESY, NiKo, TeSeS on 2026-10-05) and leaves the "current lineup" field blank. That gap weakens the 9z contrarian case and is published rather than smoothed over.
 
+## Day 2 results → Day 3 guide (16 October deciders)
+
+Read from [HLTV's official event results](https://www.hltv.org/results?event=8932) and match pages on 2026-10-15 (22:26–22:35Z window; stored in [`data/day3-guide.json`](data/day3-guide.json), rendered by `scripts/build_day3.py` at [`/edge/#day-three`](https://buffedlizard55-lab.github.io/MaltaProj3/edge/#day-three)):
+
+| Day-two series (15 Oct 2026, bo3) | Maps | Guide consequence |
+| --- | --- | --- |
+| Aurora 2-0 Ninjas in Pyjamas (Group A elimination; NiP out) | Cache 13-9 · Dust2 13-7 | Rebuilt Aurora reset after the Day 1 upset — the integration discount shrinks but does not vanish |
+| 9z 1-2 Falcons (Group A winners'; Falcons to semi-final) | Nuke 9-13 · Mirage 13-8 · Dust2 9-13 | 9z took a map off the group winner: Day 1 was not a fluke |
+| PARIVISION 1-2 BETBOOM (Group B elimination; PARIVISION out) | Ancient 13-10 · Anubis 4-13 · Mirage 7-13 | BetBoom survive, but needed three maps against the group's weakest side |
+| Legacy 1-2 FURIA (Group B winners'; FURIA to semi-final) | Cache 13-10 · Inferno 5-13 · Mirage 8-13 | Legacy's map off FURIA is the best form signal among the decider teams |
+
+Day 3 (16 Oct, both bo3 deciders): **Aurora vs 9z** (14:00 UTC per Polymarket's Gamma record; provider prices Aurora 0.69 / 9z 0.31 at 22:23Z, thin) and **Legacy vs BETBOOM** (17:00 UTC; market created 22:25Z with zero trades, so **no probability is published**). Guidance: primary Aurora with **9z as the single designated contrarian flip** for leaderboard climbers (head-to-head 2-0 two days ago + map off Falcons, against Aurora's Day 2 reset and ~2:1 market price); Legacy is a labeled low-confidence *form lean only* in the unpriced decider. Rest is symmetric — all four teams played Day 2 — and no new roster change was verified for Day 3. The pipeline's calculated lines, once joined, remain authoritative on the picks pages.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**. GitHub may delay scheduled jobs; this is not a real-time feed.
@@ -55,6 +68,7 @@ It restores the last verified snapshot from Actions cache, runs regression tests
 
 - **Source failures do not manufacture fresh data.** Collection is staged and replayed before replacing last-good files. If inventory reconciliation fails after a partial download, old source evidence and analysis times remain intact; attempted responses get separate audit filenames. Retained coverage is marked unverified and clearly warned. Only a complete, replayed inventory is saved as the next cache fallback.
 - **Unavailable picks do not block publication.** They are visibly unresolved. A broken build, inconsistent evidence or failed deployment does block it and must be fixed.
+- **A failed fresh replay no longer freezes the site.** Scheduled runs on 2026-10-15 (13:26Z and 19:53Z) failed at the build/replay step and left the previous deployment in place with no new publication. The publisher now preserves the exact last-good snapshot pair (featured + originated, with its evidence) before collecting; if the fresh snapshot fails the full replay, it republishes that verified pair unchanged — original timestamps, stale warnings and all — and never caches the fallback as verified. No probability is repaired, relabeled or invented in the process.
 - **Staleness is explicit.** Inventory older than eight hours, failed inventory refreshes, expired quotes and past starts are visibly demoted. An open tab checks for newer snapshots without silently replacing the user’s current view. Malta/UTC/local timezone choices and actual observation dates are explicit.
 - **No competing refresh writer.** The former six-hour `refresh.yml` is retired to a manual explanatory job; it no longer writes older datasets to `main` or deploys another artifact. Production snapshots are published with their evidence on Pages and cached, rather than growing Git history on each four-hour run.
 
