@@ -61,7 +61,7 @@ def state_entries(html: str) -> list[dict]:
             keep = {k: body.get(k) for k in ('features', 'games') if k in body}
         out.append({'path': parsed.path, 'query': dict(parse_qsl(parsed.query)), 'status': value.get('s'), 'kept_body': keep,
                     'body_type': type(body).__name__, 'records': len(body) if isinstance(body, (list, dict)) else None,
-                    'body_keys': sorted(body.keys())[:12] if isinstance(body, dict) else None, '_body': body if isinstance(body, list) else None})
+                    'body_keys': sorted(body.keys())[:12] if isinstance(body, dict) else None, '_body': body if isinstance(body, list) else None, '_body_all': body})
     return out
 
 
@@ -107,8 +107,30 @@ def one_round(bust: bool = False) -> dict:
         'differences': diffs,
         'api_status_counts': {s: sum(1 for r in api_rows if r.get('status') == s) for s in sorted({r.get('status') for r in api_rows}, key=str)},
         'api_future_start': sum(1 for r in api_rows if r.get('scheduled_start_time') and int(r['scheduled_start_time']) / 1000 > now_utc),
-        'hydration_calls': {'lobby': [{k: v for k, v in e.items() if k != '_body'} for e in lobby_entries], 'cs2_lobby': [{k: v for k, v in e.items() if k != '_body'} for e in cs2_entries]},
+        'hydration_calls': {'lobby': [{k: v for k, v in e.items() if k not in ('_body', '_body_all')} for e in lobby_entries], 'cs2_lobby': [{k: v for k, v in e.items() if k not in ('_body', '_body_all')} for e in cs2_entries]},
     }
+
+
+TOURNAMENT_PAGES = ['https://play.hotspawn.com/tournaments', 'https://play.hotspawn.com/tournaments/thunderpick-world-championships']
+
+
+def tournament_probe() -> list[dict]:
+    """The tournament pick'em pages: which API calls they hydrate and what the embedded bodies hold."""
+    out = []
+    for url in TOURNAMENT_PAGES:
+        try:
+            response, fetched = get(url + '?cb=' + str(int(time.time())))
+            entries = state_entries(response.text)
+            calls = []
+            for e in entries:
+                body = e.get('_body')
+                calls.append({'path': e['path'], 'query': e['query'], 'status': e['status'], 'records': e['records'], 'body_type': e['body_type'], 'body_keys': e['body_keys'],
+                              'sample': body[:2] if isinstance(body, list) else None})
+            out.append({'url': url, 'fetched_at': fetched, 'status': response.status_code, 'headers': header_summary(response), 'bytes': len(response.content), 'calls': calls,
+                        'hydrated_bodies': {e['path']: e['_body_all'] for e in entries if e.get('_body_all') is not None and len(json.dumps(e['_body_all'])) < 60000}})
+        except Exception as exc:
+            out.append({'url': url, 'error': f'{type(exc).__name__}: {exc}'})
+    return out
 
 
 def main():
@@ -129,6 +151,7 @@ def main():
     plain = [r for r in rounds if 'error' not in r and not r.get('cache_busted')]
     busted = [r for r in rounds if 'error' not in r and r.get('cache_busted')]
     report = {'schema_version': 1, 'probe': 'scripts/lobby_probe.py', 'urls': {'lobby': LOBBY, 'cs2_lobby': CS2_LOBBY, 'fixture_api': FIXTURES_API}, 'rounds': rounds,
+              'tournament_pages': tournament_probe(),
               'all_plain_rounds_agree': bool(plain) and all(r['agree'] for r in plain), 'all_busted_rounds_agree': bool(busted) and all(r['agree'] for r in busted)}
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -145,6 +168,11 @@ def main():
             calls = [(c['path'], c['query'], c['status'], c['records']) for c in r['hydration_calls'][source]]
             if i == 0:
                 print(f'::notice title=lobby-probe hydration {source}::' + json.dumps(calls, ensure_ascii=False)[:3000])
+    for page in report['tournament_pages']:
+        if 'error' in page:
+            print('::notice title=lobby-probe tournament::ERROR ' + page['error'])
+        else:
+            print('::notice title=lobby-probe tournament %s::%s' % (page['url'].rsplit('/', 1)[-1], json.dumps([(c['path'], c['query'], c['status'], c['records'], c['body_keys']) for c in page['calls']], ensure_ascii=False)[:3000]))
     print('::notice title=lobby-probe verdict::plain_agree=%s busted_agree=%s' % (report['all_plain_rounds_agree'], report['all_busted_rounds_agree']))
 
 
