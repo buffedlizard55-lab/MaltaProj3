@@ -607,6 +607,61 @@ resolved by union and the test suites were re-run end to end after the merge: **
 
 ---
 
+# Session 0c803d4d board (arena/0c803d4d-maltaproj3)
+
+Session: `arena-0c803d4d` · Branch: `arena/0c803d4d-maltaproj3` (fixed Arena branch for this
+session; no other branch is created) · Claimed 2026-10-15T22:30Z ·
+All prior boards above were read before any file was touched; every listed prior task was
+`done` or `needs review` (published, non-blocking), so no active scope is overlapped.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| F-1 Day-2 results review → Day-3 TWC 2026 pick guidance | done | arena-0c803d4d | `data/day3-guide.json` (new), `scripts/build_day3.py` (new), `scripts/build.py` (nav/link only), `tests/test_day3.py` (new) | Dated HLTV-verified Day-2 results; guidance never overwrites automated picks |
+| F-2 Fix failing 4-hour publisher (build step) + last-good fallback | done | arena-0c803d4d | `.github/workflows/pages.yml`, `scripts/publication.py` (only if needed) | Runs 38742696250 / 38797535468 failed at "Reconcile every row…" build step; local build passes |
+| F-3 Every-match coverage audit (featured + originated) & executive-summary links | done | arena-0c803d4d | `README.md`, `COORDINATION.md`, site copy via `scripts/build.py` summary only | Verify 17/17 originated picks render; unresolved section stays explicit |
+| F-4 Integration: tests, build, PR to main, merge, Pages verification | done | arena-0c803d4d | all (integration) | This session is the final integration session |
+
+
+## Session 0c803d4d — work log (2026-10-15)
+
+- **F-1 done.** Day-2 results verified line-by-line from HLTV (results list + all four match
+  pages, 22:26–22:35Z): Aurora 2-0 NiP (Cache 13-9, Dust2 13-7), 9z 1-2 Falcons (Nuke 9-13,
+  Mirage 13-8, Dust2 9-13), PARIVISION 1-2 BETBOOM (Ancient 13-10, Anubis 4-13, Mirage 7-13),
+  Legacy 1-2 FURIA (Cache 13-10, Inferno 5-13, Mirage 8-13). Day-3 deciders verified on HLTV's
+  event match list (2399412 Aurora-9z, 2399413 BetBoom-Legacy, both bo3, 16 Oct) with start
+  times and prices from Polymarket's Gamma records (Aurora 0.69 / 9z 0.31 at 22:23:07Z, thin
+  $7.6k; Legacy-BetBoom market created 22:25:31Z with zero trades — **no probability
+  published**). Published as `data/day3-guide.json` + `scripts/build_day3.py`, rendered at
+  `/edge/#day-two-results` and `/edge/#day-three`, linked from the executive summary.
+  Guidance: primary Aurora; **9z = single designated contrarian flip** (beat this Aurora
+  2-0 on Day 1, took Mirage off Falcons on Day 2; Aurora's July rebuild discount partly
+  offset by their Day-2 reset); Legacy = labeled low-confidence form lean only (unpriced).
+  Rest is symmetric; no new Day-3 roster change verified. Guidance never overwrites pipeline picks.
+- **F-2 done (fix shipped, production confirmation pending merge).** Scheduled publisher runs
+  38742696250 (13:26Z) and 38797535468 (19:53Z) both failed at the "Reconcile every row…"
+  build step while the local build passes on the checked-in snapshot; run logs are not
+  retrievable from this sandbox (log host outside the allowed egress list), so the fix is
+  structural rather than a guessed one-line patch: `pages.yml` now preserves the exact
+  last-good snapshot pair before collecting and, if the fresh snapshot fails full replay,
+  republishes that verified pair unchanged (original timestamps/stale warnings; never
+  cached as verified). The alias registry is explicitly excluded from cache overlays.
+  Fallback logic simulated locally: corrupted counts → build fails → restore → build passes.
+- **F-3 done.** Coverage re-audited: featured pipeline 13 picks / 4 unresolved of 17 active;
+  originated complete list 17/17 with picks (7 market, 5 bookmaker, 5 Valve-model, 4 via
+  verified aliases). Executive summary already links the complete list, unresolved section
+  and contrarian review in the hero, briefing shortcuts and coverage callout; added the
+  Day-3 guide shortcut. Unresolved rows remain blank with research trails — no invented lines.
+- **Verification:** 155 Python tests pass (10 new Day-3 contract tests), 38 Playwright checks
+  pass, `scripts.build` replays 80 rows and validates 480 internal links/anchors/assets.
+- **Flags (needs review, non-blocking):** (1) Legacy-BetBoom had no traded price at
+  22:25Z on 15 Oct — the pipeline must price it before the 16 Oct 17:00Z start or it stays
+  visibly unresolved; (2) Aurora-9z Gamma prices are thin provider outcome prices, not
+  CLOB midpoints; (3) HLTV displayed clock times use a different timezone basis than UTC
+  (recorded discrepancy E-F2) — Day-3 starts here use Polymarket gameStartTime, Hotspawn
+  lock remains authoritative; (4) semi-final pairings were TBD at observation, none asserted.
+
+---
+
 ## Session f2d2d85e integration claim (2026-10-15)
 
 Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
@@ -626,6 +681,35 @@ Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
 
 PR [#32](https://github.com/buffedlizard55-lab/MaltaProj3/pull/32) merged at 2026-10-15T22:24:59Z as `b82caff`. Production run [38816949473](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473) **succeeded**, including post-deploy verification. Live: https://buffedlizard55-lab.github.io/MaltaProj3/.
 
+### Merge log — session 0c803d4d integrating session f2d2d85e (PR #32/#33)
+
+Session f2d2d85e merged its Day-2/Day-3 edge-review update to `main` (PR #32,
+production run 38816949473 succeeded 2026-10-15) while this session's PR #34 was
+open. The merge was resolved by union: their `edge-review.json` Day-2 results and
+unpriced Day-3 preview (`#day-three`, observed 12:00Z, no market captured) are
+kept unchanged as dated research; this session's later priced guide
+(`data/day3-guide.json`, observed 22:23–22:35Z, `#day-three-guide`) renders after
+it and explicitly supersedes it wherever start times or prices differ (Gamma
+gameStartTime 14:00/17:00 UTC vs the preview's HLTV-display-derived times, and
+Aurora 0.69 / 9z 0.31 once trading existed). No data, probability or test from
+either session was discarded. The successful 22:24Z production run also shows
+the earlier build-step failures were not permanent; the last-good fallback in
+`pages.yml` remains as insurance so a future failed replay republishes the
+verified pair instead of freezing the site.
+
+
+## Publication (session 0c803d4d)
+
+PR [#34](https://github.com/buffedlizard55-lab/MaltaProj3/pull/34) merged at
+2026-10-15T22:36:03Z as `f4b1a3ea3cc079d9c6be1f7125b4c48df8035003`. Production run
+[38818218095](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38818218095)
+**succeeded**, including post-deploy verification of the new Day-3 sections and
+`data/day3-guide.json`. Live: https://buffedlizard55-lab.github.io/MaltaProj3/ —
+Day-3 guide at https://buffedlizard55-lab.github.io/MaltaProj3/edge/#day-three-guide,
+complete picks at https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks.
+The four-hour publisher remains active; the last-good fallback added in this PR
+guards the next failed replay. Flagged items above stay `needs review` and do not
+block anything.
 
 ---
 
