@@ -223,3 +223,11 @@ Claim protocol: before editing a file, a session adds or updates its row here wi
 - All current routes have passing automated WCAG A/AA checks at phone and desktop widths, responsive width checks at 320/390/768/1440px, no-JS data visibility and one-tap phone picks/method navigation. This is not a claim of complete manual WCAG certification.
 
 This documentation-only handoff records the already verified release. Its merge can trigger another ordinary refresh; it does not claim an unobserved future run succeeded.
+
+## Session 87b206e2 — follow-up audit and integration (2026-10-15)
+
+| Task | Status | Owner | File scope | Updated UTC |
+| --- | --- | --- | --- | --- |
+| Audit fallback evidence, clarify mobile executive summary and unresolved coverage; verify and publish | in progress | arena/87b206e2-maltaproj3 (final integration) | `scripts/build.py`, `scripts/sources.py`, `scripts/collect.py`, `tests/`, `assets/dashboard.css`, `.github/workflows/`, `README.md`, `COORDINATION.md` | 2026-10-15 |
+
+All previous active historical claims are over 60 minutes old and their completed handoffs are recorded above. This session takes over only the follow-up scope listed here. Arena fixes this session to its existing branch. No source data is declared current until fetched successfully; outbound access here is restricted, so live collection will be verified on GitHub Actions where available.
