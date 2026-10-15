@@ -337,7 +337,8 @@ def validate_origination(data, source):
                 values.append(q['probabilities'][0])
             elif q.get('family') == 'market':
                 observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
-                ev = next(e for e in observations['polymarket_events'] if e['event_id'] == q['event_id'])
+                ev = next((e for e in observations['polymarket_events'] if e['event_id'] == q['event_id']), None)
+                assert ev is not None, f"Polymarket event {q['event_id']} missing from saved live observations"
                 bid = align_by_name(ev['book_bid'], ev['outcomes'], raw, registry)
                 ask = align_by_name(ev['book_ask'], ev['outcomes'], raw, registry)
                 assert bid == q['bid'] and ask == q['ask'], 'Market quotes differ from saved observations'
