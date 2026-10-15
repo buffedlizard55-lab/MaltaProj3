@@ -4756,7 +4756,7 @@
         ],
         "id": 2807510,
         "gameId": 6,
-        "startTime": "2026-10-15T08:30:00+00:00",
+        "startTime": "2026-10-15T08:40:00+00:00",
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
@@ -5084,232 +5084,6 @@
         },
         "widgetUrl": "https://disir.oddin.gg/csgo/match?availableData=tournament&availableData=teams&availableData=players&awayTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjI2OA%3D%3D&brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&homeTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjI0OTY1&id=bWF0Y2gvb2Q6bWF0Y2g6MzMwNTE0OQ%3D%3D&lang=en&layout=default&t=3719662046&theme=dark&timeframe=THREE_MONTHS&tournamentId=dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjE1MTkx&type=teams",
         "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
-            "eventId": 2825093,
-            "id": 233160949,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 0,
-            "category": 1,
-            "selections": [
-              {
-                "id": 582277042,
-                "name": "Aurora",
-                "status": 1,
-                "odds": 1.3,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 582277043,
-                "name": "Ninjas in Pyjamas",
-                "status": 1,
-                "odds": 3.2,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": true,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Match Handicap",
-            "eventId": 2825093,
-            "id": 233160958,
-            "name": "Match Handicap",
-            "status": 1,
-            "type": 0,
-            "category": 2,
-            "selections": [
-              {
-                "id": 582277065,
-                "name": "Aurora",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": -1.5,
-                "total": "-1.5",
-                "type": "home"
-              },
-              {
-                "id": 582277066,
-                "name": "Ninjas in Pyjamas",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": 1.5,
-                "total": "1.5",
-                "type": "away"
-              }
-            ],
-            "order": 99994,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": 1.5,
-            "baseLine": "1.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Aurora",
-              "awayColumn": "Ninjas in Pyjamas"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": null,
-            "prematchSgcEnabled": true,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Maps",
-            "eventId": 2825093,
-            "id": 233160997,
-            "name": "Total Maps Played Over/Under",
-            "status": 1,
-            "type": 0,
-            "category": 5,
-            "selections": [
-              {
-                "id": 582277153,
-                "name": "Over",
-                "status": 1,
-                "odds": 2,
-                "handicap": null,
-                "total": "2.5",
-                "type": "other"
-              },
-              {
-                "id": 582277154,
-                "name": "Under",
-                "status": 1,
-                "odds": 1.72,
-                "handicap": null,
-                "total": "2.5",
-                "type": "other"
-              }
-            ],
-            "order": 170,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": null,
-            "prematchSgcEnabled": true,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2825093,
-        "gameId": 6,
-        "startTime": "2026-10-15T08:30:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 533,
-        "totalAvailableMarkets": 553,
-        "bestOfMaps": 3,
-        "pin": {
-          "isPinned": true,
-          "order": 0
-        },
-        "streams": [],
-        "plainStreamLinks": [],
-        "note": "",
-        "isNoteVisible": false,
-        "score": null,
-        "hasMainMarket": true,
-        "prematchSgcEnabled": true,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Aurora vs Ninjas in Pyjamas",
-        "isLive": false,
-        "bestOf": 3,
-        "teams": {
-          "home": {
-            "id": 25878,
-            "name": "Aurora",
-            "hasImage": true,
-            "shortName": "AUR"
-          },
-          "away": {
-            "id": 20430,
-            "name": "Ninjas in Pyjamas",
-            "hasImage": true,
-            "shortName": "NIP"
-          }
-        },
-        "competition": {
-          "id": 11024,
-          "name": "Thunderpick World Championship 2026",
-          "shortName": "TP WC 26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 233160949,
-          "name": "Match Winner",
-          "type": 0,
-          "status": 1,
-          "home": {
-            "id": 582277042,
-            "name": "Aurora",
-            "odds": 1.3,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 582277043,
-            "name": "Ninjas in Pyjamas",
-            "odds": 3.2,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": true,
-          "note": null
-        },
-        "widgetUrl": "https://disir.oddin.gg/csgo/match?availableData=tournament&availableData=teams&availableData=players&awayTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjg%3D&brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&homeTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjE3NzQ1&id=bWF0Y2gvb2Q6bWF0Y2g6MzI5NzI4OQ%3D%3D&lang=en&layout=default&t=2341696432&theme=dark&timeframe=THREE_MONTHS&tournamentId=dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjE1MDgy&type=teams",
-        "liveScoreMatchWidgetUrl": "https://disir.oddin.gg/csgo/scoreboard?brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&id=bWF0Y2gvb2Q6bWF0Y2g6MzI5NzI4OQ%3D%3D&lang=en&layout=&t=3316757229&theme=dark",
         "live3dVisualizationUrl": null,
         "databetWidgetJwt": null,
         "databetWidgetAvailable": false,
@@ -10242,482 +10016,6 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2828930,
-            "id": 233714781,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 0,
-            "category": 1,
-            "selections": [
-              {
-                "id": 583633460,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 583633461,
-                "name": "Oway",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Round Handicap",
-            "eventId": 2828930,
-            "id": 233714789,
-            "name": "Round Handicap (Incl. Overtime) - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 2,
-            "selections": [
-              {
-                "id": 583633483,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.68,
-                "handicap": 2.5,
-                "total": "2.5",
-                "type": "home"
-              },
-              {
-                "id": 583633482,
-                "name": "Oway",
-                "status": 1,
-                "odds": 2.05,
-                "handicap": -2.5,
-                "total": "-2.5",
-                "type": "away"
-              }
-            ],
-            "order": 1200,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": -2.5,
-            "baseLine": "-2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Mavros",
-              "awayColumn": "Oway"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Rounds",
-            "eventId": 2828930,
-            "id": 233714766,
-            "name": "Total Rounds - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 3,
-            "selections": [
-              {
-                "id": 583633405,
-                "name": "Under",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": null,
-                "total": "22.5",
-                "type": "other"
-              },
-              {
-                "id": 583633404,
-                "name": "Over",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": null,
-                "total": "22.5",
-                "type": "other"
-              }
-            ],
-            "order": 999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "22.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2828930,
-        "gameId": 6,
-        "startTime": "2026-10-15T08:28:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 65,
-        "totalAvailableMarkets": 100,
-        "bestOfMaps": 1,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "other",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/berserk-cs2-league-2"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": null,
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Mavros vs Oway",
-        "isLive": false,
-        "bestOf": 1,
-        "teams": {
-          "home": {
-            "id": 76834,
-            "name": "Mavros",
-            "hasImage": false,
-            "shortName": "MAV"
-          },
-          "away": {
-            "id": 75390,
-            "name": "Oway",
-            "hasImage": true,
-            "shortName": "OWA"
-          }
-        },
-        "competition": {
-          "id": 4404,
-          "name": "Berserk League 2026",
-          "shortName": "BerserkLeague26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 233714781,
-          "name": "Match Winner",
-          "type": 0,
-          "status": 1,
-          "home": {
-            "id": 583633460,
-            "name": "Mavros",
-            "odds": 2.1,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 583633461,
-            "name": "Oway",
-            "odds": 1.65,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": null,
-        "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
-            "eventId": 2828953,
-            "id": 233718764,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 0,
-            "category": 1,
-            "selections": [
-              {
-                "id": 583642913,
-                "name": "Quattro",
-                "status": 1,
-                "odds": 2.35,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 583642912,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.52,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Round Handicap",
-            "eventId": 2828953,
-            "id": 233718830,
-            "name": "Round Handicap (Incl. Overtime) - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 2,
-            "selections": [
-              {
-                "id": 583643081,
-                "name": "Quattro",
-                "status": 1,
-                "odds": 1.85,
-                "handicap": 2.5,
-                "total": "2.5",
-                "type": "home"
-              },
-              {
-                "id": 583643080,
-                "name": "Mavros",
-                "status": 1,
-                "odds": 1.85,
-                "handicap": -2.5,
-                "total": "-2.5",
-                "type": "away"
-              }
-            ],
-            "order": 1200,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": -2.5,
-            "baseLine": "-2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Quattro",
-              "awayColumn": "Mavros"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Rounds",
-            "eventId": 2828953,
-            "id": 233718765,
-            "name": "Total Rounds - Map 1",
-            "status": 1,
-            "type": 0,
-            "category": 3,
-            "selections": [
-              {
-                "id": 583642915,
-                "name": "Over",
-                "status": 1,
-                "odds": 1.65,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              },
-              {
-                "id": 583642914,
-                "name": "Under",
-                "status": 1,
-                "odds": 2.1,
-                "handicap": null,
-                "total": "21.5",
-                "type": "other"
-              }
-            ],
-            "order": 999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "21.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2828953,
-        "gameId": 6,
-        "startTime": "2026-10-15T08:36:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 63,
-        "totalAvailableMarkets": 100,
-        "bestOfMaps": 1,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "other",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/berserk-cs2-league-2"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": null,
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Quattro vs Mavros",
-        "isLive": false,
-        "bestOf": 1,
-        "teams": {
-          "home": {
-            "id": 76835,
-            "name": "Quattro",
-            "hasImage": false,
-            "shortName": "QUA"
-          },
-          "away": {
-            "id": 76834,
-            "name": "Mavros",
-            "hasImage": false,
-            "shortName": "MAV"
-          }
-        },
-        "competition": {
-          "id": 4404,
-          "name": "Berserk League 2026",
-          "shortName": "BerserkLeague26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 233718764,
-          "name": "Match Winner",
-          "type": 0,
-          "status": 1,
-          "home": {
-            "id": 583642913,
-            "name": "Quattro",
-            "odds": 2.35,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 583642912,
-            "name": "Mavros",
-            "odds": 1.52,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": null,
-        "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
             "eventId": 2828988,
             "id": 233722496,
             "name": "Match Winner",
@@ -10951,6 +10249,441 @@
         "databetWidgetJwt": null,
         "databetWidgetAvailable": false,
         "freeBetEligible": true
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2829019,
+            "id": 233727943,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 583665661,
+                "name": "MASQ",
+                "status": 1,
+                "odds": 2.33,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 583665662,
+                "name": "XI Esport",
+                "status": 1,
+                "odds": 1.49,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": false,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2829019,
+        "gameId": 6,
+        "startTime": "2026-10-19T16:00:00+00:00",
+        "hasInPlayMarkets": false,
+        "isHighlighted": false,
+        "isLiveModeOverridden": false,
+        "totalOpenMarkets": 1,
+        "totalAvailableMarkets": 2,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [],
+        "plainStreamLinks": [],
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2829019,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "MASQ vs XI Esport",
+        "isLive": false,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 57972,
+            "name": "MASQ",
+            "hasImage": false,
+            "shortName": "MAS"
+          },
+          "away": {
+            "id": 30947,
+            "name": "XI Esport",
+            "hasImage": true,
+            "shortName": "XE"
+          }
+        },
+        "competition": {
+          "id": 10586,
+          "name": "Dust2.dk Ligaen: Season 33",
+          "shortName": "Dust2.dk Lig S33",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233727943,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 583665661,
+            "name": "MASQ",
+            "odds": 2.33,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 583665662,
+            "name": "XI Esport",
+            "odds": 1.49,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": false,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": true,
+        "freeBetEligible": false
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2829021,
+            "id": 233728119,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 583666019,
+                "name": "MASQ",
+                "status": 1,
+                "odds": 2.63,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 583666018,
+                "name": "struggletony",
+                "status": 1,
+                "odds": 1.39,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": false,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2829021,
+        "gameId": 6,
+        "startTime": "2026-10-19T20:00:00+00:00",
+        "hasInPlayMarkets": false,
+        "isHighlighted": false,
+        "isLiveModeOverridden": false,
+        "totalOpenMarkets": 1,
+        "totalAvailableMarkets": 2,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [],
+        "plainStreamLinks": [],
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2829021,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "MASQ vs struggletony",
+        "isLive": false,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 57972,
+            "name": "MASQ",
+            "hasImage": false,
+            "shortName": "MAS"
+          },
+          "away": {
+            "id": 5512,
+            "name": "struggletony",
+            "hasImage": false,
+            "shortName": "STR"
+          }
+        },
+        "competition": {
+          "id": 10586,
+          "name": "Dust2.dk Ligaen: Season 33",
+          "shortName": "Dust2.dk Lig S33",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233728119,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 583666019,
+            "name": "MASQ",
+            "odds": 2.63,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 583666018,
+            "name": "struggletony",
+            "odds": 1.39,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": false,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": true,
+        "freeBetEligible": false
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2829024,
+            "id": 233728175,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 583666135,
+                "name": "XI Esport",
+                "status": 1,
+                "odds": 2.21,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 583666134,
+                "name": "struggletony",
+                "status": 1,
+                "odds": 1.54,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": false,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2829024,
+        "gameId": 6,
+        "startTime": "2026-10-19T19:00:00+00:00",
+        "hasInPlayMarkets": false,
+        "isHighlighted": false,
+        "isLiveModeOverridden": false,
+        "totalOpenMarkets": 1,
+        "totalAvailableMarkets": 2,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [],
+        "plainStreamLinks": [],
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2829024,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "XI Esport vs struggletony",
+        "isLive": false,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 30947,
+            "name": "XI Esport",
+            "hasImage": true,
+            "shortName": "XE"
+          },
+          "away": {
+            "id": 5512,
+            "name": "struggletony",
+            "hasImage": false,
+            "shortName": "STR"
+          }
+        },
+        "competition": {
+          "id": 10586,
+          "name": "Dust2.dk Ligaen: Season 33",
+          "shortName": "Dust2.dk Lig S33",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233728175,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 583666135,
+            "name": "XI Esport",
+            "odds": 2.21,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 583666134,
+            "name": "struggletony",
+            "odds": 1.54,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": false,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": true,
+        "freeBetEligible": false
       },
       {
         "preferredMarkets": [
@@ -12693,14 +12426,781 @@
         "freeBetEligible": true
       }
     ],
-    "live": [],
+    "live": [
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2825093,
+            "id": 233160949,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 1,
+            "category": 1,
+            "selections": [
+              {
+                "id": 582277042,
+                "name": "Aurora",
+                "status": 1,
+                "odds": 1.22,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 582277043,
+                "name": "Ninjas in Pyjamas",
+                "status": 1,
+                "odds": 3.8,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": true,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Match Handicap",
+            "eventId": 2825093,
+            "id": 233160958,
+            "name": "Match Handicap",
+            "status": 1,
+            "type": 1,
+            "category": 2,
+            "selections": [
+              {
+                "id": 582277065,
+                "name": "Aurora",
+                "status": 1,
+                "odds": 1.78,
+                "handicap": -1.5,
+                "total": "-1.5",
+                "type": "home"
+              },
+              {
+                "id": 582277066,
+                "name": "Ninjas in Pyjamas",
+                "status": 1,
+                "odds": 1.92,
+                "handicap": 1.5,
+                "total": "1.5",
+                "type": "away"
+              }
+            ],
+            "order": 99994,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": 1.5,
+            "baseLine": "1.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Aurora",
+              "awayColumn": "Ninjas in Pyjamas"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": null,
+            "prematchSgcEnabled": true,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Maps",
+            "eventId": 2825093,
+            "id": 233160997,
+            "name": "Total Maps Played Over/Under",
+            "status": 1,
+            "type": 1,
+            "category": 5,
+            "selections": [
+              {
+                "id": 582277153,
+                "name": "Over",
+                "status": 1,
+                "odds": 2.3,
+                "handicap": null,
+                "total": "2.5",
+                "type": "other"
+              },
+              {
+                "id": 582277154,
+                "name": "Under",
+                "status": 1,
+                "odds": 1.55,
+                "handicap": null,
+                "total": "2.5",
+                "type": "other"
+              }
+            ],
+            "order": 170,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "2.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": null,
+            "prematchSgcEnabled": true,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2825093,
+        "gameId": 6,
+        "startTime": "2026-10-15T08:35:00+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 376,
+        "totalAvailableMarkets": 510,
+        "bestOfMaps": 3,
+        "pin": {
+          "isPinned": true,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "en",
+            "streamOrder": 1,
+            "url": "https://player.kick.com/thunderpick"
+          },
+          {
+            "language": "en",
+            "streamOrder": 2,
+            "url": "https://player.twitch.tv/?channel=thunderpicktv"
+          },
+          {
+            "language": "en",
+            "streamOrder": 3,
+            "url": "https://www.youtube.com/embed/Sb2_FfBbWsk?autoplay=1"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2825093,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 2
+            },
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 3
+            },
+            {
+              "score": {
+                "homeScore": "1",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": true,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "Aurora vs Ninjas in Pyjamas",
+        "isLive": true,
+        "bestOf": 3,
+        "teams": {
+          "home": {
+            "id": 25878,
+            "name": "Aurora",
+            "hasImage": true,
+            "shortName": "AUR"
+          },
+          "away": {
+            "id": 20430,
+            "name": "Ninjas in Pyjamas",
+            "hasImage": true,
+            "shortName": "NIP"
+          }
+        },
+        "competition": {
+          "id": 11024,
+          "name": "Thunderpick World Championship 2026",
+          "shortName": "TP WC 26",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233160949,
+          "name": "Match Winner",
+          "type": 1,
+          "status": 1,
+          "home": {
+            "id": 582277042,
+            "name": "Aurora",
+            "odds": 1.22,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 582277043,
+            "name": "Ninjas in Pyjamas",
+            "odds": 3.8,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": "https://disir.oddin.gg/csgo/match?availableData=tournament&availableData=teams&availableData=players&awayTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjg%3D&brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&homeTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjE3NzQ1&id=bWF0Y2gvb2Q6bWF0Y2g6MzI5NzI4OQ%3D%3D&lang=en&layout=default&t=2341696432&theme=dark&timeframe=THREE_MONTHS&tournamentId=dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjE1MDgy&type=teams",
+        "liveScoreMatchWidgetUrl": "https://disir.oddin.gg/csgo/scoreboard?brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&id=bWF0Y2gvb2Q6bWF0Y2g6MzI5NzI4OQ%3D%3D&lang=en&layout=&t=3316757229&theme=dark",
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": false,
+        "freeBetEligible": true
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2828953,
+            "id": 233718764,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 1,
+            "category": 1,
+            "selections": [
+              {
+                "id": 583642913,
+                "name": "Quattro",
+                "status": 1,
+                "odds": 2.35,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 583642912,
+                "name": "Mavros",
+                "status": 1,
+                "odds": 1.52,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Round Handicap",
+            "eventId": 2828953,
+            "id": 233718830,
+            "name": "Round Handicap (Incl. Overtime) - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 2,
+            "selections": [
+              {
+                "id": 583643081,
+                "name": "Quattro",
+                "status": 1,
+                "odds": 1.85,
+                "handicap": 2.5,
+                "total": "2.5",
+                "type": "home"
+              },
+              {
+                "id": 583643080,
+                "name": "Mavros",
+                "status": 1,
+                "odds": 1.85,
+                "handicap": -2.5,
+                "total": "-2.5",
+                "type": "away"
+              }
+            ],
+            "order": 1200,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": -2.5,
+            "baseLine": "-2.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Quattro",
+              "awayColumn": "Mavros"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Rounds",
+            "eventId": 2828953,
+            "id": 233718765,
+            "name": "Total Rounds - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 3,
+            "selections": [
+              {
+                "id": 583642915,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.65,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              },
+              {
+                "id": 583642914,
+                "name": "Under",
+                "status": 1,
+                "odds": 2.1,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              }
+            ],
+            "order": 999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "21.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2828953,
+        "gameId": 6,
+        "startTime": "2026-10-15T08:36:00+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 63,
+        "totalAvailableMarkets": 100,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "other",
+            "streamOrder": 1,
+            "url": "https://player.kick.com/berserk-cs2-league-2"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": null,
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "Quattro vs Mavros",
+        "isLive": true,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 76835,
+            "name": "Quattro",
+            "hasImage": false,
+            "shortName": "QUA"
+          },
+          "away": {
+            "id": 76834,
+            "name": "Mavros",
+            "hasImage": false,
+            "shortName": "MAV"
+          }
+        },
+        "competition": {
+          "id": 4404,
+          "name": "Berserk League 2026",
+          "shortName": "BerserkLeague26",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233718764,
+          "name": "Match Winner",
+          "type": 1,
+          "status": 1,
+          "home": {
+            "id": 583642913,
+            "name": "Quattro",
+            "odds": 2.35,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 583642912,
+            "name": "Mavros",
+            "odds": 1.52,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": false,
+        "freeBetEligible": true
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2829013,
+            "id": 233727113,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 1,
+            "category": 1,
+            "selections": [
+              {
+                "id": 583663605,
+                "name": "team_Saax_",
+                "status": 1,
+                "odds": 1.46,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 583663604,
+                "name": "Players",
+                "status": 1,
+                "odds": 2.53,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Round Handicap",
+            "eventId": 2829013,
+            "id": 233727123,
+            "name": "Round Handicap (Incl. Overtime) - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 2,
+            "selections": [
+              {
+                "id": 583663653,
+                "name": "team_Saax_",
+                "status": 1,
+                "odds": 1.98,
+                "handicap": -3.5,
+                "total": "-3.5",
+                "type": "home"
+              },
+              {
+                "id": 583663654,
+                "name": "Players",
+                "status": 1,
+                "odds": 1.72,
+                "handicap": 3.5,
+                "total": "3.5",
+                "type": "away"
+              }
+            ],
+            "order": 1200,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": -3.5,
+            "baseLine": "-3.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "team_Saax_",
+              "awayColumn": "Players"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Rounds",
+            "eventId": 2829013,
+            "id": 233727120,
+            "name": "Total Rounds - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 3,
+            "selections": [
+              {
+                "id": 583663624,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.85,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              },
+              {
+                "id": 583663625,
+                "name": "Under",
+                "status": 1,
+                "odds": 1.83,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              }
+            ],
+            "order": 999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "21.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2829013,
+        "gameId": 6,
+        "startTime": "2026-10-15T08:33:27+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 8,
+        "totalAvailableMarkets": 9,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "en",
+            "streamOrder": 1,
+            "url": "https://player.twitch.tv/?channel=saax_stream"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2829013,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "2",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "team_Saax_ vs Players",
+        "isLive": true,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 76021,
+            "name": "team_Saax_",
+            "hasImage": false,
+            "shortName": "TMA"
+          },
+          "away": {
+            "id": 22239,
+            "name": "Players",
+            "hasImage": true,
+            "shortName": "PLA"
+          }
+        },
+        "competition": {
+          "id": 7775,
+          "name": "FACEIT Random Match",
+          "shortName": "FACEIT RANDOM ",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 233727113,
+          "name": "Match Winner",
+          "type": 1,
+          "status": 1,
+          "home": {
+            "id": 583663605,
+            "name": "team_Saax_",
+            "odds": 1.46,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 583663604,
+            "name": "Players",
+            "odds": 2.53,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": true,
+        "freeBetEligible": false
+      }
+    ],
     "outrights": [
       {
         "id": 2734735,
         "name": "Outrights",
         "gameId": 6,
         "startTime": "2026-10-15T08:30:00Z",
-        "totalOpenMarkets": 2,
+        "totalOpenMarkets": 0,
         "totalAvailableMarkets": 2,
         "competition": {
           "id": 11024,
@@ -12714,7 +13214,7 @@
           "isPinned": true,
           "order": 0
         },
-        "isLive": false
+        "isLive": true
       },
       {
         "id": 2813689,
@@ -12742,7 +13242,7 @@
         "name": "TWC Daily Specials",
         "gameId": 6,
         "startTime": "2026-10-15T08:30:00Z",
-        "totalOpenMarkets": 1,
+        "totalOpenMarkets": 0,
         "totalAvailableMarkets": 1,
         "competition": {
           "id": 11024,
@@ -12756,7 +13256,7 @@
           "isPinned": true,
           "order": 0
         },
-        "isLive": false
+        "isLive": true
       },
       {
         "id": 2819960,
