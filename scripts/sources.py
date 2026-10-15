@@ -13,6 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from scripts.domain import array, iso, name_key, timestamp
+from scripts.github_auth import auth_headers
 
 LOBBY = 'https://play.hotspawn.com/lobby'
 CS2_LOBBY = 'https://play.hotspawn.com/cs2-pickems'
@@ -53,7 +54,7 @@ class Client:
             entry['request_body'] = payload  # Public read-only query, no credentials.
         self.manifest.append(entry)
         try:
-            response = self.session.request(method, url, json=payload, timeout=(15, 45), allow_redirects=True)
+            response = self.session.request(method, url, json=payload, headers=auth_headers(url), timeout=(15, 45), allow_redirects=True)
             entry.update(http_status=response.status_code, final_url=response.url, content_type=response.headers.get('Content-Type'), response_date=response.headers.get('Date'), response_sha256=hashlib.sha256(response.content).hexdigest())
             for header, field in (('Age', 'cache_age_sec'), ('X-Cache', 'cache_status')):
                 if response.headers.get(header) is not None:

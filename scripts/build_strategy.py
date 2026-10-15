@@ -253,7 +253,8 @@ def plan(inputs: dict, now: datetime) -> dict:
                'context': context,
                'score_model': score_model,
                'limitations': list(o.get('limitations') or []) + list(m.get('limitations') or []),
-               'quotes': o.get('quotes') or [], 'model_crosscheck': o.get('model_crosscheck')}
+               'quotes': o.get('quotes') or [], 'model_crosscheck': o.get('model_crosscheck'),
+               'upgraded': bool(m.get('upgraded_from_featured_model'))}
         rows.append(row)
 
     # Swaps: eligible underdogs ranked by points x probability, capped per UTC day of the start time.
@@ -352,6 +353,8 @@ def card(r) -> str:
     chips.append(f'<span class="chip tier">Tier {e(r["tier"].upper() or "?")}</span>')
     if not r['fresh']:
         chips.append('<span class="chip stale">line older than 8 h</span>')
+    if r.get('upgraded'):
+        chips.append('<span class="chip derived">money line replaced the model estimate</span>')
     if not r['swap'] and r['klass'] in {'live_dog', 'coin_flip'}:
         why = ('Money-backed and close, but not among the day\'s top plays.' if r['eligible'] else 'Close, but no upset play: ' + '; '.join(r['blockers']) + '.')
         chips.append(f'<span class="chip note">{e(why)}</span>')

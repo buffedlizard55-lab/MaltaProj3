@@ -56,5 +56,29 @@
       "https://play.hotspawn.com/how-it-works"
     ],
     "match_ids": []
+  },
+  {
+    "id": "featured-model-upgrade",
+    "severity": "notice",
+    "title": "A featured model estimate is now replaced by a verified money line when one exists",
+    "detail": "On 16 Oct the Day-3 decider Aurora vs 9z was priced by the uncalibrated Valve model (72.5 / 27.5) while Polymarket listed 'Aurora Gaming vs 9z' at 69 / 31: the exact-name featured join missed the display name and the alias-aware research skipped the fixture because it counted as resolved. The origination layer now researches model-featured fixtures too and adopts a money-backed result only if it passes every existing check (spread at most 0.12, fresh, start within 60 s, alias scoped to its competition). The first live run after the change moved one fixture from model to market (market 8 to 9, model 4 to 3; alias-joined 2 to 3, run 38823863183). Featured money-backed estimates are unchanged. Those rows show an 'Upgraded' note on the complete-picks page; the featured-method page still lists the original featured estimate.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38823863183",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38823028657",
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "github-api-rate-limit",
+    "severity": "notice",
+    "title": "Unauthenticated GitHub API calls from runners were rate-limited; the collectors now authenticate",
+    "detail": "Both collectors read Valve's public standings through api.github.com without credentials. Measured from a GitHub-hosted runner on 2026-10-15 (run 38824422956): three unauthenticated calls in a row returned HTTP 403 with x-ratelimit-remaining 0 of 60 (GitHub documents 60 per hour per originating IP address, a quota shared with other jobs on the same addresses), while the workflow's GITHUB_TOKEN returned HTTP 200 with a limit of 5000. An exhausted quota removed every Valve model estimate, skipped the saved ratings file and, through an unconditional link on the edge page, failed the build (origination audit 38824105919). Fixed: GITHUB_TOKEN is passed to the collect and originate steps and attached to api.github.com requests only (never another host, never written to a manifest or evidence file). The edge page now links the saved ratings only when the file exists and otherwise says it is unverified.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824422956",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824105919",
+      "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api"
+    ],
+    "match_ids": []
   }
 ]

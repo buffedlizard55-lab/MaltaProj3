@@ -109,6 +109,9 @@ def pick_row(m):
     if m.get('aliases_used'):
         used = ', '.join(f"{a['alias']} → {a['canonical']}" for a in m['aliases_used'])
         out.append(f'<p class="alias-note">Verified alias join: {e(used)}</p>')
+    if m.get('upgraded_from_featured_model') and m.get('featured_probabilities'):
+        fp = m['featured_probabilities']
+        out.append(f'<p class="alias-note">Upgraded from the featured Valve-model estimate ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.</p>')
     details = '<details><summary>Research trail &amp; limitations</summary>'
     details += '<ol class="trail">'
     for r in m.get('research', []):
@@ -260,7 +263,7 @@ def executive_summary(data):
                '<a class="q" href="../review/">🚩 Flagged for review <small>main register</small></a>'
                '</nav>')
     out.append('<p class="hero-note">Probabilities are calculated from external betting markets and official ratings — '
-               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured estimates are preserved; additional research runs only for fixtures the featured methods did not resolve.</p></section>')
+               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured money-backed estimates are preserved. Alias-aware research also runs for fixtures the featured methods did not resolve and for fixtures whose featured estimate is only the uncalibrated Valve model; a verified money line replaces that model and the card says so.</p></section>')
     return ''.join(out)
 
 
@@ -319,9 +322,14 @@ def validate_origination(data, source):
         assert m['teams'] == raw['teams'] and m['starts_at'] == raw['starts_at'], 'Fixture facts changed'
         o = m.get('origination')
         if raw.get('analysis'):
-            assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
-            assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
-            continue
+            upgraded = bool(o) and raw['analysis'].get('method') == 'model' and o.get('method') in {'market', 'bookmaker', 'consensus'}
+            if not upgraded:
+                assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
+                assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
+                continue
+            # The only permitted change to a featured estimate: a verified money-backed line replaces the featured
+            # *model* estimate. It must say so and is replayed from its saved first-party responses below.
+            assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
         if not o:
             assert m['pick_index'] is None
             continue

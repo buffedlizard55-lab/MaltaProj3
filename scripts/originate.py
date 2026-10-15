@@ -33,6 +33,7 @@ from urllib.parse import urlencode
 import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite
+from scripts.github_auth import auth_headers
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -178,7 +179,7 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': 'GET', 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.get(url, timeout=(15, 45))
+            response = self.session.get(url, headers=auth_headers(url), timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
@@ -199,7 +200,7 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': method, 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.request(method, url, json=payload, timeout=(15, 45))
+            response = self.session.request(method, url, json=payload, headers=auth_headers(url), timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
@@ -939,6 +940,36 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     }
 
 
+MONEY_METHODS = {'market', 'bookmaker', 'consensus'}
+
+
+def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
+    """One fixture's origination row.
+
+    Featured estimates from the exact-name collector are preserved unchanged, with one exception: a featured *model*
+    estimate is the lowest rung of the ladder, and the exact-name join can miss a market that exists under a provider's
+    display name ("Aurora Gaming" for Aurora). For such fixtures the alias-aware money research runs too. A verified
+    money-backed line (Polymarket, Kalshi, Thunderpick, Bovada or their per-provider consensus, with every existing spread,
+    freshness, start-time and alias-scope check) replaces the model estimate and the row says so. Without one, the featured
+    model estimate is kept exactly as it was.
+    """
+    featured = match.get('analysis')
+
+    def keep_featured():
+        return {'origination': dict(featured, quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])], model_crosscheck=None),
+                      'pick_index': match.get('pick_index'), 'aliases_used': [],
+                      'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
+
+    if featured and featured.get('method') != 'model':
+        return keep_featured()
+    result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
+    if not featured:
+        return result
+    if (result.get('origination') or {}).get('method') in MONEY_METHODS:
+        return dict(result, upgraded_from_featured_model=True)
+    return keep_featured()
+
+
 def run(output: Path, *, live: bool = False) -> dict:
     output = Path(output)
     orig_dir = output / 'origination'
@@ -961,12 +992,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         if match.get('availability') == 'past':
             continue
         featured = match.get('analysis')
-        if featured:
-            result = {'origination': dict(featured, quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])], model_crosscheck=None),
-                      'pick_index': match.get('pick_index'), 'aliases_used': [],
-                      'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
-        else:
-            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
+        result = resolve_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],

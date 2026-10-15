@@ -241,7 +241,14 @@ def valve_snapshot_note(snapshot):
             f'{external(snapshot["source_url"], "Valve official standings")}</div>')
 
 
-def standings_section(data):
+def saved_evidence_link(evidence_file: str, data_dir) -> str:
+    """Link the saved evidence file only if this snapshot actually has it; otherwise say so (blank and flagged)."""
+    if data_dir is not None and not (Path(data_dir) / str(evidence_file).removeprefix('data/')).exists():
+        return '<span class="unverified">saved evidence file not present in this snapshot (the Valve source was unreachable) — unverified</span>'
+    return f'<a href="../{e(evidence_file)}">Saved first-party evidence ↓</a>'
+
+
+def standings_section(data, data_dir=None):
     block = data.get('valve_standings')
     if not block or not block.get('rows'):
         return ''
@@ -260,7 +267,7 @@ def standings_section(data):
                    f'<td>{e(", ".join(row["roster"]))}{external(row["source_url"], "Valve record")}</td></tr>')
     out.append('</tbody></table></div><div class="inline-links downloads">'
                + external(block['source_url'], 'Valve official standings')
-               + f'<a href="../{e(block.get("evidence_file", "data/evidence/valve-ratings.json"))}">Saved first-party evidence ↓</a>'
+               + saved_evidence_link(block.get('evidence_file', 'data/evidence/valve-ratings.json'), data_dir)
                + '</div></section>')
     return ''.join(out)
 
@@ -293,7 +300,7 @@ def edge_review(data, prefix, edge_path: Path):
     if day3_path.exists():
         from scripts.build_day3 import load_day3, render_section
         out += render_section(load_day3(day3_path), prefix)
-    out += standings_section(review)
+    out += standings_section(review, edge_path.parent)
     out += ('<section class="content-section prose" id="edge-limitations"><p class="eyebrow">What this review cannot tell you</p>'
             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{e(x)}</li>' for x in review['limitations']) + '</ul>'
             f'<p>{external("https://www.hltv.org/results?event=8932", "HLTV official event results")} '
