@@ -67,29 +67,38 @@
     },
     {
       "id": "H-05",
-      "claim": "The leaderboard resets weekly; the lobby showed a countdown of 3d 01h 37m 29s.",
+      "claim": "The weekly leaderboard window is Monday 12 Oct 2026 00:00:00 UTC to Sunday 18 Oct 2026 23:59:59.999 UTC (week id 270, status OPEN). The lobby countdown, cutoff and week end are all that same instant.",
       "value": {
-        "countdown": "3d 01h 37m 29s"
+        "weekId": 270,
+        "weekStartUtc": "2026-10-12T00:00:00.000Z",
+        "weekEndUtc": "2026-10-18T23:59:59.999Z",
+        "cutoffUtc": "2026-10-18T23:59:59.999Z",
+        "countdownTargetUtc": "2026-10-18T23:59:59.999Z",
+        "status": "OPEN",
+        "sportAlias": "cs2"
       },
-      "observed_at": "2026-10-15T22:25:00Z",
+      "observed_at": "2026-10-15T23:05:00Z",
       "status": "verified",
-      "how_verified": "Lobby page read; the fetch tool returns no timestamp, so the observation time is the sandbox clock at the call (+/- 2 minutes). The exact reset instant is not published and is left unverified; the countdown points to the night of Sunday 18 to Monday 19 October (UTC).",
-      "source_url": "https://play.hotspawn.com/lobby"
+      "how_verified": "Read from the same public JSON the lobby embeds and calls (/api/v1/week-prizes/widget). Cross-check: the lobby's countdown of 3d 01h 37m 29s at about 22:25Z on 15 Oct points at the same instant to within the two-minute uncertainty of the read.",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget"
     },
     {
       "id": "H-06",
-      "claim": "Weekly prizes: 1st $400 Steam voucher, 2nd $200, 3rd $100, places 4-10 $50 each; minimum 10 picks to qualify.",
+      "claim": "Weekly prizes are rank-based: 1st $400 Steam voucher, 2nd $200, 3rd $100 (one each), places 4-10 $50 each (seven vouchers); no country restriction is listed; the lobby adds a minimum of 10 picks to qualify.",
       "value": {
-        "1": "$400 Steam Voucher",
-        "2": "$200 Steam Voucher",
-        "3": "$100 Steam Voucher",
-        "4-10": "$50 Steam Voucher",
-        "min_picks": 10
+        "1": "$400 Steam Voucher x1",
+        "2": "$200 Steam Voucher x1",
+        "3": "$100 Steam Voucher x1",
+        "4-10": "$50 Steam Voucher x7",
+        "ruleType": "RANK",
+        "countryMode": "ANY",
+        "minPoints": null,
+        "min_picks_text": 10
       },
-      "observed_at": "2026-10-15T22:25:00Z",
+      "observed_at": "2026-10-15T23:05:00Z",
       "status": "verified",
-      "how_verified": "Lobby 'Top prizes this week' block.",
-      "source_url": "https://play.hotspawn.com/lobby"
+      "how_verified": "Prize rows read from the weekly-prizes JSON (ruleType RANK, quantityTotal 1/1/1/7, countryMode ANY, minPoints null, none claimed yet). The 10-pick minimum is lobby text, not an API field, so it is shown as lobby text.",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget"
     },
     {
       "id": "H-07",

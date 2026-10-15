@@ -55,6 +55,9 @@ class Client:
         try:
             response = self.session.request(method, url, json=payload, timeout=(15, 45), allow_redirects=True)
             entry.update(http_status=response.status_code, final_url=response.url, content_type=response.headers.get('Content-Type'), response_date=response.headers.get('Date'), response_sha256=hashlib.sha256(response.content).hexdigest())
+            for header, field in (('Age', 'cache_age_sec'), ('X-Cache', 'cache_status')):
+                if response.headers.get(header) is not None:
+                    entry[field] = response.headers[header]
             if response.status_code == 429:
                 entry['error'] = 'Rate limited; no aggressive retry or challenge bypass attempted'
             response.raise_for_status()
@@ -94,23 +97,59 @@ def hydration(html: str) -> tuple[list, dict]:
     return fixture_lists[0], links
 
 
+def fresh_url(url: str, stamp: float | None = None) -> str:
+    """Ask for a current render of a server-rendered page.
+
+    Observed 2026-10-15 from a GitHub-hosted runner: /lobby and /cs2-pickems are served from a CDN cache
+    (X-Cache: HIT, Age 4,000-5,000 s and growing) while the fixture API is live, so the fixture list embedded in the
+    HTML can be more than an hour behind and any fixture change makes the two "disagree". A unique query string gets
+    a fresh render (X-Cache: MISS, Age: 0). It is an ordinary public GET; nothing is bypassed.
+    """
+    return url + ('&' if '?' in url else '?') + 'cb=' + str(int(time.time() if stamp is None else stamp))
+
+
+def fetch_fresh_page(client: Client, url: str, label: str):
+    try:
+        return client.fetch(fresh_url(url), label)
+    except SourceError:
+        return client.fetch(url, label)  # unchanged behaviour if the fresh render is refused
+
+
+def disagreement(api_ids: set, lobby_ids: set, cs2_ids: set, lobby_req: dict, cs2_req: dict) -> str:
+    """A self-explaining reconciliation failure: which IDs differ, in which direction, and how old the HTML was."""
+    parts = []
+    for name, ids_, req in (('lobby page', lobby_ids, lobby_req), ('CS2 lobby page', cs2_ids, cs2_req)):
+        only_api, only_page = sorted(api_ids - ids_), sorted(ids_ - api_ids)
+        if only_api or only_page:
+            cache = ', '.join(f'{k}={req[k]}' for k in ('cache_status', 'cache_age_sec') if req.get(k) is not None) or 'no cache headers'
+            parts.append(f'{name} ({cache}): {len(only_api)} in the API only {only_api[:6]}, {len(only_page)} in the page only {only_page[:6]}')
+    return '; '.join(parts)
+
+
 def hotspawn(client: Client):
-    lobby_html, lobby_req = client.fetch(LOBBY, 'hotspawn-lobby')
-    cs2_html, cs2_req = client.fetch(CS2_LOBBY, 'hotspawn-cs2')
-    lobby_rows, links = hydration(lobby_html)
-    cs2_rows, more_links = hydration(cs2_html)
-    links.update(more_links)
-    api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
-    if not isinstance(api_rows, list):
-        raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
     def ids(rows):
         values = [str(x['id']) for x in rows if x.get('sport_alias') == 'cs2']
         if len(values) != len(set(values)):
             raise SourceError('Duplicate CS2 fixture IDs')
         return set(values)
-    official_ids = ids(api_rows)
-    if official_ids != ids(cs2_rows) or official_ids != ids(lobby_rows):
-        raise SourceError('Lobby, CS2 lobby and fixture API disagree; complete coverage cannot be confirmed')
+
+    for attempt in range(2):
+        lobby_html, lobby_req = fetch_fresh_page(client, LOBBY, 'hotspawn-lobby')
+        cs2_html, cs2_req = fetch_fresh_page(client, CS2_LOBBY, 'hotspawn-cs2')
+        lobby_rows, links = hydration(lobby_html)
+        cs2_rows, more_links = hydration(cs2_html)
+        links.update(more_links)
+        api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
+        if not isinstance(api_rows, list):
+            raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
+        official_ids = ids(api_rows)
+        if official_ids == ids(cs2_rows) == ids(lobby_rows):
+            break
+        # A fixture can change in the few seconds between the three requests; look once more before giving up.
+        if attempt == 0:
+            time.sleep(5)
+            continue
+        raise SourceError('Lobby, CS2 lobby and fixture API disagree; complete coverage cannot be confirmed (' + disagreement(official_ids, ids(lobby_rows), ids(cs2_rows), lobby_req, cs2_req) + ')')
     visible_ids = re.findall(r'<app-pickem-vs-card\b[^>]*\bid="fixture-(\d+)"', cs2_html)
     evidence = client.save('hotspawn-context', {'lobby_url': LOBBY, 'cs2_url': CS2_LOBBY, 'fixture_api': FIXTURES_API, 'observed_at': api_req['observed_at'], 'visible_ids': visible_ids, 'permalinks': links, 'lobby_ids': sorted(ids(lobby_rows)), 'cs2_ids': sorted(ids(cs2_rows)), 'api_ids': sorted(official_ids)})
     rows = [r for r in api_rows if r.get('sport_alias') == 'cs2']

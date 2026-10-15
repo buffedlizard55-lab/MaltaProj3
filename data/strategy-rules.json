@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-10-16.2",
+  "version": "2026-10-16.3",
   "owner": "arena-1112299f",
   "purpose": "Turn our own external-line probabilities into one obvious default pick per Hotspawn CS2 fixture, and mark the few underdogs that are contrarian but not stupid. Pure rules: same inputs give the same output; nothing here is a source fact.",
   "probability_inputs": {
@@ -83,7 +83,6 @@
   "field_share_policy": "Hotspawn '% picked' never changes a probability, a class or a favorite. It has exactly one limited use, switched by use_field_for_leverage: an upset play is skipped when the crowd is already on the underdog (a sample of 10 or more pickers, at least half on the underdog), and the remaining plays are ranked by the share of the field they would pass (a neutral 0.5 weight when the field is unknown). Samples under 30 pickers are labelled small.",
   "unverified": [
     "Streak bonus formula: the rules page says consecutive correct picks earn bonus points but publishes no formula, so the cost of breaking a streak is not quantified.",
-    "Exact weekly reset instant: only a countdown on the lobby was observed.",
     "Whether wrong picks are ever penalised: the rules page mentions points only for correct picks and no deduction for wrong ones."
   ],
   "use_field_for_leverage": true
