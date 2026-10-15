@@ -38,7 +38,8 @@ UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
 START_TOLERANCE_SEC = 60  # Provider clocks disagree up to ±30 min on delayed fixtures.
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
-MAX_PRICE_AGE_HOURS = 12
+# Price freshness is domain.is_fresh (MAX_PRICE_AGE_HOURS = 8). A former unused 12-hour
+# constant here contradicted it and was removed (session c07e1b40 review).
 THIN_SPREAD = 0.12
 MAX_ACCEPTED_SPREAD = 0.12
 
@@ -1017,7 +1018,7 @@ def run(output: Path, *, live: bool = False) -> dict:
     flags.append({'id': 'alias-registry', 'severity': 'notice',
                   'title': 'Verified alias registry used for provider name joins',
                   'detail': f'{counts["alias_joined"]} active fixtures required a registry alias to join provider names. Every alias and its evidence links are published on the origination page and in data/origination/aliases.json.',
-                  'match_ids': [], 'source_urls': [HLTV_EVENT, 'https://liquipedia.net/rocketleague/ROUNDS']})
+                  'match_ids': [], 'source_urls': [HLTV_EVENT, 'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json']})
 
     result = {
         'schema_version': 1,

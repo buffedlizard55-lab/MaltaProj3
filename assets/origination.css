@@ -162,3 +162,4 @@ footer .src { font-size: .82rem; }
 .findings .status { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
 /* "Unresolved" must never inherit the green pick colour (6.8:1 on white). */
 .pick-line strong.unverified { color: #7a5410; }
+.review-note { margin: 6px 0; padding: 8px 10px; border-radius: 8px; background: var(--amber-bg); color: #4a3209; font-size: .84rem; overflow-wrap: anywhere; }

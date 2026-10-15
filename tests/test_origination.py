@@ -430,3 +430,12 @@ class ExtraMoneySourceTests(unittest.TestCase):
         other = dict(match, competition='Some Other Cup')
         self.assertEqual({q['provider'] for q in originate.originate_match(other, k, b, [], None, registry(), now)['origination']['quotes']}, {'Bovada'},
                          'Liquid/NIP aliases must not join outside Stake Pulse Beat III; Bovada uses exact names')
+
+
+class ReviewNoteTests(unittest.TestCase):
+    def test_alias_review_notes_are_published_on_the_registry_section(self):
+        data = {'alias_registry': registry()}
+        html = build_origination.section_aliases(data)
+        flagged = [a for a in data['alias_registry']['aliases'] if a.get('review_note')]
+        self.assertTrue(flagged, 'session c07e1b40 flagged WBT and ROUNDS evidence for review')
+        self.assertEqual(html.count('Flagged for review:'), len(flagged))

@@ -192,6 +192,8 @@ def section_aliases(data):
         scope = a.get('applies_to') or ['any competition (legacy unscoped entry)']
         out.append(f'<article class="alias-card"><h3>{e(a["alias"])} <span aria-hidden="true">→</span> {e(a["canonical"])} {badge(a["kind"], "neutral")}</h3>')
         out.append(f'<p class="tiny">Applies only inside: {e(", ".join(scope))}</p>')
+        if a.get('review_note'):
+            out.append(f'<p class="review-note" role="note"><strong>⚑ Flagged for review:</strong> {e(a["review_note"])}</p>')
         out.append('<ul class="limits">')
         for ev in a['evidence']:
             out.append(f'<li>{e(ev.get("detail", ""))} {ext(ev["url"], ev.get("source", "source"))}</li>')
