@@ -813,6 +813,16 @@ with research cards, never filled.
   → build PASS (86 rows, 510 links). The contrarian tests themselves are another session's files and stay unchanged
   (logged as C07-08-style data coupling).
 
+### Hotfix 2 — public verifier contract (`.pick-card` set)
+
+- PR [#37](https://github.com/buffedlizard55-lab/MaltaProj3/pull/37) merged **2026-10-15T23:10:31Z** (`63b8b36`). Its deploy
+  [38821960670](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38821960670) passed regression tests, collection
+  (inventory 23:10:57Z, complete), origination, build and **deployment**, but the post-deploy verifier failed: it asserts the
+  `/origination/` `.pick-card` IDs equal one `match-<id>` per fixture, and the new unresolved cards reused `pick-card`.
+- Fix (my scope): unresolved cards use their own `unresolved-card` class with equivalent styling; `PublicContractTests`
+  mirrors the verifier. The real `scripts/verify_live.py` now passes locally against a site built from the live snapshot
+  (22 active / 16 resolved / 6 unresolved). 172 Python tests, 38 Playwright checks pass.
+
 # Session 1112299f board (arena/1112299f-maltaproj3)
 
 Session: `arena-1112299f` · Branch: `arena/1112299f-maltaproj3` (fixed by Arena; the brief's `session-<id>/<task>` naming cannot be used, so every task below lives on this one branch) · Claimed 2026-10-15T22:32Z (sandbox clock).
