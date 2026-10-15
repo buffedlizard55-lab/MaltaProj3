@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "title": "Verified team-identity registry for pick origination",
+  "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition. Sponsor/abbreviation spellings are not silently inferred. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
+  "updated_at": "2026-10-15T08:55:00Z",
+  "updated_by": "arena-f9527685 research session (source links re-checkable by any reviewer)",
+  "aliases": [
+    {
+      "alias": "WBT",
+      "canonical": "WROTBERRY",
+      "kind": "abbreviation",
+      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13683/wrotberry",
+          "source": "HLTV.org team page",
+          "detail": "HLTV's own team page id 13683 carries the URL slug 'wrotberry' and displays the team name 'WBT'. HLTV is the official resolution source for the corresponding Polymarket match markets."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "HLTV lists team 'WBT' (Ukraine) as the Group A participant in Elisa BreakOut Series 2, the same slot Hotspawn lists as 'WROTBERRY' with identical opponent pairings and start times (WBT/ENCE 12:00 UTC and WBT/BOJONG 16:00 UTC on 2026-10-15)."
+        },
+        {
+          "url": "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+          "source": "Liquipedia",
+          "detail": "Liquipedia lists the Ukrainian roster under the name WROTBERRY with players svemyy/fl1peR/tired73, matching HLTV team 13683's published player records."
+        }
+      ]
+    },
+    {
+      "alias": "ROUNDS",
+      "canonical": "RoundsGG",
+      "kind": "organization rename",
+      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
+      "evidence": [
+        {
+          "url": "https://liquipedia.net/rocketleague/ROUNDS",
+          "source": "Liquipedia",
+          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "HLTV lists team 'ROUNDS' (Finland) as the fourth Group B participant of Elisa BreakOut Series 2, with the exact Hotspawn 'RoundsGG' pairings and start times (HAVU 10:00, Phantom 14:00, Voca 16:00 UTC on 2026-10-16)."
+        }
+      ]
+    },
+    {
+      "alias": "HAVU Gaming",
+      "canonical": "HAVU",
+      "kind": "display-name expansion",
+      "competition_note": "Thunderpick display name vs Hotspawn/HLTV/Polymarket 'HAVU'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/7865/havu",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 7865 is named 'HAVU' (Finland)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'HAVU Gaming vs ROUNDS' at 2026-10-16T10:00Z triangulates to HLTV 'HAVU vs ROUNDS' (match 2399425) and Hotspawn 'HAVU vs RoundsGG' (fixture 1080286) at the identical start time and opponent. Polymarket lists the same fixture as 'HAVU vs RoundsGG'."
+        }
+      ]
+    },
+    {
+      "alias": "EA Copenhagen",
+      "canonical": "EAC",
+      "kind": "abbreviation",
+      "competition_note": "Thunderpick display name vs Hotspawn 'EAC'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13838/eac",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13838 is named 'EAC' (Denmark)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'EA Copenhagen' rows share EAC's exact Elisa BreakOut Series 2 opponents and start times (vs WBT, vs BOJONG 14:00Z, vs ENCE 18:00Z on 2026-10-15)."
+        }
+      ]
+    },
+    {
+      "alias": "Esport Academy Copenhagen",
+      "canonical": "EAC",
+      "kind": "full-name expansion",
+      "competition_note": "Polymarket display name vs Hotspawn 'EAC'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13838/eac",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13838 is named 'EAC' (Denmark)."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2",
+          "source": "Polymarket CS2 index",
+          "detail": "Polymarket's Elisa BreakOut Series #2 fixtures use the long form 'Esport Academy Copenhagen' for the team Hotspawn and HLTV list as 'EAC', with identical opponents and start times."
+        }
+      ]
+    },
+    {
+      "alias": "Phantom Esports",
+      "canonical": "Phantom",
+      "kind": "display-name expansion",
+      "competition_note": "Thunderpick display name vs Hotspawn 'Phantom'; NOT the separate team 'Phantom Esports Academy'",
+      "must_not_match": ["Phantom Esports Academy", "Phantom Academy", " Phantom Academy"],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13173/phantom",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13173 is named 'Phantom' (Poland)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'Phantom Esports' rows share Phantom's Elisa BreakOut Series 2 opponents and start times. The distinct roster 'Phantom Esports Academy' plays different opponents/times and is explicitly excluded from this alias."
+        }
+      ]
+    }
+  ]
+}

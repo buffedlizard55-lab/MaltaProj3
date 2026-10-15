@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "title": "First-party research observations collected by the arena-f9527685 session",
+  "collection_note": "These records were retrieved 2026-10-15 between 08:40Z and 08:55Z from the official public endpoints listed in each record (Polymarket Gamma/CLOB APIs, Thunderpick public POST API, HLTV public pages). Full raw responses are re-fetched and stored by scripts/originate.py --live on every scheduled run (data/origination/evidence/). Order-book timestamps below are the providers' own response timestamps.",
+  "observed_window": {
+    "start": "2026-10-15T08:40:00Z",
+    "end": "2026-10-15T08:55:00Z"
+  },
+  "polymarket_events": [
+    {
+      "event_id": "1173313",
+      "slug": "cs2-wbt-ence-2026-10-15",
+      "title": "Counter-Strike: WBT vs ENCE (BO1) - Elisa BreakOut Series #2 Group A",
+      "source_url": "https://gamma-api.polymarket.com/events/1173313",
+      "public_page": "https://polymarket.com/event/cs2-wbt-ence-2026-10-15",
+      "observed_at": "2026-10-15T08:40:00Z",
+      "active": true,
+      "closed": false,
+      "moneyline_market_id": "5583519",
+      "condition_id": "0x333864c35d311bc091c2b2adace1abe778282b124b304a9f6a29ce0b4022f57d",
+      "outcomes": ["WBT", "ENCE"],
+      "game_start_time": "2026-10-15 12:00:00+00",
+      "sports_market_type": "moneyline",
+      "clob_token_ids": [
+        "59739603669235821772070731715877061317520346567655695426141937361603453008382",
+        "82166324854676641774307114036944664617831224453987743908352069653016335867622"
+      ],
+      "outcome_prices": [0.575, 0.425],
+      "best_bid": 0.57,
+      "best_ask": 0.58,
+      "spread": 0.01,
+      "last_trade_price": 0.57,
+      "volume": 2126.369069,
+      "liquidity": 9897.1331,
+      "resolution_source": "https://hltv.org"
+    },
+    {
+      "event_id": "1173315",
+      "slug": "cs2-wbt-bojong-2026-10-15",
+      "title": "Counter-Strike: WBT vs BOJONG (BO1) - Elisa BreakOut Series #2 Group A",
+      "source_url": "https://gamma-api.polymarket.com/events/1173315",
+      "public_page": "https://polymarket.com/event/cs2-wbt-bojong-2026-10-15",
+      "observed_at": "2026-10-15T08:40:00Z",
+      "active": true,
+      "closed": false,
+      "moneyline_market_id": "5583522",
+      "condition_id": "0x3ab2c831022b9c668667083e087e6d475c6244d325511f5e8f5bffedede41cc0",
+      "outcomes": ["WBT", "BOJONG"],
+      "game_start_time": "2026-10-15 16:00:00+00",
+      "sports_market_type": "moneyline",
+      "clob_token_ids": [
+        "82113086685998433578259098615500665304083303327985435182175711325017131350502",
+        "13398525497484976341561930991463333469558762081616259213743508169393792004014"
+      ],
+      "outcome_prices": [0.835, 0.165],
+      "best_bid": 0.83,
+      "best_ask": 0.84,
+      "spread": 0.01,
+      "last_trade_price": 0.17,
+      "volume": 377.084452,
+      "liquidity": 6238.0576,
+      "resolution_source": "https://hltv.org"
+    }
+  ],
+  "polymarket_books": [
+    {
+      "asset_id": "59739603669235821772070731715877061317520346567655695426141937361603453008382",
+      "condition_id": "0x333864c35d311bc091c2b2adace1abe778282b124b304a9f6a29ce0b4022f57d",
+      "source_url": "https://clob.polymarket.com/book?token_id=59739603669235821772070731715877061317520346567655695426141937361603453008382",
+      "response_timestamp_ms": 1792053607553,
+      "response_hash": "9c968260c96805927eff9d5c30eccb6385c12909",
+      "best_bid": 0.57,
+      "best_ask": 0.58,
+      "last_trade_price": 0.57
+    },
+    {
+      "asset_id": "82166324854676641774307114036944664617831224453987743908352069653016335867622",
+      "condition_id": "0x333864c35d311bc091c2b2adace1abe778282b124b304a9f6a29ce0b4022f57d",
+      "source_url": "https://clob.polymarket.com/book?token_id=82166324854676641774307114036944664617831224453987743908352069653016335867622",
+      "response_timestamp_ms": 1792053793361,
+      "response_hash": "26ea71359429d8ec093abb100e64f173454af070",
+      "best_bid": 0.42,
+      "best_ask": 0.43,
+      "last_trade_price": 0.57
+    },
+    {
+      "asset_id": "82113086685998433578259098615500665304083303327985435182175711325017131350502",
+      "condition_id": "0x3ab2c831022b9c668667083e087e6d475c6244d325511f5e8f5bffedede41cc0",
+      "source_url": "https://clob.polymarket.com/book?token_id=82113086685998433578259098615500665304083303327985435182175711325017131350502",
+      "response_timestamp_ms": 1792053810030,
+      "response_hash": "4f0b4850298b6f20ebe4ff819c98e0790fab895d",
+      "best_bid": 0.83,
+      "best_ask": 0.84,
+      "last_trade_price": 0.17
+    },
+    {
+      "asset_id": "13398525497484976341561930991463333469558762081616259213743508169393792004014",
+      "condition_id": "0x3ab2c831022b9c668667083e087e6d475c6244d325511f5e8f5bffedede41cc0",
+      "source_url": "https://clob.polymarket.com/book?token_id=13398525497484976341561930991463333469558762081616259213743508169393792004014",
+      "response_timestamp_ms": 1792053990020,
+      "response_hash": "7c262eda8ea90b8eeddc8b745672c38e87ef6cc3",
+      "best_bid": 0.16,
+      "best_ask": 0.17,
+      "last_trade_price": 0.17
+    }
+  ],
+  "hltv_observations": [
+    {
+      "url": "https://www.hltv.org/matches/2399420/wbt-vs-ence-elisa-breakout-series-2",
+      "observed_at": "2026-10-15T08:47:00Z",
+      "detail": "HLTV match page 'WBT vs. ENCE', Elisa BreakOut Series 2, Best of 1 (LAN) Group A, 15th of October 2026. Lineups panel shows WBT HLTV rank #109 and VRS #66 with link to hltv.org/ranking/teams/2026/october/12/13683. Betting panel contains promotional placement only; no bookmaker prices were published on the page at observation time. Community 'Pick a winner' split shown as WBT 40.0% / ENCE 60.0% (fan votes; recorded as context only, never used as a probability input)."
+    },
+    {
+      "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+      "observed_at": "2026-10-15T08:45:00Z",
+      "detail": "HLTV event page lists all twelve group fixtures with match ids 2399418-2399429 and teams WBT #66, ENCE #113, EAC #116, BOJONG #389, Voca #68, Phantom #83, HAVU #124, ROUNDS #316 (VRS ranks as displayed). Group A/B pairings and start times map 1:1 onto the Hotspawn fixtures after timezone conversion."
+    },
+    {
+      "url": "https://www.hltv.org/betting/analytics/2399420/wbt-vs-ence-elisa-breakout-series-2",
+      "observed_at": "2026-10-15T08:50:00Z",
+      "detail": "HLTV analytics page 'WBT vs ENCE odds & prediction' compared published rankings (WBT better ranked #109 vs ENCE #114) and 3-month player ratings. No sportsbook price table was published on the page at observation time."
+    }
+  ],
+  "thunderpick_note": "Original paired prematch prices for all four previously unresolved fixtures were present in the pipeline's saved first-party Thunderpick POST response (data/evidence/thunderpick-matches.json, observed 2026-10-15T08:20Z by the scheduled collector). Match ids 2807512 (WBT vs ENCE 1.5/2.4), 2807511 (WBT vs BOJONG 1.2/4.0), 2807498 (HAVU Gaming vs ROUNDS 1.2/4.0), 2807505 (Voca vs ROUNDS 1.1/5.8). These rows were not joined to Hotspawn fixtures before solely because of provider display names.",
+  "irregularities": [
+    {
+      "id": "R-01",
+      "detail": "Polymarket WBT token 13398525497484976341561930991463333469558762081616259213743508169393792004014 reports last_trade_price 0.17 while the live book best bid/ask is 0.16/0.17. The 0.17 trade price is consistent with the BOJONG side, not the WBT side of event 1173315; provider book data is used instead of last-trade price and the discrepancy is published for review.",
+      "status": "needs review"
+    },
+    {
+      "id": "R-02",
+      "detail": "For the already-started fixture Hotspawn 1080279 (WROTBERRY vs EAC), provider start times disagree: Hotspawn 08:00Z, Polymarket index 08:20Z, Thunderpick 08:30Z. Future Elisa fixtures agree exactly across providers. Start-time joins use a documented tolerance and any mismatch is shown; no value is overwritten.",
+      "status": "needs review"
+    }
+  ]
+}
