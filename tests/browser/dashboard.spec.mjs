@@ -128,6 +128,19 @@ test('phone briefing shortcuts and picks section expose unresolved limitations',
   await expect(page.locator('#unresolved h2')).toBeVisible();
 });
 
+test('phone executive summary exposes the source-linked contrarian guardrail', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
+  await shortcuts.getByRole('link', { name: 'Contrarian review' }).click();
+  const review = page.locator('#contrarian');
+  await expect(review).toBeVisible();
+  await expect(review).toContainText('9z vs Aurora');
+  await expect(review).toContainText('15.7%');
+  await expect(review).toContainText('primary pick remains Falcons');
+  expect(await review.locator('a[href^="https://"]').count()).toBeGreaterThan(8);
+});
+
 test('research deep link reveals evidence despite a contradictory bookmarked filter', async ({ page }) => {
   await page.goto('/picks/');
   const unresolved = page.locator('#match-list > tbody > tr[data-method="unresolved"]').first();
