@@ -797,3 +797,18 @@ with research cards, never filled.
 **Coordination** — no other session's active scope was edited. Merged `origin/main` (PRs #32–#35) by union; a botched
 `--rebase=merges` replay was aborted locally before any push (nothing lost). Requests for owners: 0c803d4d — optional
 `r.get('source_url')` hardening at build.py ~127 is no longer required; earlier sessions — see C07-08/C07-09.
+
+### Hotfix — production deploy of PR #36 failed at "Regression tests" (C-4 follow-up)
+
+- PR [#36](https://github.com/buffedlizard55-lab/MaltaProj3/pull/36) squash-merged **2026-10-15T23:04:45Z** as `17983a6`.
+  Its push deploy [38821346854](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38821346854) **failed at
+  "Regression tests"** (nothing deployed; the site kept the successful 23:05Z scheduled deployment of `0b66c28`, run
+  [38821314258](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38821314258)).
+- **Cause:** with C-4 the cache restore finally hits, and the tests ran *after* the restore, i.e. against the restored live
+  snapshot. Three `tests/test_contrarian.py` tests are tied to the checked-in 9z–Falcons fixture (reproduced locally by
+  overlaying the 22:44Z runner snapshot: 2 failures + 1 error). The same coupling explains the earlier PR #30 deploy failure
+  at this step.
+- **Fix (pages.yml step order only):** regression tests now run on repository fixtures *before* the cache restore; guard test
+  `PublisherStepOrderTests`. Simulated production order locally: 171 tests OK on fixtures, then restored snapshot → originate
+  → build PASS (86 rows, 510 links). The contrarian tests themselves are another session's files and stay unchanged
+  (logged as C07-08-style data coupling).

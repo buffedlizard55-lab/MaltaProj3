@@ -35,6 +35,13 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+      # Regression tests validate the code against the repository's own fixture
+      # snapshot, so they run BEFORE any cached runtime data is restored. Several
+      # tests (e.g. tests/test_contrarian.py) are tied to the checked-in snapshot;
+      # once the cache restore started hitting (identical path lists), running them
+      # after the restore failed the 17983a6 deploy (run 38821346854).
+      - name: Regression tests (repository fixtures, before any cache restore)
+        run: python -m unittest discover -s tests -v
       # v2 isolates the new HLTV original-markup/format evidence contract.
       # Restoring v1 over this checkout mixes incompatible derived records and
       # leaves newer evidence files behind; never relabel that overlay verified.
@@ -55,8 +62,6 @@ jobs:
             data/origination/evidence/
           key: cs2-verified-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: cs2-verified-v2-
-      - name: Regression tests
-        run: python -m unittest discover -s tests -v
       # Keep the exact snapshot pair (featured + originated) that was live
       # before this run touches anything. If freshly collected evidence fails
       # the full replay below, the site republishes this verified pair with
