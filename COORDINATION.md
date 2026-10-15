@@ -445,3 +445,5 @@ The configured GitHub integration denied manual workflow dispatch (HTTP 403, `Re
 Live research audit [38717857376](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38717857376) succeeded. Artifact/log download redirected to storage hosts excluded by the sandbox outbound policy, so their contents could not yet be inspected here. Added compact source-attributed result/news excerpts to the diagnostic Check annotations, accessible through the allowed official GitHub API. This is an evidence-access workaround only; no claims are inferred from job success.
 
 Watchlist presentation explicitly states it is evaluated at page build (not continuously live) and includes source schedule/lock timestamps on every row. The original main pipeline still demotes stale featured picks and the complete page carries its inventory-age warning. No auto-submission or probability override was introduced.
+
+Final integration scope extension: `scripts/verify_live.py` to assert the deployed primary pick links, complete-coverage briefing, contrarian section and day-one review notice, in addition to its existing full inventory and complete-picks verification.
