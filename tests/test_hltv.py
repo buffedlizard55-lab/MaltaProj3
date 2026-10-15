@@ -1,5 +1,7 @@
 """Synthetic examples of the split-link HLTV contract observed 2026-10-15."""
 import unittest
+import json
+from pathlib import Path
 from scripts.sources import parse_hltv_matches, SourceError
 
 TIME = '<a href="/matches/123/alpha-vs-beta"><div data-unix="1792058400000">12:00</div></a>'
@@ -29,3 +31,12 @@ class HltvTests(unittest.TestCase):
     def test_original_combined_anchor_still_works(self):
         combined = TIME.replace('</a>', TEAMS.split('>', 1)[1])
         self.assertEqual(len(parse_hltv_matches(combined)), 1)
+
+    def test_saved_official_hltv_response_replays_all_discovered_identities(self):
+        evidence = Path('data/evidence')
+        original = evidence / 'hltv-index-response.json'
+        parsed = evidence / 'hltv-research.json'
+        if not original.exists() or not parsed.exists():
+            self.skipTest('This retained snapshot has no successful HLTV response')
+        self.assertEqual(parse_hltv_matches(json.loads(original.read_text())['html']),
+                         json.loads(parsed.read_text()))
