@@ -228,7 +228,7 @@ This documentation-only handoff records the already verified release. Its merge 
 
 | Task | Status | Owner | File scope | Updated UTC |
 | --- | --- | --- | --- | --- |
-| Audit fallback evidence, clarify mobile executive summary and unresolved coverage; verify and publish | in progress | arena/87b206e2-maltaproj3 (final integration) | `scripts/build.py`, `scripts/sources.py`, `scripts/collect.py`, `tests/`, `assets/dashboard.css`, `.github/workflows/`, `README.md`, `COORDINATION.md` | 2026-10-15 |
+| Audit fallback evidence, clarify mobile executive summary and unresolved coverage; verify and publish | done | arena/87b206e2-maltaproj3 (final integration) | `scripts/build.py`, `scripts/sources.py`, `scripts/collect.py`, `tests/`, `assets/dashboard.css`, `.github/workflows/`, `README.md`, `COORDINATION.md` | 2026-10-15 |
 
 All previous active historical claims are over 60 minutes old and their completed handoffs are recorded above. This session takes over only the follow-up scope listed here. Arena fixes this session to its existing branch. No source data is declared current until fetched successfully; outbound access here is restricted, so live collection will be verified on GitHub Actions where available.
 
@@ -244,3 +244,15 @@ All previous active historical claims are over 60 minutes old and their complete
 - Live collector [38705238962](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705238962) succeeded. Observation `2026-10-15T08:22:59Z`: 80 inventory = 18 future + 62 past-start; 7 primary market + 2 bookmaker + 5 model + 4 unresolved. HLTV now successfully reads **53 deduplicated identities**, replayed against its saved original HTML. The four unresolved names/time pairs still do not uniquely match the HLTV observations; no aliases are inferred.
 - Local checks: 59 Python tests (including original HLTV response replay), 23 browser checks at 320/390/768/1440px including expanded unresolved source trails, every match/estimate replay and internal link validation. Official-source URLs and remaining limitations are on Coverage/Flagged for Review. Tests are automated coverage, not a claim of exhaustive manual WCAG certification or verified true win probabilities.
 - Implementation PR: [#13](https://github.com/buffedlizard55-lab/MaltaProj3/pull/13). Merge and production verification will be recorded after the actual operations succeed.
+
+
+### Published follow-up — session 87b206e2 complete
+
+- **PR #13 merged** at **2026-10-15T08:25:30Z**, merge commit `09b3e28cc00d46e596063576ea51ebee4b0c40ae`: <https://github.com/buffedlizard55-lab/MaltaProj3/pull/13>.
+- Final PR verification [38705410628](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705410628) passed; local verification also passed **59 Python tests, 23 browser tests, all 80 source-row/estimate replays and 339 internal links/assets/anchors**.
+- **Production deployment and public post-deploy checks succeeded:** [38705560717](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705560717). The actual published inventory observation was **2026-10-15T08:25:48Z**, with complete reconciliation: **80 inventory, 18 future, 62 past-start, 7 market + 2 bookmaker + 5 model estimates, 14 directional picks, 4 unresolved, no unknown schedules or ties**. Future refreshes may change these numbers.
+- Live executive summary: <https://buffedlizard55-lab.github.io/MaltaProj3/>; picks: <https://buffedlizard55-lab.github.io/MaltaProj3/picks/>; unresolved/source limitations: <https://buffedlizard55-lab.github.io/MaltaProj3/review/>. Public verification checked all category pages and snapshot contents after deployment, not just the Actions deploy step.
+- Remaining published issues: four unsupported future picks, missing exact-name ratings/market identity or unacceptable spreads, bookmaker 403/redirects, uncalibrated model assumptions, and past-start source status anomalies. No unsupported team aliases or probabilities were manufactured. HLTV parsing failure was repaired; a successful match-directory read is not itself a verified betting line.
+- GitHub still rejects switching Pages mode with HTTP 403 (`Resource not accessible by integration`). Existing publisher ordering successfully waits for the legacy build and deploys the current artifact last; this restriction remains visible in Flagged for Review. The four-hour schedule remains active; scheduling delays are explicitly disclosed.
+
+This final documentation records the observed successful release; it does not claim future refreshes are already verified.
