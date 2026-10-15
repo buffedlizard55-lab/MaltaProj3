@@ -47,7 +47,10 @@ OFFICIAL = [
     ('docs.polymarket.com', None),
     # Bookmakers read as price sources (a failed attempt is linked to the book it tried).
     ('thunderpick.io', None), ('gg.bet', None), ('stake.com', None), ('pinnacle.com', None),
-    ('rivalry.com', None),
+    ('rivalry.com', None), ('bovada.lv', None),
+    # Kalshi: CFTC-regulated exchange publishing its own CS2 match prices, its public
+    # market-data API and official API docs (added by session c07e1b40 with the source).
+    ('kalshi.com', None),
     # Valve's own regional standings repository and model code.
     ('github.com', '/ValveSoftware/'), ('raw.githubusercontent.com', '/ValveSoftware/'),
     ('api.github.com', '/repos/ValveSoftware/'),

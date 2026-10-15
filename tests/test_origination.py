@@ -456,3 +456,29 @@ class PublicContractTests(unittest.TestCase):
         self.assertEqual({el.get('id') for el in page.select('.pick-card')}, {'match-' + m['id'] for m in data['matches']})
         self.assertEqual(len(page.select('.unresolved-card')), 1)
         self.assertIsNotNone(page.find(id='unresolved-' + victim['id']))
+
+
+class SourceLinkDedupeTests(unittest.TestCase):
+    def test_each_source_url_is_linked_once_per_card(self):
+        from bs4 import BeautifulSoup
+        data = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        for m in data['matches']:
+            if not m['origination']:
+                continue
+            card = BeautifulSoup(build_origination.pick_row(m), 'html.parser')
+            hrefs = [a['href'] for a in card.select('.row-srcs a')]
+            self.assertEqual(len(hrefs), len(set(hrefs)), m['id'])
+            self.assertTrue(any('hotspawn' in h for h in hrefs), m['id'])
+            self.assertGreaterEqual(len(hrefs), 2, m['id'])
+
+
+class RowSourceAuditTests(unittest.TestCase):
+    def test_kalshi_and_bovada_source_rows_pass_the_official_source_audit(self):
+        from scripts import audit_rows
+        data = copy.deepcopy(json.loads((ROOT / 'data' / 'origination.json').read_text()))
+        data['sources'] = [
+            {'name': 'Kalshi CS2 match markets', 'url': originate.KALSHI_PAGE.rstrip('/'), 'api_url': originate.KALSHI_EVENTS, 'role': 'exchange'},
+            {'name': 'Bovada esportsbook', 'url': originate.BOVADA_SITE, 'api_url': originate.BOVADA_API, 'role': 'book'},
+        ]
+        result = audit_rows.audit_html(build_origination.page(data), 'origination/index.html')
+        self.assertEqual(result['violations'], [], result['violations'])
