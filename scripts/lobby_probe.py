@@ -1,0 +1,142 @@
+"""Read-only probe of how Hotspawn's lobby pages relate to the fixture API it calls.
+
+Public GET requests only, no credentials, no bypasses. For several rounds it fetches the lobby page,
+the CS2 lobby page and the fixture API, then records:
+  * HTTP cache headers of each response (is the server-rendered HTML cached, and for how long?),
+  * every API call embedded in the pages' Angular hydration state (the lobby's real endpoint surface),
+  * the exact CS2 fixture-ID differences between the three sources, with the differing rows.
+
+It exists to answer one question the collector can only answer with "disagree": WHY, when it does.
+Usage: python -m scripts.lobby_probe [--rounds 3] [--pause 25] [--out path.json]
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import parse_qsl, urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
+from scripts.sources import CS2_LOBBY, FIXTURES_API, LOBBY
+
+HEADERS = ['Date', 'Age', 'Cache-Control', 'Expires', 'ETag', 'Last-Modified', 'CF-Cache-Status', 'X-Cache', 'Via', 'Server', 'Content-Type', 'Vary']
+UA = {'User-Agent': 'HotspawnCS2Coverage/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)', 'Accept': 'application/json,text/html;q=0.9'}
+
+
+def now() -> str:
+    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
+def get(url: str):
+    started = now()
+    response = requests.get(url, headers=UA, timeout=(15, 45))
+    return response, started
+
+
+def header_summary(response) -> dict:
+    return {k: response.headers.get(k) for k in HEADERS if response.headers.get(k) is not None}
+
+
+def state_entries(html: str) -> list[dict]:
+    soup = BeautifulSoup(html, 'html.parser')
+    node = soup.find('script', id='ng-state')
+    if not node:
+        return []
+    state = json.loads(node.get_text())
+    out = []
+    for key, value in state.items():
+        if not isinstance(value, dict):
+            continue
+        url = value.get('u') or ''
+        parsed = urlparse(url)
+        body = value.get('b')
+        out.append({'path': parsed.path, 'query': dict(parse_qsl(parsed.query)), 'status': value.get('s'),
+                    'body_type': type(body).__name__, 'records': len(body) if isinstance(body, (list, dict)) else None,
+                    'body_keys': sorted(body.keys())[:12] if isinstance(body, dict) else None, '_body': body if isinstance(body, list) else None})
+    return out
+
+
+def cs2_rows(entries: list[dict]) -> list[dict]:
+    lists = [e['_body'] for e in entries if e['path'] == '/api/v1/fixtures' and e['_body'] is not None]
+    return [r for r in (lists[0] if lists else []) if isinstance(r, dict) and r.get('sport_alias') == 'cs2']
+
+
+def brief(row: dict) -> dict:
+    return {'id': str(row.get('id')), 'teams': [row.get('participants0_name'), row.get('participants1_name')], 'competition': row.get('competition_name'),
+            'status': row.get('status'), 'start': datetime.fromtimestamp(int(row['scheduled_start_time']) / 1000, timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ') if row.get('scheduled_start_time') else None,
+            'tier': row.get('tier'), 'total_picks': row.get('total_picks')}
+
+
+def one_round() -> dict:
+    lobby, t1 = get(LOBBY)
+    cs2, t2 = get(CS2_LOBBY)
+    api, t3 = get(FIXTURES_API)
+    lobby_entries, cs2_entries = state_entries(lobby.text), state_entries(cs2.text)
+    api_rows = [r for r in api.json() if isinstance(r, dict) and r.get('sport_alias') == 'cs2']
+    sources = {'lobby': cs2_rows(lobby_entries), 'cs2_lobby': cs2_rows(cs2_entries), 'api': api_rows}
+    ids = {k: {str(r['id']) for r in v} for k, v in sources.items()}
+    by_id = {}
+    for name in ('api', 'cs2_lobby', 'lobby'):
+        for r in sources[name]:
+            by_id.setdefault(str(r['id']), r)
+    union = set().union(*ids.values())
+    diffs = {}
+    for name, own in ids.items():
+        missing = sorted(union - own)
+        if missing:
+            diffs[name + '_lacks'] = [brief(by_id[i]) for i in missing]
+    now_utc = datetime.now(timezone.utc).timestamp()
+    return {
+        'fetched_at': {'lobby': t1, 'cs2_lobby': t2, 'api': t3},
+        'http': {'lobby': {'status': lobby.status_code, 'bytes': len(lobby.content), 'headers': header_summary(lobby)},
+                 'cs2_lobby': {'status': cs2.status_code, 'bytes': len(cs2.content), 'headers': header_summary(cs2)},
+                 'api': {'status': api.status_code, 'bytes': len(api.content), 'headers': header_summary(api)}},
+        'counts': {k: len(v) for k, v in ids.items()},
+        'agree': len({frozenset(v) for v in ids.values()}) == 1,
+        'differences': diffs,
+        'api_status_counts': {s: sum(1 for r in api_rows if r.get('status') == s) for s in sorted({r.get('status') for r in api_rows}, key=str)},
+        'api_future_start': sum(1 for r in api_rows if r.get('scheduled_start_time') and int(r['scheduled_start_time']) / 1000 > now_utc),
+        'hydration_calls': {'lobby': [{k: v for k, v in e.items() if k != '_body'} for e in lobby_entries], 'cs2_lobby': [{k: v for k, v in e.items() if k != '_body'} for e in cs2_entries]},
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.split('\n')[0])
+    parser.add_argument('--rounds', type=int, default=3)
+    parser.add_argument('--pause', type=float, default=25)
+    parser.add_argument('--out', type=Path)
+    args = parser.parse_args()
+    rounds = []
+    for i in range(args.rounds):
+        if i:
+            time.sleep(args.pause)
+        try:
+            rounds.append(one_round())
+        except Exception as exc:  # a failed round is evidence too
+            rounds.append({'error': f'{type(exc).__name__}: {exc}', 'at': now()})
+    report = {'schema_version': 1, 'probe': 'scripts/lobby_probe.py', 'urls': {'lobby': LOBBY, 'cs2_lobby': CS2_LOBBY, 'fixture_api': FIXTURES_API}, 'rounds': rounds,
+              'all_rounds_agree': all(r.get('agree') for r in rounds if 'error' not in r) and any('error' not in r for r in rounds)}
+    if args.out:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
+    for i, r in enumerate(rounds):
+        if 'error' in r:
+            print(f'::notice title=lobby-probe round {i}::ERROR {r["error"]}')
+            continue
+        cache = {k: {h: v['headers'].get(h) for h in ('Age', 'Cache-Control', 'CF-Cache-Status', 'X-Cache', 'Date') if v['headers'].get(h)} for k, v in r['http'].items()}
+        print('::notice title=lobby-probe round %d::%s' % (i, json.dumps({'agree': r['agree'], 'counts': r['counts'], 'api_status_counts': r['api_status_counts'], 'api_future_start': r['api_future_start'], 'cache': cache}, ensure_ascii=False)))
+        for name, rows in r['differences'].items():
+            print(f'::notice title=lobby-probe round {i} {name}::' + json.dumps(rows[:12], ensure_ascii=False))
+        for source in ('lobby', 'cs2_lobby'):
+            calls = [(c['path'], c['query'], c['status'], c['records']) for c in r['hydration_calls'][source]]
+            if i == 0:
+                print(f'::notice title=lobby-probe hydration {source}::' + json.dumps(calls, ensure_ascii=False)[:3000])
+    print('::notice title=lobby-probe verdict::all_rounds_agree=' + str(report['all_rounds_agree']))
+
+
+if __name__ == '__main__':
+    main()
