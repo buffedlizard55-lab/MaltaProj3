@@ -33,3 +33,14 @@
 .match-row:target{outline:2px solid var(--orange-dark);outline-offset:-2px}
 [id]{scroll-margin-top:18px;scroll-margin-bottom:90px}
 @media(max-width:700px){.briefing-links{gap:6px}.briefing-links a{font-size:11px;padding:8px 10px}.fair-line{font-size:10px}.info-strip a{display:block;min-height:44px;line-height:1.5;padding-top:10px}.prob-line{align-items:center}.identity-note{font-size:12px}}
+
+/* Session 2e8b83a7 — six-item mobile navigation, non-colour link distinction, upset-review page */
+.stale-warning a,.new-snapshot a,.inline-cta{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1.5px;font-weight:700}
+.stale-warning a:hover,.new-snapshot a:hover,.inline-cta:hover{text-decoration-thickness:2.5px}
+.briefing-links{flex-wrap:wrap}
+@media(max-width:700px){.mobile-nav>a{flex:1 1 0;min-width:0;padding:2px 3px;font-size:8px;gap:3px}.mobile-nav .icon{width:18px;height:18px}}
+@media(max-width:375px){.mobile-nav>a{font-size:7.5px;padding:2px 1px;gap:2px}.mobile-nav .icon{width:17px;height:17px}}
+
+/* Inline text links keep a non-colour distinction (WCAG 1.4.1) inside prose blocks */
+.prose a:not(.source-link):not(.button),.section-intro a:not(.source-link),.limitations-callout p>a,.info-strip span>a,.unresolved-table td p>a,.evidence-box p>a,.briefing-notes p>a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.prose a:hover,.section-intro a:hover,.limitations-callout p>a:hover,.info-strip span>a:hover{text-decoration-thickness:2px}

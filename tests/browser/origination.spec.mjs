@@ -19,7 +19,8 @@ for (const width of [320, 390, 768, 1440]) {
 
 test('summary exposes the additional researched picks and limitations', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'Open the full researched picks list' }).click();
+  await page.getByRole('navigation', { name: 'Briefing shortcuts' })
+    .getByRole('link', { name: 'Complete researched picks' }).click();
   await expect(page).toHaveURL(/origination\/#picks$/);
   await expect(page.locator('.pick-card').first()).toBeVisible();
 });

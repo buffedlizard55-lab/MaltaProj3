@@ -5,7 +5,8 @@ name: Origination source audit
 # origination inputs honest between publishes and on pull requests.
 on:
   push:
-    branches: [arena/f9527685-maltaproj3]
+    # Any session branch pushing origination code or registry data gets audited.
+    branches: ['arena/**']
   workflow_dispatch:
   pull_request:
     paths:

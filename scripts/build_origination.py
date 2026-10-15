@@ -158,7 +158,9 @@ def section_aliases(data):
            '"WROTBERRY" on Hotspawn, "WBT" on HLTV/Polymarket/Thunderpick and in Valve\'s standings. '
            'Each join below is backed by official source links. Names outside this registry are never force-matched.</p>']
     for a in registry['aliases']:
+        scope = a.get('applies_to') or ['any competition (legacy unscoped entry)']
         out.append(f'<article class="alias-card"><h3>{e(a["alias"])} <span aria-hidden="true">→</span> {e(a["canonical"])} {badge(a["kind"], "neutral")}</h3>')
+        out.append(f'<p class="tiny">Applies only inside: {e(", ".join(scope))}</p>')
         out.append('<ul class="limits">')
         for ev in a['evidence']:
             out.append(f'<li>{e(ev.get("detail", ""))} {ext(ev["url"], ev.get("source", "source"))}</li>')

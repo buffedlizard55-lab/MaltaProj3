@@ -1,14 +1,17 @@
 {
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
-  "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition. Sponsor/abbreviation spellings are not silently inferred. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-15T08:55:00Z",
-  "updated_by": "arena-f9527685 research session (source links re-checkable by any reviewer)",
+  "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
+  "updated_at": "2026-10-15T10:45:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope)",
   "aliases": [
     {
       "alias": "WBT",
       "canonical": "WROTBERRY",
       "kind": "abbreviation",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
       "evidence": [
         {
@@ -32,6 +35,9 @@
       "alias": "ROUNDS",
       "canonical": "RoundsGG",
       "kind": "organization rename",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
       "evidence": [
         {
@@ -50,6 +56,9 @@
       "alias": "HAVU Gaming",
       "canonical": "HAVU",
       "kind": "display-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Thunderpick display name vs Hotspawn/HLTV/Polymarket 'HAVU'",
       "evidence": [
         {
@@ -68,6 +77,9 @@
       "alias": "EA Copenhagen",
       "canonical": "EAC",
       "kind": "abbreviation",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Thunderpick display name vs Hotspawn 'EAC'",
       "evidence": [
         {
@@ -86,6 +98,9 @@
       "alias": "Esport Academy Copenhagen",
       "canonical": "EAC",
       "kind": "full-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Polymarket display name vs Hotspawn 'EAC'",
       "evidence": [
         {
@@ -104,8 +119,15 @@
       "alias": "Phantom Esports",
       "canonical": "Phantom",
       "kind": "display-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
       "competition_note": "Thunderpick display name vs Hotspawn 'Phantom'; NOT the separate team 'Phantom Esports Academy'",
-      "must_not_match": ["Phantom Esports Academy", "Phantom Academy", " Phantom Academy"],
+      "must_not_match": [
+        "Phantom Esports Academy",
+        "Phantom Academy",
+        " Phantom Academy"
+      ],
       "evidence": [
         {
           "url": "https://www.hltv.org/team/13173/phantom",
@@ -116,6 +138,111 @@
           "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
           "source": "HLTV.org event page",
           "detail": "Thunderpick's 'Phantom Esports' rows share Phantom's Elisa BreakOut Series 2 opponents and start times. The distinct roster 'Phantom Esports Academy' plays different opponents/times and is explicitly excluded from this alias."
+        }
+      ]
+    },
+    {
+      "alias": "Team Falcons",
+      "canonical": "Falcons",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026"
+      ],
+      "competition_note": "Polymarket display name 'Team Falcons' vs Hotspawn/HLTV 'Falcons' in the Thunderpick World Championship 2026 Group A winners' match (HLTV match 2399409, Hotspawn fixture 1080202, 2026-10-15T11:00:00Z).",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-9z-fal2-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's own market text names the fixture as the \"Counter-Strike Winners' match between 9z and Team Falcons in the Thunderpick World Championship Group A, initially scheduled for October 15, 2026 at 7:00 AM ET\" (= 11:00 UTC), the exact Hotspawn fixture 1080202 start time, and lists HLTV as its resolution source."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule for the same event lists this fixture as '9z vs Falcons' on 15/10/2026, linking team 11283."
+        },
+        {
+          "url": "https://www.hltv.org/team/11283/falcons",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Falcons' (team id 11283); no separate 'Team Falcons' competitor exists in this event."
+        }
+      ]
+    },
+    {
+      "alias": "BetBoom Team",
+      "canonical": "BetBoom",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026"
+      ],
+      "competition_note": "Polymarket display name 'BetBoom Team' vs Hotspawn 'BetBoom' / HLTV 'BETBOOM' in the Thunderpick World Championship 2026 Group B elimination match (HLTV match 2399410, Hotspawn fixture 1080203, 2026-10-15T13:30:00Z).",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-prv-bb3-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text names the fixture as the \"Counter-Strike Elimination match between PARIVISION and BetBoom Team in the Thunderpick World Championship Group B, initially scheduled for October 15, 2026 at 9:30 AM ET\" (= 13:30 UTC), the exact Hotspawn fixture 1080203 start time."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule lists this fixture as 'PARIVISION vs BETBOOM' on 15/10/2026, linking team 12394."
+        },
+        {
+          "url": "https://www.hltv.org/team/12394/betboom",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'BETBOOM' (team id 12394), the same competitor Hotspawn lists as 'BetBoom'."
+        }
+      ]
+    },
+    {
+      "alias": "Aurora Gaming",
+      "canonical": "Aurora",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026"
+      ],
+      "competition_note": "Polymarket display name 'Aurora Gaming' vs Hotspawn/HLTV 'Aurora' in the Thunderpick World Championship 2026 Group A elimination match (HLTV match 2399408, Hotspawn fixture 1080201, 2026-10-15T08:30:00Z).",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-nip-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text names the fixture as the \"Counter-Strike Elimination match between Aurora Gaming and NIP in the Thunderpick World Championship Group A, initially scheduled for October 15, 2026 at 4:30 AM ET\" (= 08:30 UTC), the exact Hotspawn fixture 1080201 start time."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule lists this fixture as 'Aurora vs Ninjas in Pyjamas' on 15/10/2026, linking team 11861."
+        },
+        {
+          "url": "https://www.hltv.org/team/11861/aurora",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Aurora' (team id 11861) with the roster XANTARES, woxic, Jimpphat, kyxsan and Wicadia."
+        }
+      ]
+    },
+    {
+      "alias": "NIP",
+      "canonical": "Ninjas in Pyjamas",
+      "kind": "abbreviation",
+      "applies_to": [
+        "Thunderpick World Championship 2026"
+      ],
+      "competition_note": "Polymarket abbreviation 'NIP' vs Hotspawn/HLTV 'Ninjas in Pyjamas' in the Thunderpick World Championship 2026 Group A elimination match (HLTV match 2399408, Hotspawn fixture 1080201).",
+      "must_not_match": [
+        "NIP Impact",
+        "NiP Impact",
+        "Young Ninjas",
+        "Ninjas in Pyjamas Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-nip-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text resolves to 'NIP' for the same elimination match its own description ties to HLTV as the resolution source."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists the opponent as 'Ninjas in Pyjamas' (team id 4411) at the same scheduled start."
         }
       ]
     }
