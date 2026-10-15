@@ -43,7 +43,7 @@ def verify(url, expected):
                 raise ValueError('Public primary pick button does not reach complete picks')
             if len(mobile_picks) < 2 or mobile_picks[1].get('href') != './origination/#picks':
                 raise ValueError('Public phone picks navigation does not reach complete picks')
-            if not page.find(id='contrarian') or not page.select_one('[aria-label="Complete pick coverage"]'):
+            if not page.find(id='contrarian') or not page.find(id='upset-watchlist') or not page.select_one('[aria-label="Complete pick coverage"]'):
                 raise ValueError('Public complete-coverage/contrarian briefing missing')
         if route == 'review/' and not page.find(id='day-one-review'):
             raise ValueError('Public day-one verification limitations missing')
