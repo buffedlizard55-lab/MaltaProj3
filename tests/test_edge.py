@@ -38,7 +38,9 @@ class ReviewDataContractTests(unittest.TestCase):
     def test_every_source_is_https_and_timestamped(self):
         data = review()
         seen = 0
-        for group in ['day_one', 'day_two', 'roster_watch', 'edge_rules']:
+        for group in ['day_one', 'day_two', 'day_three', 'roster_watch', 'edge_rules']:
+            if group == 'day_three' and group not in data:
+                continue
             for row in data[group]:
                 self.assertTrue(row.get('sources'), f'{group} row without sources')
                 for src in row['sources']:
@@ -109,7 +111,7 @@ class ReviewRenderingTests(unittest.TestCase):
 
     def test_required_sections_and_anchors_are_rendered(self):
         soup = BeautifulSoup(self.body(), 'html.parser')
-        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']:
+        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-three', 'standings', 'edge-limitations']:
             self.assertIsNotNone(soup.find(id=anchor), anchor)
         self.assertEqual(len(soup.select('#day-one tbody tr')), len(review()['day_one']))
         self.assertEqual(len(soup.select('#day-two tbody tr')), len(review()['day_two']))

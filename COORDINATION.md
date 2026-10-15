@@ -604,3 +604,19 @@ deep-dive page (`edge/`), and the "Where every list lives" map points at each ro
 file, dataset or probability from either session was discarded; conflicts in README/COORDINATION were
 resolved by union and the test suites were re-run end to end after the merge: **145 Python tests OK** and **38 Playwright checks pass**, `scripts.build` validates 475 internal links/assets/anchors.
 
+
+---
+
+## Session f2d2d85e integration claim (2026-10-15)
+
+Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
+
+| Task ID | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| I-F1 | Day-2 result review + day-3 guidance added to edge review | done | f2d2d85e | `data/edge-review.json`, `scripts/build_edge.py`, `tests/test_edge.py` | Day-2 map scores from HLTV match pages (2399408-2399411). Day-3 elimination fixtures 2399412, 2399413 added unpriced. |
+| I-F2 | Final integration: build, link check, PR, merge, Pages verify | in progress | f2d2d85e | all | Build PASS, 145+ tests OK. |
+
+### Sources
+- HLTV results: https://www.hltv.org/results?event=8932
+- HLTV matches: 2399408, 2399409, 2399410, 2399411, 2399412, 2399413
+- Aurora roster: https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan

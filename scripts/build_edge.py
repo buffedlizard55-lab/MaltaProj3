@@ -43,6 +43,13 @@ def load_edge(path: Path) -> dict:
             'edge-review.json needs a research window with both ends')
     for group in ['day_one', 'day_two', 'roster_watch', 'edge_rules']:
         require(isinstance(data[group], list), f'edge-review.json {group} must be a list')
+    if 'day_three' in data:
+        require(isinstance(data['day_three'], list), 'edge-review.json day_three must be a list')
+        for row in data['day_three']:
+            require(row.get('sources'), 'every reviewed match needs at least one official source link')
+            for src in row['sources']:
+                require(str(src.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
+                require(src.get('observed_at'), 'edge-review sources must carry an observation time')
     for row in data['day_one'] + data['day_two']:
         require(row.get('sources'), 'every reviewed match needs at least one official source link')
         for src in row['sources']:
@@ -191,6 +198,37 @@ def day_two_section(data, inventory):
     out.append('</section>')
     return ''.join(out)
 
+def day_three_section(data, inventory):
+    out = ['<section class="content-section" id="day-three"><div class="section-heading"><div>'
+           '<p class="eyebrow">Looking ahead to day three</p><h2>Day three: elimination matches and what day two changed</h2></div>'
+           + badge('HLTV schedule', 'green') + '</div>',
+           '<p class="section-intro">These fixtures are not in the Hotspawn scheduled-fixture feed captured on 14 Oct 2026, '
+           'so no Hotspawn link or pick is produced for them. Market prices were not captured in this window and are left '
+           'unpriced rather than estimated. Assessments below rest only on the verified day-one and day-two results above.</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-three elimination fixtures '
+           'with HLTV links and review reads</caption><thead><tr><th scope="col">Fixture &amp; start</th>'
+           '<th scope="col">Observed market price</th><th scope="col">Review read</th></tr></thead><tbody>']
+    for row in data.get('day_three', []):
+        market = row.get('market') or {}
+        prices = market.get('prices') or {}
+        price_rows = ''.join(f'<div class="prob-line"><span>{e(name)}</span><strong>{value * 100:.1f}%</strong></div>'
+                             for name, value in prices.items()) or blank()
+        observed = f'<small>{e(market.get("provider") or "Provider")} · observed {local_time(market["observed_at"])}</small>' if market.get('observed_at') else '<small>— unverified (not captured)</small>'
+        links = ''.join(external(url, label) for url, label in
+                        [(market.get('event_url'), 'Polymarket event'), (market.get('api_url'), 'Gamma record')] if url)
+        hotspawn_link = '<span class="unverified">— <small>Hotspawn row not in this snapshot</small></span>'
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                   f'<small>{e(row["competition"])} · {e(row["slot"])}</small>'
+                   f'<small>Start {local_time(row["starts_at"])}</small>'
+                   f'<small>HLTV match {e(row["hltv_match_id"])}</small></th>'
+                   f'<td>{price_rows}{observed}<div class="evidence-links">{links}</div></td>'
+                   f'<td><p>{e(row["assessment"])}</p><p class="tiny"><strong>Status at observation:</strong> {e(row["status_at_observation"])}</p>'
+                   f'{source_lines(row["sources"])}{external(row["hltv_url"], "HLTV match page")}'
+                   f'<div class="evidence-links">{hotspawn_link}</div></td></tr>')
+    out.append('</tbody></table></div></section>')
+    return ''.join(out)
+
 
 def valve_snapshot_note(snapshot):
     if not snapshot:
@@ -250,6 +288,7 @@ def edge_review(data, prefix, edge_path: Path):
     out += roster_section(review)
     out += rules_section(review)
     out += day_two_section(review, data)
+    out += day_three_section(review, data)
     out += standings_section(review)
     out += ('<section class="content-section prose" id="edge-limitations"><p class="eyebrow">What this review cannot tell you</p>'
             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{e(x)}</li>' for x in review['limitations']) + '</ul>'
@@ -276,4 +315,4 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, default=Path('site'))
     args = parser.parse_args()
     path, review = build(args.source, args.output)
-    print(f'Built {path} · {len(review["day_one"])} day-one series · {len(review["day_two"])} day-two fixtures reviewed')
+    print(f'Built {path} · {len(review["day_one"])} day-one series · {len(review["day_two"])} day-two fixtures · {len(review.get("day_three", []))} day-three fixtures reviewed')
