@@ -32,6 +32,11 @@ jobs:
       # v2 isolates the new HLTV original-markup/format evidence contract.
       # Restoring v1 over this checkout mixes incompatible derived records and
       # leaves newer evidence files behind; never relabel that overlay verified.
+      # The restore path list must be byte-identical (same entries, same order) to
+      # the save step below: actions/cache derives the cache version from it, so a
+      # different list can never match a saved snapshot. Restoring only
+      # data/origination/evidence/ (never data/origination/) also keeps the
+      # reviewed alias registry, aliases.json, out of every cache overlay.
       - name: Restore last successfully verified public snapshot
         id: restore
         uses: actions/cache/restore@v6
@@ -41,7 +46,7 @@ jobs:
             data/sources.json
             data/origination.json
             data/evidence/
-            data/origination/
+            data/origination/evidence/
           key: cs2-verified-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: cs2-verified-v2-
       - name: Regression tests
