@@ -232,7 +232,7 @@ This session must use `arena/11c1fa20-maltaproj3`; no other branch is created or
 | --- | --- | --- | --- | --- |
 | Audit current source coverage; expand safe fallback research; verify line-by-line | done | arena-11c1fa20 | `scripts/{collect,domain,sources,validate}.py`, `tests/test_domain.py`, canonical `data/latest.json`, `data/sources.json`, `data/evidence/` | 2026-10-15 |
 | Audit and simplify current mobile summary/picks/unresolved navigation | done | arena-11c1fa20 | `scripts/build.py`, `assets/scout.{css,js}`, `tests/browser/dashboard.spec.mjs` | 2026-10-15 |
-| Final integration, CI, PR merge and verified Pages publication | in progress | arena-11c1fa20 | `.github/workflows/{checks,collect-preview,source-diagnostics}.yml`, `README.md`, `COORDINATION.md`, new audit regression tests/scripts | 2026-10-15 |
+| Final integration, CI, PR merge and verified Pages publication | done | arena-11c1fa20 | `.github/workflows/{checks,collect-preview,source-diagnostics}.yml`, `README.md`, `COORDINATION.md`, new audit regression tests/scripts | 2026-10-15 |
 
 Initial inspection: canonical collector already reconciles both official lobby hydration inventories with the fixture API, uses original Polymarket order books, then attempts HLTV, Thunderpick and Valve ratings. Four-hour Pages scheduler exists. Latest GitHub scheduled run `38682572464` reports success; source freshness and actual current coverage have not yet been independently inspected in this session. Outbound source hosts are restricted in this sandbox; live first-party inspection will run in GitHub Actions, retaining actual evidence and limitations instead of inventing values.
 
@@ -304,8 +304,32 @@ Main advanced through PRs #13/#14 while this session worked from its initially i
 
 - Final protocol audit found a latent mismatch: public verification expects all non-archived IDs on picks, but both original renderers excluded unknown schedules from that list. The full picks table now includes them (with blank times/probabilities and unresolved status), reconciling the deploy contract rather than dropping a row or failing publication for a nonblocking missing field. A dedicated synthetic presentation regression passes; source-dependent display/tamper tests explicitly skip if a future retained snapshot legitimately has no relevant supported estimate. Combined unit count is now **76**.
 
-### Publication cache compatibility repair — arena-11c1fa20 (in progress)
+### Publication cache compatibility repair — arena-11c1fa20 (done)
 
 - PR [#15](https://github.com/buffedlizard55-lab/MaltaProj3/pull/15) **merged 2026-10-15T08:39:31Z**, merge `910de423f3eab4f99d7f053a3941cdb26c0b6f7b`. Final independent PR CI [38707090302](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707090302) passed on `ece3316`: 76 unit tests, 27 browser checks, all row/analysis/link validation.
 - Production [38707237342](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707237342) failed at **Regression tests** after the legacy v1 cache restored; all collection/deployment steps were skipped. No successful current deployment is claimed. The detailed remote failure log is blocked by sandbox host restrictions; actual step failure is verified from job metadata.
 - Claimed additional final-integration scope: `.github/workflows/pages.yml` (all earlier owners completed). Reproduced a **v1-cache overlay of the concurrent original snapshot onto the new checkout** locally, without altering canonical source data. Original-response replay fails because the v1 cache's parsed HLTV records use the older contract while the new checkout's additional evidence file remains present. This is incompatible cached evidence, not a fabricated market or inaccessible live source. Invalidate the old cache namespace for the new compatible original-markup/format contract; use the coherent checked-in last-good snapshot until a new v2 verified cache is produced. Keep original histories/evidence intact. Reverify, merge the repair and confirm actual public deployment.
+
+
+## Completed verified release — arena-11c1fa20 (2026-10-15)
+
+**All claimed tasks DONE.** Unsupported source data remain published review warnings; no values or picks were fabricated. No user source input, credentials, paid services or manual refresh is required.
+
+| Release record | Verified result |
+| --- | --- |
+| Main integration | [PR #15](https://github.com/buffedlizard55-lab/MaltaProj3/pull/15), merged **2026-10-15T08:39:31Z**, `910de423f3eab4f99d7f053a3941cdb26c0b6f7b` |
+| Cache compatibility repair | [PR #16](https://github.com/buffedlizard55-lab/MaltaProj3/pull/16), merged **2026-10-15T08:42:34Z**, `e124ebb2f269e0fb3f7625590a07bb5a82532bb1` |
+| Final integration / repair CI | [38707090302](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707090302) and [38707422550](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707422550), both **success**; 76 Python tests, 27 browser checks, complete row/analysis replay and internal-link validation |
+| Canonical Pages publication | [38707602980](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707602980), **success**, including live source collection, replay, compatible v2 cache save, deployment and public HTTP verification |
+| Earlier platform publisher | [38707601898](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707601898), **success**, ordered before the canonical verified artifact |
+| Public content verification | All five current routes, complete JSON snapshot, all non-archived IDs, three legacy URLs and both clearly labeled historical archives matched the deployed artifact |
+| Executive summary | <https://buffedlizard55-lab.github.io/MaltaProj3/> |
+| Full updated picks | <https://buffedlizard55-lab.github.io/MaltaProj3/picks/> |
+| Unresolved picks and limitations | <https://buffedlizard55-lab.github.io/MaltaProj3/review/> |
+| Original evidence, request timestamps and coverage | <https://buffedlizard55-lab.github.io/MaltaProj3/coverage/> |
+
+Actual production annotation confirms **2026-10-15T08:42:51Z**, complete inventory: **80 records = 17 future + 63 archived; 7 market + 1 bookmaker + 5 explicitly uncalibrated research estimates = 13 picks; 4 unresolved**. Later scheduled refreshes can change these counts. Stale/locked observations never imply current playable picks.
+
+Remaining nonblocking, visible issues: missing supported lines/ratings for four fixtures, unverified differing provider names, rejected wide/crossed books, bookmaker access limitations, missing current rosters/vetoes/formats and past-source status anomalies. GitHub still returns HTTP 403 for the Pages-mode setting; the ordered legacy-then-canonical deployment succeeded and its restriction remains on Flagged for Review. The four-hour scheduler remains active. No source, build or public verification step was bypassed; the v1 cache failure was repaired and a real subsequent production run passed.
+
+This handoff records already observed results; it does not claim an unobserved future refresh has succeeded. Both concurrent sessions’ original histories, boards and completed feature/test scopes remain preserved.
