@@ -620,3 +620,24 @@ Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
 - HLTV results: https://www.hltv.org/results?event=8932
 - HLTV matches: 2399408, 2399409, 2399410, 2399411, 2399412, 2399413
 - Aurora roster: https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan
+
+---
+
+# Session c07e1b40 board (arena/c07e1b40-maltaproj3)
+
+Session: `arena-c07e1b40` · Branch: `arena/c07e1b40-maltaproj3` (Arena fixes this session to this one branch, so the
+brief's `session-<id>/<task>` naming cannot be used) · First claim pushed 2026-10-15T22:30Z, **re-scoped 22:35Z**.
+
+**Concurrency note.** At 22:30Z three sessions claimed almost simultaneously: f2d2d85e (day-2 review done in PR #32;
+integration I-F2 in progress), 0c803d4d (F-1 day-3 guide, F-2 publisher/build fix in `pages.yml`/`publication.py`,
+F-3 coverage audit + summary copy, F-4 integration) and this session. To avoid duplicate work this session **drops**
+its overlapping claims (day-2/day-3 review, publisher fix, summary copy, final integration) and keeps only scopes no
+other session has claimed. Requests for files owned by others are logged below instead of edited.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| C-1 Resolve every still-unresolved active pick (production 38816949473 at 22:25Z: 22 active, **8 unresolved**) using first-party external sources — HLTV first, then esportsbook/market lines — origination layer only | in progress | arena-c07e1b40 | `scripts/originate.py`, `data/origination/**`, `tests/test_origination.py`, new `.github/workflows/session-c07e1b40.yml` (branch-only evidence collector, never deploys) | Hotspawn popularity never an input; unverifiable = blank + flagged |
+| C-2 Origination render crash `KeyError: 'source_url'` (origination audit 38733458812) | in progress | arena-c07e1b40 | `scripts/build_origination.py`, `assets/origination.css`, `tests/browser/origination.spec.mjs` | Origination renderer only; `pages.yml`/`publication.py` stay with 0c803d4d F-2 |
+| C-3 Line-by-line repo review register with official source links | in progress | arena-c07e1b40 | new `data/research/c07e1b40/` | Findings logged here; publication via the owner of the review renderer |
+| ~~Day-2 review / day-3 guidance~~ | dropped (done by f2d2d85e I-F1; day-3 claimed by 0c803d4d F-1) | — | — | no edits by this session |
+| ~~Publisher fix, executive-summary copy, final integration~~ | dropped (claimed by 0c803d4d F-2/F-3/F-4; f2d2d85e I-F2) | — | — | this session will open one scoped PR for C-1..C-3, rebased on latest `main` |
