@@ -6,8 +6,9 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 
 | View | What it contains |
 | --- | --- |
-| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | Coverage, direct links to the full picks list, upcoming matches and unresolved-pick limitations |
+| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | Coverage, direct links to the full picks list, upcoming matches, the Day 1 contrarian review and unresolved-pick limitations |
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence |
+| [Day 1 contrarian review](https://buffedlizard55-lab.github.io/MaltaProj3/#contrarian) | Source-linked 9z–Aurora upset review, Aurora rebuild context and a strictly bounded 9z–Falcons watch that never overrides the primary pick |
 | [Coverage & original sources](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/) | Inventory reconciliation, source health, complete past-start archive and JSON/CSV downloads |
 | [Methodology](https://buffedlizard55-lab.github.io/MaltaProj3/methodology/) | Exact matching, formulas, thresholds, source policy and model limitations |
 | [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
@@ -25,7 +26,7 @@ The observation times and counts on the live site are authoritative for that pub
 
 HLTV directory research supports its observed split time/team links, joined only by the exact match URL. Repeated pinned cards are deduplicated; conflicting observations are rejected. Original HTML is retained as evidence. This confirms identities, not odds. For remaining gaps, each match now records the actual GG.BET, Pinnacle and Rivalry access-check limitations, not merely a global source-health warning. Unknown-start fixtures appear in the executive summary’s unresolved section, separate from the future-match count.
 
-Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
+Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), [contrarian review evidence](https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
 
 ## Automatic operation: one publisher, every four hours
 
@@ -61,7 +62,7 @@ npm test
 
 `site/`, virtual environments, dependency trees, caches, browser reports and screenshots are ignored. Do not run the generator with the repository root as its output; keep other sessions’ source files unchanged. The checked-in current HTML is a fallback snapshot; the published artifact is rebuilt from validated data on every production run.
 
-**Verification:** 76 Python regression tests cover source contracts, exact identity, time/freshness, rejected markets, no-vig calculations, rating provenance and atomic source-failure handling, publication-mode restrictions and publisher ordering. 27 Playwright checks cover all five current pages at 320/390/768/1440px, one-tap phone navigation, search/filter/sort, every official row link, expandable evidence, timezone changes, stale behavior, no-JS content and axe WCAG A/AA checks at phone and desktop widths. Automated accessibility checks are not a claim of complete WCAG certification. The CI workflow independently installs the standard Playwright Chromium. In restricted local environments the test config uses npm-packaged Chromium and its bundled NSS libraries; it does not disable web security.
+**Verification:** 105 Python regression tests cover source contracts, exact identity, time/freshness, rejected markets, no-vig calculations, rating provenance, atomic source-failure handling, publication-mode restrictions, publisher ordering and the source-linked contrarian guardrails. 33 Playwright checks cover all five current pages at 320/390/768/1440px, one-tap phone navigation, search/filter/sort, every official row link, expandable evidence, timezone changes, stale behavior, no-JS content, the Day 1 review section and axe WCAG A/AA checks at phone and desktop widths. Automated accessibility checks are not a claim of complete WCAG certification. The CI workflow independently installs the standard Playwright Chromium. In restricted local environments the test config uses npm-packaged Chromium and its bundled NSS libraries; it does not disable web security.
 
 ## Preserved concurrent-session work
 
