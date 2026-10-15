@@ -30,6 +30,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Replay every row, build all views and check local links
         run: python -m scripts.build
+      - name: Every table row links an official source or is flagged unverified
+        run: python -m scripts.audit_rows --site site --strict
       - name: Install browser for independent UI verification
         run: npx playwright install --with-deps chromium
       - name: Phone, desktop, no-JS, staleness and WCAG A/AA checks
@@ -38,4 +40,4 @@ jobs:
         if: always()
         run: |
           echo '## Dashboard validation' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Checks cover source-row reconciliation, replayed calculations, internal links, 320/390/768/1440px layouts, phone navigation, search/filter/sort, evidence expansion, timezone switching, stale-snapshot behavior, no-JS content, and axe WCAG A/AA checks at phone and desktop widths.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Checks cover source-row reconciliation, replayed calculations, internal links, a row-by-row official-source audit, 320/390/768/1440px layouts, phone navigation, search/filter/sort, evidence expansion, timezone switching, stale-snapshot behavior, no-JS content, and axe WCAG A/AA checks at phone and desktop widths.' >> "$GITHUB_STEP_SUMMARY"
