@@ -123,9 +123,11 @@ def _collect_into(output: Path):
             continue
         stage = {'stage': 'Primary: Polymarket', 'source_url': POLY_INDEX, 'status': 'unresolved', 'detail': ''}
         m['research'].append(stage)
-        found = [g for g in games if identity_matches([g.get('homeName', ''), g.get('awayName', '')], g.get('startTime'), m) and g.get('isLive') is False]
+        found = [g for g in games if identity_matches([g.get('homeName', ''), g.get('awayName', '')], g.get('startTime'), m) and g.get('isLive') is not True]
+        # The same event may occur in the directory and the paginated feed.
+        found = list({str(g['id']): g for g in found}.values())
         if len(found) != 1:
-            stage['detail'] = ('Source unavailable; no absence-of-market claim is made.' if not games else 'No unique exact-name, exact-start-time fixture. Sponsor/abbreviated names are not silently aliased.')
+            stage['detail'] = ('Source unavailable; no absence-of-market claim is made.' if not games else 'No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.')
             continue
         game = found[0]
         try:

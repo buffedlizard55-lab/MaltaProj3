@@ -12,7 +12,7 @@ from urllib.parse import urlencode, urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from scripts.domain import iso, name_key, timestamp
+from scripts.domain import array, iso, name_key, timestamp
 
 LOBBY = 'https://play.hotspawn.com/lobby'
 CS2_LOBBY = 'https://play.hotspawn.com/cs2-pickems'
@@ -146,11 +146,73 @@ def polymarket_games(html: str) -> list:
     return list(games.values())
 
 
+def gamma_games(events: list, evidence: str) -> list:
+    """Discover fixture identity from first-party moneyline records, never prices."""
+    result = []
+    for event in events:
+        if not isinstance(event, dict) or not str(event.get('slug', '')).startswith('cs2-'):
+            continue
+        if not any(t.get('slug') == 'cs2' for t in event.get('tags', []) if isinstance(t, dict)):
+            continue
+        for market in event.get('markets', []):
+            names = array(market.get('outcomes'))
+            scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
+            if scope != 'moneyline' or len(names) != 2 or not all(isinstance(n, str) and n.strip() for n in names):
+                continue
+            if re.search(r'\b(map\s*\d|game\s*\d|handicap|spread|total|outright)\b', market.get('question', ''), re.I):
+                continue
+            start = market.get('gameStartTime') or event.get('startTime')
+            if not event.get('id') or timestamp(start) is None:
+                continue
+            item = {'id': str(event['id']), 'slug': event['slug'], 'homeName': names[0], 'awayName': names[1], 'startTime': start, 'isLive': event.get('live'), 'discovery_evidence': evidence}
+            if item not in result:
+                result.append(item)
+    return result
+
+
 def poly_index(client: Client):
-    html, req = client.fetch(POLY_INDEX, 'polymarket-index')
-    games = polymarket_games(html)
-    req['evidence'] = client.save('polymarket-index', games)
-    return games, {'status': 'ok', 'name': 'Polymarket CS2', 'url': POLY_INDEX, 'observed_at': req['observed_at'], 'records': len(games), 'detail': 'Public game index used for discovery. Each selected fixture is rechecked against its official Gamma event and both live order books; rounded directory percentages are never probability inputs.'}
+    games, limitations, observed = [], [], None
+    try:
+        html, req = client.fetch(POLY_INDEX, 'polymarket-directory')
+        games = polymarket_games(html)
+        observed = req['observed_at']
+    except SourceError as exc:
+        limitations.append(str(exc))
+    # The displayed directory can be windowed. Independently paginate the
+    # official CS2 tag rather than equating visible cards with all markets.
+    seen, pages, complete = set(), 0, False
+    for offset in range(0, 2000, 100):
+        url = 'https://gamma-api.polymarket.com/events?' + urlencode({'tag_slug': 'cs2', 'active': 'true', 'closed': 'false', 'limit': 100, 'offset': offset})
+        try:
+            events, req = client.json(url, f'polymarket-discovery-{offset}')
+            if not isinstance(events, list) or any(not isinstance(e, dict) or not e.get('id') for e in events):
+                raise SourceError('Gamma event pagination contract changed')
+            ids = [str(e['id']) for e in events]
+            if len(set(ids)) != len(ids) or seen.intersection(ids):
+                raise SourceError('Repeated Gamma event IDs; pagination completeness unverified')
+            seen.update(ids)
+            games.extend(gamma_games(events, req['evidence']))
+            observed = req['observed_at']
+            pages += 1
+            if len(events) < 100:
+                complete = True
+                break
+        except SourceError as exc:
+            limitations.append(str(exc))
+            break
+    if not complete:
+        limitations.append('Gamma pagination did not reach a terminal page; no exhaustive external-market discovery claim.')
+    if observed is None:
+        raise SourceError('; '.join(limitations))
+    # Retain contradictory source identities as separate candidates so the
+    # resolver can reject ambiguous joins; collapse identical event joins.
+    unique = {}
+    for game in games:
+        key = (str(game.get('id')), name_key(game.get('homeName', '')), name_key(game.get('awayName', '')), game.get('startTime'))
+        unique.setdefault(key, game)
+    games = list(unique.values())
+    client.save('polymarket-index', games)
+    return games, {'status': 'ok' if not limitations else 'limited', 'name': 'Polymarket CS2', 'url': POLY_INDEX, 'observed_at': observed, 'records': len(games), 'discovery_complete': complete, 'pages': pages, 'detail': 'Public directory plus paginated official CS2-tag events used for discovery. Every selected fixture is rechecked against its original Gamma event and both order books; directory/outcome prices are never probability inputs.' + (' Limitations: ' + '; '.join(limitations) if limitations else '')}
 
 
 def hltv_research(client: Client, matches: list):

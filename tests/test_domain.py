@@ -226,3 +226,42 @@ class SourceSafetyTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class ExpandedCoverageTests(unittest.TestCase):
+    def sportsbook(self):
+        return {'id': 'synthetic-event', 'gameId': 6, 'isLive': False, 'startTime': START,
+                'teams': {'home': {'name': 'Alpha'}, 'away': {'name': 'Beta'}},
+                'market': {'name': 'Match Winner', 'status': 1, 'draw': None,
+                           'home': {'name': 'Beta', 'status': 1, 'odds': 3.0},
+                           'away': {'name': 'Alpha', 'status': 1, 'odds': 1.5}}}
+
+    def test_bookmaker_aligns_actual_outcome_names_not_container_keys(self):
+        q = sportsbook_quote(self.sportsbook(), MATCH, iso(NOW), NOW)
+        self.assertEqual(q['odds'], [1.5, 3.0])
+        self.assertEqual(q['probabilities'], [0.66666667, 0.33333333])
+
+    def test_past_bookmaker_start_rejected_even_when_live_false(self):
+        event = self.sportsbook(); event['startTime'] = iso(NOW - timedelta(minutes=1))
+        match = {**MATCH, 'starts_at': event['startTime']}
+        self.assertIsNone(sportsbook_quote(event, match, iso(NOW), NOW))
+
+    def test_bookmaker_duplicate_outcomes_rejected(self):
+        event = self.sportsbook(); event['market']['home']['name'] = 'Alpha'
+        self.assertIsNone(sportsbook_quote(event, MATCH, iso(NOW), NOW))
+
+    def test_gamma_discovery_ignores_maps_and_outrights(self):
+        from scripts.sources import gamma_games
+        event = copy.deepcopy(EVENT); event['tags'] = [{'slug': 'cs2'}]
+        event['markets'].append({**MARKET, 'question': 'Alpha vs Beta - Map 1 Winner'})
+        event['markets'].append({**MARKET, 'sportsMarketType': 'outright'})
+        found = gamma_games([event], 'data/evidence/synthetic.json')
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0]['homeName'], 'Alpha')
+        self.assertNotIn('probabilities', found[0])
+
+    def test_gamma_unrelated_tag_and_missing_time_rejected(self):
+        from scripts.sources import gamma_games
+        event = copy.deepcopy(EVENT); event['tags'] = [{'slug': 'dota2'}]
+        self.assertEqual(gamma_games([event], 'synthetic'), [])
+        event['tags'] = [{'slug': 'cs2'}]; del event['markets'][0]['gameStartTime']
+        self.assertEqual(gamma_games([event], 'synthetic'), [])

@@ -173,7 +173,7 @@ def sportsbook_quote(event: dict, match: dict, observed_at: str, now: datetime) 
     names = [(teams.get(k) or {}).get('name', '') for k in ['home', 'away']]
     if event.get('gameId') != 6 or event.get('isLive') is not False or not identity_matches(names, event.get('startTime'), match):
         return None
-    if not is_fresh(observed_at, now):
+    if not is_fresh(observed_at, now) or timestamp(event.get('startTime')) <= now or not event.get('id'):
         return None
     market = event.get('market') or {}
     if name_key(market.get('name', '')) not in {'match winner', 'match winner incl. overtime', 'match winner inc. overtime'} or market.get('status') != 1:
@@ -185,7 +185,7 @@ def sportsbook_quote(event: dict, match: dict, observed_at: str, now: datetime) 
         return None
     if set(name_key(s.get('name', '')) for s in sides) != set(map(name_key, names)):
         return None
-    odds = align([s.get('odds') for s in sides], names, match)
+    odds = align([s.get('odds') for s in sides], [s.get('name', '') for s in sides], match)
     probs = no_vig(odds)
     return {'provider': 'Thunderpick', 'family': 'thunderpick', 'odds': odds, 'probabilities': probs, 'observed_at': observed_at, 'source_url': 'https://thunderpick.io/api/matches', 'event_id': str(event['id'])}
 
