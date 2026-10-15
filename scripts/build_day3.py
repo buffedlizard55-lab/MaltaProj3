@@ -78,10 +78,11 @@ def render_section(guide: dict, prefix: str) -> str:
     out.append('</tbody></table></div>')
     out.append('<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Group standings '
                'after day two</caption><thead><tr><th scope="col">Group</th><th scope="col">Team</th>'
-               '<th scope="col">Record</th><th scope="col">Status</th></tr></thead><tbody>')
+               '<th scope="col">Record</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead><tbody>')
     for row in guide['standings_after_day_two']:
         out.append(f'<tr><th scope="row">{e(row["group"])}</th><td><strong>{e(row["team"])}</strong></td>'
-                   f'<td>{e(row["record"])}</td><td>{e(row["status"])}</td></tr>')
+                   f'<td>{e(row["record"])}</td><td>{e(row["status"])}</td>'
+                   f'<td>{external(guide["event"]["url"], "HLTV bracket")}</td></tr>')
     out.append('</tbody></table></div></section>')
 
     out.append('<section class="content-section" id="day-three-guide"><div class="section-heading"><div>'

@@ -168,7 +168,7 @@ def audit_site(site: Path) -> dict:
     pages = []
     for path in sorted(site.rglob('*.html')):
         rel = path.relative_to(site)
-        if rel.parts[0] in SKIP_PAGES or rel.name in {'flagged.html', 'picks.html', 'methodology.html'} and len(rel.parts) == 1:
+        if rel.parts[0] in SKIP_PAGES or rel.parts[0].startswith('_') or rel.name in {'flagged.html', 'picks.html', 'methodology.html'} and len(rel.parts) == 1:
             continue
         pages.append(audit_page(path, site))
     total = {k: sum(p[k] for p in pages) for k in ('rows', 'ok', 'flagged', 'navigation', 'violation')}

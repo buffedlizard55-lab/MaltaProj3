@@ -391,8 +391,8 @@ def lessons_block(twc) -> str:
             field = f'{fs["winner_pct"]}% picked the winner (n={fs["total_picks"]})'
             miss = ' class="miss"' if fs['winner_pct'] < 50 else ''
         score = f'{e(s["winner"])} {e(s["score"])} {e(s["loser"])}'
-        rows += (f'<tr{miss}><th scope="row">Day {s["day"]} · Group {e(s["group"])} {e(s["round"]).lower()}<small>{e(s["date"])}</small></th><td>{score}</td><td>{field}</td>'
-                 f'<td>{ext(s["hltv_url"], "HLTV")}</td></tr>')
+        rows += (f'<tr{miss}><th scope="row">Day {s["day"]} · Group {e(s["group"])} {e(s["round"]).lower()}<small>{e(s["date"])}</small></th><td data-label="Result">{score}</td><td data-label="Hotspawn field">{field}</td>'
+                 f'<td data-label="Source">{ext(s["hltv_url"], "HLTV")}</td></tr>')
     three = sum(1 for s in series if s['maps_played'] == 3)
     d2 = [s for s in series if s['day'] == 2 and s.get('field_share')]
     hit = sum(1 for s in d2 if s['field_share']['winner_pct'] > 50)
@@ -405,7 +405,7 @@ def lessons_block(twc) -> str:
         cents = item.get('polymarket_listing_cents') or {}
         price = ' · '.join(f'{e(k)} {v}¢' for k, v in cents.items())
         d3 += (f'<tr><th scope="row">{e(item["teams"][0])} vs {e(item["teams"][1])}<small>Group {e(item["group"])} {e(item["round"]).lower()} · {e(item.get("date", ""))}</small></th>'
-               f'<td>{status}</td><td>Polymarket listing: {price or "—"}</td><td>{ext(item["hltv_url"], "HLTV")} {ext(item["polymarket_url"], "Polymarket") if item.get("polymarket_url") else ""}</td></tr>')
+               f'<td data-label="Hotspawn">{status}</td><td data-label="Price (not a pick input here)">Polymarket listing: {price or "—"}</td><td data-label="Sources">{ext(item["hltv_url"], "HLTV")} {ext(item["polymarket_url"], "Polymarket") if item.get("polymarket_url") else ""}</td></tr>')
     return (f'<div class="table-scroll"><table class="simple"><caption>Thunderpick World Championship 2026 results, Days 1–2 (HLTV)</caption><thead><tr><th scope="col">Series</th><th scope="col">Result</th><th scope="col">Hotspawn field</th><th scope="col">Source</th></tr></thead><tbody>{rows}</tbody></table></div>'
             f'<ul class="facts">{"".join(f"<li>{x}</li>" for x in facts)}</ul>'
             f'<p class="tiny muted">Read from HLTV on {e((twc.get("results_observed_at") or "")[:10])}. These results do not change any probability on this page; probabilities come from the lines.</p>'
@@ -439,8 +439,8 @@ def contract_block(contract) -> str:
     rows = ''
     for o in contract['observations']:
         kind = {'verified': 'verified', 'derived': 'derived', 'unverified': 'unverified'}.get(o['status'], 'unverified')
-        rows += (f'<tr id="{e(o["id"].lower())}"><th scope="row"><span class="chip {kind}">{e(o["status"])}</span> {e(o["claim"])}</th><td>{e(o["how_verified"])}<small>Observed {e(o["observed_at"])}</small></td>'
-                 f'<td>{ext(o["source_url"], "Source")}</td></tr>')
+        rows += (f'<tr id="{e(o["id"].lower())}"><th scope="row"><span class="chip {kind}">{e(o["status"])}</span> {e(o["claim"])}</th><td data-label="How it was verified">{e(o["how_verified"])}<small>Observed {e(o["observed_at"])}</small></td>'
+                 f'<td data-label="Source">{ext(o["source_url"], "Source")}</td></tr>')
     return (f'<p class="tiny muted">{e(contract["note"])}</p><div class="table-scroll"><table class="simple"><caption>Hotspawn pick\'em scoring, locking and leaderboard contract (reverse-engineered and dated)</caption>'
             f'<thead><tr><th scope="col">Fact</th><th scope="col">How it was verified</th><th scope="col">Source</th></tr></thead><tbody>{rows}</tbody></table></div>')
 

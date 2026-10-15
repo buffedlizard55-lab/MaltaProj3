@@ -104,3 +104,19 @@ class RowVerdicts(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SiteWalk(unittest.TestCase):
+    def test_archives_and_underscore_test_directories_are_not_audited(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            bad = '<table><caption>T</caption><tbody><tr><td>no source here</td></tr></tbody></table>'
+            for rel in ('index.html', 'docs/index.html', 'archive/root-session/index.html', '_fixture/strategy/index.html', 'picks.html'):
+                target = site / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(bad)
+            report = audit.audit_site(site)
+            self.assertEqual([p['page'] for p in report['pages']], ['index.html'])
+            self.assertEqual(report['totals']['violation'], 1)

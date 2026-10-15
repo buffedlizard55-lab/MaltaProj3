@@ -113,3 +113,16 @@ footer { max-width: 980px; margin: 0 auto; padding: 18px 14px 40px; color: var(-
 .def dd { margin: 2px 0 0; }
 
 .chip.note { border-radius: 10px; background: #f1f5f8; }
+
+/* Phones: stack table rows into labelled blocks so no column (least of all the source link) hides behind a swipe. */
+@media (max-width: 640px) {
+  .table-scroll { overflow-x: visible; }
+  table.simple { min-width: 0; display: block; }
+  table.simple caption { display: block; }
+  table.simple thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  table.simple tbody { display: block; }
+  table.simple tr { display: block; border: 1px solid var(--line); border-radius: 10px; margin: 0 0 10px; padding: 6px 0; background: var(--card); }
+  table.simple th, table.simple td { display: block; border: 0; padding: 4px 12px; }
+  table.simple td[data-label]::before { content: attr(data-label); display: block; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
+  tr.miss { border-color: var(--amber); }
+}
