@@ -614,9 +614,14 @@ Session ID: `f2d2d85e` · Branch: `arena/f2d2d85e-maltaproj3` (fixed).
 | Task ID | Task | Status | Owner | File scope | Notes |
 |---|---|---|---|---|---|
 | I-F1 | Day-2 result review + day-3 guidance added to edge review | done | f2d2d85e | `data/edge-review.json`, `scripts/build_edge.py`, `tests/test_edge.py` | Day-2 map scores from HLTV match pages (2399408-2399411). Day-3 elimination fixtures 2399412, 2399413 added unpriced. |
-| I-F2 | Final integration: build, link check, PR, merge, Pages verify | in progress | f2d2d85e | all | Build PASS, 145+ tests OK. |
+| I-F2 | Final integration: build, link check, PR, merge, Pages verify | done | f2d2d85e | all | PR #32 merged 2026-10-15T22:24:59Z; Pages run 38816949473 succeeded; live https://buffedlizard55-lab.github.io/MaltaProj3/ |
 
 ### Sources
 - HLTV results: https://www.hltv.org/results?event=8932
 - HLTV matches: 2399408, 2399409, 2399410, 2399411, 2399412, 2399413
 - Aurora roster: https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan
+
+
+## Publication (session f2d2d85e)
+
+PR [#32](https://github.com/buffedlizard55-lab/MaltaProj3/pull/32) merged at 2026-10-15T22:24:59Z as `b82caff`. Production run [38816949473](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473) **succeeded**, including post-deploy verification. Live: https://buffedlizard55-lab.github.io/MaltaProj3/.
