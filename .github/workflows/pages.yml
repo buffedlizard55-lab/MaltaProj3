@@ -3,7 +3,13 @@ on:
   push:
     branches: [main]
   schedule:
+    # Primary four-hour refresh, off the top of the hour.
     - cron: '17 */4 * * *'
+    # Catch-up slot two and a half hours later. GitHub delays or drops scheduled
+    # runs under load (on 2026-10-15 only 04:39, 13:26 and 19:53 UTC ran: an
+    # 8.8-hour gap). With this offset, one dropped slot still leaves a refresh
+    # within about four hours, keeping the published data inside the 8-hour bound.
+    - cron: '47 2-22/4 * * *'
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,6 +38,11 @@ jobs:
       # v2 isolates the new HLTV original-markup/format evidence contract.
       # Restoring v1 over this checkout mixes incompatible derived records and
       # leaves newer evidence files behind; never relabel that overlay verified.
+      # The restore path list must be byte-identical (same entries, same order) to
+      # the save step below: actions/cache derives the cache version from it, so a
+      # different list can never match a saved snapshot. Restoring only
+      # data/origination/evidence/ (never data/origination/) also keeps the
+      # reviewed alias registry, aliases.json, out of every cache overlay.
       - name: Restore last successfully verified public snapshot
         id: restore
         uses: actions/cache/restore@v6
@@ -41,7 +52,7 @@ jobs:
             data/sources.json
             data/origination.json
             data/evidence/
-            data/origination/
+            data/origination/evidence/
           key: cs2-verified-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: cs2-verified-v2-
       - name: Regression tests

@@ -120,10 +120,45 @@ def pick_row(m):
     return ''.join(out)
 
 
+SHORT_STAGE = [
+    ('HLTV', 'HLTV'), ('Betting market (Polymarket', 'Polymarket'), ('Exchange market (Kalshi', 'Kalshi'),
+    ('Esportsbook line (Thunderpick', 'Thunderpick'), ('Esportsbook line (Bovada', 'Bovada'),
+    ('Esportsbook line', 'Esportsbook'), ('Research model', 'Valve rating model'), ('Fixture identity', 'Fixture identity'),
+]
+
+
+def short_stage(stage):
+    return next((label for prefix, label in SHORT_STAGE if str(stage).startswith(prefix)), str(stage))
+
+
+def unresolved_card(m):
+    """Phone-first card: what every source showed for a match that has no verified pick."""
+    names = team_names(m)
+    out = [f'<article class="pick-card unresolved-card" id="unresolved-{e(m["id"])}">',
+           f'<header class="card-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
+           f'<span class="tier">{badge("No verified pick", "amber")}</span></header>',
+           f'<h3 class="teams"><strong>{e(names[0])}</strong><span class="vs">vs</span><strong>{e(names[1])}</strong></h3>',
+           f'<p class="when">{local_time(m["starts_at"])}</p>',
+           '<p class="pick-line">Pick: <strong class="unverified">Unresolved</strong> '
+           '<small>both win % left blank — no default 50/50</small></p>',
+           '<ul class="findings">']
+    for r in m.get('research', []):
+        if r.get('stage') == 'Origination result':
+            continue
+        out.append(f'<li><strong>{e(short_stage(r["stage"]))}</strong> <span class="status">{e(r["status"])}</span> — '
+                   f'{e(r["detail"])} {ext(r["source_url"], "source")}</li>')
+    out.append('</ul>')
+    out.append('<p class="row-srcs">' + ext(m['source_url'], 'Hotspawn fixture')
+               + f' · <a class="src" href="#match-{e(m["id"])}">Full research trail ↓</a></p></article>')
+    return ''.join(out)
+
+
 def section_unresolved(data):
     rows = [m for m in data['matches'] if m['origination'] is None]
     out = ['<section class="block" id="unresolved"><h2>Unresolved picks &amp; limitations</h2>']
-    out.append('<p class="lede">Every match without a verified pick is listed here with the exact reason. '
+    out.append('<p class="lede">Every match without a verified pick is listed here with what each source actually showed — '
+               'HLTV identity first, then every betting market and esportsbook, then the rating model. '
+               'Thin or wide books are recorded for guidance but never turned into a pick. '
                'Missing values stay blank — no default 50/50, no invented lines. '
                'An unavailable source is never treated as proof that a market does not exist.</p>')
     if not rows:
@@ -131,17 +166,13 @@ def section_unresolved(data):
                    f'All {data["counts"]["active"]} active Hotspawn CS2 fixtures have a researched pick as of {local_time(data["generated_at"])}. '
                    'This is a dated observation, not a permanent guarantee — the inventory refreshes every four hours and new fixtures can appear without lines.</div>')
     else:
-        out.append('<div class="table-wrap"><table class="simple"><caption class="sr-only">Unresolved matches and missing evidence</caption>'
-                   '<thead><tr><th>Match</th><th>Why no pick?</th><th>Research trail</th></tr></thead><tbody>')
-        for m in rows:
-            reason = next((r['detail'] for r in reversed(m.get('research', [])) if r['status'] == 'unresolved'), 'No verified inputs')
-            out.append(f'<tr><th scope="row">{e(" vs ".join(team_names(m)))}<small>{local_time(m["starts_at"])}</small></th>'
-                       f'<td>{e(reason)}</td><td>{ext(m["source_url"], "Hotspawn")}<a class="src" href="#match-{e(m["id"])}">Full trail ↓</a></td></tr>')
-        out.append('</tbody></table></div>')
+        out.append(f'<p class="tiny">{len(rows)} of {data["counts"]["active"]} active fixtures are unresolved in this snapshot. '
+                   'Lines for low-tier and later-dated matches often open closer to start time; every four-hour refresh retries all sources.</p>')
+        out.append('<div class="cards">' + ''.join(unresolved_card(m) for m in rows) + '</div>')
     out.append('<h3>Standing limitations for originated picks</h3><ul class="limits">')
     out.append('<li>Hotspawn participation percentages are <strong>never</strong> a probability input, and neither are HLTV fan votes. '
                'Only paired betting/market prices and official published ratings produce numbers.</li>')
-    out.append('<li>Thin prediction markets (order-book spread wider than 12 cents) are shown as <strong>indicative</strong> inputs only and are labeled on each row.</li>')
+    out.append('<li>Prediction-market and exchange books (Polymarket, Kalshi) wider than 12 cents are rejected; the observed quotes are shown on unresolved cards for guidance only.</li>')
     out.append('<li>The Valve-rating fallback model is <strong>uncalibrated</strong>: it is not observed betting odds and has not been backtested. '
                'It is used only when no money source resolves a match.</li>')
     out.append('<li>Provider display names are joined only through the verified alias registry below. Unregistered names stay unmatched.</li>')
@@ -161,6 +192,8 @@ def section_aliases(data):
         scope = a.get('applies_to') or ['any competition (legacy unscoped entry)']
         out.append(f'<article class="alias-card"><h3>{e(a["alias"])} <span aria-hidden="true">→</span> {e(a["canonical"])} {badge(a["kind"], "neutral")}</h3>')
         out.append(f'<p class="tiny">Applies only inside: {e(", ".join(scope))}</p>')
+        if a.get('review_note'):
+            out.append(f'<p class="review-note" role="note"><strong>⚑ Flagged for review:</strong> {e(a["review_note"])}</p>')
         out.append('<ul class="limits">')
         for ev in a['evidence']:
             out.append(f'<li>{e(ev.get("detail", ""))} {ext(ev["url"], ev.get("source", "source"))}</li>')
@@ -289,7 +322,9 @@ def validate_origination(data, source):
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
         values = []
         for q in o.get('quotes', []):
-            if q.get('family') == 'bookmaker':
+            if q.get('provider') in {'Kalshi', 'Bovada'}:
+                values.append(_replay_extra_quote(q, raw, registry, source))
+            elif q.get('family') == 'bookmaker':
                 p = source.parent / q['evidence_file'] if source.name == 'data' else source / q['evidence_file'].removeprefix('data/')
                 body = json.loads(p.read_text())['data']
                 rows = body.get('upcoming', body.get('matches', []))
@@ -302,7 +337,8 @@ def validate_origination(data, source):
                 values.append(q['probabilities'][0])
             elif q.get('family') == 'market':
                 observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
-                ev = next(e for e in observations['polymarket_events'] if e['event_id'] == q['event_id'])
+                ev = next((e for e in observations['polymarket_events'] if e['event_id'] == q['event_id']), None)
+                assert ev is not None, f"Polymarket event {q['event_id']} missing from saved live observations"
                 bid = align_by_name(ev['book_bid'], ev['outcomes'], raw, registry)
                 ask = align_by_name(ev['book_ask'], ev['outcomes'], raw, registry)
                 assert bid == q['bid'] and ask == q['ask'], 'Market quotes differ from saved observations'
@@ -314,6 +350,41 @@ def validate_origination(data, source):
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
+
+
+def _evidence(source: Path, evidence_file: str) -> Path:
+    return source.parent / evidence_file if source.name == 'data' else source / evidence_file.removeprefix('data/')
+
+
+def _replay_extra_quote(q, raw, registry, source):
+    """Recompute a Kalshi or Bovada quote from its saved original response (session c07e1b40)."""
+    from scripts.originate import align_by_name
+    from scripts.domain import no_vig, normalize_pair, finite
+    saved = json.loads(_evidence(source, q['evidence_file']).read_text())
+    if q['provider'] == 'Kalshi':
+        events = [ev for page in saved.get('pages', []) for ev in (page.get('response') or {}).get('events', [])]
+        hits = [ev for ev in events if str(ev.get('event_ticker')) == q['event_id']]
+        assert len(hits) == 1, 'Kalshi event missing or ambiguous in saved evidence'
+        markets = hits[0]['markets']
+        names = [m['yes_sub_title'] for m in markets]
+        bid = align_by_name([finite(m['yes_bid_dollars']) for m in markets], names, raw, registry)
+        ask = align_by_name([finite(m['yes_ask_dollars']) for m in markets], names, raw, registry)
+        assert bid == q['bid'] and ask == q['ask'], 'Kalshi quotes differ from saved evidence'
+        assert max(a - b for b, a in zip(bid, ask)) <= 0.12 + 1e-9, 'Kalshi spread exceeds the accepted ceiling'
+        expected = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
+        assert expected == q['probabilities'], 'Kalshi calculation changed'
+        return q['probabilities'][0]
+    events = [ev for group in saved.get('response', []) for ev in group.get('events', [])]
+    hits = [ev for ev in events if str(ev.get('id')) == q['event_id']]
+    assert len(hits) == 1, 'Bovada event missing or ambiguous in saved evidence'
+    lines = [m for g in hits[0].get('displayGroups', []) for m in g.get('markets', [])
+             if str(m.get('id')) == str(q.get('market_id')) and m.get('key') == '2W-12']
+    assert len(lines) == 1, 'Bovada moneyline missing in saved evidence'
+    outcomes = lines[0]['outcomes']
+    odds = align_by_name([finite(o['price']['decimal']) for o in outcomes], [o['description'] for o in outcomes], raw, registry)
+    assert odds == q['odds'], 'Bovada odds differ from saved evidence'
+    assert no_vig(odds) == q['probabilities'], 'Bovada no-vig calculation changed'
+    return q['probabilities'][0]
 
 
 def build(source: Path, output: Path):
