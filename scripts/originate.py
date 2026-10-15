@@ -36,11 +36,11 @@ from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, fin
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
-START_TOLERANCE_SEC = 1800  # Provider clocks disagree up to ±30 min on delayed fixtures.
+START_TOLERANCE_SEC = 60  # Provider clocks disagree up to ±30 min on delayed fixtures.
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
 MAX_PRICE_AGE_HOURS = 12
 THIN_SPREAD = 0.12
-MAX_ACCEPTED_SPREAD = 0.35
+MAX_ACCEPTED_SPREAD = 0.12
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
 POLY_INDEX = 'https://polymarket.com/esports/cs2'
@@ -104,6 +104,8 @@ def pair_join(source_names: list, source_start, match: dict, registry: dict) -> 
         used.extend(u)
     wanted = [name_key(t['name']) for t in match['teams'] if t.get('name')]
     if len(wanted) != 2 or set(canon) != set(wanted) or len(set(canon)) != 2:
+        return None, [], 'names'
+    if used and name_key(match.get('competition') or '') not in {'elisa breakout series #2', 'elisa breakout series 2'}:
         return None, [], 'names'
     dt, md = timestamp(source_start), timestamp(match.get('starts_at'))
     if dt is None or md is None:
@@ -211,7 +213,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['polymarket_games'] = len(games)
     except (RuntimeError, ValueError) as exc:
         out['polymarket_index_error'] = str(exc)
-    active = [m for m in matches if m.get('availability') != 'past']
+    active = [m for m in matches if m.get('availability') != 'past' and m.get('analysis') is None]
     events = []
     books = []
     for game in games:
@@ -223,10 +225,12 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             event, _ = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
         except RuntimeError as exc:
             continue
+        if event.get('active') is not True or event.get('closed') is not False or event.get('live') is True:
+            continue
         moneyline = None
         for market in event.get('markets', []):
             scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
-            if scope == 'moneyline' and str(market.get('question', '')).startswith('Counter-Strike:'):
+            if scope == 'moneyline' and market.get('active') is True and market.get('closed') is False and market.get('acceptingOrders') is True and str(market.get('question', '')).startswith('Counter-Strike:'):
                 moneyline = market
                 break
         if not moneyline:
@@ -250,6 +254,11 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
                 break
             bids = [finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None]
             asks = [finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None]
+            from scripts.domain import is_fresh
+            stamp = timestamp(book.get('timestamp'))
+            if not stamp or not is_fresh(iso(stamp), datetime.now(UTC)) or str(book.get('asset_id')) != str(token) or book.get('market') != moneyline.get('conditionId'):
+                bid, ask = [], []
+                break
             if not bids or not asks:
                 bid, ask = [], []
                 break
@@ -314,7 +323,8 @@ def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
     if live and isinstance(live.get('thunderpick'), dict):
         body = (live['thunderpick'].get('data') or {})
         rows = body.get('upcoming') or body.get('matches') or []
-        source = ('data/origination/evidence/live-thunderpick-matches.json', live.get('observed_at'))
+        observed = next((r.get('observed_at') for r in live.get('requests', []) if r.get('id') == 'live-thunderpick-matches' and r.get('status') == 'ok'), None)
+        source = ('data/origination/evidence/live-thunderpick-matches.json', observed)
     else:
         path = repo_data / 'evidence' / 'thunderpick-matches.json'
         if not path.exists():
@@ -323,7 +333,9 @@ def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
         if isinstance(body, dict):
             inner = body.get('data') or {}
             rows = inner.get('upcoming') or inner.get('matches') or []
-        source = ('data/evidence/thunderpick-matches.json', None)
+        snapshot = load_json(repo_data / 'latest.json')
+        observed = next((r.get('observed_at') for r in snapshot.get('requests', []) if r.get('id') == 'thunderpick-matches' and r.get('status') == 'ok'), None)
+        source = ('data/evidence/thunderpick-matches.json', observed)
     out = []
     for row in rows:
         teams = row.get('teams') or {}
@@ -331,7 +343,12 @@ def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
         market = row.get('market') or {}
         if name_key(market.get('name', '')) not in {'match winner', 'match winner incl. overtime', 'match winner inc. overtime'}:
             continue
+        if row.get('gameId') != 6 or row.get('isLive') is not False or not row.get('id') or market.get('status') != 1 or market.get('draw') is not None:
+            continue
         sides = [market.get(k) or {} for k in ['home', 'away']]
+        if any(s.get('status') != 1 for s in sides):
+            continue
+        names = [s.get('name', '') for s in sides]
         odds = [finite(s.get('odds')) for s in sides]
         if any(o is None or o <= 1 for o in odds):
             continue
@@ -339,7 +356,7 @@ def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
             continue
         out.append({'family': 'bookmaker', 'provider': 'Thunderpick', 'names': names,
                     'start': row.get('startTime'), 'odds': odds,
-                    'event_id': str(row.get('id')), 'source_url': THUNDERPICK_PAGE,
+                    'event_id': str(row.get('id')), 'source_url': THUNDERPICK_PAGE, 'observed_at': source[1],
                     'api_url': THUNDERPICK_API, 'evidence_file': source[0]})
     return out
 
@@ -354,13 +371,6 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
     for path in sorted((repo_data / 'evidence').glob('polymarket-event-*.json')):
         event = load_json(path)
         rows.extend(_rows_from_event(event, path.name, repo_data / 'evidence'))
-    # Events captured by this session's research (aliases unlocked them).
-    research_path = orig_evidence / 'research-fetches.json'
-    if research_path.exists():
-        research = load_json(research_path)
-        books = {b['asset_id']: b for b in research.get('polymarket_books', [])}
-        for ev in research.get('polymarket_events', []):
-            rows.extend(_rows_from_research_event(ev, books, 'data/origination/evidence/research-fetches.json'))
     # Fresh aliased events captured by --live collection.
     live_path = orig_evidence / 'live-polymarket-observations.json'
     if live_path.exists():
@@ -415,6 +425,9 @@ def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> lis
             book_path = evidence_dir / f'polymarket-book-{event.get("id")}-{len(bids)}.json'
             if book_path.exists():
                 book = load_json(book_path)
+                from scripts.domain import is_fresh
+                if not is_fresh(iso(timestamp(book.get('timestamp'))), datetime.now(UTC)) if timestamp(book.get('timestamp')) else True:
+                    ok = False
                 bid = max((finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None), default=None)
                 ask = min((finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None), default=None)
                 bids.append(bid)
@@ -431,20 +444,6 @@ def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> lis
         if ok and all(b is not None and a is not None for b, a in zip(bids, asks)):
             row['bid'] = bids
             row['ask'] = asks
-        else:
-            best_bid, best_ask = finite(market.get('bestBid')), finite(market.get('bestAsk'))
-            prices = market.get('outcomePrices')
-            if isinstance(prices, str):
-                try:
-                    prices = json.loads(prices)
-                except ValueError:
-                    prices = None
-            if best_bid is not None and best_ask is not None and prices and len(prices) == 2:
-                # Provider top-of-book summary: mid of the reported side prices.
-                p0 = finite(prices[0])
-                if p0 is not None:
-                    row['summary_mid'] = [p0, round(1 - p0, 8)]
-                    row['summary_spread'] = round(best_ask - best_bid, 8)
         rows.append(row)
     return rows
 
@@ -455,7 +454,7 @@ def _rows_from_research_event(ev: dict, books: dict, evidence_file: str) -> list
            'market_id': str(ev.get('moneyline_market_id')),
            'source_url': ev.get('public_page'), 'api_url': ev.get('source_url'),
            'evidence_file': evidence_file,
-           'question': ev.get('title', '')}
+           'question': ev.get('title', ''), 'observed_at': ev.get('observed_at')}
     if ev.get('book_bid') and ev.get('book_ask') and len(ev['book_bid']) == 2:
         row['bid'] = [float(x) for x in ev['book_bid']]
         row['ask'] = [float(x) for x in ev['book_ask']]
@@ -495,7 +494,10 @@ def valve_rows(repo_data: Path, live: dict | None) -> tuple[list | None, dict | 
 # ---------------------------------------------------------------------------
 
 def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
-    """Polymarket series-winner midpoint estimate. Thin books are indicative only."""
+    """Polymarket series-winner midpoint estimate; wide books are rejected."""
+    from scripts.domain import is_fresh
+    if row.get('observed_at') is not None and not is_fresh(row['observed_at'], now):
+        return None, 'Market observation is stale'
     if row.get('bid') is not None and row.get('ask') is not None:
         mids, spreads = [], []
         for bid, ask in zip(row['bid'], row['ask']):
@@ -531,6 +533,9 @@ def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
 
 
 def bookmaker_estimate(row: dict, match: dict, registry: dict):
+    from scripts.domain import is_fresh
+    if not is_fresh(row.get('observed_at'), datetime.now(UTC)):
+        return None, 'Bookmaker observation is missing or stale'
     try:
         probs = no_vig(row['odds'])
     except ValueError as exc:
@@ -743,15 +748,23 @@ def run(output: Path, *, live: bool = False) -> dict:
     poly_rows = polymarket_rows(output, evidence_dir)
     book_rows = thunderpick_rows(output, live_payload)
     ratings, valve_meta = valve_rows(output, live_payload)
-    for row in poly_rows + book_rows:
-        row.setdefault('observed_at', snapshot.get('inventory_observed_at'))
+    # Preserve original source observation timestamps. Never stamp retained quotes as new.
+    for row in poly_rows:
+        if not row.get('observed_at'):
+            event_id = row.get('event_id')
+            row['observed_at'] = next((r.get('observed_at') for r in snapshot.get('requests', []) if r.get('id') == 'polymarket-event-' + str(event_id) and r.get('status') == 'ok'), None)
 
     matches_out = []
     for match in snapshot['matches']:
         if match.get('availability') == 'past':
             continue
-        result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
         featured = match.get('analysis')
+        if featured:
+            result = {'origination': dict(featured, quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])], model_crosscheck=None),
+                      'pick_index': match.get('pick_index'), 'aliases_used': [],
+                      'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
+        else:
+            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],

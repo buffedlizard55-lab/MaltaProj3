@@ -4,6 +4,8 @@ name: Origination source audit
 # workflow remains the single Pages publisher; this workflow keeps the
 # origination inputs honest between publishes and on pull requests.
 on:
+  push:
+    branches: [arena/f9527685-maltaproj3]
   schedule:
     - cron: '43 */4 * * *'
   workflow_dispatch:
@@ -30,11 +32,13 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Origination regression tests
         run: python -m unittest tests.test_origination -v
+      - name: Refresh canonical inventory and featured lines
+        run: python -m scripts.collect
       - name: Refetch first-party origination sources and resolve
         run: python -m scripts.originate --live
       - name: Build the origination page and check it
         run: |
-          python -m scripts.build_origination --output site
+          python -m scripts.build
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
@@ -81,6 +85,6 @@ jobs:
         with:
           name: origination-evidence-${{ github.run_id }}
           path: |
-            data/origination.json
-            data/origination/evidence/
+            data/
+            site/origination/
           retention-days: 30

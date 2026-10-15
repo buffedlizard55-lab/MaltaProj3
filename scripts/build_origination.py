@@ -195,7 +195,7 @@ def section_sources(data):
     out.append('</tbody></table></div>')
     out.append(f'<p class="tiny">Snapshot {e(data["source_snapshot_at"] or "unverified")} · page generated {e(data["generated_at"])} · '
                f'open data: <a class="src" href="../data/origination.json">data/origination.json</a> · '
-               f'saved evidence: <a class="src" href="../data/origination/evidence/">data/origination/evidence/</a></p></section>')
+               f'saved evidence: <a class="src" href="../data/origination/aliases.json">alias evidence registry</a></p></section>')
     return ''.join(out)
 
 

@@ -197,6 +197,7 @@ def summary(data, prefix):
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
     out += unresolved_table(data, prefix)
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
+    out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a href="./origination/#aliases">identity evidence</a> remain visible. Featured estimates are never overwritten.</p></section>'
     return out
 
 
@@ -336,6 +337,9 @@ def build(source: Path, output: Path):
             banner = f'<aside role="note" style="padding:18px;background:#fff0cf;border:2px solid #9b6b20;color:#382509;font:14px/1.7 system-ui"><strong>Archived session snapshot — not the current picks feed.</strong> Original values and timestamps are retained for review, not independently reverified or relabeled as current. <a style="color:#74310c;text-decoration:underline" href="{back}index.html">Open the current executive summary</a> · <a style="color:#74310c;text-decoration:underline" href="{back}review/">Current verification limitations</a></aside>'
             text = re.sub(r'(<body\b[^>]*>)', lambda m: m.group(1) + banner, text, count=1, flags=re.I)
             (dest_dir / source_page.name).write_text(text)
+    if (source / 'origination.json').exists():
+        from scripts.build_origination import build as build_originated
+        build_originated(source, output)
     check_links(output)
     print(f'Built five current Pages views, compatible old URLs and explicitly archived session views in {output}')
 

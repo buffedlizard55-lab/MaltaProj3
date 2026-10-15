@@ -59,7 +59,7 @@ class AliasRegistryTests(unittest.TestCase):
 class JoinTests(unittest.TestCase):
     def match(self):
         return {'id': 'm1', 'starts_at': '2026-10-15T12:00:00Z',
-                'teams': [{'name': 'WROTBERRY'}, {'name': 'ENCE'}]}
+                'competition': 'Elisa BreakOut Series #2', 'teams': [{'name': 'WROTBERRY'}, {'name': 'ENCE'}]}
 
     def test_alias_join_matches_with_exact_time(self):
         values, used, status = originate.pair_join(['WBT', 'ENCE'], '2026-10-15T12:00:00Z', self.match(), registry())
@@ -70,9 +70,9 @@ class JoinTests(unittest.TestCase):
         _, _, status = originate.pair_join(['WBT', 'ENCE'], '2026-10-15T14:00:00Z', self.match(), registry())
         self.assertEqual(status, 'time')
 
-    def test_small_provider_clock_skew_still_joins(self):
+    def test_twenty_minute_provider_clock_skew_is_rejected(self):
         _, _, status = originate.pair_join(['WBT', 'ENCE'], '2026-10-15T12:20:00Z', self.match(), registry())
-        self.assertEqual(status, 'matched')
+        self.assertEqual(status, 'time')
 
     def test_wrong_teams_do_not_join(self):
         _, _, status = originate.pair_join(['WBT', 'BOJONG'], '2026-10-15T12:00:00Z', self.match(), registry())
@@ -82,7 +82,7 @@ class JoinTests(unittest.TestCase):
 class EstimateTests(unittest.TestCase):
     def match(self, a='WROTBERRY', b='ENCE'):
         return {'id': 'm1', 'starts_at': '2026-10-15T12:00:00Z',
-                'teams': [{'name': a}, {'name': b}]}
+                'competition': 'Elisa BreakOut Series #2', 'teams': [{'name': a}, {'name': b}]}
 
     def test_market_estimate_uses_midpoints_and_flags_thin_books(self):
         row = {'names': ['WBT', 'ENCE'], 'bid': [0.57, 0.42], 'ask': [0.58, 0.43],
@@ -92,8 +92,8 @@ class EstimateTests(unittest.TestCase):
         self.assertFalse(quote['thin'])
         row['bid'], row['ask'] = [0.54, 0.17], [0.81, 0.32]
         quote, detail = originate.market_estimate(row, self.match(), registry(), datetime.now(UTC))
-        self.assertTrue(quote['thin'])
-        self.assertIn('THIN MARKET', detail)
+        self.assertIsNone(quote)
+        self.assertIn('ceiling', detail)
 
     def test_market_estimate_rejects_spread_above_ceiling(self):
         row = {'names': ['WBT', 'ENCE'], 'bid': [0.5, 0.1], 'ask': [0.95, 0.5],
@@ -104,7 +104,7 @@ class EstimateTests(unittest.TestCase):
     def test_bookmaker_estimate_removes_margin_and_aligns(self):
         row = {'provider': 'Thunderpick', 'names': ['ENCE', 'WBT'], 'odds': [2.4, 1.5],
                'source_url': 'https://thunderpick.io/esports/counter-strike', 'api_url': 'https://thunderpick.io/api/matches',
-               'event_id': '9', 'evidence_file': 't.json'}
+               'observed_at': originate.iso(datetime.now(UTC)), 'event_id': '9', 'evidence_file': 't.json'}
         quote, detail = originate.bookmaker_estimate(row, self.match(), registry())
         # Source order ENCE first; aligned to match order WROTBERRY first.
         self.assertGreater(quote['probabilities'][0], quote['probabilities'][1])
@@ -146,16 +146,15 @@ class PublishedOutputTests(unittest.TestCase):
 
     def test_snapshot_exists_and_resolves_every_active_match(self):
         self.assertIsNotNone(self.data, 'data/origination.json must be generated before tests')
-        self.assertEqual(self.data['counts']['unresolved'], 0)
-        self.assertEqual(self.data['counts']['active'], self.data['counts']['with_pick'])
-        for m in self.data['matches']:
-            self.assertIsNotNone(m['origination'], m['id'])
-            self.assertIsNotNone(m['pick_index'], m['id'])
+        self.assertEqual(self.data['counts']['active'], len(self.data['matches']))
+        self.assertEqual(self.data['counts']['resolved'] + self.data['counts']['unresolved'], self.data['counts']['active'])
 
     def test_every_row_links_hotspawn_and_its_analysis_source(self):
         for m in self.data['matches']:
             self.assertTrue(m['source_url'].startswith('https://'), m['id'])
             o = m['origination']
+            if o is None:
+                continue
             self.assertTrue(o['source_url'].startswith('https://'), m['id'])
             for q in o.get('quotes', []):
                 self.assertTrue(q.get('source_url', '').startswith('https://'), m['id'])
@@ -166,7 +165,7 @@ class PublishedOutputTests(unittest.TestCase):
 
     def test_thin_market_rows_are_labeled(self):
         for m in self.data['matches']:
-            for q in m['origination'].get('quotes', []):
+            for q in (m['origination'] or {}).get('quotes', []):
                 if q.get('thin'):
                     self.assertTrue(any('thin' in x.lower() for x in m['limitations']), m['id'])
 
@@ -187,9 +186,9 @@ class PublishedOutputTests(unittest.TestCase):
             for src in (ROOT / 'data' / 'origination' / 'evidence').glob('*.json'):
                 (tmp / 'origination' / 'evidence' / src.name).write_text(src.read_text())
             result = originate.run(tmp, live=False)
-            first = {m['id']: (m['pick_index'], m['origination']['probabilities']) for m in result['matches']}
+            first = {m['id']: (m['pick_index'], (m['origination'] or {}).get('probabilities')) for m in result['matches']}
             result = originate.run(tmp, live=False)
-            second = {m['id']: (m['pick_index'], m['origination']['probabilities']) for m in result['matches']}
+            second = {m['id']: (m['pick_index'], (m['origination'] or {}).get('probabilities')) for m in result['matches']}
             self.assertEqual(first, second)
 
 

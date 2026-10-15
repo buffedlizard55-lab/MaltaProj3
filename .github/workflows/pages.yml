@@ -46,6 +46,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Refresh all Hotspawn CS2 records and supported external lines
         run: python -m scripts.collect
+      - name: Research only unresolved fixture picks using first-party lines
+        run: python -m scripts.originate --live
       - name: Order platform publishers and record Pages configuration
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
