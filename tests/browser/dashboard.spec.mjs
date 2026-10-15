@@ -115,3 +115,45 @@ test('capture final phone and desktop views for visual verification', async ({ p
   await page.goto('/picks/');
   await page.screenshot({ path: '.cache/screenshots/picks-phone.png', fullPage: true });
 });
+
+test('phone briefing shortcuts and picks section expose unresolved limitations', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
+  await shortcuts.getByRole('link', { name: 'Unresolved & limitations' }).click();
+  await expect(page).toHaveURL(/#unresolved$/);
+  await expect(page.locator('#unresolved h2')).toHaveText('Unresolved picks & limitations');
+  await page.goto('/picks/');
+  await page.getByRole('link', { name: /Jump to unresolved picks/ }).click();
+  await expect(page.locator('#unresolved h2')).toBeVisible();
+});
+
+test('research deep link reveals evidence despite a contradictory bookmarked filter', async ({ page }) => {
+  await page.goto('/picks/');
+  const unresolved = page.locator('#match-list > tbody > tr[data-method="unresolved"]').first();
+  if (await unresolved.count() === 0) return; // A completely resolved live feed is valid.
+  const id = await unresolved.getAttribute('id');
+  await page.goto(`/picks/?basis=market#${id}`);
+  const row = page.locator(`#${id}`);
+  await expect(row).toBeVisible();
+  await expect(row.locator('details')).toHaveAttribute('open', '');
+  await expect(row.locator('.evidence-box')).toBeVisible();
+});
+
+test('each supported probability shows a labeled calculated fair line', async ({ page }) => {
+  await page.goto('/picks/');
+  const supported = page.locator('#match-list > tbody > tr:not([data-method="unresolved"])');
+  for (const row of await supported.all()) {
+    await expect(row.locator('.fair-line')).toHaveCount(2);
+    expect(await row.locator('.fair-line').allTextContents()).toEqual(expect.arrayContaining([expect.stringMatching(/^Fair line \d+\.\d{3}$/)]));
+  }
+});
+
+test('clearing a method filter also clears the bookmarked URL state', async ({ page }) => {
+  await page.goto('/picks/?basis=model');
+  await page.locator('#match-search').fill('definitely-no-such-team');
+  await page.getByRole('button', { name: 'Clear filters' }).click();
+  expect(new URL(page.url()).searchParams.has('basis')).toBe(false);
+  await page.reload();
+  await expect(page.getByRole('button', { name: /^All matches/ })).toHaveAttribute('aria-pressed', 'true');
+});

@@ -125,9 +125,33 @@ if (table) {
     sort.value = 'start';
     basis = 'all';
     applyFilters();
+    const url = new URL(location.href);
+    url.searchParams.delete('basis');
+    history.replaceState(null, '', url);
     search.focus();
   });
   applyFilters();
+
+  // Evidence links from the briefing/review should actually reveal the research,
+  // even when a bookmarked method filter would otherwise hide that match.
+  function revealLinkedMatch() {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    if (!id.startsWith('match-')) return;
+    const row = document.getElementById(id);
+    if (!row || !rows.includes(row)) return;
+    if (row.hidden) {
+      basis = 'all';
+      search.value = '';
+      tournament.value = 'all';
+      applyFilters();
+    }
+    const details = row.querySelector('details');
+    if (details) details.open = true;
+    requestAnimationFrame(() => row.scrollIntoView({ block: 'start' }));
+  }
+  addEventListener('hashchange', revealLinkedMatch);
+  revealLinkedMatch();
 }
 
 // A static Pages deploy can change while this tab remains open. Check the

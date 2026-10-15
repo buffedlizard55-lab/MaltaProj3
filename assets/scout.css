@@ -23,3 +23,13 @@
 .sidebar .nav-count{color:#f6d4aa}
 
 @media(max-width:700px){.mobile-nav>a{flex:1;min-width:0;padding-inline:3px}}
+
+/* Quick mobile navigation and explicit calculated lines, not offered odds. */
+.briefing-links{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.briefing-links a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:650;color:var(--navy)}
+.prob-team{display:flex;flex-direction:column;gap:3px}
+.fair-line{font-size:10px;font-weight:450;color:#576b79;white-space:nowrap}
+.identity-note{padding-left:10px;border-left:3px solid #c78736;font-size:12px;line-height:1.8}
+.match-row:target{outline:2px solid var(--orange-dark);outline-offset:-2px}
+[id]{scroll-margin-top:18px;scroll-margin-bottom:90px}
+@media(max-width:700px){.briefing-links{gap:6px}.briefing-links a{font-size:11px;padding:8px 10px}.fair-line{font-size:10px}.info-strip a{display:block;min-height:44px;line-height:1.5;padding-top:10px}.prob-line{align-items:center}.identity-note{font-size:12px}}

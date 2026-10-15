@@ -126,6 +126,7 @@ def check_data(root: Path):
             require(replay is not None and replay['quotes'] == a['quotes'], f'{m["id"]}: bookmaker source evidence invalid')
         else:
             raise ValueError(f'{m["id"]}: unsupported analysis method')
+        require(a == replay, f'{m["id"]}: displayed analysis/quotes/inputs do not equal the complete first-party replay')
         for key in ['probabilities', 'fair_decimal', 'source_url']:
             require(a[key] == replay[key], f'{m["id"]}: {key} calculation/provenance does not replay')
     for f in data['flags']:
