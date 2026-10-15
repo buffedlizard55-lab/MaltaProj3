@@ -97,3 +97,17 @@ def render(data, prefix):
         out += '<p>No current unlocked market-backed match passes this screen at build time. No model estimate or stale line is promoted to fill the watchlist.</p>'
     out += f'<p>Read the <a class="internal-link" href="{prefix}review/#day-one-review">day-one postmortem &amp; official Aurora roster snapshot check</a>. An unexpected winner is possible even with a well-estimated favorite; one result does not validate a new strategy.</p></section>'
     return out
+
+
+def audit_register(audit, prefix):
+    """Publish inherited audit claims without silently certifying their values."""
+    out = '<section class="content-section" id="repo-audit"><h2>Independent repo, coverage &amp; cadence audit</h2>'
+    out += f'<p>Dated concurrent audit: {e(audit["audit_clock_utc"])}. These are reported findings, not live coverage figures or blanket primary-source verification. Exact unconfirmed values remain unverified; original observations are expandable for manual review. <a class="internal-link" href="{prefix}data/research/de176356/repo-review-register.json">Original audit register ↓</a></p>'
+    out += '<p><strong>Current handling:</strong> use each fixture’s displayed lock deadline rather than assuming the help-page offset; the saved fixture evidence uses six minutes while the help page says five. The inventory is scheduled fixtures, not completed results. Four-hour refresh is a schedule target, not a GitHub delivery guarantee; the dated audit’s largest measured gap was 6.48 hours (within eight hours). Freshness warnings remain active. No second competing publisher was added. The two day-one scopes have now been integrated without dropping either source trail.</p>'
+    out += '<div class="table-scroll"><table class="simple-table"><caption>Dated audit register — reported observations and verification limits</caption><thead><tr><th scope="col">Item / area</th><th scope="col">Verified current value</th><th scope="col">Reported issue &amp; review sources</th></tr></thead><tbody>'
+    for item in audit['items']:
+        out += f'<tr id="audit-{e(item["id"])}"><th scope="row">{e(item["id"])}<small>{e(item["area"])}</small></th><td><span class="unverified">— <small>unverified as a current value</small></span></td><td><details><summary>Reported finding &amp; dated measurement</summary><p>{e(item["finding"])}</p><p>{e(item["measured"])}</p><p>Original audit request: {e(item["action"])}</p></details>'
+        for url in item['sources']:
+            out += f'<a class="source-link" href="{e(url)}">Original review source</a> '
+        out += '</td></tr>'
+    return out + '</tbody></table></div></section>'

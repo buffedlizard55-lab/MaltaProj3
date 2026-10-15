@@ -113,3 +113,15 @@ class BriefingTests(unittest.TestCase):
             self.assertIn('github.com/ValveSoftware/', row.find('a')['href'])
         reports = [a['data'] for a in audit['hltv_annotations'] if a['title'] == 'Day-one report excerpt']
         self.assertTrue(any('9z beat Aurora 2-0' in r['title'] for r in reports))
+
+    def test_inherited_audit_is_source_linked_and_not_relabelled_current_verified(self):
+        import json
+        from pathlib import Path
+        from scripts.briefing import audit_register
+        audit = json.loads(Path('data/research/de176356/repo-review-register.json').read_text())
+        soup = BeautifulSoup(audit_register(audit, '../'), 'html.parser')
+        self.assertEqual(len(soup.select('tbody tr')), 15)
+        for row in soup.select('tbody tr'):
+            self.assertIn('unverified as a current value', row.get_text())
+            self.assertTrue(row.select('a[href^="https://"]'))
+        self.assertIn('within eight hours', soup.get_text())

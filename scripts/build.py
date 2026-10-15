@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 from scripts.domain import timestamp, is_fresh
 from scripts.validate import check_data, check_links
 from scripts.contrarian import derive_context, load_review, validate_context
-from scripts.briefing import render as contrarian_briefing, review_note
+from scripts.briefing import render as contrarian_briefing, review_note, audit_register
 
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
@@ -316,6 +316,8 @@ def review(data, prefix):
     out = heading('Transparent by design', 'Flagged for Review', 'Unresolved matches, blocked sources and inconsistent official fields are published here. They do not block publication; they do block unsupported claims.')
     out += f'<div class="limitations-callout"><strong>Additional identity research and fallback picks</strong><p>Exact-name rejections below are retained for audit. <a style="text-decoration:underline" href="{prefix}origination/#picks">See newly researched fallback picks</a> and <a style="text-decoration:underline" href="{prefix}origination/#aliases">the source-linked alias review registry</a>. These associations do not independently confirm current rosters; Valve estimates remain uncalibrated.</p></div>'
     out += review_note(prefix, data.get('day_one_audit'))
+    if data.get('repo_audit'):
+        out += audit_register(data['repo_audit'], prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
     for f in data['flags']:
@@ -361,6 +363,8 @@ def build(source: Path, output: Path):
         data['complete_picks'] = json.loads((source / 'origination.json').read_text())
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
+    if (source / 'research/de176356/repo-review-register.json').exists():
+        data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
