@@ -42,3 +42,6 @@ for label in ['hltv-day-one-results', 'hltv-news']:
                           'matching_snippets': snippets[:20]}, ensure_ascii=True)
     payload = payload.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
     print('::notice title=Day-one research excerpt::' + payload)
+manifest_notice = json.dumps(client.manifest, ensure_ascii=True)
+manifest_notice = manifest_notice.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+print('::notice title=Source audit observation manifest::' + manifest_notice)
