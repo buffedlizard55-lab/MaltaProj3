@@ -39,11 +39,27 @@ jobs:
           path: |
             data/latest.json
             data/sources.json
+            data/origination.json
             data/evidence/
+            data/origination/
           key: cs2-verified-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: cs2-verified-v2-
       - name: Regression tests
         run: python -m unittest discover -s tests -v
+      # Keep the exact snapshot pair (featured + originated) that was live
+      # before this run touches anything. If freshly collected evidence fails
+      # the full replay below, the site republishes this verified pair with
+      # its original timestamps and stale warnings instead of going dark:
+      # scheduled runs 38742696250 and 38797535468 (2026-10-15) failed at the
+      # build step and left the public site frozen while this fallback did
+      # not exist.
+      - name: Preserve last-good snapshot pair for in-run fallback
+        run: |
+          mkdir -p "$RUNNER_TEMP/last-good/data"
+          cp data/latest.json data/sources.json "$RUNNER_TEMP/last-good/data/"
+          cp data/origination.json "$RUNNER_TEMP/last-good/data/" 2>/dev/null || true
+          cp -r data/evidence "$RUNNER_TEMP/last-good/data/evidence"
+          cp -r data/origination "$RUNNER_TEMP/last-good/data/origination" 2>/dev/null || true
       - name: Refresh all Hotspawn CS2 records and supported external lines
         run: python -m scripts.collect
       - name: Research only unresolved fixture picks using first-party lines
@@ -53,15 +69,38 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.publication
       - name: Reconcile every row, replay every probability and build linked pages
-        run: python -m scripts.build
+        id: build
+        run: |
+          if python -m scripts.build; then
+            echo "degraded=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Fresh snapshot failed full replay validation; republishing the last verified snapshot pair (original timestamps and stale warnings preserved). No probability was repaired or invented."
+            {
+              echo '## Publisher fallback engaged'
+              echo ''
+              echo 'The freshly collected snapshot failed `scripts.build` replay validation.'
+              echo 'The last verified snapshot pair was restored unchanged and rebuilt instead;'
+              echo 'its original observation timestamps and stale warnings remain visible on the site.'
+            } >> "$GITHUB_STEP_SUMMARY"
+            rm -rf site data/evidence data/origination
+            cp "$RUNNER_TEMP/last-good/data/latest.json" "$RUNNER_TEMP/last-good/data/sources.json" data/
+            cp "$RUNNER_TEMP/last-good/data/origination.json" data/ 2>/dev/null || true
+            cp -r "$RUNNER_TEMP/last-good/data/evidence" data/evidence
+            cp -r "$RUNNER_TEMP/last-good/data/origination" data/origination 2>/dev/null || true
+            python -m scripts.build
+            echo "degraded=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Inspect source freshness for cache eligibility
         id: snapshot
         run: |
           python - <<'PY'
           import json, os
           d = json.load(open('data/latest.json'))
+          degraded = '${{ steps.build.outputs.degraded }}' == 'true'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write('inventory_ok=' + str(d['coverage_complete']).lower() + '\n')
+              # A fallback republication must never become the cached
+              # "verified" snapshot for the next run.
+              f.write('inventory_ok=' + str(d['coverage_complete'] and not degraded).lower() + '\n')
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
               f.write('## Public-source CS2 snapshot\n\n')
               f.write('Inventory observed: ' + str(d['inventory_observed_at']) + '\n\n')
@@ -75,7 +114,9 @@ jobs:
           path: |
             data/latest.json
             data/sources.json
+            data/origination.json
             data/evidence/
+            data/origination/evidence/
           key: ${{ steps.restore.outputs.cache-primary-key }}
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
