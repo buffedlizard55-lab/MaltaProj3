@@ -1,0 +1,111 @@
+name: Origination source audit
+# Validation + live evidence for the pick-origination layer (scripts/originate.py).
+# Deliberately data-only: it never deploys and never commits. The publishing
+# workflow remains the single Pages publisher; this workflow keeps the
+# origination inputs honest between publishes and on pull requests.
+on:
+  push:
+    branches: [arena/f9527685-maltaproj3]
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/originate.py'
+      - 'scripts/build_origination.py'
+      - 'assets/origination.css'
+      - 'tests/test_origination.py'
+      - 'data/origination/**'
+      - '.github/workflows/origination.yml'
+permissions:
+  contents: read
+jobs:
+  originate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Origination regression tests
+        run: python -m unittest tests.test_origination -v
+      - name: Refresh canonical inventory and featured lines
+        run: python -m scripts.collect
+      - name: Refetch first-party origination sources and resolve
+        run: python -m scripts.originate --live
+      - name: Build the origination page and check it
+        run: |
+          python - <<'PY'
+          import traceback
+          from pathlib import Path
+          from scripts.build import build
+          try:
+              build(Path('data'), Path('site'))
+          except Exception as exc:
+              print('::error::' + str(exc).replace('\n', ' '))
+              raise
+          PY
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          text = Path('site/origination/index.html').read_text()
+          class Check(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.stack=[]; self.errors=[]; self.ids=set(); self.hrefs=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag not in {'meta','link','img','br','hr','input','source'}: self.stack.append(tag)
+                  a=dict(attrs)
+                  if 'id' in a:
+                      if a['id'] in self.ids: self.errors.append('duplicate id '+a['id'])
+                      self.ids.add(a['id'])
+                  if tag=='a' and 'href' in a: self.hrefs.append(a['href'])
+              def handle_endtag(self, tag):
+                  if self.stack and self.stack[-1]==tag: self.stack.pop()
+                  elif tag in self.stack: self.errors.append('mismatched '+tag)
+          c=Check(); c.feed(text)
+          missing=[h for h in c.hrefs if h.startswith('#') and h[1:] not in c.ids]
+          assert not c.stack and not c.errors and not missing, (c.stack, c.errors, missing)
+          assert 'EXECUTIVE SUMMARY' in text and 'Unresolved picks &amp; limitations' in text
+          print('origination page OK:', len(text), 'bytes,', len(c.hrefs), 'links')
+          PY
+      - name: Publish snapshot summary
+        if: always()
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          p = Path('data/origination.json')
+          if p.exists():
+              d = json.loads(p.read_text())
+              print('## Origination snapshot\n')
+              print('Generated:', d['generated_at'], '· source snapshot:', d['source_snapshot_at'], '\n')
+              print('Counts:', json.dumps(d['counts']), '\n')
+              print('Unresolved:', d['unresolved_ids'] or 'none', '\n')
+              print('Live collection:', d['live_collection'])
+          else:
+              print('## Origination snapshot missing')
+          PY
+      - name: Record live audit result as annotations
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('data/origination.json')
+          if p.exists():
+              d = json.loads(p.read_text())
+              print('::notice::Origination counts: ' + json.dumps(d['counts']))
+              for m in d['matches']:
+                  if not m.get('featured_method'):
+                      print('::notice::Fallback ' + m['id'] + ': ' + json.dumps(m.get('origination')))
+          PY
+      - name: Save live origination evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: origination-evidence-${{ github.run_id }}
+          path: |
+            data/
+            site/origination/
+          retention-days: 30
