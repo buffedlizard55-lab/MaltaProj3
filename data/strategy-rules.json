@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "version": "2026-10-16.1",
+  "owner": "arena-1112299f",
+  "purpose": "Turn our own external-line probabilities into one obvious default pick per Hotspawn CS2 fixture, and mark the few underdogs that are contrarian but not stupid. Pure rules: same inputs give the same output; nothing here is a source fact.",
+  "probability_inputs": {
+    "allowed": ["Polymarket order-book midpoints", "bookmaker no-vig prices (Thunderpick)", "median of independent money sources", "Valve official standings model (uncalibrated, never eligible for a swap)"],
+    "never_used": ["Hotspawn '% picked' as a probability", "Hotspawn popularity or votes", "HLTV fan 'Pick a winner' vote", "point multipliers as a signal of team strength"]
+  },
+  "scoring": {
+    "formula": "offered_points = floor(base_points x game_multiplier x tier_multiplier x series_multiplier x stage_multiplier x tournament_multiplier)",
+    "observed_in_fixture_api": {"base_points": 2, "game_multiplier": 1.25, "tier_multiplier": {"c": 1, "b": 1.5, "s": 3}, "series_multiplier": 1, "stage_multiplier": 1, "tournament_multiplier": 1},
+    "tier_points_when_api_omits_points": {"c": 2, "b": 3, "s": 7},
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/how-it-works"
+    ]
+  },
+  "thresholds": {
+    "lock_underdog_below": 0.25,
+    "lean_underdog_below": 0.35,
+    "live_dog_underdog_below": 0.45,
+    "swap_min_underdog_probability": 0.30,
+    "swap_min_points": 3,
+    "max_swaps_per_utc_day": 2,
+    "max_line_age_hours": 8,
+    "credible_field_sample": 30
+  },
+  "classes": {
+    "lock": {"label": "Lock", "advice": "Take the favorite. Picking the underdog here is a donation, not a contrarian play."},
+    "lean": {"label": "Lean", "advice": "Favorite by a clear margin. Only a sourced, specific edge could justify the underdog, and none is checked automatically."},
+    "live_dog": {"label": "Live dog", "advice": "The underdog has a real shot: about one chance in three or better. Contrarian candidate when the line is money-backed."},
+    "coin_flip": {"label": "Coin flip", "advice": "Either side is defensible. The default is the side the lines make slightly more likely."}
+  },
+  "swap_rule": [
+    "The line is money-backed (Polymarket, bookmaker or their median), not the Valve model.",
+    "The line was observed no more than 8 hours before the page was built.",
+    "The underdog is at least 30% to win in our own probability.",
+    "The match is worth at least 3 Hotspawn points (B tier or higher).",
+    "The match has not locked. At most 2 swaps are recommended per UTC calendar day, ranked by points x underdog probability."
+  ],
+  "field_share_policy": "Hotspawn '% picked' is shown only as leverage context (how many rivals you pass if the underdog hits). It never changes a probability, a class or the default pick. Samples under 30 pickers are labelled small.",
+  "unverified": [
+    "Streak bonus formula: the rules page says consecutive correct picks earn bonus points but publishes no formula, so the cost of breaking a streak is not quantified.",
+    "Exact weekly reset instant: only a countdown on the lobby was observed.",
+    "Whether wrong picks are ever penalised: the rules page mentions points only for correct picks and no deduction for wrong ones."
+  ]
+}

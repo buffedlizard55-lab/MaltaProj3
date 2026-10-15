@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "owner": "arena-1112299f",
+  "event": "Thunderpick World Championship 2026",
+  "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+  "note": "Series scores read from HLTV's event results page and bracket during session 1112299f (not refreshed by the pipeline). Map scores are not copied here; follow each match link. Hotspawn field shares are from the saved 08:36:04Z fixture-API snapshot and are leverage context only, never a probability.",
+  "results_observed_at": "2026-10-15T22:30:00Z",
+  "results_source_url": "https://www.hltv.org/results?event=8932",
+  "series": [
+    {
+      "day": 1,
+      "date": "2026-10-14",
+      "group": "A",
+      "round": "Opening",
+      "winner": "9z",
+      "loser": "Aurora",
+      "score": "2-0",
+      "maps_played": 2,
+      "hltv_url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026"
+    },
+    {
+      "day": 1,
+      "date": "2026-10-14",
+      "group": "A",
+      "round": "Opening",
+      "winner": "Falcons",
+      "loser": "Ninjas in Pyjamas",
+      "score": "2-0",
+      "maps_played": 2,
+      "hltv_url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026"
+    },
+    {
+      "day": 1,
+      "date": "2026-10-14",
+      "group": "B",
+      "round": "Opening",
+      "winner": "Legacy",
+      "loser": "PARIVISION",
+      "score": "2-0",
+      "maps_played": 2,
+      "hltv_url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026"
+    },
+    {
+      "day": 1,
+      "date": "2026-10-14",
+      "group": "B",
+      "round": "Opening",
+      "winner": "FURIA",
+      "loser": "BETBOOM",
+      "score": "2-0",
+      "maps_played": 2,
+      "hltv_url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026"
+    },
+    {
+      "day": 2,
+      "date": "2026-10-15",
+      "group": "A",
+      "round": "Elimination",
+      "winner": "Aurora",
+      "loser": "Ninjas in Pyjamas",
+      "score": "2-0",
+      "maps_played": 2,
+      "hltv_url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+      "hotspawn_fixture_id": "1080204",
+      "field_share": {
+        "winner_pct": 75,
+        "loser_pct": 25,
+        "total_picks": 16
+      }
+    },
+    {
+      "day": 2,
+      "date": "2026-10-15",
+      "group": "A",
+      "round": "Winners",
+      "winner": "Falcons",
+      "loser": "9z",
+      "score": "2-1",
+      "maps_played": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+      "hotspawn_fixture_id": "1080202",
+      "field_share": {
+        "winner_pct": 94,
+        "loser_pct": 6,
+        "total_picks": 16
+      }
+    },
+    {
+      "day": 2,
+      "date": "2026-10-15",
+      "group": "B",
+      "round": "Elimination",
+      "winner": "BETBOOM",
+      "loser": "PARIVISION",
+      "score": "2-1",
+      "maps_played": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+      "field_share": {
+        "winner_pct": 29,
+        "loser_pct": 71,
+        "total_picks": 14
+      }
+    },
+    {
+      "day": 2,
+      "date": "2026-10-15",
+      "group": "B",
+      "round": "Winners",
+      "winner": "FURIA",
+      "loser": "Legacy",
+      "score": "2-1",
+      "maps_played": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+      "field_share": {
+        "winner_pct": 77,
+        "loser_pct": 23,
+        "total_picks": 13
+      }
+    }
+  ],
+  "day_three": [
+    {
+      "day": 3,
+      "date": "2026-10-16",
+      "group": "A",
+      "round": "Decider",
+      "teams": [
+        "Aurora",
+        "9z"
+      ],
+      "format": "Best of 3 (LAN)",
+      "starts_at_utc": "2026-10-16T14:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "on_hotspawn": true,
+      "hotspawn_fixture_id": "1080205",
+      "hotspawn_url": "https://www.hotspawn.com/matches/aurora-vs-9z-thunderpick-world-championship-2026-1080205",
+      "polymarket_url": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-9z-2026-10-16",
+      "polymarket_observed_at": "2026-10-15T22:28:00Z",
+      "polymarket_listing_cents": {
+        "Aurora": 69,
+        "9z": 31
+      },
+      "lineups_hltv": {
+        "Aurora": [
+          "woxic",
+          "XANTARES",
+          "Wicadia",
+          "Jimpphat",
+          "kyxsan"
+        ],
+        "9z": [
+          "dgt",
+          "max",
+          "meyern",
+          "luchov",
+          "HUASOPEEK"
+        ]
+      },
+      "ranks_hltv_vrs": {
+        "Aurora": {
+          "hltv": 6,
+          "vrs": 5
+        },
+        "9z": {
+          "hltv": 17,
+          "vrs": 11
+        }
+      }
+    },
+    {
+      "day": 3,
+      "date": "2026-10-16",
+      "group": "B",
+      "round": "Decider",
+      "teams": [
+        "Legacy",
+        "BETBOOM"
+      ],
+      "format": null,
+      "starts_at_utc": "2026-10-16T17:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399413/legacy-vs-betboom-thunderpick-world-championship-2026",
+      "on_hotspawn": false,
+      "polymarket_url": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-lgc-bb3-2026-10-16",
+      "polymarket_observed_at": "2026-10-15T22:28:00Z",
+      "polymarket_listing_cents": {
+        "Legacy": 0,
+        "BetBoom Team": 0
+      },
+      "note": "Polymarket lists this market at $0 volume with 0 cent prices, so it is unpriced. It was not among the 22 lobby cards at 22:25Z. HLTV's format line for this match was not read in this session, so it is left blank."
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "owner": "arena-1112299f",
+  "note": "Dated first-party observations of the Hotspawn pick'em contract. Read with the fetch tool during session 1112299f; the four-hour pipeline does NOT refresh this file. Each row carries its own source URL and observation time. 'derived' rows are arithmetic on verified rows; 'unverified' rows are published blank on purpose.",
+  "observations": [
+    {
+      "id": "H-01",
+      "claim": "Points per correct pick scale with tier: C = 2, B = 3, S = 7 (floor of 2 x 1.25 x tier multiplier 1 / 1.5 / 3).",
+      "value": {
+        "c": 2,
+        "b": 3,
+        "s": 7,
+        "multipliers": {
+          "game": 1.25,
+          "tier": {
+            "c": 1,
+            "b": 1.5,
+            "s": 3
+          },
+          "series": 1,
+          "stage": 1,
+          "tournament": 1
+        }
+      },
+      "observed_at": "2026-10-15T08:36:04Z",
+      "status": "verified",
+      "how_verified": "All 80 CS2 records in the saved fixture-API response satisfy offered_points = floor(base_points x product of points_breakdown multipliers): 57 C-tier = 2, 19 B-tier = 3, 4 S-tier = 7. Lobby cards read 'Points available 7 pts - Tier S x3 - Multiplier x1.25' for Aurora vs 9z.",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence_file": "data/evidence/hotspawn-fixtures.json"
+    },
+    {
+      "id": "H-02",
+      "claim": "Picks lock before the scheduled start. The rules page says 5 minutes; every one of the 80 fixture records carries lock_offset_sec = 360 (6 minutes).",
+      "value": {
+        "help_page_minutes": 5,
+        "api_lock_offset_sec": 360,
+        "records": 80
+      },
+      "observed_at": "2026-10-15T22:35:00Z",
+      "status": "verified",
+      "how_verified": "Rules page re-read in full on 2026-10-15; lock_offset_sec = 360 for 80 of 80 saved records. The conflict is published, not normalised: submit at least 6 minutes before the start to be safe.",
+      "source_url": "https://play.hotspawn.com/how-it-works",
+      "evidence_file": "data/evidence/hotspawn-fixtures.json"
+    },
+    {
+      "id": "H-03",
+      "claim": "Only correct picks earn points; higher tiers earn more; consecutive correct picks earn a streak bonus whose formula is not published.",
+      "value": {
+        "streak_formula": null
+      },
+      "observed_at": "2026-10-15T22:35:00Z",
+      "status": "verified",
+      "how_verified": "Rules page text ('Earn points for every correct pick. Higher tier matches reward more points.' / 'Get bonus points for consecutive correct picks.'). No formula appears anywhere on the page, so the streak bonus is left blank and flagged unverified.",
+      "source_url": "https://play.hotspawn.com/how-it-works"
+    },
+    {
+      "id": "H-04",
+      "claim": "Forfeited matches void all picks (no points awarded or deducted); cancelled matches cancel all picks.",
+      "value": {
+        "forfeit": "voided",
+        "cancelled": "cancelled"
+      },
+      "observed_at": "2026-10-15T22:35:00Z",
+      "status": "verified",
+      "how_verified": "Rules page FAQ.",
+      "source_url": "https://play.hotspawn.com/how-it-works"
+    },
+    {
+      "id": "H-05",
+      "claim": "The leaderboard resets weekly; the lobby showed a countdown of 3d 01h 37m 29s.",
+      "value": {
+        "countdown": "3d 01h 37m 29s"
+      },
+      "observed_at": "2026-10-15T22:25:00Z",
+      "status": "verified",
+      "how_verified": "Lobby page read; the fetch tool returns no timestamp, so the observation time is the sandbox clock at the call (+/- 2 minutes). The exact reset instant is not published and is left unverified; the countdown points to the night of Sunday 18 to Monday 19 October (UTC).",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    {
+      "id": "H-06",
+      "claim": "Weekly prizes: 1st $400 Steam voucher, 2nd $200, 3rd $100, places 4-10 $50 each; minimum 10 picks to qualify.",
+      "value": {
+        "1": "$400 Steam Voucher",
+        "2": "$200 Steam Voucher",
+        "3": "$100 Steam Voucher",
+        "4-10": "$50 Steam Voucher",
+        "min_picks": 10
+      },
+      "observed_at": "2026-10-15T22:25:00Z",
+      "status": "verified",
+      "how_verified": "Lobby 'Top prizes this week' block.",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    {
+      "id": "H-07",
+      "claim": "Weekly leaderboard top 10 points at the observation: 160, 123, 122, 84, 81, 78, 68, 66, 65, 63. The 10th place (last prize place) stood at 63 points.",
+      "value": {
+        "top10_points": [
+          160,
+          123,
+          122,
+          84,
+          81,
+          78,
+          68,
+          66,
+          65,
+          63
+        ],
+        "tenth_place_points": 63
+      },
+      "observed_at": "2026-10-15T22:25:00Z",
+      "status": "verified",
+      "how_verified": "Lobby leaderboard widget. Player names are deliberately not copied.",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    {
+      "id": "H-08",
+      "claim": "Lobby CS2 filter totals: 86 fixtures (S 2 + B 31 + C 53); the page header says 111 matches this week across all games.",
+      "value": {
+        "cs2_total": 86,
+        "tiers": {
+          "s": 2,
+          "b": 31,
+          "c": 53
+        },
+        "header_all_games": 111,
+        "tier_sum": 86
+      },
+      "observed_at": "2026-10-15T22:25:00Z",
+      "status": "verified",
+      "how_verified": "Lobby filter chips read; 2 + 31 + 53 = 86 checked by arithmetic. The collector's reconciled inventory at 22:25:16Z was 86 = 22 upcoming + 64 past-start records still labelled 'scheduled'.",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    {
+      "id": "H-09",
+      "claim": "The lobby shows 22 actionable cards: 15 under 'Closing Soon' and 7 under 'Upcoming'. The 64 other fixtures in the API have start times in the past but status 'scheduled'.",
+      "value": {
+        "closing_soon": 15,
+        "upcoming": 7,
+        "total_actionable": 22,
+        "past_start_still_scheduled": 64
+      },
+      "observed_at": "2026-10-15T22:25:16Z",
+      "status": "verified",
+      "how_verified": "Cards counted on the lobby page; 22 equals the 'upcoming: 22' count in the collector's publication annotation of production run 38816949473.",
+      "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473"
+    },
+    {
+      "id": "H-10",
+      "claim": "Hotspawn's player base is small: S-tier fixtures had 13-16 pickers and B/C-tier fixtures starting from 14 Oct had 39-80 pickers at the 08:36Z snapshot.",
+      "value": {
+        "s_tier_total_picks": [
+          16,
+          16,
+          14,
+          13
+        ],
+        "recent_b_c_total_picks_range": [
+          16,
+          80
+        ]
+      },
+      "observed_at": "2026-10-15T08:36:04Z",
+      "status": "verified",
+      "how_verified": "total_picks in the saved fixture-API records (16 and 13-16 also appear on the Gothic vs Lavked B-tier fixture). Samples this small make '% picked' noisy, which is why the strategy page only ever shows it as labelled leverage context.",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence_file": "data/evidence/hotspawn-fixtures.json"
+    },
+    {
+      "id": "H-11",
+      "claim": "Lobby times are rendered in the viewer's zone. The fetch rendering showed Aurora vs 9z at 10:00 while HLTV and Polymarket give 14:00 UTC (a 4-hour offset), so compare times using UTC from the fixture API.",
+      "value": {
+        "lobby_render": "10:00",
+        "hltv_polymarket_utc": "14:00"
+      },
+      "observed_at": "2026-10-15T22:30:00Z",
+      "status": "derived",
+      "how_verified": "Lobby card 'Oct 16, 10:00' for aurora-vs-9z-thunderpick-world-championship-2026-1080205 against the HLTV match page 2399412 (10:00 on its own rendering, countdown 15h 31m at the fetch) and the Polymarket event 'Tomorrow 2:00 PM'.",
+      "source_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+    }
+  ]
+}
