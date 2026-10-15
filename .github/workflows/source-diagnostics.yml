@@ -1,39 +1,37 @@
 name: Public source diagnostics
 on:
   push:
-    branches: [arena/4aae8328-maltaproj3]
-    paths: ['scripts/discover_sources.py', '.github/workflows/source-diagnostics.yml']
+    branches: [arena/11c1fa20-maltaproj3]
+    paths: ['scripts/audit_sources.py', '.github/workflows/source-diagnostics.yml']
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   discover:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - name: Inspect public source responses
-        env:
-          SOURCE_STAGE: contracts
-        run: python scripts/discover_sources.py
-      - uses: actions/upload-artifact@v4
+      - run: pip install -r requirements.txt
+      - name: Inspect original public source responses
+        run: python -m scripts.audit_sources
+      - uses: actions/upload-artifact@v5
         with:
           name: public-source-diagnostics
-          path: .cache/discovery/
+          path: .cache/source-audit/
           retention-days: 3
       - name: Export temporary public diagnostics to session branch
-        if: github.ref == 'refs/heads/arena/4aae8328-maltaproj3'
+        if: github.ref == 'refs/heads/arena/11c1fa20-maltaproj3'
         run: |
-          mkdir -p docs/research
-          tar -czf docs/research/source-diagnostics.tar.gz -C .cache discovery
-          cp .cache/discovery/report.json docs/research/source-diagnostics.json
+          mkdir -p data/research
+          cp .cache/source-audit/*.html.gz .cache/source-audit/report.json data/research/
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/research/
+          git add data/research/
           git diff --cached --quiet && exit 0
           git commit -m 'chore: export temporary public-source diagnostic evidence'
-          git pull --rebase origin arena/4aae8328-maltaproj3
-          git push origin arena/4aae8328-maltaproj3
+          git pull --rebase origin arena/11c1fa20-maltaproj3
+          git push origin arena/11c1fa20-maltaproj3

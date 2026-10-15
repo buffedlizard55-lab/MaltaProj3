@@ -1,7 +1,7 @@
 name: Verify live source coverage
 on:
   push:
-    branches: [arena/87b206e2-maltaproj3]
+    branches: [arena/11c1fa20-maltaproj3]
     paths: ['scripts/collect.py', 'scripts/domain.py', 'scripts/sources.py', 'scripts/validate.py', 'requirements.txt', '.github/workflows/collect-preview.yml']
   workflow_dispatch:
 permissions:
@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   collect:
-    if: github.ref == 'refs/heads/arena/87b206e2-maltaproj3'
+    if: github.ref == 'refs/heads/arena/11c1fa20-maltaproj3'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -32,5 +32,5 @@ jobs:
           git add data/
           git diff --cached --quiet && exit 0
           git commit -m 'data: verified complete CS2 inventory and auditable probability snapshot'
-          git pull --rebase origin arena/87b206e2-maltaproj3
-          git push origin arena/87b206e2-maltaproj3
+          git pull --rebase origin arena/11c1fa20-maltaproj3
+          git push origin arena/11c1fa20-maltaproj3

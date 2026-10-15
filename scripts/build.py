@@ -96,6 +96,8 @@ def evidence(m, prefix):
                 body += f'<p>Original event ID: <strong>{e(q["event_id"])}</strong>. Source uses a read-only POST with <code>{{"gameIds":[6]}}</code>; opening that endpoint as a browser GET does not reproduce the recorded request.</p><div class="evidence-links"><a href="{prefix}data/evidence/thunderpick-matches.json">Saved original bookmaker response ↓</a><a href="{prefix}data/sources.json">Request method &amp; payload ↓</a></div>'
         body += '<ul class="limitations">' + ''.join(f'<li>{e(x)}</li>' for x in a['limitations']) + '</ul>' + external(a['source_url'], a['source'])
     if m['research']:
+        if any(r['stage'].startswith('HLTV') and r['status'] != 'unavailable' for r in m['research']):
+            body += '<div class="evidence-links"><a href="' + prefix + 'data/evidence/hltv-page.json">Original HLTV markup ↓</a><a href="' + prefix + 'data/evidence/hltv-research.json">Replayed HLTV identities ↓</a></div>'
         body += '<h4>Resolution trail</h4><ol class="research-trail">'
         for r in m['research']:
             body += f'<li><strong>{e(r["stage"])}</strong> · {e(r["status"])}<p>{e(r["detail"])}</p>{external(r["source_url"], "Original source")}</li>'
@@ -117,17 +119,26 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
         search = ' '.join(names + [m['competition'] or '', method]).casefold()
         out += f'<tr id="match-{e(m["id"])}" class="match-row" data-record-id="{e(m["id"])}" data-search="{e(search)}" data-method="{method}" data-tournament="{e(m["competition"] or "Unverified tournament")}" data-confidence="{confidence}" data-start="{e(m["starts_at"] or "")}" data-lock="{e(m["locks_at"] or "")}" data-price-time="{e(a["observed_at"] if a else "")}">'
         tier = ('Tier ' + str(m['tier']).upper()) if m['tier'] else 'Tier unverified'
-        out += f'<td class="match-cell"><span class="competition">{e(m["competition"] or "Unverified tournament")}</span><div class="team-pair"><strong>{e(names[0])}</strong><span class="versus">vs</span><strong>{e(names[1])}</strong></div><div class="match-subline">{local_time(m["starts_at"])}<span class="dot-separator">·</span><span>{e(tier)}</span></div><span class="availability" data-availability>{"Open for picks" if m["availability"] == "open" else "Locked" if m["availability"] == "locked" else "Lock time unverified"}</span></td>'
+        start_time, lock_time = timestamp(m['starts_at']), timestamp(m['locks_at'])
+        availability = 'Past start · status unverified' if start_time and start_time <= now else 'Closed for picks' if lock_time and lock_time <= now else 'Open for picks' if lock_time else 'Lock time unverified'
+        out += f'<td class="match-cell"><span class="competition">{e(m["competition"] or "Unverified tournament")}</span><div class="team-pair"><strong>{e(names[0])}</strong><span class="versus">vs</span><strong>{e(names[1])}</strong></div><div class="match-subline">{local_time(m["starts_at"])}<span class="dot-separator">·</span><span>{e(tier)}</span></div><span class="availability" data-availability>{availability}</span></td>'
         out += '<td class="probability-cell" data-label="Win probabilities">'
         if a:
             for i, (name, p) in enumerate(zip(names, a['probabilities'])):
-                out += f'<div class="prob-line {"favored" if i == pick else ""}"><span>{e(name)}</span><strong>{p * 100:.1f}%</strong></div>'
+                out += f'<div class="prob-line {"favored" if i == pick else ""}"><span class="prob-team">{e(name)}<small class="fair-line">Fair line {a["fair_decimal"][i]:.3f}</small></span><strong>{p * 100:.1f}%</strong></div>'
             out += f'<div class="prob-bar" aria-hidden="true"><span class="bar-a" style="width:{a["probabilities"][0] * 100:.4f}%"></span><span class="bar-b" style="width:{a["probabilities"][1] * 100:.4f}%"></span></div><span class="tiny muted">Calculated · full-series winner</span>'
         else:
             out += '<div class="prob-line"><span>' + e(names[0]) + '</span>' + blank() + '</div><div class="prob-line"><span>' + e(names[1]) + '</span>' + blank() + '</div><p class="tiny muted">Insufficient verified inputs. No default 50/50.</p>'
         out += '</td><td class="pick-cell" data-label="Our pick">'
         if a and pick is not None:
-            out += f'<div class="pick-choice" data-pick-choice>{icon("check")}<strong>{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption>{max(a["probabilities"]) * 100:.1f}% estimated win chance</p>'
+            lock, start = timestamp(m['locks_at']), timestamp(m['starts_at'])
+            closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
+            inactive = expired or closed or lock is None
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance'
+            status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
+            out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
+
         elif a:
             out += '<strong class="muted">No directional edge</strong><p class="pick-caption">Equal estimate; no arbitrary pick.</p>'
         else:
@@ -150,6 +161,9 @@ def unresolved_table(data, prefix):
     for m in rows:
         unknown = m['availability'] == 'unknown'
         reason = ('Scheduled start is unverified; a safe team/time market join cannot be made.' if unknown else next((r['detail'] for r in reversed(m['research']) if r['status'] == 'unresolved'), 'No verified inputs are available'))
+        primary = next((r for r in m['research'] if r['stage'].startswith('Primary') and r['status'] != 'resolved'), None)
+        primary_note = '<p class="tiny"><strong>Primary-market limitation:</strong> ' + e(primary['detail']) + ' ' + external(primary['source_url'], 'Primary source') + '</p>' if primary else ''
+        identity_notes = ''.join('<p class="identity-note">' + e(r['detail']) + ' ' + external(r['source_url'], 'HLTV record for review') + '</p>' for r in m['research'] if r['stage'] == 'HLTV identity review')
         trail = ''
         if m['research']:
             trail = '<details><summary>Sources tried &amp; limitations</summary><ol class="research-trail">'
@@ -157,7 +171,7 @@ def unresolved_table(data, prefix):
                 trail += f'<li><strong>{e(r["stage"])}</strong> · {e(r["status"])}<p>{e(r["detail"])}</p>{external(r["source_url"], "Original source")}</li>'
             trail += '</ol></details>'
         target = 'coverage/#unknown-schedules' if unknown else 'picks/#match-' + m['id']
-        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}<p class="tiny">Missing probabilities remain blank. An unavailable source is not proof that no betting market exists.</p>{trail}</td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}{e(target)}">Full research trail →</a></td></tr>'
+        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{primary_note}{identity_notes}<p class="tiny">Missing probabilities remain blank. An unavailable source is not proof that no betting market exists.</p>{trail}</td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}{e(target)}">Full research trail →</a></td></tr>'
     return out + '</tbody></table></div>'
 
 
@@ -168,6 +182,7 @@ def summary(data, prefix):
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{c["upcoming"] - c["unresolved"]}<span>/{c["upcoming"]}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{c["upcoming"]} future matches.</strong> {c["market"] + c["bookmaker"]} market-backed estimates, {c["model"]} research estimates, and {c["unresolved"]} unresolved. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}picks/">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'picks/">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<div class="metrics">'
@@ -177,7 +192,7 @@ def summary(data, prefix):
     out += '</div>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The short version</p><h2>What to know before you pick</h2></div>' + badge('Read-only analysis', 'neutral') + '</div><div class="briefing-notes">'
     out += f'<div><span class="note-number">01</span><p><strong>Start with the full picks list.</strong> Both team probabilities, the suggested team, lock time and original evidence are shown together. {external(LOBBY, "Submit picks on Hotspawn")}</p></div><div><span class="note-number">02</span><p><strong>Know what backs the number.</strong> Green means an external market; purple means an uncalibrated rating model used only when the primary method failed. Neither is a guarantee.</p></div><div><span class="note-number">03</span><p><strong>Check the timestamp.</strong> Automatic checks are scheduled every four hours. GitHub may delay a run. After eight hours without a successful observation, the site warns you not to treat the snapshot as current.</p></div></div></section>'
-    out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'picks/">All match picks ' + icon('arrow') + '</a></div>'
+    out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'picks/">All match picks ' + icon('arrow') + '</a></div>'
     out += matches_table(active[:5], prefix, table_id='next-matches') + '</section>'
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
     out += unresolved_table(data, prefix)
@@ -187,18 +202,19 @@ def summary(data, prefix):
 
 def picks(data, prefix):
     c = data['counts']
-    active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
-    out = heading('The complete future-match list', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
-    out += '<div class="info-strip">' + icon('clock') + '<span>Snapshot observed ' + local_time(data.get('inventory_observed_at')) + '. Lock times come from each Hotspawn fixture. Picks are not submitted automatically.</span></div>'
+    active = [m for m in data['matches'] if m['availability'] != 'past']
+    out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    out += '<div class="info-strip">' + icon('clock') + '<span>Snapshot observed ' + local_time(data.get('inventory_observed_at')) + '. Lock times come from each Hotspawn fixture. Picks are not submitted automatically. <a href="#unresolved">Jump to unresolved picks &amp; limitations ↓</a></span></div>'
     out += '<section class="content-section picks-section" aria-label="Searchable match list"><div class="filter-bar"><label class="search-box">' + icon('search') + '<span class="sr-only">Search teams or tournaments</span><input id="match-search" type="search" placeholder="Search teams or tournaments…" autocomplete="off"></label><label class="select-field"><span>Tournament</span><select id="tournament-filter"><option value="all">All tournaments</option>'
     for tournament in sorted(set(m['competition'] or 'Unverified tournament' for m in active)):
         out += f'<option value="{e(tournament)}">{e(tournament)}</option>'
     out += '</select></label><label class="select-field"><span>Sort by</span><select id="match-sort"><option value="start">Soonest first</option><option value="confidence">Highest estimated chance</option><option value="team">Team name</option></select></label></div><div class="filter-second"><div class="filter-tabs" role="group" aria-label="Probability basis">'
-    for value, label, count in [('all', 'All matches', c['upcoming']), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'])]:
+    for value, label, count in [('all', 'All matches', len(active)), ('market', 'Market-backed', c['market'] + c['bookmaker']), ('model', 'Research', c['model']), ('unresolved', 'Unresolved', c['unresolved'] + c['unknown_schedule'])]:
         out += f'<button type="button" data-basis="{value}" aria-pressed="{"true" if value == "all" else "false"}">{label}<span>{count}</span></button>'
-    out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness checks are unavailable.</p></noscript>'
+    out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness/lock checks are unavailable. Status reflects build time only; confirm the published observation and Hotspawn countdown before choosing a team.</p></noscript>'
     out += matches_table(active, prefix, filters=True) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
-    out += f'<p class="muted small">Showing future-start fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
+    out += f'<p class="muted small">Showing future-start and unknown-schedule fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
+    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Every gap stays visible</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All flagged findings →</a></div>' + unresolved_table(data, prefix) + '</section>'
     return out
 
 
@@ -219,6 +235,9 @@ def coverage(data, prefix):
     for m in data['matches']:
         if m['availability'] != 'past':
             continue
+        primary = next((r for r in m['research'] if r['stage'].startswith('Primary') and r['status'] != 'resolved'), None)
+        primary_note = '<p class="tiny"><strong>Primary-market limitation:</strong> ' + e(primary['detail']) + ' ' + external(primary['source_url'], 'Primary source') + '</p>' if primary else ''
+        identity_notes = ''.join('<p class="identity-note">' + e(r['detail']) + ' ' + external(r['source_url'], 'HLTV record for review') + '</p>' for r in m['research'] if r['stage'] == 'HLTV identity review')
         out += f'<tr><th scope="row">{e(match_name(m))}<small>{e(m["competition"] or "Unverified tournament")} · ID {e(m["id"])}</small></th><td>{local_time(m["starts_at"])}</td><td>{e(m["source_status"] or "")}<small>Current result/status unverified</small></td><td>{external(m["source_url"], "Hotspawn source")}</td></tr>'
     out += '</tbody></table></div></section>'
     out += f'<div class="limitations-callout"><strong>Earlier session outputs, preserved for review</strong><p>These archived dashboards use older observation times and different identity/model rules. They are not the current picks feed and are not independently reverified by this pipeline.</p><div class="inline-links"><a href="{prefix}docs/index.html">Earlier research snapshot →</a><a href="{prefix}archive/root-session/index.html">Earlier root dashboard →</a></div></div>'
@@ -230,7 +249,7 @@ def coverage(data, prefix):
 
 def methodology(data, prefix):
     out = heading('A number needs a reason', 'How we resolve a pick', 'Source facts stay separate from analysis. No Hotspawn community percentage, popularity, score or Pick’em point multiplier enters a probability calculation.')
-    steps = [('01', 'Verify the full match inventory', 'Read the public lobby, CS2 lobby and the same public fixture array used by Hotspawn’s client. Reconcile every CS2 ID. Keep old or inconsistent records in the archive rather than dropping them.', LOBBY, 'Official lobby'), ('02', 'Use the primary external market', 'Discover CS2 games from Polymarket’s own directory. Confirm the event, exact two team names, start time within 60 seconds, unique active series moneyline, accepting-orders state, token IDs and condition ID. Read both original order books. No map or handicap markets.', 'https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Official order book documentation'), ('03', 'Research only primary-method gaps', 'For those matches only, try HLTV’s official match directory, then original esportsbook lines. Thunderpick has a paired-price adapter; GG.BET, Pinnacle and Rivalry are public-access checks and do not fabricate prices if a validated contract is unavailable. HTTP 403, redirects and schema failures are visible limitations—not proof of no market.', 'https://www.hltv.org/matches', 'HLTV official match directory'), ('04', 'Model only supported rating inputs—or leave blank', 'If no accepted external line exists, read the latest official global Valve snapshot on or before today. Require exactly one matching team name and a complete five-player roster for each team. Reject ambiguous names, missing teams and snapshots older than 35 days. Otherwise publish an explicitly uncalibrated rating estimate. If any requirement fails, publish the match as unresolved.', 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'Valve official standings')]
+    steps = [('01', 'Verify the full match inventory', 'Read the public lobby, CS2 lobby and the same public fixture array used by Hotspawn’s client. Reconcile every CS2 ID. Keep old or inconsistent records in the archive rather than dropping them.', LOBBY, 'Official lobby'), ('02', 'Use the primary external market', 'Discover CS2 games from Polymarket’s directory and paginate its official CS2-tag event API to a terminal page. A repeated page, schema change, access failure or the bounded 2,000-event limit is published as a discovery limitation. Confirm the event, exact two team names, start time within 60 seconds, unique active series moneyline, accepting-orders state, token IDs and condition ID. Read both original order books. No map or handicap markets.', 'https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Official order book documentation'), ('03', 'Research only primary-method gaps', 'For those matches only, try HLTV’s official match directory, then original esportsbook lines. HLTV’s sibling time/team cards are replayed from saved original markup; differing provider names stay flagged, not silently aliased. Thunderpick has a paired-price adapter; GG.BET, Pinnacle, Rivalry and Stake are public-access checks and do not fabricate prices if a validated contract is unavailable. HTTP 403, redirects and schema failures are visible limitations—not proof of no market.', 'https://www.hltv.org/matches', 'HLTV official match directory'), ('04', 'Model only supported rating inputs—or leave blank', 'If no accepted external line exists, read the latest official global Valve snapshot on or before today. Require exactly one matching team name and a complete five-player roster for each team. Reject ambiguous names, missing teams and snapshots older than 35 days. Otherwise publish an explicitly uncalibrated rating estimate. If any requirement fails, publish the match as unresolved.', 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'Valve official standings')]
     out += '<section class="content-section resolution-steps">'
     for n, title, description, url, label in steps:
         out += f'<article class="resolution-step"><span>{n}</span><div><h2>{title}</h2><p>{e(description)}</p>{external(url, label)}</div></article>'

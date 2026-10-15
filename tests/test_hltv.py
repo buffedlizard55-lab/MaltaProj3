@@ -34,7 +34,9 @@ class HltvTests(unittest.TestCase):
 
     def test_saved_official_hltv_response_replays_all_discovered_identities(self):
         evidence = Path('data/evidence')
-        original = evidence / 'hltv-index-response.json'
+        original = evidence / 'hltv-page.json'
+        if not original.exists():
+            original = evidence / 'hltv-index-response.json'
         parsed = evidence / 'hltv-research.json'
         if not original.exists() or not parsed.exists():
             self.skipTest('This retained snapshot has no successful HLTV response')
