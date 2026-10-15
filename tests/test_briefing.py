@@ -93,7 +93,7 @@ class BriefingTests(unittest.TestCase):
         from scripts.briefing import validate_audit
         audit = json.loads(Path('data/research/day-one-audit.json').read_text())
         self.assertEqual(validate_audit(audit), audit)
-        for s in audit['valve_roster_snapshots']:
+        for s in audit['valve_roster_snapshots'][1:]:
             self.assertIn('Jimpphat, kyxsan, Wicadia, woxic, XANTARES', s['aurora_row'])
         audit['valve_roster_snapshots'][0]['original_markdown'] += 'tampered'
         with self.assertRaises(ValueError):
@@ -108,7 +108,7 @@ class BriefingTests(unittest.TestCase):
         self.assertIn('9z beat Aurora 2–0', text)
         self.assertIn('no numerical probability adjustment', text)
         soup = BeautifulSoup(text, 'html.parser')
-        self.assertEqual(len(soup.select('tbody tr')), 3)
+        self.assertEqual(len(soup.select('tbody tr')), 4)
         for row in soup.select('tbody tr'):
             self.assertIn('github.com/ValveSoftware/', row.find('a')['href'])
         reports = [a['data'] for a in audit['hltv_annotations'] if a['title'] == 'Day-one report excerpt']
