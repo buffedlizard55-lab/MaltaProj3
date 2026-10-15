@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-15T09:06:40Z",
-  "source_snapshot_at": "2026-10-15T08:22:59Z",
-  "source_generated_at": "2026-10-15T08:23:08Z",
+  "generated_at": "2026-10-15T09:07:56Z",
+  "source_snapshot_at": "2026-10-15T08:36:04Z",
+  "source_generated_at": "2026-10-15T08:36:13Z",
   "registry_updated_at": "2026-10-15T08:55:00Z",
   "live_collection": false,
   "counts": {
-    "active": 18,
-    "resolved": 18,
+    "active": 17,
+    "resolved": 17,
     "unresolved": 0,
-    "with_pick": 18,
+    "with_pick": 17,
     "consensus": 10,
     "market": 1,
-    "bookmaker": 4,
+    "bookmaker": 3,
     "model": 3,
     "alias_joined": 10
   },
@@ -31,141 +31,6 @@
     ]
   },
   "matches": [
-    {
-      "id": "1080201",
-      "teams": [
-        {
-          "id": "32416",
-          "name": "Aurora"
-        },
-        {
-          "id": "367",
-          "name": "Ninjas in Pyjamas"
-        }
-      ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T08:30:00Z",
-      "locks_at": "2026-10-15T08:24:00Z",
-      "availability": "open",
-      "tier": "s",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080201",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080201",
-      "featured_method": "bookmaker",
-      "featured_probabilities": [
-        0.71111111,
-        0.28888889
-      ],
-      "featured_pick_index": 0,
-      "featured_source_url": "https://thunderpick.io/api/matches",
-      "origination": {
-        "method": "bookmaker",
-        "label": "Originated esportsbook line (no-vig)",
-        "probabilities": [
-          0.71111111,
-          0.28888889
-        ],
-        "fair_decimal": [
-          1.406,
-          3.462
-        ],
-        "quotes": [
-          {
-            "provider": "Thunderpick",
-            "family": "bookmaker",
-            "probabilities": [
-              0.71111111,
-              0.28888889
-            ],
-            "odds": [
-              1.3,
-              3.2
-            ],
-            "observed_at": "2026-10-15T08:22:59Z",
-            "source_url": "https://thunderpick.io/esports/counter-strike",
-            "api_url": "https://thunderpick.io/api/matches",
-            "event_id": "2825093",
-            "evidence_file": "data/evidence/thunderpick-matches.json"
-          }
-        ],
-        "source": "Thunderpick",
-        "source_url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-15T08:22:59Z",
-        "model_crosscheck": {
-          "provider": "Valve official standings",
-          "family": "model",
-          "probabilities": [
-            0.73481702,
-            0.26518298
-          ],
-          "inputs": [
-            {
-              "name": "Aurora",
-              "points": 1716,
-              "standing": 9,
-              "roster": [
-                "Jimpphat",
-                "kyxsan",
-                "Wicadia",
-                "woxic",
-                "XANTARES"
-              ]
-            },
-            {
-              "name": "Ninjas in Pyjamas",
-              "points": 1534,
-              "standing": 18,
-              "roster": [
-                "adamb",
-                "Krimbo",
-                "sjuush",
-                "stavn",
-                "xKacpersky"
-              ]
-            }
-          ],
-          "snapshot_date": "2026-10-05",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "evidence_file": "data/evidence/valve-ratings.json",
-          "rd_assumption": 75,
-          "g": 0.9728209910486895,
-          "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
-        }
-      },
-      "pick_index": 0,
-      "aliases_used": [],
-      "research": [
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "source_url": "https://polymarket.com/esports/cs2",
-          "detail": "No alias-verified Polymarket series-winner market found for these teams and start time."
-        },
-        {
-          "stage": "Esportsbook line (original prices)",
-          "status": "resolved",
-          "source_url": "https://thunderpick.io/api/matches",
-          "detail": "Verified paired prematch decimal prices; margin removed by proportional normalization."
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "resolved",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists."
-        },
-        {
-          "stage": "HLTV research (identity and rankings)",
-          "status": "checked",
-          "source_url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
-          "detail": "HLTV lists this fixture under the event page with published team ranks. HLTV fan voting percentages are recorded nowhere as probability inputs; HLTV identity evidence feeds the alias registry only."
-        }
-      ],
-      "limitations": [
-        "Single independent source; not a multi-source consensus.",
-        "Margin removed where applicable. Estimate is not a guaranteed outcome."
-      ],
-      "time_flags": []
-    },
     {
       "id": "1079440",
       "teams": [
@@ -215,7 +80,7 @@
               1.68,
               2.05
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2767837",
@@ -224,7 +89,7 @@
         ],
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -264,7 +129,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -356,7 +221,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
             "event_id": "1140039",
             "evidence_file": "polymarket-event-1140039.json"
@@ -364,7 +229,7 @@
         ],
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": null
       },
       "pick_index": 0,
@@ -456,7 +321,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
             "event_id": "1173312",
             "evidence_file": "polymarket-event-1173312.json"
@@ -472,7 +337,7 @@
               1.22,
               3.8
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807501",
@@ -481,7 +346,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -521,7 +386,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -622,7 +487,7 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-15T09:06:40Z",
+        "observed_at": "2026-10-15T09:07:56Z",
         "method": "model",
         "label": "Research model estimate (Valve official ratings)",
         "fair_decimal": [
@@ -669,7 +534,7 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-15T09:06:40Z"
+            "observed_at": "2026-10-15T09:07:56Z"
           }
         ],
         "source": "Valve official standings",
@@ -760,7 +625,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-wbt-ence-2026-10-15",
             "event_id": "1173313",
             "evidence_file": "data/origination/evidence/research-fetches.json"
@@ -776,7 +641,7 @@
               1.5,
               2.4
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807512",
@@ -785,7 +650,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-wbt-ence-2026-10-15",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -838,7 +703,7 @@
               ]
             }
           ],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -962,7 +827,7 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-15T09:06:40Z",
+        "observed_at": "2026-10-15T09:07:56Z",
         "method": "model",
         "label": "Research model estimate (Valve official ratings)",
         "fair_decimal": [
@@ -1009,7 +874,7 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-15T09:06:40Z"
+            "observed_at": "2026-10-15T09:07:56Z"
           }
         ],
         "source": "Valve official standings",
@@ -1097,7 +962,7 @@
               1.17,
               4.4
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807496",
@@ -1106,7 +971,7 @@
         ],
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -1146,7 +1011,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -1256,7 +1121,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
             "event_id": "1190748",
             "evidence_file": "polymarket-event-1190748.json"
@@ -1272,7 +1137,7 @@
               2.1,
               1.65
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2826623",
@@ -1281,7 +1146,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -1321,7 +1186,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 1,
@@ -1409,7 +1274,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-wbt-bojong-2026-10-15",
             "event_id": "1173315",
             "evidence_file": "data/origination/evidence/research-fetches.json"
@@ -1425,7 +1290,7 @@
               1.2,
               4.0
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807511",
@@ -1434,7 +1299,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-wbt-bojong-2026-10-15",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -1487,7 +1352,7 @@
               ]
             }
           ],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -1595,7 +1460,7 @@
               1.5,
               2.4
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807492",
@@ -1604,7 +1469,7 @@
         ],
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -1644,7 +1509,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -1754,7 +1619,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
             "event_id": "1173317",
             "evidence_file": "polymarket-event-1173317.json"
@@ -1770,7 +1635,7 @@
               1.9,
               1.8
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807497",
@@ -1779,7 +1644,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -1819,7 +1684,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 1,
@@ -1900,32 +1765,32 @@
         "method": "consensus",
         "label": "Originated consensus line (median of independent money sources)",
         "probabilities": [
-          0.72461539,
-          0.27538461
+          0.72211538,
+          0.27788462
         ],
         "fair_decimal": [
-          1.38,
-          3.631
+          1.385,
+          3.599
         ],
         "quotes": [
           {
             "provider": "Polymarket",
             "family": "market",
             "probabilities": [
-              0.68,
-              0.32
+              0.675,
+              0.325
             ],
             "bid": [
-              0.53,
-              0.17
+              0.54,
+              0.19
             ],
             "ask": [
-              0.83,
-              0.47
+              0.81,
+              0.46
             ],
-            "spread": 0.3,
+            "spread": 0.27,
             "thin": true,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
             "event_id": "1173318",
             "evidence_file": "polymarket-event-1173318.json"
@@ -1941,7 +1806,7 @@
               1.2,
               4.0
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807498",
@@ -1950,7 +1815,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2003,7 +1868,7 @@
               ]
             }
           ],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -2048,7 +1913,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "resolved",
           "source_url": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
-          "detail": "THIN MARKET: best spread 0.30 is wider than 0.12; midpoint shown as indicative only."
+          "detail": "THIN MARKET: best spread 0.27 is wider than 0.12; midpoint shown as indicative only."
         },
         {
           "stage": "Esportsbook line (original prices)",
@@ -2130,7 +1995,7 @@
             ],
             "spread": 0.07,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
             "event_id": "1173319",
             "evidence_file": "polymarket-event-1173319.json"
@@ -2146,7 +2011,7 @@
               1.42,
               2.7
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807499",
@@ -2155,7 +2020,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2195,7 +2060,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -2270,8 +2135,8 @@
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080288",
       "featured_method": "market",
       "featured_probabilities": [
-        0.915,
-        0.085
+        0.92,
+        0.08
       ],
       "featured_pick_index": 0,
       "featured_source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
@@ -2279,32 +2144,32 @@
         "method": "consensus",
         "label": "Originated consensus line (median of independent money sources)",
         "probabilities": [
-          0.89174317,
-          0.10825683
+          0.89424317,
+          0.10575683
         ],
         "fair_decimal": [
-          1.121,
-          9.237
+          1.118,
+          9.456
         ],
         "quotes": [
           {
             "provider": "Polymarket",
             "family": "market",
             "probabilities": [
-              0.915,
-              0.085
+              0.92,
+              0.08
             ],
             "bid": [
-              0.88,
+              0.89,
               0.05
             ],
             "ask": [
               0.95,
-              0.12
+              0.11
             ],
-            "spread": 0.07,
+            "spread": 0.06,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
             "event_id": "1173321",
             "evidence_file": "polymarket-event-1173321.json"
@@ -2320,7 +2185,7 @@
               1.06,
               7.0
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807503",
@@ -2329,7 +2194,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2382,7 +2247,7 @@
               ]
             }
           ],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
@@ -2518,7 +2383,7 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-15T09:06:40Z",
+        "observed_at": "2026-10-15T09:07:56Z",
         "method": "model",
         "label": "Research model estimate (Valve official ratings)",
         "fair_decimal": [
@@ -2565,7 +2430,7 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-15T09:06:40Z"
+            "observed_at": "2026-10-15T09:07:56Z"
           }
         ],
         "source": "Valve official standings",
@@ -2631,32 +2496,32 @@
         "method": "consensus",
         "label": "Originated consensus line (median of independent money sources)",
         "probabilities": [
-          0.21221015,
-          0.78778985
+          0.21471015,
+          0.78528986
         ],
         "fair_decimal": [
-          4.712,
-          1.269
+          4.657,
+          1.273
         ],
         "quotes": [
           {
             "provider": "Polymarket",
             "family": "market",
             "probabilities": [
-              0.265,
-              0.735
+              0.27,
+              0.73
             ],
             "bid": [
-              0.11,
+              0.12,
               0.58
             ],
             "ask": [
               0.42,
-              0.89
+              0.88
             ],
-            "spread": 0.31,
+            "spread": 0.3,
             "thin": true,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
             "event_id": "1173322",
             "evidence_file": "polymarket-event-1173322.json"
@@ -2672,7 +2537,7 @@
               5.8,
               1.1
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807505",
@@ -2681,7 +2546,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2734,7 +2599,7 @@
               ]
             }
           ],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 1,
@@ -2762,7 +2627,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "resolved",
           "source_url": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
-          "detail": "THIN MARKET: best spread 0.31 is wider than 0.12; midpoint shown as indicative only."
+          "detail": "THIN MARKET: best spread 0.30 is wider than 0.12; midpoint shown as indicative only."
         },
         {
           "stage": "Esportsbook line (original prices)",
@@ -2844,7 +2709,7 @@
             ],
             "spread": 0.07,
             "thin": false,
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
             "event_id": "1173323",
             "evidence_file": "polymarket-event-1173323.json"
@@ -2860,7 +2725,7 @@
               1.35,
               2.9
             ],
-            "observed_at": "2026-10-15T08:22:59Z",
+            "observed_at": "2026-10-15T08:36:04Z",
             "source_url": "https://thunderpick.io/esports/counter-strike",
             "api_url": "https://thunderpick.io/api/matches",
             "event_id": "2807508",
@@ -2869,7 +2734,7 @@
         ],
         "source": "Polymarket + Thunderpick",
         "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
-        "observed_at": "2026-10-15T08:22:59Z",
+        "observed_at": "2026-10-15T08:36:04Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2909,7 +2774,7 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-15T09:06:40Z"
+          "observed_at": "2026-10-15T09:07:56Z"
         }
       },
       "pick_index": 0,
