@@ -604,3 +604,27 @@ deep-dive page (`edge/`), and the "Where every list lives" map points at each ro
 file, dataset or probability from either session was discarded; conflicts in README/COORDINATION were
 resolved by union and the test suites were re-run end to end after the merge: **145 Python tests OK** and **38 Playwright checks pass**, `scripts.build` validates 475 internal links/assets/anchors.
 
+
+### Completion record — arena-2e8b83a7 (integration of this session's work)
+
+- PR [#30](https://github.com/buffedlizard55-lab/MaltaProj3/pull/30) merged **2026-10-15T12:08:26Z**, merge
+  `9c291d57f638319c993755521ad4d6449abc0601` (day-one upset review page, researched-fallback display on
+  `/picks/`, competition-scoped alias registry, WCAG underline fix, `/edge/` post-deploy verification).
+- First production run after #30 ([38732405798](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38732405798))
+  failed at the regression step because three new tests compared exact fixture intersections while the
+  workflow restores the last verified public snapshot over `data/latest.json`. Fixed in PR
+  [#31](https://github.com/buffedlizard55-lab/MaltaProj3/pull/31), merged **2026-10-15T12:13:48Z**, merge
+  `ad09cdc114c71e26206b91d811badc89b37a068d`. No production logic changed in #31.
+- Production [38733064622](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38733064622)
+  **succeeded**, including the post-deploy public verification of all six pages, the complete-picks route
+  and the new `/edge/` route. Public notice: complete picks **14 active / 14 estimates / 14 picks /
+  0 unresolved** (1 consensus + 7 market + 1 bookmaker + 5 model, **3 alias joins resolved through the new
+  competition-scoped registry**). The same run reports an inventory source limitation: the lobby, CS2 lobby
+  and fixture API disagreed at collection time, so the retained 2026-10-15T10:13:43Z snapshot is published
+  with `coverage_complete=false` and its original timestamps; no completeness is claimed. Both facts are
+  displayed on the site, not hidden.
+- Local verification at merge: **145 Python tests OK**, **38 Playwright checks pass**, `scripts.build`
+  validates **475 internal links/assets/anchors**; phone screenshots at 390px reviewed for summary, picks
+  and edge.
+- Remaining flags for this session stay as published above (E-F1 … E-F6). The inventory disagreement of the
+  12:1xZ production run is already covered by the standing inventory-failed flag and by E-F5.
