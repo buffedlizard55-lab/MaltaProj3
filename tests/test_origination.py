@@ -456,3 +456,17 @@ class PublicContractTests(unittest.TestCase):
         self.assertEqual({el.get('id') for el in page.select('.pick-card')}, {'match-' + m['id'] for m in data['matches']})
         self.assertEqual(len(page.select('.unresolved-card')), 1)
         self.assertIsNotNone(page.find(id='unresolved-' + victim['id']))
+
+
+class SourceLinkDedupeTests(unittest.TestCase):
+    def test_each_source_url_is_linked_once_per_card(self):
+        from bs4 import BeautifulSoup
+        data = json.loads((ROOT / 'data' / 'origination.json').read_text())
+        for m in data['matches']:
+            if not m['origination']:
+                continue
+            card = BeautifulSoup(build_origination.pick_row(m), 'html.parser')
+            hrefs = [a['href'] for a in card.select('.row-srcs a')]
+            self.assertEqual(len(hrefs), len(set(hrefs)), m['id'])
+            self.assertTrue(any('hotspawn' in h for h in hrefs), m['id'])
+            self.assertGreaterEqual(len(hrefs), 2, m['id'])
