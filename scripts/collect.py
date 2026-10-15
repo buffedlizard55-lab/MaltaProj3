@@ -16,7 +16,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scripts.domain import (identity_matches, iso, market_analysis, polymarket_candidate,
+from scripts.domain import (identity_matches, name_key, iso, market_analysis, polymarket_candidate,
                             selection, sportsbook_quote, consensus, timestamp, valve_analysis)
 from scripts.sources import (Client, SourceError, LOBBY, CS2_LOBBY, FIXTURES_API,
                              POLY_INDEX, HLTV, hotspawn, poly_index, hltv_research,
@@ -27,6 +27,7 @@ BOOK_PAGES = [
     ('https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike', 'ggbet-cs2', 'GG.BET esportsbook'),
     ('https://www.pinnacle.com/en/esports-hub/cs2', 'pinnacle-cs2', 'Pinnacle esportsbook'),
     ('https://www.rivalry.com/esports/counter-strike-betting', 'rivalry-cs2', 'Rivalry esportsbook'),
+    ('https://stake.com/sports/esports/counter-strike', 'stake-cs2', 'Stake esportsbook'),
 ]
 
 
@@ -156,7 +157,14 @@ def _collect_into(output: Path):
             health.append(h)
             for m in missing:
                 found = [r for r in research if identity_matches(r['teams'], r['starts_at'], m)]
-                m['research'].append({'stage': 'HLTV research', 'source_url': found[0]['source_url'] if len(found) == 1 else HLTV, 'status': 'checked', 'detail': 'Match identity found; no original bookmaker price verified.' if len(found) == 1 else 'No unique structured HLTV identity confirmed.'})
+                m['research'].append({'stage': 'HLTV research', 'source_url': found[0]['source_url'] if len(found) == 1 else HLTV, 'status': 'checked', 'detail': ('Exact teams/time confirmed on HLTV; ' + ('HLTV lists BO' + str(found[0]['best_of']) + '; Hotspawn format remains separately unverified. ' if found[0].get('best_of') else 'HLTV format unverified. ') + 'No original bookmaker price verified at this stage.') if len(found) == 1 else 'No unique structured HLTV identity confirmed.'})
+                if not found:
+                    wanted = {name_key(t['name']) for t in m['teams']}
+                    start = timestamp(m['starts_at'])
+                    nearby = [r for r in research if start and abs((timestamp(r['starts_at']) - start).total_seconds()) <= 60 and len(wanted.intersection(map(name_key, r['teams']))) == 1]
+                    for r in nearby:
+                        m['research'].append({'stage': 'HLTV identity review', 'source_url': r['source_url'], 'status': 'unresolved', 'detail': 'HLTV lists ' + ' vs '.join(r['teams']) + ' at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.'})
+
         except (SourceError, ValueError) as exc:
             health.append(failed('HLTV fallback research', HLTV, exc, now))
             for m in missing:

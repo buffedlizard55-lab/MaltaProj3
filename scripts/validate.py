@@ -12,7 +12,7 @@ from urllib.parse import urlparse, unquote
 from bs4 import BeautifulSoup
 
 from scripts.collect import counts, normalize_fixture
-from scripts.sources import gamma_games
+from scripts.sources import gamma_games, parse_hltv_matches
 
 from scripts.domain import (array, consensus, iso, market_analysis, parse_valve_table,
                             polymarket_candidate, selection, sportsbook_quote,
@@ -52,6 +52,13 @@ def check_data(root: Path):
     require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
     attempts = {r['id']: r for r in data.get('requests', [])}
     valve_rows = None
+    hltv_path = evidence / 'hltv-research.json'
+    if hltv_path.exists():
+        page = load(evidence / 'hltv-page.json')
+        require(load(hltv_path) == parse_hltv_matches(page['html']), 'HLTV identities/formats do not replay from original markup')
+        request = attempts.get('hltv-matches', {})
+        require(request.get('status') == 'ok' and request.get('observed_at') == page['observed_at'], 'HLTV observation timestamp restamped')
+        require(hashlib.sha256(page['html'].encode()).hexdigest() == request.get('response_sha256'), 'HLTV markup does not match original HTTP response hash')
     index_path = evidence / 'polymarket-index.json'
     if index_path.exists():
         for game in load(index_path):

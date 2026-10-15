@@ -300,5 +300,36 @@ class PaginationTests(unittest.TestCase):
         self.assertTrue(health['discovery_complete'])
 
 
+class HLTVCardTests(unittest.TestCase):
+    def card(self, names=('Alpha', 'Beta'), time=START, path='/matches/123/alpha-vs-beta'):
+        unix = int(timestamp(time).timestamp() * 1000)
+        return f'<div data-match-wrapper><a href="{path}">Event</a><a href="{path}"><span data-unix="{unix}">12:00</span><span class="match-meta">bo3</span></a><a href="{path}"><div class="match-teamname">{names[0]}</div><div class="match-teamname">{names[1]}</div></a></div>'
+
+    def test_sibling_time_and_team_anchors_resolve(self):
+        from scripts.sources import parse_hltv_matches
+        records = parse_hltv_matches(self.card())
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]['teams'], ['Alpha', 'Beta'])
+        self.assertEqual(records[0]['starts_at'], START)
+        self.assertEqual(records[0]['best_of'], 3)
+
+    def test_pinned_duplicate_collapses_without_merging_other_matches(self):
+        from scripts.sources import parse_hltv_matches
+        records = parse_hltv_matches(self.card() + self.card() + self.card(('Gamma', 'Delta'), path='/matches/124/gamma-vs-delta'))
+        self.assertEqual(len(records), 2)
+
+    def test_conflicting_times_and_paths_never_mix_sibling_fixtures(self):
+        from scripts.sources import parse_hltv_matches
+        card = self.card().replace('</div></div>', '</div></div>')
+        card = card[:-6] + '<span data-unix="1793000000000"></span></div>'
+        self.assertEqual(parse_hltv_matches(card), [])
+        card = self.card().replace('href="/matches/123/alpha-vs-beta"', 'href="/matches/124/wrong"', 1)
+        self.assertEqual(parse_hltv_matches(card), [])
+
+    def test_access_challenge_does_not_create_research_data(self):
+        from scripts.sources import parse_hltv_matches
+        self.assertEqual(parse_hltv_matches('<title>Please verify you are human</title>'), [])
+
+
 if __name__ == '__main__':
     unittest.main()

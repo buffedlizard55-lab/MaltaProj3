@@ -215,28 +215,44 @@ def poly_index(client: Client):
     return games, {'status': 'ok' if not limitations else 'limited', 'name': 'Polymarket CS2', 'url': POLY_INDEX, 'observed_at': observed, 'records': len(games), 'discovery_complete': complete, 'pages': pages, 'detail': 'Public directory plus paginated official CS2-tag events used for discovery. Every selected fixture is rechecked against its original Gamma event and both order books; directory/outcome prices are never probability inputs.' + (' Limitations: ' + '; '.join(limitations) if limitations else '')}
 
 
-def hltv_research(client: Client, matches: list):
-    """Research only unresolved primary matches; no restricted filtered stats URLs."""
-    html, req = client.fetch(HLTV, 'hltv-matches')
+def parse_hltv_matches(html: str) -> list:
+    """HLTV's split-anchor cards: time and teams are siblings, not descendants."""
     soup = BeautifulSoup(html, 'html.parser')
-    candidates = []
-    for a in soup.select('a[href^="/matches/"]'):
-        node = a if a.has_attr('data-unix') else a.find(attrs={'data-unix': True})
-        if not node:
+    containers = soup.select('[data-match-wrapper]')
+    if not containers:
+        containers = soup.select('a[href^="/matches/"]')  # Older single-anchor cards.
+    result = []
+    for card in containers:
+        times = {n.get('data-unix') for n in card.select('[data-unix]')}
+        if card.has_attr('data-unix'):
+            times.add(card['data-unix'])
+        names = [n.get_text(' ', strip=True) for n in card.select('.matchTeamName, .match-teamname, .match-team-name')]
+        hrefs = {a['href'] for a in card.select('a[href^="/matches/"]')}
+        if card.name == 'a' and card.get('href', '').startswith('/matches/'):
+            hrefs.add(card['href'])
+        if len(times) != 1 or len(names) != 2 or len(hrefs) != 1 or not all(names):
             continue
-        names = [n.get_text(' ', strip=True) for n in a.select('.matchTeamName, .match-teamname, .match-team-name')]
-        if len(names) != 2:
+        start = timestamp(next(iter(times)))
+        href = next(iter(hrefs))
+        if start is None or not re.fullmatch(r'/matches/\d+/[^/?#]+', href):
             continue
-        start = timestamp(node.get('data-unix'))
-        if start:
-            candidates.append({'teams': names, 'starts_at': iso(start), 'source_url': 'https://www.hltv.org' + a['href']})
-    # Keep a small structural diagnostic, not an access-challenge bypass.
-    client.save('hltv-structure', {'url': HLTV, 'observed_at': req['observed_at'], 'page_title': soup.title.get_text() if soup.title else None, 'match_links': [{'href': a.get('href'), 'text': a.get_text(' ', strip=True)[:250], 'classes': a.get('class', [])} for a in soup.select('a[href^="/matches/"]')[:12]], 'data_unix_nodes': len(soup.select('[data-unix]'))})
-    # An access challenge with HTTP 200 is not a successful empty match index.
+        formats = {n.get_text(' ', strip=True).lower() for n in card.select('.match-meta') if re.fullmatch(r'bo[1357]', n.get_text(' ', strip=True), re.I)}
+        item = {'teams': names, 'starts_at': iso(start), 'source_url': 'https://www.hltv.org' + href, 'best_of': int(next(iter(formats))[2:]) if len(formats) == 1 else None}
+        if item not in result:
+            result.append(item)
+    return result
+
+
+def hltv_research(client: Client, matches: list):
+    """Research only unresolved primary matches; no restricted filtered stats."""
+    html, req = client.fetch(HLTV, 'hltv-matches')
+    candidates = parse_hltv_matches(html)
+    # Preserve original markup for independent parser replay and manual review.
+    req['evidence'] = client.save('hltv-page', {'url': req['url'], 'observed_at': req['observed_at'], 'html': html})
     if not candidates:
         raise SourceError('HLTV match schema unavailable; no structured research observations confirmed')
     client.save('hltv-research', candidates)
-    return candidates, {'status': 'ok', 'name': 'HLTV fallback research', 'url': HLTV, 'observed_at': req['observed_at'], 'records': len(candidates), 'detail': 'Match identities only. HLTV fan votes and rankings are not converted into betting odds. No bookmaker line is accepted without its original source.'}
+    return candidates, {'status': 'ok', 'name': 'HLTV fallback research', 'url': HLTV, 'observed_at': req['observed_at'], 'records': len(candidates), 'detail': 'Split-anchor match cards parsed and saved for replay. Exact fixture identities and independently published series formats only. Fan votes are not probabilities; no bookmaker line is accepted without original-source prices.'}
 
 
 def thunderpick(client: Client):
