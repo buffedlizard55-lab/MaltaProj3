@@ -263,7 +263,7 @@ def executive_summary(data):
                '<a class="q" href="../review/">🚩 Flagged for review <small>main register</small></a>'
                '</nav>')
     out.append('<p class="hero-note">Probabilities are calculated from external betting markets and official ratings — '
-               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured estimates are preserved; additional research runs only for fixtures the featured methods did not resolve.</p></section>')
+               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured money-backed estimates are preserved. Alias-aware research also runs for fixtures the featured methods did not resolve and for fixtures whose featured estimate is only the uncalibrated Valve model; a verified money line replaces that model and the card says so.</p></section>')
     return ''.join(out)
 
 
