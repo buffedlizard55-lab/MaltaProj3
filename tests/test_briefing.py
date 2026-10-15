@@ -86,3 +86,30 @@ class BriefingTests(unittest.TestCase):
         self.assertEqual(soup.select('.mobile-nav a')[1]['href'], './origination/#picks')
         self.assertIn('featured-method rejections', text)
         self.assertIsNotNone(soup.select_one('[aria-label="Complete pick coverage"]'))
+
+    def test_official_roster_rows_replay_original_github_blobs(self):
+        import json
+        from pathlib import Path
+        from scripts.briefing import validate_audit
+        audit = json.loads(Path('data/research/day-one-audit.json').read_text())
+        self.assertEqual(validate_audit(audit), audit)
+        for s in audit['valve_roster_snapshots']:
+            self.assertIn('Jimpphat, kyxsan, Wicadia, woxic, XANTARES', s['aurora_row'])
+        audit['valve_roster_snapshots'][0]['original_markdown'] += 'tampered'
+        with self.assertRaises(ValueError):
+            validate_audit(audit)
+
+    def test_inspected_postmortem_separates_secondary_result_from_primary_verification(self):
+        import json
+        from pathlib import Path
+        audit = json.loads(Path('data/research/day-one-audit.json').read_text())
+        text = review_note('../', audit)
+        self.assertIn('Primary organizer result: — unverified', text)
+        self.assertIn('9z beat Aurora 2–0', text)
+        self.assertIn('no numerical probability adjustment', text)
+        soup = BeautifulSoup(text, 'html.parser')
+        self.assertEqual(len(soup.select('tbody tr')), 3)
+        for row in soup.select('tbody tr'):
+            self.assertIn('github.com/ValveSoftware/', row.find('a')['href'])
+        reports = [a['data'] for a in audit['hltv_annotations'] if a['title'] == 'Day-one report excerpt']
+        self.assertTrue(any('9z beat Aurora 2-0' in r['title'] for r in reports))

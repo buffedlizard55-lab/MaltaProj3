@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 from datetime import datetime, timezone
 
 from scripts.domain import is_fresh, timestamp
@@ -39,7 +40,39 @@ def candidates(matches, now=None, inventory_observed_at=None):
     return sorted(result, key=lambda item: (-item[0]['origination']['probabilities'][item[1]], item[0]['id']))
 
 
-def review_note(prefix):
+def validate_audit(audit):
+    """Replay inspected official roster rows against the original Git blobs."""
+    for snapshot in audit['valve_roster_snapshots']:
+        raw = snapshot['original_markdown'].encode()
+        digest = hashlib.sha1(f'blob {len(raw)}\0'.encode() + raw).hexdigest()
+        if digest != snapshot['git_blob_sha'] or snapshot['aurora_row'] not in raw.decode().splitlines():
+            raise ValueError('Day-one official roster evidence does not replay')
+        if snapshot['aurora_row'].split('|')[3].strip() != 'Aurora':
+            raise ValueError('Day-one roster evidence refers to another team')
+        expected = 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_' + snapshot['date'].replace('-', '_') + '.md'
+        if snapshot['source_url'] != expected:
+            raise ValueError('Day-one roster evidence has an unsupported source URL')
+    return audit
+
+
+def reviewed_note(prefix, audit):
+    validate_audit(audit)
+    out = f'''<section class="content-section" id="day-one-review"><h2>Day-one review: 9z vs Aurora</h2>
+<p><strong>Primary organizer result: — unverified.</strong> Secondary-source corroboration: HLTV reports <a class="source-link" href="https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026">9z beat Aurora 2–0 at Thunderpick World Championship 2026</a>, also listed on its <a class="source-link" href="https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026">match page</a>. This is not relabeled as primary organizer verification. A historical prematch price was not captured here, so upset magnitude, closing-line value and retrospective pick accuracy remain — unverified.</p>
+<p><strong>What the report supports:</strong> HLTV describes 9z taking control on Inferno and Aurora struggling on Nuke. It also reports that Aurora had beaten 9z at EPL 24. That supports treating match-specific conditions as important, not assuming a prior head-to-head winner must repeat. This single result does not calibrate our model or establish a profitable contrarian strategy.</p>
+<h3>Aurora roster check — official dated snapshots</h3><p>The three official Valve snapshots below list the same five names. They do not confirm the match-day lineup, a change after 5 October, player onboarding, or the absence of a later change. <strong>Recent change date/player, rest and travel advantage: — unverified.</strong> The report is not evidence that a roster change caused this loss; no numerical probability adjustment is applied.</p>
+<div class="table-scroll"><table class="simple-table"><caption>Official historical Aurora roster entries — not current-lineup confirmation</caption><thead><tr><th scope="col">Snapshot date</th><th scope="col">Published roster</th><th scope="col">Official source</th></tr></thead><tbody>'''
+    for snapshot in audit['valve_roster_snapshots']:
+        roster = snapshot['aurora_row'].split('|')[4].strip()
+        out += f'<tr><th scope="row">{e(snapshot["date"])}</th><td>{e(roster)}</td><td><a class="source-link" href="{e(snapshot["source_url"])}">Valve original standings</a></td></tr>'
+    out += f'''</tbody></table></div><p>Research inspected {e(audit['reviewed_at'])}. <a class="source-link" href="{e(audit['research_run_url'])}">Live source research audit</a> · <a class="internal-link" href="{prefix}data/research/day-one-audit.json">Saved original Valve content, hashes and HLTV source excerpts ↓</a>. The date-filtered HLTV results endpoint was blocked; the normal results page and discovered report were accessible. No access-control bypass was used.</p>
+<p><strong>Practical decision:</strong> do not automatically fade Aurora or chase 9z after this result. Use the next fixture’s independently sourced probabilities. Current roster announcements, substitutions, map veto, comparable rest and scoring/ownership evidence must support any deviation from the default pick. A plausible upset is not necessarily an undervalued pick.</p></section>'''
+    return out
+
+
+def review_note(prefix, audit=None):
+    if audit:
+        return reviewed_note(prefix, audit)
     return f'''<section class="content-section" id="day-one-review"><h2>Day-one result &amp; roster review — unverified</h2>
 <p>The reported 9z win over Aurora and a recent Aurora roster change are user-reported leads, not verified findings in this dataset. Winner, score, event day, changed player, change date, current lineup and rest advantage remain <strong>— unverified</strong>. No probability adjustment is applied.</p>
 <p>The saved Hotspawn feed is a scheduled-fixture inventory, not a completed-results feed. A past start or a team rating does not establish a winner. The current source collection does not verify official roster announcements, travel or rest. No causal explanation for the reported upset is asserted.</p>
@@ -62,5 +95,5 @@ def render(data, prefix):
         out += '</tbody></table></div>'
     else:
         out += '<p>No current unlocked market-backed match passes this screen at build time. No model estimate or stale line is promoted to fill the watchlist.</p>'
-    out += f'<p>Read the <a class="internal-link" href="{prefix}review/#day-one-review">day-one result &amp; Aurora roster verification limitations</a>. An unexpected winner is possible even with a well-estimated favorite; one result does not validate a new strategy.</p></section>'
+    out += f'<p>Read the <a class="internal-link" href="{prefix}review/#day-one-review">day-one postmortem &amp; official Aurora roster snapshot check</a>. An unexpected winner is possible even with a well-estimated favorite; one result does not validate a new strategy.</p></section>'
     return out
