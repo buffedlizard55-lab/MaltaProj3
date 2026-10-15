@@ -1,7 +1,7 @@
 name: Public source diagnostics
 on:
   push:
-    branches: [arena/11c1fa20-maltaproj3]
+    branches: [arena/11c1fa20-maltaproj3, arena/50c01ba9-maltaproj3]
     paths: ['scripts/audit_sources.py', '.github/workflows/source-diagnostics.yml']
   workflow_dispatch:
 permissions:

@@ -1,0 +1,114 @@
+{
+  "workflow": "Refresh and deploy CS2 dashboard (.github/workflows/pages.yml)",
+  "cron": "17 */4 * * *",
+  "cron_reference": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
+  "github_docs_quote": "The schedule event can be delayed during periods of high loads of GitHub Actions workflow runs. High load times include the start of every hour. If the load is sufficiently high enough, some queued jobs may be dropped.",
+  "github_docs_quote_2": "In a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days.",
+  "run_history_source": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+  "run_history_saved": "data/research/de176356/pages-runs.json",
+  "observation_window": {
+    "first_scheduled_run": "2026-10-14T13:43:43+00:00",
+    "last_scheduled_run": "2026-10-15T04:39:02+00:00",
+    "run_history_latest_run_created": "2026-10-15T09:40:49+00:00",
+    "audit_clock_utc": "2026-10-15T10:09:38.413676+00:00"
+  },
+  "total_runs_listed": 24,
+  "scheduled_runs": [
+    {
+      "created": "2026-10-14T13:43:43Z",
+      "conclusion": "success",
+      "run_id": 38574230560,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38574230560"
+    },
+    {
+      "created": "2026-10-14T20:12:18Z",
+      "conclusion": "success",
+      "run_id": 38630069197,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38630069197"
+    },
+    {
+      "created": "2026-10-14T23:14:46Z",
+      "conclusion": "success",
+      "run_id": 38652872902,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38652872902"
+    },
+    {
+      "created": "2026-10-15T04:39:02Z",
+      "conclusion": "success",
+      "run_id": 38682572464,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38682572464"
+    }
+  ],
+  "gaps_between_scheduled_runs": [
+    {
+      "from": "2026-10-14T13:43:43Z",
+      "to": "2026-10-14T20:12:18Z",
+      "hours": 6.48
+    },
+    {
+      "from": "2026-10-14T20:12:18Z",
+      "to": "2026-10-14T23:14:46Z",
+      "hours": 3.04
+    },
+    {
+      "from": "2026-10-14T23:14:46Z",
+      "to": "2026-10-15T04:39:02Z",
+      "hours": 5.4
+    }
+  ],
+  "max_gap_hours_completed": 6.48,
+  "hours_since_last_scheduled_run_at_audit": 5.51,
+  "four_hour_slots_checked": [
+    {
+      "slot_utc": "2026-10-14T12:17Z",
+      "scheduled_run_within_2h": true,
+      "run_id": 38574230560
+    },
+    {
+      "slot_utc": "2026-10-14T16:17Z",
+      "scheduled_run_within_2h": false,
+      "run_id": null
+    },
+    {
+      "slot_utc": "2026-10-14T20:17Z",
+      "scheduled_run_within_2h": true,
+      "run_id": 38630069197
+    },
+    {
+      "slot_utc": "2026-10-15T00:17Z",
+      "scheduled_run_within_2h": true,
+      "run_id": 38652872902
+    },
+    {
+      "slot_utc": "2026-10-15T04:17Z",
+      "scheduled_run_within_2h": true,
+      "run_id": 38682572464
+    },
+    {
+      "slot_utc": "2026-10-15T08:17Z",
+      "scheduled_run_within_2h": false,
+      "run_id": null
+    }
+  ],
+  "slots_with_scheduled_run": 4,
+  "slots_checked": 6,
+  "non_success_runs": [
+    {
+      "created": "2026-10-14T05:35:37Z",
+      "event": "push",
+      "conclusion": "failure",
+      "title": "Merge pull request #3 from buffedlizard55-lab/arena/4aae8328-maltaproj3",
+      "run_id": 38517464314,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38517464314"
+    },
+    {
+      "created": "2026-10-15T08:39:34Z",
+      "event": "push",
+      "conclusion": "failure",
+      "title": "Merge pull request #15 from buffedlizard55-lab/arena/11c1fa20-maltaproj3",
+      "run_id": 38707237342,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707237342"
+    }
+  ],
+  "user_requirement": "refresh every 4-8 hours"
+}

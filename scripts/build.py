@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 from scripts.domain import timestamp, is_fresh
 from scripts.validate import check_data, check_links
 from scripts.contrarian import derive_context, load_review, validate_context
+from scripts.briefing import render as contrarian_briefing, review_note, audit_register
 
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
@@ -193,20 +194,20 @@ def contrarian_review(data, prefix):
     old_p = historical['pre_match_probabilities']
     map_text = ', '.join(f"{m['map']} {m['score']}" for m in historical['result']['maps'])
     out = '<section class="content-section" id="contrarian"><div class="section-heading"><div><p class="eyebrow">Day 1 review · source-linked</p><h2>Contrarian, not careless</h2></div><a class="internal-link" href="' + prefix + 'picks/">Current picks ' + icon('arrow') + '</a></div>'
-    out += '<p class="section-intro">A recent upset can reveal a blind spot, but it is not permission to invent a new probability. This review keeps the primary line intact and surfaces only an evidence-backed watch for a genuinely underpriced underdog. Hotspawn popularity is not used.</p>'
-    out += '<div class="table-scroll"><table class="simple-table contrarian-table"><caption class="sr-only">Day 1 upset review, roster context and current contrarian watch</caption><thead><tr><th scope="col">Review item</th><th scope="col">What was verified</th><th scope="col">Implication for picks</th></tr></thead><tbody>'
-    out += '<tr><th scope="row">9z vs Aurora<small>14 Oct 2026 · ' + e(historical['event']) + '</small></th><td><strong>9z won ' + e(historical['result']['series_score']) + '.</strong> ' + e(map_text) + '. The archived pre-match line was ' + f'{old_p[0] * 100:.1f}% 9z / {old_p[1] * 100:.1f}% Aurora' + ', with Aurora as the primary pick.' + _source_links(historical['source_urls'], {historical['source_urls'][0]: 'Hotspawn fixture', historical['source_urls'][1]: 'HLTV match', historical['source_urls'][2]: 'HLTV result report', historical['source_urls'][3]: 'Polymarket line'}) + '</td><td>One high-profile miss is a reason to inspect identity, roster and map context—not to discard external prices. The result is historical context, not a new current win rate.</td></tr>'
-    out += '<tr><th scope="row">Aurora roster context<small>' + e(roster['reported_on']) + ' · reported rebuild</small></th><td>' + e(roster['context']) + _source_links(roster['source_urls'], {roster['source_urls'][0]: 'HLTV roster report'}) + '</td><td>The rebuild was a legitimate pre-match uncertainty. It does not prove fatigue, poor preparation or a current stand-in, so this dashboard makes no roster, rest or veto adjustment without a current source.</td></tr>'
+    out += '<p class="section-intro">A recent upset can reveal a blind spot, but it is not permission to invent a new probability. This review keeps the primary line intact and preserves a historical, team-specific watch. It does not establish that the underdog is underpriced; the separate market-backed alternatives screen uses stricter evidence criteria. Hotspawn popularity is not used.</p>'
+    out += '<div class="table-scroll"><table class="simple-table contrarian-table"><caption class="sr-only">Day 1 upset review, roster context and current contrarian watch</caption><thead><tr><th scope="col">Review item</th><th scope="col">Evidence &amp; verification limits</th><th scope="col">Implication for picks</th></tr></thead><tbody>'
+    out += '<tr><th scope="row">9z vs Aurora<small>14 Oct 2026 · ' + e(historical['event']) + '</small></th><td><strong>HLTV reports 9z won ' + e(historical['result']['series_score']) + '.</strong> ' + e(map_text) + '. Organizer result and original historical price: — unverified. The preserved session archive lists a prior estimate, but its original order book was not retained here; it is not treated as a verified closing line.' + _source_links(historical['source_urls'], {historical['source_urls'][0]: 'Hotspawn fixture', historical['source_urls'][1]: 'HLTV match', historical['source_urls'][2]: 'HLTV result report', historical['source_urls'][3]: 'Polymarket line'}) + '</td><td>One high-profile miss is a reason to inspect identity, roster and map context—not to discard external prices. The result is historical context, not a new current win rate.</td></tr>'
+    out += '<tr><th scope="row">Aurora roster context<small>' + 'Summer rebuild · report date unverified' + '</small></th><td>' + e(roster['context']) + _source_links(roster['source_urls'], {roster['source_urls'][0]: 'HLTV roster report'}) + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md', 'Official dated Valve roster') + '</td><td>This is a secondary-source report, not a verified primary announcement here. The official dated snapshots are compared on the review page. It does not prove fatigue, poor preparation or a current stand-in, so this dashboard makes no roster, rest or veto adjustment without a current source.</td></tr>'
     if current['status'] == 'contrarian-watch':
         current_probability = f"{current['watch_probability'] * 100:.1f}%"
         current_text = '<strong>' + e(current['watch_team']) + ' watch vs ' + e(current['teams'][1] if current['teams'][0] == current['watch_team'] else current['teams'][0]) + '.</strong> Current canonical estimate: ' + current_probability + ' for ' + e(current['watch_team']) + ' (' + e(current['primary_method']) + '); primary pick remains ' + e(current['primary_pick'] or 'unresolved') + '.'
         current_labels = {current['source_urls'][0]: 'Hotspawn current fixture', current['source_urls'][1]: 'Valve rating input', profile['source_urls'][0]: 'HLTV day-one report', profile['source_urls'][1]: 'HLTV match report'}
         current_text += _source_links(current['source_urls'], current_labels)
-        implication = 'This is the one optional high-variance angle supported by the dated upset context. It is not a replacement pick: use the primary pick unless leaderboard strategy explicitly accepts the model risk.'
+        implication = 'This is historical team-specific, model-only context, not proof of a pricing edge or admission to the market-backed screen. It is not a replacement pick: use the primary pick unless leaderboard strategy explicitly accepts the model risk.'
     else:
         current_text = '<strong>No current exact-pair watch.</strong> The next scheduled fixture did not meet the strict 9z–Falcons identity and probability rule.' + _source_links(current['source_urls'])
         implication = 'No contrarian selection is published when the evidence or current probability is missing. The primary pick engine remains authoritative.'
-    out += '<tr><th scope="row">Current watch<small>strict threshold ≤ ' + f'{profile["max_probability"] * 100:.0f}%' + ' for the underdog</small></th><td>' + current_text + '</td><td>' + e(implication) + '</td></tr>'
+    out += '<tr><th scope="row">Current watch<small>editorial model-watch threshold ≤ ' + f'{profile["max_probability"] * 100:.0f}%' + ' for the underdog</small></th><td>' + current_text + '</td><td>' + e(implication) + '</td></tr>'
     out += '</tbody></table></div>'
     out += '<div class="limitations-callout"><strong>Guardrail for climbing the leaderboard</strong><p>Prefer one or two source-backed contrarian watches over a blanket “fade the favorite” rule. Require a recent result against a strong opponent plus a current independent probability. Do not treat a roster-change headline, rest assumption or Hotspawn crowd share as a numeric edge. Full limitations and the machine-readable review are linked in <a class="source-link" style="text-decoration:underline" href="' + prefix + 'data/contrarian.json">the review evidence ↓</a>.</p></div></section>'
     return out
@@ -215,15 +216,25 @@ def contrarian_review(data, prefix):
 def summary(data, prefix):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
-    p = round(100 * (c['upcoming'] - c['unresolved']) / c['upcoming']) if c['upcoming'] else 0
-    ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{c["upcoming"] - c["unresolved"]}<span>/{c["upcoming"]}</span></strong><small>with probabilities</small></div></div>'
+    complete = data.get('complete_picks')
+    cc = complete['counts'] if complete else None
+    total = cc['active'] if cc else c['upcoming']
+    resolved = cc['resolved'] if cc else c['upcoming'] - c['unresolved']
+    money = cc['market'] + cc['bookmaker'] + cc['consensus'] if cc else c['market'] + c['bookmaker']
+    models = cc['model'] if cc else c['model']
+    unresolved = cc['unresolved'] if cc else c['unresolved']
+    p = round(100 * resolved / total) if total else 0
+    ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{c["upcoming"]} future matches.</strong> {c["market"] + c["bookmaker"]} market-backed estimates, {c["model"]} research estimates, and {c["unresolved"]} unresolved. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}picks/">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'picks/">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    if complete:
+        out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>Complete picks: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["unresolved"]} unresolved in the complete researched list. Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
+    out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'
     out += '<div class="metrics">'
-    cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Market-backed', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Research estimates', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Unresolved picks', c['unresolved'], 'Missing inputs stay blank', 'flag', 'review/#unresolved')]
+    cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Featured market', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Featured model', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Featured rejections', c['unresolved'], 'Check complete-list fallbacks above', 'flag', 'review/#unresolved')]
     for title, value, subtitle, sym, url in cards:
         out += f'<a class="metric-card" href="{prefix}{url}"><div class="metric-top"><span>{title}</span>{icon(sym)}</div><strong>{value:02d}</strong><p>{e(subtitle)}</p></a>'
     out += '</div>'
@@ -233,9 +244,12 @@ def summary(data, prefix):
     out += matches_table(active[:5], prefix, table_id='next-matches') + '</section>'
     out += contrarian_review(data, prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
-    out += unresolved_table(data, prefix)
+    out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
+    unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
+    out += unresolved_table(unresolved_data, prefix)
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured estimates are never overwritten.</p></section>'
+    out += contrarian_briefing(data, prefix)
     return out
 
 
@@ -301,6 +315,9 @@ def methodology(data, prefix):
 def review(data, prefix):
     out = heading('Transparent by design', 'Flagged for Review', 'Unresolved matches, blocked sources and inconsistent official fields are published here. They do not block publication; they do block unsupported claims.')
     out += f'<div class="limitations-callout"><strong>Additional identity research and fallback picks</strong><p>Exact-name rejections below are retained for audit. <a style="text-decoration:underline" href="{prefix}origination/#picks">See newly researched fallback picks</a> and <a style="text-decoration:underline" href="{prefix}origination/#aliases">the source-linked alias review registry</a>. These associations do not independently confirm current rosters; Valve estimates remain uncalibrated.</p></div>'
+    out += review_note(prefix, data.get('day_one_audit'))
+    if data.get('repo_audit'):
+        out += audit_register(data['repo_audit'], prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
     for f in data['flags']:
@@ -321,11 +338,11 @@ def shell(data, key, body, prefix):
     title = PAGES[key][0]
     nav = ''
     for k, (label, path, sym) in PAGES.items():
-        href = prefix + ('' if k == 'summary' else k + '/')
+        href = prefix + ('' if k == 'summary' else 'origination/#picks' if k == 'picks' else k + '/')
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + k + "/"}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
@@ -342,6 +359,12 @@ def build(source: Path, output: Path):
     contrarian_data = load_review(source / 'contrarian.json')
     data['_contrarian'] = derive_context(data, contrarian_data)
     validate_context(data, data['_contrarian'])
+    if (source / 'origination.json').exists():
+        data['complete_picks'] = json.loads((source / 'origination.json').read_text())
+    if (source / 'research/day-one-audit.json').exists():
+        data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
+    if (source / 'research/de176356/repo-review-register.json').exists():
+        data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
