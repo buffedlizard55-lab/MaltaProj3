@@ -81,7 +81,7 @@ def review_note(prefix, audit=None):
 
 def render(data, prefix):
     matches = data.get('complete_picks', {}).get('matches', [])
-    out = '''<section class="content-section" id="contrarian"><h2>Contrarian, not reckless</h2>
+    out = '''<section class="content-section" id="upset-watchlist"><h2>Contrarian, not reckless</h2>
 <p><strong>Default: retain the higher-probability pick.</strong> With equal points for either winner, expected base points are probability × match points. Choosing a less likely winner reduces expected base points; it can be a tournament-risk choice, not a proven edge. Opponent ownership, exact streak state and leaderboard position are not collected, so no leaderboard-gain forecast or automatic contrarian override is justified.</p>
 <p><a class="source-link" href="https://play.hotspawn.com/how-it-works">Official scoring overview</a> describes tier points and streak bonuses; it does not establish a crowd-fading bonus. Never use Hotspawn popularity to estimate win probability. A roster announcement alone is not evidence of the direction or size of a probability change.</p>
 <p><strong>Upset watchlist:</strong> current, unlocked, externally priced underdogs estimated at 30% to below 50%, ordered by estimated win probability. This is an editorial screen evaluated at page build, not a live feed, validated cutoff, recommendation to switch, or claim of mispricing. Reopen the complete list before submitting. Model-only lines are excluded. Verify lineups, substitutions, map pool/veto, format and comparable rest before considering a switch; those factors are not automatically quantified here.</p>'''

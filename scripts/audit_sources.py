@@ -13,6 +13,7 @@ for label, url in [
     ('hltv-recent-results', 'https://www.hltv.org/results'),
     ('hltv-day-one-report', 'https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026'),
     ('hltv-day-one-match', 'https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026'),
+    ('hltv-roster-report', 'https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan'),
     ('stake-cs2', 'https://stake.com/sports/esports/counter-strike'),
     ('pinnacle-cs2', 'https://www.pinnacle.com/en/esports-hub/cs2'),
     ('polymarket-api-docs', 'https://docs.polymarket.com/api-reference/events/list-events'),
@@ -49,7 +50,7 @@ manifest_notice = json.dumps(client.manifest, ensure_ascii=True)
 manifest_notice = manifest_notice.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
 print('::notice title=Source audit observation manifest::' + manifest_notice)
 
-for label in ['hltv-day-one-report', 'hltv-day-one-match']:
+for label in ['hltv-day-one-report', 'hltv-day-one-match', 'hltv-roster-report']:
     path = out / (label + '.html.gz')
     if not path.exists():
         continue
