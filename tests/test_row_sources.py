@@ -106,6 +106,15 @@ if __name__ == '__main__':
     unittest.main()
 
 
+class UnresolvedCards(unittest.TestCase):
+    def test_unresolved_cards_are_rows_too_so_renaming_the_class_cannot_hide_them(self):
+        good = '<article class="unresolved-card" id="unresolved-1"><h3>A vs B</h3><p>— unverified</p><a href="https://www.hotspawn.com/matches/x-1">Hotspawn</a></article>'
+        bad = '<article class="unresolved-card" id="unresolved-2"><h3>C vs D</h3><p>Looks fine</p></article>'
+        result = audit.audit_html(good + bad, 'origination/index.html')
+        self.assertEqual((result['rows'], result['ok'], result['violation']), (2, 1, 1))
+        self.assertEqual(result['violations'][0]['row_id'], 'unresolved-2')
+
+
 class SiteWalk(unittest.TestCase):
     def test_archives_and_underscore_test_directories_are_not_audited(self):
         import tempfile

@@ -60,6 +60,8 @@ OFFICIAL = [
 # is keyed to the table's own <caption>, so a data table can never slip through it.
 NAV_CAPTIONS = ('Every page on this site',)
 UNVERIFIED = re.compile(r'unverified|not yet resolved|unresolved|no evidence|blank|insufficient verified inputs|not claimed|unavailable', re.I)
+# Card-style rows: a pick card, and the unresolved-fixture card (same obligation: an official link or an unverified flag).
+CARD_CLASSES = {'pick-card', 'unresolved-card'}
 SKIP_PAGES = {'archive', 'docs'}  # preserved third-party snapshots, bannered as archives
 
 
@@ -99,7 +101,7 @@ class Rows(HTMLParser):
             self._section.append(tag)
         is_table_row = tag == 'tr' and 'thead' not in self._section and 'tfoot' not in self._section
         classes = (a.get('class') or '').split()
-        is_card = tag == 'article' and 'pick-card' in classes
+        is_card = tag == 'article' and bool(CARD_CLASSES.intersection(classes))
         if is_table_row or is_card:
             self._stack.append({'tag': tag, 'id': a.get('id'), 'text': [], 'links': [], 'table': self._tables[-1] if self._tables and tag == 'tr' else None})
         if tag == 'a' and a.get('href') and self._stack:
