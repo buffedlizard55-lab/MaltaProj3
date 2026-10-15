@@ -590,6 +590,11 @@ def selection(probs) -> int | None:
 
 
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
+    if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
+        reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
+        return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
+                'limitations': [reason], 'research': [{'stage': 'Fixture identity', 'status': 'unresolved',
+                'source_url': match.get('source_url') or 'https://play.hotspawn.com/lobby', 'detail': reason}]}
     trail = []
     aliases = []
     estimates = {'market': [], 'bookmaker': []}

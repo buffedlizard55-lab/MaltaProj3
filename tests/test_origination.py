@@ -131,6 +131,13 @@ class EstimateTests(unittest.TestCase):
         self.assertIsNone(quote)
         self.assertIn('roster', detail)
 
+    def test_incomplete_fixture_remains_blank_instead_of_crashing(self):
+        match = {'id': 'unknown', 'starts_at': None, 'teams': [{'name': None}, {'name': 'Opponent'}]}
+        result = originate.originate_match(match, [], [], [], None, registry(), datetime.now(UTC))
+        self.assertIsNone(result['origination'])
+        self.assertIsNone(result['pick_index'])
+        self.assertIn('unverified', result['limitations'][0])
+
     def test_no_default_fifty_fifty(self):
         self.assertIsNone(originate.selection([0.5, 0.5]))
         self.assertEqual(originate.selection([0.50000001, 0.49999999]), 0)
