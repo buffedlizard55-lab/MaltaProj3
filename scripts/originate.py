@@ -546,8 +546,9 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
     for row in ratings:
         by_name.setdefault(name_key(row['name']), []).append(row)
     reverse = {}
-    for entry in registry['aliases']:
-        reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
+    if name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
+        for entry in registry['aliases']:
+            reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
     inputs = []
     used = []
     for team in match['teams']:

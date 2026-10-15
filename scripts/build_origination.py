@@ -254,8 +254,64 @@ def page(data):
 </body></html>'''
 
 
+def validate_origination(data, source):
+    """Replay fallback quotes from saved first-party responses before rendering."""
+    from scripts.originate import load_registry, align_by_name
+    from scripts.domain import no_vig, normalize_pair
+    from statistics import median
+    canonical = json.loads((source / 'latest.json').read_text())
+    registry = load_registry(source / 'origination/aliases.json')
+    originals = {m['id']: m for m in canonical['matches'] if m['availability'] != 'past'}
+    assert set(originals) == {m['id'] for m in data['matches']}, 'Origination inventory differs from canonical snapshot'
+    assert data['source_snapshot_at'] == canonical['inventory_observed_at'], 'Origination belongs to another inventory observation'
+    for m in data['matches']:
+        raw = originals[m['id']]
+        assert m['teams'] == raw['teams'] and m['starts_at'] == raw['starts_at'], 'Fixture facts changed'
+        o = m.get('origination')
+        if raw.get('analysis'):
+            assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
+            assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
+            continue
+        if not o:
+            assert m['pick_index'] is None
+            continue
+        if o['method'] == 'model':
+            from scripts.originate import valve_rows, model_estimate
+            rows, meta = valve_rows(source, None)
+            expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']))
+            assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
+        values = []
+        for q in o.get('quotes', []):
+            if q.get('family') == 'bookmaker':
+                p = source.parent / q['evidence_file'] if source.name == 'data' else source / q['evidence_file'].removeprefix('data/')
+                body = json.loads(p.read_text())['data']
+                rows = body.get('upcoming', body.get('matches', []))
+                hits = [r for r in rows if str(r.get('id')) == q['event_id']]
+                assert len(hits) == 1, 'Bookmaker event missing or ambiguous'
+                sides = [hits[0]['market'][k] for k in ['home', 'away']]
+                odds = align_by_name([s['odds'] for s in sides], [s['name'] for s in sides], raw, registry)
+                assert odds == q['odds'], 'Bookmaker odds differ from original evidence'
+                assert no_vig(odds) == q['probabilities'], 'No-vig calculation changed'
+                values.append(q['probabilities'][0])
+            elif q.get('family') == 'market':
+                observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
+                ev = next(e for e in observations['polymarket_events'] if e['event_id'] == q['event_id'])
+                bid = align_by_name(ev['book_bid'], ev['outcomes'], raw, registry)
+                ask = align_by_name(ev['book_ask'], ev['outcomes'], raw, registry)
+                assert bid == q['bid'] and ask == q['ask'], 'Market quotes differ from saved observations'
+                expected = normalize_pair(*[(b+a)/2 for b,a in zip(bid,ask)])
+                assert expected == q['probabilities'], 'Market calculation changed'
+                values.append(q['probabilities'][0])
+        if values:
+            p0 = median(values)
+            assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
+        assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
+        assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
+
+
 def build(source: Path, output: Path):
     data = json.loads((source / 'origination.json').read_text())
+    validate_origination(data, source)
     if not isinstance(data.get('matches'), list):
         raise ValueError('data/origination.json is missing its match rows')
     target = output / 'origination'

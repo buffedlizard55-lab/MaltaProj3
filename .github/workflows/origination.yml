@@ -6,8 +6,6 @@ name: Origination source audit
 on:
   push:
     branches: [arena/f9527685-maltaproj3]
-  schedule:
-    - cron: '43 */4 * * *'
   workflow_dispatch:
   pull_request:
     paths:
