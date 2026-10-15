@@ -84,14 +84,22 @@ def pick_row(m):
             label += ' · thin market'
             kind = 'amber'
         out.append(f'<p class="basis">{badge(label, kind)} <span class="method">{e(o["label"])}</span></p>')
-        links = [ext(m['source_url'], 'Hotspawn'), ext(o['source_url'], o.get('source', 'Analysis source'))]
-        for q in o.get('quotes', []):
-            if isinstance(q, dict) and q.get('source_url'):
-                provider = q.get('provider', 'source')
-                links.append(ext(q['source_url'], provider))
+        # One link per distinct source URL (featured market rows carry one quote per
+        # outcome, which used to print the same Polymarket link three times).
+        links, seen = [], set()
+
+        def add(url, text):
+            if url and url not in seen:
+                seen.add(url)
+                links.append(ext(url, text))
+        add(m['source_url'], 'Hotspawn')
+        quotes = [q for q in o.get('quotes', []) if isinstance(q, dict) and q.get('source_url')]
+        for q in quotes:
+            add(q['source_url'], q.get('provider', 'source'))
+        if not quotes:
+            add(o['source_url'], o.get('source', 'Analysis source'))
         if o.get('model_crosscheck'):
-            mc = o['model_crosscheck']
-            links.append(ext(mc['source_url'], 'Valve model cross-check'))
+            add(o['model_crosscheck'].get('source_url'), 'Valve model cross-check')
         out.append('<p class="row-srcs">' + ' · '.join(links) + '</p>')
     else:
         out.append('<ul class="probs"><li><span>' + e(names[0]) + '</span><strong class="unverified">—</strong></li>'
