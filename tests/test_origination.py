@@ -207,6 +207,15 @@ class PageTests(unittest.TestCase):
         for m in self.data['matches']:
             self.assertIn('match-' + m['id'], page)
 
+    def test_featured_bookmaker_badge_is_not_mislabeled_model(self):
+        data = copy.deepcopy(self.data)
+        match = data['matches'][0]
+        match['origination']['method'] = 'bookmaker'
+        match['origination']['quotes'] = [{'family': 'thunderpick'}]
+        rendered = build_origination.pick_row(match)
+        self.assertIn('Money-backed line', rendered)
+        self.assertNotIn('>Research model<', rendered)
+
     def test_page_escapes_provider_text(self):
         data = copy.deepcopy(self.data)
         data['matches'][0]['teams'][0]['name'] = '<unsafe>x'

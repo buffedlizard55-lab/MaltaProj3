@@ -77,14 +77,14 @@ def pick_row(m):
             out.append(f'<p class="pick-line">Pick: <strong>{e(names[pick])}</strong> <small>({o["probabilities"][pick] * 100:.1f}% · fair line {e(o["fair_decimal"][pick])})</small></p>')
         else:
             out.append('<p class="pick-line">Pick: <strong>No directional edge</strong> <small>(equal estimate)</small></p>')
-        money = 'market' in {q.get('family') for q in o.get('quotes', []) if isinstance(q, dict)} or 'bookmaker' in {q.get('family') for q in o.get('quotes', []) if isinstance(q, dict)}
+        money = o['method'] in {'market', 'bookmaker', 'consensus'}
         kind = 'green' if money else 'purple'
         label = 'Money-backed line' if money else 'Research model'
         if any(isinstance(q, dict) and q.get('thin') for q in o.get('quotes', [])):
             label += ' · thin market'
             kind = 'amber'
         out.append(f'<p class="basis">{badge(label, kind)} <span class="method">{e(o["label"])}</span></p>')
-        links = [ext(m['source_url'], 'Hotspawn')]
+        links = [ext(m['source_url'], 'Hotspawn'), ext(o['source_url'], o.get('source', 'Analysis source'))]
         for q in o.get('quotes', []):
             if isinstance(q, dict) and q.get('source_url'):
                 provider = q.get('provider', 'source')
