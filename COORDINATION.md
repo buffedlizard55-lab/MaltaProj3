@@ -403,6 +403,19 @@ Conflict log: rebase append conflicts in this board were resolved by preserving 
 
 | Task | Status | Owner | File scope | Last update (UTC) |
 | --- | --- | --- | --- | --- |
-| Day-1 upset review and auditable contrarian-watch guidance | in progress | arena-3c292a02 | `data/contrarian.json`, `scripts/contrarian.py`, `scripts/build.py`, `assets/`, `tests/test_contrarian.py`, `COORDINATION.md` | 2026-10-15 |
+| Day-1 upset review and auditable contrarian-watch guidance | done | arena-3c292a02 | `data/contrarian.json`, `scripts/contrarian.py`, `scripts/build.py`, `assets/`, `tests/test_contrarian.py`, `COORDINATION.md` | 2026-10-15 |
 
-Scope is limited to a dated, source-linked review of the reported 9z–Aurora upset and a contrarian-watch presentation that never overwrites externally sourced probabilities or treats an unverified roster/fatigue claim as fact. Existing current data and other sessions’ scopes remain unchanged. The review will be marked done only after the added output, links, and tests are verified.
+Scope was limited to a dated, source-linked review of the reported 9z–Aurora upset and a contrarian-watch presentation that never overwrites externally sourced probabilities or treats an unverified roster/fatigue claim as fact. Existing current data and other sessions’ scopes remain unchanged.
+
+### Current-session verification and sources
+
+- Checked the 9z–Aurora result against the HLTV match page and HLTV result report: 9z won 2–0, with Inferno 13–11 and Nuke 13–1. Hotspawn is linked as fixture inventory; Polymarket is linked for the archived pre-match 26.5% / 73.5% observation.
+- Checked HLTV’s 8 July 2026 Aurora rebuild report: Jimpphat and kyxsan were added with coach ash, replacing MAJ3R, soulfly and Fabre. No rest, current stand-in, veto or current-roster adjustment is asserted without a current source.
+- The current canonical 9z–Falcons row is matched by exact team identity and remains a 15.7% 9z / 84.3% Falcons Valve research estimate with Falcons as the primary pick. The section labels 9z only as a contrarian watch and enforces a ≤25% threshold; it cannot alter the pick engine.
+- Local verification passed: 105 Python tests, `python -m scripts.build` (80 rows; 396 internal links/assets/anchors), and 33 Playwright tests at phone/desktop widths including WCAG A/AA automated checks and the new mobile contrarian deep link. `git diff --check` and contrarian replay passed.
+
+### Current-session irregularities
+
+- The historical pre-match percentage is a dated Polymarket observation from the preserved prior snapshot, not a live quote and not a current probability. It is explicitly labeled historical.
+- The current 9z–Falcons source is a Valve rating model rather than a verified bookmaker/prediction-market consensus. Current rest, stand-ins, veto and lineup evidence were not independently confirmed; those values remain unmodeled rather than inferred.
+- HLTV is an independent esports results/reporting source, not Hotspawn or Valve. The site links it for result/roster context only; Hotspawn popularity is never used as a probability input.
