@@ -405,9 +405,9 @@ Arena fixes this session to `arena/de176356-maltaproj3`; no other branch is crea
 
 | Task | Status | Owner | File scope | Started UTC |
 | --- | --- | --- | --- | --- |
-| DE-1 Line-by-line repo review and irregularity register, each item linked to an official source or exact file/run | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
-| DE-2 Hotspawn CS2 coverage reconciliation: lobby header/filters vs lobby match list vs fixture API vs stored inventory; finished-match gap | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
-| DE-3 Refresh-cadence audit: scheduled runs of `pages.yml` against the four-hour cron and the 4–8 hour requirement | in progress | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+| DE-1 Line-by-line repo review and irregularity register, each item linked to an official source or exact file/run | done (evidence in `data/research/de176356/`; see completion record) | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+| DE-2 Hotspawn CS2 coverage reconciliation: lobby header/filters vs lobby match list vs fixture API vs stored inventory; finished-match gap | done (evidence in `data/research/de176356/`; see completion record) | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
+| DE-3 Refresh-cadence audit: scheduled runs of `pages.yml` against the four-hour cron and the 4–8 hour requirement | done (evidence in `data/research/de176356/`; see completion record) | arena-de176356 | `data/research/de176356/` (new) | 2026-10-15T10:05Z |
 
 No workflow, site template, pricing or existing dataset file is edited by this session. Outputs are read-only evidence for the integration owner.
 
@@ -415,3 +415,27 @@ Requests logged for other owners (not edited here):
 - **R-DE-1 → arena-50c01ba9 (day-one / contrarian):** HLTV reports 9z beat Aurora 2-0 on 14/10/2026 (Inferno 13-11, Nuke 13-1) in Thunderpick World Championship 2026 Group A: <https://www.hltv.org/team/9996/9z>, <https://www.hltv.org/team/11861/aurora>. Two ranking bases conflict: HLTV text says Aurora 6th and 9z 17th; a skin.club article gives VRS-style figures (9z 15th→11th, Aurora 4th→5th): <https://community.skin.club/en/news/9z-defeated-aurora-at-the-start-of-thunderpick-wc-2026>. Label the basis explicitly. This match is absent from the stored inventory because the Hotspawn fixture feed returns only currently scheduled fixtures (DE-2).
 - **R-DE-2 → integration owner (publication):** publish the DE-1/DE-2/DE-3 registers on the Flagged for Review page with their links once this branch is merged.
 - **R-DE-3 → pages.yml owner:** the four-hour schedule has not run on every slot (DE-3). Any cadence change must go through the claimed workflow owner.
+
+### Completion record — arena-de176356 (2026-10-15, clock ~10:10 UTC)
+
+Status: **DE-1, DE-2 and DE-3 done as evidence tasks.** No shared output was changed: no site, workflow, pricing input or existing dataset. The day-one review was not started (claimed by others, R-DE-1 and R-DE-4).
+
+- **DE-1 Repo review register** — `data/research/de176356/repo-review-register.json` (15 items, each with its measured value and source link). Narrative: `data/research/de176356/REPORT.md`. Main findings: README test counts stale (RR-01: measured 100 Python tests and 32 Playwright tests, against the README's 76 and 27); stale open board item I-16 (RR-02); **lock-time mismatch**, 6 minutes in the fixture data against 5 minutes on Hotspawn's help page (RR-03, 80 of 80 records); lobby header 72 against filter total 78 (RR-04); coverage limit: the fixture feed has no finished matches (RR-06); fixture API hosted on a third-party cloud subdomain (RR-07); cadence (RR-08, RR-09); uncalibrated model estimates including 96.1% and 86.0% (RR-13).
+- **DE-2 Coverage reconciliation** — `data/research/de176356/reconcile_lobby.py` and `coverage-reconciliation.json`. Result: 17 of 17 upcoming lobby entries match the stored fixtures on ID, competition and start minute. The 80 vs 78 difference is exactly two matches that had started before the read (1080279 and 1080201).
+- **DE-3 Cadence audit** — `data/research/de176356/cadence_audit.py`, `pages-runs.json` and `cadence-audit.json`. Result: 4 of 6 four-hourly slots had a run within ±2 h; largest completed gap 6.48 h; 5.51 h since the last scheduled run at audit time. Not met reliably. Fix requested (R-DE-3).
+
+Sources (all read on 2026-10-15 unless noted):
+- Hotspawn lobby <https://play.hotspawn.com/lobby> and CS2 lobby <https://play.hotspawn.com/cs2-pickems>
+- Hotspawn rules <https://play.hotspawn.com/how-it-works> (5-minute lock statement)
+- Hotspawn fixture API (status=scheduled and status=finished) <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1>
+- GitHub Actions schedule documentation <https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows> (delay wording; 60-day public-repo rule)
+- GitHub run history <https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml> (saved verbatim as `pages-runs.json`)
+- Polymarket Gamma events docs <https://docs.polymarket.com/api-reference/events/list-events> (checked as the cited API contract)
+- HLTV team pages for the day-one fact <https://www.hltv.org/team/9996/9z> and <https://www.hltv.org/team/11861/aurora>. The 9z page shows Valve rank #11 and HLTV world rank #17. The day-one facts were taken from search excerpts of the team pages and were not re-verified against the match page.
+- Valve regional standings repository metadata, GitHub API <https://github.com/ValveSoftware/counter-strike_regional_standings>
+
+Verification performed: `python -m unittest discover -s tests` run from `requirements.txt` on Python 3.11.2, result **Ran 100 tests, OK**. `npx playwright test --list`: **32 tests in 2 files** (listed only). Reconciliation script re-run: 17/17 matched. Cadence script re-run on the saved run history. Every register item has at least one link. Nothing was marked verified without an official link.
+
+Irregularities: all listed in the register (RR-01 to RR-15). They are published here for the integration owner's Flagged for Review page. They do not block publication.
+
+Handoff: branch `arena/de176356-maltaproj3` is pushed. A PR to `main` is opened for the integration session, which owns the shared COORDINATION board and any merge with `arena-50c01ba9`'s open claim. This session did not merge it alone because that claim also edits this file and overlaps day-one scope (R-DE-4). No other branch was created or pushed.

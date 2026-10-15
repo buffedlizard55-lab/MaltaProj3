@@ -1,0 +1,192 @@
+{
+  "session": "arena-de176356",
+  "branch": "arena/de176356-maltaproj3",
+  "audit_clock_utc": "2026-10-15T10:20Z",
+  "scope": "DE-1 repo review register; read-only evidence. No workflow, site, pricing or shared dataset was edited.",
+  "method": "Each item lists the measured value, how it was measured (command or fetch), and the source link. Items marked 'unverified' were not confirmed.",
+  "items": [
+    {
+      "id": "RR-01",
+      "area": "documentation",
+      "severity": "low",
+      "finding": "README test counts are stale. README says 76 Python regression tests and 27 Playwright checks.",
+      "measured": "python -m unittest discover -s tests (requirements.txt installed, Python 3.11.2): Ran 100 tests, OK. npx playwright test --list: Total: 32 tests in 2 files.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/README.md",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md"
+      ],
+      "action": "Integration owner updates README counts."
+    },
+    {
+      "id": "RR-02",
+      "area": "documentation",
+      "severity": "low",
+      "finding": "COORDINATION.md I-16 'Refresh not scheduled' is still marked needs review, but pages.yml now has a four-hour cron.",
+      "measured": "pages.yml line 6: cron '17 */4 * * *'. Scheduled runs exist (see DE-3).",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml#L6",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md"
+      ],
+      "action": "Close or update I-16 on the board."
+    },
+    {
+      "id": "RR-03",
+      "area": "official rule vs data",
+      "severity": "high (user-facing)",
+      "finding": "Lock time mismatch. Hotspawn's official help page says picks lock 5 minutes before start. The fixture data locks 6 minutes before start, and the site uses the per-fixture value.",
+      "measured": "Start minus lock_time = 360 s for 80 of 80 saved fixture records. lock_offset_sec = 360 for all 80. Help page says 'Picks lock 5 minutes before the scheduled start time' and its recorded lock_minutes = 5.",
+      "sources": [
+        "https://play.hotspawn.com/how-it-works",
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/evidence/hotspawn-rules.json"
+      ],
+      "action": "Treat the earlier lock as the safe deadline (submit at least 6 minutes before start). Owner of the site should show both values and flag the difference."
+    },
+    {
+      "id": "RR-04",
+      "area": "source internal consistency",
+      "severity": "low",
+      "finding": "Hotspawn lobby headline disagrees with its own filter counts.",
+      "measured": "Header: '72 matches this week'. Tier 'All tiers (78)'. Tournament filter counts sum to 78.",
+      "sources": [
+        "https://play.hotspawn.com/cs2-pickems",
+        "https://play.hotspawn.com/lobby"
+      ],
+      "action": "Flag only. The site does not use the header number."
+    },
+    {
+      "id": "RR-05",
+      "area": "coverage reconciliation",
+      "severity": "info (explained)",
+      "finding": "Stored inventory has 80 records; lobby filters total 78. The difference is exactly two matches that had started before the lobby read: 1080279 (WROTBERRY vs EAC, 08:00Z) and 1080201 (Aurora vs Ninjas in Pyjamas, 08:30Z). These account for the Elisa (12 vs 11) and Thunderpick WC (4 vs 3) count differences.",
+      "measured": "reconcile_lobby.py: 17 of 17 lobby upcoming entries match stored fixtures by ID, competition and start minute. Tournament count differences: only Elisa BreakOut Series #2 and Thunderpick World Championship 2026.",
+      "sources": [
+        "https://play.hotspawn.com/cs2-pickems",
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+      ],
+      "action": "None required. Recorded in coverage-reconciliation.json."
+    },
+    {
+      "id": "RR-06",
+      "area": "coverage limit",
+      "severity": "medium",
+      "finding": "The fixture feed only returns currently scheduled fixtures. Matches that finish drop out, so the inventory cannot contain results. 9z vs Aurora (14 Oct 2026) is not in the inventory.",
+      "measured": "status=scheduled returns the fixture list. status=finished returns an empty array ([]). The feed has no finished-match records to reconcile.",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=finished&tenantId=1",
+        "https://www.hltv.org/team/9996/9z",
+        "https://www.hltv.org/team/11861/aurora"
+      ],
+      "action": "Day-one results must come from a results source such as HLTV, not from Hotspawn. Said plainly on the review page."
+    },
+    {
+      "id": "RR-07",
+      "area": "source provenance",
+      "severity": "medium",
+      "finding": "The fixture API is hosted on a third-party cloud subdomain (phpstack-1372681-6459848.cloudwaysapps.com), not a Hotspawn domain. No public Hotspawn API documentation was located. The README says 'Every row links an official Hotspawn source', and that label covers this API link.",
+      "measured": "Host: phpstack-1372681-6459848.cloudwaysapps.com. The lobby's own team images are served from the same host.",
+      "sources": [
+        "https://play.hotspawn.com/lobby",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/README.md"
+      ],
+      "action": "Label the API as Hotspawn's client endpoint, not an official documented API."
+    },
+    {
+      "id": "RR-08",
+      "area": "refresh cadence",
+      "severity": "high (user requirement: every 4-8 h)",
+      "finding": "Scheduled refreshes are irregular. Four of six four-hourly slots had a scheduled run within 2 hours. The 16:17 UTC slot on 14 Oct and the 08:17 UTC slot on 15 Oct had none. No scheduled run has been recorded since 04:39 UTC.",
+      "measured": "Scheduled runs at 13:43, 20:12, 23:14 (14 Oct) and 04:39 (15 Oct) UTC. Largest completed gap 6.48 h. At audit time (10:09Z) 5.51 h since the last scheduled run. The first scheduled run was 14 Oct 13:43 UTC.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/de176356/cadence-audit.json"
+      ],
+      "action": "Owner of pages.yml to add redundancy (see R-DE-3 in COORDINATION.md). Not changed in this session."
+    },
+    {
+      "id": "RR-09",
+      "area": "refresh cadence (platform)",
+      "severity": "medium (monitor)",
+      "finding": "GitHub documents that scheduled runs can be delayed under load and that some queued jobs may be dropped. In a public repository, scheduled workflows are disabled after 60 days without repository activity. This repository is public.",
+      "measured": "gh repo view: isPrivate = false.",
+      "sources": [
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
+        "https://github.com/buffedlizard55-lab/MaltaProj3"
+      ],
+      "action": "Keep repository activity regular. Monitor the scheduled run count."
+    },
+    {
+      "id": "RR-10",
+      "area": "publication history",
+      "severity": "info (resolved)",
+      "finding": "Two Pages runs failed on push. Both were followed by successful deploys.",
+      "measured": "Run 38517464314 (14 Oct 05:35Z) failed; later run 38518319041 succeeded. Run 38707237342 (15 Oct 08:39Z) failed; later run 38707602980 succeeded.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38517464314",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38518319041",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707237342",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38707602980"
+      ],
+      "action": "None."
+    },
+    {
+      "id": "RR-11",
+      "area": "unofficial source",
+      "severity": "medium",
+      "finding": "Thunderpick odds come from an undocumented POST endpoint (/api/matches with gameIds 6). No official Thunderpick API documentation was located in this audit. Third-party odds aggregators exist but require their own API keys, which this project does not have.",
+      "measured": "Web search for Thunderpick API documentation returned only third-party aggregator pages (odds-api.io and esportsodds.gg). No Thunderpick developer page was found.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/evidence/thunderpick-matches.json",
+        "https://odds-api.io/esports/cs2"
+      ],
+      "action": "Label as an unofficial endpoint. Keep the single-source limitation visible."
+    },
+    {
+      "id": "RR-12",
+      "area": "rating source",
+      "severity": "info",
+      "finding": "Valve regional standings repository exists, is not archived, and was last pushed on 5 Oct 2026. GitHub reports no license.",
+      "measured": "GitHub API: full_name ValveSoftware/counter-strike_regional_standings, archived false, pushed_at 2026-10-05T16:36:14Z, license null.",
+      "sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings"
+      ],
+      "action": "Use as reference data only. Note the missing licence."
+    },
+    {
+      "id": "RR-13",
+      "area": "model calibration",
+      "severity": "medium (user-facing)",
+      "finding": "Five upcoming picks rely on the uncalibrated Valve-rating research model. Two are extreme: EAC over BOJONG at 96.1% and mellren over Privateer at 86.0%. Treat them as low-confidence.",
+      "measured": "data/origination.json, method 'model': 9z vs Falcons 84.3% Falcons; PARIVISION vs BetBoom 73.8% BetBoom; EAC vs BOJONG 96.1% EAC; EAC vs ENCE 51.4% EAC; mellren vs Privateer 86.0% mellren.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings"
+      ],
+      "action": "Already labelled as uncalibrated in the methodology. Consider a visible low-confidence badge."
+    },
+    {
+      "id": "RR-14",
+      "area": "governance",
+      "severity": "low",
+      "finding": "COORDINATION.md is about 400 lines and holds several superseded boards. The protocol names branches 'session-<id>/<task>', but Arena fixes branches to 'arena/<id>-maltaproj3'. Many finished arena/* branches remain on origin.",
+      "measured": "git ls-remote origin lists 7 other arena/* session branches besides arena/de176356-maltaproj3.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/branches"
+      ],
+      "action": "Integration owner archives superseded boards and notes the branch convention."
+    },
+    {
+      "id": "RR-15",
+      "area": "concurrency",
+      "severity": "info",
+      "finding": "Concurrent claim. arena-50c01ba9 claimed the day-one/contrarian review and the picks-first mobile navigation (scripts/build.py, scripts/briefing.py). This session did not start that work.",
+      "measured": "COORDINATION.md on branch arena/50c01ba9-maltaproj3, claim at 2026-10-15T10:04Z.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/50c01ba9-maltaproj3/COORDINATION.md"
+      ],
+      "action": "Owner completes the claimed work and merges. Integration checks it."
+    }
+  ]
+}
