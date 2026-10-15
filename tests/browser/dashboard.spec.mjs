@@ -115,3 +115,17 @@ test('capture final phone and desktop views for visual verification', async ({ p
   await page.goto('/picks/');
   await page.screenshot({ path: '.cache/screenshots/picks-phone.png', fullPage: true });
 });
+
+test('phone executive summary exposes original sources for unresolved picks', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Executive summary', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Unresolved & limitations' }).click();
+  const details = page.locator('#unresolved .unresolved-table details');
+  if (await details.count()) {
+    await details.first().locator('summary').click();
+    await expect(details.first().locator('.research-trail')).toBeVisible();
+    expect(await details.first().locator('a[href^="https://"]').count()).toBeGreaterThan(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  }
+});
