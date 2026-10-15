@@ -616,10 +616,10 @@ All prior boards above were read before any file was touched; every listed prior
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| F-1 Day-2 results review → Day-3 TWC 2026 pick guidance | in progress | arena-0c803d4d | `data/day3-guide.json` (new), `scripts/build_day3.py` (new), `scripts/build.py` (nav/link only), `tests/test_day3.py` (new) | Dated HLTV-verified Day-2 results; guidance never overwrites automated picks |
-| F-2 Fix failing 4-hour publisher (build step) + last-good fallback | in progress | arena-0c803d4d | `.github/workflows/pages.yml`, `scripts/publication.py` (only if needed) | Runs 38742696250 / 38797535468 failed at "Reconcile every row…" build step; local build passes |
-| F-3 Every-match coverage audit (featured + originated) & executive-summary links | in progress | arena-0c803d4d | `README.md`, `COORDINATION.md`, site copy via `scripts/build.py` summary only | Verify 17/17 originated picks render; unresolved section stays explicit |
-| F-4 Integration: tests, build, PR to main, merge, Pages verification | unclaimed | arena-0c803d4d | all (integration) | This session is the final integration session |
+| F-1 Day-2 results review → Day-3 TWC 2026 pick guidance | done | arena-0c803d4d | `data/day3-guide.json` (new), `scripts/build_day3.py` (new), `scripts/build.py` (nav/link only), `tests/test_day3.py` (new) | Dated HLTV-verified Day-2 results; guidance never overwrites automated picks |
+| F-2 Fix failing 4-hour publisher (build step) + last-good fallback | done | arena-0c803d4d | `.github/workflows/pages.yml`, `scripts/publication.py` (only if needed) | Runs 38742696250 / 38797535468 failed at "Reconcile every row…" build step; local build passes |
+| F-3 Every-match coverage audit (featured + originated) & executive-summary links | done | arena-0c803d4d | `README.md`, `COORDINATION.md`, site copy via `scripts/build.py` summary only | Verify 17/17 originated picks render; unresolved section stays explicit |
+| F-4 Integration: tests, build, PR to main, merge, Pages verification | done | arena-0c803d4d | all (integration) | This session is the final integration session |
 
 
 ## Session 0c803d4d — work log (2026-10-15)
@@ -697,3 +697,16 @@ the earlier build-step failures were not permanent; the last-good fallback in
 `pages.yml` remains as insurance so a future failed replay republishes the
 verified pair instead of freezing the site.
 
+
+## Publication (session 0c803d4d)
+
+PR [#34](https://github.com/buffedlizard55-lab/MaltaProj3/pull/34) merged at
+2026-10-15T22:36:03Z as `f4b1a3ea3cc079d9c6be1f7125b4c48df8035003`. Production run
+[38818218095](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38818218095)
+**succeeded**, including post-deploy verification of the new Day-3 sections and
+`data/day3-guide.json`. Live: https://buffedlizard55-lab.github.io/MaltaProj3/ —
+Day-3 guide at https://buffedlizard55-lab.github.io/MaltaProj3/edge/#day-three-guide,
+complete picks at https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks.
+The four-hour publisher remains active; the last-good fallback added in this PR
+guards the next failed replay. Flagged items above stay `needs review` and do not
+block anything.
