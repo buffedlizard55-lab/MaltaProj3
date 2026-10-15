@@ -726,11 +726,12 @@ other session has claimed. Requests for files owned by others are logged below i
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| C-1 Resolve every still-unresolved active pick (production 38816949473 at 22:25Z: 22 active, **8 unresolved**) using first-party external sources — HLTV first, then esportsbook/market lines — origination layer only | in progress | arena-c07e1b40 | `scripts/originate.py`, `data/origination/**`, `tests/test_origination.py`, new `scripts/research_lines.py` (diagnostic probe), new `.github/workflows/session-c07e1b40.yml` (branch-only evidence collector, never deploys; **retired** before integration together with its 735 KB runner bundles), new `data/research/c07e1b40/` | Hotspawn popularity never an input; unverifiable = blank + flagged |
+| C-1 Resolve every still-unresolved active pick (production 38816949473 at 22:25Z: 22 active, **8 unresolved**) using first-party external sources — HLTV first, then esportsbook/market lines — origination layer only | done (live runner 22:45Z: 16/22 resolved; awaiting integration) | arena-c07e1b40 | `scripts/originate.py`, `data/origination/**`, `tests/test_origination.py`, new `scripts/research_lines.py` (diagnostic probe), new `.github/workflows/session-c07e1b40.yml` (branch-only evidence collector, never deploys; **retired** before integration together with its 735 KB runner bundles), new `data/research/c07e1b40/` | Hotspawn popularity never an input; unverifiable = blank + flagged |
 | C-2 Origination render crash `KeyError: 'source_url'` (origination audit 38733458812) | done (root cause fixed in `scripts/originate.py`; awaiting integration) | arena-c07e1b40 | `scripts/build_origination.py`, `assets/origination.css`, `tests/browser/origination.spec.mjs` | Origination renderer only; `pages.yml`/`publication.py` stay with 0c803d4d F-2 |
-| C-3 Line-by-line repo review register with official source links | in progress | arena-c07e1b40 | new `data/research/c07e1b40/repo-review.json`, new `scripts/review_register.py`, new `tests/test_review_register.py`, publication hook in `scripts/build.py` (`build()` loader + one call in `review()` only; no active claim on build.py — 0c803d4d/f2d2d85e tasks are done) | Published on Flagged for Review as its own section; inherited de176356 register untouched |
+| C-3 Line-by-line repo review register with official source links | done (12 findings published on Flagged for Review; awaiting integration) | arena-c07e1b40 | new `data/research/c07e1b40/repo-review.json`, new `scripts/review_register.py`, new `tests/test_review_register.py`, publication hook in `scripts/build.py` (`build()` loader + one call in `review()` only; no active claim on build.py — 0c803d4d/f2d2d85e tasks are done) | Published on Flagged for Review as its own section; inherited de176356 register untouched |
 | C-4 Cache restore/save path mismatch introduced by F-2 (restore lists `data/origination/`, save lists `data/origination/evidence/`; actions/cache versions differ, so restore can never hit) | done (awaiting integration; regression test `tests/test_workflow_cache.py`) | arena-c07e1b40 | `.github/workflows/pages.yml` (restore `path:` list only) | F-2 is `done` (no active claim); minimal fix keeps the reviewed alias registry out of every cache overlay |
 | C-5 Refresh cadence hardening: GitHub delivered scheduled publisher runs on 15 Oct only at 04:39, 13:26 and 19:53Z (8.8 h gap > the user's 8 h bound; about half of the `17 */4` slots dropped) | done (awaiting integration; `PublisherScheduleTests`) | arena-c07e1b40 | `.github/workflows/pages.yml` (`on.schedule` only) | Add an offset catch-up cron so one dropped slot still leaves a refresh within ~4 h; GitHub docs: schedules can be delayed or dropped under load and a workflow may have multiple schedules |
+| C-6 README documentation of C-1/C-5 (sources ladder item 7, schedule paragraph) | done | arena-c07e1b40 | `README.md` (two passages only; F-3 owner 0c803d4d is done) | Doc-only |
 | ~~Day-2 review / day-3 guidance~~ | dropped (done by f2d2d85e I-F1; day-3 claimed by 0c803d4d F-1) | — | — | no edits by this session |
 | ~~Publisher fix, executive-summary copy, final integration~~ | dropped (claimed by 0c803d4d F-2/F-3/F-4; f2d2d85e I-F2) | — | — | this session will open one scoped PR for C-1..C-3, rebased on latest `main` |
 
@@ -749,3 +750,50 @@ other session has claimed. Requests for files owned by others are logged below i
 - **Request to 0c803d4d (owner of `scripts/build.py` edits):** optional hardening — `r.get('source_url') or o['source_url']`
   at build.py ~127. The last-good fallback in `pages.yml` is still valuable, but without this fix it would have kept
   republishing stale data every time a model fallback appeared.
+
+### Completion record — arena-c07e1b40 (2026-10-15, clock ~23:05 UTC)
+
+**What changed (origination layer unless noted)**
+- **Two more independent money sources** for fixtures the featured methods leave blank: Kalshi CS2 match-winner books
+  (CFTC-regulated exchange; officially documented public API; start time parsed from contract rules *and* the event
+  ticker; both yes books ≤ 0.12 wide; in-play excluded) and Bovada prematch series moneylines (no-vig). Same exact-name /
+  scoped-registry and 60-second start rules. **Consensus is now one vote per provider** (previously one per family, which
+  would have discarded a second market or book). Every Kalshi/Bovada quote is replayed from its saved original response in
+  `validate_origination` (tamper test detects a 0.01 odds change).
+- **Verified aliases only:** NIP and Liquid → Team Liquid for *Stake Pulse Beat III*; WBT for *DraculaN Season 7* — each with
+  HLTV match/event pages and first-party market text. **Not added** (no official equivalence evidence; books also too wide):
+  "Insiders Esport", "Leo Team", "Procyon Gaming" — listed as needs-review candidates.
+- **Unresolved section** is now phone-first cards showing what every source showed (exact HLTV match page, each rejected
+  Polymarket/Kalshi book with its bid/ask, Thunderpick/Bovada status, Valve reason). Trails link the specific event.
+- **Publisher fixes (claimed C-4/C-5):** cache restore list made identical to the save list (proved: toolkit hash of PR #34's
+  restore list `20fc7e29e64c` matches no cache; fixed list `4ad832c41549` = latest saved cache); offset catch-up schedule
+  so a dropped GitHub slot still refreshes within ~4 h (observed 8.8 h gap on 15 Oct).
+- **Root cause of the scheduled build failures fixed (C-2):** `originate.py` model inputs now carry `source_url`/`snapshot_date`.
+
+**Verification**
+- Python: **170 tests OK** (`python -m unittest discover -s tests`), incl. new `ModelFallbackRenderTests`,
+  `ExtraMoneySourceTests`, `ReviewNoteTests`, `tests/test_workflow_cache.py`, `tests/test_review_register.py`.
+- Build: `python -m scripts.build` → 80 rows replayed, **481** internal links/assets/anchors OK. Real-snapshot replay (runner
+  bundle 22:32Z + Kalshi/Bovada evidence) → 86 rows, 509 links OK.
+- Browser: **38 Playwright checks pass** (320/390/768/1440 px + axe WCAG A/AA). Fixed two contrast failures (amber badge
+  4.12:1 → 7:1; "Unresolved" no longer green).
+- Live (GitHub runner, branch-only collector, now retired): run 38819155716 at 22:45Z → **22 active, 16 resolved, 6 unresolved**;
+  Ninjas in Pyjamas vs Team Liquid = Polymarket + Kalshi + Thunderpick + Bovada consensus (NiP 53.3%); Nexus vs WROTBERRY =
+  Thunderpick via the WBT scope; runner build OK. Origination audits 38819155795 and later passed.
+
+**Sources used (official / first-party)** — Kalshi API docs <https://docs.kalshi.com/api-reference/market/get-markets>;
+Kalshi events <https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open>; Bovada coupon
+<https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2>; HLTV match pages
+2399262, 2399590, 2399593, 2399597, 2399672, team pages 13683 and 13376, event 9312; Polymarket Gamma event 1183119;
+Liquipedia (WROTBERRY / ROUNDS pages absent); actions/cache README "Cache Version" and toolkit `getCacheVersion`; GitHub docs
+on `schedule` delays/drops. Hotspawn popularity and HLTV fan votes were never read as inputs.
+
+**Irregularities** — published as the 12-item register `data/research/c07e1b40/repo-review.json` on Flagged for Review
+(`/review/#session-review`). Needs review (non-blocking): C07-04 WBT evidence outdated, C07-05 ROUNDS cites a Rocket League
+page, C07-06 unadded candidate aliases, C07-08 data-coupled dashboard browser test (owner: earlier sessions), C07-09 dead
+session-bound workflows. Remaining unresolved picks (6 at 22:45Z) are thin/absent books or identity ambiguity — shown blank
+with research cards, never filled.
+
+**Coordination** — no other session's active scope was edited. Merged `origin/main` (PRs #32–#35) by union; a botched
+`--rebase=merges` replay was aborted locally before any push (nothing lost). Requests for owners: 0c803d4d — optional
+`r.get('source_url')` hardening at build.py ~127 is no longer required; earlier sessions — see C07-08/C07-09.
