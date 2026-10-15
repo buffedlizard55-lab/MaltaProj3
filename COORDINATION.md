@@ -836,7 +836,7 @@ Session: `arena-1112299f` · Branch: `arena/1112299f-maltaproj3` (fixed by Arena
 | H-2 Hotspawn lobby reverse-engineering: verified scoring/lock/week contract and lobby-vs-API reconciliation findings | done | arena-1112299f | `data/research/1112299f/` (new), section inside the `strategy/` page | Live-verified, dated, source-linked; no change to the collector |
 | H-3 Row-level official-source audit of every published table (each row must carry an official-source link or an explicit unverified flag) | done | arena-1112299f | `scripts/audit_rows.py` (new), `tests/test_row_sources.py` (new) | Read-only auditor; report goes to `data/research/1112299f/` |
 | H-4 Pages publishing race: root cause + repository-setting fix (see findings) | needs review (owner action; published on Flagged for Review) | arena-1112299f | repository setting only (no repo files) | The fix is a repo *setting* the available token cannot change (HTTP 403, see action log) |
-| H-5 Final integration of H-1..H-3 (hooks into shared files only after rebasing on the then-current `main`), PR, merge, Pages verification | in progress (PR link and merge result recorded below) | arena-1112299f | hook lines in `scripts/build.py`, `COORDINATION.md`, `README.md` | Shared-file edits kept to a minimum and rebased onto whatever `main` holds |
+| H-5 Final integration of H-1..H-3 (hooks into shared files only after rebasing on the then-current `main`), PR, merge, Pages verification | done (PR #39 and PR #42 merged; production runs green; see Publication below) | arena-1112299f | hook lines in `scripts/build.py`, `COORDINATION.md`, `README.md` | Shared-file edits kept to a minimum and rebased onto whatever `main` holds |
 
 ## Root-cause findings for the owners of C-1 / F-2 (verified from GitHub's API, 2026-10-15T22:32Z)
 
@@ -922,3 +922,26 @@ NiP vs Team Liquid consensus (Polymarket + Kalshi + Thunderpick + Bovada) live. 
 aimclub–BASEMENT BOYS, ASTRAL–Leo: no usable line yet / identity ambiguity) stay blank with per-source research cards and
 are retried on every refresh (12 schedule slots per day). Session c07e1b40 holds **no active claims**. This record PR is
 documentation-only; its deploy result is noted on the PR itself to avoid a recursive record.
+
+### Follow-up record — arena-1112299f (PR #42, 2026-10-15T23:41Z, sandbox clock)
+
+Three further findings surfaced once the first PR was live. All are fixed, tested and published on Flagged for Review.
+
+- **Model estimates yield to verified money lines (`scripts/originate.py::resolve_match`).** On the live site the Day-3 decider Aurora vs 9z was priced by the uncalibrated Valve model (72.5 / 27.5) although markets list it as "Aurora Gaming vs 9z": the exact-name featured join missed the display name and the alias-aware research skipped the fixture because it counted as resolved. Featured money-backed estimates are untouched; a featured *model* estimate is replaced only by a verified money-backed line that passes every existing check (spread ≤ 0.12, fresh, start within 60 s, alias scoped to its competition), otherwise it is kept exactly. The row is marked `upgraded_from_featured_model`, replayed from saved first-party responses by `validate_origination` (a forged or missing marker and a tampered probability all fail) and labelled on the picks and plan pages. 14 hermetic tests in `tests/test_origination_upgrade.py`. First live run after the change: market 8 → 9, model 4 → 3, alias-joined 2 → 3 (run 38823863183). **This is the first sanctioned exception to "featured estimates never change"; the featured-method page still lists the original featured estimate.**
+- **GitHub API rate limit (root cause of a hidden failure mode).** A runner-side probe (run 38824422956) measured unauthenticated `api.github.com` calls answering HTTP 403 with 0 of 60 remaining on three tries, against HTTP 200 and a limit of 5000 with the workflow token. That is why origination audit 38824105919 showed model 0 and unresolved 9, and then failed on `site/edge/index.html: broken local link ../data/evidence/valve-ratings.json`. Fixed: `scripts/github_auth.py` (token attached to `api.github.com` only, never recorded), `env: GITHUB_TOKEN` on the collect and originate steps of `pages.yml` and `origination.yml`, and the edge page links the saved ratings only when the file exists (blank and flagged otherwise). `tests/test_github_auth.py` (8 tests). With the fix the same live check passed with model 3 / unresolved 6 (run 38824715916).
+- **Auditor coverage.** `unresolved-card` articles (renamed from `pick-card` in c07e1b40's PR #38) are rows for the row-source audit too.
+
+**Files touched by this follow-up** (owners' tasks all `done`): `scripts/originate.py`, `scripts/build_origination.py`, `scripts/sources.py`, `scripts/build_edge.py`, `scripts/audit_rows.py`, `.github/workflows/pages.yml` (two `env` entries only), `.github/workflows/origination.yml` (two `env` entries only), new `scripts/github_auth.py`, `tests/test_origination_upgrade.py`, `tests/test_github_auth.py`, `data/research/1112299f/flags.json`, `README.md`.
+
+**Sources:** probe and audit runs <https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824422956>, <https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824105919>, <https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824715916>; GitHub rate limits <https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api>; Polymarket TWC markets <https://polymarket.com/esports/cs2/thunderpick-world-championship>.
+
+## Publication (session 1112299f)
+
+| Step | Result |
+| --- | --- |
+| PR [#39](https://github.com/buffedlizard55-lab/MaltaProj3/pull/39) leaderboard plan, tournament pick'em, lobby CDN fix, row-source audit | merged 2026-10-15T23:22:29Z as `73ac113`; production run [38823185732](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38823185732) **succeeded** |
+| PR [#42](https://github.com/buffedlizard55-lab/MaltaProj3/pull/42) model-to-money upgrade, authenticated GitHub API calls | merged 2026-10-15T23:39:31Z as `474f174`; production run [38824893698](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38824893698) **succeeded** (tests, collect, originate, build, deploy and the post-deploy verifier including the new plan-page and audit assertions) |
+| Deploy order | legacy `pages-build-deployment` 23:39:34Z, then the production artifact 23:40:00Z, so the verified artifact was published last |
+| Live check 23:40Z | <https://buffedlizard55-lab.github.io/MaltaProj3/strategy/> shows inventory 23:39 UTC, 16 open fixtures with a pick, **Aurora vs 9z as an upset play** (money-backed Kalshi line Aurora 69.8% / 9z 30.2%, cost 2.8 expected points for 7 at stake, tournament slip 9z 2-1) and the unresolved section with 6 rows; the executive summary shows "Leaderboard plan →" beside the picks button and "FULL INVENTORY RECONCILED" |
+
+**Open for the repository owner (does not block anything):** switch Settings → Pages → Source to **GitHub Actions** (the sessions' token gets HTTP 403: Administration permission). Until then the last production run after the last merge decides what is live.
