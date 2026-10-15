@@ -131,6 +131,13 @@ class EstimateTests(unittest.TestCase):
         self.assertIsNone(quote)
         self.assertIn('roster', detail)
 
+    def test_incomplete_fixture_remains_blank_instead_of_crashing(self):
+        match = {'id': 'unknown', 'starts_at': None, 'teams': [{'name': None}, {'name': 'Opponent'}]}
+        result = originate.originate_match(match, [], [], [], None, registry(), datetime.now(UTC))
+        self.assertIsNone(result['origination'])
+        self.assertIsNone(result['pick_index'])
+        self.assertIn('unverified', result['limitations'][0])
+
     def test_no_default_fifty_fifty(self):
         self.assertIsNone(originate.selection([0.5, 0.5]))
         self.assertEqual(originate.selection([0.50000001, 0.49999999]), 0)
@@ -206,6 +213,15 @@ class PageTests(unittest.TestCase):
             self.assertIn(needle, page)
         for m in self.data['matches']:
             self.assertIn('match-' + m['id'], page)
+
+    def test_featured_bookmaker_badge_is_not_mislabeled_model(self):
+        data = copy.deepcopy(self.data)
+        match = data['matches'][0]
+        match['origination']['method'] = 'bookmaker'
+        match['origination']['quotes'] = [{'family': 'thunderpick'}]
+        rendered = build_origination.pick_row(match)
+        self.assertIn('Money-backed line', rendered)
+        self.assertNotIn('>Research model<', rendered)
 
     def test_page_escapes_provider_text(self):
         data = copy.deepcopy(self.data)
