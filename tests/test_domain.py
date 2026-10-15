@@ -223,10 +223,6 @@ class SourceSafetyTests(unittest.TestCase):
                 collect(root)
             self.assertEqual((root / 'latest.json').read_text(), original)
 
-
-if __name__ == '__main__':
-    unittest.main()
-
 class ExpandedCoverageTests(unittest.TestCase):
     def sportsbook(self):
         return {'id': 'synthetic-event', 'gameId': 6, 'isLive': False, 'startTime': START,
@@ -265,3 +261,44 @@ class ExpandedCoverageTests(unittest.TestCase):
         self.assertEqual(gamma_games([event], 'synthetic'), [])
         event['tags'] = [{'slug': 'cs2'}]; del event['markets'][0]['gameStartTime']
         self.assertEqual(gamma_games([event], 'synthetic'), [])
+
+
+class PaginationTests(unittest.TestCase):
+    def fake(self, pages):
+        from unittest.mock import Mock
+        client = Mock()
+        client.fetch.side_effect = SourceError('Directory unavailable in this synthetic test')
+        client.json.side_effect = [(page, {'observed_at': iso(NOW), 'evidence': f'data/evidence/polymarket-discovery-{i * 100}.json'}) for i, page in enumerate(pages)]
+        return client
+
+    def event(self, i):
+        event = copy.deepcopy(EVENT); event['id'] = str(i); event['tags'] = [{'slug': 'cs2'}]
+        return event
+
+    def test_terminal_second_page_and_missing_directory_still_discover(self):
+        from scripts.sources import poly_index
+        client = self.fake([[self.event(i) for i in range(100)], [self.event(100)]])
+        games, health = poly_index(client)
+        self.assertEqual(len(games), 101)
+        self.assertTrue(health['discovery_complete'])
+        self.assertEqual(health['pages'], 2)
+        self.assertIn('offset=100', client.json.call_args.args[0])
+        self.assertEqual(health['status'], 'limited')  # Directory failure is not hidden.
+
+    def test_repeated_page_does_not_claim_complete(self):
+        from scripts.sources import poly_index
+        page = [self.event(i) for i in range(100)]
+        games, health = poly_index(self.fake([page, page]))
+        self.assertEqual(len(games), 100)
+        self.assertFalse(health['discovery_complete'])
+        self.assertIn('Repeated Gamma', health['detail'])
+
+    def test_empty_tag_feed_is_valid_but_not_fake_probability(self):
+        from scripts.sources import poly_index
+        games, health = poly_index(self.fake([[]]))
+        self.assertEqual(games, [])
+        self.assertTrue(health['discovery_complete'])
+
+
+if __name__ == '__main__':
+    unittest.main()

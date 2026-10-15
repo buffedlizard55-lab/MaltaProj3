@@ -5,12 +5,15 @@ import argparse
 import base64
 import hashlib
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 from bs4 import BeautifulSoup
 
 from scripts.collect import counts, normalize_fixture
+from scripts.sources import gamma_games
+
 from scripts.domain import (array, consensus, iso, market_analysis, parse_valve_table,
                             polymarket_candidate, selection, sportsbook_quote,
                             timestamp, valve_analysis)
@@ -49,6 +52,17 @@ def check_data(root: Path):
     require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
     attempts = {r['id']: r for r in data.get('requests', [])}
     valve_rows = None
+    index_path = evidence / 'polymarket-index.json'
+    if index_path.exists():
+        for game in load(index_path):
+            origin = game.get('discovery_evidence')
+            if origin:
+                require(re.fullmatch(r'data/evidence/polymarket-discovery-\d+\.json', origin) is not None, 'Unsafe Gamma discovery evidence path')
+                discovered = gamma_games(load(evidence / Path(origin).name), origin)
+                require(game in discovered, 'Gamma index identity does not replay from the original tagged event page')
+                label = Path(origin).stem
+                request = attempts.get(label, {})
+                require(request.get('status') == 'ok' and request.get('evidence') == origin and request.get('url', '').startswith('https://gamma-api.polymarket.com/events?'), 'Gamma discovery page lacks its actual successful source request')
     for m in rows:
         expected = normalize_fixture(raw[m['id']], context['permalinks'], data['inventory_observed_at'], now)
         for key in fact_keys:
