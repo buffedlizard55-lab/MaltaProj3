@@ -779,7 +779,7 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
-def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
+def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -810,7 +810,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                 continue
             aliases.extend(used)
             if used:
-                notes[key].append('joined via verified alias registry')
+                notes[key].append(('joined via verified alias registry', None))
             if timestamp(row.get('start')) and timestamp(match.get('starts_at')):
                 delta = abs((timestamp(row['start']) - timestamp(match['starts_at'])).total_seconds())
                 if delta > TIME_DISAGREEMENT_SEC:
@@ -822,20 +822,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if quote:
                 estimates[family].append((quote, detail))
             else:
-                notes[key].append(f'{provider} event {row.get("event_id")}: {detail}')
+                notes[key].append((f'{provider} event {row.get("event_id")}: {detail}', row.get('source_url')))
     for key, (stage, fallback_url) in stage_names.items():
         family, provider = key
         hits = [(q, d) for q, d in estimates[family] if q['provider'] == provider]
+        aliased = any(url is None for _, url in notes[key])
+        rejected = [(text, url) for text, url in notes[key] if url is not None]
         if hits:
             quote, detail = hits[0]
-            extra = [n for n in notes[key] if n == 'joined via verified alias registry']
             trail.append({'stage': stage, 'status': 'resolved',
-                          'source_url': quote['source_url'], 'detail': detail + (' ' + extra[0] + '.' if extra else '')})
+                          'source_url': quote['source_url'], 'detail': detail + (' Joined via verified alias registry.' if aliased else '')})
         else:
-            rejected = [n for n in notes[key] if n != 'joined via verified alias registry']
-            detail = (' '.join(rejected) if rejected else
+            detail = (' '.join(text for text, _ in rejected) if rejected else
                       f'No alias-verified {provider} match-winner line found for these teams and start time.')
-            trail.append({'stage': stage, 'status': 'unresolved', 'source_url': fallback_url, 'detail': detail})
+            url = rejected[0][1] if rejected and str(rejected[0][1]).startswith('https://') else fallback_url
+            trail.append({'stage': stage, 'status': 'unresolved', 'source_url': url, 'detail': detail})
 
     # 3. Research model cross-check (always attempted, never overrides money lines).
     model, model_detail = model_estimate(match, ratings, registry, valve_meta or {}, now)
@@ -850,7 +851,13 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': model_detail})
 
     # HLTV research stage (identity/rank context always recorded with its link).
-    if name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
+    # Prefer the collector's own fixture-specific HLTV records (exact match page,
+    # identity and published format) over a generic placeholder.
+    hltv_records = [dict(r) for r in (hltv or []) if str(r.get('stage', '')).startswith('HLTV') and str(r.get('source_url', '')).startswith('https://www.hltv.org/')]
+    if hltv_records:
+        for record in reversed(hltv_records):
+            trail.insert(0, {k: record[k] for k in ('stage', 'status', 'source_url', 'detail') if k in record})
+    elif name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
         trail.insert(0, {'stage': 'HLTV identity research', 'status': 'checked', 'source_url': HLTV_EVENT,
                          'detail': 'Event identity evidence is listed in the reviewed alias registry. HLTV fan votes are never probability inputs; current lineups remain unverified.'})
     else:
@@ -911,6 +918,16 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if key not in seen:
             seen.add(key)
             deduped.append(a)
+    if deduped:
+        # Make the identity basis explicit next to the HLTV record: a registry join is
+        # competition-scoped and evidence-linked, unlike a same-slot observation.
+        position = sum(1 for r in trail if str(r.get('stage', '')).startswith('HLTV'))
+        evidence_url = next((ev['url'] for a in deduped for ev in a.get('evidence', []) if str(ev.get('url', '')).startswith('https://')),
+                            'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json')
+        trail.insert(position, {'stage': 'Identity join (verified alias registry)', 'status': 'resolved', 'source_url': evidence_url,
+                                'detail': '; '.join(f"{a['alias']} → {a['canonical']}" for a in deduped)
+                                + '. Competition-scoped registry entries with official evidence links; this supersedes any earlier '
+                                  '"equivalence not verified" observation for these names in this competition only.'})
     return {
         'origination': chosen,
         'pick_index': pick,
@@ -948,7 +965,7 @@ def run(output: Path, *, live: bool = False) -> dict:
                       'pick_index': match.get('pick_index'), 'aliases_used': [],
                       'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
         else:
-            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
+            result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],

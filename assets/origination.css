@@ -111,7 +111,7 @@ main { max-width: 1020px; margin: 0 auto; padding: 12px 14px 40px; }
 }
 .badge.green { background: var(--green-bg); color: var(--green); }
 .badge.purple { background: var(--purple-bg); color: var(--purple); }
-.badge.amber { background: var(--amber-bg); color: var(--amber); }
+.badge.amber { background: var(--amber-bg); color: #6e4b0f; } /* 7:1 on amber-bg; was 4.12:1 (WCAG 1.4.3) */
 .badge.neutral { background: #e9eef3; color: var(--ink-2); }
 .row-srcs { font-size: .82rem; margin: 0 0 6px; }
 .src {
@@ -154,3 +154,11 @@ footer .src { font-size: .82rem; }
 @media (min-width: 1024px) {
   .quick { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* Session c07e1b40: phone-first unresolved cards listing what each source showed. */
+.unresolved-card { border-left: 4px solid var(--amber); }
+.findings { margin: 6px 0 10px; padding-left: 18px; font-size: .86rem; }
+.findings li { margin-bottom: 6px; overflow-wrap: anywhere; }
+.findings .status { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+/* "Unresolved" must never inherit the green pick colour (6.8:1 on white). */
+.pick-line strong.unverified { color: #7a5410; }

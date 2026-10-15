@@ -120,10 +120,45 @@ def pick_row(m):
     return ''.join(out)
 
 
+SHORT_STAGE = [
+    ('HLTV', 'HLTV'), ('Betting market (Polymarket', 'Polymarket'), ('Exchange market (Kalshi', 'Kalshi'),
+    ('Esportsbook line (Thunderpick', 'Thunderpick'), ('Esportsbook line (Bovada', 'Bovada'),
+    ('Esportsbook line', 'Esportsbook'), ('Research model', 'Valve rating model'), ('Fixture identity', 'Fixture identity'),
+]
+
+
+def short_stage(stage):
+    return next((label for prefix, label in SHORT_STAGE if str(stage).startswith(prefix)), str(stage))
+
+
+def unresolved_card(m):
+    """Phone-first card: what every source showed for a match that has no verified pick."""
+    names = team_names(m)
+    out = [f'<article class="pick-card unresolved-card" id="unresolved-{e(m["id"])}">',
+           f'<header class="card-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
+           f'<span class="tier">{badge("No verified pick", "amber")}</span></header>',
+           f'<h3 class="teams"><strong>{e(names[0])}</strong><span class="vs">vs</span><strong>{e(names[1])}</strong></h3>',
+           f'<p class="when">{local_time(m["starts_at"])}</p>',
+           '<p class="pick-line">Pick: <strong class="unverified">Unresolved</strong> '
+           '<small>both win % left blank — no default 50/50</small></p>',
+           '<ul class="findings">']
+    for r in m.get('research', []):
+        if r.get('stage') == 'Origination result':
+            continue
+        out.append(f'<li><strong>{e(short_stage(r["stage"]))}</strong> <span class="status">{e(r["status"])}</span> — '
+                   f'{e(r["detail"])} {ext(r["source_url"], "source")}</li>')
+    out.append('</ul>')
+    out.append('<p class="row-srcs">' + ext(m['source_url'], 'Hotspawn fixture')
+               + f' · <a class="src" href="#match-{e(m["id"])}">Full research trail ↓</a></p></article>')
+    return ''.join(out)
+
+
 def section_unresolved(data):
     rows = [m for m in data['matches'] if m['origination'] is None]
     out = ['<section class="block" id="unresolved"><h2>Unresolved picks &amp; limitations</h2>']
-    out.append('<p class="lede">Every match without a verified pick is listed here with the exact reason. '
+    out.append('<p class="lede">Every match without a verified pick is listed here with what each source actually showed — '
+               'HLTV identity first, then every betting market and esportsbook, then the rating model. '
+               'Thin or wide books are recorded for guidance but never turned into a pick. '
                'Missing values stay blank — no default 50/50, no invented lines. '
                'An unavailable source is never treated as proof that a market does not exist.</p>')
     if not rows:
@@ -131,17 +166,13 @@ def section_unresolved(data):
                    f'All {data["counts"]["active"]} active Hotspawn CS2 fixtures have a researched pick as of {local_time(data["generated_at"])}. '
                    'This is a dated observation, not a permanent guarantee — the inventory refreshes every four hours and new fixtures can appear without lines.</div>')
     else:
-        out.append('<div class="table-wrap"><table class="simple"><caption class="sr-only">Unresolved matches and missing evidence</caption>'
-                   '<thead><tr><th>Match</th><th>Why no pick?</th><th>Research trail</th></tr></thead><tbody>')
-        for m in rows:
-            reason = next((r['detail'] for r in reversed(m.get('research', [])) if r['status'] == 'unresolved'), 'No verified inputs')
-            out.append(f'<tr><th scope="row">{e(" vs ".join(team_names(m)))}<small>{local_time(m["starts_at"])}</small></th>'
-                       f'<td>{e(reason)}</td><td>{ext(m["source_url"], "Hotspawn")}<a class="src" href="#match-{e(m["id"])}">Full trail ↓</a></td></tr>')
-        out.append('</tbody></table></div>')
+        out.append(f'<p class="tiny">{len(rows)} of {data["counts"]["active"]} active fixtures are unresolved in this snapshot. '
+                   'Lines for low-tier and later-dated matches often open closer to start time; every four-hour refresh retries all sources.</p>')
+        out.append('<div class="cards">' + ''.join(unresolved_card(m) for m in rows) + '</div>')
     out.append('<h3>Standing limitations for originated picks</h3><ul class="limits">')
     out.append('<li>Hotspawn participation percentages are <strong>never</strong> a probability input, and neither are HLTV fan votes. '
                'Only paired betting/market prices and official published ratings produce numbers.</li>')
-    out.append('<li>Thin prediction markets (order-book spread wider than 12 cents) are shown as <strong>indicative</strong> inputs only and are labeled on each row.</li>')
+    out.append('<li>Prediction-market and exchange books (Polymarket, Kalshi) wider than 12 cents are rejected; the observed quotes are shown on unresolved cards for guidance only.</li>')
     out.append('<li>The Valve-rating fallback model is <strong>uncalibrated</strong>: it is not observed betting odds and has not been backtested. '
                'It is used only when no money source resolves a match.</li>')
     out.append('<li>Provider display names are joined only through the verified alias registry below. Unregistered names stay unmatched.</li>')
