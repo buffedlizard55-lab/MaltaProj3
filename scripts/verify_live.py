@@ -86,6 +86,20 @@ def verify(url, expected):
         if finding['id'] == 'inventory-failed':
             print('::notice::Inventory source limitation: ' + finding['detail'])
     get('assets/origination.css')
+    # Leaderboard plan and row-source audit: derived output. A placeholder page is reported loudly but the
+    # deployment itself (data, pages, links) has already been verified above.
+    plan = BeautifulSoup(get('strategy/').text, 'html.parser')
+    if plan.find(id='slate') and plan.find(id='unresolved') and plan.find('h1'):
+        for asset in ['assets/strategy.css', 'assets/strategy.js', 'data/strategy.json', 'data/strategy-rules.json']:
+            get(asset)
+        print('::notice::Leaderboard plan published with its slate and unresolved section')
+    else:
+        print('::warning::Leaderboard plan page is the placeholder; the data refresh itself was published')
+    audit = get('data/row-source-audit.json').json()
+    totals = audit.get('totals') or {}
+    print('::notice::Row-source audit: ' + json.dumps(totals))
+    if totals.get('violation'):
+        print(f"::warning::{totals['violation']} published rows lack an official source link or an unverified flag")
     print('::notice::Public complete-picks counts: ' + json.dumps(originated['counts']))
     for route in ['docs/index.html', 'archive/root-session/index.html']:
         if 'Archived session snapshot' not in get(route).text:

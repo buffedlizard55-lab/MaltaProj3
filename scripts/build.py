@@ -124,7 +124,7 @@ def evidence(m, prefix, fallback=None):
         for r in o.get('inputs') or []:
             body += (f'<p class="tiny">Valve rating input: <strong>{e(r["name"])}</strong> {e(r["points"])} points, '
                      f'snapshot {e(r.get("snapshot_date") or "unverified")}, roster {e(", ".join(r.get("roster") or []))}. '
-                     + external(r['source_url'], 'Valve record') + '</p>')
+                     + (external(r.get('source_url') or o.get('source_url'), 'Valve record') if (r.get('source_url') or o.get('source_url')) else '<span class="unverified">source link unverified</span>') + '</p>')
         aliases = fallback.get('aliases_used') or []
         if aliases:
             body += ('<p class="tiny"><strong>Identity joins</strong>: '
@@ -311,8 +311,8 @@ def summary(data, prefix):
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["unresolved"]} unresolved in the complete researched list. Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}edge/">Day-one upset review ↓</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-three-guide">Day 3 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}edge/">Day-one upset review ↓</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-three-guide">Day 3 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'
@@ -349,6 +349,9 @@ def where_everything_lives(data, prefix):
         ('Complete match picks', 'origination/#picks', 'The list to use on your phone: every non-archived Hotspawn CS2 '
          'fixture with both probabilities, one obvious pick, lock times and expandable evidence.',
          'Featured estimates plus researched fallbacks'),
+        ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
+         'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
+         'Contrarian, not stupid'),
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
@@ -504,6 +507,12 @@ def build(source: Path, output: Path):
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
+    # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
+    # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
+    findings = source / 'research/1112299f/flags.json'
+    if findings.exists():
+        have = {f['id'] for f in data['flags']}
+        data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     if (source / 'research/c07e1b40/repo-review.json').exists():
@@ -554,6 +563,28 @@ def build(source: Path, output: Path):
     if (source / 'origination.json').exists():
         from scripts.build_origination import build as build_originated
         build_originated(source, output)
+    # Browser-test fixtures (site/_fixture) are never part of the published site or its link check.
+    shutil.rmtree(output / '_fixture', ignore_errors=True)
+    # Leaderboard plan: its own builder and stylesheet. It is derived, optional output, so a failure here
+    # degrades to a placeholder page and a loud annotation instead of blocking the data refresh.
+    from scripts.build_strategy import build as build_strategy, placeholder as strategy_placeholder
+    try:
+        build_strategy(source, output)
+    except Exception as exc:
+        print(f'::warning title=Leaderboard plan not built::{type(exc).__name__}: {exc}')
+        strategy_placeholder(output, f'{type(exc).__name__}: {exc}')
+    # Row-level official-source audit of what was just built: report, never block.
+    try:
+        from scripts.audit_rows import audit_site
+        audit = audit_site(output)
+        (output / 'data').mkdir(parents=True, exist_ok=True)
+        (output / 'data/row-source-audit.json').write_text(json.dumps(audit, indent=2, ensure_ascii=False) + '\n')
+        totals = audit['totals']
+        print(f"Row-source audit: {totals['rows']} rows, {totals['ok']} with an official link, {totals['flagged']} flagged unverified, {totals['navigation']} site-map, {totals['violation']} without a source")
+        if totals['violation']:
+            print(f"::warning title=Rows without an official source::{totals['violation']} table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json")
+    except Exception as exc:  # the audit is a report; it must never stop a data refresh
+        print(f'::warning title=Row-source audit not run::{type(exc).__name__}: {exc}')
     check_links(output)
     print(f'Built {len(PAGES)} current Pages views, compatible old URLs and explicitly archived session views in {output}')
 

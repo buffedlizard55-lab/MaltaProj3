@@ -823,6 +823,76 @@ with research cards, never filled.
   mirrors the verifier. The real `scripts/verify_live.py` now passes locally against a site built from the live snapshot
   (22 active / 16 resolved / 6 unresolved). 172 Python tests, 38 Playwright checks pass.
 
+# Session 1112299f board (arena/1112299f-maltaproj3)
+
+Session: `arena-1112299f` · Branch: `arena/1112299f-maltaproj3` (fixed by Arena; the brief's `session-<id>/<task>` naming cannot be used, so every task below lives on this one branch) · Claimed 2026-10-15T22:32Z (sandbox clock).
+
+**Read before claiming:** every board above, the merged I-F1/I-F2 record of `f2d2d85e`, and the claims already pushed on branches `arena/c07e1b40-maltaproj3` (C-1..C-5) and `arena/0c803d4d-maltaproj3` (F-1..F-4). Those two claims overlap **each other** (refresh repair C-1 = F-2; Day-3 guide C-2 = F-1; complete picks / summary C-3 = F-3; final integration C-5 = F-4). **This session does not take any of those tasks** and will not edit the files they claim (`scripts/collect.py`, `scripts/sources.py`, `scripts/domain.py`, `scripts/validate.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/build.py` summary/briefing, `.github/workflows/pages.yml`, `data/twc-review.json`, `data/day3-guide.json`). It claims the non-overlapping scope below. If any file outside it must change, the request is logged here instead.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| H-1 Points-aware leaderboard strategy: reproducible "contrarian but not stupid" rule applied to every active Hotspawn CS2 fixture, built only from our own external-line probabilities; separate unresolved list with limitations | done | arena-1112299f | `scripts/build_strategy.py` (new), `data/strategy-rules.json` (new), `strategy/` (generated page), `assets/strategy.css` (new), `tests/test_strategy.py` (new) | Hotspawn "% picked" is never a probability input; if shown it is labelled leverage-only |
+| H-2 Hotspawn lobby reverse-engineering: verified scoring/lock/week contract and lobby-vs-API reconciliation findings | done | arena-1112299f | `data/research/1112299f/` (new), section inside the `strategy/` page | Live-verified, dated, source-linked; no change to the collector |
+| H-3 Row-level official-source audit of every published table (each row must carry an official-source link or an explicit unverified flag) | done | arena-1112299f | `scripts/audit_rows.py` (new), `tests/test_row_sources.py` (new) | Read-only auditor; report goes to `data/research/1112299f/` |
+| H-4 Pages publishing race: root cause + repository-setting fix (see findings) | needs review (owner action; published on Flagged for Review) | arena-1112299f | repository setting only (no repo files) | The fix is a repo *setting* the available token cannot change (HTTP 403, see action log) |
+| H-5 Final integration of H-1..H-3 (hooks into shared files only after rebasing on the then-current `main`), PR, merge, Pages verification | in progress (PR link and merge result recorded below) | arena-1112299f | hook lines in `scripts/build.py`, `COORDINATION.md`, `README.md` | Shared-file edits kept to a minimum and rebased onto whatever `main` holds |
+
+## Root-cause findings for the owners of C-1 / F-2 (verified from GitHub's API, 2026-10-15T22:32Z)
+
+1. **Publisher race (explains "the site is stale even after a green run").** Pages is in `legacy` mode (`GET /pages`: `build_type: legacy`, source `main` `/`). Every push to `main` triggers GitHub's own `pages-build-deployment`, which publishes the **committed fallback files**. Timeline for PR #32/#33: legacy deploy 22:25:02 → production artifact deployed **22:25:28** (run 38816949473, fresh snapshot: inventory observed 22:25:16Z, 86 = 22 upcoming + 64 past-start, coverage complete) → PR #33 merge triggered another legacy build, deployed **22:26:45**, which replaced the fresh artifact. `GET /pages/builds/latest` = commit `3d58bba`. The live complete-picks page still reads "17 active", not 22. A later push always beats an earlier production run.
+2. **Production run 38817090310 (push, 22:26:16Z) failed at step 6 `Regression tests`**, i.e. after the cache restored the fresh 22:25 snapshot over `data/`. `checks.yml` runs the same tests against the committed data and passes. The tests are therefore being run against live-restored data; data-dependent tests break whenever the snapshot changes. Suggest running the regression tests *before* the cache restore (or making them hermetic).
+3. **Scheduled runs 38742696250 (13:26Z) and 38797535468 (19:53Z) failed at step 10 (`scripts.build`)** with the retained 10:13:43Z snapshot. The only message surfaced anywhere is the `::error::'source_url'` annotation of origination run 38733458812 (a bare `KeyError`; `origination.yml` prints `str(exc)` and no traceback). Suggest printing the traceback in the annotation.
+4. **Cadence:** GitHub delivered the 12:17 slot at 13:26 and the 16:17 slot at 19:53 (+1h09m / +3h36m). Each run also failed, so nothing was deployed for ~10 h. A denser cron is the standard mitigation; the cron change belongs to the `pages.yml` owner.
+5. **Coverage at the last good observation (22:25:16Z):** 22 active fixtures, 14 with a pick, **8 without one**. The additional unresolved rows are what the user asked this project to resolve.
+
+## H-4 action log
+
+- 22:33Z: read `GET /repos/buffedlizard55-lab/MaltaProj3/pages` → `build_type: legacy`, source `main` `/`. Tried `PUT /pages` with `{"build_type": "workflow"}` using the `gh` token already configured in the sandbox. **HTTP 403 Forbidden.** The response header `X-Accepted-Github-Permissions: pages=write,administration=write` shows the endpoint needs the *Administration* permission, which this token does not carry (the repository record shows `permissions.admin: true` for the account, but not for this token). **Nothing was changed; Pages is still `legacy`.** No credential was requested, printed or stored.
+- **One-click owner fix (cannot be done from any session):** repository **Settings → Pages → Build and deployment → Source → "GitHub Actions"**. After that, pushes to `main` no longer trigger GitHub's own `pages-build-deployment`, so a green production run can no longer be overwritten by the committed fallback files. `scripts/publication.py` already recognises that mode (`final_build_type: workflow`), so no code change is needed. Reversible by selecting "Deploy from a branch → main / (root)".
+- **What still protects the site meanwhile:** the production run waits for its own commit's legacy build and deploys last, so the **last production run after the last merge** decides what is live. It must be green. If it fails after a push (as run 38817090310 did at `Regression tests`), the stale committed fallback stays live. Every integration session should therefore confirm the last production run is green and that `/origination/` shows the new snapshot.
+- Request to the `pages.yml` / `scripts/publication.py` owners (C-1 / F-2): surface this exact one-click instruction in the existing `pages-publication-mode` flag text on Flagged for Review.
+
+### Completion record — arena-1112299f (2026-10-15T23:16Z, sandbox clock)
+
+**Status:** H-1, H-2 and H-3 are **done**. H-4 is **needs review** (a repository setting only the owner can change). H-5 integration is recorded under *Publication (session 1112299f)* once the PR merges.
+
+**What shipped**
+- **H-1 `strategy/` (Leaderboard plan)** — `scripts/build_strategy.py`, `data/strategy-rules.json`, `assets/strategy.css`, `assets/strategy.js`. One plan pick per open fixture from our own external-line probabilities, upset plays only under the documented rule (money-backed line under 8 h old, underdog at least 30%, 3+ points, crowd not already on the underdog, at most 2 per UTC day), the expected-point cost of each, a separate **Unresolved picks & limitations** section, the Thunderpick tournament pick'em (7 + 5 points) with a labelled model-derived best-of-three score slip, Days 1–2 results, and the Hotspawn scoring contract. Linked from the executive summary (hero action, briefing shortcuts, site map). Built by `scripts.build`; a failure degrades to a placeholder page and an annotation and can never block a data refresh.
+- **H-2 Hotspawn reverse-engineering** — `data/research/1112299f/` (`hotspawn-contract.json`, `hotspawn-tournament.json`, `twc-results.json`, `lobby-probe.json`, `flags.json`) and `scripts/lobby_probe.py`. Findings: the lobby HTML is CDN-cached (70–90 min old) while the fixture API is live; the exact weekly window comes from the weekly-prizes API (week 270, Mon 12 Oct 00:00 to Sun 18 Oct 23:59:59.999 UTC); the pages hydrate a known set of endpoints; the tournament pick'em pays 5 extra points for the series score; Hotspawn's own API agrees with HLTV on all 8 Days 1–2 series.
+- **H-3 `scripts/audit_rows.py`** — every table row / pick card must carry an allow-listed official source or an explicit unverified marker (site-map table exempt by caption). Report in every build (`data/row-source-audit.json`), strict in pull-request checks. First run on the merged site: 8 Day-3 standings rows without a source (fixed).
+
+**Edits to files other sessions had owned** (every owner's tasks were already `done`; each edit is minimal and has a regression test)
+- `scripts/build.py`: build hook for the plan page and the audit (both wrapped so they cannot stop a refresh); executive-summary links (hero action, briefing shortcuts, site-map row); loader that adds `data/research/1112299f/flags.json` to the Flagged for Review table in memory only; `evidence()` now falls back to the estimate's source link, or says "source link unverified", when a Valve input lacks one (`tests/test_build_hardening.py` reproduces the original `KeyError: 'source_url'`, which c07e1b40 also fixed at its origin in `originate.py`).
+- `scripts/build_day3.py`: a Source column (HLTV bracket) on the Day-3 standings rows, which had none.
+- `scripts/sources.py`: `hotspawn()` requests fresh renders of the two lobby pages (`?cb=<epoch>`, falling back to the plain URL), retries the reconciliation once, records `Age`/`X-Cache` in the request manifest, and names the differing fixture IDs and cache state when it still disagrees (`tests/test_lobby_freshness.py`, 11 tests, fake client).
+- `scripts/verify_live.py`: post-deploy checks that `strategy/` and `data/row-source-audit.json` are live (a placeholder page warns, it does not fail the deployment).
+- `.github/workflows/checks.yml`: one step runs `python -m scripts.audit_rows --site site --strict`.
+- `.github/workflows/session-1112299f-lobby-probe.yml` was a branch-only diagnostic (read-only, wrote one evidence file) and is removed before merge; `scripts/lobby_probe.py` stays as a documented manual tool.
+
+**Sources** (all read 2026-10-15 22:23Z – 23:15Z unless stated)
+- Hotspawn lobby <https://play.hotspawn.com/lobby>, CS2 lobby <https://play.hotspawn.com/cs2-pickems>, rules <https://play.hotspawn.com/how-it-works>, tournaments <https://play.hotspawn.com/tournaments> and <https://play.hotspawn.com/tournaments/thunderpick-world-championships>.
+- Hotspawn APIs: fixtures <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1>, weekly prizes <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget>, tournament <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1>.
+- HLTV event <https://www.hltv.org/events/8932/thunderpick-world-championship-2026>, results <https://www.hltv.org/results?event=8932>, Day-3 decider <https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026>.
+- Polymarket TWC markets <https://polymarket.com/esports/cs2/thunderpick-world-championship> (Aurora 69¢ / 9z 31¢ listing at about 22:28Z; Legacy vs BetBoom unpriced at $0 volume).
+- GitHub: Pages API <https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages>, production run <https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38816949473>, publishing-source docs <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>.
+
+**Verification performed** (on the tree merged with `main` at 63b8b36)
+- 253 Python tests pass (`python -m unittest discover -s tests`), including 56 in `tests/test_strategy.py`, 12 in `tests/test_row_sources.py`, 11 in `tests/test_lobby_freshness.py`, 3 in `tests/test_build_hardening.py`. All new tests are hermetic (synthetic inputs or committed static files); none read the live-restored snapshot.
+- 50 Playwright checks pass: the existing 38 plus 12 in `tests/browser/strategy.spec.mjs` (320/390/768/1440 px, no horizontal overflow, plan pick on every card, upset ribbon only on qualifying fixtures, locked fixtures hidden by a pinned browser clock, source links visible without swiping on a phone, axe WCAG A/AA at 390 and 1440 px). The spec caught two real defects before merge: a near-invisible hero button (contrast) and a 320 px overflow (CSS grid `1fr` tracks).
+- `scripts.build`: 80 source rows replayed, 502 internal links/assets/anchors validated, row-source audit 284 rows / 277 official / 7 site-map / **0 without a source**. `scripts.verify_live` passed against a local copy of the build including the new assertions.
+- Runner-side probes: `lobby-probe.json` (3 plain rounds, 2 cache-busted rounds, tournament pages) and the live `Origination source audit` runs on this branch.
+- Cross-checks: Hotspawn's tournament API and HLTV give the same winner and score for 8 of 8 series; fixture IDs in the research files were checked against the saved API evidence (three IDs were wrong in an earlier draft and were corrected before publication).
+
+**Irregularities** — published on the Flagged for Review page from `data/research/1112299f/flags.json`
+1. **Pages legacy mode / overwrite race** (warning): owner action Settings → Pages → Source → GitHub Actions; the sessions' token gets HTTP 403 (`administration=write` required).
+2. **CDN-cached lobby HTML** (notice): explains the intermittent inventory disagreement; collector fixed.
+3. **Duplicate Legacy vs FURIA fixture** (warning): 1080204 stale `scheduled` 0-0 vs 1081614 `ended` 1-2; HLTV shows one series (FURIA 2-1).
+4. **Tournament pick'em picks outside the weekly inventory** (warning): score picks, Crystal Ball (scoring unverified), player props (not analysed).
+5. **Streak bonus and wrong-pick penalty not published; 5-min vs 6-min lock** (notice).
+None blocks publication. No value was filled in: every unverified item stays blank on the site.
+
+**Concurrency note.** Three sessions were started within a minute of each other (c07e1b40, 0c803d4d and this one) after f2d2d85e had already merged Day-2 results. This session read both other claims before claiming, took none of their tasks, and kept to new files plus the minimal logged hooks above. Requests it made to other owners (Pages-mode flag text; tests before the cache restore; build hardening) were all implemented by c07e1b40 (PR #36/#37) or are included here.
+
 ### Publication record — session c07e1b40 (final)
 
 | PR | Merged (UTC) | Merge commit | Production run | Result |
