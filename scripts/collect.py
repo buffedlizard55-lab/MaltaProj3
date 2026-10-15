@@ -35,6 +35,21 @@ def failed(name, url, exc, now):
     return {'name': name, 'url': url, 'status': 'unavailable', 'observed_at': iso(datetime.now(timezone.utc)), 'records': None, 'detail': str(exc)}
 
 
+def record_book_check(matches, result):
+    """Attach shared source-access evidence only to still-unresolved matches.
+
+    A page check is not a match search or proof that a market does not exist.
+    Preserve that distinction and the actual source observation timestamp.
+    """
+    for match in matches:
+        if match['analysis'] is None:
+            match['research'].append({
+                'stage': result['name'], 'source_url': result['url'],
+                'status': result['status'], 'observed_at': result['observed_at'],
+                'detail': result['detail'],
+            })
+
+
 def normalize_fixture(raw, links, observed_at, now):
     start, lock = timestamp(raw.get('scheduled_start_time')), timestamp(raw.get('lock_time'))
     fixture_id = str(raw['id'])
@@ -196,9 +211,11 @@ def _collect_into(output: Path):
         if any(m['analysis'] is None for m in missing):
             for url, label, title in BOOK_PAGES:
                 try:
-                    health.append(book_page_check(client, url, label, title))
+                    result = book_page_check(client, url, label, title)
                 except (SourceError, ValueError) as exc:
-                    health.append(failed(title, url, exc, now))
+                    result = failed(title, url, exc, now)
+                health.append(result)
+                record_book_check(missing, result)
             ratings = []
             ratings_observed = None
             try:
@@ -220,6 +237,9 @@ def _collect_into(output: Path):
     past = [m['id'] for m in matches if m['availability'] == 'past' and m['source_status'] == 'scheduled']
     if past:
         flags.append(flag('past-scheduled', 'Past-start records still marked scheduled', f'{len(past)} source records have past scheduled starts but are still labeled scheduled. They are retained in the source archive, not presented as playable matches or verified results.', [FIXTURES_API, LOBBY], past))
+    unknown_schedule = [m['id'] for m in matches if m['availability'] == 'unknown']
+    if unknown_schedule:
+        flags.append(flag('unknown-schedule', 'Unverified schedules prevent match resolution', f'{len(unknown_schedule)} source records have no confirmed start time. They remain in the unresolved section and source inventory; no time-based market join or probability is invented.', [FIXTURES_API, LOBBY], unknown_schedule))
     unformatted = [m['id'] for m in matches if m['best_of'] is None]
     if unformatted:
         flags.append(flag('missing-format', 'Hotspawn series format is unverified', f'{len(unformatted)} fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.', [FIXTURES_API], unformatted))

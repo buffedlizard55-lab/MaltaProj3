@@ -252,3 +252,46 @@ Initial inspection: canonical collector already reconciles both official lobby h
 - **Operational audit:** research export runs `38704904493` and `38704923472` failed in the export step with exit 1 (annotation verified; detailed log-download host is unavailable here). Output paths/wildcards were corrected; retry [38705136315](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705136315) succeeded. Manual Actions dispatch returned HTTP 403 `Resource not accessible by integration`; ordinary authorized push triggers collected the same sources successfully, without bypassing permissions. Live collect/replay/export [38705701128](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705701128) succeeded.
 - **Combined verification:** 64 Python regression tests; 26 Playwright browser tests; all 80 row facts and every complete analysis replayed; 376 internal links/assets/anchors passed. Phone/desktop dimensions 320/390/768/1440px; automated WCAG A/AA checks on all five routes at phone/desktop widths. Not a claim of full manual WCAG certification. Independent runner [38705985591](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705985591) succeeded on authored head `338fe75`. `git diff --check` passed.
 - **PR opened:** [#15](https://github.com/buffedlizard55-lab/MaltaProj3/pull/15), integration head `arena/11c1fa20-maltaproj3` → `main`. Final CI and production deployment will be verified before marking publication done. Pages API currently confirms the existing `legacy` mode; production's previously verified publisher ordering remains in place.
+
+
+## Concurrent completed-session handoff preserved at integration
+
+## Session 87b206e2 — follow-up audit and integration (2026-10-15)
+
+| Task | Status | Owner | File scope | Updated UTC |
+| --- | --- | --- | --- | --- |
+| Audit fallback evidence, clarify mobile executive summary and unresolved coverage; verify and publish | done | arena/87b206e2-maltaproj3 (final integration) | `scripts/build.py`, `scripts/sources.py`, `scripts/collect.py`, `tests/`, `assets/dashboard.css`, `.github/workflows/`, `README.md`, `COORDINATION.md` | 2026-10-15 |
+
+All previous active historical claims are over 60 minutes old and their completed handoffs are recorded above. This session takes over only the follow-up scope listed here. Arena fixes this session to its existing branch. No source data is declared current until fetched successfully; outbound access here is restricted, so live collection will be verified on GitHub Actions where available.
+
+- First live follow-up collection [38704742081](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38704742081) succeeded: observed 2026-10-15T08:18:50Z, 80 source rows, 18 future, 62 past-start, 7 Polymarket + 2 Thunderpick + 5 Valve-model estimates, 4 unresolved. This is a dated observation, not a permanent coverage claim. HLTV returned a real match directory but the old selector contract failed; investigating its recorded markup rather than labeling this as a confirmed access block. GG.BET returned 403; Pinnacle and Rivalry redirected. Missing Valve names and unacceptable Polymarket spreads remain unresolved, not guessed.
+- The initial branch pull reported no remote ref (branch did not yet exist). Rebased against main before first push; no conflict or discarded work. Subsequent pulls use this session's published branch.
+
+- Verified HLTV's observed public split-link markup from `https://www.hltv.org/matches`: `.match-info` carries time while `.match-teams` carries names, with identical match hrefs. Fixed grouping by exact href, deduplicated pinned cards, and reject conflicting repeats. Replayed the saved official fragments locally and added six synthetic parser regressions. No fan votes, inferred aliases or HLTV percentages become price inputs. The current reader saves the original HTML response for audit.
+- Per-match fallback trails now include actual GG.BET/Pinnacle/Rivalry page-check outcomes only for matches still missing lines. Unknown-start fixtures are visible in summary/review unresolved sections and link to their inventory records. The landing heading explicitly says Executive summary; phone navigation and expandable unresolved trails are tested.
+
+### Final verification before PR #13 merge
+
+- Final integration also owns the automatic `data/` exports on this branch; they are generated solely by the claimed collection workflow, not manually altered prices. Prior source diagnostic samples were replaced by the original HLTV response and all parsed identities on successful refresh.
+- Live collector [38705238962](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705238962) succeeded. Observation `2026-10-15T08:22:59Z`: 80 inventory = 18 future + 62 past-start; 7 primary market + 2 bookmaker + 5 model + 4 unresolved. HLTV now successfully reads **53 deduplicated identities**, replayed against its saved original HTML. The four unresolved names/time pairs still do not uniquely match the HLTV observations; no aliases are inferred.
+- Local checks: 59 Python tests (including original HLTV response replay), 23 browser checks at 320/390/768/1440px including expanded unresolved source trails, every match/estimate replay and internal link validation. Official-source URLs and remaining limitations are on Coverage/Flagged for Review. Tests are automated coverage, not a claim of exhaustive manual WCAG certification or verified true win probabilities.
+- Implementation PR: [#13](https://github.com/buffedlizard55-lab/MaltaProj3/pull/13). Merge and production verification will be recorded after the actual operations succeed.
+
+
+### Published follow-up — session 87b206e2 complete
+
+- **PR #13 merged** at **2026-10-15T08:25:30Z**, merge commit `09b3e28cc00d46e596063576ea51ebee4b0c40ae`: <https://github.com/buffedlizard55-lab/MaltaProj3/pull/13>.
+- Final PR verification [38705410628](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705410628) passed; local verification also passed **59 Python tests, 23 browser tests, all 80 source-row/estimate replays and 339 internal links/assets/anchors**.
+- **Production deployment and public post-deploy checks succeeded:** [38705560717](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38705560717). The actual published inventory observation was **2026-10-15T08:25:48Z**, with complete reconciliation: **80 inventory, 18 future, 62 past-start, 7 market + 2 bookmaker + 5 model estimates, 14 directional picks, 4 unresolved, no unknown schedules or ties**. Future refreshes may change these numbers.
+- Live executive summary: <https://buffedlizard55-lab.github.io/MaltaProj3/>; picks: <https://buffedlizard55-lab.github.io/MaltaProj3/picks/>; unresolved/source limitations: <https://buffedlizard55-lab.github.io/MaltaProj3/review/>. Public verification checked all category pages and snapshot contents after deployment, not just the Actions deploy step.
+- Remaining published issues: four unsupported future picks, missing exact-name ratings/market identity or unacceptable spreads, bookmaker 403/redirects, uncalibrated model assumptions, and past-start source status anomalies. No unsupported team aliases or probabilities were manufactured. HLTV parsing failure was repaired; a successful match-directory read is not itself a verified betting line.
+- GitHub still rejects switching Pages mode with HTTP 403 (`Resource not accessible by integration`). Existing publisher ordering successfully waits for the legacy build and deploys the current artifact last; this restriction remains visible in Flagged for Review. The four-hour schedule remains active; scheduling delays are explicitly disclosed.
+
+This final documentation records the observed successful release; it does not claim future refreshes are already verified.
+
+
+### arena-11c1fa20 concurrent integration conflict log
+
+Main advanced through PRs #13/#14 while this session worked from its initially inspected board. Both sessions independently repaired HLTV. At detection, work stopped for integration. All completed-session audit records and commits are preserved. This session now integrates the completed follow-up scope, including `tests/test_hltv.py`, `tests/test_summary.py`, per-match bookstore access observations and unknown-schedule UI behavior. Canonical data conflicts use the more recent coherent 08:27:11 snapshot (whole evidence set, not mixed prices from different observations); the older main data remains preserved in merged Git history. The overlapping parser implementations are combined: exact URL grouping, deduplication, conflict rejection, original markup/hash replay, and independently observed formats. CI validation remains enabled for all Arena branches; the session collector writes only to this session branch. A fresh live collect and full combined validation are required before merge.
+
+- Combined conflict resolution preserved all tests and both audit boards. Local rerun after integration: **75 Python tests, 27 browser tests, every row/analysis replay, 376 internal links/assets/anchors** passed. The original concurrent HLTV response is additionally preserved verbatim in `data/research/hltv-index-response-session87.json`; no old response timestamps were rewritten. A new source refresh is triggered by this integration commit.

@@ -2,7 +2,7 @@ name: Verify live source coverage
 on:
   push:
     branches: [arena/11c1fa20-maltaproj3]
-    paths: ['scripts/collect.py', 'scripts/domain.py', 'scripts/sources.py', 'scripts/validate.py', '.github/workflows/collect-preview.yml']
+    paths: ['scripts/collect.py', 'scripts/domain.py', 'scripts/sources.py', 'scripts/validate.py', 'requirements.txt', '.github/workflows/collect-preview.yml']
   workflow_dispatch:
 permissions:
   contents: write

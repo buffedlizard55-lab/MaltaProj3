@@ -154,16 +154,24 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False):
 
 
 def unresolved_table(data, prefix):
-    rows = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'} and m['analysis'] is None]
+    rows = [m for m in data['matches'] if m['availability'] != 'past' and m['analysis'] is None]
     if not rows:
-        return '<p class="positive-note">Every future-start fixture in this snapshot has a supported probability estimate. Research estimates still carry the limitations below.</p>'
-    out = '<div class="table-scroll"><table class="simple-table unresolved-table"><caption class="sr-only">Every unresolved future match and the missing evidence</caption><thead><tr><th scope="col">Match</th><th scope="col">Why no pick?</th><th scope="col">Review</th></tr></thead><tbody>'
+        return '<p class="positive-note">No unresolved non-archived fixtures in this snapshot. This is not a guarantee of current source coverage; check source health and freshness above.</p>'
+    out = '<div class="table-scroll"><table class="simple-table unresolved-table"><caption class="sr-only">Every unresolved future or unknown-schedule match and the missing evidence</caption><thead><tr><th scope="col">Match</th><th scope="col">Why no pick?</th><th scope="col">Review</th></tr></thead><tbody>'
     for m in rows:
-        reason = next((r['detail'] for r in reversed(m['research']) if r['status'] == 'unresolved'), 'No verified inputs are available')
+        unknown = m['availability'] == 'unknown'
+        reason = ('Scheduled start is unverified; a safe team/time market join cannot be made.' if unknown else next((r['detail'] for r in reversed(m['research']) if r['status'] == 'unresolved'), 'No verified inputs are available'))
         primary = next((r for r in m['research'] if r['stage'].startswith('Primary') and r['status'] != 'resolved'), None)
         primary_note = '<p class="tiny"><strong>Primary-market limitation:</strong> ' + e(primary['detail']) + ' ' + external(primary['source_url'], 'Primary source') + '</p>' if primary else ''
         identity_notes = ''.join('<p class="identity-note">' + e(r['detail']) + ' ' + external(r['source_url'], 'HLTV record for review') + '</p>' for r in m['research'] if r['stage'] == 'HLTV identity review')
-        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{primary_note}{identity_notes}<p class="tiny">Primary market, HLTV and original esportsbook checks did not produce an accepted series line. Missing probabilities remain blank.</p></td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}picks/#match-{e(m["id"])}">Full research trail →</a></td></tr>'
+        trail = ''
+        if m['research']:
+            trail = '<details><summary>Sources tried &amp; limitations</summary><ol class="research-trail">'
+            for r in m['research']:
+                trail += f'<li><strong>{e(r["stage"])}</strong> · {e(r["status"])}<p>{e(r["detail"])}</p>{external(r["source_url"], "Original source")}</li>'
+            trail += '</ol></details>'
+        target = 'coverage/#unknown-schedules' if unknown else 'picks/#match-' + m['id']
+        out += f'<tr><th scope="row">{e(match_name(m))}<small>{local_time(m["starts_at"])}</small></th><td>{e(reason)}{primary_note}{identity_notes}<p class="tiny">Missing probabilities remain blank. An unavailable source is not proof that no betting market exists.</p>{trail}</td><td>{external(m["source_url"], "Hotspawn source")}<a class="internal-link" href="{prefix}{e(target)}">Full research trail →</a></td></tr>'
     return out + '</tbody></table></div>'
 
 
@@ -172,9 +180,11 @@ def summary(data, prefix):
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
     p = round(100 * (c['upcoming'] - c['unresolved']) / c['upcoming']) if c['upcoming'] else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{c["upcoming"] - c["unresolved"]}<span>/{c["upcoming"]}</span></strong><small>with probabilities</small></div></div>'
-    out = heading('Counter-Strike 2 intelligence', 'The matchday briefing.', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{c["upcoming"]} future matches.</strong> {c["market"] + c["bookmaker"]} market-backed estimates, {c["model"]} research estimates, and {c["unresolved"]} unresolved. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}picks/">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'picks/">Full updated picks</a><a href="#next-matches-section">Next matches</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    if c['unknown_schedule']:
+        out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<div class="metrics">'
     cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Market-backed', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Research estimates', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Unresolved picks', c['unresolved'], 'Missing inputs stay blank', 'flag', 'review/#unresolved')]
     for title, value, subtitle, sym, url in cards:
@@ -233,7 +243,7 @@ def coverage(data, prefix):
     out += f'<div class="limitations-callout"><strong>Earlier session outputs, preserved for review</strong><p>These archived dashboards use older observation times and different identity/model rules. They are not the current picks feed and are not independently reverified by this pipeline.</p><div class="inline-links"><a href="{prefix}docs/index.html">Earlier research snapshot →</a><a href="{prefix}archive/root-session/index.html">Earlier root dashboard →</a></div></div>'
     unknown = [m for m in data['matches'] if m['availability'] == 'unknown']
     if unknown:
-        out += '<section class="content-section"><h2>Unverified schedules</h2>' + matches_table(unknown, prefix, table_id='unknown-schedules') + '</section>'
+        out += '<section class="content-section" id="unknown-schedules"><h2>Unverified schedules</h2>' + matches_table(unknown, prefix, table_id='unknown-schedules') + '</section>'
     return out
 
 

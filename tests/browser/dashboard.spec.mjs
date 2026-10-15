@@ -157,3 +157,17 @@ test('clearing a method filter also clears the bookmarked URL state', async ({ p
   await page.reload();
   await expect(page.getByRole('button', { name: /^All matches/ })).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('phone executive summary exposes original sources for unresolved picks', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Executive summary', exact: true })).toBeVisible();
+  await page.locator('.hero-secondary').click();
+  const details = page.locator('#unresolved .unresolved-table details');
+  if (await details.count()) {
+    await details.first().locator('summary').click();
+    await expect(details.first().locator('.research-trail')).toBeVisible();
+    expect(await details.first().locator('a[href^="https://"]').count()).toBeGreaterThan(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  }
+});

@@ -216,31 +216,43 @@ def poly_index(client: Client):
 
 
 def parse_hltv_matches(html: str) -> list:
-    """HLTV's split-anchor cards: time and teams are siblings, not descendants."""
+    """Combine exact-URL sibling grouping with wrapper and repeat safeguards."""
     soup = BeautifulSoup(html, 'html.parser')
-    containers = soup.select('[data-match-wrapper]')
-    if not containers:
-        containers = soup.select('a[href^="/matches/"]')  # Older single-anchor cards.
-    result = []
-    for card in containers:
-        times = {n.get('data-unix') for n in card.select('[data-unix]')}
-        if card.has_attr('data-unix'):
-            times.add(card['data-unix'])
-        names = [n.get_text(' ', strip=True) for n in card.select('.matchTeamName, .match-teamname, .match-team-name')]
+    wrappers = soup.select('[data-match-wrapper]')
+    for card in wrappers:
         hrefs = {a['href'] for a in card.select('a[href^="/matches/"]')}
-        if card.name == 'a' and card.get('href', '').startswith('/matches/'):
-            hrefs.add(card['href'])
-        if len(times) != 1 or len(names) != 2 or len(hrefs) != 1 or not all(names):
+        times = {n.get('data-unix') for n in card.select('[data-unix]')}
+        if len(hrefs) > 1 or len(times) > 1:
+            raise SourceError('Conflicting HLTV wrapper paths/times; research not accepted')
+    grouped = {}
+    for anchor in soup.select('a[href^="/matches/"]'):
+        href = anchor['href']
+        if not re.fullmatch(r'/matches/\d+/[^/?#]+', href):
             continue
-        start = timestamp(next(iter(times)))
-        href = next(iter(hrefs))
-        if start is None or not re.fullmatch(r'/matches/\d+/[^/?#]+', href):
-            continue
-        formats = {n.get_text(' ', strip=True).lower() for n in card.select('.match-meta') if re.fullmatch(r'bo[1357]', n.get_text(' ', strip=True), re.I)}
-        item = {'teams': names, 'starts_at': iso(start), 'source_url': 'https://www.hltv.org' + href, 'best_of': int(next(iter(formats))[2:]) if len(formats) == 1 else None}
-        if item not in result:
-            result.append(item)
-    return result
+        group = grouped.setdefault(href, {'times': set(), 'teams': set(), 'formats': set()})
+        for node in ([anchor] if anchor.has_attr('data-unix') else anchor.select('[data-unix]')):
+            start = timestamp(node.get('data-unix'))
+            if start:
+                group['times'].add(iso(start))
+        names = tuple(n.get_text(' ', strip=True) for n in anchor.select('.matchTeamName, .match-teamname, .match-team-name'))
+        if len(names) == 2 and all(names):
+            group['teams'].add(names)
+        for node in anchor.select('.match-meta'):
+            value = node.get_text(' ', strip=True).lower()
+            if re.fullmatch(r'bo[1357]', value):
+                group['formats'].add(int(value[2:]))
+    candidates = []
+    for href, group in grouped.items():
+        if any(len(group[key]) > 1 for key in ['times', 'teams', 'formats']):
+            raise SourceError('Conflicting repeated HLTV identity/time/format; research not accepted')
+        if len(group['times']) == len(group['teams']) == 1:
+            item = {'teams': list(next(iter(group['teams']))), 'starts_at': next(iter(group['times'])), 'source_url': 'https://www.hltv.org' + href}
+            if group['formats'] or wrappers:
+                item['best_of'] = next(iter(group['formats']), None)
+            candidates.append(item)
+    if not candidates:
+        raise SourceError('HLTV match schema unavailable; no structured research observations confirmed')
+    return candidates
 
 
 def hltv_research(client: Client, matches: list):

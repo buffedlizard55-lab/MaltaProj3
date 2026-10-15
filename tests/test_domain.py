@@ -322,13 +322,13 @@ class HLTVCardTests(unittest.TestCase):
         from scripts.sources import parse_hltv_matches
         card = self.card().replace('</div></div>', '</div></div>')
         card = card[:-6] + '<span data-unix="1793000000000"></span></div>'
-        self.assertEqual(parse_hltv_matches(card), [])
+        with self.assertRaises(SourceError): parse_hltv_matches(card)
         card = self.card().replace('href="/matches/123/alpha-vs-beta"', 'href="/matches/124/wrong"', 1)
-        self.assertEqual(parse_hltv_matches(card), [])
+        with self.assertRaises(SourceError): parse_hltv_matches(card)
 
     def test_access_challenge_does_not_create_research_data(self):
         from scripts.sources import parse_hltv_matches
-        self.assertEqual(parse_hltv_matches('<title>Please verify you are human</title>'), [])
+        with self.assertRaises(SourceError): parse_hltv_matches('<title>Please verify you are human</title>')
 
 
 if __name__ == '__main__':
