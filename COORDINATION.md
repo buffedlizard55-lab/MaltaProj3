@@ -398,3 +398,11 @@ Conflict log: rebase append conflicts in this board were resolved by preserving 
 - Live full picks: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks>. Executive summary: <https://buffedlizard55-lab.github.io/MaltaProj3/>. Unresolved and standing limitations: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved>. Alias evidence: <https://buffedlizard55-lab.github.io/MaltaProj3/origination/#aliases>. Original findings remain on <https://buffedlizard55-lab.github.io/MaltaProj3/review/>.
 - Four-hour collection/deployment remains the sole scheduled publisher. The origination audit workflow is validation-only on PR/session pushes; it has no second schedule or deployment writer. No manual source input is required. Missing future evidence remains blank/flagged; full coverage at this observation is not a guarantee of future source availability.
 - Existing repository Pages-mode HTTP 403 restriction remains explicitly published and handled by verified publisher ordering. The new deployment and actual public checks succeeded without changing credentials or bypassing a gate.
+
+## Current session claim — arena-3c292a02
+
+| Task | Status | Owner | File scope | Last update (UTC) |
+| --- | --- | --- | --- | --- |
+| Day-1 upset review and auditable contrarian-watch guidance | in progress | arena-3c292a02 | `data/contrarian.json`, `scripts/contrarian.py`, `scripts/build.py`, `assets/`, `tests/test_contrarian.py`, `COORDINATION.md` | 2026-10-15 |
+
+Scope is limited to a dated, source-linked review of the reported 9z–Aurora upset and a contrarian-watch presentation that never overwrites externally sourced probabilities or treats an unverified roster/fatigue claim as fact. Existing current data and other sessions’ scopes remain unchanged. The review will be marked done only after the added output, links, and tests are verified.
