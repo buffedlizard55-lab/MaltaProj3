@@ -11,6 +11,8 @@ for label, url in [
     ('hltv-day-one-results', 'https://www.hltv.org/results?startDate=2026-10-13&endDate=2026-10-14'),
     ('hltv-news', 'https://www.hltv.org/'),
     ('hltv-recent-results', 'https://www.hltv.org/results'),
+    ('hltv-day-one-report', 'https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026'),
+    ('hltv-day-one-match', 'https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026'),
     ('stake-cs2', 'https://stake.com/sports/esports/counter-strike'),
     ('pinnacle-cs2', 'https://www.pinnacle.com/en/esports-hub/cs2'),
     ('polymarket-api-docs', 'https://docs.polymarket.com/api-reference/events/list-events'),
@@ -46,3 +48,18 @@ for label in ['hltv-day-one-results', 'hltv-recent-results', 'hltv-news', 'hltv-
 manifest_notice = json.dumps(client.manifest, ensure_ascii=True)
 manifest_notice = manifest_notice.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
 print('::notice title=Source audit observation manifest::' + manifest_notice)
+
+for label in ['hltv-day-one-report', 'hltv-day-one-match']:
+    path = out / (label + '.html.gz')
+    if not path.exists():
+        continue
+    soup = BeautifulSoup(gzip.decompress(path.read_bytes()), 'html.parser')
+    article = soup.select_one('.newstext-con, .news-article')
+    body = article or soup
+    payload = json.dumps({'source': label, 'title': soup.title.get_text() if soup.title else None,
+                          'paragraphs': [p.get_text(' ', strip=True) for p in body.find_all('p')][:45],
+                          'external_links': [{'text': a.get_text(' ', strip=True), 'url': a['href']}
+                                             for a in body.find_all('a', href=True)
+                                             if a['href'].startswith('https://') and 'hltv.org' not in a['href']][:30]}, ensure_ascii=True)
+    payload = payload[:28000].replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+    print('::notice title=Day-one report excerpt::' + payload)
