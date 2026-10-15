@@ -41,6 +41,19 @@ def verify(url, expected):
             upcoming = [m for m in expected['matches'] if m['availability'] != 'past']
             if len(rows) != len(upcoming):
                 raise ValueError('Public picks page omits a future or unknown-schedule source row')
+    originated = get('data/origination.json').json()
+    if originated.get('source_snapshot_at') != expected['inventory_observed_at']:
+        raise ValueError('Public fallback lines belong to another inventory observation')
+    wanted = {m['id'] for m in expected['matches'] if m['availability'] != 'past'}
+    if {m['id'] for m in originated.get('matches', [])} != wanted:
+        raise ValueError('Public complete-picks data omits or invents fixtures')
+    page = BeautifulSoup(get('origination/').text, 'html.parser')
+    if {el.get('id') for el in page.select('.pick-card')} != {'match-' + mid for mid in wanted}:
+        raise ValueError('Public complete-picks page differs from its inventory')
+    if not page.find(id='unresolved') or not page.find(id='aliases') or not page.find('h1'):
+        raise ValueError('Public fallback evidence/limitations sections missing')
+    get('assets/origination.css')
+    print('::notice::Public complete-picks counts: ' + json.dumps(originated['counts']))
     for route in ['docs/index.html', 'archive/root-session/index.html']:
         if 'Archived session snapshot' not in get(route).text:
             raise ValueError(f'{route}: missing preserved, clearly labeled session archive')
