@@ -54,6 +54,34 @@ test('only the qualifying underdogs carry the upset ribbon and name the underdog
   await expect(page.locator('#match-2004 .pickline strong')).toHaveText('Phantom');
 });
 
+test('the Thunderpick World Championship card shows the team-plus-score slip with its model caveat', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(PAGE);
+  const slip = page.locator('#match-2001 .scoreblock');
+  await expect(slip).toBeVisible();
+  await expect(slip).toContainText("Tournament pick'em slip: team + score (7 + 5 points)");
+  await expect(slip.locator('.scores li')).toHaveCount(4);
+  await expect(slip).toContainText('the best score to enter is 9z 2-1');
+  await expect(slip).toContainText('Model-derived from the series line, not a source fact');
+  // Only the researched best-of-three tournament fixture gets a slip.
+  await expect(page.locator('.scoreblock')).toHaveCount(1);
+  const box = await slip.boundingBox();
+  expect(box.x + box.width).toBeLessThanOrEqual(390);
+});
+
+test('the tournament section states scoring and prizes with a source link and a read time on every card', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(PAGE);
+  const cards = page.locator('#tournament .def');
+  await expect(cards).toHaveCount(6);
+  for (const card of await cards.all()) {
+    expect(await card.locator('a[href^="https://"]').count()).toBeGreaterThan(0);
+    await expect(card).toContainText('read 2026-');
+  }
+  await expect(page.locator('#tournament')).toContainText('7 points for the correct team and 5 more for the correct score');
+  await expect(page.locator('#tournament .unverified')).toHaveCount(2);
+});
+
 test('hero buttons reach the slate and the unresolved section, which names its limits', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(PAGE);

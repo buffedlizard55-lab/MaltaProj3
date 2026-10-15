@@ -36,14 +36,15 @@ def main():
     fixtures = [fixture('2001', points=7, shares=(89, 11), n=20, tier_mult=3), fixture('2002', shares=(91, 9), n=80), fixture('2003', shares=(35, 65), n=79),
                 fixture('2004', points=2, shares=(96, 4), n=51, tier_mult=1), fixture('2005', points=2, shares=(95, 5), n=59, tier_mult=1),
                 fixture('2007', points=2, shares=(50, 50), n=10, tier_mult=1)]
-    # Fixture 2001 mirrors the real Aurora vs 9z Day-3 decider so the dated context block renders.
+    # Fixture 2001 mirrors the real Aurora vs 9z Day-3 decider (in the tournament pick'em) so the context block and the score slip render.
+    matches[0]['competition'] = 'Thunderpick World Championship 2026'
     research = Path('data/research/1112299f')
     with tempfile.TemporaryDirectory() as tmp:
         src = Path(tmp) / 'data'
         (src / 'research/1112299f').mkdir(parents=True)
         (src / 'evidence').mkdir()
         shutil.copy('data/strategy-rules.json', src / 'strategy-rules.json')
-        for name in ('hotspawn-contract.json', 'twc-results.json'):
+        for name in ('hotspawn-contract.json', 'twc-results.json', 'hotspawn-tournament.json'):
             shutil.copy(research / name, src / 'research/1112299f' / name)
         (src / 'latest.json').write_text(json.dumps({'coverage_complete': True, 'inventory_observed_at': '2026-10-16T08:30:00Z'}))
         (src / 'origination.json').write_text(json.dumps({'source_snapshot_at': '2026-10-16T08:30:00Z', 'matches': matches}))

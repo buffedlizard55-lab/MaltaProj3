@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "owner": "arena-1112299f",
-  "note": "Dated first-party observations of the Hotspawn pick'em contract. Read with the fetch tool during session 1112299f; the four-hour pipeline does NOT refresh this file. Each row carries its own source URL and observation time. 'derived' rows are arithmetic on verified rows; 'unverified' rows are published blank on purpose.",
+  "note": "Dated first-party observations of the Hotspawn pick'em contract. Read with the fetch tool and a runner-side probe during session 1112299f; the four-hour pipeline does NOT refresh this file. Each row carries its own source URL and observation time. 'derived' rows are arithmetic on verified rows; 'unverified' rows are published blank on purpose.",
   "observations": [
     {
       "id": "H-01",
@@ -187,6 +187,118 @@
       "status": "derived",
       "how_verified": "Lobby card 'Oct 16, 10:00' for aurora-vs-9z-thunderpick-world-championship-2026-1080205 against the HLTV match page 2399412 (10:00 on its own rendering, countdown 15h 31m at the fetch) and the Polymarket event 'Tomorrow 2:00 PM'.",
       "source_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+    },
+    {
+      "id": "H-12",
+      "claim": "The server-rendered lobby pages are served from a CDN cache, so the fixture list embedded in their HTML can lag the live fixture API by more than an hour. A cache-busting query string returns a fresh render.",
+      "value": {
+        "lobby_plain": {
+          "x_cache": "HIT",
+          "age_sec": [
+            5489,
+            5517,
+            5544
+          ],
+          "bytes": 350357
+        },
+        "cs2_lobby_plain": {
+          "x_cache": "HIT",
+          "age_sec": [
+            4517,
+            4545,
+            4572
+          ],
+          "bytes": 349348
+        },
+        "lobby_cache_busted": {
+          "x_cache": "MISS",
+          "age_sec": [
+            0,
+            0
+          ]
+        },
+        "cs2_lobby_cache_busted": {
+          "x_cache": "MISS",
+          "age_sec": [
+            0,
+            0
+          ]
+        },
+        "fixture_api": "no cache headers returned"
+      },
+      "observed_at": "2026-10-15T23:01:57Z",
+      "status": "verified",
+      "how_verified": "Runner-side probe (scripts/lobby_probe.py, GitHub-hosted runner): three plain reads 27 s apart returned identical bytes with X-Cache HIT and a growing Age (lobby 87-88 min, CS2 lobby 71-72 min); two reads with ?cb=<epoch> returned X-Cache MISS, Age 0. This explains intermittent 'lobby, CS2 lobby and fixture API disagree' failures: any fixture change inside the cache window looks like a disagreement. The collector now requests the fresh render, retries once and names the differing IDs when it still fails.",
+      "source_url": "https://play.hotspawn.com/lobby",
+      "evidence_file": "data/research/1112299f/lobby-probe.json"
+    },
+    {
+      "id": "H-13",
+      "claim": "The weekly lobby hydrates four API calls: week-prizes widget, tenant configuration, the CS2 fixture list (86 records, no filter parameters) and a public permalink map. The tournament pages hydrate /api/v1/tournaments, a per-tournament record, a tournament fixture list and the same permalink map.",
+      "value": {
+        "lobby": [
+          "/api/v1/week-prizes/widget",
+          "/api/v1/tenants/slug/hotspawn",
+          "/api/v1/fixtures",
+          "/api/v1/admin/gamification/fixtures/permalinks"
+        ],
+        "tournaments_index": [
+          "/api/v1/tenants/slug/hotspawn",
+          "/api/v1/tournaments"
+        ],
+        "tournament_page": [
+          "/api/v1/tenants/slug/hotspawn",
+          "/api/v1/admin/gamification/fixtures/permalinks",
+          "/api/v1/fixtures",
+          "/api/v1/tournaments/thunderpick-world-championships"
+        ],
+        "note": "The permalink map is read only from the page's own embedded state; the collector never requests administrative endpoints."
+      },
+      "observed_at": "2026-10-15T23:05:00Z",
+      "status": "verified",
+      "how_verified": "Angular hydration state (script#ng-state) of each page parsed by the probe; paths, query strings and record counts saved in the evidence file.",
+      "source_url": "https://play.hotspawn.com/lobby",
+      "evidence_file": "data/research/1112299f/lobby-probe.json"
+    },
+    {
+      "id": "H-14",
+      "claim": "Hotspawn's tenant configuration enables pick'ems, minigames and tournaments, and the games CS2 and LoL (default CS2).",
+      "value": {
+        "features": {
+          "pickemEnabled": true,
+          "minigamesEnabled": true,
+          "tournamentsEnabled": true
+        },
+        "games": {
+          "enabled": [
+            "CS2",
+            "LOL"
+          ],
+          "defaultGame": "CS2"
+        }
+      },
+      "observed_at": "2026-10-15T23:01:00Z",
+      "status": "verified",
+      "how_verified": "Embedded /api/v1/tenants/slug/hotspawn body saved by the probe.",
+      "source_url": "https://play.hotspawn.com/lobby",
+      "evidence_file": "data/research/1112299f/lobby-probe.json"
+    },
+    {
+      "id": "H-15",
+      "claim": "The Thunderpick World Championship has a separate tournament pick'em: 7 points for the correct team plus 5 for the correct score, 15 fixtures over 8 teams, and no stage or series multiplier configured. See the tournament section for prizes and the leaderboard snapshot.",
+      "value": {
+        "team_points": 7,
+        "score_points": 5,
+        "fixtures": 15,
+        "teams": 8,
+        "multiplierConfig": {},
+        "stages": []
+      },
+      "observed_at": "2026-10-15T23:10:00Z",
+      "status": "verified",
+      "how_verified": "Tournament API body read directly (tenantId=1) and the tournament page text; the official sentence is 'Earn 7 points for a correct team prediction and 5 points for the correct score.'",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+      "evidence_file": "data/research/1112299f/hotspawn-tournament.json"
     }
   ]
 }

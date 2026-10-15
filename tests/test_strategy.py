@@ -317,6 +317,161 @@ class Rendering(unittest.TestCase):
             self.assertIn('../origination/#picks', text)
 
 
+class ScoreModel(unittest.TestCase):
+    def test_the_four_scorelines_always_sum_to_one_and_the_favorite_side_equals_the_series_price(self):
+        for p in (0.5, 0.52, 0.6, 0.69, 0.8, 0.95, 0.999):
+            m = bs.bo3_score_probabilities(p)
+            self.assertAlmostEqual(m['fav_2_0'] + m['fav_2_1'] + m['dog_2_1'] + m['dog_2_0'], 1.0, places=9)
+            self.assertAlmostEqual(m['fav_2_0'] + m['fav_2_1'], p, places=6)
+
+    def test_an_even_series_gives_every_scoreline_a_quarter(self):
+        m = bs.bo3_score_probabilities(0.5)
+        for key in ('fav_2_0', 'fav_2_1', 'dog_2_1', 'dog_2_0'):
+            self.assertAlmostEqual(m[key], 0.25, places=6)
+        self.assertAlmostEqual(m['q'], 0.5, places=6)
+
+    def test_known_value_for_a_69_31_series(self):
+        m = bs.bo3_score_probabilities(0.69)
+        self.assertTrue(0.62 < m['q'] < 0.64)
+        self.assertAlmostEqual(m['fav_2_0'], 0.397, delta=0.01)
+        self.assertAlmostEqual(m['fav_2_1'], 0.294, delta=0.01)
+        self.assertAlmostEqual(m['dog_2_1'], 0.1725, delta=0.01)
+        self.assertAlmostEqual(m['dog_2_0'], 0.137, delta=0.01)
+
+    def test_the_best_score_for_each_side_is_a_clean_sweep_for_the_favorite_and_a_three_map_win_for_the_underdog(self):
+        for p in (0.55, 0.7, 0.9):
+            m = bs.bo3_score_probabilities(p)
+            self.assertGreater(m['fav_2_0'], m['fav_2_1'])
+            self.assertGreater(m['dog_2_1'], m['dog_2_0'])
+
+    def test_a_stronger_favorite_means_a_more_likely_sweep(self):
+        sweeps = [bs.bo3_score_probabilities(p)['fav_2_0'] for p in (0.55, 0.65, 0.75, 0.85)]
+        self.assertEqual(sweeps, sorted(sweeps))
+
+    def test_bad_input_gets_no_model_rather_than_a_guess(self):
+        for bad in (None, 0.49, 1.0, 1.2, True, float('nan'), '0.7'):
+            self.assertIsNone(bs.bo3_score_probabilities(bad), bad)
+
+
+TOURNAMENT = {
+    'tournament': {'name': 'Test Cup', 'competition_names': ['Test Cup'], 'page_url': 'https://play.hotspawn.com/tournaments/test', 'observed_at': '2026-10-15T23:10:00Z',
+                   'window_utc': ['2026-10-12T08:30:00Z', '2026-10-18T22:59:00Z'], 'fixture_count': 15},
+    'scoring': {'team_points': 7, 'score_points': 5, 'text_pick': 'Pick your team to win and the correct score', 'text_score': 'Earn 7 points for a correct team prediction and 5 points for the correct score.',
+                'source_url': 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/test?tenantId=1', 'observed_at': '2026-10-15T23:10:00Z'},
+    'prizes': {'tournament': {'1': '$1500 Steam Voucher'}, 'daily': '$50', 'note': 'n', 'source_url': 'https://play.hotspawn.com/tournaments/test', 'observed_at': '2026-10-15T23:04:00Z'},
+    'leaderboard': {'top5_points': [56, 42, 35, 35, 35], 'observed_at': '2026-10-15T23:04:00Z', 'source_url': 'https://play.hotspawn.com/tournaments/test', 'rule': 'Sum of daily scores.'},
+    'crystal_ball': {'question': 'How many total kills will be recorded today?', 'days': [{'date': '2026-10-14', 'final_value': 1165}], 'note': 'Scoring not published.', 'observed_at': '2026-10-15T23:10:00Z',
+                     'source_url': 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/test?tenantId=1'},
+    'player_props': {'seen': 'One control', 'note': 'Not read.', 'source_url': 'https://play.hotspawn.com/tournaments/test'},
+    'fixtures_api': {'records': 10, 'observed_at': '2026-10-15T23:05:00Z', 'source_url': 'https://play.hotspawn.com/tournaments/test', 'irregularity': 'A duplicate fixture exists.',
+                     'rows': [{'status': 'ended'}] * 8 + [{'status': 'scheduled'}, {'status': 'scheduled'}]},
+}
+TWC_CONTEXT = {'series': [], 'day_three': [{'teams': ['Aurora', '9z'], 'group': 'A', 'round': 'Decider', 'format': 'Best of 3 (LAN)', 'hltv_url': 'https://www.hltv.org/matches/2399412/x'}]}
+
+
+class TournamentSection(unittest.TestCase):
+    def build(self, competition='Test Cup', context=TWC_CONTEXT, tournament=TOURNAMENT):
+        m = match('1', 'Aurora', '9z', [0.69, 0.31], tier='s')
+        m['competition'] = competition
+        i = inputs([m], [fixture('1', points=7, shares=(89, 11), n=20, tier_mult=3)], twc=context)
+        i['tournament'] = tournament
+        pl = bs.plan(i, NOW)
+        return pl, bs.page(i, pl)
+
+    def test_a_researched_best_of_three_tournament_fixture_gets_the_score_slip(self):
+        pl, html = self.build()
+        sm = pl['rows'][0]['score_model']
+        self.assertAlmostEqual(sm['chalk_ev'], 7 * 0.69 + 5 * sm['fav_2_0'])
+        self.assertAlmostEqual(sm['dog_ev'], 7 * 0.31 + 5 * sm['dog_2_1'])
+        self.assertIn("Tournament pick'em slip: team + score (7 + 5 points)", html)
+        self.assertIn('Aurora 2-0', html)
+        self.assertIn('9z 2-1', html)
+        self.assertIn('the best score to enter is <strong>9z 2-1</strong>', html)
+        self.assertIn('Model-derived from the series line, not a source fact', html)
+
+    def test_no_score_slip_outside_the_tournament_or_without_a_verified_format(self):
+        self.assertIsNone(self.build(competition='Other Cup')[0]['rows'][0]['score_model'])
+        no_format = {'series': [], 'day_three': [{**TWC_CONTEXT['day_three'][0], 'format': None}]}
+        self.assertIsNone(self.build(context=no_format)[0]['rows'][0]['score_model'])
+        self.assertIsNone(self.build(context=None)[0]['rows'][0]['score_model'])
+        self.assertIsNone(self.build(tournament=None)[0]['rows'][0]['score_model'])
+
+    def test_the_upset_slip_costs_more_than_the_lobby_swap_because_the_score_is_also_at_stake(self):
+        pl, _ = self.build()
+        r = pl['rows'][0]
+        self.assertGreater(r['score_model']['chalk_ev'] - r['score_model']['dog_ev'], r['cost'])
+
+    def test_section_states_scoring_with_sources_and_flags_what_is_not_verified(self):
+        _, html = self.build()
+        self.assertIn('id="tournament"', html)
+        self.assertIn('<strong>7 points</strong> for the correct team and <strong>5 more</strong> for the correct score, so a perfect slip is 12', html)
+        self.assertIn('Scoring unverified', html)
+        self.assertIn('Not analysed', html)
+        self.assertIn('8 ended with results, 2 still scheduled', html)
+        self.assertIn('Hotspawn tournament API', html)
+
+    def test_section_degrades_without_its_research_file(self):
+        _, html = self.build(tournament=None)
+        self.assertIn('No tournament research file is present in this build.', html)
+
+    def test_lessons_show_whether_hotspawns_own_api_agrees_with_hltv(self):
+        series = [{'day': 1, 'date': '2026-10-14', 'group': 'A', 'round': 'Opening', 'winner': '9z', 'loser': 'Aurora', 'score': '2-0', 'maps_played': 2, 'hltv_url': 'https://www.hltv.org/matches/1/x',
+                   'hotspawn_api': {'fixture_id': '1', 'winner': '9z', 'score': '2-0', 'agrees_with_hltv': True}},
+                  {'day': 1, 'date': '2026-10-14', 'group': 'B', 'round': 'Opening', 'winner': 'FURIA', 'loser': 'BETBOOM', 'score': '2-0', 'maps_played': 2, 'hltv_url': 'https://www.hltv.org/matches/2/x',
+                   'hotspawn_api': {'fixture_id': '2', 'winner': 'BetBoom', 'score': '2-1', 'agrees_with_hltv': False}}]
+        html = bs.lessons_block({'series': series, 'day_three': [], 'results_observed_at': '2026-10-15T22:30:00Z'})
+        self.assertIn('Hotspawn API: 9z 2-0 ✓ agrees', html)
+        self.assertIn('Hotspawn API: BetBoom 2-1 ✗ differs', html)
+        self.assertIn('for 1 of 2 series', html)
+
+
+class CommittedResearch(unittest.TestCase):
+    """Static, committed research files (not live-restored): every source is an official host and the cross-checks hold."""
+
+    def load(self, name):
+        return json.loads(Path('data/research/1112299f/' + name).read_text())
+
+    def test_every_url_in_the_research_files_is_an_official_source(self):
+        def urls(node):
+            if isinstance(node, dict):
+                for k, v in node.items():
+                    if k.endswith('url') and isinstance(v, str) and v.startswith('http'):
+                        yield v
+                    yield from urls(v)
+            elif isinstance(node, list):
+                for v in node:
+                    yield from urls(v)
+        for name in ('hotspawn-contract.json', 'hotspawn-tournament.json', 'twc-results.json'):
+            found = list(urls(self.load(name)))
+            self.assertTrue(found, name)
+            for url in found:
+                self.assertTrue(audit_rows.is_official(url), f'{name}: {url}')
+
+    def test_tournament_scoring_matches_the_lobby_points_and_the_rules_file(self):
+        t = self.load('hotspawn-tournament.json')
+        self.assertEqual((t['scoring']['team_points'], t['scoring']['score_points']), (7, 5))
+        self.assertIn('7 points for a correct team prediction and 5 points for the correct score', t['scoring']['text_score'])
+        self.assertEqual(RULES['scoring']['tier_points_when_api_omits_points']['s'], t['scoring']['team_points'])
+        self.assertTrue(t['tournament']['multiplier_config_empty'] and t['tournament']['stages_empty'])
+
+    def test_hltv_and_hotspawn_agree_on_every_series_and_ids_resolve_to_tournament_fixtures(self):
+        twc, t = self.load('twc-results.json'), self.load('hotspawn-tournament.json')
+        ids = {r['fixture_id']: r for r in t['fixtures_api']['rows']}
+        self.assertEqual(len(twc['series']), 8)
+        for s in twc['series']:
+            api = s['hotspawn_api']
+            self.assertTrue(api['agrees_with_hltv'], s)
+            row = ids[api['fixture_id']]
+            self.assertEqual(row['status'], 'ended')
+            self.assertEqual(row['winner'].lower().replace('betboom', 'betboom'), api['winner'].lower())
+
+    def test_the_weekly_window_is_the_published_utc_week(self):
+        h = {o['id']: o for o in self.load('hotspawn-contract.json')['observations']}
+        self.assertEqual(h['H-05']['status'], 'verified')
+        self.assertEqual(h['H-05']['value']['weekEndUtc'], '2026-10-18T23:59:59.999Z')
+        self.assertEqual(h['H-05']['value']['weekStartUtc'], '2026-10-12T00:00:00.000Z')
+
+
 class RulesFile(unittest.TestCase):
     def test_thresholds_are_ordered_and_documented(self):
         t = RULES['thresholds']

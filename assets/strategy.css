@@ -47,8 +47,8 @@ main { max-width: 980px; margin: 0 auto; padding: 12px 14px 48px; }
 .tools { margin: 0 0 12px; }
 .tools label { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; }
 .tools input { width: 22px; height: 22px; }
-.cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
-.pick-card { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--line); border-radius: 12px; padding: 14px; }
+.cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.pick-card { min-width: 0; overflow-wrap: anywhere; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--line); border-radius: 12px; padding: 14px; }
 .pick-card.swap { border-left-color: var(--purple); box-shadow: 0 0 0 2px var(--purple-bg); }
 .pick-card.unres { border-left-color: var(--amber); }
 .pick-card.is-locked { opacity: .62; }
@@ -101,7 +101,7 @@ tr.miss th, tr.miss td { background: var(--amber-bg); }
 footer { max-width: 980px; margin: 0 auto; padding: 18px 14px 40px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); }
 @media (min-width: 720px) {
   .quick { grid-template-columns: repeat(3, auto); justify-content: start; }
-  .cards { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .swaplist li { flex-direction: row; justify-content: space-between; gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -126,3 +126,9 @@ footer { max-width: 980px; margin: 0 auto; padding: 18px 14px 40px; color: var(-
   table.simple td[data-label]::before { content: attr(data-label); display: block; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
   tr.miss { border-color: var(--amber); }
 }
+
+.scoreblock { margin: 10px 0; padding: 10px 12px; border: 1px dashed var(--ink-2); border-radius: 10px; background: #f3f8fc; }
+.scoreblock h4 { margin: 0 0 6px; font-size: .95rem; }
+.scores { list-style: none; margin: 6px 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.scores li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 8px; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+.def dd .links { margin-top: 6px; }

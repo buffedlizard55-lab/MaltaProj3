@@ -75,6 +75,7 @@ def load_inputs(source: Path) -> dict:
         'fixtures': fixtures,
         'contract': read_json(source / RESEARCH_DIR / 'hotspawn-contract.json'),
         'twc': read_json(source / RESEARCH_DIR / 'twc-results.json'),
+        'tournament': read_json(source / RESEARCH_DIR / 'hotspawn-tournament.json'),
     }
 
 
@@ -136,6 +137,26 @@ def classify(p_dog: float, rules: dict) -> str:
     return 'coin_flip'
 
 
+def bo3_score_probabilities(p_fav: float) -> dict | None:
+    """Series-score probabilities for a best-of-3, from the favorite's series win probability.
+
+    Our own derivation, not a source fact: it assumes the favorite has the same, independent win chance q on every
+    map and solves q^2 (3 - 2q) = p_fav. Real map pools differ, so the result is uncalibrated and is labelled that way.
+    """
+    if not isinstance(p_fav, (int, float)) or isinstance(p_fav, bool) or not (0.5 <= p_fav < 1):
+        return None
+    lo, hi = 0.5, 1.0
+    for _ in range(60):
+        q = (lo + hi) / 2
+        if q * q * (3 - 2 * q) < p_fav:
+            lo = q
+        else:
+            hi = q
+    q = (lo + hi) / 2
+    r = 1 - q
+    return {'q': q, 'fav_2_0': q * q, 'fav_2_1': 2 * q * q * r, 'dog_2_1': 2 * r * r * q, 'dog_2_0': r * r}
+
+
 def match_context(m: dict, twc: dict | None):
     """Dated research notes for a fixture, matched on both team names; None when none exist."""
     if not twc:
@@ -194,6 +215,16 @@ def plan(inputs: dict, now: datetime) -> dict:
         dog = 1 - fav
         p_dog, p_fav = probs[dog], probs[fav]
         klass = classify(p_dog, rules)
+        context = match_context({'teams': [{'name': n} for n in names]}, inputs['twc'])
+        tour = inputs.get('tournament') or {}
+        score_model = None
+        if context and str(context.get('format') or '').startswith('Best of 3') and base['competition'] in (tour.get('tournament') or {}).get('competition_names', []):
+            raw_model = bo3_score_probabilities(p_fav)
+            if raw_model:
+                sc = tour['scoring']
+                team_pts, score_pts = sc['team_points'], sc['score_points']
+                score_model = {**raw_model, 'team_points': team_pts, 'score_points': score_pts,
+                               'chalk_ev': team_pts * p_fav + score_pts * raw_model['fav_2_0'], 'dog_ev': team_pts * p_dog + score_pts * raw_model['dog_2_1']}
         field = field_info(m, raw)
         f_dog = None
         if field and field['n'] >= th['field_min_sample_for_filter']:
@@ -219,7 +250,8 @@ def plan(inputs: dict, now: datetime) -> dict:
                'cost': (points * (p_fav - p_dog)) if points is not None else None, 'upside': (points * p_dog) if points is not None else None,
                'field': field, 'field_dog': f_dog, 'crowd_on_dog': crowd_on_dog, 'leverage_weight': weight,
                'rank_value': (points * p_dog * weight) if points is not None else 0.0,
-               'context': match_context({'teams': [{'name': n} for n in names]}, inputs['twc']),
+               'context': context,
+               'score_model': score_model,
                'limitations': list(o.get('limitations') or []) + list(m.get('limitations') or []),
                'quotes': o.get('quotes') or [], 'model_crosscheck': o.get('model_crosscheck')}
         rows.append(row)
@@ -337,6 +369,7 @@ def card(r) -> str:
 <div class="probs" role="group" aria-label="Our win probabilities">{prob_row(a, r["p"][0], r["default"] == 0)}{prob_row(b, r["p"][1], r["default"] == 1)}</div>
 <div class="chips">{"".join(chips)}</div>
 {why_swap(r) if r["swap"] else ""}
+{score_block(r)}
 {context_block(r) if r.get("context") else ""}
 <details class="more"><summary>Sources &amp; limits</summary>
 <p class="tiny">{e(r["label"])} · observed {when(r["observed_at"])} · points from {e(r["points_source"])}{"" if r["points_formula_ok"] is not False else " · <strong>points do not match the API multipliers; check the rules</strong>"}</p>
@@ -344,6 +377,22 @@ def card(r) -> str:
 <p class="links">{link_line}</p></details>
 </article>'''
     return body
+
+
+def score_block(r) -> str:
+    sm = r.get('score_model')
+    if not sm:
+        return ''
+    fav, dog = r['names'][r['fav']], r['names'][r['dog']]
+    items = ''.join(f'<li><span>{e(label)}</span><strong>{pct(value)}</strong></li>' for label, value in [
+        (f'{fav} 2-0', sm['fav_2_0']), (f'{fav} 2-1', sm['fav_2_1']), (f'{dog} 2-1', sm['dog_2_1']), (f'{dog} 2-0', sm['dog_2_0'])])
+    plan_is_dog = r['default'] == r['dog']
+    best = f'{dog} 2-1' if plan_is_dog else f'{fav} 2-0'
+    return (f'<div class="scoreblock"><h4>Tournament pick\'em slip: team + score ({sm["team_points"]} + {sm["score_points"]} points)</h4>'
+            f'<ul class="scores">{items}</ul>'
+            f'<p>With the plan pick, the best score to enter is <strong>{e(best)}</strong>. Expected points: <strong>{sm["chalk_ev"]:.1f}</strong> for {e(fav)} 2-0 against '
+            f'<strong>{sm["dog_ev"]:.1f}</strong> for {e(dog)} 2-1; the upset slip gives up {sm["chalk_ev"] - sm["dog_ev"]:.1f} expected points and pays up to {sm["team_points"] + sm["score_points"]}.</p>'
+            f'<p class="tiny muted">Model-derived from the series line, not a source fact: it assumes the same chance on every map (per-map chance {sm["q"]:.0%} for {e(fav)}), so it is uncalibrated. Best of 3 per HLTV; Hotspawn says best of 3 until the weekend.</p></div>')
 
 
 def swaps_block(pl) -> str:
@@ -391,12 +440,20 @@ def lessons_block(twc) -> str:
             field = f'{fs["winner_pct"]}% picked the winner (n={fs["total_picks"]})'
             miss = ' class="miss"' if fs['winner_pct'] < 50 else ''
         score = f'{e(s["winner"])} {e(s["score"])} {e(s["loser"])}'
+        api = s.get('hotspawn_api')
+        if api:
+            mark = '✓ agrees' if api.get('agrees_with_hltv') else '✗ differs'
+            score += f'<small>Hotspawn API: {e(api["winner"])} {e(api["score"])} {mark}</small>'
         rows += (f'<tr{miss}><th scope="row">Day {s["day"]} · Group {e(s["group"])} {e(s["round"]).lower()}<small>{e(s["date"])}</small></th><td data-label="Result">{score}</td><td data-label="Hotspawn field">{field}</td>'
                  f'<td data-label="Source">{ext(s["hltv_url"], "HLTV")}</td></tr>')
     three = sum(1 for s in series if s['maps_played'] == 3)
     d2 = [s for s in series if s['day'] == 2 and s.get('field_share')]
+    api_rows = [s for s in series if s.get('hotspawn_api')]
+    api_agree = sum(1 for s in api_rows if s['hotspawn_api'].get('agrees_with_hltv'))
     hit = sum(1 for s in d2 if s['field_share']['winner_pct'] > 50)
     facts = [f'{len(series)} series played: {len(series) - three} ended 2–0 and {three} went to a third map (all three third-map series were on Day 2).']
+    if api_rows:
+        facts.append(f"Hotspawn's own tournament API reports the same winner and series score as HLTV for {api_agree} of {len(api_rows)} series.")
     if d2:
         facts.append(f'Day 2: the Hotspawn field (13–16 pickers each, 08:36Z snapshot) picked the winner in {hit} of {len(d2)} S-tier series; the miss is shown in amber.')
     d3 = ''
@@ -410,6 +467,33 @@ def lessons_block(twc) -> str:
             f'<ul class="facts">{"".join(f"<li>{x}</li>" for x in facts)}</ul>'
             f'<p class="tiny muted">Read from HLTV on {e((twc.get("results_observed_at") or "")[:10])}. These results do not change any probability on this page; probabilities come from the lines.</p>'
             f'<h3 class="sub">Next: the Day 3 deciders</h3><div class="table-scroll"><table class="simple"><caption>Day 3 deciders: Hotspawn status and listed prices</caption><thead><tr><th scope="col">Decider</th><th scope="col">Hotspawn</th><th scope="col">Price (not a pick input here)</th><th scope="col">Sources</th></tr></thead><tbody>{d3}</tbody></table></div>')
+
+
+def tournament_block(t) -> str:
+    if not t:
+        return '<p class="ok-note">No tournament research file is present in this build.</p>'
+    tour, sc, pr, lb, cb, fx = t['tournament'], t['scoring'], t['prizes'], t['leaderboard'], t['crystal_ball'], t['fixtures_api']
+    rows = fx['rows']
+    ended = sum(1 for r in rows if r['status'] == 'ended')
+    open_ = [r for r in rows if r['status'] == 'scheduled']
+    prizes = ' · '.join(f'#{k} {e(v)}' for k, v in pr['tournament'].items())
+    top = ', '.join(str(x) for x in lb['top5_points'])
+    perfect = sc['team_points'] + sc['score_points']
+    cards = [
+        ('Scoring', f'<strong>{sc["team_points"]} points</strong> for the correct team and <strong>{sc["score_points"]} more</strong> for the correct score, so a perfect slip is {perfect}. '
+                    f'{e(sc["text_pick"])}. Your tournament score is the sum of your daily scores.', ext(sc['source_url'], 'Hotspawn tournament API'), sc['observed_at']),
+        ('Prizes', f'{prizes}. Daily: {e(pr["daily"])}. {e(pr["note"])}', ext(pr['source_url'], 'Hotspawn tournament page'), pr['observed_at']),
+        ('Leaderboard snapshot', f'Top five scores at the read: <strong>{e(top)}</strong>. {e(lb["rule"])}', ext(lb['source_url'], 'Hotspawn tournament page'), lb['observed_at']),
+        ('Fixtures', f'{fx["records"]} of {tour["fixture_count"]} fixtures exist so far ({ended} ended with results, {len(open_)} still scheduled). Later matches appear once both teams are confirmed. {e(fx["irregularity"])}',
+         ext(fx['source_url'], 'Hotspawn tournament page'), fx['observed_at']),
+        ('Crystal Ball (daily side-question)', f'“{e(cb["question"])}” Day 1 final value: <strong>{cb["days"][0]["final_value"]}</strong>. <span class="unverified">Scoring unverified</span>: {e(cb["note"])}',
+         ext(cb['source_url'], 'Hotspawn tournament API'), cb['observed_at']),
+        ('Player props', f'{e(t["player_props"]["seen"])}. <span class="unverified">Not analysed</span>: {e(t["player_props"]["note"])}', ext(t['player_props']['source_url'], 'Hotspawn tournament page'), tour['observed_at']),
+    ]
+    body = ''.join(f'<div class="def"><dt>{e(a)}</dt><dd>{b}<p class="links">{c} <small class="muted">read {e(d)}</small></p></dd></div>' for a, b, c, d in cards)
+    lede = ("The Thunderpick World Championship has its own pick'em on Hotspawn, separate from the weekly lobby: you pick the team <em>and</em> the series score. "
+            f'It runs {e(tour["window_utc"][0][:10])} to {e(tour["window_utc"][1][:10])}. ' + ext(tour['page_url'], "Open the tournament pick'em"))
+    return f'<p class="lede">{lede}</p><dl class="defs" aria-label="Tournament pick\'em facts">{body}</dl>'
 
 
 def rules_block(rules) -> str:
@@ -488,6 +572,7 @@ def page(inputs: dict, pl: dict) -> str:
 <ul class="plan-list"><li><strong>Default:</strong> submit the most likely winner. {cls["lock"]} lock{"" if cls["lock"] == 1 else "s"} and {cls["lean"]} lean{"" if cls["lean"] == 1 else "s"} are not worth fading.</li>
 <li><strong>Upset plays:</strong> {s["swaps"]} today, costing about {s["swap_cost"]:.1f} expected points in total against the favorites, and worth {s["swap_points"]} Hotspawn points if every one lands.</li>
 <li><strong>Close calls:</strong> {cls["live_dog"]} live dog{"" if cls["live_dog"] == 1 else "s"} and {cls["coin_flip"]} coin flip{"" if cls["coin_flip"] == 1 else "s"}; the card says which side the lines favour.</li>
+<li><strong>Thunderpick World Championship:</strong> its tournament pick'em also pays <strong>5 points for the correct score</strong>. See the <a href="#tournament">tournament section</a> and the score line on each TWC card.</li>
 <li><strong>Unresolved:</strong> {unresolved_n} fixture{"" if unresolved_n == 1 else "s"} have no external line or rating. They stay blank, with the reason, in the <a href="#unresolved">unresolved section</a>.</li></ul>
 {swaps_block(pl)}</section>
 <section class="block" id="slate"><h2>The slate, in lock order</h2>
@@ -497,9 +582,10 @@ def page(inputs: dict, pl: dict) -> str:
 <section class="block" id="unresolved"><h2>Unresolved picks &amp; limitations</h2>
 <p class="lede">No pick is shown when no external line or official rating covers both teams. Nothing is inferred and there is no default 50/50. An unavailable source is not proof that no market exists. The collector re-checks every four hours.</p>
 {unresolved_block(pl)}</section>
-<section class="block" id="lessons"><h2>What Days 1–2 showed, and what is next</h2>{lessons_block(inputs["twc"])}</section>
+<section class="block" id="tournament"><h2>TWC tournament pick'em: team + score</h2>{tournament_block(inputs.get("tournament"))}</section>
+<section class="block" id="lessons"><h2>What Days 1–2 showed, and what is next</h2>{lessons_block(inputs.get("twc"))}</section>
 <section class="block" id="rules"><h2>How the plan picks are chosen</h2>{rules_block(inputs["rules"])}</section>
-<section class="block" id="hotspawn"><h2>How Hotspawn scores and locks</h2>{contract_block(inputs["contract"])}</section>
+<section class="block" id="hotspawn"><h2>How Hotspawn scores and locks</h2>{contract_block(inputs.get("contract"))}</section>
 </main>
 <footer><p><strong>Better context. Clearer picks.</strong></p>
 <p>Independent research dashboard · not affiliated with Hotspawn, HLTV, Valve, Polymarket or any betting provider. Informational use only. 18+ where applicable. No bets are placed.</p>

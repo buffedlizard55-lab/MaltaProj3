@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "owner": "arena-1112299f",
+  "note": "Dated first-party reading of Hotspawn's tournament pick'em (a product separate from the weekly lobby). The four-hour pipeline does not refresh this file. Page text was read with the fetch tool; API bodies come from the runner-side probe saved in lobby-probe.json. Blank means not verified.",
+  "tournament": {
+    "name": "Thunderpick World Championship",
+    "slug": "thunderpick-world-championships",
+    "competition_names": [
+      "Thunderpick World Championship 2026"
+    ],
+    "page_url": "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+    "observed_at": "2026-10-15T23:10:00Z",
+    "status": "live",
+    "window_utc": [
+      "2026-10-12T08:30:00Z",
+      "2026-10-18T22:59:00Z"
+    ],
+    "fixture_count": 15,
+    "team_count": 8,
+    "organizer": "GAM3RS_X",
+    "location": "Attard",
+    "multiplier_config_empty": true,
+    "stages_empty": true
+  },
+  "scoring": {
+    "team_points": 7,
+    "score_points": 5,
+    "text_pick": "Pick your team to win and the correct score. BO3 until the weekend, then BO5 for the final matches",
+    "text_score": "Earn 7 points for a correct team prediction and 5 points for the correct score.",
+    "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+    "observed_at": "2026-10-15T23:10:00Z"
+  },
+  "prizes": {
+    "tournament": {
+      "1": "$1500 Steam Voucher",
+      "2": "$750 Steam Voucher",
+      "3": "$375 Steam Voucher",
+      "4-10": "$125 Steam Voucher each"
+    },
+    "daily": "$50 Steam Voucher for each of the top 10 players",
+    "note": "The page lists places 1-10 and a 'Show more' control; places beyond 10 were not read.",
+    "source_url": "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+    "observed_at": "2026-10-15T23:04:00Z"
+  },
+  "leaderboard": {
+    "top5_points": [
+      56,
+      42,
+      35,
+      35,
+      35
+    ],
+    "observed_at": "2026-10-15T23:04:00Z",
+    "source_url": "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+    "rule": "Your tournament score is the sum of your daily scores across the tournament. Player names are deliberately not copied."
+  },
+  "crystal_ball": {
+    "enabled": true,
+    "question": "How many total kills will be recorded today?",
+    "questions_configured": 5,
+    "days": [
+      {
+        "date": "2026-10-14",
+        "final_value": 1165
+      }
+    ],
+    "scoring": null,
+    "observed_at": "2026-10-15T23:10:00Z",
+    "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+    "note": "A daily side-question. How it is scored is not published on any page read, so it is left blank and no prediction is made."
+  },
+  "player_props": {
+    "seen": "One \"Player Props (1)\" control on the Legacy vs FURIA match card",
+    "detail": null,
+    "source_url": "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+    "note": "Its contents and scoring were not read."
+  },
+  "fixtures_api": {
+    "path": "/api/v1/fixtures",
+    "observed_at": "2026-10-15T23:05:00Z",
+    "records": 10,
+    "source_url": "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+    "evidence_file": "data/research/1112299f/lobby-probe.json",
+    "rows": [
+      {
+        "fixture_id": "1080176",
+        "teams": [
+          "9z",
+          "Aurora"
+        ],
+        "starts_at_utc": "2026-10-14T08:30:00Z",
+        "status": "ended",
+        "score": [
+          2,
+          0
+        ],
+        "winner": "9z",
+        "offered_points": 7,
+        "total_picks": 29
+      },
+      {
+        "fixture_id": "1080177",
+        "teams": [
+          "Falcons",
+          "Ninjas in Pyjamas"
+        ],
+        "starts_at_utc": "2026-10-14T11:00:00Z",
+        "status": "ended",
+        "score": [
+          2,
+          0
+        ],
+        "winner": "Falcons",
+        "offered_points": 7,
+        "total_picks": 40
+      },
+      {
+        "fixture_id": "1080178",
+        "teams": [
+          "Legacy",
+          "PARIVISION"
+        ],
+        "starts_at_utc": "2026-10-14T13:30:00Z",
+        "status": "ended",
+        "score": [
+          2,
+          0
+        ],
+        "winner": "Legacy",
+        "offered_points": 7,
+        "total_picks": 48
+      },
+      {
+        "fixture_id": "1080179",
+        "teams": [
+          "FURIA",
+          "BetBoom"
+        ],
+        "starts_at_utc": "2026-10-14T16:00:00Z",
+        "status": "ended",
+        "score": [
+          2,
+          0
+        ],
+        "winner": "FURIA",
+        "offered_points": 7,
+        "total_picks": 64
+      },
+      {
+        "fixture_id": "1080201",
+        "teams": [
+          "Aurora",
+          "Ninjas in Pyjamas"
+        ],
+        "starts_at_utc": "2026-10-15T08:30:00Z",
+        "status": "ended",
+        "score": [
+          2,
+          0
+        ],
+        "winner": "Aurora",
+        "offered_points": 7,
+        "total_picks": 16
+      },
+      {
+        "fixture_id": "1080202",
+        "teams": [
+          "9z",
+          "Falcons"
+        ],
+        "starts_at_utc": "2026-10-15T11:00:00Z",
+        "status": "ended",
+        "score": [
+          1,
+          2
+        ],
+        "winner": "Falcons",
+        "offered_points": 7,
+        "total_picks": 23
+      },
+      {
+        "fixture_id": "1080203",
+        "teams": [
+          "PARIVISION",
+          "BetBoom"
+        ],
+        "starts_at_utc": "2026-10-15T13:30:00Z",
+        "status": "ended",
+        "score": [
+          1,
+          2
+        ],
+        "winner": "BetBoom",
+        "offered_points": 7,
+        "total_picks": 25
+      },
+      {
+        "fixture_id": "1080204",
+        "teams": [
+          "Legacy",
+          "FURIA"
+        ],
+        "starts_at_utc": "2026-10-15T16:00:00Z",
+        "status": "scheduled",
+        "score": [
+          0,
+          0
+        ],
+        "winner": null,
+        "offered_points": 7,
+        "total_picks": 33
+      },
+      {
+        "fixture_id": "1081614",
+        "teams": [
+          "Legacy",
+          "FURIA"
+        ],
+        "starts_at_utc": "2026-10-15T17:00:00Z",
+        "status": "ended",
+        "score": [
+          1,
+          2
+        ],
+        "winner": "FURIA",
+        "offered_points": 7,
+        "total_picks": 0
+      },
+      {
+        "fixture_id": "1080205",
+        "teams": [
+          "Aurora",
+          "9z"
+        ],
+        "starts_at_utc": "2026-10-16T14:00:00Z",
+        "status": "scheduled",
+        "score": [
+          0,
+          0
+        ],
+        "winner": null,
+        "offered_points": 7,
+        "total_picks": 13
+      }
+    ],
+    "irregularity": "Legacy vs FURIA exists twice: fixture 1080204 (16:00 UTC, still status \"scheduled\", score 0-0, 33 picks) and fixture 1081614 (17:00 UTC, status \"ended\", score 1-2, 0 picks). HLTV shows one series, FURIA 2-1."
+  }
+}
