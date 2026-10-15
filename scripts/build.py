@@ -124,7 +124,7 @@ def evidence(m, prefix, fallback=None):
         for r in o.get('inputs') or []:
             body += (f'<p class="tiny">Valve rating input: <strong>{e(r["name"])}</strong> {e(r["points"])} points, '
                      f'snapshot {e(r.get("snapshot_date") or "unverified")}, roster {e(", ".join(r.get("roster") or []))}. '
-                     + external(r['source_url'], 'Valve record') + '</p>')
+                     + (external(r.get('source_url') or o.get('source_url'), 'Valve record') if (r.get('source_url') or o.get('source_url')) else '<span class="unverified">source link unverified</span>') + '</p>')
         aliases = fallback.get('aliases_used') or []
         if aliases:
             body += ('<p class="tiny"><strong>Identity joins</strong>: '
