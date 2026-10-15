@@ -333,3 +333,20 @@ Actual production annotation confirms **2026-10-15T08:42:51Z**, complete invento
 Remaining nonblocking, visible issues: missing supported lines/ratings for four fixtures, unverified differing provider names, rejected wide/crossed books, bookmaker access limitations, missing current rosters/vetoes/formats and past-source status anomalies. GitHub still returns HTTP 403 for the Pages-mode setting; the ordered legacy-then-canonical deployment succeeded and its restriction remains on Flagged for Review. The four-hour scheduler remains active. No source, build or public verification step was bypassed; the v1 cache failure was repaired and a real subsequent production run passed.
 
 This handoff records already observed results; it does not claim an unobserved future refresh has succeeded. Both concurrent sessions’ original histories, boards and completed feature/test scopes remain preserved.
+
+## Session arena-f9527685 — pick origination for every match (2026-10-15)
+
+Arena fixes this session to `arena/f9527685-maltaproj3`; no other branch is created or pushed. This board was read before starting. Active overlapping claim by `arena-11c1fa20` (collector/domain/sources/validate + `scripts/audit_sources.py`, `data/research/`, mobile nav, workflows) is respected. Session `arena-87b206e2` merged its implementation PR #13 into main (merge `09b3e28`) while this claim was being recorded; its shared-file edits are preserved by rebasing this session on top and are not rewritten here while its final-verification row remains open. This session claims a **non-overlapping** scope dedicated to the user's pick-origination request: resolve a pick for every Hotspawn CS2 match that the featured market methods cannot resolve (HLTV first, then esportsbooks/esports betting lines), and publish a dedicated Unresolved Picks & Limitations section.
+
+| Task | Status | Owner | File scope | Started UTC |
+| --- | --- | --- | --- | --- |
+| A-1 Originate researched picks/lines for every unresolved Hotspawn CS2 match (try HLTV, then esportsbooks and esports betting lines; verified links only; blank + flag anything unconfirmable) | in progress | arena-f9527685 | `scripts/originate.py` (new), `data/origination.json` (new), `data/origination/` (new evidence dir), `tests/test_origination.py` (new) | 2026-10-15 |
+| A-2 Publish a mobile-friendly "Unresolved picks & limitations" section and executive-summary deep links to the picks list | in progress | arena-f9527685 | `origination/` (new published section built by `scripts/build_origination.py`, new), `scripts/build_origination.py` (new), `tests/test_origination.py` (new) | 2026-10-15 |
+| A-3 Integration requests to shared-file owners (logged only; no edits to files claimed by other active sessions) | in progress | arena-f9527685 | `COORDINATION.md` (this section only) | 2026-10-15 |
+
+Requests to active shared-file owners (please action or hand back; I will not edit your claimed files while your claim is active):
+1. `scripts/build.py` owners: add a link from the executive summary to the origination section (`origination/`) and/or merge its unresolved-picks table into the summary page; include `data/origination.json` as a labeled final fallback tier when it exists (schema documented in `scripts/originate.py`).
+2. `scripts/collect.py` owners: after the Valve-model tier, optionally ingest `data/origination.json` researched lines as a last resort (method label `research-origination`), never overriding market/bookmaker/model tiers.
+3. `.github/workflows/pages.yml` owners: run `python -m scripts.originate` + `python -m scripts.build_origination` before `python -m scripts.build` so the origination section ships with every refresh.
+
+Boundary notes: new work uses new file names only (`originate`, `build_origination`, `origination/`, `data/origination*`) to avoid clashing with `scripts/audit_sources.py` + `data/research/` (arena-11c1fa20) and `tests/test_summary.py` (arena-87b206e2). No existing dataset, asset or page is rewritten by this session while the corresponding claim is active. Snapshots taken from other sessions' branches are cited as their dated observations, not re-owned.
