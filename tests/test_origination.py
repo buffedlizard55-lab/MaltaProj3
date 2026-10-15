@@ -307,3 +307,37 @@ class AliasScopeTests(unittest.TestCase):
         other = dict(self.twc(), competition='Unrelated Cup')
         quote, detail = originate.model_estimate(other, ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
         self.assertIsNone(quote)
+
+
+class ModelFallbackRenderTests(unittest.TestCase):
+    """Regression (session c07e1b40): scheduled runs 38742696250/38797535468 and origination audit
+    38733458812 crashed with KeyError 'source_url' whenever a featured-unresolved fixture was resolved by
+    the Valve-model fallback, because model inputs dropped their per-row source link and snapshot date."""
+
+    def fallback(self):
+        match = {'id': 'm1', 'starts_at': '2026-10-15T12:00:00Z', 'competition': 'Elisa BreakOut Series #2',
+                 'source_url': 'https://www.hotspawn.com/matches/x', 'teams': [{'id': '1', 'name': 'WROTBERRY'}, {'id': '2', 'name': 'ENCE'}]}
+        ratings = [
+            {'name': 'WBT', 'points': 1201, 'standing': 60, 'roster': ['a', 'b', 'c', 'd', 'e'], 'snapshot_date': '2026-10-05'},
+            {'name': 'ENCE', 'points': 1025, 'standing': 105, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md',
+                'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        return match, originate.originate_match(match, [], [], ratings, meta, registry(), datetime(2026, 10, 15, tzinfo=UTC))
+
+    def test_model_inputs_carry_their_own_source_link_and_snapshot(self):
+        _, result = self.fallback()
+        self.assertEqual(result['origination']['method'], 'model')
+        for row in result['origination']['inputs']:
+            self.assertTrue(row['source_url'].startswith('https://github.com/ValveSoftware/'), row)
+            self.assertEqual(row['snapshot_date'], '2026-10-05')
+
+    def test_featured_detail_renders_a_model_fallback_without_crashing(self):
+        from scripts import build
+        match, result = self.fallback()
+        canonical = dict(match, analysis=None, pick_index=None, research=[], limitations=[], source_status='scheduled',
+                         locks_at='2026-10-15T11:54:00Z', best_of=None, observed_at='2026-10-15T10:00:00Z',
+                         source_api='https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures')
+        html = build.evidence(canonical, '../', result)
+        self.assertIn('Valve rating input', html)
+        self.assertIn('standings_global_2026_10_05.md', html)

@@ -637,7 +637,23 @@ other session has claimed. Requests for files owned by others are logged below i
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
 | C-1 Resolve every still-unresolved active pick (production 38816949473 at 22:25Z: 22 active, **8 unresolved**) using first-party external sources — HLTV first, then esportsbook/market lines — origination layer only | in progress | arena-c07e1b40 | `scripts/originate.py`, `data/origination/**`, `tests/test_origination.py`, new `scripts/research_lines.py` (diagnostic probe), new `.github/workflows/session-c07e1b40.yml` (branch-only evidence collector, never deploys), new `data/research/c07e1b40/` | Hotspawn popularity never an input; unverifiable = blank + flagged |
-| C-2 Origination render crash `KeyError: 'source_url'` (origination audit 38733458812) | in progress | arena-c07e1b40 | `scripts/build_origination.py`, `assets/origination.css`, `tests/browser/origination.spec.mjs` | Origination renderer only; `pages.yml`/`publication.py` stay with 0c803d4d F-2 |
+| C-2 Origination render crash `KeyError: 'source_url'` (origination audit 38733458812) | done (root cause fixed in `scripts/originate.py`; awaiting integration) | arena-c07e1b40 | `scripts/build_origination.py`, `assets/origination.css`, `tests/browser/origination.spec.mjs` | Origination renderer only; `pages.yml`/`publication.py` stay with 0c803d4d F-2 |
 | C-3 Line-by-line repo review register with official source links | in progress | arena-c07e1b40 | new `data/research/c07e1b40/` | Findings logged here; publication via the owner of the review renderer |
 | ~~Day-2 review / day-3 guidance~~ | dropped (done by f2d2d85e I-F1; day-3 claimed by 0c803d4d F-1) | — | — | no edits by this session |
 | ~~Publisher fix, executive-summary copy, final integration~~ | dropped (claimed by 0c803d4d F-2/F-3/F-4; f2d2d85e I-F2) | — | — | this session will open one scoped PR for C-1..C-3, rebased on latest `main` |
+
+### C-2 root cause (for 0c803d4d F-2 — please read before relying on the last-good fallback)
+
+- **Cause:** `scripts/build.py` `evidence()` renders researched-fallback Valve inputs with `r['source_url']`
+  (line ~127), but `scripts/originate.py` `model_estimate()` emitted `inputs` without `source_url`/`snapshot_date`.
+  Any featured-unresolved fixture resolved by the **model** fallback (e.g. 1080281 WROTBERRY–ENCE via the WBT alias)
+  therefore raised `KeyError: 'source_url'` in the build. This matches origination audit 38733458812 (annotation
+  `'source_url'`, fallback 1080281 = model) and the two scheduled failures 38742696250 / 38797535468, which ran on the
+  retained 10:13:43Z snapshot whose unresolved rows got model fallbacks. The 22:25Z push run succeeded only because no
+  fallback that time was a model estimate.
+- **Fix (this session's scope only):** `originate.py` now keeps each input's official `source_url` and `snapshot_date`
+  (values already present in the parsed Valve rows). Regression tests `ModelFallbackRenderTests` reproduce the exact
+  crash through `build.evidence()` and pass after the fix. `build.py` is untouched.
+- **Request to 0c803d4d (owner of `scripts/build.py` edits):** optional hardening — `r.get('source_url') or o['source_url']`
+  at build.py ~127. The last-good fallback in `pages.yml` is still valuable, but without this fix it would have kept
+  republishing stale data every time a model fallback appeared.

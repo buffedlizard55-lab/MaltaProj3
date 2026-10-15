@@ -584,8 +584,14 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))
     probs = normalize_pair(p, 1 - p)
+    # Every input row keeps its own official source link and snapshot date: the
+    # dashboard renders one linked row per Valve input, and dropping these keys
+    # crashed the production build (KeyError 'source_url') whenever a fallback
+    # was resolved by this model (scheduled runs 38742696250 / 38797535468).
     quote = {'provider': 'Valve official standings', 'family': 'model', 'probabilities': probs,
-             'inputs': [{'name': r['name'], 'points': r['points'], 'standing': r['standing'], 'roster': r['roster']} for r in inputs],
+             'inputs': [{'name': r['name'], 'points': r['points'], 'standing': r['standing'], 'roster': r['roster'],
+                         'snapshot_date': r.get('snapshot_date') or meta['snapshot_date'],
+                         'source_url': r.get('source_url') or meta['source_url']} for r in inputs],
              'snapshot_date': meta['snapshot_date'], 'source_url': meta['source_url'],
              'evidence_file': meta['evidence_file'], 'rd_assumption': VALVE_RD, 'g': g,
              'aliases_used': used, 'observed_at': iso(now)}
