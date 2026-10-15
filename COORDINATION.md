@@ -604,3 +604,20 @@ deep-dive page (`edge/`), and the "Where every list lives" map points at each ro
 file, dataset or probability from either session was discarded; conflicts in README/COORDINATION were
 resolved by union and the test suites were re-run end to end after the merge: **145 Python tests OK** and **38 Playwright checks pass**, `scripts.build` validates 475 internal links/assets/anchors.
 
+
+---
+
+# Session 0c803d4d board (arena/0c803d4d-maltaproj3)
+
+Session: `arena-0c803d4d` · Branch: `arena/0c803d4d-maltaproj3` (fixed Arena branch for this
+session; no other branch is created) · Claimed 2026-10-15T22:30Z ·
+All prior boards above were read before any file was touched; every listed prior task was
+`done` or `needs review` (published, non-blocking), so no active scope is overlapped.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| F-1 Day-2 results review → Day-3 TWC 2026 pick guidance | in progress | arena-0c803d4d | `data/day3-guide.json` (new), `scripts/build_day3.py` (new), `scripts/build.py` (nav/link only), `tests/test_day3.py` (new) | Dated HLTV-verified Day-2 results; guidance never overwrites automated picks |
+| F-2 Fix failing 4-hour publisher (build step) + last-good fallback | in progress | arena-0c803d4d | `.github/workflows/pages.yml`, `scripts/publication.py` (only if needed) | Runs 38742696250 / 38797535468 failed at "Reconcile every row…" build step; local build passes |
+| F-3 Every-match coverage audit (featured + originated) & executive-summary links | in progress | arena-0c803d4d | `README.md`, `COORDINATION.md`, site copy via `scripts/build.py` summary only | Verify 17/17 originated picks render; unresolved section stays explicit |
+| F-4 Integration: tests, build, PR to main, merge, Pages verification | unclaimed | arena-0c803d4d | all (integration) | This session is the final integration session |
+
