@@ -439,3 +439,5 @@ Verification performed: `python -m unittest discover -s tests` run from `require
 Irregularities: all listed in the register (RR-01 to RR-15). They are published here for the integration owner's Flagged for Review page. They do not block publication.
 
 Handoff: branch `arena/de176356-maltaproj3` is pushed. A PR to `main` is opened for the integration session, which owns the shared COORDINATION board and any merge with `arena-50c01ba9`'s open claim. This session did not merge it alone because that claim also edits this file and overlaps day-one scope (R-DE-4). No other branch was created or pushed.
+
+PR opened for integration: [#22](https://github.com/buffedlizard55-lab/MaltaProj3/pull/22) from `arena/de176356-maltaproj3` to `main`, not merged by this session (see Handoff above).
