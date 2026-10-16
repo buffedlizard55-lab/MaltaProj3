@@ -7,7 +7,8 @@
     var now = Date.now();
     cards.forEach(function (card) {
       var locks = Date.parse(card.getAttribute('data-locks') || '');
-      var locked = isFinite(locks) && now >= locks;
+      var starts = Date.parse(card.getAttribute('data-starts') || '');
+      var locked = (isFinite(locks) && now >= locks) || (isFinite(starts) && now >= starts) || card.getAttribute('data-availability') === 'locked';
       var status = card.querySelector('.status');
       card.classList.toggle('is-locked', locked);
       if (status) { status.hidden = !locked; }
@@ -15,6 +16,10 @@
     });
   }
   if (toggle) { toggle.addEventListener('change', refresh); }
+  document.addEventListener('spawn-pick-safety-updated', refresh);
+  window.addEventListener('pageshow', refresh);
+  window.addEventListener('focus', refresh);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
   refresh();
   window.setInterval(refresh, 30000);
 }());

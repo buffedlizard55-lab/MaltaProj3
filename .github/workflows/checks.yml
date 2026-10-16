@@ -36,6 +36,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Phone, desktop, no-JS, staleness and WCAG A/AA checks
         run: npm test
+      - name: Expire stale or locked recommendations in open tabs and without JavaScript
+        run: node tests/pick-safety-browser.mjs
       - name: Publish test summary
         if: always()
         run: |

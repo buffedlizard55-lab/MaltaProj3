@@ -22,6 +22,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from scripts.domain import is_fresh, timestamp
+from scripts.pick_safety import (body_attributes, card_attributes, presentation, status_html, valid_pair)
 
 MALTA = ZoneInfo('Europe/Malta')
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
@@ -53,30 +54,39 @@ def team_names(m):
     return [t['name'] or 'Unverified team' for t in m['teams']]
 
 
-def pick_row(m):
-    o = m['origination']
+def pick_row(m, safety=None):
+    sourced = m.get('origination')
+    o = sourced if sourced and valid_pair(sourced.get('probabilities')) else None
     names = team_names(m)
     pick = m['pick_index']
-    out = [f'<article class="pick-card" id="match-{e(m["id"])}">']
+    safety = safety or presentation(m, None, False, datetime.now(timezone.utc))
+    current = safety['current']
+    hidden = '' if current else ' hidden'
+    historical_hidden = ' hidden' if current else ''
+    card_class = "pick-card" if current else "pick-card is-historical"
+    out = [f'<article class="{card_class}" id="match-{e(m["id"])}" '
+           f'{card_attributes(m, safety)} data-was-current="{str(current).lower()}">']
     out.append(f'<header class="card-head"><span class="comp">{e(m["competition"] or "Unverified tournament")}</span>'
                f'<span class="tier">{e((m.get("tier") or "").upper() and "Tier " + str(m.get("tier")).upper() or "Tier unverified")}</span></header>')
     out.append(f'<h3 class="teams"><strong>{e(names[0])}</strong><span class="vs">vs</span><strong>{e(names[1])}</strong></h3>')
-    out.append(f'<p class="when">{local_time(m["starts_at"])}</p>')
+    out.append(f'<p class="when">Starts {local_time(m["starts_at"])}<br>Locks {local_time(m.get("locks_at"))}</p>')
+    out.append(status_html(safety))
     if o:
         p0, p1 = o['probabilities']
         favored = pick
         out.append('<ul class="probs">')
         for i, (name, p) in enumerate(zip(names, o['probabilities'])):
             cls = ' class="fav"' if i == favored else ''
-            marker = ' ✓ pick' if i == favored else ''
+            marker = f'<span data-current-only{hidden}> ✓ pick</span>' if i == favored else ''
             out.append(f'<li{cls}><span>{e(name)}{marker}</span><strong>{p * 100:.1f}%</strong></li>')
         out.append('</ul>')
         w = max(0.0, min(100.0, p0 * 100))
         out.append(f'<div class="bar" role="presentation"><span class="a" style="width:{w:.3f}%"></span><span class="b" style="width:{100 - w:.3f}%"></span></div>')
         if pick is not None:
-            out.append(f'<p class="pick-line">Pick: <strong>{e(names[pick])}</strong> <small>({o["probabilities"][pick] * 100:.1f}% · fair line {e(o["fair_decimal"][pick])})</small></p>')
+            out.append(f'<p class="pick-line"><span data-current-only{hidden}>Pick: </span><span data-historical-only{historical_hidden}>Snapshot lean: </span><strong>{e(names[pick])}</strong> <small>({o["probabilities"][pick] * 100:.1f}% · fair line {e(o["fair_decimal"][pick])})</small></p>')
         else:
             out.append('<p class="pick-line">Pick: <strong>No directional edge</strong> <small>(equal estimate)</small></p>')
+        out.append(f'<p class="line-time">Estimate observed {local_time(o.get("observed_at"))}.<span data-historical-only{historical_hidden}> Historical / unverified for current use.</span></p>')
         money = o['method'] in {'market', 'bookmaker', 'consensus'}
         kind = 'green' if money else 'purple'
         label = 'Money-backed line' if money else 'Research model'
@@ -248,9 +258,9 @@ def section_sources(data):
 
 def executive_summary(data):
     c = data['counts']
-    out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · FULL COVERAGE · INDEPENDENT LINES</p>',
+    out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · COMPLETE SOURCE SNAPSHOT · INDEPENDENT LINES</p>',
            '<h1>Hotspawn CS2 match picks.<br>Source-backed or explicitly unresolved.</h1>']
-    out.append(f'<p class="hero-stats"><strong>{c["active"]}</strong> active fixtures · <strong>{c["with_pick"]}</strong> with a pick · '
+    out.append(f'<p class="hero-stats"><strong>{c["active"]}</strong> snapshot fixtures · <strong>{c["with_pick"]}</strong> with a sourced lean · '
                f'<strong>{c["unresolved"]}</strong> unresolved · {c["consensus"]} consensus, {c["market"] + c["bookmaker"]} single-source, {c["model"]} model-backed.</p>')
     out.append('<nav class="quick" aria-label="Jump to section">'
                '<a class="q primary" href="#picks">📋 Updated picks list <small>all matches</small></a>'
@@ -267,10 +277,13 @@ def executive_summary(data):
     return ''.join(out)
 
 
-def page(data, inventory_complete=True):
+def page(data, inventory_complete=True, *, now=None):
     c = data['counts']
-    stale = not is_fresh(data['source_snapshot_at'], datetime.now(timezone.utc))
-    warn = ('<div class="stale" role="status"><strong>Snapshot is older than eight hours.</strong> '
+    now = now or datetime.now(timezone.utc)
+    states = {m['id']: presentation(m, data['source_snapshot_at'], inventory_complete, now) for m in data['matches']}
+    current_count = sum(s['current'] for s in states.values())
+    stale = not is_fresh(data['source_snapshot_at'], now)
+    warn = ('<div class="stale" role="status"><strong>Snapshot freshness is unverified.</strong> Inventory is outside the eight-hour window or its time is unverified. '
             'Treat these lines as historical. <a class="src" href="../coverage/">Check source status →</a></div>') if stale else ''
     if not inventory_complete:
         warn = ('<div class="stale" role="status" id="inventory-warning"><strong>Current Hotspawn inventory is unverified.</strong> '
@@ -278,7 +291,7 @@ def page(data, inventory_complete=True):
                 'a pick for every retained row does not establish current full coverage. Do not treat this as a fully current picks list. '
                 '<a class="src" href="../coverage/">Source status</a> · <a class="src" href="../review/">Flagged for Review</a></div>') + warn
     picks = [m for m in data['matches']]
-    cards = ''.join(pick_row(m) for m in picks) if picks else '<div class="ok-note">No active fixtures in this snapshot. Check the <a class="src" href="../coverage/">source status</a>.</div>'
+    cards = ''.join(pick_row(m, states[m['id']]) for m in picks) if picks else '<div class="ok-note">No active fixtures in this snapshot. Check the <a class="src" href="../coverage/">source status</a>.</div>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Originated CS2 picks — every Hotspawn match · Spawn Scout</title>
@@ -286,15 +299,19 @@ def page(data, inventory_complete=True):
 <meta name="theme-color" content="#142534">
 <link rel="icon" href="../assets/scout-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/origination.css">
-</head><body>
+<script src="../assets/pick-safety.js" defer></script>
+</head><body {body_attributes(data["source_snapshot_at"], inventory_complete)}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><p class="brand"><a href="../">spawn<strong>scout</strong></a> <span>· originated picks</span></p>
 <p class="snap">Snapshot {local_time(data['source_snapshot_at'])} · generated {local_time(data['generated_at'])}</p></header>
 <main id="main">
 {warn}
 {executive_summary(data)}
+<p class="availability-summary"><strong data-current-count>{current_count}</strong> currently usable line(s). Snapshot counts above include unresolved, locked and historical rows; no fixture is dropped.</p>
+<p class="stale" data-runtime-safety-notice role="status"{' hidden' if current_count == len(picks) else ''}>{current_count} currently usable line(s). Other cards are unresolved, closed or historical; their estimates and sources remain visible.</p>
+<noscript><p class="stale">JavaScript is off: lock/freshness labels were checked when this page was built and will not update while it stays open. Check the printed lock and observation times before using a pick; reload for the latest verified snapshot.</p></noscript>
 <section class="block" id="picks"><h2>Updated picks — all matches</h2>
-<p class="lede">Every active Hotspawn CS2 fixture, sorted by start time. The check-marked team is our pick; the percentages are our originated win probabilities from the sources linked on each row.</p>
+<p class="lede">Every active Hotspawn CS2 fixture, sorted by start time. The check-marked team is a current pick only while its line, inventory and confirmed lock remain usable. A “Snapshot lean” is historical or unverified for current use, not a submission recommendation. Both teams’ sourced estimates and original observation times stay visible.</p>
 <div class="cards">{cards}</div></section>
 {section_unresolved(data)}
 {section_method(data)}
