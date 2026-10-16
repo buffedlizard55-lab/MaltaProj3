@@ -7,6 +7,20 @@
 | TWC 2026 Day 1/2 results analysis, Day 3 picks, contrarian analysis, Aurora roster impact | done | arena-9db9ccd4 | `data/twc-day3-picks.json`, `data/contrarian.json`, `twc-picks/index.html`, `index.html`, `picks/index.html` | 2026-10-16 |
 | Mobile-friendly TWC Day 3 picks page with executive summary, probabilities, contrarian plays, leaderboard strategy | done | arena-9db9ccd4 | `twc-picks/index.html` | 2026-10-16 |
 | Navigation updates: TWC Day 3 links in sidebar, hero, and mobile nav across all pages | done | arena-9db9ccd4 | `index.html`, `picks/index.html` | 2026-10-16 |
+| Build pipeline integration: twc-picks page in site artifact | done | arena-9db9ccd4 | `scripts/build.py` | 2026-10-16 |
+
+### PRs merged in this session
+| PR | Merged | Notes |
+| --- | --- | --- |
+| [#46](https://github.com/buffedlizard55-lab/MaltaProj3/pull/46) | 2026-10-16 | TWC Day 3 picks, contrarian analysis, mobile-friendly page |
+| [#47](https://github.com/buffedlizard55-lab/MaltaProj3/pull/47) | 2026-10-16 | Fix contrarian.json schema validation |
+| [#48](https://github.com/buffedlizard55-lab/MaltaProj3/pull/48) | 2026-10-16 | Deploy TWC Day 3 picks page via build pipeline |
+
+### Production status
+- Workflow run [38850997535](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38850997535): **succeeded** (405 rows, 0 violations, 25 picks active)
+- Legacy pages-build-deployment: **succeeded**
+- Live data: <https://buffedlizard55-lab.github.io/MaltaProj3/data/twc-day3-picks.json> ✅
+- TWC picks page: <https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/> (pending CDN propagation)
 
 ### Verification and sources for session 9db9ccd4
 - Day 1 results verified against [HLTV event results](https://www.hltv.org/results?event=8932): 9z 2-0 Aurora, Falcons 2-0 NIP, Legacy 2-0 PARIVISION, FURIA 2-0 BetBoom
