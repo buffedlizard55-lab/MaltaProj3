@@ -263,6 +263,41 @@ class InventoryAndCounts(unittest.TestCase):
         self.assertEqual(inventory['extra_on_site'], [])
         self.assertTrue(any(f['id'].endswith('inventory-divergence') for f in result['flags']))
 
+    def test_a_fixture_that_started_between_the_two_readings_is_not_a_coverage_gap(self):
+        # The site snapshot was generated before kick-off; Hotspawn drops a fixture once it
+        # starts. Reporting that as a coverage gap would be a false alarm.
+        rows = [fixture_row('1079586', ['Ninjas in Pyjamas', 'Team Liquid'],
+                            start='2026-10-16T08:00:00Z', probabilities=[0.49, 0.51],
+                            method='consensus', pick=1,
+                            quotes=[{'provider': 'Polymarket', 'event_id': '1194412'}]),
+                fixture_row('1080285', ['Voca', 'Phantom'], start='2026-10-16T10:00:00Z',
+                            probabilities=[0.45, 0.55], method='market', pick=1,
+                            event_id='1173317')]
+        result = run_audit(rows=rows, hotspawn_ids=['1080285'],
+                           generated='2026-10-16T07:35:00Z', observed='2026-10-16T09:44:00Z')
+        inventory = result['inventory_reconciliation']
+        self.assertEqual(inventory['extra_on_site'], ['1079586'])
+        self.assertEqual([r['id'] for r in inventory['started_since_the_snapshot']], ['1079586'])
+        self.assertTrue(inventory['explained_by_elapsed_time'])
+        self.assertIn('passed their scheduled start', inventory['verdict'])
+        flags = [f for f in result['flags'] if f['id'].endswith('inventory-divergence')]
+        self.assertEqual(flags[0]['severity'], 'notice')
+
+    def test_a_divergence_the_clock_cannot_explain_stays_a_review_finding(self):
+        rows = [fixture_row('1080285', ['Voca', 'Phantom'], start='2026-10-16T10:00:00Z',
+                            probabilities=[0.45, 0.55], method='market', pick=1,
+                            event_id='1173317')]
+        # 1099999 is published although Hotspawn never listed it and it has not started.
+        rows.append(fixture_row('1099999', ['Ghost', 'Phantom'], start='2026-10-20T10:00:00Z'))
+        result = run_audit(rows=rows, hotspawn_ids=['1080285'],
+                           generated='2026-10-16T07:35:00Z', observed='2026-10-16T09:44:00Z')
+        inventory = result['inventory_reconciliation']
+        self.assertEqual(inventory['unexplained_extra_on_site'], ['1099999'])
+        self.assertFalse(inventory['explained_by_elapsed_time'])
+        flags = [f for f in result['flags'] if f['id'].endswith('inventory-divergence')]
+        self.assertEqual(flags[0]['severity'], 'review')
+        self.assertIn('NOT explained', flags[0]['detail'])
+
     def test_counts_are_recomputed_from_the_rows(self):
         rows = [fixture_row('1', ['Aurora', '9z'], probabilities=[0.69, 0.31], method='market', pick=0),
                 fixture_row('2', ['BetBoom', 'Legacy'], start=LEGACY_START)]

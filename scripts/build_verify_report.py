@@ -987,6 +987,47 @@ footer{padding:1.2rem 1rem 2.5rem;color:var(--muted);font-size:.82rem;border-top
 '''
 
 
+def transfer_log(evidence: Path, hltv: dict) -> dict:
+    """Re-read HLTV's transfer log from the archived original response.
+
+    The dossier's extracted entries are re-derived here so a fix to the extractor applies
+    to evidence already archived, instead of waiting for another fetch. Falls back to the
+    recorded extraction when the original response is not present.
+    """
+    from scripts.research_verify import parse_hltv_transfer_log
+    from scripts.verify_published import load_raw_text
+    recorded = hltv.get('aurora_transfer_log') or {}
+    text = load_raw_text(evidence, 'hltv-rostermania')
+    if not text:
+        return clean_transfers(recorded)
+    parsed = parse_hltv_transfer_log(text)
+    parsed['source_url'] = recorded.get('source_url') or 'https://www.hltv.org/news/44998/' \
+        'summer-2026-rostermania-as-it-happened'
+    return clean_transfers(parsed)
+
+
+def clean_transfers(transfers: dict) -> dict:
+    """Drop the fragments HLTV's transfer log interleaves with its own headlines.
+
+    The log repeats a story as a headline, a bare team name and a quoted nickname. Only
+    lines that state something are kept, in the order HLTV published them, deduplicated.
+    """
+    entries, seen = [], set()
+    for entry in (transfers or {}).get('entries') or []:
+        text = str(entry.get('entry') or '').strip()
+        stamp = entry.get('hltv_displayed_date')
+        if len(text) < 14 or (text, stamp) in seen:
+            continue
+        seen.add((text, stamp))
+        entries.append({'hltv_displayed_date': stamp, 'entry': text})
+    return {**(transfers or {}), 'entries': entries, 'count': len(entries)}
+
+
+def evidence_dir() -> Path:
+    """Where the archived original responses live."""
+    return EVIDENCE_DIR
+
+
 def twc_context(audit: dict, observations: dict) -> dict:
     """Assemble the Thunderpick facts this page states, from archived evidence only."""
     hltv = observations.get('hltv') or {}
@@ -1063,19 +1104,29 @@ def twc_context(audit: dict, observations: dict) -> dict:
     deciders.sort(key=lambda d: d.get('starts_at') or '')
 
     roster_verdict = {}
-    transfers = hltv.get('aurora_transfer_log') or {}
-    if transfers.get('entries'):
-        dates = [str(e_.get('hltv_displayed_date') or '') for e_ in transfers['entries']]
+    transfers = transfer_log(evidence_dir(), hltv)
+    entries = transfers.get('entries') or []
+    if entries:
+        # The completion of the rebuild is the date that matters for a recency claim, so it
+        # is taken from HLTV's own "complete rebuild" entry rather than from every date the
+        # log happens to mention.
+        completed = next((x for x in entries if 'complete rebuild' in str(x.get('entry', '')).lower()), None)
+        move_dates = sorted({str(x.get('hltv_displayed_date')) for x in entries
+                             if x.get('hltv_displayed_date')})
         roster_verdict = {
             'tone': 'warn',
-            'text': ('HLTV&rsquo;s own transfer log dates every Aurora roster move to July 2026 '
-                     '(displayed as ' + ', '.join(sorted({d for d in dates if d})) + '). '
-                     'Valve&rsquo;s official snapshot of 5 October 2026 already lists the same five '
-                     'players, and so does HLTV&rsquo;s team page today. The change is therefore '
-                     'confirmed, but it is not recent: it was complete roughly three months '
-                     'before Day 3, and both official rating sources already reflect it. Any '
-                     'claim that a fresh roster change explains Day-3 form is not supported by '
-                     'these sources.').replace('&rsquo;', "'"),
+            'text': (
+                "HLTV's own transfer log dates every Aurora roster move to late June and July "
+                "2026 (displayed as " + ', '.join(move_dates) + ", DD/MM as HLTV prints them). "
+                + (f"The rebuild is recorded complete on {completed['hltv_displayed_date']} "
+                   f"(HLTV: \u201c{completed['entry']}\u201d). " if completed else '')
+                + "Valve's official snapshot of 5 October 2026 already lists the same five "
+                  "players - Jimpphat, kyxsan, Wicadia, woxic, XANTARES - and so does HLTV's "
+                  "team page today. The change is therefore confirmed from first-party "
+                  "evidence, but it is NOT recent: it was complete about three months before "
+                  "Day 3, and both official rating sources already reflect it. Any claim that "
+                  "a fresh roster change explains Day-3 form is not supported by these "
+                  "sources, and none is made here."),
         }
     else:
         roster_verdict = {'tone': 'bad',

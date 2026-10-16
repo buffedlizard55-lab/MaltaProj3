@@ -241,7 +241,7 @@ class NothingIsInvented(unittest.TestCase):
         twc = twc_context(self.audit_data, self.observations)
         text = twc['roster_verdict']['text']
         self.assertIn('08/07', text)
-        self.assertIn('not recent', text)
+        self.assertIn('not recent', text.lower())
 
     def test_a_missing_hltv_feed_states_that_instead_of_rendering_nothing(self):
         observations = dict(self.observations, hltv={'limitations': ['not readable']})

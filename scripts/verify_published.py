@@ -86,38 +86,51 @@ def load_json(path: Path):
         return None
 
 
-def load_raw(evidence: Path, name: str):
-    """Read an archived original response, transparently handling the gzip variant."""
-    plain = evidence / 'raw' / name
-    if plain.exists():
-        return load_json(plain)
-    import gzip
-    compressed = evidence / 'raw' / (name + '.gz')
-    if compressed.exists():
-        try:
-            with gzip.open(compressed, 'rt') as handle:
-                return json.loads(handle.read())
-        except (ValueError, OSError):
-            return None
+RAW_SUFFIXES = ('', '.gz', '.json', '.json.gz', '.html', '.html.gz', '.txt', '.txt.gz')
+
+
+def raw_path(evidence: Path, name: str) -> Path | None:
+    """Locate an archived response by label, whichever suffix the probe chose.
+
+    The probe compresses every markup response and any JSON above 48 KB, so a label can
+    exist as ``label.json``, ``label.json.gz``, ``label.html.gz`` and so on.
+    """
+    for suffix in RAW_SUFFIXES:
+        candidate = evidence / 'raw' / (name + suffix)
+        if candidate.is_file():
+            return candidate
     return None
+
+
+def read_raw_bytes(path: Path) -> str | None:
+    import gzip
+    try:
+        if path.name.endswith('.gz'):
+            with gzip.open(path, 'rt') as handle:
+                return handle.read()
+        return path.read_text()
+    except (OSError, ValueError):
+        return None
+
+
+def load_raw(evidence: Path, name: str):
+    """Read an archived original response as parsed JSON."""
+    path = raw_path(evidence, name)
+    if path is None:
+        return None
+    text = read_raw_bytes(path)
+    if text is None:
+        return None
+    try:
+        return json.loads(text)
+    except ValueError:
+        return None
 
 
 def load_raw_text(evidence: Path, name: str) -> str | None:
-    plain = evidence / 'raw' / name
-    if plain.exists():
-        try:
-            return plain.read_text()
-        except OSError:
-            return None
-    import gzip
-    compressed = evidence / 'raw' / (name + '.gz')
-    if compressed.exists():
-        try:
-            with gzip.open(compressed, 'rt') as handle:
-                return handle.read()
-        except OSError:
-            return None
-    return None
+    """Read an archived original response as text."""
+    path = raw_path(evidence, name)
+    return read_raw_bytes(path) if path is not None else None
 
 
 # ---------------------------------------------------------------------------
@@ -277,23 +290,63 @@ def hotspawn_api_ids(payload) -> set:
     return ids
 
 
-def reconcile_inventory(deployed: dict, fixtures_payload) -> dict:
+def reconcile_inventory(deployed: dict, fixtures_payload, *, site_generated=None,
+                        api_observed=None) -> dict:
+    """Compare the deployed inventory with Hotspawn's own fixtures API.
+
+    The two readings are minutes apart, and Hotspawn drops a fixture once it starts, so a
+    row the site still carries may simply have kicked off in between. That is stated
+    instead of being reported as a defect: a divergence is only a finding when it cannot
+    be explained by the elapsed time between the two readings.
+    """
     api_ids = hotspawn_api_ids(fixtures_payload)
     rows = deployed.get('matches') or []
     site_ids = {str(r['id']) for r in rows if isinstance(r, dict) and r.get('id') is not None}
     open_rows = [r for r in rows if isinstance(r, dict) and r.get('availability') != 'past']
+    generated, observed = parse_iso(site_generated), parse_iso(api_observed)
+    started_since = []
+    if observed:
+        # Hotspawn's fixtures feed is queried with status=scheduled, so a fixture leaves it
+        # once its scheduled start has passed. A row the site still carries whose start had
+        # already passed when the API was read is a timing difference between two readings,
+        # not a coverage gap. A row whose start had NOT passed is unexplained and is reported.
+        for row in rows:
+            if not isinstance(row, dict) or str(row.get('id')) not in (site_ids - api_ids):
+                continue
+            start = parse_iso(row.get('starts_at'))
+            if start and start <= observed:
+                started_since.append({'id': str(row['id']),
+                                      'teams': [t.get('name') for t in row.get('teams') or []],
+                                      'starts_at': row.get('starts_at'),
+                                      'competition': row.get('competition')})
+    unexplained = sorted((site_ids - api_ids) - {r['id'] for r in started_since})
     return {
+        'started_since_the_snapshot': started_since,
+        'unexplained_extra_on_site': unexplained,
+        'explained_by_elapsed_time': bool(started_since) and not unexplained,
         'hotspawn_api_id_count': len(api_ids),
         'deployed_row_count': len(site_ids),
         'deployed_open_count': len(open_rows),
         'missing_from_site': sorted(api_ids - site_ids),
         'extra_on_site': sorted(site_ids - api_ids),
+        'site_generated_at': site_generated,
+        'api_observed_at': api_observed,
         'reconciled': api_ids == site_ids,
         'verdict': ('Every CS2 fixture Hotspawn lists is published, and the site publishes '
                     'no fixture Hotspawn does not list.'
-                    if api_ids == site_ids else
-                    'The published inventory and Hotspawn\'s own fixtures API disagree. '
-                    'Both sets are listed below; nothing is reconciled by assumption.'),
+                    if api_ids == site_ids else (
+                        'The two readings differ, but every difference is explained: the '
+                        f'snapshot was generated at {site_generated} and Hotspawn\'s API was read '
+                        f'at {api_observed}, and {len(started_since)} fixture(s) the site still '
+                        'carried had already passed their scheduled start by then, so Hotspawn\'s '
+                        'status=scheduled feed no longer lists them. Nothing is missing and '
+                        'nothing is invented.'
+                        if not unexplained and not (api_ids - site_ids) else
+                        'The published inventory and Hotspawn\'s own fixtures API disagree beyond '
+                        f'what the elapsed time explains. Missing from the site: '
+                        f'{sorted(api_ids - site_ids) or "none"}. Published with no explanation: '
+                        f'{unexplained or "none"}. Both sets are listed; nothing is reconciled by '
+                        'assumption.')),
         'fetch_url': PAGES_LATEST_FETCH,
         'source_urls': [HOTSPAWN_FIXTURES_API, HOTSPAWN_LOBBY, PAGES_LATEST],
     }
@@ -1125,12 +1178,30 @@ def build_flags(audit: dict) -> list:
 
     inventory = audit['inventory_reconciliation']
     if not inventory['reconciled']:
-        add('inventory-divergence', 'review',
-            'Published inventory does not reconcile with Hotspawn\'s own fixtures API',
-            f"Hotspawn lists {inventory['hotspawn_api_id_count']} CS2 fixtures; the site publishes "
-            f"{inventory['deployed_row_count']}. Missing from the site: "
-            f"{inventory['missing_from_site'] or 'none'}. Published but not listed by Hotspawn: "
-            f"{inventory['extra_on_site'] or 'none'}. No row was added or removed by this audit.",
+        explained = inventory.get('explained_by_elapsed_time')
+        add('inventory-divergence', 'notice' if explained else 'review',
+            ('Inventory readings differ only by fixtures that started between them'
+             if explained else
+             'Published inventory does not reconcile with Hotspawn\'s own fixtures API'),
+            f"Hotspawn's API listed {inventory['hotspawn_api_id_count']} CS2 fixtures when read at "
+            f"{inventory['api_observed_at']}; the deployed snapshot published "
+            f"{inventory['deployed_row_count']} rows generated at {inventory['site_generated_at']}. "
+            f"Missing from the site: {inventory['missing_from_site'] or 'none'}. Published but no "
+            f"longer listed by Hotspawn: {inventory['extra_on_site'] or 'none'}"
+            + (f", of which {len(inventory['started_since_the_snapshot'])} had already passed "
+               f"their scheduled start when the API was read "
+               f"({', '.join(r['id'] for r in inventory['started_since_the_snapshot'])}). "
+               "Hotspawn's fixtures feed is queried with status=scheduled, so a fixture leaves "
+               'it once it starts; that part is a timing difference between two readings, not a '
+               'coverage gap.'
+               if inventory.get('started_since_the_snapshot') else '.')
+            + (f" Still unexplained: {inventory['unexplained_extra_on_site']} - published as "
+               'upcoming although Hotspawn no longer lists them and their scheduled start had '
+               'not passed. They may have been postponed or removed; this audit does not assume '
+               'which.' if inventory.get('unexplained_extra_on_site') else '')
+            + (' No row was added or removed by this audit.' if explained else
+               ' This difference is NOT explained by elapsed time and needs review. '
+               'No row was added or removed by this audit.'),
             inventory['missing_from_site'] + inventory['extra_on_site'], inventory['source_urls'])
 
     counts = audit['published_counts_check']
@@ -1329,7 +1400,10 @@ def audit(evidence: Path) -> dict:
                          'requests_ok': sum(1 for r in observations.get('requests') or [] if r.get('status') == 'ok'),
                          'requests_not_ok': sum(1 for r in observations.get('requests') or [] if r.get('status') != 'ok')},
         'staleness': staleness,
-        'inventory_reconciliation': reconcile_inventory(deployed, fixtures),
+        'inventory_reconciliation': reconcile_inventory(
+            deployed, fixtures, site_generated=deployed.get('generated_at'),
+            api_observed=(observations.get('hotspawn') or {}).get('observed_at')
+            or observations.get('probe_finished_at')),
         'published_counts_check': check_counts(deployed),
         'source_links': check_source_links(origination),
         'probability_replay': {

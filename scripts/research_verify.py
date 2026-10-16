@@ -783,6 +783,15 @@ def parse_hltv_transfer_log(html: str) -> dict:
     except Exception:
         return {'entries': [], 'limitation': 'beautifulsoup4 unavailable'}
     soup = BeautifulSoup(html, 'html.parser')
+    # HLTV renders the reader comment thread underneath the article. Comments are not
+    # HLTV's transfer log - one run picked up 15 forum replies including "prediction:
+    # jimmy to aurora." and dated them 24/06, which would have published rumour as fact.
+    # Every comment block is removed before anything is read, and how many were removed
+    # is reported so the exclusion is visible.
+    removed = 0
+    for node in soup.select('div.thread, div.post, div.forum-topbar, div.forum-bottombar'):
+        removed += 1
+        node.decompose()
     text = soup.get_text('\n', strip=True)
     entries, current_stamp = [], None
     for raw in text.splitlines():
@@ -796,14 +805,24 @@ def parse_hltv_transfer_log(html: str) -> dict:
         if not line:
             continue
         lowered = line.lower()
-        if any(term in lowered for term in AURORA_ROSTER_TERMS):
-            entries.append({'hltv_displayed_date': current_stamp, 'entry': line})
+        if not any(term in lowered for term in AURORA_ROSTER_TERMS):
+            continue
+        # The log interleaves full headlines with fragments of the same story (a bare team
+        # name, a quoted nickname). A fragment is not a separate fact, so short lines and
+        # exact duplicates of an entry already recorded are dropped.
+        if len(line) < 14:
+            continue
+        if any(x['entry'] == line and x['hltv_displayed_date'] == current_stamp for x in entries):
+            continue
+        entries.append({'hltv_displayed_date': current_stamp, 'entry': line})
     headline = soup.find('h1')
     return {'entries': entries, 'count': len(entries),
+            'comment_blocks_excluded': removed,
             'headline': re.sub(r'\s+', ' ', _text(headline)) if headline else None,
             'note': ('Dates are displayed by HLTV as DD/MM and are recorded exactly as '
                      'displayed. They are not converted to UTC here because the page does '
-                     'not state its own timezone.')}
+                     'not state its own timezone. Reader comments under the article are '
+                     'excluded and are never treated as a transfer record.')}
 
 
 def parse_hltv_valve_ranking(html: str) -> dict:
@@ -825,10 +844,15 @@ def parse_hltv_valve_ranking(html: str) -> dict:
         teams.append({'rank': int(found.group(1)), 'team': found.group(2).strip(),
                       'points': int(found.group(3)),
                       'url': 'https://www.hltv.org' + link.get('href', '')})
-    return {'teams': teams[:60], 'count': len(teams),
-            'note': ("This is HLTV's rendering of the Valve Regional Standings, not a file "
-                     'published by Valve. Valve\'s own repository is the source used for '
-                     'any rating in this project.')}
+    out = {'teams': teams[:60], 'count': len(teams),
+           'note': ("This is HLTV's rendering of the Valve Regional Standings, not a file "
+                    "published by Valve. Valve's own repository is the source used for any "
+                    'rating in this project.')}
+    if not teams:
+        out['limitation'] = ('No ranked team row was recognisable in this page, so HLTV\'s '
+                             'newer Valve-ranking view is not used and only Valve\'s own '
+                             'published snapshot informs any rating.')
+    return out
 
 
 # ---------------------------------------------------------------------------
