@@ -303,7 +303,7 @@ def edge_review(data, prefix, edge_path: Path):
         out += render_section(load_day3(day3_path), prefix)
     out += standings_section(review, edge_path.parent)
     disambig_path = edge_path.parent / 'research' / 'f392649f' / 'lineup-disambiguation.json'
-    valve_path = edge_path.parent / 'evidence' / 'valve-ratings.json'
+    valve_path = edge_path.parent / 'research' / '6426358d' / 'valve-ratings-2026-10-05.json'
     if disambig_path.exists() and valve_path.exists():
         from scripts.lineup_disambiguation import load_disambiguation, render_disambiguation_section
         out += render_disambiguation_section(load_disambiguation(disambig_path, valve_path), prefix)

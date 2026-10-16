@@ -1,89 +1,33 @@
 {
   "summary": {
-    "active": 7,
-    "open": 7,
-    "closed": 10,
+    "active": 6,
+    "open": 6,
+    "closed": 11,
     "unresolved": 0,
     "swaps": 0,
     "classes": {
       "lock": 4,
       "lean": 2,
-      "live_dog": 1,
+      "live_dog": 0,
       "coin_flip": 0
     },
-    "points_on_table": 14,
+    "points_on_table": 12,
     "unknown_points": 0,
     "swap_cost": 0,
     "swap_points": 0,
     "stale": true,
     "inventory_observed_at": "2026-10-15T08:36:04Z",
-    "inventory_age_h": 23.294355821666667,
+    "inventory_age_h": 23.452032079166667,
     "coverage_complete": true,
     "originated_snapshot_at": "2026-10-15T08:36:04Z",
-    "basis_note": null
+    "basis_note": null,
+    "snapshot_bound": true,
+    "current": 0,
+    "current_swaps": 0,
+    "max_line_age_hours": 8
   },
-  "generated_at": "2026-10-16T07:53:43Z",
+  "generated_at": "2026-10-16T08:03:11Z",
   "rows": [
-    {
-      "id": "1080285",
-      "names": [
-        "Voca",
-        "Phantom"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "tier": "c",
-      "starts_at": "2026-10-16T08:00:00Z",
-      "locks_at": "2026-10-16T07:54:00Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080285",
-      "points": 2,
-      "points_source": "Hotspawn fixture API",
-      "points_formula_ok": true,
-      "p": [
-        0.445,
-        0.555
-      ],
-      "method": "market",
-      "money": true,
-      "label": "Market-implied estimate",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
-      "observed_at": "2026-10-15T08:36:07Z",
-      "age_h": 23.293522488333334,
-      "fresh": false,
-      "fav": 1,
-      "dog": 0,
-      "p_dog": 0.445,
-      "p_fav": 0.555,
-      "klass": "live_dog",
-      "eligible": false,
-      "blockers": [
-        "inventory is incomplete, stale or its time is unverified",
-        "line older than 8 hours",
-        "under 3 points"
-      ],
-      "swap": false,
-      "cost": 0.22000000000000008,
-      "upside": 0.89,
-      "field": {
-        "pct": [
-          17,
-          83
-        ],
-        "n": 54
-      },
-      "field_dog": 0.17,
-      "crowd_on_dog": false,
-      "leverage_weight": 0.83,
-      "rank_value": 0.7387,
-      "score_model": null,
-      "limitations": [
-        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
-        "Hotspawn best-of format is unverified; left blank."
-      ],
-      "upgraded": false,
-      "default": 1
-    },
     {
       "id": "1080286",
       "names": [
@@ -109,7 +53,7 @@
       "source": "Thunderpick",
       "source_url": "https://thunderpick.io/esports/counter-strike",
       "observed_at": "2026-10-15T08:36:11Z",
-      "age_h": 23.292411377222223,
+      "age_h": 23.450087634722223,
       "fresh": false,
       "fav": 0,
       "dog": 1,
@@ -142,6 +86,14 @@
         "Single independent source; not a multi-source consensus.",
         "Margin removed where applicable. Estimate is not a guaranteed outcome."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 0
     },
@@ -170,7 +122,7 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
       "observed_at": "2026-10-15T08:36:08Z",
-      "age_h": 23.293244710555555,
+      "age_h": 23.450920968055556,
       "fresh": false,
       "fav": 0,
       "dog": 1,
@@ -202,6 +154,14 @@
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
         "Hotspawn best-of format is unverified; left blank."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 0
     },
@@ -230,7 +190,7 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
       "observed_at": "2026-10-15T08:36:09Z",
-      "age_h": 23.292966932777777,
+      "age_h": 23.450643190277777,
       "fresh": false,
       "fav": 0,
       "dog": 1,
@@ -263,6 +223,14 @@
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
         "Hotspawn best-of format is unverified; left blank."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 0
     },
@@ -291,7 +259,7 @@
       "source": "Valve official standings",
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "observed_at": "2026-10-15T08:36:13Z",
-      "age_h": 23.291855821666665,
+      "age_h": 23.449532079166666,
       "fresh": false,
       "fav": 0,
       "dog": 1,
@@ -327,6 +295,14 @@
         "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated.",
         "Hotspawn best-of format is unverified; left blank."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 0
     },
@@ -355,7 +331,7 @@
       "source": "Thunderpick",
       "source_url": "https://thunderpick.io/esports/counter-strike",
       "observed_at": "2026-10-15T08:36:11Z",
-      "age_h": 23.292411377222223,
+      "age_h": 23.450087634722223,
       "fresh": false,
       "fav": 1,
       "dog": 0,
@@ -388,6 +364,14 @@
         "Single independent source; not a multi-source consensus.",
         "Margin removed where applicable. Estimate is not a guaranteed outcome."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 1
     },
@@ -416,7 +400,7 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
       "observed_at": "2026-10-15T08:36:10Z",
-      "age_h": 23.292689154999998,
+      "age_h": 23.4503654125,
       "fresh": false,
       "fav": 0,
       "dog": 1,
@@ -449,6 +433,14 @@
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
         "Hotspawn best-of format is unverified; left blank."
       ],
+      "availability": "open",
+      "presentation": {
+        "status": "stale-inventory",
+        "current": false,
+        "label": "Snapshot needs refresh",
+        "detail": "Inventory is older than eight hours or its observation time is unverified. Not a current pick.",
+        "expires_at": null
+      },
       "upgraded": false,
       "default": 0
     }

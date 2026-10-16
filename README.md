@@ -171,3 +171,10 @@ Latest counts change with collection. The site’s executive summary distinguish
   prematch, calendar dates were treated as equal rest, and the summer roster change was presented as a
   causal probability discount. No such adjustments enter the refreshed probabilities. Historical market
   observations retain their own timestamps. HLTV reports are attributed to HLTV, not relabeled organizer proof.
+
+
+Concurrent-session handoffs are preserved: open-tab/closed-pick guards and independent safety tests
+from P are integrated. M’s historical ≥3/5-core dossier remains downloadable for provenance, but its
+partial-overlap scenarios are **not** a second current probability feed. The review page flags this policy
+conflict (including a withdrawn 403-row claim; the original Git blob contains 380 rows). Its dated Valve
+inputs are pinned and replayed from the original response, independently of later live-cache refreshes.
