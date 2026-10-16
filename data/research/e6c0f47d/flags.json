@@ -1,0 +1,130 @@
+[
+  {
+    "id": "e6c0f47d-1079167",
+    "severity": "notice",
+    "title": "Unresolved pick re-verified: Bushido Wildcats vs ex-RUSTEC now resolves on the documented model rule",
+    "detail": "Session e6c0f47d re-read every source in the 04:17-04:45Z window: Polymarket match-winner book 0.07/0.92 (spread 0.85, updated 04:21:07Z) and Kalshi 0.05-0.92 / 0.08-0.92 (zero volume) both exceed the 0.12 ceiling; no Thunderpick or Bovada line. Valve's official 2026-10-05 global ladder gives Bushido Wildcats one complete five-player row (982) and ex-RUSTEC one complete five-player row (1066) plus a four-player remnant, so the corrected unique-five-player rule resolves this fixture at the next refresh (local replay 0.385/0.615, pick ex-RUSTEC). The refresh output is authoritative.",
+    "match_ids": [
+      "1079167"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399084/bushido-wildcats-vs-ex-rustec-nodwin-clutch-series-13",
+      "https://polymarket.com/event/cs2-bw-rustec-2026-10-16",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160700exrbw",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1081126",
+    "severity": "notice",
+    "title": "Unresolved pick re-verified: Banda chuya vs Enjoy now resolves on the documented model rule",
+    "detail": "No money line exists from Polymarket, Kalshi, Thunderpick or Bovada at the 04:21Z observation (HLTV confirms identity). Valve's official 2026-10-05 global ladder: Banda Chuya has one complete five-player row (801) plus a two-player remnant; Enjoy has one complete five-player row (871). The corrected unique-five-player rule resolves this fixture at the next refresh (local replay 0.403/0.597, pick Enjoy). The Hotspawn start time was not re-verified and stays blank.",
+    "match_ids": [
+      "1081126"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399477/banda-chuya-vs-enjoy-cct-2026-europe-series-12-closed-qualifier",
+      "https://polymarket.com/esports/cs2",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1079170",
+    "severity": "warning",
+    "title": "Still blank: BET-M vs Just Players - two complete Valve lineups share the name Just Players",
+    "detail": "Re-verified by session e6c0f47d: no money line anywhere checked at 04:21Z, and Just Players has two complete five-player rows in Valve's official 2026-10-05 snapshot (974 standing 118 and 485 standing 347), so the model identity stays ambiguous by design. Only evidence-based current-lineup matching could separate them; nothing is inferred and the pick stays blank.",
+    "match_ids": [
+      "1079170"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1081502",
+    "severity": "warning",
+    "title": "Still blank: Procyon vs LOS NINOS - LOS NINOS absent from every official Valve ladder",
+    "detail": "Re-verified by session e6c0f47d across all four official 2026-10-05 ladders (global, europe, asia, americas) via the GitHub API: Procyon has one complete five-player row (842), LOS NINOS has zero rows of any spelling, and no money line exists at the 04:21Z observation. Blank and flagged; no value invented.",
+    "match_ids": [
+      "1081502"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1081526",
+    "severity": "warning",
+    "title": "Still blank: Infinite vs Insiders - Insiders absent from every official Valve ladder",
+    "detail": "Re-verified by session e6c0f47d: Insiders has zero rows in all four official 2026-10-05 Valve ladders, and no money line exists at the 04:21Z observation. INFINITE itself has one complete five-player row (1259), but a model needs both sides. Blank and flagged; no value invented.",
+    "match_ids": [
+      "1081526"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1081527",
+    "severity": "warning",
+    "title": "Still blank: aimclub vs BASEMENT BOYS - dead-wide Polymarket book and two complete aimclub lineups",
+    "detail": "Re-read first-party by session e6c0f47d at 04:26Z: Polymarket market 5650407 bestBid 0.03 / bestAsk 0.96 (spread 0.93, updated 04:19:20Z; last trade 0.495/0.505 is not an executable book). Kalshi, Thunderpick and Bovada had no line at 04:21Z. Valve model stays ambiguous because aimclub has two complete five-player rows (1113 and 504). The fixture is retried every refresh until a book narrows or identity evidence appears.",
+    "match_ids": [
+      "1081527"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-1081532",
+    "severity": "warning",
+    "title": "Still blank: ASTRAL vs Leo - two complete Valve lineups share the name Leo",
+    "detail": "Re-verified by session e6c0f47d: no money line at the 04:21Z observation; ASTRAL has one complete five-player row (1072, the separate 'Astralis' name never matches) while Leo has two complete five-player rows (1001 and 499) in Valve's official 2026-10-05 snapshot, so identity stays ambiguous by design. Hotspawn start 2026-10-19T10:45:00Z. Blank and flagged; no value invented.",
+    "match_ids": [
+      "1081532"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399597/astral-vs-leo-digital-crusade-draculan-season-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e6c0f47d/unresolved-review.json"
+    ]
+  },
+  {
+    "id": "e6c0f47d-day3",
+    "severity": "notice",
+    "title": "Day-3 TWC 2026 pre-match verification (16 Oct): fixtures confirmed, no result yet claimed",
+    "detail": "Session e6c0f47d read HLTV first-party: Aurora vs 9z (Group A decider, bo3) shows 10:00 16 Oct with a 9h43m countdown at 04:17Z, i.e. a 14:00 UTC start; BETBOOM vs Legacy (Group B decider, bo3) shows 13:00 16 Oct with a 12h22m34s countdown at 04:37Z, i.e. 17:00 UTC. HLTV's event results page listed no 16 October results at 04:17Z, so no Day-3 result is published anywhere on this site. A results review is only possible after both series finish.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+      "https://www.hltv.org/results?event=8932"
+    ]
+  },
+  {
+    "id": "e6c0f47d-twc-picks-method",
+    "severity": "warning",
+    "title": "TWC Day-3 picks page blends community polls and fan votes into its probabilities (methodology conflict, session 9db9ccd4)",
+    "detail": "The twc-picks page (merged via PRs #46-#48) states Aurora-9z '67% win probability' derived by de-vigging stavka.tv odds and 'cross-referenced with blast.tv community poll (83/17) and HLTV simulation', and Legacy-BetBoom '72%' supported by 'HLTV fan vote: Legacy 75.6%' plus tournament outright odds. Community polls, fan votes, Hotspawn popularity and outrights are excluded probability inputs under this project's published methodology, stavka.tv and blast.tv are outside the row-source official allow-list, and 'HLTV simulation' has no linked source. First-party re-reads by session e6c0f47d: stavka's own page does advertise Aurora 1.38 / 9z 2.70 (the odds exist; the source is still not allow-listed and the fan-vote blend still violates policy), while the canonical Polymarket match-winner book for the same fixture reads 0.69/0.70 with 0.01 spread (event 1194512, updated 2026-10-16T04:45:17Z, gameStartTime 14:00Z, matching HLTV's verified 14:00 UTC start). The cited 75.6% fan-vote number was NOT independently re-read and is not a permitted input regardless. Request logged in COORDINATION.md: restate this page's probabilities from the pipeline's money lines or label it editorial/unverified. Needs review; blocks nothing.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/twc-picks/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/twc-day3-picks.json",
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+      "https://gamma-api.polymarket.com/events?slug=cs2-aur1-9z-2026-10-16"
+    ]
+  }
+]

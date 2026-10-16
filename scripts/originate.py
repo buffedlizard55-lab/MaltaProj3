@@ -747,17 +747,28 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
             if found:
                 matched_as = candidate
                 break
-        if len(found) != 1:
-            return None, f'{team["name"]}: ' + ('multiple Valve rosters share this name' if found else 'no Valve rating row found (including registry aliases)')
-        row = found[0]
+        if not found:
+            return None, f'{team["name"]}: no Valve rating row found (including registry aliases)'
+        # The published method requires a *unique exact-name, five-player record*.
+        # Name-matching rows whose roster is not a complete five-player record are
+        # excluded before the uniqueness test (verified on the 2026-10-05 snapshot:
+        # ex-RUSTEC has one complete five-player row plus a four-player remnant;
+        # Banda Chuya has one complete row plus a two-player remnant). A name with
+        # several *complete* five-player rows stays rejected as ambiguous (Leo and
+        # Just Players on the same snapshot), because nothing in the row data says
+        # which lineup plays today.
+        complete = [r for r in found if len(r.get('roster') or []) == 5]
+        if len(complete) > 1:
+            return None, f'{team["name"]}: multiple Valve rosters share this name'
+        if not complete:
+            return None, f'{team["name"]}: a complete five-player Valve roster is not confirmed'
+        row = complete[0]
         if name_key(row['name']) != team_key:
             used.append({'alias': row['name'], 'canonical': team['name'], 'kind': 'registry reverse lookup',
                          'evidence': [{'url': meta['source_url'], 'source': 'Valve official standings', 'detail': f'Valve publishes this roster under the name {row["name"]}; the reviewed alias registry links the two names.'}]})
         day = timestamp(row['snapshot_date'] + 'T00:00:00Z')
         if day is None or not 0 <= (now - day).total_seconds() <= 35 * 86400:
             return None, 'Valve snapshot is future-dated or older than 35 days'
-        if len(row.get('roster') or []) != 5:
-            return None, f'{team["name"]}: a complete five-player Valve roster is not confirmed'
         inputs.append(row)
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "session": "arena-e6c0f47d",
+  "title": "Independent first-party review of the unresolved CS2 picks",
+  "prepared_at": "2026-10-16T04:45:00Z",
+  "research_window": {
+    "from": "2026-10-16T04:17:00Z",
+    "to": "2026-10-16T04:45:00Z"
+  },
+  "policy": "Every value below was read from the linked first-party source inside the research window, or is explicitly attributed to the production pipeline observation at 2026-10-16T04:21Z (live data/origination.json with its saved per-provider evidence). Values that could not be confirmed are left blank. Hotspawn community percentages are never read. This dossier documents why each unresolved fixture has or has not a pick; it never overwrites the automated pipeline output, which recomputes everything on its own schedule.",
+  "coverage": {
+    "live_snapshot_reviewed": "2026-10-16T04:21:17Z",
+    "active_fixtures": 31,
+    "resolved": 24,
+    "unresolved": 7,
+    "unresolved_ids": ["1079167", "1079170", "1081126", "1081502", "1081526", "1081527", "1081532"],
+    "source": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+  },
+  "method_change_verified_this_session": {
+    "summary": "Both model-fallback paths (scripts/originate.py model_estimate and scripts/domain.py valve_analysis) now exclude name-matching Valve rows whose roster is not a complete five-player record BEFORE the uniqueness test, exactly matching the documented 'unique exact-name, five-player record' rule. A name with several complete five-player rows stays rejected as ambiguous.",
+    "verified_against": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "verified_with": "The checked-in official snapshot data/evidence/valve-ratings.json (380 rows, snapshot 2026-10-05) and the four official 2026-10-05 ladder files (global, europe, asia, americas) fetched from Valve's repository via the GitHub API during the window.",
+    "effect": "Two of the seven unresolved fixtures gain a documented model-fallback estimate at the next refresh; five stay blank for the specific reasons below."
+  },
+  "fixtures": [
+    {
+      "id": "1079167",
+      "teams": ["Bushido Wildcats", "ex-RUSTEC"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-16T11:00:00Z",
+      "verdict": "resolves-at-next-refresh",
+      "expected_method": "model",
+      "expected_probabilities_local_replay": [0.385, 0.615],
+      "expected_pick": "ex-RUSTEC",
+      "verdict_note": "Reproduced locally from the official 2026-10-05 snapshot at 2026-10-16T04:40Z. The production refresh recomputes the authoritative quote from its own saved evidence; these numbers are a preview of the documented ladder outcome, not a manual input.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV; HLTV lists BO3.", "source_url": "https://www.hltv.org/matches/2399084/bushido-wildcats-vs-ex-rustec-nodwin-clutch-series-13"},
+        {"stage": "Polymarket series winner", "status": "rejected-spread", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:39Z", "detail": "Event 1197092, market 5764753 (Match Winner): bestBid 0.07 / bestAsk 0.92, spread 0.85 (market updatedAt 2026-10-16T04:21:07Z); gameStartTime 2026-10-16 11:00 UTC, exactly the Hotspawn start. Spread exceeds the 0.12 ceiling.", "source_url": "https://gamma-api.polymarket.com/events?slug=cs2-bw-rustec-2026-10-16", "market_url": "https://polymarket.com/event/cs2-bw-rustec-2026-10-16"},
+        {"stage": "Kalshi match winner", "status": "rejected-spread", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:26Z", "detail": "Event KXCS2GAME-26OCT160700EXRBW (created 2026-10-16T03:20:55Z): ex-RUSTEC yes 0.05/0.92 (sizes 161/3), Bushido Wildcats yes 0.08/0.92 (sizes 25/22), books updated 03:25:00Z, zero volume. Spreads 0.87 and 0.84 exceed the 0.12 ceiling.", "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160700exrbw"},
+        {"stage": "Thunderpick / Bovada", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line for these teams and start time.", "source_url": "https://thunderpick.io/esports/counter-strike"},
+        {"stage": "Valve model fallback", "status": "resolves-after-rule-fix", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:40Z", "detail": "Global 2026-10-05: Bushido Wildcats has one complete five-player row (982 points, standing 114). ex-RUSTEC has one complete five-player row (1066 points, standing 92) plus a four-player remnant row (824 points, standing 152) that is now excluded before the uniqueness test. Unique five-player records on both sides -> Glicko expectation with RD 75: 0.385 / 0.615.", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ]
+    },
+    {
+      "id": "1081126",
+      "teams": ["Banda chuya", "Enjoy"],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "starts_at": null,
+      "verdict": "resolves-at-next-refresh",
+      "expected_method": "model",
+      "expected_probabilities_local_replay": [0.403, 0.597],
+      "expected_pick": "Enjoy",
+      "verdict_note": "Reproduced locally from the official 2026-10-05 snapshot at 2026-10-16T04:40Z; the production refresh recomputes the authoritative quote. The Hotspawn start time was not re-verified by this session and stays blank.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV; Hotspawn best-of remains separately unverified.", "source_url": "https://www.hltv.org/matches/2399477/banda-chuya-vs-enjoy-cct-2026-europe-series-12-closed-qualifier"},
+        {"stage": "Money sources (Polymarket, Kalshi, Thunderpick, Bovada)", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://polymarket.com/esports/cs2"},
+        {"stage": "Valve model fallback", "status": "resolves-after-rule-fix", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:40Z", "detail": "Global 2026-10-05: Banda Chuya has one complete five-player row (801 points, standing 165) plus a two-player remnant row (402 points, standing 373) that is now excluded before the uniqueness test; exact Hotspawn name 'Banda chuya' matches case-insensitively. Enjoy has one complete five-player row (871 points, standing 138). Glicko expectation with RD 75: 0.403 / 0.597.", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ]
+    },
+    {
+      "id": "1079170",
+      "teams": ["BET-M", "Just Players"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": null,
+      "verdict": "blocked",
+      "blocked_reason": "Just Players has two complete five-player rows in the official 2026-10-05 snapshot (974 points, standing 118 and 485 points, standing 347); nothing in the row data says which lineup plays today, so identity stays unresolved. No money line exists.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV.", "source_url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13"},
+        {"stage": "Money sources (Polymarket, Kalshi, Thunderpick, Bovada)", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"},
+        {"stage": "Valve model fallback", "status": "blocked", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:40Z", "detail": "BET-M has one complete five-player row (1149 points, standing 71). Just Players has two complete five-player rows (974 / 485) -> rejected as ambiguous, as required.", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ],
+      "follow_up": "Disambiguation would need current published lineups matched evidence-by-evidence against the two Valve rows (HLTV lineup section); not automated, not asserted."
+    },
+    {
+      "id": "1081502",
+      "teams": ["Procyon", "LOS NINOS"],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": null,
+      "verdict": "blocked",
+      "blocked_reason": "LOS NINOS does not appear in any of the four official Valve 2026-10-05 ladders (global, europe, asia, americas), and no money line exists anywhere checked.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV.", "source_url": "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7"},
+        {"stage": "Money sources (Polymarket, Kalshi, Thunderpick, Bovada)", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://polymarket.com/esports/cs2"},
+        {"stage": "Valve model fallback", "status": "blocked", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:25Z", "detail": "Procyon has one complete five-player row (842 points, standing 149). LOS NINOS: zero rows (grep across the four official 2026-10-05 ladder files fetched via the GitHub API; no 'ninos' row of any spelling).", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ]
+    },
+    {
+      "id": "1081526",
+      "teams": ["Infinite", "Insiders"],
+      "competition": "Digital Crusade / DraculaN Season 7",
+      "starts_at": null,
+      "verdict": "blocked",
+      "blocked_reason": "Insiders does not appear in any of the four official Valve 2026-10-05 ladders, and no money line exists anywhere checked.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV.", "source_url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7"},
+        {"stage": "Money sources (Polymarket, Kalshi, Thunderpick, Bovada)", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://thunderpick.io/esports/counter-strike"},
+        {"stage": "Valve model fallback", "status": "blocked", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:25Z", "detail": "INFINITE has one complete five-player row (1259 points, standing 56). Insiders: zero rows across global, europe, asia and americas 2026-10-05 ladders.", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ]
+    },
+    {
+      "id": "1081527",
+      "teams": ["aimclub", "BASEMENT BOYS"],
+      "competition": "DraculaN Season 7",
+      "starts_at": null,
+      "verdict": "blocked",
+      "blocked_reason": "The only existing money book is far too wide (Polymarket bestBid 0.03 / bestAsk 0.96, spread 0.93), and aimclub has two complete five-player Valve rows, so the model fallback stays ambiguous.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV.", "source_url": "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7"},
+        {"stage": "Polymarket series winner", "status": "rejected-spread", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:26Z", "detail": "Event 1183120, market 5650407: bestBid 0.03 / bestAsk 0.96, spread 0.93 (market updatedAt 2026-10-16T04:19:20Z); last traded outcomePrices 0.495/0.505 (updated 2026-10-15T08:34:50Z). Spread exceeds the 0.12 ceiling; a last trade is not an executable book.", "source_url": "https://gamma-api.polymarket.com/events?slug=cs2-aim1-bmb-2026-10-19", "market_url": "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19"},
+        {"stage": "Kalshi / Thunderpick / Bovada", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"},
+        {"stage": "Valve model fallback", "status": "blocked", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:40Z", "detail": "aimclub has two complete five-player rows (1113 points, standing 77 and 504 points, standing 336) -> ambiguous. BASEMENT BOYS has one complete five-player row (1036 points, standing 102).", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ],
+      "follow_up": "A narrowing Polymarket book before the 2026-10-19 start, or evidence-based lineup disambiguation, would resolve this fixture on a later refresh; both are retried automatically or remain research follow-ups, never manual inputs."
+    },
+    {
+      "id": "1081532",
+      "teams": ["ASTRAL", "Leo"],
+      "competition": "Digital Crusade / DraculaN Season 7",
+      "starts_at": "2026-10-19T10:45:00Z",
+      "verdict": "blocked",
+      "blocked_reason": "Leo has two complete five-player Valve rows (1001 points, standing 112 and 499 points, standing 340) and no money line exists.",
+      "stages": [
+        {"stage": "HLTV identity", "status": "confirmed", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "Exact teams and time confirmed on HLTV.", "source_url": "https://www.hltv.org/matches/2399597/astral-vs-leo-digital-crusade-draculan-season-7"},
+        {"stage": "Money sources (Polymarket, Kalshi, Thunderpick, Bovada)", "status": "no-line", "observed_by": "production pipeline 2026-10-16T04:21Z", "detail": "No alias-verified match-winner line found for these teams and start time at the observation.", "source_url": "https://polymarket.com/esports/cs2"},
+        {"stage": "Valve model fallback", "status": "blocked", "observed_by": "session e6c0f47d first-party at 2026-10-16T04:40Z", "detail": "ASTRAL has one complete five-player row (1072 points, standing 91; the separate 'Astralis' row is a different exact name and never matches). Leo has two complete five-player rows -> ambiguous, as required.", "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"}
+      ],
+      "follow_up": "Same as 1079170 and 1081527: only current published lineups could separate the two Leo rows with evidence; not automated, not asserted."
+    }
+  ],
+  "day_three": {
+    "event": "Thunderpick World Championship 2026",
+    "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+    "results_status": "No 16 October 2026 results were listed on HLTV's event results page when read at 2026-10-16T04:17Z. No Day-3 result is claimed anywhere in this dossier.",
+    "results_source": "https://www.hltv.org/results?event=8932",
+    "fixtures": [
+      {
+        "hltv_match_id": 2399412,
+        "teams": ["Aurora", "9z"],
+        "slot": "Group A decider match",
+        "format": "bo3 (LAN)",
+        "hltv_displayed_time": "10:00 16 Oct",
+        "countdown_read_at": "2026-10-16T04:17:00Z",
+        "countdown": "9h43m",
+        "implied_start_utc": "2026-10-16T14:00:00Z",
+        "source_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+      },
+      {
+        "hltv_match_id": 2399413,
+        "teams": ["BETBOOM", "Legacy"],
+        "slot": "Group B decider match",
+        "format": "bo3 (LAN)",
+        "hltv_displayed_time": "13:00 16 Oct",
+        "countdown_read_at": "2026-10-16T04:37:00Z",
+        "countdown": "12h22m34s",
+        "implied_start_utc": "2026-10-16T17:00:00Z",
+        "source_url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026"
+      }
+    ],
+    "note": "HLTV's displayed clock time and the countdown-implied UTC start are both recorded exactly as read; the countdown arithmetic (displayed time = US Eastern on this date) agrees with the 14:00 / 17:00 UTC starts published by the Day-3 guide from Polymarket gameStartTime. A Day-3 results review can only happen after both series finish; nothing is pre-written."
+  },
+  "limitations": [
+    "This dossier is dated research for the 2026-10-16T04:17Z-04:45Z window. The production pipeline recomputes every pick from fresh evidence every four hours and is authoritative.",
+    "Money-source 'no-line' observations are the production pipeline's saved first-party evidence at 2026-10-16T04:21Z; wide-book rejections were re-read first-party by this session with the numbers shown.",
+    "Valve estimates are uncalibrated research model outputs with fixed RD 75; they never override a money line and do not confirm today's rosters, stand-ins or vetoes.",
+    "Start times left blank were not re-verified by this session and are never inferred.",
+    "Blocked fixtures stay blank and flagged on the Flagged for Review page and the unresolved section; no default 50/50 is ever emitted."
+  ]
+}

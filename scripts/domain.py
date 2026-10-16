@@ -223,14 +223,20 @@ def valve_analysis(match: dict, rows: list, now: datetime, observed_at: str) -> 
     inputs = []
     for team in match['teams']:
         found = by_name[name_key(team['name'])]
-        if len(found) != 1:
-            return None, f'{team["name"]}: ' + ('multiple Valve rosters share this name; identity is unresolved' if found else 'no exact-name Valve rating found')
-        row = found[0]
+        if not found:
+            return None, f'{team["name"]}: no exact-name Valve rating found'
+        # Unique exact-name *five-player record*: incomplete rows are excluded
+        # before the uniqueness test; several complete rows stay ambiguous.
+        # Mirrors scripts.originate.model_estimate so both feeds use one rule.
+        complete = [r for r in found if len(r.get('roster') or []) == 5]
+        if len(complete) > 1:
+            return None, f'{team["name"]}: multiple Valve rosters share this name; identity is unresolved'
+        if not complete:
+            return None, f'{team["name"]}: a complete five-player rating roster is not confirmed'
+        row = complete[0]
         day = datetime.strptime(row['snapshot_date'], '%Y-%m-%d').replace(tzinfo=UTC)
         if not 0 <= (now - day).total_seconds() <= MAX_RATING_AGE_DAYS * 86400:
             return None, 'Valve standings snapshot is future-dated or older than 35 days'
-        if len(row['roster']) != 5:
-            return None, f'{team["name"]}: a complete five-player rating roster is not confirmed'
         inputs.append(row)
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))
