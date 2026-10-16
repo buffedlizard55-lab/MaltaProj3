@@ -312,10 +312,11 @@ class ProbeResilience(unittest.TestCase):
         original = rv.collect_polymarket
         rv.collect_polymarket = boom
         try:
-            with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
-                code = rv.main(['--out', tmp])
+            with tempfile.TemporaryDirectory() as tmp:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    code = rv.main(['--out', tmp])
+                data = json.loads((Path(tmp) / 'observations.json').read_text())
             self.assertEqual(code, 0)
-            data = json.loads((Path(tmp) / 'observations.json').read_text())
         finally:
             rv.collect_polymarket = original
         self.assertEqual(len(data['collector_crashes']), 1)
