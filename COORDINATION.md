@@ -972,3 +972,24 @@ Both claimed tasks above are **done**; no active scope remains.
 - Live: <https://buffedlizard55-lab.github.io/MaltaProj3/>; complete picks `/origination/#picks`; leaderboard `/strategy/`; dated TWC research `/edge/`; unresolved limitations `/origination/#unresolved` and `/review/`.
 - Remaining nonblocking irregularity: Pages build-mode update receives HTTP 403. Existing publisher ordering succeeded; no user input is needed for current refresh/deploy operation. Existing source, alias and model limitations remain public. Seven unresolved rows intentionally have no invented probabilities.
 - Record-only follow-up will be merged from the same fixed Arena branch; its deployment result will be recorded on the follow-up PR rather than recursively committing publication records.
+
+---
+
+# Session e6c0f47d board (arena/e6c0f47d-maltaproj3)
+
+Session: `arena-e6c0f47d` · Branch: `arena/e6c0f47d-maltaproj3` (fixed by Arena; the brief's
+`session-<id>/<task>` naming cannot be used) · Claimed 2026-10-16T04:30Z.
+
+**Read before claiming:** every board above, including session 09e96795's completed publication
+record (PRs #44/#45, production 38849991127 verified: 95 records / 31 upcoming, complete picks
+31 active / 24 resolved / 7 unresolved at 2026-10-16T04:19:30Z). No active claim remains from any
+session. This session claims only the scope below; files owned by active claims are never edited.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| E-1 Direct first-party research to resolve the 7 unresolved picks (HLTV first, then esportsbook/market lines), origination-ladder only | in progress | arena-e6c0f47d | `scripts/originate.py`, `data/origination/aliases.json`, `tests/test_origination*.py`, new `data/research/e6c0f47d/` | Fixtures 1079167, 1079170, 1081126, 1081502, 1081526, 1081527, 1081532; unverifiable stays blank + flagged |
+| E-2 Day-3 TWC 2026 (16 Oct) pre-match verification and results review with official sources | in progress | arena-e6c0f47d | new `data/day4-guide.json` (or equivalent new files), `scripts/build_day3.py` (source column only if needed) | HLTV/official links only; guidance never overwrites pipeline picks |
+| E-3 Final integration of this session: build, tests, PR to main, merge, Pages verification | in progress | arena-e6c0f47d | `COORDINATION.md`, `README.md` (if needed), shared-file hooks minimal after rebase | Same pattern as prior sessions |
+
+Unlike earlier sessions this one has direct sandbox web access to HLTV and provider pages for
+research, so verification happens first-party here rather than only through runner diagnostics.
