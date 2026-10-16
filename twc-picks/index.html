@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TWC 2026 Day 3 Picks — Spawn Scout</title>
+<meta name="description" content="Day 3 picks for Thunderpick World Championship 2026. Probabilities, contrarian analysis, and leaderboard strategy for every match.">
+<meta name="theme-color" content="#142534">
+<link rel="icon" href="../assets/scout-mark.svg" type="image/svg+xml">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1b2a;--card:#142534;--accent:#3dd68c;--accent2:#7c5cff;--warn:#f5a623;--danger:#e74c3c;--text:#e8edf2;--muted:#8899aa;--border:#1e3a52;--fav:#3dd68c;--dog:#f5a623}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:12px}
+/* HEADER */
+.header{text-align:center;padding:20px 12px 12px}
+.header .kicker{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:700}
+.header h1{font-size:clamp(22px,5vw,32px);margin:6px 0;font-weight:800}
+.header .sub{color:var(--muted);font-size:14px}
+.timestamp{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;display:inline-block;font-size:12px;color:var(--muted);margin:8px 0}
+/* NAV */
+.quick-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.quick-nav a{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.quick-nav a.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+/* EXEC SUMMARY */
+.exec-box{background:linear-gradient(135deg,#142534,#1a3048);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+.exec-box h2{font-size:16px;margin-bottom:8px;color:var(--accent)}
+.exec-box p{font-size:14px;color:var(--text);margin-bottom:8px}
+.exec-box .highlight{color:var(--warn);font-weight:700}
+/* RESULTS */
+.results-grid{display:grid;gap:8px;margin:12px 0}
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px}
+.result-card .day-badge{background:var(--accent2);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:12px;white-space:nowrap}
+.result-card .match-info{flex:1;min-width:0}
+.result-card .teams{font-weight:700;font-size:15px}
+.result-card .score{color:var(--accent);font-weight:700;font-size:14px;white-space:nowrap}
+.result-card .maps-line{font-size:11px;color:var(--muted);margin-top:2px}
+.result-card .upset-badge{background:var(--danger);color:#fff;font-size:10px;padding:2px 6px;border-radius:8px;font-weight:700;margin-left:6px}
+/* PICK CARDS */
+.pick-section{margin:20px 0}
+.pick-section h2{font-size:18px;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+.pick-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;position:relative;overflow:hidden}
+.pick-card.s-tier{border-left:4px solid var(--warn)}
+.pick-card .tier-badge{position:absolute;top:10px;right:10px;background:var(--warn);color:var(--bg);font-size:10px;font-weight:800;padding:3px 10px;border-radius:12px}
+.pick-card .stage{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-weight:700;margin-bottom:4px}
+.pick-card .match-title{font-size:clamp(18px,4.5vw,24px);font-weight:800;margin:4px 0 8px}
+.pick-card .match-time{font-size:13px;color:var(--muted);margin-bottom:12px}
+.pick-card .match-time svg{width:14px;height:14px;vertical-align:middle;margin-right:4px}
+/* PROBABILITY BAR */
+.prob-bar{height:36px;border-radius:8px;overflow:hidden;display:flex;margin:8px 0;position:relative}
+.prob-bar .team-a{background:var(--fav);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--bg);min-width:50px;transition:width 0.3s}
+.prob-bar .team-b{background:var(--dog);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--bg);min-width:50px;transition:width 0.3s}
+.prob-legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}
+/* PICK BOX */
+.pick-box{background:#0a1628;border:1px solid var(--border);border-radius:10px;padding:12px;margin:12px 0}
+.pick-box .pick-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px}
+.pick-box .pick-team{font-size:20px;font-weight:800;color:var(--accent)}
+.pick-box .pick-confidence{font-size:13px;color:var(--muted);margin-top:2px}
+.pick-box .pick-reason{font-size:13px;margin-top:8px;line-height:1.6}
+/* CONTRARIAN */
+.contrarian-box{background:rgba(245,166,35,0.08);border:1px solid var(--warn);border-radius:10px;padding:12px;margin:12px 0}
+.contrarian-box .contra-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--warn);font-weight:700;margin-bottom:4px}
+.contrarian-box .contra-team{font-size:18px;font-weight:800;color:var(--warn)}
+.contrarian-box .contra-verdict{font-size:13px;margin-top:8px;line-height:1.6;font-style:italic}
+/* SOURCES */
+.sources-list{margin-top:12px;padding-top:8px;border-top:1px solid var(--border)}
+.sources-list summary{font-size:12px;color:var(--muted);cursor:pointer}
+.sources-list a{display:block;font-size:12px;padding:3px 0;word-break:break-all}
+/* ROSTER */
+.roster-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+.roster-section h3{font-size:15px;margin-bottom:8px}
+.roster-section .change{display:flex;gap:8px;align-items:baseline;margin:4px 0;font-size:13px}
+.roster-section .change .arrow{color:var(--warn);font-weight:700}
+.roster-section .impact{font-size:13px;color:var(--muted);margin-top:8px}
+/* LEADERBOARD */
+.leaderboard-section{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid var(--accent2);border-radius:12px;padding:16px;margin:16px 0}
+.leaderboard-section h3{color:var(--accent2);font-size:15px;margin-bottom:8px}
+.leaderboard-section .strat{font-size:14px;margin:6px 0}
+.leaderboard-section .strat strong{color:var(--accent)}
+.leaderboard-section .strat em{color:var(--warn)}
+/* BRACKET */
+.bracket{margin:16px 0}
+.bracket h3{font-size:15px;margin-bottom:8px}
+.bracket-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.bracket-row .team{font-weight:700;flex:1}
+.bracket-row .status{font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap}
+.bracket-row .status.through{background:var(--accent);color:var(--bg);font-weight:700}
+.bracket-row .status.decider{background:var(--warn);color:var(--bg);font-weight:700}
+/* FOOTER */
+.footer{text-align:center;padding:20px 12px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+.footer a{color:var(--muted)}
+/* MOBILE NAV */
+.mobile-bottom{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.mobile-bottom a{display:flex;flex-direction:column;align-items:center;font-size:10px;color:var(--muted);gap:2px;padding:4px 8px}
+.mobile-bottom a.active{color:var(--accent)}
+.mobile-bottom svg{width:20px;height:20px}
+/* SPACER for fixed nav */
+.spacer{height:70px}
+@media(min-width:768px){.mobile-bottom{display:none}.spacer{height:0}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="header">
+<p class="kicker">Thunderpick World Championship 2026</p>
+<h1>Day 3 Picks & Analysis</h1>
+<p class="sub">Two decider matches. Two playoff spots on the line. Updated Oct 16, 2026.</p>
+<div class="timestamp">📊 Prepared 2026-10-16 08:00 UTC · All probabilities from external betting lines & HLTV data</div>
+</header>
+
+<nav class="quick-nav">
+<a href="#picks" class="primary">🎯 Today's Picks</a>
+<a href="#results">📋 Day 1-2 Results</a>
+<a href="#contrarian">⚡ Contrarian Plays</a>
+<a href="#leaderboard">🏆 Leaderboard Strategy</a>
+<a href="#bracket">📊 Playoff Bracket</a>
+<a href="../">🏠 Main Dashboard</a>
+<a href="../picks/">📋 All Match Picks</a>
+</nav>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="exec-box" id="exec-summary">
+<h2>📌 Executive Summary</h2>
+<p>Two decider matches today determine the final playoff spots. <strong>Falcons</strong> and <strong>FURIA</strong> are already through to the semifinals.</p>
+<p><span class="highlight">KEY INSIGHT:</span> 9z already beat Aurora 2-0 at this event (including a 13-1 stomp on Nuke). The market still heavily favors Aurora for the rematch (~67%), but 9z have proven they can compete at this level. They pushed Falcons to 3 maps yesterday, taking Mirage 13-8.</p>
+<p><span class="highlight">ROSTER NOTE:</span> Aurora's summer rebuild (kyxsan as new IGL from Falcons, Jimpphat from MOUZ, coach ash) is still integrating. Day 1 collapse + Day 2 recovery vs weak NIP opposition. The communication overhead of an international roster with a new IGL doesn't resolve in 48 hours.</p>
+<p><strong>For Hotspawn leaderboard climbing:</strong> If you're behind, 9z as a contrarian pick on a 7-point S-tier match is your best differential play. If you're ahead, take the market-consensus picks (Aurora, Legacy) to protect your position.</p>
+</div>
+
+<!-- DAY 1-2 RESULTS -->
+<section id="results">
+<div class="pick-section">
+<h2>📋 Day 1 Results (Oct 14)</h2>
+<div class="results-grid">
+<div class="result-card">
+<span class="day-badge">D1</span>
+<div class="match-info">
+<div class="teams">9z vs Aurora</div>
+<div class="maps-line">Inferno 13-11, Nuke 13-1</div>
+</div>
+<div class="score">9z 2-0</div>
+<span class="upset-badge">UPSET</span>
+</div>
+<div class="result-card">
+<span class="day-badge">D1</span>
+<div class="match-info">
+<div class="teams">Falcons vs NIP</div>
+<div class="maps-line">Ancient 16-13, Dust2 13-6</div>
+</div>
+<div class="score">Falcons 2-0</div>
+</div>
+<div class="result-card">
+<span class="day-badge">D1</span>
+<div class="match-info">
+<div class="teams">Legacy vs PARIVISION</div>
+<div class="maps-line">Dust2 13-11, Mirage 16-14</div>
+</div>
+<div class="score">Legacy 2-0</div>
+</div>
+<div class="result-card">
+<span class="day-badge">D1</span>
+<div class="match-info">
+<div class="teams">FURIA vs BetBoom</div>
+<div class="maps-line">Ancient 13-10, Mirage 13-9</div>
+</div>
+<div class="score">FURIA 2-0</div>
+</div>
+</div>
+
+<h2 style="margin-top:16px">📋 Day 2 Results (Oct 15)</h2>
+<div class="results-grid">
+<div class="result-card">
+<span class="day-badge">D2</span>
+<div class="match-info">
+<div class="teams">Aurora vs NIP</div>
+<div class="maps-line">Cache 13-9, Dust2 13-7</div>
+</div>
+<div class="score">Aurora 2-0</div>
+</div>
+<div class="result-card">
+<span class="day-badge">D2</span>
+<div class="match-info">
+<div class="teams">9z vs Falcons</div>
+<div class="maps-line">Nuke 9-13, Mirage 13-8, Dust2 9-13</div>
+</div>
+<div class="score">Falcons 2-1</div>
+</div>
+<div class="result-card">
+<span class="day-badge">D2</span>
+<div class="match-info">
+<div class="teams">PARIVISION vs BetBoom</div>
+<div class="maps-line">Ancient 13-10, Anubis 4-13, Mirage 7-13</div>
+</div>
+<div class="score">BetBoom 2-1</div>
+</div>
+<div class="result-card">
+<span class="day-badge">D2</span>
+<div class="match-info">
+<div class="teams">Legacy vs FURIA</div>
+<div class="maps-line">Cache 13-10, Inferno 5-13, Mirage 8-13</div>
+</div>
+<div class="score">FURIA 2-1</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DAY 3 PICKS -->
+<section id="picks" class="pick-section">
+<h2>🎯 Today's Picks — Day 3 (Oct 16)</h2>
+
+<!-- MATCH 1: 9z vs Aurora -->
+<div class="pick-card s-tier">
+<span class="tier-badge">S-TIER · 7 PTS</span>
+<p class="stage">Group A Decider Match</p>
+<h3 class="match-title">9z vs Aurora</h3>
+<p class="match-time">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+16:00 CEST / 14:00 UTC · Bo3 · <a href="https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026" target="_blank">HLTV ↗</a>
+</p>
+
+<div class="prob-bar">
+<div class="team-a" style="width:33%">9z 33%</div>
+<div class="team-b" style="width:67%">Aurora 67%</div>
+</div>
+<div class="prob-legend"><span>9z — underdog</span><span>Aurora — favorite</span></div>
+
+<div class="pick-box">
+<p class="pick-label">📌 Our Pick</p>
+<p class="pick-team">Aurora</p>
+<p class="pick-confidence">67% win probability · Moderate confidence</p>
+<p class="pick-reason">Market strongly favors Aurora despite Day 1 loss. They looked dominant Day 2 vs NIP (2-0, controlled maps). Bookmaker odds (Aurora 1.38 / 9z 2.70) give ~72% implied probability. After de-vigging and cross-referencing with HLTV community polling (83/17), we settle at 67%.</p>
+</div>
+
+<div class="contrarian-box" id="contrarian">
+<p class="contra-label">⚡ CONTRARIAN CANDIDATE</p>
+<p class="contra-team">9z (33%)</p>
+<p class="pick-reason">9z already beat Aurora 2-0 at this event. They dominated Nuke 13-1. They took Mirage 13-8 off Falcons (the tournament favorite) and pushed both other maps to 9 rounds. The Aurora roster rebuild (new IGL kyxsan, new player Jimpphat, new coach ash) is still causing communication issues — Day 1 proved it, Day 2 only confirmed it against weak NIP opposition.</p>
+<p class="contra-verdict">"Take 9z if you need leaderboard separation. They have proven they can beat Aurora at this event. 7 points for the upset vs 7 points for the favorite — the value is in the differential."</p>
+</div>
+
+<details class="sources-list">
+<summary>📚 Sources & verification trail</summary>
+<a href="https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026" target="_blank">HLTV match page ↗</a>
+<a href="https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026" target="_blank">HLTV Day 1 result (9z 2-0 Aurora) ↗</a>
+<a href="https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026" target="_blank">HLTV Day 2 result (9z 1-2 Falcons) ↗</a>
+<a href="https://blast.tv/cs/tournaments/thunderpick-world-championship-2026/match/21a880bd/9z-aurora" target="_blank">blast.tv community prediction (83/17) ↗</a>
+<a href="https://stavka.tv/matches/csgo/16-10-2026-aurora-gaming-9z" target="_blank">stavka.tv betting odds (Aurora 1.38) ↗</a>
+<a href="https://www.hotspawn.com/counter-strike/news/thunderpick-world-championship-2026-day-3-preview" target="_blank">Hotspawn Day 3 preview ↗</a>
+<a href="https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026" target="_blank">HLTV: 9z beat Aurora 2-0 ↗</a>
+<a href="https://liquipedia.net/counterstrike/Thunderpick/World_Championship/2026" target="_blank">Liquipedia bracket ↗</a>
+</details>
+</div>
+
+<!-- MATCH 2: BetBoom vs Legacy -->
+<div class="pick-card s-tier">
+<span class="tier-badge">S-TIER · 7 PTS</span>
+<p class="stage">Group B Decider Match</p>
+<h3 class="match-title">BetBoom vs Legacy</h3>
+<p class="match-time">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+19:00 CEST / 17:00 UTC · Bo3 · <a href="https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026" target="_blank">HLTV ↗</a>
+</p>
+
+<div class="prob-bar">
+<div class="team-a" style="width:28%">BB 28%</div>
+<div class="team-b" style="width:72%">Legacy 72%</div>
+</div>
+<div class="prob-legend"><span>BetBoom — underdog</span><span>Legacy — favorite</span></div>
+
+<div class="pick-box">
+<p class="pick-label">📌 Our Pick</p>
+<p class="pick-team">Legacy</p>
+<p class="pick-confidence">72% win probability · High confidence</p>
+<p class="pick-reason">Legacy are a tier above BetBoom. arT is back from illness. They beat PARIVISION 2-0 Day 1 and pushed FURIA to 3 maps Day 2 (took Cache 13-10). BetBoom lost 0-2 to FURIA Day 1 and barely survived PARIVISION (reverse sweep) Day 2. HLTV fan vote: Legacy 75.6%. Tournament outright odds: Legacy 3.80 vs BetBoom 12.00.</p>
+</div>
+
+<div class="contrarian-box">
+<p class="contra-label">⚡ CONTRARIAN ANALYSIS</p>
+<p class="contra-team">BetBoom (28%) — NOT RECOMMENDED</p>
+<p class="pick-reason">BetBoom showed some fight Day 2 (reverse sweep vs PARIVISION, zorte 51 kills) but were dominated by FURIA and barely survived an eliminated PARIVISION team. Legacy's firepower (latto, try, dumau) is significantly superior. No leaderboard value in fading Legacy here.</p>
+<p class="contra-verdict">"Take Legacy. No edge on the contrarian side. Save your contrarian energy for the 9z match."</p>
+</div>
+
+<details class="sources-list">
+<summary>📚 Sources & verification trail</summary>
+<a href="https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026" target="_blank">HLTV match page ↗</a>
+<a href="https://www.hltv.org/news/45730/furia-make-twc-playoffs-over-legacy" target="_blank">HLTV: FURIA make TWC playoffs ↗</a>
+<a href="https://www.hltv.org/news/45729/betboom-eliminate-parivision-from-twc" target="_blank">HLTV: BetBoom eliminate PARIVISION ↗</a>
+<a href="https://www.hotspawn.com/counter-strike/news/thunderpick-world-championship-2026-day-3-preview" target="_blank">Hotspawn Day 3 preview ↗</a>
+<a href="https://tips.gg/article/thunderpick-wc2026-winner-odds/" target="_blank">tips.gg tournament odds ↗</a>
+<a href="https://tribuna.com/amp/en/betting/blogs/thunderpick-world-championship-2026-odds-favorites-our-predi/" target="_blank">Tribuna tournament odds ↗</a>
+</details>
+</div>
+</section>
+
+<!-- AURORA ROSTER CHANGES -->
+<section id="roster">
+<div class="roster-section">
+<h3>🔄 Aurora Roster Changes — Impact on Day 3</h3>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Reported 2026-07-08 · Source: <a href="https://www.strafe.com/news/read/aurora-locks-in-new-cs2-roster-with-kyxsan-and-jimpphat" target="_blank">Strafe News ↗</a></p>
+<div class="change"><strong>kyxsan</strong> <span class="arrow">→</span> IGL/Captain (from Team Falcons, benched 2+ months)</div>
+<div class="change"><strong>Jimpphat</strong> <span class="arrow">→</span> Rifler (from MOUZ, 3 years)</div>
+<div class="change"><strong>ash</strong> <span class="arrow">→</span> Head Coach (from GamerLegion)</div>
+<div class="change"><span style="color:var(--danger)">MAJ3R, soulfly, Fabre</span> <span class="arrow">←</span> Departed</div>
+<p class="impact">Coach ash acknowledged the integration difficulties in an August 2026 interview: "Aurora retained the Turkish trio but transformed the structure around them." The Day 1 collapse (13-1 on Nuke) is consistent with communication breakdowns in a new international system. Day 2 vs NIP (2-0) showed partial recovery but against weak opposition.</p>
+<p class="impact" style="margin-top:6px"><strong>Day 3 implication:</strong> The roster instability is structural, not a one-day issue. Aurora's floor is lower than pre-tournament rankings suggested. This is why 9z as a contrarian pick has real value.</p>
+<a href="https://cs2news.com/news/ash-aurora-new-system-ewc-2026" target="_blank" style="font-size:12px">ash interview: Aurora's difficult start →</a>
+</div>
+</section>
+
+<!-- LEADERBOARD STRATEGY -->
+<section id="leaderboard">
+<div class="leaderboard-section">
+<h3>🏆 Hotspawn Leaderboard Strategy</h3>
+<p class="strat"><strong>SAFE PLAYS:</strong> Aurora (67%), Legacy (72%) — these are the consensus picks. Most of the field will have them.</p>
+<p class="strat"><strong>CONTRARIAN PLAY:</strong> <em>9z over Aurora</em> — 33% win probability but they've already beaten Aurora at this event. 7 points for the upset. If you're trailing on the leaderboard, this is your best differential.</p>
+<p class="strat"><strong>AVOID:</strong> BetBoom — no edge here. Legacy are the right call.</p>
+<p class="strat" style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)"><strong>EXPECTED VALUE:</strong> If both favorites win, you match the field. If 9z pull the upset again, picking 9z gives massive separation — you gain 7 points where the field loses 7. That's a 14-point swing in a single match.</p>
+</div>
+</section>
+
+<!-- PLAYOFF BRACKET -->
+<section id="bracket">
+<div class="pick-section">
+<h2>📊 Playoff Bracket</h2>
+<div class="bracket">
+<h3>Confirmed in Playoffs</h3>
+<div class="bracket-row">
+<span class="team">🇪🇺 Team Falcons</span>
+<span class="status through">Through (2-0)</span>
+</div>
+<div class="bracket-row">
+<span class="team">🇧🇷 FURIA</span>
+<span class="status through">Through (2-0)</span>
+</div>
+
+<h3 style="margin-top:12px">Today's Deciders</h3>
+<div class="bracket-row">
+<span class="team">🇦🇷 9z vs Aurora 🇹🇷</span>
+<span class="status decider">14:00 UTC</span>
+</div>
+<div class="bracket-row">
+<span class="team">🇷🇺 BetBoom vs Legacy 🇧🇷</span>
+<span class="status decider">17:00 UTC</span>
+</div>
+
+<h3 style="margin-top:12px">Semifinals (Oct 17)</h3>
+<div class="bracket-row">
+<span class="team">Falcons vs Group B winner</span>
+<span style="font-size:11px;color:var(--muted)">14:00 UTC</span>
+</div>
+<div class="bracket-row">
+<span class="team">FURIA vs Group A winner</span>
+<span style="font-size:11px;color:var(--muted)">17:00 UTC</span>
+</div>
+
+<h3 style="margin-top:12px">Finals (Oct 18)</h3>
+<div class="bracket-row">
+<span class="team">Third-place match</span>
+<span style="font-size:11px;color:var(--muted)">11:30 UTC</span>
+</div>
+<div class="bracket-row">
+<span class="team">Grand Final (Bo5)</span>
+<span style="font-size:11px;color:var(--muted)">15:00 UTC</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ELIMINATED -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin:16px 0;font-size:13px">
+<strong>❌ Eliminated:</strong> NIP (0-2), PARIVISION (0-2)<br>
+<strong>Still fighting:</strong> 9z, Aurora, BetBoom, Legacy
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p><strong>Better context. Clearer picks.</strong></p>
+<p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p>
+<p>Estimates, not guarantees. No bets are placed. Informational use only. 18+ where applicable.</p>
+<p style="margin-top:8px">
+<a href="../">Executive Summary</a> ·
+<a href="../picks/">All Match Picks</a> ·
+<a href="../coverage/">Coverage & Sources</a> ·
+<a href="../methodology/">Methodology</a> ·
+<a href="../review/">Flagged for Review</a>
+</p>
+<p style="margin-top:4px">Data: <a href="../data/twc-day3-picks.json">Day 3 picks JSON ↓</a> · <a href="../data/contrarian.json">Contrarian analysis ↓</a></p>
+</footer>
+
+<div class="spacer"></div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-bottom" aria-label="Mobile navigation">
+<a href="../" title="Executive Summary">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+Summary
+</a>
+<a href="../picks/" title="All Match Picks">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+Picks
+</a>
+<a href="." class="active" title="TWC Day 3">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+TWC D3
+</a>
+<a href="../coverage/" title="Sources">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 10 5-10 5L2 8l10-5Z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/></svg>
+Sources
+</a>
+<a href="../review/" title="Flagged for Review">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 21V3h8l1 3h6v10h-7l-1-3H5"/></svg>
+Review
+</a>
+</nav>
+
+</body>
+</html>

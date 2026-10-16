@@ -1,5 +1,22 @@
 # Shared coordination board
 
+## Session: `arena-9db9ccd4` · Branch: `arena/9db9ccd4-maltaproj3`
+
+| Task | Status | Owner | File scope | Last update (UTC) |
+| --- | --- | --- | --- | --- |
+| TWC 2026 Day 1/2 results analysis, Day 3 picks, contrarian analysis, Aurora roster impact | done | arena-9db9ccd4 | `data/twc-day3-picks.json`, `data/contrarian.json`, `twc-picks/index.html`, `index.html`, `picks/index.html` | 2026-10-16 |
+| Mobile-friendly TWC Day 3 picks page with executive summary, probabilities, contrarian plays, leaderboard strategy | done | arena-9db9ccd4 | `twc-picks/index.html` | 2026-10-16 |
+| Navigation updates: TWC Day 3 links in sidebar, hero, and mobile nav across all pages | done | arena-9db9ccd4 | `index.html`, `picks/index.html` | 2026-10-16 |
+
+### Verification and sources for session 9db9ccd4
+- Day 1 results verified against [HLTV event results](https://www.hltv.org/results?event=8932): 9z 2-0 Aurora, Falcons 2-0 NIP, Legacy 2-0 PARIVISION, FURIA 2-0 BetBoom
+- Day 2 results verified against [HLTV](https://www.hltv.org/results?event=8932): Aurora 2-0 NIP, Falcons 2-1 9z, BetBoom 2-1 PARIVISION, FURIA 2-1 Legacy
+- Day 3 probabilities sourced from [stavka.tv](https://stavka.tv/matches/csgo/16-10-2026-aurora-gaming-9z) (Aurora 1.38, 9z 2.70), [HLTV fan vote](https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026) (Legacy 75.6%), [blast.tv](https://blast.tv/cs/tournaments/thunderpick-world-championship-2026/match/21a880bd/9z-aurora) community poll
+- Aurora roster changes verified from [Strafe News](https://www.strafe.com/news/read/aurora-locks-in-new-cs2-roster-with-kyxsan-and-jimpphat) and [cs2news.com](https://cs2news.com/news/ash-aurora-new-system-ewc-2026)
+- HLTV match pages linked for all TWC matches
+
+---
+
 Session: `arena-4aae8328` · Branch: `arena/4aae8328-maltaproj3`
 
 This session is fixed to the Arena branch above. No alternative session branches are created. The repository contained only `README.md` at initial inspection; no other task claims existed.
