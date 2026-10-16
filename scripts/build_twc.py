@@ -180,7 +180,9 @@ def render(data: dict, prefix: str, source: Path) -> str:
     from scripts.build import e, heading, external, local_time, blank, badge
     report = derive(data, source)
     from scripts.twc_research import derive_day4
-    guide = derive_day4(data, source, datetime.now(timezone.utc))
+    guide = data.get('_twc_day4')
+    if guide is None:
+        guide = derive_day4(data, source, datetime.now(timezone.utc))
     report['day4'] = guide
     data['_twc_report'] = report
     out = heading('Thunderpick World Championship 2026 · 17 October', 'TWC Day 4: picks & review',
@@ -198,6 +200,7 @@ def render(data: dict, prefix: str, source: Path) -> str:
             f'{local_time(report["source_generated_at"])}. Times use the page timezone selector. '
             'All probabilities below regenerate with the same four-hour publisher as the full list.</p></section>')
     out += render_day4(guide, prefix)
+    out += '<details class="twc-history"><summary>Historical Day 3 probability snapshot &amp; audit</summary>'
     out += '<section class="content-section twc-section" id="day-three-picks"><div class="section-heading"><div><p class="eyebrow">Same numbers as the complete picks list</p><h2>Day 3 probability snapshot &amp; audit</h2></div></div><div class="twc-grid">'
     for row in report['day3_matches']:
         a, pick = row['analysis'], row['pick_index']
@@ -248,6 +251,7 @@ def render(data: dict, prefix: str, source: Path) -> str:
     out += '</div><p class="section-intro">The probability source, not a fan poll, decides the default. '
     out += (f'Use <a href="{prefix}strategy/">the points-aware leaderboard plan</a> for the whole card. '
             'This TWC screen is a transparent risk choice, not an assertion of profitable mispricing.</p></section>')
+    out += '</details>'
     out += '<section class="content-section" id="day-one-results"><div class="section-heading"><div><p class="eyebrow">14 October · historical</p><h2>Day 1: the upset in context</h2></div></div>'
     out += results_table(report['day1_results'], prefix) + '</section>'
     out += '<section class="content-section" id="day-two-results"><div class="section-heading"><div><p class="eyebrow">15 October · historical</p><h2>Day 2: what changes for Day 3</h2></div></div>'
@@ -341,9 +345,9 @@ def render_day4(guide, prefix):
     if not guide['matches']:
         out += '<p class="section-intro"><strong>No Day-4 TWC fixture is confirmed in this Hotspawn snapshot.</strong> No pair, lock, price or default is invented. The complete CS2 list remains available below.</p>'
     if guide['not_in_hotspawn_snapshot']:
-        out += '<div class="table-scroll"><table class="simple-table"><caption>HLTV-listed Day-4 fixtures not uniquely matched to this Hotspawn snapshot — not playable picks here</caption><thead><tr><th>Match</th><th>HLTV start</th><th>Hotspawn probability / pick</th><th>Source</th></tr></thead><tbody>'
+        out += '<div class="table-scroll"><table class="simple-table"><caption>HLTV-listed Day-4 fixtures not uniquely matched to the Hotspawn weekly inventory — not playable picks here</caption><thead><tr><th>Match</th><th>HLTV start</th><th>Hotspawn probability / pick</th><th>Source</th></tr></thead><tbody>'
         for r in guide['not_in_hotspawn_snapshot']:
-            out += f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}</th><td>{local_time(r["facts"]["starts_at"])}</td><td>{blank()}<small>No unique exact pair/time join; no line copied across fixtures.</small></td><td>{external(r["source_url"], "HLTV fixture")}<small>Read {local_time(r["observed_at"])}</small></td></tr>'
+            out += f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}</th><td>{local_time(r["facts"]["starts_at"])}</td><td>{blank()}<small>No unique exact pair/time join to the weekly inventory; placeholder opponents are not confirmed. No price or lock inferred. Separate tournament picks may differ.</small></td><td>{external(r["source_url"], "HLTV fixture")}<small>Read {local_time(r["observed_at"])}</small></td></tr>'
         out += '</tbody></table></div>'
     out += (f'<p class="section-intro"><a href="{prefix}origination/#picks">Every updated CS2 pick →</a> · '
             f'<a href="{prefix}origination/#unresolved">All unresolved picks &amp; limitations →</a> · '

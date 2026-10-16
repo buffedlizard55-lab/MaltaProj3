@@ -178,3 +178,40 @@ from P are integrated. M’s historical ≥3/5-core dossier remains downloadable
 partial-overlap scenarios are **not** a second current probability feed. The review page flags this policy
 conflict (including a withdrawn 403-row claim; the original Git blob contains 380 rows). Its dated Valve
 inputs are pinned and replayed from the original response, independently of later live-cache refreshes.
+
+## Day 4 TWC handoff (17 October 2026)
+
+The mobile executive summary links directly to **[Day 4 picks and review](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/#day-four-picks)**,
+**[every CS2 pick](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks)** and
+**[unresolved picks and limitations](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved)**.
+Day-4 probabilities are exact copies of the canonical complete-picks feed, not a separate editorial model.
+The Day-3 JSON's schema-2 fields remain compatible; `day4` is additive, and `data/twc-day4-picks.json`
+provides the dedicated view. Historical Day-3 prices are expandable and clearly separate from current choices.
+
+The sole scheduled Pages publisher now also runs `python -m scripts.twc_research`. It reads normal public
+HLTV event/match pages and Hotspawn tournament metadata, retains compressed originals and SHA-256 hashes,
+and replays results from those originals. An unfinished series has no inferred winner. A newly listed HLTV
+fixture absent from the reconciled Hotspawn weekly inventory has no invented probability, deadline or pick.
+Tournament listings and weekly picks are explicitly different scopes; placeholder opponents are not confirmed teams.
+A tournament fixture count is not proof of complete playable coverage.
+
+Live research is distinct from dated `data/research/8a6a5a84/` evidence (19:35Z on 16 October).
+That observation confirmed Aurora 2–0 9z, but **did not** confirm a BETBOOM–Legacy series winner.
+It found 21 active weekly fixtures, 13 supported estimates and eight unresolved. These are dated diagnostics,
+not permanent live counts. Missing lines, ambiguous aliases, absent Valve ratings and partial roster proofs
+remain blank. HLTV is an independent reporter, not primary organizer verification. Roster integration,
+health, actual rest, ownership and leaderboard-gain probabilities are not invented or added to win estimates.
+
+Day-4 cards reuse the existing shared safety guards: default and optional-underdog labels retire together
+when inventory or price expires, a lock/start passes, or eligibility is unverified, including tab focus/resume.
+Source percentages remain for audit. No-JavaScript labels describe build time only; a device clock is not a trusted
+server clock. The four-hour refresh is a GitHub Actions schedule target, not a guaranteed delivery SLA.
+
+Local verification commands (Python 3.11+):
+
+```sh
+.venv/bin/python -m unittest discover -s tests
+.venv/bin/python -m scripts.build
+.venv/bin/python -m scripts.audit_rows --site site --strict
+PYTHON=.venv/bin/python npm test
+```

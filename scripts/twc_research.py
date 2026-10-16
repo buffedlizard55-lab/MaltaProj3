@@ -42,7 +42,8 @@ def collect(source: Path):
     pages, urls = [], set(DAY3_URLS)
     for label, url in [('event', EVENT_URL), ('matches', 'https://www.hltv.org/events/8932/matches'),
                        ('results', 'https://www.hltv.org/results?event=8932'),
-                       ('hotspawn-tournament', 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1')]:
+                       ('hotspawn-tournament', 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1'),
+                       ('hotspawn-tournament-page', 'https://play.hotspawn.com/tournaments/thunderpick-world-championships')]:
         try:
             text, req = client.fetch(url, 'twc-' + label)
             raw = text.encode('utf-8')
@@ -94,7 +95,7 @@ def load(source: Path):
         raw = gzip.decompress(original.read_bytes())
         if hashlib.sha256(raw).hexdigest() != page.get('stored_sha256'):
             raise ValueError('TWC current original hash mismatch')
-        if '/matches/' not in request['url']:
+        if not re.fullmatch(r'https://www\.hltv\.org/matches/\d+/[a-z0-9-]*thunderpick-world-championship-2026', request['url']):
             continue
         facts = parse_match(raw.decode('utf-8'))
         # A malformed or unrelated page cannot introduce a fixture/result.

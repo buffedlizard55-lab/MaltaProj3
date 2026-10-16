@@ -1,0 +1,57 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+
+const FIXTURE = '/_twc_day4_fixture/';
+test.beforeAll(() => execFileSync(process.env.PYTHON || 'python', ['tests/browser/twc_day4_fixture.py'], { stdio: 'inherit' }));
+test.afterAll(() => fs.rmSync('site/_twc_day4_fixture', { recursive: true, force: true }));
+
+for (const width of [320, 390, 768, 1440]) {
+  test(`Day-4 choices and both probabilities fit at ${width}px`, async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-10-16T20:00:00Z') });
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(FIXTURE);
+    await expect(page.locator('#day-four-picks .twc-day4-card')).toHaveCount(2);
+    await expect(page.locator('#day-four-picks .twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
+    await expect(page.locator('#day-four-picks [data-current-only].pick-choice')).toHaveText(['Default pick: Aurora', 'Default pick: Legacy']);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const box = await page.locator('#day-four-picks .twc-day4-card').first().boundingBox();
+    expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(width);
+  });
+}
+
+test('Day-4 open-tab stale and resumed guards retire default and optional underdog together', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-16T20:00:00Z') });
+  await page.goto(FIXTURE);
+  await expect(page.locator('#day-four-picks .twc-watch').first()).toBeVisible();
+  await page.clock.fastForward(9 * 3600000);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('#day-four-picks [data-current-only].pick-choice').first()).toBeHidden();
+  await expect(page.locator('#day-four-picks .twc-watch').first()).toBeHidden();
+  await expect(page.locator('#day-four-picks [data-historical-only]').first()).toContainText('Snapshot only: Aurora');
+  await expect(page.locator('#day-four-picks [data-safety-message]').first()).toContainText('Not a current pick');
+});
+
+test('Day-4 source links, current defaults and blanks remain readable with no JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 900 } });
+  const page = await context.newPage();
+  await page.goto(FIXTURE);
+  await expect(page.locator('#day-four-picks .twc-day4-card')).toHaveCount(2);
+  await expect(page.locator('#day-four-picks .twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
+  for (const card of await page.locator('#day-four-picks .twc-day4-card').all()) {
+    await expect(card.getByRole('link', { name: 'Official Hotspawn fixture' })).toBeVisible();
+    await expect(card.getByRole('link', { name: 'All source attempts & full pricing audit' })).toBeVisible();
+  }
+  await context.close();
+});
+
+for (const width of [390, 1440]) {
+  test(`Day-4 WCAG A/AA automated scan at ${width}px`, async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-10-16T20:00:00Z') });
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(FIXTURE);
+    const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+    expect(result.violations).toEqual([]);
+  });
+}

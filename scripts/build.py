@@ -325,6 +325,17 @@ def summary(data, prefix):
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["unresolved"]} unresolved in the complete researched list. Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 4: picks &amp; review →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'twc-picks/">Day 4 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    day4 = data.get('_twc_day4')
+    if day4 is not None:
+        confirmed = len(day4['matches'])
+        unresolved4 = sum(not r['analysis'] for r in day4['matches'])
+        pending = len(day4['not_in_hotspawn_snapshot'])
+        out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC Day 4 coverage</h2>'
+                f'<p>{confirmed} fixture(s) in the reconciled Hotspawn inventory; {unresolved4} without a supported estimate. '
+                f'{pending} HLTV listing(s) not uniquely matched to that inventory. Unconfirmed opponents, lock times and prices stay blank; '
+                'a tournament listing is not silently treated as a weekly lobby fixture. '
+                f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
+                f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'
@@ -544,7 +555,7 @@ def build(source: Path, output: Path):
     # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
     # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
     # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
-    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json'):
+    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json', source / 'research/35440d12/flags.json', source / 'research/8a6a5a84/flags.json'):
         if findings.exists():
             have = {f['id'] for f in data['flags']}
             data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
@@ -552,6 +563,8 @@ def build(source: Path, output: Path):
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     if (source / 'research/c07e1b40/repo-review.json').exists():
         data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
+    from scripts.twc_research import derive_day4
+    data['_twc_day4'] = derive_day4(data, source, datetime.now(timezone.utc))
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)

@@ -1,8 +1,5 @@
 name: TWC source research
 on:
-  push:
-    branches: ['arena/8a6a5a84-maltaproj3']
-    paths: ['.github/workflows/twc-research.yml']
   workflow_dispatch:
     inputs:
       export:
@@ -45,7 +42,7 @@ jobs:
           print('::notice title=Coverage diagnostic::' + json.dumps({k: report[k] for k in ['inventory_observed_at', 'coverage_complete', 'counts']}))
           PY
       - name: Export only to the fixed session branch when explicitly requested
-        if: (inputs.export || github.event_name == 'push') && github.ref == 'refs/heads/arena/8a6a5a84-maltaproj3'
+        if: inputs.export && github.ref == 'refs/heads/arena/8a6a5a84-maltaproj3'
         run: |
           git restore data
           git config user.name 'github-actions[bot]'
