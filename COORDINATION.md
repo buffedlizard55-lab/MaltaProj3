@@ -43,6 +43,34 @@ The brief's alternative branch naming is superseded by Arena's fixed-branch cons
 
 ---
 
+# Current session: arena-f392649f — Day-3 TWC priced guide, HLTV lineup disambiguation & edge/review audit
+
+Session: `arena-f392649f` · Fixed branch: `arena/f392649f-maltaproj3` · Claimed 2026-10-16T07:21Z.
+Read `COORDINATION.md` and fetched all remote branches before claiming, including the active claims on
+`origin/arena/6426358d-maltaproj3` (K-1..K-3, claimed 07:18Z) and `origin/arena/32a1857a-maltaproj3`
+(P-1..P-3, claimed 07:20Z, merged PR #51). **Zero file overlap is claimed with either active session.**
+Arena fixes this session to `arena/f392649f-maltaproj3`, superseding `session-<id>/<task>` branch naming.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| M-1 First-party Day 1 & Day 2 HLTV series/lineup verification and updated Day 3 TWC 2026 priced guide (16 Oct deciders: Aurora vs 9z and Legacy vs BETBOOM, plus contrarian/roster/rest analysis) | done 2026-10-16T07:41Z | arena-f392649f | `data/day3-guide.json`, `data/edge-review.json`, `scripts/build_edge.py`, `tests/test_day3.py`, `tests/test_edge.py` | Verified all 4 Day-1 series (`2399384`–`2399387`, confirming `karrigan` played 5th slot for Falcons) and all 4 Day-2 series (`2399408`–`2399411`, filling in `Cache 13-9, Dust2 13-7` for Aurora vs NiP), plus live Polymarket (`5733288`, `5763247`) & Kalshi (`KXCS2GAME-26OCT1610009ZAUR`, `KXCS2GAME-26OCT161300BBLGC`) order books for both Day-3 deciders (`Aurora 69.5% / 9z 30.5%` and `Legacy 63.5% / BETBOOM 36.5%`). |
+| M-2 First-party HLTV lineup disambiguation & external-line research for the remaining unresolved Hotspawn CS2 fixtures (duplicate Valve rosters `Just Players`, `aimclub`, `Leo`, plus missing-ladder teams `LOS NINOS`, `Insiders`) | done 2026-10-16T07:41Z | arena-f392649f | new `scripts/lineup_disambiguation.py`, new `data/research/f392649f/lineup-disambiguation.json`, new `data/research/f392649f/twc-day3-verification.json`, new `tests/test_f392649f.py`, `scripts/review_register.py`, `tests/test_review_register.py` | Uniquely resolves 3 of 5 unresolved fixtures via HLTV 5-player core matching (`>= 3/5`) against `data/evidence/valve-ratings.json` (`1079170` BET-M 72.71% / Just Players 27.29%; `1081527` aimclub 60.62% / BASEMENT BOYS 39.38%; `1081532` ASTRAL 59.81% / Leo 40.19%) and documents why `1081502` (`LOS NINOS`) and `1081526` (`Insiders`) are unranked (`0/5` core match) and must remain blank. Published on `/edge/#lineup-disambiguation` and `/review/#lineup-disambiguation`. |
+| M-3 Scoped integration, row-source audit, link/test verification, PR to `main`, merge and Pages verification after/with concurrent sessions | in progress | arena-f392649f | `COORDINATION.md` (this section); rebase onto `origin/main` before PR/merge | Preserves all work from `arena-32a1857a`, `arena-6426358d` and earlier sessions. |
+
+### Verification and handoff for session arena-f392649f (2026-10-16T07:41Z)
+- **TWC Day 3 two-venue order books (`2026-10-16T07:15Z–07:20Z`):**
+  - `Aurora vs 9z` (`1080205`, HLTV `2399412`, 14:00 UTC): Polymarket `5733288` `Aurora 69.5% (bid 0.69 / ask 0.70) / 9z 30.5% (bid 0.30 / ask 0.31)`, spread `$0.01`, `$23,357.21` moneyline volume, `$90,786.51` liquidity; Kalshi `KXCS2GAME-26OCT1610009ZAUR` `Aurora 69.19% / 9z 30.81%` (`$5,218.16` volume). Two-venue consensus `Aurora 69.35% / 9z 30.65%`. Primary pick: `Aurora`; designated contrarian flip: `9z` (backed by Day-1 `2-0` win over this exact rebuilt Aurora lineup and Day-2 `13-8` Mirage win vs Falcons).
+  - `Legacy vs BETBOOM` (`1081775`, HLTV `2399413`, 17:00 UTC): Polymarket `5763247` `Legacy 63.5% (bid 0.63 / ask 0.64) / BetBoom 36.5% (bid 0.36 / ask 0.37)`, spread `$0.01`, `$13,428.16` moneyline volume, `$76,908.03` liquidity; Kalshi `KXCS2GAME-26OCT161300BBLGC` `Legacy 63.64% / BetBoom 36.36%` (`$1,898.17` volume). Two-venue consensus `Legacy 63.57% / BetBoom 36.43%`. Primary pick: `Legacy` (chalk anchor; Legacy permabans `Anubis` first in every TWC veto, removing BetBoom's `13-4` Day-2 punish map).
+- **HLTV 5-player lineup disambiguation (`scripts/lineup_disambiguation.py` + `data/research/f392649f/lineup-disambiguation.json`):**
+  - `1079170` (`BET-M vs Just Players`, HLTV `2399087`): `BET-M` `#71` (`1149 pts`, `4/5` core) vs `Just Players` `#118` (`974 pts`, `4/5` core vs `1/5` on `#347`) → `BET-M 72.71% / Just Players 27.29%` (pick `BET-M`, fair line `1.375 / 3.664`).
+  - `1081527` (`aimclub vs BASEMENT BOYS`, HLTV `2399591`): `aimclub` `#77` (`1113 pts`, `4/5` core vs `2/5` on `#336`) vs `BASEMENT BOYS` `#102` (`1036 pts`, `5/5` core) → `aimclub 60.62% / BASEMENT BOYS 39.38%` (pick `aimclub`, fair line `1.650 / 2.539`).
+  - `1081532` (`ASTRAL vs Leo`, HLTV `2399597`): `ASTRAL` `#91` (`1072 pts`, `5/5` core) vs `Leo` `#112` (`1001 pts`, `5/5` core vs `1/5` on `#340`) → `ASTRAL 59.81% / Leo 40.19%` (pick `ASTRAL`, fair line `1.672 / 2.488`).
+  - `1081502` (`Procyon vs LOS NINOS`, HLTV `2399672`) and `1081526` (`INFINITE vs Insiders`, HLTV `2399590`): `LOS NINOS` (`1 match / 3 maps` in 30d) and `Insiders` (`4 matches / 0 maps` in 30d) are `HLTV: Unranked / VRS: Unranked` with `0` Valve core matches (`< 3/5`) across all 403 rows; kept strictly `None` (unverified).
+  - **Handoff to `scripts/originate.py` owner (`arena-6426358d`):** `scripts/lineup_disambiguation.py` and `data/research/f392649f/lineup-disambiguation.json` provide the audited 5-player HLTV lineup map so `originate.py` can optionally consume `selected_valve_standing` when disambiguating duplicate Valve team names without guessing.
+- **Local checks:** **313 Python unit tests pass** (including `tests/test_f392649f.py`, `tests/test_day3.py`, `tests/test_edge.py`, `tests/test_review_register.py`, and `tests/test_pick_presentation_safety.py`), `python -m scripts.build` PASS (`80` source rows reconciled, `526` internal links/assets/anchors), `python -m scripts.audit_rows --strict` PASS (`305` rows, `0` violations).
+
+---
+
 # Shared coordination board
 
 ## Session: `arena-9db9ccd4` · Branch: `arena/9db9ccd4-maltaproj3`
