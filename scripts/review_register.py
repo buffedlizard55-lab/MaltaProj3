@@ -73,4 +73,7 @@ def render(register: dict, prefix: str) -> str:
                        f'rel="noopener noreferrer">{e(host(ev["url"]))}</a></li>')
         out.append('</ul></details></td></tr>')
     out.append('</tbody></table></div></section>')
+    from scripts.lineup_disambiguation import DISAMBIGUATION_PATH, VALVE_EVIDENCE_PATH, load_disambiguation, render_disambiguation_section
+    if DISAMBIGUATION_PATH.exists() and VALVE_EVIDENCE_PATH.exists():
+        out.append(render_disambiguation_section(load_disambiguation(DISAMBIGUATION_PATH, VALVE_EVIDENCE_PATH), prefix))
     return ''.join(out)

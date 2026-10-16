@@ -111,11 +111,24 @@ class ReviewRenderingTests(unittest.TestCase):
 
     def test_required_sections_and_anchors_are_rendered(self):
         soup = BeautifulSoup(self.body(), 'html.parser')
-        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-three', 'standings', 'edge-limitations']:
+        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-three', 'standings', 'lineup-disambiguation', 'edge-limitations']:
             self.assertIsNotNone(soup.find(id=anchor), anchor)
         self.assertEqual(len(soup.select('#day-one tbody tr')), len(review()['day_one']))
         self.assertEqual(len(soup.select('#day-two tbody tr')), len(review()['day_two']))
         self.assertEqual(len(soup.select('#rules .resolution-step')), len(review()['edge_rules']))
+        self.assertEqual(len(soup.select('#lineup-disambiguation tbody tr')), 5)
+
+    def test_all_day_one_rows_have_verified_five_player_lineups_and_day_three_has_live_markets(self):
+        data = review()
+        for row in data['day_one']:
+            self.assertEqual(len(row['verified_lineup_a']), 5, row['team_a'])
+            self.assertEqual(len(row['verified_lineup_b']), 5, row['team_b'])
+        falcons_opener = next(r for r in data['day_one'] if r['team_a'] == 'Falcons')
+        self.assertIn('karrigan', falcons_opener['verified_lineup_a'])
+        for row in data['day_three']:
+            self.assertIsNotNone(row['hotspawn_id'])
+            self.assertIsNotNone(row['market'])
+            self.assertAlmostEqual(sum(row['market']['prices'].values()), 1.0, places=4)
 
     def test_day_two_rows_use_the_verified_inventory_hotspawn_link(self):
         """Hotspawn links come from the live inventory; fixtures the scheduled
