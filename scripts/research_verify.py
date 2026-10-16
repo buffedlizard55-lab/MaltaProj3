@@ -116,13 +116,27 @@ class Probe:
             return None, None
         evidence = ''
         if save:
-            suffix = '.json' if 'json' in response.headers.get('content-type', '') else '.html'
-            name = f'{label}{suffix}'
-            path = self.raw / name
+            is_json = 'json' in response.headers.get('content-type', '')
+            suffix = '.json' if is_json else '.html'
             body = response.content
-            if len(body) > 400_000:  # keep the repository light; gzip anything large
+            path = self.raw / f'{label}{suffix}'
+            # Archived markup is ALWAYS compressed. scripts/build.py copies the whole
+            # data/ tree into the deployed site and scripts/validate.py::check_links then
+            # scans every site/**/*.html, so a plain archived page would be published as a
+            # page in its own right and fail the <main>/viewport requirement - breaking the
+            # production Pages build. Large JSON is compressed to keep the repository light.
+            if not is_json or len(body) > 48_000:
                 path = path.with_suffix(suffix + '.gz')
                 body = gzip.compress(body)
+            # A previous run can leave the same label under the other extension (for
+            # example a Cloudflare "Just a moment..." challenge body saved plain before
+            # the same label succeeded and was compressed). Stale evidence shadowing fresh
+            # evidence would let a reviewer read a 403 page as a source, so every
+            # counterpart is removed.
+            for other in ('.html', '.html.gz', '.json', '.json.gz'):
+                counterpart = self.raw / (label + other)
+                if counterpart != path and counterpart.exists():
+                    counterpart.unlink()
             path.write_bytes(body)
             evidence = str(path)
         if response.status_code != 200:
@@ -343,79 +357,183 @@ def _text(el) -> str:
     return re.sub(r'\s+', ' ', el.get_text(' ', strip=True)) if el is not None else ''
 
 
+def _unix_ms(value):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _utc_from_unix(value):
+    ms = _unix_ms(value)
+    if ms is None:
+        return None
+    try:
+        return datetime.fromtimestamp(ms / 1000, UTC).isoformat()
+    except (OSError, OverflowError, ValueError):
+        return None
+
+
 def parse_hltv_schedule(html: str) -> dict:
-    """Parse the event Matches page into date-grouped fixtures exactly as displayed."""
+    """Read HLTV's event fixture board from its own data attributes.
+
+    HLTV renders ``div.match-time`` in the *viewer's* timezone, so a displayed clock
+    time is never quoted as UTC here. Every fixture carries ``data-unix`` (and its
+    wrapper ``data-zonedgrouping-entry-unix``) in absolute milliseconds, which is the
+    only timezone-independent start time on the page. The displayed time is recorded
+    separately and labelled as displayed.
+    """
     try:
         from bs4 import BeautifulSoup
     except Exception:
-        return {'limitation': 'beautifulsoup4 unavailable'}
+        return {'days': [], 'fixtures': [], 'limitation': 'beautifulsoup4 unavailable'}
     soup = BeautifulSoup(html, 'html.parser')
-    days, current = [], None
-    # The page groups fixtures under a plain-text day heading; walk the DOM in order.
-    body = soup.find('body')
-    if body is None:
-        return {'limitation': 'no body element'}
-    for el in body.descendants:
-        if getattr(el, 'name', None) is None:
+    fixtures, days = [], []
+    current_day = None
+    for headline in soup.select('span.event-headline'):
+        current_day = _text(headline)
+        if current_day:
+            days.append(current_day)
+    # Walk in document order so each fixture keeps the day heading above it.
+    day_by_match = {}
+    walking = None
+    for node in soup.find_all(['span', 'div']):
+        classes = node.get('class') or []
+        if 'event-headline' in classes:
+            walking = _text(node)
             continue
-        classes = ' '.join(el.get('class') or [])
-        if el.name in ('h1', 'h2', 'h3') or 'date' in classes or 'day' in classes:
-            text = _text(el)
-            m = re.search(r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*-\s*(\d{4}-\d{2}-\d{2})', text)
-            if m:
-                current = {'displayed_day': text.strip(), 'date': m.group(2), 'weekday': m.group(1), 'fixtures': []}
-                days.append(current)
-                continue
-        href = el.get('href') if hasattr(el, 'get') else None
-        if isinstance(href, str) and '/matches/' in href and current is not None:
-            mid = re.search(r'/matches/(\d+)/', href)
-            if not mid:
-                continue
-            text = _text(el)
-            row = {'match_id': int(mid.group(1)),
-                   'url': href if href.startswith('http') else 'https://www.hltv.org' + href,
-                   'displayed': text[:220]}
-            tm = HLTV_TIME_CELL.search(text)
-            if tm:
-                row['displayed_time'] = tm.group(1)
-            bm = re.search(r'\bbo(\d)\b', text, re.I)
-            if bm:
-                row['best_of'] = int(bm.group(1))
-            if row not in current['fixtures']:
-                current['fixtures'].append(row)
-    return {'days': days}
+        if 'match-wrapper' not in classes:
+            continue
+        match_id = node.get('data-match-id')
+        if not match_id:
+            continue
+        day_by_match[str(match_id)] = walking
+        link = node.select_one('a.match-teams') or node.select_one('a[href*="/matches/"]')
+        time_el = node.select_one('div.match-time')
+        meta = node.select_one('div.match-meta')
+        names = [_text(t) for t in node.select('div.match-teamname')]
+        entry = node.find_parent(attrs={'data-zonedgrouping-entry-unix': True})
+        unix_value = (time_el.get('data-unix') if time_el else None) or \
+                     (entry.get('data-zonedgrouping-entry-unix') if entry else None)
+        best_of = None
+        if meta:
+            found = re.search(r'bo(\d+)', _text(meta))
+            if found:
+                best_of = int(found.group(1))
+        fixtures.append({
+            'match_id': int(match_id) if str(match_id).isdigit() else match_id,
+            'displayed_day': day_by_match.get(str(match_id)),
+            'displayed_time': _text(time_el) if time_el else None,
+            'time_format': time_el.get('data-time-format') if time_el else None,
+            'data_unix': _unix_ms(unix_value),
+            'start_utc': _utc_from_unix(unix_value),
+            'best_of': best_of,
+            'teams': [n for n in names if n],
+            'lan': node.get('lan'),
+            'live': node.get('live'),
+            'event_id': node.get('data-event-id'),
+            'region': node.get('data-region'),
+            'event_type': node.get('data-eventtype'),
+            'stars': node.get('data-stars'),
+            'hltv_team_ids': [node.get('team1'), node.get('team2')],
+            'url': ('https://www.hltv.org' + link['href']) if link and link.get('href') else None,
+        })
+    return {'days': days, 'fixtures': fixtures,
+            'source_url': 'https://www.hltv.org/events/8932/matches',
+            'timezone_note': ("Displayed times are rendered in the fetching client's timezone. "
+                              "Only start_utc, taken from HLTV's own data-unix attribute, is "
+                              "timezone-independent. The runner that produced this evidence ran "
+                              "in UTC+2 and a separate read of the same page rendered UTC-4; both "
+                              "resolve to the same absolute instants.")}
 
 
 def parse_hltv_results(html: str) -> dict:
+    """Read HLTV's event results with each result's own absolute finish timestamp.
+
+    HLTV groups results under a displayed day heading, which depends on the viewer's
+    timezone: the same page rendered Legacy vs FURIA under "October 16th 2026" on a
+    UTC+2 client although it is a Day-2 (15 October) match. The heading is therefore
+    recorded as displayed, and the authoritative ordering comes from the
+    ``data-zonedgrouping-entry-unix`` attribute HLTV puts on every result block.
+    """
     try:
         from bs4 import BeautifulSoup
     except Exception:
-        return {'limitation': 'beautifulsoup4 unavailable'}
+        return {'days': [], 'results': [], 'limitation': 'beautifulsoup4 unavailable'}
     soup = BeautifulSoup(html, 'html.parser')
-    out, current = [], None
-    for el in soup.find_all(True):
-        text = _text(el)
-        dm = re.fullmatch(r'(January|February|March|April|May|June|July|August|September|October|November|December)'
-                          r'\s+\d{1,2}(st|nd|rd|th)?\s+\d{4}', text.strip())
-        if dm:
-            current = {'displayed_day': text.strip(), 'results': []}
-            out.append(current)
+    results, days = [], []
+    walking = None
+    for node in soup.find_all(['div', 'span', 'a']):
+        classes = node.get('class') or []
+        if 'standard-headline' in classes:
+            walking = _text(node)
+            if walking and walking not in days:
+                days.append(walking)
+        if 'result-con' not in classes:
             continue
-        href = el.get('href') or ''
-        if isinstance(href, str) and '/matches/' in href and current is not None:
-            mid = re.search(r'/matches/(\d+)/', href)
-            sm = re.search(r'(\d+)\s*-\s*(\d+)', text)
-            if mid and sm:
-                row = {'match_id': int(mid.group(1)),
-                       'url': href if href.startswith('http') else 'https://www.hltv.org' + href,
-                       'score': [int(sm.group(1)), int(sm.group(2))],
-                       'displayed': text[:200]}
-                bm = re.search(r'\bbo(\d)\b', text, re.I)
-                if bm:
-                    row['best_of'] = int(bm.group(1))
-                if row not in current['results']:
-                    current['results'].append(row)
-    return {'days': out}
+        link = node.select_one('a[href*="/matches/"]')
+        href = link.get('href') if link else None
+        match_id = None
+        if href:
+            found = re.search(r'/matches/(\d+)/', href)
+            if found:
+                match_id = int(found.group(1))
+        cells = [_text(t) for t in node.select('td.team-cell div.team')]
+        cells = [c for c in cells if c][:2]
+        # HLTV marks the winner's own cell `team-won` and prints the score in *listed*
+        # order, so `span.score-won` is the winner's tally and may appear second. Reading
+        # the two spans positionally against the two team cells silently swaps the result
+        # whenever the away side won - which is the case for three of the eight TWC
+        # Day-1/Day-2 results. Winner and listed order are therefore published separately
+        # and never mixed into one array.
+        won = node.select_one('div.team.team-won')
+        winner = _text(won) if won else None
+        # HLTV marks only the winner's cell; the loser is the other listed team. It is
+        # derived from the page's own two cells, never guessed from the score.
+        loser = None
+        if len(cells) == 2 and winner in cells:
+            loser = cells[1] if cells[0] == winner else cells[0]
+        lost = node.select_one('div.team.team-lost')
+        if lost and _text(lost):
+            loser = _text(lost)
+        score_won = _text(node.select_one('span.score-won'))
+        score_lost = _text(node.select_one('span.score-lost'))
+        listed_score, winner_score, loser_score = None, None, None
+        try:
+            if score_won and score_lost:
+                winner_score, loser_score = int(score_won), int(score_lost)
+                if len(cells) == 2 and winner in cells:
+                    listed_score = ([winner_score, loser_score] if cells[0] == winner
+                                    else [loser_score, winner_score])
+        except ValueError:
+            pass
+        meta = node.select_one('div.map.map-text') or node.select_one('div.map-text')
+        best_of = None
+        if meta:
+            found = re.search(r'bo(\d+)', _text(meta))
+            if found:
+                best_of = int(found.group(1))
+        unix_value = node.get('data-zonedgrouping-entry-unix')
+        results.append({
+            'match_id': match_id,
+            'displayed_day': walking,
+            'listed_teams': cells,
+            'listed_score': listed_score,
+            'winner': winner,
+            'loser': loser,
+            'winner_score': winner_score,
+            'loser_score': loser_score,
+            'best_of': best_of,
+            'finished_unix': _unix_ms(unix_value),
+            'finished_utc': _utc_from_unix(unix_value),
+            'url': ('https://www.hltv.org' + href) if href else None,
+        })
+    results.sort(key=lambda r: r.get('finished_unix') or 0)
+    return {'days': days, 'results': results,
+            'source_url': 'https://www.hltv.org/results?event=8932',
+            'timezone_note': ("displayed_day is HLTV's viewer-timezone grouping and is recorded "
+                              "as displayed, never as a UTC date. finished_utc comes from HLTV's "
+                              "own data-zonedgrouping-entry-unix attribute.")}
 
 
 def parse_hltv_match_page(html: str) -> dict:

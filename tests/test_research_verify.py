@@ -76,27 +76,69 @@ class MoneylineContract(unittest.TestCase):
         self.assertEqual(moneyline_markets(dict(EVENT, tags=[{'slug': 'esports'}])), [])
 
 
-SCHEDULE_HTML = '''<html><body>
-<h2>Friday - 2026-10-16</h2>
-<a class="a-reset" href="/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026">
-  <div class="time">10:00</div><div class="standard">bo3</div>
-  <div class="t1">Aurora</div><div class="t2">9z</div></a>
-<a class="a-reset" href="/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026">
-  <div class="time">13:00</div><div class="standard">bo3</div>
-  <div class="t1">BETBOOM</div><div class="t2">Legacy</div></a>
-<h2>Saturday - 2026-10-17</h2>
-<a class="a-reset" href="/matches/2399414/furia-vs-aurora-9z-winner-thunderpick-world-championship-2026">
-  <div class="time">10:00</div><div class="standard">bo3</div>
-  <div class="t1">FURIA</div><div class="t2">Aurora/9z winner</div></a>
-</body></html>'''
+# Frozen samples of HLTV's real markup shape (taken from the archived responses for
+# event 8932), reduced to the elements the parsers read.
+SCHEDULE_HTML = """<html><body>
+<div class="matches-list eventpage-matches-list">
+<div class="matches-event-wrapper" match-container="">
+<span class="event-headline">Friday - 2026-10-16</span>
+<div class="zone-entry-wrapper"><div data-zonedgrouping-entry-unix="1792159200000">
+<div class="match-wrapper " data-match-wrapper="" data-match-id="2399412" data-stars="2"
+     data-event-id="8932" data-eventtype="ranked" data-region="Europe" lan="true" live="false"
+     team1="11861" team2="9996" data-pinned="false">
+<div class="match"><a href="/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+   class="match-top a-reset"></a>
+<div class="match-bottom">
+<a href="/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026" class="match-info a-reset">
+  <div class="match-time" data-time-format="HH:mm" data-unix="1792159200000">16:00</div>
+  <div class="match-meta">bo3</div></a>
+<a href="/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026" class="match-teams a-reset">
+  <div class="match-team team1"><div class="match-teamname text-ellipsis">Aurora</div></div>
+  <div class="match-team team2"><div class="match-teamname text-ellipsis">9z</div></div></a>
+</div></div></div></div></div>
+<div class="zone-entry-wrapper"><div data-zonedgrouping-entry-unix="1792170000000">
+<div class="match-wrapper" data-match-id="2399413" data-event-id="8932" lan="true" live="false"
+     team1="12394" team2="12468">
+<div class="match"><div class="match-bottom">
+<a href="/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026" class="match-info a-reset">
+  <div class="match-time" data-time-format="HH:mm" data-unix="1792170000000">19:00</div>
+  <div class="match-meta">bo3</div></a>
+<a href="/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026" class="match-teams a-reset">
+  <div class="match-team team1"><div class="match-teamname">BETBOOM</div></div>
+  <div class="match-team team2"><div class="match-teamname">Legacy</div></div></a>
+</div></div></div></div></div>
+<span class="event-headline">Sunday - 2026-10-18</span>
+<div class="zone-entry-wrapper"><div data-zonedgrouping-entry-unix="1792335600000">
+<div class="match-wrapper" data-match-id="2399417" data-event-id="8932" lan="true" live="false">
+<div class="match"><div class="match-bottom">
+<a href="/matches/2399417/thunderpick-world-championship-2026" class="match-info a-reset">
+  <div class="match-time" data-time-format="HH:mm" data-unix="1792335600000">17:00</div>
+  <div class="match-meta">bo5</div></a>
+<a href="/matches/2399417/thunderpick-world-championship-2026" class="match-teams a-reset"></a>
+</div></div></div></div></div>
+</div></body></html>"""
 
-RESULTS_HTML = '''<html><body>
-<div class="standard-headline">October 15th 2026</div>
-<a href="/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026">
-  Aurora 2 - 0 Ninjas in Pyjamas bo3</a>
-<div class="standard-headline">October 14th 2026</div>
-<a href="/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026">9z 2 - 0 Aurora bo3</a>
-</body></html>'''
+RESULTS_HTML = """<html><body><div class="results-all">
+<div class="results-sublist">
+<span class="standard-headline">October 15th 2026</span>
+<div class="result-con " data-zonedgrouping-entry-unix="1792074509000">
+<a href="/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026" class="a-reset">
+<div class="result"><table><tr>
+<td class="team-cell"><div class="line-align team1"><div class="team ">9z</div></div></td>
+<td class="result-score"><span class="score-lost">1</span> - <span class="score-won">2</span></td>
+<td class="team-cell"><div class="line-align team2"><div class="team team-won">Falcons</div></div></td>
+<td class="star-cell"><div class="map-and-stars"><div class="map map-text">bo3</div></div></td>
+</tr></table></div></a></div>
+<span class="standard-headline">October 14th 2026</span>
+<div class="result-con " data-zonedgrouping-entry-unix="1791976669000">
+<a href="/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026" class="a-reset">
+<div class="result"><table><tr>
+<td class="team-cell"><div class="line-align team1"><div class="team team-won">9z</div></div></td>
+<td class="result-score"><span class="score-won">2</span> - <span class="score-lost">0</span></td>
+<td class="team-cell"><div class="line-align team2"><div class="team ">Aurora</div></div></td>
+<td class="star-cell"><div class="map map-text">bo3</div></td>
+</tr></table></div></a></div>
+</div></div></body></html>"""
 
 MATCH_HTML = '''<html><head><title>Aurora vs. 9z at Thunderpick World Championship 2026 | HLTV.org</title>
 <link rel="canonical" href="https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026">
@@ -120,22 +162,61 @@ ODDS_HTML = '''<html><body>
 
 
 class HltvParsers(unittest.TestCase):
-    def test_schedule_groups_by_displayed_day(self):
+    def test_schedule_reads_absolute_start_times_not_displayed_clock_times(self):
         parsed = parse_hltv_schedule(SCHEDULE_HTML)
-        days = parsed['days']
-        self.assertEqual([d['date'] for d in days], ['2026-10-16', '2026-10-17'])
-        self.assertEqual([f['match_id'] for f in days[0]['fixtures']], [2399412, 2399413])
-        self.assertEqual(days[0]['fixtures'][0]['displayed_time'], '10:00')
-        self.assertEqual(days[0]['fixtures'][0]['best_of'], 3)
-        self.assertTrue(days[0]['fixtures'][0]['url'].startswith('https://www.hltv.org/matches/'))
+        self.assertEqual(parsed['days'], ['Friday - 2026-10-16', 'Sunday - 2026-10-18'])
+        fixtures = {f['match_id']: f for f in parsed['fixtures']}
+        self.assertEqual(sorted(fixtures), [2399412, 2399413, 2399417])
+        aurora = fixtures[2399412]
+        # data-unix is the only timezone-independent value on the page. The displayed
+        # 16:00 is a UTC+2 rendering of 14:00Z and must never be published as UTC.
+        self.assertEqual(aurora['start_utc'], '2026-10-16T14:00:00+00:00')
+        self.assertEqual(aurora['displayed_time'], '16:00')
+        self.assertEqual(aurora['data_unix'], 1792159200000)
+        self.assertEqual(aurora['teams'], ['Aurora', '9z'])
+        self.assertEqual(aurora['hltv_team_ids'], ['11861', '9996'])
+        self.assertEqual(aurora['best_of'], 3)
+        self.assertEqual(aurora['lan'], 'true')
+        self.assertEqual(aurora['displayed_day'], 'Friday - 2026-10-16')
+        self.assertEqual(aurora['url'],
+                         'https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026')
+        self.assertEqual(fixtures[2399413]['start_utc'], '2026-10-16T17:00:00+00:00')
+        self.assertEqual(fixtures[2399413]['teams'], ['BETBOOM', 'Legacy'])
 
-    def test_results_keep_score_and_day(self):
+    def test_an_unannounced_final_keeps_blank_teams_and_records_bo5(self):
+        fixtures = {f['match_id']: f for f in parse_hltv_schedule(SCHEDULE_HTML)['fixtures']}
+        final = fixtures[2399417]
+        self.assertEqual(final['teams'], [], 'teams that are not yet decided stay absent')
+        self.assertEqual(final['best_of'], 5)
+        self.assertEqual(final['start_utc'], '2026-10-18T15:00:00+00:00')
+        self.assertEqual(final['displayed_day'], 'Sunday - 2026-10-18')
+
+    def test_results_keep_listed_order_and_winner_separate(self):
         parsed = parse_hltv_results(RESULTS_HTML)
-        self.assertEqual(len(parsed['days']), 2)
-        self.assertEqual(parsed['days'][0]['displayed_day'], 'October 15th 2026')
-        self.assertEqual(parsed['days'][0]['results'][0]['match_id'], 2399408)
-        self.assertEqual(parsed['days'][0]['results'][0]['score'], [2, 0])
-        self.assertEqual(parsed['days'][1]['results'][0]['match_id'], 2399384)
+        by_id = {r['match_id']: r for r in parsed['results']}
+        # 9z vs Falcons: the away side won, so score-won appears second. Reading the two
+        # score spans positionally against the two team cells would invert this result.
+        falcons = by_id[2399409]
+        self.assertEqual(falcons['listed_teams'], ['9z', 'Falcons'])
+        self.assertEqual(falcons['listed_score'], [1, 2])
+        self.assertEqual(falcons['winner'], 'Falcons')
+        self.assertEqual(falcons['loser'], '9z')
+        self.assertEqual((falcons['winner_score'], falcons['loser_score']), (2, 1))
+        self.assertEqual(falcons['best_of'], 3)
+        self.assertEqual(falcons['finished_utc'], '2026-10-15T14:28:29+00:00')
+        self.assertEqual(falcons['displayed_day'], 'October 15th 2026')
+        # 9z vs Aurora: the listed side won, so listed_score is winner-first.
+        aurora = by_id[2399384]
+        self.assertEqual(aurora['listed_teams'], ['9z', 'Aurora'])
+        self.assertEqual(aurora['listed_score'], [2, 0])
+        self.assertEqual(aurora['winner'], '9z')
+        self.assertEqual(aurora['loser'], 'Aurora')
+
+    def test_results_are_ordered_by_absolute_finish_time_not_displayed_day(self):
+        parsed = parse_hltv_results(RESULTS_HTML)
+        stamps = [r['finished_unix'] for r in parsed['results']]
+        self.assertEqual(stamps, sorted(stamps))
+        self.assertEqual([r['match_id'] for r in parsed['results']], [2399384, 2399409])
 
     def test_match_page_exposes_absolute_start_and_canonical_url(self):
         info = parse_hltv_match_page(MATCH_HTML)
