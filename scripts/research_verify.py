@@ -661,8 +661,11 @@ def collect_hltv(probe: Probe) -> dict:
         page, pev = probe.get(f'hltv-match-{mid}', url)
         if isinstance(page, str):
             info = parse_hltv_match_page(page)
-            canonical = re.search(r'<link rel="canonical" href="([^"]+)"', page)
-            info['source_url'] = canonical.group(1) if canonical else url
+            # Named distinctly on purpose: an earlier revision rebound `canonical` here to a
+            # regex Match, so the second fixture in the loop crashed on canonical.get(...) and
+            # the whole HLTV collector was lost.
+            canonical_link = re.search(r'<link rel="canonical" href="([^"]+)"', page)
+            info['source_url'] = canonical_link.group(1) if canonical_link else url
             info['evidence'] = pev
             result['match_pages'][str(mid)] = info
         else:
