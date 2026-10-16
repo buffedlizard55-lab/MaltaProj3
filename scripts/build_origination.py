@@ -334,9 +334,11 @@ def validate_origination(data, source):
             assert m['pick_index'] is None
             continue
         if o['method'] == 'model':
-            from scripts.originate import valve_rows, model_estimate
+            from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None)
-            expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']))
+            proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))
+            expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']), lineup=proof)
+            assert (expected or {}).get('lineup_disambiguation') == o.get('lineup_disambiguation'), 'Lineup identity proof differs from original HLTV markup'
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
         values = []
         for q in o.get('quotes', []):
