@@ -1,60 +1,120 @@
 {
-  "schema_version": 1,
-  "review_scope": "Day 1 of Thunderpick World Championship 2026 and the next Hotspawn fixture in this snapshot",
-  "reviewed_on": "2026-10-15",
-  "historical_match": {
-    "id": "9z-aurora-2026-10-14",
-    "teams": ["9z", "Aurora"],
-    "event": "Thunderpick World Championship 2026",
-    "scheduled_start": "2026-10-14T08:30:00Z",
-    "pre_match_probabilities": [0.265, 0.735],
-    "pre_match_pick": "Aurora",
-    "result": {
-      "winner": "9z",
-      "series_score": "2-0",
-      "maps": [
-        {"map": "Inferno", "score": "13-11", "winner": "9z"},
-        {"map": "Nuke", "score": "13-1", "winner": "9z"}
+  "schema_version": 2,
+  "review_scope": "Day 1 & Day 2 of Thunderpick World Championship 2026; Day 3 contrarian guidance",
+  "reviewed_on": "2026-10-16",
+  "day1_review": {
+    "headline": "9z upset Aurora 2-0 in the biggest result of TWC 2026",
+    "match": {
+      "id": "9z-aurora-2026-10-14",
+      "teams": ["9z", "Aurora"],
+      "event": "Thunderpick World Championship 2026",
+      "scheduled_start": "2026-10-14T08:20:00Z",
+      "pre_match_probabilities": [0.265, 0.735],
+      "pre_match_pick": "Aurora",
+      "result": {
+        "winner": "9z",
+        "series_score": "2-0",
+        "maps": [
+          {"map": "Inferno", "score": "13-11", "winner": "9z"},
+          {"map": "Nuke", "score": "13-1", "winner": "9z"}
+        ]
+      },
+      "source_urls": [
+        "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026"
       ]
     },
-    "source_urls": [
-      "https://www.hotspawn.com/matches/9z-vs-aurora-thunderpick-world-championship-2026-1080176",
-      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
-      "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
-      "https://polymarket.com/market/cs2-9z-aur1-2026-10-14"
+    "roster_context": {
+      "team": "Aurora",
+      "reported_on": "2026-07-08",
+      "context": "Aurora underwent a major summer rebuild. New IGL kyxsan (from Falcons, benched 2+ months), new rifler Jimpphat (from MOUZ), new coach ash (from GamerLegion). Departed: MAJ3R, soulfly, Fabre. The team moved from all-Turkish to international.",
+      "new_players": ["Jimpphat", "kyxsan"],
+      "new_coach": "ash",
+      "replaced": ["MAJ3R", "soulfly", "Fabre"],
+      "source_urls": [
+        "https://www.strafe.com/news/read/aurora-locks-in-new-cs2-roster-with-kyxsan-and-jimpphat",
+        "https://cs2news.com/news/ash-aurora-new-system-ewc-2026",
+        "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan"
+      ]
+    },
+    "analysis": "The Day 1 loss was not just an upset — it was a structural collapse. Aurora lost 13-1 on their own Nuke pick, with kyxsan posting a 0.53 rating. This is consistent with communication breakdowns in a newly international roster with a recently benched IGL. Coach ash's August 2026 interview acknowledged the integration challenges. HLTV comments section: 'Aurora might need a solid excuse for this result' and 'the worst thing that could happen to them, now they won't make a roster move.'"
+  },
+  "day2_review": {
+    "headline": "Aurora survive, 9z prove they belong, FURIA and Falcons advance",
+    "results": [
+      {
+        "match": "Aurora vs NIP",
+        "score": "2-0",
+        "winner": "Aurora",
+        "note": "Aurora bounced back vs weak NIP opposition. Controlled Cache (13-9) and Dust2 (13-7). This does not erase the structural concerns — NIP are the weakest team at this event.",
+        "source_url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026"
+      },
+      {
+        "match": "9z vs Falcons",
+        "score": "1-2",
+        "winner": "Falcons",
+        "note": "9z took Mirage 13-8 off the tournament favorites and pushed both other maps to 9 rounds. This confirms 9z are competitive at this level — their Day 1 win was not a fluke.",
+        "source_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026"
+      },
+      {
+        "match": "PARIVISION vs BetBoom",
+        "score": "1-2",
+        "winner": "BetBoom",
+        "note": "BetBoom reverse-swept after losing Ancient. Dominant on Anubis (13-4) and Mirage (13-7). But this was against eliminated PARIVISION.",
+        "source_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026"
+      },
+      {
+        "match": "Legacy vs FURIA",
+        "score": "1-2",
+        "winner": "FURIA",
+        "note": "FURIA reverse-swept after losing Cache. FalleN's 1v2 clutch on Mirage was the series moment. Legacy showed they can compete with top teams.",
+        "source_url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026"
+      }
     ]
   },
-  "roster_context": {
-    "team": "Aurora",
-    "reported_on": "2026-07-08",
-    "context": "HLTV reported Aurora's summer rebuild: Jimpphat and kyxsan joined with coach ash, replacing MAJ3R, soulfly and Fabre.",
-    "new_players": ["Jimpphat", "kyxsan"],
-    "new_coach": "ash",
-    "replaced": ["MAJ3R", "soulfly", "Fabre"],
-    "source_urls": [
-      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan"
-    ]
+  "day3_contrarian": {
+    "match_9z_aurora": {
+      "contrarian_pick": "9z",
+      "pre_match_probability_9z": 0.33,
+      "pre_match_probability_aurora": 0.67,
+      "method": "De-vigged from stavka.tv bookmaker odds (Aurora 1.38, 9z 2.70)",
+      "hotspawn_points": 7,
+      "case": "9z already beat Aurora 2-0 at this event. They took Mirage 13-8 off Falcons. The Aurora roster rebuild is still causing integration issues. Day 2 win vs NIP does not erase structural concerns — NIP are the weakest team here.",
+      "risk": "Going against a 67% favorite. If Aurora win, you lose 7 points.",
+      "verdict": "CONTRARIAN CANDIDATE — Take 9z if you need leaderboard separation. Otherwise take Aurora.",
+      "sources": [
+        "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+        "https://stavka.tv/matches/csgo/16-10-2026-aurora-gaming-9z",
+        "https://blast.tv/cs/tournaments/thunderpick-world-championship-2026/match/21a880bd/9z-aurora"
+      ]
+    },
+    "match_bb_legacy": {
+      "contrarian_pick": null,
+      "pick": "Legacy",
+      "pre_match_probability_bb": 0.28,
+      "pre_match_probability_legacy": 0.72,
+      "method": "HLTV fan vote (Legacy 75.6%), tournament outright odds (Legacy 3.80 vs BetBoom 12.00)",
+      "hotspawn_points": 7,
+      "case": "No contrarian value here. Legacy are significantly better. BetBoom barely survived PARIVISION.",
+      "verdict": "NOT RECOMMENDED — Take Legacy. Save contrarian plays for the 9z match.",
+      "sources": [
+        "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+        "https://www.hltv.org/news/45729/betboom-eliminate-parivision-from-twc",
+        "https://www.hltv.org/news/45730/furia-make-twc-playoffs-over-legacy"
+      ]
+    }
   },
-  "watch_profile": {
-    "team": "9z",
-    "opponent": "Falcons",
-    "max_probability": 0.25,
-    "label": "Contrarian watch, not a replacement pick",
-    "source_urls": [
-      "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
-      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026"
-    ],
-    "limitations": [
-      "One upset is not enough to recalibrate a win probability.",
-      "The current 9z–Falcons row has a Valve-rating estimate, not a verified betting-market consensus.",
-      "Current lineups, stand-ins, veto and rest/travel effects were not independently confirmed for this fixture; no adjustment is made for them.",
-      "The watch label never overwrites the primary probability or the primary pick."
-    ]
+  "leaderboard_strategy": {
+    "if_trailing": "Take 9z over Aurora. 7 points for the upset vs 7 for the favorite = 14-point swing if they win.",
+    "if_leading": "Take the consensus (Aurora, Legacy). Protect your position.",
+    "expected_value": "Aurora 67% and Legacy 72% are the market lines. The contrarian value is entirely in the 9z match."
   },
   "policy": {
     "hotspawn_popularity_used": false,
-    "watch_is_a_pick": false,
-    "minimum_evidence": "Require a source-linked recent underdog result and a current independently sourced probability before showing a watch.",
+    "contrarian_is_not_a_replacement": true,
+    "minimum_evidence": "Require a source-linked recent underdog result and a current independently sourced probability before showing a contrarian candidate.",
     "do_not_flip_primary_pick": true
   }
 }
