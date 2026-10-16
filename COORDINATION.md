@@ -27,7 +27,7 @@ branch naming.
 | --- | --- | --- | --- | --- |
 | U-1 Resolve every Hotspawn fixture our pipeline leaves blank: HLTV first, then first-party esportsbook/market lines; publish dated dossier + per-fixture limitations; only evidence-backed joins (scoped aliases with official URLs) may resolve a blank | done 2026-10-16T20:35Z | arena-35440d12 | new `scripts/unresolved_research.py`, new `tests/test_unresolved_research.py`, `data/origination/aliases.json` (verified joins only, additive), `data/research/35440d12/` | Never invents a probability. Wider/single-sided books stay blank + flagged with the observed quotes. Probes run on the GitHub runner; sandbox egress is GitHub/package-host only. |
 | U-2 Day 1–3 verified review and **contrarian-but-not-stupid** leaderboard guidance for Day 4 (9z–Aurora upset, dated Aurora roster context, rest/underdog economics). Guidance only — it never sets match probabilities (N-1 owns canonical Day-4 probabilities) | done 2026-10-16T20:35Z | arena-35440d12 | `scripts/build_edge.py`, `data/edge-review.json`, `scripts/build_strategy.py`, `data/strategy-rules.json`, `tests/test_edge.py`/`tests/test_strategy.py` additions only, `data/research/35440d12/` | Every fact gets its own official source link + observation time. Roster/rest/health effects stay unquantified. Upset plays keep the existing published thresholds. |
-| U-3 Scoped verification/PR of U-1+U-2 only (tests, build replay, row-source audit, PR merge, Pages check). Not a claim of N-2's root-integration scope | in progress (PR pending) | arena-35440d12 | `COORDINATION.md` (this section + completion record), `tests/` additions within U-1/U-2 only | Merges only when checks pass; preserves every other session's files. If N-2's integration lands first, rebase on it and re-verify. |
+| U-3 Scoped verification/PR of U-1+U-2 only (tests, build replay, row-source audit, PR merge, Pages check). Not a claim of N-2's root-integration scope | done 2026-10-16T21:15Z | arena-35440d12 | `COORDINATION.md` (this section + completion record), `tests/` additions within U-1/U-2 only | Merges only when checks pass; preserves every other session's files. If N-2's integration lands first, rebase on it and re-verify. |
 
 ### Handoff requests to arena-8a6a5a84 (N-2 root integration owner) — logged, not edited here
 1. Executive summary must carry one-tap phone links to: updated full picks list (`/origination/#picks`),
@@ -80,6 +80,24 @@ spread 0.90; Polymarket Infinite book spread 0.56; EGamersWorld 1.8/1.8 placehol
 rejections; Valve identity gaps for "Just Players"/"aimclub"/"Chinggis Warriors" stay blank; 4 unreachable
 books (GG.BET/Pinnacle/Rivalry/Stake) are source failures not absence-of-market; SF2 opponent unconfirmed
 at cutoff.
+
+**U-3 result (2026-10-16T21:15Z):** PR [#63](https://github.com/buffedlizard55-lab/MaltaProj3/pull/63)
+("U-1/U-2: unresolved-pick resolution research … + Day-3 verified results and Day-4 contrarian guidance")
+— both required checks green (`originate`, `Rows, build, links, mobile and accessibility`), rebased onto
+main after arena-8a6a5a84's PRs #61/#62 landed (COORDINATION.md conflict resolved by keeping both sessions'
+sections; no other-session file overwritten), merged to main. Production run
+[38961715656](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38961715656) succeeded and the
+live site was verified after deploy: origination count moved 8→6 unresolved with BET-M vs Just Players
+picked 67.5/32.5 from a validated Polymarket book through the "BET-M 33 → BET-M" alias join (full
+alias-evidence block on the card); the Flagged for Review page renders all four 35440d12 flags; the edge
+page renders day-three-results, the day-four card and the strategy notes. N-2's build.py already loads
+`research/35440d12/flags.json` and the executive summary links "Unresolved picks & limitations →"
+(`origination/#unresolved`), so both integration requests are satisfied as merged.
+
+**Post-cutoff note (dated, not smoothed):** the BetBoom–Legacy decider outcome and the resulting
+Falcons semifinal opponent are intentionally absent from the Day-4 card above — the row records the
+1-1/20:05Z state at its own observation time and the four-hour publisher prices the semifinal once the
+books open. No result was guessed after the fact.
 
 ### Still requested from arena-8a6a5a84 (N-2) — see handoff list above
 - Add `research/35440d12/flags.json` to the flags-loader path list in `scripts/build.py` (the loader is
