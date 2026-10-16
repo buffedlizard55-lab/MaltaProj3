@@ -62,6 +62,10 @@ TWC_MATCH_IDS = [2399412, 2399413, 2399414, 2399415, 2399416, 2399417]
 # the newest global standings file Valve has published in its official repository. Both
 # are archived so the gap can be reviewed rather than assumed away.
 HLTV_VALVE_RANKING = 'https://www.hltv.org/valve-ranking/teams/2026/october/16'
+# HLTV's own dated transfer log. Archived so the claim "Aurora changed roster recently"
+# can be checked against the dates HLTV published rather than repeated from memory.
+HLTV_ROSTERMANIA = 'https://www.hltv.org/news/44998/summer-2026-rostermania-as-it-happened'
+AURORA_ROSTER_TERMS = ('aurora', 'kyxsan', 'jimpphat', 'maj3r', 'soulfly', 'fabre', 'ash ')
 TWC_ANALYTICS_IDS = [2399412, 2399413]
 HLTV_TEAM_PAGES = {
     'Aurora': 'https://www.hltv.org/team/11861/aurora',
@@ -686,6 +690,16 @@ def collect_hltv(probe: Probe) -> dict:
         else:
             result['limitations'].append(f'HLTV team page for {name} was not readable.')
         time.sleep(0.5)
+    page, pev = probe.get('hltv-rostermania', HLTV_ROSTERMANIA)
+    if isinstance(page, str):
+        parsed = parse_hltv_transfer_log(page)
+        parsed['source_url'] = HLTV_ROSTERMANIA
+        parsed['evidence'] = pev
+        result['aurora_transfer_log'] = parsed
+    else:
+        result['limitations'].append(
+            "HLTV's transfer log was not readable; the date of Aurora's roster change stays "
+            'unverified from first-party evidence.')
     page, pev = probe.get('hltv-valve-ranking', HLTV_VALVE_RANKING)
     if isinstance(page, str):
         parsed = parse_hltv_valve_ranking(page)
@@ -753,6 +767,40 @@ def parse_hltv_team_page(html: str) -> dict:
     info['players'] = list(players.values())[:12]
     info['player_links'] = [(entry['player_id'], entry['nick']) for entry in info['players']]
     return info
+
+
+def parse_hltv_transfer_log(html: str) -> dict:
+    """Every dated entry in HLTV's transfer log that mentions Aurora's roster.
+
+    Only entries HLTV itself timestamps are returned. Nothing is inferred about how a
+    transfer affects a match; the dates are published so a reviewer can judge recency.
+    """
+    try:
+        from bs4 import BeautifulSoup
+    except Exception:
+        return {'entries': [], 'limitation': 'beautifulsoup4 unavailable'}
+    soup = BeautifulSoup(html, 'html.parser')
+    text = soup.get_text('\n', strip=True)
+    entries, current_stamp = [], None
+    for raw in text.splitlines():
+        line = re.sub(r'\s+', ' ', raw).strip()
+        if not line:
+            continue
+        stamped = re.match(r'^(\d{2}/\d{2})(?:\s+(\d{2}:\d{2}))?\s*(.*)$', line)
+        if stamped:
+            current_stamp = (stamped.group(1) + (' ' + stamped.group(2) if stamped.group(2) else '')).strip()
+            line = stamped.group(3).strip()
+        if not line:
+            continue
+        lowered = line.lower()
+        if any(term in lowered for term in AURORA_ROSTER_TERMS):
+            entries.append({'hltv_displayed_date': current_stamp, 'entry': line})
+    headline = soup.find('h1')
+    return {'entries': entries, 'count': len(entries),
+            'headline': re.sub(r'\s+', ' ', _text(headline)) if headline else None,
+            'note': ('Dates are displayed by HLTV as DD/MM and are recorded exactly as '
+                     'displayed. They are not converted to UTC here because the page does '
+                     'not state its own timezone.')}
 
 
 def parse_hltv_valve_ranking(html: str) -> dict:
