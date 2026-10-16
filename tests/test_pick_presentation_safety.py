@@ -188,6 +188,26 @@ class LeaderboardPresentationTests(unittest.TestCase):
         self.assertNotIn('today, costing', soup.get_text())
         self.assertIn('across the listed fixtures (capped per UTC day)', soup.get_text())
 
+    def test_partial_deadline_coverage_does_not_instruct_favorites_everywhere(self):
+        data = strategy_inputs([fixture(probabilities=[0.9, 0.1]), fixture('unknown', locks=None, probabilities=[0.9, 0.1])])
+        pl, soup = self.render(data)
+        self.assertEqual(pl['summary']['current'], 1)
+        self.assertEqual(pl['summary']['open'], 2)
+        self.assertIsNone(soup.select_one('.callout.calm'))
+        self.assertIn('Not every retained line is usable', soup.get_text())
+
+    def test_nojs_hero_and_shortlist_use_presentation_eligibility_not_only_plan_eligibility(self):
+        # The inherited strategy allows six minutes of runner skew, while the
+        # canonical presentation policy allows only five. Never display the
+        # extra-minute edge case as a current underdog recommendation.
+        data = strategy_inputs([fixture(observed='2026-10-16T09:05:30Z')])
+        pl, soup = self.render(data)
+        self.assertTrue(pl['rows'][0]['swap'], 'do not silently rewrite the existing plan rule')
+        self.assertEqual(pl['summary']['current_swaps'], 0)
+        self.assertEqual(soup.select_one('[data-current-swap-count]').get_text(), '0')
+        self.assertIsNone(soup.select_one('[data-safety-link]'))
+        self.assertTrue(soup.select_one('.verdict').has_attr('hidden'))
+
     def test_unbound_and_unverified_inventory_have_no_current_advice_even_for_favorites(self):
         for kwargs, expected in (({'bound': False}, 'unbound-snapshot'), ({'complete': False}, 'inventory-unverified')):
             pl, soup = self.render(strategy_inputs(**kwargs))
