@@ -15,6 +15,8 @@ rule:
 from __future__ import annotations
 
 import argparse
+import base64
+import hashlib
 import json
 import math
 from html import escape
@@ -24,7 +26,7 @@ from scripts.domain import VALVE_RD
 
 DISAMBIGUATION_PATH = Path("data/research/f392649f/lineup-disambiguation.json")
 TWC_VERIFICATION_PATH = Path("data/research/f392649f/twc-day3-verification.json")
-VALVE_EVIDENCE_PATH = Path("data/evidence/valve-ratings.json")
+VALVE_EVIDENCE_PATH = Path("data/research/6426358d/valve-ratings-2026-10-05.json")
 MIN_CORE_OVERLAP = 3
 RATING_DEVIATION = float(VALVE_RD)
 
@@ -50,12 +52,27 @@ def compute_overlap(hltv_lineup: list[str], valve_roster: list[str]) -> list[str
     return sorted(shared)
 
 
+def load_archived_valve(path: Path) -> dict:
+    """Replay historical input independently of the mutable live rating cache."""
+    from scripts.domain import parse_valve_table
+    path = Path(path)
+    valve = json.loads(path.read_text(encoding="utf-8"))
+    original = json.loads(path.with_name("valve-response-2026-10-05.json").read_text())
+    raw = base64.b64decode(original["content"])
+    sha = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+    _require(sha == original["sha"] == valve["git_blob_sha"], "Archived Valve Git blob integrity mismatch")
+    _require(valve["source_url"] == original["html_url"], "Archived Valve source URL mismatch")
+    rows = parse_valve_table(raw.decode(), original["html_url"], valve["snapshot_date"])
+    _require(rows == valve["rows"], "Archived Valve rows do not match original markdown")
+    return valve
+
+
 def load_disambiguation(
     path: Path = DISAMBIGUATION_PATH,
     valve_path: Path = VALVE_EVIDENCE_PATH,
 ) -> dict:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
-    valve = json.loads(Path(valve_path).read_text(encoding="utf-8"))
+    valve = load_archived_valve(valve_path)
     validate_disambiguation(data, valve)
     return data
 
@@ -189,7 +206,7 @@ def _format_candidate_summary(team: dict) -> str:
         rank_bits.append("VRS Unranked")
     cands = team.get("valve_candidates") or []
     if not cands:
-        cand_html = '<span class="badge unverified">0 Valve rows · 0/5 core match across all 403 rosters</span>'
+        cand_html = '<span class="badge unverified">No exact-name Valve row in this archived dataset · not an accepted live identity proof</span>'
     else:
         parts = []
         for c in cands:
@@ -212,37 +229,34 @@ def render_disambiguation_section(data: dict, prefix: str = "../") -> str:
     for fix in data["fixtures"]:
         team_a = fix["team_a"]
         team_b = fix["team_b"]
-        if fix["disambiguation_status"] == "resolved_by_hltv_lineup_core":
-            p_a, p_b = fix["probabilities"]
-            odds_a, odds_b = fix["fair_decimal_odds"]
-            prob_cell = (
-                f'<div><span class="badge verified">Lineup-core disambiguated</span></div>'
-                f"<div><strong>{escape(team_a['name'])} {p_a * 100:.1f}%</strong> "
-                f"<span class=\"muted\">(Fair line {odds_a:.3f} · #{team_a['selected_valve_standing']}, {team_a['selected_valve_points']} pts)</span></div>"
-                f"<div><strong>{escape(team_b['name'])} {p_b * 100:.1f}%</strong> "
-                f"<span class=\"muted\">(Fair line {odds_b:.3f} · #{team_b['selected_valve_standing']}, {team_b['selected_valve_points']} pts)</span></div>"
-                f'<div><span class="pick-pill">Recommended pick: {escape(fix["recommended_pick"])}</span></div>'
-            )
-        else:
-            prob_cell = (
-                '<div><span class="badge unverified">Unverified · blank</span></div>'
-                '<p class="muted">Opponent is unranked on both HLTV and Valve VRS (&lt; 3/5 core overlap across all 403 rosters) '
-                'and has no bookmaker or exchange market. Left blank rather than guessed.</p>'
-            )
+        # Preserve the other session's dated >=3/5 scenario evidence, but do
+        # not publish a competing probability feed or accept partial identity.
+        partial = any(
+            c["overlap_count"] < 5
+            for team in (team_a, team_b) for c in team.get("valve_candidates", [])
+            if c["standing"] == team.get("selected_valve_standing")
+        )
+        reason = ("Partial roster overlap is not an exact-five identity proof; unverified under the canonical policy."
+                  if partial else "Dated evidence only; no current probability or pick is asserted in this historical table.")
+        prob_cell = (
+            '<div><span class="badge unverified">— Not a live pick</span></div>'
+            f'<p>{escape(reason)}</p>'
+            f'<a class="source-link" href="{escape(prefix, quote=True)}origination/#unresolved">'
+            'Current estimate / unresolved trail →</a>'
+        )
 
         src_links = " · ".join(
             f'<a class="source-link" href="{escape(s["url"], quote=True)}" target="_blank" rel="noopener noreferrer">'
             f'{escape(s["source"])} ↗</a>'
             for s in fix["sources"]
         )
-        lims = "".join(f"<li>{escape(item)}</li>" for item in fix.get("limitations") or [])
         rows_html.append(
             f'<tr id="disambig-{escape(fix["hotspawn_id"])}">'
             f"<td><strong>{escape(team_a['name'])} vs {escape(team_b['name'])}</strong><br>"
             f'<span class="muted">{escape(fix["competition"])} · {escape(fix["starts_at"])} · {escape(fix["best_of"].upper())}</span></td>'
             f"<td>{_format_candidate_summary(team_a)}{_format_candidate_summary(team_b)}</td>"
             f"<td>{prob_cell}</td>"
-            f"<td><p>{escape(fix['rationale'])}</p><ul class=\"compact-list\">{lims}</ul><p>{src_links}</p></td>"
+            f"<td><p>Original audit claims and limitations are retained in the linked historical JSON; they do not establish a current identity or betting-market absence.</p><p>{src_links}</p></td>"
             f"</tr>"
         )
 
@@ -250,21 +264,19 @@ def render_disambiguation_section(data: dict, prefix: str = "../") -> str:
         '<section class="content-section" id="lineup-disambiguation">'
         '<div class="section-heading"><div>'
         '<p class="eyebrow">HLTV match-page 5-player core audit · Valve VRS 2026-10-05</p>'
-        '<h2>Lineup-core disambiguation of the 5 unresolved low-tier fixtures</h2>'
+        '<h2>Historical lineup-core audit · policy conflict</h2>'
         '</div>'
         f'<a class="source-link" href="{escape(prefix, quote=True)}data/research/f392649f/lineup-disambiguation.json">'
         'Disambiguation JSON ↗</a></div>'
         '<p class="section-lead">'
-        f'The automated origination pipeline (<a class="internal-link" href="{escape(prefix, quote=True)}origination/#unresolved">26 / 31 resolved, 5 unresolved</a>) '
-        'matches Valve standings by team name only and fails closed when a team name appears twice in '
-        f'<a class="source-link" href="{escape(v_snap["source_url"], quote=True)}" target="_blank" rel="noopener noreferrer">'
-        f'standings_global_{escape(v_snap["snapshot_date"].replace("-", "_"))}.md ↗</a>. '
-        f'Opening the five official HLTV match pages and comparing each published 5-player lineup against all 403 Valve rosters under Valve\'s &ge;3/5 core rule '
-        f'uniquely resolves <strong>{counts["resolved_by_lineup_core"]} of the {counts["evaluated"]} fixtures</strong> '
-        '(<strong>BET-M 72.7%</strong> over Just Players, <strong>aimclub 60.6%</strong> over BASEMENT BOYS, and <strong>ASTRAL 59.8%</strong> over Leo) '
-        f'while proving why the remaining <strong>{counts["remaining_unresolved"]} fixtures</strong> '
-        '(<strong>Procyon vs LOS NINOS</strong> and <strong>INFINITE vs Insiders</strong>) involve genuinely unranked opponents '
-        'with 0 Valve core matches and must remain blank.'
+        f'An earlier auditor evaluated {counts["evaluated"]} fixtures at {escape(data["prepared_at"])} and '
+        'recorded three hypothetical rating scenarios using at least three shared players. '
+        '<strong>Those scenarios are not accepted canonical picks.</strong> The refreshed pipeline requires '
+        'fresh, exact-fixture original HLTV markup and all five unique players matching exactly one complete Valve row. '
+        'Four-of-five overlaps for Just Players and aimclub remain ambiguous; missing inputs remain blank. '
+        'The archived JSON and arithmetic validator are preserved for review, not imported as a second live feed. '
+        f'Use <a class="source-link" href="{escape(prefix, quote=True)}origination/#unresolved">the current complete-picks list and limitations</a> '
+        'for the actual inventory, estimates and exact-five replay. Absence of an accepted line is not proof that no betting market exists.'
         '</p>'
         '<div class="table-scroll"><table class="simple-table">'
         '<caption class="sr-only">HLTV 5-player lineup disambiguation of duplicate Valve rows and unranked low-tier CS2 fixtures</caption>'
@@ -284,7 +296,7 @@ def load_twc_verification(
     valve_path: Path = VALVE_EVIDENCE_PATH,
 ) -> dict:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
-    valve = json.loads(Path(valve_path).read_text(encoding="utf-8"))
+    valve = load_archived_valve(valve_path)
     validate_twc_verification(data, valve)
     return data
 

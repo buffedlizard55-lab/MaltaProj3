@@ -98,6 +98,36 @@ class LineupDisambiguationTests(unittest.TestCase):
         self.assertEqual(report["violation"], 0)
         self.assertEqual(report["ok"], 5)
 
+    def test_historical_partial_roster_scenarios_are_not_second_current_picks(self):
+        html = render_disambiguation_section(self.disambig, "../")
+        soup = BeautifulSoup(html, "html.parser")
+        self.assertNotIn('Recommended pick:', html)
+        self.assertNotIn('26 / 31 resolved', html)
+        self.assertIn('not accepted canonical picks', html)
+        for mid in ['1079170', '1081527']:
+            row = soup.find(id='disambig-' + mid)
+            self.assertIn('Partial roster overlap', row.get_text())
+            self.assertIsNotNone(row.find('a', href='../origination/#unresolved'))
+            self.assertNotIn('%', row.find_all('td')[2].get_text())
+
+    def test_historical_replay_does_not_depend_on_live_rating_cache(self):
+        self.assertIn('research/6426358d/', VALVE_EVIDENCE_PATH.as_posix())
+        from scripts.lineup_disambiguation import load_archived_valve
+        self.assertEqual(len(load_archived_valve(ROOT / VALVE_EVIDENCE_PATH)['rows']), 380)
+
+    def test_historical_valve_inputs_must_replay_from_the_original_blob(self):
+        import json
+        import shutil
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / VALVE_EVIDENCE_PATH.name
+            data = json.loads((ROOT / VALVE_EVIDENCE_PATH).read_text())
+            data['rows'][0]['points'] += 1
+            path.write_text(json.dumps(data))
+            original = 'valve-response-2026-10-05.json'
+            shutil.copyfile(ROOT / VALVE_EVIDENCE_PATH.parent / original, path.parent / original)
+            with self.assertRaisesRegex(ValueError, 'original markdown'):
+                load_disambiguation(ROOT / DISAMBIGUATION_PATH, path)
+
     def test_full_build_publishes_disambiguation_on_edge_and_review_pages(self):
         from scripts.build import build
         with TemporaryDirectory() as tmp:

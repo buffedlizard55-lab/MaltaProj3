@@ -186,5 +186,196 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(key(self.data), key(again))
 
 
-if __name__ == '__main__':
+class LiveModelResearch(unittest.TestCase):
+    """Exercise the collector, not just the resolver; all responses are synthetic."""
+
+    def collect(self, featured='model', *, zero_size=False, duplicate=False, prop=False):
+        from unittest.mock import patch
+        from tempfile import TemporaryDirectory
+        market = {'id': '1', 'sportsMarketType': 'moneyline',
+                  'question': 'Counter-Strike: Aurora Gaming vs 9z (BO3)',
+                  'active': True, 'closed': False, 'acceptingOrders': True,
+                  'outcomes': ['Aurora Gaming', '9z'], 'gameStartTime': START,
+                  'clobTokenIds': ['10', '20'], 'conditionId': 'condition'}
+        if prop:
+            market['question'] = 'Counter-Strike: Aurora Gaming vs 9z (BO3) Map 1'
+        event = {'id': '990001', 'slug': 'cs2-aur1-9z-2026-10-16', 'active': True,
+                 'closed': False, 'live': False, 'markets': [market] + ([dict(market, id='2')] if duplicate else [])}
+        seen = []
+
+        def get_json(client, url, label, **kwargs):
+            seen.append(label)
+            if label == 'live-thunderpick-matches':
+                data = {'data': {'upcoming': []}}
+            elif label.startswith('live-polymarket-event-'):
+                data = event
+            elif label.startswith('live-polymarket-book-'):
+                token = url.split('=')[-1]
+                p = 0.69 if token == '10' else 0.31
+                data = {'asset_id': token, 'market': 'condition', 'timestamp': str(int(NOW.timestamp() * 1000)),
+                        'bids': [{'price': p - 0.01, 'size': '0' if zero_size else '5'}],
+                        'asks': [{'price': p + 0.01, 'size': '5'}]}
+            elif label.startswith('live-kalshi-events-'):
+                data = {'events': [], 'cursor': ''}
+            else:
+                data = []
+            entry = {'id': label, 'url': url, 'observed_at': originate.iso(NOW), 'status': 'ok'}
+            client.requests.append(entry)
+            return data, entry
+
+        with TemporaryDirectory() as tmp, patch.object(originate.Collector, 'get_json', new=get_json), \
+                patch.object(originate.Collector, 'fetch_html', return_value=('synthetic', {})), \
+                patch('scripts.sources.polymarket_games', return_value=[{'id': '990001', 'homeName': 'Aurora Gaming', 'awayName': '9z', 'startTime': START}]), \
+                patch('scripts.originate.datetime', wraps=datetime) as clock:
+            clock.now.return_value = NOW
+            originate.live_collect(Path(tmp), [match(featured)], registry())
+            saved = json.loads((Path(tmp) / 'live-polymarket-observations.json').read_text())
+        return seen, saved
+
+    def test_model_only_rows_get_fresh_alias_aware_market_books(self):
+        seen, saved = self.collect()
+        self.assertIn('live-polymarket-event-990001', seen)
+        self.assertIn('live-polymarket-book-990001-1', seen)
+        self.assertEqual(len(saved['polymarket_events']), 1)
+        ev = saved['polymarket_events'][0]
+        for actual, expected in zip(ev['book_bid'], [0.68, 0.3]):
+            self.assertAlmostEqual(actual, expected)
+        self.assertEqual(ev['observed_at'], originate.iso(NOW))
+
+    def test_featured_money_line_does_not_get_researched_or_overwritten(self):
+        seen, saved = self.collect('market')
+        self.assertNotIn('live-polymarket-event-990001', seen)
+        self.assertEqual(saved['polymarket_events'], [])
+
+    def test_previously_unresolved_rows_still_get_researched(self):
+        seen, _ = self.collect(None)
+        self.assertIn('live-polymarket-book-990001-1', seen)
+
+    def test_zero_size_levels_cannot_become_an_executable_quote(self):
+        _, saved = self.collect(zero_size=True)
+        self.assertNotIn('book_bid', saved['polymarket_events'][0])
+
+    def test_duplicate_full_series_markets_stay_ambiguous(self):
+        seen, saved = self.collect(duplicate=True)
+        self.assertFalse(any('polymarket-book' in x for x in seen))
+        self.assertEqual(saved['polymarket_events'], [])
+
+    def test_a_map_moneyline_is_not_a_series_moneyline(self):
+        seen, saved = self.collect(prop=True)
+        self.assertFalse(any('polymarket-book' in x for x in seen))
+        self.assertEqual(saved['polymarket_events'], [])
+
+
+class OriginalBookReplay(unittest.TestCase):
+    TARGET = EndToEnd.TARGET
+    row = EndToEnd.row
+
+    def setUp(self):
+        EndToEnd.setUp(self)
+        self.folder = self.tmp / 'origination/evidence'
+        path = self.folder / 'live-polymarket-observations.json'
+        observations = json.loads(path.read_text())
+        observations['schema_version'] = 2
+        ev = observations['polymarket_events'][0]
+        ev['clob_token_ids'] = ['a', 'b']
+        path.write_text(json.dumps(observations))
+        market = {'id': '1', 'outcomes': ev['outcomes'], 'clobTokenIds': ['a', 'b'], 'conditionId': 'condition',
+                  'gameStartTime': ev['game_start_time'], 'sportsMarketType': 'moneyline',
+                  'question': ev['title'], 'active': True, 'closed': False, 'acceptingOrders': True}
+        self.event = {'id': '990001', 'slug': 'cs2-pari-bb-test', 'active': True, 'closed': False, 'live': False, 'markets': [market]}
+        (self.folder / 'live-polymarket-event-990001.json').write_text(json.dumps(self.event))
+        for i, token in enumerate(['a', 'b']):
+            book = {'asset_id': token, 'market': 'condition', 'timestamp': str(int(timestamp_for_test(ev['observed_at']).timestamp() * 1000)),
+                    'bids': [{'price': ev['book_bid'][i], 'size': '5'}],
+                    'asks': [{'price': ev['book_ask'][i], 'size': '6'}]}
+            (self.folder / f'live-polymarket-book-990001-{i}.json').write_text(json.dumps(book))
+        (self.folder / 'live-collection-manifest.json').write_text(json.dumps([{'id': 'live-polymarket-event-990001', 'status': 'ok', 'observed_at': ev['observed_at']}]))
+
+    def validate(self):
+        build_origination.validate_origination(self.data, self.tmp)
+
+    def mutate_book(self, change):
+        path = self.folder / 'live-polymarket-book-990001-0.json'
+        b = json.loads(path.read_text()); change(b); path.write_text(json.dumps(b))
+
+    def test_full_original_event_and_books_reproduce_the_summary(self):
+        self.validate()
+
+    def test_summary_cannot_hide_a_changed_original_bid(self):
+        self.mutate_book(lambda b: b['bids'][0].update(price=0.29))
+        with self.assertRaises(AssertionError): self.validate()
+
+    def test_zero_size_original_levels_cannot_back_a_pick(self):
+        self.mutate_book(lambda b: b['bids'][0].update(size='0'))
+        with self.assertRaises(ValueError): self.validate()
+
+    def test_wrong_token_or_condition_is_not_replayable(self):
+        self.mutate_book(lambda b: b.update(market='different-condition'))
+        with self.assertRaises(ValueError): self.validate()
+
+    def test_duplicate_or_map_original_markets_are_not_replayable(self):
+        self.event['markets'].append(copy.deepcopy(self.event['markets'][0]))
+        (self.folder / 'live-polymarket-event-990001.json').write_text(json.dumps(self.event))
+        with self.assertRaises(AssertionError): self.validate()
+
+    def test_direction_and_fair_line_are_replayed_not_just_probability_sum(self):
+        row = self.row()
+        row['pick_index'] = 1 - row['pick_index']
+        with self.assertRaises(AssertionError): self.validate()
+        row['pick_index'] = 1 - row['pick_index']
+        row['origination']['fair_decimal'][0] = 1.001
+        with self.assertRaises(AssertionError): self.validate()
+
+
+def timestamp_for_test(value):
+    from scripts.domain import timestamp
+    return timestamp(value)
+
+
+if __name__ == "__main__":
     unittest.main()
+
+
+class DisplayAndCSVParity(unittest.TestCase):
+    """Money-backed upgrades must not disagree across HTML, CSV and full picks."""
+    def render(self, m, result):
+        import csv
+        import io
+        from bs4 import BeautifulSoup
+        from scripts import build
+        m.update(observed_at=originate.iso(NOW), source_status='scheduled', best_of=None, source_api='https://play.hotspawn.com/cs2-pickems')
+        if m.get('analysis', {}).get('method') == 'market':
+            m['analysis'].update(event_id='synthetic', source_api='https://gamma-api.polymarket.com/events/synthetic')
+        full = {m['id']: result}
+        html = BeautifulSoup(build.matches_table([m], '../', fallbacks=full), 'html.parser')
+        row = next(csv.DictReader(io.StringIO(build.picks_csv({'matches': [m], 'fallbacks': full}))))
+        return html, row
+
+    def test_money_line_replaces_model_in_both_html_and_csv_including_direction(self):
+        m = match()
+        result = resolve(m, [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['39.0%', '61.0%'])
+        self.assertEqual(html.select_one('[data-pick-choice] strong')['data-original'], '9z')
+        self.assertEqual(html.select_one('.match-row')['data-method'], 'market')
+        self.assertEqual(csv['suggested_team'], '9z')
+        self.assertEqual([float(csv[k]) for k in ['team_a_probability_calculated', 'team_b_probability_calculated']], result['origination']['probabilities'])
+        self.assertEqual(csv['analysis_source'], result['origination']['source_url'])
+        self.assertIn('money line replaced the featured model', html.select_one('[data-pick-caption]')['data-original'])
+
+    def test_no_upgrade_flag_cannot_silently_replace_a_featured_estimate(self):
+        m = match()
+        result = resolve(m, [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        result.pop('upgraded_from_featured_model')
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['72.5%', '27.5%'])
+        self.assertEqual(csv['suggested_team'], 'Aurora')
+        self.assertEqual(csv['basis'], 'model')
+
+    def test_featured_money_line_is_preserved_even_if_a_competing_fallback_disagrees(self):
+        m = match('market')
+        result = resolve(match(), [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['60.0%', '40.0%'])
+        self.assertEqual(csv['suggested_team'], 'Aurora')
+        self.assertEqual(float(csv['team_a_probability_calculated']), 0.6)

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs/promises';
 
-const routes = ['/', '/picks/', '/edge/', '/coverage/', '/methodology/', '/review/'];
+const routes = ['/', '/picks/', '/edge/', '/twc-picks/', '/coverage/', '/methodology/', '/review/'];
 
 for (const width of [320, 390, 768, 1440]) {
   test(`all current pages are readable without horizontal overflow at ${width}px`, async ({ page }) => {

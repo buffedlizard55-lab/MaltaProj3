@@ -29,7 +29,7 @@ def verify(url, expected):
     actual = get('data/latest.json').json()
     if actual.get('generated_at') != expected['generated_at'] or actual.get('counts') != expected['counts']:
         raise ValueError('Public snapshot does not match this verified deployment yet')
-    for route in ['', 'picks/', 'edge/', 'coverage/', 'methodology/', 'review/']:
+    for route in ['', 'picks/', 'edge/', 'twc-picks/', 'coverage/', 'methodology/', 'review/']:
         page = BeautifulSoup(get(route).text, 'html.parser')
         body = page.find('body')
         if not body or body.get('data-snapshot-generated') != expected['generated_at']:
@@ -72,6 +72,42 @@ def verify(url, expected):
     originated = get('data/origination.json').json()
     if originated.get('source_snapshot_at') != expected['inventory_observed_at']:
         raise ValueError('Public fallback lines belong to another inventory observation')
+    # The TWC page must be the generated view of this exact snapshot, not the
+    # former hand-authored file with conflicting probabilities.
+    twc = get('data/twc-day3-picks.json').json()
+    if twc.get('schema_version') != 2 or twc.get('source_snapshot_at') != expected['inventory_observed_at']:
+        raise ValueError('TWC data is not the generated view of this inventory snapshot')
+    if twc.get('source_generated_at') != originated.get('generated_at'):
+        raise ValueError('TWC probabilities belong to another complete-picks snapshot')
+    if len(twc.get('day3_matches') or []) != 2 or {r.get('label') for r in twc['day3_matches']} != {'day3-aurora-9z', 'day3-betboom-legacy'}:
+        raise ValueError('TWC data omits or invents a decider')
+    twc_page = BeautifulSoup(get('twc-picks/').text, 'html.parser')
+    if twc_page.body.get('data-page') != 'twc' or len(twc_page.select('.twc-card')) != 2:
+        raise ValueError('TWC generated page was replaced or its deciders are missing')
+    for anchor in ['twc-summary', 'day-three-picks', 'day-one-results', 'day-two-results', 'roster-check', 'unresolved']:
+        if not twc_page.find(id=anchor):
+            raise ValueError('TWC page missing #' + anchor)
+    by_id = {m['id']: m for m in originated['matches']}
+    for row in twc.get('day3_matches', []):
+        current = by_id.get(row['id'])
+        if row.get('analysis') and not current:
+            raise ValueError('TWC estimate has no canonical complete-picks row')
+        if current and (row.get('analysis') != current.get('origination') or row.get('pick_index') != current.get('pick_index')):
+            raise ValueError('TWC probabilities or default pick diverged from complete picks')
+        card = twc_page.find(id='twc-' + row['label'])
+        values = [n.get_text(strip=True) for n in card.select('.twc-prob strong')] if card else []
+        expected_values = [f'{p*100:.1f}%' for p in row['analysis']['probabilities']] if row.get('analysis') else ['—', '—']
+        if values != expected_values:
+            raise ValueError('TWC HTML probabilities differ from its generated JSON')
+    for row in twc['day3_matches']:
+        a = row.get('analysis') or {}
+        print('::notice::Public TWC: ' + json.dumps({
+            'teams': row['teams'], 'probabilities': a.get('probabilities'),
+            'default_pick': row.get('pick'), 'status_at_build': row['status'],
+            'quote_observed_at': a.get('observed_at'), 'locks_at': row.get('locks_at'),
+            'inventory_observed_at': twc['source_snapshot_at']}, ensure_ascii=False))
+    get('assets/twc.css')
+    print('::notice::TWC probabilities and defaults match this deployment’s complete-picks snapshot')
     wanted = {m['id'] for m in expected['matches'] if m['availability'] != 'past'}
     if {m['id'] for m in originated.get('matches', [])} != wanted:
         raise ValueError('Public complete-picks data omits or invents fixtures')
@@ -122,7 +158,7 @@ def main():
             base = verify(args.url, expected)
             if os.environ.get('GITHUB_STEP_SUMMARY'):
                 with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
-                    summary.write('\n## Public deployment verified\n\n' + base + '\n\nAll six current pages, the dated upset review, full snapshot, three old URLs and both preserved archives returned the expected content.\n')
+                    summary.write('\n## Public deployment verified\n\n' + base + '\n\nAll seven current dashboard pages, the canonical TWC view, the dated upset review, full snapshot, three old URLs and both preserved archives returned the expected content.\n')
             return
         except (requests.RequestException, ValueError) as exc:
             if attempt == 11:

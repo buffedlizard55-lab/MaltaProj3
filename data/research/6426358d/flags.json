@@ -1,0 +1,209 @@
+[
+  {
+    "id": "6426358d-twc-corrected",
+    "severity": "notice",
+    "title": "TWC probability-policy conflict corrected: one regenerated feed, no fan-vote blend",
+    "detail": "The former hand-authored TWC 67%/72% probabilities, fan polls, outright triangulation and unsupported health/bracket/roster-causality claims are withdrawn. /twc-picks/ now copies this deployment’s audited complete-picks data and displays both source probabilities, default picks, quote times and gaps. The older e6c0f47d warning is retained as a historical audit finding; it no longer describes the regenerated page. The old file-copy step that could overwrite the generated page was removed and regression-tested.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_twc.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json",
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "6426358d-editorial-corrections",
+    "severity": "notice",
+    "title": "Withdrawn interpretation: in-play price called prematch, symmetric rest, and causal onboarding discount",
+    "detail": "The Aurora–NiP 98.65% historical provider observation was in-play, not prematch; a single series cannot establish forecast calibration. Playing on the same date does not establish equal rest hours. The Aurora rebuild report is dated 8 July, not a verified new October change or a proven cause of the 9z loss. These unsupported interpretations are removed from the dated previews; original market observation times remain unchanged. Day-3 starts are verified from HLTV epoch attributes at 14:00/17:00 UTC. The current page makes no rest, illness or onboarding probability adjustment.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/observed-0723/source-report.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081493",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: Eternal Fire vs Apogee Betclic",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. Apogee Betclic: no Valve rating row found (including registry aliases) The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081493"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/eternal-fire-vs-apogee-betclic-pgl-bucharest-2027-closed-qualifier-1081493",
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/matches/2399654/eternal-fire-vs-betclic-pgl-bucharest-2027-closed-qualifier",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081502",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: Procyon vs LOS NINOS",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. LOS NINOS: no Valve rating row found (including registry aliases) The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081502"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/procyon-vs-los-ninos-cct-south-america-2026-series-7-1081502",
+      "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1079170",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: BET-M vs Just Players",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. Just Players: multiple Valve rosters share this name; no unique exact-five-player HLTV proof The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1079170"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170",
+      "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081513",
+    "severity": "notice",
+    "title": "Exact-five-player model resolution at 07:29 UTC: Bebop vs Donstu",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. Uncalibrated historical-rating estimate, not bookmaker odds; current-lineup equality is used only to disambiguate the indicated rating row. Other inputs may still have roster changes. The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081513"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/bebop-vs-donstu-cct-europe-2026-challengers-8-1081513",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399676/bebop-vs-donstu-cct-2026-challengers-europe-series-8",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081521",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: ex-6666 vs Privateer",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. ex-6666: no Valve rating row found (including registry aliases) The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081521"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521",
+      "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081522",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: antidaun vs Phantom Academy",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. antidaun: no Valve rating row found (including registry aliases) The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081522"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522",
+      "https://www.hltv.org/matches/2399682/antidaun-vs-phantom-academy-cct-2026-challengers-europe-series-8",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081526",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: Infinite vs Insiders",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. Insiders: no Valve rating row found (including registry aliases) The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081526"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081526",
+      "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081527",
+    "severity": "warning",
+    "title": "Unresolved at 07:29 UTC: aimclub vs BASEMENT BOYS",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. aimclub: multiple Valve rosters share this name; no unique exact-five-player HLTV proof The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081527"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081527",
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-gap-1081532",
+    "severity": "notice",
+    "title": "Exact-five-player model resolution at 07:29 UTC: ASTRAL vs Leo",
+    "detail": "Dated 16 October 2026 research, not a current coverage claim. Uncalibrated historical-rating estimate, not bookmaker odds; current-lineup equality is used only to disambiguate the indicated rating row. Other inputs may still have roster changes. The automated complete-picks list is authoritative for the latest refresh. HLTV was checked first, then Polymarket, Kalshi, Thunderpick and Bovada; rejected or missing evidence is never replaced with 50/50. Dossier: data/research/6426358d/coverage-review.json.",
+    "match_ids": [
+      "1081532"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081532",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399597/astral-vs-leo-digital-crusade-draculan-season-7",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json"
+    ]
+  },
+  {
+    "id": "6426358d-parallel-core-policy",
+    "severity": "warning",
+    "title": "Historical ≥3/5-core scenarios are not canonical exact-five picks",
+    "detail": "Concurrent M research used a roster-core overlap rule that proposed partial-roster forecasts for Just Players and aimclub. Its dated JSON and arithmetic validator are preserved, but the edge/review table now withholds those forecasts and links to the complete live list. Four-of-five player overlap does not satisfy this project’s fresh original-markup, exact-five identity proof. ASTRAL–Leo and Bebop–Donstu resolve only through the independent accepted exact-five chain. No model scenario is silently promoted, and no accepted-line absence is described as proof that no market exists. The prior report’s repeated claim of 403 Valve rows is also withdrawn: the retained original Git blob replays to 380 rows. Its historical validator now uses a pinned original-response/parsed pair, not the mutable runtime cache, so future rating refreshes cannot invalidate or retime this dated audit.",
+    "match_ids": [
+      "1079170",
+      "1081527",
+      "1081532",
+      "1081513"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f392649f/lineup-disambiguation.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6426358d/coverage-review.json",
+      "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-cct-season-3-europe-series-9",
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-draculan-season-3"
+    ]
+  }
+]

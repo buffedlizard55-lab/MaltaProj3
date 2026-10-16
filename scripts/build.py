@@ -22,7 +22,7 @@ LOBBY = 'https://play.hotspawn.com/lobby'
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 3 picks', 'twc-picks/index.html', 'target'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
@@ -81,7 +81,7 @@ def evidence(m, prefix, fallback=None):
         body += f'<div><dt>{label}</dt><dd>{value}</dd></div>'
     body += '</dl><div class="evidence-links">' + external(m['source_url'], 'Hotspawn match') + external(m['source_api'], 'Original fixture API') + f'<a href="{prefix}data/evidence/hotspawn-fixtures.json">Saved fixture evidence ↓</a></div>'
     if a:
-        body += f'<h4>{e(a["label"])}</h4><p>Observed {local_time(a["observed_at"])}. Calculated fair lines: <strong>{e(a["fair_decimal"][0])} / {e(a["fair_decimal"][1])}</strong> (not quoted bookmaker odds).</p>'
+        body += f'<h4>{"Featured model reference (replaced below) · " if fallback and fallback.get("upgraded_from_featured_model") else ""}{e(a["label"])}</h4><p>Observed {local_time(a["observed_at"])}. Calculated fair lines: <strong>{e(a["fair_decimal"][0])} / {e(a["fair_decimal"][1])}</strong> (not quoted bookmaker odds).</p>'
         if a['method'] == 'market':
             body += '<div class="mini-table-wrap"><table class="mini-table"><caption>Original bid/ask observations</caption><thead><tr><th>Team</th><th>Bid / ask</th><th>Source</th></tr></thead><tbody>'
             for t, q in zip(m['teams'], a['quotes']):
@@ -101,13 +101,13 @@ def evidence(m, prefix, fallback=None):
                 body += f'<p>Quoted decimal odds: {e(q["odds"][0])} / {e(q["odds"][1])}. {external(q["source_url"], q["provider"])}</p>'
                 body += f'<p>Original event ID: <strong>{e(q["event_id"])}</strong>. Source uses a read-only POST with <code>{{"gameIds":[6]}}</code>; opening that endpoint as a browser GET does not reproduce the recorded request.</p><div class="evidence-links"><a href="{prefix}data/evidence/thunderpick-matches.json">Saved original bookmaker response ↓</a><a href="{prefix}data/sources.json">Request method &amp; payload ↓</a></div>'
         body += '<ul class="limitations">' + ''.join(f'<li>{e(x)}</li>' for x in a['limitations']) + '</ul>' + external(a['source_url'], a['source'])
-    if not a and fallback and fallback.get('origination'):
+    if fallback and fallback.get('origination') and (not a or fallback.get('upgraded_from_featured_model')):
         o = fallback['origination']
         body += (f'<h4>Researched fallback · {e(o.get("label") or o["method"])}</h4>'
                  f'<p>Observed {local_time(o["observed_at"])}. Calculated fair lines: '
                  f'<strong>{e(o["fair_decimal"][0])} / {e(o["fair_decimal"][1])}</strong> (not quoted bookmaker odds). '
                  'The featured exact-name method rejected this fixture; this estimate comes from the audited research '
-                 'ladder and never overwrites a featured value.</p>')
+                 'ladder. Featured money lines are preserved; an upgraded model remains above only as an audit reference.</p>')
         for q in o.get('quotes') or []:
             facts = []
             odds, bid, ask = q.get('odds'), q.get('bid'), q.get('ask')
@@ -155,9 +155,9 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
     now = datetime.now(timezone.utc)
     for m in matches:
         a, pick = m['analysis'], m['pick_index']
-        fallback = None if a else fallbacks.get(str(m['id']))
+        fallback = selected_fallback(m, fallbacks)
         fb = (fallback or {}).get('origination')
-        if a is None and fb:
+        if fb:
             a, pick = fb, fallback.get('pick_index')
             researched = True
         else:
@@ -184,7 +184,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
             inactive = expired or closed or lock is None
-            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + (' · researched fallback, featured method rejected this fixture' if researched else '')
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + ((' · money line replaced the featured model' if fallback.get('upgraded_from_featured_model') else ' · researched fallback, featured method rejected this fixture') if researched else '')
             status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
             out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
 
@@ -207,13 +207,25 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
     return out
 
 
+def selected_fallback(m, fallbacks):
+    """One displayed probability basis: preserve money lines, upgrade only models."""
+    row = fallbacks.get(str(m['id']))
+    if not row or not row.get('origination'):
+        return None
+    a = m.get('analysis')
+    if a is None or (a.get('method') == 'model' and row.get('upgraded_from_featured_model')
+                     and row['origination']['method'] in {'market', 'bookmaker', 'consensus'}):
+        return row
+    return None
+
+
 def effective_basis(m, fallbacks):
     """Return (method, is_researched_fallback) for what this row actually displays."""
+    fb = selected_fallback(m, fallbacks)
+    if fb:
+        return fb['origination']['method'], True
     if m['analysis']:
         return m['analysis']['method'], False
-    fb = (fallbacks.get(str(m['id'])) or {}).get('origination')
-    if fb:
-        return fb['method'], True
     return 'unresolved', False
 
 
@@ -311,8 +323,8 @@ def summary(data, prefix):
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["unresolved"]} unresolved in the complete researched list. Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}edge/">Day-one upset review ↓</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-three-guide">Day 3 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 3: picks &amp; review →</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'twc-picks/">Day 3 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'
@@ -324,14 +336,14 @@ def summary(data, prefix):
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The short version</p><h2>What to know before you pick</h2></div>' + badge('Read-only analysis', 'neutral') + '</div><div class="briefing-notes">'
     out += f'<div><span class="note-number">01</span><p><strong>Start with the full picks list.</strong> Both team probabilities, the suggested team, lock time and original evidence are shown together. {external(LOBBY, "Submit picks on Hotspawn")}</p></div><div><span class="note-number">02</span><p><strong>Know what backs the number.</strong> Green means an external market; purple means an uncalibrated rating model used only when the primary method failed. Neither is a guarantee.</p></div><div><span class="note-number">03</span><p><strong>Check the timestamp.</strong> Automatic checks are scheduled every four hours. GitHub may delay a run. After eight hours without a successful observation, the site warns you not to treat the snapshot as current.</p></div></div></section>'
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'picks/">All match picks ' + icon('arrow') + '</a></div>'
-    out += matches_table(active[:5], prefix, table_id='next-matches') + '</section>'
+    out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks')) + '</section>'
     out += contrarian_review(data, prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
     out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
     unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
     out += unresolved_table(unresolved_data, prefix)
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
-    out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured estimates are never overwritten.</p></section>'
+    out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'
     out += contrarian_briefing(data, prefix)
     out += where_everything_lives(data, prefix)
     return out
@@ -352,11 +364,12 @@ def where_everything_lives(data, prefix):
         ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
+        ('TWC Day 3 picks & review', 'twc-picks/', 'Both deciders from the same refreshed probability feed, Days 1–2 results and source-backed roster context.', 'No fan votes or narrative probability adjustments'),
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
         ('Upset review & edge', 'edge/', 'Dated first-party review of the day-one Thunderpick World Championship '
-         'results, the Aurora roster rebuild behind the 9z upset, verified Valve standings and the seven rules applied '
+         'results, Aurora roster context (not a proven cause of the upset), dated Valve standings and the seven rules applied '
          'before disagreeing with a market.', 'Research review · not a live feed'),
         ('Coverage & sources', 'coverage/', 'Inventory reconciliation, source health, the complete past-start archive '
          'and JSON/CSV downloads.', 'Every original request'),
@@ -383,7 +396,7 @@ def picks(data, prefix):
     active = [m for m in data['matches'] if m['availability'] != 'past']
     basis = [effective_basis(m, fallbacks) for m in active]
     shown = {'all': len(active),
-             'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker')),
+             'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker', 'consensus')),
              'model': sum(1 for b, _ in basis if b == 'model'),
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
@@ -441,12 +454,12 @@ def coverage(data, prefix):
 
 def methodology(data, prefix):
     out = heading('A number needs a reason', 'How we resolve a pick', 'Source facts stay separate from analysis. No Hotspawn community percentage, popularity, score or Pick’em point multiplier enters a probability calculation.')
-    steps = [('01', 'Verify the full match inventory', 'Read the public lobby, CS2 lobby and the same public fixture array used by Hotspawn’s client. Reconcile every CS2 ID. Keep old or inconsistent records in the archive rather than dropping them.', LOBBY, 'Official lobby'), ('02', 'Use the primary external market', 'Discover CS2 games from Polymarket’s directory and paginate its official CS2-tag event API to a terminal page. A repeated page, schema change, access failure or the bounded 2,000-event limit is published as a discovery limitation. Confirm the event, exact two team names, start time within 60 seconds, unique active series moneyline, accepting-orders state, token IDs and condition ID. Read both original order books. No map or handicap markets.', 'https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Official order book documentation'), ('03', 'Research only primary-method gaps', 'For those matches only, try HLTV’s official match directory, then original esportsbook lines. HLTV’s sibling time/team cards are replayed from saved original markup; differing provider names stay flagged, not silently aliased. Thunderpick has a paired-price adapter; GG.BET, Pinnacle, Rivalry and Stake are public-access checks and do not fabricate prices if a validated contract is unavailable. HTTP 403, redirects and schema failures are visible limitations—not proof of no market.', 'https://www.hltv.org/matches', 'HLTV official match directory'), ('04', 'Model only supported rating inputs—or leave blank', 'If no accepted external line exists, read the latest official global Valve snapshot on or before today. Require exactly one matching team name and a complete five-player roster for each team. Reject ambiguous names, missing teams and snapshots older than 35 days. Otherwise publish an explicitly uncalibrated rating estimate. If any requirement fails, publish the match as unresolved.', 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'Valve official standings')]
+    steps = [('01', 'Verify the full match inventory', 'Read the public lobby, CS2 lobby and the same public fixture array used by Hotspawn’s client. Reconcile every CS2 ID. Keep old or inconsistent records in the archive rather than dropping them.', LOBBY, 'Official lobby'), ('02', 'Use the primary external market', 'Discover CS2 games from Polymarket’s directory and paginate its official CS2-tag event API to a terminal page. A repeated page, schema change, access failure or the bounded 2,000-event limit is published as a discovery limitation. Confirm the event, exact two team names, start time within 60 seconds, unique active series moneyline, accepting-orders state, token IDs and condition ID. Read both original order books. No map or handicap markets.', 'https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Official order book documentation'), ('03', 'Research only primary-method gaps', 'For those matches only, try HLTV’s official match directory, then original esportsbook lines. HLTV’s sibling time/team cards are replayed from saved original markup; differing provider names stay flagged, not silently aliased. Thunderpick has a paired-price adapter; GG.BET, Pinnacle, Rivalry and Stake are public-access checks and do not fabricate prices if a validated contract is unavailable. HTTP 403, redirects and schema failures are visible limitations—not proof of no market.', 'https://www.hltv.org/matches', 'HLTV official match directory'), ('04', 'Model only supported rating inputs—or leave blank', 'If no accepted external line exists, read the latest official global Valve snapshot on or before today. Require exactly one matching team name and a complete five-player roster for each team. Reject missing teams and snapshots older than 35 days. The complete-picks fallback can disambiguate several same-name five-player rows only when a fresh, exact-fixture HLTV lineup matches exactly one whole five-player roster; no partial overlap or strongest-row guess. Otherwise publish an explicitly uncalibrated rating estimate. If any requirement fails, publish the match as unresolved.', 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'Valve official standings')]
     out += '<section class="content-section resolution-steps">'
     for n, title, description, url, label in steps:
         out += f'<article class="resolution-step"><span>{n}</span><div><h2>{title}</h2><p>{e(description)}</p>{external(url, label)}</div></article>'
     out += '</section><section class="content-section prose"><p class="eyebrow">Our calculations, not source facts</p><h2>From observations to percentages</h2><h3>Prediction-market estimate</h3><p>For each outcome, take the best positive-size bid and ask from its own book. The midpoint is <code>m = (best bid + best ask) / 2</code>. Normalize the paired midpoints with <code>P(A) = mA / (mA + mB)</code> and <code>P(B) = 1 − P(A)</code>. Require valid two-sided books, a spread of no more than 12 cents per outcome, matching token/condition IDs, and source timestamps no older than eight hours. Directory percentages and Gamma’s last-price defaults are not used.</p><p>These are indicative midpoints, not guaranteed execution quotes or “true” win probabilities. Trading fees, slippage and position size are excluded. A single prediction market is not independent bookmaker consensus. ' + external('https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Inspect the official book schema') + '</p><h3>Original bookmaker estimate</h3><p>For a verified pair of decimal odds <code>dA, dB</code>, calculate <code>qA = 1/dA</code>, <code>qB = 1/dB</code>, then remove proportional margin with <code>P(A) = qA / (qA + qB)</code>. Only active, two-outcome, prematch match-winner lines are accepted. Implied-probability sums outside 0.85–1.35 are rejected as a data-quality policy. Different mirrors of one book count as one source family; independent families, if present, are combined using the median normalized probability.</p><h3>Valve-rating research estimate</h3><p>The published Valve model uses a Glicko-style expected score. We implement <code>g = 1 / √(1 + 3(ln(10)/400)² × RD² / π²)</code> and <code>P(A) = 1 / (1 + 10^(g × (RB − RA) / 400))</code>. Points <code>RA, RB</code> are sourced facts; <code>RD = 75</code> is a fixed assumption following Valve’s fit example, not a measured uncertainty for today’s roster.</p><p>' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js', 'Valve fit example') + ' ' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/glicko.js', 'Valve expected-score implementation') + '</p><div class="limitations-callout"><strong>Important model limitations</strong><p>This deployment has not been backtested or calibrated. A historic name-matched roster is not proof of today’s lineup. Stand-ins, roster changes, map vetoes, team form since the snapshot and bookmaker information are not added without verification. This model does not override a valid primary market pick and is never labeled a verified betting line.</p></div><h3>Our fair line and the pick</h3><p>The fair decimal line is <code>1/P</code>; it is a calculated reference, not odds offered by any bookmaker. The suggested team has the higher unrounded probability. An exactly equal estimate has no directional pick. Missing data is not replaced with 50/50. Displayed percentages are rounded to one decimal place; the downloadable data retains higher precision.</p></section>'
-    out += '<section class="content-section prose"><p class="eyebrow">Operational boundaries</p><h2>Freshness, identity &amp; blank values</h2><ul><li>Refreshes are scheduled every four hours in UTC. GitHub Actions schedules are best-effort, not a real-time service-level guarantee.</li><li>The inventory observation time, price observation time, source book timestamp and rating snapshot date remain distinct. A failed refresh never resets successful-observation timestamps.</li><li>After eight hours, the browser displays a stale warning and disables “current pick” language. After a fixture’s explicit lock time, it is labeled closed for picks. A past scheduled start is not treated as a verified final result.</li><li>Matching is Unicode/case/whitespace-equivalent exact naming plus start time within 60 seconds. Abbreviations, sponsor aliases and fuzzy matches are not guessed. Duplicate Valve names are rejected, even when one looks more likely.</li><li>Unverified factual values remain blank and labeled “unverified.” Calculated probabilities and fair lines are visibly identified as analysis; they are not filled-in source facts.</li><li>Access controls, robots restrictions and challenges are not bypassed. No login, paid API key, user input or betting account is required for this read-only dashboard.</li><li>Every published probability is replayed from saved first-party evidence before deployment. Every match row links back to Hotspawn; pricing and model inputs carry their own original-source links.</li></ul><p>' + external('https://play.hotspawn.com/how-it-works', 'Hotspawn rules for manual review') + f' · <a href="{prefix}review/">See all flagged limitations →</a></p></section>'
+    out += '<section class="content-section prose"><p class="eyebrow">Operational boundaries</p><h2>Freshness, identity &amp; blank values</h2><ul><li>Refreshes are scheduled every four hours in UTC. GitHub Actions schedules are best-effort, not a real-time service-level guarantee.</li><li>The inventory observation time, price observation time, source book timestamp and rating snapshot date remain distinct. A failed refresh never resets successful-observation timestamps.</li><li>After eight hours, the browser displays a stale warning and disables “current pick” language. After a fixture’s explicit lock time, it is labeled closed for picks. A past scheduled start is not treated as a verified final result.</li><li>Matching is Unicode/case/whitespace-equivalent exact naming plus start time within 60 seconds. Abbreviations, sponsor aliases and fuzzy matches are not guessed. Ambiguous Valve names are rejected unless the complete-picks fallback replays a fresh, exact-fixture HLTV proof matching exactly one entire five-player roster. Four-of-five overlap is not sufficient.</li><li>Unverified factual values remain blank and labeled “unverified.” Calculated probabilities and fair lines are visibly identified as analysis; they are not filled-in source facts.</li><li>Access controls, robots restrictions and challenges are not bypassed. No login, paid API key, user input or betting account is required for this read-only dashboard.</li><li>Every published probability is replayed from saved first-party evidence before deployment. Every match row links back to Hotspawn; pricing and model inputs carry their own original-source links.</li></ul><p>' + external('https://play.hotspawn.com/how-it-works', 'Hotspawn rules for manual review') + f' · <a href="{prefix}review/">See all flagged limitations →</a></p></section>'
     return out
 
 
@@ -479,7 +492,7 @@ def shell(data, key, body, prefix):
     title = PAGES[key][0]
     nav = ''
     for k, (label, path, sym) in PAGES.items():
-        href = prefix + ('' if k == 'summary' else 'origination/#picks' if k == 'picks' else k + '/')
+        href = prefix + ('' if k == 'summary' else 'origination/#picks' if k == 'picks' else str(Path(path).parent) + '/')
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
@@ -487,12 +500,28 @@ def shell(data, key, body, prefix):
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
+    extra_css = f'<link rel="stylesheet" href="{prefix}assets/twc.css">' if key == 'twc' else ''
     return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css"><script src="{prefix}assets/scout.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
 <body data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar"><a class="brand" href="{prefix}index.html" aria-label="Spawn Scout home"><span class="brand-mark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h9v9H5zM17 4h7v7h-7zM5 16h7v8H5z"/><path d="m16 17 8-4v11h-8z"/></svg></span><span>spawn<span class="brand-light">scout</span><small>CS2 MATCH INTELLIGENCE</small></span></a><p class="nav-label">YOUR DASHBOARD</p><nav aria-label="Main navigation">{nav}</nav><div class="sidebar-bottom"><div class="sidebar-note"><span class="status-dot"></span><strong>Independent analysis</strong><p>Hotspawn tells us who plays.<br>External sources inform the pick.</p></div>{external(LOBBY, 'Open Hotspawn lobby', 'sidebar-external')}<a class="sidebar-repo" href="{REPO}">Open-source &amp; auditable {icon('external')}</a></div></aside>
 <div class="workspace"><header class="topbar"><div class="mobile-brand"><a href="{prefix}index.html">spawn<strong>scout</strong><span>CS2</span></a></div><div class="desktop-crumb">Workspace <span>/</span> <strong>{e(title)}</strong></div><div class="topbar-tools"><span class="refresh-pill">{icon('clock')} Checks every 4h</span><label class="timezone-control"><span class="sr-only">Display timezone</span><select id="timezone"><option value="Europe/Malta">Malta time</option><option value="UTC">UTC</option><option value="local">Device time</option></select></label></div></header>
 <main id="main" tabindex="-1"><div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
+
+
+def picks_csv(data):
+    """Export the exact probability basis and direction selected by the HTML table."""
+    stream = io.StringIO()
+    writer = csv.writer(stream, lineterminator='\n')
+    writer.writerow(['hotspawn_id', 'team_a', 'team_b', 'starts_at_utc', 'locks_at_utc', 'source_status', 'availability_at_snapshot', 'team_a_probability_calculated', 'team_b_probability_calculated', 'suggested_team', 'basis', 'price_or_model_observed_at', 'rating_snapshot_date', 'original_hotspawn_source', 'analysis_source'])
+    for m in data['matches']:
+        fb = selected_fallback(m, data.get('fallbacks') or {})
+        a = fb['origination'] if fb else m['analysis']
+        pick_index = fb.get('pick_index') if fb else m['pick_index']
+        # Defend downloads against formula injection in source-controlled team names.
+        safe = lambda x: ("'" + str(x)) if str(x).startswith(('=', '+', '-', '@')) else x
+        writer.writerow([safe(x) for x in [m['id'], m['teams'][0]['name'] or '', m['teams'][1]['name'] or '', m['starts_at'] or '', m['locks_at'] or '', m['source_status'] or '', m['availability'], a['probabilities'][0] if a else '', a['probabilities'][1] if a else '', m['teams'][pick_index]['name'] if pick_index is not None else '', a['method'] if a else '', a['observed_at'] if a else '', a.get('snapshot_date', '') if a else '', m['source_url'], a['source_url'] if a else '']])
+    return stream.getvalue()
 
 
 def build(source: Path, output: Path):
@@ -502,15 +531,15 @@ def build(source: Path, output: Path):
     validate_context(data, data['_contrarian'])
     if (source / 'origination.json').exists():
         data['complete_picks'] = json.loads((source / 'origination.json').read_text())
-        # Researched fallbacks are only displayed for fixtures the featured
-        # exact-name method left blank; featured estimates are never rewritten.
+        # Preserve featured money lines; show researched values for blanks or
+        # explicitly verified money-backed replacements of the lowest-rung model.
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
     # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
     # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
     # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
-    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json'):
+    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json'):
         if findings.exists():
             have = {f['id'] for f in data['flags']}
             data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
@@ -526,24 +555,20 @@ def build(source: Path, output: Path):
     (output / '.nojekyll').touch()
     from scripts import build as _self
     from scripts.build_edge import edge_review
+    from scripts.build_twc import render as twc_review
     edge_path = source / 'edge-review.json'
     _self.EDGE_SOURCE = edge_path
     renderers = {'summary': summary, 'picks': picks, 'coverage': coverage, 'methodology': methodology,
-                 'review': review, 'edge': lambda d, pfx: edge_review(d, pfx, edge_path)}
+                 'review': review, 'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
+                 'twc': lambda d, pfx: twc_review(d, pfx, source)}
     for key, (_, path, _) in PAGES.items():
         target = output / path
         target.parent.mkdir(parents=True, exist_ok=True)
         prefix = './' if key == 'summary' else '../'
         target.write_text(shell(data, key, renderers[key](data, prefix), prefix))
-    stream = io.StringIO()
-    writer = csv.writer(stream, lineterminator='\n')
-    writer.writerow(['hotspawn_id', 'team_a', 'team_b', 'starts_at_utc', 'locks_at_utc', 'source_status', 'availability_at_snapshot', 'team_a_probability_calculated', 'team_b_probability_calculated', 'suggested_team', 'basis', 'price_or_model_observed_at', 'rating_snapshot_date', 'original_hotspawn_source', 'analysis_source'])
-    for m in data['matches']:
-        a = m['analysis']
-        # Defend downloads against formula injection in source-controlled team names.
-        safe = lambda x: ("'" + str(x)) if str(x).startswith(('=', '+', '-', '@')) else x
-        writer.writerow([safe(x) for x in [m['id'], m['teams'][0]['name'] or '', m['teams'][1]['name'] or '', m['starts_at'] or '', m['locks_at'] or '', m['source_status'] or '', m['availability'], a['probabilities'][0] if a else '', a['probabilities'][1] if a else '', m['teams'][m['pick_index']]['name'] if m['pick_index'] is not None else '', a['method'] if a else '', a['observed_at'] if a else '', a.get('snapshot_date', '') if a else '', m['source_url'], a['source_url'] if a else '']])
-    (output / 'data/picks.csv').write_text(stream.getvalue())
+    (output / 'data/picks.csv').write_text(picks_csv(data))
+    if data.get('_twc_report'):
+        (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')
     # Preserve the old root URLs without exposing a competing current feed.
     aliases = {'picks.html': 'picks/', 'methodology.html': 'methodology/', 'flagged.html': 'review/'}
     for old, target in aliases.items():
@@ -566,12 +591,8 @@ def build(source: Path, output: Path):
         build_originated(source, output)
     # Browser-test fixtures (site/_fixture) are never part of the published site or its link check.
     shutil.rmtree(output / '_fixture', ignore_errors=True)
-    # TWC Day 3 picks page: static file in repo root, copied into the build output.
-    twc_src = Path('twc-picks')
-    if twc_src.exists():
-        twc_dest = output / 'twc-picks'
-        twc_dest.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(twc_src, twc_dest, dirs_exist_ok=True)
+    # TWC is generated by the same renderer loop and snapshot as every other
+    # current view. Never overlay it with the former hand-authored root page.
     # Leaderboard plan: its own builder and stylesheet. It is derived, optional output, so a failure here
     # degrades to a placeholder page and a loud annotation instead of blocking the data refresh.
     from scripts.build_strategy import build as build_strategy, placeholder as strategy_placeholder

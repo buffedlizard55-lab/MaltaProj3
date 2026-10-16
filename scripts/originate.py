@@ -32,12 +32,12 @@ from urllib.parse import urlencode
 
 import requests
 
-from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite
+from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
-START_TOLERANCE_SEC = 60  # Provider clocks disagree up to ±30 min on delayed fixtures.
+START_TOLERANCE_SEC = 60  # No relaxed matching for delayed or rescheduled fixtures.
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
 # Price freshness is domain.is_fresh (MAX_PRICE_AGE_HOURS = 8). A former unused 12-hour
 # constant here contradicted it and was removed (session c07e1b40 review).
@@ -214,6 +214,17 @@ class Collector:
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
 
+def aliased_series_market(event: dict, fixture: dict, registry: dict, now: datetime):
+    """Same unique full-series contract as featured, with scoped name aliases."""
+    originals = event.get('markets', [])
+    canonical = [dict(m, outcomes=[resolve_name(n, registry, fixture.get('competition'))[0]
+                                  for n in array(m.get('outcomes'))]) for m in originals]
+    candidate, reason = polymarket_candidate(dict(event, markets=canonical), fixture, now)
+    if candidate is None:
+        return None, reason
+    return next(original for original, mapped in zip(originals, canonical) if mapped is candidate), ''
+
+
 def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     """Refetch every first-party source used by the origination ladder.
 
@@ -224,6 +235,27 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     """
     client = Collector(evidence_dir)
     out = {'requests': [], 'observed_at': iso(datetime.now(UTC))}
+    # A model-only row has not been resolved by a money line. The resolver has
+    # always allowed that upgrade, but the collector previously never fetched
+    # its aliased Polymarket books. Run the same research for those rows too.
+    active = [m for m in matches if m.get('availability') != 'past'
+              and (m.get('analysis') is None or m['analysis'].get('method') == 'model')]
+    # Fetch only exact, already discovered HLTV identities for primary gaps.
+    # Old proof files are removed before refetch so an access failure cannot
+    # leave yesterday's lineup looking newly observed.
+    for stale in evidence_dir.glob('live-hltv-match-*.json'):
+        stale.unlink()
+    for match in active:
+        if match.get('analysis') is not None:
+            continue
+        urls = {r['source_url'] for r in match.get('research', [])
+                if r.get('stage') == 'HLTV research' and r.get('status') == 'checked'
+                and str(r.get('source_url', '')).startswith('https://www.hltv.org/matches/')}
+        if len(urls) == 1:
+            try:
+                client.fetch_html(next(iter(urls)), 'live-hltv-match-' + str(match['id']))
+            except RuntimeError:
+                pass  # The request manifest keeps the actual failure; no guessed lineup.
     try:
         body, _ = client.get_json(THUNDERPICK_API, 'live-thunderpick-matches', method='POST', payload={'gameIds': [6]})
         out['thunderpick'] = body
@@ -237,26 +269,25 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['polymarket_games'] = len(games)
     except (RuntimeError, ValueError) as exc:
         out['polymarket_index_error'] = str(exc)
-    active = [m for m in matches if m.get('availability') != 'past' and m.get('analysis') is None]
     events = []
     books = []
     for game in games:
         names = [game.get('homeName', ''), game.get('awayName', '')]
-        joined = any(pair_join(names, game.get('startTime'), m, registry)[2] == 'matched' for m in active)
-        if not joined:
+        joined = [m for m in active if pair_join(names, game.get('startTime'), m, registry)[2] == 'matched']
+        if len(joined) != 1:
             continue
+        fixture = joined[0]
         try:
-            event, _ = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
+            event, event_request = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
         except RuntimeError as exc:
             continue
         if event.get('active') is not True or event.get('closed') is not False or event.get('live') is True:
             continue
-        moneyline = None
-        for market in event.get('markets', []):
-            scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
-            if scope == 'moneyline' and market.get('active') is True and market.get('closed') is False and market.get('acceptingOrders') is True and str(market.get('question', '')).startswith('Counter-Strike:'):
-                moneyline = market
-                break
+        # Reuse the featured market contract after a scoped alias-only name
+        # mapping. It requires ONE active full-series market with both teams,
+        # matching future start and accepting orders; never select the first
+        # map/prop or silently pick among duplicate moneylines.
+        moneyline, _ = aliased_series_market(event, fixture, registry, datetime.now(UTC))
         if not moneyline:
             continue
         tokens = moneyline.get('clobTokenIds')
@@ -276,14 +307,16 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             if book is None:
                 bid, ask = [], []
                 break
-            bids = [finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None]
-            asks = [finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None]
+            bids = [finite(x.get('price')) for x in book.get('bids', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
+            asks = [finite(x.get('price')) for x in book.get('asks', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
             from scripts.domain import is_fresh
             stamp = timestamp(book.get('timestamp'))
             if not stamp or not is_fresh(iso(stamp), datetime.now(UTC)) or str(book.get('asset_id')) != str(token) or book.get('market') != moneyline.get('conditionId'):
                 bid, ask = [], []
                 break
-            if not bids or not asks:
+            if not bids or not asks or any(p is None or not 0 < p < 1 for p in bids + asks):
                 bid, ask = [], []
                 break
             bid.append(max(bids))
@@ -295,7 +328,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             'event_id': str(event.get('id')), 'slug': event.get('slug'), 'title': moneyline.get('question'),
             'source_url': POLY_EVENTS + str(event.get('id')),
             'public_page': 'https://polymarket.com/event/' + str(event.get('slug', '')),
-            'observed_at': iso(datetime.now(UTC)), 'active': event.get('active'), 'closed': event.get('closed'),
+            'observed_at': event_request['observed_at'], 'active': event.get('active'), 'closed': event.get('closed'),
             'moneyline_market_id': str(moneyline.get('id')),
             'outcomes': json.loads(moneyline['outcomes']) if isinstance(moneyline.get('outcomes'), str) else moneyline.get('outcomes'),
             'game_start_time': moneyline.get('gameStartTime') or event.get('startTime'),
@@ -306,7 +339,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             record['book_ask'] = ask
         events.append(record)
     (evidence_dir / 'live-polymarket-observations.json').write_text(
-        json.dumps({'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
+        json.dumps({'schema_version': 2, 'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
                    ensure_ascii=False, indent=2) + '\n')
     # Kalshi CS2 match-winner events (officially documented public API). Pages are
     # bounded; an unfinished cursor is recorded rather than claimed complete.
@@ -459,12 +492,12 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
 
 def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> list:
     rows = []
-    if event.get('closed') is not False or event.get('active') is not True:
+    if event.get('closed') is not False or event.get('active') is not True or event.get('live') is True:
         return rows
     for market in event.get('markets', []):
         scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
         question = market.get('question', '')
-        if scope != 'moneyline' and not re.match(r'Counter-Strike: .+ vs .+ \(BO\d\)', question):
+        if scope != 'moneyline' or market.get('active') is not True or market.get('closed') is not False or market.get('acceptingOrders') is not True:
             continue
         if re.search(r'\b(map\s*\d|game\s*\d|handicap|spread|total|outright|over/under)\b', question, re.I):
             continue
@@ -488,15 +521,14 @@ def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> lis
             book_path = evidence_dir / f'polymarket-book-{event.get("id")}-{len(bids)}.json'
             if book_path.exists():
                 book = load_json(book_path)
-                from scripts.domain import is_fresh
-                if not is_fresh(iso(timestamp(book.get('timestamp'))), datetime.now(UTC)) if timestamp(book.get('timestamp')) else True:
+                from scripts.domain import book_midpoint
+                try:
+                    levels = book_midpoint(book, str(token), market.get('conditionId'), datetime.now(UTC))
+                    bids.append(levels['bid'])
+                    asks.append(levels['ask'])
+                except (ValueError, TypeError):
                     ok = False
-                bid = max((finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None), default=None)
-                ask = min((finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None), default=None)
-                bids.append(bid)
-                asks.append(ask)
-                if bid is None or ask is None:
-                    ok = False
+                    break
             else:
                 ok = False
         row = {'family': 'market', 'provider': 'Polymarket', 'names': [str(o) for o in outcomes],
@@ -725,7 +757,47 @@ def bookmaker_estimate(row: dict, match: dict, registry: dict):
     return quote, 'Verified paired prematch decimal prices; margin removed by proportional normalization.'
 
 
-def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: datetime):
+def hltv_lineup_proof(evidence_dir: Path, match: dict, registry: dict, now: datetime):
+    """Fresh, fixture-bound HLTV-listed lineup, replayed from original markup."""
+    from scripts.domain import is_fresh
+    from scripts.hltv_match import parse_match
+    label = 'live-hltv-match-' + str(match['id'])
+    path = evidence_dir / (label + '.json')
+    manifest = evidence_dir / 'live-collection-manifest.json'
+    if not path.exists() or not manifest.exists():
+        return None
+    try:
+        raw = load_json(path)
+        requests_ = [r for r in load_json(manifest) if r.get('id') == label and r.get('status') == 'ok']
+        if len(requests_) != 1:
+            return None
+        req = requests_[0]
+        if (raw.get('url') != req.get('url') or raw.get('observed_at') != req.get('observed_at')
+                or not str(raw.get('url', '')).startswith('https://www.hltv.org/matches/')
+                or not is_fresh(raw.get('observed_at'), now)
+                or hashlib.sha256(raw['html'].encode()).hexdigest() != req.get('response_sha256')):
+            return None
+        parsed = parse_match(raw['html'])
+        if (pair_join(parsed['teams'], parsed['starts_at'], match, registry)[2] != 'matched'
+                or parsed['finished'] or not timestamp(parsed['starts_at']) or timestamp(parsed['starts_at']) <= now):
+            return None
+        rosters = {}
+        for team in parsed['lineups']:
+            name, _ = resolve_name(team['name'], registry, match.get('competition'))
+            if name in rosters or not team['roster']:
+                return None
+            rosters[name] = team['roster']
+        wanted = {name_key(t['name']) for t in match['teams']}
+        if set(rosters) != wanted:
+            return None
+        return {'fixture_id': match['id'], 'source_url': raw['url'], 'observed_at': raw['observed_at'],
+                'starts_at': parsed['starts_at'], 'names': parsed['teams'], 'rosters': rosters,
+                'evidence_file': 'data/origination/evidence/' + path.name}
+    except (ValueError, TypeError, KeyError):
+        return None
+
+
+def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: datetime, *, lineup=None):
     """Alias-aware Valve-rating research estimate (explicitly uncalibrated)."""
     if not ratings:
         return None, 'Official Valve ratings unavailable'
@@ -737,6 +809,7 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
         reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
     inputs = []
     used = []
+    disambiguated = []
     for team in match['teams']:
         team_key = name_key(team['name'])
         candidates = [team_key] + reverse.get(team_key, [])
@@ -759,7 +832,20 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
         # which lineup plays today.
         complete = [r for r in found if len(r.get('roster') or []) == 5]
         if len(complete) > 1:
-            return None, f'{team["name"]}: multiple Valve rosters share this name'
+            from scripts.domain import is_fresh
+            proof_ok = (lineup and lineup.get('fixture_id') == match['id']
+                        and is_fresh(lineup.get('observed_at'), now)
+                        and pair_join(lineup.get('names', []), lineup.get('starts_at'), match, registry)[2] == 'matched')
+            roster = (lineup.get('rosters') or {}).get(team_key) if proof_ok else None
+            current = {name_key(p) for p in roster or []}
+            exact = [r for r in complete if len(current) == 5
+                     and len({name_key(p) for p in r['roster']}) == 5
+                     and {name_key(p) for p in r['roster']} == current]
+            if len(exact) != 1:
+                return None, f'{team["name"]}: multiple Valve rosters share this name; no unique exact-five-player HLTV proof'
+            complete = exact
+            disambiguated.append({'team': team['name'], 'standing': exact[0]['standing'], 'roster': roster,
+                                  **{k: lineup[k] for k in ('source_url', 'observed_at', 'evidence_file')}})
         if not complete:
             return None, f'{team["name"]}: a complete five-player Valve roster is not confirmed'
         row = complete[0]
@@ -784,7 +870,10 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
              'snapshot_date': meta['snapshot_date'], 'source_url': meta['source_url'],
              'evidence_file': meta['evidence_file'], 'rd_assumption': VALVE_RD, 'g': g,
              'aliases_used': used, 'observed_at': iso(now)}
-    return quote, 'Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula).'
+    if disambiguated:
+        quote['lineup_disambiguation'] = disambiguated
+    return quote, ('Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula).'
+                   + (' Ambiguous names selected only by exact five-player equality with the linked, freshly observed HLTV lineup.' if disambiguated else ''))
 
 
 def selection(probs) -> int | None:
@@ -852,7 +941,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             trail.append({'stage': stage, 'status': 'unresolved', 'source_url': url, 'detail': detail})
 
     # 3. Research model cross-check (always attempted, never overrides money lines).
-    model, model_detail = model_estimate(match, ratings, registry, valve_meta or {}, now)
+    model, model_detail = model_estimate(match, ratings, registry, valve_meta or {}, now, lineup=match.get('_hltv_lineup'))
     if model:
         aliases.extend(model.get('aliases_used') or [])
         trail.append({'stage': 'Research model cross-check (Valve official ratings)', 'status': 'resolved',
@@ -862,6 +951,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         trail.append({'stage': 'Research model cross-check (Valve official ratings)', 'status': 'unresolved',
                       'source_url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'),
                       'detail': model_detail})
+
+    for proof in (model or {}).get('lineup_disambiguation', []):
+        trail.insert(0, {'stage': 'HLTV exact-five-player identity', 'status': 'checked',
+                         'source_url': proof['source_url'],
+                         'detail': f"{proof['team']}: five listed players exactly match Valve standing {proof['standing']} ({', '.join(proof['roster'])}). This disambiguates a historical rating row, not final match-day lineup confirmation or a form adjustment."})
 
     # HLTV research stage (identity/rank context always recorded with its link).
     # Prefer the collector's own fixture-specific HLTV records (exact match page,
@@ -1003,7 +1097,8 @@ def run(output: Path, *, live: bool = False) -> dict:
         if match.get('availability') == 'past':
             continue
         featured = match.get('analysis')
-        result = resolve_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now)
+        proof = hltv_lineup_proof(evidence_dir, match, registry, now)
+        result = resolve_match(dict(match, _hltv_lineup=proof), poly_rows, book_rows, ratings, valve_meta, registry, now)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],

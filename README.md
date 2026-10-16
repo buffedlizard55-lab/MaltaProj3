@@ -11,8 +11,8 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 | [Leaderboard plan](https://buffedlizard55-lab.github.io/MaltaProj3/strategy/) | One plan pick per open fixture from our own external-line probabilities, the few underdogs worth an upset play (with their expected-point cost), a separate unresolved section, the Thunderpick tournament pick'em (team plus score), Hotspawn's verified scoring contract and Days 1–2 results cross-checked against Hotspawn's own API |
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
 | [Day 1 contrarian review](https://buffedlizard55-lab.github.io/MaltaProj3/#contrarian) | Source-linked 9z–Aurora upset review, Aurora rebuild context and a strictly bounded 9z–Falcons watch that never overrides the primary pick |
-| [Upset review & edge](https://buffedlizard55-lab.github.io/MaltaProj3/edge/) | Dated first-party deep dive: day one at Thunderpick World Championship 2026 (9z 2-0 Aurora and the other three series, map by map), the verified Aurora roster rebuild behind that upset, official Valve standings for the current card, dated market observations and the seven rules applied before disagreeing with a market |
-| [TWC Day 3 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | Session-authored Thunderpick World Championship Day-3 companion page (day 1–2 results, decider previews, contrarian notes); its crowd-poll/fan-vote probability blending conflicts with this repository's source policy and is published as a warning on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) |
+| [Upset review & edge](https://buffedlizard55-lab.github.io/MaltaProj3/edge/) | Dated first-party deep dive: day one at Thunderpick World Championship 2026 (9z 2-0 Aurora and the other three series, map by map), Aurora roster context (not a proven cause of the upset), official Valve standings for the current card, dated market observations and the seven rules applied before disagreeing with a market |
+| [TWC Day 3 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | Both deciders regenerated from the **same complete-picks snapshot**; both probabilities, default picks, optional underdog screens and expected-point costs, Days 1–2 results replayed from original HLTV pages, roster/rest verification and unresolved limitations. No fan votes, outrights or narrative probability adjustments |
 | [Coverage & original sources](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/) | Inventory reconciliation, source health, complete past-start archive and JSON/CSV downloads |
 | [Methodology](https://buffedlizard55-lab.github.io/MaltaProj3/methodology/) | Exact matching, formulas, thresholds, source policy and model limitations |
 | [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
@@ -144,3 +144,37 @@ Independent informational analysis only. No bets or Hotspawn picks are placed. E
 - Live first-party research confirmed Stake/GG.BET access restrictions and Pinnacle/Rivalry generic redirects; none are treated as actual prices. These outcomes are rechecked by the fallback collector and published in source health/review. Historical source-audit evidence: `data/research/report.json`; the current request manifest and source timestamps take precedence.
 
 Latest counts change with collection. The site’s executive summary distinguishes inventory coverage, market estimates, higher-uncertainty models and unresolved rows. There is no promise of invented picks for unsupported fixtures, no default 50/50 and no requirement for user input.
+
+
+## 16 October integration: one TWC feed, exact lineup proof
+
+- `/twc-picks/` is generated with every deployment, not copied from a manually authored page. Its JSON is
+  `data/twc-day3-picks.json` (schema 2), a **view** of `data/origination.json`, never a second pricing source.
+  The summary’s Day-3 shortcut and sidebar both lead to it. Stale or locked values remain snapshot estimates.
+- Fixed live alias-aware research skipping fixtures already given a featured **model** estimate. Supported
+  market/bookmaker lines can replace only that lowest-rung model, never a featured money line. The summary,
+  searchable picks, TWC view, complete list and CSV all use the same selected estimate; old featured values
+  remain visible as an audit reference, not as a competing current recommendation.
+- Aliased Polymarket collection now uses the same unique full-series, prematch, accepting-orders contract
+  as the featured method and requires positive-size levels. New summary observations are replayed against
+  the full saved original event and both CLOB books (including token, condition, timestamp, spread and size),
+  not merely against another derived bid/ask summary.
+- For unresolved same-name Valve rosters, the complete-picks ladder can use freshly fetched original HLTV
+  match markup: both teams and epoch start must match the fixture; all five unique player names must match
+  **exactly one** complete Valve row. Four-of-five overlaps, duplicate exact lineups, stale pages or failed
+  access do not resolve a pick. This selects an identity, not a form premium or a calibrated win probability.
+- Dated research: [`coverage-review.json`](data/research/6426358d/coverage-review.json) covers all nine gaps
+  at 07:23 UTC and the 07:29 UTC follow-up (42 active / 35 estimates / 7 unresolved). Original compressed
+  HLTV responses and hashes are retained in `data/research/6426358d/observed-0723/`. These are dated audit
+  counts; the published dashboard timestamps and current counts remain authoritative.
+- Withdrawn commentary is explicitly recorded on Flagged for Review: a historical in-play price was called
+  prematch, calendar dates were treated as equal rest, and the summer roster change was presented as a
+  causal probability discount. No such adjustments enter the refreshed probabilities. Historical market
+  observations retain their own timestamps. HLTV reports are attributed to HLTV, not relabeled organizer proof.
+
+
+Concurrent-session handoffs are preserved: open-tab/closed-pick guards and independent safety tests
+from P are integrated. M’s historical ≥3/5-core dossier remains downloadable for provenance, but its
+partial-overlap scenarios are **not** a second current probability feed. The review page flags this policy
+conflict (including a withdrawn 403-row claim; the original Git blob contains 380 rows). Its dated Valve
+inputs are pinned and replayed from the original response, independently of later live-cache refreshes.

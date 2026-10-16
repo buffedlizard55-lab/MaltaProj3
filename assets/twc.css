@@ -1,0 +1,22 @@
+/* A readable two-series brief, layered on the existing accessible site shell. */
+.twc-brief{background:#142534;color:#edf5f8;padding:28px;border-radius:14px;margin:18px 0 26px}
+.twc-brief h2{color:#fff;font-size:25px;line-height:1.35;margin:6px 0 14px}
+.twc-brief .eyebrow{color:#ffc198}.twc-brief p{font-size:15px;line-height:1.75}
+.twc-brief .briefing-links a{background:#fff;color:#142534;min-height:44px}
+.twc-section>.section-intro{padding:20px 24px 26px;line-height:1.8}
+.twc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:0 24px 24px}
+.twc-card.match-row{display:block;min-width:0;padding:22px;border:1px solid #d5e0e6;border-radius:12px;background:#fff;line-height:1.75}
+.twc-card h3{font-size:23px;line-height:1.4;margin:3px 0 14px;overflow-wrap:anywhere}
+.twc-card p{font-size:14px;margin:12px 0}.twc-card .small{font-size:13px}
+.twc-prob{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e5ebef;padding:15px 0;font-size:16px}
+.twc-prob>span{min-width:0;overflow-wrap:anywhere}.twc-prob strong{font-size:27px;white-space:nowrap;color:#203d50}
+.twc-prob small{display:block;font-size:12px;color:#536777;margin-top:4px}
+.twc-favorite strong{color:#176344}.twc-card .pick-choice{font-size:20px;margin-top:20px;line-height:1.5}
+.twc-card .pick-caption{font-size:13px;line-height:1.75}.twc-card .evidence-links{display:flex;flex-wrap:wrap;gap:8px 15px;margin-top:14px}
+.twc-card .evidence-links a{min-height:36px;display:inline-flex;align-items:center;text-decoration:underline;font-size:13px;overflow-wrap:anywhere}
+.twc-watch{border-left:3px solid #9b681a;background:#fff6e8;padding:14px 16px;margin-top:16px;color:#573a12}
+.twc-watch strong{font-size:14px}.twc-watch p{font-size:13px;margin-bottom:0}
+.twc-results caption{text-align:left;font-size:13px;color:#536777;padding:0 24px 18px;line-height:1.7}
+.twc-section a:not(.button),.twc-brief a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.twc-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.twc-brief{padding:22px 18px}.twc-brief h2{font-size:22px}.twc-brief p{font-size:14px}.twc-grid{padding:0 14px 18px;gap:14px}.twc-card.match-row{padding:20px 16px}.twc-card h3{font-size:22px}.twc-card .eyebrow{font-size:11px}.twc-card .availability{font-size:12px}.twc-card .pick-choice{font-size:20px}.twc-results caption{padding-inline:18px}.twc-results.simple-table>tbody>tr>th,.twc-results.simple-table>tbody>tr>td{font-size:14px}.twc-results.simple-table small{font-size:12px}.twc-section>.section-intro{padding:18px;font-size:14px}}

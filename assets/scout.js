@@ -100,7 +100,7 @@ if (table) {
       return a.dataset.start.localeCompare(b.dataset.start);
     });
     ordered.forEach(row => {
-      const matchesBasis = basis === 'all' || (basis === 'market' ? ['market', 'bookmaker'].includes(row.dataset.method) : row.dataset.method === basis);
+      const matchesBasis = basis === 'all' || (basis === 'market' ? ['market', 'bookmaker', 'consensus'].includes(row.dataset.method) : row.dataset.method === basis);
       row.hidden = !(matchesBasis && (tournament.value === 'all' || row.dataset.tournament === tournament.value) && row.dataset.search.includes(term));
       if (!row.hidden) visible += 1;
       tbody.append(row);

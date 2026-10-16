@@ -228,7 +228,7 @@ def section_aliases(data):
 def section_method(data):
     p = data['policy']
     out = ['<section class="block" id="method"><h2>How each pick is produced</h2>',
-           '<p class="lede">Featured estimates remain unchanged. For unresolved fixtures, the recorded HLTV research informs identity checks, then paired external prices are validated. Accepted independent money sources can be combined; official ratings are a final fallback. Hotspawn supplies the match list only.</p>',
+           '<p class="lede">Featured money-line estimates remain unchanged. For unresolved or model-only fixtures, recorded HLTV research informs identity checks, then paired external prices are validated; accepted money lines may replace the lowest-rung model. Accepted independent money sources can be combined; official ratings are a final fallback. Hotspawn supplies the match list only.</p>',
            '<ol class="ladder">']
     for step in p['ladder']:
         out.append(f'<li>{e(step)}</li>')
@@ -351,9 +351,11 @@ def validate_origination(data, source):
             assert m['pick_index'] is None
             continue
         if o['method'] == 'model':
-            from scripts.originate import valve_rows, model_estimate
+            from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None)
-            expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']))
+            proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))
+            expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']), lineup=proof)
+            assert (expected or {}).get('lineup_disambiguation') == o.get('lineup_disambiguation'), 'Lineup identity proof differs from original HLTV markup'
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
         values = []
         for q in o.get('quotes', []):
@@ -374,6 +376,30 @@ def validate_origination(data, source):
                 observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
                 ev = next((e for e in observations['polymarket_events'] if e['event_id'] == q['event_id']), None)
                 assert ev is not None, f"Polymarket event {q['event_id']} missing from saved live observations"
+                if observations.get('schema_version', 1) >= 2:
+                    # New observations retain full original event + book responses.
+                    # A summarized bid/ask is not enough: replay statuses, alias
+                    # identity, unique series market, token/condition, timestamps
+                    # and positive-size executable levels from those originals.
+                    from scripts.originate import aliased_series_market
+                    from scripts.domain import array, book_midpoint
+                    folder = source / 'origination/evidence'
+                    event = json.loads((folder / f"live-polymarket-event-{q['event_id']}.json").read_text())
+                    market, reason = aliased_series_market(event, raw, registry, timestamp(data['generated_at']))
+                    assert market is not None, 'Original Polymarket series market rejected: ' + reason
+                    assert str(event.get('id')) == q['event_id']
+                    assert array(market.get('outcomes')) == ev['outcomes'], 'Original market outcomes changed'
+                    assert (market.get('gameStartTime') or event.get('startTime')) == ev['game_start_time'], 'Original market start changed'
+                    tokens = array(market.get('clobTokenIds'))
+                    assert [str(t) for t in tokens] == ev['clob_token_ids'], 'Original market token IDs changed'
+                    levels = [book_midpoint(json.loads((folder / f"live-polymarket-book-{q['event_id']}-{i}.json").read_text()),
+                                            str(t), market['conditionId'], timestamp(data['generated_at']))
+                              for i, t in enumerate(tokens)]
+                    assert [l['bid'] for l in levels] == ev['book_bid'], 'Summarized bids differ from original executable books'
+                    assert [l['ask'] for l in levels] == ev['book_ask'], 'Summarized asks differ from original executable books'
+                    manifest = json.loads((folder / 'live-collection-manifest.json').read_text())
+                    attempts = [r for r in manifest if r.get('id') == 'live-polymarket-event-' + q['event_id'] and r.get('status') == 'ok']
+                    assert len(attempts) == 1 and attempts[0]['observed_at'] == ev['observed_at'], 'Market observation restamped'
                 bid = align_by_name(ev['book_bid'], ev['outcomes'], raw, registry)
                 ask = align_by_name(ev['book_ask'], ev['outcomes'], raw, registry)
                 assert bid == q['bid'] and ask == q['ask'], 'Market quotes differ from saved observations'
@@ -383,6 +409,9 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
+        from scripts.originate import selection
+        assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'
+        assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
 

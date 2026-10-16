@@ -1,11 +1,11 @@
 name: Public source diagnostics
 on:
   push:
-    branches: [arena/11c1fa20-maltaproj3, arena/50c01ba9-maltaproj3]
-    paths: ['scripts/audit_sources.py', '.github/workflows/source-diagnostics.yml']
+    branches: ['arena/**']
+    paths: ['scripts/audit_sources.py', 'scripts/review_sources.py', '.github/workflows/source-diagnostics.yml']
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   discover:
     runs-on: ubuntu-24.04
@@ -18,20 +18,11 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Inspect original public source responses
         run: python -m scripts.audit_sources
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: public-source-diagnostics
           path: .cache/source-audit/
           retention-days: 3
-      - name: Export temporary public diagnostics to session branch
-        if: github.ref == 'refs/heads/arena/11c1fa20-maltaproj3'
-        run: |
-          mkdir -p data/research
-          cp .cache/source-audit/*.html.gz .cache/source-audit/report.json data/research/
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/research/
-          git diff --cached --quiet && exit 0
-          git commit -m 'chore: export temporary public-source diagnostic evidence'
-          git pull --rebase origin arena/11c1fa20-maltaproj3
-          git push origin arena/11c1fa20-maltaproj3
+# Completed session evidence is immutable in data/research/6426358d/observed-*.
+# No permanent workflow writes to a finished session branch or retimes that audit.
+# Live inventory, lines and lineup proof refresh in the sole pages.yml publisher.
