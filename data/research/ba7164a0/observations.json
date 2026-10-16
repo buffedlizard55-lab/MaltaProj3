@@ -2,8 +2,8 @@
  "schema_version": 1,
  "session": "arena-ba7164a0",
  "title": "Independent first-party observations for line-by-line verification",
- "probe_started_at": "2026-10-16T07:41:37Z",
- "probe_finished_at": "2026-10-16T07:41:45Z",
+ "probe_started_at": "2026-10-16T08:15:07Z",
+ "probe_finished_at": "2026-10-16T08:15:42Z",
  "policy": "Read-only observations. No probability is calculated, repaired or invented here. Hotspawn popularity or participation is never a probability input. Values that an official source does not confirm are recorded as blank with the reason.",
  "hotspawn": {
   "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -500,28 +500,12 @@
     "tier": "b"
    },
    {
-    "id": "1079586",
-    "teams": [],
-    "competition": null,
-    "starts_at": null,
-    "status": "scheduled",
-    "tier": "b"
-   },
-   {
     "id": "1081493",
     "teams": [],
     "competition": null,
     "starts_at": null,
     "status": "scheduled",
     "tier": "b"
-   },
-   {
-    "id": "1080285",
-    "teams": [],
-    "competition": null,
-    "starts_at": null,
-    "status": "scheduled",
-    "tier": "c"
    },
    {
     "id": "1080286",
@@ -836,34 +820,34 @@
     "tier": "b"
    }
   ],
-  "count": 103,
+  "count": 101,
   "lobby_match_text": "123 matches",
   "lobby_evidence": "data/research/ba7164a0/raw/hotspawn-lobby.html.gz",
-  "observed_at": "2026-10-16T07:41:38Z"
+  "observed_at": "2026-10-16T08:15:08Z"
  },
  "production_site": {
   "base": "https://buffedlizard55-lab.github.io/MaltaProj3",
   "snapshots": {
    "latest.json": {
     "schema_version": 1,
-    "generated_at": "2026-10-16T07:35:30Z",
-    "last_attempted_at": "2026-10-16T07:35:13Z",
-    "analysis_as_of": "2026-10-16T07:35:13Z",
-    "inventory_observed_at": "2026-10-16T07:35:15Z",
+    "generated_at": "2026-10-16T08:10:35Z",
+    "last_attempted_at": "2026-10-16T08:10:19Z",
+    "analysis_as_of": "2026-10-16T08:10:19Z",
+    "inventory_observed_at": "2026-10-16T08:10:20Z",
     "coverage_complete": true,
     "run_status": "partial-picks",
     "refresh_interval_hours": 4,
     "stale_after_hours": 8,
     "counts": {
-     "inventory": 103,
-     "upcoming": 42,
-     "archived": 61,
+     "inventory": 101,
+     "upcoming": 39,
+     "archived": 62,
      "unknown_schedule": 0,
-     "market": 15,
+     "market": 14,
      "bookmaker": 5,
      "model": 10,
-     "unresolved": 12,
-     "picks": 30,
+     "unresolved": 10,
+     "picks": 29,
      "no_edge": 0
     },
     "upcoming": [],
@@ -876,8 +860,6 @@
      "source-rivalry-esportsbook",
      "source-stake-esportsbook",
      "model-limitations",
-     "unresolved-1079586",
-     "unresolved-1081493",
      "unresolved-1081497",
      "unresolved-1081502",
      "unresolved-1079170",
@@ -900,8 +882,6 @@
      "Rivalry esportsbook: source limitation",
      "Stake esportsbook: source limitation",
      "Research estimates are not verified betting odds",
-     "Unresolved: Ninjas in Pyjamas vs Team Liquid",
-     "Unresolved: Eternal Fire vs Apogee Betclic",
      "Unresolved: Young27 vs Young TigeRES",
      "Unresolved: Procyon vs LOS NINOS",
      "Unresolved: BET-M vs Just Players",
@@ -915,84 +895,24 @@
      "Earlier session snapshots are archived, not the current feed",
      "Legacy Pages mode — publisher ordering enforced"
     ],
-    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=ba7164a0-1792136498",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=ba7164a0-1792138508",
     "evidence": "data/research/ba7164a0/raw/pages-latest.json",
-    "observed_at": "2026-10-16T07:41:38Z"
+    "observed_at": "2026-10-16T08:15:08Z"
    },
    "origination.json": {
-    "generated_at": "2026-10-16T07:35:31Z",
+    "generated_at": "2026-10-16T08:10:35Z",
     "counts": {
-     "active": 42,
+     "active": 39,
      "resolved": 33,
-     "unresolved": 9,
+     "unresolved": 6,
      "with_pick": 33,
-     "consensus": 1,
-     "market": 18,
+     "consensus": 3,
+     "market": 14,
      "bookmaker": 6,
-     "model": 8,
-     "alias_joined": 4
+     "model": 10,
+     "alias_joined": 3
     },
     "matches": [
-     {
-      "id": "1079586",
-      "teams": [
-       "Ninjas in Pyjamas",
-       "Team Liquid"
-      ],
-      "competition": "Stake Pulse Beat III",
-      "starts_at": "2026-10-16T08:00:00Z",
-      "origination_method": "consensus",
-      "origination_label": "Originated consensus line (median of independent money sources)",
-      "origination_probabilities": [
-       0.49344594,
-       0.50655406
-      ],
-      "origination_source": "https://polymarket.com/event/cs2-nip-tl1-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:31Z",
-      "unresolved_reason": null,
-      "limitations": [
-       "Margin removed where applicable. Estimate is not a guaranteed outcome."
-      ]
-     },
-     {
-      "id": "1080285",
-      "teams": [
-       "Voca",
-       "Phantom"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T08:00:00Z",
-      "origination_method": "market",
-      "origination_label": "Market-implied estimate",
-      "origination_probabilities": [
-       0.455,
-       0.545
-      ],
-      "origination_source": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:17Z",
-      "unresolved_reason": null,
-      "limitations": [
-       "Hotspawn best-of format is unverified; left blank."
-      ]
-     },
-     {
-      "id": "1081493",
-      "teams": [
-       "Eternal Fire",
-       "Apogee Betclic"
-      ],
-      "competition": "PGL Bucharest 2027: Closed Qualifier",
-      "starts_at": "2026-10-16T08:00:00Z",
-      "origination_method": null,
-      "origination_label": null,
-      "origination_probabilities": null,
-      "origination_source": null,
-      "origination_observed_at": null,
-      "unresolved_reason": null,
-      "limitations": [
-       "No verified inputs; probabilities intentionally left blank (no default 50/50)."
-      ]
-     },
      {
       "id": "1080286",
       "teams": [
@@ -1004,11 +924,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.835,
-       0.165
+       0.805,
+       0.195
       ],
       "origination_source": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:17Z",
+      "origination_observed_at": "2026-10-16T08:10:22Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1025,11 +945,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.445,
-       0.555
+       0.425,
+       0.575
       ],
       "origination_source": "https://polymarket.com/event/cs2-bw-rustec-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:18Z",
+      "origination_observed_at": "2026-10-16T08:10:22Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1046,11 +966,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.69,
-       0.31
+       0.695,
+       0.305
       ],
       "origination_source": "https://polymarket.com/event/cs2-rustec-ssins-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:18Z",
+      "origination_observed_at": "2026-10-16T08:10:23Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1071,7 +991,7 @@
        0.41798942
       ],
       "origination_source": "https://thunderpick.io/api/matches",
-      "origination_observed_at": "2026-10-16T07:35:28Z",
+      "origination_observed_at": "2026-10-16T08:10:33Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1088,11 +1008,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.355,
-       0.645
+       0.335,
+       0.665
       ],
       "origination_source": "https://polymarket.com/event/cs2-fnc-hero-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:19Z",
+      "origination_observed_at": "2026-10-16T08:10:23Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1113,7 +1033,7 @@
        0.425
       ],
       "origination_source": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:20Z",
+      "origination_observed_at": "2026-10-16T08:10:24Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1127,17 +1047,16 @@
       ],
       "competition": "GLuck Yungstar 2026: Series #3",
       "starts_at": "2026-10-16T13:00:00Z",
-      "origination_method": "market",
-      "origination_label": "Originated market line (Kalshi)",
+      "origination_method": "consensus",
+      "origination_label": "Originated consensus line (median of independent money sources)",
       "origination_probabilities": [
-       0.4278607,
-       0.5721393
+       0.43890547,
+       0.56109453
       ],
-      "origination_source": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160900youytigeres",
-      "origination_observed_at": "2026-10-16T07:35:34Z",
+      "origination_source": "https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16",
+      "origination_observed_at": "2026-10-16T08:10:39Z",
       "unresolved_reason": null,
       "limitations": [
-       "Single independent source; not a multi-source consensus.",
        "Margin removed where applicable. Estimate is not a guaranteed outcome."
       ]
      },
@@ -1152,11 +1071,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.57,
-       0.43
+       0.575,
+       0.425
       ],
       "origination_source": "https://polymarket.com/event/cs2-jdt-youren-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:21Z",
+      "origination_observed_at": "2026-10-16T08:10:25Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1177,7 +1096,7 @@
        0.3718593
       ],
       "origination_source": "https://thunderpick.io/api/matches",
-      "origination_observed_at": "2026-10-16T07:35:28Z",
+      "origination_observed_at": "2026-10-16T08:10:33Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1198,7 +1117,7 @@
        0.515
       ],
       "origination_source": "https://polymarket.com/event/cs2-ast10-mibr-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:21Z",
+      "origination_observed_at": "2026-10-16T08:10:26Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1215,11 +1134,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.73,
-       0.27
+       0.74,
+       0.26
       ],
       "origination_source": "https://polymarket.com/event/cs2-forzer-lavked-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:22Z",
+      "origination_observed_at": "2026-10-16T08:10:26Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1233,17 +1152,16 @@
       ],
       "competition": "Thunderpick World Championship 2026",
       "starts_at": "2026-10-16T14:00:00Z",
-      "origination_method": "market",
-      "origination_label": "Originated market line (Kalshi)",
+      "origination_method": "consensus",
+      "origination_label": "Originated consensus line (median of independent money sources)",
       "origination_probabilities": [
-       0.69191919,
-       0.30808081
+       0.69345959,
+       0.30654041
       ],
-      "origination_source": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct1610009zaur",
-      "origination_observed_at": "2026-10-16T07:35:34Z",
+      "origination_source": "https://polymarket.com/event/cs2-aur1-9z-2026-10-16",
+      "origination_observed_at": "2026-10-16T08:10:40Z",
       "unresolved_reason": null,
       "limitations": [
-       "Single independent source; not a multi-source consensus.",
        "Margin removed where applicable. Estimate is not a guaranteed outcome."
       ]
      },
@@ -1262,7 +1180,7 @@
        0.075
       ],
       "origination_source": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:23Z",
+      "origination_observed_at": "2026-10-16T08:10:27Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1283,7 +1201,7 @@
        0.14010688
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1300,11 +1218,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.525,
-       0.475
+       0.535,
+       0.465
       ],
       "origination_source": "https://polymarket.com/event/cs2-bbl1-eye-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:23Z",
+      "origination_observed_at": "2026-10-16T08:10:28Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1325,7 +1243,7 @@
        0.63774746
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1342,11 +1260,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.125,
-       0.875
+       0.12,
+       0.88
       ],
       "origination_source": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:24Z",
+      "origination_observed_at": "2026-10-16T08:10:28Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1385,7 +1303,7 @@
        0.46236559
       ],
       "origination_source": "https://thunderpick.io/api/matches",
-      "origination_observed_at": "2026-10-16T07:35:28Z",
+      "origination_observed_at": "2026-10-16T08:10:33Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1406,7 +1324,7 @@
        0.305
       ],
       "origination_source": "https://polymarket.com/event/cs2-100t-sng2-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:24Z",
+      "origination_observed_at": "2026-10-16T08:10:29Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1427,7 +1345,7 @@
        0.32440501
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1444,11 +1362,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.835,
-       0.165
+       0.83,
+       0.17
       ],
       "origination_source": "https://polymarket.com/event/cs2-gl1-rustec-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:25Z",
+      "origination_observed_at": "2026-10-16T08:10:29Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1462,17 +1380,16 @@
       ],
       "competition": "Thunderpick World Championship 2026",
       "starts_at": "2026-10-16T17:00:00Z",
-      "origination_method": "market",
-      "origination_label": "Originated market line (Kalshi)",
+      "origination_method": "consensus",
+      "origination_label": "Originated consensus line (median of independent money sources)",
       "origination_probabilities": [
-       0.36040609,
-       0.63959391
+       0.36270305,
+       0.63729696
       ],
-      "origination_source": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct161300bblgc",
-      "origination_observed_at": "2026-10-16T07:35:34Z",
+      "origination_source": "https://polymarket.com/event/cs2-lgc-bb3-2026-10-16",
+      "origination_observed_at": "2026-10-16T08:10:41Z",
       "unresolved_reason": null,
       "limitations": [
-       "Single independent source; not a multi-source consensus.",
        "Margin removed where applicable. Estimate is not a guaranteed outcome."
       ]
      },
@@ -1487,11 +1404,11 @@
       "origination_method": "market",
       "origination_label": "Market-implied estimate",
       "origination_probabilities": [
-       0.655,
-       0.345
+       0.665,
+       0.335
       ],
       "origination_source": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
-      "origination_observed_at": "2026-10-16T07:35:26Z",
+      "origination_observed_at": "2026-10-16T08:10:30Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1512,7 +1429,7 @@
        0.60214258
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1551,7 +1468,7 @@
        0.35966906
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1565,14 +1482,17 @@
       ],
       "competition": "CCT Europe 2026 Challengers #8",
       "starts_at": "2026-10-17T11:00:00Z",
-      "origination_method": null,
-      "origination_label": null,
-      "origination_probabilities": null,
-      "origination_source": null,
-      "origination_observed_at": null,
+      "origination_method": "model",
+      "origination_label": "Research model estimate (Valve official ratings)",
+      "origination_probabilities": [
+       0.45809845,
+       0.54190155
+      ],
+      "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "origination_observed_at": "2026-10-16T08:10:35Z",
       "unresolved_reason": null,
       "limitations": [
-       "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+       "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
       ]
      },
      {
@@ -1590,7 +1510,7 @@
        0.31708488
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1611,7 +1531,7 @@
        0.5967642
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1704,7 +1624,7 @@
        0.06606278
       ],
       "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "origination_observed_at": "2026-10-16T07:35:29Z",
+      "origination_observed_at": "2026-10-16T08:10:34Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1725,7 +1645,7 @@
        0.53763441
       ],
       "origination_source": "https://thunderpick.io/esports/counter-strike",
-      "origination_observed_at": "2026-10-16T07:35:31Z",
+      "origination_observed_at": "2026-10-16T08:10:39Z",
       "unresolved_reason": null,
       "limitations": [
        "Single independent source; not a multi-source consensus.",
@@ -1747,7 +1667,7 @@
        0.34146341
       ],
       "origination_source": "https://thunderpick.io/api/matches",
-      "origination_observed_at": "2026-10-16T07:35:28Z",
+      "origination_observed_at": "2026-10-16T08:10:33Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1768,7 +1688,7 @@
        0.3718593
       ],
       "origination_source": "https://thunderpick.io/api/matches",
-      "origination_observed_at": "2026-10-16T07:35:28Z",
+      "origination_observed_at": "2026-10-16T08:10:33Z",
       "unresolved_reason": null,
       "limitations": [
        "Hotspawn best-of format is unverified; left blank."
@@ -1782,31 +1702,34 @@
       ],
       "competition": "DraculaN Season 7",
       "starts_at": "2026-10-19T10:45:00Z",
-      "origination_method": null,
-      "origination_label": null,
-      "origination_probabilities": null,
-      "origination_source": null,
-      "origination_observed_at": null,
+      "origination_method": "model",
+      "origination_label": "Research model estimate (Valve official ratings)",
+      "origination_probabilities": [
+       0.59811103,
+       0.40188897
+      ],
+      "origination_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "origination_observed_at": "2026-10-16T08:10:35Z",
       "unresolved_reason": null,
       "limitations": [
-       "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+       "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
       ]
      }
     ],
-    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=ba7164a0-1792136498",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=ba7164a0-1792138508",
     "evidence": "data/research/ba7164a0/raw/pages-origination.json",
-    "observed_at": "2026-10-16T07:41:38Z"
+    "observed_at": "2026-10-16T08:15:08Z"
    },
    "row-source-audit.json": {
-    "rows": 470,
-    "ok": 463,
+    "rows": 488,
+    "ok": 480,
     "flagged": 0,
-    "navigation": 7,
+    "navigation": 8,
     "violation": 0,
     "sample_violations": [],
-    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=ba7164a0-1792136498",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=ba7164a0-1792138508",
     "evidence": "data/research/ba7164a0/raw/pages-row-source-audit.json",
-    "observed_at": "2026-10-16T07:41:39Z"
+    "observed_at": "2026-10-16T08:15:08Z"
    }
   },
   "limitations": []
@@ -1816,29 +1739,1104 @@
   "books": {},
   "pages": 1,
   "limitations": [],
-  "observed_at": "2026-10-16T07:41:39Z",
+  "directory_games": [
+   {
+    "id": "1194412",
+    "slug": "cs2-nip-tl1-2026-10-16",
+    "home": "NIP",
+    "away": "Liquid",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1173317",
+    "slug": "cs2-voc-pha-2026-10-16",
+    "home": "Voca",
+    "away": "Phantom",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1182945",
+    "slug": "cs2-lilmix-revise-2026-10-16",
+    "home": "Lilmix",
+    "away": "Revise",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1192430",
+    "slug": "cs2-gat-encep-2026-10-16",
+    "home": "Gatorian",
+    "away": "ENCE Prospects",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1182978",
+    "slug": "cs2-cw1-rgg-2026-10-16",
+    "home": "Copenhagen Wolves",
+    "away": "RoundsGG",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1194470",
+    "slug": "cs2-ef1-bca-2026-10-16",
+    "home": "Eternal Fire",
+    "away": "Betclic Apogee Esports",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1197724",
+    "slug": "cs2-brute-wal2-2026-10-16",
+    "home": "Brute",
+    "away": "Walczaki",
+    "start_time": "2026-10-16T08:00:00Z"
+   },
+   {
+    "id": "1198689",
+    "slug": "cs2-abyssa-offcho-2026-10-16",
+    "home": "Abyssal",
+    "away": "Off Chops",
+    "start_time": "2026-10-16T08:30:00Z"
+   },
+   {
+    "id": "1173318",
+    "slug": "cs2-havu-rgg-2026-10-16",
+    "home": "HAVU",
+    "away": "RoundsGG",
+    "start_time": "2026-10-16T10:00:00Z"
+   },
+   {
+    "id": "1188556",
+    "slug": "cs2-skr2-breade-2026-10-16",
+    "home": "Sökerorg",
+    "away": "Bread Eaters Esports",
+    "start_time": "2026-10-16T10:30:00Z"
+   },
+   {
+    "id": "1192431",
+    "slug": "cs2-sta6-thecha-2026-10-16",
+    "home": "STATE",
+    "away": "TheChampionGG",
+    "start_time": "2026-10-16T10:30:00Z"
+   },
+   {
+    "id": "1182946",
+    "slug": "cs2-morrow-ill4-2026-10-16",
+    "home": "MORROW",
+    "away": "ILLYRIANS",
+    "start_time": "2026-10-16T11:00:00Z"
+   },
+   {
+    "id": "1190750",
+    "slug": "cs2-rustec-ssins-2026-10-16",
+    "home": "ex-RUSTEC",
+    "away": "Saint Sinners",
+    "start_time": "2026-10-16T11:00:00Z"
+   },
+   {
+    "id": "1194471",
+    "slug": "cs2-nem-ntr-2026-10-16",
+    "home": "Team Nemesis",
+    "away": "Nuclear TigeRES",
+    "start_time": "2026-10-16T11:00:00Z"
+   },
+   {
+    "id": "1196166",
+    "slug": "cs2-fnc-hero-2026-10-16",
+    "home": "fnatic",
+    "away": "Heroic",
+    "start_time": "2026-10-16T11:00:00Z"
+   },
+   {
+    "id": "1197092",
+    "slug": "cs2-bw-rustec-2026-10-16",
+    "home": "Bushido Wildcats",
+    "away": "ex-RUSTEC",
+    "start_time": "2026-10-16T11:00:00Z"
+   },
+   {
+    "id": "1173319",
+    "slug": "cs2-voc-havu-2026-10-16",
+    "home": "Voca",
+    "away": "HAVU",
+    "start_time": "2026-10-16T12:00:00Z"
+   },
+   {
+    "id": "1191362",
+    "slug": "cs2-pre-tcf-2026-10-15",
+    "home": "Prestige",
+    "away": "The Chosen Few",
+    "start_time": "2026-10-16T13:00:00Z"
+   },
+   {
+    "id": "1192432",
+    "slug": "cs2-jdt-youren-2026-10-16",
+    "home": "Joga de terno",
+    "away": "your end",
+    "start_time": "2026-10-16T13:00:00Z"
+   },
+   {
+    "id": "1196809",
+    "slug": "cs2-ytigeres-young2-2026-10-16",
+    "home": "Young TigeRES",
+    "away": "Young27",
+    "start_time": "2026-10-16T13:00:00Z"
+   },
+   {
+    "id": "1173321",
+    "slug": "cs2-pha-rgg-2026-10-16",
+    "home": "Phantom",
+    "away": "RoundsGG",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1182947",
+    "slug": "cs2-mellre-pg5-2026-10-16",
+    "home": "mellren",
+    "away": "Privateer Gaming",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1190751",
+    "slug": "cs2-forzer-lavked-2026-10-16",
+    "home": "FORZE Reload",
+    "away": "Lavked",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1194472",
+    "slug": "cs2-bbl1-eye-2026-10-16",
+    "home": "BBL",
+    "away": "EYEBALLERS",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1194512",
+    "slug": "cs2-aur1-9z-2026-10-16",
+    "home": "Aurora Gaming",
+    "away": "9z",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1196576",
+    "slug": "cs2-ast10-mibr-2026-10-16",
+    "home": "Astralis",
+    "away": "MIBR",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1197093",
+    "slug": "cs2-zerote-unity-2026-10-16",
+    "home": "ex-Zero Tenacity",
+    "away": "UNiTY esports",
+    "start_time": "2026-10-16T14:00:00Z"
+   },
+   {
+    "id": "1173322",
+    "slug": "cs2-voc-rgg-2026-10-16",
+    "home": "Voca",
+    "away": "RoundsGG",
+    "start_time": "2026-10-16T16:00:00Z"
+   },
+   {
+    "id": "1192433",
+    "slug": "cs2-pcy-ln-2026-10-16",
+    "home": "Procyon Gaming",
+    "away": "Los Niños",
+    "start_time": "2026-10-16T16:00:00Z"
+   },
+   {
+    "id": "1196856",
+    "slug": "cs2-hec-ff-2026-10-16",
+    "home": "Hermine Esports Club",
+    "away": "Fire Flux Esports",
+    "start_time": "2026-10-16T16:00:00Z"
+   },
+   {
+    "id": "1190752",
+    "slug": "cs2-baks-g2a-2026-10-16",
+    "home": "BakS eSports",
+    "away": "G2 Ares",
+    "start_time": "2026-10-16T17:00:00Z"
+   },
+   {
+    "id": "1194413",
+    "slug": "cs2-100t-sng2-2026-10-16",
+    "home": "100 Thieves",
+    "away": "Sangal",
+    "start_time": "2026-10-16T17:00:00Z"
+   },
+   {
+    "id": "1194473",
+    "slug": "cs2-gl1-rustec-2026-10-16",
+    "home": "GamerLegion",
+    "away": "ex-RUSTEC",
+    "start_time": "2026-10-16T17:00:00Z"
+   },
+   {
+    "id": "1196836",
+    "slug": "cs2-lgc-bb3-2026-10-16",
+    "home": "Legacy",
+    "away": "BetBoom Team",
+    "start_time": "2026-10-16T17:00:00Z"
+   },
+   {
+    "id": "1173323",
+    "slug": "cs2-pha-havu-2026-10-16",
+    "home": "Phantom",
+    "away": "HAVU",
+    "start_time": "2026-10-16T18:00:00Z"
+   },
+   {
+    "id": "1196857",
+    "slug": "cs2-dnk2-lph-2026-10-16",
+    "home": "DNK",
+    "away": "LPH Gaming",
+    "start_time": "2026-10-16T18:30:00Z"
+   },
+   {
+    "id": "1192434",
+    "slug": "cs2-quin-damaju-2026-10-16",
+    "home": "QUINTESSÊNCIA",
+    "away": "Damajuana",
+    "start_time": "2026-10-16T19:00:00Z"
+   },
+   {
+    "id": "1192435",
+    "slug": "cs2-reda-realgo-2026-10-16",
+    "home": "RED Canids Academy",
+    "away": "realgotis22",
+    "start_time": "2026-10-16T22:00:00Z"
+   },
+   {
+    "id": "1198594",
+    "slug": "cs2-33-justpl-2026-10-17",
+    "home": "BET-M 33",
+    "away": "Just Players",
+    "start_time": "2026-10-17T08:00:00Z"
+   },
+   {
+    "id": "1192436",
+    "slug": "cs2-9inea-got1-2026-10-17",
+    "home": "9INE Academy",
+    "away": "gothboiclique",
+    "start_time": "2026-10-17T10:30:00Z"
+   },
+   {
+    "id": "1198595",
+    "slug": "cs2-baks-ff-2026-10-17",
+    "home": "BakS eSports",
+    "away": "Fire Flux Esports",
+    "start_time": "2026-10-17T17:00:00Z"
+   },
+   {
+    "id": "1192437",
+    "slug": "cs2-ek-psna-2026-10-18",
+    "home": "Elite Klan",
+    "away": "Passion Academy",
+    "start_time": "2026-10-18T08:00:00Z"
+   },
+   {
+    "id": "1192438",
+    "slug": "cs2-won-rev-2026-10-18",
+    "home": "WonderKids",
+    "away": "Revenge",
+    "start_time": "2026-10-18T10:30:00Z"
+   },
+   {
+    "id": "1192440",
+    "slug": "cs2-ctrles-efa1-2026-10-18",
+    "home": "CTRL Esports",
+    "away": "ex-EF Academy",
+    "start_time": "2026-10-18T13:00:00Z"
+   },
+   {
+    "id": "1177844",
+    "slug": "cs2-big5-priv-2026-10-19",
+    "home": "BIG",
+    "away": "PRIVATE",
+    "start_time": "2026-10-19T09:00:00Z"
+   },
+   {
+    "id": "1183119",
+    "slug": "cs2-inf6-ins-2026-10-19",
+    "home": "Infinite",
+    "away": "Insiders Esport",
+    "start_time": "2026-10-19T09:00:00Z"
+   },
+   {
+    "id": "1183120",
+    "slug": "cs2-aim1-bmb-2026-10-19",
+    "home": "aimclub",
+    "away": "BASEMENT BOYS",
+    "start_time": "2026-10-19T09:00:00Z"
+   },
+   {
+    "id": "1183121",
+    "slug": "cs2-bcg-drama-2026-10-19",
+    "home": "BC.Game Esports",
+    "away": "Drama eSports",
+    "start_time": "2026-10-19T09:00:00Z"
+   },
+   {
+    "id": "1183122",
+    "slug": "cs2-wbt-nxs1-2026-10-19",
+    "home": "WBT",
+    "away": "Nexus",
+    "start_time": "2026-10-19T09:00:00Z"
+   },
+   {
+    "id": "1183123",
+    "slug": "cs2-is-hs2-2026-10-19",
+    "home": "Iberian Soul",
+    "away": "HyperSpirit",
+    "start_time": "2026-10-19T10:45:00Z"
+   },
+   {
+    "id": "1183124",
+    "slug": "cs2-sashi-mouzn-2026-10-19",
+    "home": "Sashi Esport",
+    "away": "MOUZ NXT",
+    "start_time": "2026-10-19T10:45:00Z"
+   },
+   {
+    "id": "1183125",
+    "slug": "cs2-saw2-bkh-2026-10-19",
+    "home": "SAW",
+    "away": "Bayankhongor",
+    "start_time": "2026-10-19T10:45:00Z"
+   },
+   {
+    "id": "1183126",
+    "slug": "cs2-ast-leo2-2026-10-19",
+    "home": "ASTRAL",
+    "away": "Leo Team",
+    "start_time": "2026-10-19T10:45:00Z"
+   },
+   {
+    "id": "1177845",
+    "slug": "cs2-all-mglz-2026-10-19",
+    "home": "Alliance",
+    "away": "TheMongolz",
+    "start_time": "2026-10-19T12:00:00Z"
+   },
+   {
+    "id": "1177848",
+    "slug": "cs2-fnc-tl1-2026-10-19",
+    "home": "fnatic",
+    "away": "Liquid",
+    "start_time": "2026-10-19T15:00:00Z"
+   },
+   {
+    "id": "1185685",
+    "slug": "cs2-hon1-vita-2026-10-14",
+    "home": "Honvéd",
+    "away": "Vitality Academy",
+    "start_time": "2026-10-19T15:00:00Z"
+   },
+   {
+    "id": "1181883",
+    "slug": "cs2-phanto-hon1-2026-10-13",
+    "home": " Phantom Academy",
+    "away": "Honvéd",
+    "start_time": "2026-10-19T17:00:00Z"
+   },
+   {
+    "id": "1177849",
+    "slug": "cs2-prv-mgc-2026-10-19",
+    "home": "PARIVISION",
+    "away": "magic",
+    "start_time": "2026-10-19T18:00:00Z"
+   },
+   {
+    "id": "1181884",
+    "slug": "cs2-dinero-dnk2-2026-10-13",
+    "home": "DINERO",
+    "away": "DNK",
+    "start_time": "2026-10-20T17:00:00Z"
+   },
+   {
+    "id": "1195426",
+    "slug": "cs2-mgc-big5-2026-10-27",
+    "home": "magic",
+    "away": "BIG",
+    "start_time": "2026-10-27T11:00:00Z"
+   },
+   {
+    "id": "1195427",
+    "slug": "cs2-ice-nem-2026-10-27",
+    "home": "Inner Circle Esports",
+    "away": "Team Nemesis",
+    "start_time": "2026-10-27T13:30:00Z"
+   },
+   {
+    "id": "1195428",
+    "slug": "cs2-ast10-fnc-2026-10-27",
+    "home": "Astralis",
+    "away": "fnatic",
+    "start_time": "2026-10-27T16:00:00Z"
+   },
+   {
+    "id": "1150908",
+    "slug": "cs2-aimers-bg1-2026-10-08",
+    "home": "aimers",
+    "away": "Banger Gang",
+    "start_time": "2026-10-27T17:00:00Z"
+   },
+   {
+    "id": "1195429",
+    "slug": "cs2-mibr-ef1-2026-10-27",
+    "home": "MIBR",
+    "away": "Eternal Fire",
+    "start_time": "2026-10-27T18:30:00Z"
+   },
+   {
+    "id": "1181847",
+    "slug": "cs2-old1-ff-2026-10-13",
+    "home": "OldBoys",
+    "away": "Fire Flux Esports",
+    "start_time": "2026-11-01T18:00:00Z"
+   },
+   {
+    "id": "1159425",
+    "slug": "cs2-blueja1-rev2-2026-10-12",
+    "home": "BLUEJAYS.de",
+    "away": "Reveal",
+    "start_time": "2026-11-09T19:00:00Z"
+   },
+   {
+    "id": "1133922",
+    "slug": "cs2-ssp1-lei-2026-10-05",
+    "home": "Sissi State Punks",
+    "away": "Team LEISURE",
+    "start_time": "2026-11-11T17:00:00Z"
+   }
+  ],
+  "directory_evidence": "data/research/ba7164a0/raw/polymarket-directory.html.gz",
+  "observed_at": "2026-10-16T08:15:30Z",
   "source_url": "https://polymarket.com/esports/cs2",
   "api": "https://gamma-api.polymarket.com/events"
  },
  "hltv": {
   "fixtures": {},
-  "results": {},
-  "match_pages": {},
-  "analytics": {},
-  "teams": {},
-  "limitations": [
-   "HLTV event Matches page was not readable; fixture times stay unverified.",
-   "HLTV event Results page was not readable; Day 1/2 results stay unverified.",
-   "HLTV match page 2399412 was not readable.",
-   "HLTV match page 2399413 was not readable.",
-   "HLTV match page 2399414 was not readable.",
-   "HLTV match page 2399415 was not readable.",
-   "HLTV odds page 2399412 was not readable; no bookmaker odds captured.",
-   "HLTV odds page 2399413 was not readable; no bookmaker odds captured.",
-   "HLTV team page for Aurora was not readable.",
-   "HLTV team page for 9z was not readable."
-  ],
-  "observed_at": "2026-10-16T07:41:43Z"
+  "results": {
+   "days": [
+    {
+     "displayed_day": "October 16th 2026",
+     "results": [
+      {
+       "match_id": 2399411,
+       "url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+       "score": [
+        1,
+        2
+       ],
+       "displayed": "Legacy 1 - 2 FURIA bo3",
+       "best_of": 3
+      }
+     ]
+    },
+    {
+     "displayed_day": "October 15th 2026",
+     "results": [
+      {
+       "match_id": 2399410,
+       "url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+       "score": [
+        1,
+        2
+       ],
+       "displayed": "PARIVISION 1 - 2 BETBOOM bo3",
+       "best_of": 3
+      },
+      {
+       "match_id": 2399409,
+       "url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+       "score": [
+        1,
+        2
+       ],
+       "displayed": "9z 1 - 2 Falcons bo3",
+       "best_of": 3
+      },
+      {
+       "match_id": 2399408,
+       "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+       "score": [
+        2,
+        0
+       ],
+       "displayed": "Aurora 2 - 0 Ninjas in Pyjamas bo3",
+       "best_of": 3
+      }
+     ]
+    },
+    {
+     "displayed_day": "October 14th 2026",
+     "results": [
+      {
+       "match_id": 2399387,
+       "url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026",
+       "score": [
+        2,
+        0
+       ],
+       "displayed": "FURIA 2 - 0 BETBOOM bo3",
+       "best_of": 3
+      },
+      {
+       "match_id": 2399386,
+       "url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026",
+       "score": [
+        2,
+        0
+       ],
+       "displayed": "Legacy 2 - 0 PARIVISION bo3",
+       "best_of": 3
+      },
+      {
+       "match_id": 2399385,
+       "url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+       "score": [
+        2,
+        0
+       ],
+       "displayed": "Falcons 2 - 0 Ninjas in Pyjamas bo3",
+       "best_of": 3
+      },
+      {
+       "match_id": 2399384,
+       "url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+       "score": [
+        2,
+        0
+       ],
+       "displayed": "9z 2 - 0 Aurora bo3",
+       "best_of": 3
+      }
+     ]
+    }
+   ],
+   "source_url": "https://www.hltv.org/results?event=8932",
+   "evidence": "data/research/ba7164a0/raw/hltv-event-results.html"
+  },
+  "match_pages": {
+   "2399412": {
+    "title": "Aurora vs. 9z at Thunderpick World Championship 2026 | HLTV.org",
+    "canonical_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+    "data_unix": 1792159200000,
+    "start_utc_from_countdown": "2026-10-16T14:00:00+00:00",
+    "time_format": "HH:mm",
+    "best_of": 3,
+    "setting": "LAN",
+    "slot": "Group A decider match",
+    "displayed_time": "16:00",
+    "displayed_date": "16th of October 2026",
+    "lineup_blocks": [
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ]
+    ],
+    "source_url": "https://www.hltv.org/matches/2399412/thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-match-2399412.html.gz"
+   },
+   "2399413": {
+    "title": "BETBOOM vs. Legacy at Thunderpick World Championship 2026 | HLTV.org",
+    "canonical_url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+    "data_unix": 1792170000000,
+    "start_utc_from_countdown": "2026-10-16T17:00:00+00:00",
+    "time_format": "HH:mm",
+    "best_of": 3,
+    "setting": "LAN",
+    "slot": "Group B decider match",
+    "displayed_time": "19:00",
+    "displayed_date": "16th of October 2026",
+    "lineup_blocks": [
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ],
+     [
+      "Player profile Profile"
+     ]
+    ],
+    "source_url": "https://www.hltv.org/matches/2399413/thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-match-2399413.html"
+   },
+   "2399414": {
+    "title": "FURIA vs. Aurora/9z winner at Thunderpick World Championship 2026 | HLTV.org",
+    "canonical_url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-9z-winner-thunderpick-world-championship-2026",
+    "data_unix": 1792245600000,
+    "start_utc_from_countdown": "2026-10-17T14:00:00+00:00",
+    "time_format": "HH:mm",
+    "best_of": 3,
+    "setting": "LAN",
+    "displayed_time": "16:00",
+    "displayed_date": "17th of October 2026",
+    "lineup_blocks": [
+     [
+      "molodoy",
+      "yuurih",
+      "FalleN",
+      "KSCERATO",
+      "YEKINDAR"
+     ],
+     [
+      "molodoy",
+      "yuurih",
+      "FalleN",
+      "KSCERATO",
+      "YEKINDAR"
+     ]
+    ],
+    "source_url": "https://www.hltv.org/matches/2399414/thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-match-2399414.html"
+   },
+   "2399415": {
+    "title": "Falcons vs. BETBOOM/Legacy winner at Thunderpick World Championship 2026 | HLTV.org",
+    "canonical_url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-legacy-winner-thunderpick-world-championship-2026",
+    "data_unix": 1792256400000,
+    "start_utc_from_countdown": "2026-10-17T17:00:00+00:00",
+    "time_format": "HH:mm",
+    "best_of": 3,
+    "setting": "LAN",
+    "displayed_time": "19:00",
+    "displayed_date": "17th of October 2026",
+    "lineup_blocks": [
+     [
+      "karrigan",
+      "NiKo",
+      "m0NESY",
+      "TeSeS",
+      "kyousuke"
+     ],
+     [
+      "karrigan",
+      "NiKo",
+      "m0NESY",
+      "TeSeS",
+      "kyousuke"
+     ]
+    ],
+    "source_url": "https://www.hltv.org/matches/2399415/thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-match-2399415.html"
+   }
+  },
+  "analytics": {
+   "2399412": {
+    "odds_rows": [
+     [
+      "Wicadia Ali Haydar Yalçın",
+      "1.13",
+      "1.18"
+     ],
+     [
+      "XANTARES Ismailcan Dörtkardeş",
+      "1.05",
+      "1.11"
+     ],
+     [
+      "woxic Özgür Eker",
+      "1.05",
+      "1.07"
+     ],
+     [
+      "Jimpphat Jimi Salo",
+      "1.13",
+      "1.01"
+     ],
+     [
+      "kyxsan Damjan Stoilkovski",
+      "0.97",
+      "0.83"
+     ],
+     [
+      "luchov Luciano Herrera",
+      "0.97",
+      "1.32"
+     ],
+     [
+      "HUASOPEEK Matias Ibañez Hernandez",
+      "1.09",
+      "1.15"
+     ],
+     [
+      "meyern Ignacio Meyer",
+      "0.93",
+      "1.09"
+     ],
+     [
+      "dgt Franco Garcia",
+      "1.07",
+      "0.97"
+     ],
+     [
+      "max Maximiliano Gonzalez",
+      "0.87",
+      "0.81"
+     ],
+     [
+      "Cache",
+      "8.50",
+      "9.00"
+     ],
+     [
+      "Dust2",
+      "6.20",
+      "9.00"
+     ],
+     [
+      "Mirage",
+      "9.00",
+      "6.60"
+     ],
+     [
+      "Inferno",
+      "8.00",
+      "10.75"
+     ],
+     [
+      "Nuke",
+      "7.29",
+      "4.00"
+     ],
+     [
+      "Ancient",
+      "-",
+      "11.00"
+     ],
+     [
+      "Anubis",
+      "6.56",
+      "10.50"
+     ],
+     [
+      "Cache",
+      "3.00",
+      "5.00"
+     ],
+     [
+      "Dust2",
+      "9.67",
+      "5.00"
+     ],
+     [
+      "Mirage",
+      "8.00",
+      "8.50"
+     ],
+     [
+      "Inferno",
+      "11.00",
+      "7.67"
+     ],
+     [
+      "Nuke",
+      "5.00",
+      "6.86"
+     ],
+     [
+      "Ancient",
+      "-",
+      "12.50"
+     ]
+    ],
+    "insights": [
+     "Aurora has better form ranking",
+     "Aurora has won 3 out of the last 5 matches",
+     "Aurora is the bookmaker favorite with the best odds",
+     "Aurora played 2 matches against 9z in the past 30 days, and lost the latest",
+     "9z played 2 matches against Aurora in the past 30 days, and won the latest"
+    ],
+    "rankings": {
+     "better ranked": 6,
+     "worse ranked": 17,
+     "Aurora": {
+      "rank": 6,
+      "side": "better"
+     },
+     "9z": {
+      "rank": 17,
+      "side": "worse"
+     }
+    },
+    "source_url": "https://www.hltv.org/betting/analytics/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-analytics-2399412.html"
+   },
+   "2399413": {
+    "odds_rows": [
+     [
+      "Magnojez Kirill Rodnov",
+      "1.06",
+      "1.18"
+     ],
+     [
+      "S1ren Pavel Ogloblin",
+      "1.08",
+      "1.15"
+     ],
+     [
+      "d1Ledez Daniil Kustov",
+      "1.10",
+      "1.15"
+     ],
+     [
+      "zorte Aleksandr Zagodyrenko",
+      "0.98",
+      "1.07"
+     ],
+     [
+      "Boombl4 Kirill Mikhailov",
+      "0.95",
+      "0.92"
+     ],
+     [
+      "dumau Eduardo Wolkmer",
+      "1.11",
+      "1.19"
+     ],
+     [
+      "latto Bruno Rebelatto",
+      "1.18",
+      "1.06"
+     ],
+     [
+      "try Santino Rigal",
+      "1.11",
+      "0.99"
+     ],
+     [
+      "arT Andrei Piovezan",
+      "0.88",
+      "0.88"
+     ],
+     [
+      "n1ssim Vinicius Pereira",
+      "1.02",
+      "0.81"
+     ],
+     [
+      "Cache",
+      "11.00",
+      "14.00"
+     ],
+     [
+      "Dust2",
+      "-",
+      "8.00"
+     ],
+     [
+      "Mirage",
+      "7.67",
+      "6.75"
+     ],
+     [
+      "Nuke",
+      "8.00",
+      "3.00"
+     ],
+     [
+      "Ancient",
+      "14.00",
+      "9.00"
+     ],
+     [
+      "Anubis",
+      "9.25",
+      "10.67"
+     ],
+     [
+      "Cache",
+      "10.00",
+      "5.00"
+     ],
+     [
+      "Dust2",
+      "8.67",
+      "7.17"
+     ],
+     [
+      "Mirage",
+      "10.14",
+      "7.33"
+     ],
+     [
+      "Inferno",
+      "8.75",
+      "3.50"
+     ],
+     [
+      "Nuke",
+      "9.50",
+      "14.00"
+     ],
+     [
+      "Ancient",
+      "7.60",
+      "9.80"
+     ]
+    ],
+    "insights": [
+     "Legacy has better form ranking"
+    ],
+    "rankings": {
+     "worse ranked": 14,
+     "better ranked": 7,
+     "BETBOOM": {
+      "rank": 14,
+      "side": "worse"
+     },
+     "Legacy": {
+      "rank": 7,
+      "side": "better"
+     }
+    },
+    "source_url": "https://www.hltv.org/betting/analytics/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+    "evidence": "data/research/ba7164a0/raw/hltv-analytics-2399413.html"
+   }
+  },
+  "teams": {
+   "Aurora": {
+    "url": "https://www.hltv.org/team/11861/aurora",
+    "evidence": "data/research/ba7164a0/raw/hltv-team-aurora.html.gz",
+    "player_links": [
+     [
+      "7938",
+      "xantares"
+     ],
+     [
+      "8574",
+      "woxic"
+     ],
+     [
+      "18850",
+      "jimpphat"
+     ],
+     [
+      "19677",
+      "kyxsan"
+     ],
+     [
+      "21243",
+      "wicadia"
+     ],
+     [
+      "150",
+      "maj3r"
+     ],
+     [
+      "20113",
+      "deko"
+     ],
+     [
+      "22361",
+      "jottaaa"
+     ],
+     [
+      "2794",
+      "fabre"
+     ],
+     [
+      "20968",
+      "soulfly"
+     ],
+     [
+      "8975",
+      "ash"
+     ],
+     [
+      "21709",
+      "delus1onn"
+     ]
+    ]
+   },
+   "9z": {
+    "url": "https://www.hltv.org/team/9996/9z",
+    "evidence": "data/research/ba7164a0/raw/hltv-team-9z.html.gz",
+    "player_links": [
+     [
+      "12092",
+      "max"
+     ],
+     [
+      "14736",
+      "dgt"
+     ],
+     [
+      "14737",
+      "meyern"
+     ],
+     [
+      "20394",
+      "luchov"
+     ],
+     [
+      "22613",
+      "huasopeek"
+     ],
+     [
+      "15914",
+      "luken"
+     ],
+     [
+      "555",
+      "bit"
+     ],
+     [
+      "19698",
+      "adams"
+     ],
+     [
+      "22181",
+      "urban0"
+     ],
+     [
+      "22371",
+      "levi"
+     ],
+     [
+      "15917",
+      "gatito"
+     ],
+     [
+      "12375",
+      "kun"
+     ]
+    ]
+   }
+  },
+  "limitations": [],
+  "schedule": {
+   "days": [],
+   "source_url": "https://www.hltv.org/events/8932/matches",
+   "evidence": "data/research/ba7164a0/raw/hltv-event-matches.html"
+  },
+  "matches_index_evidence": "data/research/ba7164a0/raw/hltv-matches-index.html.gz",
+  "observed_at": "2026-10-16T08:15:41Z"
  },
  "valve": {
   "teams_requested": [
@@ -1853,97 +2851,113 @@
   ],
   "ratings": {
    "Legacy": {
-    "points": 2,
-    "row": [
-     "2",
-     "1931",
-     "Legacy",
-     "arT, dumau, latto, n1ssim, try",
-     "[details](details/2026_10_05/0002--legacy--art-dumau-latto-n1ssim-try.md)"
+    "standing": 2,
+    "points": 1931,
+    "team_name": "Legacy",
+    "roster": [
+     "arT",
+     "dumau",
+     "latto",
+     "n1ssim",
+     "try"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "Falcons": {
-    "points": 6,
-    "row": [
-     "6",
-     "1843",
-     "Falcons",
-     "karrigan, kyousuke, m0NESY, NiKo, TeSeS",
-     "[details](details/2026_10_05/0006--falcons--karrigan-kyousuke-m0nesy-niko-teses.md)"
+    "standing": 6,
+    "points": 1843,
+    "team_name": "Falcons",
+    "roster": [
+     "karrigan",
+     "kyousuke",
+     "m0NESY",
+     "NiKo",
+     "TeSeS"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "FURIA": {
-    "points": 7,
-    "row": [
-     "7",
-     "1829",
-     "FURIA",
-     "FalleN, KSCERATO, molodoy, YEKINDAR, yuurih",
-     "[details](details/2026_10_05/0007--furia--fallen-kscerato-molodoy-yekindar-yuurih.md)"
+    "standing": 7,
+    "points": 1829,
+    "team_name": "FURIA",
+    "roster": [
+     "FalleN",
+     "KSCERATO",
+     "molodoy",
+     "YEKINDAR",
+     "yuurih"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "Aurora": {
-    "points": 9,
-    "row": [
-     "9",
-     "1716",
-     "Aurora",
-     "Jimpphat, kyxsan, Wicadia, woxic, XANTARES",
-     "[details](details/2026_10_05/0009--aurora--jimpphat-kyxsan-wicadia-woxic-xantares.md)"
+    "standing": 9,
+    "points": 1716,
+    "team_name": "Aurora",
+    "roster": [
+     "Jimpphat",
+     "kyxsan",
+     "Wicadia",
+     "woxic",
+     "XANTARES"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "BETBOOM": {
-    "points": 11,
-    "row": [
-     "11",
-     "1596",
-     "BETBOOM",
-     "Boombl4, d1Ledez, Magnojez, S1ren, zorte",
-     "[details](details/2026_10_05/0011--betboom--boombl4-d1ledez-magnojez-s1ren-zorte.md)"
+    "standing": 11,
+    "points": 1596,
+    "team_name": "BETBOOM",
+    "roster": [
+     "Boombl4",
+     "d1Ledez",
+     "Magnojez",
+     "S1ren",
+     "zorte"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "9z": {
-    "points": 17,
-    "row": [
-     "17",
-     "1543",
-     "9z",
-     "dgt, HUASOPEEK, luchov, max, meyern",
-     "[details](details/2026_10_05/0017--9z--dgt-huasopeek-luchov-max-meyern.md)"
+    "standing": 17,
+    "points": 1543,
+    "team_name": "9z",
+    "roster": [
+     "dgt",
+     "HUASOPEEK",
+     "luchov",
+     "max",
+     "meyern"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "Ninjas in Pyjamas": {
-    "points": 18,
-    "row": [
-     "18",
-     "1534",
-     "Ninjas in Pyjamas",
-     "adamb, Krimbo, sjuush, stavn, xKacpersky",
-     "[details](details/2026_10_05/0018--ninjas_in_pyjamas--adamb-krimbo-sjuush-stavn-xkacpersky.md)"
+    "standing": 18,
+    "points": 1534,
+    "team_name": "Ninjas in Pyjamas",
+    "roster": [
+     "adamb",
+     "Krimbo",
+     "sjuush",
+     "stavn",
+     "xKacpersky"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
    },
    "PARIVISION": {
-    "points": 36,
-    "row": [
-     "36",
-     "1411",
-     "PARIVISION",
-     "FL1T, Jame, slaxejezzz, xiELO, zweih",
-     "[details](details/2026_10_05/0036--parivision--fl1t-jame-slaxejezzz-xielo-zweih.md)"
+    "standing": 36,
+    "points": 1411,
+    "team_name": "PARIVISION",
+    "roster": [
+     "FL1T",
+     "Jame",
+     "slaxejezzz",
+     "xiELO",
+     "zweih"
     ],
     "snapshot": "standings_global_2026_10_05.md",
     "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
@@ -1966,41 +2980,3138 @@
   "snapshot_used": "standings_global_2026_10_05.md",
   "source_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
   "evidence": "data/research/ba7164a0/raw/valve-standings-latest.html",
-  "observed_at": "2026-10-16T07:41:43Z"
+  "ambiguous": {},
+  "absent": [],
+  "standings_as_of": "2026_10_05",
+  "observed_at": "2026-10-16T08:15:41Z"
  },
  "other_books": {
   "providers": {
    "kalshi": {
-    "markets": [],
-    "count": 0,
+    "markets": [
+     {
+      "ticker": "KXCS2GAME-26OCT150400TCFPRE-TCF",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT150400TCFPRE",
+      "close_time": "2026-10-17T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT150400TCFPRE-PRE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT150400TCFPRE",
+      "close_time": "2026-10-17T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160300DEGQUA-DEG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160300DEGQUA",
+      "close_time": "2026-10-18T07:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160300DEGQUA-QUA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160300DEGQUA",
+      "close_time": "2026-10-18T07:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160300VPFJUM-VPF",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160300VPFJUM",
+      "close_time": "2026-10-18T07:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160300VPFJUM-JUM",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160300VPFJUM",
+      "close_time": "2026-10-18T07:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400APOGEEEF-APOGEE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400APOGEEEF",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400APOGEEEF-EF",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400APOGEEEF",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400BLAILL-BLA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400BLAILL",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400BLAILL-ILL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400BLAILL",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400ENCEPGAT-ENCEP",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400ENCEPGAT",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400ENCEPGAT-GAT",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400ENCEPGAT",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400PHAVOC-PHA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400PHAVOC",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400PHAVOC-VOC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400PHAVOC",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400REVLILMIX-REV",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400REVLILMIX",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400REVLILMIX-LILMIX",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400REVLILMIX",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400RGGCW-RGG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400RGGCW",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400RGGCW-CW",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400RGGCW",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400TLNIP-TL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400TLNIP",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400TLNIP-NIP",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400TLNIP",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400WALBRUTE-WAL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400WALBRUTE",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160400WALBRUTE-BRUTE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160400WALBRUTE",
+      "close_time": "2026-10-18T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160600RGGHAVU-RGG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160600RGGHAVU",
+      "close_time": "2026-10-18T10:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160600RGGHAVU-HAVU",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160600RGGHAVU",
+      "close_time": "2026-10-18T10:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160630BRESKR-BRE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160630BRESKR",
+      "close_time": "2026-10-18T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160630BRESKR-SKR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160630BRESKR",
+      "close_time": "2026-10-18T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160630THESTA-THE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160630THESTA",
+      "close_time": "2026-10-18T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160630THESTA-STA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160630THESTA",
+      "close_time": "2026-10-18T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700EXRBW-EXR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700EXRBW",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700EXRBW-BW",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700EXRBW",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700HEROFNC-HERO",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700HEROFNC",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700HEROFNC-FNC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700HEROFNC",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700ILLMOR-ILL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700ILLMOR",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700ILLMOR-MOR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700ILLMOR",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700NTRNEM-NTR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700NTRNEM",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700NTRNEM-NEM",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700NTRNEM",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700SSINSEXR-SSINS",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700SSINSEXR",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160700SSINSEXR-EXR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160700SSINSEXR",
+      "close_time": "2026-10-18T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160800HAVUVOC-HAVU",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160800HAVUVOC",
+      "close_time": "2026-10-18T12:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160800HAVUVOC-VOC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160800HAVUVOC",
+      "close_time": "2026-10-18T12:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900XCIBLA-XCI",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900XCIBLA",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900XCIBLA-BLA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900XCIBLA",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900YOUJDT-YOU",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900YOUJDT",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900YOUJDT-JDT",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900YOUJDT",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900YOUYTIGERES-YOU",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900YOUYTIGERES",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT160900YOUYTIGERES-YTIGERES",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT160900YOUYTIGERES",
+      "close_time": "2026-10-18T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT1610009ZAUR-9Z",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT1610009ZAUR",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT1610009ZAUR-AUR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT1610009ZAUR",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000EYEBBL-EYE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000EYEBBL",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000EYEBBL-BBL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000EYEBBL",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000LAVFORZER-LAV",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000LAVFORZER",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000LAVFORZER-FORZER",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000LAVFORZER",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000MIBRAST-MIBR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000MIBRAST",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000MIBRAST-AST",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000MIBRAST",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000PGMEL-PG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000PGMEL",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000PGMEL-MEL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000PGMEL",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000RGGPHA-RGG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000RGGPHA",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000RGGPHA-PHA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000RGGPHA",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000UNITYEXZ-UNITY",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000UNITYEXZ",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161000UNITYEXZ-EXZ",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161000UNITYEXZ",
+      "close_time": "2026-10-18T14:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200FIREHEC-FIRE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200FIREHEC",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200FIREHEC-HEC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200FIREHEC",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200LNPRO-LN",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200LNPRO",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200LNPRO-PRO",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200LNPRO",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200RGGVOC-RGG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200RGGVOC",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161200RGGVOC-VOC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161200RGGVOC",
+      "close_time": "2026-10-18T16:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300ANTNOI-ANT",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300ANTNOI",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300ANTNOI-NOI",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300ANTNOI",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300BBLGC-BB",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300BBLGC",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300BBLGC-LGC",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300BBLGC",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300EXRGL-EXR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300EXRGL",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300EXRGL-GL",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300EXRGL",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300G2ABAKS-G2A",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300G2ABAKS",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300G2ABAKS-BAKS",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300G2ABAKS",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300SNG100T-SNG",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300SNG100T",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161300SNG100T-100T",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161300SNG100T",
+      "close_time": "2026-10-18T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161400HAVUPHA-HAVU",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161400HAVUPHA",
+      "close_time": "2026-10-18T18:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161400HAVUPHA-PHA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161400HAVUPHA",
+      "close_time": "2026-10-18T18:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161430LPHDNK-LPH",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161430LPHDNK",
+      "close_time": "2026-10-18T18:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161430LPHDNK-DNK",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161430LPHDNK",
+      "close_time": "2026-10-18T18:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161500DAMQUIN-DAM",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161500DAMQUIN",
+      "close_time": "2026-10-18T19:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161500DAMQUIN-QUIN",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161500DAMQUIN",
+      "close_time": "2026-10-18T19:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161800REAREDA-REA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161800REAREDA",
+      "close_time": "2026-10-18T22:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT161800REAREDA-REDA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT161800REAREDA",
+      "close_time": "2026-10-18T22:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170400JUSUNK-JUS",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170400JUSUNK",
+      "close_time": "2026-10-19T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170400JUSUNK-UNK",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170400JUSUNK",
+      "close_time": "2026-10-19T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170630GOT9INEA-GOT",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170630GOT9INEA",
+      "close_time": "2026-10-19T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170630GOT9INEA-9INEA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170630GOT9INEA",
+      "close_time": "2026-10-19T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170700BTFG1-BTF",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170700BTFG1",
+      "close_time": "2026-10-19T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT170700BTFG1-G1",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT170700BTFG1",
+      "close_time": "2026-10-19T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT171300FIREBAKS-FIRE",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT171300FIREBAKS",
+      "close_time": "2026-10-19T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT171300FIREBAKS-BAKS",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT171300FIREBAKS",
+      "close_time": "2026-10-19T17:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180400ENJOYLK-ENJOY",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180400ENJOYLK",
+      "close_time": "2026-10-20T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180400ENJOYLK-LK",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180400ENJOYLK",
+      "close_time": "2026-10-20T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180400PSNAEK-PSNA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180400PSNAEK",
+      "close_time": "2026-10-20T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180400PSNAEK-EK",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180400PSNAEK",
+      "close_time": "2026-10-20T08:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180630REVWON-REV",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180630REVWON",
+      "close_time": "2026-10-20T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180630REVWON-WON",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180630REVWON",
+      "close_time": "2026-10-20T10:30:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180700SSINSMAY-SSINS",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180700SSINSMAY",
+      "close_time": "2026-10-20T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180700SSINSMAY-MAY",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180700SSINSMAY",
+      "close_time": "2026-10-20T11:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180900EXEFACTR-EXEFA",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180900EXEFACTR",
+      "close_time": "2026-10-20T13:00:00Z",
+      "active": null
+     },
+     {
+      "ticker": "KXCS2GAME-26OCT180900EXEFACTR-CTR",
+      "question": null,
+      "yes_bid": null,
+      "yes_ask": null,
+      "no_bid": null,
+      "no_ask": null,
+      "volume": null,
+      "event_ticker": "KXCS2GAME-26OCT180900EXEFACTR",
+      "close_time": "2026-10-20T13:00:00Z",
+      "active": null
+     }
+    ],
+    "count": 102,
     "evidence": "data/research/ba7164a0/raw/kalshi-cs2.json",
     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
     "api_docs": "https://docs.kalshi.com/api-reference/market/get-markets",
-    "observed_at": "2026-10-16T07:41:43Z"
+    "observed_at": "2026-10-16T08:15:41Z"
    },
    "bovada": {
-    "markets": [],
-    "count": 0,
+    "moneylines": [
+     {
+      "event_id": "32295182",
+      "description": "Team Nemesis vs Nuclear Tigeres",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792148400000,
+      "start_utc": "2026-10-16T11:00:00+00:00",
+      "league": "Europe / PGL Bucharest Qualifiers / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Team Nemesis",
+       "Nuclear Tigeres"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Team Nemesis",
+        "decimal": "1.606061",
+        "american": "-165",
+        "status": "O"
+       },
+       {
+        "name": "Nuclear Tigeres",
+        "decimal": "2.250",
+        "american": "+125",
+        "status": "O"
+       }
+      ],
+      "market_id": "536115625",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/team-nemesis-nuclear-tigeres-202610160700",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32294407",
+      "description": "BBL Esports vs Eyeballers",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792159200000,
+      "start_utc": "2026-10-16T14:00:00+00:00",
+      "league": "Europe / PGL Bucharest Qualifiers / Counter-Strike 2 / Esports",
+      "competitors": [
+       "BBL Esports",
+       "Eyeballers"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "BBL Esports",
+        "decimal": "1.690",
+        "american": "-145",
+        "status": "O"
+       },
+       {
+        "name": "Eyeballers",
+        "decimal": "2.100",
+        "american": "+110",
+        "status": "O"
+       }
+      ],
+      "market_id": "536115628",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/bbl-esports-eyeballers-202610161000",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32297167",
+      "description": "GamerLegion vs Ex-Rustec",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792170000000,
+      "start_utc": "2026-10-16T17:00:00+00:00",
+      "league": "Europe / PGL Bucharest Qualifiers / Counter-Strike 2 / Esports",
+      "competitors": [
+       "GamerLegion",
+       "Ex-Rustec"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "GamerLegion",
+        "decimal": "1.190",
+        "american": "-525",
+        "status": "O"
+       },
+       {
+        "name": "Ex-Rustec",
+        "decimal": "4.400",
+        "american": "+340",
+        "status": "O"
+       }
+      ],
+      "market_id": "536125684",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/gamerlegion-ex-rustec-202610161300",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32299372",
+      "description": "Team AURORA vs 9Z Globant",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792159200000,
+      "start_utc": "2026-10-16T14:00:00+00:00",
+      "league": "Thunderpick World Championship'26 / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Team AURORA",
+       "9Z Globant"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Team AURORA",
+        "decimal": "1.434783",
+        "american": "-230",
+        "status": "O"
+       },
+       {
+        "name": "9Z Globant",
+        "decimal": "2.750",
+        "american": "+175",
+        "status": "O"
+       }
+      ],
+      "market_id": "536148496",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/team-aurora-9z-globant-202610161000",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32316377",
+      "description": "BB Team vs Legacy",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792170000000,
+      "start_utc": "2026-10-16T17:00:00+00:00",
+      "league": "Thunderpick World Championship'26 / Counter-Strike 2 / Esports",
+      "competitors": [
+       "BB Team",
+       "Legacy"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "BB Team",
+        "decimal": "2.550",
+        "american": "+155",
+        "status": "O"
+       },
+       {
+        "name": "Legacy",
+        "decimal": "1.487805",
+        "american": "-205",
+        "status": "O"
+       }
+      ],
+      "market_id": "536244144",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/bb-team-legacy-202610161300",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32271168",
+      "description": "Ex-Rustec vs Saint Sinners",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792148400000,
+      "start_utc": "2026-10-16T11:00:00+00:00",
+      "league": "Series 11 / CCT Europe / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Ex-Rustec",
+       "Saint Sinners"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Ex-Rustec",
+        "decimal": "1.454545",
+        "american": "-220",
+        "status": "O"
+       },
+       {
+        "name": "Saint Sinners",
+        "decimal": "2.650",
+        "american": "+165",
+        "status": "O"
+       }
+      ],
+      "market_id": "535970777",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/ex-rustec-saint-sinners-202610160700",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32270207",
+      "description": "Forze Reload vs Lavked",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792159200000,
+      "start_utc": "2026-10-16T14:00:00+00:00",
+      "league": "Series 11 / CCT Europe / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Forze Reload",
+       "Lavked"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Forze Reload",
+        "decimal": "1.260",
+        "american": "-385",
+        "status": "O"
+       },
+       {
+        "name": "Lavked",
+        "decimal": "3.650",
+        "american": "+265",
+        "status": "O"
+       }
+      ],
+      "market_id": "535971280",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/forze-reload-lavked-202610161000",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32271363",
+      "description": "BakS eSports vs G2 Ares",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792170000000,
+      "start_utc": "2026-10-16T17:00:00+00:00",
+      "league": "Series 11 / CCT Europe / Counter-Strike 2 / Esports",
+      "competitors": [
+       "BakS eSports",
+       "G2 Ares"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "BakS eSports",
+        "decimal": "1.588235",
+        "american": "-170",
+        "status": "O"
+       },
+       {
+        "name": "G2 Ares",
+        "decimal": "2.300",
+        "american": "+130",
+        "status": "O"
+       }
+      ],
+      "market_id": "535970795",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/baks-esports-g2-ares-202610161300",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32282783",
+      "description": "Joga De Terno vs Your End",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792155600000,
+      "start_utc": "2026-10-16T13:00:00+00:00",
+      "league": "South America / CCT League / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Joga De Terno",
+       "Your End"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Joga De Terno",
+        "decimal": "1.690",
+        "american": "-145",
+        "status": "O"
+       },
+       {
+        "name": "Your End",
+        "decimal": "2.100",
+        "american": "+110",
+        "status": "O"
+       }
+      ],
+      "market_id": "536030577",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/joga-de-terno-your-end-202610160900",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32282782",
+      "description": "Procyon Gaming vs Los Ninos",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792166400000,
+      "start_utc": "2026-10-16T16:00:00+00:00",
+      "league": "South America / CCT League / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Procyon Gaming",
+       "Los Ninos"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Procyon Gaming",
+        "decimal": "1.400",
+        "american": "-250",
+        "status": "O"
+       },
+       {
+        "name": "Los Ninos",
+        "decimal": "2.850",
+        "american": "+185",
+        "status": "O"
+       }
+      ],
+      "market_id": "536031167",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32283980",
+      "description": "Quintessencia vs Damajuanaa",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792177200000,
+      "start_utc": "2026-10-16T19:00:00+00:00",
+      "league": "South America / CCT League / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Quintessencia",
+       "Damajuanaa"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Quintessencia",
+        "decimal": "1.153846",
+        "american": "-650",
+        "status": "O"
+       },
+       {
+        "name": "Damajuanaa",
+        "decimal": "5.00",
+        "american": "+400",
+        "status": "O"
+       }
+      ],
+      "market_id": "536034643",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/quintessencia-damajuanaa-202610161500",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32254379",
+      "description": "Sokerorg vs Bread Eaters Esports",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792146600000,
+      "start_utc": "2026-10-16T10:30:00+00:00",
+      "league": "European Pro League / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Sokerorg",
+       "Bread Eaters Esports"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Sokerorg",
+        "decimal": "1.250",
+        "american": "-400",
+        "status": "O"
+       },
+       {
+        "name": "Bread Eaters Esports",
+        "decimal": "3.750",
+        "american": "+275",
+        "status": "O"
+       }
+      ],
+      "market_id": "535874286",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/european-pro-league/sokerorg-bread-eaters-esports-202610160630",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32324965",
+      "description": "Ex-Zero Tenacity vs Unity Esports",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792159200000,
+      "start_utc": "2026-10-16T14:00:00+00:00",
+      "league": "Nodwin Clutch Series / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Ex-Zero Tenacity",
+       "Unity Esports"
+      ],
+      "moneyline_markets": 0,
+      "outcomes": [],
+      "market_id": null,
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/ex-zero-tenacity-unity-esports-202610161000",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32306169",
+      "description": "Fnatic vs Heroic",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792148400000,
+      "start_utc": "2026-10-16T11:00:00+00:00",
+      "league": "Pulse Beat III / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Fnatic",
+       "Heroic"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Fnatic",
+        "decimal": "2.550",
+        "american": "+155",
+        "status": "O"
+       },
+       {
+        "name": "Heroic",
+        "decimal": "1.487805",
+        "american": "-205",
+        "status": "O"
+       }
+      ],
+      "market_id": "536185658",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/fnatic-heroic-202610160700",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32310396",
+      "description": "Astralis vs MIBR",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792159200000,
+      "start_utc": "2026-10-16T14:00:00+00:00",
+      "league": "Pulse Beat III / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Astralis",
+       "MIBR"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Astralis",
+        "decimal": "1.833333",
+        "american": "-120",
+        "status": "O"
+       },
+       {
+        "name": "MIBR",
+        "decimal": "1.909091",
+        "american": "-110",
+        "status": "O"
+       }
+      ],
+      "market_id": "536218733",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/astralis-mibr-202610161000",
+      "page_url": "https://www.bovada.lv/sports"
+     },
+     {
+      "event_id": "32267381",
+      "description": "Sangal Esports vs 100 Thieves",
+      "event_type": "GAMEEVENT",
+      "live": false,
+      "start_time_ms": 1792170000000,
+      "start_utc": "2026-10-16T17:00:00+00:00",
+      "league": "Pulse Beat III / Counter-Strike 2 / Esports",
+      "competitors": [
+       "Sangal Esports",
+       "100 Thieves"
+      ],
+      "moneyline_markets": 1,
+      "outcomes": [
+       {
+        "name": "Sangal Esports",
+        "decimal": "2.700",
+        "american": "+170",
+        "status": "O"
+       },
+       {
+        "name": "100 Thieves",
+        "decimal": "1.444444",
+        "american": "-225",
+        "status": "O"
+       }
+      ],
+      "market_id": "535947641",
+      "source_url": "https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/sangal-esports-100-thieves-202610161300",
+      "page_url": "https://www.bovada.lv/sports"
+     }
+    ],
     "evidence": "data/research/ba7164a0/raw/bovada-cs2.json",
     "source_url": "https://www.bovada.lv/sports",
-    "observed_at": "2026-10-16T07:41:44Z"
+    "api": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+    "observed_at": "2026-10-16T08:15:42Z",
+    "count": 16
    },
    "thunderpick": {
-    "raw_type": "dict",
+    "moneylines": [
+     {
+      "bucket": "upcoming",
+      "event_id": 2820776,
+      "market_id": 232612183,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11441,
+       "name": "ESEA Advanced Season 59 North America",
+       "shortName": "ESEA Adv S59 NA",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Celestial Esports",
+        "odds": 4.24,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Chicken Coop Esports",
+        "odds": 1.17,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2824891,
+      "market_id": 233131650,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11405,
+       "name": "European Pro League Regular Season 7",
+       "shortName": "EPL Regular S7",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Sokerorg",
+        "odds": 1.22,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ex-Eternal Fire Academy",
+        "odds": 3.7,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807395,
+      "market_id": 230742249,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11357,
+       "name": "DraculaN Season 7",
+       "shortName": "Draculan7",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Sashi",
+        "odds": 1.48,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "MOUZ NXT",
+        "odds": 2.5,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807397,
+      "market_id": 230742745,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11357,
+       "name": "DraculaN Season 7",
+       "shortName": "Draculan7",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "WBT",
+        "odds": 1.72,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Nexus",
+        "odds": 2.0,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807498,
+      "market_id": 230760922,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "HAVU Gaming",
+        "odds": 1.17,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ROUNDS",
+        "odds": 4.4,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807499,
+      "market_id": 230760997,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Voca",
+        "odds": 1.52,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "HAVU Gaming",
+        "odds": 2.35,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807503,
+      "market_id": 230761188,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Phantom Esports",
+        "odds": 1.08,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ROUNDS",
+        "odds": 6.3,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807505,
+      "market_id": 230761216,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Voca",
+        "odds": 1.1,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ROUNDS",
+        "odds": 5.8,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2807508,
+      "market_id": 230761719,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Phantom Esports",
+        "odds": 1.32,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "HAVU Gaming",
+        "odds": 3.1,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2825162,
+      "market_id": 233168806,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11357,
+       "name": "DraculaN Season 7",
+       "shortName": "Draculan7",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Iberian Soul",
+        "odds": 1.4,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "HyperSpirit",
+        "odds": 2.7,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2825455,
+      "market_id": 233211426,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10344,
+       "name": "DACH CS Masters: Season 6",
+       "shortName": "DACH Masters S6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Reveal",
+        "odds": 1.56,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Sissi State Punks",
+        "odds": 2.21,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2825458,
+      "market_id": 233211566,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10344,
+       "name": "DACH CS Masters: Season 6",
+       "shortName": "DACH Masters S6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "PANDARIC eSports",
+        "odds": 3.85,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Regnum4Games",
+        "odds": 1.2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2828222,
+      "market_id": 233620719,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11173,
+       "name": "Pulse Beat III",
+       "shortName": "PULSE BEAT",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "100 Thieves",
+        "odds": 1.38,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Sangal",
+        "odds": 2.8,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2828387,
+      "market_id": 233639299,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10554,
+       "name": "DACH CS Masters Season 6: Division 2",
+       "shortName": "DACH M6 D2",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "OTHERSCANTBEAT",
+        "odds": 1.23,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Pandaric VAPE",
+        "odds": 3.61,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2828904,
+      "market_id": 233709394,
+      "market": "Match Winner",
+      "competition": {
+       "id": 8329,
+       "name": "Gamers Club Liga Série A",
+       "shortName": "Gamers Club ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "underw0rld",
+        "odds": 1.44,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "MIBR Female",
+        "odds": 2.51,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829019,
+      "market_id": 233727943,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10586,
+       "name": "Dust2.dk Ligaen: Season 33",
+       "shortName": "Dust2.dk Lig S33",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "MASQ",
+        "odds": 2.33,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "XI Esport",
+        "odds": 1.49,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829021,
+      "market_id": 233728119,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10586,
+       "name": "Dust2.dk Ligaen: Season 33",
+       "shortName": "Dust2.dk Lig S33",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "MASQ",
+        "odds": 2.63,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "struggletony",
+        "odds": 1.39,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829024,
+      "market_id": 233728175,
+      "market": "Match Winner",
+      "competition": {
+       "id": 10586,
+       "name": "Dust2.dk Ligaen: Season 33",
+       "shortName": "Dust2.dk Lig S33",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "XI Esport",
+        "odds": 2.21,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "struggletony",
+        "odds": 1.54,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829200,
+      "market_id": 233757455,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11469,
+       "name": "United21 Season 57",
+       "shortName": "United21 S57",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "STATE",
+        "odds": 1.22,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "TheChampionGG",
+        "odds": 3.8,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829582,
+      "market_id": 233798937,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11469,
+       "name": "United21 Season 57",
+       "shortName": "United21 S57",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Elite Klan VELLAMO",
+        "odds": 3.3,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Passion UA AC",
+        "odds": 1.28,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829832,
+      "market_id": 233834314,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11477,
+       "name": "PGL Bucharest 2027: Closed Qualifier",
+       "shortName": "PGL Bucharest 27",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Nemesis",
+        "odds": 1.58,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Nuclear TigeRES",
+        "odds": 2.2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829834,
+      "market_id": 233834752,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11477,
+       "name": "PGL Bucharest 2027: Closed Qualifier",
+       "shortName": "PGL Bucharest 27",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "BBL Esports",
+        "odds": 1.72,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "EYEBALLERS",
+        "odds": 2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2829835,
+      "market_id": 233834905,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11477,
+       "name": "PGL Bucharest 2027: Closed Qualifier",
+       "shortName": "PGL Bucharest 27",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "GamerLegion",
+        "odds": 1.15,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ex-RUSTEC",
+        "odds": 4.8,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2812431,
+      "market_id": 231459217,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11388,
+       "name": "Private Club #2",
+       "shortName": "Private Club #2",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "BIG",
+        "odds": 1.48,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Private",
+        "odds": 2.5,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2812432,
+      "market_id": 231459524,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11388,
+       "name": "Private Club #2",
+       "shortName": "Private Club #2",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "MongolZ",
+        "odds": 1.4,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Alliance",
+        "odds": 2.7,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2812462,
+      "market_id": 231462503,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11388,
+       "name": "Private Club #2",
+       "shortName": "Private Club #2",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Liquid",
+        "odds": 1.52,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "fnatic",
+        "odds": 2.35,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2812467,
+      "market_id": 231463629,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11388,
+       "name": "Private Club #2",
+       "shortName": "Private Club #2",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "PARIVISION",
+        "odds": 1.52,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Magic",
+        "odds": 2.35,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2830601,
+      "market_id": 233936137,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11405,
+       "name": "European Pro League Regular Season 7",
+       "shortName": "EPL Regular S7",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "RoundsGG",
+        "odds": 2.5,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "EAC Rising",
+        "odds": 1.46,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2830808,
+      "market_id": 233959224,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11024,
+       "name": "Thunderpick World Championship 2026",
+       "shortName": "TP WC 26",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Aurora",
+        "odds": 1.4,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "9z Team",
+        "odds": 2.7,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831025,
+      "market_id": 233988560,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11484,
+       "name": "Ranked Episode 5",
+       "shortName": "STAKE RANK6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Magic",
+        "odds": 1.95,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "BIG",
+        "odds": 1.75,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831026,
+      "market_id": 233988780,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11484,
+       "name": "Ranked Episode 5",
+       "shortName": "STAKE RANK6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Inner Circle",
+        "odds": 1.72,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Nemesis",
+        "odds": 2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831027,
+      "market_id": 233989009,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11484,
+       "name": "Ranked Episode 5",
+       "shortName": "STAKE RANK6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "MIBR",
+        "odds": 1.48,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Eternal Fire",
+        "odds": 2.5,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831028,
+      "market_id": 233989193,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11484,
+       "name": "Ranked Episode 5",
+       "shortName": "STAKE RANK6",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Astralis",
+        "odds": 1.45,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "fnatic",
+        "odds": 2.6,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831897,
+      "market_id": 234136383,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11173,
+       "name": "Pulse Beat III",
+       "shortName": "PULSE BEAT",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "fnatic",
+        "odds": 2.5,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "HEROIC",
+        "odds": 1.48,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2831979,
+      "market_id": 234151571,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11173,
+       "name": "Pulse Beat III",
+       "shortName": "PULSE BEAT",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Astralis",
+        "odds": 1.88,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "MIBR",
+        "odds": 1.82,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2832532,
+      "market_id": 234226113,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11024,
+       "name": "Thunderpick World Championship 2026",
+       "shortName": "TP WC 26",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "BB Team",
+        "odds": 2.5,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Legacy",
+        "odds": 1.48,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2833463,
+      "market_id": 234349531,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11489,
+       "name": "CyberClash Season 2: Closed Qualifier",
+       "shortName": "CYBERCLASH S2 CQ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Private",
+        "odds": 1.72,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "UPGRADE",
+        "odds": 2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2833466,
+      "market_id": 234349722,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11489,
+       "name": "CyberClash Season 2: Closed Qualifier",
+       "shortName": "CYBERCLASH S2 CQ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Rune Eaters",
+        "odds": 1.48,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "HyperSpirit",
+        "odds": 2.5,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2834123,
+      "market_id": 234432664,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11384,
+       "name": "NODWIN Clutch Series #13",
+       "shortName": "NODWIN Clutch ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "ex-Zero Tenacity",
+        "odds": 1.95,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Team UNiTY",
+        "odds": 1.75,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2834283,
+      "market_id": 234454363,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11384,
+       "name": "NODWIN Clutch Series #13",
+       "shortName": "NODWIN Clutch ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "33 Team",
+        "odds": 1.38,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Just Players",
+        "odds": 2.8,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2834694,
+      "market_id": 234506978,
+      "market": "Match Winner",
+      "competition": {
+       "id": 4404,
+       "name": "Berserk League 2026",
+       "shortName": "BerserkLeague26",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Oway",
+        "odds": 1.58,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Mavros",
+        "odds": 2.2,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "upcoming",
+      "event_id": 2834742,
+      "market_id": 234513804,
+      "market": "Match Winner",
+      "competition": {
+       "id": 4404,
+       "name": "Berserk League 2026",
+       "shortName": "BerserkLeague26",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Quattro",
+        "odds": 2.35,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Mavros",
+        "odds": 1.52,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "live",
+      "event_id": 2807497,
+      "market_id": 230760857,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11360,
+       "name": "Elisa BreakOut Series #2",
+       "shortName": "ELISA BREAKOUT ",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Voca",
+        "odds": 3.1,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Phantom Esports",
+        "odds": 1.32,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "live",
+      "event_id": 2828217,
+      "market_id": 233620035,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11173,
+       "name": "Pulse Beat III",
+       "shortName": "PULSE BEAT",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Ninjas in Pyjamas",
+        "odds": 1.62,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Liquid",
+        "odds": 2.15,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "live",
+      "event_id": 2829199,
+      "market_id": 233757447,
+      "market": "Match Winner",
+      "competition": {
+       "id": 11469,
+       "name": "United21 Season 57",
+       "shortName": "United21 S57",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Gatorian",
+        "odds": 1.32,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "ENCE Prospects",
+        "odds": 3.1,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     },
+     {
+      "bucket": "live",
+      "event_id": 2834652,
+      "market_id": 234501770,
+      "market": "Match Winner",
+      "competition": {
+       "id": 4404,
+       "name": "Berserk League 2026",
+       "shortName": "BerserkLeague26",
+       "countryCode": null,
+       "defaultStream": null,
+       "parentTournament": null
+      },
+      "starts_at": null,
+      "selections": [
+       {
+        "name": "Oway",
+        "odds": 1.78,
+        "type": "home",
+        "status": 1
+       },
+       {
+        "name": "Quattro",
+        "odds": 1.92,
+        "type": "away",
+        "status": 1
+       }
+      ],
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+     }
+    ],
+    "count": 46,
     "evidence": "data/research/ba7164a0/raw/thunderpick-cs2.json",
     "source_url": "https://thunderpick.io/esports/counter-strike",
-    "observed_at": "2026-10-16T07:41:45Z",
+    "api": "https://thunderpick.io/api/matches",
+    "observed_at": "2026-10-16T08:15:42Z",
     "note": "Read-only POST with {\"gameIds\":[6]}; opening the endpoint as a browser GET does not reproduce this request."
    }
   },
   "limitations": []
  },
+ "collector_crashes": [],
  "requests": [
   {
    "label": "hotspawn-fixtures",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:37Z",
+   "observed_at": "2026-10-16T08:15:07Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/hotspawn-fixtures.json"
   },
@@ -2008,135 +6119,679 @@
    "label": "hotspawn-lobby",
    "url": "https://play.hotspawn.com/lobby",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:38Z",
+   "observed_at": "2026-10-16T08:15:07Z",
    "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hotspawn-lobby.html.gz"
   },
   {
    "label": "pages-latest",
-   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=ba7164a0-1792136498",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=ba7164a0-1792138508",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:38Z",
+   "observed_at": "2026-10-16T08:15:08Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/pages-latest.json"
   },
   {
    "label": "pages-origination",
-   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=ba7164a0-1792136498",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=ba7164a0-1792138508",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:38Z",
+   "observed_at": "2026-10-16T08:15:08Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/pages-origination.json"
   },
   {
    "label": "pages-row-source-audit",
-   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=ba7164a0-1792136498",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=ba7164a0-1792138508",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:38Z",
+   "observed_at": "2026-10-16T08:15:08Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/pages-row-source-audit.json"
+  },
+  {
+   "label": "polymarket-directory",
+   "url": "https://polymarket.com/esports/cs2",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:08Z",
+   "kind": "html",
+   "evidence": "data/research/ba7164a0/raw/polymarket-directory.html.gz"
   },
   {
    "label": "gamma-cs2-0",
    "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:39Z",
+   "observed_at": "2026-10-16T08:15:09Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/gamma-cs2-0.json.gz"
   },
   {
+   "label": "gamma-event-1194412",
+   "url": "https://gamma-api.polymarket.com/events/1194412",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:09Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194412.json"
+  },
+  {
+   "label": "gamma-event-1173317",
+   "url": "https://gamma-api.polymarket.com/events/1173317",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:09Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173317.json"
+  },
+  {
+   "label": "gamma-event-1182945",
+   "url": "https://gamma-api.polymarket.com/events/1182945",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:09Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1182945.json"
+  },
+  {
+   "label": "gamma-event-1192430",
+   "url": "https://gamma-api.polymarket.com/events/1192430",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:10Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192430.json"
+  },
+  {
+   "label": "gamma-event-1182978",
+   "url": "https://gamma-api.polymarket.com/events/1182978",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:10Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1182978.json"
+  },
+  {
+   "label": "gamma-event-1194470",
+   "url": "https://gamma-api.polymarket.com/events/1194470",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:10Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194470.json"
+  },
+  {
+   "label": "gamma-event-1197724",
+   "url": "https://gamma-api.polymarket.com/events/1197724",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:10Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1197724.json"
+  },
+  {
+   "label": "gamma-event-1198689",
+   "url": "https://gamma-api.polymarket.com/events/1198689",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:11Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1198689.json"
+  },
+  {
+   "label": "gamma-event-1173318",
+   "url": "https://gamma-api.polymarket.com/events/1173318",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:11Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173318.json"
+  },
+  {
+   "label": "gamma-event-1188556",
+   "url": "https://gamma-api.polymarket.com/events/1188556",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:11Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1188556.json"
+  },
+  {
+   "label": "gamma-event-1192431",
+   "url": "https://gamma-api.polymarket.com/events/1192431",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:11Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192431.json"
+  },
+  {
+   "label": "gamma-event-1182946",
+   "url": "https://gamma-api.polymarket.com/events/1182946",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:12Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1182946.json"
+  },
+  {
+   "label": "gamma-event-1190750",
+   "url": "https://gamma-api.polymarket.com/events/1190750",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:12Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1190750.json"
+  },
+  {
+   "label": "gamma-event-1194471",
+   "url": "https://gamma-api.polymarket.com/events/1194471",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:12Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194471.json"
+  },
+  {
+   "label": "gamma-event-1196166",
+   "url": "https://gamma-api.polymarket.com/events/1196166",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:12Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196166.json"
+  },
+  {
+   "label": "gamma-event-1197092",
+   "url": "https://gamma-api.polymarket.com/events/1197092",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:13Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1197092.json"
+  },
+  {
+   "label": "gamma-event-1173319",
+   "url": "https://gamma-api.polymarket.com/events/1173319",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:13Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173319.json"
+  },
+  {
+   "label": "gamma-event-1191362",
+   "url": "https://gamma-api.polymarket.com/events/1191362",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:13Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1191362.json"
+  },
+  {
+   "label": "gamma-event-1192432",
+   "url": "https://gamma-api.polymarket.com/events/1192432",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:13Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192432.json"
+  },
+  {
+   "label": "gamma-event-1196809",
+   "url": "https://gamma-api.polymarket.com/events/1196809",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:14Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196809.json"
+  },
+  {
+   "label": "gamma-event-1173321",
+   "url": "https://gamma-api.polymarket.com/events/1173321",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:14Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173321.json"
+  },
+  {
+   "label": "gamma-event-1182947",
+   "url": "https://gamma-api.polymarket.com/events/1182947",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:14Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1182947.json"
+  },
+  {
+   "label": "gamma-event-1190751",
+   "url": "https://gamma-api.polymarket.com/events/1190751",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:14Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1190751.json"
+  },
+  {
+   "label": "gamma-event-1194472",
+   "url": "https://gamma-api.polymarket.com/events/1194472",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:15Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194472.json"
+  },
+  {
+   "label": "gamma-event-1194512",
+   "url": "https://gamma-api.polymarket.com/events/1194512",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:15Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194512.json"
+  },
+  {
+   "label": "gamma-event-1196576",
+   "url": "https://gamma-api.polymarket.com/events/1196576",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:15Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196576.json"
+  },
+  {
+   "label": "gamma-event-1197093",
+   "url": "https://gamma-api.polymarket.com/events/1197093",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:15Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1197093.json"
+  },
+  {
+   "label": "gamma-event-1173322",
+   "url": "https://gamma-api.polymarket.com/events/1173322",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:16Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173322.json"
+  },
+  {
+   "label": "gamma-event-1192433",
+   "url": "https://gamma-api.polymarket.com/events/1192433",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:16Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192433.json"
+  },
+  {
+   "label": "gamma-event-1196856",
+   "url": "https://gamma-api.polymarket.com/events/1196856",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:16Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196856.json"
+  },
+  {
+   "label": "gamma-event-1190752",
+   "url": "https://gamma-api.polymarket.com/events/1190752",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:17Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1190752.json"
+  },
+  {
+   "label": "gamma-event-1194413",
+   "url": "https://gamma-api.polymarket.com/events/1194413",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:17Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194413.json"
+  },
+  {
+   "label": "gamma-event-1194473",
+   "url": "https://gamma-api.polymarket.com/events/1194473",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:17Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1194473.json"
+  },
+  {
+   "label": "gamma-event-1196836",
+   "url": "https://gamma-api.polymarket.com/events/1196836",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:17Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196836.json"
+  },
+  {
+   "label": "gamma-event-1173323",
+   "url": "https://gamma-api.polymarket.com/events/1173323",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:18Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1173323.json"
+  },
+  {
+   "label": "gamma-event-1196857",
+   "url": "https://gamma-api.polymarket.com/events/1196857",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:18Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1196857.json"
+  },
+  {
+   "label": "gamma-event-1192434",
+   "url": "https://gamma-api.polymarket.com/events/1192434",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:18Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192434.json"
+  },
+  {
+   "label": "gamma-event-1192435",
+   "url": "https://gamma-api.polymarket.com/events/1192435",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:19Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192435.json"
+  },
+  {
+   "label": "gamma-event-1198594",
+   "url": "https://gamma-api.polymarket.com/events/1198594",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:19Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1198594.json"
+  },
+  {
+   "label": "gamma-event-1192436",
+   "url": "https://gamma-api.polymarket.com/events/1192436",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:19Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192436.json"
+  },
+  {
+   "label": "gamma-event-1198595",
+   "url": "https://gamma-api.polymarket.com/events/1198595",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:20Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1198595.json"
+  },
+  {
+   "label": "gamma-event-1192437",
+   "url": "https://gamma-api.polymarket.com/events/1192437",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:20Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192437.json"
+  },
+  {
+   "label": "gamma-event-1192438",
+   "url": "https://gamma-api.polymarket.com/events/1192438",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:21Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192438.json"
+  },
+  {
+   "label": "gamma-event-1192440",
+   "url": "https://gamma-api.polymarket.com/events/1192440",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:21Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1192440.json"
+  },
+  {
+   "label": "gamma-event-1177844",
+   "url": "https://gamma-api.polymarket.com/events/1177844",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:21Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1177844.json"
+  },
+  {
+   "label": "gamma-event-1183119",
+   "url": "https://gamma-api.polymarket.com/events/1183119",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:22Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183119.json"
+  },
+  {
+   "label": "gamma-event-1183120",
+   "url": "https://gamma-api.polymarket.com/events/1183120",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:22Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183120.json"
+  },
+  {
+   "label": "gamma-event-1183121",
+   "url": "https://gamma-api.polymarket.com/events/1183121",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:22Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183121.json"
+  },
+  {
+   "label": "gamma-event-1183122",
+   "url": "https://gamma-api.polymarket.com/events/1183122",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:23Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183122.json"
+  },
+  {
+   "label": "gamma-event-1183123",
+   "url": "https://gamma-api.polymarket.com/events/1183123",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:23Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183123.json"
+  },
+  {
+   "label": "gamma-event-1183124",
+   "url": "https://gamma-api.polymarket.com/events/1183124",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:23Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183124.json"
+  },
+  {
+   "label": "gamma-event-1183125",
+   "url": "https://gamma-api.polymarket.com/events/1183125",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:24Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183125.json"
+  },
+  {
+   "label": "gamma-event-1183126",
+   "url": "https://gamma-api.polymarket.com/events/1183126",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:24Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1183126.json"
+  },
+  {
+   "label": "gamma-event-1177845",
+   "url": "https://gamma-api.polymarket.com/events/1177845",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:25Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1177845.json"
+  },
+  {
+   "label": "gamma-event-1177848",
+   "url": "https://gamma-api.polymarket.com/events/1177848",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:25Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1177848.json"
+  },
+  {
+   "label": "gamma-event-1185685",
+   "url": "https://gamma-api.polymarket.com/events/1185685",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:25Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1185685.json"
+  },
+  {
+   "label": "gamma-event-1181883",
+   "url": "https://gamma-api.polymarket.com/events/1181883",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:26Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1181883.json"
+  },
+  {
+   "label": "gamma-event-1177849",
+   "url": "https://gamma-api.polymarket.com/events/1177849",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:26Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1177849.json"
+  },
+  {
+   "label": "gamma-event-1181884",
+   "url": "https://gamma-api.polymarket.com/events/1181884",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:26Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1181884.json"
+  },
+  {
+   "label": "gamma-event-1195426",
+   "url": "https://gamma-api.polymarket.com/events/1195426",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:27Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1195426.json"
+  },
+  {
+   "label": "gamma-event-1195427",
+   "url": "https://gamma-api.polymarket.com/events/1195427",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:27Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1195427.json"
+  },
+  {
+   "label": "gamma-event-1195428",
+   "url": "https://gamma-api.polymarket.com/events/1195428",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:27Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1195428.json"
+  },
+  {
+   "label": "gamma-event-1150908",
+   "url": "https://gamma-api.polymarket.com/events/1150908",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:28Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1150908.json"
+  },
+  {
+   "label": "gamma-event-1195429",
+   "url": "https://gamma-api.polymarket.com/events/1195429",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:28Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1195429.json"
+  },
+  {
+   "label": "gamma-event-1181847",
+   "url": "https://gamma-api.polymarket.com/events/1181847",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:29Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1181847.json"
+  },
+  {
+   "label": "gamma-event-1159425",
+   "url": "https://gamma-api.polymarket.com/events/1159425",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:29Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1159425.json"
+  },
+  {
+   "label": "gamma-event-1133922",
+   "url": "https://gamma-api.polymarket.com/events/1133922",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:29Z",
+   "kind": "json",
+   "evidence": "data/research/ba7164a0/raw/gamma-event-1133922.json"
+  },
+  {
    "label": "hltv-event-matches",
    "url": "https://www.hltv.org/events/8932/matches",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:39Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:30Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-event-matches.html"
   },
   {
    "label": "hltv-event-results",
    "url": "https://www.hltv.org/results?event=8932",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:39Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:30Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-event-results.html"
   },
   {
    "label": "hltv-matches-index",
    "url": "https://www.hltv.org/matches",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:39Z",
-   "kind": "",
-   "evidence": "data/research/ba7164a0/raw/hltv-matches-index.html"
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:31Z",
+   "kind": "html",
+   "evidence": "data/research/ba7164a0/raw/hltv-matches-index.html.gz"
   },
   {
    "label": "hltv-match-2399412",
    "url": "https://www.hltv.org/matches/2399412/thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:39Z",
-   "kind": "",
-   "evidence": "data/research/ba7164a0/raw/hltv-match-2399412.html"
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:31Z",
+   "kind": "html",
+   "evidence": "data/research/ba7164a0/raw/hltv-match-2399412.html.gz"
   },
   {
    "label": "hltv-match-2399413",
    "url": "https://www.hltv.org/matches/2399413/thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:40Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:33Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-match-2399413.html"
   },
   {
    "label": "hltv-match-2399414",
    "url": "https://www.hltv.org/matches/2399414/thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:40Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:34Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-match-2399414.html"
   },
   {
    "label": "hltv-match-2399415",
    "url": "https://www.hltv.org/matches/2399415/thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:41Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:36Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-match-2399415.html"
   },
   {
    "label": "hltv-analytics-2399412",
    "url": "https://www.hltv.org/betting/analytics/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:41Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:37Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-analytics-2399412.html"
   },
   {
    "label": "hltv-analytics-2399413",
    "url": "https://www.hltv.org/betting/analytics/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:42Z",
-   "kind": "",
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:39Z",
+   "kind": "html",
    "evidence": "data/research/ba7164a0/raw/hltv-analytics-2399413.html"
   },
   {
    "label": "hltv-team-aurora",
    "url": "https://www.hltv.org/team/11861/aurora",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:43Z",
-   "kind": "",
-   "evidence": "data/research/ba7164a0/raw/hltv-team-aurora.html"
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:40Z",
+   "kind": "html",
+   "evidence": "data/research/ba7164a0/raw/hltv-team-aurora.html.gz"
   },
   {
    "label": "hltv-team-9z",
    "url": "https://www.hltv.org/team/9996/9z",
-   "status": "http-403",
-   "observed_at": "2026-10-16T07:41:43Z",
-   "kind": "",
-   "evidence": "data/research/ba7164a0/raw/hltv-team-9z.html"
+   "status": "ok",
+   "observed_at": "2026-10-16T08:15:40Z",
+   "kind": "html",
+   "evidence": "data/research/ba7164a0/raw/hltv-team-9z.html.gz"
   },
   {
    "label": "valve-live-2026",
    "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:43Z",
+   "observed_at": "2026-10-16T08:15:41Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/valve-live-2026.json"
   },
@@ -2144,15 +6799,15 @@
    "label": "valve-standings-latest",
    "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:43Z",
+   "observed_at": "2026-10-16T08:15:41Z",
    "kind": "html",
    "evidence": "data/research/ba7164a0/raw/valve-standings-latest.html"
   },
   {
    "label": "kalshi-cs2",
-   "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200&with_nested_markets=true",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:43Z",
+   "observed_at": "2026-10-16T08:15:41Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/kalshi-cs2.json"
   },
@@ -2160,7 +6815,7 @@
    "label": "bovada-cs2",
    "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:43Z",
+   "observed_at": "2026-10-16T08:15:41Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/bovada-cs2.json"
   },
@@ -2168,7 +6823,7 @@
    "label": "thunderpick-cs2",
    "url": "https://thunderpick.io/api/matches",
    "status": "ok",
-   "observed_at": "2026-10-16T07:41:44Z",
+   "observed_at": "2026-10-16T08:15:42Z",
    "kind": "json",
    "evidence": "data/research/ba7164a0/raw/thunderpick-cs2.json"
   }
