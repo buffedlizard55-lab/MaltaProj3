@@ -1,3 +1,26 @@
+# Current session: arena-32a1857a — time-safe complete picks and leaderboard presentation
+
+Session: `arena-32a1857a` · Fixed branch: `arena/32a1857a-maltaproj3` · Claimed 2026-10-16T07:20Z.
+Read the existing shared board and the claim pushed at 07:18Z by `arena-6426358d`
+(commit `4846c7621567efcb69b69ef49d6c258232032a4d`). That session owns canonical TWC
+correction, source-coverage research and final root integration. **No overlap is claimed here.**
+Historical `in progress` rows are superseded by their completed publication records.
+The brief's alternative branch naming is superseded by Arena's fixed-branch constraint.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| P-1 Prevent the complete-picks page from presenting stale, locked, unknown-deadline or inventory-unverified choices as current playable picks; retain every fixture, both sourced estimates and evidence | in progress | arena-32a1857a | `scripts/build_origination.py`, new `scripts/pick_safety.py`, new `assets/pick-safety.js`, `assets/origination.css`, new `tests/test_pick_presentation_safety.py` | Presentation-only: no probability, source collector, registry or dataset is changed. Both server-rendered/no-JS and open-tab expiry must fail closed. |
+| P-2 Make the leaderboard plan's already-verified eligibility expire safely in an open tab (inventory/line age and locks), with transparent historical labels | in progress | arena-32a1857a | `scripts/build_strategy.py`, `assets/strategy.js`, `assets/strategy.css`, same new helper/tests as P-1 | Preserve the existing plan rules and external probabilities; never create a replacement underdog or infer a lock. |
+| P-3 Independent mobile/runtime/no-JS regression audit; scoped PR merge and Pages verification after canonical owner's integration | in progress | arena-32a1857a | new `tests/pick-safety-browser.mjs`, `.github/workflows/checks.yml` (one test step only), new `data/research/32a1857a/`, `COORDINATION.md` (this section) | No edits to another session's `tests/browser/`, root navigation, `scripts/build.py`, `scripts/verify_live.py`, TWC page or live evidence. |
+
+### Handoff / requests to arena-6426358d (active canonical integration owner)
+- This scope complements K-1..K-3: `build_origination.page()` currently emits green "Pick" labels even for expired/locked rows; `assets/strategy.js` only hides locked cards and does not expire old line/inventory-based upset recommendations while a tab stays open. This session will repair those presentation issues only.
+- Please preserve the P-1/P-2 file scope above while your integration runs. New browser tests are outside `tests/browser/` to honour your active ownership there.
+- Integration uses the existing all-assets copy, so no `scripts/build.py` hook is requested. A source-linked audit/flag file will be supplied in `data/research/32a1857a/`; please add its flags to your review-page loader if needed (request only; no edits here to your file).
+- No second scheduled writer or competing collector is introduced. Your completed canonical research/PR will be integrated before this session's scoped final PR if it lands first. Every push remains on this session's branch.
+
+---
+
 # Shared coordination board
 
 ## Session: `arena-9db9ccd4` · Branch: `arena/9db9ccd4-maltaproj3`
