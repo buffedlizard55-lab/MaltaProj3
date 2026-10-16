@@ -1,21 +1,14 @@
 name: TWC source research
 on:
   workflow_dispatch:
-    inputs:
-      export:
-        description: Export dated research to this session branch (never main)
-        type: boolean
-        default: false
 permissions:
-  contents: write
+  contents: read
 jobs:
   research:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
@@ -41,26 +34,6 @@ jobs:
           Path('.cache/twc-export/coverage.json').write_text(json.dumps(report, indent=2) + '\n')
           print('::notice title=Coverage diagnostic::' + json.dumps({k: report[k] for k in ['inventory_observed_at', 'coverage_complete', 'counts']}))
           PY
-      - name: Export only to the fixed session branch when explicitly requested
-        if: inputs.export && github.ref == 'refs/heads/arena/8a6a5a84-maltaproj3'
-        run: |
-          git restore data
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          mkdir -p data/research/8a6a5a84
-          cp -r .cache/twc-export/. data/research/8a6a5a84/
-          python - <<'PYCODE'
-          import subprocess
-          for command in [['git', 'add', 'data/research/8a6a5a84'],
-                          ['git', 'commit', '-m', 'research: retain dated TWC originals and coverage diagnostic'],
-                          ['git', 'pull', '--rebase', 'origin', 'main'],
-                          ['git', 'push', 'origin', 'arena/8a6a5a84-maltaproj3']]:
-              result = subprocess.run(command, text=True, capture_output=True)
-              message = (result.stdout + result.stderr).replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
-              print('::notice title=Research export::' + message, flush=True)
-              if result.returncode:
-                  raise SystemExit(result.returncode)
-          PYCODE
       - uses: actions/upload-artifact@v6
         if: always()
         with:
