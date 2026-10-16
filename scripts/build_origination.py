@@ -228,7 +228,7 @@ def section_aliases(data):
 def section_method(data):
     p = data['policy']
     out = ['<section class="block" id="method"><h2>How each pick is produced</h2>',
-           '<p class="lede">Featured estimates remain unchanged. For unresolved fixtures, the recorded HLTV research informs identity checks, then paired external prices are validated. Accepted independent money sources can be combined; official ratings are a final fallback. Hotspawn supplies the match list only.</p>',
+           '<p class="lede">Featured money-line estimates remain unchanged. For unresolved or model-only fixtures, recorded HLTV research informs identity checks, then paired external prices are validated; accepted money lines may replace the lowest-rung model. Accepted independent money sources can be combined; official ratings are a final fallback. Hotspawn supplies the match list only.</p>',
            '<ol class="ladder">']
     for step in p['ladder']:
         out.append(f'<li>{e(step)}</li>')

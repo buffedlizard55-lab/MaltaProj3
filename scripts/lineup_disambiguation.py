@@ -250,7 +250,6 @@ def render_disambiguation_section(data: dict, prefix: str = "../") -> str:
             f'{escape(s["source"])} ↗</a>'
             for s in fix["sources"]
         )
-        lims = "".join(f"<li>{escape(item)}</li>" for item in fix.get("limitations") or [])
         rows_html.append(
             f'<tr id="disambig-{escape(fix["hotspawn_id"])}">'
             f"<td><strong>{escape(team_a['name'])} vs {escape(team_b['name'])}</strong><br>"

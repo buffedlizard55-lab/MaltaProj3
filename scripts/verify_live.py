@@ -99,6 +99,13 @@ def verify(url, expected):
         expected_values = [f'{p*100:.1f}%' for p in row['analysis']['probabilities']] if row.get('analysis') else ['—', '—']
         if values != expected_values:
             raise ValueError('TWC HTML probabilities differ from its generated JSON')
+    for row in twc['day3_matches']:
+        a = row.get('analysis') or {}
+        print('::notice::Public TWC: ' + json.dumps({
+            'teams': row['teams'], 'probabilities': a.get('probabilities'),
+            'default_pick': row.get('pick'), 'status_at_build': row['status'],
+            'quote_observed_at': a.get('observed_at'), 'locks_at': row.get('locks_at'),
+            'inventory_observed_at': twc['source_snapshot_at']}, ensure_ascii=False))
     get('assets/twc.css')
     print('::notice::TWC probabilities and defaults match this deployment’s complete-picks snapshot')
     wanted = {m['id'] for m in expected['matches'] if m['availability'] != 'past'}
