@@ -55,3 +55,15 @@ for (const width of [390, 1440]) {
     expect(result.violations).toEqual([]);
   });
 }
+
+test('published TWC source-table captions remain full-width rather than one-word columns on phone', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/twc-picks/');
+  const captions = page.locator('caption:visible');
+  expect(await captions.count()).toBeGreaterThan(0);
+  for (const caption of await captions.all()) {
+    const box = await caption.boundingBox();
+    expect(box.width).toBeGreaterThan(250);
+    expect(box.height).toBeLessThan(220);
+  }
+});

@@ -27,3 +27,6 @@
 .twc-history{margin:18px 0 26px;border:1px solid #d5e0e6;border-radius:12px;background:#fff}
 .twc-history>summary{padding:20px;font-size:16px;font-weight:650;line-height:1.6;cursor:pointer;color:#203d50;min-height:44px}
 .twc-history>.content-section{border:0;margin-bottom:0}
+/* Mobile tables become block cards in the shared shell. Native table-caption
+   layout otherwise shrinks captions to a single word-wide column. */
+@media(max-width:700px){body[data-page="twc"] caption{display:block;width:auto;max-width:100%;padding:14px 18px;text-align:left;line-height:1.7;font-size:13px}body[data-page="twc"] .simple-table .source-link{font-size:13px;line-height:1.8}body[data-page="twc"] .simple-table small{font-size:12px}}
