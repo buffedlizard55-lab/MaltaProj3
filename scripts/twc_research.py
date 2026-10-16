@@ -77,6 +77,9 @@ def load(source: Path):
     folder = source / FOLDER
     path = folder / 'source-report.json'
     if not path.exists():
+        folder = source / 'research/8a6a5a84/twc-current'
+        path = folder / 'source-report.json'
+    if not path.exists():
         return {'pages': [], 'target_day': TARGET_DAY}
     report = json.loads(path.read_text())
     records = []
@@ -98,6 +101,68 @@ def load(source: Path):
             continue
         records.append({'source_url': request['url'], 'observed_at': request['observed_at'], 'facts': facts})
     return {'pages': records, 'target_day': TARGET_DAY}
+
+
+def derive_day4(data, source: Path, now):
+    """Join only exact teams/event/date/time; use canonical prices unchanged."""
+    from scripts.domain import name_key
+    from scripts.pick_safety import presentation, valid_pair
+    research = load(source)
+    complete = data.get('complete_picks') or {}
+    if complete and complete.get('source_snapshot_at') != data.get('inventory_observed_at'):
+        raise ValueError('Day-4 picks belong to another inventory observation')
+    by_id = {m['id']: m for m in complete.get('matches', [])}
+    event_name = 'Thunderpick World Championship 2026'
+    fixtures = [m for m in data['matches'] if name_key(m.get('competition') or '') == name_key(event_name)
+                and str(m.get('starts_at') or '').startswith(TARGET_DAY)]
+    records = [r for r in research['pages'] if str(r['facts'].get('starts_at') or '').startswith(TARGET_DAY)]
+    rows, consumed = [], set()
+    for fixture in fixtures:
+        row = by_id.get(fixture['id'])
+        if row and any(row.get(k) != fixture.get(k) for k in ['teams', 'starts_at', 'locks_at']):
+            raise ValueError('Day-4 canonical fixture mismatch')
+        names = [t.get('name') for t in fixture['teams']]
+        pair = {name_key(n or '') for n in names}
+        candidates = [r for r in records if {name_key(n) for n in r['facts']['teams']} == pair
+                      and r['facts']['starts_at'] == fixture['starts_at']]
+        record = candidates[0] if len(candidates) == 1 else None
+        if record:
+            consumed.add(record['source_url'])
+        analysis = row.get('origination') if row else None
+        pick = row.get('pick_index') if row and analysis else None
+        if analysis:
+            p = analysis.get('probabilities')
+            if not valid_pair(p):
+                raise ValueError('Invalid canonical Day-4 probability pair')
+            expected = None if abs(p[0] - p[1]) < 1e-8 else (0 if p[0] > p[1] else 1)
+            if pick != expected:
+                raise ValueError('Day-4 direction differs from canonical higher probability')
+        canonical = dict(fixture, origination=analysis)
+        state = presentation(canonical, data.get('inventory_observed_at'), data.get('coverage_complete'), now)
+        alternative = None
+        if state['current'] and pick is not None and analysis['method'] in {'market', 'bookmaker', 'consensus'}:
+            dog = 1 - pick
+            if 0.30 <= analysis['probabilities'][dog] < 0.50:
+                alternative = {'team': names[dog], 'probability': analysis['probabilities'][dog],
+                               'cost_per_base_point': round(analysis['probabilities'][pick] - analysis['probabilities'][dog], 8)}
+        rows.append({'fixture': canonical, 'hltv': record, 'teams': names, 'analysis': analysis,
+                     'pick_index': pick, 'pick': names[pick] if pick is not None else None,
+                     'state': state, 'alternative': alternative,
+                     'limitation': None if analysis else 'No supported estimate. HLTV, first-party exchange/books and exact-five Valve fallback could not establish usable inputs; see the complete match research trail.'})
+    # Report independently listed fixtures even before Hotspawn adds them, but
+    # never claim they are in the pick-em inventory or manufacture a lock/price.
+    unlisted = [r for r in records if r['source_url'] not in consumed]
+    day3 = []
+    for r in research['pages']:
+        facts = r['facts']
+        if str(facts.get('starts_at') or '').startswith('2026-10-16'):
+            day3.append({'label': r['source_url'].split('/')[4], 'teams': facts['teams'],
+                         'score': facts['score'], 'maps': facts['maps'], 'finished': facts['finished'],
+                         'source_url': r['source_url'], 'observed_at': r['observed_at'],
+                         'lesson': 'Use the completed series as matchup context, not a new win-rate sample or proof the earlier odds were wrong.' if facts['score'] else 'Result unverified. A past scheduled start does not establish a winner.'})
+    return {'event_day': TARGET_DAY, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
+            'day3_results': day3, 'research_report': str(FOLDER / 'source-report.json') if (source / FOLDER / 'source-report.json').exists() else 'research/8a6a5a84/twc-current/source-report.json',
+            'policy': 'Exact canonical probabilities; no historical, roster, crowd, rest or result premium.'}
 
 
 def main():

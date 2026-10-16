@@ -1234,3 +1234,6 @@ handoff; no V-owned file is edited by this session.
 - Checks: "Rows, build, links, mobile and accessibility" (38955712781) SUCCESS; "Origination source audit" (38955704450) SUCCESS.
 - Production run [38956113940](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38956113940) SUCCESS (verify-and-deploy), including post-deploy verification. Inventory observed 2026-10-16T19:37:54Z: 83 records / 21 upcoming / 62 archived; complete picks 13 resolved / 8 unresolved; 392 table rows / 384 source-linked / 8 navigation / 0 violations.
 - Live: https://buffedlizard55-lab.github.io/MaltaProj3/
+### N-1/N-2 scope clarification — 2026-10-16T19:33Z
+- Also claim the completed `tests/test_twc.py` and `tests/browser/twc.spec.mjs` title/scoped-selector maintenance only, plus new Day-4-specific tests. Day-3 schema fields and pinned synthetic regression coverage remain intact.
+- First research run `38955384414` collected sources successfully (Day-3 Aurora 2–0 9z; other decider still not marked finished by HLTV), but export failed. No outcome for the unfinished series is inferred. Added explicit export diagnostics; will retry before treating retained evidence as published.

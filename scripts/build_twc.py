@@ -179,22 +179,26 @@ def results_table(rows, prefix):
 def render(data: dict, prefix: str, source: Path) -> str:
     from scripts.build import e, heading, external, local_time, blank, badge
     report = derive(data, source)
+    from scripts.twc_research import derive_day4
+    guide = derive_day4(data, source, datetime.now(timezone.utc))
+    report['day4'] = guide
     data['_twc_report'] = report
-    out = heading('Thunderpick World Championship 2026 · 16 October', 'TWC Day 3: picks & review',
-                  'One probability feed. Two deciders. Dated Days 1–2 evidence, without turning an upset into made-up odds.')
+    out = heading('Thunderpick World Championship 2026 · 17 October', 'TWC Day 4: picks & review',
+                  'One probability feed. Days 1–3 evidence. Every listed Day-4 match, without invented odds.')
     out += (f'<section class="twc-brief" id="twc-summary"><p class="eyebrow">Executive summary</p>'
             '<h2>Keep the default. Make any upset play deliberate.</h2>'
             '<p>The default is the higher-probability side in the complete picks list below. '
             'For leaderboard catch-up, consider at most one optional underdog, only with a fresh money-backed line '
             'and a specific matchup case. A plausible upset is not evidence that a market is wrong.</p>'
-            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-three-picks">Day 3 probabilities</a>'
+            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-four-picks">Day 4 picks</a><a href="#day-three-results">Day 3 results</a><a href="#day-three-picks">Day 3 snapshot</a>'
             '<a href="#day-one-results">Day 1 results</a><a href="#day-two-results">Day 2 results</a>'
             '<a href="#roster-check">Roster &amp; rest check</a><a href="#unresolved">Unresolved &amp; limitations</a>'
             f'<a href="{prefix}origination/#picks">Every Hotspawn CS2 pick →</a></nav>'
             f'<p class="small">Inventory {local_time(report["source_snapshot_at"])} · pricing snapshot '
             f'{local_time(report["source_generated_at"])}. Times use the page timezone selector. '
             'All probabilities below regenerate with the same four-hour publisher as the full list.</p></section>')
-    out += '<section class="content-section twc-section" id="day-three-picks"><div class="section-heading"><div><p class="eyebrow">Same numbers as the complete picks list</p><h2>Day 3 probabilities &amp; default picks</h2></div></div><div class="twc-grid">'
+    out += render_day4(guide, prefix)
+    out += '<section class="content-section twc-section" id="day-three-picks"><div class="section-heading"><div><p class="eyebrow">Same numbers as the complete picks list</p><h2>Day 3 probability snapshot &amp; audit</h2></div></div><div class="twc-grid">'
     for row in report['day3_matches']:
         a, pick = row['analysis'], row['pick_index']
         inactive = row['status'] != 'open'
@@ -249,12 +253,12 @@ def render(data: dict, prefix: str, source: Path) -> str:
     out += '<section class="content-section" id="day-two-results"><div class="section-heading"><div><p class="eyebrow">15 October · historical</p><h2>Day 2: what changes for Day 3</h2></div></div>'
     out += results_table(report['day2_results'], prefix) + '</section>'
     out += ('<section class="content-section prose" id="decision-guide"><p class="eyebrow">Our interpretation · no numerical adjustment</p>'
-            '<h2>Contrarian, but not reckless</h2><p><strong>9z has a concrete matchup case:</strong> the Day 1 win over Aurora '
+            '<h2>Historical Day-3 decision context — not Day-4 instructions</h2><p><strong>9z has a concrete matchup case:</strong> the Day 1 win over Aurora '
             'and a Day 2 map against Falcons. The counterevidence is Aurora’s Day 2 sweep and the current favorite price. '
             'Do not double-count facts the market may already know.</p><p><strong>BetBoom is not automatically a bad upset choice:</strong> '
             'they recovered against PARIVISION. Whether their current line makes them a credible alternative is displayed above, '
             'not borrowed from a fan vote or from tournament outright odds. Legacy’s map against FURIA is counterevidence.</p>'
-            '<p>Protecting expected points means keeping both defaults. If deliberately accepting more variance to catch up, '
+            '<p>The historical two-decider plan was to keep both defaults for expected points. If deliberately accepting more variance to catch up, '
             'limit this two-match card to one optional switch. Ownership, leaderboard deficit and streak state are unavailable, '
             'so no chance of climbing places is claimed.</p></section>')
     roster = report['roster_report'] or {}
@@ -276,7 +280,10 @@ def render(data: dict, prefix: str, source: Path) -> str:
         if not row['analysis'] or row['status'] != 'open':
             out += f'<p><strong>{e(" vs ".join(row["teams"]))}:</strong> {e(row["limitation"] or "No supported current pick.")}</p>'
     if not report['unresolved']:
-        out += '<p>Both TWC deciders have a supported estimate in this snapshot. Supported is not the same as current: check lock and freshness above.</p>'
+        out += '<p>Both historical Day-3 deciders have a supported estimate in this snapshot. Supported is not the same as current: check lock and freshness above.</p>'
+    for row in guide['matches']:
+        if not row['analysis'] or not row['state']['current']:
+            out += f'<p><strong>Day 4 {e(" vs ".join(row["teams"]))}:</strong> {e(row["limitation"] or row["state"]["detail"])}</p>'
     if report['global_unresolved'] is not None:
         out += f'<p><strong>{report["global_unresolved"]} unresolved across the complete CS2 list</strong> at this inventory observation. Low tier is not a reason to omit a fixture; missing or ambiguous evidence is a reason to leave its probability blank.</p>'
     out += '<ul>' + ''.join(f'<li>{e(x)}</li>' for x in report['limitations']) + '</ul>'
@@ -284,4 +291,71 @@ def render(data: dict, prefix: str, source: Path) -> str:
             f'<a href="{prefix}review/">Flagged for Review, including withdrawn editorial claims →</a><br>'
             f'<a href="{prefix}data/twc-day3-picks.json">This generated TWC view (JSON) ↓</a><br>'
             f'<a href="{prefix}data/{e(report["research_report"])}">Dated research manifest, excerpts &amp; original-response hashes ↓</a></p></section>')
+    return out
+
+
+def render_day4(guide, prefix):
+    """Mobile-readable canonical picks with the shared fail-closed time guards."""
+    from scripts.build import e, local_time, external, blank
+    from scripts.pick_safety import card_attributes, status_html
+    out = ('<section class="content-section twc-section" id="day-four-picks"><div class="section-heading"><div>'
+           '<p class="eyebrow">17 October 2026 · canonical feed</p><h2>Day 4 probabilities &amp; default picks</h2></div></div>'
+           '<p class="section-intro">Every TWC fixture dated 17 October in the Hotspawn inventory is included. '
+           'Percentages below are copied, not re-estimated, from the complete picks list. '
+           'A missing HLTV match or missing book does not remove a Hotspawn fixture.</p><div class="twc-grid">')
+    for row in guide['matches']:
+        fixture, state, a = row['fixture'], row['state'], row['analysis']
+        current = '' if state['current'] else ' hidden'
+        historical = ' hidden' if state['current'] else ''
+        out += (f'<article class="pick-card twc-card twc-day4-card" id="twc-day4-{e(fixture["id"])}" {card_attributes(fixture, state)}>'
+                f'<p class="eyebrow">Day 4 · Hotspawn fixture {e(fixture["id"])}</p><h3>{e(" vs ".join(row["teams"]))}</h3>'
+                f'<p>Start {local_time(fixture.get("starts_at"))}<br>Hotspawn lock {local_time(fixture.get("locks_at"))}</p>')
+        for i, name in enumerate(row['teams']):
+            value = f'{a["probabilities"][i] * 100:.1f}%' if a else '—'
+            out += f'<div class="twc-prob"><span>{e(name)}</span><strong>{value}</strong></div>'
+        if a and row['pick']:
+            out += (f'<p class="pick-choice" data-current-only{current}><strong>Default pick: {e(row["pick"])}</strong></p>'
+                    f'<p class="pick-choice" data-historical-only{historical}><strong>Snapshot only: {e(row["pick"])}</strong></p>')
+        else:
+            out += '<p><strong>Pick — unverified.</strong> ' + ('Equal estimate; no arbitrary direction.' if a else e(row['limitation'])) + '</p>'
+        out += status_html(state)
+        if a:
+            out += f'<p class="small">{e(a["label"])}<br>Observed {local_time(a["observed_at"])}</p>'
+            urls = {a['source_url']: a.get('source') or 'Pricing source'}
+            urls.update({q['source_url']: q.get('provider') or 'Pricing source' for q in a.get('quotes', []) if q.get('source_url')})
+            out += '<div class="evidence-links">' + ''.join(external(u, n) for u, n in urls.items()) + '</div>'
+        out += '<div class="evidence-links">' + external(fixture['source_url'], 'Official Hotspawn fixture')
+        if row['hltv']:
+            out += external(row['hltv']['source_url'], 'HLTV fixture')
+        else:
+            out += '<span class="small">HLTV cross-check — unverified</span>'
+        out += f'<a href="{prefix}origination/#match-{e(fixture["id"])}">All source attempts &amp; full pricing audit →</a></div>'
+        alt = row['alternative']
+        if alt:
+            out += (f'<aside class="twc-watch" data-current-only{current}><strong>Optional risk candidate: {e(alt["team"])}</strong>'
+                    f'<p>{alt["probability"] * 100:.1f}% estimated win chance. Switching costs '
+                    f'{alt["cost_per_base_point"]:.3f} expected points per 1 base point, before streak effects. '
+                    'Editorial 30% screen, not evidence of mispricing. No automatic switch.</p></aside>')
+        out += '</article>'
+    out += '</div>'
+    if not guide['matches']:
+        out += '<p class="section-intro"><strong>No Day-4 TWC fixture is confirmed in this Hotspawn snapshot.</strong> No pair, lock, price or default is invented. The complete CS2 list remains available below.</p>'
+    if guide['not_in_hotspawn_snapshot']:
+        out += '<div class="table-scroll"><table class="simple-table"><caption>HLTV-listed Day-4 fixtures not uniquely matched to this Hotspawn snapshot — not playable picks here</caption><thead><tr><th>Match</th><th>HLTV start</th><th>Hotspawn probability / pick</th><th>Source</th></tr></thead><tbody>'
+        for r in guide['not_in_hotspawn_snapshot']:
+            out += f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}</th><td>{local_time(r["facts"]["starts_at"])}</td><td>{blank()}<small>No unique exact pair/time join; no line copied across fixtures.</small></td><td>{external(r["source_url"], "HLTV fixture")}<small>Read {local_time(r["observed_at"])}</small></td></tr>'
+        out += '</tbody></table></div>'
+    out += (f'<p class="section-intro"><a href="{prefix}origination/#picks">Every updated CS2 pick →</a> · '
+            f'<a href="{prefix}origination/#unresolved">All unresolved picks &amp; limitations →</a> · '
+            + (f'<a href="{prefix}data/{e(guide["research_report"])}">Day-3/4 source manifest ↓</a>' if guide.get('research_available') else 'Day-3/4 source evidence unavailable — unverified') + '</p></section>')
+    out += '<section class="content-section" id="day-three-results"><div class="section-heading"><div><p class="eyebrow">16 October · source-checked, not inferred</p><h2>Day 3 results: evidence for Day 4</h2></div></div>'
+    if guide['day3_results']:
+        out += results_table(guide['day3_results'], prefix)
+    else:
+        out += '<p class="section-intro">Day-3 results — unverified in retained research. No winner is inferred from the start time, market price or earlier fixture.</p>'
+    out += ('<p class="section-intro"><strong>How to use Days 1–3:</strong> compare actual played maps and the next opponent’s listed lineup, '
+            'not just a win/loss streak. A close map or an upset can justify investigating an underdog; it cannot establish a probability adjustment. '
+            'Prefer the externally priced favorite for expected base points. Only consider an optional underdog with a fresh money line, '
+            'confirmed deadline and a specific matchup case. A roster rebuild, travel or rest advantage needs independent evidence; none is quantified here. '
+            'Ownership, streak state and the points needed to catch the leaders are unknown, so a leaderboard-gain claim would be invented.</p></section>')
     return out

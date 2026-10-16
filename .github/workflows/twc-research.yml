@@ -50,10 +50,18 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p data/research/8a6a5a84
           cp -r .cache/twc-export/. data/research/8a6a5a84/
-          git add data/research/8a6a5a84
-          git commit -m 'research: retain dated TWC originals and coverage diagnostic'
-          git pull --rebase origin main
-          git push origin arena/8a6a5a84-maltaproj3
+          python - <<'PYCODE'
+          import subprocess
+          for command in [['git', 'add', 'data/research/8a6a5a84'],
+                          ['git', 'commit', '-m', 'research: retain dated TWC originals and coverage diagnostic'],
+                          ['git', 'pull', '--rebase', 'origin', 'main'],
+                          ['git', 'push', 'origin', 'arena/8a6a5a84-maltaproj3']]:
+              result = subprocess.run(command, text=True, capture_output=True)
+              message = (result.stdout + result.stderr).replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
+              print('::notice title=Research export::' + message, flush=True)
+              if result.returncode:
+                  raise SystemExit(result.returncode)
+          PYCODE
       - uses: actions/upload-artifact@v6
         if: always()
         with:
