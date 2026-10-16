@@ -1174,12 +1174,29 @@ def main(argv=None) -> int:
     probe = Probe(out)
     started = now_iso()
 
-    twc_teams = ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA', 'Falcons', 'Ninjas in Pyjamas', 'PARIVISION']
+    twc_teams = ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA', 'Falcons', 'Ninjas in Pyjamas',
+                 'PARIVISION']
+    # The deployed snapshot is read first because it decides which additional names to ask
+    # Valve about: every team the live site could not price. The ladder rejects a Valve
+    # rating when a name is absent or appears more than once with different rosters, and
+    # both claims can only be confirmed by asking Valve's own snapshot for those exact names.
+    production = collect_production(probe)
+    unresolved_teams = []
+    origination_snapshot = (production.get('snapshots') or {}).get('origination.json') or {}
+    for row in origination_snapshot.get('matches') or []:
+        if not isinstance(row, dict):
+            continue
+        if (row.get('origination') or {}).get('probabilities'):
+            continue
+        for team in row.get('teams') or []:
+            name = team.get('name') if isinstance(team, dict) else None
+            if name and name not in twc_teams and name not in unresolved_teams:
+                unresolved_teams.append(name)
+    valve_teams = twc_teams + unresolved_teams
     collectors = [('hotspawn', collect_hotspawn, ()),
-                  ('production_site', collect_production, ()),
                   ('polymarket', collect_polymarket, ()),
                   ('hltv', collect_hltv, ()),
-                  ('valve', collect_valve, (twc_teams,)),
+                  ('valve', collect_valve, (valve_teams,)),
                   ('other_books', collect_other_books, ())]
     collected, crashes = {}, []
     for key, func, extra in collectors:
@@ -1192,7 +1209,7 @@ def main(argv=None) -> int:
             collected[key] = {'limitations': [f'Collector {key} raised {type(exc).__name__}: {exc}']}
             print(f'::warning title=Verification collector {key} failed::{type(exc).__name__}: {exc}', flush=True)
     hotspawn = collected['hotspawn']
-    production = collected['production_site']
+    collected['production_site'] = production
     polymarket = collected['polymarket']
     hltv = collected['hltv']
     valve = collected['valve']
@@ -1207,6 +1224,8 @@ def main(argv=None) -> int:
         'policy': ('Read-only observations. No probability is calculated, repaired or invented here. '
                    'Hotspawn popularity or participation is never a probability input. Values that an '
                    'official source does not confirm are recorded as blank with the reason.'),
+        'valve_teams_requested': valve_teams,
+        'valve_unresolved_teams_requested': unresolved_teams,
         'hotspawn': hotspawn,
         'production_site': production,
         'polymarket': polymarket,
