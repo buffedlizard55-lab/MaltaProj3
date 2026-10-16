@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Day-1 upset review & contrarian edge",
-  "prepared_at": "2026-10-15T12:00:00Z",
+  "prepared_at": "2026-10-16T07:25:00Z",
   "research_window": {
     "from": "2026-10-14T00:00:00Z",
-    "to": "2026-10-15T12:00:00Z"
+    "to": "2026-10-16T07:25:00Z"
   },
   "policy": "Dated first-party research for review, not a live pricing feed. Every result, ranking, roster fact and market price below was read from the linked official source during the stated research window and carries its own observation time. Nothing here overwrites the automated picks pipeline, and no value is inferred: facts that could not be confirmed from an official source are left blank and labeled unverified. Hotspawn community percentages, offered points and popularity are never read, so 'contrarian' on this page means disagreeing with the external market or ranking consensus only when verified evidence supports it.",
   "event": {
@@ -130,11 +130,29 @@
         }
       ],
       "upset": false,
-      "verified_lineup_a": null,
-      "verified_lineup_b": null,
-      "standout": null,
-      "read": "Falcons needed overtime to close Ancient after leading 8-4 and winning the pistol round after the swap, then took Dust2 13-6. The favorite won, but the first map was not comfortable.",
+      "verified_lineup_a": [
+        "m0NESY",
+        "karrigan",
+        "TeSeS",
+        "NiKo",
+        "kyousuke"
+      ],
+      "verified_lineup_b": [
+        "adamb",
+        "stavn",
+        "sjuush",
+        "xKacpersky",
+        "Krimbo"
+      ],
+      "standout": "m0NESY (Falcons): 49-27 K-D, +7.63% swing, 92.2 ADR, 83.3% KAST, 1.62 rating",
+      "read": "Falcons needed overtime to close Ancient (16-13) after leading 8-4 and winning the pistol round after the swap, then took Dust2 13-6 (Mirage leftover). Opening HLTV match 2399385 confirms karrigan played the fifth slot alongside m0NESY, TeSeS, NiKo and kyousuke.",
       "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Full 5-player match stats tables (m0NESY, karrigan, TeSeS, NiKo, kyousuke vs adamb, stavn, sjuush, xKacpersky, Krimbo) and 7-step map veto.",
+          "observed_at": "2026-10-16T07:16:00Z"
+        },
         {
           "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
           "source": "HLTV day-one report",
@@ -171,11 +189,29 @@
         }
       ],
       "upset": false,
-      "verified_lineup_a": null,
-      "verified_lineup_b": null,
-      "standout": "dumau (Legacy): 1.57 rating on Mirage",
-      "read": "Legacy won both maps but led 8-2 and 12-5 on Dust2 before 'falling flat' on their T side, and needed overtime plus a 1.57-rated map from dumau on Mirage. HLTV notes this was Legacy's return to the server with arT. A 2-0 scoreline that hides two near-losses.",
+      "verified_lineup_a": [
+        "dumau",
+        "try",
+        "latto",
+        "n1ssim",
+        "arT"
+      ],
+      "verified_lineup_b": [
+        "zweih",
+        "HObbit",
+        "xiELO",
+        "Jame",
+        "FL1T"
+      ],
+      "standout": "dumau (Legacy): 1.57 rating on Mirage (1.21 series rating)",
+      "read": "Legacy won both maps but led 8-2 and 12-5 on Dust2 before 'falling flat' on their T side, and needed overtime plus a 1.57-rated map from dumau on Mirage. HLTV match 2399386 confirms Legacy's 5-man lineup with arT and PARIVISION fielding HObbit alongside zweih, xiELO, Jame and FL1T.",
       "sources": [
+        {
+          "url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026",
+          "source": "HLTV match page",
+          "detail": "Full 5-player match stats tables (dumau, try, latto, n1ssim, arT vs zweih, HObbit, xiELO, Jame, FL1T) and 7-step map veto.",
+          "observed_at": "2026-10-16T07:16:00Z"
+        },
         {
           "url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
           "source": "HLTV day-one report",
@@ -514,12 +550,17 @@
       "result": "2-0",
       "result_maps": [
         {
-          "map": "(not published in window)",
-          "a": null,
-          "b": null
+          "map": "Cache",
+          "a": 13,
+          "b": 9
+        },
+        {
+          "map": "Dust2",
+          "a": 13,
+          "b": 7
         }
       ],
-      "result_source": "Aurora 2-0 Ninjas in Pyjamas (HLTV match 2399408)."
+      "result_source": "Aurora 2-0 Ninjas in Pyjamas — Cache 13-9, Dust2 13-7 (HLTV match 2399408)."
     },
     {
       "hotspawn_id": "1080202",
@@ -898,7 +939,7 @@
   },
   "day_three": [
     {
-      "hotspawn_id": null,
+      "hotspawn_id": "1080205",
       "hltv_match_id": 2399412,
       "hltv_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
       "competition": "Thunderpick World Championship 2026",
@@ -906,15 +947,38 @@
       "team_a": "Aurora",
       "team_b": "9z",
       "starts_at": "2026-10-16T14:00:00Z",
-      "status_at_observation": "Scheduled at observation time; no pre-match market captured in this window",
-      "market": null,
-      "assessment": "Unpriced in this earlier research window; no match-win probability inferred from results or rankings. The localized-clock-to-UTC conversion was corrected from the original HLTV epoch attribute on 16 October. For refreshed prices and the default pick use the canonical TWC page, not this dated preview.",
+      "status_at_observation": "Scheduled at the dated observation; market fields below are historical, not live quotes",
+      "market": {
+        "provider": "Polymarket + Kalshi",
+        "event_url": "https://polymarket.com/event/cs2-aur1-9z-2026-10-16",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-9z-2026-10-16",
+        "observed_at": "2026-10-16T07:19:39Z",
+        "prices": {
+          "Aurora": 0.695,
+          "9z": 0.305
+        },
+        "market_open": true,
+        "note": "Polymarket market 5733288 midpoint 69.5% / 30.5% (bid 0.69/0.30, ask 0.70/0.31, spread $0.01, $23,357.21 moneyline volume, $90,786.51 liquidity); Kalshi KXCS2GAME-26OCT1610009ZAUR normalized midpoint 69.19% / 30.81% ($5,218.16 volume)."
+      },
+      "assessment": "The linked dated two-venue observations made Aurora the higher-priced side. Day 1/2 results are context, not proof of a future result or an additional numerical adjustment. Permanent-veto, rest, illness and onboarding effects are not established here. For regenerated probabilities and default picks use /twc-picks/ or the complete picks feed, never this dated preview.",
       "sources": [
         {
           "url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
           "source": "HLTV match page",
-          "detail": "Official fixture record for the Group A elimination match.",
-          "observed_at": "2026-10-15T12:00:00Z"
+          "detail": "Official fixture record for the Group A elimination match (14:00 UTC) and 3-month lineup map stats.",
+          "observed_at": "2026-10-16T07:14:00Z"
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-9z-2026-10-16",
+          "source": "Polymarket Gamma API",
+          "detail": "Market 5733288: Aurora 0.695 / 9z 0.305, spread $0.01, $23,357.21 volume.",
+          "observed_at": "2026-10-16T07:19:39Z"
+        },
+        {
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT1610009ZAUR",
+          "source": "Kalshi Trade API v2",
+          "detail": "Event KXCS2GAME-26OCT1610009ZAUR: Aurora 69.19% / 9z 30.81% normalized midpoint ($5,218.16 volume).",
+          "observed_at": "2026-10-16T07:20:00Z"
         },
         {
           "url": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
@@ -929,10 +993,10 @@
           "observed_at": "2026-10-16T07:24:06Z"
         }
       ],
-      "hotspawn_note": "Not present in the Hotspawn scheduled-fixture feed at capture time; no Hotspawn link is guessed."
+      "hotspawn_note": "Hotspawn source link is resolved from verified inventory fixture 1080205 at build time."
     },
     {
-      "hotspawn_id": null,
+      "hotspawn_id": "1081775",
       "hltv_match_id": 2399413,
       "hltv_url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
       "competition": "Thunderpick World Championship 2026",
@@ -940,28 +1004,45 @@
       "team_a": "BetBoom",
       "team_b": "Legacy",
       "starts_at": "2026-10-16T17:00:00Z",
-      "status_at_observation": "Scheduled at observation time; no pre-match market captured in this window",
-      "market": null,
-      "assessment": "Unpriced in this earlier research window; no match-win probability inferred from results or rankings. The localized-clock-to-UTC conversion was corrected from the original HLTV epoch attribute on 16 October. For refreshed prices and the default pick use the canonical TWC page, not this dated preview.",
+      "status_at_observation": "Scheduled at the dated observation; market fields below are historical, not live quotes",
+      "market": {
+        "provider": "Polymarket + Kalshi",
+        "event_url": "https://polymarket.com/event/cs2-lgc-bb3-2026-10-16",
+        "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-bb3-2026-10-16",
+        "observed_at": "2026-10-16T07:15:37Z",
+        "prices": {
+          "BetBoom": 0.365,
+          "Legacy": 0.635
+        },
+        "market_open": true,
+        "note": "Polymarket market 5763247 midpoint BetBoom 36.5% / Legacy 63.5% (bid 0.36/0.63, ask 0.37/0.64, spread $0.01, $13,428.16 moneyline volume, $76,908.03 liquidity); Kalshi KXCS2GAME-26OCT161300BBLGC normalized midpoint BetBoom 36.36% / Legacy 63.64% ($1,898.17 volume)."
+      },
+      "assessment": "The linked dated two-venue observations made Legacy the higher-priced side. Day 1/2 results are context, not proof of a future result or an additional numerical adjustment. Permanent-veto, rest, illness and onboarding effects are not established here. For regenerated probabilities and default picks use /twc-picks/ or the complete picks feed, never this dated preview.",
       "sources": [
         {
           "url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
           "source": "HLTV match page",
-          "detail": "Official fixture record for the Group B elimination match.",
-          "observed_at": "2026-10-15T12:00:00Z"
+          "detail": "Official fixture record for the Group B elimination match (17:00 UTC) and 3-month lineup map stats.",
+          "observed_at": "2026-10-16T07:14:00Z"
         },
         {
-          "url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
-          "source": "HLTV epoch schedule re-verification",
-          "detail": "Explicit data-unix attribute confirms the UTC start; the displayed localized clock is not interpreted as UTC.",
-          "observed_at": "2026-10-16T07:24:07Z"
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-bb3-2026-10-16",
+          "source": "Polymarket Gamma API",
+          "detail": "Market 5763247: Legacy 0.635 / BetBoom Team 0.365, spread $0.01, $13,428.16 volume.",
+          "observed_at": "2026-10-16T07:15:37Z"
+        },
+        {
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT161300BBLGC",
+          "source": "Kalshi Trade API v2",
+          "detail": "Event KXCS2GAME-26OCT161300BBLGC: BetBoom 36.36% / Legacy 63.64% normalized midpoint ($1,898.17 volume).",
+          "observed_at": "2026-10-16T07:20:00Z"
         }
       ],
-      "hotspawn_note": "Not present in the Hotspawn scheduled-fixture feed at capture time; no Hotspawn link is guessed."
+      "hotspawn_note": "Hotspawn source link is resolved from verified inventory fixture 1081775 at build time."
     }
   ],
   "editorial_correction": {
     "reviewed_at": "2026-10-16T07:34:00Z",
-    "scope": "Removed unsupported causal roster/rest/price-calibration commentary. Corrected Day-3 UTC conversion using original HLTV epoch attributes read at 07:24Z on 16 October. Earlier market observations are not changed or relabeled."
+    "scope": "Integrated the later individually timestamped M source observations while retaining K’s in-play/rest/causal-roster interpretation corrections. Earlier quote observations keep their original times. Current authority is the regenerated /twc-picks/ and complete-picks feed, not this historical review."
   }
 }

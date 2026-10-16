@@ -46,6 +46,7 @@ class ReviewRegisterTests(unittest.TestCase):
             build(ROOT / 'data', out)
             page = (out / 'review' / 'index.html').read_text()
             self.assertIn('id="session-review"', page)
+            self.assertIn('id="lineup-disambiguation"', page)
             self.assertTrue((out / 'data' / review_register.REGISTER).exists())
 
 

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "session": "arena-32a1857a",
+  "recorded_at": "2026-10-16T07:31:40Z",
+  "scope": "Presentation-only expiry/lock audit of complete picks and the leaderboard. No collected quote, probability, roster, pick engine or source evidence is rewritten.",
+  "sources": [
+    {
+      "url": "https://play.hotspawn.com/how-it-works",
+      "checked_on": "2026-10-16",
+      "method": "Read the official rendered page through fetch_page. This session did not capture the original HTTP bytes.",
+      "excerpt": "Picks lock 5 minutes before the scheduled start time, so make sure you submit before the countdown reaches zero.",
+      "limitation": "The existing fixture API separately supplies a six-minute offset. This change uses only explicit saved locks_at values and never infers a deadline from either statement."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/scripts/build_origination.py",
+      "method": "Line-by-line code review plus synthetic regression tests.",
+      "finding": "The old complete-picks renderer printed green Pick/checkbox cues irrespective of current lock or line age. Corrected in the server renderer and a shared browser guard."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/assets/strategy.js",
+      "method": "Line-by-line code review plus pinned-clock browser tests.",
+      "finding": "The old runtime only hid locked cards. Current-use expiry now retires the verdict, score-submit advice, shortlist links, aggregate synopsis and count as inventory/quotes age."
+    }
+  ],
+  "verification": {
+    "python_tests": 306,
+    "existing_playwright_tests": 50,
+    "independent_safety_assertions": 96,
+    "widths_px": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "axe_tags": [
+      "wcag2a",
+      "wcag2aa"
+    ],
+    "parity_vectors": 20,
+    "no_javascript_routes": 4,
+    "commands": [
+      "python -m unittest discover -s tests",
+      "python -m scripts.build",
+      "python -m scripts.audit_rows --site site --strict",
+      "npm test",
+      "node tests/pick-safety-browser.mjs"
+    ],
+    "note": "Synthetic fixtures are served from an OS temporary directory and are never written to published data or the Pages artifact. Automated axe coverage is not complete WCAG certification."
+  },
+  "limitations": [
+    "A browser device clock is not independently authenticated. Future/unparseable times fail closed; a retired recommendation cannot be revived merely by rolling the clock back.",
+    "With JavaScript disabled, the page is checked at build time only. A visible no-JS warning says to compare printed deadlines and quote times before relying on it.",
+    "Browser timers can pause in background tabs. Guards recheck every 30 seconds and on focus, pageshow and visibility restoration, but do not claim server-side submission or guaranteed wall-clock enforcement.",
+    "Historical numbers remain published as historical estimates with original sources; they are not new betting lines or guaranteed true win chances."
+  ],
+  "follow_up": {
+    "recorded_at": "2026-10-16T07:46:05Z",
+    "finding": "A no-upset fallback instruction also needs expiry protection; a multi-day aggregate must not say today.",
+    "handling": "Added the same synopsis retirement guard to the no-upset favorite callout; label the total across listed fixtures and explicitly state the cap is per UTC day. No probability or rule threshold changed.",
+    "verification": {
+      "python_tests": 309,
+      "independent_safety_assertions": 106,
+      "synthetic_cases": "No-upset favorite callout starts usable and becomes hidden after inventory/line expiry, with probabilities retained. Seven synthetic layouts now audited at four widths and axe at phone/desktop."
+    },
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/scripts/build_strategy.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/tests/pick-safety-browser.mjs"
+    ],
+    "edge_guards": [
+      "Partial initial deadline coverage must not produce an all-fixtures favorite instruction.",
+      "The no-JS current-upset count and shortlist use canonical presentation eligibility, even if inherited strategy eligibility tolerates an extra minute of future clock skew. The underlying strategy decision is retained as history."
+    ]
+  }
+}

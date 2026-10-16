@@ -539,7 +539,7 @@ def build(source: Path, output: Path):
     # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
     # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
     # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
-    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json'):
+    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json'):
         if findings.exists():
             have = {f['id'] for f in data['flags']}
             data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]

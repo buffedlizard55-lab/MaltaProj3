@@ -1,0 +1,26 @@
+[
+  {
+    "id": "32a1857a-expiry-fixed",
+    "severity": "notice",
+    "title": "Fixed: stale or closed snapshot leans no longer masquerade as current picks",
+    "detail": "The complete-picks and leaderboard renderers now preserve estimates/evidence but remove current-pick checkmarks and submission advice when the inventory/line is old, a lock passes, or the deadline is unverified. Open-tab expiry, no-JS fallback and 320/390/768/1440px layouts were regression tested. No probability or roster adjustment was introduced.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/scripts/pick_safety.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/assets/pick-safety.js",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/data/research/32a1857a/presentation-audit.json"
+    ]
+  },
+  {
+    "id": "32a1857a-client-clock",
+    "severity": "warning",
+    "title": "Remaining presentation limitation: device clock and no-JavaScript open tabs",
+    "detail": "Client runtime checks rely on the device clock, not an authenticated time source; timezones are explicit UTC and retired choices do not revive on clock rollback. With JavaScript off the labels are only checked at page build time and the visible warning says so. Original lock/quote times remain readable. A saved locks_at is required: no deadline is inferred from Hotspawn’s 5-minute rules against the API’s 6-minute value. The dashboard does not submit picks.",
+    "match_ids": [],
+    "source_urls": [
+      "https://play.hotspawn.com/how-it-works",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/scripts/pick_safety.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/assets/pick-safety.js"
+    ]
+  }
+]

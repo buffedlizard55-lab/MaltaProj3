@@ -163,3 +163,14 @@ footer .src { font-size: .82rem; }
 /* "Unresolved" must never inherit the green pick colour (6.8:1 on white). */
 .pick-line strong.unverified { color: #7a5410; }
 .review-note { margin: 6px 0; padding: 8px 10px; border-radius: 8px; background: var(--amber-bg); color: #4a3209; font-size: .84rem; overflow-wrap: anywhere; }
+
+/* Current-use safety: preserve estimates/sources, retire playable-pick cues. */
+[hidden] { display: none !important; }
+.pick-card { min-width: 0; overflow-wrap: anywhere; }
+.pick-card.is-historical { border-left: 4px solid #8a5d14; }
+.pick-card.is-historical .probs li.fav { background: var(--paper); border-color: var(--line); font-weight: 400; }
+.pick-card.is-historical .pick-line strong { color: var(--ink-2); }
+.pick-safety { background: var(--amber-bg); color: #4a3209; border-radius: 8px; padding: 8px 10px; font-size: .84rem; }
+.line-time { font-size: .78rem; color: var(--muted); margin: 4px 0 8px; }
+.availability-summary { font-size: .92rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

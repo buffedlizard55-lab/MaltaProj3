@@ -46,19 +46,21 @@ class Day3DataContractTest(unittest.TestCase):
         self.assertEqual(winners[('PARIVISION', 'BETBOOM')], 'BETBOOM')
         self.assertEqual(winners[('Legacy', 'FURIA')], 'FURIA')
 
-    def test_unpriced_fixture_publishes_no_probability(self):
-        row = next(r for r in guide()['day_three'] if r['team_a'] == 'Legacy')
-        self.assertIsNone(row['market']['prices'])
-        self.assertIsNone(row['primary_pick'])
-        self.assertIsNone(row['contrarian_candidate'])
-
-    def test_priced_fixture_contract(self):
-        row = next(r for r in guide()['day_three'] if r['team_a'] == 'Aurora')
-        prices = row['market']['prices']
-        self.assertAlmostEqual(sum(prices.values()), 1.0, delta=0.02)
-        self.assertIn(row['primary_pick'], prices)
-        self.assertIn(row['contrarian_candidate'], prices)
-        self.assertNotEqual(row['primary_pick'], row['contrarian_candidate'])
+    def test_both_day_three_deciders_have_two_exchange_prices_and_valid_picks(self):
+        for team_a, expected_pick, expected_contrarian in (
+            ('Aurora', 'Aurora', '9z'),
+            ('Legacy', 'Legacy', 'BETBOOM'),
+        ):
+            row = next(r for r in guide()['day_three'] if r['team_a'] == team_a)
+            prices = row['market']['prices']
+            self.assertIsNotNone(prices)
+            self.assertAlmostEqual(sum(prices.values()), 1.0, delta=0.02)
+            self.assertEqual(row['primary_pick'], expected_pick)
+            self.assertEqual(row['contrarian_candidate'], expected_contrarian)
+            self.assertIn(row['primary_pick'], prices)
+            self.assertIn(row['contrarian_candidate'], prices)
+            self.assertNotEqual(row['primary_pick'], row['contrarian_candidate'])
+            self.assertGreater(row['market']['volume_usd'], 10000)
 
     def test_missing_source_rejected(self):
         bad = copy.deepcopy(guide())
@@ -73,6 +75,7 @@ class Day3DataContractTest(unittest.TestCase):
 
     def test_invented_price_for_unpriced_fixture_rejected(self):
         bad = copy.deepcopy(guide())
+        bad['day_three'][1]['market']['prices'] = None
         bad['day_three'][1]['primary_pick'] = 'Legacy'
         path = Path(self.id() + '.json')
         try:
@@ -96,11 +99,18 @@ class Day3RenderTest(unittest.TestCase):
         hrefs = [a.get('href') or '' for a in self.soup.select('a[href^="https://"]')]
         self.assertTrue(any('hltv.org' in h for h in hrefs))
         self.assertTrue(any('polymarket.com' in h for h in hrefs))
+        self.assertTrue(any('kalshi.com' in h for h in hrefs))
 
     def test_unpriced_fixture_renders_unverified_not_a_percentage(self):
-        text = self.soup.get_text(' ')
+        unpriced = copy.deepcopy(guide())
+        unpriced['day_three'][1]['market']['prices'] = None
+        unpriced['day_three'][1]['market']['note'] = 'Market created with zero volume and zero liquidity at observation.'
+        unpriced['day_three'][1]['primary_pick'] = None
+        unpriced['day_three'][1]['contrarian_candidate'] = None
+        soup = BeautifulSoup(render_section(unpriced, '../'), 'html.parser')
+        text = soup.get_text(' ')
         self.assertIn('No traded price at observation', text)
-        legacy_row = next(tr for tr in self.soup.select('#day-three-guide tr')
+        legacy_row = next(tr for tr in soup.select('#day-three-guide tr')
                           if 'Legacy' in tr.get_text() and 'No traded price' in tr.get_text())
         self.assertIn('unverified', legacy_row.get_text())
         price_cell = legacy_row.select('td')[0]
