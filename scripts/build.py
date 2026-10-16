@@ -566,6 +566,12 @@ def build(source: Path, output: Path):
         build_originated(source, output)
     # Browser-test fixtures (site/_fixture) are never part of the published site or its link check.
     shutil.rmtree(output / '_fixture', ignore_errors=True)
+    # TWC Day 3 picks page: static file in repo root, copied into the build output.
+    twc_src = Path('twc-picks')
+    if twc_src.exists():
+        twc_dest = output / 'twc-picks'
+        twc_dest.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(twc_src, twc_dest, dirs_exist_ok=True)
     # Leaderboard plan: its own builder and stylesheet. It is derived, optional output, so a failure here
     # degrades to a placeholder page and a loud annotation instead of blocking the data refresh.
     from scripts.build_strategy import build as build_strategy, placeholder as strategy_placeholder
