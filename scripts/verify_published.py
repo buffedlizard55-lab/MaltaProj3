@@ -211,6 +211,14 @@ def executable_book(book: dict) -> dict | None:
     }
 
 
+def hours_between(start, end):
+    """Hours between two ISO-8601 timestamps, or None when either is unusable."""
+    left, right = parse_iso(start), parse_iso(end)
+    if left is None or right is None:
+        return None
+    return round((right - left).total_seconds() / 3600, 2)
+
+
 def overround(decimal_odds: list):
     """The book's total implied probability. Above 1.0 is the margin the book keeps."""
     try:
@@ -659,6 +667,10 @@ def verify_against_first_party_market(rows: list, observations: dict) -> dict:
             'source_url': first.get('source_url'),
             'first_party_observed_at': first.get('updated_at'),
             'published_observed_at': origination.get('observed_at'),
+            # Prices move. The gap between the two readings is published with the deviation
+            # so a reviewer can tell drift from a defect.
+            'reading_gap_hours': hours_between(origination.get('observed_at'),
+                                               first.get('updated_at')),
             'book': {str(t): books.get(str(t)) for t in first.get('clob_token_ids') or []} or None,
         }
         checked.append(record)

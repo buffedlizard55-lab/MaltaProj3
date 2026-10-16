@@ -562,3 +562,68 @@ class ProbeResilience(unittest.TestCase):
         self.assertEqual(data['session'], 'arena-ba7164a0')
         self.assertTrue(data['probe_started_at'].endswith('Z'))
         self.assertTrue(data['probe_finished_at'] >= data['probe_started_at'])
+
+
+class UnresolvedTeamLookup(unittest.TestCase):
+    """Valve must be asked about the names the live site could not price.
+
+    Regression: collect_production stores a compact projection where probabilities live
+    under `origination_probabilities` and team names are plain strings. Reading the full
+    response's shape instead matched nothing, so the first run asked Valve about the eight
+    Thunderpick teams only and could not confirm a single rejection reason.
+    """
+
+    COMPACT = {
+        'base': 'https://buffedlizard55-lab.github.io/MaltaProj3',
+        'snapshots': {'origination.json': {'generated_at': '2026-10-16T08:18:38Z', 'matches': [
+            {'id': '1080205', 'teams': ['Aurora', '9z'],
+             'origination_probabilities': [0.69346, 0.30654]},
+            {'id': '1081527', 'teams': ['aimclub', 'BASEMENT BOYS'],
+             'origination_probabilities': None},
+            {'id': '1081532', 'teams': ['ASTRAL', 'Leo'], 'origination_probabilities': None},
+            {'id': '1080286', 'teams': ['HAVU', 'RoundsGG'],
+             'origination_probabilities': [0.815, 0.185]},
+        ]}},
+        'limitations': [],
+    }
+
+    def test_only_unpriced_fixtures_contribute_names_and_twice_listed_names_are_not_repeated(self):
+        import scripts.research_verify as rv
+
+        names = ['collect_hotspawn', 'collect_polymarket', 'collect_hltv',
+                 'collect_valve', 'collect_other_books']
+        originals = {name: getattr(rv, name) for name in names}
+        original_production = rv.collect_production
+        seen = {}
+
+        def stub_production(probe):
+            return self.COMPACT
+
+        def stub_valve(probe, teams):
+            seen['teams'] = list(teams)
+            return {'teams_requested': list(teams), 'ratings': {}, 'ambiguous': {},
+                    'absent': [], 'limitations': []}
+
+        def stub(probe, *extra):
+            return {'stubbed': True, 'limitations': []}
+
+        for name in names:
+            setattr(rv, name, stub)
+        rv.collect_valve = stub_valve
+        rv.collect_production = stub_production
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    rv.main(['--out', tmp])
+                data = json.loads((Path(tmp) / 'observations.json').read_text())
+        finally:
+            for name, func in originals.items():
+                setattr(rv, name, func)
+            rv.collect_production = original_production
+
+        self.assertEqual(data['valve_unresolved_teams_requested'],
+                         ['aimclub', 'BASEMENT BOYS', 'ASTRAL', 'Leo'])
+        self.assertEqual(seen['teams'][:8], ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA',
+                                             'Falcons', 'Ninjas in Pyjamas', 'PARIVISION'])
+        self.assertEqual(seen['teams'][8:], ['aimclub', 'BASEMENT BOYS', 'ASTRAL', 'Leo'])
+        self.assertNotIn('RoundsGG', seen['teams'], 'a priced fixture must not add names')

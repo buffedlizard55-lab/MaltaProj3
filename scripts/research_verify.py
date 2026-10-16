@@ -1186,10 +1186,16 @@ def main(argv=None) -> int:
     for row in origination_snapshot.get('matches') or []:
         if not isinstance(row, dict):
             continue
-        if (row.get('origination') or {}).get('probabilities'):
+        # collect_production stores a compact projection: probabilities under
+        # `origination_probabilities` and team names as plain strings. Reading the full
+        # response's shape instead matched nothing, so the first run asked Valve about the
+        # eight Thunderpick teams only and could not confirm any rejection reason.
+        priced = (row.get('origination_probabilities')
+                  or (row.get('origination') or {}).get('probabilities'))
+        if priced:
             continue
         for team in row.get('teams') or []:
-            name = team.get('name') if isinstance(team, dict) else None
+            name = team if isinstance(team, str) else (team.get('name') if isinstance(team, dict) else None)
             if name and name not in twc_teams and name not in unresolved_teams:
                 unresolved_teams.append(name)
     valve_teams = twc_teams + unresolved_teams
