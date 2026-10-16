@@ -1,3 +1,23 @@
+# Current session: arena-6426358d — canonical TWC picks and coverage audit
+
+Session: `arena-6426358d` · Fixed branch: `arena/6426358d-maltaproj3` · Claimed 2026-10-16T07:18Z.
+Read the existing board, completed handoffs and open-PR list before claiming. All prior implementation
+claims are done or published needs-review items; no open PR or active competing scope was found.
+The requested alternate session-branch naming is superseded by Arena's fixed-branch constraint.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| K-1 Replace conflicting TWC companion probabilities with one refreshed, evidence-backed view; verify Days 1–2 and bound contrarian guidance | in progress | arena-6426358d | new `scripts/build_twc.py`, `tests/test_twc.py`, `assets/twc.css`; `twc-picks/index.html`, `data/twc-day3-picks.json`; new `data/research/6426358d/` | Take over completed 9db9ccd4's stale companion page per e6c0f47d's published request. No fan polls, outright odds or fabricated causal roster adjustments. |
+| K-2 Audit all current Hotspawn fixtures and remaining gaps using HLTV first, then first-party esports lines; improve safe coverage where evidence permits | in progress | arena-6426358d | `scripts/research_lines.py`, `scripts/originate.py`, `scripts/domain.py`, `scripts/sources.py`, related unit tests only if required; `data/origination/aliases.json` only for verified joins; `.github/workflows/source-diagnostics.yml`, `.github/workflows/origination.yml` | Sandbox egress is GitHub/package-host only. Live source verification must use the existing GitHub runner and retain original evidence. Unconfirmed values stay blank. |
+| K-3 Final integration/mobile summary, row/link/build/browser verification, PR merge and Pages verification | in progress | arena-6426358d (integration) | `scripts/build.py`, `scripts/briefing.py`, `scripts/verify_live.py`, `tests/browser/`, `README.md`, `COORDINATION.md`, generated fallback pages only after validation | Keep prior completed work and source evidence. Existing four-hour publisher is retained; no second scheduled writer. |
+
+### Initial findings (not new source verification)
+- Repository already contains the mobile dashboard, reconciliation/refresh pipeline, complete-picks fallback ladder and published limitations. Main at claim: `f6ebb8c`; no open pull requests.
+- Existing TWC companion publishes 67%/72% using crowd polls and outright odds, contrary to the canonical policy. Existing published flag: `e6c0f47d-twc-picks-method`. It also contains unsourced causal/health/bracket claims; these must not remain authoritative.
+- GitHub Pages API reports a built public site in legacy mode. The established workflow orders the legacy publisher before the canonical verified artifact. A successful new deployment is not assumed.
+
+---
+
 # Shared coordination board
 
 ## Session: `arena-9db9ccd4` · Branch: `arena/9db9ccd4-maltaproj3`
