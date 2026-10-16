@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-15T23:30:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence)",
+  "updated_at": "2026-10-16T20:15:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added.",
   "aliases": [
     {
       "alias": "WBT",
@@ -41,7 +41,7 @@
           "detail": "HLTV lists 'WBT' (team id 13683) vs 'Nexus' (team id 7187), Group B opening match, 19 Oct 2026 at 09:00 UTC (BO1 LAN), the exact Hotspawn fixture 1081529 start time."
         }
       ],
-      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed — HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed \u2014 HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
     },
     {
       "alias": "ROUNDS",
@@ -55,7 +55,7 @@
         {
           "url": "https://liquipedia.net/rocketleague/ROUNDS",
           "source": "Liquipedia",
-          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
+          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere \u2014 the city hosting Elisa BreakOut Series 2."
         },
         {
           "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
@@ -298,14 +298,174 @@
         {
           "url": "https://www.bovada.lv/sports/esports/counter-strike-2/pulse-beat-iii/ninjas-in-pyjamas-team-liquid-202610160400",
           "source": "Bovada sportsbook event",
-          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) — Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
+          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) \u2014 Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
         },
         {
           "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
           "source": "Kalshi market rules",
-          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP … Oct 16, 2026 at 4:00 AM EDT'."
+          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP \u2026 Oct 16, 2026 at 4:00 AM EDT'."
         }
       ]
+    },
+    {
+      "alias": "BET-M 33",
+      "canonical": "BET-M",
+      "kind": "display-name variant",
+      "applies_to": [
+        "NODWIN Clutch Series #13",
+        "NODWIN Clutch Series 13"
+      ],
+      "competition_note": "Hotspawn fixture 1079170 displays the tournament as \"NODWIN Clutch Series #13\" (Hotspawn match page) while the HLTV event is \"NODWIN Clutch Series 13\"; both observed spellings are declared because the registry matching is exact-normalized, never fuzzy. Scoped to this competition only.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/esports/cs2/nodwin-clutch-series/cs2-33-justpl-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Counter-Strike: BET-M 33 vs Just Players (BO3) - NODWIN Clutch Series Group Stage\" with gameStartTime 2026-10-17 08:00:00 UTC \u2014 the exact Hotspawn fixture 1079170 slot and opponent name. Observed 2026-10-16T19:43Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-33-justpl-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5769541, event 1198594)",
+          "detail": "Official market record: outcomes [\"BET-M 33\", \"Just Players\"], gameStartTime \"2026-10-17 08:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:45Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+          "source": "HLTV.org match page",
+          "detail": "HLTV \u2014 Polymarket's declared resolution source \u2014 lists the same series as \"BET-M vs Just Players\" in NODWIN Clutch Series 13 at the same start time; the only differing string is Polymarket's \"BET-M 33\" suffix. Observed 2026-10-16T19:58Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170",
+          "source": "Hotspawn match page (fixture 1079170)",
+          "detail": "Hotspawn's own fixture page titles the series \"BET-M vs Just Players\" under \"NODWIN Clutch Series #13\", 08:00 17 OCT. Observed 2026-10-16T20:08Z."
+        }
+      ],
+      "review_note": "Added by arena-35440d12 on evidence of same competition, same opponent (exact \"Just Players\"), same start time (08:00 UTC 2026-10-17) and Polymarket's own resolution rules treating suffix variants as the same identifiable team. CLOB order books passed the published spread contract at 2026-10-16T19:46-19:47Z (bid/ask 0.68/0.71 and 0.29/0.32); the live collector re-validates books at every refresh before any pick is used."
+    },
+    {
+      "alias": "Insiders Esport",
+      "canonical": "Insiders",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7 (HLTV event 9312 \"Digital Crusade DraculaN Season 7\"); Hotspawn fixtures 1081526/1081529 are the same competition where alias WBT->WROTBERRY is already scoped.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/esports/cs2/draculan/cs2-inf6-ins-2026-10-19",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Infinite vs Insiders Esport (BO1) - DraculaN Group A\", Oct 19 09:00 UTC \u2014 the exact Hotspawn fixture 1081526 slot, opponent and BO1 format. Observed 2026-10-16T19:41Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-inf6-ins-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650404, event 1183119)",
+          "detail": "Official market record: outcomes [\"Infinite\", \"Insiders Esport\"], gameStartTime \"2026-10-19 09:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:46Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Infinite vs Insiders\" BO1 in Digital Crusade DraculaN Season 7 at the same slot. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Identity join only. At 2026-10-16T19:38Z the CLOB order book for the Infinite side was wide (best bid 0.41 / best ask 0.97, spread 0.56 > 0.12 ceiling), so the money line is NOT usable as a pick input even with the alias; the fixture stays blank until a compliant paired book exists. See data/research/35440d12/unresolved-research.json."
+    },
+    {
+      "alias": "Betclic Apogee Esports",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "Hotspawn fixture 1081515 displays the tournament as \"PGL Bucharest 2027: Closed Qualifier\"; both observed spellings (with and without colon) are declared because registry matching is exact-normalized. Scoped to this competition only.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Hotspawn's own fixture page titles the series \"Apogee Betclic vs Nemesis\" while the team card and team page on the same page name the same club \"Betclic Apogee Esports\" (/counter-strike/teams/betclic-apogee-esports), start 14:00 17 OCT. First-party proof that the two Hotspawn strings are one team. Observed 2026-10-16T20:12Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/pgl/cs2-bca-nem-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC \u2014 the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037, event 1200120)",
+          "detail": "Official market record: outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Betclic vs Nemesis\" at the same slot in the PGL Bucharest 2027 Closed Qualifier; Hotspawn's own team page for the same roster is \"Betclic Apogee Esports\", closing the chain. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Added by arena-35440d12. No sponsor inference: Hotspawn itself publishes both strings for the same team page. CLOB books passed the spread contract at 2026-10-16T19:47Z (bid/ask 0.28/0.33 and 0.67/0.72, spreads 0.05)."
+    },
+    {
+      "alias": "Team Nemesis",
+      "canonical": "Nemesis",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "Same scoped competition as \"Betclic Apogee Esports\" above.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037)",
+          "detail": "Outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\". Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Opponent is Hotspawn's \"Nemesis\" (/counter-strike/teams/nemesis) with lineup tex1y, SELLTER, mag1k3Y, Sdaim, r3salt. Observed 2026-10-16T20:12Z."
+        }
+      ],
+      "review_note": "Display-name expansion only (\"Team\" prefix), same competition/slot/opponent evidence as the row above."
+    },
+    {
+      "alias": "BC.Game Esports",
+      "canonical": "BC.Game",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7; Hotspawn fixture 1081528 \"BC.Game vs Drama\", 09:00 UTC 2026-10-19.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bcg-drama-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650409, event 1183121)",
+          "detail": "Official market record: \"BC.Game Esports vs Drama eSports (BO1) - DraculaN Group B\", outcomes [\"BC.Game Esports\", \"Drama eSports\"], gameStartTime \"2026-10-19 09:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:47Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399592/bcgame-vs-drama-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"BCGame vs Drama\" BO1 in the same event at the same slot (the pipeline's own HLTV identity stage already confirmed exact teams/time). Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "README irregularity I-10 previously flagged this display-name mismatch. Identity only: the money line replaces the Valve model for fixture 1081528 only if the live collector's paired-book spread/freshness checks pass at refresh; the existing model estimate is preserved as history either way."
+    },
+    {
+      "alias": "Drama eSports",
+      "canonical": "Drama",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7; Hotspawn fixture 1081528 \"BC.Game vs Drama\".",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bcg-drama-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650409)",
+          "detail": "Outcomes [\"BC.Game Esports\", \"Drama eSports\"], gameStartTime \"2026-10-19 09:00:00+00\". Observed 2026-10-16T19:47Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399592/bcgame-vs-drama-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists the opponent as \"Drama\" in the same event/slot. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Display-name expansion (\"eSports\" suffix) only."
     }
   ]
 }

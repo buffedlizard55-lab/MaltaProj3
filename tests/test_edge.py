@@ -111,7 +111,7 @@ class ReviewRenderingTests(unittest.TestCase):
 
     def test_required_sections_and_anchors_are_rendered(self):
         soup = BeautifulSoup(self.body(), 'html.parser')
-        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-three', 'standings', 'lineup-disambiguation', 'edge-limitations']:
+        for anchor in ['day-one', 'rosters', 'rules', 'day-two', 'day-three', 'day-three-results', 'day-four', 'standings', 'lineup-disambiguation', 'edge-limitations']:
             self.assertIsNotNone(soup.find(id=anchor), anchor)
         self.assertEqual(len(soup.select('#day-one tbody tr')), len(review()['day_one']))
         self.assertEqual(len(soup.select('#day-two tbody tr')), len(review()['day_two']))
@@ -167,6 +167,37 @@ class ReviewRenderingTests(unittest.TestCase):
             self.assertIn(escape(limitation)[:80], rendered, limitation[:40])
         self.assertIn('dated research', rendered.lower())
         self.assertIn('never read', rendered)
+
+    def test_day_three_results_and_day_four_render_with_sources(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        self.assertIsNotNone(soup.find(id='day-three-results'))
+        self.assertIsNotNone(soup.find(id='day-four'))
+        self.assertIsNotNone(soup.find(id='day-four-guidance'))
+        results = review()['day_three_results']
+        self.assertEqual(len(soup.select('#day-three-results tbody tr')), len(results))
+        day_four = review()['day_four']
+        self.assertEqual(len(soup.select('#day-four tbody tr')), len(day_four))
+
+    def test_day_four_displayed_prices_match_the_recorded_observations(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        table = soup.find(id='day-four')
+        for row in review()['day_four']:
+            market = row.get('market') or {}
+            for name, value in (market.get('prices') or {}).items():
+                self.assertIn(f'{value * 100:.1f}%', table.get_text(), name)
+        # the unpriced semifinal must render an explicit unverified marker, not a guess
+        self.assertIn('no verified market at the dated observation', table.get_text())
+
+    def test_day_four_guidance_lists_every_principle(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        guidance = review()['day_four_guidance']
+        self.assertEqual(len(soup.select('#day-four-guidance li')), len(guidance['principles']))
+
+    def test_day_three_results_never_complete_an_unfinished_series(self):
+        data = review()
+        open_rows = [r for r in data['day_three_results'] if r.get('result') is None]
+        for row in open_rows:
+            self.assertIn('in progress', row['status_at_observation'].lower())
 
     def test_standings_table_replays_the_official_valve_snapshot(self):
         block = review()['valve_standings']

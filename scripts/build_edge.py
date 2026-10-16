@@ -43,13 +43,29 @@ def load_edge(path: Path) -> dict:
             'edge-review.json needs a research window with both ends')
     for group in ['day_one', 'day_two', 'roster_watch', 'edge_rules']:
         require(isinstance(data[group], list), f'edge-review.json {group} must be a list')
-    if 'day_three' in data:
-        require(isinstance(data['day_three'], list), 'edge-review.json day_three must be a list')
-        for row in data['day_three']:
+    for key in ('day_three', 'day_three_results', 'day_four'):
+        if key not in data:
+            continue
+        require(isinstance(data[key], list), f'edge-review.json {key} must be a list')
+        for row in data[key]:
             require(row.get('sources'), 'every reviewed match needs at least one official source link')
             for src in row['sources']:
                 require(str(src.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
                 require(src.get('observed_at'), 'edge-review sources must carry an observation time')
+            market = row.get('market')
+            if market is not None:
+                require(market.get('observed_at'), 'market observations must carry an observation time')
+                for field in ('event_url', 'api_url'):
+                    if market.get(field):
+                        require(str(market[field]).startswith('https://'), 'market links must be https links')
+    if 'day_four_guidance' in data:
+        block = data['day_four_guidance']
+        require(isinstance(block.get('principles'), list) and block['principles'],
+                'day_four_guidance.principles must be a non-empty list')
+        require(block.get('sources'), 'day_four_guidance needs its evidence links')
+        for src in block['sources']:
+            require(str(src.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
+            require(src.get('observed_at'), 'edge-review sources must carry an observation time')
     for row in data['day_one'] + data['day_two']:
         require(row.get('sources'), 'every reviewed match needs at least one official source link')
         for src in row['sources']:
@@ -230,6 +246,75 @@ def day_three_section(data, inventory):
     return ''.join(out)
 
 
+def day_three_results_section(review):
+    rows = review.get('day_three_results') or []
+    if not rows:
+        return ''
+    out = ['<section class="content-section" id="day-three-results"><div class="section-heading"><div>'
+           '<p class="eyebrow">Group stage closed</p><h2>Day-three results</h2></div>'
+           + badge('16 October 2026', 'green') + '</div>',
+           '<p class="section-intro">Verified results only. A series still in progress at the research cutoff is shown as '
+           'in progress — never completed by guess.</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-three results at Thunderpick '
+           'World Championship 2026 with official sources</caption><thead><tr>'
+           '<th scope="col">Series</th><th scope="col">Result at observation</th><th scope="col">Reading</th>'
+           '</tr></thead><tbody>']
+    for row in rows:
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                   f'<small>{e(row["slot"])} · {local_time(row["starts_at"])}</small></th>'
+                   f'<td>{e(row.get("status_at_observation") or "")}</td>'
+                   f'<td>{e(row.get("assessment") or "")}{source_lines(row.get("sources") or [])}'
+                   + (f'{external(row["hltv_url"], "HLTV match page")}' if row.get('hltv_url') else '<span class="unverified">unverified</span>')
+                   + '</td></tr>')
+    out.append('</tbody></table></div></section>')
+    return ''.join(out)
+
+
+def day_four_section(review):
+    rows = review.get('day_four') or []
+    if not rows:
+        return ''
+    out = ['<section class="content-section" id="day-four"><div class="section-heading"><div>'
+           '<p class="eyebrow">Day four</p><h2>Semifinal card with dated market observations</h2></div>'
+           + badge('17 October 2026', 'amber') + '</div>',
+           '<p class="section-intro">Prices below are historical observations with their own timestamps — some from thin '
+           'markets — and never the Hotspawn "% picked" or fan votes. The <a href="../picks/">live picks page</a> supersedes '
+           'them at every refresh.</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-four semifinal matchups with '
+           'dated market observations and official sources</caption><thead><tr>'
+           '<th scope="col">Series</th><th scope="col">Dated market observation</th><th scope="col">Status &amp; reading</th>'
+           '</tr></thead><tbody>']
+    for row in rows:
+        market = row.get('market') or {}
+        prices = market.get('prices') or {}
+        price_text = '<span class="unverified">no verified market at the dated observation</span>'
+        if prices:
+            bits = ' · '.join(f'{e(name)} {value * 100:.1f}%' for name, value in prices.items())
+            price_text = (f'<strong>{e(market.get("provider") or "")}</strong><small>{e(market.get("note") or "")}</small>'
+                          f'<p class="tiny">{bits} · observed {e(market.get("observed_at") or "")}</p>')
+            if market.get('event_url'):
+                price_text += external(market['event_url'], 'market event')
+            if market.get('api_url'):
+                price_text += external(market['api_url'], 'official market record')
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                   f'<small>{e(row["slot"])} · {local_time(row["starts_at"])}</small>'
+                   + (f'{external(row["hltv_url"], "HLTV match page")}' if row.get('hltv_url') else '') + '</th>'
+                   f'<td>{price_text}</td>'
+                   f'<td>{e(row.get("status_at_observation") or "")}<br>{e(row.get("assessment") or "")}'
+                   f'{source_lines(row.get("sources") or [])}</td></tr>')
+    out.append('</tbody></table></div>')
+    guidance = review.get('day_four_guidance') or {}
+    if guidance.get('principles'):
+        out.append('<div class="evidence-box" id="day-four-guidance"><p class="eyebrow">Strategy notes</p>'
+                   f'<h3>{e(guidance.get("title") or "Day-four guidance")}</h3><ul>'
+                   + ''.join(f'<li>{e(item)}</li>' for item in guidance['principles']) + '</ul>'
+                   + source_list(guidance.get('sources') or []) + '</div>')
+    out.append('</section>')
+    return ''.join(out)
+
+
 def valve_snapshot_note(snapshot):
     if not snapshot:
         return ''
@@ -297,6 +382,8 @@ def edge_review(data, prefix, edge_path: Path):
     out += rules_section(review)
     out += day_two_section(review, data)
     out += day_three_section(review, data)
+    out += day_three_results_section(review)
+    out += day_four_section(review)
     day3_path = edge_path.parent / 'day3-guide.json'
     if day3_path.exists():
         from scripts.build_day3 import load_day3, render_section
@@ -332,4 +419,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, default=Path('site'))
     args = parser.parse_args()
     path, review = build(args.source, args.output)
-    print(f'Built {path} · {len(review["day_one"])} day-one series · {len(review["day_two"])} day-two fixtures · {len(review.get("day_three", []))} day-three fixtures reviewed')
+    print(f'Built {path} · {len(review["day_one"])} day-one series · {len(review["day_two"])} day-two fixtures · '
+          f'{len(review.get("day_three", []))} day-three fixtures reviewed · '
+          f'{len(review.get("day_three_results", []))} day-three results · {len(review.get("day_four", []))} day-four rows')
