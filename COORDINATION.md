@@ -1,3 +1,16 @@
+# Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
+
+Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| N-1 Verify Day-3 outcomes and Day-4 fixtures from retained HLTV originals; publish a dynamically refreshed Day-4 guide with canonical probabilities only | in progress | arena-8a6a5a84 | `scripts/build_twc.py`, `scripts/review_sources.py`, new `scripts/twc_research.py`, `tests/test_twc_day4.py`, `assets/twc.css`, new `data/research/8a6a5a84/` | No roster/rest causality or inferred result. Preserve historical Days 1–2 research and schema-2 Day-3 fields. |
+| N-2 Integration: root phone shortcuts/summary, automated source research, line/coverage audit, tests, PR merge and Pages verification | in progress | arena-8a6a5a84 | `scripts/build.py`, `.github/workflows/pages.yml`, new `.github/workflows/twc-research.yml`, `tests/browser/twc-day4.spec.mjs`, README and this board | Reuse sole live publisher. Do not edit V-owned source/row-verifier modules or unpublished other-session changes. Unresolved probabilities stay blank. |
+
+Sandbox network is restricted to GitHub/package hosts. Research will run on GitHub Actions using ordinary public requests, and originals/hashes will be inspected before factual publication. All remaining unsupported entries remain on the existing unresolved and Flagged for Review pages.
+
+---
+
 # Current session: arena-6426358d — canonical TWC picks and coverage audit
 
 Session: `arena-6426358d` · Fixed branch: `arena/6426358d-maltaproj3` · Claimed 2026-10-16T07:18Z.
