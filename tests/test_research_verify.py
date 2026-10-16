@@ -301,24 +301,36 @@ class FlightDecoder(unittest.TestCase):
 
 
 class ProbeResilience(unittest.TestCase):
-    """A collector bug or a blocked source must never lose the rest of the dossier."""
+    """A collector bug or a blocked source must never lose the rest of the dossier.
+
+    Fully offline and deterministic: every collector is stubbed, so this unit test never
+    depends on network egress, source availability or live prices.
+    """
 
     def test_a_crashing_collector_is_published_and_the_others_survive(self):
         import scripts.research_verify as rv
 
-        def boom(probe):
+        def boom(probe, *extra):
             raise RuntimeError('simulated collector defect')
 
-        original = rv.collect_polymarket
+        def stub(probe, *extra):
+            return {'stubbed': True, 'limitations': []}
+
+        names = ['collect_hotspawn', 'collect_production', 'collect_polymarket',
+                 'collect_hltv', 'collect_valve', 'collect_other_books']
+        originals = {name: getattr(rv, name) for name in names}
+        for name in names:
+            setattr(rv, name, stub)
         rv.collect_polymarket = boom
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 with contextlib.redirect_stdout(io.StringIO()):
                     code = rv.main(['--out', tmp])
                 data = json.loads((Path(tmp) / 'observations.json').read_text())
-            self.assertEqual(code, 0)
         finally:
-            rv.collect_polymarket = original
+            for name, func in originals.items():
+                setattr(rv, name, func)
+        self.assertEqual(code, 0)
         self.assertEqual(len(data['collector_crashes']), 1)
         crash = data['collector_crashes'][0]
         self.assertEqual(crash['collector'], 'polymarket')
@@ -329,5 +341,7 @@ class ProbeResilience(unittest.TestCase):
         for key in ('hotspawn', 'production_site', 'hltv', 'valve', 'other_books'):
             self.assertIn(key, data)
             self.assertIsInstance(data[key], dict)
+            self.assertTrue(data[key].get('stubbed'))
         self.assertEqual(data['session'], 'arena-ba7164a0')
         self.assertTrue(data['probe_started_at'].endswith('Z'))
+        self.assertTrue(data['probe_finished_at'] >= data['probe_started_at'])

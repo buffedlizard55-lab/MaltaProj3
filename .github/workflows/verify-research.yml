@@ -6,11 +6,18 @@ name: Verification research probe
 # Deliberately data-only: it never deploys, never edits another session's file and
 # never computes a probability. `.github/workflows/pages.yml` remains the single
 # Pages publisher, and no second scheduled writer is introduced.
+#
+# Step order is probe -> summarise -> commit -> tests. Evidence (including any
+# collector crash traceback, which the probe records inside observations.json) is
+# committed even when a later step fails, because the Actions log endpoint has been
+# returning EOF for this repository and a committed artifact is the only reliable way
+# to review what the runner actually read.
 on:
   push:
     branches: ['arena/ba7164a0-maltaproj3']
     paths:
       - 'scripts/research_verify.py'
+      - 'tests/test_research_verify.py'
       - '.github/workflows/verify-research.yml'
   workflow_dispatch:
 permissions:
@@ -22,7 +29,7 @@ jobs:
   probe:
     if: github.ref == 'refs/heads/arena/ba7164a0-maltaproj3'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -30,8 +37,6 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Parser regression tests (offline, no network)
-        run: python -m unittest tests.test_research_verify -v
       - name: Read official first-party sources and archive the original responses
         env:
           # Authenticated GitHub API calls: the shared unauthenticated quota is
@@ -39,24 +44,42 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.research_verify --out data/research/ba7164a0
       - name: Summarise what was actually read
+        if: always()
         run: |
           python - <<'PY'
           import json, os
-          d = json.load(open('data/research/ba7164a0/observations.json'))
+          path = 'data/research/ba7164a0/observations.json'
+          summary = open(os.environ['GITHUB_STEP_SUMMARY'], 'w')
+          if not os.path.exists(path):
+              summary.write('## Independent verification probe\n\nNo dossier was written.\n')
+              raise SystemExit(0)
+          d = json.load(open(path))
           log = d['requests']
           ok = [r for r in log if r['status'] == 'ok']
           bad = [r for r in log if r['status'] != 'ok']
-          with open(os.environ['GITHUB_STEP_SUMMARY'], 'w') as f:
-              f.write('## Independent verification probe\n\n')
-              f.write(f"- Sources read successfully: **{len(ok)}**\n")
-              f.write(f"- Sources not readable: **{len(bad)}**\n")
-              f.write(f"- Polymarket CS2 series moneylines: **{len(d['polymarket']['moneylines'])}**\n")
-              f.write(f"- Hotspawn CS2 fixtures: **{d['hotspawn'].get('count', 0)}**\n")
-              f.write(f"- Valve rating rows found: **{len(d['valve'].get('ratings', {}))}**\n\n")
-              if bad:
-                  f.write('### Not readable (recorded as limitations, never guessed around)\n\n')
-                  for r in bad[:40]:
-                      f.write(f"- `{r['status']}` {r['label']} — {r.get('note', '')}\n")
+          poly = d.get('polymarket') or {}
+          summary.write('## Independent verification probe\n\n')
+          summary.write(f"- Probe window: **{d['probe_started_at']}** to **{d['probe_finished_at']}**\n")
+          summary.write(f"- Sources read successfully: **{len(ok)}**\n")
+          summary.write(f"- Sources not readable: **{len(bad)}**\n")
+          summary.write(f"- Polymarket directory games: **{len(poly.get('directory_games') or [])}**\n")
+          summary.write(f"- Polymarket CS2 series moneylines: **{len(poly.get('moneylines') or [])}**\n")
+          summary.write(f"- Order books read: **{len(poly.get('books') or {})}**\n")
+          summary.write(f"- Bovada moneylines: **{((d.get('other_books') or {}).get('providers', {}).get('bovada') or {}).get('count')}**\n")
+          summary.write(f"- Thunderpick match-winner lines: **{((d.get('other_books') or {}).get('providers', {}).get('thunderpick') or {}).get('count')}**\n")
+          summary.write(f"- Kalshi CS2 markets: **{((d.get('other_books') or {}).get('providers', {}).get('kalshi') or {}).get('count')}**\n")
+          summary.write(f"- Hotspawn CS2 fixtures: **{(d.get('hotspawn') or {}).get('count')}**\n")
+          summary.write(f"- Valve rating rows: **{len((d.get('valve') or {}).get('ratings') or {})}**, ambiguous **{len((d.get('valve') or {}).get('ambiguous') or {})}**\n")
+          summary.write(f"- HLTV Day-3 match pages parsed: **{len((d.get('hltv') or {}).get('match_pages') or {})}**\n\n")
+          crashes = d.get('collector_crashes') or []
+          if crashes:
+              summary.write('### Collector crashes (published, never hidden)\n\n')
+              for c in crashes:
+                  summary.write(f"#### {c['collector']}\n\n```\n{c['traceback']}\n```\n\n")
+          if bad:
+              summary.write('### Not readable (recorded as limitations, never guessed around)\n\n')
+              for r in bad[:40]:
+                  summary.write(f"- `{r['status']}` {r['label']} — {r.get('note', '')[:160]}\n")
           PY
       - uses: actions/upload-artifact@v5
         if: always()
@@ -65,14 +88,18 @@ jobs:
           path: data/research/ba7164a0/
           retention-days: 7
       - name: Commit the archived original evidence to this session branch
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/research/ba7164a0
-          git diff --cached --quiet && { echo 'No evidence change to commit.'; exit 0; }
-          git commit -m 'research(ba7164a0): archive original first-party verification evidence'
-          # Discard only this probe's own uncommitted runtime overlay if a step
-          # rewrote it, then rebase so concurrent sessions' work is never lost.
-          git checkout -- . 2>/dev/null || true
-          git pull --rebase origin arena/ba7164a0-maltaproj3
-          git push origin arena/ba7164a0-maltaproj3
+          if git diff --cached --quiet; then
+            echo 'No evidence change to commit.'
+          else
+            git commit -m 'research(ba7164a0): archive original first-party verification evidence'
+            # Rebase so a concurrent session's commit is never discarded, then push.
+            git pull --rebase origin arena/ba7164a0-maltaproj3
+            git push origin arena/ba7164a0-maltaproj3
+          fi
+      - name: Parser regression tests (offline, deterministic)
+        run: python -m unittest tests.test_research_verify -v
