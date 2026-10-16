@@ -8,13 +8,13 @@ test.beforeAll(() => {
 });
 test.afterAll(() => fs.rmSync('site/_twc_fixture', { recursive: true, force: true }));
 
-test('phone summary exposes the canonical Day 3 guide in one tap', async ({ page }) => {
+test('phone summary exposes the canonical Day 4 guide in one tap', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 3 pick guide' }).click();
+  await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 4 pick guide' }).click();
   await expect(page).toHaveURL(/\/twc-picks\/$/);
-  await expect(page.locator('main h1')).toHaveText('TWC Day 3: picks & review');
-  await expect(page.locator('.twc-card')).toHaveCount(2);
+  await expect(page.locator('main h1')).toHaveText('TWC Day 4: picks & review');
+  await expect(page.locator('#day-three-picks .twc-card')).toHaveCount(2);
   const data = await (await page.request.get('/data/twc-day3-picks.json')).json();
   const canonical = await (await page.request.get('/data/origination.json')).json();
   expect(data.schema_version).toBe(2);
@@ -35,18 +35,18 @@ test('both source-backed defaults and optional switches stay distinct; lock and 
   await expect(page.locator('.twc-watch')).toHaveCount(2);
   await expect(page.locator('.twc-watch').first()).toContainText('0.380 expected points per 1 base point');
   await page.clock.fastForward(4 * 3600000 + 54 * 60000);
-  await expect(page.locator('.twc-card').first().locator('[data-pick-choice]')).toContainText('Snapshot: Aurora');
-  await expect(page.locator('.twc-card').first().locator('[data-pick-caption]')).toContainText('Closed for picks');
+  await expect(page.locator('#day-three-picks .twc-card').first().locator('[data-pick-choice]')).toContainText('Snapshot: Aurora');
+  await expect(page.locator('#day-three-picks .twc-card').first().locator('[data-pick-caption]')).toContainText('Closed for picks');
   await page.clock.fastForward(4 * 3600000);
   await expect(page.locator('#stale-warning')).toBeVisible();
-  await expect(page.locator('.twc-card').first().locator('[data-pick-caption]')).toContainText('not a current pick');
+  await expect(page.locator('#day-three-picks .twc-card').first().locator('[data-pick-caption]')).toContainText('not a current pick');
 });
 
 test('TWC results, probabilities and review links survive without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 844 } });
   const page = await context.newPage();
   await page.goto(FIXTURE);
-  await expect(page.locator('.twc-card')).toHaveCount(2);
+  await expect(page.locator('#day-three-picks .twc-card')).toHaveCount(2);
   await expect(page.locator('.twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
   await expect(page.locator('#day-one-results tbody tr')).toHaveCount(4);
   await expect(page.locator('#day-two-results tbody tr')).toHaveCount(4);

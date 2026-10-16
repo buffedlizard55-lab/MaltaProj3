@@ -20,3 +20,13 @@
 .twc-section a:not(.button),.twc-brief a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:900px){.twc-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.twc-brief{padding:22px 18px}.twc-brief h2{font-size:22px}.twc-brief p{font-size:14px}.twc-grid{padding:0 14px 18px;gap:14px}.twc-card.match-row{padding:20px 16px}.twc-card h3{font-size:22px}.twc-card .eyebrow{font-size:11px}.twc-card .availability{font-size:12px}.twc-card .pick-choice{font-size:20px}.twc-results caption{padding-inline:18px}.twc-results.simple-table>tbody>tr>th,.twc-results.simple-table>tbody>tr>td{font-size:14px}.twc-results.simple-table small{font-size:12px}.twc-section>.section-intro{padding:18px;font-size:14px}}
+.twc-day4-card{display:block;min-width:0;padding:22px;border:1px solid #d5e0e6;border-radius:12px;background:#fff;line-height:1.75}
+.twc-day4-card .pick-safety{border-left:3px solid #9b681a;padding:12px;background:#fff6e8;color:#573a12}
+.twc-day4-card.is-historical .pick-choice{color:#536777}
+@media(max-width:700px){.twc-day4-card{padding:20px 16px}}
+.twc-history{margin:18px 0 26px;border:1px solid #d5e0e6;border-radius:12px;background:#fff}
+.twc-history>summary{padding:20px;font-size:16px;font-weight:650;line-height:1.6;cursor:pointer;color:#203d50;min-height:44px}
+.twc-history>.content-section{border:0;margin-bottom:0}
+/* Mobile tables become block cards in the shared shell. Native table-caption
+   layout otherwise shrinks captions to a single word-wide column. */
+@media(max-width:700px){body[data-page="twc"] caption{display:block;width:auto;max-width:100%;padding:14px 18px;text-align:left;line-height:1.7;font-size:13px}body[data-page="twc"] .simple-table .source-link{font-size:13px;line-height:1.8}body[data-page="twc"] .simple-table small{font-size:12px}}

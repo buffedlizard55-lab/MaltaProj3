@@ -16,6 +16,42 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def verify_day4(expected, originated, twc, day4, page):
+    """All Day-4 picks must agree across inventory, canonical JSON and HTML."""
+    from scripts.domain import name_key
+    if day4 != twc.get('day4') or day4.get('schema_version') != 1:
+        raise ValueError('Day-4 JSON differs between published views')
+    if day4.get('source_snapshot_at') != expected.get('inventory_observed_at'):
+        raise ValueError('Day-4 snapshot mismatch')
+    wanted = {m['id']: m for m in expected['matches']
+              if name_key(m.get('competition') or '') == name_key('Thunderpick World Championship 2026')
+              and str(m.get('starts_at') or '').startswith('2026-10-17')}
+    rows = day4.get('matches') or []
+    if len(rows) != len(wanted) or {r['fixture']['id'] for r in rows} != set(wanted):
+        raise ValueError('Day-4 view omits or invents a Hotspawn fixture')
+    if len(page.select('#day-four-picks .twc-day4-card')) != len(rows):
+        raise ValueError('Day-4 HTML fixture coverage mismatch')
+    canonical = {m['id']: m for m in originated['matches']}
+    for row in rows:
+        fixture = row['fixture']
+        original = wanted[fixture['id']]
+        c = canonical.get(fixture['id']) or {}
+        if any(fixture.get(k) != original.get(k) for k in ['teams', 'starts_at', 'locks_at', 'source_url']):
+            raise ValueError('Day-4 fixture facts differ from inventory')
+        if row.get('analysis') != c.get('origination') or row.get('pick_index') != c.get('pick_index'):
+            raise ValueError('Day-4 probabilities or direction differ from canonical picks')
+        pick = row.get('pick_index')
+        names = [t.get('name') for t in original['teams']]
+        if row['teams'] != names or row.get('pick') != (names[pick] if pick is not None else None):
+            raise ValueError('Day-4 team direction mismatch')
+        card = page.find(id='twc-day4-' + fixture['id'])
+        values = [n.get_text(strip=True) for n in card.select('.twc-prob strong')] if card else []
+        probs = row['analysis']['probabilities'] if row.get('analysis') else None
+        if values != ([f'{p*100:.1f}%' for p in probs] if probs else ['—', '—']):
+            raise ValueError('Day-4 HTML probabilities differ from JSON')
+    print('::notice::Public Day-4 canonical fixture coverage: ' + str(len(rows)))
+
+
 def verify(url, expected):
     base = url.rstrip('/') + '/'
     session = requests.Session()
@@ -82,9 +118,9 @@ def verify(url, expected):
     if len(twc.get('day3_matches') or []) != 2 or {r.get('label') for r in twc['day3_matches']} != {'day3-aurora-9z', 'day3-betboom-legacy'}:
         raise ValueError('TWC data omits or invents a decider')
     twc_page = BeautifulSoup(get('twc-picks/').text, 'html.parser')
-    if twc_page.body.get('data-page') != 'twc' or len(twc_page.select('.twc-card')) != 2:
+    if twc_page.body.get('data-page') != 'twc' or len(twc_page.select('#day-three-picks .twc-card')) != 2:
         raise ValueError('TWC generated page was replaced or its deciders are missing')
-    for anchor in ['twc-summary', 'day-three-picks', 'day-one-results', 'day-two-results', 'roster-check', 'unresolved']:
+    for anchor in ['twc-summary', 'day-four-picks', 'day-three-results', 'day-three-picks', 'day-one-results', 'day-two-results', 'roster-check', 'unresolved']:
         if not twc_page.find(id=anchor):
             raise ValueError('TWC page missing #' + anchor)
     by_id = {m['id']: m for m in originated['matches']}
@@ -99,6 +135,9 @@ def verify(url, expected):
         expected_values = [f'{p*100:.1f}%' for p in row['analysis']['probabilities']] if row.get('analysis') else ['—', '—']
         if values != expected_values:
             raise ValueError('TWC HTML probabilities differ from its generated JSON')
+    day4 = get('data/twc-day4-picks.json').json()
+    verify_day4(expected, originated, twc, day4, twc_page)
+    get('assets/pick-safety.js')
     for row in twc['day3_matches']:
         a = row.get('analysis') or {}
         print('::notice::Public TWC: ' + json.dumps({

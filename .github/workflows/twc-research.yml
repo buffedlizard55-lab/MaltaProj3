@@ -1,0 +1,42 @@
+name: TWC source research
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  research:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Collect inventory and every supported pick
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+      - name: Read original TWC event and match sources
+        run: python -m scripts.twc_research
+      - name: Save dated coverage review
+        run: |
+          mkdir -p .cache/twc-export
+          cp -r data/research/twc-current .cache/twc-export/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.load(open('data/latest.json'))
+          o = json.load(open('data/origination.json'))
+          report = {'policy': 'Dated diagnostic, not live inventory or independently replayed current probabilities. See canonical published picks for current evidence.', 'inventory_observed_at': d.get('inventory_observed_at'), 'coverage_complete': d.get('coverage_complete'), 'counts': o['counts'], 'matches': o['matches'], 'sources': d.get('sources', [])}
+          Path('.cache/twc-export/coverage.json').write_text(json.dumps(report, indent=2) + '\n')
+          print('::notice title=Coverage diagnostic::' + json.dumps({k: report[k] for k in ['inventory_observed_at', 'coverage_complete', 'counts']}))
+          PY
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: twc-research
+          path: .cache/twc-export/
+          retention-days: 14

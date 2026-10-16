@@ -1,3 +1,16 @@
+# Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
+
+Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| N-1 Verify Day-3 outcomes and Day-4 fixtures from retained HLTV originals; publish a dynamically refreshed Day-4 guide with canonical probabilities only | in progress | arena-8a6a5a84 | `scripts/build_twc.py`, `scripts/review_sources.py`, new `scripts/twc_research.py`, `tests/test_twc_day4.py`, `assets/twc.css`, new `data/research/8a6a5a84/` | No roster/rest causality or inferred result. Preserve historical Days 1–2 research and schema-2 Day-3 fields. |
+| N-2 Integration: root phone shortcuts/summary, automated source research, line/coverage audit, tests, PR merge and Pages verification | in progress | arena-8a6a5a84 | `scripts/build.py`, `.github/workflows/pages.yml`, new `.github/workflows/twc-research.yml`, `tests/browser/twc-day4.spec.mjs`, README and this board | Reuse sole live publisher. Do not edit V-owned source/row-verifier modules or unpublished other-session changes. Unresolved probabilities stay blank. |
+
+Sandbox network is restricted to GitHub/package hosts. Research will run on GitHub Actions using ordinary public requests, and originals/hashes will be inspected before factual publication. All remaining unsupported entries remain on the existing unresolved and Flagged for Review pages.
+
+---
+
 # Current session: arena-6426358d — canonical TWC picks and coverage audit
 
 Session: `arena-6426358d` · Fixed branch: `arena/6426358d-maltaproj3` · Claimed 2026-10-16T07:18Z.
@@ -1221,3 +1234,24 @@ handoff; no V-owned file is edited by this session.
 - Checks: "Rows, build, links, mobile and accessibility" (38955712781) SUCCESS; "Origination source audit" (38955704450) SUCCESS.
 - Production run [38956113940](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38956113940) SUCCESS (verify-and-deploy), including post-deploy verification. Inventory observed 2026-10-16T19:37:54Z: 83 records / 21 upcoming / 62 archived; complete picks 13 resolved / 8 unresolved; 392 table rows / 384 source-linked / 8 navigation / 0 violations.
 - Live: https://buffedlizard55-lab.github.io/MaltaProj3/
+### N-1/N-2 scope clarification — 2026-10-16T19:33Z
+- Also claim the completed `tests/test_twc.py` and `tests/browser/twc.spec.mjs` title/scoped-selector maintenance only, plus new Day-4-specific tests. Day-3 schema fields and pinned synthetic regression coverage remain intact.
+- First research run `38955384414` collected sources successfully (Day-3 Aurora 2–0 9z; other decider still not marked finished by HLTV), but export failed. No outcome for the unfinished series is inferred. Added explicit export diagnostics; will retry before treating retained evidence as published.
+- Research export retry `38955718457` diagnosed an isolated shallow-checkout rebase conflict (add/add against main), not a concurrent user's change. No export was pushed. Fixed with a full-history checkout; the production integration branch was untouched. Retain both source collection runs as failed exports, not completed publication.
+
+### N-1 evidence / concurrent-session handoff — 2026-10-16T19:40Z
+- Successful original-source export [38955953065](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38955953065); all displayed Day-3/4 facts replayed from compressed originals with SHA-256 containment checks, not the cached extraction. At 19:35:22Z Aurora–9z finished 2–0 (13–11 Cache, 13–4 Inferno); BETBOOM–Legacy not finished (two played maps only), no winner invented. HLTV Day-4 pages 2399414/2399415 show FURIA–Aurora 14:00Z / Falcons–BETBOOM-or-Legacy-winner 17:00Z. Weekly inventory at 19:35:00Z: 21 active / 13 estimates / 8 unresolved, no Day-4 TWC fixture yet. Explicitly separate HLTV/tournament scope from canonical weekly picks. Metadata alone does not establish playable match coverage.
+- Read U-session `arena/35440d12-maltaproj3` claim: U owns independent unresolved research + edge/strategy; N does not edit those files. U's requested summary links and inline limitations already exist; N adds Day-4-specific inline limits and a conditional loader for `data/research/35440d12/flags.json` without touching their data. New phone fixture helper claimed: `tests/browser/twc_day4_fixture.py`. Shared probability/source modules remain untouched.
+- Main advanced through docs-only PR #59 (ec75e5bb). Rebase conflict only in shared board; retained both full records, discarded no other-session work. The standalone V branch is not imported.
+
+### N-2 integration verification — 2026-10-16T19:42Z
+- Full local Python suite **378 tests OK**; Day-4-specific 12 tests cover exact identity/time, team direction, canonical snapshot binding, blank-not-50/50, source replay/hash/path containment, status/future timestamps/missing locks, stale lines, and unsupported underdog promotion.
+- **64 Playwright checks pass** (including 8 new Day-4 checks): 320/390/768/1440 layouts, same canonical percentages, no-JS source links, runtime focus/expiry retirement of both default and optional underdog, and phone/desktop axe WCAG A/AA scans with zero violations. Reviewed generated mobile capture; historical Day-3 prices are now expandable so the Day-4 handoff remains first.
+- Built all seven views: 80 checked-in fixture rows replayed, 573 local links/anchors validated, 334 audited rows / zero source violations. These are local fixture counts, not current live coverage. Scheduled runner still independently collects and replays current lines before deployment.
+- The first-party HLTV source page labels are not upgraded to organizer-confirmed results. This limitation and the missing weekly Day-4 join are visible on `/review/`. Remaining eight unresolved weekly fixtures are owned by U-1's independent research; no duplicated source-resolver work is claimed.
+
+### N-2 post-deploy contract scope addition — 2026-10-16T19:44Z
+- Claim completed canonical `scripts/verify_live.py` and `tests/test_verify_live.py` **Day-4 parity additions only**. Inspection found the inherited verifier hard-coded exactly two `.twc-card` nodes; a legitimate future Day-4 fixture would otherwise break deployment after being correctly rendered. Scope excludes the active U source/strategy modules and unmerged V branch. Preserve Day-3 checks, scope them to their section, and verify every Day-4 JSON/card against the same canonical snapshot.
+- Retired the completed session's temporary branch-writing research export before release. The manual diagnostic now has read-only repository permissions and artifact output only; pinned 19:35 originals cannot be silently overwritten by a future run. Runtime research remains in the single scheduled publisher.
+- PR [#61](https://github.com/buffedlizard55-lab/MaltaProj3/pull/61) is the N integration PR. Post-deploy Day-4 contract adds four further parity regressions; the focused 21-test set passes, including nonempty future cards. Preserved ec75e5bb's #60 publication record in the second board-only rebase; no concurrent implementation was edited.
+- Final visual review caught a real inherited mobile-table issue: native captions shrank to a word-wide column after the shared shell turned tables into block cards. Fixed only TWC caption CSS and added a real-browser caption-width regression; no source data changed. Full local Python suite after the parity additions: **382 tests OK**. A manual diagnostic dispatch returned HTTP 403 (workflow-dispatch permission); no credential problem was inferred and no repeated dispatch attempted. Automatic push/scheduled collection remains working and is checked separately in CI/production.

@@ -1,0 +1,903 @@
+{
+  "schema_version": 1,
+  "policy": "Source research only; canonical picks supply all probabilities. HLTV is an independent reporter, not tournament organizer verification.",
+  "target_day": "2026-10-17",
+  "pages": [
+    {
+      "label": "event",
+      "request": {
+        "id": "twc-event",
+        "url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:15Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:16 GMT",
+        "response_sha256": "f848b34f62601cb5307c3e2ed5622d17b0b389ad9611ed426abcf4a4d45db52d"
+      },
+      "original_response": "event.html.gz",
+      "stored_sha256": "f848b34f62601cb5307c3e2ed5622d17b0b389ad9611ed426abcf4a4d45db52d"
+    },
+    {
+      "label": "matches",
+      "request": {
+        "id": "twc-matches",
+        "url": "https://www.hltv.org/events/8932/matches",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:16Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/events/8932/matches",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:16 GMT",
+        "response_sha256": "1a19aae1b25956c4c27c2edf44040a161d37c2ac2a76f3299e6c143ad4485be6"
+      },
+      "original_response": "matches.html.gz",
+      "stored_sha256": "1a19aae1b25956c4c27c2edf44040a161d37c2ac2a76f3299e6c143ad4485be6"
+    },
+    {
+      "label": "results",
+      "request": {
+        "id": "twc-results",
+        "url": "https://www.hltv.org/results?event=8932",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:16Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/results?event=8932",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:16 GMT",
+        "response_sha256": "035548a8bf5a824b369f02b22198522504d5e9ad048ebafde9560d8da9a27234"
+      },
+      "original_response": "results.html.gz",
+      "stored_sha256": "035548a8bf5a824b369f02b22198522504d5e9ad048ebafde9560d8da9a27234"
+    },
+    {
+      "label": "hotspawn-tournament",
+      "request": {
+        "id": "twc-hotspawn-tournament",
+        "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:16Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1",
+        "content_type": "application/json; charset=utf-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:17 GMT",
+        "response_sha256": "d39daa831bdad1616c899d42258f3a4a55fa45d2e7917250bb2778e17d77d61a"
+      },
+      "original_response": "hotspawn-tournament.html.gz",
+      "stored_sha256": "d39daa831bdad1616c899d42258f3a4a55fa45d2e7917250bb2778e17d77d61a"
+    },
+    {
+      "label": "match-2399384",
+      "request": {
+        "id": "twc-match-2399384",
+        "url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:17Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:17 GMT",
+        "response_sha256": "a7bdc631845c58a05c787504d57a5114829f80ff5966d07bea4e23fda8b53f9d"
+      },
+      "original_response": "match-2399384.html.gz",
+      "stored_sha256": "a7bdc631845c58a05c787504d57a5114829f80ff5966d07bea4e23fda8b53f9d",
+      "facts": {
+        "teams": [
+          "9z",
+          "Aurora"
+        ],
+        "starts_at": "2026-10-14T08:20:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Inferno",
+            "a": 13,
+            "b": 11
+          },
+          {
+            "map": "Nuke",
+            "a": 13,
+            "b": 1
+          }
+        ],
+        "lineups": [
+          {
+            "name": "9z",
+            "roster": [
+              "dgt",
+              "max",
+              "meyern",
+              "luchov",
+              "HUASOPEEK"
+            ]
+          },
+          {
+            "name": "Aurora",
+            "roster": [
+              "woxic",
+              "XANTARES",
+              "Wicadia",
+              "Jimpphat",
+              "kyxsan"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399385",
+      "request": {
+        "id": "twc-match-2399385",
+        "url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:17Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:18 GMT",
+        "response_sha256": "497c895f3ed2508959b9b88be6e2e4a6bcbab941f441215d3da53dd2ceb0e6ff"
+      },
+      "original_response": "match-2399385.html.gz",
+      "stored_sha256": "497c895f3ed2508959b9b88be6e2e4a6bcbab941f441215d3da53dd2ceb0e6ff",
+      "facts": {
+        "teams": [
+          "Falcons",
+          "Ninjas in Pyjamas"
+        ],
+        "starts_at": "2026-10-14T12:20:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Ancient",
+            "a": 16,
+            "b": 13
+          },
+          {
+            "map": "Dust2",
+            "a": 13,
+            "b": 6
+          }
+        ],
+        "lineups": [
+          {
+            "name": "Falcons",
+            "roster": [
+              "karrigan",
+              "NiKo",
+              "m0NESY",
+              "TeSeS",
+              "kyousuke"
+            ]
+          },
+          {
+            "name": "Ninjas in Pyjamas",
+            "roster": [
+              "sjuush",
+              "stavn",
+              "xKacpersky",
+              "adamb",
+              "Krimbo"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399386",
+      "request": {
+        "id": "twc-match-2399386",
+        "url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:18Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:18 GMT",
+        "response_sha256": "578fd6c020ff90014cafaf119d0c63491601b99ae61d3d1e2c6590b1d2966f84"
+      },
+      "original_response": "match-2399386.html.gz",
+      "stored_sha256": "578fd6c020ff90014cafaf119d0c63491601b99ae61d3d1e2c6590b1d2966f84",
+      "facts": {
+        "teams": [
+          "Legacy",
+          "PARIVISION"
+        ],
+        "starts_at": "2026-10-14T15:40:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Dust2",
+            "a": 13,
+            "b": 11
+          },
+          {
+            "map": "Mirage",
+            "a": 16,
+            "b": 14
+          }
+        ],
+        "lineups": [
+          {
+            "name": "Legacy",
+            "roster": [
+              "arT",
+              "dumau",
+              "latto",
+              "n1ssim",
+              "try"
+            ]
+          },
+          {
+            "name": "PARIVISION",
+            "roster": [
+              "zweih",
+              "Jame",
+              "xiELO",
+              "FL1T",
+              "HObbit"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399387",
+      "request": {
+        "id": "twc-match-2399387",
+        "url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:19Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:19 GMT",
+        "response_sha256": "a0d02e5c5db8d39b4d55eecd45b558aea39d3a0cf99d3397495a74cae53f00c9"
+      },
+      "original_response": "match-2399387.html.gz",
+      "stored_sha256": "a0d02e5c5db8d39b4d55eecd45b558aea39d3a0cf99d3397495a74cae53f00c9",
+      "facts": {
+        "teams": [
+          "FURIA",
+          "BETBOOM"
+        ],
+        "starts_at": "2026-10-14T19:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Ancient",
+            "a": 13,
+            "b": 10
+          },
+          {
+            "map": "Mirage",
+            "a": 13,
+            "b": 9
+          }
+        ],
+        "lineups": [
+          {
+            "name": "FURIA",
+            "roster": [
+              "molodoy",
+              "yuurih",
+              "FalleN",
+              "KSCERATO",
+              "YEKINDAR"
+            ]
+          },
+          {
+            "name": "BETBOOM",
+            "roster": [
+              "Magnojez",
+              "Boombl4",
+              "d1Ledez",
+              "zorte",
+              "S1ren"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399408",
+      "request": {
+        "id": "twc-match-2399408",
+        "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:19Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:20 GMT",
+        "response_sha256": "3c84c5bac0892b917a992fe6d89869aa992caff7dc3a0a7dc37f9e2abac99b5d"
+      },
+      "original_response": "match-2399408.html.gz",
+      "stored_sha256": "3c84c5bac0892b917a992fe6d89869aa992caff7dc3a0a7dc37f9e2abac99b5d",
+      "facts": {
+        "teams": [
+          "Aurora",
+          "Ninjas in Pyjamas"
+        ],
+        "starts_at": "2026-10-15T08:35:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Cache",
+            "a": 13,
+            "b": 9
+          },
+          {
+            "map": "Dust2",
+            "a": 13,
+            "b": 7
+          }
+        ],
+        "lineups": [
+          {
+            "name": "Aurora",
+            "roster": [
+              "woxic",
+              "XANTARES",
+              "Wicadia",
+              "Jimpphat",
+              "kyxsan"
+            ]
+          },
+          {
+            "name": "Ninjas in Pyjamas",
+            "roster": [
+              "sjuush",
+              "stavn",
+              "xKacpersky",
+              "adamb",
+              "Krimbo"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399409",
+      "request": {
+        "id": "twc-match-2399409",
+        "url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:20Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:20 GMT",
+        "response_sha256": "7129390489e84fea8bc9db368de757b2521a0c990b5c0aec7acbd238359fe8f4"
+      },
+      "original_response": "match-2399409.html.gz",
+      "stored_sha256": "7129390489e84fea8bc9db368de757b2521a0c990b5c0aec7acbd238359fe8f4",
+      "facts": {
+        "teams": [
+          "9z",
+          "Falcons"
+        ],
+        "starts_at": "2026-10-15T11:30:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          1,
+          2
+        ],
+        "maps": [
+          {
+            "map": "Nuke",
+            "a": 9,
+            "b": 13
+          },
+          {
+            "map": "Mirage",
+            "a": 13,
+            "b": 8
+          },
+          {
+            "map": "Dust2",
+            "a": 9,
+            "b": 13
+          }
+        ],
+        "lineups": [
+          {
+            "name": "9z",
+            "roster": [
+              "dgt",
+              "max",
+              "meyern",
+              "luchov",
+              "HUASOPEEK"
+            ]
+          },
+          {
+            "name": "Falcons",
+            "roster": [
+              "karrigan",
+              "NiKo",
+              "m0NESY",
+              "TeSeS",
+              "kyousuke"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399410",
+      "request": {
+        "id": "twc-match-2399410",
+        "url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:21Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:21 GMT",
+        "response_sha256": "c13b25d24997d00e0e96e7c49e51ee7e600dc21705316533ad013cdc439c865b"
+      },
+      "original_response": "match-2399410.html.gz",
+      "stored_sha256": "c13b25d24997d00e0e96e7c49e51ee7e600dc21705316533ad013cdc439c865b",
+      "facts": {
+        "teams": [
+          "PARIVISION",
+          "BETBOOM"
+        ],
+        "starts_at": "2026-10-15T15:10:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          1,
+          2
+        ],
+        "maps": [
+          {
+            "map": "Ancient",
+            "a": 13,
+            "b": 10
+          },
+          {
+            "map": "Anubis",
+            "a": 4,
+            "b": 13
+          },
+          {
+            "map": "Mirage",
+            "a": 7,
+            "b": 13
+          }
+        ],
+        "lineups": [
+          {
+            "name": "PARIVISION",
+            "roster": [
+              "zweih",
+              "Jame",
+              "xiELO",
+              "FL1T",
+              "HObbit"
+            ]
+          },
+          {
+            "name": "BETBOOM",
+            "roster": [
+              "Magnojez",
+              "Boombl4",
+              "d1Ledez",
+              "zorte",
+              "S1ren"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399411",
+      "request": {
+        "id": "twc-match-2399411",
+        "url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:21Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:22 GMT",
+        "response_sha256": "17ae578bc669876997ce8551c4fe127248d6fd5108cbbba2fb532d68e0060801"
+      },
+      "original_response": "match-2399411.html.gz",
+      "stored_sha256": "17ae578bc669876997ce8551c4fe127248d6fd5108cbbba2fb532d68e0060801",
+      "facts": {
+        "teams": [
+          "Legacy",
+          "FURIA"
+        ],
+        "starts_at": "2026-10-15T18:50:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          1,
+          2
+        ],
+        "maps": [
+          {
+            "map": "Cache",
+            "a": 13,
+            "b": 10
+          },
+          {
+            "map": "Inferno",
+            "a": 5,
+            "b": 13
+          },
+          {
+            "map": "Mirage",
+            "a": 8,
+            "b": 13
+          }
+        ],
+        "lineups": [
+          {
+            "name": "Legacy",
+            "roster": [
+              "arT",
+              "dumau",
+              "latto",
+              "n1ssim",
+              "try"
+            ]
+          },
+          {
+            "name": "FURIA",
+            "roster": [
+              "molodoy",
+              "yuurih",
+              "FalleN",
+              "KSCERATO",
+              "YEKINDAR"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399412",
+      "request": {
+        "id": "twc-match-2399412",
+        "url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:22Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:22 GMT",
+        "response_sha256": "e4c6951f763977ca55d63c3366d9a2836c73110df416217b07a9d51f35b16d42"
+      },
+      "original_response": "match-2399412.html.gz",
+      "stored_sha256": "e4c6951f763977ca55d63c3366d9a2836c73110df416217b07a9d51f35b16d42",
+      "facts": {
+        "teams": [
+          "Aurora",
+          "9z"
+        ],
+        "starts_at": "2026-10-16T14:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": true,
+        "score": [
+          2,
+          0
+        ],
+        "maps": [
+          {
+            "map": "Cache",
+            "a": 13,
+            "b": 11
+          },
+          {
+            "map": "Inferno",
+            "a": 13,
+            "b": 4
+          }
+        ],
+        "lineups": [
+          {
+            "name": "Aurora",
+            "roster": [
+              "woxic",
+              "XANTARES",
+              "Wicadia",
+              "Jimpphat",
+              "kyxsan"
+            ]
+          },
+          {
+            "name": "9z",
+            "roster": [
+              "dgt",
+              "max",
+              "meyern",
+              "luchov",
+              "HUASOPEEK"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399413",
+      "request": {
+        "id": "twc-match-2399413",
+        "url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:22Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:23 GMT",
+        "response_sha256": "28e2754cc37fb87ce4fbc07dacf4b43100f50bf39f6c77681b34b1010573e294"
+      },
+      "original_response": "match-2399413.html.gz",
+      "stored_sha256": "28e2754cc37fb87ce4fbc07dacf4b43100f50bf39f6c77681b34b1010573e294",
+      "facts": {
+        "teams": [
+          "BETBOOM",
+          "Legacy"
+        ],
+        "starts_at": "2026-10-16T17:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": false,
+        "score": null,
+        "maps": [
+          {
+            "map": "Nuke",
+            "a": 16,
+            "b": 13
+          },
+          {
+            "map": "Dust2",
+            "a": 11,
+            "b": 13
+          }
+        ],
+        "lineups": [
+          {
+            "name": "BETBOOM",
+            "roster": [
+              "Magnojez",
+              "Boombl4",
+              "d1Ledez",
+              "zorte",
+              "S1ren"
+            ]
+          },
+          {
+            "name": "Legacy",
+            "roster": [
+              "arT",
+              "dumau",
+              "latto",
+              "n1ssim",
+              "try"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399414",
+      "request": {
+        "id": "twc-match-2399414",
+        "url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:23Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:24 GMT",
+        "response_sha256": "3335cdd4dbf2fbda6698d3f88e196b5b83933285ad5443cfd5cf7f1d1ad3f831"
+      },
+      "original_response": "match-2399414.html.gz",
+      "stored_sha256": "3335cdd4dbf2fbda6698d3f88e196b5b83933285ad5443cfd5cf7f1d1ad3f831",
+      "facts": {
+        "teams": [
+          "FURIA",
+          "Aurora"
+        ],
+        "starts_at": "2026-10-17T14:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": false,
+        "score": null,
+        "maps": [],
+        "lineups": [
+          {
+            "name": "FURIA",
+            "roster": [
+              "molodoy",
+              "yuurih",
+              "FalleN",
+              "KSCERATO",
+              "YEKINDAR"
+            ]
+          },
+          {
+            "name": "Aurora",
+            "roster": [
+              "woxic",
+              "XANTARES",
+              "Wicadia",
+              "Jimpphat",
+              "kyxsan"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399415",
+      "request": {
+        "id": "twc-match-2399415",
+        "url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-legacy-winner-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:24Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-legacy-winner-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:24 GMT",
+        "response_sha256": "30e31b03286ea5b3e5087e71f3d5ad727ead9ef366a9130c4bf2be8136826523"
+      },
+      "original_response": "match-2399415.html.gz",
+      "stored_sha256": "30e31b03286ea5b3e5087e71f3d5ad727ead9ef366a9130c4bf2be8136826523",
+      "facts": {
+        "teams": [
+          "Falcons",
+          "BETBOOM/Legacy winner"
+        ],
+        "starts_at": "2026-10-17T17:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": false,
+        "score": null,
+        "maps": [],
+        "lineups": [
+          {
+            "name": "Falcons",
+            "roster": [
+              "karrigan",
+              "NiKo",
+              "m0NESY",
+              "TeSeS",
+              "kyousuke"
+            ]
+          }
+        ],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399416",
+      "request": {
+        "id": "twc-match-2399416",
+        "url": "https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:24Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:24 GMT",
+        "response_sha256": "c618e00055aa98779678cc0866e84fafbe91368d059df1e99c7bc800db37684d"
+      },
+      "original_response": "match-2399416.html.gz",
+      "stored_sha256": "c618e00055aa98779678cc0866e84fafbe91368d059df1e99c7bc800db37684d",
+      "facts": {
+        "teams": [
+          null,
+          ""
+        ],
+        "starts_at": "2026-10-18T11:30:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": false,
+        "score": null,
+        "maps": [],
+        "lineups": [],
+        "best_of": 3
+      }
+    },
+    {
+      "label": "match-2399417",
+      "request": {
+        "id": "twc-match-2399417",
+        "url": "https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026",
+        "method": "GET",
+        "observed_at": "2026-10-16T19:35:25Z",
+        "http_status": 200,
+        "status": "ok",
+        "final_url": "https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Fri, 16 Oct 2026 19:35:25 GMT",
+        "response_sha256": "3996e988a00e94b02b741b08e5a3f8ca3f0499e321b830d99d78aeaf14f05858"
+      },
+      "original_response": "match-2399417.html.gz",
+      "stored_sha256": "3996e988a00e94b02b741b08e5a3f8ca3f0499e321b830d99d78aeaf14f05858",
+      "facts": {
+        "teams": [
+          null,
+          ""
+        ],
+        "starts_at": "2026-10-18T15:00:00Z",
+        "event": "Thunderpick World Championship 2026",
+        "event_url": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+        "finished": false,
+        "score": null,
+        "maps": [],
+        "lineups": [],
+        "best_of": 5
+      }
+    }
+  ]
+}

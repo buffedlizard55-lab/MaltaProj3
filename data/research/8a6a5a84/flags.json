@@ -1,0 +1,26 @@
+[
+  {
+    "id": "8a6a5a84-twc-day4-scope",
+    "severity": "warning",
+    "title": "TWC tournament listings and weekly inventory are different scopes",
+    "detail": "Dated research at 2026-10-16T19:35Z found HLTV listing FURIA–Aurora on 17 October at 14:00 UTC and Falcons versus the BETBOOM/Legacy winner at 17:00 UTC. Neither was in the reconciled 21-active-fixture weekly Hotspawn snapshot. The tournament metadata reports 16 fixtures but does not establish 16 current weekly picks or confirm every opponent. Day-4 rows are refreshed automatically; no price, lock or opponent is inferred when a unique canonical fixture is missing. See /twc-picks/ and the dated originals in data/research/8a6a5a84/twc-current/.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+      "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/events/8932/thunderpick-world-championship-2026"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "8a6a5a84-day3-partial-results",
+    "severity": "notice",
+    "title": "Day-3 results are individually observed, not inferred from the clock",
+    "detail": "Retained HLTV originals at 2026-10-16T19:35:22Z report Aurora 2–0 9z (Cache 13–11, Inferno 13–4). BETBOOM–Legacy was not marked Match over: Nuke 16–13 and Dust2 11–13 were recorded, but the series winner remained unverified. The automated research step rechecks both pages; this dated note is not a current result feed. HLTV is an independent reporter, not tournament-organizer confirmation. No result changes a pre-match probability retroactively.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026"
+    ],
+    "match_ids": []
+  }
+]
