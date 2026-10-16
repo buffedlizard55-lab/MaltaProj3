@@ -1,3 +1,14 @@
+# Current session: arena-3f7af811 — Day-4 TWC and complete-picks final audit
+
+Claimed 2026-10-16T23:51Z on the fixed Arena branch `arena/3f7af811-maltaproj3`. Read the complete shared board and current repository state before claiming. All implementation rows in the current board are complete; `gh pr list --state open` returned no open PRs. The latest Pages publisher run inspected at claim time was [38978237118](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38978237118), SUCCESS (22:55:46Z). No other active implementation scope is being overlapped. Arena's fixed branch requirement supersedes the requested `session-<id>/<task>` naming.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| A3-1 Independent final audit of the latest published Day-3 results / Day-4 TWC guide, every active Hotspawn CS2 fixture, source/price limitations, and phone-first executive-summary navigation; correct only verified defects and publish a dated audit | in progress | arena-3f7af811 | new `data/research/3f7af811/`; `scripts/build.py`; `scripts/build_twc.py`; `tests/test_twc_day4.py`; `tests/test_verify_live.py`; `tests/browser/twc-day4.spec.mjs`; `README.md`; this board | Compare public output to the actual successful runner snapshot and official linked sources. Preserve unsupported values as blank; no Hotspawn popularity or unverified TWC listing may become a probability. |
+| A3-2 Final integration, build/test/source-row/link/mobile checks, PR, merge and actual Pages deployment verification | in progress | arena-3f7af811 | `COORDINATION.md` release record; only the A3-1 files above if corrections are needed | Keep the existing single scheduled publisher; do not create a competing writer or promise schedule delivery. |
+
+---
+
 # Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
 
 Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
