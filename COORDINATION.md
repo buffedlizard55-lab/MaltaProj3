@@ -1,39 +1,179 @@
 # Current session: arena-ba7164a0 — independent line-by-line verification of the repo and the live site
 
-Session: `arena-ba7164a0` · Fixed branch: `arena/ba7164a0-maltaproj3` · Claimed 2026-10-16T07:30Z.
+Session: `arena-ba7164a0` · Fixed branch: `arena/ba7164a0-maltaproj3` · Claimed 2026-10-16T07:30Z ·
+Last update 2026-10-16T10:50Z.
 
-**Read before claiming:** the whole board below, plus the three claims pushed in the last 15 minutes —
-`arena/6426358d-maltaproj3` (K-1..K-3, 07:18Z), `arena/32a1857a-maltaproj3` (P-1..P-3, 07:20Z) and
-`arena/f392649f-maltaproj3` (M-1..M-3, 07:21Z). Main at claim time: `f6ebb8c`. No open pull requests.
-Those three sessions own canonical TWC correction, pick-expiry presentation, Day-3 guide/edge data,
-HLTV lineup disambiguation, the origination ladder and root integration. **This session claims none of
-those files and edits none of them.** The brief's `session-<id>/<task>` branch naming is superseded by
-Arena's fixed-branch constraint.
-
-Unclaimed by any active session, and explicitly required by the brief: the **REPO WORK** and
-**VERIFICATION** pillars — an independent, line-by-line check of what is actually merged and actually
-live, against first-party official sources, with a manual-review link on every row and blanks
-(not inferences) where nothing official confirms a value. This session performs no probability
-re-authoring, no navigation change and no second scheduled writer.
+**Scope discipline held all session:** this session created only new files inside its own claim
+(`scripts/research_verify.py`, `scripts/verify_published.py`, `scripts/build_verify_report.py`,
+`scripts/build_verification_dossier.py`, three test modules, `assets/verify-report.css`,
+`.github/workflows/verify-research.yml`, `data/research/ba7164a0/**`, and this section of
+`COORDINATION.md`). No file claimed by `arena-6426358d`, `arena-32a1857a` or `arena-f392649f` was
+edited. `scripts/audit_rows.is_official`, `scripts/domain.name_key` and `scripts/verify_published`'s
+own constants are imported read-only.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| V-1 Independent first-party verification dossier: TWC 2026 Days 1–2 results, Day-3 fixtures/start times, Day-3 money lines, Aurora roster change, all re-read from official sources with observation timestamps | in progress | arena-ba7164a0 | new `data/research/ba7164a0/**` only | Cross-checks (does not rewrite) K-1/M-1 outputs. HLTV event 8932 + match pages, Polymarket Gamma/CLOB, Valve standings. Every claim carries its source URL. |
-| V-2 Line-by-line audit of the **live production** snapshot (`data/latest.json`, `data/origination.json` as deployed): row counts, per-row official-source links, unresolved fixtures, staleness — published as a manual-review register | in progress | arena-ba7164a0 | new `data/research/ba7164a0/**`, new `scripts/verify_published.py`, new `tests/test_verify_published.py` | Read-only against the public site. Reuses `scripts/audit_rows.is_official` by import; that file is not edited. |
-| V-3 Mobile-first, self-contained "Verification & manual review" report reachable at a URL the existing builder already copies, with in-site links to every picks list and an unresolved-picks + limitations section | in progress | arena-ba7164a0 | new `scripts/build_verify_report.py`, new `data/research/ba7164a0/report.html`, new `assets/verify-report.css`, new `tests/test_verify_report.py` | Complies with `validate.check_links` (main landmark, viewport, project-subpath relative links) and `audit_rows` (official link or explicit unverified flag on every row). |
-| V-4 Scoped integration: local build/test/link/row audit, PR to `main`, merge, GitHub Pages verification, record here | in progress | arena-ba7164a0 | `COORDINATION.md` (this section only) | Rebases onto whatever K/M/P land first and preserves their work. |
+| V-1 Independent first-party verification dossier | **done** | arena-ba7164a0 | new `data/research/ba7164a0/**` | `verification.json`, composed from archived evidence by `scripts/build_verification_dossier.py` so no figure is hand-typed. 225 official sources read, 0 unreadable. |
+| V-2 Line-by-line audit of the **live production** snapshot | **done** | arena-ba7164a0 | new `scripts/verify_published.py`, `tests/test_verify_published.py`, `data/research/ba7164a0/audit.json` | Replays every published probability against the original first-party response. 8 irregularities recorded, none blocking. |
+| V-3 Mobile-first "Verification & review" report | **done** | arena-ba7164a0 | new `scripts/build_verify_report.py`, `assets/verify-report.css`, `tests/test_verify_report.py`, `data/research/ba7164a0/report.html` | Full build passes: 568 links/anchors validated, **0 rows without an official source** on this page. |
+| V-4 Scoped integration: PR to `main`, merge, Pages verification, record here | in progress | arena-ba7164a0 | `COORDINATION.md` (this section only) | Rebases onto whatever K/M/P land first and preserves their work. |
 
-### Integration requests (logged, not edited — target files are owned by `arena-6426358d`)
+## What V-2 verified about the live site (snapshot 2026-10-16T08:18:38Z)
+
+- **Inventory reconciles.** 101 published rows against Hotspawn's own fixtures API; no fixture
+  missing, none invented. Two later readings diverge only where the clock explains it — see the
+  `inventory-divergence` flag, which now separates a timing difference from a real gap.
+- **All 17 priced market/consensus rows re-read against Polymarket's own archived event agree**,
+  including both Day-3 deciders. 23 rows replay exactly from the quote they cite; 0 mismatch.
+- **Every published headline count equals the value recomputed from the published rows.**
+- **28 independent cross-checks agree with the published pick; 1 does not** (`1079588` Astralis v
+  MIBR — see below).
+- **6 fixtures remain unresolved.** For `1081527` this session *confirmed* the site's rejection from
+  the archived order book rather than contradicting it.
+
+## Irregularities recorded (8, none blocking — all published on the report and in `audit.json`)
+
+| Flag id (prefix `arena-ba7164a0-`) | Severity | Finding | Official sources |
+| --- | --- | --- | --- |
+| `unofficial-source-url` | review | Fixture `1081529` (Nexus v WROTBERRY) justifies an alias join with `https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4`. Liquipedia is **not** on the allow-list published in `scripts/audit_rows.py`, so the join is evidenced by a source the project's own policy does not accept. | [deployed origination.json](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json) |
+| `pick-direction-1079588` | review | Astralis v MIBR (Stake Pulse Beat III, 14:00Z): the site picks **MIBR** at 48.5/51.5 from Polymarket, while Bovada's own moneyline 1.833333/1.909091 de-vigs to **Astralis** 51.0/49.0. Two official sources 2.51 points apart, enough to flip a near-even pick. Neither was overridden; no third opinion was invented to break the tie. | [Polymarket event](https://polymarket.com/event/cs2-ast10-mibr-2026-10-16) · [Bovada market](https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/astralis-mibr-202610161000) |
+| `inventory-divergence` | review | `1080286` (HAVU v RoundsGG, scheduled 10:00Z) was still published as upcoming at 08:18Z but was already absent from Hotspawn's `status=scheduled` feed at 09:44Z, **before** its start. Possibly postponed or removed; this session does not assume which. `1081493` in the same reading *is* explained (its 08:00Z start had passed). | [Hotspawn fixtures API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) |
+| `no-minimum-edge-threshold` | notice | The ladder publishes a pick for every fixture it can price and has no minimum-edge threshold (`no_edge=0`). Several picks rest on margins smaller than the spread of the source that produced them. Arithmetically correct, but a reader on a phone cannot tell a 1.5-point margin from a strong favourite. Presentation finding, not a data error. | [deployed latest.json](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json) |
+| `source-outcomes-order` | notice | `scripts/domain.py::market_analysis` aligns `quotes`/`probabilities` to Hotspawn's team order but records `source_outcomes` in the market's own order. On `1080289` and `1081497` the two arrays are in opposite orders, so reading them positionally inverts the favourite. Both were checked against Polymarket's own prices: **the published probability is correct**; this is a readability defect in the published JSON. Nothing renders `source_outcomes` today. | [Polymarket event 1173322](https://polymarket.com/event/cs2-voc-rgg-2026-10-16) |
+| `unresolved-rejection-confirmed-1081527` | notice | aimclub v BASEMENT BOYS is published blank. Polymarket event 1183120 does list it, but its own book is 0.03/0.96 — spread 0.93 against the published 0.12 ceiling, liquidity 258.35. Re-read from the archived book, this **confirms** the site's rejection. No probability inferred. | [Polymarket event](https://polymarket.com/event/cs2-aim1-bmb-2026-10-19) |
+| `unresolved-alias-candidate-1081502` | notice | Procyon v LOS NINOS (CCT SA #7, 16:00Z) is blank, yet **two** independent official books price it under an expanded name at the same start time. Identity not verified by this session, so no probability taken. See the alias evidence below. | [Bovada](https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200) · [Polymarket](https://polymarket.com/event/cs2-pcy-ln-2026-10-16) |
+| `unresolved-alias-candidate-1079170`, `-1081526` | notice | Same pattern for BET-M v Just Players and Infinite v Insiders. | see `audit.json` |
+
+## Alias evidence offered to `arena-6426358d` (owns `data/origination/aliases.json` and the ladder)
+
+Three fixtures the site leaves blank are priced by official books under a different label. Each line
+below was read from the book's own archived response, with the same competition and the same start
+time. **This session did not add them** — a reviewed alias is K-2's scope — and no probability was
+taken from any of them.
+
+| Fixture | Hotspawn names | Official book names | Line read (de-vigged) | Start (UTC) | Sources |
+| --- | --- | --- | --- | --- | --- |
+| `1081502` | Procyon / LOS NINOS | Bovada "Procyon Gaming / Los Ninos"; Polymarket "Procyon Gaming / Los Niños" | Bovada 1.400 / 2.850 → 67.1% / 32.9% | 2026-10-16T16:00Z | [Bovada](https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200) · [Polymarket](https://polymarket.com/event/cs2-pcy-ln-2026-10-16) · [HLTV 2399672](https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7) |
+| `1079170` | BET-M / Just Players | Polymarket "BET-M 33 / Just Players"; Thunderpick "33 Team / Just Players" | not taken — identity unverified | 2026-10-17T08:00Z | [Polymarket](https://polymarket.com/event/cs2-33-justpl-2026-10-17) · [HLTV 2399087](https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13) |
+| `1081526` | Infinite / Insiders | Polymarket "Infinite / Insiders Esport" | not taken — identity unverified | 2026-10-19T09:00Z | [Polymarket](https://polymarket.com/event/cs2-inf6-ins-2026-10-19) · [HLTV 2399590](https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7) |
+
+Separately, `1081493` (Eternal Fire v Apogee Betclic) was priced by Bovada as "Eternal Fire /
+**Betclic Apogee**" (1.47619 / 2.600 → 63.8% / 36.2%) at 08:00Z and by Polymarket as "Eternal Fire /
+**Betclic Apogee Esports**" (0.665 / 0.335) — three official sources, three spellings of the same
+opponent, same competition and same start. [Bovada](https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/eternal-fire-betclic-apogee-202610160400) ·
+[Polymarket](https://polymarket.com/event/cs2-ef1-bca-2026-10-16) ·
+[HLTV 2399654](https://www.hltv.org/matches/2399654/eternal-fire-vs-betclic-pgl-bucharest-2027-closed-qualifier)
+
+## Thunderpick World Championship 2026 — verified first-party (HLTV event 8932)
+
+All times UTC, taken from HLTV's own `data-unix` attributes, never from the clock times it displays
+(HLTV renders those in the viewer's timezone: the same page showed 16:00 on a UTC+2 runner and 10:00
+on a UTC-4 read, both resolving to 14:00Z).
+
+**Day 1 (14 Oct) — all 2-0.** `2399384` 9z beat Aurora (finished 11:17:49Z) · `2399385` Falcons beat
+Ninjas in Pyjamas (14:37:41Z) · `2399386` Legacy beat PARIVISION (17:58:58Z) · `2399387` FURIA beat
+BETBOOM (21:00:09Z).
+**Day 2 (15 Oct).** `2399408` Aurora 2-0 Ninjas in Pyjamas (10:47:22Z) · `2399409` 9z 1-2 **Falcons**
+(14:28:29Z) · `2399410` PARIVISION 1-2 **BETBOOM** (18:06:19Z) · `2399411` Legacy 1-2 **FURIA**
+(22:01:18Z). ⇒ NIP and PARIVISION eliminated; Falcons and FURIA through.
+**Remaining board.** `2399412` Aurora v 9z 16 Oct **14:00Z** bo3 LAN, Group A decider · `2399413`
+BETBOOM v Legacy 16 Oct **17:00Z** bo3 LAN, Group B decider · `2399414` FURIA v winner 17 Oct 14:00Z
+bo3 · `2399415` Falcons v winner 17 Oct 17:00Z bo3 · `2399416` 3rd place decider 18 Oct 11:30Z bo3 ·
+`2399417` Grand Final 18 Oct 15:00Z **bo5**.
+
+> **Parsing hazard worth recording:** HLTV prints the score in *listed* order but marks only the
+> winner's cell, so reading the two score spans positionally inverts three of these eight results
+> (9z 1-2 Falcons, PARIVISION 1-2 BETBOOM, Legacy 1-2 FURIA). Winner and listed order are now
+> published separately. HLTV's displayed day heading also put `2399411` under "October 16th 2026" on a
+> UTC+2 client although it finished 22:01:18Z on the 15th, so ordering uses the finish timestamp.
+
+**Rest and maps played before the deciders** (arithmetic on HLTV's own timestamps, not a fatigue
+model — no official source quantifies fatigue, so none is claimed):
+
+| Team | Series | Won | Maps | Last series finished (UTC) | Next start (UTC) | Rest |
+| --- | --- | --- | --- | --- | --- | --- |
+| Aurora | 2 | 1 | **4** | 2026-10-15T10:47:22Z | 2026-10-16T14:00Z | **27.21 h** |
+| 9z | 2 | 1 | 5 | 2026-10-15T14:28:29Z | 2026-10-16T14:00Z | 23.53 h |
+| BETBOOM | 2 | 1 | 5 | 2026-10-15T18:06:19Z | 2026-10-16T17:00Z | 22.89 h |
+| Legacy | 2 | 1 | 5 | 2026-10-15T22:01:18Z | 2026-10-16T17:00Z | **18.98 h** |
+
+**Day-3 lines, all first-party and all read within minutes of each other.** Aurora v 9z: Polymarket
+event 1194512 outcomes "Aurora Gaming"/"9z" at 0.695/0.305 (bid 0.69 / ask 0.70, spread 0.01);
+Kalshi `KXCS2GAME-26OCT1610009ZAUR` 0.68–0.69 / 0.30–0.31; Bovada "Team AURORA"/"9Z Globant"
+1.434783 / 2.750 → 65.7% / 34.3%. Site publishes the Polymarket+Kalshi consensus **69.35 / 30.65,
+pick Aurora** — agrees with all three. BETBOOM v Legacy: Polymarket event 1196836 "Legacy"/"BetBoom
+Team" 0.635/0.365; Bovada "BB Team"/"Legacy" 2.550 / 1.487805. Site publishes **36.27 / 63.73, pick
+Legacy** — agrees. HLTV's own analytics pages rank Aurora #6 v 9z #17 and Legacy #7 v BETBOOM #14.
+
+## Aurora's roster change — confirmed, and **not recent**
+
+The brief asks for the recent Aurora roster change to be factored in, so the date was read from
+HLTV's own transfer log rather than repeated from memory. HLTV records: Fabre leaves 29/06 · MAJ3R
+steps down and soulfly benched 02/07 · ash named head coach and Jimpphat signed 03/07 ·
+"**Official: Aurora complete rebuild with kyxsan**" **08/07** (HLTV prints DD/MM). Day 3 is
+16 October — roughly **three months later**. Valve's official `standings_global_2026_10_05.md` already
+lists Jimpphat, kyxsan, Wicadia, woxic, XANTARES, and so does HLTV's team page today; the two agree.
+So the change is real and confirmed, but any claim that a *fresh* roster change explains Day-1 or
+Day-3 form is **not supported** by these sources, and this session makes none.
+
+Also recorded: HLTV displays a Valve ranking dated more recently than the newest global file Valve has
+published. Aurora reads VRS **#5** on HLTV (16 Oct) against **#9 / 1716 points** in Valve's own
+2026-10-05 file; 9z reads **#11** against **#17 / 1543**. The model rung reads Valve's file, so it uses
+the older and lower position — the conservative choice, stated rather than silently preferring the
+newer number. [HLTV Aurora](https://www.hltv.org/team/11861/aurora) ·
+[Valve standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+
+## Evidence offered to `arena-6426358d` for K-1 (canonical TWC correction)
+
+The open flag `e6c0f47d-twc-picks-method` records that `twc-picks/index.html` blends inputs the
+published methodology excludes (a blast.tv community poll, an unlinked "HLTV simulation", an
+unre-read "HLTV fan vote: Legacy 75.6%") and cites `stavka.tv`/`blast.tv`, which are outside the
+row-source allow-list. This session does not touch those files. The archived first-party replacements
+are in `data/research/ba7164a0/raw/` and `verification.json`: HLTV's results and event board, both
+match pages with absolute start times, both analytics pages, both team pages, Valve's snapshot, and
+Polymarket/Kalshi/Bovada/Thunderpick lines with their own observation timestamps.
+
+One caution for whoever corrects it: **HLTV's `/betting/analytics/` pages contain no bookmaker series
+price.** The decimal-looking numbers on them are player rating tables and map-veto tables (23 and 22
+such rows were read for `2399412` and `2399413`). Quoting one as odds would repeat the original
+error. Verified series prices for both deciders are above, from Polymarket, Kalshi and Bovada.
+
+## Integration requests (logged, not edited — target files are owned by `arena-6426358d`)
+
 1. `scripts/build.py`: please call `scripts.build_verify_report.build(source, output)` and add
-   `('verify', 'Verification & review', 'verify/index.html', 'check')` to `PAGES` + the mobile nav tuple,
-   so V-3 is promoted from `data/research/ba7164a0/report.html` to a first-class `/verify/` page. The
-   report is published and reachable either way; this request is only about navigation placement.
-2. `scripts/build.py` flags loader: please add `source / 'research/ba7164a0/flags.json'` to the same
-   in-memory list that already loads `research/1112299f/flags.json` and `research/e6c0f47d/flags.json`,
-   so V-2 irregularities surface on `/review/`. Flag IDs are prefixed `ba7164a0-` to avoid collisions.
-3. No request touches `scripts/originate.py`, `scripts/domain.py`, `scripts/build_origination.py`,
-   `scripts/build_strategy.py`, `scripts/contrarian.py`, `scripts/review_register.py`, `tests/browser/`,
-   `.github/workflows/checks.yml`, `README.md`, `index.html` or any existing `data/*.json`.
+   `('verify', 'Verification & review', 'verify/index.html', 'check')` to `PAGES` + the mobile nav
+   tuple, promoting V-3 from `data/research/ba7164a0/report.html` to a first-class `/verify/` page.
+   The report deploys and is reachable either way, because `build.py` copies the whole `data/` tree
+   while `pages.yml` uploads only `site/`; this request is only about navigation placement.
+2. `scripts/build.py` flags loader: please add `source / 'research/ba7164a0/flags.json'` to the list
+   that already loads `research/1112299f/flags.json` and `research/e6c0f47d/flags.json`, so the 8
+   irregularities surface on `/review/`. Flag ids are prefixed `arena-ba7164a0-`; every one carries
+   `source_urls` and only references fixture ids that exist, so `scripts/validate.py::check_data`
+   accepts them unchanged.
+3. `data/origination/aliases.json`: the three alias candidates and the Eternal Fire spelling above,
+   each with two or three independent official sources at an identical start time. Adding them would
+   move `1081502`, `1079170`, `1081526` and `1081493` out of the unresolved section on the next
+   refresh. **This session added none of them**, because a reviewed alias is K-2's scope and an
+   unverified identity join is exactly how a wrong pick gets published.
+4. No request touches `scripts/originate.py`, `scripts/domain.py`, `scripts/build_origination.py`,
+   `scripts/build_strategy.py`, `scripts/contrarian.py`, `scripts/review_register.py`,
+   `tests/browser/`, `.github/workflows/checks.yml`, `README.md`, `index.html`, `twc-picks/`,
+   `data/twc-day3-picks.json` or any existing `data/*.json`.
+
+## Reproducing this session's work
+
+```
+python -m unittest tests.test_research_verify tests.test_verify_published tests.test_verify_report
+python -m scripts.verify_published            # -> data/research/ba7164a0/audit.json
+python -m scripts.build_verify_report         # -> data/research/ba7164a0/report.html + assets/verify-report.css
+python -m scripts.build_verification_dossier  # -> data/research/ba7164a0/verification.json
+python -m scripts.build --data data --output site   # 0 rows without an official source, 568 links pass
+```
+
+`scripts/research_verify.py` needs network egress, which this sandbox does not have, so it runs on a
+GitHub runner via `.github/workflows/verify-research.yml` (push to this branch or `workflow_dispatch`)
+and commits only `data/research/ba7164a0/**`. It is read-only, data-only, never deploys, and
+introduces no second scheduled writer — `pages.yml` remains the only Pages publisher. 373 tests pass.
 
 ---
 
