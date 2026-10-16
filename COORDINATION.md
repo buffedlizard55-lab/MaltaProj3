@@ -1,3 +1,42 @@
+# Current session: arena-ba7164a0 — independent line-by-line verification of the repo and the live site
+
+Session: `arena-ba7164a0` · Fixed branch: `arena/ba7164a0-maltaproj3` · Claimed 2026-10-16T07:30Z.
+
+**Read before claiming:** the whole board below, plus the three claims pushed in the last 15 minutes —
+`arena/6426358d-maltaproj3` (K-1..K-3, 07:18Z), `arena/32a1857a-maltaproj3` (P-1..P-3, 07:20Z) and
+`arena/f392649f-maltaproj3` (M-1..M-3, 07:21Z). Main at claim time: `f6ebb8c`. No open pull requests.
+Those three sessions own canonical TWC correction, pick-expiry presentation, Day-3 guide/edge data,
+HLTV lineup disambiguation, the origination ladder and root integration. **This session claims none of
+those files and edits none of them.** The brief's `session-<id>/<task>` branch naming is superseded by
+Arena's fixed-branch constraint.
+
+Unclaimed by any active session, and explicitly required by the brief: the **REPO WORK** and
+**VERIFICATION** pillars — an independent, line-by-line check of what is actually merged and actually
+live, against first-party official sources, with a manual-review link on every row and blanks
+(not inferences) where nothing official confirms a value. This session performs no probability
+re-authoring, no navigation change and no second scheduled writer.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| V-1 Independent first-party verification dossier: TWC 2026 Days 1–2 results, Day-3 fixtures/start times, Day-3 money lines, Aurora roster change, all re-read from official sources with observation timestamps | in progress | arena-ba7164a0 | new `data/research/ba7164a0/**` only | Cross-checks (does not rewrite) K-1/M-1 outputs. HLTV event 8932 + match pages, Polymarket Gamma/CLOB, Valve standings. Every claim carries its source URL. |
+| V-2 Line-by-line audit of the **live production** snapshot (`data/latest.json`, `data/origination.json` as deployed): row counts, per-row official-source links, unresolved fixtures, staleness — published as a manual-review register | in progress | arena-ba7164a0 | new `data/research/ba7164a0/**`, new `scripts/verify_published.py`, new `tests/test_verify_published.py` | Read-only against the public site. Reuses `scripts/audit_rows.is_official` by import; that file is not edited. |
+| V-3 Mobile-first, self-contained "Verification & manual review" report reachable at a URL the existing builder already copies, with in-site links to every picks list and an unresolved-picks + limitations section | in progress | arena-ba7164a0 | new `scripts/build_verify_report.py`, new `data/research/ba7164a0/report.html`, new `assets/verify-report.css`, new `tests/test_verify_report.py` | Complies with `validate.check_links` (main landmark, viewport, project-subpath relative links) and `audit_rows` (official link or explicit unverified flag on every row). |
+| V-4 Scoped integration: local build/test/link/row audit, PR to `main`, merge, GitHub Pages verification, record here | in progress | arena-ba7164a0 | `COORDINATION.md` (this section only) | Rebases onto whatever K/M/P land first and preserves their work. |
+
+### Integration requests (logged, not edited — target files are owned by `arena-6426358d`)
+1. `scripts/build.py`: please call `scripts.build_verify_report.build(source, output)` and add
+   `('verify', 'Verification & review', 'verify/index.html', 'check')` to `PAGES` + the mobile nav tuple,
+   so V-3 is promoted from `data/research/ba7164a0/report.html` to a first-class `/verify/` page. The
+   report is published and reachable either way; this request is only about navigation placement.
+2. `scripts/build.py` flags loader: please add `source / 'research/ba7164a0/flags.json'` to the same
+   in-memory list that already loads `research/1112299f/flags.json` and `research/e6c0f47d/flags.json`,
+   so V-2 irregularities surface on `/review/`. Flag IDs are prefixed `ba7164a0-` to avoid collisions.
+3. No request touches `scripts/originate.py`, `scripts/domain.py`, `scripts/build_origination.py`,
+   `scripts/build_strategy.py`, `scripts/contrarian.py`, `scripts/review_register.py`, `tests/browser/`,
+   `.github/workflows/checks.yml`, `README.md`, `index.html` or any existing `data/*.json`.
+
+---
+
 # Shared coordination board
 
 ## Session: `arena-9db9ccd4` · Branch: `arena/9db9ccd4-maltaproj3`
