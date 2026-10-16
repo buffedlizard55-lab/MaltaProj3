@@ -63,6 +63,18 @@ class MoneylineContract(unittest.TestCase):
         self.assertEqual(moneyline_markets({}), [])
         self.assertEqual(moneyline_markets(None), [])
 
+    def test_both_gamma_cs2_tag_spellings_are_accepted(self):
+        # Gamma tags the listing `cs2` but a single-event read of the same event
+        # `counter-strike-2`; requiring only the first silently dropped all 67
+        # per-match events on the second probe run (archived: gamma-event-1133922.json).
+        for tag in ('cs2', 'counter-strike-2'):
+            with self.subTest(tag=tag):
+                event = dict(EVENT, tags=[{'slug': 'esports'}, {'slug': tag}])
+                self.assertEqual(len(moneyline_markets(event)), 1)
+
+    def test_a_cs2_prefixed_slug_without_a_cs2_tag_is_still_rejected(self):
+        self.assertEqual(moneyline_markets(dict(EVENT, tags=[{'slug': 'esports'}])), [])
+
 
 SCHEDULE_HTML = '''<html><body>
 <h2>Friday - 2026-10-16</h2>
@@ -234,46 +246,150 @@ class ValveReplay(unittest.TestCase):
         self.assertTrue(any('appears 2 times' in note for note in rows['limitations']))
 
 
+def bovada_event(description, start_ms, outcomes, *, key='2W-12', status='O', main=True,
+                 live_period=False, event_live=False, event_type='GAMEEVENT', link='/x'):
+    """Build a Bovada coupon response (a list of league groups) with one event in it."""
+    return [{
+        'path': [{'description': 'Counter-Strike 2'}, {'description': 'Esports'}],
+        'events': [{
+            'id': '32299372', 'description': description, 'type': event_type, 'live': event_live,
+            'startTime': start_ms, 'link': link,
+            'competitors': [{'name': o[0]} for o in outcomes],
+            'displayGroups': [{'markets': [{
+                'id': '536148496', 'key': key, 'description': 'Moneyline', 'status': status,
+                'period': {'main': main, 'live': live_period},
+                'outcomes': [{'description': name, 'status': status,
+                              'price': {'decimal': decimal, 'american': american}}
+                             for name, decimal, american in outcomes],
+            }]}],
+        }],
+    }]
+
+
+class BovadaContract(unittest.TestCase):
+    """Deterministic: the accepted/rejected market rules, pinned to fixed payloads."""
+
+    TWC_AURORA = 1792159200000  # 2026-10-16T14:00:00Z, as archived on the first probe run
+
+    def test_the_main_open_prematch_moneyline_is_read_with_both_prices(self):
+        rows = bovada_moneylines(bovada_event(
+            'Team AURORA vs 9Z Globant', self.TWC_AURORA,
+            [('Team AURORA', '1.434783', '-230'), ('9Z Globant', '2.750', '+175')]))
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row['start_utc'], '2026-10-16T14:00:00+00:00')
+        self.assertEqual(row['moneyline_markets'], 1)
+        self.assertTrue(row['prematch_main_moneyline'])
+        self.assertEqual([o['name'] for o in row['outcomes']], ['Team AURORA', '9Z Globant'])
+        self.assertEqual([o['decimal'] for o in row['outcomes']], ['1.434783', '2.750'])
+        self.assertEqual(row['source_url'], 'https://www.bovada.lv/x')
+
+    def test_a_map_handicap_key_is_never_read_as_a_series_moneyline(self):
+        rows = bovada_moneylines(bovada_event(
+            'A vs B', self.TWC_AURORA, [('A', '1.50', '-200'), ('B', '2.50', '+150')], key='2W-45'))
+        self.assertEqual(rows[0]['moneyline_markets'], 0)
+        self.assertEqual(rows[0]['outcomes'], [])
+
+    def test_a_live_period_or_closed_market_is_never_flagged_prematch(self):
+        for kwargs in ({'live_period': True}, {'status': 'C'}, {'main': False},
+                       {'event_live': True}, {'event_type': 'OTHER'}):
+            with self.subTest(**kwargs):
+                rows = bovada_moneylines(bovada_event(
+                    'A vs B', self.TWC_AURORA, [('A', '1.50', '-200'), ('B', '2.50', '+150')], **kwargs))
+                self.assertFalse(rows[0]['prematch_main_moneyline'],
+                                 'a non-prematch or non-main market must not be usable as a series line')
+
+    def test_an_in_play_event_is_recorded_verbatim_and_flagged_unusable(self):
+        # The probe records what the feed said; it never silently drops a row. The
+        # event-level facts stay visible so a reviewer can see why it was rejected.
+        rows = bovada_moneylines(bovada_event(
+            'A vs B', self.TWC_AURORA, [('A', '1.50', '-200'), ('B', '2.50', '+150')], event_live=True))
+        self.assertIs(rows[0]['live'], True)
+        self.assertEqual(rows[0]['event_type'], 'GAMEEVENT')
+        self.assertEqual(rows[0]['moneyline_markets'], 1)
+        self.assertEqual(len(rows[0]['outcomes']), 2)
+        self.assertFalse(rows[0]['prematch_main_moneyline'])
+
+
 @unittest.skipUnless((RAW / 'bovada-cs2.json').exists(), 'archived Bovada coupon not committed')
 class BovadaReplay(unittest.TestCase):
+    """Structural invariants over the archived coupon.
+
+    Prices and which fixtures are still prematch both move between refreshes, so no
+    specific odds value is asserted here; those are recorded with their observation
+    timestamp in the audit dossier instead.
+    """
+
     def setUp(self):
         self.rows = bovada_moneylines(json.loads((RAW / 'bovada-cs2.json').read_text()))
-        self.by_event = {r['description']: r for r in self.rows}
 
-    def test_only_the_main_open_prematch_moneyline_is_kept(self):
-        self.assertTrue(self.rows, 'no Bovada moneyline extracted')
+    def test_every_archived_event_is_a_prematch_game_event(self):
+        self.assertTrue(self.rows, 'no Bovada event extracted')
         for row in self.rows:
             self.assertEqual(row['event_type'], 'GAMEEVENT')
             self.assertIs(row['live'], False)
-            self.assertEqual(len(row['outcomes']), 2, 'a series moneyline has exactly two priced outcomes')
-            for outcome in row['outcomes']:
-                self.assertEqual(outcome['status'], 'O')
-                self.assertGreater(float(outcome['decimal']), 1.0)
+            self.assertTrue(row['start_utc'].endswith('+00:00'))
 
-    def test_twc_day_three_deciders_are_both_priced(self):
-        aurora = self.by_event['Team AURORA vs 9Z Globant']
-        self.assertEqual(aurora['start_utc'], '2026-10-16T14:00:00+00:00')
-        self.assertEqual([o['name'] for o in aurora['outcomes']], ['Team AURORA', '9Z Globant'])
-        self.assertEqual(aurora['outcomes'][0]['decimal'], '1.434783')
-        self.assertEqual(aurora['outcomes'][1]['decimal'], '2.750')
-        legacy = self.by_event['BB Team vs Legacy']
-        self.assertEqual(legacy['start_utc'], '2026-10-16T17:00:00+00:00')
-        self.assertEqual([o['name'] for o in legacy['outcomes']], ['BB Team', 'Legacy'])
-        self.assertEqual(legacy['outcomes'][1]['decimal'], '1.500')
+    def test_every_priced_row_has_exactly_two_open_decimal_outcomes(self):
+        priced = [r for r in self.rows if r['prematch_main_moneyline']]
+        self.assertTrue(priced, 'the archived coupon has no usable prematch moneyline')
+        for row in priced:
+            with self.subTest(event=row['description']):
+                self.assertEqual(len(row['outcomes']), 2)
+                for outcome in row['outcomes']:
+                    self.assertEqual(outcome['status'], 'O')
+                    self.assertGreater(float(outcome['decimal']), 1.0)
 
-    def test_fixtures_the_pipeline_left_unresolved_are_priced_here(self):
-        self.assertIn('Procyon Gaming vs Los Ninos', self.by_event)
-        self.assertIn('Eternal Fire vs Betclic Apogee', self.by_event)
+    def test_a_row_without_an_open_main_moneyline_is_never_flagged_usable(self):
+        for row in self.rows:
+            if row['prematch_main_moneyline']:
+                continue
+            # Either no qualifying market, or a price that fails an open/decimal check.
+            self.assertTrue(row['moneyline_markets'] != 1 or len(row['outcomes']) != 2
+                            or any(o['status'] != 'O' or float(o['decimal']) <= 1.0
+                                   for o in row['outcomes']),
+                            f'{row["description"]}: flagged unusable without a recorded reason')
 
     def test_every_row_carries_its_own_bovada_source_url(self):
         for row in self.rows:
-            self.assertTrue(row['source_url'].startswith('https://www.bovada.lv/esports/counter-strike-2/'))
+            self.assertTrue(row['source_url'].startswith('https://www.bovada.lv/'))
+
+
+class ThunderpickContract(unittest.TestCase):
+    def test_only_a_two_selection_open_match_winner_market_is_read(self):
+        payload = {'data': {'upcoming': [
+            {'preferredMarkets': [
+                {'name': 'Match Winner', 'status': 1, 'eventId': 1, 'id': 2,
+                 'selections': [{'name': 'A', 'odds': 1.9, 'type': 'home', 'status': 1},
+                                {'name': 'B', 'odds': 1.95, 'type': 'away', 'status': 1}]},
+                {'name': 'Map Handicap', 'status': 1, 'eventId': 1, 'id': 3,
+                 'selections': [{'name': 'A', 'odds': 1.9, 'status': 1},
+                                {'name': 'B', 'odds': 1.9, 'status': 1}]},
+                {'name': 'Match Winner', 'status': 0, 'eventId': 1, 'id': 4,
+                 'selections': [{'name': 'A', 'odds': 1.9, 'status': 1},
+                                {'name': 'B', 'odds': 1.9, 'status': 1}]},
+            ]},
+            {'preferredMarkets': [
+                {'name': 'Match Winner', 'status': 1, 'eventId': 5, 'id': 6,
+                 'selections': [{'name': 'A', 'odds': 1.9, 'status': 1}]},
+            ]},
+        ]}}
+        rows = thunderpick_moneylines(payload)
+        self.assertEqual(len(rows), 1, 'handicap, closed and single-selection markets must be rejected')
+        self.assertEqual(rows[0]['market'], 'Match Winner')
+        self.assertEqual([s['odds'] for s in rows[0]['selections']], [1.9, 1.95])
+
+    def test_an_unrecognised_payload_yields_no_rows_rather_than_a_guess(self):
+        self.assertEqual(thunderpick_moneylines({}), [])
+        self.assertEqual(thunderpick_moneylines({'data': {}}), [])
+        self.assertEqual(thunderpick_moneylines('not a dict'), [])
 
 
 @unittest.skipUnless((RAW / 'thunderpick-cs2.json').exists(), 'archived Thunderpick coupon not committed')
 class ThunderpickReplay(unittest.TestCase):
     def test_match_winner_odds_are_two_selections_with_decimal_prices(self):
         rows = thunderpick_moneylines(json.loads((RAW / 'thunderpick-cs2.json').read_text()))
+        self.assertTrue(rows, 'no Thunderpick match-winner line extracted')
         for row in rows:
             self.assertEqual(row['market'], 'Match Winner')
             self.assertEqual(len(row['selections']), 2)

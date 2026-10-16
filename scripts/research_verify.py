@@ -142,17 +142,27 @@ class Probe:
 # Polymarket: independent moneylines (never Hotspawn popularity)
 # ---------------------------------------------------------------------------
 
+CS2_TAGS = ('cs2', 'counter-strike-2')
+
+
 def moneyline_markets(event: dict) -> list[dict]:
     """Series moneyline markets only, matching the published methodology's contract.
 
     Map/handicap/total/outright markets are excluded, so nothing here can be a
     disguised single-map price.
+
+    Both CS2 tag spellings are accepted because Gamma is inconsistent between its two
+    read paths: the ``tag_slug=cs2`` listing tags events ``cs2``, while a single-event
+    read of the same event (``/events/{id}``) tags it ``counter-strike-2``. Verified
+    against the archived response for event 1133922 (slug ``cs2-ssp1-lei-2026-10-05``,
+    tags esports/counter-strike-2/games/sports). Requiring only ``cs2`` silently
+    discarded all 67 per-match events on the second probe run.
     """
     found = []
     if not isinstance(event, dict) or not str(event.get('slug', '')).startswith('cs2-'):
         return found
     tags = [t.get('slug') for t in event.get('tags', []) if isinstance(t, dict)]
-    if 'cs2' not in tags:
+    if not any(tag in CS2_TAGS for tag in tags):
         return found
     for market in event.get('markets', []) or []:
         scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
@@ -749,7 +759,11 @@ def bovada_moneylines(response) -> list:
                             and market.get('status') == 'O'):
                         lines.append(market)
             outcomes = (lines[0].get('outcomes') if len(lines) == 1 else None) or []
-            rows.append({
+            priced = [{'name': o.get('description'),
+                       'decimal': (o.get('price') or {}).get('decimal'),
+                       'american': (o.get('price') or {}).get('american'),
+                       'status': o.get('status')} for o in outcomes]
+            row = {
                 'event_id': str(event.get('id')),
                 'description': event.get('description'),
                 'event_type': event.get('type'),
@@ -760,15 +774,29 @@ def bovada_moneylines(response) -> list:
                 'league': league,
                 'competitors': [c.get('name') for c in event.get('competitors') or [] if isinstance(c, dict)],
                 'moneyline_markets': len(lines),
-                'outcomes': [{'name': o.get('description'),
-                              'decimal': (o.get('price') or {}).get('decimal'),
-                              'american': (o.get('price') or {}).get('american'),
-                              'status': o.get('status')} for o in outcomes],
+                'outcomes': priced,
                 'market_id': str(lines[0].get('id')) if len(lines) == 1 else None,
                 'source_url': 'https://www.bovada.lv' + str(event.get('link') or ''),
                 'page_url': 'https://www.bovada.lv/sports',
-            })
+            }
+            # A verification probe records what the feed said; it does not silently drop
+            # rows. `event_type` and `live` are kept verbatim, and the conjunction of
+            # every prematch condition is published as one explicit flag so no consumer
+            # can mistake an in-play price for a prematch series line.
+            row['prematch_main_moneyline'] = bool(
+                event.get('type') == 'GAMEEVENT' and event.get('live') is False
+                and len(lines) == 1 and len(priced) == 2
+                and all(o.get('status') == 'O' for o in priced)
+                and all(_decimal_gt_one(o.get('decimal')) for o in priced))
+            rows.append(row)
     return rows
+
+
+def _decimal_gt_one(value) -> bool:
+    try:
+        return float(value) > 1.0
+    except (TypeError, ValueError):
+        return False
 
 
 def thunderpick_moneylines(response) -> list:
