@@ -180,6 +180,14 @@ class LeaderboardPresentationTests(unittest.TestCase):
         self.assertEqual(len(card.select('.prob .num')), 2)
         self.assertEqual(pl['rows'][0]['p'], [0.65, 0.35])
 
+    def test_no_swap_favorite_instruction_also_has_runtime_expiry_guard(self):
+        data = strategy_inputs([fixture(probabilities=[0.9, 0.1])])
+        pl, soup = self.render(data)
+        self.assertEqual(pl['summary']['swaps'], 0)
+        self.assertIsNotNone(soup.select_one('.callout.calm[data-safety-synopsis]'))
+        self.assertNotIn('today, costing', soup.get_text())
+        self.assertIn('across the listed fixtures (capped per UTC day)', soup.get_text())
+
     def test_unbound_and_unverified_inventory_have_no_current_advice_even_for_favorites(self):
         for kwargs, expected in (({'bound': False}, 'unbound-snapshot'), ({'complete': False}, 'inventory-unverified')):
             pl, soup = self.render(strategy_inputs(**kwargs))
@@ -200,8 +208,10 @@ def write_fixtures(directory):
         target.mkdir(exist_ok=True)
         target.joinpath('index.html').write_text(build_origination.page(payload(rows, inventory), complete, now=NOW))
     for name, kwargs in [('strategy', {}), ('stale-strategy', {'inventory': '2026-10-16T00:00:00Z'}),
-                         ('mismatch-strategy', {'bound': False})]:
-        data = strategy_inputs([fixture(), fixture('edge', observed='2026-10-16T01:00:00Z')], **kwargs)
+                         ('mismatch-strategy', {'bound': False}), ('no-upsets-strategy', {'matches': [fixture(probabilities=[0.9, 0.1])]})]:
+        defaults = {'matches': [fixture(), fixture('edge', observed='2026-10-16T01:00:00Z')]}
+        defaults.update(kwargs)
+        data = strategy_inputs(**defaults)
         pl = build_strategy.plan(data, NOW)
         target = directory / name
         target.mkdir(exist_ok=True)
