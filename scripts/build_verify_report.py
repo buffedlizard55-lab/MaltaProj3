@@ -670,15 +670,16 @@ def section_verification(audit: dict) -> str:
 <td>{e(', '.join(f'{v:.3f}' for v in record['first_party_prices']))}</td>
 <td>{e(', '.join(f'{v:.3f}' for v in record['published_probabilities']))}</td>
 <td>{e(', '.join(f'{v:+.2f}pp' for v in record['deviation_pp']))}</td>
+<td>{e(record.get('reading_gap_hours'))} h</td>
 <td><span class="pill {"ok" if record['same_favourite'] else "bad"}">
 {'agrees' if record['same_favourite'] else 'reversed'}</span></td>
 <td>{e(', '.join(record.get('aligned_via_reviewed_alias') or []) or 'direct')}</td>
 <td>{official(record)}</td></tr>'''
     for record in fp['unverifiable']:
         fp_rows += f'''<tr><th scope="row">{e(record['id'])}</th>
-<td>{e(' v '.join(record['teams']))}</td><td colspan="6">
+<td>{e(' v '.join(record['teams']))}</td><td colspan="7">
 <span class="unverified">{e(record['reason'])}</span></td>
-<td>{link_list([audit.get('source_links', {}).get('fetch_url')])}</td></tr>'''
+<td>{link_list(record.get('source_urls') or audit['source_links']['source_urls'])}</td></tr>'''
     replay = audit['probability_replay']
     replay_rows = ''
     for record in replay['rows']:
@@ -779,7 +780,7 @@ site&rsquo;s refresh and this audit, so the deviation is reported rather than de
 equality; a reversed favourite is a finding regardless of drift.</p>
 <table class="data"><caption>First-party market check</caption>
 <thead><tr><th scope="col">Fixture</th><th scope="col">Teams</th><th scope="col">Polymarket outcomes</th>
-<th scope="col">Polymarket prices</th><th scope="col">Published</th><th scope="col">Deviation</th>
+<th scope="col">Polymarket prices</th><th scope="col">Published</th><th scope="col">Deviation</th><th scope="col">Reading gap</th>
 <th scope="col">Favourite</th><th scope="col">Aligned via</th><th scope="col">Source</th></tr></thead>
 <tbody>{fp_rows}</tbody></table>
 

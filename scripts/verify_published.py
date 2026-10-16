@@ -719,6 +719,23 @@ def outcome_order_hazards(rows: list, first_party: dict) -> list:
 # 4. Source-link verification
 # ---------------------------------------------------------------------------
 
+def locate_url(node, url: str, path: str = '') -> str:
+    """Where inside a row a given URL appears, as a field path."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            found = locate_url(value, url, f'{path}.{key}' if path else key)
+            if found:
+                return found
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            found = locate_url(value, url, f'{path}[{index}]')
+            if found:
+                return found
+    elif node == url:
+        return path
+    return ''
+
+
 def collect_urls(node, found: set) -> None:
     if isinstance(node, dict):
         for key, value in node.items():
@@ -734,12 +751,27 @@ def collect_urls(node, found: set) -> None:
 
 def check_source_links(origination: dict) -> dict:
     urls: set = set()
+    attributed: dict = {}
     for row in origination.get('matches') or []:
-        collect_urls(row, urls)
+        if not isinstance(row, dict):
+            continue
+        found: set = set()
+        collect_urls(row, found)
+        urls |= found
+        for url in found:
+            if not is_official(url):
+                # Name the fixture the non-official URL actually appears on, and where in
+                # that row it appears, so the finding is reviewable rather than generic.
+                attributed.setdefault(url, []).append({
+                    'id': row.get('id'),
+                    'teams': [t.get('name') for t in row.get('teams') or []],
+                    'field': locate_url(row, url),
+                })
     unofficial = sorted(u for u in urls if not is_official(u))
     return {
         'distinct_source_urls': len(urls),
         'unofficial': unofficial,
+        'unofficial_attributed': [{'url': u, 'rows': attributed.get(u) or []} for u in unofficial],
         'verdict': ('Every source URL cited by a published pick row is an official source this '
                     'project trusts.' if not unofficial else
                     'At least one cited URL is outside the official allow-list published in '
@@ -1241,8 +1273,19 @@ def build_flags(audit: dict) -> list:
     if links['unofficial']:
         add('unofficial-source-url', 'review',
             'A published pick cites a URL outside the official allow-list',
-            'URLs: ' + ', '.join(links['unofficial'][:12]),
-            [], links['source_urls'] + links['unofficial'][:4])
+            'The deployed origination payload cites '
+            + '; '.join(
+                f"{item['url']} on fixture "
+                + ', '.join(f"{r['id']} ({' v '.join(r['teams'])}) at {r['field']}"
+                            for r in item['rows'])
+                for item in links['unofficial_attributed'])
+            + '. Those hosts are not in the OFFICIAL allow-list published in '
+              'scripts/audit_rows.py, so the join they support is evidenced by a source the '
+              "project's own policy does not accept. The offending URLs are quoted here rather "
+              'than linked, because a flag\'s own source_urls must be official or the review '
+              'row that renders them would fail the same policy.',
+            [r['id'] for item in links['unofficial_attributed'] for r in item['rows']],
+            links['source_urls'])
 
     for record in audit['cross_checks']['disagreeing']:
         margin = max(abs(v) for v in record['deviation_pp'])
@@ -1316,17 +1359,26 @@ def build_flags(audit: dict) -> list:
     fp = audit['first_party_market_check']
     for record in fp['drifted_or_reversed']:
         reversed_side = not record['same_favourite']
+        gap = record.get('reading_gap_hours')
         add(f"first-party-{record['id']}", 'review' if reversed_side else 'notice',
-            ('Published favourite for %s is the opposite of Polymarket\'s own archived prices'
+            ('Published pick for %s is now the underdog on the same source that produced it'
              % record['id']) if reversed_side else
             ('Published probability for %s has drifted more than 5 points from Polymarket\'s '
              'own archived prices' % record['id']),
-            f"{record['teams'][0]} vs {record['teams'][1]}: Polymarket event {record['event_id']} "
+            f"{record['teams'][0]} vs {record['teams'][1]} ({record.get('competition')}, "
+            f"{record.get('starts_at')}): Polymarket event {record['event_id']} "
             f"({record['event_slug']}) quotes {record['first_party_outcomes']} at "
             f"{record['first_party_prices']} observed {record['first_party_observed_at']}, while the "
             f"site published {record['published_probabilities']} observed "
-            f"{record['published_observed_at']} (deviation {record['deviation_pp']} percentage "
-            f"points). Both observations are kept; neither was overwritten by this audit.",
+            f"{record['published_observed_at']} — a deviation of {record['deviation_pp']} percentage "
+            f"points across a {gap} h gap between the two readings. "
+            + ('The favourite has flipped, so the published pick is the underdog on the current '
+               'price from the very source that produced it. This is a freshness problem, not an '
+               'arithmetic one: the published number still replays exactly from the quote it '
+               'cites. Both observations are kept and neither was overwritten.'
+               if reversed_side else
+               'Both observations are kept; the gap between the readings is stated so drift is not '
+               'mistaken for a defect. Neither was overwritten by this audit.'),
             [record['id']], [record['source_url'], PAGES_ORIGINATION])
     for record in fp['unverifiable']:
         add(f"first-party-unverifiable-{record['id']}", 'notice',

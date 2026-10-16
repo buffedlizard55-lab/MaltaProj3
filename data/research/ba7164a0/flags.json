@@ -1,0 +1,175 @@
+[
+ {
+  "id": "arena-ba7164a0-inventory-divergence",
+  "severity": "review",
+  "title": "Published inventory does not reconcile with Hotspawn's own fixtures API",
+  "detail": "Hotspawn's API listed 97 CS2 fixtures when read at 2026-10-16T11:21:13Z; the deployed snapshot published 101 rows generated at 2026-10-16T08:18:38Z. Missing from the site: none. Published but no longer listed by Hotspawn: ['1079630', '1080286', '1080287', '1081493'], of which 3 had already passed their scheduled start when the API was read (1081493, 1080286, 1079630). Hotspawn's fixtures feed is queried with status=scheduled, so a fixture leaves it once it starts; that part is a timing difference between two readings, not a coverage gap. Still unexplained: ['1080287'] - published as upcoming although Hotspawn no longer lists them and their scheduled start had not passed. They may have been postponed or removed; this audit does not assume which. This difference is NOT explained by elapsed time and needs review. No row was added or removed by this audit.",
+  "match_ids": [
+   "1079630",
+   "1080286",
+   "1080287",
+   "1081493"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+   "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+   "https://play.hotspawn.com/lobby"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-unofficial-source-url",
+  "severity": "review",
+  "title": "A published pick cites a URL outside the official allow-list",
+  "detail": "The deployed origination payload cites https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4 on fixture 1081529 (Nexus v WROTBERRY) at aliases_used[0].evidence[2].url. Those hosts are not in the OFFICIAL allow-list published in scripts/audit_rows.py, so the join they support is evidenced by a source the project's own policy does not accept. The offending URLs are quoted here rather than linked, because a flag's own source_urls must be official or the review row that renders them would fail the same policy.",
+  "match_ids": [
+   "1081529"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-pick-direction-1080287",
+  "severity": "review",
+  "title": "An independent official line disagrees with the published pick for 1080287",
+  "detail": "Voca vs HAVU (Elisa BreakOut Series #2, 2026-10-16T12:00:00Z): the site picks Voca from Polymarket via its market rung ([57.5, 42.5]%, observed 2026-10-16T08:18:27Z), while Polymarket (None, overround None, observed 2026-10-16T11:15:04.985645Z) de-vigs to HAVU ([32.8, 67.2]%). The two official sources are 24.66 percentage points apart, which is enough to flip the pick on a near-even match. Both are linked; neither was overridden, and no third opinion was invented to break the tie.",
+  "match_ids": [
+   "1080287"
+  ],
+  "source_urls": [
+   "https://polymarket.com/event/cs2-voc-havu-2026-10-16"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-no-minimum-edge-threshold",
+  "severity": "notice",
+  "title": "Picks are published on margins smaller than the spread of their own source",
+  "detail": "The origination ladder publishes a pick for every fixture it can price and has no minimum-edge threshold (the deployed snapshot reports no_edge=0). 3 resolved fixture(s) are decided by less than 5 percentage points: 1079588 Astralis vs MIBR [48.5, 51.5]%; 1079588 Astralis vs MIBR [48.5, 51.5]%; 1079588 Astralis vs MIBR [48.5, 51.5]%. These are arithmetically correct and every one replays from its cited source, but a reader on a phone cannot distinguish a 1.5-point margin from a strong favourite. Reported as a presentation irregularity, not a data error.",
+  "match_ids": [
+   "1079588"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+   "https://polymarket.com/event/cs2-ast10-mibr-2026-10-16"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-unresolved-alias-candidate-1081502",
+  "severity": "notice",
+  "title": "Unresolved fixture 1081502 may be priced under a different team name",
+  "detail": "Procyon vs LOS NINOS (CCT South America 2026 Series #7, 2026-10-16T16:00:00Z): Bovada lists ['Procyon Gaming', 'Los Ninos'] — \"Procyon\" ~ \"Procyon Gaming\" (substring); \"LOS NINOS\" ~ \"Los Ninos\" (exact), start time agrees; Polymarket lists ['Procyon Gaming', 'Los Niños'] — \"Procyon\" ~ \"Procyon Gaming\" (substring); \"LOS NINOS\" ~ \"Los Niños\" (token), start time agrees. The names differ, so the identity is NOT verified and no probability is taken from it. Recorded so a reviewer can decide whether a reviewed alias is warranted.",
+  "match_ids": [
+   "1081502"
+  ],
+  "source_urls": [
+   "https://polymarket.com/event/cs2-pcy-ln-2026-10-16",
+   "https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200",
+   "https://www.hotspawn.com/matches/procyon-vs-los-ninos-cct-south-america-2026-series-7-1081502"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-unresolved-alias-candidate-1079170",
+  "severity": "notice",
+  "title": "Unresolved fixture 1079170 may be priced under a different team name",
+  "detail": "BET-M vs Just Players (NODWIN Clutch Series #13, 2026-10-17T08:00:00Z): Polymarket lists ['BET-M 33', 'Just Players'] — \"BET-M\" ~ \"BET-M 33\" (substring); \"Just Players\" ~ \"Just Players\" (exact), start time agrees. The names differ, so the identity is NOT verified and no probability is taken from it. Recorded so a reviewer can decide whether a reviewed alias is warranted.",
+  "match_ids": [
+   "1079170"
+  ],
+  "source_urls": [
+   "https://polymarket.com/event/cs2-33-justpl-2026-10-17",
+   "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-unresolved-alias-candidate-1081526",
+  "severity": "notice",
+  "title": "Unresolved fixture 1081526 may be priced under a different team name",
+  "detail": "Infinite vs Insiders (DraculaN Season 7, 2026-10-19T09:00:00Z): Polymarket lists ['Infinite', 'Insiders Esport'] — \"Infinite\" ~ \"Infinite\" (exact); \"Insiders\" ~ \"Insiders Esport\" (substring), start time agrees. The names differ, so the identity is NOT verified and no probability is taken from it. Recorded so a reviewer can decide whether a reviewed alias is warranted.",
+  "match_ids": [
+   "1081526"
+  ],
+  "source_urls": [
+   "https://play.hotspawn.com/cs2-pickems#fixture-1081526",
+   "https://polymarket.com/event/cs2-inf6-ins-2026-10-19"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-unresolved-rejection-confirmed-1081527",
+  "severity": "notice",
+  "title": "Blank probabilities for 1081527 are correct: the only line is not executable",
+  "detail": "aimclub vs BASEMENT BOYS: Polymarket lists this exact fixture but its own order book is 0.93 wide (basis clob-executable-midpoint, liquidity 258.3506, volume None), beyond the 0.12 ceiling the methodology publishes. Independently re-read from the archived book, this confirms the site's rejection rather than contradicting it. No probability is inferred.",
+  "match_ids": [
+   "1081527"
+  ],
+  "source_urls": [
+   "https://play.hotspawn.com/cs2-pickems#fixture-1081527",
+   "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-first-party-1079630",
+  "severity": "notice",
+  "title": "Published probability for 1079630 has drifted more than 5 points from Polymarket's own archived prices",
+  "detail": "ex-RUSTEC vs Saint Sinners (None, None): Polymarket event 1190750 (cs2-rustec-ssins-2026-10-16) quotes ['ex-RUSTEC', 'Saint Sinners'] at [0.815, 0.185] observed 2026-10-16T11:17:08.77416Z, while the site published [0.685, 0.315] observed 2026-10-16T08:18:26Z — a deviation of [13.0, -13.0] percentage points across a 2.98 h gap between the two readings. Both observations are kept; the gap between the readings is stated so drift is not mistaken for a defect. Neither was overwritten by this audit.",
+  "match_ids": [
+   "1079630"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+   "https://polymarket.com/event/cs2-rustec-ssins-2026-10-16"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-first-party-1080287",
+  "severity": "review",
+  "title": "Published pick for 1080287 is now the underdog on the same source that produced it",
+  "detail": "Voca vs HAVU (None, None): Polymarket event 1173319 (cs2-voc-havu-2026-10-16) quotes ['Voca', 'HAVU'] at [0.305, 0.695] observed 2026-10-16T11:15:04.985645Z, while the site published [0.575, 0.425] observed 2026-10-16T08:18:27Z — a deviation of [-27.0, 27.0] percentage points across a 2.94 h gap between the two readings. The favourite has flipped, so the published pick is the underdog on the current price from the very source that produced it. This is a freshness problem, not an arithmetic one: the published number still replays exactly from the quote it cites. Both observations are kept and neither was overwritten.",
+  "match_ids": [
+   "1080287"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+   "https://polymarket.com/event/cs2-voc-havu-2026-10-16"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-first-party-unverifiable-1080286",
+  "severity": "notice",
+  "title": "Published probability for 1080286 could not be checked against Polymarket",
+  "detail": "HAVU vs RoundsGG: No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted. Left as published; not confirmed and not contradicted.",
+  "match_ids": [
+   "1080286"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-first-party-unverifiable-1079167",
+  "severity": "notice",
+  "title": "Published probability for 1079167 could not be checked against Polymarket",
+  "detail": "Bushido Wildcats vs ex-RUSTEC: No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted. Left as published; not confirmed and not contradicted.",
+  "match_ids": [
+   "1079167"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json"
+  ]
+ },
+ {
+  "id": "arena-ba7164a0-source-outcomes-order",
+  "severity": "notice",
+  "title": "source_outcomes is published in market order while probabilities is in team order",
+  "detail": "scripts/domain.py::market_analysis aligns `quotes` and `probabilities` to the fixture's team order but records `source_outcomes` in the market's own order. 2 published row(s) therefore carry the two arrays in opposite orders (1081497, 1080289). Every one was verified correct against Polymarket's own archived prices, so no published probability is wrong; but a reviewer comparing the two arrays positionally would invert the favourite. Nothing is rendered from `source_outcomes` on any page today.",
+  "match_ids": [
+   "1080289",
+   "1081497"
+  ],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+   "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
+   "https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16"
+  ]
+ }
+]

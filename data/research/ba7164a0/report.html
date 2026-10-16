@@ -13,7 +13,7 @@
 <p class="brand"><a href="../../../index.html">spawn<strong>scout</strong></a>
 <span>· verification &amp; review</span></p>
 <p class="snap">Live snapshot 2026-10-16T08:18:38Z ·
-this audit 2026-10-16T10:25:28Z · session arena-ba7164a0</p>
+this audit 2026-10-16T11:33:58Z · session arena-ba7164a0</p>
 </header>
 <main id="main">
 
@@ -24,12 +24,12 @@ this audit 2026-10-16T10:25:28Z · session arena-ba7164a0</p>
 changes a published pick; everything here says whether it can be confirmed.</p>
 <p class="snapshot">Live snapshot <strong>2026-10-16T08:18:38Z</strong>
 <span class="pill ok">fresh</span>
-· read 2026-10-16T09:45:32Z · 86.9 min old ·
+· read 2026-10-16T11:22:40Z · 184.0 min old ·
 refresh every 4 h ·
-225 sources read,
+219 sources read,
 0 unreadable</p>
 <table class="checks"><caption>What this audit checked, and what it found</caption>
-<tbody><tr><th scope="row"><span class="tick no">flagged</span> Every CS2 fixture Hotspawn lists is published</th><td>99 fixtures in Hotspawn's own API read at 2026-10-16T09:45:32Z; 101 published in the snapshot of 2026-10-16T08:18:38Z. Missing from the site: none. Published but no longer listed by Hotspawn: ['1080286', '1081493']. The two readings are minutes apart, so a fixture that started or was pulled in between explains part of any gap. The gap is reported, never reconciled by assumption.<div class="srcs"><a class="src" href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&amp;status=scheduled&amp;tenantId=1" rel="noopener noreferrer">phpstack-1372681-6459848.cloudwaysapps.com/api/v1</a> <a class="src" href="https://play.hotspawn.com/lobby" rel="noopener noreferrer">play.hotspawn.com/lobby</a> <a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick yes">verified</span> Every published probability replays from its own cited source</th><td>17 priced rows were re-read against Polymarket's own archived event: 17 agree, 0 disagree. 23 rows replay from the quote they cite, 0 do not, 6 are intentionally blank and 10 cite no price. See <a href="#replay">the replay table</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://gamma-api.polymarket.com/events" rel="noopener noreferrer">gamma-api.polymarket.com/events</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a></div></td></tr><tr><th scope="row"><span class="tick yes">verified</span> Every headline count equals the rows behind it</th><td>Recomputed from the published rows: inventory=101, upcoming=39, archived=62, unknown_schedule=0, picks=30, market=15, model=10, bookmaker=5, unresolved=9. See <a href="#counts">the count table</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick no">flagged</span> Every cited source is an official one</th><td>157 distinct URLs are cited by published picks. Outside that allow-list: https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4. Recorded in <a href="#flags">flagged for review</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick no">flagged</span> A pick exists for every listed match</th><td>33 of 39 upcoming fixtures carry an originated probability and a pick. 6 do not; each is documented in <a href="#unresolved">unresolved picks</a> with every rung that was tried and why it stopped short.<div class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-pcy-ln-2026-10-16</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200" rel="noopener noreferrer">bovada.lv/esports/counter-strike-2</a></div></td></tr></tbody></table>
+<tbody><tr><th scope="row"><span class="tick no">flagged</span> Every CS2 fixture Hotspawn lists is published</th><td>97 fixtures in Hotspawn's own API read at 2026-10-16T11:22:40Z; 101 published in the snapshot of 2026-10-16T08:18:38Z. Missing from the site: none. Published but no longer listed by Hotspawn: ['1079630', '1080286', '1080287', '1081493']. The two readings are minutes apart, so a fixture that started or was pulled in between explains part of any gap. The gap is reported, never reconciled by assumption.<div class="srcs"><a class="src" href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&amp;status=scheduled&amp;tenantId=1" rel="noopener noreferrer">phpstack-1372681-6459848.cloudwaysapps.com/api/v1</a> <a class="src" href="https://play.hotspawn.com/lobby" rel="noopener noreferrer">play.hotspawn.com/lobby</a> <a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick no">flagged</span> Every published probability replays from its own cited source</th><td>15 priced rows were re-read against Polymarket's own archived event: 13 agree, 2 disagree. 23 rows replay from the quote they cite, 0 do not, 6 are intentionally blank and 10 cite no price. See <a href="#replay">the replay table</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://gamma-api.polymarket.com/events" rel="noopener noreferrer">gamma-api.polymarket.com/events</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a></div></td></tr><tr><th scope="row"><span class="tick yes">verified</span> Every headline count equals the rows behind it</th><td>Recomputed from the published rows: inventory=101, upcoming=39, archived=62, unknown_schedule=0, picks=30, market=15, model=10, bookmaker=5, unresolved=9. See <a href="#counts">the count table</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick no">flagged</span> Every cited source is an official one</th><td>157 distinct URLs are cited by published picks. Outside that allow-list: https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4. Recorded in <a href="#flags">flagged for review</a>.<div class="srcs"><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></div></td></tr><tr><th scope="row"><span class="tick no">flagged</span> A pick exists for every listed match</th><td>33 of 39 upcoming fixtures carry an originated probability and a pick. 6 do not; each is documented in <a href="#unresolved">unresolved picks</a> with every rung that was tried and why it stopped short.<div class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-pcy-ln-2026-10-16</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200" rel="noopener noreferrer">bovada.lv/esports/counter-strike-2</a></div></td></tr></tbody></table>
 
 <h3>Where the current picks are</h3>
 <ul class="goto">
@@ -57,7 +57,7 @@ the order the methodology requires (HLTV first, then prediction markets, then es
 books, then Valve&rsquo;s official ratings), and why each stopped short.</p>
 <ul class="goto"><li><a href="#unresolved-1081502">Procyon v LOS NINOS</a> — CCT South America 2026 Series #7, 16:00 UTC 16 Oct</li><li><a href="#unresolved-1079170">BET-M v Just Players</a> — NODWIN Clutch Series #13, 08:00 UTC 17 Oct</li><li><a href="#unresolved-1081521">ex-6666 v Privateer</a> — CCT Europe 2026 Challengers #8, 13:45 UTC 18 Oct</li><li><a href="#unresolved-1081522">antidaun v Phantom Academy</a> — CCT Europe 2026 Challengers #8, 13:45 UTC 18 Oct</li><li><a href="#unresolved-1081526">Infinite v Insiders</a> — DraculaN Season 7, 09:00 UTC 19 Oct</li><li><a href="#unresolved-1081527">aimclub v BASEMENT BOYS</a> — DraculaN Season 7, 09:00 UTC 19 Oct</li></ul>
 
-<h3>Irregularities — 8 recorded, 2 needing review</h3>
+<h3>Irregularities — 13 recorded, 4 needing review</h3>
 <p>None of them blocks publication. Each is listed in
 <a href="#flags">Flagged for review</a> with the official sources behind it, and the
 same register is published to the site&rsquo;s
@@ -85,314 +85,320 @@ start 2026-10-16T14:00:00Z from HLTV&rsquo;s own <code>data-unix</code></p>
 <thead><tr><th scope="col">Source</th><th scope="col">Names it uses</th>
 <th scope="col">Quoted</th><th scope="col">De-vigged</th><th scope="col">Read at</th>
 <th scope="col">Link</th></tr></thead><tbody><tr><th scope="row">Bovada</th>
-<td>Team Nemesis, Nuclear Tigeres</td><td>1.606061 / 2.250</td>
-<td>58.3% / 41.7%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/team-nemesis-nuclear-tigeres-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/team-nemesis-nuclear-tigeres-202610160700</a></td></tr><tr><th scope="row">Bovada</th>
 <td>BBL Esports, Eyeballers</td><td>1.690 / 2.100</td>
-<td>55.4% / 44.6%</td><td>2026-10-16T09:45:32Z</td>
+<td>55.4% / 44.6%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/bbl-esports-eyeballers-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/bbl-esports-eyeballers-202610161000</a></td></tr><tr><th scope="row">Bovada</th>
 <td>GamerLegion, Ex-Rustec</td><td>1.190 / 4.400</td>
-<td>78.7% / 21.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>78.7% / 21.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/gamerlegion-ex-rustec-202610161300" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/gamerlegion-ex-rustec-202610161300</a></td></tr><tr><th scope="row">Bovada</th>
-<td>Team AURORA, 9Z Globant</td><td>1.384615 / 2.900</td>
-<td>67.7% / 32.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>Team AURORA, 9Z Globant</td><td>1.434783 / 2.750</td>
+<td>65.7% / 34.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/team-aurora-9z-globant-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/team-aurora-9z-globant-202610161000</a></td></tr><tr><th scope="row">Bovada</th>
 <td>BB Team, Legacy</td><td>2.550 / 1.487805</td>
-<td>36.8% / 63.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>36.8% / 63.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/bb-team-legacy-202610161300" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/thunderpick-world-championship-26/bb-team-legacy-202610161300</a></td></tr><tr><th scope="row">Bovada</th>
-<td>Ex-Rustec, Saint Sinners</td><td>1.454545 / 2.650</td>
-<td>64.6% / 35.4%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/ex-rustec-saint-sinners-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/ex-rustec-saint-sinners-202610160700</a></td></tr><tr><th scope="row">Bovada</th>
-<td>Forze Reload, Lavked</td><td>1.260 / 3.650</td>
-<td>74.3% / 25.7%</td><td>2026-10-16T09:45:32Z</td>
+<td>Forze Reload, Lavked</td><td>1.307692 / 3.300</td>
+<td>71.6% / 28.4%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/forze-reload-lavked-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/forze-reload-lavked-202610161000</a></td></tr><tr><th scope="row">Bovada</th>
 <td>BakS eSports, G2 Ares</td><td>1.588235 / 2.300</td>
-<td>59.2% / 40.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>59.2% / 40.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/baks-esports-g2-ares-202610161300" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/baks-esports-g2-ares-202610161300</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Joga De Terno, Your End</td><td>1.690 / 2.100</td>
-<td>55.4% / 44.6%</td><td>2026-10-16T09:45:32Z</td>
+<td>55.4% / 44.6%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/joga-de-terno-your-end-202610160900" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/joga-de-terno-your-end-202610160900</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Procyon Gaming, Los Ninos</td><td>1.400 / 2.850</td>
-<td>67.1% / 32.9%</td><td>2026-10-16T09:45:32Z</td>
+<td>67.1% / 32.9%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Quintessencia, Damajuanaa</td><td>1.153846 / 5.00</td>
-<td>81.3% / 18.7%</td><td>2026-10-16T09:45:32Z</td>
+<td>81.3% / 18.7%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/quintessencia-damajuanaa-202610161500" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/quintessencia-damajuanaa-202610161500</a></td></tr><tr><th scope="row">Bovada</th>
-<td>Sokerorg, Bread Eaters Esports</td><td>1.250 / 3.750</td>
-<td>75.0% / 25.0%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/european-pro-league/sokerorg-bread-eaters-esports-202610160630" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/european-pro-league/sokerorg-bread-eaters-esports-202610160630</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Ex-Zero Tenacity, Unity Esports</td><td>1.833333 / 1.909091</td>
-<td>51.0% / 49.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>51.0% / 49.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/ex-zero-tenacity-unity-esports-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/ex-zero-tenacity-unity-esports-202610161000</a></td></tr><tr><th scope="row">Bovada</th>
-<td>Fnatic, Heroic</td><td>2.550 / 1.487805</td>
-<td>36.8% / 63.2%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/fnatic-heroic-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/fnatic-heroic-202610160700</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Astralis, MIBR</td><td>2.00 / 1.769230</td>
-<td>46.9% / 53.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>46.9% / 53.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/astralis-mibr-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/astralis-mibr-202610161000</a></td></tr><tr><th scope="row">Bovada</th>
 <td>Sangal Esports, 100 Thieves</td><td>2.700 / 1.444444</td>
-<td>34.9% / 65.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>34.9% / 65.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/sangal-esports-100-thieves-202610161300" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/sangal-esports-100-thieves-202610161300</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Celestial Esports, Chicken Coop Esports</td><td>4.24 / 1.17</td>
-<td>21.6% / 78.4%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Sokerorg, ex-Eternal Fire Academy</td><td>1.22 / 3.7</td>
-<td>75.2% / 24.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>21.6% / 78.4%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Sashi, MOUZ NXT</td><td>1.48 / 2.5</td>
-<td>62.8% / 37.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>62.8% / 37.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>WBT, Nexus</td><td>1.72 / 2.0</td>
-<td>53.8% / 46.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>53.8% / 46.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Voca, HAVU Gaming</td><td>1.52 / 2.35</td>
-<td>60.7% / 39.3%</td><td>2026-10-16T09:45:32Z</td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Phantom Esports, ROUNDS</td><td>1.08 / 6.3</td>
-<td>85.4% / 14.6%</td><td>2026-10-16T09:45:32Z</td>
+<td>Phantom Esports, ROUNDS</td><td>1.1 / 5.8</td>
+<td>84.1% / 15.9%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Voca, ROUNDS</td><td>1.1 / 5.8</td>
-<td>84.1% / 15.9%</td><td>2026-10-16T09:45:32Z</td>
+<td>84.1% / 15.9%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Phantom Esports, HAVU Gaming</td><td>1.32 / 3.1</td>
-<td>70.1% / 29.9%</td><td>2026-10-16T09:45:32Z</td>
+<td>Phantom Esports, HAVU Gaming</td><td>1.45 / 2.6</td>
+<td>64.2% / 35.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Iberian Soul, HyperSpirit</td><td>1.4 / 2.7</td>
-<td>65.9% / 34.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>65.9% / 34.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Reveal, Sissi State Punks</td><td>1.56 / 2.21</td>
-<td>58.6% / 41.4%</td><td>2026-10-16T09:45:32Z</td>
+<td>58.6% / 41.4%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>PANDARIC eSports, Regnum4Games</td><td>3.85 / 1.2</td>
-<td>23.8% / 76.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>23.8% / 76.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>100 Thieves, Sangal</td><td>1.38 / 2.8</td>
-<td>67.0% / 33.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>67.0% / 33.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>underw0rld, MIBR Female</td><td>1.44 / 2.51</td>
-<td>63.5% / 36.5%</td><td>2026-10-16T09:45:32Z</td>
+<td>63.5% / 36.5%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>MASQ, XI Esport</td><td>2.33 / 1.49</td>
-<td>39.0% / 61.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>39.0% / 61.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>MASQ, struggletony</td><td>2.63 / 1.39</td>
-<td>34.6% / 65.4%</td><td>2026-10-16T09:45:32Z</td>
+<td>34.6% / 65.4%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>XI Esport, struggletony</td><td>2.21 / 1.54</td>
-<td>41.1% / 58.9%</td><td>2026-10-16T09:45:32Z</td>
+<td>41.1% / 58.9%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Elite Klan VELLAMO, Passion UA AC</td><td>3.3 / 1.28</td>
-<td>27.9% / 72.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>27.9% / 72.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Nemesis, Nuclear TigeRES</td><td>1.58 / 2.2</td>
-<td>58.2% / 41.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>58.2% / 41.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>BBL Esports, EYEBALLERS</td><td>1.72 / 2</td>
-<td>53.8% / 46.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>53.8% / 46.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>GamerLegion, ex-RUSTEC</td><td>1.15 / 4.8</td>
-<td>80.7% / 19.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>80.7% / 19.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>BIG, Private</td><td>1.48 / 2.5</td>
-<td>62.8% / 37.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>62.8% / 37.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>MongolZ, Alliance</td><td>1.4 / 2.7</td>
-<td>65.9% / 34.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>65.9% / 34.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Liquid, fnatic</td><td>1.52 / 2.35</td>
-<td>60.7% / 39.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>60.7% / 39.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>PARIVISION, Magic</td><td>1.52 / 2.35</td>
-<td>60.7% / 39.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>60.7% / 39.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>RoundsGG, EAC Rising</td><td>2.5 / 1.46</td>
-<td>36.9% / 63.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>RoundsGG, EAC Rising</td><td>2.65 / 1.42</td>
+<td>34.9% / 65.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Aurora, 9z Team</td><td>1.38 / 2.8</td>
-<td>67.0% / 33.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>Aurora, 9z Team</td><td>1.4 / 2.7</td>
+<td>65.9% / 34.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Magic, BIG</td><td>1.95 / 1.75</td>
-<td>47.3% / 52.7%</td><td>2026-10-16T09:45:32Z</td>
+<td>47.3% / 52.7%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Inner Circle, Nemesis</td><td>1.72 / 2</td>
-<td>53.8% / 46.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>53.8% / 46.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>MIBR, Eternal Fire</td><td>1.48 / 2.5</td>
-<td>62.8% / 37.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>62.8% / 37.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Astralis, fnatic</td><td>1.45 / 2.6</td>
-<td>64.2% / 35.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>64.2% / 35.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>fnatic, HEROIC</td><td>2.7 / 1.42</td>
-<td>34.5% / 65.5%</td><td>2026-10-16T09:45:32Z</td>
+<td>34.5% / 65.5%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Astralis, MIBR</td><td>2 / 1.72</td>
-<td>46.2% / 53.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>46.2% / 53.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>BB Team, Legacy</td><td>2.5 / 1.48</td>
-<td>37.2% / 62.8%</td><td>2026-10-16T09:45:32Z</td>
+<td>37.2% / 62.8%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Private, UPGRADE</td><td>1.65 / 2.1</td>
-<td>56.0% / 44.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>Rune Eaters, HyperSpirit</td><td>1.48 / 2.5</td>
-<td>62.8% / 37.2%</td><td>2026-10-16T09:45:32Z</td>
+<td>62.8% / 37.2%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>ex-Zero Tenacity, Team UNiTY</td><td>1.95 / 1.75</td>
-<td>47.3% / 52.7%</td><td>2026-10-16T09:45:32Z</td>
+<td>47.3% / 52.7%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
 <td>33 Team, Just Players</td><td>1.38 / 2.8</td>
-<td>67.0% / 33.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>67.0% / 33.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Oway, Quattro</td><td>1.28 / 3.3</td>
-<td>72.1% / 27.9%</td><td>2026-10-16T09:45:32Z</td>
+<td>Spirit, BB Team</td><td>1.2 / 4</td>
+<td>76.9% / 23.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Oway, Mavros</td><td>1.55 / 2.3</td>
-<td>59.7% / 40.3%</td><td>2026-10-16T09:45:32Z</td>
+<td>Aurora, MongolZ</td><td>1.25 / 3.5</td>
+<td>73.7% / 26.3%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>HAVU Gaming, ROUNDS</td><td>1.08 / 7</td>
-<td>86.6% / 13.4%</td><td>2026-10-16T09:45:32Z</td>
+<td>mouz, Liquid</td><td>1.2 / 4</td>
+<td>76.9% / 23.1%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Ninjas in Pyjamas, Liquid</td><td>1.9 / 1.8</td>
-<td>48.6% / 51.4%</td><td>2026-10-16T09:45:32Z</td>
+<td>FUT Esports, TYLOO</td><td>1.17 / 4.4</td>
+<td>79.0% / 21.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Eternal Fire, Apogee Esports</td><td>1.17 / 4.4</td>
-<td>79.0% / 21.0%</td><td>2026-10-16T09:45:32Z</td>
+<td>Vitality, 9z Team</td><td>1.1 / 5.8</td>
+<td>84.1% / 15.9%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
-<td>Quattro, Mavros</td><td>3.3 / 1.28</td>
-<td>27.9% / 72.1%</td><td>2026-10-16T09:45:32Z</td>
+<td>Legacy, Nemiga</td><td>1.25 / 3.5</td>
+<td>73.7% / 26.3%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>G2, Natus Vincere</td><td>2.1 / 1.65</td>
+<td>44.0% / 56.0%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Furia, DENDELE CS</td><td>1.15 / 4.8</td>
+<td>80.7% / 19.3%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Oway, Quattro</td><td>1.26 / 3.4</td>
+<td>73.0% / 27.0%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Oway, Mavros</td><td>1.52 / 2.35</td>
+<td>60.7% / 39.3%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Sokerorg, ex-Eternal Fire Academy</td><td>1.03 / 9.3</td>
+<td>90.0% / 10.0%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Voca, HAVU Gaming</td><td>1.9 / 1.72</td>
+<td>47.5% / 52.5%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Eternal Fire, Apogee Esports</td><td>5 / 1.15</td>
+<td>18.7% / 81.3%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Team UNiTY, TheChampionGG</td><td>1.003 / 12</td>
+<td>92.3% / 7.7%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>team_shox, Players</td><td>1.86 / 1.85</td>
+<td>49.9% / 50.1%</td><td>2026-10-16T11:22:40Z</td>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Thunderpick</th>
+<td>Quattro, Mavros</td><td>1.65 / 2.1</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:22:40Z</td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>NIP, Liquid</td><td>0.44 / 0.45</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-nip-tl1-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nip-tl1-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Lilmix, Revise</td><td>0.73 / 0.75</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:43:06.033039Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-lilmix-revise-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-lilmix-revise-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Eternal Fire, Betclic Apogee Esports</td><td>0.92 / 0.94</td>
-<td>85.5% / 14.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Eternal Fire, Betclic Apogee Esports</td><td>0.46 / 0.47</td>
+<td>23.7% / 76.3%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ef1-bca-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ef1-bca-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Abyssal, Off Chops</td><td>0.13 / 0.79</td>
-<td>13.5% / 86.5%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-abyssa-offcho-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-abyssa-offcho-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>HAVU, RoundsGG</td><td>0.83 / 0.84</td>
-<td>83.5% / 16.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-havu-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-havu-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>QUAZAR, VP.Future</td><td>0.05 / 0.98</td>
-<td>52.0% / 48.0%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-qua1-vpf-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-qua1-vpf-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>d06eg, JUMBO TEAM</td><td>0.02 / 0.98</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Sökerorg, Bread Eaters Esports</td><td>0.77 / 0.78</td>
-<td>77.5% / 22.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-skr2-breade-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-skr2-breade-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>UNiTY esports, TheChampionGG</td><td>0.5 / 0.9</td>
-<td>70.0% / 30.0%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-unity-thecha-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-unity-thecha-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>MORROW, ILLYRIANS</td><td>0.21 / 0.26</td>
-<td>23.5% / 76.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-morrow-ill4-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-morrow-ill4-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>ex-RUSTEC, Saint Sinners</td><td>0.67 / 0.68</td>
-<td>67.5% / 32.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Team Nemesis, Nuclear TigeRES</td><td>0.56 / 0.57</td>
-<td>56.5% / 43.5%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-nem-ntr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nem-ntr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>fnatic, Heroic</td><td>0.34 / 0.35</td>
-<td>34.5% / 65.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Bushido Wildcats, ex-RUSTEC</td><td>0.43 / 0.44</td>
-<td>43.5% / 56.5%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-bw-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bw-rustec-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Voca, HAVU</td><td>0.57 / 0.58</td>
-<td>57.5% / 42.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Voca, HAVU</td><td>0.3 / 0.31</td>
+<td>32.8% / 67.2%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>ex-RUSTEC, Saint Sinners</td><td>0.8 / 0.83</td>
+<td>86.5% / 13.5%</td><td>2026-10-16T11:17:08.77416Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Sökerorg, Bread Eaters Esports</td><td>0.96 / 0.98</td>
+<td>95.8% / 4.2%</td><td>2026-10-16T11:17:08.77416Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-skr2-breade-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-skr2-breade-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>MORROW, ILLYRIANS</td><td>0.3 / 0.32</td>
+<td>33.5% / 66.5%</td><td>2026-10-16T11:15:58.711711Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-morrow-ill4-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-morrow-ill4-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>QUAZAR, VP.Future</td><td>0.49 / 0.67</td>
+<td>39.0% / 61.0%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-qua1-vpf-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-qua1-vpf-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>UNiTY esports, TheChampionGG</td><td>0.84 / 0.97</td>
+<td>88.5% / 11.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-unity-thecha-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-unity-thecha-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>d06eg, JUMBO TEAM</td><td>None / 1</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T10:51:06.649188Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>fnatic, Heroic</td><td>0.33 / 0.34</td>
+<td>34.5% / 65.5%</td><td>2026-10-16T11:15:04.985645Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Team Nemesis, Nuclear TigeRES</td><td>0.56 / 0.57</td>
+<td>56.5% / 43.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-nem-ntr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nem-ntr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Prestige, The Chosen Few</td><td>0.73 / 0.76</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>74.5% / 25.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pre-tcf-2026-10-15" rel="noopener noreferrer">https://polymarket.com/event/cs2-pre-tcf-2026-10-15</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Joga de terno, your end</td><td>0.56 / 0.57</td>
-<td>55.5% / 44.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>Joga de terno, your end</td><td>0.55 / 0.57</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-jdt-youren-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-jdt-youren-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Young TigeRES, Young27</td><td>0.56 / 0.59</td>
-<td>57.5% / 42.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Young TigeRES, Young27</td><td>0.54 / 0.58</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Phantom, RoundsGG</td><td>0.91 / 0.92</td>
-<td>90.5% / 9.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Rune Eaters, HyperSpirit</td><td>0.63 / 0.64</td>
+<td>63.5% / 36.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-run2-hs2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-run2-hs2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Phantom, RoundsGG</td><td>0.9 / 0.92</td>
+<td>91.0% / 9.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pha-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>mellren, Privateer Gaming</td><td>0.86 / 0.91</td>
-<td>89.5% / 10.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>mellren, Privateer Gaming</td><td>0.88 / 0.9</td>
+<td>89.0% / 11.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mellre-pg5-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-mellre-pg5-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>FORZE Reload, Lavked</td><td>0.72 / 0.75</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>FORZE Reload, Lavked</td><td>0.72 / 0.74</td>
+<td>72.5% / 27.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-forzer-lavked-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-forzer-lavked-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>BBL, EYEBALLERS</td><td>0.53 / 0.54</td>
-<td>52.0% / 48.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>BBL, EYEBALLERS</td><td>0.51 / 0.52</td>
+<td>51.5% / 48.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-bbl1-eye-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bbl1-eye-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Aurora Gaming, 9z</td><td>0.69 / 0.7</td>
-<td>69.5% / 30.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Aurora Gaming, 9z</td><td>0.68 / 0.69</td>
+<td>68.5% / 31.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aur1-9z-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-aur1-9z-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Astralis, MIBR</td><td>0.46 / 0.47</td>
-<td>46.5% / 53.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Astralis, MIBR</td><td>0.45 / 0.46</td>
+<td>45.5% / 54.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast10-mibr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast10-mibr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>ex-Zero Tenacity, UNiTY esports</td><td>0.54 / 0.55</td>
-<td>54.5% / 45.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>ex-Zero Tenacity, UNiTY esports</td><td>0.53 / 0.55</td>
+<td>54.0% / 46.0%</td><td>2026-10-16T11:21:06.134934Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-zerote-unity-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-zerote-unity-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Voca, RoundsGG</td><td>0.86 / 0.89</td>
-<td>87.5% / 12.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Voca, RoundsGG</td><td>0.87 / 0.89</td>
+<td>88.0% / 12.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Procyon Gaming, Los Niños</td><td>0.67 / 0.71</td>
-<td>69.0% / 31.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Procyon Gaming, Los Niños</td><td>0.69 / 0.71</td>
+<td>70.0% / 30.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pcy-ln-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Hermine Esports Club, Fire Flux Esports</td><td>0.16 / 0.27</td>
-<td>21.5% / 78.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Hermine Esports Club, Fire Flux Esports</td><td>0.26 / 0.28</td>
+<td>27.5% / 72.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-hec-ff-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-hec-ff-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>PRIVATE, UPGRADE</td><td>0.56 / 0.59</td>
+<td>57.5% / 42.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-priv-upgrad-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-priv-upgrad-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BakS eSports, G2 Ares</td><td>0.63 / 0.65</td>
-<td>64.0% / 36.0%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>64.0% / 36.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-baks-g2a-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-baks-g2a-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>100 Thieves, Sangal</td><td>0.69 / 0.7</td>
-<td>70.5% / 29.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>100 Thieves, Sangal</td><td>0.7 / 0.71</td>
+<td>70.5% / 29.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-100t-sng2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-100t-sng2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>GamerLegion, ex-RUSTEC</td><td>0.82 / 0.84</td>
-<td>80.0% / 20.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>GamerLegion, ex-RUSTEC</td><td>0.8 / 0.82</td>
+<td>81.0% / 19.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-gl1-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-gl1-rustec-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Legacy, BetBoom Team</td><td>0.62 / 0.63</td>
-<td>62.5% / 37.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>62.5% / 37.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-lgc-bb3-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-lgc-bb3-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>mellren, ex-6666</td><td>0.02 / 0.98</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:27:50.133806Z</td>
+<td>mellren, ex-6666</td><td>0.2 / 0.87</td>
+<td>53.0% / 47.0%</td><td>2026-10-16T11:21:06.134934Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mellre-66661-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-mellre-66661-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Phantom, HAVU</td><td>0.66 / 0.67</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Phantom, HAVU</td><td>0.64 / 0.65</td>
+<td>64.5% / 35.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pha-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-havu-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>DNK, LPH Gaming</td><td>0.14 / 0.53</td>
-<td>35.5% / 64.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>DNK, LPH Gaming</td><td>0.1 / 0.38</td>
+<td>20.5% / 79.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-dnk2-lph-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-dnk2-lph-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>QUINTESSÊNCIA, Damajuana</td><td>0.78 / 0.92</td>
-<td>85.0% / 15.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>QUINTESSÊNCIA, Damajuana</td><td>0.76 / 0.93</td>
+<td>84.5% / 15.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-quin-damaju-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-quin-damaju-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>RED Canids Academy, realgotis22</td><td>0.32 / 0.65</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Honvéd, Lavked</td><td>0.35 / 0.54</td>
+<td>44.5% / 55.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-hon1-lavked-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-hon1-lavked-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>RED Canids Academy, realgotis22</td><td>0.32 / 0.7</td>
+<td>51.0% / 49.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-reda-realgo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-reda-realgo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BET-M 33, Just Players</td><td>0.49 / 0.79</td>
-<td>64.0% / 36.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>64.0% / 36.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-33-justpl-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>9INE Academy, gothboiclique</td><td>0.12 / 0.88</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-9inea-got1-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-9inea-got1-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BakS eSports, Fire Flux Esports</td><td>0.06 / 0.94</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:07:07.391321Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-baks-ff-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-baks-ff-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Elite Klan, Passion Academy</td><td>0.18 / 0.79</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>Elite Klan, Passion Academy</td><td>0.21 / 0.78</td>
+<td>49.5% / 50.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ek-psna-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-ek-psna-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>WonderKids, Revenge</td><td>0.06 / 0.94</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-won-rev-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-won-rev-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>CTRL Esports, ex-EF Academy</td><td>0.09 / 0.93</td>
-<td>51.0% / 49.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>51.0% / 49.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ctrles-efa1-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-ctrles-efa1-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BIG, PRIVATE</td><td>0.65 / 0.68</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>66.5% / 33.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-big5-priv-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-big5-priv-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Infinite, Insiders Esport</td><td>0.41 / 0.97</td>
 <td>69.0% / 31.0%</td><td>2026-10-16T09:05:07.226508Z</td>
@@ -401,61 +407,61 @@ start 2026-10-16T14:00:00Z from HLTV&rsquo;s own <code>data-unix</code></p>
 <td>49.5% / 50.5%</td><td>2026-10-16T07:37:08.092487Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-aim1-bmb-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BC.Game Esports, Drama eSports</td><td>0.53 / 0.97</td>
-<td>75.0% / 25.0%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>75.0% / 25.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-bcg-drama-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-bcg-drama-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>WBT, Nexus</td><td>0.46 / 0.62</td>
-<td>54.0% / 46.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>54.0% / 46.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-wbt-nxs1-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-wbt-nxs1-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Iberian Soul, HyperSpirit</td><td>0.59 / 0.77</td>
-<td>68.0% / 32.0%</td><td>2026-10-16T09:19:06.434151Z</td>
+<td>Iberian Soul, HyperSpirit</td><td>0.56 / 0.75</td>
+<td>65.5% / 34.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-is-hs2-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-is-hs2-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Sashi Esport, MOUZ NXT</td><td>0.5 / 0.83</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Sashi Esport, MOUZ NXT</td><td>0.51 / 0.7</td>
+<td>60.5% / 39.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-sashi-mouzn-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-sashi-mouzn-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>SAW, Bayankhongor</td><td>0.65 / 0.97</td>
-<td>81.0% / 19.0%</td><td>2026-10-16T09:19:06.434151Z</td>
+<td>81.0% / 19.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-saw2-bkh-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-saw2-bkh-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>ASTRAL, Leo Team</td><td>0.03 / 0.96</td>
 <td>49.5% / 50.5%</td><td>2026-10-16T07:37:08.092487Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast-leo2-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast-leo2-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Alliance, TheMongolz</td><td>0.36 / 0.37</td>
-<td>36.5% / 63.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>36.5% / 63.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-all-mglz-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-all-mglz-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>fnatic, Liquid</td><td>0.4 / 0.42</td>
-<td>41.0% / 59.0%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>41.0% / 59.0%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-fnc-tl1-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-tl1-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Honvéd, Vitality Academy</td><td>0.1 / 0.97</td>
-<td>53.5% / 46.5%</td><td>2026-10-16T08:21:09.599198Z</td>
+<td>53.5% / 46.5%</td><td>2026-10-16T11:01:06.694967Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-hon1-vita-2026-10-14" rel="noopener noreferrer">https://polymarket.com/event/cs2-hon1-vita-2026-10-14</a></td></tr><tr><th scope="row">Polymarket</th>
 <td> Phantom Academy, Honvéd</td><td>0.73 / 0.97</td>
-<td>85.0% / 15.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>85.0% / 15.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-phanto-hon1-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-phanto-hon1-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>PARIVISION, magic</td><td>0.59 / 0.6</td>
-<td>59.5% / 40.5%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>59.5% / 40.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-prv-mgc-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-prv-mgc-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>DINERO, DNK</td><td>0.15 / 0.35</td>
-<td>25.0% / 75.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>25.0% / 75.0%</td><td>2026-10-16T11:03:06.347085Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-dinero-dnk2-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-dinero-dnk2-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>magic, BIG</td><td>0.45 / 0.94</td>
-<td>69.5% / 30.5%</td><td>2026-10-16T09:31:07.254128Z</td>
+<td>magic, BIG</td><td>0.45 / 0.92</td>
+<td>68.5% / 31.5%</td><td>2026-10-16T10:59:06.1155Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mgc-big5-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-mgc-big5-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Inner Circle Esports, Team Nemesis</td><td>0.08 / 0.54</td>
-<td>31.0% / 69.0%</td><td>2026-10-16T09:29:06.172104Z</td>
+<td>31.0% / 69.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ice-nem-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-ice-nem-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Astralis, fnatic</td><td>0.62 / 0.84</td>
-<td>73.0% / 27.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Astralis, fnatic</td><td>0.62 / 0.82</td>
+<td>72.0% / 28.0%</td><td>2026-10-16T11:09:06.648915Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast10-fnc-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast10-fnc-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>aimers, Banger Gang</td><td>0.43 / 0.5</td>
-<td>46.5% / 53.5%</td><td>2026-10-16T09:03:06.370082Z</td>
+<td>46.5% / 53.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aimers-bg1-2026-10-08" rel="noopener noreferrer">https://polymarket.com/event/cs2-aimers-bg1-2026-10-08</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>MIBR, Eternal Fire</td><td>0.6 / 0.82</td>
-<td>71.0% / 29.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>71.0% / 29.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mibr-ef1-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-mibr-ef1-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>OldBoys, Fire Flux Esports</td><td>0.03 / 0.97</td>
 <td>50.0% / 50.0%</td><td>2026-10-16T07:41:07.681853Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-old1-ff-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-old1-ff-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BLUEJAYS.de, Reveal</td><td>0.41 / 0.73</td>
-<td>57.0% / 43.0%</td><td>2026-10-16T09:15:05.820998Z</td>
+<td>57.0% / 43.0%</td><td>2026-10-16T10:41:06.56935Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-blueja1-rev2-2026-10-12" rel="noopener noreferrer">https://polymarket.com/event/cs2-blueja1-rev2-2026-10-12</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Sissi State Punks, Team LEISURE</td><td>0.07 / 0.94</td>
 <td>50.5% / 49.5%</td><td>2026-10-16T08:45:05.826105Z</td>
@@ -479,137 +485,131 @@ start 2026-10-16T17:00:00Z from HLTV&rsquo;s own <code>data-unix</code></p>
 <thead><tr><th scope="col">Source</th><th scope="col">Names it uses</th>
 <th scope="col">Quoted</th><th scope="col">De-vigged</th><th scope="col">Read at</th>
 <th scope="col">Link</th></tr></thead><tbody><tr><th scope="row">Polymarket</th>
-<td>NIP, Liquid</td><td>0.44 / 0.45</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-nip-tl1-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nip-tl1-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Lilmix, Revise</td><td>0.73 / 0.75</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:43:06.033039Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-lilmix-revise-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-lilmix-revise-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Eternal Fire, Betclic Apogee Esports</td><td>0.92 / 0.94</td>
-<td>85.5% / 14.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Eternal Fire, Betclic Apogee Esports</td><td>0.46 / 0.47</td>
+<td>23.7% / 76.3%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ef1-bca-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ef1-bca-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Abyssal, Off Chops</td><td>0.13 / 0.79</td>
-<td>13.5% / 86.5%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-abyssa-offcho-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-abyssa-offcho-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>HAVU, RoundsGG</td><td>0.83 / 0.84</td>
-<td>83.5% / 16.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-havu-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-havu-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>QUAZAR, VP.Future</td><td>0.05 / 0.98</td>
-<td>52.0% / 48.0%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-qua1-vpf-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-qua1-vpf-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>d06eg, JUMBO TEAM</td><td>0.02 / 0.98</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:37:06.386238Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Sökerorg, Bread Eaters Esports</td><td>0.77 / 0.78</td>
-<td>77.5% / 22.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-skr2-breade-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-skr2-breade-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>UNiTY esports, TheChampionGG</td><td>0.5 / 0.9</td>
-<td>70.0% / 30.0%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-unity-thecha-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-unity-thecha-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>MORROW, ILLYRIANS</td><td>0.21 / 0.26</td>
-<td>23.5% / 76.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-morrow-ill4-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-morrow-ill4-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>ex-RUSTEC, Saint Sinners</td><td>0.67 / 0.68</td>
-<td>67.5% / 32.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Team Nemesis, Nuclear TigeRES</td><td>0.56 / 0.57</td>
-<td>56.5% / 43.5%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-nem-ntr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nem-ntr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>fnatic, Heroic</td><td>0.34 / 0.35</td>
-<td>34.5% / 65.5%</td><td>2026-10-16T09:41:06.061861Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Bushido Wildcats, ex-RUSTEC</td><td>0.43 / 0.44</td>
-<td>43.5% / 56.5%</td><td>2026-10-16T09:39:07.567372Z</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-bw-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bw-rustec-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Voca, HAVU</td><td>0.57 / 0.58</td>
-<td>57.5% / 42.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Voca, HAVU</td><td>0.3 / 0.31</td>
+<td>32.8% / 67.2%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>ex-RUSTEC, Saint Sinners</td><td>0.8 / 0.83</td>
+<td>86.5% / 13.5%</td><td>2026-10-16T11:17:08.77416Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Sökerorg, Bread Eaters Esports</td><td>0.96 / 0.98</td>
+<td>95.8% / 4.2%</td><td>2026-10-16T11:17:08.77416Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-skr2-breade-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-skr2-breade-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>MORROW, ILLYRIANS</td><td>0.3 / 0.32</td>
+<td>33.5% / 66.5%</td><td>2026-10-16T11:15:58.711711Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-morrow-ill4-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-morrow-ill4-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>QUAZAR, VP.Future</td><td>0.49 / 0.67</td>
+<td>39.0% / 61.0%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-qua1-vpf-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-qua1-vpf-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>UNiTY esports, TheChampionGG</td><td>0.84 / 0.97</td>
+<td>88.5% / 11.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-unity-thecha-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-unity-thecha-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>d06eg, JUMBO TEAM</td><td>None / 1</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T10:51:06.649188Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-d06eg-jumbo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>fnatic, Heroic</td><td>0.33 / 0.34</td>
+<td>34.5% / 65.5%</td><td>2026-10-16T11:15:04.985645Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Team Nemesis, Nuclear TigeRES</td><td>0.56 / 0.57</td>
+<td>56.5% / 43.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-nem-ntr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nem-ntr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Prestige, The Chosen Few</td><td>0.73 / 0.76</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>74.5% / 25.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pre-tcf-2026-10-15" rel="noopener noreferrer">https://polymarket.com/event/cs2-pre-tcf-2026-10-15</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Joga de terno, your end</td><td>0.56 / 0.57</td>
-<td>55.5% / 44.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>Joga de terno, your end</td><td>0.55 / 0.57</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-jdt-youren-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-jdt-youren-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Young TigeRES, Young27</td><td>0.56 / 0.59</td>
-<td>57.5% / 42.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Young TigeRES, Young27</td><td>0.54 / 0.58</td>
+<td>56.0% / 44.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Phantom, RoundsGG</td><td>0.91 / 0.92</td>
-<td>90.5% / 9.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Rune Eaters, HyperSpirit</td><td>0.63 / 0.64</td>
+<td>63.5% / 36.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-run2-hs2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-run2-hs2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>Phantom, RoundsGG</td><td>0.9 / 0.92</td>
+<td>91.0% / 9.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pha-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>mellren, Privateer Gaming</td><td>0.86 / 0.91</td>
-<td>89.5% / 10.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>mellren, Privateer Gaming</td><td>0.88 / 0.9</td>
+<td>89.0% / 11.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mellre-pg5-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-mellre-pg5-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>FORZE Reload, Lavked</td><td>0.72 / 0.75</td>
-<td>74.5% / 25.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>FORZE Reload, Lavked</td><td>0.72 / 0.74</td>
+<td>72.5% / 27.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-forzer-lavked-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-forzer-lavked-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>BBL, EYEBALLERS</td><td>0.53 / 0.54</td>
-<td>52.0% / 48.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>BBL, EYEBALLERS</td><td>0.51 / 0.52</td>
+<td>51.5% / 48.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-bbl1-eye-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bbl1-eye-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Aurora Gaming, 9z</td><td>0.69 / 0.7</td>
-<td>69.5% / 30.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Aurora Gaming, 9z</td><td>0.68 / 0.69</td>
+<td>68.5% / 31.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aur1-9z-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-aur1-9z-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Astralis, MIBR</td><td>0.46 / 0.47</td>
-<td>46.5% / 53.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Astralis, MIBR</td><td>0.45 / 0.46</td>
+<td>45.5% / 54.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast10-mibr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast10-mibr-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>ex-Zero Tenacity, UNiTY esports</td><td>0.54 / 0.55</td>
-<td>54.5% / 45.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>ex-Zero Tenacity, UNiTY esports</td><td>0.53 / 0.55</td>
+<td>54.0% / 46.0%</td><td>2026-10-16T11:21:06.134934Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-zerote-unity-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-zerote-unity-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Voca, RoundsGG</td><td>0.86 / 0.89</td>
-<td>87.5% / 12.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>Voca, RoundsGG</td><td>0.87 / 0.89</td>
+<td>88.0% / 12.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-rgg-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Procyon Gaming, Los Niños</td><td>0.67 / 0.71</td>
-<td>69.0% / 31.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Procyon Gaming, Los Niños</td><td>0.69 / 0.71</td>
+<td>70.0% / 30.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pcy-ln-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Hermine Esports Club, Fire Flux Esports</td><td>0.16 / 0.27</td>
-<td>21.5% / 78.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Hermine Esports Club, Fire Flux Esports</td><td>0.26 / 0.28</td>
+<td>27.5% / 72.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-hec-ff-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-hec-ff-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>PRIVATE, UPGRADE</td><td>0.56 / 0.59</td>
+<td>57.5% / 42.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-priv-upgrad-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-priv-upgrad-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BakS eSports, G2 Ares</td><td>0.63 / 0.65</td>
-<td>64.0% / 36.0%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>64.0% / 36.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-baks-g2a-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-baks-g2a-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>100 Thieves, Sangal</td><td>0.69 / 0.7</td>
-<td>70.5% / 29.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>100 Thieves, Sangal</td><td>0.7 / 0.71</td>
+<td>70.5% / 29.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-100t-sng2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-100t-sng2-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>GamerLegion, ex-RUSTEC</td><td>0.82 / 0.84</td>
-<td>80.0% / 20.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>GamerLegion, ex-RUSTEC</td><td>0.8 / 0.82</td>
+<td>81.0% / 19.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-gl1-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-gl1-rustec-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Legacy, BetBoom Team</td><td>0.62 / 0.63</td>
-<td>62.5% / 37.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>62.5% / 37.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-lgc-bb3-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-lgc-bb3-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>mellren, ex-6666</td><td>0.02 / 0.98</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:27:50.133806Z</td>
+<td>mellren, ex-6666</td><td>0.2 / 0.87</td>
+<td>53.0% / 47.0%</td><td>2026-10-16T11:21:06.134934Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mellre-66661-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-mellre-66661-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Phantom, HAVU</td><td>0.66 / 0.67</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Phantom, HAVU</td><td>0.64 / 0.65</td>
+<td>64.5% / 35.5%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pha-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-havu-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>DNK, LPH Gaming</td><td>0.14 / 0.53</td>
-<td>35.5% / 64.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>DNK, LPH Gaming</td><td>0.1 / 0.38</td>
+<td>20.5% / 79.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-dnk2-lph-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-dnk2-lph-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>QUINTESSÊNCIA, Damajuana</td><td>0.78 / 0.92</td>
-<td>85.0% / 15.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>QUINTESSÊNCIA, Damajuana</td><td>0.76 / 0.93</td>
+<td>84.5% / 15.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-quin-damaju-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-quin-damaju-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>RED Canids Academy, realgotis22</td><td>0.32 / 0.65</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Honvéd, Lavked</td><td>0.35 / 0.54</td>
+<td>44.5% / 55.5%</td><td>2026-10-16T11:19:06.253896Z</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-hon1-lavked-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-hon1-lavked-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
+<td>RED Canids Academy, realgotis22</td><td>0.32 / 0.7</td>
+<td>51.0% / 49.0%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-reda-realgo-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-reda-realgo-2026-10-16</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BET-M 33, Just Players</td><td>0.49 / 0.79</td>
-<td>64.0% / 36.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>64.0% / 36.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-33-justpl-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>9INE Academy, gothboiclique</td><td>0.12 / 0.88</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-9inea-got1-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-9inea-got1-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BakS eSports, Fire Flux Esports</td><td>0.06 / 0.94</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:07:07.391321Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-baks-ff-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-baks-ff-2026-10-17</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Elite Klan, Passion Academy</td><td>0.18 / 0.79</td>
-<td>48.5% / 51.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>Elite Klan, Passion Academy</td><td>0.21 / 0.78</td>
+<td>49.5% / 50.5%</td><td>2026-10-16T11:17:08.77416Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ek-psna-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-ek-psna-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>WonderKids, Revenge</td><td>0.06 / 0.94</td>
-<td>50.0% / 50.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>50.0% / 50.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-won-rev-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-won-rev-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>CTRL Esports, ex-EF Academy</td><td>0.09 / 0.93</td>
-<td>51.0% / 49.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>51.0% / 49.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ctrles-efa1-2026-10-18" rel="noopener noreferrer">https://polymarket.com/event/cs2-ctrles-efa1-2026-10-18</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BIG, PRIVATE</td><td>0.65 / 0.68</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:43:06.033039Z</td>
+<td>66.5% / 33.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-big5-priv-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-big5-priv-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Infinite, Insiders Esport</td><td>0.41 / 0.97</td>
 <td>69.0% / 31.0%</td><td>2026-10-16T09:05:07.226508Z</td>
@@ -618,61 +618,61 @@ start 2026-10-16T17:00:00Z from HLTV&rsquo;s own <code>data-unix</code></p>
 <td>49.5% / 50.5%</td><td>2026-10-16T07:37:08.092487Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-aim1-bmb-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BC.Game Esports, Drama eSports</td><td>0.53 / 0.97</td>
-<td>75.0% / 25.0%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>75.0% / 25.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-bcg-drama-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-bcg-drama-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>WBT, Nexus</td><td>0.46 / 0.62</td>
-<td>54.0% / 46.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>54.0% / 46.0%</td><td>2026-10-16T11:19:06.253896Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-wbt-nxs1-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-wbt-nxs1-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Iberian Soul, HyperSpirit</td><td>0.59 / 0.77</td>
-<td>68.0% / 32.0%</td><td>2026-10-16T09:19:06.434151Z</td>
+<td>Iberian Soul, HyperSpirit</td><td>0.56 / 0.75</td>
+<td>65.5% / 34.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-is-hs2-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-is-hs2-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Sashi Esport, MOUZ NXT</td><td>0.5 / 0.83</td>
-<td>66.5% / 33.5%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Sashi Esport, MOUZ NXT</td><td>0.51 / 0.7</td>
+<td>60.5% / 39.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-sashi-mouzn-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-sashi-mouzn-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>SAW, Bayankhongor</td><td>0.65 / 0.97</td>
-<td>81.0% / 19.0%</td><td>2026-10-16T09:19:06.434151Z</td>
+<td>81.0% / 19.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-saw2-bkh-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-saw2-bkh-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>ASTRAL, Leo Team</td><td>0.03 / 0.96</td>
 <td>49.5% / 50.5%</td><td>2026-10-16T07:37:08.092487Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast-leo2-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast-leo2-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Alliance, TheMongolz</td><td>0.36 / 0.37</td>
-<td>36.5% / 63.5%</td><td>2026-10-16T09:41:06.061861Z</td>
+<td>36.5% / 63.5%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-all-mglz-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-all-mglz-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>fnatic, Liquid</td><td>0.4 / 0.42</td>
-<td>41.0% / 59.0%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>41.0% / 59.0%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-fnc-tl1-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-tl1-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Honvéd, Vitality Academy</td><td>0.1 / 0.97</td>
-<td>53.5% / 46.5%</td><td>2026-10-16T08:21:09.599198Z</td>
+<td>53.5% / 46.5%</td><td>2026-10-16T11:01:06.694967Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-hon1-vita-2026-10-14" rel="noopener noreferrer">https://polymarket.com/event/cs2-hon1-vita-2026-10-14</a></td></tr><tr><th scope="row">Polymarket</th>
 <td> Phantom Academy, Honvéd</td><td>0.73 / 0.97</td>
-<td>85.0% / 15.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>85.0% / 15.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-phanto-hon1-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-phanto-hon1-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>PARIVISION, magic</td><td>0.59 / 0.6</td>
-<td>59.5% / 40.5%</td><td>2026-10-16T09:37:06.386238Z</td>
+<td>59.5% / 40.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-prv-mgc-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-prv-mgc-2026-10-19</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>DINERO, DNK</td><td>0.15 / 0.35</td>
-<td>25.0% / 75.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>25.0% / 75.0%</td><td>2026-10-16T11:03:06.347085Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-dinero-dnk2-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-dinero-dnk2-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>magic, BIG</td><td>0.45 / 0.94</td>
-<td>69.5% / 30.5%</td><td>2026-10-16T09:31:07.254128Z</td>
+<td>magic, BIG</td><td>0.45 / 0.92</td>
+<td>68.5% / 31.5%</td><td>2026-10-16T10:59:06.1155Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mgc-big5-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-mgc-big5-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Inner Circle Esports, Team Nemesis</td><td>0.08 / 0.54</td>
-<td>31.0% / 69.0%</td><td>2026-10-16T09:29:06.172104Z</td>
+<td>31.0% / 69.0%</td><td>2026-10-16T11:15:04.985645Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ice-nem-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-ice-nem-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
-<td>Astralis, fnatic</td><td>0.62 / 0.84</td>
-<td>73.0% / 27.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>Astralis, fnatic</td><td>0.62 / 0.82</td>
+<td>72.0% / 28.0%</td><td>2026-10-16T11:09:06.648915Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast10-fnc-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast10-fnc-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>aimers, Banger Gang</td><td>0.43 / 0.5</td>
-<td>46.5% / 53.5%</td><td>2026-10-16T09:03:06.370082Z</td>
+<td>46.5% / 53.5%</td><td>2026-10-16T11:11:06.240665Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aimers-bg1-2026-10-08" rel="noopener noreferrer">https://polymarket.com/event/cs2-aimers-bg1-2026-10-08</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>MIBR, Eternal Fire</td><td>0.6 / 0.82</td>
-<td>71.0% / 29.0%</td><td>2026-10-16T09:39:07.567372Z</td>
+<td>71.0% / 29.0%</td><td>2026-10-16T11:13:06.781273Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-mibr-ef1-2026-10-27" rel="noopener noreferrer">https://polymarket.com/event/cs2-mibr-ef1-2026-10-27</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>OldBoys, Fire Flux Esports</td><td>0.03 / 0.97</td>
 <td>50.0% / 50.0%</td><td>2026-10-16T07:41:07.681853Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-old1-ff-2026-10-13" rel="noopener noreferrer">https://polymarket.com/event/cs2-old1-ff-2026-10-13</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>BLUEJAYS.de, Reveal</td><td>0.41 / 0.73</td>
-<td>57.0% / 43.0%</td><td>2026-10-16T09:15:05.820998Z</td>
+<td>57.0% / 43.0%</td><td>2026-10-16T10:41:06.56935Z</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-blueja1-rev2-2026-10-12" rel="noopener noreferrer">https://polymarket.com/event/cs2-blueja1-rev2-2026-10-12</a></td></tr><tr><th scope="row">Polymarket</th>
 <td>Sissi State Punks, Team LEISURE</td><td>0.07 / 0.94</td>
 <td>50.5% / 49.5%</td><td>2026-10-16T08:45:05.826105Z</td>
@@ -1157,8 +1157,12 @@ published. Not defaulted to 50/50.</span></p>
 <td><span class="pill warn">alias-candidate</span></td>
 <td>&quot;Procyon&quot; ~ &quot;Procyon Gaming&quot; (substring); &quot;LOS NINOS&quot; ~ &quot;Los Niños&quot; (token)</td>
 <td>agrees</td>
-<td>0.69, 0.31</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pcy-ln-2026-10-16</a></td></tr></tbody></table>
+<td>0.7, 0.3</td>
+<td><a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pcy-ln-2026-10-16</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1081502</caption><tbody><tr><th scope="row">&quot;Procyon&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;Procyon&quot; at standing 149 with 842 points and roster laser, lenci, MaxOff, next, pavv.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;LOS NINOS&quot;: no Valve rating row found</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>No exact-name row for &quot;LOS NINOS&quot; exists in standings_global_2026_10_05.md.</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
 <p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-pcy-ln-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-pcy-ln-2026-10-16</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-league/south-america/procyon-gaming-los-ninos-202610161200" rel="noopener noreferrer">bovada.lv/esports/counter-strike-2</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-cct-2026-south-america-series-7" rel="noopener noreferrer">hltv.org/matches/2399672</a> <a class="src" href="https://www.hotspawn.com/matches/procyon-vs-los-ninos-cct-south-america-2026-series-7-1081502" rel="noopener noreferrer">hotspawn.com/matches/procyon-vs-los-ninos-cct-south-america-2026-series-7-1081502</a></p>
 </article><article class="unresolved-card" id="unresolved-1079170">
 <h3>BET-M v Just Players</h3>
@@ -1187,8 +1191,12 @@ published. Not defaulted to 50/50.</span></p>
 <td>&quot;BET-M&quot; ~ &quot;BET-M 33&quot; (substring); &quot;Just Players&quot; ~ &quot;Just Players&quot; (exact)</td>
 <td>agrees</td>
 <td>0.64, 0.36</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-33-justpl-2026-10-17</a></td></tr></tbody></table>
-<p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">polymarket.com/event/cs2-33-justpl-2026-10-17</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13" rel="noopener noreferrer">hltv.org/matches/2399087</a> <a class="src" href="https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170" rel="noopener noreferrer">hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170</a></p>
+<td><a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">https://polymarket.com/event/cs2-33-justpl-2026-10-17</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1079170</caption><tbody><tr><th scope="row">&quot;BET-M&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;BET-M&quot; at standing 71 with 1149 points and roster bluewh1te, executor, Raijin, synyx, z1Nny.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;Just Players&quot;: multiple Valve rosters share this name</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>Valve&#x27;s official snapshot lists this exact name 2 times with different rosters: standing 118, 974 points, roster bl1x1, h1te, sm3t, sstiNiX, Temny Prince; standing 347, 485 points, roster em0k1d, rexxie, Something, spirit, sstiNiX. Choosing one would be an inference, so no rating is used.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
+<p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-33-justpl-2026-10-17" rel="noopener noreferrer">polymarket.com/event/cs2-33-justpl-2026-10-17</a> <a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13" rel="noopener noreferrer">hltv.org/matches/2399087</a> <a class="src" href="https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170" rel="noopener noreferrer">hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170</a></p>
 </article><article class="unresolved-card" id="unresolved-1081521">
 <h3>ex-6666 v Privateer</h3>
 <p class="when">13:45 UTC 18 Oct · CCT Europe 2026 Challengers #8 ·
@@ -1210,7 +1218,11 @@ published. Not defaulted to 50/50.</span></p>
 <td><span class="pill warn">unresolved</span></td>
 <td>ex-6666: no Valve rating row found (including registry aliases)</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Origination result</th>
 <td><span class="pill warn">unresolved</span></td>
-<td>No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.</td><td><a class="src" href="https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521" rel="noopener noreferrer">https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521</a></td></tr></tbody></table>
+<td>No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.</td><td><a class="src" href="https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521" rel="noopener noreferrer">https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1081521</caption><tbody><tr><th scope="row">&quot;ex-6666&quot;: no Valve rating row found</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>No exact-name row for &quot;ex-6666&quot; exists in standings_global_2026_10_05.md.</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;Privateer&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;Privateer&quot; at standing 271 with 608 points and roster Ariant0, Frazehh, JAUSTERE, M1n1maL, Prime.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
 <p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8" rel="noopener noreferrer">hltv.org/matches/2399681</a> <a class="src" href="https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521" rel="noopener noreferrer">hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521</a></p>
 </article><article class="unresolved-card" id="unresolved-1081522">
 <h3>antidaun v Phantom Academy</h3>
@@ -1233,7 +1245,11 @@ published. Not defaulted to 50/50.</span></p>
 <td><span class="pill warn">unresolved</span></td>
 <td>antidaun: no Valve rating row found (including registry aliases)</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Origination result</th>
 <td><span class="pill warn">unresolved</span></td>
-<td>No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.</td><td><a class="src" href="https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522" rel="noopener noreferrer">https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522</a></td></tr></tbody></table>
+<td>No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.</td><td><a class="src" href="https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522" rel="noopener noreferrer">https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1081522</caption><tbody><tr><th scope="row">&quot;antidaun&quot;: no Valve rating row found</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>No exact-name row for &quot;antidaun&quot; exists in standings_global_2026_10_05.md.</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;Phantom Academy&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;Phantom Academy&quot; at standing 172 with 783 points and roster Ayteel, Brain47, Dr3nquu, kalyambys, stefienson.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
 <p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399682/antidaun-vs-phantom-academy-cct-2026-challengers-europe-series-8" rel="noopener noreferrer">hltv.org/matches/2399682</a> <a class="src" href="https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522" rel="noopener noreferrer">hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522</a></p>
 </article><article class="unresolved-card" id="unresolved-1081526">
 <h3>Infinite v Insiders</h3>
@@ -1262,7 +1278,11 @@ published. Not defaulted to 50/50.</span></p>
 <td>&quot;Infinite&quot; ~ &quot;Infinite&quot; (exact); &quot;Insiders&quot; ~ &quot;Insiders Esport&quot; (substring)</td>
 <td>agrees</td>
 <td>0.69, 0.31</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-inf6-ins-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-inf6-ins-2026-10-19</a></td></tr></tbody></table>
+<td><a class="src" href="https://polymarket.com/event/cs2-inf6-ins-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-inf6-ins-2026-10-19</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1081526</caption><tbody><tr><th scope="row">&quot;Infinite&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;Infinite&quot; at standing 56 with 1259 points and roster Blytz, kreaz, kyuubii, sl3nd, volt.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;Insiders&quot;: no Valve rating row found</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>No exact-name row for &quot;Insiders&quot; exists in standings_global_2026_10_05.md.</td><td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
 <p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://play.hotspawn.com/cs2-pickems#fixture-1081526" rel="noopener noreferrer">play.hotspawn.com/cs2-pickems</a> <a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://polymarket.com/event/cs2-inf6-ins-2026-10-19" rel="noopener noreferrer">polymarket.com/event/cs2-inf6-ins-2026-10-19</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7" rel="noopener noreferrer">hltv.org/matches/2399590</a></p>
 </article><article class="unresolved-card" id="unresolved-1081527">
 <h3>aimclub v BASEMENT BOYS</h3>
@@ -1291,8 +1311,12 @@ published. Not defaulted to 50/50.</span></p>
 <td>&quot;aimclub&quot; ~ &quot;aimclub&quot; (exact); &quot;BASEMENT BOYS&quot; ~ &quot;BASEMENT BOYS&quot; (exact)</td>
 <td>agrees</td>
 <td>0.495, 0.505</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-aim1-bmb-2026-10-19</a></td></tr></tbody></table>
-<p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://play.hotspawn.com/cs2-pickems#fixture-1081527" rel="noopener noreferrer">play.hotspawn.com/cs2-pickems</a> <a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">polymarket.com/event/cs2-aim1-bmb-2026-10-19</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7" rel="noopener noreferrer">hltv.org/matches/2399591</a></p>
+<td><a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">https://polymarket.com/event/cs2-aim1-bmb-2026-10-19</a></td></tr></tbody></table><h4>Rejections this audit confirmed against the original source</h4><table class="ladder"><caption>Confirmed rejections for fixture 1081527</caption><tbody><tr><th scope="row">&quot;aimclub&quot;: multiple Valve rosters share this name</th>
+<td><span class="pill ok">confirmed</span></td>
+<td>Valve&#x27;s official snapshot lists this exact name 2 times with different rosters: standing 77, 1113 points, roster ERSIN, mhN1, ragga, waZz, zewts; standing 336, 504 points, roster Ed1m, ERSIN, RoberttMP, XELLOW, zewts. Choosing one would be an inference, so no rating is used.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">&quot;BASEMENT BOYS&quot;: Valve rating row</th>
+<td><span class="pill ok">present</span></td>
+<td>Valve lists &quot;BASEMENT BOYS&quot; at standing 102 with 1036 points and roster kAlash, kr1vda, maggent, OWNER, Tr0ublE.</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
+<p class="srcs"><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a> <a class="src" href="https://play.hotspawn.com/cs2-pickems#fixture-1081527" rel="noopener noreferrer">play.hotspawn.com/cs2-pickems</a> <a class="src" href="https://polymarket.com/event/cs2-aim1-bmb-2026-10-19" rel="noopener noreferrer">polymarket.com/event/cs2-aim1-bmb-2026-10-19</a> <a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings</a> <a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a> <a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a> <a class="src" href="https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7" rel="noopener noreferrer">hltv.org/matches/2399591</a></p>
 </article>
 </section><section class="block" id="twc">
 <h2>Thunderpick World Championship 2026 — event review</h2>
@@ -1472,7 +1496,7 @@ rather than repeated from memory.</p>
 <td>Aurora vs The MongolZ</td>
 <td><a class="src" href="https://www.hltv.org/news/44998/summer-2026-rostermania-as-it-happened" rel="noopener noreferrer">https://www.hltv.org/news/44998/summer-2026-rostermania-as-it-happened</a></td></tr></tbody></table>
 <h3>Current squads and both rankings HLTV shows</h3>
-<table class="data"><caption>HLTV team pages, read at 2026-10-16T09:45:30Z</caption>
+<table class="data"><caption>HLTV team pages, read at 2026-10-16T11:22:39Z</caption>
 <thead><tr><th scope="col">Team</th><th scope="col">Players linked on the page</th>
 <th scope="col">Valve ranking (VRS)</th><th scope="col">HLTV world ranking</th>
 <th scope="col">Coach</th><th scope="col">Weeks in top 30</th><th scope="col">Source</th></tr></thead>
@@ -1513,17 +1537,33 @@ standings_global_2026_10_05.md.</p>
 <td>1534</td><td>adamb, Krimbo, sjuush, stavn, xKacpersky</td>
 <td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">PARIVISION</th><td>36</td>
 <td>1411</td><td>FL1T, Jame, slaxejezzz, xiELO, zweih</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Infinite</th><td>56</td>
+<td>1259</td><td>Blytz, kreaz, kyuubii, sl3nd, volt</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">BET-M</th><td>71</td>
+<td>1149</td><td>bluewh1te, executor, Raijin, synyx, z1Nny</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">BASEMENT BOYS</th><td>102</td>
+<td>1036</td><td>kAlash, kr1vda, maggent, OWNER, Tr0ublE</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Procyon</th><td>149</td>
+<td>842</td><td>laser, lenci, MaxOff, next, pavv</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Phantom Academy</th><td>172</td>
+<td>783</td><td>Ayteel, Brain47, Dr3nquu, kalyambys, stefienson</td>
+<td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Privateer</th><td>271</td>
+<td>608</td><td>Ariant0, Frazehh, JAUSTERE, M1n1maL, Prime</td>
 <td>standings_global_2026_10_05.md</td><td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table>
-
-<p class="note">No exact-name row at all: none.</p>
+<h3>Names Valve lists more than once</h3><table class="data"><caption>Duplicate exact names in the same official snapshot</caption><thead><tr><th scope="col">Name</th><th scope="col">Rows</th><th scope="col">Candidates</th><th scope="col">Used</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">aimclub</th><td>2</td>
+<td>standing 77, 1113 points, roster ERSIN, mhN1, ragga, waZz, zewts; standing 336, 504 points, roster Ed1m, ERSIN, RoberttMP, XELLOW, zewts</td><td><span class="unverified">ambiguous — no rating used</span></td>
+<td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr><tr><th scope="row">Just Players</th><td>2</td>
+<td>standing 118, 974 points, roster bl1x1, h1te, sm3t, sstiNiX, Temny Prince; standing 347, 485 points, roster em0k1d, rexxie, Something, spirit, sstiNiX</td><td><span class="unverified">ambiguous — no rating used</span></td>
+<td><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a></td></tr></tbody></table><p class="note">Choosing between two official rows with the same name would be an inference, so neither is used and the fixture stays unresolved.</p>
+<p class="note">No exact-name row at all: LOS NINOS, ex-6666, antidaun, Insiders.</p>
 <p class="srcs"><a class="src" href="https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md</a> ·
 <span class="unverified">Unverified — no official source confirms this value.</span></p>
 </section><section class="block" id="verification">
 <h2>What was checked, line by line</h2>
 
 <h3>Inventory</h3>
-<p>The published inventory and Hotspawn&#x27;s own fixtures API disagree beyond what the elapsed time explains. Missing from the site: none. Published with no explanation: [&#x27;1080286&#x27;]. Both sets are listed; nothing is reconciled by assumption. Hotspawn&rsquo;s fixtures API lists
-<strong>99</strong> CS2 fixtures; the site publishes
+<p>The published inventory and Hotspawn&#x27;s own fixtures API disagree beyond what the elapsed time explains. Missing from the site: none. Published with no explanation: [&#x27;1080287&#x27;]. Both sets are listed; nothing is reconciled by assumption. Hotspawn&rsquo;s fixtures API lists
+<strong>97</strong> CS2 fixtures; the site publishes
 <strong>101</strong> rows, of which
 <strong>39</strong> are upcoming.</p>
 <p class="srcs"><a class="src" href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&amp;status=scheduled&amp;tenantId=1" rel="noopener noreferrer">phpstack-1372681-6459848.cloudwaysapps.com/api/v1</a> <a class="src" href="https://play.hotspawn.com/lobby" rel="noopener noreferrer">play.hotspawn.com/lobby</a> <a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></p>
@@ -1581,140 +1621,135 @@ site&rsquo;s refresh and this audit, so the deviation is reported rather than de
 equality; a reversed favourite is a finding regardless of drift.</p>
 <table class="data"><caption>First-party market check</caption>
 <thead><tr><th scope="col">Fixture</th><th scope="col">Teams</th><th scope="col">Polymarket outcomes</th>
-<th scope="col">Polymarket prices</th><th scope="col">Published</th><th scope="col">Deviation</th>
+<th scope="col">Polymarket prices</th><th scope="col">Published</th><th scope="col">Deviation</th><th scope="col">Reading gap</th>
 <th scope="col">Favourite</th><th scope="col">Aligned via</th><th scope="col">Source</th></tr></thead>
-<tbody><tr><th scope="row">1080286</th>
-<td>HAVU v RoundsGG</td>
-<td>HAVU, RoundsGG</td>
-<td>0.835, 0.165</td>
-<td>0.815, 0.185</td>
-<td>+2.00pp, -2.00pp</td>
-<td><span class="pill ok">
-agrees</span></td>
-<td>direct</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-havu-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-havu-rgg-2026-10-16</a></td></tr><tr><th scope="row">1079167</th>
-<td>Bushido Wildcats v ex-RUSTEC</td>
-<td>Bushido Wildcats, ex-RUSTEC</td>
-<td>0.435, 0.565</td>
-<td>0.425, 0.575</td>
-<td>+1.00pp, -1.00pp</td>
-<td><span class="pill ok">
-agrees</span></td>
-<td>direct</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-bw-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bw-rustec-2026-10-16</a></td></tr><tr><th scope="row">1079630</th>
+<tbody><tr><th scope="row">1079630</th>
 <td>ex-RUSTEC v Saint Sinners</td>
 <td>ex-RUSTEC, Saint Sinners</td>
-<td>0.675, 0.325</td>
+<td>0.815, 0.185</td>
 <td>0.685, 0.315</td>
-<td>-1.00pp, +1.00pp</td>
+<td>+13.00pp, -13.00pp</td>
+<td>2.98 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">1081712</th>
 <td>Fnatic v Heroic</td>
 <td>fnatic, Heroic</td>
-<td>0.345, 0.655</td>
 <td>0.335, 0.665</td>
-<td>+1.00pp, -1.00pp</td>
+<td>0.335, 0.665</td>
+<td>+0.00pp, +0.00pp</td>
+<td>2.94 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">1080287</th>
 <td>Voca v HAVU</td>
 <td>Voca, HAVU</td>
+<td>0.305, 0.695</td>
 <td>0.575, 0.425</td>
-<td>0.575, 0.425</td>
-<td>+0.00pp, +0.00pp</td>
-<td><span class="pill ok">
-agrees</span></td>
+<td>-27.00pp, +27.00pp</td>
+<td>2.94 h</td>
+<td><span class="pill bad">
+reversed</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">1081497</th>
 <td>Young27 v Young TigeRES</td>
 <td>Young TigeRES, Young27</td>
-<td>0.425, 0.575</td>
+<td>0.440, 0.560</td>
 <td>0.410, 0.590</td>
-<td>+1.50pp, -1.50pp</td>
+<td>+3.00pp, -3.00pp</td>
+<td>2.98 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16</a></td></tr><tr><th scope="row">1081498</th>
 <td>JOGA DE TERNO v your end</td>
 <td>Joga de terno, your end</td>
-<td>0.565, 0.435</td>
+<td>0.560, 0.440</td>
 <td>0.575, 0.425</td>
-<td>-1.00pp, +1.00pp</td>
+<td>-1.50pp, +1.50pp</td>
+<td>2.98 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-jdt-youren-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-jdt-youren-2026-10-16</a></td></tr><tr><th scope="row">1079588</th>
 <td>Astralis v MIBR</td>
 <td>Astralis, MIBR</td>
-<td>0.465, 0.535</td>
+<td>0.455, 0.545</td>
 <td>0.485, 0.515</td>
-<td>-2.00pp, +2.00pp</td>
+<td>-3.00pp, +3.00pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ast10-mibr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ast10-mibr-2026-10-16</a></td></tr><tr><th scope="row">1079631</th>
 <td>FORZE Reload v Lavked</td>
 <td>FORZE Reload, Lavked</td>
-<td>0.735, 0.265</td>
+<td>0.730, 0.270</td>
 <td>0.725, 0.275</td>
-<td>+1.00pp, -1.00pp</td>
+<td>+0.50pp, -0.50pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-forzer-lavked-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-forzer-lavked-2026-10-16</a></td></tr><tr><th scope="row">1080205</th>
 <td>Aurora v 9z</td>
 <td>Aurora Gaming, 9z</td>
-<td>0.695, 0.305</td>
+<td>0.685, 0.315</td>
 <td>0.693, 0.307</td>
-<td>+0.15pp, -0.15pp</td>
+<td>-0.85pp, +0.85pp</td>
+<td>2.97 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>aurora gaming -&gt; Aurora</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-aur1-9z-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-aur1-9z-2026-10-16</a></td></tr><tr><th scope="row">1080288</th>
 <td>Phantom v RoundsGG</td>
 <td>Phantom, RoundsGG</td>
-<td>0.915, 0.085</td>
+<td>0.910, 0.090</td>
 <td>0.925, 0.075</td>
-<td>-1.00pp, +1.00pp</td>
+<td>-1.50pp, +1.50pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-pha-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-rgg-2026-10-16</a></td></tr><tr><th scope="row">1081499</th>
 <td>BBL v EYEBALLERS</td>
 <td>BBL, EYEBALLERS</td>
+<td>0.515, 0.485</td>
 <td>0.535, 0.465</td>
-<td>0.535, 0.465</td>
-<td>+0.00pp, +0.00pp</td>
+<td>-2.00pp, +2.00pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-bbl1-eye-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bbl1-eye-2026-10-16</a></td></tr><tr><th scope="row">1080289</th>
 <td>RoundsGG v Voca</td>
 <td>Voca, RoundsGG</td>
+<td>0.120, 0.880</td>
 <td>0.125, 0.875</td>
-<td>0.125, 0.875</td>
-<td>+0.00pp, +0.00pp</td>
+<td>-0.50pp, +0.50pp</td>
+<td>2.94 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-rgg-2026-10-16</a></td></tr><tr><th scope="row">1079589</th>
 <td>100 Thieves v Sangal</td>
 <td>100 Thieves, Sangal</td>
+<td>0.705, 0.295</td>
 <td>0.695, 0.305</td>
-<td>0.695, 0.305</td>
-<td>+0.00pp, +0.00pp</td>
+<td>+1.00pp, -1.00pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-100t-sng2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-100t-sng2-2026-10-16</a></td></tr><tr><th scope="row">1081503</th>
 <td>GamerLegion v ex-RUSTEC</td>
 <td>GamerLegion, ex-RUSTEC</td>
+<td>0.810, 0.190</td>
 <td>0.830, 0.170</td>
-<td>0.830, 0.170</td>
-<td>+0.00pp, +0.00pp</td>
+<td>-2.00pp, +2.00pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
@@ -1724,19 +1759,27 @@ agrees</span></td>
 <td>0.375, 0.625</td>
 <td>0.363, 0.637</td>
 <td>+1.23pp, -1.23pp</td>
+<td>2.94 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>betboom team -&gt; BetBoom</td>
 <td><a class="src" href="https://polymarket.com/event/cs2-lgc-bb3-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-lgc-bb3-2026-10-16</a></td></tr><tr><th scope="row">1080290</th>
 <td>Phantom v HAVU</td>
 <td>Phantom, HAVU</td>
+<td>0.645, 0.355</td>
 <td>0.665, 0.335</td>
-<td>0.665, 0.335</td>
-<td>+0.00pp, +0.00pp</td>
+<td>-2.00pp, +2.00pp</td>
+<td>3.01 h</td>
 <td><span class="pill ok">
 agrees</span></td>
 <td>direct</td>
-<td><a class="src" href="https://polymarket.com/event/cs2-pha-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-havu-2026-10-16</a></td></tr></tbody></table>
+<td><a class="src" href="https://polymarket.com/event/cs2-pha-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-pha-havu-2026-10-16</a></td></tr><tr><th scope="row">1080286</th>
+<td>HAVU v RoundsGG</td><td colspan="7">
+<span class="unverified">No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted.</span></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></td></tr><tr><th scope="row">1079167</th>
+<td>Bushido Wildcats v ex-RUSTEC</td><td colspan="7">
+<span class="unverified">No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted.</span></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></td></tr></tbody></table>
 
 <h3 id="replay">Each probability replayed from the quote the row cites</h3>
 <table class="data"><caption>Probability replay — 23 replayed, 0 mismatched, 6 blank, 10 not replayable from a price</caption>
@@ -1979,45 +2022,15 @@ agrees</span></td>
 <td><a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md" rel="noopener noreferrer">github.com/ValveSoftware/counter-strike_regional_standings</a></td></tr></tbody></table>
 
 <h3 id="cross">Independent official lines against the published pick</h3>
-<table class="data"><caption>Cross-checks — 28 same pick, 0 different pick</caption>
+<table class="data"><caption>Cross-checks — 25 same pick, 1 different pick</caption>
 <thead><tr><th scope="col">Fixture</th><th scope="col">Teams</th><th scope="col">Published</th>
 <th scope="col">Independent</th><th scope="col">Odds</th><th scope="col">Overround</th>
-<th scope="col">Verdict</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">1080286</th>
-<td>HAVU v RoundsGG</td>
-<td>Polymarket → <strong>HAVU</strong>
-81.5%, 18.5%</td>
-<td>Polymarket → <strong>HAVU</strong>
-83.5%, 16.5%</td>
-<td>—</td>
-<td>—</td>
-<td><span class="pill ok">
-same pick</span></td>
-<td><a class="src" href="https://polymarket.com/event/cs2-havu-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-havu-rgg-2026-10-16</a></td></tr><tr><th scope="row">1079167</th>
-<td>Bushido Wildcats v ex-RUSTEC</td>
-<td>Polymarket → <strong>ex-RUSTEC</strong>
-42.5%, 57.5%</td>
-<td>Polymarket → <strong>ex-RUSTEC</strong>
-43.5%, 56.5%</td>
-<td>—</td>
-<td>—</td>
-<td><span class="pill ok">
-same pick</span></td>
-<td><a class="src" href="https://polymarket.com/event/cs2-bw-rustec-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-bw-rustec-2026-10-16</a></td></tr><tr><th scope="row">1079630</th>
-<td>ex-RUSTEC v Saint Sinners</td>
-<td>Polymarket → <strong>ex-RUSTEC</strong>
-68.5%, 31.5%</td>
-<td>Bovada → <strong>ex-RUSTEC</strong>
-64.6%, 35.4%</td>
-<td>1.454545, 2.650</td>
-<td>1.064859</td>
-<td><span class="pill ok">
-same pick</span></td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/ex-rustec-saint-sinners-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/ex-rustec-saint-sinners-202610160700</a></td></tr><tr><th scope="row">1079630</th>
+<th scope="col">Verdict</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">1079630</th>
 <td>ex-RUSTEC v Saint Sinners</td>
 <td>Polymarket → <strong>ex-RUSTEC</strong>
 68.5%, 31.5%</td>
 <td>Polymarket → <strong>ex-RUSTEC</strong>
-67.5%, 32.5%</td>
+86.5%, 13.5%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2033,16 +2046,6 @@ same pick</span></td>
 <td><span class="pill ok">
 same pick</span></td>
 <td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1081712</th>
-<td>Fnatic v Heroic</td>
-<td>Polymarket → <strong>Heroic</strong>
-33.5%, 66.5%</td>
-<td>Bovada → <strong>Heroic</strong>
-36.8%, 63.2%</td>
-<td>2.550, 1.487805</td>
-<td>1.064288</td>
-<td><span class="pill ok">
-same pick</span></td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/fnatic-heroic-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pulse-beat-iii/fnatic-heroic-202610160700</a></td></tr><tr><th scope="row">1081712</th>
 <td>Fnatic v Heroic</td>
 <td>Polymarket → <strong>Heroic</strong>
 33.5%, 66.5%</td>
@@ -2062,17 +2065,7 @@ same pick</span></td>
 <td>—</td>
 <td><span class="pill ok">
 same pick</span></td>
-<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">1080287</th>
-<td>Voca v HAVU</td>
-<td>Polymarket → <strong>Voca</strong>
-57.5%, 42.5%</td>
-<td>Polymarket → <strong>Voca</strong>
-57.5%, 42.5%</td>
-<td>—</td>
-<td>—</td>
-<td><span class="pill ok">
-same pick</span></td>
-<td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">1081498</th>
+<td><a class="src" href="https://polymarket.com/event/cs2-fnc-hero-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-fnc-hero-2026-10-16</a></td></tr><tr><th scope="row">1081498</th>
 <td>JOGA DE TERNO v your end</td>
 <td>Polymarket → <strong>JOGA DE TERNO</strong>
 57.5%, 42.5%</td>
@@ -2087,7 +2080,7 @@ same pick</span></td>
 <td>Polymarket → <strong>JOGA DE TERNO</strong>
 57.5%, 42.5%</td>
 <td>Polymarket → <strong>JOGA DE TERNO</strong>
-55.5%, 44.5%</td>
+56.0%, 44.0%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2102,7 +2095,17 @@ same pick</span></td>
 <td>1.075676</td>
 <td><span class="pill ok">
 same pick</span></td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1079588</th>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1081779</th>
+<td>Rune Eaters v HyperSpirit</td>
+<td>Thunderpick → <strong>Rune Eaters</strong>
+62.8%, 37.2%</td>
+<td>Polymarket → <strong>Rune Eaters</strong>
+63.5%, 36.5%</td>
+<td>—</td>
+<td>—</td>
+<td><span class="pill ok">
+same pick</span></td>
+<td><a class="src" href="https://polymarket.com/event/cs2-run2-hs2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-run2-hs2-2026-10-16</a></td></tr><tr><th scope="row">1079588</th>
 <td>Astralis v MIBR</td>
 <td>Polymarket → <strong>MIBR</strong>
 48.5%, 51.5%</td>
@@ -2127,7 +2130,7 @@ same pick</span></td>
 <td>Polymarket → <strong>MIBR</strong>
 48.5%, 51.5%</td>
 <td>Polymarket → <strong>MIBR</strong>
-46.5%, 53.5%</td>
+45.5%, 54.5%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2137,9 +2140,9 @@ same pick</span></td>
 <td>Polymarket → <strong>FORZE Reload</strong>
 72.5%, 27.5%</td>
 <td>Bovada → <strong>FORZE Reload</strong>
-74.3%, 25.7%</td>
-<td>1.260, 3.650</td>
-<td>1.067623</td>
+71.6%, 28.4%</td>
+<td>1.307692, 3.300</td>
+<td>1.067736</td>
 <td><span class="pill ok">
 same pick</span></td>
 <td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/forze-reload-lavked-202610161000" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-11/forze-reload-lavked-202610161000</a></td></tr><tr><th scope="row">1079631</th>
@@ -2147,7 +2150,7 @@ same pick</span></td>
 <td>Polymarket → <strong>FORZE Reload</strong>
 72.5%, 27.5%</td>
 <td>Polymarket → <strong>FORZE Reload</strong>
-74.5%, 25.5%</td>
+72.5%, 27.5%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2157,7 +2160,7 @@ same pick</span></td>
 <td>Polymarket → <strong>Phantom</strong>
 92.5%, 7.5%</td>
 <td>Polymarket → <strong>Phantom</strong>
-90.5%, 9.5%</td>
+91.0%, 9.0%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2167,7 +2170,7 @@ same pick</span></td>
 <td>Polymarket → <strong>BBL</strong>
 53.5%, 46.5%</td>
 <td>Polymarket → <strong>BBL</strong>
-52.0%, 48.0%</td>
+51.5%, 48.5%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2182,7 +2185,17 @@ same pick</span></td>
 <td>1.082251</td>
 <td><span class="pill ok">
 same pick</span></td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1079589</th>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1081780</th>
+<td>PRIVATE v UPGRADE</td>
+<td>Thunderpick → <strong>PRIVATE</strong>
+53.8%, 46.2%</td>
+<td>Polymarket → <strong>PRIVATE</strong>
+57.5%, 42.5%</td>
+<td>—</td>
+<td>—</td>
+<td><span class="pill ok">
+same pick</span></td>
+<td><a class="src" href="https://polymarket.com/event/cs2-priv-upgrad-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-priv-upgrad-2026-10-16</a></td></tr><tr><th scope="row">1079589</th>
 <td>100 Thieves v Sangal</td>
 <td>Polymarket → <strong>100 Thieves</strong>
 69.5%, 30.5%</td>
@@ -2227,7 +2240,7 @@ same pick</span></td>
 <td>Polymarket → <strong>GamerLegion</strong>
 83.0%, 17.0%</td>
 <td>Polymarket → <strong>GamerLegion</strong>
-80.0%, 20.0%</td>
+81.0%, 19.0%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2237,7 +2250,7 @@ same pick</span></td>
 <td>Polymarket → <strong>Phantom</strong>
 66.5%, 33.5%</td>
 <td>Polymarket → <strong>Phantom</strong>
-66.5%, 33.5%</td>
+64.5%, 35.5%</td>
 <td>—</td>
 <td>—</td>
 <td><span class="pill ok">
@@ -2262,21 +2275,21 @@ same pick</span></td>
 <td>1.075676</td>
 <td><span class="pill ok">
 same pick</span></td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr></tbody></table>
-<h3>Same fixture, different team labels</h3><p class="lede">Official books frequently label the same fixture differently. These are recorded so a reviewer can see the line exists; the identity is not verified by this audit and no probability is taken from any of them.</p><table class="data"><caption>Alias-only observations on fixtures that already have a pick</caption><thead><tr><th scope="col">Fixture</th><th scope="col">Site names</th><th scope="col">Source</th><th scope="col">Its names</th><th scope="col">Name comparison</th><th scope="col">Start time</th><th scope="col">Used</th><th scope="col">Link</th></tr></thead><tbody><tr><th scope="row">1080286</th>
-<td>HAVU v RoundsGG</td><td>Thunderpick</td>
-<td>HAVU Gaming, ROUNDS</td>
-<td>&quot;HAVU&quot; ~ &quot;HAVU Gaming&quot; (substring); &quot;RoundsGG&quot; ~ &quot;ROUNDS&quot; (substring)</td><td>unknown</td>
-<td><span class="unverified">identity unverified</span></td>
-<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1081496</th>
-<td>Nemesis v Nuclear TigeRES</td><td>Bovada</td>
-<td>Team Nemesis, Nuclear Tigeres</td>
-<td>&quot;Nemesis&quot; ~ &quot;Team Nemesis&quot; (substring); &quot;Nuclear TigeRES&quot; ~ &quot;Nuclear Tigeres&quot; (exact)</td><td>agrees</td>
-<td><span class="unverified">identity unverified</span></td>
-<td><a class="src" href="https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/team-nemesis-nuclear-tigeres-202610160700" rel="noopener noreferrer">https://www.bovada.lv/esports/counter-strike-2/pgl-bucharest-qualifiers/europe/team-nemesis-nuclear-tigeres-202610160700</a></td></tr><tr><th scope="row">1081496</th>
+<td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">https://thunderpick.io/esports/counter-strike</a></td></tr><tr><th scope="row">1080287</th>
+<td>Voca v HAVU</td>
+<td>Polymarket → <strong>Voca</strong>
+57.5%, 42.5%</td>
+<td>Polymarket → <strong>HAVU</strong>
+32.8%, 67.2%</td>
+<td>—</td>
+<td>—</td>
+<td><span class="pill bad">
+different pick</span></td>
+<td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr></tbody></table>
+<h3>Same fixture, different team labels</h3><p class="lede">Official books frequently label the same fixture differently. These are recorded so a reviewer can see the line exists; the identity is not verified by this audit and no probability is taken from any of them.</p><table class="data"><caption>Alias-only observations on fixtures that already have a pick</caption><thead><tr><th scope="col">Fixture</th><th scope="col">Site names</th><th scope="col">Source</th><th scope="col">Its names</th><th scope="col">Name comparison</th><th scope="col">Start time</th><th scope="col">Used</th><th scope="col">Link</th></tr></thead><tbody><tr><th scope="row">1081496</th>
 <td>Nemesis v Nuclear TigeRES</td><td>Polymarket</td>
 <td>Team Nemesis, Nuclear TigeRES</td>
-<td>&quot;Nemesis&quot; ~ &quot;Team Nemesis&quot; (substring); &quot;Nuclear TigeRES&quot; ~ &quot;Nuclear TigeRES&quot; (exact)</td><td>agrees</td>
+<td>&quot;Nemesis&quot; ~ &quot;Team Nemesis&quot; (substring); &quot;Nuclear TigeRES&quot; ~ &quot;Nuclear TigeRES&quot; (exact)</td><td>differs-by-45-minutes</td>
 <td><span class="unverified">identity unverified</span></td>
 <td><a class="src" href="https://polymarket.com/event/cs2-nem-ntr-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-nem-ntr-2026-10-16</a></td></tr><tr><th scope="row">1080287</th>
 <td>Voca v HAVU</td><td>Thunderpick</td>
@@ -2398,34 +2411,59 @@ same pick</span></td>
 <td>Young TigeRES, Young27</td>
 <td>0.410, 0.590</td>
 <td>Young TigeRES, Young27</td>
-<td>0.425, 0.575</td>
+<td>0.440, 0.560</td>
 <td><span class="pill ok">
 correct</span></td>
 <td><a class="src" href="https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-ytigeres-young2-2026-10-16</a></td></tr><tr><th scope="row">1080289</th><td>RoundsGG, Voca</td>
 <td>Voca, RoundsGG</td>
 <td>0.125, 0.875</td>
 <td>Voca, RoundsGG</td>
-<td>0.125, 0.875</td>
+<td>0.120, 0.880</td>
 <td><span class="pill ok">
 correct</span></td>
 <td><a class="src" href="https://polymarket.com/event/cs2-voc-rgg-2026-10-16" rel="noopener noreferrer">https://polymarket.com/event/cs2-voc-rgg-2026-10-16</a></td></tr></tbody></table><p class="note">Reading the two arrays positionally inverts the favourite. Every case was checked against Polymarket&rsquo;s own prices and the published probability is correct; this is a readability defect in the published JSON, not a wrong number.</p>
 </section><section class="block" id="flags">
-<h2>Flagged for review (8)</h2>
+<h2>Flagged for review (13)</h2>
 <p class="lede">Irregularities found while verifying the published data. None of them blocks
 publication, and none of them was fixed by this audit: each is recorded with the official
 sources behind it so a reviewer can decide. The same register is published to the
 site&rsquo;s <a href="../../../review/index.html">Flagged for review</a> page.</p>
-<table class="data"><caption>Irregularity register, session arena-ba7164a0</caption><thead><tr><th scope="col">Finding</th><th scope="col">Severity</th><th scope="col">Detail</th><th scope="col">Fixtures</th><th scope="col">Flag id</th><th scope="col">Sources</th></tr></thead><tbody><tr><th scope="row">Published inventory does not reconcile with Hotspawn&#x27;s own fixtures API</th>
+<table class="data"><caption>Irregularity register, session arena-ba7164a0</caption><thead><tr><th scope="col">Finding</th><th scope="col">Severity</th><th scope="col">Detail</th><th scope="col">Fixtures</th><th scope="col">Flag id</th><th scope="col">Sources</th></tr></thead><tbody><tr><th scope="row">Published pick for 1080287 is now the underdog on the same source that produced it</th>
 <td><span class="pill review">review</span></td>
-<td>Hotspawn&#x27;s API listed 99 CS2 fixtures when read at 2026-10-16T09:44:09Z; the deployed snapshot published 101 rows generated at 2026-10-16T08:18:38Z. Missing from the site: none. Published but no longer listed by Hotspawn: [&#x27;1080286&#x27;, &#x27;1081493&#x27;], of which 1 had already passed their scheduled start when the API was read (1081493). Hotspawn&#x27;s fixtures feed is queried with status=scheduled, so a fixture leaves it once it starts; that part is a timing difference between two readings, not a coverage gap. Still unexplained: [&#x27;1080286&#x27;] - published as upcoming although Hotspawn no longer lists them and their scheduled start had not passed. They may have been postponed or removed; this audit does not assume which. This difference is NOT explained by elapsed time and needs review. No row was added or removed by this audit.</td>
-<td>1080286, 1081493</td>
+<td>Voca vs HAVU (None, None): Polymarket event 1173319 (cs2-voc-havu-2026-10-16) quotes [&#x27;Voca&#x27;, &#x27;HAVU&#x27;] at [0.305, 0.695] observed 2026-10-16T11:15:04.985645Z, while the site published [0.575, 0.425] observed 2026-10-16T08:18:27Z — a deviation of [-27.0, 27.0] percentage points across a 2.94 h gap between the two readings. The favourite has flipped, so the published pick is the underdog on the current price from the very source that produced it. This is a freshness problem, not an arithmetic one: the published number still replays exactly from the quote it cites. Both observations are kept and neither was overwritten.</td>
+<td>1080287</td>
+<td><code>arena-ba7164a0-first-party-1080287</code></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">Published inventory does not reconcile with Hotspawn&#x27;s own fixtures API</th>
+<td><span class="pill review">review</span></td>
+<td>Hotspawn&#x27;s API listed 97 CS2 fixtures when read at 2026-10-16T11:21:13Z; the deployed snapshot published 101 rows generated at 2026-10-16T08:18:38Z. Missing from the site: none. Published but no longer listed by Hotspawn: [&#x27;1079630&#x27;, &#x27;1080286&#x27;, &#x27;1080287&#x27;, &#x27;1081493&#x27;], of which 3 had already passed their scheduled start when the API was read (1081493, 1080286, 1079630). Hotspawn&#x27;s fixtures feed is queried with status=scheduled, so a fixture leaves it once it starts; that part is a timing difference between two readings, not a coverage gap. Still unexplained: [&#x27;1080287&#x27;] - published as upcoming although Hotspawn no longer lists them and their scheduled start had not passed. They may have been postponed or removed; this audit does not assume which. This difference is NOT explained by elapsed time and needs review. No row was added or removed by this audit.</td>
+<td>1079630, 1080286, 1080287, 1081493</td>
 <td><code>arena-ba7164a0-inventory-divergence</code></td>
-<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&amp;status=scheduled&amp;tenantId=1" rel="noopener noreferrer">phpstack-1372681-6459848.cloudwaysapps.com/api/v1</a> <a class="src" href="https://play.hotspawn.com/lobby" rel="noopener noreferrer">play.hotspawn.com/lobby</a></td></tr><tr><th scope="row">A published pick cites a URL outside the official allow-list</th>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&amp;status=scheduled&amp;tenantId=1" rel="noopener noreferrer">phpstack-1372681-6459848.cloudwaysapps.com/api/v1</a> <a class="src" href="https://play.hotspawn.com/lobby" rel="noopener noreferrer">play.hotspawn.com/lobby</a></td></tr><tr><th scope="row">An independent official line disagrees with the published pick for 1080287</th>
 <td><span class="pill review">review</span></td>
-<td>URLs: https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4</td>
-<td>—</td>
+<td>Voca vs HAVU (Elisa BreakOut Series #2, 2026-10-16T12:00:00Z): the site picks Voca from Polymarket via its market rung ([57.5, 42.5]%, observed 2026-10-16T08:18:27Z), while Polymarket (None, overround None, observed 2026-10-16T11:15:04.985645Z) de-vigs to HAVU ([32.8, 67.2]%). The two official sources are 24.66 percentage points apart, which is enough to flip the pick on a near-even match. Both are linked; neither was overridden, and no third opinion was invented to break the tie.</td>
+<td>1080287</td>
+<td><code>arena-ba7164a0-pick-direction-1080287</code></td>
+<td><a class="src" href="https://polymarket.com/event/cs2-voc-havu-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-voc-havu-2026-10-16</a></td></tr><tr><th scope="row">A published pick cites a URL outside the official allow-list</th>
+<td><span class="pill review">review</span></td>
+<td>The deployed origination payload cites https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4 on fixture 1081529 (Nexus v WROTBERRY) at aliases_used[0].evidence[2].url. Those hosts are not in the OFFICIAL allow-list published in scripts/audit_rows.py, so the join they support is evidenced by a source the project&#x27;s own policy does not accept. The offending URLs are quoted here rather than linked, because a flag&#x27;s own source_urls must be official or the review row that renders them would fail the same policy.</td>
+<td>1081529</td>
 <td><code>arena-ba7164a0-unofficial-source-url</code></td>
-<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4" rel="noopener noreferrer">liquipedia.net/counterstrike/CCT</a></td></tr><tr><th scope="row">Picks are published on margins smaller than the spread of their own source</th>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></td></tr><tr><th scope="row">Published probability for 1079630 has drifted more than 5 points from Polymarket&#x27;s own archived prices</th>
+<td><span class="pill notice">notice</span></td>
+<td>ex-RUSTEC vs Saint Sinners (None, None): Polymarket event 1190750 (cs2-rustec-ssins-2026-10-16) quotes [&#x27;ex-RUSTEC&#x27;, &#x27;Saint Sinners&#x27;] at [0.815, 0.185] observed 2026-10-16T11:17:08.77416Z, while the site published [0.685, 0.315] observed 2026-10-16T08:18:26Z — a deviation of [13.0, -13.0] percentage points across a 2.98 h gap between the two readings. Both observations are kept; the gap between the readings is stated so drift is not mistaken for a defect. Neither was overwritten by this audit.</td>
+<td>1079630</td>
+<td><code>arena-ba7164a0-first-party-1079630</code></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a> <a class="src" href="https://polymarket.com/event/cs2-rustec-ssins-2026-10-16" rel="noopener noreferrer">polymarket.com/event/cs2-rustec-ssins-2026-10-16</a></td></tr><tr><th scope="row">Published probability for 1079167 could not be checked against Polymarket</th>
+<td><span class="pill notice">notice</span></td>
+<td>Bushido Wildcats vs ex-RUSTEC: No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted. Left as published; not confirmed and not contradicted.</td>
+<td>1079167</td>
+<td><code>arena-ba7164a0-first-party-unverifiable-1079167</code></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></td></tr><tr><th scope="row">Published probability for 1080286 could not be checked against Polymarket</th>
+<td><span class="pill notice">notice</span></td>
+<td>HAVU vs RoundsGG: No archived Polymarket event for this event_id; the row is neither confirmed nor contradicted. Left as published; not confirmed and not contradicted.</td>
+<td>1080286</td>
+<td><code>arena-ba7164a0-first-party-unverifiable-1080286</code></td>
+<td><a class="src" href="https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json" rel="noopener noreferrer">github.com/buffedlizard55-lab/MaltaProj3</a></td></tr><tr><th scope="row">Picks are published on margins smaller than the spread of their own source</th>
 <td><span class="pill notice">notice</span></td>
 <td>The origination ladder publishes a pick for every fixture it can price and has no minimum-edge threshold (the deployed snapshot reports no_edge=0). 3 resolved fixture(s) are decided by less than 5 percentage points: 1079588 Astralis vs MIBR [48.5, 51.5]%; 1079588 Astralis vs MIBR [48.5, 51.5]%; 1079588 Astralis vs MIBR [48.5, 51.5]%. These are arithmetically correct and every one replays from its cited source, but a reader on a phone cannot distinguish a 1.5-point margin from a strong favourite. Reported as a presentation irregularity, not a data error.</td>
 <td>1079588</td>
@@ -2462,9 +2500,9 @@ site&rsquo;s <a href="../../../review/index.html">Flagged for review</a> page.</
 repaired by this session; the picks shown are the ones the site already published, and the
 job here is to say whether each one can be confirmed from an official source.</p>
 <ol>
-<li><code>scripts/research_verify.py</code> read 225 official sources
-between 2026-10-16T09:44:08Z and
-2026-10-16T09:45:32Z and archived every original response
+<li><code>scripts/research_verify.py</code> read 219 official sources
+between 2026-10-16T11:21:11Z and
+2026-10-16T11:22:40Z and archived every original response
 verbatim under <code>data/research/ba7164a0/raw/</code>.
 0 were unreadable; each unreadable source is reported as a
 limitation instead of being worked around.</li>
@@ -2474,7 +2512,7 @@ archives and wrote <a href="audit.json">audit.json</a>.</li>
 </ol>
 <table class="data"><caption>Independent money lines read, by provider</caption>
 <thead><tr><th scope="col">Provider</th><th scope="col">Lines</th><th scope="col">Source</th></tr></thead>
-<tbody><tr><th scope="row">Bovada</th><td>16</td><td><a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a></td></tr><tr><th scope="row">Kalshi</th><td>94</td><td><a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a></td></tr><tr><th scope="row">Polymarket</th><td>66</td><td><a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://gamma-api.polymarket.com/events" rel="noopener noreferrer">gamma-api.polymarket.com/events</a></td></tr><tr><th scope="row">Thunderpick</th><td>43</td><td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a></td></tr></tbody></table>
+<tbody><tr><th scope="row">Bovada</th><td>12</td><td><a class="src" href="https://www.bovada.lv/sports" rel="noopener noreferrer">bovada.lv/sports</a></td></tr><tr><th scope="row">Kalshi</th><td>96</td><td><a class="src" href="https://kalshi.com/markets/kxcs2game/counterstrike-2-game" rel="noopener noreferrer">kalshi.com/markets/kxcs2game</a></td></tr><tr><th scope="row">Polymarket</th><td>64</td><td><a class="src" href="https://polymarket.com/esports/cs2" rel="noopener noreferrer">polymarket.com/esports/cs2</a> <a class="src" href="https://gamma-api.polymarket.com/events" rel="noopener noreferrer">gamma-api.polymarket.com/events</a></td></tr><tr><th scope="row">Thunderpick</th><td>51</td><td><a class="src" href="https://thunderpick.io/esports/counter-strike" rel="noopener noreferrer">thunderpick.io/esports/counter-strike</a></td></tr></tbody></table>
 <h3>Limitations</h3>
 <ul><li>This audit reads only what the archived first-party responses state. Where a source was unreadable the observation is absent, and the absence is reported rather than filled in.</li><li>The Valve-rating research model formula is owned by another session and is not reimplemented here; for model rows the official inputs the row cites are verified instead of the arithmetic.</li><li>An identity join classified as unverified never contributes a probability. Team names differing between Hotspawn and a book are reported for human review only.</li><li>Prices move. Every line carries the timestamp at which it was observed; no line is presented as current beyond that timestamp.</li></ul>
 <h3>What is deliberately not done here</h3>

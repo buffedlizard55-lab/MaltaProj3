@@ -345,7 +345,8 @@ class FirstPartyVerification(unittest.TestCase):
         flags = [f for f in result['flags'] if f['id'].endswith('first-party-1080205')]
         self.assertEqual(len(flags), 1)
         self.assertEqual(flags[0]['severity'], 'review')
-        self.assertIn('opposite', flags[0]['title'])
+        self.assertIn('underdog', flags[0]['title'])
+        self.assertIn('favourite has flipped', flags[0]['detail'])
         self.assertIn('https://polymarket.com/event/cs2-aur1-9z-2026-10-16', flags[0]['source_urls'])
 
     def test_an_unjoinable_name_is_neither_confirmed_nor_contradicted(self):
