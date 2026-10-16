@@ -945,3 +945,14 @@ Three further findings surfaced once the first PR was live. All are fixed, teste
 | Live check 23:40Z | <https://buffedlizard55-lab.github.io/MaltaProj3/strategy/> shows inventory 23:39 UTC, 16 open fixtures with a pick, **Aurora vs 9z as an upset play** (money-backed Kalshi line Aurora 69.8% / 9z 30.2%, cost 2.8 expected points for 7 at stake, tournament slip 9z 2-1) and the unresolved section with 6 rows; the executive summary shows "Leaderboard plan →" beside the picks button and "FULL INVENTORY RECONCILED" |
 
 **Open for the repository owner (does not block anything):** switch Settings → Pages → Source to **GitHub Actions** (the sessions' token gets HTTP 403: Administration permission). Until then the last production run after the last merge decides what is live.
+
+## Session 09e96795 — safety audit and final integration (2026-10-16 UTC)
+
+Fixed Arena branch: `arena/09e96795-maltaproj3`. Historical active rows above are superseded by their completed publication records; no current active owner claims this scope.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| Audit strategy eligibility against inventory freshness, snapshot binding and lock certainty; add regression coverage | in progress | 09e96795 | `scripts/build_strategy.py`, `tests/test_strategy_safety.py`, `COORDINATION.md` |
+| Final integration, source refresh, PR, merge and production verification | in progress | 09e96795 | same scope; GitHub workflow dispatch / publication records |
+
+Prior implementation retained. Inspection found that strategy upset eligibility checks line freshness but not inventory freshness/completeness, inventory-to-origination timestamp binding, or a confirmed future lock. Scope is limited to preventing unsupported contrarian swaps; no external probabilities or featured picks will be changed. External hosts are unavailable directly in this sandbox; live first-party verification will use the existing GitHub runner collector and saved evidence rather than invented findings.
