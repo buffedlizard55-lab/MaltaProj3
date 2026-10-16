@@ -148,3 +148,15 @@ class SourceReplay(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class PublicDay4Parity(unittest.TestCase):
+    def test_nonempty_day4_future_cards_verify_and_tampering_fails(self):
+        from scripts.verify_live import verify_day4
+        d = example()
+        with patch('scripts.twc_research.load', return_value={'pages': [record()]}):
+            guide = twc_research.derive_day4(d, Path('data'), NOW)
+        page = BeautifulSoup(build_twc.render_day4(guide, '../'), 'html.parser')
+        verify_day4(d, d['complete_picks'], {'day4': guide}, guide, page)
+        page.select_one('.twc-prob strong').string = '80.0%'
+        with self.assertRaisesRegex(ValueError, 'Day-4 HTML probabilities'):
+            verify_day4(d, d['complete_picks'], {'day4': guide}, guide, page)

@@ -67,3 +67,21 @@ class PublicArtifactParity(unittest.TestCase):
         html.select_one('.twc-prob strong').string = '55.5%'
         self.overrides['twc-picks/'] = str(html).encode()
         with self.assertRaisesRegex(ValueError, 'HTML probabilities'): self.verify()
+
+    def test_day4_json_must_remain_the_same_in_both_exports(self):
+        data = json.loads((self.site / 'data/twc-day4-picks.json').read_text())
+        data['event_day'] = '2000-01-01'
+        self.overrides['data/twc-day4-picks.json'] = json.dumps(data).encode()
+        with self.assertRaisesRegex(ValueError, 'Day-4 JSON differs'): self.verify()
+
+    def test_day4_section_must_not_be_missing_even_before_fixtures_arrive(self):
+        text = (self.site / 'twc-picks/index.html').read_text().replace('id="day-four-picks"', 'id="wrong-day"')
+        self.overrides['twc-picks/'] = text.encode()
+        with self.assertRaisesRegex(ValueError, 'missing #day-four-picks'): self.verify()
+
+    def test_day4_cannot_invent_a_hotspawn_fixture(self):
+        data = self.twc_data()
+        data['day4']['matches'] = [{'fixture': {'id': 'invented'}}]
+        self.overrides['data/twc-day3-picks.json'] = json.dumps(data).encode()
+        self.overrides['data/twc-day4-picks.json'] = json.dumps(data['day4']).encode()
+        with self.assertRaisesRegex(ValueError, 'omits or invents a Hotspawn'): self.verify()

@@ -162,7 +162,7 @@ def derive_day4(data, source: Path, now):
                          'score': facts['score'], 'maps': facts['maps'], 'finished': facts['finished'],
                          'source_url': r['source_url'], 'observed_at': r['observed_at'],
                          'lesson': 'Use the completed series as matchup context, not a new win-rate sample or proof the earlier odds were wrong.' if facts['score'] else 'Result unverified. A past scheduled start does not establish a winner.'})
-    return {'event_day': TARGET_DAY, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
+    return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': TARGET_DAY, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
             'day3_results': day3, 'research_report': str(FOLDER / 'source-report.json') if (source / FOLDER / 'source-report.json').exists() else 'research/8a6a5a84/twc-current/source-report.json',
             'policy': 'Exact canonical probabilities; no historical, roster, crowd, rest or result premium.'}
 
