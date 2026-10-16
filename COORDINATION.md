@@ -11,6 +11,43 @@ Sandbox network is restricted to GitHub/package hosts. Research will run on GitH
 
 ---
 
+# Current session: arena-35440d12 — unresolved-pick resolution and bounded contrarian leaderboard guidance
+
+Claimed 2026-10-16T19:36Z on fixed branch `arena/35440d12-maltaproj3`. Read the complete shared board,
+`git log`, open PRs and live workflow state before claiming. Concurrency observed at claim time:
+`arena-8a6a5a84` holds **N-1** (Day-3/Day-4 verified guide + canonical Day-4 probabilities: `scripts/build_twc.py`,
+`scripts/twc_research.py`, `scripts/review_sources.py`, `tests/test_twc_day4.py`, `assets/twc.css`,
+`data/research/8a6a5a84/`) and **N-2** (root summary/phone shortcuts `scripts/build.py`, `pages.yml`,
+`twc-research.yml`, `tests/browser/twc-day4.spec.mjs`, README, integration); `arena-ec75e5bb` holds the
+docs-only canonical-release verification record (PR #59). Neither claim is touched here. Historical
+scopes K/P/M/V/E remain done or needs-review. The fixed Arena branch overrides the brief's alternative
+branch naming.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| U-1 Resolve every Hotspawn fixture our pipeline leaves blank: HLTV first, then first-party esportsbook/market lines; publish dated dossier + per-fixture limitations; only evidence-backed joins (scoped aliases with official URLs) may resolve a blank | in progress | arena-35440d12 | new `scripts/unresolved_research.py`, new `tests/test_unresolved_research.py`, `data/origination/aliases.json` (verified joins only, additive), `data/research/35440d12/` | Never invents a probability. Wider/single-sided books stay blank + flagged with the observed quotes. Probes run on the GitHub runner; sandbox egress is GitHub/package-host only. |
+| U-2 Day 1–3 verified review and **contrarian-but-not-stupid** leaderboard guidance for Day 4 (9z–Aurora upset, dated Aurora roster context, rest/underdog economics). Guidance only — it never sets match probabilities (N-1 owns canonical Day-4 probabilities) | in progress | arena-35440d12 | `scripts/build_edge.py`, `data/edge-review.json`, `scripts/build_strategy.py`, `data/strategy-rules.json`, `tests/test_edge.py`/`tests/test_strategy.py` additions only, `data/research/35440d12/` | Every fact gets its own official source link + observation time. Roster/rest/health effects stay unquantified. Upset plays keep the existing published thresholds. |
+| U-3 Scoped verification/PR of U-1+U-2 only (tests, build replay, row-source audit, PR merge, Pages check). Not a claim of N-2's root-integration scope | in progress | arena-35440d12 | `COORDINATION.md` (this section + completion record), `tests/` additions within U-1/U-2 only | Merges only when checks pass; preserves every other session's files. If N-2's integration lands first, rebase on it and re-verify. |
+
+### Handoff requests to arena-8a6a5a84 (N-2 root integration owner) — logged, not edited here
+1. Executive summary must carry one-tap phone links to: updated full picks list (`/origination/#picks`),
+   this session's Day 1–3 review + Day-4 contrarian guidance (`/edge/`, `/strategy/`), and the
+   unresolved-picks section (`/origination/#unresolved`) **with the limitations summary inline** in the
+   executive summary (user requirement: "Create a separate section for any unresolved picks and the
+   limitations for generating picks for them and include this in the executive summary").
+2. U-1's dossier `data/research/35440d12/unresolved-research.json` and flags `data/research/35440d12/flags.json`
+   should join the existing in-memory review-flags loader pattern if not auto-loaded.
+3. Note for integration: branch `arena/ba7164a0-maltaproj3` (V) remains unmerged and deletes core builders;
+   PR #59 (ec75e5bb) records this. Do not merge V's branch.
+
+### Concurrency note
+- Read `arena-8a6a5a84`'s claim (cd53e7ed) and PR #59 (ec75e5bb) before claiming; no file overlap with
+  U-1/U-2 scopes. `scripts/originate.py`, `scripts/domain.py`, `scripts/sources.py`, `scripts/hltv_match.py`
+  stay untouched unless a verified U-1 join strictly requires a scoped hook — any such edit is minimal,
+  tested and logged here.
+
+---
+
 # Current session: arena-6426358d — canonical TWC picks and coverage audit
 
 Session: `arena-6426358d` · Fixed branch: `arena/6426358d-maltaproj3` · Claimed 2026-10-16T07:18Z.
