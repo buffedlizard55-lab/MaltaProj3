@@ -296,6 +296,7 @@ def plan(inputs: dict, now: datetime) -> dict:
         'stale': stale, 'inventory_observed_at': inventory_at, 'inventory_age_h': inventory_age, 'coverage_complete': latest.get('coverage_complete'),
         'originated_snapshot_at': (orig or {}).get('source_snapshot_at'), 'basis_note': basis_note,
         'snapshot_bound': snapshot_bound, 'current': sum(r['presentation']['current'] for r in rows),
+        'current_swaps': sum(r['swap'] and r['presentation']['current'] for r in rows),
         'max_line_age_hours': th['max_line_age_hours'],
     }
     return {'rows': rows, 'unresolved': unresolved, 'closed': closed, 'summary': summary, 'generated_at': now.strftime('%Y-%m-%dT%H:%M:%SZ')}
@@ -422,12 +423,13 @@ def score_block(r) -> str:
 
 
 def swaps_block(pl) -> str:
-    swaps = [r for r in pl['rows'] if r['swap']]
-    if not swaps and (pl['summary']['stale'] or not pl['summary']['current']):
-        return '<div class="callout"><strong>No current upset recommendation.</strong> The retained lines are historical or unverified for current use. Check the card status and source times; no stale choice is a submission recommendation.</div>'
+    swaps = [r for r in pl['rows'] if r['swap'] and r['presentation']['current']]
+    if not swaps and (pl['summary']['stale'] or not pl['summary']['current']
+                      or pl['summary']['current'] != pl['summary']['open']):
+        return '<div class="callout"><strong>No current upset recommendation.</strong> Not every retained line is usable for a current pick. Check each card status and source time; historical or unverified choices are not submission recommendations.</div>'
     if not swaps:
-        return ('<div class="callout calm" data-safety-synopsis><strong>No upset play in this slate.</strong> No money-backed, fresh line gives an underdog at least 30% on a 3-point-or-better fixture. '
-                'Take the most likely winner everywhere; that is the plan, not a gap.</div>')
+        return ('<div class="callout calm" data-safety-synopsis><strong>No upset play in this slate.</strong> No underdog clears all published probability, points, field and eligibility checks. '
+                'For the currently usable cards, take the most likely winner; that is the plan, not a gap.</div>')
     items = ''
     for r in swaps:
         items += (f'<li data-safety-link="match-{e(r["id"])}"><a href="#match-{e(r["id"])}"><strong>{e(r["names"][r["dog"]])}</strong> over {e(r["names"][r["fav"]])}</a>'
@@ -594,7 +596,7 @@ def page(inputs: dict, pl: dict) -> str:
 {stale}
 <section class="hero" id="top"><p class="kicker">LEADERBOARD PLAN · CONTRARIAN, NOT STUPID</p>
 <h1>One pick per match. Underdogs only when the lines say they have a real shot.</h1>
-<p class="hero-stats"><strong>{s["open"]}</strong> snapshot fixtures with sourced lines · <strong data-current-count>{s["current"]}</strong> currently usable · <strong data-current-swap-count>{s["swaps"]}</strong> current upset play{"" if s["swaps"] == 1 else "s"} · <strong>{unresolved_n}</strong> unresolved · <strong>{s["points_on_table"]}</strong> snapshot Hotspawn points</p>
+<p class="hero-stats"><strong>{s["open"]}</strong> snapshot fixtures with sourced lines · <strong data-current-count>{s["current"]}</strong> currently usable · <strong data-current-swap-count>{s["current_swaps"]}</strong> current upset play{"" if s["current_swaps"] == 1 else "s"} · <strong>{unresolved_n}</strong> unresolved · <strong>{s["points_on_table"]}</strong> snapshot Hotspawn points</p>
 <p class="hero-note">Probabilities are ours, from external lines and official ratings — never Hotspawn popularity. Snapshot: inventory {when(s["inventory_observed_at"])}; page built {when(pl["generated_at"])}.</p>
 <p class="quick"><a class="btn" href="#slate">See the picks ↓</a><a class="btn alt" href="#unresolved">Unresolved &amp; limitations ({unresolved_n}) ↓</a><a class="btn alt" href="../origination/#picks">Most-likely-winner list →</a></p></section>
 <section class="block" id="plan"><h2>The plan in 20 seconds</h2>
