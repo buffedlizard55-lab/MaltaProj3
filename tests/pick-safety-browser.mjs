@@ -98,13 +98,23 @@ try {
   assert.equal(await page.locator('#match-ready .verdict').isVisible(), false);
   checks += 2;
 
+  await page.clock.setSystemTime(new Date(now));
+  await page.goto(base + '/no-upsets-strategy/');
+  assert.equal(await page.locator('.callout.calm[data-safety-synopsis]').isVisible(), true);
+  await page.clock.setSystemTime(new Date('2026-10-16T16:31:00Z'));
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  assert.equal(await page.locator('.callout.calm[data-safety-synopsis]').isVisible(), false);
+  assert.equal(await page.locator('#match-ready .verdict').isVisible(), false);
+  assert.equal(await page.locator('[data-current-count]').textContent(), '0');
+  checks += 4;
+
   console.log('Safety audit: live expiry, locks and clock rollback passed.');
   await page.clock.resume();
   // Both fresh and historical presentation states must remain usable at phone/tablet/desktop widths.
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 850 });
     console.log(`Safety audit: layout and accessibility at ${width}px.`);
-    for (const route of ['origination', 'stale-origination', 'incomplete-origination', 'strategy', 'stale-strategy', 'mismatch-strategy']) {
+    for (const route of ['origination', 'stale-origination', 'incomplete-origination', 'strategy', 'stale-strategy', 'mismatch-strategy', 'no-upsets-strategy']) {
       await page.clock.setFixedTime(new Date(now));
       await page.goto(`${base}/${route}/`);
       const size = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));

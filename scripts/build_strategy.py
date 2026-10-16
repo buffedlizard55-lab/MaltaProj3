@@ -426,7 +426,7 @@ def swaps_block(pl) -> str:
     if not swaps and (pl['summary']['stale'] or not pl['summary']['current']):
         return '<div class="callout"><strong>No current upset recommendation.</strong> The retained lines are historical or unverified for current use. Check the card status and source times; no stale choice is a submission recommendation.</div>'
     if not swaps:
-        return ('<div class="callout calm"><strong>No upset play today.</strong> No money-backed, fresh line gives an underdog at least 30% on a 3-point-or-better fixture. '
+        return ('<div class="callout calm" data-safety-synopsis><strong>No upset play in this slate.</strong> No money-backed, fresh line gives an underdog at least 30% on a 3-point-or-better fixture. '
                 'Take the most likely winner everywhere; that is the plan, not a gap.</div>')
     items = ''
     for r in swaps:
@@ -599,7 +599,7 @@ def page(inputs: dict, pl: dict) -> str:
 <p class="quick"><a class="btn" href="#slate">See the picks ↓</a><a class="btn alt" href="#unresolved">Unresolved &amp; limitations ({unresolved_n}) ↓</a><a class="btn alt" href="../origination/#picks">Most-likely-winner list →</a></p></section>
 <section class="block" id="plan"><h2>The plan in 20 seconds</h2>
 <ul class="plan-list" data-safety-synopsis{' hidden' if s["stale"] or s["current"] != s["open"] else ''}><li><strong>Default:</strong> submit the most likely winner. {cls["lock"]} lock{"" if cls["lock"] == 1 else "s"} and {cls["lean"]} lean{"" if cls["lean"] == 1 else "s"} are not worth fading.</li>
-<li><strong>Upset plays:</strong> {s["swaps"]} today, costing about {s["swap_cost"]:.1f} expected points in total against the favorites, and worth {s["swap_points"]} Hotspawn points if every one lands.</li>
+<li><strong>Upset plays:</strong> {s["swaps"]} across the listed fixtures (capped per UTC day), costing about {s["swap_cost"]:.1f} expected points in total against the favorites, and worth {s["swap_points"]} Hotspawn points if every one lands.</li>
 <li><strong>Close calls:</strong> {cls["live_dog"]} live dog{"" if cls["live_dog"] == 1 else "s"} and {cls["coin_flip"]} coin flip{"" if cls["coin_flip"] == 1 else "s"}; the card says which side the lines favour.</li>
 <li><strong>Thunderpick World Championship:</strong> its tournament pick'em also pays <strong>5 points for the correct score</strong>. See the <a href="#tournament">tournament section</a> and the score line on each TWC card.</li>
 <li><strong>Unresolved:</strong> {unresolved_n} fixture{"" if unresolved_n == 1 else "s"} have no external line or rating. They stay blank, with the reason, in the <a href="#unresolved">unresolved section</a>.</li></ul>

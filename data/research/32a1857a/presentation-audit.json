@@ -52,5 +52,19 @@
     "With JavaScript disabled, the page is checked at build time only. A visible no-JS warning says to compare printed deadlines and quote times before relying on it.",
     "Browser timers can pause in background tabs. Guards recheck every 30 seconds and on focus, pageshow and visibility restoration, but do not claim server-side submission or guaranteed wall-clock enforcement.",
     "Historical numbers remain published as historical estimates with original sources; they are not new betting lines or guaranteed true win chances."
-  ]
+  ],
+  "follow_up": {
+    "recorded_at": "2026-10-16T07:39:49Z",
+    "finding": "A no-upset fallback instruction also needs expiry protection; a multi-day aggregate must not say today.",
+    "handling": "Added the same synopsis retirement guard to the no-upset favorite callout; label the total across listed fixtures and explicitly state the cap is per UTC day. No probability or rule threshold changed.",
+    "verification": {
+      "python_tests": 307,
+      "independent_safety_assertions": 106,
+      "synthetic_cases": "No-upset favorite callout starts usable and becomes hidden after inventory/line expiry, with probabilities retained. Seven synthetic layouts now audited at four widths and axe at phone/desktop."
+    },
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/scripts/build_strategy.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/32a1857a-maltaproj3/tests/pick-safety-browser.mjs"
+    ]
+  }
 }
