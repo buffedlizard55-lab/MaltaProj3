@@ -47,7 +47,8 @@ OUT_DEFAULT = Path('data/research/ba7164a0')
 # --- official first-party endpoints ---------------------------------------
 GAMMA_EVENTS = 'https://gamma-api.polymarket.com/events'
 CLOB_BOOK = 'https://clob.polymarket.com/book'
-POLY_TAG_URL = 'https://polymarket.com/esports/cs2'
+POLY_INDEX = 'https://polymarket.com/esports/cs2'
+POLY_TAG_URL = POLY_INDEX
 HLTV_EVENT_MATCHES = 'https://www.hltv.org/events/8932/matches'
 HLTV_EVENT_RESULTS = 'https://www.hltv.org/results?event=8932'
 HLTV_EVENT_PAGE = 'https://www.hltv.org/events/8932/thunderpick-world-championship-2026'
@@ -852,13 +853,29 @@ def main(argv=None) -> int:
     probe = Probe(out)
     started = now_iso()
 
-    hotspawn = collect_hotspawn(probe)
-    production = collect_production(probe)
-    polymarket = collect_polymarket(probe)
-    hltv = collect_hltv(probe)
     twc_teams = ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA', 'Falcons', 'Ninjas in Pyjamas', 'PARIVISION']
-    valve = collect_valve(probe, twc_teams)
-    books = collect_other_books(probe)
+    collectors = [('hotspawn', collect_hotspawn, ()),
+                  ('production_site', collect_production, ()),
+                  ('polymarket', collect_polymarket, ()),
+                  ('hltv', collect_hltv, ()),
+                  ('valve', collect_valve, (twc_teams,)),
+                  ('other_books', collect_other_books, ())]
+    collected, crashes = {}, []
+    for key, func, extra in collectors:
+        try:
+            collected[key] = func(probe, *extra)
+        except Exception as exc:  # a collector bug is a finding, not a lost run
+            import traceback
+            crashes.append({'collector': key, 'error': f'{type(exc).__name__}: {exc}',
+                            'traceback': traceback.format_exc()[-3000:]})
+            collected[key] = {'limitations': [f'Collector {key} raised {type(exc).__name__}: {exc}']}
+            print(f'::warning title=Verification collector {key} failed::{type(exc).__name__}: {exc}', flush=True)
+    hotspawn = collected['hotspawn']
+    production = collected['production_site']
+    polymarket = collected['polymarket']
+    hltv = collected['hltv']
+    valve = collected['valve']
+    books = collected['other_books']
 
     observations = {
         'schema_version': 1,
@@ -875,14 +892,20 @@ def main(argv=None) -> int:
         'hltv': hltv,
         'valve': valve,
         'other_books': books,
+        'collector_crashes': crashes,
         'requests': probe.log,
     }
     path = out / 'observations.json'
     path.write_text(json.dumps(observations, indent=1, ensure_ascii=False) + '\n')
+    for crash in crashes:
+        print(crash['traceback'], flush=True)
     ok = sum(1 for r in probe.log if r['status'] == 'ok')
     print(f'\nWrote {path}')
-    print(f'Sources ok={ok} not-ok={len(probe.log) - ok}; moneylines={len(polymarket["moneylines"])}; '
-          f'hotspawn_cs2={hotspawn.get("count", 0)}; valve_ratings={len(valve.get("ratings", {}))}')
+    print(f'Sources ok={ok} not-ok={len(probe.log) - ok}; '
+          f'moneylines={len(polymarket.get("moneylines") or [])}; '
+          f'hotspawn_cs2={hotspawn.get("count", 0)}; valve_ratings={len(valve.get("ratings", {}))}; '
+          f'collector_crashes={len(crashes)}')
+    # Partial evidence is still evidence: only an unwritten dossier is a hard failure.
     return 0
 
 

@@ -298,3 +298,35 @@ class FlightDecoder(unittest.TestCase):
         html = 'x<script>self.__next_f.push([1,' + json.dumps('2:{"sportSlug":"nba","id":1}\n') + '])</script>'
         self.assertEqual(polymarket_directory_games(html), [])
         self.assertEqual(polymarket_directory_games('no flight data at all'), [])
+
+
+class ProbeResilience(unittest.TestCase):
+    """A collector bug or a blocked source must never lose the rest of the dossier."""
+
+    def test_a_crashing_collector_is_published_and_the_others_survive(self):
+        import scripts.research_verify as rv
+
+        def boom(probe):
+            raise RuntimeError('simulated collector defect')
+
+        original = rv.collect_polymarket
+        rv.collect_polymarket = boom
+        try:
+            with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
+                code = rv.main(['--out', tmp])
+            self.assertEqual(code, 0)
+            data = json.loads((Path(tmp) / 'observations.json').read_text())
+        finally:
+            rv.collect_polymarket = original
+        self.assertEqual(len(data['collector_crashes']), 1)
+        crash = data['collector_crashes'][0]
+        self.assertEqual(crash['collector'], 'polymarket')
+        self.assertIn('simulated collector defect', crash['error'])
+        self.assertIn('Traceback', crash['traceback'])
+        self.assertIn('Collector polymarket raised RuntimeError', data['polymarket']['limitations'][0])
+        # Every other collector still produced its own record.
+        for key in ('hotspawn', 'production_site', 'hltv', 'valve', 'other_books'):
+            self.assertIn(key, data)
+            self.assertIsInstance(data[key], dict)
+        self.assertEqual(data['session'], 'arena-ba7164a0')
+        self.assertTrue(data['probe_started_at'].endswith('Z'))
