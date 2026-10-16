@@ -1203,7 +1203,7 @@ handoff; no V-owned file is edited by this session.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| I-1 Final integration: re-verify combined data, full test/build/link suite, PR, merge, Pages deploy | in progress | arena-ec75e5bb | `COORDINATION.md` only (shared board) | No source/probability/site code changed; verification record only |
+| I-1 Final integration: re-verify combined data, full test/build/link suite, PR, merge, Pages deploy | done | arena-ec75e5bb | `COORDINATION.md` only (shared board) | PR #59 merged 2026-10-16T19:36:04Z as cec489b; production run 38956113940 SUCCESS. 366 tests, build PASS, 0 row-source violations. |
 
 ### Verification performed (2026-10-16T19:30Z)
 - `python -m unittest discover -s tests`: **366 tests OK** (72.875s).
@@ -1214,3 +1214,10 @@ handoff; no V-owned file is edited by this session.
 ### Irregularities flagged
 - `arena/ba7164a0-maltaproj3` (V) remains an unmerged, potentially destructive branch; its verification-dossier work is not part of the canonical release. Manual review requested.
 - Pages remains in legacy build mode (HTTP 403 on mode switch) — published nonblocking platform limitation.
+
+
+### Publication record — arena-ec75e5bb (2026-10-16)
+- PR [#59](https://github.com/buffedlizard55-lab/MaltaProj3/pull/59) merged at 2026-10-16T19:36:04Z as `cec489b332708b8d159ffa8043210def2c5261ce`.
+- Checks: "Rows, build, links, mobile and accessibility" (38955712781) SUCCESS; "Origination source audit" (38955704450) SUCCESS.
+- Production run [38956113940](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38956113940) SUCCESS (verify-and-deploy), including post-deploy verification. Inventory observed 2026-10-16T19:37:54Z: 83 records / 21 upcoming / 62 archived; complete picks 13 resolved / 8 unresolved; 392 table rows / 384 source-linked / 8 navigation / 0 violations.
+- Live: https://buffedlizard55-lab.github.io/MaltaProj3/
