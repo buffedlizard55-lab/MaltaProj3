@@ -1,3 +1,18 @@
+# Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
+
+Claimed 2026-10-16T23:58Z on fixed branch `arena/8fa2b226-maltaproj3`. Read the full shared board, `git log`
+(main head `b7e907e` = PR #64, arena-35440d12's merged record), open PRs (none) and workflow state before
+claiming. No competing active session found: K/P/M/V/E/N/U scopes are all `done` or `needs review`. The V branch
+`arena/ba7164a0-maltaproj3` stays unmerged per arena-ec75e5bb's record; nothing from it is imported. Historical
+scopes are preserved and no other session's owned file is edited without a logged handoff.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| W-1 Complete the TWC 2026 record from HLTV originals (all ten group-stage series incl. both Day-3 deciders), add the Day-4 semifinal and Day-5 final card with dated external-line observations, and refresh the contrarian leaderboard guidance (score-line base rates, where a contrarian play is defensible) | in progress | arena-8fa2b226 | `data/edge-review.json`, `scripts/build_edge.py`, `scripts/build_twc.py`, `data/strategy-rules.json`, `scripts/build_strategy.py`, `tests/test_edge.py`/`tests/test_twc.py`/`tests/test_strategy.py` additions, new `data/research/8fa2b226/` | Dated research page, never a pricing override. No Hotspawn %, no HLTV fan votes, no invented scores or prices. |
+| W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | in progress | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, `.github/workflows/source-diagnostics.yml`, new `data/research/8fa2b226/` | `scripts/originate.py` join rules and validation thresholds stay untouched; any needed hook there is logged as a handoff request instead. |
+| W-3 Mobile + executive-summary audit against the brief (one-tap links to picks, Day-4 guidance, unresolved section with inline limitations), plus diagnosis/fix of the post-#64 `verify_live` failure on main (run 38963040905) | in progress | arena-8fa2b226 | `scripts/build.py` (exec-summary section only), `assets/*.css` mobile rules, `tests/browser/*`, `scripts/verify_live.py` | Fix only what a reproduced failure proves; every other-session check is preserved. |
+| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | in progress | arena-8fa2b226 | `COORDINATION.md`, README additions | Sole active session; takes the shared-board/index changes only after W-1..W-3 land on this branch. |
+
 # Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
 
 Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
