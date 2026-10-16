@@ -49,7 +49,7 @@ def verify_day4(expected, originated, twc, day4, page):
         probs = row['analysis']['probabilities'] if row.get('analysis') else None
         if values != ([f'{p*100:.1f}%' for p in probs] if probs else ['—', '—']):
             raise ValueError('Day-4 HTML probabilities differ from JSON')
-    print('::notice::Public Day-4 canonical fixture coverage: ' + str(len(rows)))
+    return len(rows)
 
 
 def verify(url, expected):
@@ -136,7 +136,8 @@ def verify(url, expected):
         if values != expected_values:
             raise ValueError('TWC HTML probabilities differ from its generated JSON')
     day4 = get('data/twc-day4-picks.json').json()
-    verify_day4(expected, originated, twc, day4, twc_page)
+    day4_count = verify_day4(expected, originated, twc, day4, twc_page)
+    print('::notice::Public Day-4 canonical fixture coverage: ' + str(day4_count))
     get('assets/pick-safety.js')
     for row in twc['day3_matches']:
         a = row.get('analysis') or {}
