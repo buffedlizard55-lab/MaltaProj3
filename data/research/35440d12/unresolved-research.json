@@ -1,0 +1,718 @@
+{
+  "schema_version": 1,
+  "title": "Unresolved-pick resolution research \u2014 HLTV first, then first-party esportsbook and market lines",
+  "prepared_at": "2026-10-16T20:20:00Z",
+  "research_window": {
+    "from": "2026-10-16T19:29:00Z",
+    "to": "2026-10-16T20:15:00Z"
+  },
+  "prepared_by": "arena-35440d12",
+  "policy": "Dated first-party research on every fixture the complete-picks pipeline left unresolved at the 2026-10-16T19:38:00Z production snapshot (8 of 21 active fixtures). Method order follows the published ladder: HLTV identity first, then Polymarket / Kalshi / Thunderpick / Bovada money lines, then the Valve official-ratings model. Every observation below was read from the linked official endpoint during the stated window and carries its own timestamp. Nothing here is a probability invented by this session: quotes that fail the published spread/identity contract are recorded as guidance only and the pick stays blank. Hotspawn \"% picked\" and HLTV fan \"Pick a winner\" votes were seen on the source pages and are deliberately excluded from every calculation. The live collector re-validates all of this at each four-hour refresh; these are dated observations, not permanent prices.",
+  "snapshot_context": {
+    "source": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+    "observed_at": "2026-10-16T19:41:00Z",
+    "counts_at_observation": "21 snapshot fixtures \u00b7 13 with a sourced lean \u00b7 8 unresolved (snapshot 2026-10-16T19:38:00Z)",
+    "note": "Counts rotate with the Hotspawn inventory; the four-hour publisher plus its offset catch-up slot rediscover fixtures and retry every unresolved source automatically."
+  },
+  "method_order": [
+    "HLTV identity and lineup confirmation (never a probability input)",
+    "Polymarket unique full-series match-winner CLOB books (spread \u2264 0.12, positive size, prematch, start within 60s)",
+    "Kalshi CS2 match-winner books (same spread contract)",
+    "Thunderpick / Bovada original prematch series prices (margin removed proportionally)",
+    "Valve official regional standings model (exact unique five-player rows only; explicitly uncalibrated)"
+  ],
+  "fixtures": [
+    {
+      "hotspawn_id": "1079170",
+      "teams": [
+        "BET-M",
+        "Just Players"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-17T08:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO3. Hotspawn lineups publish five BET-M players (raijin, bluewh1te, z1Nny, executor, Patsi) and two Just Players players (sstiNiX, H1te).",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+              "source": "HLTV.org match page",
+              "detail": "Match identity record.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            },
+            {
+              "url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170",
+              "source": "Hotspawn match page",
+              "detail": "Fixture page with published lineups and tournament \"NODWIN Clutch Series #13\".",
+              "observed_at": "2026-10-16T20:08:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket series winner",
+          "verdict": "resolvable-via-verified-alias",
+          "detail": "Event cs2-33-justpl-2026-10-17 (market 5769541, event 1198594) prices \"BET-M 33 vs Just Players (BO3)\" at gameStartTime 2026-10-17 08:00:00 UTC (fixture match). outcomePrices 0.695 / 0.305. CLOB books read 2026-10-16T19:46-19:47Z: BET-M side best bid 0.68 (46.1) / best ask 0.71 (6); Just Players side 0.29 (6) / 0.32 (46.1) \u2014 both spreads 0.03 \u2264 0.12 with positive size. The only blocker was the provider display name \"BET-M 33\"; alias added to the reviewed registry scoped to NODWIN Clutch Series.",
+          "guidance_quote": {
+            "provider": "Polymarket CLOB midpoints",
+            "observed_at": "2026-10-16T19:47:00Z",
+            "BET-M": 0.695,
+            "Just Players": 0.305,
+            "usable_under_contract": true
+          },
+          "sources": [
+            {
+              "url": "https://gamma-api.polymarket.com/markets?slug=cs2-33-justpl-2026-10-17",
+              "source": "Polymarket Gamma API",
+              "detail": "Official market record, condition 0xbf836fef\u2026, token IDs verified.",
+              "observed_at": "2026-10-16T19:45:00Z"
+            },
+            {
+              "url": "https://clob.polymarket.com/book?token_id=20374869310867942094814241672521386210285479093239639961159886743166538712189",
+              "source": "Polymarket CLOB order book (BET-M 33)",
+              "detail": "Original book response; best bid/ask 0.68/0.71.",
+              "observed_at": "2026-10-16T19:46:52Z"
+            },
+            {
+              "url": "https://clob.polymarket.com/book?token_id=2371643004180415473604668118392798278015642757597188284284773795652477987053",
+              "source": "Polymarket CLOB order book (Just Players)",
+              "detail": "Original book response; best bid/ask 0.29/0.32.",
+              "observed_at": "2026-10-16T19:47:20Z"
+            }
+          ]
+        },
+        {
+          "stage": "Kalshi / Thunderpick / Bovada",
+          "verdict": "unresolved",
+          "detail": "No alias-verified match-winner line found at the production snapshot; rechecked by the collector each refresh.",
+          "sources": [
+            {
+              "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+              "source": "Kalshi CS2 match-winner market directory",
+              "detail": "No matching contract for this fixture in the snapshot window.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "Just Players: multiple Valve rosters share this name; no unique exact-five-player HLTV proof (Hotspawn publishes only two Just Players players).",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected via the pipeline's saved replay.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "expected-at-next-refresh",
+      "resolution_detail": "Alias \"BET-M 33\" \u2192 \"BET-M\" (scoped, evidence-linked) removes the identity blocker; the observed paired books pass the published contract, so the collector should originate a Polymarket estimate (~69.5% / 30.5% at the quoted books) at its next run. Not manually written into any pick file: the pipeline derives and replays it itself."
+    },
+    {
+      "hotspawn_id": "1081515",
+      "teams": [
+        "Apogee Betclic",
+        "Nemesis"
+      ],
+      "competition": "PGL Bucharest 2027: Closed Qualifier",
+      "starts_at": "2026-10-17T14:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked-with-name-variant",
+          "detail": "HLTV lists \"Betclic vs Nemesis\" at the exact slot; Hotspawn's own match page titles the fixture \"Apogee Betclic vs Nemesis\" while its team card names the same club \"Betclic Apogee Esports\" (/counter-strike/teams/betclic-apogee-esports). The chain is closed first-party without any sponsor inference. Hotspawn lineups: Apogee Betclic (Qlocuu, Demho, ex1st, PRISM, Ultimate) and Nemesis (tex1y, SELLTER, mag1k3Y, Sdaim, r3salt).",
+          "sources": [
+            {
+              "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+              "source": "Hotspawn match page (fixture 1081515)",
+              "detail": "Both Hotspawn display strings and five-player lineups on one first-party page.",
+              "observed_at": "2026-10-16T20:12:00Z"
+            },
+            {
+              "url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+              "source": "HLTV.org match page",
+              "detail": "HLTV identity record (\"Betclic vs Nemesis\").",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket series winner",
+          "verdict": "resolvable-via-verified-alias",
+          "detail": "Event cs2-bca-nem-2026-10-17 (market 5776037, event 1200120) \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", gameStartTime 2026-10-17 14:00:00 UTC (fixture match). outcomePrices 0.32 / 0.68 at 19:40Z. CLOB books read 19:47:53Z: Betclic Apogee side best bid 0.28 (6.05) / best ask 0.33 (5); Team Nemesis side 0.67 (5) / 0.72 (6.05) \u2014 both spreads 0.05 \u2264 0.12, positive top-of-book size. Volume $0 (market created 15:15Z today) but liquidity $3,153 posted. Two aliases added (\"Betclic Apogee Esports\" \u2192 \"Apogee Betclic\", \"Team Nemesis\" \u2192 \"Nemesis\"), scoped.",
+          "guidance_quote": {
+            "provider": "Polymarket CLOB midpoints",
+            "observed_at": "2026-10-16T19:47:53Z",
+            "Apogee Betclic": 0.305,
+            "Nemesis": 0.695,
+            "usable_under_contract": true
+          },
+          "sources": [
+            {
+              "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+              "source": "Polymarket Gamma API",
+              "detail": "Official market record, condition 0xf729ae84\u2026.",
+              "observed_at": "2026-10-16T19:44:00Z"
+            },
+            {
+              "url": "https://clob.polymarket.com/book?token_id=7028348496494991910054986061704102294300948448497588824358596649885869154832",
+              "source": "Polymarket CLOB order book (Betclic Apogee Esports)",
+              "detail": "Original book response; best bid/ask 0.28/0.33.",
+              "observed_at": "2026-10-16T19:47:53Z"
+            },
+            {
+              "url": "https://clob.polymarket.com/book?token_id=35176432158614352718648941271631685227605055484061607343024303443286773368988",
+              "source": "Polymarket CLOB order book (Team Nemesis)",
+              "detail": "Original book response; best bid/ask 0.67/0.72.",
+              "observed_at": "2026-10-16T19:47:53Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "Apogee Betclic: no Valve rating row found (including registry aliases). Money line above is the intended resolution path.",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "expected-at-next-refresh",
+      "resolution_detail": "Two scoped aliases remove the identity blocker; observed books pass the contract, so the collector should originate a Polymarket estimate (~30.5% / 69.5% at the quoted books). The near-zero trade volume is disclosed; the contract keys on order-book quality and the collector re-checks at refresh."
+    },
+    {
+      "hotspawn_id": "1081526",
+      "teams": [
+        "Infinite",
+        "Insiders"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-19T09:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO1 (matches the Polymarket (BO1) label).",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+              "source": "HLTV.org match page",
+              "detail": "Identity record.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket series winner",
+          "verdict": "observed-but-rejected-wide-book",
+          "detail": "Event cs2-inf6-ins-2026-10-19 (market 5650404) \"Infinite vs Insiders Esport (BO1)\" lists display prices 0.69 / 0.31, but the original CLOB book for the Infinite token at 19:38:36Z was wide: best bid 0.41 (12) / best ask 0.97 (21.29) \u2014 spread 0.56, far above the 0.12 ceiling. Volume $1.03. The \"Insiders Esport\" display name is now alias-mapped, so if the book tightens before lock the next refresh can originate it; until then the pick stays blank. The 69/31 listing is guidance only.",
+          "guidance_quote": {
+            "provider": "Polymarket display prices (rejected: wide book)",
+            "observed_at": "2026-10-16T19:41:00Z",
+            "Infinite": 0.69,
+            "Insiders": 0.31,
+            "usable_under_contract": false
+          },
+          "sources": [
+            {
+              "url": "https://gamma-api.polymarket.com/markets?slug=cs2-inf6-ins-2026-10-19",
+              "source": "Polymarket Gamma API",
+              "detail": "Official market record, condition 0x45dd3095\u2026.",
+              "observed_at": "2026-10-16T19:46:00Z"
+            },
+            {
+              "url": "https://clob.polymarket.com/book?token_id=64648266389693874077031477714401765740096157780764492915533117920388207557940",
+              "source": "Polymarket CLOB order book (Infinite)",
+              "detail": "Original book response; best bid/ask 0.41/0.97.",
+              "observed_at": "2026-10-16T19:38:36Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "Insiders: no Valve rating row found (including registry aliases).",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "Wide-book rejection is recorded honestly; a compliant book plus the new alias would resolve it at a later refresh. No default 50/50."
+    },
+    {
+      "hotspawn_id": "1081527",
+      "teams": [
+        "aimclub",
+        "BASEMENT BOYS"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-19T09:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO1. HLTV publishes expected lineups (aimclub: ragga, waZz, mhN1, \u2026) but no five-player set uniquely matching one complete Valve roster was proven in this window, so the model path stays blocked. HLTV fan \"Pick a winner\" votes visible on the page (20/80 at 20:02Z) are explicitly excluded \u2014 never a probability input.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+              "source": "HLTV.org match page",
+              "detail": "Identity/lineup record; fan votes seen and excluded.",
+              "observed_at": "2026-10-16T20:02:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket series winner",
+          "verdict": "observed-but-rejected-no-information",
+          "detail": "Event cs2-aim1-bmb-2026-10-19 (1183120) shows 50\u00a2/50\u00a2 with $0 volume and the CLOB spread recorded at the snapshot was 0.92 \u2014 a placeholder market with no directional information. Correctly unusable.",
+          "guidance_quote": {
+            "provider": "Polymarket (rejected: no information)",
+            "observed_at": "2026-10-16T19:41:00Z",
+            "aimclub": 0.5,
+            "BASEMENT BOYS": 0.5,
+            "usable_under_contract": false
+          },
+          "sources": [
+            {
+              "url": "https://polymarket.com/esports/cs2/draculan/cs2-aim1-bmb-2026-10-19",
+              "source": "Polymarket event page",
+              "detail": "50\u00a2/50\u00a2 listing, $0 volume observed on the DraculaN directory.",
+              "observed_at": "2026-10-16T19:41:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Kalshi / Thunderpick / Bovada",
+          "verdict": "unresolved",
+          "detail": "Snapshot Kalshi book 0.06/0.94 vs 0.05/0.95 (spread 0.90) \u2014 rejected; Thunderpick/Bovada carry no line.",
+          "sources": [
+            {
+              "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct180945phacant",
+              "source": "Kalshi Trade API (rejected quote)",
+              "detail": "Wide placeholder book recorded by the production collector.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "aimclub: multiple Valve rosters share this name; no unique exact-five-player HLTV proof.",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "Both money sources are placeholders/wide; identity ambiguity blocks the model. Blank with reasons, retried every refresh."
+    },
+    {
+      "hotspawn_id": "1081521",
+      "teams": [
+        "ex-6666",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-18T13:45:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO3.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+              "source": "HLTV.org match page",
+              "detail": "Identity record.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket / Kalshi / Thunderpick / Bovada",
+          "verdict": "unresolved",
+          "detail": "No match-winner market exists on the Polymarket CCT Europe directory (only BakS eSports vs G2 Ares, a different Series #11 fixture) and no exchange/book line was found by the collector. Historical CCT markets on Polymarket tend to appear closer to start; the refresh loop retries.",
+          "sources": [
+            {
+              "url": "https://polymarket.com/esports/cs2/cct-europe",
+              "source": "Polymarket CCT Europe directory",
+              "detail": "No listing for ex-6666 vs Privateer at observation.",
+              "observed_at": "2026-10-16T19:43:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "esportsbook / aggregator check (beyond the collector ladder)",
+          "verdict": "placeholder-odds-rejected",
+          "detail": "EGamersWorld lists both sides at 1.8/1.8 with a 0%/0% \"WIN\" meter \u2014 identical placeholder prices with no directional information, not a bookmaker market. Recorded and rejected; never a pick input.",
+          "guidance_quote": {
+            "provider": "EGamersWorld placeholder (rejected: equal prices)",
+            "observed_at": "2026-10-16T19:55:00Z",
+            "ex-6666": 0.5,
+            "Privateer": 0.5,
+            "usable_under_contract": false
+          },
+          "sources": [
+            {
+              "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/ex-6666-vs-privateer-gaming-sfo_MjtRV",
+              "source": "EGamersWorld match listing",
+              "detail": "Both sides listed at 1.8 \u2014 equal placeholder, no market.",
+              "observed_at": "2026-10-16T19:55:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "ex-6666: no Valve rating row found (including registry aliases).",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "No verified two-way line exists in any checked source; placeholder odds carry no information. Blank with the full research trail."
+    },
+    {
+      "hotspawn_id": "1081522",
+      "teams": [
+        "antidaun",
+        "Phantom Academy"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-18T13:45:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399682/antidaun-vs-phantom-academy-cct-2026-challengers-europe-series-8",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO3. HLTV's Phantom Academy team page publishes only three players (Brain47, Ayteel, kalyambys), so no five-player proof is possible from HLTV.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399682/antidaun-vs-phantom-academy-cct-2026-challengers-europe-series-8",
+              "source": "HLTV.org match page",
+              "detail": "Identity record.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            },
+            {
+              "url": "https://www.hltv.org/team/13766/phantom-academy",
+              "source": "HLTV.org team page",
+              "detail": "Three-player published lineup; world rank #178 in the page's own FAQ block.",
+              "observed_at": "2026-10-16T19:56:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Polymarket / Thunderpick / Bovada",
+          "verdict": "unresolved",
+          "detail": "No listing on the Polymarket CCT Europe directory; collector found no book line.",
+          "sources": [
+            {
+              "url": "https://polymarket.com/esports/cs2/cct-europe",
+              "source": "Polymarket CCT Europe directory",
+              "detail": "No listing at observation.",
+              "observed_at": "2026-10-16T19:43:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Kalshi exchange market",
+          "verdict": "observed-but-rejected-wide-book",
+          "detail": "Contract KXCS2GAME-26OCT180945PHACANT books 0.06/0.94 vs 0.05/0.95 \u2014 spread 0.90, rejected as a placeholder.",
+          "guidance_quote": {
+            "provider": "Kalshi (rejected: spread 0.90)",
+            "observed_at": "2026-10-16T19:38:00Z",
+            "Phantom Academy": 0.055,
+            "antidaun": 0.5,
+            "usable_under_contract": false,
+            "note": "Rejected-book midpoints shown for transparency only; both sides sit near 50% because the book is empty, not because the match is even."
+          },
+          "sources": [
+            {
+              "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct180945phacant",
+              "source": "Kalshi Trade API (rejected quote)",
+              "detail": "Wide placeholder book.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "esportsbook / aggregator check (beyond the collector ladder)",
+          "verdict": "placeholder-odds-rejected",
+          "detail": "EGamersWorld lists both sides at 1.8/1.8 (0%/0% WIN meter) \u2014 equal placeholder prices, no information.",
+          "guidance_quote": {
+            "provider": "EGamersWorld placeholder (rejected: equal prices)",
+            "observed_at": "2026-10-16T19:55:00Z",
+            "antidaun": 0.5,
+            "Phantom Academy": 0.5,
+            "usable_under_contract": false
+          },
+          "sources": [
+            {
+              "url": "https://egamersworld.com/counterstrike/match/EkjkYUfoNl/antidaun-vs-phantom-academy-zXFTwo17o8",
+              "source": "EGamersWorld match listing",
+              "detail": "Both sides 1.8 placeholder.",
+              "observed_at": "2026-10-16T19:55:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "antidaun: no Valve rating row found (including registry aliases).",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "All located prices are placeholders/wide books. Blank with reasons; retried every refresh (CCT markets have historically opened closer to start)."
+    },
+    {
+      "hotspawn_id": "1081861",
+      "teams": [
+        "Lynn Vision",
+        "Morningstar"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T03:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO3 (MaceMedia VOID Autumn Cup 2026).",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+              "source": "HLTV.org match page",
+              "detail": "Identity record.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Money-line stages",
+          "verdict": "unresolved",
+          "detail": "No Polymarket directory exists for the VOID Autumn Cup and no exchange/book line was found. GG.BET, Pinnacle, Rivalry and Stake remain unreachable (403/landing pages) from the collector \u2014 a source failure, never proof that no market exists.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026",
+              "source": "HLTV.org event page",
+              "detail": "Event listing checked for attached markets.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "Morningstar: no Valve rating row found (including registry aliases).",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "No verified input exists at any ladder stage. Blank, flagged, retried each refresh."
+    },
+    {
+      "hotspawn_id": "1081863",
+      "teams": [
+        "Chinggis Warriors",
+        "WXM"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T07:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+      "checks": [
+        {
+          "stage": "HLTV identity",
+          "verdict": "checked",
+          "detail": "Exact teams/time confirmed; HLTV lists BO3 (upper bracket quarter-final). HLTV publishes expected lineups and ranks Chinggis Warriors #61 on its 12 October ranking page link, but HLTV fan votes (100/0 at 20:04Z) are excluded from all calculations.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+              "source": "HLTV.org match page",
+              "detail": "Identity/lineup record; fan votes seen and excluded.",
+              "observed_at": "2026-10-16T20:04:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Money-line stages",
+          "verdict": "unresolved",
+          "detail": "No Polymarket VOID directory; no exchange/book line found; the four unreachable books stay documented as source failures.",
+          "sources": [
+            {
+              "url": "https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026",
+              "source": "HLTV.org event page",
+              "detail": "Event listing checked.",
+              "observed_at": "2026-10-16T19:58:00Z"
+            }
+          ]
+        },
+        {
+          "stage": "Valve research model",
+          "verdict": "unresolved",
+          "detail": "Chinggis Warriors: multiple Valve rosters share this name; no unique exact-five-player HLTV proof completed in this window.",
+          "sources": [
+            {
+              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+              "source": "Valve official regional standings",
+              "detail": "2026-10-05 snapshot rows inspected.",
+              "observed_at": "2026-10-16T19:38:00Z"
+            }
+          ]
+        }
+      ],
+      "resolution": "stays-unresolved",
+      "resolution_detail": "Identity ambiguity plus zero usable money sources. Blank with reasons; retried each refresh."
+    }
+  ],
+  "aliases_added_this_session": [
+    {
+      "alias": "BET-M 33",
+      "canonical": "BET-M",
+      "applies_to": [
+        "NODWIN Clutch Series #13",
+        "NODWIN Clutch Series 13"
+      ],
+      "registry": "data/origination/aliases.json"
+    },
+    {
+      "alias": "Insiders Esport",
+      "canonical": "Insiders",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "registry": "data/origination/aliases.json"
+    },
+    {
+      "alias": "Betclic Apogee Esports",
+      "canonical": "Apogee Betclic",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "registry": "data/origination/aliases.json"
+    },
+    {
+      "alias": "Team Nemesis",
+      "canonical": "Nemesis",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "registry": "data/origination/aliases.json"
+    },
+    {
+      "alias": "BC.Game Esports",
+      "canonical": "BC.Game",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "registry": "data/origination/aliases.json"
+    },
+    {
+      "alias": "Drama eSports",
+      "canonical": "Drama",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "registry": "data/origination/aliases.json"
+    }
+  ],
+  "model_upgrades_available": [
+    {
+      "hotspawn_id": "1081528",
+      "teams": [
+        "BC.Game",
+        "Drama"
+      ],
+      "current_estimate": "Valve model 93.4% / 6.6% (production snapshot 19:38Z)",
+      "observed_money_line": "Polymarket cs2-bcg-drama-2026-10-19 display prices 75\u00a2 / 25\u00a2 (volume $1.03, liquidity $908) at 19:47Z",
+      "effect": "With the two new scoped aliases the collector will attempt the paired-book contract for this fixture; only if both books pass does the money line replace the model (published upgrade rule). Observed display prices are NOT manually applied.",
+      "sources": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bcg-drama-2026-10-19",
+          "source": "Polymarket Gamma API (market 5650409)",
+          "detail": "Official record; gameStartTime 2026-10-19 09:00:00 UTC matches fixture 1081528.",
+          "observed_at": "2026-10-16T19:47:00Z"
+        }
+      ]
+    }
+  ],
+  "day_one_to_day_four_context": {
+    "note": "TWC 2026 review and Day-4 contrarian guidance live on the dated edge page (data/edge-review.json day_three_results / day_four); Day-3 group results: Aurora 2-0 9z (Group A decider, HLTV news 45736) and BetBoom vs Legacy (Group B decider) still in progress on map 3 at 20:05Z observation (maps 16-13 BetBoom (Nuke), 11-13 Legacy (Dust2)). Semifinals: FURIA vs Aurora 14:00 UTC and Falcons vs BetBoom/Legacy winner 17:00 UTC on 2026-10-17.",
+    "sources": [
+      {
+        "url": "https://www.hltv.org/results?event=8932",
+        "source": "HLTV.org event results",
+        "detail": "Official Days 1-3 results list.",
+        "observed_at": "2026-10-16T19:45:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance",
+        "source": "HLTV.org news",
+        "detail": "\"Aurora beat 9z to secure third consecutive top-four appearance\", 16-10-2026 18:21.",
+        "observed_at": "2026-10-16T19:50:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+        "source": "HLTV.org match page",
+        "detail": "Live map scores read during the observation window.",
+        "observed_at": "2026-10-16T19:47:00Z"
+      }
+    ]
+  },
+  "limitations": [
+    "Two fixtures (1079170, 1081515) are expected to resolve at the next refresh via evidence-backed scoped aliases and observed compliant books; until the collector replays them, the public pick rows remain blank \u2014 this session never hand-writes a probability into a pick file.",
+    "Fixtures 1081526 and 1081528 carry real Polymarket listings but extremely thin volume ($1.03 observed); the contract keys on order-book spread and size, and the Infinite book was too wide at observation. Thin markets can move sharply; quotes are dated.",
+    "Four unreachable esportsbooks (GG.BET 403, Pinnacle redirects to a landing page, Rivalry redirects to a landing page, Stake 403) are documented source failures, not evidence that no market exists. EGamersWorld and similar tips sites publish equal 1.8/1.8 placeholder prices that carry no information and are rejected.",
+    "Valve-model resolution for \"Just Players\", \"aimclub\" and \"Chinggis Warriors\" remains blocked: several Valve rosters share each name and no unique exact-five-player HLTV proof exists. Partial lineups are never treated as proof.",
+    "HLTV fan \"Pick a winner\" votes and Hotspawn \"% picked\" were visible during research and are excluded from every number on this site.",
+    "The BetBoom vs Legacy Group B decider was still in progress at the final observation of this window; the Day-4 semifinal pairing for Falcons is therefore recorded as \"BetBoom/Legacy winner\" rather than guessed.",
+    "All quotes in this dossier are dated observations from 2026-10-16; the four-hour publisher supersedes them with freshly replayed books. Nothing here is a guarantee or a betting recommendation."
+  ]
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "id": "35440d12-unresolved-resolution-paths",
+    "severity": "notice",
+    "title": "Two unresolved fixtures now have verified alias joins and compliant books (expected at next refresh)",
+    "detail": "Session arena-35440d12 resolved the identity blockers for BET-M vs Just Players (1079170) and Apogee Betclic vs Nemesis (1081515) with six scoped, evidence-linked entries in data/origination/aliases.json. Polymarket CLOB books for both passed the published spread contract (0.03 and 0.05) at 2026-10-16T19:46-19:47Z. The live collector derives and replays the estimates at its next run; this session wrote no probabilities by hand. Full dossier: data/research/35440d12/unresolved-research.json.",
+    "match_ids": [
+      "1079170",
+      "1081515"
+    ],
+    "source_urls": [
+      "https://gamma-api.polymarket.com/markets?slug=cs2-33-justpl-2026-10-17",
+      "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+      "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/35440d12-maltaproj3/data/research/35440d12/unresolved-research.json"
+    ]
+  },
+  {
+    "id": "35440d12-thin-and-placeholder-markets",
+    "severity": "warning",
+    "title": "Thin-volume and placeholder prices are guidance only and never become picks",
+    "detail": "Research on the remaining six unresolved fixtures found only placeholder (equal 1.8/1.8) aggregator prices, wide/empty exchange books (Polymarket aimclub-BASEMENT BOYS 50/50 at $0 volume; Kalshi antidaun-Phantom Academy spread 0.90; Polymarket Infinite-Insiders book spread 0.56) or no market at all (CCT Challengers #8 and VOID Autumn Cup). These observations are recorded with timestamps on the unresolved research page and the picks stay blank with no default 50/50. Even the resolvable markets above carry thin volume ($12.91 and $0 traded so far), which is disclosed wherever their quotes appear.",
+    "match_ids": [
+      "1081526",
+      "1081527",
+      "1081521",
+      "1081522",
+      "1081861",
+      "1081863"
+    ],
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/draculan/cs2-aim1-bmb-2026-10-19",
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/ex-6666-vs-privateer-gaming-sfo_MjtRV",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct180945phacant",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/35440d12-maltaproj3/data/research/35440d12/unresolved-research.json"
+    ]
+  },
+  {
+    "id": "35440d12-valve-identity-gaps",
+    "severity": "warning",
+    "title": "Valve model stays blocked for three ambiguous team names (no invented estimates)",
+    "detail": "\"Just Players\", \"aimclub\" and \"Chinggis Warriors\" each match several Valve regional-standings rosters and no unique exact-five-player HLTV proof exists (HLTV/Hotspawn publish partial lineups only). The published policy is blank rather than a guessed join. If later HLTV lineups complete a unique five-player match, the existing exact-five proof path resolves them automatically.",
+    "match_ids": [
+      "1079170",
+      "1081527",
+      "1081863"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "35440d12-twc-day3-decider-open",
+    "severity": "notice",
+    "title": "BetBoom vs Legacy Group B decider was still in progress at the Day-4 research cutoff",
+    "detail": "At 2026-10-16T20:05Z the decider stood 1-1 on maps (BetBoom 16-13 Nuke, Legacy 13-11 Dust2) with Mirage pending, so the Day-4 semifinal opponent for Falcons is recorded as \"BetBoom/Legacy winner\" exactly as HLTV lists it, not guessed. The four-hour publisher prices the semifinal once the fixture and its books exist.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399415/falcons-vs-betboom-legacy-winner-thunderpick-world-championship-2026"
+    ]
+  }
+]
