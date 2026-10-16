@@ -79,6 +79,8 @@ def verify(url, expected):
         raise ValueError('TWC data is not the generated view of this inventory snapshot')
     if twc.get('source_generated_at') != originated.get('generated_at'):
         raise ValueError('TWC probabilities belong to another complete-picks snapshot')
+    if len(twc.get('day3_matches') or []) != 2 or {r.get('label') for r in twc['day3_matches']} != {'day3-aurora-9z', 'day3-betboom-legacy'}:
+        raise ValueError('TWC data omits or invents a decider')
     twc_page = BeautifulSoup(get('twc-picks/').text, 'html.parser')
     if twc_page.body.get('data-page') != 'twc' or len(twc_page.select('.twc-card')) != 2:
         raise ValueError('TWC generated page was replaced or its deciders are missing')
@@ -88,6 +90,8 @@ def verify(url, expected):
     by_id = {m['id']: m for m in originated['matches']}
     for row in twc.get('day3_matches', []):
         current = by_id.get(row['id'])
+        if row.get('analysis') and not current:
+            raise ValueError('TWC estimate has no canonical complete-picks row')
         if current and (row.get('analysis') != current.get('origination') or row.get('pick_index') != current.get('pick_index')):
             raise ValueError('TWC probabilities or default pick diverged from complete picks')
         card = twc_page.find(id='twc-' + row['label'])

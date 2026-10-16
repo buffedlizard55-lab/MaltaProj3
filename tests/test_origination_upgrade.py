@@ -334,3 +334,48 @@ def timestamp_for_test(value):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DisplayAndCSVParity(unittest.TestCase):
+    """Money-backed upgrades must not disagree across HTML, CSV and full picks."""
+    def render(self, m, result):
+        import csv
+        import io
+        from bs4 import BeautifulSoup
+        from scripts import build
+        m.update(observed_at=originate.iso(NOW), source_status='scheduled', best_of=None, source_api='https://play.hotspawn.com/cs2-pickems')
+        if m.get('analysis', {}).get('method') == 'market':
+            m['analysis'].update(event_id='synthetic', source_api='https://gamma-api.polymarket.com/events/synthetic')
+        full = {m['id']: result}
+        html = BeautifulSoup(build.matches_table([m], '../', fallbacks=full), 'html.parser')
+        row = next(csv.DictReader(io.StringIO(build.picks_csv({'matches': [m], 'fallbacks': full}))))
+        return html, row
+
+    def test_money_line_replaces_model_in_both_html_and_csv_including_direction(self):
+        m = match()
+        result = resolve(m, [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['39.0%', '61.0%'])
+        self.assertEqual(html.select_one('[data-pick-choice] strong')['data-original'], '9z')
+        self.assertEqual(html.select_one('.match-row')['data-method'], 'market')
+        self.assertEqual(csv['suggested_team'], '9z')
+        self.assertEqual([float(csv[k]) for k in ['team_a_probability_calculated', 'team_b_probability_calculated']], result['origination']['probabilities'])
+        self.assertEqual(csv['analysis_source'], result['origination']['source_url'])
+        self.assertIn('money line replaced the featured model', html.select_one('[data-pick-caption]')['data-original'])
+
+    def test_no_upgrade_flag_cannot_silently_replace_a_featured_estimate(self):
+        m = match()
+        result = resolve(m, [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        result.pop('upgraded_from_featured_model')
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['72.5%', '27.5%'])
+        self.assertEqual(csv['suggested_team'], 'Aurora')
+        self.assertEqual(csv['basis'], 'model')
+
+    def test_featured_money_line_is_preserved_even_if_a_competing_fallback_disagrees(self):
+        m = match('market')
+        result = resolve(match(), [poly(bid=(0.38, 0.60), ask=(0.40, 0.62))])
+        html, csv = self.render(m, result)
+        self.assertEqual([n.get_text() for n in html.select('.prob-line > strong')], ['60.0%', '40.0%'])
+        self.assertEqual(csv['suggested_team'], 'Aurora')
+        self.assertEqual(float(csv['team_a_probability_calculated']), 0.6)

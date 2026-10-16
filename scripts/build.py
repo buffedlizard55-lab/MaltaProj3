@@ -107,7 +107,7 @@ def evidence(m, prefix, fallback=None):
                  f'<p>Observed {local_time(o["observed_at"])}. Calculated fair lines: '
                  f'<strong>{e(o["fair_decimal"][0])} / {e(o["fair_decimal"][1])}</strong> (not quoted bookmaker odds). '
                  'The featured exact-name method rejected this fixture; this estimate comes from the audited research '
-                 'ladder and never overwrites a featured value.</p>')
+                 'ladder. Featured money lines are preserved; an upgraded model remains above only as an audit reference.</p>')
         for q in o.get('quotes') or []:
             facts = []
             odds, bid, ask = q.get('odds'), q.get('bid'), q.get('ask')
@@ -509,6 +509,21 @@ def shell(data, key, body, prefix):
 <main id="main" tabindex="-1"><div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
 
 
+def picks_csv(data):
+    """Export the exact probability basis and direction selected by the HTML table."""
+    stream = io.StringIO()
+    writer = csv.writer(stream, lineterminator='\n')
+    writer.writerow(['hotspawn_id', 'team_a', 'team_b', 'starts_at_utc', 'locks_at_utc', 'source_status', 'availability_at_snapshot', 'team_a_probability_calculated', 'team_b_probability_calculated', 'suggested_team', 'basis', 'price_or_model_observed_at', 'rating_snapshot_date', 'original_hotspawn_source', 'analysis_source'])
+    for m in data['matches']:
+        fb = selected_fallback(m, data.get('fallbacks') or {})
+        a = fb['origination'] if fb else m['analysis']
+        pick_index = fb.get('pick_index') if fb else m['pick_index']
+        # Defend downloads against formula injection in source-controlled team names.
+        safe = lambda x: ("'" + str(x)) if str(x).startswith(('=', '+', '-', '@')) else x
+        writer.writerow([safe(x) for x in [m['id'], m['teams'][0]['name'] or '', m['teams'][1]['name'] or '', m['starts_at'] or '', m['locks_at'] or '', m['source_status'] or '', m['availability'], a['probabilities'][0] if a else '', a['probabilities'][1] if a else '', m['teams'][pick_index]['name'] if pick_index is not None else '', a['method'] if a else '', a['observed_at'] if a else '', a.get('snapshot_date', '') if a else '', m['source_url'], a['source_url'] if a else '']])
+    return stream.getvalue()
+
+
 def build(source: Path, output: Path):
     data = check_data(source)
     contrarian_data = load_review(source / 'contrarian.json')
@@ -516,8 +531,8 @@ def build(source: Path, output: Path):
     validate_context(data, data['_contrarian'])
     if (source / 'origination.json').exists():
         data['complete_picks'] = json.loads((source / 'origination.json').read_text())
-        # Researched fallbacks are only displayed for fixtures the featured
-        # exact-name method left blank; featured estimates are never rewritten.
+        # Preserve featured money lines; show researched values for blanks or
+        # explicitly verified money-backed replacements of the lowest-rung model.
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
@@ -551,17 +566,7 @@ def build(source: Path, output: Path):
         target.parent.mkdir(parents=True, exist_ok=True)
         prefix = './' if key == 'summary' else '../'
         target.write_text(shell(data, key, renderers[key](data, prefix), prefix))
-    stream = io.StringIO()
-    writer = csv.writer(stream, lineterminator='\n')
-    writer.writerow(['hotspawn_id', 'team_a', 'team_b', 'starts_at_utc', 'locks_at_utc', 'source_status', 'availability_at_snapshot', 'team_a_probability_calculated', 'team_b_probability_calculated', 'suggested_team', 'basis', 'price_or_model_observed_at', 'rating_snapshot_date', 'original_hotspawn_source', 'analysis_source'])
-    for m in data['matches']:
-        fb = selected_fallback(m, data.get('fallbacks') or {})
-        a = fb['origination'] if fb else m['analysis']
-        pick_index = fb.get('pick_index') if fb else m['pick_index']
-        # Defend downloads against formula injection in source-controlled team names.
-        safe = lambda x: ("'" + str(x)) if str(x).startswith(('=', '+', '-', '@')) else x
-        writer.writerow([safe(x) for x in [m['id'], m['teams'][0]['name'] or '', m['teams'][1]['name'] or '', m['starts_at'] or '', m['locks_at'] or '', m['source_status'] or '', m['availability'], a['probabilities'][0] if a else '', a['probabilities'][1] if a else '', m['teams'][pick_index]['name'] if pick_index is not None else '', a['method'] if a else '', a['observed_at'] if a else '', a.get('snapshot_date', '') if a else '', m['source_url'], a['source_url'] if a else '']])
-    (output / 'data/picks.csv').write_text(stream.getvalue())
+    (output / 'data/picks.csv').write_text(picks_csv(data))
     if data.get('_twc_report'):
         (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')
     # Preserve the old root URLs without exposing a competing current feed.
