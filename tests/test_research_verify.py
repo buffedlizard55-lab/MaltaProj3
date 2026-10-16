@@ -274,15 +274,35 @@ if __name__ == '__main__':
 # ---------------------------------------------------------------------------
 
 RAW = Path(__file__).resolve().parents[1] / 'data/research/ba7164a0/raw'
+
+
+def raw_evidence(label: str):
+    """Read an archived original response, whichever extension the probe chose.
+
+    Markup is always gzipped and JSON above 48 KB is gzipped too, so a label can exist
+    as either ``label.json``/``label.html`` or the ``.gz`` variant depending on size.
+    """
+    import gzip
+    for suffix in ('.json', '.json.gz', '.html', '.html.gz'):
+        path = RAW / (label + suffix)
+        if not path.exists():
+            continue
+        text = gzip.open(path, 'rt').read() if suffix.endswith('.gz') else path.read_text()
+        return text if suffix.startswith('.html') else json.loads(text)
+    return None
+
+
+def has_evidence(label: str) -> bool:
+    return raw_evidence(label) is not None
 VALVE_SNAPSHOT = 'standings_global_2026_10_05.md'
 VALVE_URL = ('https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/'
              'main/live/2026/' + VALVE_SNAPSHOT)
 
 
-@unittest.skipUnless((RAW / 'valve-standings-latest.html').exists(), 'archived Valve snapshot not committed')
+@unittest.skipUnless(has_evidence('valve-standings-latest'), 'archived Valve snapshot not committed')
 class ValveReplay(unittest.TestCase):
     def setUp(self):
-        self.text = (RAW / 'valve-standings-latest.html').read_text()
+        self.text = raw_evidence('valve-standings-latest')
         self.teams = ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA', 'Falcons',
                       'Ninjas in Pyjamas', 'PARIVISION']
         self.rows = valve_rating_rows(self.text, self.teams, VALVE_SNAPSHOT, VALVE_URL)
@@ -392,7 +412,7 @@ class BovadaContract(unittest.TestCase):
         self.assertFalse(rows[0]['prematch_main_moneyline'])
 
 
-@unittest.skipUnless((RAW / 'bovada-cs2.json').exists(), 'archived Bovada coupon not committed')
+@unittest.skipUnless(has_evidence('bovada-cs2'), 'archived Bovada coupon not committed')
 class BovadaReplay(unittest.TestCase):
     """Structural invariants over the archived coupon.
 
@@ -402,7 +422,7 @@ class BovadaReplay(unittest.TestCase):
     """
 
     def setUp(self):
-        self.rows = bovada_moneylines(json.loads((RAW / 'bovada-cs2.json').read_text()))
+        self.rows = bovada_moneylines(raw_evidence('bovada-cs2'))
 
     def test_every_archived_event_is_a_prematch_game_event(self):
         self.assertTrue(self.rows, 'no Bovada event extracted')
@@ -466,10 +486,10 @@ class ThunderpickContract(unittest.TestCase):
         self.assertEqual(thunderpick_moneylines('not a dict'), [])
 
 
-@unittest.skipUnless((RAW / 'thunderpick-cs2.json').exists(), 'archived Thunderpick coupon not committed')
+@unittest.skipUnless(has_evidence('thunderpick-cs2'), 'archived Thunderpick coupon not committed')
 class ThunderpickReplay(unittest.TestCase):
     def test_match_winner_odds_are_two_selections_with_decimal_prices(self):
-        rows = thunderpick_moneylines(json.loads((RAW / 'thunderpick-cs2.json').read_text()))
+        rows = thunderpick_moneylines(raw_evidence('thunderpick-cs2'))
         self.assertTrue(rows, 'no Thunderpick match-winner line extracted')
         for row in rows:
             self.assertEqual(row['market'], 'Match Winner')

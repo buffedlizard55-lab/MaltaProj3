@@ -54,7 +54,14 @@ HLTV_EVENT_RESULTS = 'https://www.hltv.org/results?event=8932'
 HLTV_EVENT_PAGE = 'https://www.hltv.org/events/8932/thunderpick-world-championship-2026'
 HLTV_MATCHES = 'https://www.hltv.org/matches'
 HLTV_RANKING = 'https://www.hltv.org/ranking/teams'
-TWC_MATCH_IDS = [2399412, 2399413, 2399414, 2399415]
+# Every remaining Thunderpick World Championship 2026 fixture on HLTV's own event board:
+# the two Day-3 group deciders, the two Day-4 semifinals, the Day-5 third-place decider
+# and the Day-5 grand final.
+TWC_MATCH_IDS = [2399412, 2399413, 2399414, 2399415, 2399416, 2399417]
+# HLTV renders its own Valve Regional Standings view, which is dated more recently than
+# the newest global standings file Valve has published in its official repository. Both
+# are archived so the gap can be reviewed rather than assumed away.
+HLTV_VALVE_RANKING = 'https://www.hltv.org/valve-ranking/teams/2026/october/16'
 TWC_ANALYTICS_IDS = [2399412, 2399413]
 HLTV_TEAM_PAGES = {
     'Aurora': 'https://www.hltv.org/team/11861/aurora',
@@ -640,8 +647,13 @@ def collect_hltv(probe: Probe) -> dict:
     html, ev = probe.get('hltv-matches-index', HLTV_MATCHES)
     if isinstance(html, str):
         result['matches_index_evidence'] = ev
+    canonical = {str(f['match_id']): f.get('url')
+                 for f in (result.get('schedule') or {}).get('fixtures') or [] if f.get('url')}
     for mid in TWC_MATCH_IDS:
-        url = f'https://www.hltv.org/matches/{mid}/thunderpick-world-championship-2026'
+        # Prefer the canonical URL from HLTV's own event board; a constructed slug can 404
+        # for fixtures whose teams are not yet decided (the Day-5 third-place decider and
+        # grand final both still read 2399416/2399417 with no team names).
+        url = canonical.get(str(mid)) or f'https://www.hltv.org/matches/{mid}/thunderpick-world-championship-2026'
         page, pev = probe.get(f'hltv-match-{mid}', url)
         if isinstance(page, str):
             info = parse_hltv_match_page(page)
@@ -667,17 +679,105 @@ def collect_hltv(probe: Probe) -> dict:
     for name, url in HLTV_TEAM_PAGES.items():
         page, pev = probe.get(f'hltv-team-{name.lower()}', url)
         if isinstance(page, str):
-            soup_text = re.sub(r'\s+', ' ', page)
-            players = re.findall(r'/player/(\d+)/([a-zA-Z0-9\-]+)', soup_text)
-            uniq = []
-            for pid, nick in players:
-                if nick not in [u[1] for u in uniq]:
-                    uniq.append((pid, nick))
-            result['teams'][name] = {'url': url, 'evidence': pev, 'player_links': uniq[:12]}
+            info = parse_hltv_team_page(page)
+            info['url'] = url
+            info['evidence'] = pev
+            result['teams'][name] = info
         else:
             result['limitations'].append(f'HLTV team page for {name} was not readable.')
+        time.sleep(0.5)
+    page, pev = probe.get('hltv-valve-ranking', HLTV_VALVE_RANKING)
+    if isinstance(page, str):
+        parsed = parse_hltv_valve_ranking(page)
+        parsed['source_url'] = HLTV_VALVE_RANKING
+        parsed['evidence'] = pev
+        result['valve_ranking_view'] = parsed
+    else:
+        result['limitations'].append(
+            "HLTV's Valve-ranking view was not readable; only Valve's own repository "
+            'snapshot is used for ratings.')
     result['observed_at'] = now_iso()
     return result
+
+
+def parse_hltv_team_page(html: str) -> dict:
+    """Read a team's rankings, squad and coach from its own HLTV page.
+
+    HLTV shows two different rankings side by side: its own World ranking and Valve's
+    Regional Standings (VRS). They are dated differently and are recorded separately,
+    each with the URL HLTV itself links to, so neither is presented as the other.
+    """
+    try:
+        from bs4 import BeautifulSoup
+    except Exception:
+        return {'limitation': 'beautifulsoup4 unavailable'}
+    soup = BeautifulSoup(html, 'html.parser')
+    info: dict = {}
+    for stat in soup.select('div.profile-team-stat'):
+        text = re.sub(r'\s+', ' ', stat.get_text(' ', strip=True))
+        right = stat.select_one('span.right')
+        links = right.select('a') if right else []
+        if not links:
+            continue
+        rank_text = _text(links[0])
+        rank = int(rank_text.lstrip('#')) if rank_text.lstrip('#').isdigit() else None
+        entry = {'rank': rank, 'rank_text': rank_text,
+                 'url': 'https://www.hltv.org' + links[0].get('href', '')}
+        if len(links) > 1:
+            entry['regional'] = re.sub(r'\s+', ' ', _text(links[1]))
+            entry['regional_title'] = links[1].get('title')
+            entry['regional_url'] = 'https://www.hltv.org' + links[1].get('href', '')
+        if 'Valve ranking' in text or 'VRS' in text:
+            info['valve_ranking'] = entry
+        elif 'World ranking' in text:
+            info['hltv_world_ranking'] = entry
+    for label, key in (('Weeks in top30 for core', 'weeks_in_top30_core'),
+                       ('Average player age', 'average_player_age')):
+        found = re.search(re.escape(label) + r'\s*([0-9.]+)', re.sub(r'\s+', ' ', soup.get_text(' ', strip=True)))
+        if found:
+            info[key] = found.group(1)
+    coach = soup.select_one('a[href*="/coach/"]')
+    if coach:
+        info['coach'] = {'name': re.sub(r'\s+', ' ', _text(coach)),
+                         'url': 'https://www.hltv.org' + coach.get('href', '')}
+    # The nickname comes from the player URL slug, which HLTV controls, rather than from
+    # an image alt text ("Image of Counter-Strike player XANTARES") or a flag graphic.
+    players = {}
+    for link in soup.select('a[href*="/player/"]'):
+        href = link.get('href') or ''
+        found = re.fullmatch(r'/player/(\d+)/([A-Za-z0-9\-]+)/?', href.split('?')[0])
+        if not found:
+            continue
+        players.setdefault(found.group(1), {'player_id': found.group(1), 'nick': found.group(2),
+                                            'url': 'https://www.hltv.org' + href.split('?')[0]})
+    info['players'] = list(players.values())[:12]
+    info['player_links'] = [(entry['player_id'], entry['nick']) for entry in info['players']]
+    return info
+
+
+def parse_hltv_valve_ranking(html: str) -> dict:
+    """Read HLTV's rendering of Valve's Regional Standings: team, rank and points."""
+    try:
+        from bs4 import BeautifulSoup
+    except Exception:
+        return {'teams': [], 'limitation': 'beautifulsoup4 unavailable'}
+    soup = BeautifulSoup(html, 'html.parser')
+    teams = []
+    for row in soup.select('tr, div.team-row, li'):
+        text = re.sub(r'\s+', ' ', row.get_text(' ', strip=True))
+        link = row.select_one('a[href*="/team/"]')
+        if not link:
+            continue
+        found = re.match(r'#?(\d+)\s+(.+?)\s+(\d{3,4})\b', text)
+        if not found:
+            continue
+        teams.append({'rank': int(found.group(1)), 'team': found.group(2).strip(),
+                      'points': int(found.group(3)),
+                      'url': 'https://www.hltv.org' + link.get('href', '')})
+    return {'teams': teams[:60], 'count': len(teams),
+            'note': ("This is HLTV's rendering of the Valve Regional Standings, not a file "
+                     'published by Valve. Valve\'s own repository is the source used for '
+                     'any rating in this project.')}
 
 
 # ---------------------------------------------------------------------------
