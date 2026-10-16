@@ -41,7 +41,8 @@ def collect(source: Path):
     client = Client(folder)
     pages, urls = [], set(DAY3_URLS)
     for label, url in [('event', EVENT_URL), ('matches', 'https://www.hltv.org/events/8932/matches'),
-                       ('results', 'https://www.hltv.org/results?event=8932')]:
+                       ('results', 'https://www.hltv.org/results?event=8932'),
+                       ('hotspawn-tournament', 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1')]:
         try:
             text, req = client.fetch(url, 'twc-' + label)
             raw = text.encode('utf-8')

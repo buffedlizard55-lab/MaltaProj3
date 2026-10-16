@@ -1237,3 +1237,4 @@ handoff; no V-owned file is edited by this session.
 ### N-1/N-2 scope clarification — 2026-10-16T19:33Z
 - Also claim the completed `tests/test_twc.py` and `tests/browser/twc.spec.mjs` title/scoped-selector maintenance only, plus new Day-4-specific tests. Day-3 schema fields and pinned synthetic regression coverage remain intact.
 - First research run `38955384414` collected sources successfully (Day-3 Aurora 2–0 9z; other decider still not marked finished by HLTV), but export failed. No outcome for the unfinished series is inferred. Added explicit export diagnostics; will retry before treating retained evidence as published.
+- Research export retry `38955718457` diagnosed an isolated shallow-checkout rebase conflict (add/add against main), not a concurrent user's change. No export was pushed. Fixed with a full-history checkout; the production integration branch was untouched. Retain both source collection runs as failed exports, not completed publication.

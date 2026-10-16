@@ -86,6 +86,8 @@ jobs:
           # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
+      - name: Refresh dated TWC Day-3 results and Day-4 research (no pricing override)
+        run: python -m scripts.twc_research
       - name: Order platform publishers and record Pages configuration
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
