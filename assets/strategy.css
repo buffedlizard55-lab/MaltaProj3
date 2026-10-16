@@ -63,9 +63,9 @@ main { max-width: 980px; margin: 0 auto; padding: 12px 14px 48px; }
 .ribbon.swap { background: var(--purple); color: #fff; }
 .ribbon.lock { background: var(--green-bg); color: var(--green); }
 .ribbon.live_dog, .ribbon.coin_flip { background: var(--amber-bg); color: var(--amber); }
-.pickline { margin: 0; font-size: 1.05rem; }
-.pickline strong { font-size: 1.45rem; display: inline-block; margin-left: 4px; }
-.pickline small { display: block; color: var(--muted); font-size: .84rem; }
+.pickline, .snapshot-plan { margin: 0; font-size: 1.05rem; }
+.pickline strong, .snapshot-plan strong { font-size: 1.45rem; display: inline-block; margin-left: 4px; }
+.pickline small, .snapshot-plan small { display: block; color: var(--muted); font-size: .84rem; }
 .probs { display: grid; gap: 8px; margin: 8px 0; }
 .prob { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; row-gap: 4px; align-items: baseline; }
 .prob .who { font-weight: 600; overflow-wrap: anywhere; }
@@ -132,3 +132,10 @@ footer { max-width: 980px; margin: 0 auto; padding: 18px 14px 40px; color: var(-
 .scores { list-style: none; margin: 6px 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
 .scores li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 8px; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
 .def dd .links { margin-top: 6px; }
+
+/* A sourced estimate can remain visible without being a current submission. */
+[hidden] { display: none !important; }
+.pick-safety { background: var(--amber-bg); color: #4a3209; border-radius: 8px; padding: 8px 10px; font-size: .84rem; }
+.pick-card.is-historical { border-left-color: var(--amber); box-shadow: none; }
+.pick-card.is-historical .prob.default .bar i { background: #7fa0ba; }
+.pick-card.is-historical .prob.default .who { font-weight: 600; }

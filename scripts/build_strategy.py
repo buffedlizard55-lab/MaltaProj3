@@ -26,6 +26,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from scripts.domain import timestamp
+from scripts.pick_safety import (body_attributes, card_attributes, presentation, status_html)
 
 MALTA = ZoneInfo('Europe/Malta')
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
@@ -265,6 +266,9 @@ def plan(inputs: dict, now: datetime) -> dict:
                'context': context,
                'score_model': score_model,
                'limitations': list(o.get('limitations') or []) + list(m.get('limitations') or []),
+               'availability': m.get('availability'),
+               'presentation': presentation(m, inventory_at, latest.get('coverage_complete'), now,
+                                            snapshot_bound=snapshot_bound, max_age_hours=th['max_line_age_hours']),
                'quotes': o.get('quotes') or [], 'model_crosscheck': o.get('model_crosscheck'),
                'upgraded': bool(m.get('upgraded_from_featured_model'))}
         rows.append(row)
@@ -291,6 +295,8 @@ def plan(inputs: dict, now: datetime) -> dict:
         'swap_cost': sum(r['cost'] or 0 for r in rows if r['swap']), 'swap_points': sum(r['points'] or 0 for r in rows if r['swap']),
         'stale': stale, 'inventory_observed_at': inventory_at, 'inventory_age_h': inventory_age, 'coverage_complete': latest.get('coverage_complete'),
         'originated_snapshot_at': (orig or {}).get('source_snapshot_at'), 'basis_note': basis_note,
+        'snapshot_bound': snapshot_bound, 'current': sum(r['presentation']['current'] for r in rows),
+        'max_line_age_hours': th['max_line_age_hours'],
     }
     return {'rows': rows, 'unresolved': unresolved, 'closed': closed, 'summary': summary, 'generated_at': now.strftime('%Y-%m-%dT%H:%M:%SZ')}
 
@@ -303,9 +309,10 @@ def money_chip(r) -> str:
     return '<span class="chip model">Research model · uncalibrated</span>'
 
 
-def prob_row(name, p, is_default) -> str:
-    mark = '<span class="tick" aria-hidden="true">✓</span> ' if is_default else ''
-    hint = ' <span class="sr-only">(plan pick)</span>' if is_default else ''
+def prob_row(name, p, is_default, current=True) -> str:
+    hidden = '' if current else ' hidden'
+    mark = f'<span class="tick" data-current-only aria-hidden="true"{hidden}>✓</span> ' if is_default else ''
+    hint = f' <span class="sr-only" data-current-only{hidden}>(plan pick)</span>' if is_default else ''
     cls = 'prob default' if is_default else 'prob'
     return (f'<div class="{cls}"><span class="who">{mark}{e(name)}{hint}</span>'
             f'<span class="num">{pct(p)}</span><span class="bar" aria-hidden="true"><i style="width:{p * 100:.1f}%"></i></span></div>')
@@ -352,6 +359,11 @@ def card(r) -> str:
     default_name = r['names'][r['default']]
     fav_name = r['names'][r['fav']]
     klass = r['klass']
+    safety = r['presentation']
+    current = safety['current']
+    hidden = '' if current else ' hidden'
+    historical_hidden = ' hidden' if current else ''
+    source_match = {**r, 'origination': {'observed_at': r['observed_at'], 'probabilities': r['p']}}
     if r['swap']:
         verdict = f'<span class="ribbon swap">Upset play</span>'
         pick_line = f'<p class="pickline">Plan pick <strong>{e(default_name)}</strong><small>Most likely winner: {e(fav_name)} {pct(r["p_fav"])}</small></p>'
@@ -374,15 +386,16 @@ def card(r) -> str:
     for q in r['quotes'][:3]:
         if q.get('source_url') and q.get('source_url') != r['source_url']:
             link_line += ' ' + ext(q['source_url'], q.get('provider') or 'Line source')
-    body = f'''<article class="pick-card strat {"swap" if r["swap"] else ""}" id="match-{e(r["id"])}" data-locks="{e(r["locks_at"] or "")}" data-id="{e(r["id"])}">
+    body = f'''<article class="pick-card strat {"swap" if r["swap"] else ""}{" is-historical" if not current else ""}" id="match-{e(r["id"])}" {card_attributes(source_match, safety)} data-was-current="{str(current).lower()}" data-id="{e(r["id"])}">
 <header><p class="comp">{e(r["competition"])}</p><h3>{e(a)} <span>vs</span> {e(b)}</h3>
 <p class="when">Locks {when(r["locks_at"])} · starts {when(r["starts_at"])}</p>
 <p class="status" hidden>Locked — can no longer be picked</p></header>
-<div class="verdict">{verdict}{pick_line}</div>
-<div class="probs" role="group" aria-label="Our win probabilities">{prob_row(a, r["p"][0], r["default"] == 0)}{prob_row(b, r["p"][1], r["default"] == 1)}</div>
+{status_html(safety)}
+<div class="verdict" data-current-only{hidden}>{verdict}{pick_line}</div>
+<p class="snapshot-plan" data-historical-only{historical_hidden}>Snapshot plan <strong>{e(default_name)}</strong><small>Historical / unverified for current use. Not a current recommendation.</small></p>
+<div class="probs" role="group" aria-label="Our win probabilities">{prob_row(a, r["p"][0], r["default"] == 0, current)}{prob_row(b, r["p"][1], r["default"] == 1, current)}</div>
 <div class="chips">{"".join(chips)}</div>
-{why_swap(r) if r["swap"] else ""}
-{score_block(r)}
+<div data-current-only{hidden}>{why_swap(r) if r["swap"] else ""}{score_block(r)}</div>
 {context_block(r) if r.get("context") else ""}
 <details class="more"><summary>Sources &amp; limits</summary>
 <p class="tiny">{e(r["label"])} · observed {when(r["observed_at"])} · points from {e(r["points_source"])}{"" if r["points_formula_ok"] is not False else " · <strong>points do not match the API multipliers; check the rules</strong>"}</p>
@@ -410,14 +423,16 @@ def score_block(r) -> str:
 
 def swaps_block(pl) -> str:
     swaps = [r for r in pl['rows'] if r['swap']]
+    if not swaps and (pl['summary']['stale'] or not pl['summary']['current']):
+        return '<div class="callout"><strong>No current upset recommendation.</strong> The retained lines are historical or unverified for current use. Check the card status and source times; no stale choice is a submission recommendation.</div>'
     if not swaps:
         return ('<div class="callout calm"><strong>No upset play today.</strong> No money-backed, fresh line gives an underdog at least 30% on a 3-point-or-better fixture. '
                 'Take the most likely winner everywhere; that is the plan, not a gap.</div>')
     items = ''
     for r in swaps:
-        items += (f'<li><a href="#match-{e(r["id"])}"><strong>{e(r["names"][r["dog"]])}</strong> over {e(r["names"][r["fav"]])}</a>'
+        items += (f'<li data-safety-link="match-{e(r["id"])}"><a href="#match-{e(r["id"])}"><strong>{e(r["names"][r["dog"]])}</strong> over {e(r["names"][r["fav"]])}</a>'
                   f'<span>{pct(r["p_dog"])} · {r["points"]} pts · costs {r["cost"]:.1f} expected</span></li>')
-    return f'<div class="callout swapbox"><strong>Upset plays ({len(swaps)})</strong><ul class="swaplist">{items}</ul></div>'
+    return f'<div class="callout swapbox"><strong>Current upset plays (<span data-current-swap-count>{len(swaps)}</span>)</strong><ul class="swaplist">{items}</ul></div>'
 
 
 def unresolved_block(pl) -> str:
@@ -569,8 +584,9 @@ def page(inputs: dict, pl: dict) -> str:
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <link rel="icon" href="../assets/scout-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/strategy.css">
+<script src="../assets/pick-safety.js" defer></script>
 <script src="../assets/strategy.js" defer></script>
-</head><body>
+</head><body {body_attributes(s["inventory_observed_at"], s["coverage_complete"], snapshot_bound=s["snapshot_bound"], max_age_hours=s["max_line_age_hours"])}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><p class="brand"><a href="../">spawn<strong>scout</strong></a> <span>· leaderboard plan</span></p>
 <nav aria-label="Pages" class="topnav"><a href="../">Summary</a><a href="../origination/#picks">All picks</a><a href="../edge/">Upset review</a><a href="../review/">Flagged</a></nav></header>
@@ -578,16 +594,18 @@ def page(inputs: dict, pl: dict) -> str:
 {stale}
 <section class="hero" id="top"><p class="kicker">LEADERBOARD PLAN · CONTRARIAN, NOT STUPID</p>
 <h1>One pick per match. Underdogs only when the lines say they have a real shot.</h1>
-<p class="hero-stats"><strong>{s["open"]}</strong> open fixtures with a pick · <strong>{s["swaps"]}</strong> upset play{"" if s["swaps"] == 1 else "s"} · <strong>{unresolved_n}</strong> unresolved · <strong>{s["points_on_table"]}</strong> Hotspawn points on the table</p>
+<p class="hero-stats"><strong>{s["open"]}</strong> snapshot fixtures with sourced lines · <strong data-current-count>{s["current"]}</strong> currently usable · <strong data-current-swap-count>{s["swaps"]}</strong> current upset play{"" if s["swaps"] == 1 else "s"} · <strong>{unresolved_n}</strong> unresolved · <strong>{s["points_on_table"]}</strong> snapshot Hotspawn points</p>
 <p class="hero-note">Probabilities are ours, from external lines and official ratings — never Hotspawn popularity. Snapshot: inventory {when(s["inventory_observed_at"])}; page built {when(pl["generated_at"])}.</p>
 <p class="quick"><a class="btn" href="#slate">See the picks ↓</a><a class="btn alt" href="#unresolved">Unresolved &amp; limitations ({unresolved_n}) ↓</a><a class="btn alt" href="../origination/#picks">Most-likely-winner list →</a></p></section>
 <section class="block" id="plan"><h2>The plan in 20 seconds</h2>
-<ul class="plan-list"><li><strong>Default:</strong> submit the most likely winner. {cls["lock"]} lock{"" if cls["lock"] == 1 else "s"} and {cls["lean"]} lean{"" if cls["lean"] == 1 else "s"} are not worth fading.</li>
+<ul class="plan-list" data-safety-synopsis{' hidden' if s["stale"] or s["current"] != s["open"] else ''}><li><strong>Default:</strong> submit the most likely winner. {cls["lock"]} lock{"" if cls["lock"] == 1 else "s"} and {cls["lean"]} lean{"" if cls["lean"] == 1 else "s"} are not worth fading.</li>
 <li><strong>Upset plays:</strong> {s["swaps"]} today, costing about {s["swap_cost"]:.1f} expected points in total against the favorites, and worth {s["swap_points"]} Hotspawn points if every one lands.</li>
 <li><strong>Close calls:</strong> {cls["live_dog"]} live dog{"" if cls["live_dog"] == 1 else "s"} and {cls["coin_flip"]} coin flip{"" if cls["coin_flip"] == 1 else "s"}; the card says which side the lines favour.</li>
 <li><strong>Thunderpick World Championship:</strong> its tournament pick'em also pays <strong>5 points for the correct score</strong>. See the <a href="#tournament">tournament section</a> and the score line on each TWC card.</li>
 <li><strong>Unresolved:</strong> {unresolved_n} fixture{"" if unresolved_n == 1 else "s"} have no external line or rating. They stay blank, with the reason, in the <a href="#unresolved">unresolved section</a>.</li></ul>
-{swaps_block(pl)}</section>
+{swaps_block(pl)}
+<p class="stale" data-runtime-safety-notice role="status"{' hidden' if s['current'] == s['open'] else ''}>{s['current']} currently usable line(s). Retired plan choices are historical only, not current recommendations.</p>
+<noscript><p class="stale">JavaScript is off: the plan's lock and freshness checks are as of page build time. Labels cannot expire in an open tab; compare the printed deadlines and observation times and reload before relying on a pick.</p></noscript></section>
 <section class="block" id="slate"><h2>The slate, in lock order</h2>
 <p class="lede">The ✓ team is the plan pick. Hotspawn locks picks before the start (its rules page says 5 minutes, its fixture API says 6): submit with margin. Times are Malta time with UTC beside them. A “Situation &amp; sources” note appears only where a dated HLTV read exists; its absence means nothing was verified, not that nothing matters.</p>
 <p class="tools"><label><input type="checkbox" id="hide-locked" checked> Hide fixtures that have locked</label></p>
