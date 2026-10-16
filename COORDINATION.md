@@ -1,3 +1,24 @@
+# Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
+
+Claimed 2026-10-16T23:58Z on fixed branch `arena/138f48b7-maltaproj3`. Read the complete shared board, `git log`
+through `b7e907e` (PR #64), open/closed PRs and the live published site before claiming. No other session is
+active: every earlier claim is `done`/`needs review`, and the last four-hour publisher run 38978237118 succeeded.
+Verified at claim time: Day 3 on HLTV is **complete** (Aurora 2-0 9z; BETBOOM 2-1 Legacy) and both Day-4
+semifinal pairings are now known (FURIA–Aurora 14:00Z, Falcons–BETBOOM 17:00Z), so the previously blank
+Day-4 card can be priced from external first-party markets instead of staying unresolved.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| T-1 Originate Day-4 TWC tournament-card lines from external first-party markets (Polymarket Gamma directory/paginated CS2 tag + CLOB books, Kalshi trade API), with replay, no invented price, and explicit limitations when a market is unusable | in progress | arena-138f48b7 | new `scripts/twc_lines.py`, `scripts/twc_research.py` (collect/derive hooks), new `tests/test_twc_lines.py`, `data/origination/aliases.json` (additive, evidence-linked entries only), new `data/research/138f48b7/` | TWC tournament fixtures are not in the weekly Hotspawn lobby inventory, so no probability existed for them anywhere on the site. Exact team/start joins only; wide/stale/one-sided books stay blank and flagged. Never uses Hotspawn or HLTV crowd percentages. |
+| T-2 Day 1–3 verified review refresh and Day-4 contrarian-but-not-stupid guidance on the edge page | in progress | arena-138f48b7 | `data/edge-review.json`, `scripts/build_edge.py` (render only), `tests/test_edge.py` additions | Every fact keeps its own official source link + observation time. No roster/rest causality or quantified premium. Day-3 completion is verified from HLTV originals, not inferred. |
+| T-3 Day-4 rendering and executive-summary phone shortcuts for the new lines | in progress | arena-138f48b7 | `scripts/build_twc.py` (Day-4 block only), `scripts/build.py` (TWC Day-4 summary block only), `assets/twc.css` if required, `tests/test_twc_day4.py` additions | Keep fail-closed time guards, blank-not-50/50 policy and every existing Day-1–3 section unchanged. One-tap links to `/twc-picks/#day-four-picks`, `/origination/#picks`, `/origination/#unresolved`. |
+| T-4 Integration: full test suite, build replay, link/row-source audit, PR, merge, Pages deploy verification, board record | in progress | arena-138f48b7 | `COORDINATION.md`, `README.md` (facts only) | Do not merge a broken site. Flagged items stay public and non-blocking. |
+
+Sandbox egress is limited to GitHub/package hosts, so live market collection runs in the existing single
+four-hour publisher (`pages.yml` -> `scripts.twc_research`); this session's own research fetches are retained as
+dated observations with explicit provenance, never relabelled as pipeline evidence. Historical scopes and every
+other session's work are preserved; the fixed Arena branch overrides the brief's alternative branch naming.
+
 # Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
 
 Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
