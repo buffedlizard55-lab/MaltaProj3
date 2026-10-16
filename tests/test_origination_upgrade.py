@@ -266,5 +266,71 @@ class LiveModelResearch(unittest.TestCase):
         self.assertEqual(saved['polymarket_events'], [])
 
 
+class OriginalBookReplay(unittest.TestCase):
+    TARGET = EndToEnd.TARGET
+    row = EndToEnd.row
+
+    def setUp(self):
+        EndToEnd.setUp(self)
+        self.folder = self.tmp / 'origination/evidence'
+        path = self.folder / 'live-polymarket-observations.json'
+        observations = json.loads(path.read_text())
+        observations['schema_version'] = 2
+        ev = observations['polymarket_events'][0]
+        ev['clob_token_ids'] = ['a', 'b']
+        path.write_text(json.dumps(observations))
+        market = {'id': '1', 'outcomes': ev['outcomes'], 'clobTokenIds': ['a', 'b'], 'conditionId': 'condition',
+                  'gameStartTime': ev['game_start_time'], 'sportsMarketType': 'moneyline',
+                  'question': ev['title'], 'active': True, 'closed': False, 'acceptingOrders': True}
+        self.event = {'id': '990001', 'slug': 'cs2-pari-bb-test', 'active': True, 'closed': False, 'live': False, 'markets': [market]}
+        (self.folder / 'live-polymarket-event-990001.json').write_text(json.dumps(self.event))
+        for i, token in enumerate(['a', 'b']):
+            book = {'asset_id': token, 'market': 'condition', 'timestamp': str(int(timestamp_for_test(ev['observed_at']).timestamp() * 1000)),
+                    'bids': [{'price': ev['book_bid'][i], 'size': '5'}],
+                    'asks': [{'price': ev['book_ask'][i], 'size': '6'}]}
+            (self.folder / f'live-polymarket-book-990001-{i}.json').write_text(json.dumps(book))
+        (self.folder / 'live-collection-manifest.json').write_text(json.dumps([{'id': 'live-polymarket-event-990001', 'status': 'ok', 'observed_at': ev['observed_at']}]))
+
+    def validate(self):
+        build_origination.validate_origination(self.data, self.tmp)
+
+    def mutate_book(self, change):
+        path = self.folder / 'live-polymarket-book-990001-0.json'
+        b = json.loads(path.read_text()); change(b); path.write_text(json.dumps(b))
+
+    def test_full_original_event_and_books_reproduce_the_summary(self):
+        self.validate()
+
+    def test_summary_cannot_hide_a_changed_original_bid(self):
+        self.mutate_book(lambda b: b['bids'][0].update(price=0.29))
+        with self.assertRaises(AssertionError): self.validate()
+
+    def test_zero_size_original_levels_cannot_back_a_pick(self):
+        self.mutate_book(lambda b: b['bids'][0].update(size='0'))
+        with self.assertRaises(ValueError): self.validate()
+
+    def test_wrong_token_or_condition_is_not_replayable(self):
+        self.mutate_book(lambda b: b.update(market='different-condition'))
+        with self.assertRaises(ValueError): self.validate()
+
+    def test_duplicate_or_map_original_markets_are_not_replayable(self):
+        self.event['markets'].append(copy.deepcopy(self.event['markets'][0]))
+        (self.folder / 'live-polymarket-event-990001.json').write_text(json.dumps(self.event))
+        with self.assertRaises(AssertionError): self.validate()
+
+    def test_direction_and_fair_line_are_replayed_not_just_probability_sum(self):
+        row = self.row()
+        row['pick_index'] = 1 - row['pick_index']
+        with self.assertRaises(AssertionError): self.validate()
+        row['pick_index'] = 1 - row['pick_index']
+        row['origination']['fair_decimal'][0] = 1.001
+        with self.assertRaises(AssertionError): self.validate()
+
+
+def timestamp_for_test(value):
+    from scripts.domain import timestamp
+    return timestamp(value)
+
+
 if __name__ == "__main__":
     unittest.main()

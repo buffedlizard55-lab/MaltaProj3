@@ -94,8 +94,8 @@ def day_one_section(data):
     out = ['<section class="content-section" id="day-one"><div class="section-heading"><div>'
            '<p class="eyebrow">Official results, not recollections</p><h2>Day one: every series, every map</h2></div>'
            + badge('HLTV verified', 'green') + '</div>',
-           '<p class="section-intro">Four series, four 2-0 scorelines — and only one of them was the result the rankings '
-           'implied. Map scores, standout ratings and lineups below are HLTV’s published values for these specific series.</p>',
+           '<p class="section-intro">Four series, four 2-0 scorelines — with one reported upset. Historical rankings are context, not price calibration. '
+           'Map scores, standout ratings and lineups below are HLTV’s published values for these specific series.</p>',
            '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-one results at Thunderpick '
            'World Championship 2026 with official source links</caption><thead><tr><th scope="col">Series</th>'
            '<th scope="col">Score &amp; maps</th><th scope="col">What the result actually said</th></tr></thead><tbody>']
@@ -118,7 +118,7 @@ def day_one_section(data):
 
 def roster_section(data):
     out = ['<section class="content-section" id="rosters"><div class="section-heading"><div>'
-           '<p class="eyebrow">Roster changes, onboarding and rest</p><h2>Who changed, and what it costs them</h2></div>'
+           '<p class="eyebrow">Roster changes, onboarding and rest</p><h2>Who changed, and what remains unverified</h2></div>'
            + badge('Official transfer news', 'green') + '</div>',
            '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Verified roster changes and '
            'lineup continuity for the reviewed teams</caption><thead><tr><th scope="col">Team</th>'
@@ -277,13 +277,14 @@ def edge_review(data, prefix, edge_path: Path):
     window = review['research_window']
     out = heading('Dated first-party research', review['title'],
                   'What day one at Thunderpick World Championship 2026 actually told us — the 9z upset over Aurora, the roster '
-                  'churn behind it, and the rules we apply before disagreeing with a market.')
+                  'context (not proven causation), and the rules we apply before disagreeing with a market.')
     out += ('<div class="limitations-callout"><strong>This review is dated research, not a live feed.</strong>'
             f'<p>Prepared {local_time(review["prepared_at"])}. Research window {local_time(window["from"])} → {local_time(window["to"])}. '
             'Market prices on this page are historical observations with their own timestamps. Current probabilities stay on the '
             f'<a href="{prefix}picks/">match picks page</a>. {e(review["policy"])}</p>'
             f'<div class="inline-links"><a href="{prefix}picks/">Current picks →</a>'
             f'<a href="{prefix}origination/#picks">Complete researched picks →</a>'
+            f'<a href="{prefix}twc-picks/">Current TWC probabilities &amp; Days 1–2 review →</a>'
             f'<a href="{prefix}review/">Flagged for Review →</a></div></div>')
     out += ('<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The upset</p>'
             '<h2>9z 2-0 Aurora</h2></div>' + badge('Day one · Group A', 'amber') + '</div>'

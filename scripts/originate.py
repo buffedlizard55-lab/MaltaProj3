@@ -214,6 +214,17 @@ class Collector:
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
 
+def aliased_series_market(event: dict, fixture: dict, registry: dict, now: datetime):
+    """Same unique full-series contract as featured, with scoped name aliases."""
+    originals = event.get('markets', [])
+    canonical = [dict(m, outcomes=[resolve_name(n, registry, fixture.get('competition'))[0]
+                                  for n in array(m.get('outcomes'))]) for m in originals]
+    candidate, reason = polymarket_candidate(dict(event, markets=canonical), fixture, now)
+    if candidate is None:
+        return None, reason
+    return next(original for original, mapped in zip(originals, canonical) if mapped is candidate), ''
+
+
 def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     """Refetch every first-party source used by the origination ladder.
 
@@ -276,13 +287,9 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         # mapping. It requires ONE active full-series market with both teams,
         # matching future start and accepting orders; never select the first
         # map/prop or silently pick among duplicate moneylines.
-        canonical_markets = [dict(m, outcomes=[resolve_name(n, registry, fixture.get('competition'))[0]
-                                              for n in array(m.get('outcomes'))])
-                             for m in event.get('markets', [])]
-        candidate, _ = polymarket_candidate(dict(event, markets=canonical_markets), fixture, datetime.now(UTC))
-        if not candidate:
+        moneyline, _ = aliased_series_market(event, fixture, registry, datetime.now(UTC))
+        if not moneyline:
             continue
-        moneyline = next(original for original, canonical in zip(event['markets'], canonical_markets) if canonical is candidate)
         tokens = moneyline.get('clobTokenIds')
         if isinstance(tokens, str):
             try:
@@ -332,7 +339,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             record['book_ask'] = ask
         events.append(record)
     (evidence_dir / 'live-polymarket-observations.json').write_text(
-        json.dumps({'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
+        json.dumps({'schema_version': 2, 'observed_at': out['observed_at'], 'polymarket_events': events, 'polymarket_books': books},
                    ensure_ascii=False, indent=2) + '\n')
     # Kalshi CS2 match-winner events (officially documented public API). Pages are
     # bounded; an unfinished cursor is recorded rather than claimed complete.
@@ -485,12 +492,12 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
 
 def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> list:
     rows = []
-    if event.get('closed') is not False or event.get('active') is not True:
+    if event.get('closed') is not False or event.get('active') is not True or event.get('live') is True:
         return rows
     for market in event.get('markets', []):
         scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
         question = market.get('question', '')
-        if scope != 'moneyline' and not re.match(r'Counter-Strike: .+ vs .+ \(BO\d\)', question):
+        if scope != 'moneyline' or market.get('active') is not True or market.get('closed') is not False or market.get('acceptingOrders') is not True:
             continue
         if re.search(r'\b(map\s*\d|game\s*\d|handicap|spread|total|outright|over/under)\b', question, re.I):
             continue
@@ -514,15 +521,14 @@ def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> lis
             book_path = evidence_dir / f'polymarket-book-{event.get("id")}-{len(bids)}.json'
             if book_path.exists():
                 book = load_json(book_path)
-                from scripts.domain import is_fresh
-                if not is_fresh(iso(timestamp(book.get('timestamp'))), datetime.now(UTC)) if timestamp(book.get('timestamp')) else True:
+                from scripts.domain import book_midpoint
+                try:
+                    levels = book_midpoint(book, str(token), market.get('conditionId'), datetime.now(UTC))
+                    bids.append(levels['bid'])
+                    asks.append(levels['ask'])
+                except (ValueError, TypeError):
                     ok = False
-                bid = max((finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None), default=None)
-                ask = min((finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None), default=None)
-                bids.append(bid)
-                asks.append(ask)
-                if bid is None or ask is None:
-                    ok = False
+                    break
             else:
                 ok = False
         row = {'family': 'market', 'provider': 'Polymarket', 'names': [str(o) for o in outcomes],

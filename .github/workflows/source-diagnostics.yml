@@ -59,8 +59,8 @@ jobs:
         run: python -m scripts.review_sources
       - name: Export bounded public research to this fixed session branch
         run: |
-          mkdir -p data/research/6426358d
-          cp .cache/source-review/source-report.json .cache/source-review/*.html.gz data/research/6426358d/
+          mkdir -p data/research/6426358d/latest
+          cp .cache/source-review/source-report.json .cache/source-review/*.html.gz data/research/6426358d/latest/
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/research/6426358d/

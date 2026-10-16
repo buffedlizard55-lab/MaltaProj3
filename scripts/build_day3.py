@@ -86,9 +86,11 @@ def render_section(guide: dict, prefix: str) -> str:
     out.append('</tbody></table></div></section>')
 
     out.append('<section class="content-section" id="day-three-guide"><div class="section-heading"><div>'
-               '<p class="eyebrow">Day 3 · 16 Oct 2026 · deciders · updated priced guide</p><h2>Day three pick guide</h2></div>'
-               f'<a class="internal-link" href="{prefix}picks/">Open the full picks list →</a></div>'
-               '<p class="section-intro">Two deciders, two semi-final slots. The calculated probabilities for '
+               '<p class="eyebrow">Dated preview · prepared 15 Oct 2026 · not current picks</p><h2>Day three pick guide</h2></div>'
+               f'<a class="internal-link" href="{prefix}twc-picks/">Open regenerated TWC picks →</a></div>'
+               '<p class="section-intro"><strong>This is the dated 15 October preview, not a current pick list.</strong> '
+               f'<a href="{prefix}twc-picks/">Use the regenerated TWC page for both current defaults and probabilities.</a> '
+               'Two deciders, two semi-final slots. The calculated probabilities for '
                'these fixtures — once the four-hour pipeline joins them — live on the '
                f'<a href="{prefix}picks/">match picks page</a> and in the '
                f'<a href="{prefix}origination/#picks">complete researched picks list</a>. '
@@ -132,9 +134,9 @@ def render_section(guide: dict, prefix: str) -> str:
                    f'{source_lines(row["sources"])}{external(row["hltv_url"], "HLTV match page")}</td></tr>')
     out.append('</tbody></table></div>')
     out.append('<div class="limitations-callout"><strong>How to climb without gambling the card</strong>'
-               '<p>One designated contrarian flip (9z) backed by a head-to-head win over this exact '
-               'opponent two days ago — not a blanket fade of both favorites. The second decider has no '
-               'priced line yet, so it gets a labeled form lean and a pointer to the live picks page '
+               '<p>The earlier watch was 9z, backed by a head-to-head win over this '
+               'opponent two days ago — not a blanket fade of both favorites. The second decider had no '
+               'priced line at that observation; use the regenerated TWC page for the current line '
                'instead of an invented number.</p>'
                f'<div class="inline-links"><a href="{prefix}origination/#picks">Complete researched picks →</a>'
                f'<a href="{prefix}edge/#day-two-results">Day 2 results ↑</a>'

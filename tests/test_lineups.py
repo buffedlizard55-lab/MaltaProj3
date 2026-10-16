@@ -13,7 +13,7 @@ from scripts.domain import iso, name_key, timestamp
 from scripts.hltv_match import parse_match
 
 ROOT = Path(__file__).resolve().parents[1]
-RESEARCH = ROOT / 'data/research/6426358d'
+RESEARCH = ROOT / 'data/research/6426358d/observed-0723'
 NOW = timestamp('2026-10-16T07:24:10Z')
 START = '2026-10-17T11:00:00Z'
 URL = 'https://www.hltv.org/matches/12345/alpha-vs-beta'

@@ -359,6 +359,30 @@ def validate_origination(data, source):
                 observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
                 ev = next((e for e in observations['polymarket_events'] if e['event_id'] == q['event_id']), None)
                 assert ev is not None, f"Polymarket event {q['event_id']} missing from saved live observations"
+                if observations.get('schema_version', 1) >= 2:
+                    # New observations retain full original event + book responses.
+                    # A summarized bid/ask is not enough: replay statuses, alias
+                    # identity, unique series market, token/condition, timestamps
+                    # and positive-size executable levels from those originals.
+                    from scripts.originate import aliased_series_market
+                    from scripts.domain import array, book_midpoint
+                    folder = source / 'origination/evidence'
+                    event = json.loads((folder / f"live-polymarket-event-{q['event_id']}.json").read_text())
+                    market, reason = aliased_series_market(event, raw, registry, timestamp(data['generated_at']))
+                    assert market is not None, 'Original Polymarket series market rejected: ' + reason
+                    assert str(event.get('id')) == q['event_id']
+                    assert array(market.get('outcomes')) == ev['outcomes'], 'Original market outcomes changed'
+                    assert (market.get('gameStartTime') or event.get('startTime')) == ev['game_start_time'], 'Original market start changed'
+                    tokens = array(market.get('clobTokenIds'))
+                    assert [str(t) for t in tokens] == ev['clob_token_ids'], 'Original market token IDs changed'
+                    levels = [book_midpoint(json.loads((folder / f"live-polymarket-book-{q['event_id']}-{i}.json").read_text()),
+                                            str(t), market['conditionId'], timestamp(data['generated_at']))
+                              for i, t in enumerate(tokens)]
+                    assert [l['bid'] for l in levels] == ev['book_bid'], 'Summarized bids differ from original executable books'
+                    assert [l['ask'] for l in levels] == ev['book_ask'], 'Summarized asks differ from original executable books'
+                    manifest = json.loads((folder / 'live-collection-manifest.json').read_text())
+                    attempts = [r for r in manifest if r.get('id') == 'live-polymarket-event-' + q['event_id'] and r.get('status') == 'ok']
+                    assert len(attempts) == 1 and attempts[0]['observed_at'] == ev['observed_at'], 'Market observation restamped'
                 bid = align_by_name(ev['book_bid'], ev['outcomes'], raw, registry)
                 ask = align_by_name(ev['book_ask'], ev['outcomes'], raw, registry)
                 assert bid == q['bid'] and ask == q['ask'], 'Market quotes differ from saved observations'
@@ -368,6 +392,9 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
+        from scripts.originate import selection
+        assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'
+        assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
 

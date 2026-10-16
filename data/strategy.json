@@ -1,0 +1,458 @@
+{
+  "summary": {
+    "active": 7,
+    "open": 7,
+    "closed": 10,
+    "unresolved": 0,
+    "swaps": 0,
+    "classes": {
+      "lock": 4,
+      "lean": 2,
+      "live_dog": 1,
+      "coin_flip": 0
+    },
+    "points_on_table": 14,
+    "unknown_points": 0,
+    "swap_cost": 0,
+    "swap_points": 0,
+    "stale": true,
+    "inventory_observed_at": "2026-10-15T08:36:04Z",
+    "inventory_age_h": 23.125085789444444,
+    "coverage_complete": true,
+    "originated_snapshot_at": "2026-10-15T08:36:04Z",
+    "basis_note": null
+  },
+  "generated_at": "2026-10-16T07:43:34Z",
+  "rows": [
+    {
+      "id": "1080285",
+      "names": [
+        "Voca",
+        "Phantom"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T08:00:00Z",
+      "locks_at": "2026-10-16T07:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080285",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.445,
+        0.555
+      ],
+      "method": "market",
+      "money": true,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+      "observed_at": "2026-10-15T08:36:07Z",
+      "age_h": 23.124252456111112,
+      "fresh": false,
+      "fav": 1,
+      "dog": 0,
+      "p_dog": 0.445,
+      "p_fav": 0.555,
+      "klass": "live_dog",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 0.22000000000000008,
+      "upside": 0.89,
+      "field": {
+        "pct": [
+          17,
+          83
+        ],
+        "n": 54
+      },
+      "field_dog": 0.17,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.83,
+      "rank_value": 0.7387,
+      "score_model": null,
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "upgraded": false,
+      "default": 1
+    },
+    {
+      "id": "1080286",
+      "names": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T10:00:00Z",
+      "locks_at": "2026-10-16T09:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080286",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.76923077,
+        0.23076923
+      ],
+      "method": "bookmaker",
+      "money": true,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "observed_at": "2026-10-15T08:36:11Z",
+      "age_h": 23.123141345,
+      "fresh": false,
+      "fav": 0,
+      "dog": 1,
+      "p_dog": 0.23076923,
+      "p_fav": 0.76923077,
+      "klass": "lock",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "underdog under 30%",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 1.0769230799999998,
+      "upside": 0.46153846,
+      "field": {
+        "pct": [
+          93,
+          7
+        ],
+        "n": 55
+      },
+      "field_dog": 0.07,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.9299999999999999,
+      "rank_value": 0.42923076779999997,
+      "score_model": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "upgraded": false,
+      "default": 0
+    },
+    {
+      "id": "1080287",
+      "names": [
+        "Voca",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T12:00:00Z",
+      "locks_at": "2026-10-16T11:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/voca-vs-havu-elisa-breakout-series-2-1080287",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080287",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.655,
+        0.345
+      ],
+      "method": "market",
+      "money": true,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "age_h": 23.123974678333333,
+      "fresh": false,
+      "fav": 0,
+      "dog": 1,
+      "p_dog": 0.345,
+      "p_fav": 0.655,
+      "klass": "lean",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 0.6200000000000001,
+      "upside": 0.69,
+      "field": {
+        "pct": [
+          84,
+          16
+        ],
+        "n": 51
+      },
+      "field_dog": 0.16,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.84,
+      "rank_value": 0.5795999999999999,
+      "score_model": null,
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "upgraded": false,
+      "default": 0
+    },
+    {
+      "id": "1080288",
+      "names": [
+        "Phantom",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-vs-roundsgg-elisa-breakout-series-2-1080288",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080288",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.92,
+        0.08
+      ],
+      "method": "market",
+      "money": true,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "age_h": 23.123696900555554,
+      "fresh": false,
+      "fav": 0,
+      "dog": 1,
+      "p_dog": 0.08,
+      "p_fav": 0.92,
+      "klass": "lock",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "underdog under 30%",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 1.6800000000000002,
+      "upside": 0.16,
+      "field": {
+        "pct": [
+          96,
+          4
+        ],
+        "n": 51
+      },
+      "field_dog": 0.04,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.96,
+      "rank_value": 0.1536,
+      "score_model": null,
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "upgraded": false,
+      "default": 0
+    },
+    {
+      "id": "1081120",
+      "names": [
+        "mellren",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "tier": "c",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081120",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.85989312,
+        0.14010688
+      ],
+      "method": "model",
+      "money": false,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-15T08:36:13Z",
+      "age_h": 23.122585789444443,
+      "fresh": false,
+      "fav": 0,
+      "dog": 1,
+      "p_dog": 0.14010688,
+      "p_fav": 0.85989312,
+      "klass": "lock",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "model-only line",
+        "line older than 8 hours",
+        "underdog under 30%",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 1.4395724799999998,
+      "upside": 0.28021376,
+      "field": {
+        "pct": [
+          90,
+          10
+        ],
+        "n": 39
+      },
+      "field_dog": 0.1,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.9,
+      "rank_value": 0.252192384,
+      "score_model": null,
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated.",
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "upgraded": false,
+      "default": 0
+    },
+    {
+      "id": "1080289",
+      "names": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T16:00:00Z",
+      "locks_at": "2026-10-16T15:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080289",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.15942029,
+        0.84057971
+      ],
+      "method": "bookmaker",
+      "money": true,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "observed_at": "2026-10-15T08:36:11Z",
+      "age_h": 23.123141345,
+      "fresh": false,
+      "fav": 1,
+      "dog": 0,
+      "p_dog": 0.15942029,
+      "p_fav": 0.84057971,
+      "klass": "lock",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "underdog under 30%",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 1.36231884,
+      "upside": 0.31884058,
+      "field": {
+        "pct": [
+          4,
+          96
+        ],
+        "n": 52
+      },
+      "field_dog": 0.04,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.96,
+      "rank_value": 0.3060869568,
+      "score_model": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "upgraded": false,
+      "default": 1
+    },
+    {
+      "id": "1080290",
+      "names": [
+        "Phantom",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "tier": "c",
+      "starts_at": "2026-10-16T18:00:00Z",
+      "locks_at": "2026-10-16T17:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-vs-havu-elisa-breakout-series-2-1080290",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080290",
+      "points": 2,
+      "points_source": "Hotspawn fixture API",
+      "points_formula_ok": true,
+      "p": [
+        0.705,
+        0.295
+      ],
+      "method": "market",
+      "money": true,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "age_h": 23.123419122777776,
+      "fresh": false,
+      "fav": 0,
+      "dog": 1,
+      "p_dog": 0.295,
+      "p_fav": 0.705,
+      "klass": "lean",
+      "eligible": false,
+      "blockers": [
+        "inventory is incomplete, stale or its time is unverified",
+        "line older than 8 hours",
+        "underdog under 30%",
+        "under 3 points"
+      ],
+      "swap": false,
+      "cost": 0.82,
+      "upside": 0.59,
+      "field": {
+        "pct": [
+          98,
+          2
+        ],
+        "n": 51
+      },
+      "field_dog": 0.02,
+      "crowd_on_dog": false,
+      "leverage_weight": 0.98,
+      "rank_value": 0.5781999999999999,
+      "score_model": null,
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "upgraded": false,
+      "default": 0
+    }
+  ],
+  "unresolved": [],
+  "rules_version": "2026-10-16.3"
+}
