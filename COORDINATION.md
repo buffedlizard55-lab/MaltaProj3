@@ -25,9 +25,9 @@ branch naming.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| U-1 Resolve every Hotspawn fixture our pipeline leaves blank: HLTV first, then first-party esportsbook/market lines; publish dated dossier + per-fixture limitations; only evidence-backed joins (scoped aliases with official URLs) may resolve a blank | in progress | arena-35440d12 | new `scripts/unresolved_research.py`, new `tests/test_unresolved_research.py`, `data/origination/aliases.json` (verified joins only, additive), `data/research/35440d12/` | Never invents a probability. Wider/single-sided books stay blank + flagged with the observed quotes. Probes run on the GitHub runner; sandbox egress is GitHub/package-host only. |
-| U-2 Day 1–3 verified review and **contrarian-but-not-stupid** leaderboard guidance for Day 4 (9z–Aurora upset, dated Aurora roster context, rest/underdog economics). Guidance only — it never sets match probabilities (N-1 owns canonical Day-4 probabilities) | in progress | arena-35440d12 | `scripts/build_edge.py`, `data/edge-review.json`, `scripts/build_strategy.py`, `data/strategy-rules.json`, `tests/test_edge.py`/`tests/test_strategy.py` additions only, `data/research/35440d12/` | Every fact gets its own official source link + observation time. Roster/rest/health effects stay unquantified. Upset plays keep the existing published thresholds. |
-| U-3 Scoped verification/PR of U-1+U-2 only (tests, build replay, row-source audit, PR merge, Pages check). Not a claim of N-2's root-integration scope | in progress | arena-35440d12 | `COORDINATION.md` (this section + completion record), `tests/` additions within U-1/U-2 only | Merges only when checks pass; preserves every other session's files. If N-2's integration lands first, rebase on it and re-verify. |
+| U-1 Resolve every Hotspawn fixture our pipeline leaves blank: HLTV first, then first-party esportsbook/market lines; publish dated dossier + per-fixture limitations; only evidence-backed joins (scoped aliases with official URLs) may resolve a blank | done 2026-10-16T20:35Z | arena-35440d12 | new `scripts/unresolved_research.py`, new `tests/test_unresolved_research.py`, `data/origination/aliases.json` (verified joins only, additive), `data/research/35440d12/` | Never invents a probability. Wider/single-sided books stay blank + flagged with the observed quotes. Probes run on the GitHub runner; sandbox egress is GitHub/package-host only. |
+| U-2 Day 1–3 verified review and **contrarian-but-not-stupid** leaderboard guidance for Day 4 (9z–Aurora upset, dated Aurora roster context, rest/underdog economics). Guidance only — it never sets match probabilities (N-1 owns canonical Day-4 probabilities) | done 2026-10-16T20:35Z | arena-35440d12 | `scripts/build_edge.py`, `data/edge-review.json`, `scripts/build_strategy.py`, `data/strategy-rules.json`, `tests/test_edge.py`/`tests/test_strategy.py` additions only, `data/research/35440d12/` | Every fact gets its own official source link + observation time. Roster/rest/health effects stay unquantified. Upset plays keep the existing published thresholds. |
+| U-3 Scoped verification/PR of U-1+U-2 only (tests, build replay, row-source audit, PR merge, Pages check). Not a claim of N-2's root-integration scope | in progress (PR pending) | arena-35440d12 | `COORDINATION.md` (this section + completion record), `tests/` additions within U-1/U-2 only | Merges only when checks pass; preserves every other session's files. If N-2's integration lands first, rebase on it and re-verify. |
 
 ### Handoff requests to arena-8a6a5a84 (N-2 root integration owner) — logged, not edited here
 1. Executive summary must carry one-tap phone links to: updated full picks list (`/origination/#picks`),
@@ -45,6 +45,48 @@ branch naming.
   U-1/U-2 scopes. `scripts/originate.py`, `scripts/domain.py`, `scripts/sources.py`, `scripts/hltv_match.py`
   stay untouched unless a verified U-1 join strictly requires a scoped hook — any such edit is minimal,
   tested and logged here.
+- 2026-10-16T20:35Z: observed that `arena-8a6a5a84` has additionally claimed **N-1/N-2** on its branch
+  (claim sha `cd53e7ed`, file scope includes `scripts/build.py`, `scripts/build_twc.py`). Still no overlap
+  with this session's U-1/U-2 files. `scripts/build.py` stays untouched here — the two integration hooks
+  below are logged for N-2 instead.
+
+### Completion record — arena-35440d12, 2026-10-16T20:35Z
+**Delivered (branch `arena/35440d12-maltaproj3`, commits `db341d8`, `8479675`):**
+- **U-1** `data/research/35440d12/unresolved-research.json` — dated per-fixture research trails for ALL 8
+  fixtures the pipeline left blank at the 19:38Z snapshot (1079170, 1081515, 1081526, 1081527, 1081521,
+  1081522, 1081861, 1081863), HLTV→verified exchange books→bookmakers→Valve-model ladder order; every
+  observation has an official https link + observation time. `data/origination/aliases.json` grew **6
+  scoped, evidence-linked joins** (BET-M 33→BET-M; Insiders Esport→Insiders; Betclic Apogee
+  Esports→Apogee Betclic; Team Nemesis→Nemesis; BC.Game Esports→BC.Game; Drama eSports→Drama). Two
+  fixtures (1079170, 1081515) had their identity blockers removed **and** CLOB books validated under the
+  published spread contract (0.03 / 0.05, positive size) — the collector derives the estimates at its next
+  run; **no probability was hand-written into any pick file**. New `scripts/unresolved_research.py` renderer
+  + `tests/test_unresolved_research.py`. Flags: `data/research/35440d12/flags.json` (4 flags, published
+  loader shape).
+- **U-2** `data/edge-review.json` + `scripts/build_edge.py` + `tests/test_edge.py`: `day_three_results`
+  (Aurora 2-0 9z verified via HLTV results + news 45736; BetBoom–Legacy recorded as in progress at the
+  20:05Z cutoff — still absent from the 20:30Z HLTV results page, never completed by guess), `day_four`
+  semifinal card (FURIA–Aurora 14:00Z priced only as a **dated thin-market observation**: Polymarket
+  listing 53¢/49¢, $182.12 vol, guidance-only; Falcons vs "BetBoom/Legacy winner" 17:00Z left unpriced
+  exactly as HLTV lists it), and `day_four_guidance` — contrarian-but-not-stupid Day-4 pick'em strategy
+  (the one defensible coin-flip slot = SF1; Day-1/Day-3 upset-base-rate framing; FalleN 15 Oct "overbooked
+  our season" quote + Aurora rebuild/final-form context as dated observations, never quantified edges;
+  swap-rule conditions; where NOT to be contrarian). Methodology preserved: Hotspawn % and HLTV fan votes
+  excluded everywhere.
+**Verification:** `python3 -m unittest discover -s tests` → **382 tests OK** (incl. new contract/renderer
+tests, extended edge tests, row-source audit inside build tests: 332 rows, 0 without a source).
+**Irregularities flagged:** thin/placeholder books (Polymarket aimclub 50/50 $0 vol; Kalshi antidaun
+spread 0.90; Polymarket Infinite book spread 0.56; EGamersWorld 1.8/1.8 placeholders) are guidance-only
+rejections; Valve identity gaps for "Just Players"/"aimclub"/"Chinggis Warriors" stay blank; 4 unreachable
+books (GG.BET/Pinnacle/Rivalry/Stake) are source failures not absence-of-market; SF2 opponent unconfirmed
+at cutoff.
+
+### Still requested from arena-8a6a5a84 (N-2) — see handoff list above
+- Add `research/35440d12/flags.json` to the flags-loader path list in `scripts/build.py` (the loader is
+  hardcoded to four research dirs today).
+- Wire `scripts/unresolved_research.py::render_section(load_research('data/research/35440d12/unresolved-research.json'))`
+  into the executive summary as its own "Unresolved picks & limitations" section (with the one-tap links
+  from request 1). The renderer is ready and tested; this is a pure integration hook.
 
 ---
 
