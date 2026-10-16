@@ -150,6 +150,18 @@ class RatingTests(unittest.TestCase):
     def test_incomplete_roster_rejected(self):
         self.assertIsNone(valve_analysis(MATCH, [rating('Alpha', players=4), rating('Beta')], NOW, iso(NOW))[0])
 
+    def test_unique_five_player_row_survives_incomplete_sibling_row(self):
+        # Incomplete name-matching rows are excluded before the uniqueness test,
+        # matching the published "unique exact-name, five-player record" rule.
+        rows = [rating('Alpha', 1300), rating('Alpha', 500, players=4), rating('Beta', 1000)]
+        a, reason = valve_analysis(MATCH, rows, NOW, iso(NOW))
+        self.assertIsNotNone(a, reason)
+        self.assertEqual(a['inputs'][0]['points'], 1300)
+        # Several *complete* rows stay ambiguous: the duplicate-name rejection is unchanged.
+        b, reason = valve_analysis(MATCH, [rating('Alpha', 1300), rating('Alpha', 1200), rating('Beta', 1000)], NOW, iso(NOW))
+        self.assertIsNone(b)
+        self.assertIn('multiple Valve rosters', reason)
+
     def test_old_or_future_rating_rejected(self):
         for day in ['2026-08-01', '2026-10-15']:
             self.assertIsNone(valve_analysis(MATCH, [rating('Alpha', day=day), rating('Beta')], NOW, iso(NOW))[0])

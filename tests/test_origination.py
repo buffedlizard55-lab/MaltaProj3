@@ -131,6 +131,55 @@ class EstimateTests(unittest.TestCase):
         self.assertIsNone(quote)
         self.assertIn('roster', detail)
 
+    def test_model_estimate_uses_unique_five_player_row_despite_incomplete_sibling(self):
+        ratings = [
+            {'name': 'WBT', 'points': 1201, 'standing': 60, 'roster': ['a', 'b', 'c', 'd', 'e'], 'snapshot_date': '2026-10-05'},
+            {'name': 'WBT', 'points': 900, 'standing': 90, 'roster': ['a', 'b'], 'snapshot_date': '2026-10-05'},
+            {'name': 'ENCE', 'points': 1025, 'standing': 105, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
+        self.assertIsNotNone(quote, detail)
+        wbt = [i for i in quote['inputs'] if i['name'] == 'WBT']
+        self.assertEqual([i['points'] for i in wbt], [1201])
+
+    def test_model_estimate_rejects_several_complete_five_player_rows(self):
+        ratings = [
+            {'name': 'WBT', 'points': 1201, 'standing': 60, 'roster': ['a', 'b', 'c', 'd', 'e'], 'snapshot_date': '2026-10-05'},
+            {'name': 'WBT', 'points': 900, 'standing': 90, 'roster': ['f', 'g', 'h', 'i', 'j'], 'snapshot_date': '2026-10-05'},
+            {'name': 'ENCE', 'points': 1025, 'standing': 105, 'roster': ['l', 'm', 'n', 'o', 'p'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        quote, detail = originate.model_estimate(self.match(), ratings, registry(), meta, datetime(2026, 10, 15, tzinfo=UTC))
+        self.assertIsNone(quote)
+        self.assertIn('multiple Valve rosters', detail)
+
+    def test_checked_in_valve_snapshot_five_player_rule(self):
+        """Real 2026-10-05 official snapshot: incomplete siblings resolve, complete duplicates stay blank."""
+        import json as _json
+        from pathlib import Path
+        rows = _json.loads((Path(__file__).resolve().parents[1] / 'data' / 'evidence' / 'valve-ratings.json').read_text())['rows']
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md',
+                'snapshot_date': '2026-10-05', 'evidence_file': 'data/evidence/valve-ratings.json'}
+        now = datetime(2026, 10, 16, 4, 40, tzinfo=UTC)
+        # ex-RUSTEC (one complete + one four-player row) resolves against Bushido Wildcats.
+        bw = {'id': '1079167', 'competition': 'NODWIN Clutch Series #13',
+              'teams': [{'name': 'Bushido Wildcats', 'id': '1'}, {'name': 'ex-RUSTEC', 'id': '2'}],
+              'starts_at': '2026-10-16T11:00:00Z'}
+        quote, detail = originate.model_estimate(bw, rows, registry(), meta, now)
+        self.assertIsNotNone(quote, detail)
+        self.assertEqual([(i['name'], i['points']) for i in quote['inputs']],
+                         [('Bushido Wildcats', 982), ('ex-RUSTEC', 1066)])
+        self.assertLess(quote['probabilities'][0], quote['probabilities'][1])
+        # aimclub and Leo each have two complete five-player rows: identity stays unresolved.
+        for fid, a, b in (('1081527', 'aimclub', 'BASEMENT BOYS'), ('1081532', 'ASTRAL', 'Leo')):
+            m = {'id': fid, 'competition': 'DraculaN Season 7',
+                 'teams': [{'name': a, 'id': '1'}, {'name': b, 'id': '2'}],
+                 'starts_at': '2026-10-19T09:00:00Z'}
+            q, d = originate.model_estimate(m, rows, registry(), meta, now)
+            self.assertIsNone(q, fid)
+            self.assertIn('multiple Valve rosters', d)
+
     def test_incomplete_fixture_remains_blank_instead_of_crashing(self):
         match = {'id': 'unknown', 'starts_at': None, 'teams': [{'name': None}, {'name': 'Opponent'}]}
         result = originate.originate_match(match, [], [], [], None, registry(), datetime.now(UTC))
