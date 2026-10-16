@@ -1186,3 +1186,31 @@ session. This session claims only the scope below; files owned by active claims 
 
 Unlike earlier sessions this one has direct sandbox web access to HLTV and provider pages for
 research, so verification happens first-party here rather than only through runner diagnostics.
+
+---
+
+# Session ec75e5bb — final integration and publication verification
+
+Session: `arena-ec75e5bb` · Fixed branch: `arena/ec75e5bb-maltaproj3` · Claimed 2026-10-16T19:30Z.
+
+This session is the final integration pass over the already-merged canonical release
+(`main` at `38def6e`, PR #58). It does **not** merge the separate, still-active
+`arena/ba7164a0-maltaproj3` (V) branch: that branch deletes core shipped files
+(`scripts/build_twc.py`, `scripts/hltv_match.py`) and rewrites the dashboard scope,
+so it is left unmerged and flagged for review rather than imported blindly. V's
+claim is more than 60 minutes stale (last commit 11:35Z) and is recorded here as a
+handoff; no V-owned file is edited by this session.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| I-1 Final integration: re-verify combined data, full test/build/link suite, PR, merge, Pages deploy | in progress | arena-ec75e5bb | `COORDINATION.md` only (shared board) | No source/probability/site code changed; verification record only |
+
+### Verification performed (2026-10-16T19:30Z)
+- `python -m unittest discover -s tests`: **366 tests OK** (72.875s).
+- `python -m scripts.build`: PASS — 80 source rows reconciled, every published probability and pick replayed from first-party evidence; row-source audit 328 rows (320 official link + 8 site-map, 0 violations); 565 internal links/assets/anchors PASS; 7 current Pages views built.
+- V branch left unmerged (destructive diff: 393 files, core builders deleted). Flagged for review.
+- Live deploy verification via `verify_live.py` is performed by the runner; this session relies on the established publisher.
+
+### Irregularities flagged
+- `arena/ba7164a0-maltaproj3` (V) remains an unmerged, potentially destructive branch; its verification-dossier work is not part of the canonical release. Manual review requested.
+- Pages remains in legacy build mode (HTTP 403 on mode switch) — published nonblocking platform limitation.
