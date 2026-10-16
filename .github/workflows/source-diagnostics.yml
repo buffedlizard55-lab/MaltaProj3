@@ -1,13 +1,14 @@
 name: Public source diagnostics
 on:
   push:
-    branches: [arena/11c1fa20-maltaproj3, arena/50c01ba9-maltaproj3]
-    paths: ['scripts/audit_sources.py', '.github/workflows/source-diagnostics.yml']
+    branches: [arena/11c1fa20-maltaproj3, arena/50c01ba9-maltaproj3, arena/6426358d-maltaproj3]
+    paths: ['scripts/audit_sources.py', 'scripts/review_sources.py', 'scripts/originate.py', '.github/workflows/source-diagnostics.yml']
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   discover:
+    if: github.ref != 'refs/heads/arena/6426358d-maltaproj3'
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
@@ -35,3 +36,35 @@ jobs:
           git commit -m 'chore: export temporary public-source diagnostic evidence'
           git pull --rebase origin arena/11c1fa20-maltaproj3
           git push origin arena/11c1fa20-maltaproj3
+
+  session-review:
+    if: github.ref == 'refs/heads/arena/6426358d-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Collect official inventory and featured evidence
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Research only missing or model-only money lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Read and retain first-party result and unresolved identity evidence
+        run: python -m scripts.review_sources
+      - name: Export bounded public research to this fixed session branch
+        run: |
+          mkdir -p data/research/6426358d
+          cp .cache/source-review/source-report.json .cache/source-review/*.html.gz data/research/6426358d/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/6426358d/
+          git diff --cached --quiet && exit 0
+          git commit -m 'research: retain original TWC and unresolved HLTV observations'
+          git pull --rebase origin arena/6426358d-maltaproj3
+          git push origin arena/6426358d-maltaproj3
