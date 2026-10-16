@@ -173,6 +173,12 @@ def match_context(m: dict, twc: dict | None):
 def plan(inputs: dict, now: datetime) -> dict:
     rules, latest, orig = inputs['rules'], inputs['latest'], inputs['orig']
     th = rules['thresholds']
+    inventory_at = latest.get('inventory_observed_at')
+    inventory_time = timestamp(inventory_at)
+    inventory_age = (now - inventory_time).total_seconds() / 3600 if inventory_time else None
+    inventory_ok = (latest.get('coverage_complete') is True and inventory_age is not None
+                    and -0.1 <= inventory_age <= th['max_line_age_hours'])
+    snapshot_bound = orig is None or (bool(inventory_at) and orig.get('source_snapshot_at') == inventory_at)
     matches = (orig or {}).get('matches')
     basis_note = None
     if matches is None:
@@ -231,6 +237,12 @@ def plan(inputs: dict, now: datetime) -> dict:
             f_dog = field['pct'][dog] / 100
         crowd_on_dog = bool(rules.get('use_field_for_leverage') and f_dog is not None and f_dog >= th['max_field_share_on_underdog'])
         blockers = []
+        if not inventory_ok:
+            blockers.append('inventory is incomplete, stale or its time is unverified')
+        if not snapshot_bound:
+            blockers.append('lines belong to a different inventory snapshot')
+        if m.get('availability') != 'open' or not locks or not starts or locks > starts:
+            blockers.append('open status and a valid future lock/start are not confirmed')
         if not money:
             blockers.append('model-only line')
         if not fresh:
@@ -271,9 +283,7 @@ def plan(inputs: dict, now: datetime) -> dict:
         r['default'] = r['dog'] if r['swap'] else r['fav']
 
     rows.sort(key=lambda r: (timestamp(r['locks_at']) or timestamp(r['starts_at']) or datetime.max.replace(tzinfo=timezone.utc), r['id']))
-    inventory_at = latest.get('inventory_observed_at')
-    inventory_age = ((now - timestamp(inventory_at)).total_seconds() / 3600) if timestamp(inventory_at) else None
-    stale = (latest.get('coverage_complete') is not True) or inventory_age is None or inventory_age > th['max_line_age_hours']
+    stale = not inventory_ok or not snapshot_bound
     summary = {
         'active': len(rows) + len(unresolved), 'open': len(rows), 'closed': len(closed), 'unresolved': len(unresolved), 'swaps': sum(r['swap'] for r in rows),
         'classes': {k: sum(1 for r in rows if r['klass'] == k) for k in ('lock', 'lean', 'live_dog', 'coin_flip')},
@@ -544,7 +554,7 @@ def page(inputs: dict, pl: dict) -> str:
     stale = ''
     if s['stale']:
         age = f'{s["inventory_age_h"]:.1f} h old' if s['inventory_age_h'] is not None else 'time unverified'
-        stale = (f'<div class="stale" role="status"><strong>Not a current snapshot.</strong> The Hotspawn inventory is unverified or older than eight hours ({e(age)}). '
+        stale = (f'<div class="stale" role="status"><strong>Not a current snapshot.</strong> The Hotspawn inventory is incomplete, outside the eight-hour freshness window, or not bound to these lines ({e(age)}). '
                  f'Probabilities keep their own observation times; check each card before relying on it. <a href="../coverage/">Source status →</a></div>')
     if s['basis_note']:
         stale += f'<div class="stale" role="status">{e(s["basis_note"])}</div>'
