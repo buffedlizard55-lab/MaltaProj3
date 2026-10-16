@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "title": "Day 2 results & Day 3 pick guide — Thunderpick World Championship 2026",
-  "prepared_at": "2026-10-15T22:35:00Z",
-  "research_window": {"from": "2026-10-15T22:26:00Z", "to": "2026-10-15T22:35:00Z"},
+  "prepared_at": "2026-10-16T07:25:00Z",
+  "research_window": {"from": "2026-10-15T22:26:00Z", "to": "2026-10-16T07:25:00Z"},
   "policy": "Dated first-party research for Day 3 (16 October 2026), not a live pricing feed and never a replacement for the automated picks pipeline. Every result, fixture and price below was read from the linked official source during the stated research window and carries its own observation time. No probability is published for a fixture whose market had no traded price at observation. Pick'em guidance labels (primary / contrarian candidate / form lean) are ranking strategy for the Hotspawn game; they never overwrite the probabilities or picks on the Match picks page. Hotspawn community percentages are never read.",
   "event": {
     "name": "Thunderpick World Championship 2026",
@@ -104,20 +104,21 @@
       "starts_at": "2026-10-16T14:00:00Z",
       "best_of": "bo3",
       "market": {
-        "provider": "Polymarket",
+        "provider": "Polymarket + Kalshi",
         "event_url": "https://polymarket.com/event/cs2-aur1-9z-2026-10-16",
         "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-9z-2026-10-16",
-        "observed_at": "2026-10-15T22:23:07Z",
-        "prices": {"Aurora": 0.69, "9z": 0.31},
-        "volume_usd": 7619.6,
-        "note": "Provider outcome prices from the official Gamma record (market 5733288, event 1194512), not the pipeline's CLOB order-book midpoints. Early and thin ($7,619 traded at observation): treat as directional context. The calculated estimate, once the four-hour pipeline joins this fixture, is on the Match picks page."
+        "observed_at": "2026-10-16T07:19:39Z",
+        "prices": {"Aurora": 0.695, "9z": 0.305},
+        "volume_usd": 23357.21,
+        "note": "Polymarket CLOB midpoint (market 5733288, event 1194512): Aurora 69.5% (bid 0.69 / ask 0.70, spread $0.01) vs 9z 30.5% (bid 0.30 / ask 0.31, spread $0.01), $23,357.21 moneyline volume and $90,786.51 liquidity; cross-verified against Kalshi KXCS2GAME-26OCT1610009ZAUR normalized midpoint 69.19% / 30.81% ($5,218.16 volume)."
       },
       "primary_pick": "Aurora",
       "contrarian_candidate": "9z",
-      "guidance": "Primary: Aurora. Contrarian candidate (the one designated flip on this card): 9z. Evidence for the flip: 9z beat this exact Aurora lineup 2-0 on Day 1 (13-11 Inferno, 13-1 Nuke, HLTV match 2399384) and took Mirage off group winners Falcons on Day 2; Aurora's price still carries ranking earned partly before the June-July 2026 rebuild (new IGL kyxsan, Jimpphat, coach ash). Evidence against the flip: Aurora reset with a 2-0 over NiP on Day 2, and the market still makes them roughly a 2:1 favorite. Use 9z only if you need leaderboard differentiation and can afford the miss; protecting a lead means staying with Aurora. Rest is symmetric — both teams played on Day 2 — so no rest edge is claimed.",
+      "guidance": "Primary: Aurora (69.5% Polymarket / 69.2% Kalshi). Contrarian candidate (the designated Day 3 leaderboard flip): 9z (30.5% Polymarket / 30.8% Kalshi). Evidence for the flip: 9z beat this exact rebuilt Aurora lineup 2-0 on Day 1 (13-11 Inferno, 13-1 Nuke, HLTV match 2399384), permanently ban Aurora's 75% Anubis map, and beat group winners Falcons 13-8 on Mirage on Day 2 (raising 9z's 3-month Mirage winrate to 67% vs Aurora's 62%). Evidence against the flip: Aurora reset with a 2-0 over NiP on Day 2 (Cache 13-9, Dust2 13-7) and hold 69.5% / 69.2% across two independent exchanges. Use 9z only when trailing on the leaderboard; protecting a lead means staying with Aurora.",
       "sources": [
-        {"url": "https://www.hltv.org/events/8932/matches", "source": "HLTV event matches", "detail": "Day 3 decider fixture Aurora vs 9z, bo3, 16 October 2026 (HLTV match 2399412).", "observed_at": "2026-10-15T22:27:00Z"},
-        {"url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-9z-2026-10-16", "source": "Polymarket Gamma API", "detail": "Match-winner market: gameStartTime 2026-10-16 14:00 UTC, outcome prices Aurora Gaming 0.69 / 9z 0.31, volume $7,619 at the record's 22:23:07Z update.", "observed_at": "2026-10-15T22:23:07Z"},
+        {"url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026", "source": "HLTV match page", "detail": "Day 3 Group A decider Aurora (#6 HLTV / #5 VRS) vs 9z (#17 HLTV / #11 VRS), bo3, 16 October 2026 14:00 UTC.", "observed_at": "2026-10-16T07:14:00Z"},
+        {"url": "https://gamma-api.polymarket.com/markets?slug=cs2-aur1-9z-2026-10-16", "source": "Polymarket Gamma API", "detail": "Market 5733288: gameStartTime 2026-10-16 14:00 UTC, Aurora Gaming 0.695 / 9z 0.305, spread $0.01, volume $23,357.21, liquidity $90,786.51.", "observed_at": "2026-10-16T07:19:39Z"},
+        {"url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT1610009ZAUR", "source": "Kalshi Trade API v2", "detail": "Event KXCS2GAME-26OCT1610009ZAUR: Aurora 69.19% (bid $0.68 / ask $0.69) vs 9z 30.81% (bid $0.30 / ask $0.31), $5,218.16 volume.", "observed_at": "2026-10-16T07:20:00Z"},
         {"url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan", "source": "HLTV official transfer news", "detail": "Aurora's summer rebuild: kyxsan (IGL) and Jimpphat joined with coach ash, replacing MAJ3R, soulfly and Fabre (8 July 2026).", "observed_at": "2026-10-15T22:33:00Z"}
       ]
     },
@@ -130,29 +131,30 @@
       "starts_at": "2026-10-16T17:00:00Z",
       "best_of": "bo3",
       "market": {
-        "provider": "Polymarket",
+        "provider": "Polymarket + Kalshi",
         "event_url": "https://polymarket.com/event/cs2-lgc-bb3-2026-10-16",
         "api_url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-bb3-2026-10-16",
-        "observed_at": "2026-10-15T22:25:31Z",
-        "prices": null,
-        "volume_usd": 0,
-        "note": "Market created 2026-10-15T22:25Z with zero volume and zero liquidity and no published outcome prices at observation. No probability is published for this fixture here; the four-hour pipeline will price it once a traded line or an accepted bookmaker/rating input exists."
+        "observed_at": "2026-10-16T07:15:37Z",
+        "prices": {"Legacy": 0.635, "BETBOOM": 0.365},
+        "volume_usd": 13428.16,
+        "note": "Polymarket CLOB midpoint (market 5763247, event 1196836): Legacy 63.5% (bid 0.63 / ask 0.64, spread $0.01) vs BetBoom Team 36.5% (bid 0.36 / ask 0.37, spread $0.01), $13,428.16 moneyline volume and $76,908.03 liquidity; cross-verified against Kalshi KXCS2GAME-26OCT161300BBLGC normalized midpoint Legacy 63.64% / BetBoom 36.36% ($1,898.17 volume)."
       },
-      "primary_pick": null,
-      "contrarian_candidate": null,
-      "guidance": "No priced pick yet — do not treat this as 50/50. Form lean for pick'em only (low confidence, not a probability): Legacy. They beat PARIVISION 2-0 on Day 1 and took Cache off group winners FURIA on Day 2, while BetBoom needed three maps to eliminate PARIVISION after twice letting 8-4 leads slip against FURIA on Day 1 (HLTV day-one report). No contrarian candidate is designated: with no market price there is no favorite to fade, and inventing one would be exactly the 'contrarian but stupid' failure this guide exists to avoid. Check the Match picks page before the Hotspawn lock for the calculated line. Rest is symmetric.",
+      "primary_pick": "Legacy",
+      "contrarian_candidate": "BETBOOM",
+      "guidance": "Primary: Legacy (63.5% Polymarket / 63.6% Kalshi). Keep Legacy as a chalk anchor rather than flipping to BETBOOM (36.5%). Structural veto reason from HLTV match 2399413: Legacy permanently bans Anubis first in every TWC series (0 maps played in 3 months, removed step 2 in both 2399386 and 2399411), which removes the exact map (Anubis 13-4 vs PARIVISION) that drove BetBoom's Day 2 survival. Meanwhile BetBoom permanently bans Inferno (0 maps in 3 months), leaving Legacy ahead across Nuke (80% vs 50%), Mirage (73% vs 43%), Ancient (55% vs 25%), and Dust2 (54% vs 1 map). If you want one Day 3 contrarian swing, take 9z (30.5%) in Group A and anchor with Legacy (63.5%) in Group B.",
       "sources": [
-        {"url": "https://www.hltv.org/events/8932/matches", "source": "HLTV event matches", "detail": "Day 3 decider fixture BETBOOM vs Legacy, bo3, 16 October 2026 (HLTV match 2399413).", "observed_at": "2026-10-15T22:27:00Z"},
-        {"url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-bb3-2026-10-16", "source": "Polymarket Gamma API", "detail": "Match-winner market: gameStartTime 2026-10-16 17:00 UTC; created 22:25:13Z on 15 October with volume 0, liquidity 0 and no outcome prices at observation.", "observed_at": "2026-10-15T22:25:31Z"},
+        {"url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026", "source": "HLTV match page", "detail": "Day 3 Group B decider BETBOOM (#14 HLTV / #12 VRS) vs Legacy (#7 HLTV / #7 VRS), bo3, 16 October 2026 17:00 UTC, and 3-month map-pool stats.", "observed_at": "2026-10-16T07:14:00Z"},
+        {"url": "https://gamma-api.polymarket.com/markets?slug=cs2-lgc-bb3-2026-10-16", "source": "Polymarket Gamma API", "detail": "Market 5763247: gameStartTime 2026-10-16 17:00 UTC, Legacy 0.635 / BetBoom Team 0.365, spread $0.01, volume $13,428.16, liquidity $76,908.03.", "observed_at": "2026-10-16T07:15:37Z"},
+        {"url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT161300BBLGC", "source": "Kalshi Trade API v2", "detail": "Event KXCS2GAME-26OCT161300BBLGC: Legacy 63.64% (bid $0.61 / ask $0.65) vs BetBoom 36.36% (bid $0.35 / ask $0.37), $1,898.17 volume.", "observed_at": "2026-10-16T07:20:00Z"},
         {"url": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc", "source": "HLTV day-one report", "detail": "Day 1 context: BetBoom let 8-4 leads slip in both maps against FURIA; Legacy beat PARIVISION 2-0.", "observed_at": "2026-10-15T22:33:00Z"}
       ]
     }
   ],
   "limitations": [
-    "Day 3 start times are Polymarket's published gameStartTime values cross-checked against HLTV's fixture list; the authoritative pick lock is the Hotspawn fixture countdown on the Match picks page. HLTV's displayed clock times use a different timezone basis and are not republished here (see the recorded start-time discrepancy on the upset review).",
+    "Day 3 start times are Polymarket and Kalshi published UTC start times (14:00 UTC and 17:00 UTC) cross-checked against HLTV's fixture pages; the authoritative pick lock is the Hotspawn fixture countdown on the Match picks page.",
     "Semi-final pairings for 17 October were listed by HLTV as Semi-final #1 and #2 without teams at observation; no pairing is asserted. Decider winners' semi-final opponents are therefore not claimed.",
-    "No new Day 3 roster change, stand-in or veto information was verified in this window for any decider team beyond Aurora's documented July 2026 rebuild; no adjustment is made for unverified changes.",
-    "Aurora vs 9z prices are early, thin provider outcome prices, not order-book midpoints and not a multi-book consensus. Legacy vs BETBOOM had no traded price at observation, so no probability is shown for it anywhere in this guide.",
+    "No new Day 3 roster change or stand-in was verified in this window for any decider team beyond Aurora's documented July 2026 rebuild; all four decider teams fielded their standard 5-player lineups on Days 1 and 2.",
+    "Both Day 3 deciders are now actively traded on Polymarket ($23,357 and $13,428 moneyline volume, $0.01 spreads) and CFTC-regulated Kalshi ($5,218 and $1,898 volume), with cross-venue agreement within 0.31 percentage points.",
     "Guidance labels are pick'em ranking strategy based on the verified results above. They are not betting advice, not guarantees, and they never change the automated pipeline's probabilities."
   ]
 }

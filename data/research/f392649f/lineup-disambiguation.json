@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "session_id": "arena-f392649f",
+  "title": "HLTV 5-player match-lineup disambiguation of duplicate-named Valve standings rows and unranked low-tier CS2 fixtures",
+  "prepared_at": "2026-10-16T07:25:00Z",
+  "research_window": {
+    "from": "2026-10-16T07:10:00Z",
+    "to": "2026-10-16T07:25:00Z"
+  },
+  "valve_snapshot": {
+    "snapshot_date": "2026-10-05",
+    "git_blob_sha": "2aa2805394fbc68f36a5752a5b16026f2ab2fed5",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "model_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/elo.js",
+    "evidence_file": "data/evidence/valve-ratings.json",
+    "rating_deviation": 75.0,
+    "min_core_overlap": 3,
+    "core_rule": "Valve Regional Standings assign a team row to a 5-player roster core (>= 3 of 5 players). When two rows in standings_global_2026_10_05.md share the same team name (an active roster and an older core), comparing the official HLTV match page's 5-player lineup against each candidate row's 5-player roster uniquely selects a row only when exactly one candidate has >= 3/5 shared players."
+  },
+  "counts": {
+    "evaluated": 5,
+    "resolved_by_lineup_core": 3,
+    "remaining_unresolved": 2
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": "1079170",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-cct-europe-1079170",
+      "competition": "CCT Season 3 Europe Series 9",
+      "starts_at": "2026-10-16T08:00:00Z",
+      "best_of": "bo3",
+      "hltv_match_id": 2399087,
+      "hltv_url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-cct-season-3-europe-series-9",
+      "name_only_failure": "Just Players appears twice in standings_global_2026_10_05.md (#118 with 974 pts and #347 with 485 pts); name-only lookup refuses to guess between duplicate team names.",
+      "team_a": {
+        "name": "BET-M",
+        "hltv_team_id": 13740,
+        "hltv_team_url": "https://www.hltv.org/team/13740/bet-m",
+        "hltv_rank": 65,
+        "hltv_vrs_rank": 87,
+        "hltv_match_lineup": ["Patsi", "Raijin", "executor", "z1Nny", "bluewh1te"],
+        "valve_candidates": [
+          {
+            "standing": 71,
+            "points": 1149,
+            "roster": ["bluewh1te", "executor", "Raijin", "synyx", "z1Nny"],
+            "shared_players": ["Raijin", "bluewh1te", "executor", "z1Nny"],
+            "overlap_count": 4,
+            "is_core_match": true
+          }
+        ],
+        "selected_valve_standing": 71,
+        "selected_valve_points": 1149
+      },
+      "team_b": {
+        "name": "Just Players",
+        "hltv_team_id": 13734,
+        "hltv_team_url": "https://www.hltv.org/team/13734/just-players",
+        "hltv_rank": 116,
+        "hltv_vrs_rank": 108,
+        "hltv_match_lineup": ["h1te", "sm3t", "sstiNiX", "Temny Prince", "wh1teout"],
+        "valve_candidates": [
+          {
+            "standing": 118,
+            "points": 974,
+            "roster": ["bl1x1", "h1te", "sm3t", "sstiNiX", "Temny Prince"],
+            "shared_players": ["Temny Prince", "h1te", "sm3t", "sstiNiX"],
+            "overlap_count": 4,
+            "is_core_match": true
+          },
+          {
+            "standing": 347,
+            "points": 485,
+            "roster": ["em0k1d", "rexxie", "Something", "spirit", "sstiNiX"],
+            "shared_players": ["sstiNiX"],
+            "overlap_count": 1,
+            "is_core_match": false
+          }
+        ],
+        "selected_valve_standing": 118,
+        "selected_valve_points": 974
+      },
+      "disambiguation_status": "resolved_by_hltv_lineup_core",
+      "probabilities": [0.72710849, 0.27289151],
+      "fair_decimal_odds": [1.375, 3.664],
+      "recommended_pick": "BET-M",
+      "pick_index": 0,
+      "rationale": "HLTV match 2399087 publishes both 5-player lineups. BET-M matches Valve #71 (1149 pts) on 4/5 core players (bluewh1te, executor, Raijin, z1Nny; Patsi in for synyx). Just Players matches Valve #118 (974 pts) on 4/5 core players (h1te, sm3t, sstiNiX, Temny Prince; wh1teout in for bl1x1), whereas duplicate row #347 (485 pts) shares only 1/5 players (sstiNiX) and is rejected under the >= 3/5 Valve core rule. Replaying Valve's Glicko expectation (RD=75) yields BET-M 72.71% / Just Players 27.29%.",
+      "limitations": [
+        "No Polymarket, Kalshi, Thunderpick, or Bovada money line exists for CCT Season 3 Europe Series 9 fixture 1079170.",
+        "Both teams made one fifth-man change relative to the 2026-10-05 Valve snapshot (Patsi for synyx on BET-M; wh1teout for bl1x1 on Just Players), while preserving 4/5 of their Valve-rated core.",
+        "The automated name-only pipeline (data/origination.json) keeps this row blank because it does not read HLTV match-page lineups; this disambiguated probability is published with full player-level audit evidence."
+      ],
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-cct-europe-1079170",
+          "source": "Hotspawn match page",
+          "detail": "Fixture 1079170: BET-M vs Just Players, CCT Europe, 2026-10-16T08:00:00Z.",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-cct-season-3-europe-series-9",
+          "source": "HLTV match page",
+          "detail": "Published 5-player lineups, world rankings (#65 vs #116), VRS rankings (#87 vs #108), and 3-month map winrates.",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official standings (2026-10-05)",
+          "detail": "Standing #71 BET-M (1149 pts) and standing #118 Just Players (974 pts) vs legacy row #347 Just Players (485 pts).",
+          "observed_at": "2026-10-16T07:15:00Z"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081527",
+      "hotspawn_url": "https://www.hotspawn.com/matches/aimclub-vs-basement-boys-draculan-1081527",
+      "competition": "DraculaN Season 3",
+      "starts_at": "2026-10-19T12:00:00Z",
+      "best_of": "bo3",
+      "hltv_match_id": 2399591,
+      "hltv_url": "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-draculan-season-3",
+      "name_only_failure": "aimclub appears twice in standings_global_2026_10_05.md (#77 with 1113 pts and #336 with 504 pts); name-only lookup refuses to guess between duplicate team names.",
+      "team_a": {
+        "name": "aimclub",
+        "hltv_team_id": 13235,
+        "hltv_team_url": "https://www.hltv.org/team/13235/aimclub",
+        "hltv_rank": 100,
+        "hltv_vrs_rank": 79,
+        "hltv_match_lineup": ["ragga", "waZz", "mhN1", "zewts", "XELLOW"],
+        "valve_candidates": [
+          {
+            "standing": 77,
+            "points": 1113,
+            "roster": ["ERSIN", "mhN1", "ragga", "waZz", "zewts"],
+            "shared_players": ["mhN1", "ragga", "waZz", "zewts"],
+            "overlap_count": 4,
+            "is_core_match": true
+          },
+          {
+            "standing": 336,
+            "points": 504,
+            "roster": ["Ed1m", "ERSIN", "RoberttMP", "XELLOW", "zewts"],
+            "shared_players": ["XELLOW", "zewts"],
+            "overlap_count": 2,
+            "is_core_match": false
+          }
+        ],
+        "selected_valve_standing": 77,
+        "selected_valve_points": 1113
+      },
+      "team_b": {
+        "name": "BASEMENT BOYS",
+        "hltv_team_id": 13196,
+        "hltv_team_url": "https://www.hltv.org/team/13196/basement-boys",
+        "hltv_rank": 96,
+        "hltv_vrs_rank": 109,
+        "hltv_match_lineup": ["kAlash", "Tr0ublE", "OWNER", "maggent", "kr1vda"],
+        "valve_candidates": [
+          {
+            "standing": 102,
+            "points": 1036,
+            "roster": ["kAlash", "kr1vda", "maggent", "OWNER", "Tr0ublE"],
+            "shared_players": ["OWNER", "Tr0ublE", "kAlash", "kr1vda", "maggent"],
+            "overlap_count": 5,
+            "is_core_match": true
+          }
+        ],
+        "selected_valve_standing": 102,
+        "selected_valve_points": 1036
+      },
+      "disambiguation_status": "resolved_by_hltv_lineup_core",
+      "probabilities": [0.60616032, 0.39383968],
+      "fair_decimal_odds": [1.65, 2.539],
+      "recommended_pick": "aimclub",
+      "pick_index": 0,
+      "rationale": "HLTV match 2399591 publishes both 5-player lineups. aimclub matches Valve #77 (1113 pts) on 4/5 core players (mhN1, ragga, waZz, zewts; XELLOW in for ERSIN), whereas duplicate row #336 (504 pts) shares only 2/5 players (XELLOW, zewts) and fails the >= 3/5 Valve core rule. BASEMENT BOYS matches Valve #102 (1036 pts) on all 5/5 players (kAlash, kr1vda, maggent, OWNER, Tr0ublE). Replaying Valve's Glicko expectation (RD=75) yields aimclub 60.62% / BASEMENT BOYS 39.38%.",
+      "limitations": [
+        "No Polymarket, Kalshi, Thunderpick, or Bovada money line exists three days ahead of DraculaN Season 3 Group B fixture 1081527.",
+        "This is a 77-point Valve rating difference (60.6% / 39.4%), with HLTV world rankings nearly even (#100 aimclub vs #96 BASEMENT BOYS) while VRS favours aimclub (#79 vs #109).",
+        "The automated name-only pipeline (data/origination.json) keeps this row blank because it does not read HLTV match-page lineups; this disambiguated probability is published with full player-level audit evidence."
+      ],
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/aimclub-vs-basement-boys-draculan-1081527",
+          "source": "Hotspawn match page",
+          "detail": "Fixture 1081527: aimclub vs BASEMENT BOYS, DraculaN, 2026-10-19T12:00:00Z.",
+          "observed_at": "2026-10-16T07:13:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-draculan-season-3",
+          "source": "HLTV match page",
+          "detail": "Published 5-player lineups, world rankings (#100 vs #96), VRS rankings (#79 vs #109), and 3-month map winrates.",
+          "observed_at": "2026-10-16T07:13:00Z"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official standings (2026-10-05)",
+          "detail": "Standing #77 aimclub (1113 pts, 4/5 match) vs legacy row #336 aimclub (504 pts, 2/5 match) and standing #102 BASEMENT BOYS (1036 pts, 5/5 match).",
+          "observed_at": "2026-10-16T07:15:00Z"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081532",
+      "hotspawn_url": "https://www.hotspawn.com/matches/astral-vs-leo-draculan-1081532",
+      "competition": "DraculaN Season 3",
+      "starts_at": "2026-10-19T15:30:00Z",
+      "best_of": "bo3",
+      "hltv_match_id": 2399597,
+      "hltv_url": "https://www.hltv.org/matches/2399597/astral-vs-leo-draculan-season-3",
+      "name_only_failure": "Leo appears twice in standings_global_2026_10_05.md (#112 with 1001 pts and #340 with 499 pts); name-only lookup refuses to guess between duplicate team names.",
+      "team_a": {
+        "name": "ASTRAL",
+        "hltv_team_id": 13479,
+        "hltv_team_url": "https://www.hltv.org/team/13479/astral",
+        "hltv_rank": 108,
+        "hltv_vrs_rank": 112,
+        "hltv_match_lineup": ["Neqy", "meowpop", "RaY5ive", "gxx-", "swiz"],
+        "valve_candidates": [
+          {
+            "standing": 91,
+            "points": 1072,
+            "roster": ["gxx-", "meowpop", "Neqy", "RaY5ive", "swiz"],
+            "shared_players": ["Neqy", "RaY5ive", "gxx-", "meowpop", "swiz"],
+            "overlap_count": 5,
+            "is_core_match": true
+          }
+        ],
+        "selected_valve_standing": 91,
+        "selected_valve_points": 1072
+      },
+      "team_b": {
+        "name": "Leo",
+        "hltv_team_id": 12810,
+        "hltv_team_url": "https://www.hltv.org/team/12810/leo",
+        "hltv_rank": 83,
+        "hltv_vrs_rank": 117,
+        "hltv_match_lineup": ["drac", "leen", "next1me", "Tarkky", "aimy"],
+        "valve_candidates": [
+          {
+            "standing": 112,
+            "points": 1001,
+            "roster": ["aimy", "drac", "leen", "next1me", "Tarkky"],
+            "shared_players": ["Tarkky", "aimy", "drac", "leen", "next1me"],
+            "overlap_count": 5,
+            "is_core_match": true
+          },
+          {
+            "standing": 340,
+            "points": 499,
+            "roster": ["amster", "kL1o", "leen", "Malkiss", "OneUn1que"],
+            "shared_players": ["leen"],
+            "overlap_count": 1,
+            "is_core_match": false
+          }
+        ],
+        "selected_valve_standing": 112,
+        "selected_valve_points": 1001
+      },
+      "disambiguation_status": "resolved_by_hltv_lineup_core",
+      "probabilities": [0.59811103, 0.40188897],
+      "fair_decimal_odds": [1.672, 2.488],
+      "recommended_pick": "ASTRAL",
+      "pick_index": 0,
+      "rationale": "HLTV match 2399597 publishes exact 5/5 lineups for both teams. ASTRAL matches Valve #91 (1072 pts) on all 5/5 players (Neqy, meowpop, RaY5ive, gxx-, swiz). Leo matches Valve #112 (1001 pts) on all 5/5 players (drac, leen, next1me, Tarkky, aimy), whereas duplicate row #340 (499 pts: amster, kL1o, leen, Malkiss, OneUn1que) has only 1/5 overlap (leen) and fails the >= 3/5 Valve core rule. Replaying Valve's Glicko expectation (RD=75) yields ASTRAL 59.80% / Leo 40.20%.",
+      "limitations": [
+        "No Polymarket, Kalshi, Thunderpick, or Bovada money line exists three days ahead of DraculaN Season 3 Group D fixture 1081532.",
+        "This is a 71-point Valve rating difference (59.8% / 40.2%), and HLTV's world ranking ranks Leo (#83) ahead of ASTRAL (#108) while Valve VRS ranks ASTRAL (#112 on HLTV's Oct 12 display, #91 in the Oct 5 global table) ahead of Leo (#117 / #112).",
+        "The automated name-only pipeline (data/origination.json) keeps this row blank because it does not read HLTV match-page lineups; this disambiguated probability is published with full player-level audit evidence."
+      ],
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/astral-vs-leo-draculan-1081532",
+          "source": "Hotspawn match page",
+          "detail": "Fixture 1081532: ASTRAL vs Leo, DraculaN, 2026-10-19T15:30:00Z.",
+          "observed_at": "2026-10-16T07:13:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399597/astral-vs-leo-draculan-season-3",
+          "source": "HLTV match page",
+          "detail": "Published 5-player lineups (5/5 match on both sides), world rankings (#108 vs #83), and VRS rankings (#112 vs #117).",
+          "observed_at": "2026-10-16T07:13:00Z"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official standings (2026-10-05)",
+          "detail": "Standing #91 ASTRAL (1072 pts, 5/5 match) and standing #112 Leo (1001 pts, 5/5 match) vs legacy row #340 Leo (499 pts, 0/5 match).",
+          "observed_at": "2026-10-16T07:15:00Z"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081502",
+      "hotspawn_url": "https://www.hotspawn.com/matches/procyon-vs-los-ninos-cazetv-cs2-1081502",
+      "competition": "Circuito Retake Season 2 by CazéTV",
+      "starts_at": "2026-10-16T21:00:00Z",
+      "best_of": "bo3",
+      "hltv_match_id": 2399672,
+      "hltv_url": "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-circuito-retake-season-2-by-caztv",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399672/procyon-vs-los-ninos-circuito-retake-season-2-by-caztv",
+      "name_only_failure": "LOS NINOS is absent from standings_global_2026_10_05.md (0 rows) and has no Polymarket, Kalshi, Thunderpick, or Bovada money line.",
+      "team_a": {
+        "name": "Procyon",
+        "hltv_team_id": 13268,
+        "hltv_team_url": "https://www.hltv.org/team/13268/procyon",
+        "hltv_rank": 119,
+        "hltv_vrs_rank": 152,
+        "hltv_match_lineup": ["laser", "lenci", "pavv", "MaxOff", "next"],
+        "valve_candidates": [
+          {
+            "standing": 149,
+            "points": 842,
+            "roster": ["laser", "lenci", "MaxOff", "next", "pavv"],
+            "shared_players": ["MaxOff", "laser", "lenci", "next", "pavv"],
+            "overlap_count": 5,
+            "is_core_match": true
+          }
+        ],
+        "selected_valve_standing": 149,
+        "selected_valve_points": 842
+      },
+      "team_b": {
+        "name": "LOS NINOS",
+        "hltv_team_id": 13919,
+        "hltv_team_url": "https://www.hltv.org/team/13919/los-ninos",
+        "hltv_rank": null,
+        "hltv_vrs_rank": null,
+        "hltv_match_lineup": ["PremiuM", "protado", "Reix", "aNgelo", "space"],
+        "valve_candidates": [],
+        "selected_valve_standing": null,
+        "selected_valve_points": null
+      },
+      "disambiguation_status": "unresolved_opponent_unranked",
+      "probabilities": null,
+      "fair_decimal_odds": null,
+      "recommended_pick": null,
+      "pick_index": null,
+      "rationale": "HLTV match 2399672 confirms Procyon (HLTV #119, VRS #152; 5/5 match to Valve #149 with 842 pts) faces LOS NINOS (lineup: PremiuM, protado, Reix, aNgelo, space), which is explicitly labeled 'HLTV: Unranked' and 'VRS: Unranked'. Scanning all 403 Valve rosters for LOS NINOS's 5 players shows 0 core matches (PremiuM, protado, and Reix appear on zero Valve rosters; aNgelo appears only on Sharks Y #326). HLTV's betting analytics page (2399672) confirms this LOS NINOS core has played only 1 official match (3 maps) together in the past 3 months. Because a two-sided Glicko probability requires ratings for both teams and no bookmaker or prediction market prices this match, probabilities and pick remain strictly blank (unverified).",
+      "limitations": [
+        "No Polymarket, Kalshi, Thunderpick, or Bovada market exists, and HLTV match 2399672 lists no bookmaker odds.",
+        "LOS NINOS is unranked on both HLTV and Valve VRS, with only 1 match (3 maps) played by the current core in the past 30 days / 3 months.",
+        "Procyon has a verified Valve rating (#149, 842 pts, 5/5 roster match), but a one-sided rating cannot produce a calibrated win probability without inventing an opponent rating."
+      ],
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/procyon-vs-los-ninos-cazetv-cs2-1081502",
+          "source": "Hotspawn match page",
+          "detail": "Fixture 1081502: Procyon vs LOS NINOS, CazéTV CS2, 2026-10-16T21:00:00Z.",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399672/procyon-vs-los-ninos-circuito-retake-season-2-by-caztv",
+          "source": "HLTV match page",
+          "detail": "Procyon (#119 HLTV / #152 VRS) vs LOS NINOS (HLTV: Unranked, VRS: Unranked; lineup PremiuM, protado, Reix, aNgelo, space).",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399672/procyon-vs-los-ninos-circuito-retake-season-2-by-caztv",
+          "source": "HLTV betting analytics",
+          "detail": "Confirms LOS NINOS core has 1 match together and 3 maps played in the past 30 days.",
+          "observed_at": "2026-10-16T07:18:00Z"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official standings (2026-10-05)",
+          "detail": "Standing #149 Procyon (842 pts, 5/5 match); LOS NINOS has 0 core matches across all 403 rows.",
+          "observed_at": "2026-10-16T07:15:00Z"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081526",
+      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-insiders-draculan-1081526",
+      "competition": "DraculaN Season 3",
+      "starts_at": "2026-10-19T12:00:00Z",
+      "best_of": "bo3",
+      "hltv_match_id": 2399590,
+      "hltv_url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-draculan-season-3",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399590/infinite-vs-insiders-draculan-season-3",
+      "name_only_failure": "Insiders is absent from standings_global_2026_10_05.md (0 rows) and has no Polymarket, Kalshi, Thunderpick, or Bovada money line.",
+      "team_a": {
+        "name": "INFINITE",
+        "hltv_team_id": 13042,
+        "hltv_team_url": "https://www.hltv.org/team/13042/infinite",
+        "hltv_rank": 86,
+        "hltv_vrs_rank": 65,
+        "hltv_match_lineup": ["ScrunK", "kyuubii", "Blytz", "volt", "sl3nd"],
+        "valve_candidates": [
+          {
+            "standing": 56,
+            "points": 1259,
+            "roster": ["Blytz", "kreaz", "kyuubii", "sl3nd", "volt"],
+            "shared_players": ["Blytz", "kyuubii", "sl3nd", "volt"],
+            "overlap_count": 4,
+            "is_core_match": true
+          }
+        ],
+        "selected_valve_standing": 56,
+        "selected_valve_points": 1259
+      },
+      "team_b": {
+        "name": "Insiders",
+        "hltv_team_id": 13825,
+        "hltv_team_url": "https://www.hltv.org/team/13825/insiders",
+        "hltv_rank": null,
+        "hltv_vrs_rank": null,
+        "hltv_match_lineup": ["vlady", "ADRON", "bitu", "bogi", "zypwiz"],
+        "valve_candidates": [],
+        "selected_valve_standing": null,
+        "selected_valve_points": null
+      },
+      "disambiguation_status": "unresolved_opponent_unranked",
+      "probabilities": null,
+      "fair_decimal_odds": null,
+      "recommended_pick": null,
+      "pick_index": null,
+      "rationale": "HLTV match 2399590 confirms INFINITE (HLTV #86, VRS #65; 4/5 core match to Valve #56 with 1259 pts, ScrunK in for kreaz) faces Open Qualifier #2 entrant Insiders (lineup: vlady, ADRON, bitu, bogi, zypwiz), which is explicitly labeled 'HLTV: Unranked' and 'VRS: Unranked' with 0 maps played in the past 3 months across all 7 active pool maps. Scanning all 403 Valve rosters for Insiders's 5 players shows 0 core matches (bitu, bogi, and zypwiz appear on zero Valve rosters; ADRON appears on 9INE A #289 and vlady on Fire Flux #304). Because no bookmaker or prediction market prices this match and Insiders has no Valve rating, probabilities and pick remain strictly blank (unverified).",
+      "limitations": [
+        "No Polymarket, Kalshi, Thunderpick, or Bovada market exists, and HLTV match 2399590 lists no bookmaker odds.",
+        "Insiders is an Open Qualifier #2 roster unranked on both HLTV and Valve VRS, with 0 maps played in the past 30 days / 3 months.",
+        "INFINITE has a verified Valve rating (#56, 1259 pts, 4/5 roster match), but a one-sided rating cannot produce a calibrated win probability without inventing an opponent rating."
+      ],
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/infinite-vs-insiders-draculan-1081526",
+          "source": "Hotspawn match page",
+          "detail": "Fixture 1081526: INFINITE vs Insiders, DraculaN, 2026-10-19T12:00:00Z.",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-draculan-season-3",
+          "source": "HLTV match page",
+          "detail": "INFINITE (#86 HLTV / #65 VRS) vs Insiders (HLTV: Unranked, VRS: Unranked; lineup vlady, ADRON, bitu, bogi, zypwiz; 0 maps in 3 months).",
+          "observed_at": "2026-10-16T07:12:00Z"
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399590/infinite-vs-insiders-draculan-season-3",
+          "source": "HLTV betting analytics",
+          "detail": "Confirms Insiders core has 4 matches together total and 0 maps played in the past 30 days.",
+          "observed_at": "2026-10-16T07:18:00Z"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official standings (2026-10-05)",
+          "detail": "Standing #56 INFINITE (1259 pts, 4/5 match); Insiders has 0 core matches across all 403 rows.",
+          "observed_at": "2026-10-16T07:15:00Z"
+        }
+      ]
+    }
+  ]
+}

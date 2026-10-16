@@ -301,6 +301,11 @@ def edge_review(data, prefix, edge_path: Path):
         from scripts.build_day3 import load_day3, render_section
         out += render_section(load_day3(day3_path), prefix)
     out += standings_section(review, edge_path.parent)
+    disambig_path = edge_path.parent / 'research' / 'f392649f' / 'lineup-disambiguation.json'
+    valve_path = edge_path.parent / 'evidence' / 'valve-ratings.json'
+    if disambig_path.exists() and valve_path.exists():
+        from scripts.lineup_disambiguation import load_disambiguation, render_disambiguation_section
+        out += render_disambiguation_section(load_disambiguation(disambig_path, valve_path), prefix)
     out += ('<section class="content-section prose" id="edge-limitations"><p class="eyebrow">What this review cannot tell you</p>'
             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{e(x)}</li>' for x in review['limitations']) + '</ul>'
             f'<p>{external("https://www.hltv.org/results?event=8932", "HLTV official event results")} '
