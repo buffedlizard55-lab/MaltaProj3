@@ -32,12 +32,12 @@ from urllib.parse import urlencode
 
 import requests
 
-from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite
+from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
-START_TOLERANCE_SEC = 60  # Provider clocks disagree up to ±30 min on delayed fixtures.
+START_TOLERANCE_SEC = 60  # No relaxed matching for delayed or rescheduled fixtures.
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
 # Price freshness is domain.is_fresh (MAX_PRICE_AGE_HOURS = 8). A former unused 12-hour
 # constant here contradicted it and was removed (session c07e1b40 review).
@@ -237,28 +237,36 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['polymarket_games'] = len(games)
     except (RuntimeError, ValueError) as exc:
         out['polymarket_index_error'] = str(exc)
-    active = [m for m in matches if m.get('availability') != 'past' and m.get('analysis') is None]
+    # A model-only row has not been resolved by a money line. The resolver has
+    # always allowed that upgrade, but the collector previously never fetched
+    # its aliased Polymarket books. Run the same research for those rows too.
+    active = [m for m in matches if m.get('availability') != 'past'
+              and (m.get('analysis') is None or m['analysis'].get('method') == 'model')]
     events = []
     books = []
     for game in games:
         names = [game.get('homeName', ''), game.get('awayName', '')]
-        joined = any(pair_join(names, game.get('startTime'), m, registry)[2] == 'matched' for m in active)
-        if not joined:
+        joined = [m for m in active if pair_join(names, game.get('startTime'), m, registry)[2] == 'matched']
+        if len(joined) != 1:
             continue
+        fixture = joined[0]
         try:
-            event, _ = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
+            event, event_request = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))
         except RuntimeError as exc:
             continue
         if event.get('active') is not True or event.get('closed') is not False or event.get('live') is True:
             continue
-        moneyline = None
-        for market in event.get('markets', []):
-            scope = market.get('sportsMarketType') or (market.get('sports') or {}).get('sports_market_type')
-            if scope == 'moneyline' and market.get('active') is True and market.get('closed') is False and market.get('acceptingOrders') is True and str(market.get('question', '')).startswith('Counter-Strike:'):
-                moneyline = market
-                break
-        if not moneyline:
+        # Reuse the featured market contract after a scoped alias-only name
+        # mapping. It requires ONE active full-series market with both teams,
+        # matching future start and accepting orders; never select the first
+        # map/prop or silently pick among duplicate moneylines.
+        canonical_markets = [dict(m, outcomes=[resolve_name(n, registry, fixture.get('competition'))[0]
+                                              for n in array(m.get('outcomes'))])
+                             for m in event.get('markets', [])]
+        candidate, _ = polymarket_candidate(dict(event, markets=canonical_markets), fixture, datetime.now(UTC))
+        if not candidate:
             continue
+        moneyline = next(original for original, canonical in zip(event['markets'], canonical_markets) if canonical is candidate)
         tokens = moneyline.get('clobTokenIds')
         if isinstance(tokens, str):
             try:
@@ -276,14 +284,16 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             if book is None:
                 bid, ask = [], []
                 break
-            bids = [finite(x.get('price')) for x in book.get('bids', []) if finite(x.get('price')) is not None]
-            asks = [finite(x.get('price')) for x in book.get('asks', []) if finite(x.get('price')) is not None]
+            bids = [finite(x.get('price')) for x in book.get('bids', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
+            asks = [finite(x.get('price')) for x in book.get('asks', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
             from scripts.domain import is_fresh
             stamp = timestamp(book.get('timestamp'))
             if not stamp or not is_fresh(iso(stamp), datetime.now(UTC)) or str(book.get('asset_id')) != str(token) or book.get('market') != moneyline.get('conditionId'):
                 bid, ask = [], []
                 break
-            if not bids or not asks:
+            if not bids or not asks or any(p is None or not 0 < p < 1 for p in bids + asks):
                 bid, ask = [], []
                 break
             bid.append(max(bids))
@@ -295,7 +305,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             'event_id': str(event.get('id')), 'slug': event.get('slug'), 'title': moneyline.get('question'),
             'source_url': POLY_EVENTS + str(event.get('id')),
             'public_page': 'https://polymarket.com/event/' + str(event.get('slug', '')),
-            'observed_at': iso(datetime.now(UTC)), 'active': event.get('active'), 'closed': event.get('closed'),
+            'observed_at': event_request['observed_at'], 'active': event.get('active'), 'closed': event.get('closed'),
             'moneyline_market_id': str(moneyline.get('id')),
             'outcomes': json.loads(moneyline['outcomes']) if isinstance(moneyline.get('outcomes'), str) else moneyline.get('outcomes'),
             'game_start_time': moneyline.get('gameStartTime') or event.get('startTime'),

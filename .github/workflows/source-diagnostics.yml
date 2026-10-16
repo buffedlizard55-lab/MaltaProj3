@@ -66,5 +66,9 @@ jobs:
           git add data/research/6426358d/
           git diff --cached --quiet && exit 0
           git commit -m 'research: retain original TWC and unresolved HLTV observations'
+          # The collectors changed tracked runtime data too. Only the committed
+          # research export belongs on this branch; discard that uncommitted
+          # runtime overlay before the required pull/rebase.
+          git restore --worktree -- data
           git pull --rebase origin arena/6426358d-maltaproj3
           git push origin arena/6426358d-maltaproj3

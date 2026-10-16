@@ -186,5 +186,85 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(key(self.data), key(again))
 
 
-if __name__ == '__main__':
+class LiveModelResearch(unittest.TestCase):
+    """Exercise the collector, not just the resolver; all responses are synthetic."""
+
+    def collect(self, featured='model', *, zero_size=False, duplicate=False, prop=False):
+        from unittest.mock import patch
+        from tempfile import TemporaryDirectory
+        market = {'id': '1', 'sportsMarketType': 'moneyline',
+                  'question': 'Counter-Strike: Aurora Gaming vs 9z (BO3)',
+                  'active': True, 'closed': False, 'acceptingOrders': True,
+                  'outcomes': ['Aurora Gaming', '9z'], 'gameStartTime': START,
+                  'clobTokenIds': ['10', '20'], 'conditionId': 'condition'}
+        if prop:
+            market['question'] = 'Counter-Strike: Aurora Gaming vs 9z (BO3) Map 1'
+        event = {'id': '990001', 'slug': 'cs2-aur1-9z-2026-10-16', 'active': True,
+                 'closed': False, 'live': False, 'markets': [market] + ([dict(market, id='2')] if duplicate else [])}
+        seen = []
+
+        def get_json(client, url, label, **kwargs):
+            seen.append(label)
+            if label == 'live-thunderpick-matches':
+                data = {'data': {'upcoming': []}}
+            elif label.startswith('live-polymarket-event-'):
+                data = event
+            elif label.startswith('live-polymarket-book-'):
+                token = url.split('=')[-1]
+                p = 0.69 if token == '10' else 0.31
+                data = {'asset_id': token, 'market': 'condition', 'timestamp': str(int(NOW.timestamp() * 1000)),
+                        'bids': [{'price': p - 0.01, 'size': '0' if zero_size else '5'}],
+                        'asks': [{'price': p + 0.01, 'size': '5'}]}
+            elif label.startswith('live-kalshi-events-'):
+                data = {'events': [], 'cursor': ''}
+            else:
+                data = []
+            entry = {'id': label, 'url': url, 'observed_at': originate.iso(NOW), 'status': 'ok'}
+            client.requests.append(entry)
+            return data, entry
+
+        with TemporaryDirectory() as tmp, patch.object(originate.Collector, 'get_json', new=get_json), \
+                patch.object(originate.Collector, 'fetch_html', return_value=('synthetic', {})), \
+                patch('scripts.sources.polymarket_games', return_value=[{'id': '990001', 'homeName': 'Aurora Gaming', 'awayName': '9z', 'startTime': START}]), \
+                patch('scripts.originate.datetime', wraps=datetime) as clock:
+            clock.now.return_value = NOW
+            originate.live_collect(Path(tmp), [match(featured)], registry())
+            saved = json.loads((Path(tmp) / 'live-polymarket-observations.json').read_text())
+        return seen, saved
+
+    def test_model_only_rows_get_fresh_alias_aware_market_books(self):
+        seen, saved = self.collect()
+        self.assertIn('live-polymarket-event-990001', seen)
+        self.assertIn('live-polymarket-book-990001-1', seen)
+        self.assertEqual(len(saved['polymarket_events']), 1)
+        ev = saved['polymarket_events'][0]
+        for actual, expected in zip(ev['book_bid'], [0.68, 0.3]):
+            self.assertAlmostEqual(actual, expected)
+        self.assertEqual(ev['observed_at'], originate.iso(NOW))
+
+    def test_featured_money_line_does_not_get_researched_or_overwritten(self):
+        seen, saved = self.collect('market')
+        self.assertNotIn('live-polymarket-event-990001', seen)
+        self.assertEqual(saved['polymarket_events'], [])
+
+    def test_previously_unresolved_rows_still_get_researched(self):
+        seen, _ = self.collect(None)
+        self.assertIn('live-polymarket-book-990001-1', seen)
+
+    def test_zero_size_levels_cannot_become_an_executable_quote(self):
+        _, saved = self.collect(zero_size=True)
+        self.assertNotIn('book_bid', saved['polymarket_events'][0])
+
+    def test_duplicate_full_series_markets_stay_ambiguous(self):
+        seen, saved = self.collect(duplicate=True)
+        self.assertFalse(any('polymarket-book' in x for x in seen))
+        self.assertEqual(saved['polymarket_events'], [])
+
+    def test_a_map_moneyline_is_not_a_series_moneyline(self):
+        seen, saved = self.collect(prop=True)
+        self.assertFalse(any('polymarket-book' in x for x in seen))
+        self.assertEqual(saved['polymarket_events'], [])
+
+
+if __name__ == "__main__":
     unittest.main()
