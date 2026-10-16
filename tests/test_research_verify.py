@@ -12,8 +12,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.research_verify import (Probe, moneyline_markets, parse_hltv_match_page,
-                                     parse_hltv_odds, parse_hltv_results, parse_hltv_schedule)
+from scripts.research_verify import (Probe, bovada_moneylines, moneyline_markets,
+                                     parse_hltv_match_page, parse_hltv_odds, parse_hltv_results,
+                                     parse_hltv_schedule, polymarket_directory_games,
+                                     thunderpick_moneylines, valve_rating_rows)
 
 EVENT = {
     'id': '1194512',
@@ -170,3 +172,129 @@ class ProbeArchiving(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+# ---------------------------------------------------------------------------
+# Replay tests against the archived first-party responses. These prove the
+# extractors reproduce what the official source actually said, and they pin the
+# two defects found on the first probe run (Valve column order, Bovada nesting).
+# ---------------------------------------------------------------------------
+
+RAW = Path(__file__).resolve().parents[1] / 'data/research/ba7164a0/raw'
+VALVE_SNAPSHOT = 'standings_global_2026_10_05.md'
+VALVE_URL = ('https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/'
+             'main/live/2026/' + VALVE_SNAPSHOT)
+
+
+@unittest.skipUnless((RAW / 'valve-standings-latest.html').exists(), 'archived Valve snapshot not committed')
+class ValveReplay(unittest.TestCase):
+    def setUp(self):
+        self.text = (RAW / 'valve-standings-latest.html').read_text()
+        self.teams = ['Aurora', '9z', 'BETBOOM', 'Legacy', 'FURIA', 'Falcons',
+                      'Ninjas in Pyjamas', 'PARIVISION']
+        self.rows = valve_rating_rows(self.text, self.teams, VALVE_SNAPSHOT, VALVE_URL)
+
+    def test_points_come_from_the_points_column_not_the_standing(self):
+        self.assertEqual(self.rows['standings_as_of'], '2026_10_05')
+        aurora = self.rows['ratings']['Aurora']
+        self.assertEqual(aurora['standing'], 9)
+        self.assertEqual(aurora['points'], 1716)
+        self.assertNotEqual(aurora['points'], aurora['standing'],
+                            'regression: the first probe run returned the standing as the points')
+
+    def test_every_twc_team_has_an_exact_name_row_with_five_players(self):
+        for team in self.teams:
+            with self.subTest(team=team):
+                self.assertIn(team, self.rows['ratings'])
+                self.assertEqual(len(self.rows['ratings'][team]['roster']), 5)
+
+    def test_aurora_official_roster_shows_the_completed_july_rebuild(self):
+        self.assertEqual(sorted(self.rows['ratings']['Aurora']['roster']),
+                         sorted(['Jimpphat', 'kyxsan', 'Wicadia', 'woxic', 'XANTARES']))
+
+    def test_unknown_team_stays_absent_rather_than_fuzzy_matched(self):
+        rows = valve_rating_rows(self.text, ['LOS NINOS', 'Insiders', 'ex-6666', 'antidaun'],
+                                 VALVE_SNAPSHOT, VALVE_URL)
+        self.assertEqual(rows['ratings'], {})
+        self.assertEqual(rows['ambiguous'], {})
+        self.assertEqual(sorted(rows['absent']), sorted(['LOS NINOS', 'Insiders', 'ex-6666', 'antidaun']))
+        self.assertEqual(len(rows['limitations']), 4)
+
+    def test_duplicate_valve_names_are_published_as_ambiguous_and_never_chosen(self):
+        # Verified in Valve's own snapshot: these four names each appear twice with
+        # different rosters. Picking one would be an inference, not a sourced fact.
+        rows = valve_rating_rows(self.text, ['aimclub', 'Bebop', 'Leo', 'Just Players', 'Legacy'],
+                                 VALVE_SNAPSHOT, VALVE_URL)
+        self.assertEqual(sorted(rows['ambiguous']), ['Bebop', 'Just Players', 'Leo', 'aimclub'])
+        for team, candidates in rows['ambiguous'].items():
+            with self.subTest(team=team):
+                self.assertEqual(len(candidates), 2)
+                self.assertNotEqual(candidates[0]['roster'], candidates[1]['roster'])
+        self.assertEqual(list(rows['ratings']), ['Legacy'], 'the unambiguous team is still rated')
+        self.assertTrue(any('appears 2 times' in note for note in rows['limitations']))
+
+
+@unittest.skipUnless((RAW / 'bovada-cs2.json').exists(), 'archived Bovada coupon not committed')
+class BovadaReplay(unittest.TestCase):
+    def setUp(self):
+        self.rows = bovada_moneylines(json.loads((RAW / 'bovada-cs2.json').read_text()))
+        self.by_event = {r['description']: r for r in self.rows}
+
+    def test_only_the_main_open_prematch_moneyline_is_kept(self):
+        self.assertTrue(self.rows, 'no Bovada moneyline extracted')
+        for row in self.rows:
+            self.assertEqual(row['event_type'], 'GAMEEVENT')
+            self.assertIs(row['live'], False)
+            self.assertEqual(len(row['outcomes']), 2, 'a series moneyline has exactly two priced outcomes')
+            for outcome in row['outcomes']:
+                self.assertEqual(outcome['status'], 'O')
+                self.assertGreater(float(outcome['decimal']), 1.0)
+
+    def test_twc_day_three_deciders_are_both_priced(self):
+        aurora = self.by_event['Team AURORA vs 9Z Globant']
+        self.assertEqual(aurora['start_utc'], '2026-10-16T14:00:00+00:00')
+        self.assertEqual([o['name'] for o in aurora['outcomes']], ['Team AURORA', '9Z Globant'])
+        self.assertEqual(aurora['outcomes'][0]['decimal'], '1.434783')
+        self.assertEqual(aurora['outcomes'][1]['decimal'], '2.750')
+        legacy = self.by_event['BB Team vs Legacy']
+        self.assertEqual(legacy['start_utc'], '2026-10-16T17:00:00+00:00')
+        self.assertEqual([o['name'] for o in legacy['outcomes']], ['BB Team', 'Legacy'])
+        self.assertEqual(legacy['outcomes'][1]['decimal'], '1.500')
+
+    def test_fixtures_the_pipeline_left_unresolved_are_priced_here(self):
+        self.assertIn('Procyon Gaming vs Los Ninos', self.by_event)
+        self.assertIn('Eternal Fire vs Betclic Apogee', self.by_event)
+
+    def test_every_row_carries_its_own_bovada_source_url(self):
+        for row in self.rows:
+            self.assertTrue(row['source_url'].startswith('https://www.bovada.lv/esports/counter-strike-2/'))
+
+
+@unittest.skipUnless((RAW / 'thunderpick-cs2.json').exists(), 'archived Thunderpick coupon not committed')
+class ThunderpickReplay(unittest.TestCase):
+    def test_match_winner_odds_are_two_selections_with_decimal_prices(self):
+        rows = thunderpick_moneylines(json.loads((RAW / 'thunderpick-cs2.json').read_text()))
+        for row in rows:
+            self.assertEqual(row['market'], 'Match Winner')
+            self.assertEqual(len(row['selections']), 2)
+            for selection in row['selections']:
+                self.assertIsInstance(selection['odds'], (int, float))
+                self.assertGreater(selection['odds'], 1.0)
+
+
+class FlightDecoder(unittest.TestCase):
+    def test_directory_games_are_read_from_flight_json_not_displayed_percentages(self):
+        payload = json.dumps({'sportSlug': 'cs2', 'id': 1194512, 'slug': 'cs2-aur1-9z-2026-10-16',
+                              'homeName': 'Aurora Gaming', 'awayName': '9z',
+                              'homeTokenId': 'a', 'awayTokenId': 'b',
+                              'startTime': '2026-10-16T14:00:00Z'})
+        html = 'noise<script>self.__next_f.push([1,' + json.dumps('2:' + payload + '\n') + '])</script>'
+        games = polymarket_directory_games(html)
+        self.assertEqual(len(games), 1)
+        self.assertEqual(games[0]['id'], 1194512)
+        self.assertEqual(games[0]['homeName'], 'Aurora Gaming')
+
+    def test_non_cs2_games_and_percentage_only_objects_are_ignored(self):
+        html = 'x<script>self.__next_f.push([1,' + json.dumps('2:{"sportSlug":"nba","id":1}\n') + '])</script>'
+        self.assertEqual(polymarket_directory_games(html), [])
+        self.assertEqual(polymarket_directory_games('no flight data at all'), [])

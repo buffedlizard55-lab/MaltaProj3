@@ -70,8 +70,13 @@ THUNDERPICK_API = 'https://thunderpick.io/api/matches'
 # The deployed production snapshot: what a reader actually sees right now.
 PAGES_BASE = 'https://buffedlizard55-lab.github.io/MaltaProj3'
 
-UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
-      'Chrome/131.0 Safari/537.36 hotspawn-cs2-verification-probe/1.0')
+# The project's own declared identity, identical to the one scripts/sources.py uses.
+# A spoofed browser User-Agent is *more* likely to be rejected: HLTV's edge returned
+# HTTP 403 to a Chrome UA on the first probe run (2026-10-16T07:41Z) while the
+# production pipeline's `hltv-matches` request with this UA returned HTTP 200 in the
+# deployed snapshot of the same hour. No challenge is bypassed either way.
+UA = 'HotspawnCS2Coverage/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'
+ACCEPT = 'application/json,text/html;q=0.9'
 
 
 def now_iso() -> str:
@@ -86,7 +91,7 @@ class Probe:
         self.raw = out / 'raw'
         self.raw.mkdir(parents=True, exist_ok=True)
         self.session = requests.Session()
-        self.session.headers.update({'User-Agent': UA, 'Accept-Language': 'en-US,en;q=0.9'})
+        self.session.headers.update({'User-Agent': UA, 'Accept': ACCEPT})
         self.log: list[dict] = []
 
     def _record(self, label, url, status, observed_at, note='', evidence='', kind=''):
@@ -202,7 +207,57 @@ def moneyline_markets(event: dict) -> list[dict]:
     return found
 
 
+FLIGHT_PUSH = re.compile(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)')
+
+
+def polymarket_directory_games(html: str) -> list:
+    """Decode the public Next.js flight JSON of Polymarket's CS2 directory.
+
+    The *displayed* directory shows rounded percentages and crowd numbers. Those are
+    never used here: only the game identity (id, slug, team names, start time) is read,
+    and every price is then taken from the event's own moneyline market and CLOB books.
+    """
+    games: dict[str, dict] = {}
+
+    def walk(obj):
+        if isinstance(obj, dict):
+            if obj.get('sportSlug') == 'cs2' and 'homeTokenId' in obj and 'awayTokenId' in obj:
+                key = obj.get('slug') or obj.get('id')
+                if key:
+                    games[str(key)] = obj
+            for value in obj.values():
+                walk(value)
+        elif isinstance(obj, list):
+            for value in obj:
+                walk(value)
+
+    for part in FLIGHT_PUSH.findall(html):
+        try:
+            text = json.loads(part)
+        except ValueError:
+            continue
+        for line in text.split('\n'):
+            colon = line.find(':')
+            if colon < 0:
+                continue
+            try:
+                walk(json.JSONDecoder().raw_decode(line[colon + 1:])[0])
+            except (ValueError, TypeError):
+                continue
+    return list(games.values())
+
+
 def collect_polymarket(probe: Probe) -> dict:
+    # Route 1: the public CS2 directory. The `tag_slug=cs2` event query alone returns
+    # only long-dated/outright markets, not per-match moneylines, so the directory is
+    # decoded first and each game's own event is then read from Gamma.
+    directory: list[dict] = []
+    html, ev = probe.get('polymarket-directory', POLY_INDEX)
+    if isinstance(html, str):
+        directory = polymarket_directory_games(html)
+        if not directory:
+            probe._record('polymarket-directory-games', POLY_INDEX, 'schema-missing', now_iso(),
+                          note='No cs2 game objects with home/away token ids; discovery completeness unverified.')
     seen: dict[str, dict] = {}
     pages = 0
     limitations = []
@@ -227,6 +282,22 @@ def collect_polymarket(probe: Probe) -> dict:
         time.sleep(0.4)
     if pages * 100 >= 2000:
         limitations.append('Reached the bounded 2,000-event Gamma window; discovery completeness is not proven.')
+    # Route 2: every game the directory names, fetched individually by its own event id.
+    directory_games = []
+    for game in directory:
+        gid = game.get('id')
+        if not gid:
+            continue
+        directory_games.append({'id': str(gid), 'slug': game.get('slug'),
+                                'home': game.get('homeName'), 'away': game.get('awayName'),
+                                'start_time': game.get('startTime')})
+        if str(gid) in {r['event_id'] for r in seen.values()}:
+            continue
+        event, eev = probe.get(f'gamma-event-{gid}', GAMMA_EVENTS + f'/{gid}')
+        if isinstance(event, dict):
+            for market in moneyline_markets(event):
+                seen.setdefault(market['event_id'] + '/' + market['market_id'], market)
+        time.sleep(0.2)
     rows = list(seen.values())
     # Order books for every moneyline token: the published midpoint method needs both sides.
     books = {}
@@ -246,7 +317,8 @@ def collect_polymarket(probe: Probe) -> dict:
                 }
             time.sleep(0.15)
     return {'moneylines': rows, 'books': books, 'pages': pages, 'limitations': limitations,
-            'observed_at': now_iso(), 'source_url': POLY_TAG_URL, 'api': GAMMA_EVENTS}
+            'directory_games': directory_games, 'directory_evidence': ev,
+            'observed_at': now_iso(), 'source_url': POLY_INDEX, 'api': GAMMA_EVENTS}
 
 
 # ---------------------------------------------------------------------------
@@ -483,6 +555,54 @@ def collect_hltv(probe: Probe) -> dict:
 # Valve regional standings (official rating points)
 # ---------------------------------------------------------------------------
 
+def valve_rating_rows(text: str, teams: list[str], snapshot: str, source_url: str) -> dict:
+    """Read Valve's own standings table by column position, never by "first number".
+
+    Official column order is ``Standing | Points | Team Name | Roster | details``. Taking
+    the first numeric cell returns the *standing* instead of the points; the first probe
+    run made exactly that mistake, so the columns are addressed by position and the five
+    listed players are kept so a reviewer can see which roster the row describes.
+    Only an exact, case-insensitive team-name match is accepted. Nothing is fuzzy-matched.
+    """
+    out: dict = {'ratings': {}, 'ambiguous': {}, 'absent': [], 'limitations': [], 'standings_as_of': None}
+    heading = re.search(r'Standings as of (\d{4}_\d{2}_\d{2})', text)
+    if heading:
+        out['standings_as_of'] = heading.group(1)
+    wanted = {team.lower(): team for team in teams}
+    found: dict[str, list] = {}
+    for line in text.splitlines():
+        if not line.strip().startswith('|'):
+            continue
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) < 4 or not re.fullmatch(r'\d+', cells[0]) or not re.fullmatch(r'\d+', cells[1]):
+            continue
+        standing, points, name, roster = cells[0], cells[1], cells[2], cells[3]
+        team = wanted.get(name.lower())
+        if team is None:
+            continue
+        found.setdefault(team, []).append({
+            'standing': int(standing), 'points': int(points), 'team_name': name,
+            'roster': [part.strip() for part in roster.split(',') if part.strip()],
+            'snapshot': snapshot, 'source_url': source_url})
+    for team, rows in found.items():
+        if len(rows) == 1:
+            out['ratings'][team] = rows[0]
+        else:
+            # Valve's own snapshot lists this name more than once with different rosters.
+            # Choosing one would be an inference, so all candidates are published and the
+            # team gets no rating. Verified against standings_global_2026_10_05.md, where
+            # aimclub, Bebop, Leo and Just Players each appear twice.
+            out['ambiguous'][team] = rows
+            out['limitations'].append(
+                f'"{team}" appears {len(rows)} times in {snapshot} with different rosters '
+                f'(standings {", ".join(str(r["standing"]) for r in rows)}); no rating is chosen.')
+    for team in teams:
+        if team not in found:
+            out['absent'].append(team)
+            out['limitations'].append(f'No exact-name Valve row for "{team}" in {snapshot}; left blank, not inferred.')
+    return out
+
+
 def collect_valve(probe: Probe, teams: list[str]) -> dict:
     headers = {'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
     listing, ev = probe.get('valve-live-2026', VALVE_API + '/contents/live/2026', headers=headers)
@@ -505,21 +625,12 @@ def collect_valve(probe: Probe, teams: list[str]) -> dict:
     if not isinstance(text, str):
         out['limitations'].append('Valve standings snapshot was not readable.')
         return out
-    for line in text.splitlines():
-        if not line.strip().startswith('|'):
-            continue
-        cells = [c.strip() for c in line.strip().strip('|').split('|')]
-        if len(cells) < 4:
-            continue
-        for team in teams:
-            if team.lower() in [c.lower() for c in cells]:
-                digits = [c for c in cells if re.fullmatch(r'\d+', c)]
-                if digits:
-                    out['ratings'].setdefault(team, {'points': int(digits[0]), 'row': cells[:8],
-                                                     'snapshot': latest, 'source_url': raw_url})
-    for team in teams:
-        if team not in out['ratings']:
-            out['limitations'].append(f'No exact-name Valve row for "{team}" in {latest}; left blank, not inferred.')
+    parsed = valve_rating_rows(text, teams, latest, raw_url)
+    out['ratings'] = parsed['ratings']
+    out['ambiguous'] = parsed['ambiguous']
+    out['absent'] = parsed['absent']
+    out['standings_as_of'] = parsed['standings_as_of']
+    out['limitations'].extend(parsed['limitations'])
     out['observed_at'] = now_iso()
     return out
 
@@ -613,11 +724,87 @@ def collect_production(probe: Probe) -> dict:
     return out
 
 
+def bovada_moneylines(response) -> list:
+    """Bovada prematch series moneylines, exactly as the coupon feed states them.
+
+    Only the main, non-live, open ``2W-12`` Moneyline market of a prematch GAMEEVENT is
+    kept: a map handicap or a live price must never be mistaken for a series winner line.
+    """
+    rows = []
+    for group in response if isinstance(response, list) else []:
+        if not isinstance(group, dict):
+            continue
+        league = ' / '.join(str(p.get('description')) for p in group.get('path') or [] if isinstance(p, dict))
+        for event in group.get('events') or []:
+            if not isinstance(event, dict):
+                continue
+            start = event.get('startTime')
+            lines = []
+            for dg in event.get('displayGroups') or []:
+                for market in dg.get('markets') or []:
+                    period = market.get('period') or {}
+                    if (market.get('key') == '2W-12' and market.get('description') == 'Moneyline'
+                            and period.get('main') is True and period.get('live') is False
+                            and market.get('status') == 'O'):
+                        lines.append(market)
+            outcomes = (lines[0].get('outcomes') if len(lines) == 1 else None) or []
+            rows.append({
+                'event_id': str(event.get('id')),
+                'description': event.get('description'),
+                'event_type': event.get('type'),
+                'live': event.get('live'),
+                'start_time_ms': start,
+                'start_utc': (datetime.fromtimestamp(start / 1000, UTC).isoformat()
+                              if isinstance(start, (int, float)) else None),
+                'league': league,
+                'competitors': [c.get('name') for c in event.get('competitors') or [] if isinstance(c, dict)],
+                'moneyline_markets': len(lines),
+                'outcomes': [{'name': o.get('description'),
+                              'decimal': (o.get('price') or {}).get('decimal'),
+                              'american': (o.get('price') or {}).get('american'),
+                              'status': o.get('status')} for o in outcomes],
+                'market_id': str(lines[0].get('id')) if len(lines) == 1 else None,
+                'source_url': 'https://www.bovada.lv' + str(event.get('link') or ''),
+                'page_url': 'https://www.bovada.lv/sports',
+            })
+    return rows
+
+
+def thunderpick_moneylines(response) -> list:
+    """Thunderpick's own "Match Winner" selections with the decimal odds it quotes."""
+    rows = []
+    data = response.get('data') if isinstance(response, dict) else None
+    if not isinstance(data, dict):
+        return rows
+    for key in ('upcoming', 'live'):
+        for event in data.get(key) or []:
+            if not isinstance(event, dict):
+                continue
+            for market in event.get('preferredMarkets') or []:
+                if market.get('name') not in ('Match Winner',) or market.get('status') != 1:
+                    continue
+                selections = market.get('selections') or []
+                if len(selections) != 2:
+                    continue
+                rows.append({
+                    'bucket': key,
+                    'event_id': market.get('eventId'),
+                    'market_id': market.get('id'),
+                    'market': market.get('name'),
+                    'competition': event.get('competition') or event.get('tournament'),
+                    'starts_at': event.get('startsAt') or event.get('date'),
+                    'selections': [{'name': s.get('name'), 'odds': s.get('odds'), 'type': s.get('type'),
+                                    'status': s.get('status')} for s in selections],
+                    'source_url': 'https://thunderpick.io/esports/counter-strike',
+                })
+    return rows
+
+
 def collect_other_books(probe: Probe) -> dict:
     """Esportsbook / exchange checks. A failure here is recorded, never guessed around."""
     out: dict = {'providers': {}, 'limitations': []}
-    events, ev = probe.get('kalshi-cs2', KALSHI_EVENTS + '?' + urlencode({'series_ticker': 'KXCS2GAME',
-                                                                          'status': 'open', 'limit': 200}))
+    events, ev = probe.get('kalshi-cs2', KALSHI_EVENTS + '?' + urlencode(
+        {'series_ticker': 'KXCS2GAME', 'status': 'open', 'limit': 200, 'with_nested_markets': 'true'}))
     if isinstance(events, dict):
         rows = []
         for event in events.get('events') or []:
@@ -635,25 +822,20 @@ def collect_other_books(probe: Probe) -> dict:
         out['limitations'].append('Kalshi CS2 series was not readable; no Kalshi price is claimed.')
     bovada, bev = probe.get('bovada-cs2', BOVADA_API)
     if isinstance(bovada, list):
-        rows = []
-        for event in bovada:
-            for market in (event.get('markets') or [])[:3]:
-                outcomes = [{'type': o.get('type'), 'price': o.get('price')} for o in market.get('outcomes') or []]
-                if market.get('marketType') in ('moneyline', 'Moneyline') or len(outcomes) == 2:
-                    rows.append({'event': event.get('description'), 'id': event.get('id'),
-                                 'starts': event.get('startTime'), 'market': market.get('description'),
-                                 'market_type': market.get('marketType'), 'outcomes': outcomes})
-        out['providers']['bovada'] = {'markets': rows[:80], 'count': len(rows), 'evidence': bev,
-                                      'source_url': 'https://www.bovada.lv/sports', 'observed_at': now_iso()}
+        out['providers']['bovada'] = {'moneylines': bovada_moneylines(bovada), 'evidence': bev,
+                                      'source_url': 'https://www.bovada.lv/sports', 'api': BOVADA_API,
+                                      'observed_at': now_iso()}
+        out['providers']['bovada']['count'] = len(out['providers']['bovada']['moneylines'])
     else:
         out['limitations'].append('Bovada CS2 coupon was not readable; no Bovada price is claimed.')
     thunder, tev = probe.get('thunderpick-cs2', THUNDERPICK_API, method='POST', payload={'gameIds': [6]},
                              headers={'Content-Type': 'application/json', 'Origin': 'https://thunderpick.io',
                                       'Referer': 'https://thunderpick.io/'})
     if isinstance(thunder, (list, dict)):
-        out['providers']['thunderpick'] = {'raw_type': type(thunder).__name__, 'evidence': tev,
+        rows = thunderpick_moneylines(thunder)
+        out['providers']['thunderpick'] = {'moneylines': rows, 'count': len(rows), 'evidence': tev,
                                            'source_url': 'https://thunderpick.io/esports/counter-strike',
-                                           'observed_at': now_iso(),
+                                           'api': THUNDERPICK_API, 'observed_at': now_iso(),
                                            'note': 'Read-only POST with {"gameIds":[6]}; opening the endpoint as a '
                                                    'browser GET does not reproduce this request.'}
     else:
