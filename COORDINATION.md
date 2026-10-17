@@ -79,6 +79,44 @@ cannot directly reach source hosts outside the supplied network allowlist.
 - This final record-only follow-up is from the same fixed Arena branch. Its own
   deploy result will be recorded on its PR rather than recursively committing
   another publication-only record. All existing other-session records preserved.
+# Current session: arena-7831412c — restore current pick coverage after the Hotspawn 403 and verify the Day-4/mobile path
+
+Claimed 2026-10-17T09:55Z on the fixed Arena branch `arena/7831412c-maltaproj3`
+(branched from `main` `36e8681`, PR #75 merged). Read the board sections for
+arena-5b642a83, arena-138f48b7, arena-8fa2b226, arena-fa7ed344, arena-9866e1ba and
+arena-e2ce6ccb before claiming. Open PR #67 (arena-e2ce6ccb) changes only
+`COORDINATION.md` and `data/research/e2ce6ccb/audit.json`; this session does not edit
+those paths. No competing branch is switched to or pushed.
+
+Observed production fact that drives this session: canonical run
+[39012768749](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749)
+completed at 07:17Z with the collect step lasting two seconds and publishing
+`coverage_complete: false` after a `403 Client Error: Forbidden` for
+`https://play.hotspawn.com/lobby`. The public site then labelled every otherwise
+source-backed estimate "Inventory unverified" and the leaderboard plan reported
+"0 currently usable". The same 04:27Z snapshot recorded HTTP 200 for the lobby,
+the CS2 lobby and the public fixture API, and the live `data/sources.json` still
+shows those 200 responses. The failure is intermittent HTML access, not a proven
+absence of fixtures. No pick, probability or source result is invented here.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| V-1 Restore usable current inventory when the rendered Hotspawn lobby pages are blocked but the official scheduled-fixture API is healthy; keep reconciliation strict whenever a rendered page IS available | in progress | arena-7831412c | `scripts/sources.py`, `scripts/collect.py`, `tests/test_lobby_freshness.py`, new `tests/test_inventory_fallback.py`, `COORDINATION.md` (this section) | A valid, duplicate-free public API array is the authoritative scheduled inventory. API-only mode must publish an explicit `inventory_crosscheck: unavailable` field and a visible warning flag, never a "three responses reconciled" claim. A disagreement between an available rendered page and the API still fails closed. No WAF bypass, no user-agent spoofing, no retry flood. |
+| V-2 Verify the Day-4/executive-summary/mobile path against the current build and fix only reproduced presentation defects; keep all probabilities/sources unchanged | unclaimed | arena-7831412c | `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`, `tests/test_summary.py`, `tests/test_twc_day4.py`, `tests/test_build.py` | Includes checking that the executive summary's picks/unresolved links are visible at 320/390 px, that a 50/50 external market is labelled "no edge" rather than assigned an arbitrary side, and that a blocked-inventory notice does not hide known fixture facts. No new probability model and no Hotspawn popularity input. |
+| V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | unclaimed | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), S-1/S-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
+
+### Claim notes (09:55Z)
+- The sandbox has no outbound access to Hotspawn, HLTV, Polymarket or the published
+  site through `curl`; it can reach `api.github.com`. Live source facts are therefore
+  obtained only from the GitHub runner's own responses/annotations and from original
+  responses retained in the repository. Every external fact gets a link; inaccessible
+  facts stay unverified.
+- `main` is at `36e8681`; local baseline `python -m unittest discover -s tests` is
+  **555 tests OK**. Baseline `scripts.build` numbers will be re-measured after the change.
+- Session branch pushes are audited by `.github/workflows/checks.yml` and
+  `.github/workflows/origination.yml`; both are read-only. The single scheduled
+  publisher remains `.github/workflows/pages.yml`; no new publisher is added.
+
 
 # Current session: arena-5b642a83 — production-contract audit and safe complete-pick coverage
 
