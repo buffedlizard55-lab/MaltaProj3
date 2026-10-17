@@ -265,8 +265,8 @@ What changed, and why each piece is verifiable:
    of the vague "Pick — unverified", which wrongly implied missing data. No side
    is invented.
 
-Verification performed on this tree before the release PR: **569 Python tests**
-pass, **74 Playwright checks** pass (including two new phone-width glance checks),
+Verification performed on this tree before the release PR: **577 Python tests**
+pass, **78 Playwright checks** pass (including two new phone-width glance checks),
 **106 independent pick-safety browser assertions** pass (Python/JS parity, expiry,
 lock, clock rollback, 320/390/768/1440 px and axe WCAG A/AA), `scripts.build`
 replays 80 source rows, validates all internal links/anchors, and the strict row

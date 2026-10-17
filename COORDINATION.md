@@ -144,9 +144,10 @@ absence of fixtures. No pick, probability or source result is invented here.
   instead of "Pick — unverified", which wrongly implied missing data.
 - Fixed a real contrast failure found by the axe pass (`.glance-match .versus`
   measured 4.16:1; now 5.3:1) before merging.
-- Verified: 569 Python tests, 74 Playwright checks (two new phone-width glance
-  checks at 320/390 px), 106 safety assertions, `scripts.build` (80 source rows,
-  593 links/anchors), strict row audit 0 violations.
+- Verified after rebasing onto main `751166d` (which absorbed arena-75ef1662):
+  577 Python tests, 78 Playwright checks (two new phone-width glance checks at
+  320/390 px), 106 safety assertions, `scripts.build` (80 source rows, 593
+  links/anchors, 381 audited rows / 373 official + 8 navigation / 0 violations).
 
 ### Sources for manual review
 - Hotspawn public fixture API: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1
