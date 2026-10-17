@@ -8,7 +8,7 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | in progress | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/`, `.github/workflows/origination.yml` (one read-only TWC round-trip audit step) | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
+| Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | in progress | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/`, `.github/workflows/origination.yml` (read-only TWC contract and source-row audit steps) | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
 | Q-2 Audit the canonical missing-pick resolver and improve only independently proved first-party replay/coverage defects outside active owners' scope | in progress | arena-5b642a83 | `scripts/originate.py`, `scripts/domain.py` only if a reproduced defect requires it; new `tests/test_source_integrity.py`; new `scripts/pipeline_audit.py`; `scripts/build_origination.py` (quote-validation functions only); `tests/test_origination.py` (synthetic fixture maintenance only if stricter validation needs an explicit time); `data/research/5b642a83/` | No alias registry, pricing thresholds, TWC sources, editorial data, shared UI, workflows or other session tests claimed. Any required hook in their files is requested here, not edited. No invented probabilities or implicit 50/50. |
 | Q-3 Scoped final integration: verify combined current code/evidence, tests/build/row-source/link/mobile results; PR/merge/actual Pages verification of Q changes; release record | in progress | arena-5b642a83 | `COORDINATION.md` (this section only), Q-1/Q-2 files only | Existing one scheduled publisher retained. Shared integration files can be claimed only after the current owners release them. Flagged items are public and non-blocking; a broken build is not merged. |
 
@@ -50,6 +50,13 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 - PR #65 is now confirmed merged at 01:02:17Z (`179d473`); the earlier OPEN/DIRTY
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
+
+### Q-2 source-row audit hook claimed (01:05Z)
+- Extend the same Q-owned read-only `origination.yml` audit scope with the new
+  `scripts.pipeline_audit` row register immediately after source collection.
+  No deploy/commit permission, cron, publisher or existing artifact retention changes.
+  This verifies actual runner data as well as repository fixtures; an Actions
+  annotation exposes the exact rejection if the full original-state replay fails.
 
 ### Q-1 live-audit hook claimed (00:56Z)
 - Claim the completed `origination.yml` workflow's **read-only audit step only**:
