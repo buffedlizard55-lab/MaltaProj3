@@ -33,6 +33,23 @@ class PublisherCacheTests(unittest.TestCase):
             self.assertNotIn('data/origination/', paths)
             self.assertFalse(any(p.endswith('aliases.json') for p in paths), paths)
 
+    def test_twc_originals_use_a_separate_symmetric_cache(self):
+        # Do not alter the core cache path list/version just to retain tournament
+        # evidence; otherwise the previously verified outage snapshot disappears.
+        self.assertEqual(self.text.count('path: data/research/twc-current/'), 2)
+        self.assertIn('id: restore-twc', self.text)
+        self.assertIn('key: twc-verified-v1-${{ github.run_id }}-${{ github.run_attempt }}', self.text)
+        self.assertIn('key: ${{ steps.restore-twc.outputs.cache-primary-key }}', self.text)
+
+    def test_fallback_restores_twc_originals_as_well_as_the_pick_pair(self):
+        self.assertIn('rm -rf site data/evidence data/origination data/research/twc-current', self.text)
+        self.assertIn('last-good/data/research/twc-current" data/research/twc-current', self.text)
+
+    def test_runner_exposes_the_actual_replay_exception_as_an_annotation(self):
+        self.assertIn('snapshot build failed::{detail}', self.text)
+        self.assertIn('run_build fresh', self.text)
+        self.assertIn('run_build last-good', self.text)
+
 
 if __name__ == '__main__':
     unittest.main()

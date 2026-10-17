@@ -182,6 +182,39 @@ class Fixtures(unittest.TestCase):
         kept = twc_lines.fixtures(rows, '2026-10-17')
         self.assertEqual([r['hltv_match_id'] for r in kept], ['2399414'])
 
+    def test_collected_fixture_serializes_team_names_not_ui_dicts(self):
+        stored = twc_lines.fixture_record(fixture())
+        self.assertEqual(stored['teams'], ['FURIA', 'Aurora'])
+        self.assertTrue(all(isinstance(name, str) for name in stored['teams']))
+
+
+class CollectorReturns(unittest.TestCase):
+    def test_kalshi_source_failure_returns_one_provider_dict_not_nested_tuple(self):
+        class FailedClient:
+            manifest = []
+            evidence = Path('.')
+
+            def json(self, _url, _label):
+                raise twc_lines.SourceError('refused')
+
+        provider, pages = twc_lines._collect_kalshi(FailedClient(), fixture(), REGISTRY, NOW)
+        self.assertIsInstance(provider, dict)
+        self.assertEqual(provider['status'], 'unavailable')
+        self.assertEqual(pages, 0)
+
+    def test_kalshi_empty_listing_returns_one_unresolved_provider_dict(self):
+        class EmptyClient:
+            manifest = []
+            evidence = Path('.')
+
+            def json(self, _url, _label):
+                return {'events': [], 'cursor': ''}, {}
+
+        provider, pages = twc_lines._collect_kalshi(EmptyClient(), fixture(), REGISTRY, NOW)
+        self.assertIsInstance(provider, dict)
+        self.assertEqual(provider['status'], 'unresolved')
+        self.assertEqual(pages, 1)
+
 
 class Replay(unittest.TestCase):
     def _write(self, root: Path, *, tamper=False, omit_book=False):
@@ -228,6 +261,16 @@ class Replay(unittest.TestCase):
             path.write_bytes(path.read_bytes().replace(b'0.52', b'0.99'))
             with self.assertRaises(ValueError):
                 twc_lines.load(Path(tmp), NOW, REGISTRY)
+
+    def test_replay_normalizes_the_old_collector_ui_dict_shape(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._write(Path(tmp))
+            report_path = folder / twc_lines.REPORT
+            report = json.loads(report_path.read_text())
+            report['records'][0]['fixture']['teams'] = [{'name': 'FURIA'}, {'name': 'Aurora'}]
+            report_path.write_text(json.dumps(report))
+            lines = twc_lines.load(Path(tmp), NOW, REGISTRY)
+            self.assertEqual(lines['matches'][0]['teams'], ['FURIA', 'Aurora'])
 
     def test_missing_book_publishes_blank_with_reason(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -342,3 +385,20 @@ class Wiring(unittest.TestCase):
             lines = twc_lines.load(root, NOW, REGISTRY)
             self.assertTrue(lines['available'], 'the pipeline would silently publish blanks if these paths drifted')
             self.assertEqual(lines['day'], '2026-10-17')
+
+    def test_collector_hashes_the_saved_json_that_replay_reads(self):
+        """Raw HTTP JSON and the retained pretty JSON need not have equal bytes."""
+        from scripts.sources import Client
+        with tempfile.TemporaryDirectory() as tmp:
+            client = Client(Path(tmp) / 'research/twc-current')
+            saved_name = client.save('twc-day4-poly-event-1200431', {'id': 1200431, 'markets': []})
+            saved = client.evidence / Path(saved_name).name
+            raw_provider_bytes = b'{"id":1200431,"markets":[]}'
+            self.assertNotEqual(saved.read_bytes(), raw_provider_bytes)
+            client.manifest.append({'id': 'event', 'status': 'ok', 'url': 'https://gamma-api.polymarket.com/events/1200431',
+                                    'observed_at': iso(NOW), 'evidence': saved_name,
+                                    'response_sha256': hashlib.sha256(raw_provider_bytes).hexdigest()})
+            item = twc_lines._record_evidence(client, ['event'])[0]
+            self.assertEqual(item['sha256'], hashlib.sha256(saved.read_bytes()).hexdigest())
+            self.assertEqual(item['response_sha256'], hashlib.sha256(raw_provider_bytes).hexdigest())
+            self.assertNotEqual(item['sha256'], item['response_sha256'])

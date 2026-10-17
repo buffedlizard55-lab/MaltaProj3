@@ -98,6 +98,10 @@ class Session9866e1baDossierTests(unittest.TestCase):
             self.assertEqual(set(f.keys()), {'id', 'severity', 'title', 'detail', 'match_ids', 'source_urls'})
             self.assertIn(f['severity'], {'notice', 'warning'})
 
+    def test_flags_are_registered_with_the_executive_review_builder(self):
+        build_source = (ROOT / 'scripts' / 'build.py').read_text(encoding='utf-8')
+        self.assertIn("source / 'research/9866e1ba/flags.json'", build_source)
+
     def test_strategy_build_exports_day3_and_day4_to_html_and_json_and_passes_strict_audit(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / 'site'

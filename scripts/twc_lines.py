@@ -87,6 +87,15 @@ def fixture_key(fixture: dict) -> tuple:
     return (frozenset(name_key(t['name']) for t in fixture['teams']), fixture.get('starts_at'))
 
 
+def fixture_record(fixture: dict) -> dict:
+    """Stable JSON shape for a collected fixture (team names, not UI dicts)."""
+    names = [t.get('name') if isinstance(t, dict) else t for t in fixture.get('teams') or []]
+    if len(names) != 2 or not all(isinstance(name, str) and name.strip() for name in names):
+        raise ValueError('TWC fixture does not contain two valid team names')
+    return {'id': fixture['id'], 'teams': names, 'starts_at': fixture['starts_at'],
+            'source_url': fixture.get('source_url'), 'hltv_match_id': fixture.get('hltv_match_id')}
+
+
 # ---------------------------------------------------------------------------
 # Provider re-derivation (pure: original payloads in, probability pair out)
 # ---------------------------------------------------------------------------
@@ -249,16 +258,27 @@ def analyse(providers: list, fixture: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def _record_evidence(client, labels: list) -> list:
-    """Reference the exact saved responses this run used, with their hashes."""
+    """Reference the exact saved responses this run used, with their hashes.
+
+    ``Client.fetch`` hashes the provider's raw HTTP bytes, while ``Client.json``
+    retains a deterministic JSON serialization for replay. Those byte streams
+    are legitimately different (whitespace alone is enough), so the replay hash
+    must cover the file that replay actually reads. The raw-response hash stays
+    in the request manifest and is also retained here as separate provenance.
+    """
     manifest = {entry['id']: entry for entry in client.manifest}
     out = []
     for label in labels:
         entry = manifest.get(label) or {}
         if entry.get('status') != 'ok' or not entry.get('evidence'):
             continue
+        saved = client.evidence / Path(entry['evidence']).name
+        if not saved.is_file():
+            continue
         out.append({'label': label, 'url': entry.get('url'), 'observed_at': entry.get('observed_at'),
-                    'file': 'evidence/' + Path(entry['evidence']).name,
-                    'sha256': entry.get('response_sha256')})
+                    'file': 'evidence/' + saved.name,
+                    'sha256': hashlib.sha256(saved.read_bytes()).hexdigest(),
+                    'response_sha256': entry.get('response_sha256')})
     return out
 
 
@@ -338,7 +358,7 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                               'source_url': POLY_DIRECTORY, 'observed_at': iso(now), 'quote': None})
         kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now, stamp)
         providers.append(kalshi)
-        records.append({'fixture': {k: fixture[k] for k in ('id', 'teams', 'starts_at', 'source_url', 'hltv_match_id')},
+        records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
@@ -357,8 +377,8 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
         try:
             body, _ = client.json(url, label)
         except SourceError as exc:
-            return ({'provider': 'Kalshi', 'status': 'unavailable', 'reason': str(exc)[:300],
-                     'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages), pages
+            return {'provider': 'Kalshi', 'status': 'unavailable', 'reason': str(exc)[:300],
+                    'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages
         labels.append(label)
         pages += 1
         events.extend(body.get('events') or [])
@@ -370,19 +390,19 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
                            fixture, registry)[2] == 'matched'] if len(events) else []
     joined = [e for e in joined if len(e.get('markets') or []) == 2]
     if len(joined) != 1:
-        return ({'provider': 'Kalshi', 'status': 'unresolved',
-                 'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
-                            else 'More than one Kalshi event joins this pair and start time'),
-                 'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
-                 'evidence': _record_evidence(client, labels)}, pages), pages
+        return {'provider': 'Kalshi', 'status': 'unresolved',
+                'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
+                           else 'More than one Kalshi event joins this pair and start time'),
+                'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
+                'evidence': _record_evidence(client, labels)}, pages
     event = joined[0]
     observed = max((client_manifest_time(client, label) for label in labels), default=iso(now))
     quote, reason = kalshi_quote(event, fixture, registry, observed, now)
-    return ({'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
-             'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
-             'observed_at': observed, 'quote': quote, 'event_id': str(event.get('event_ticker')),
-             'market_tickers': [str(m.get('ticker')) for m in event.get('markets') or []],
-             'evidence': _record_evidence(client, labels)}, pages), pages
+    return {'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
+            'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
+            'observed_at': observed, 'quote': quote, 'event_id': str(event.get('event_ticker')),
+            'market_tickers': [str(m.get('ticker')) for m in event.get('markets') or []],
+            'evidence': _record_evidence(client, labels)}, pages
 
 
 def client_manifest_time(client, label: str):
@@ -407,10 +427,11 @@ def _evidence_path(folder: Path, name: str) -> Path:
 
 def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) -> dict:
     """Re-derive one collected fixture from its hash-verified originals."""
-    fixture = {'id': record['fixture']['id'], 'teams': [{'name': n} for n in record['fixture']['teams']],
-               'starts_at': record['fixture']['starts_at'], 'competition': EVENT,
-               'source_url': record['fixture'].get('source_url'),
-               'hltv_match_id': record['fixture'].get('hltv_match_id')}
+    saved_fixture = fixture_record(record['fixture'])
+    fixture = {'id': saved_fixture['id'], 'teams': [{'name': n} for n in saved_fixture['teams']],
+               'starts_at': saved_fixture['starts_at'], 'competition': EVENT,
+               'source_url': saved_fixture.get('source_url'),
+               'hltv_match_id': saved_fixture.get('hltv_match_id')}
     providers = []
     for provider in record.get('providers') or []:
         payloads = {}
