@@ -23,6 +23,24 @@ and `research_window` are the authority for the priced Day-4 record, this sessio
 principles as the spine with this session's group-stage/score-line/format/rest readings appended. Both sessions'
 tests are in `tests/test_edge.py` (31 checks, all passing on the merged tree).
 
+### Publisher outage found after this PR merged — fixed in the follow-up PR (2026-10-17T01:15Z)
+
+`scripts/build` was **failing on main** for both runs after PR #66: 38987976979 (00:47Z) and this session's
+own post-merge run 38989106868 (01:02Z). Each fell back to the last verified snapshot pair, so the site stayed
+correct but stopped refreshing. Reproduced in a clean copy with the publisher's own sequence
+(`python -m scripts.twc_research` then `python -m scripts.build`) → `site/index.html: missing anchor
+./twc-picks/#day-four-tournament-lines`. The Day-4 coverage callout added in PR #66 links that section
+unconditionally, while `scripts/build_twc.py` renders it only `if guide['not_in_hotspawn_snapshot']`; the 01:04Z
+lobby had already listed both semifinals, so the anchor vanished and `scripts/validate.check_links` failed the
+build. Follow-up commit: the shortcut is gated on the same key, a regression test covers both branches, the
+build step now publishes its failure tail as an `::error::` annotation (Actions logs are unreachable from a
+restricted sandbox), and the finding is flagged on the review page as `8fa2b226-publisher-dangling-anchor`.
+Handoff note for the T-1 owner: the tournament-lines collection runs unconditionally inside
+`python -m scripts.twc_research`, and its *evidence* directory is not part of the cached last-good snapshot pair,
+so a fallback rebuild can still disagree with a freshly rewritten TWC report — worth deciding whether
+`data/twc-day3-picks.json` / `data/twc-day4-picks.json` / `data/research/twc-current/` should join that cache.
+Nothing in this session edited `scripts/twc_lines.py`.
+
 ## Completion record — arena-8fa2b226 (2026-10-17T00:45Z)
 
 **PR #65** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/65` (branch `arena/8fa2b226-maltaproj3`,

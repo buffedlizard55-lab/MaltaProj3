@@ -343,8 +343,14 @@ def summary(data, prefix):
                 'a tournament listing is not silently treated as a weekly lobby fixture. '
                 f'{line_note} '
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
-                f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Day 4 tournament-card lines →</a> '
-                f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
+                # The tournament-lines table exists on the TWC page only while an HLTV listing is unmatched to
+                # the weekly inventory (build_twc gates it on not_in_hotspawn_snapshot). This callout is printed
+                # unconditionally, so linking it here dangled as soon as the lobby caught up with the
+                # semifinals - and a dangling in-page anchor fails scripts.build, which reddened the publisher on
+                # 2026-10-17T00:47Z and 01:04Z and left the site serving an older verified snapshot.
+                + (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Day 4 tournament-card lines →</a> '
+                   if pending else '')
+                + f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics and next-match preview below describe the original featured method only. The complete list above adds researched fallbacks without rewriting these audit records.</p>'

@@ -106,9 +106,26 @@ jobs:
       - name: Reconcile every row, replay every probability and build linked pages
         id: build
         run: |
-          if python -m scripts.build; then
+          # Actions log downloads redirect to a host that restricted sandboxes cannot reach, so the build
+          # failure itself is published as a workflow annotation: the reason stays readable through the API
+          # (`gh api .../check-runs/<id>/annotations`) instead of dying in a log nobody can open.
+          set -o pipefail
+          annotate() {
+            python - "$1" "$2" <<'PY'
+          import sys
+          label, path = sys.argv[1], sys.argv[2]
+          try:
+              tail = open(path).read().strip().splitlines()[-6:]
+          except OSError:
+              tail = ['(no output captured)']
+          message = ' | '.join(line.strip() for line in tail)[:1700].replace('\r', ' ').replace('%', '%25')
+          print(f'::error title={label}::{message}')
+          PY
+          }
+          if python -m scripts.build 2>&1 | tee /tmp/build-fresh.log; then
             echo "degraded=false" >> "$GITHUB_OUTPUT"
           else
+            annotate "Fresh snapshot failed replay validation" /tmp/build-fresh.log
             echo "::warning::Fresh snapshot failed full replay validation; republishing the last verified snapshot pair (original timestamps and stale warnings preserved). No probability was repaired or invented."
             {
               echo '## Publisher fallback engaged'
@@ -122,8 +139,17 @@ jobs:
             cp "$RUNNER_TEMP/last-good/data/origination.json" data/ 2>/dev/null || true
             cp -r "$RUNNER_TEMP/last-good/data/evidence" data/evidence
             cp -r "$RUNNER_TEMP/last-good/data/origination" data/origination 2>/dev/null || true
-            python -m scripts.build
-            echo "degraded=true" >> "$GITHUB_OUTPUT"
+            if python -m scripts.build 2>&1 | tee /tmp/build-fallback.log; then
+              echo "degraded=true" >> "$GITHUB_OUTPUT"
+            else
+              annotate "Even the restored last-good snapshot failed the build" /tmp/build-fallback.log
+              echo "::error::The fallback rebuild failed too. Nothing was deployed by this run: the site keeps the" \
+                " last published artifact. Derived files that a data refresh rewrites (see the TWC report stamps)" \
+                " are not part of the cached snapshot pair, so a mismatch here is a publisher wiring fault, not a" \
+                " data problem."
+              echo "degraded=true" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
           fi
       - name: Inspect source freshness for cache eligibility
         id: snapshot
