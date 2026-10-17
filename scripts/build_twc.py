@@ -426,9 +426,13 @@ def render_day4(guide, prefix):
         out += ('<p class="section-intro"><strong>No Day-4 TWC fixture is confirmed in the weekly Hotspawn snapshot.</strong> '
                 'No pair, lock, price or default is invented for that inventory. Any validated tournament-card line is '
                 'shown in the separate external-market table below, and the complete CS2 list remains available.</p>')
+    out += (f'<p class="section-intro"><a href="{prefix}origination/#picks">Every updated CS2 pick →</a> · '
+            f'<a href="{prefix}origination/#unresolved">All unresolved picks &amp; limitations →</a> · '
+            + (f'<a href="{prefix}data/{e(guide["research_report"])}">Day-3/4 source manifest ↓</a>' if guide.get('research_available') else 'Day-3/4 source evidence unavailable — unverified') + '</p></section>')
     if guide['not_in_hotspawn_snapshot']:
-        out += ('<section id="day-four-tournament-lines"></section>'
-                '<h3>Tournament-card lines (not in the weekly Hotspawn lobby inventory)</h3>'
+        out += ('<section class="content-section twc-section" id="day-four-tournament-lines">'
+                '<div class="section-heading"><div><p class="eyebrow">17 October · external markets only</p>'
+                '<h2>Tournament-card lines (not in the weekly Hotspawn lobby inventory)</h2></div></div>'
                 '<p class="section-intro">These fixtures are listed by HLTV and by the Thunderpick tournament '
                 'pick&#8217;em, so they carry no weekly inventory lock. Their win probabilities come from external '
                 'first-party markets only: the public Polymarket CS2 directory and CS2-tag event API with both '
@@ -534,9 +538,10 @@ def render_day4(guide, prefix):
         else:
             out += ('<p class="small">No retained external-market evidence for the Day-4 tournament card yet. '
                     'Probabilities stay blank until a validated book is collected.</p>')
-    out += (f'<p class="section-intro"><a href="{prefix}origination/#picks">Every updated CS2 pick →</a> · '
-            f'<a href="{prefix}origination/#unresolved">All unresolved picks &amp; limitations →</a> · '
-            + (f'<a href="{prefix}data/{e(guide["research_report"])}">Day-3/4 source manifest ↓</a>' if guide.get('research_available') else 'Day-3/4 source evidence unavailable — unverified') + '</p></section>')
+    if guide['not_in_hotspawn_snapshot']:
+        out += (f'<p class="section-intro">External lines refresh with the same four-hour publisher as the complete '
+                f'list. <a href="{prefix}data/{e(guide["research_report"])}">Day-3/4 source manifest ↓</a> · '
+                f'<a href="{prefix}origination/#picks">Every updated CS2 pick →</a></p></section>')
     out += '<section class="content-section" id="day-three-results"><div class="section-heading"><div><p class="eyebrow">16 October · source-checked, not inferred</p><h2>Day 3 results: evidence for Day 4</h2></div></div>'
     if guide['day3_results']:
         out += results_table(guide['day3_results'], prefix)
