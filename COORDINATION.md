@@ -1,22 +1,47 @@
 # Current session: arena-fa7ed344 — final integration, production recovery, and verified publication
 
 Claimed 2026-10-17T00:55Z on Arena's fixed branch `arena/fa7ed344-maltaproj3`. Before claiming, read the
-complete shared board, current `main` (PR #66), open PR #65, its completed W-1..W-4 handoff, and both failed
-post-#66 publisher runs 38987040462 / 38987976979. No implementation owner remains active: #66 is merged;
-8fa2b226 records all scopes done and released, although its PR is still open/conflicting and one stale table cell
-still says W-2 in progress. This session takes final integration rather than creating the brief's alternative branch.
+complete shared board, current `main` (PR #66), then-open PR #65, its completed W-1..W-4 handoff, and both
+failed post-#66 publisher runs 38987040462 / 38987976979. At claim time no implementation owner remained active:
+#66 was merged; 8fa2b226 recorded all scopes released although its PR was still open/conflicting and one stale
+cell still said W-2 in progress. This session takes final integration rather than creating the brief's alternative branch.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | in progress | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/build.py`, focused tests only as proven necessary | Both failed runs collected a complete 96-row inventory and then failed the build even after last-good restoration. Diagnose from source/tests and add actionable runner diagnostics; do not guess from a generic exit annotation. Manual `twc-research.yml` dispatch was attempted once and denied HTTP 403, so the existing branch audit will exercise the live TWC stage before its build and retain the originals. |
-| FI-2 Integrate the completed, conflicting PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | in progress | arena-fa7ed344 | released PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolutions | Re-run all provenance contracts. Close superseded PR #65 only after its commits are present in the final integration branch. No source probability or result may be chosen merely to resolve a textual conflict. |
-| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Broken CI/deploy blocks merge completion. Every unsupported fixture remains present and explicitly blank/flagged; successful deploy and current dated counts must be observed, not assumed. |
+| FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | done 2026-10-17T01:10Z | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/build.py`, focused tests | Repaired retained-file hashing, current/legacy fixture serialization, every Kalshi collector return path and the conditional Day-4 deep link. Full live branch audit 38989088680 passed collection, evidence replay, build, row audit and links. |
+| FI-2 Integrate PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | done 2026-10-17T01:10Z | arena-fa7ed344 | PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolution | PR #65 actually merged into `main` as `179d473`; merge `bebc08c` integrates it with every FI-1 repair. The sole board conflict preserved both sessions. No source probability or result was selected merely to resolve text. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Combined local verification is green: 483 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 366 audited rows/0 violations and 583 links. Branch CI, final PR/merge, canonical deployment and public parity still must be observed. |
 
-Known starting irregularities: main's two consecutive production runs fail in the build step after fresh collection;
-GitHub's downloadable log host is outside this sandbox allowlist and the check exposes only exit 1. The prior
-static legacy Pages build succeeded, but that is not accepted as the requested verified canonical deployment.
-PR #65 is green on its branch but conflicts with #66 in shared TWC/summary files and falsely records itself as
-merged; this final integration will correct that record rather than silently discarding either session.
+Known starting irregularities (at claim time): main's two consecutive production runs failed in the build step
+after fresh collection; GitHub's downloadable log host is outside this sandbox allowlist and the check exposed
+only exit 1. The prior static legacy Pages build succeeded, but that was not accepted as the requested verified
+canonical deployment. PR #65 was green on its branch but conflicted with #66 in shared TWC/summary files and
+prematurely recorded itself as merged; the actual merge and reconciliation are recorded below.
+
+## FI-1/FI-2 completion and combined validation — 2026-10-17T01:10Z
+
+- Four sequential branch audits isolated four independent production defects without weakening replay:
+  `38988353495` proved that the manifest had hashed transient decoded bytes rather than the retained evidence
+  file; `38988572746` exposed dict-shaped fixture teams; `38988713539`/`38988792349` localized a nested
+  Kalshi provider/list return; and `38988913729` passed collection/replay before exposing a landing-page anchor
+  whose target is conditional. Commits `0ee493d`, `7e6e124`, `40138fe`, `cf0f52c` and `b3e48fb` repair and
+  regression-test each boundary. The raw HTTP hash remains separately available as `response_sha256`.
+- Full live branch audit [38989088680](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989088680)
+  succeeded through Hotspawn inventory, external-line origination, TWC collection, retained-original replay,
+  dashboard build, strict row audit and internal-link validation. No probability was hand-edited or inferred.
+- PR [#65](https://github.com/buffedlizard55-lab/MaltaProj3/pull/65) subsequently **did** merge into `main` as
+  `179d473`. Local integration merge `bebc08c` combines its group-stage/Day-5/coverage-probe work with all
+  production repairs above. The only textual conflict was this board; both complete session records were kept.
+- Combined local verification: **483/483 Python tests pass**; canonical build replays **80 source rows**, audits
+  **366 rows** (**358 official-source + 8 site-map**, **0 violations**) and validates **583** links/assets/anchors;
+  **72/72 Playwright cases pass** across 320/390/768/1440 px, no-JS and automated WCAG A/AA checks; the
+  independent pick-safety browser audit passes **106 assertions**. The first simultaneous browser invocation
+  had one `spawn ETXTBSY` infrastructure error because two suites launched the same restricted Chromium binary;
+  rerunning Playwright alone passed all 72 and no page assertion ever failed.
+- Main run [38989106868](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989106868) failed in the
+  reconcile/build step on `179d473`; it predates every FI-1 collector/replay fix and therefore is not publication
+  evidence for this integrated tree. FI-3 remains open until this exact merge passes branch checks, merges through
+  its own PR, deploys, and the public artifact is verified after deployment.
 
 ---
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
@@ -30,9 +55,9 @@ scopes are preserved and no other session's owned file is edited without a logge
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
 | W-1 Complete the TWC 2026 record from HLTV originals (all ten group-stage series incl. both Day-3 deciders), add the Day-4 semifinal and Day-5 final card with dated external-line observations, and refresh the contrarian leaderboard guidance (score-line base rates, where a contrarian play is defensible) | done 2026-10-17T00:40Z | arena-8fa2b226 | `data/edge-review.json`, `scripts/build_edge.py`, `scripts/build_twc.py`, `data/strategy-rules.json`, `scripts/build_strategy.py`, `tests/test_edge.py`/`tests/test_twc.py`/`tests/test_strategy.py` additions, new `data/research/8fa2b226/` | Dated research page, never a pricing override. No Hotspawn %, no HLTV fan votes, no invented scores or prices. |
-| W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | in progress | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, new `scripts/coverage_probe.py`, `.github/workflows/pages.yml`, new `data/research/8fa2b226/` | `scripts/originate.py` join rules and validation thresholds stay untouched; any needed hook there is logged as a handoff request instead. |
+| W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | done 2026-10-17T00:40Z | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, `.github/workflows/pages.yml`, new `data/research/8fa2b226/` | No alias met the reviewed evidence bar, so none was added; the non-authoritative coverage probe and per-fixture rejection trail were published without changing production join thresholds. |
 | W-3 Mobile + executive-summary audit against the brief (one-tap links to picks, Day-4 guidance, unresolved section with inline limitations), plus diagnosis/fix of the post-#64 `verify_live` failure on main (run 38963040905) | done 2026-10-17T00:40Z | arena-8fa2b226 | `scripts/build.py` (exec-summary section only), `assets/*.css` mobile rules, `tests/browser/*`, `scripts/verify_live.py` | Fix only what a reproduced failure proves; every other-session check is preserved. |
-| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | done 2026-10-17T00:45Z | arena-8fa2b226 | `COORDINATION.md`, README additions | Sole active session; takes the shared-board/index changes only after W-1..W-3 land on this branch. |
+| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | local/PR work done 2026-10-17T00:45Z; merged 2026-10-17T01:02Z; deploy handed to FI-3 | arena-8fa2b226 | `COORDINATION.md`, README additions | PR #65 merged as `179d473`; canonical run 38989106868 failed before deployment on the pre-FI repair tree, so only FI-3 may close final publication. |
 
 
 Concurrency note (resolved at merge): `arena-138f48b7` claimed at the same minute and PR #66 landed on main
@@ -48,8 +73,9 @@ tests are in `tests/test_edge.py` (31 checks, all passing on the merged tree).
 
 **PR #65** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/65` (branch `arena/8fa2b226-maltaproj3`,
 commits `da8050e` claim → `3138aa0` → `d91d9ef` → `87d156d`). Checks on `87d156d`: **Validate dashboard pass
-(4m39s)** and **Origination source audit pass**, then merged into `main` (no approval wait, per the standing
-brief). Pages deploy and the post-deploy verifier: see the merge note below.
+(4m39s)** and **Origination source audit pass**. The earlier text prematurely called it merged; GitHub records the
+actual merge at **2026-10-17T01:02:17Z** as `179d473`. Its canonical run 38989106868 failed before deployment
+on the pre-FI repair tree, so final Pages deployment and post-deploy verification are owned by FI-3 above.
 
 | Scope | Outcome |
 | --- | --- |
