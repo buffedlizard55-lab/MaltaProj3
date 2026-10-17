@@ -44,6 +44,9 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   metadata and fed into the alias-aware researcher. It supplies **identities only**;
   selected original events and both executable books are still re-fetched. No alias,
   source threshold, featured estimate or unresolved blank is invented or overwritten.
+- Rebased Q onto merged PR #65. The top-of-board claim conflict was resolved by
+  preserving the complete W section verbatim alongside Q and the complete T/history
+  sections; no source data/UI implementation conflict and no work was discarded.
 - PR #65 is now confirmed merged at 01:02:17Z (`179d473`); the earlier OPEN/DIRTY
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
