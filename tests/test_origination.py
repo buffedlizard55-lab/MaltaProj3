@@ -85,20 +85,24 @@ class EstimateTests(unittest.TestCase):
                 'competition': 'Elisa BreakOut Series #2', 'teams': [{'name': a}, {'name': b}]}
 
     def test_market_estimate_uses_midpoints_and_flags_thin_books(self):
+        now = datetime(2026, 10, 15, 8, tzinfo=UTC)
         row = {'names': ['WBT', 'ENCE'], 'bid': [0.57, 0.42], 'ask': [0.58, 0.43],
+               'observed_at': originate.iso(now),
                'source_url': 'https://polymarket.com/event/x', 'event_id': '1', 'evidence_file': 'e.json'}
-        quote, detail = originate.market_estimate(row, self.match(), registry(), datetime.now(UTC))
+        quote, detail = originate.market_estimate(row, self.match(), registry(), now)
         self.assertAlmostEqual(quote['probabilities'][0], 0.575, places=4)
         self.assertFalse(quote['thin'])
         row['bid'], row['ask'] = [0.54, 0.17], [0.81, 0.32]
-        quote, detail = originate.market_estimate(row, self.match(), registry(), datetime.now(UTC))
+        quote, detail = originate.market_estimate(row, self.match(), registry(), now)
         self.assertIsNone(quote)
         self.assertIn('ceiling', detail)
 
     def test_market_estimate_rejects_spread_above_ceiling(self):
+        now = datetime(2026, 10, 15, 8, tzinfo=UTC)
         row = {'names': ['WBT', 'ENCE'], 'bid': [0.5, 0.1], 'ask': [0.95, 0.5],
+               'observed_at': originate.iso(now),
                'source_url': 'https://polymarket.com/event/x', 'event_id': '1', 'evidence_file': 'e.json'}
-        quote, detail = originate.market_estimate(row, self.match(), registry(), datetime.now(UTC))
+        quote, detail = originate.market_estimate(row, self.match(), registry(), now)
         self.assertIsNone(quote)
 
     def test_bookmaker_estimate_removes_margin_and_aligns(self):

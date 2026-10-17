@@ -27,6 +27,27 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   run on the existing GitHub runner, with actual response bytes/observation times where
   inspectable; job success alone never verifies a source fact.
 
+### Q-1/Q-2 measured progress (01:04Z)
+- Independent read-only runner **38988718257** now actually reproduces TWC's
+  saved-vs-HTTP digest failure using real provider responses. Check annotation
+  `117266063070` contains the precise exception at the new collect→replay step.
+  The inaccessible older production traceback remains unknown; no guess is substituted.
+  T was notified again on PR #66. The six actual-Client T checks remain red until
+  its owner fixes/releases `twc_lines.py`; no red merge is planned.
+- Q-2 now passes **101 origination/source-integrity regressions** (26 new tests
+  plus existing fixtures): rejects mismatched Thunderpick event/outcome names,
+  ambiguous/conflicting provider candidates, incomplete/missing-time paired prices,
+  and altered original prematch state/deadline facts. Explicit snapshot-time replay
+  replaces the unrelated bookmaker wall-clock check. The new read-only row register
+  validates both feeds and clearly distinguishes dated estimates from usable picks.
+- Fresh retained CS2-tag discovery is replayed from original pages + actual request
+  metadata and fed into the alias-aware researcher. It supplies **identities only**;
+  selected original events and both executable books are still re-fetched. No alias,
+  source threshold, featured estimate or unresolved blank is invented or overwritten.
+- PR #65 is now confirmed merged at 01:02:17Z (`179d473`); the earlier OPEN/DIRTY
+  warning was accurate at its observation and is now superseded. T's active root/TWC
+  ownership remains respected. Next rebase will preserve both complete board sections.
+
 ### Q-1 live-audit hook claimed (00:56Z)
 - Claim the completed `origination.yml` workflow's **read-only audit step only**:
   exercise `scripts.twc_research` before its build on session branches. The existing

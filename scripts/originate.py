@@ -225,6 +225,85 @@ def aliased_series_market(event: dict, fixture: dict, registry: dict, now: datet
     return next(original for original, mapped in zip(originals, canonical) if mapped is candidate), ''
 
 
+def supplement_polymarket_discovery(directory_games: list, repo_data: Path, now: datetime) -> tuple[list, dict]:
+    """Reuse tagged identities that the featured collector already discovered.
+
+    The visible directory is windowed. The featured collector already paginates
+    the official CS2-tag API, but used to discard alias-only joins before the
+    research collector looked at them. Reuse only identities that replay from
+    their retained original page AND a fresh successful request. This supplies
+    no price: each selected event and both books must still be fetched again.
+    """
+    from scripts.domain import is_fresh
+    from scripts.sources import gamma_games
+
+    games = list(directory_games)
+    directory_keys = set()
+    accepted, limitations, requests_used = 0, [], []
+    index_path = repo_data / 'evidence/polymarket-index.json'
+    snapshot_path = repo_data / 'latest.json'
+    try:
+        index = load_json(index_path) if index_path.exists() else []
+        requests_ = load_json(snapshot_path).get('requests', []) if snapshot_path.exists() else []
+        if not isinstance(index, list) or not isinstance(requests_, list):
+            raise ValueError('Retained discovery index/request manifest is not an array')
+    except (OSError, ValueError, TypeError) as exc:
+        index, requests_ = [], []
+        limitations.append('Retained tagged discovery could not be read: ' + str(exc))
+    pages = {}
+    for game in index:
+        if not isinstance(game, dict) or not game.get('discovery_evidence'):
+            continue  # Only tagged originals have a replayable identity contract here.
+        origin = game['discovery_evidence']
+        if not isinstance(origin, str) or not re.fullmatch(r'data/evidence/polymarket-discovery-\d+\.json', origin):
+            limitations.append('Retained discovery identity has an unsafe original-page reference; ignored.')
+            continue
+        label = Path(origin).stem
+        observations = [r for r in requests_ if isinstance(r, dict) and r.get('id') == label
+                        and r.get('status') == 'ok' and r.get('evidence') == origin
+                        and str(r.get('url', '')).startswith('https://gamma-api.polymarket.com/events?')
+                        and is_fresh(r.get('observed_at'), now)]
+        if len(observations) != 1:
+            limitations.append(label + ': no unique fresh successful original request; identity ignored.')
+            continue
+        try:
+            if origin not in pages:
+                pages[origin] = gamma_games(load_json(repo_data / 'evidence' / Path(origin).name), origin)
+            if game not in pages[origin]:
+                raise ValueError('Index identity does not replay from the original tagged page')
+        except (OSError, ValueError, TypeError, AttributeError) as exc:
+            limitations.append(label + ': ' + str(exc) + '; identity ignored.')
+            continue
+        games.append(game)
+        accepted += 1
+        request = {k: observations[0].get(k) for k in ('url', 'observed_at', 'evidence')}
+        if request not in requests_used:
+            requests_used.append(request)
+    unique = {}
+    for position, game in enumerate(games):
+        if not isinstance(game, dict) or not game.get('id'):
+            continue
+        names = [game.get('homeName'), game.get('awayName')]
+        if not all(isinstance(n, str) and n.strip() for n in names):
+            continue
+        start = timestamp(game.get('startTime'))
+        if start is None:
+            continue
+        key = (str(game['id']), tuple(sorted(name_key(n) for n in names)), iso(start))
+        unique.setdefault(key, game)
+        if position < len(directory_games):
+            directory_keys.add(key)
+    return list(unique.values()), {
+        'source': 'Polymarket directory plus replayed retained CS2-tag discovery',
+        'role': 'Identity discovery only; selected original event and both order books are re-fetched.',
+        'supplemental_identities': len(set(unique) - directory_keys),
+        'retained_identities_replayed': accepted, 'discovered_identities': len(unique),
+        'directory_is_exhaustive': False, 'tagged_discovery_available': bool(requests_used),
+        'prices_used': False, 'reused_requests': requests_used,
+        'limitations': list(dict.fromkeys(limitations)),
+    }
+
+
 def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     """Refetch every first-party source used by the origination ladder.
 
@@ -269,6 +348,9 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['polymarket_games'] = len(games)
     except (RuntimeError, ValueError) as exc:
         out['polymarket_index_error'] = str(exc)
+    games, out['polymarket_discovery'] = supplement_polymarket_discovery(
+        games, evidence_dir.parent.parent, datetime.now(UTC))
+    client.save('live-discovery-audit', out['polymarket_discovery'])
     events = []
     books = []
     for game in games:
@@ -417,7 +499,11 @@ def load_json(path: Path):
 def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
     rows = []
     if live and isinstance(live.get('thunderpick'), dict):
+        if live['thunderpick'].get('ok') is not True:
+            return []
         body = (live['thunderpick'].get('data') or {})
+        if not isinstance(body, dict):
+            return []
         rows = body.get('upcoming') or body.get('matches') or []
         observed = next((r.get('observed_at') for r in live.get('requests', []) if r.get('id') == 'live-thunderpick-matches' and r.get('status') == 'ok'), None)
         source = ('data/origination/evidence/live-thunderpick-matches.json', observed)
@@ -426,31 +512,46 @@ def thunderpick_rows(repo_data: Path, live: dict | None) -> list:
         if not path.exists():
             return []
         body = load_json(path)
-        if isinstance(body, dict):
-            inner = body.get('data') or {}
-            rows = inner.get('upcoming') or inner.get('matches') or []
+        if not isinstance(body, dict) or body.get('ok') is not True:
+            return []
+        inner = body.get('data') or {}
+        if not isinstance(inner, dict):
+            return []
+        rows = inner.get('upcoming') or inner.get('matches') or []
         snapshot = load_json(repo_data / 'latest.json')
         observed = next((r.get('observed_at') for r in snapshot.get('requests', []) if r.get('id') == 'thunderpick-matches' and r.get('status') == 'ok'), None)
         source = ('data/evidence/thunderpick-matches.json', observed)
     out = []
+    if not isinstance(rows, list):
+        return []
     for row in rows:
-        teams = row.get('teams') or {}
-        names = [(teams.get(k) or {}).get('name', '') for k in ['home', 'away']]
-        market = row.get('market') or {}
-        if name_key(market.get('name', '')) not in {'match winner', 'match winner incl. overtime', 'match winner inc. overtime'}:
+        if not isinstance(row, dict):
+            continue
+        teams, market = row.get('teams'), row.get('market')
+        if not isinstance(teams, dict) or not isinstance(market, dict) or not isinstance(market.get('name'), str):
+            continue
+        if any(not isinstance(teams.get(k), dict) for k in ('home', 'away')):
+            continue
+        names = [teams[k].get('name') for k in ('home', 'away')]
+        if name_key(market['name']) not in {'match winner', 'match winner incl. overtime', 'match winner inc. overtime'}:
             continue
         if row.get('gameId') != 6 or row.get('isLive') is not False or not row.get('id') or market.get('status') != 1 or market.get('draw') is not None:
             continue
         sides = [market.get(k) or {} for k in ['home', 'away']]
-        if any(s.get('status') != 1 for s in sides):
+        if any(not isinstance(s, dict) or s.get('status') != 1 for s in sides):
             continue
-        names = [s.get('name', '') for s in sides]
+        # Preserve the event's own team pair before reading outcome labels.
+        # Comparing the outcome names to themselves used to accept a market
+        # nested under an unrelated or malformed event.
+        outcome_names = [s.get('name') for s in sides]
+        if (not all(isinstance(n, str) and n.strip() for n in names + outcome_names)
+                or len(set(map(name_key, names))) != 2
+                or set(map(name_key, outcome_names)) != set(map(name_key, names))):
+            continue
         odds = [finite(s.get('odds')) for s in sides]
         if any(o is None or o <= 1 for o in odds):
             continue
-        if set(name_key(s.get('name', '')) for s in sides) != set(map(name_key, names)):
-            continue
-        out.append({'family': 'bookmaker', 'provider': 'Thunderpick', 'names': names,
+        out.append({'family': 'bookmaker', 'provider': 'Thunderpick', 'names': outcome_names,
                     'start': row.get('startTime'), 'odds': odds,
                     'event_id': str(row.get('id')), 'source_url': THUNDERPICK_PAGE, 'observed_at': source[1],
                     'api_url': THUNDERPICK_API, 'evidence_file': source[0]})
@@ -476,7 +577,7 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
             if ev.get('closed') is True or ev.get('active') is False:
                 continue
             rows.extend(_rows_from_research_event(ev, books, 'data/origination/evidence/live-polymarket-observations.json'))
-    # One row per event: fresh first-party observations override older saves.
+    # Prefer the freshest retained source per event, preserving ambiguity within it.
     priority = {'live-polymarket-observations': 2, 'research-fetches': 1}
     by_event = {}
     for row in rows:
@@ -485,9 +586,13 @@ def polymarket_rows(repo_data: Path, orig_evidence: Path) -> list:
             if key in (row.get('evidence_file') or ''):
                 rank = value
         current = by_event.get(row['event_id'])
-        if current is None or rank >= current[0]:
-            by_event[row['event_id']] = (rank, row)
-    return [entry[1] for entry in by_event.values()]
+        if current is None or rank > current[0]:
+            by_event[row['event_id']] = (rank, [row])
+        elif rank == current[0] and row not in current[1]:
+            # Preserve duplicate full-series candidates so the resolver can
+            # reject ambiguity instead of silently selecting the final row.
+            current[1].append(row)
+    return [row for entry in by_event.values() for row in entry[1]]
 
 
 def _rows_from_event(event: dict, evidence_file: str, evidence_dir: Path) -> list:
@@ -706,50 +811,61 @@ def valve_rows(repo_data: Path, live: dict | None) -> tuple[list | None, dict | 
 # ---------------------------------------------------------------------------
 
 def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
-    """Prediction-market/exchange series-winner midpoint estimate (Polymarket, Kalshi); wide books are rejected."""
+    """Two complete, fresh paired books; no missing-time or first-row default."""
     from scripts.domain import is_fresh
-    if row.get('observed_at') is not None and not is_fresh(row['observed_at'], now):
-        return None, 'Market observation is stale'
-    if row.get('bid') is not None and row.get('ask') is not None:
-        mids, spreads = [], []
-        for bid, ask in zip(row['bid'], row['ask']):
-            if not (0 < bid <= ask < 1):
-                return None, 'Crossed order book rejected'
-            mids.append((bid + ask) / 2)
-            spreads.append(round(ask - bid, 8))
-        worst = max(spreads)
-        if worst > MAX_ACCEPTED_SPREAD:
-            seen = ', '.join(f'{n} bid/ask {b:.2f}/{a:.2f}' for n, b, a in zip(row['names'], row['bid'], row['ask']))
-            return None, (f'Order book spread {worst:.2f} exceeds the {MAX_ACCEPTED_SPREAD:.2f} indicative ceiling '
-                          f'({seen}); observation recorded, not used as a pick input.')
-        probs = normalize_pair(*mids)
-        thin = worst > THIN_SPREAD
+    if not is_fresh(row.get('observed_at'), now):
+        return None, 'Market observation is missing, future-dated or stale'
+    observed, start = timestamp(row.get('observed_at')), timestamp(row.get('start'))
+    if start and observed and observed >= start:
+        return None, 'Market observation is not prematch'
+    bid, ask = row.get('bid'), row.get('ask')
+    if not isinstance(bid, list) or not isinstance(ask, list) or len(bid) != 2 or len(ask) != 2:
+        return None, 'No complete paired executable prices in the saved response'
+    bid, ask = [finite(b) for b in bid], [finite(a) for a in ask]
+    if any(v is None for v in bid + ask):
+        return None, 'Paired book prices are not finite numbers'
+    if any(not 0 < b <= a < 1 for b, a in zip(bid, ask)):
+        return None, 'Crossed or invalid order book rejected'
+    spreads = [round(a - b, 8) for b, a in zip(bid, ask)]
+    worst = max(spreads)
+    if worst > MAX_ACCEPTED_SPREAD:
+        seen = ', '.join(f'{n} bid/ask {b:.2f}/{a:.2f}' for n, b, a in zip(row['names'], bid, ask))
+        return None, (f'Order book spread {worst:.2f} exceeds the {MAX_ACCEPTED_SPREAD:.2f} indicative ceiling '
+                      f'({seen}); observation recorded, not used as a pick input.')
+    try:
+        probs = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
         aligned = align_by_name(probs, row['names'], match, registry)
-        quote = {'provider': row.get('provider') or 'Polymarket', 'family': 'market', 'probabilities': aligned,
-                 'bid': align_by_name(row['bid'], row['names'], match, registry),
-                 'ask': align_by_name(row['ask'], row['names'], match, registry),
-                 'spread': worst, 'thin': thin, 'observed_at': row.get('observed_at'),
-                 'source_url': row['source_url'], 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
-        if row.get('api_url'):
-            quote['api_url'] = row['api_url']
-        detail = ('Verified paired order-book midpoints.' if not thin else
-                  f'THIN MARKET: best spread {worst:.2f} is wider than {THIN_SPREAD:.2f}; midpoint shown as indicative only.')
-        return quote, detail
-    return None, 'No paired executable prices in the saved response'
+        ordered_bid = align_by_name(bid, row['names'], match, registry)
+        ordered_ask = align_by_name(ask, row['names'], match, registry)
+    except (ValueError, KeyError, TypeError):
+        return None, 'Paired outcome identity or probability mapping is invalid'
+    quote = {'provider': row.get('provider') or 'Polymarket', 'family': 'market', 'probabilities': aligned,
+             'bid': ordered_bid, 'ask': ordered_ask,
+             'spread': worst, 'thin': False, 'observed_at': row['observed_at'],
+             'source_url': row['source_url'], 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
+    for key in ('api_url', 'market_id'):
+        if row.get(key):
+            quote[key] = row[key]
+    return quote, 'Verified paired order-book midpoints.'
 
 
-def bookmaker_estimate(row: dict, match: dict, registry: dict):
+def bookmaker_estimate(row: dict, match: dict, registry: dict, *, now: datetime | None = None):
     from scripts.domain import is_fresh
-    if not is_fresh(row.get('observed_at'), datetime.now(UTC)):
-        return None, 'Bookmaker observation is missing or stale'
+    # Replay at the snapshot's evaluation time, not an unrelated wall clock.
+    now = now or datetime.now(UTC)
+    if not is_fresh(row.get('observed_at'), now):
+        return None, 'Bookmaker observation is missing, future-dated or stale'
+    observed, start = timestamp(row.get('observed_at')), timestamp(row.get('start'))
+    if start and observed and observed >= start:
+        return None, 'Bookmaker observation is not prematch'
     try:
         probs = no_vig(row['odds'])
-    except ValueError as exc:
+        aligned = align_by_name(probs, row['names'], match, registry)
+        odds = align_by_name(row['odds'], row['names'], match, registry)
+    except (ValueError, KeyError, TypeError) as exc:
         return None, str(exc)
-    aligned = align_by_name(probs, row['names'], match, registry)
-    odds = align_by_name(row['odds'], row['names'], match, registry)
     quote = {'provider': row['provider'], 'family': 'bookmaker', 'probabilities': aligned, 'odds': odds,
-             'observed_at': row.get('observed_at'), 'source_url': row['source_url'],
+             'observed_at': row['observed_at'], 'source_url': row['source_url'],
              'api_url': row.get('api_url'), 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
     for key in ('market_id', 'league'):
         if row.get(key):
@@ -902,29 +1018,39 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         ('bookmaker', 'Bovada'): ('Esportsbook line (Bovada original prices)', BOVADA_SITE),
     }
     notes = {key: [] for key in stage_names}
+    matched = {}
     for family, rows in (('market', poly_rows), ('bookmaker', book_rows)):
         for row in rows:
             provider = row.get('provider') or ('Polymarket' if family == 'market' else 'Thunderpick')
             key = (family, provider)
             notes.setdefault(key, [])
             joined, used, status = pair_join(row['names'], row['start'], match, registry)
-            if status != 'matched':
-                continue
-            aliases.extend(used)
-            if used:
-                notes[key].append(('joined via verified alias registry', None))
-            if timestamp(row.get('start')) and timestamp(match.get('starts_at')):
-                delta = abs((timestamp(row['start']) - timestamp(match['starts_at'])).total_seconds())
-                if delta > TIME_DISAGREEMENT_SEC:
-                    time_flags.append(f'{provider} start time differs by {int(delta)}s')
-            if family == 'market':
-                quote, detail = market_estimate(row, match, registry, now)
-            else:
-                quote, detail = bookmaker_estimate(row, match, registry)
-            if quote:
-                estimates[family].append((quote, detail))
-            else:
-                notes[key].append((f'{provider} event {row.get("event_id")}: {detail}', row.get('source_url')))
+            if status == 'matched':
+                matched.setdefault(key, [])
+                item = (row, used)
+                if item not in matched[key]:
+                    matched[key].append(item)
+    for key, candidates in matched.items():
+        family, provider = key
+        if len(candidates) != 1:
+            ids = sorted({str(r.get('event_id')) + '/' + str(r.get('market_id') or 'series')
+                          for r, _ in candidates})
+            detail = (f'Ambiguous {provider} series-winner evidence: multiple matching events/markets or '
+                      f'conflicting observations ({", ".join(ids)}). No first-row default is allowed.')
+            notes[key].append((detail, candidates[0][0].get('source_url')))
+            continue
+        row, used = candidates[0]
+        aliases.extend(used)
+        if used:
+            notes[key].append(('joined via verified alias registry', None))
+        if family == 'market':
+            quote, detail = market_estimate(row, match, registry, now)
+        else:
+            quote, detail = bookmaker_estimate(row, match, registry, now=now)
+        if quote:
+            estimates[family].append((quote, detail))
+        else:
+            notes[key].append((f'{provider} event {row.get("event_id")}: {detail}', row.get('source_url')))
     for key, (stage, fallback_url) in stage_names.items():
         family, provider = key
         hits = [(q, d) for q, d in estimates[family] if q['provider'] == provider]
@@ -995,7 +1121,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                   'fair_decimal': [round(1 / p, 3) for p in probs],
                   'quotes': list(families.values()), 'source': ' + '.join(sources),
                   'source_url': list(families.values())[0]['source_url'],
-                  'observed_at': min(q.get('observed_at') or iso(now) for q in families.values()),
+                  'observed_at': min(q['observed_at'] for q in families.values()),
                   'model_crosscheck': model}
         if thin:
             limitations.append('At least one contributing market is thin/wide; treat the estimate as indicative, not executable.')
@@ -1159,6 +1285,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         'source_generated_at': snapshot.get('generated_at'),
         'registry_updated_at': registry.get('updated_at'),
         'live_collection': bool(live),
+        'research_discovery': (live_payload or {}).get('polymarket_discovery'),
         'counts': counts,
         'policy': {
             'hotspawn_votes_used': False,

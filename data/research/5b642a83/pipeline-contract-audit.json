@@ -4,7 +4,11 @@
   "observed_at": "2026-10-17T00:56:00Z",
   "scope": "Independent collector-to-replay audit of main commit 03b391c96162d3ec1dce39442125d90cd9a96e51. Synthetic HTTP responses exercise the actual sources.Client; no synthetic match or price is a published pick.",
   "command": ".venv/bin/python -m unittest tests.test_pipeline_contract -v",
-  "before": {"tests": 6, "failures": 3, "errors": 3},
+  "before": {
+    "tests": 6,
+    "failures": 3,
+    "errors": 3
+  },
   "after": null,
   "production_observation": {
     "run_id": 38987976979,
@@ -39,8 +43,18 @@
       "id": "Q-TWC-03",
       "status": "handoff-requested",
       "finding": "collect stores fixture.teams as objects with a name field, but replay wraps each object again in {'name': n}. The replayed team names are dictionaries instead of strings.",
-      "actual_replayed_names_synthetic": [{"name": "Synthetic A"}, {"name": "Synthetic B"}],
-      "expected_replayed_names_synthetic": ["Synthetic A", "Synthetic B"],
+      "actual_replayed_names_synthetic": [
+        {
+          "name": "Synthetic A"
+        },
+        {
+          "name": "Synthetic B"
+        }
+      ],
+      "expected_replayed_names_synthetic": [
+        "Synthetic A",
+        "Synthetic B"
+      ],
       "sources": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L337-L344",
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L407-L414"
@@ -52,5 +66,39 @@
     "Active T/A3/W implementations were not edited by this audit.",
     "A previous successful deployment does not establish that the newly merged code is published.",
     "The public site was serving the dated checked-in fallback on the observation, not a verified 17 October inventory. No old timestamp was replaced with today's date."
-  ]
+  ],
+  "live_runner_reproduction": {
+    "observed_at": "2026-10-17T01:03:48.198627Z",
+    "run_id": 38988718257,
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38988718257",
+    "branch_commit": "ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c",
+    "provider_collector": "Actual public HTTP responses fetched by GitHub Actions; this is a branch audit, not a successful Pages publication.",
+    "annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117266063070/annotations",
+    "failure_annotations": [
+      {
+        "annotation_level": "failure",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c/.github",
+        "end_column": null,
+        "end_line": 57,
+        "message": "Process completed with exit code 1.",
+        "path": ".github",
+        "raw_details": "",
+        "start_column": null,
+        "start_line": 57,
+        "title": ""
+      },
+      {
+        "annotation_level": "failure",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c/.github",
+        "end_column": null,
+        "end_line": 56,
+        "message": "ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0058.json",
+        "path": ".github",
+        "raw_details": "",
+        "start_column": null,
+        "start_line": 56,
+        "title": "TWC collect/replay contract"
+      }
+    ]
+  }
 }
