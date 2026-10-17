@@ -2503,3 +2503,12 @@ every published row keeps its own official source link and observation time.
   and checks.yml now publishes unittest FAIL/ERROR lines as annotations so log
   retrieval outages cannot hide a failure. Full suites re-verified with real
   exit codes: 615 Python tests OK, 85/85 Playwright.
+- **Ship record:** PR **#85** (D5-1…D5-6), PR **#87** (integration fixes; both
+  CI checks green incl. the live originate pipeline against real Day-5 books).
+  Deploy run 39075798788 `success`; Pages `status: built` at
+  https://buffedlizard55-lab.github.io/MaltaProj3/ — live spot-check 18 Oct
+  00:50 Malta: executive summary carries the "TWC final day · where the picks
+  are" callout with the three final-day entry points, and the edge page's
+  Day-5 card publishes both fixtures with picks, labelled fallbacks,
+  contrarian watches (Aurora 32.9% / BETBOOM 21.3%, expected-point costs
+  0.341 / 0.573), the dated market scan, guidance and limitations.
