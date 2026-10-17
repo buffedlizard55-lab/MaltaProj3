@@ -41,6 +41,11 @@ jobs:
           # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
+      # Exercise the same source stage that production runs before its build.
+      # This caught the post-PR-66 failure that fixture-only CI could not reproduce,
+      # while remaining read-only/data-only: this audit never publishes or commits.
+      - name: Refresh and replay TWC tournament-card sources before the build
+        run: python -m scripts.twc_research
       - name: Build the origination page and check it
         run: |
           python - <<'PY'
