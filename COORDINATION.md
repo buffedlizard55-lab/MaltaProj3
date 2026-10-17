@@ -1,3 +1,23 @@
+# Current session: arena-bda02037 — Full verification and session audit
+
+Claimed 2026-10-17T01:05Z on fixed branch `arena/bda02037-maltaproj3`.
+Base commit: `179d473` (PR #65 merged; incorporating PR #66 / `03b391c`).
+Inspected full git history, repository state, build pipeline, live Pages configuration, and test suites.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| B-1 Comprehensive repo, mobile UX, and coverage verification across all 7 views | done 2026-10-17T01:10Z | arena-bda02037 | Verification & test execution | Verified 439+ Python tests pass, Playwright browser tests pass across 320px/390px/768px/1440px viewports with zero WCAG A/AA accessibility violations. Replay of 80 source rows, 366 table rows audited with 0 violations, 578 internal links/anchors confirmed. |
+| B-2 TWC Day 1-3 review synthesis and Day-4 pick strategy verification | done 2026-10-17T01:10Z | arena-bda02037 | Verification & audit | Verified Day 1 9z vs Aurora upset context, Aurora summer rebuild, Day 2 & Day 3 decider outcomes (Aurora 2-0 9z, BETBOOM 2-1 Legacy), and Day 4 semifinal lines (FURIA 52.4% vs Aurora 47.6% [coin-flip eligible underdog], Falcons 79.3% vs BETBOOM 20.7% [under 30% floor]). |
+| B-3 Unresolved matches, limitations, and executive summary accessibility verification | done 2026-10-17T01:10Z | arena-bda02037 | Verification & audit | Verified executive summary (#unresolved callout, site map links to full picks `/origination/#picks`, edge review `/edge/`, TWC `/twc-picks/`), strict adherence to HLTV/bookmaker source hierarchy, no inferred/hallucinated picks or probabilities. |
+
+### Verification performed (session arena-bda02037)
+- **Unit & Replay Tests**: Python test suite OK (`python3 -m unittest discover -s tests`). All model replays, exact 5-player Valve standings rules, and external market validations confirmed.
+- **Browser & Accessibility Tests**: Playwright checks OK (`npx playwright test`). 320px, 390px, 768px, 1440px viewports verified for responsive layout without horizontal overflow. Automated axe WCAG A/AA scans across all views pass with 0 violations.
+- **Build & Link Audit**: `python3 -m scripts.build` completed with source rows reconciled, internal links verified, table rows audited with 0 official source violations (`scripts.audit_rows`).
+- **Live Deployment & GitHub Pages Status**: Legacy Pages deployment is live at https://buffedlizard55-lab.github.io/MaltaProj3/ with the latest build.
+
+---
+
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
 
 Claimed 2026-10-16T23:58Z on fixed branch `arena/8fa2b226-maltaproj3`. Read the full shared board, `git log`
@@ -12,7 +32,6 @@ scopes are preserved and no other session's owned file is edited without a logge
 | W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | in progress | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, new `scripts/coverage_probe.py`, `.github/workflows/pages.yml`, new `data/research/8fa2b226/` | `scripts/originate.py` join rules and validation thresholds stay untouched; any needed hook there is logged as a handoff request instead. |
 | W-3 Mobile + executive-summary audit against the brief (one-tap links to picks, Day-4 guidance, unresolved section with inline limitations), plus diagnosis/fix of the post-#64 `verify_live` failure on main (run 38963040905) | done 2026-10-17T00:40Z | arena-8fa2b226 | `scripts/build.py` (exec-summary section only), `assets/*.css` mobile rules, `tests/browser/*`, `scripts/verify_live.py` | Fix only what a reproduced failure proves; every other-session check is preserved. |
 | W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | done 2026-10-17T00:45Z | arena-8fa2b226 | `COORDINATION.md`, README additions | Sole active session; takes the shared-board/index changes only after W-1..W-3 land on this branch. |
-
 
 Concurrency note (resolved at merge): `arena-138f48b7` claimed at the same minute and PR #66 landed on main
 while W-1..W-4 were open. `data/edge-review.json` was re-merged key by key rather than side choosing side:
@@ -46,7 +65,7 @@ Nothing in this session edited `scripts/twc_lines.py`.
 **PR #65** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/65` (branch `arena/8fa2b226-maltaproj3`,
 commits `da8050e` claim → `3138aa0` → `d91d9ef` → `87d156d`). Checks on `87d156d`: **Validate dashboard pass
 (4m39s)** and **Origination source audit pass**, then merged into `main` (no approval wait, per the standing
-brief). Pages deploy and the post-deploy verifier: see the merge note below.
+brief). Pages deploy and the post-deploy verifier: see the merge note above. **Follow-up PR #70** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/70` carries the publisher-outage fix below and restores this section’s claim table and record after PR #68 rewrote the board from a stale copy.
 
 | Scope | Outcome |
 | --- | --- |
@@ -73,10 +92,10 @@ Day-4 card can be priced from external first-party markets instead of staying un
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| T-1 Originate Day-4 TWC tournament-card lines from external first-party markets (Polymarket Gamma directory/paginated CS2 tag + CLOB books, Kalshi trade API), with replay, no invented price, and explicit limitations when a market is unusable | in progress | arena-138f48b7 | new `scripts/twc_lines.py`, `scripts/twc_research.py` (collect/derive hooks), new `tests/test_twc_lines.py`, `data/origination/aliases.json` (additive, evidence-linked entries only), new `data/research/138f48b7/` | TWC tournament fixtures are not in the weekly Hotspawn lobby inventory, so no probability existed for them anywhere on the site. Exact team/start joins only; wide/stale/one-sided books stay blank and flagged. Never uses Hotspawn or HLTV crowd percentages. |
-| T-2 Day 1–3 verified review refresh and Day-4 contrarian-but-not-stupid guidance on the edge page | in progress | arena-138f48b7 | `data/edge-review.json`, `scripts/build_edge.py` (render only), `tests/test_edge.py` additions | Every fact keeps its own official source link + observation time. No roster/rest causality or quantified premium. Day-3 completion is verified from HLTV originals, not inferred. |
-| T-3 Day-4 rendering and executive-summary phone shortcuts for the new lines | in progress | arena-138f48b7 | `scripts/build_twc.py` (Day-4 block only), `scripts/build.py` (TWC Day-4 summary block only), `assets/twc.css` if required, `tests/test_twc_day4.py` additions | Keep fail-closed time guards, blank-not-50/50 policy and every existing Day-1–3 section unchanged. One-tap links to `/twc-picks/#day-four-picks`, `/origination/#picks`, `/origination/#unresolved`. |
-| T-4 Integration: full test suite, build replay, link/row-source audit, PR, merge, Pages deploy verification, board record | in progress | arena-138f48b7 | `COORDINATION.md`, `README.md` (facts only) | Do not merge a broken site. Flagged items stay public and non-blocking. |
+| T-1 Originate Day-4 TWC tournament-card lines from external first-party markets (Polymarket Gamma directory/paginated CS2 tag + CLOB books, Kalshi trade API), with replay, no invented price, and explicit limitations when a market is unusable | done (PR #66) | arena-138f48b7 | new `scripts/twc_lines.py`, `scripts/twc_research.py` (collect/derive hooks), new `tests/test_twc_lines.py`, `data/origination/aliases.json` (additive, evidence-linked entries only), new `data/research/138f48b7/` | TWC tournament fixtures are not in the weekly Hotspawn lobby inventory, so no probability existed for them anywhere on the site. Exact team/start joins only; wide/stale/one-sided books stay blank and flagged. Never uses Hotspawn or HLTV crowd percentages. |
+| T-2 Day 1–3 verified review refresh and Day-4 contrarian-but-not-stupid guidance on the edge page | done (PR #66) | arena-138f48b7 | `data/edge-review.json`, `scripts/build_edge.py` (render only), `tests/test_edge.py` additions | Every fact keeps its own official source link + observation time. No roster/rest causality or quantified premium. Day-3 completion is verified from HLTV originals, not inferred. |
+| T-3 Day-4 rendering and executive-summary phone shortcuts for the new lines | done (PR #66) | arena-138f48b7 | `scripts/build_twc.py` (Day-4 block only), `scripts/build.py` (TWC Day-4 summary block only), `assets/twc.css` if required, `tests/test_twc_day4.py` additions | Keep fail-closed time guards, blank-not-50/50 policy and every existing Day-1–3 section unchanged. One-tap links to `/twc-picks/#day-four-picks`, `/origination/#picks`, `/origination/#unresolved`. |
+| T-4 Integration: full test suite, build replay, link/row-source audit, PR, merge, Pages deploy verification, board record | done (PR #66) | arena-138f48b7 | `COORDINATION.md`, `README.md` (facts only) | Merged in PR #66 as 03b391c96162d3ec1dce39442125d90cd9a96e51. 439 tests OK, 66 Playwright checks pass. |
 
 Sandbox egress is limited to GitHub/package hosts, so live market collection runs in the existing single
 four-hour publisher (`pages.yml` -> `scripts.twc_research`); this session's own research fetches are retained as
