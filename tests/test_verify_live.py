@@ -105,3 +105,34 @@ class PublicArtifactParity(unittest.TestCase):
         self.overrides['data/twc-day3-picks.json'] = json.dumps(data).encode()
         self.overrides['data/twc-day4-picks.json'] = json.dumps(data['day4']).encode()
         with self.assertRaisesRegex(ValueError, 'omits or invents a Hotspawn'): self.verify()
+
+    def test_day5_json_must_remain_the_same_in_both_exports(self):
+        data = json.loads((self.site / 'data/twc-day5-picks.json').read_text())
+        data['event_day'] = '2000-01-01'
+        self.overrides['data/twc-day5-picks.json'] = json.dumps(data).encode()
+        with self.assertRaisesRegex(ValueError, 'Day-5 JSON differs'): self.verify()
+
+    def test_day5_section_must_not_be_missing(self):
+        text = (self.site / 'twc-picks/index.html').read_text().replace('id="day-five-picks"', 'id="wrong-day"')
+        self.overrides['twc-picks/'] = text.encode()
+        with self.assertRaisesRegex(ValueError, 'missing #day-five-picks'):
+            self.verify()
+
+    def test_day5_cannot_show_a_price_absent_from_its_json(self):
+        from bs4 import BeautifulSoup
+        html = BeautifulSoup((self.site / 'twc-picks/index.html').read_text(), 'html.parser')
+        strong = html.select_one('#day-five-picks .twc-prob strong')
+        if strong is None:
+            self.skipTest('the final-day section has no priced series in this snapshot')
+        strong.string = '55.5%'
+        self.overrides['twc-picks/'] = str(html).encode()
+        with self.assertRaisesRegex(ValueError, 'absent from its JSON'):
+            self.verify()
+
+    def test_day5_cannot_drop_a_listed_series(self):
+        data = self.twc_data()
+        data['day5']['slots'] = []
+        self.overrides['data/twc-day3-picks.json'] = json.dumps(data).encode()
+        self.overrides['data/twc-day5-picks.json'] = json.dumps(data['day5']).encode()
+        with self.assertRaisesRegex(ValueError, 'Day-5 HTML slot count'):
+            self.verify()

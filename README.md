@@ -12,7 +12,7 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
 | [Day 1 contrarian review](https://buffedlizard55-lab.github.io/MaltaProj3/#contrarian) | Source-linked 9z–Aurora upset review, Aurora rebuild context and a strictly bounded 9z–Falcons watch that never overrides the primary pick |
 | [Upset review & edge](https://buffedlizard55-lab.github.io/MaltaProj3/edge/) | Dated first-party deep dive: day one at Thunderpick World Championship 2026 (9z 2-0 Aurora and the other three series, map by map), Aurora roster context (not a proven cause of the upset), official Valve standings for the current card, dated market observations and the seven rules applied before disagreeing with a market |
-| [TWC Day 3 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | Both deciders regenerated from the **same complete-picks snapshot**; both probabilities, default picks, optional underdog screens and expected-point costs, Days 1–2 results replayed from original HLTV pages, roster/rest verification and unresolved limitations. No fan votes, outrights or narrative probability adjustments |
+| [TWC Day 4 & Day 5 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | The semifinals and the **final day** regenerated from the **same complete-picks snapshot**: both probabilities, default picks, optional underdog screens and expected-point costs, the third-place decider and grand final with their verified participants, the Days 1–4 result ladder that guides them, Days 1–2 results replayed from original HLTV pages, roster/rest verification and unresolved limitations. No fan votes, outrights or narrative probability adjustments |
 | [Coverage & original sources](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/) | Inventory reconciliation, source health, complete past-start archive and JSON/CSV downloads |
 | [Methodology](https://buffedlizard55-lab.github.io/MaltaProj3/methodology/) | Exact matching, formulas, thresholds, source policy and model limitations |
 | [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
@@ -126,7 +126,7 @@ python -m scripts.audit_rows --site site --strict
 python -m scripts.lobby_probe --rounds 3 --out /tmp/probe.json  # read-only, public GETs only
 ```
 
-At the time of writing (2026-10-17) the integrated tree passes 496 Python tests, 72 Playwright checks and 106 independent pick-safety browser assertions (the leaderboard plan has its own spec at 320/390/768/1440 px with axe WCAG A/AA at phone and desktop widths, as do the Day-4/Day-5 review sections). `scripts.build` replays 80 source rows, validates 585 internal links/assets/anchors, and the strict row audit accepts 375 rows (367 official-source rows plus 8 site-map navigation rows, 0 violations). These counts move with every session — re-measure with `.venv/bin/python -m unittest discover -s tests`, `npm test`, `node tests/pick-safety-browser.mjs` and a `scripts.build` run rather than trusting this sentence. **Non-blocking platform restriction:** GitHub Pages remains in legacy mode because the workflow token gets HTTP 403 when attempting the repository setting change. The sole publisher detects that mode, waits for the platform build, and publishes the verified artifact afterward; no user input is required.
+At the time of writing (2026-10-17) the integrated tree passes 613 Python tests, 79 Playwright checks and 106 independent pick-safety browser assertions (the leaderboard plan has its own spec at 320/390/768/1440 px with axe WCAG A/AA at phone and desktop widths, as do the Day-4/Day-5 review sections). `scripts.build` replays 80 source rows, validates 607 internal links/assets/anchors, and the strict row audit accepts 406 rows (398 official-source rows plus 8 site-map navigation rows, 0 violations). These counts move with every session — re-measure with `.venv/bin/python -m unittest discover -s tests`, `npm test`, `node tests/pick-safety-browser.mjs` and a `scripts.build` run rather than trusting this sentence. **Non-blocking platform restriction:** GitHub Pages remains in legacy mode because the workflow token gets HTTP 403 when attempting the repository setting change. The sole publisher detects that mode, waits for the platform build, and publishes the verified artifact afterward; no user input is required.
 
 ## Preserved concurrent-session work
 
@@ -314,3 +314,63 @@ listed with its reason rather than a default 50/50.
   and full evidence, and shows `FURIA vs Aurora` as "No edge — even line" rather
   than inventing a side. The `/review/` and `/twc-picks/` pages are live with their
   source links.
+
+## 17 October session arena-534ae9e5: unblock the four-hour publisher and publish the final day
+
+**The publisher was blocked and the public site was frozen.** The scheduled runs
+[39038670350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39038670350),
+[39045650525](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39045650525),
+[39054246287](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39054246287) and
+[39058407711](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711) all
+failed at the step "Regression tests (repository fixtures, before any cache restore)", while the
+last successful scheduled run
+[39031549764](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764)
+completed at about 12:20Z. The cause was a single wall-clock-dependent assertion:
+`scripts/build.py::shell` decided staleness with `datetime.now(timezone.utc)` against a fixture
+whose `inventory_observed_at` was hard-coded to `2026-10-17T04:27:55Z`, so the eight-hour
+freshness window closed at **2026-10-17T12:27:55Z** — exactly when the successful run stopped.
+Because the regression tests run *before* the cache restore and before collection, that one
+expired assertion stopped every refresh.
+
+The fix makes the reference time an injected argument rather than moving the fixture's date
+forward. `shell`, `matches_table`, `glance`, `summary`, `picks`, `coverage`,
+`scripts.build_origination.pick_row` and `scripts.build.build` now take an explicit reference
+time, and one build passes a single reference time to every page, so a page can never disagree
+with itself about freshness. `tests/test_freshness_determinism.py` makes that permanent: it
+checks the injectability contract and re-runs the repository's time-sensitive test modules with
+the production clock **pinned to four absolute instants** that bracket the fixture which broke
+the publisher. Because the instants are absolute, the guard keeps working no matter when it
+runs; it fails on the old wall-clock form at three of the four.
+
+**The final day of the tournament is now published.** The site carried the Day 3 and Day 4
+views but nothing for **18 October 2026**, the last day. HLTV lists the third-place decider
+([match 2399416](https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026),
+11:30Z) and the grand final
+([match 2399417](https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026),
+15:00Z). Both are decided by the 17 October semifinals, so the retained original pages publish no
+participants yet.
+
+- `scripts/twc_research.py::derive_day5` finds the two final-day series from **HLTV's own page
+  titles** ("Grand Final", "3rd Place Decider Match") and their published start times.
+- A participant is used only when the source publishes it, or **derived from a verified semifinal
+  final score** and then labelled as a derivation with the semifinal pages it came from. An
+  undecided series keeps its participants blank and receives no placeholder, no default 50/50 and
+  no tournament outright price.
+- `scripts/build_twc.py::render_day5` publishes the final-day cards, the **verified Days 1–4
+  ladder** (every series a retained original has finished, with its published score and source
+  link) and a guide that states plainly what those results can and cannot do.
+- `scripts/verify_live.py::verify_day5` checks the deployed page against the published JSON:
+  every percentage on the page must exist in the JSON, and a series without participants must
+  show no percentage at all.
+- `data/twc-day5-picks.json` is the machine-readable view, exported with the other two.
+
+The Day-1–4 results are **context, never a probability premium**: a 2–0 series score is not a win
+rate, a comeback is not momentum, and the 30% underdog screen is an editorial floor, not a
+calibrated edge. The default pick stays the higher-probability side of the external line.
+
+A line-by-line repository review is published on the
+[Flagged for Review page](https://buffedlizard55-lab.github.io/MaltaProj3/review/) with the
+source links for every item, including one item left for the owner: the retired
+`.github/workflows/collect-preview.yml` still requests `contents: write` and commits to a finished
+session's branch. It cannot reach `main`, so it publishes nothing, and it was deliberately not
+removed by this session.

@@ -9,12 +9,12 @@ test.beforeAll(() => {
 });
 test.afterAll(() => fs.rmSync('site/_twc_fixture', { recursive: true, force: true }));
 
-test('phone summary exposes the canonical Day 4 guide in one tap', async ({ page }) => {
+test('phone summary exposes the canonical Day 4 and Day 5 guides in one tap', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 4 pick guide' }).click();
   await expect(page).toHaveURL(/\/twc-picks\/$/);
-  await expect(page.locator('main h1')).toHaveText('TWC Day 4: picks & review');
+  await expect(page.locator('main h1')).toHaveText('TWC Day 4 & Day 5: picks & review');
   await expect(page.locator('#day-three-picks .twc-card')).toHaveCount(2);
   const data = await (await page.request.get('/data/twc-day3-picks.json')).json();
   const canonical = await (await page.request.get('/data/origination.json')).json();
@@ -26,6 +26,25 @@ test('phone summary exposes the canonical Day 4 guide in one tap', async ({ page
     const values = row.analysis ? row.analysis.probabilities.map(p => `${(p*100).toFixed(1)}%`) : ['—', '—'];
     await expect(page.locator(`#twc-${row.label} .twc-prob strong`)).toHaveText(values);
   }
+});
+
+test('the final day is reachable and readable on a phone', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/twc-picks/');
+  await expect(page.locator('#day-five-picks')).toBeVisible();
+  const day5 = await (await page.request.get('/data/twc-day5-picks.json')).json();
+  const cards = page.locator('#day-five-picks article');
+  await expect(cards).toHaveCount(day5.slots.length);
+  for (const slot of day5.slots) {
+    const card = page.locator(`#twc-day5-${slot.hltv_match_id}`);
+    await expect(card).toBeVisible();
+    // Every final-day row keeps its source link on a phone.
+    await expect(card.locator('.evidence-links a').first()).toBeVisible();
+    // A series with no decided participants shows no percentage at all.
+    const shown = await card.locator('.twc-prob strong').allTextContents();
+    if (!slot.teams) expect(shown).toEqual([]);
+  }
+  await expect(page.locator('#day-five-ladder')).toBeVisible();
 });
 
 test('both source-backed defaults and optional switches stay distinct; lock and staleness are enforced', async ({ page }) => {

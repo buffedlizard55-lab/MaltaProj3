@@ -102,6 +102,59 @@ def verify_day4(expected, originated, twc, day4, page):
     return len(rows)
 
 
+def verify_day5(twc, day5, page):
+    """The final day must agree with its published JSON, number for number.
+
+    A final-day series can be unpriced — its participants may not be decided
+    yet — so the check is the opposite of a coverage check: every percentage
+    the page shows must exist in the JSON, and a series with no participants
+    must show no percentage at all.
+    """
+    import re
+    if day5 != twc.get('day5') or day5.get('schema_version') != 1:
+        raise ValueError('Day-5 JSON differs between published views')
+    if day5.get('event_day') != '2026-10-18':
+        raise ValueError('Day-5 view is not the final day')
+    section = page.find(id='day-five-picks')
+    if not section:
+        raise ValueError('TWC page missing the final-day section')
+    slots = day5.get('slots') or []
+    cards = section.select('article')
+    if len(cards) != len(slots):
+        raise ValueError('Day-5 HTML slot count differs from its JSON: ' + json.dumps({
+            'html_cards': len(cards), 'data_slots': len(slots)}, ensure_ascii=False))
+    allowed = set()
+    for slot in slots:
+        line = slot.get('line') or {}
+        for probability in line.get('probabilities') or []:
+            allowed.add(f'{probability * 100:.1f}%')
+    shown = re.findall(r'\d+\.\d%', section.get_text(' '))
+    invented = sorted({value for value in shown if value not in allowed})
+    if invented:
+        raise ValueError('Day-5 section shows prices absent from its JSON: ' + ', '.join(invented))
+    for slot, card in zip(slots, cards):
+        values = [n.get_text(strip=True) for n in card.select('.twc-prob strong')]
+        if not slot.get('teams'):
+            if values:
+                raise ValueError('Day-5 series without participants shows a probability')
+            continue
+        line = slot.get('line') or {}
+        probs = line.get('probabilities')
+        expected_values = [f'{p * 100:.1f}%' for p in probs] if probs else ['—', '—']
+        if values != expected_values:
+            raise ValueError('Day-5 HTML probabilities differ from its JSON')
+    for anchor in ('day-five-picks', 'day-five-ladder', 'day-five-guide'):
+        if not page.find(id=anchor):
+            raise ValueError('TWC page missing #' + anchor)
+    ladder = day5.get('ladder') or []
+    table = page.select_one('table.twc-ladder')
+    if ladder and not table:
+        raise ValueError('Day-5 ladder table is missing for listed series')
+    if table and len(table.select('tbody tr')) != len(ladder):
+        raise ValueError('Day-5 ladder table omits or invents a listed series')
+    return len(slots)
+
+
 def verify(url, expected):
     base = url.rstrip('/') + '/'
     session = requests.Session()
@@ -170,7 +223,9 @@ def verify(url, expected):
     twc_page = BeautifulSoup(get('twc-picks/').text, 'html.parser')
     if twc_page.body.get('data-page') != 'twc' or len(twc_page.select('#day-three-picks .twc-card')) != 2:
         raise ValueError('TWC generated page was replaced or its deciders are missing')
-    for anchor in ['twc-summary', 'day-four-picks', 'day-three-results', 'day-three-picks', 'day-one-results', 'day-two-results', 'roster-check', 'unresolved']:
+    for anchor in ['twc-summary', 'day-four-picks', 'day-five-picks', 'day-five-ladder',
+                   'day-five-guide', 'day-three-results', 'day-three-picks', 'day-one-results',
+                   'day-two-results', 'roster-check', 'unresolved']:
         if not twc_page.find(id=anchor):
             raise ValueError('TWC page missing #' + anchor)
     by_id = {m['id']: m for m in originated['matches']}
@@ -188,6 +243,11 @@ def verify(url, expected):
     day4 = get('data/twc-day4-picks.json').json()
     day4_count = verify_day4(expected, originated, twc, day4, twc_page)
     print('::notice::Public Day-4 canonical fixture coverage: ' + str(day4_count))
+    day5 = get('data/twc-day5-picks.json').json()
+    day5_count = verify_day5(twc, day5, twc_page)
+    print('::notice::Public Day-5 final-day series verified: ' + json.dumps({
+        'slots': day5_count, 'ladder_series': len(day5.get('ladder') or []),
+        'priced': day5.get('lines', {}).get('resolved', 0)}, ensure_ascii=False))
     get('assets/pick-safety.js')
     for row in twc['day3_matches']:
         a = row.get('analysis') or {}

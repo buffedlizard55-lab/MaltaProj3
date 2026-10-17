@@ -609,9 +609,9 @@ def review(data, prefix):
     out += review_note(prefix, data.get('day_one_audit'))
     if data.get('repo_audit'):
         out += audit_register(data['repo_audit'], prefix)
-    if data.get('session_review'):
-        from scripts.review_register import render as session_register
-        out += session_register(data['session_review'], prefix)
+    if data.get('session_reviews'):
+        from scripts.review_register import render_all as session_register
+        out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
     for f in data['flags']:
@@ -704,8 +704,16 @@ def build(source: Path, output: Path, now: datetime | None = None):
         data['coverage_probe'] = json.loads((source / 'research/8fa2b226/coverage-probe.json').read_text())
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
-    if (source / 'research/c07e1b40/repo-review.json').exists():
-        data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
+    from scripts.review_register import REGISTERS
+    session_reviews, session_review_paths = [], []
+    for relative in REGISTERS:
+        register_path = source / relative
+        if register_path.exists():
+            session_reviews.append(json.loads(register_path.read_text()))
+            session_review_paths.append(relative)
+    if session_reviews:
+        data['session_reviews'] = session_reviews
+        data['session_review_paths'] = session_review_paths
     from scripts.twc_research import derive_day4, derive_day5
     # One reference time for the whole build: every time-sensitive renderer
     # receives it explicitly, so a page can never disagree with itself about
