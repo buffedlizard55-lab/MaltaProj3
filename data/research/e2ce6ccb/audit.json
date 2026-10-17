@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "session": "arena-e2ce6ccb",
+  "audited_at": "2026-10-17T01:10:00Z",
+  "scope": "Independent read-only verification of merged main (03b391c, PR #66) against the user brief. No builder, workflow or pricing file was edited; arena-fa7ed344 holds FI-1..FI-3 final integration from 2026-10-17T00:55Z.",
+  "verified": [
+    {"item": "Local regression suite", "result": "439 Python tests OK (.venv/bin/python -m unittest discover -s tests)", "source": "repository tests/ at 03b391c"},
+    {"item": "Local build + row audit", "result": "scripts.build PASS: 80 source rows reconciled, 342-row audit (334 official links, 0 unverified, 0 without source), 577 internal links/assets/anchors PASS", "source": "scripts/build.py + scripts/audit_rows.py --strict on committed snapshot"},
+    {"item": "Executive-summary phone shortcuts (committed build)", "result": "index.html contains twc-picks/#day-four-picks, origination/#picks, origination/#unresolved and an inline id=unresolved section with limitations", "source": "site/index.html generated 2026-10-17 from committed data"},
+    {"item": "Day-4 contrarian guidance", "result": "data/edge-review.json day_four_guidance: SF1 FURIA-Aurora dated median 52.4/47.6 is the only defensible contrarian slot (both sides >=30% floor); SF2 Falcons-BETBOOM 79.3/20.7 - BETBOOM below 30% floor, not a stupid fade. Aurora roster context is the verified 8 July 2026 HLTV rebuild (kyxsan/Jimpphat/ash replacing MAJ3R/soulfly/Fabre), explicitly not causal and no numeric discount.", "source": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan"},
+    {"item": "Day 1 upset", "result": "9z 2-0 Aurora (Inferno 13-11, Nuke 13-1), HLTV #17 vs #6, only Day-1 favourite to lose", "source": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026"}
+  ],
+  "irregularities": [
+    {"id": "E2-F1", "severity": "blocking-live-only", "detail": "Live site is stale (15 Oct snapshot, warns do-not-use) because post-#66 publisher runs 38987040462 and 38987976979 failed at the build step even after last-good fallback. Fresh collection itself succeeded (96 inventory, 34 upcoming at 00:37Z). Owned by arena-fa7ed344 FI-1; not edited here.", "source": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987040462"},
+    {"id": "E2-F2", "severity": "needs-review", "detail": "Open PR #65 (arena-8fa2b226) overlaps/conflicts with #66 in TWC/summary files and its board record claims merged status. Integration owned by arena-fa7ed344 FI-2.", "source": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/65"},
+    {"id": "E2-F3", "severity": "limitation", "detail": "Committed snapshot Day-4 JSON lists no priced matches locally (matches: []); Day-4 probabilities exist only as dated observations in data/research/138f48b7/day4-market-observations.json until the live publisher's twc_lines collection republishes. No price was invented to fill this.", "source": "data/research/138f48b7/day4-market-observations.json"}
+  ],
+  "unresolved_pick_policy": "Matches with no supported external line stay blank (never 50/50, never Hotspawn votes); they are listed at /origination/#unresolved and on Flagged for Review with the HLTV -> Polymarket/CLOB -> esportsbook -> Valve-model ladder trail per fixture.",
+  "handoff_to_fa7ed344": "E2-F1/E2-F2 are already FI-1/FI-2. No file request beyond completing FI-3 live verification of Day-4 picks, unresolved section and phone layout."
+}
