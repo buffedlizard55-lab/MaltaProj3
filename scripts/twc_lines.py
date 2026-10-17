@@ -61,12 +61,13 @@ POLICY = ('External first-party market data only. Every fixture joins on exact t
 # Fixtures
 # ---------------------------------------------------------------------------
 
-def fixtures(rows: list, day: str) -> list:
-    """BC-verified HLTV fixtures for one day, as joinable fixture records.
+def fixtures(rows: list, day: str | list) -> list:
+    """BC-verified HLTV fixtures for one target day (or list of days), as joinable fixture records.
 
     Only the retained facts are used: both team names and the start time that
     HLTV itself published. A finished series is never priced as an upcoming one.
     """
+    days = (day,) if isinstance(day, str) else tuple(str(d) for d in day)
     out = []
     for row in rows or []:
         facts = row.get('facts') or {}
@@ -75,7 +76,7 @@ def fixtures(rows: list, day: str) -> list:
         url = row.get('source_url') or ''
         if len(teams) != 2 or len({name_key(t) for t in teams}) != 2:
             continue
-        if not isinstance(start, str) or not start.startswith(day) or facts.get('finished'):
+        if not isinstance(start, str) or not start.startswith(days) or facts.get('finished'):
             continue
         parts = url.rstrip('/').split('/')
         if len(parts) < 5 or not parts[4].isdigit():
@@ -310,9 +311,15 @@ def _previous_reads(client, report_path=REPORT) -> list:
     return out[-HISTORY_READS:]
 
 
-def collect(client, research_rows: list, registry: dict, day: str, now: datetime, *, report_path=REPORT) -> dict:
-    """Discover, validate and retain external Day-4 lines for TWC fixtures."""
-    targets = fixtures(research_rows, day)
+def collect(client, research_rows: list, registry: dict, day: str | list, now: datetime, *, report_path=REPORT) -> dict:
+    """Discover, validate and retain external tournament-card lines for TWC fixtures.
+
+    ``day`` may be a single ISO date or a list of target days (Day 4 and the
+    final day are both priced by the same report so a scheduled run can never
+    leave the grand-final fixtures unpriced).
+    """
+    days = [day] if isinstance(day, str) else [str(d) for d in day]
+    targets = fixtures(research_rows, days)
     stamp = now.strftime('%Y%m%dT%H%M')
     if report_path not in {REPORT, DAY5_REPORT}:
         raise ValueError('Unsupported tournament line report path')
@@ -378,7 +385,8 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
             providers.extend(twc_books.collect(client, fixture, registry, now, stamp))
         records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
-    report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
+    report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': days[0], 'days': days,
+              'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
               'request_manifest': list(client.manifest)}
     client.save(report_path.stem, report)
@@ -525,7 +533,7 @@ def load(source: Path, now: datetime, registry: dict | None = None, *, report_fi
     if not report_path.exists():
         folder = source / 'research/138f48b7/twc-current'
         report_path = folder / report_file
-    empty = {'schema_version': 1, 'available': False, 'day': None, 'observed_at': None,
+    empty = {'schema_version': 1, 'available': False, 'day': None, 'days': [], 'observed_at': None,
              'matches': [], 'reasons': {}, 'report_path': None, 'policy': POLICY}
     if not report_path.exists():
         return empty
@@ -559,6 +567,7 @@ def load(source: Path, now: datetime, registry: dict | None = None, *, report_fi
             row['movement_note'] = ('No earlier validated read of this fixture is retained yet; movement is published '
                                     'once a second observation of the same book is verified.')
     return {'schema_version': report.get('schema_version', 1), 'available': True, 'day': report.get('day'),
+            'days': report.get('days') or ([report.get('day')] if report.get('day') else []),
             'observed_at': report.get('observed_at'), 'matches': matches, 'reasons': reasons,
             'report_path': _relative_report(source, report_path), 'policy': POLICY,
             'earlier_reads': len(earlier), 'read_sources': [r.get('observed_at') for r in report.get('history') or []],
