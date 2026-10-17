@@ -182,20 +182,60 @@ class CrossCheckTests(unittest.TestCase):
             self.assertTrue(row['url'].startswith('https://www.hltv.org/matches/'), row['url'])
             self.assertIn('no teams', row['status'].lower())
 
-    def test_copied_helpers_stay_honest_about_single_provider_reads(self):
-        # A one-provider reading must never be described as consensus on the rendered page.
-        soup = BeautifulSoup((ROOT / 'site/edge/index.html').read_text(), 'html.parser')
-        block = soup.find(id='day-four-refresh')
+
+
+class BuiltSiteTests(unittest.TestCase):
+    """What actually ships, from a build of this tree.
+
+    ``site/`` is generated output and is deliberately not tracked, so these tests build their own copy in a
+    temp directory instead of reading a developer's leftovers: CI runs the test step *before* the build step.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = Path(tempfile.mkdtemp())
+        shutil.copytree(ROOT / 'data', cls.tmp / 'data')
+        from scripts.build import build
+        build(cls.tmp / 'data', cls.tmp / 'site')
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def page(self, route):
+        return BeautifulSoup((self.tmp / 'site' / route).read_text(), 'html.parser')
+
+    def test_a_single_provider_read_is_never_rendered_as_consensus(self):
+        block = self.page('edge/index.html').find(id='day-four-refresh')
         self.assertIsNotNone(block)
         text = block.get_text(' ', strip=True)
         self.assertIn('One provider only', text)
-        self.assertIn('this is not consensus', text.lower(), 'a single-provider read must deny consensus outright')
+        self.assertIn('this is not consensus', text.lower(), 'a one-provider reading must deny outright')
+        self.assertIn('not re-read: blank', text, 'an unread provider field renders as blank, never as a plausible id')
 
-    def test_flags_page_lists_this_sessions_register(self):
-        soup = BeautifulSoup((ROOT / 'site/review/index.html').read_text(), 'html.parser')
-        text = soup.get_text(' ', strip=True)
+    def test_the_review_page_lists_every_flag_this_session_raised(self):
+        text = self.page('review/index.html').get_text(' ', strip=True)
         for finding in read(FLAGS):
             self.assertIn(finding['title'][:40], text, finding['id'])
+
+    def test_the_exec_summary_links_the_dossier_it_describes(self):
+        soup = self.page('index.html')
+        box = next(x.parent for x in soup.select('p.eyebrow') if 'Coverage probe' in x.get_text())
+        text = box.get_text(' ', strip=True)
+        self.assertIn('never writes a probability', text)
+        link = next(a for a in box.select('a') if 'coverage-probe.json' in (a.get('href') or ''))
+        self.assertTrue((self.tmp / 'site' / link['href'].lstrip('./')).exists(), link['href'])
+        published = json.loads((self.tmp / 'site' / 'data/research/8fa2b226/coverage-probe.json').read_text())
+        self.assertIn(str(published['counts']['unresolved_fixtures']), text)
+
+    def test_the_group_stage_table_links_each_series_to_its_own_page(self):
+        soup = self.page('edge/index.html')
+        rows = soup.select('#group-stage-series tbody tr')
+        record = read(ROOT / 'data' / 'edge-review.json')['group_stage_record']['series']
+        self.assertEqual(len(rows), len(record))
+        for row, series in zip(rows, record):
+            hrefs = [a.get('href') for a in row.select('a')]
+            self.assertIn(series['url'], hrefs, series['hltv_match_id'])
 
 
 class RegressionGuardTests(unittest.TestCase):
