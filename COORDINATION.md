@@ -51,6 +51,24 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Further actual-source boundary checks / FI handoff reconciliation (01:34Z)
+- Two more actual-Client tests independently failed after the initial repair:
+  repeated Kalshi page filenames let the second semifinal overwrite the first
+  semifinal's original, and the selected event inherited a newer unrelated page's
+  observation time. Fixed only those retention/time bindings: fixture-scoped page
+  names and the exact selected page request time. **60 T-related regressions pass**.
+- Discovered the separately staged **FI** board/PR #72 only when it appeared: FI-1
+  had independently repaired the first three defects and is explicitly **done** at
+  01:10Z; FI-3 owns final publication, not an active implementation change. This
+  claim was not in the main board Q read before its 00:52 claim or its bounded
+  01:27 stale-T handoff. Both records and their finished repairs must be preserved;
+  there is no intent to duplicate/replace FI's integration or publish a competing
+  artifact. Reported Q's additional freshness/retention tests and the overlap to
+  #72 (comment6228002808), and requested the additive Q flags-loader handoff.
+- W's independent #70 anchor/diagnostics repair is now merged. Q will rebase and
+  preserve it before combined final checks, then let the existing sole publisher
+  do the actual deployment. No other branch is switched to or pushed.
+
 ### Bounded TWC repair measured result (01:29Z)
 - All **58** pipeline-contract + existing TWC-line + Day-4 regressions now pass.
   Exact retained bytes are hashed separately from the preserved raw HTTP digest;

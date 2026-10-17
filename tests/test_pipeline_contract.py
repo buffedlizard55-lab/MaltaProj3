@@ -7,6 +7,7 @@ serialization mistakes at this boundary; these tests deliberately do not.
 """
 from __future__ import annotations
 
+import copy
 import json
 import tempfile
 import unittest
@@ -50,8 +51,9 @@ def book(token):
 
 
 class ActualCollectorReplay(unittest.TestCase):
-    def collect(self, root: Path, priced: bool):
+    def collect(self, root: Path, priced: bool, *, research_rows=None, kalshi_payloads=()):
         client = Client(root / 'research/twc-current')
+        kalshi_responses = iter(kalshi_payloads)
         games = [{'id': '9900001', 'homeName': 'Synthetic A', 'awayName': 'Synthetic B',
                   'startTime': START}] if priced else []
 
@@ -61,7 +63,7 @@ class ActualCollectorReplay(unittest.TestCase):
             elif url.startswith(twc_lines.CLOB_BOOK):
                 payload = book(url.split('=')[-1])
             elif url.startswith(twc_lines.KALSHI_API):
-                payload = {'events': [], 'cursor': ''}
+                payload = next(kalshi_responses, {'events': [], 'cursor': ''})
             else:
                 self.fail('Unexpected synthetic request: ' + url)
             result = requests.Response()
@@ -78,7 +80,7 @@ class ActualCollectorReplay(unittest.TestCase):
                 patch('scripts.sources.datetime', wraps=datetime) as clock, \
                 patch('scripts.twc_lines.poly_index', return_value=(games, {'status': 'ok'})):
             clock.now.return_value = NOW
-            report = twc_lines.collect(client, [MATCH], REGISTRY, '2026-10-17', NOW)
+            report = twc_lines.collect(client, research_rows or [MATCH], REGISTRY, '2026-10-17', NOW)
         return report, client
 
     def test_no_provider_round_trip_stays_blank_instead_of_breaking_publication(self):
@@ -129,6 +131,23 @@ class ActualCollectorReplay(unittest.TestCase):
             row = twc_lines._replay_record(record, root / 'research/twc-current', REGISTRY, NOW)
             self.assertEqual(row['teams'], ['Synthetic A', 'Synthetic B'])
 
+    def test_two_fixture_collections_cannot_overwrite_each_others_kalshi_original(self):
+        second = copy.deepcopy(MATCH)
+        second['source_url'] = second['source_url'].replace('/9900001/', '/9900002/')
+        second['facts']['teams'] = ['Synthetic C', 'Synthetic D']
+        second['facts']['starts_at'] = '2026-10-17T17:00:00Z'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            report, _ = self.collect(root, priced=False, research_rows=[MATCH, second],
+                                     kalshi_payloads=[{'events': [], 'cursor': '', 'synthetic_read': 1},
+                                                      {'events': [], 'cursor': '', 'synthetic_read': 2}])
+            references = [next(p for p in r['providers'] if p['provider'] == 'Kalshi')['evidence'][0]['file']
+                          for r in report['records']]
+            self.assertEqual(len(set(references)), 2, 'A later fixture refresh overwrote the first original response')
+            loaded = twc_lines.load(root, NOW, REGISTRY)
+            self.assertEqual(len(loaded['matches']), 2)
+            self.assertTrue(all(row['probabilities'] is None for row in loaded['matches']))
+
     def test_round_trip_retains_previous_validated_read_after_a_second_collection(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -166,6 +185,28 @@ class ProviderObservationContract(unittest.TestCase):
             with self.subTest(observed=observed):
                 quote, reason = twc_lines.kalshi_quote(self.kalshi(), self.fixture(), REGISTRY, observed, NOW)
                 self.assertIsNone(quote)
+
+    def test_kalshi_observation_is_bound_to_the_selected_original_page(self):
+        older = NOW - timedelta(hours=1)
+        with tempfile.TemporaryDirectory() as tmp:
+            client = Client(Path(tmp))
+            bodies = iter([{'events': [self.kalshi()], 'cursor': 'next-page'}, {'events': [], 'cursor': ''}])
+
+            def response(method, url, **kwargs):
+                result = requests.Response()
+                result.status_code, result.url = 200, url
+                result.headers['Content-Type'] = 'application/json'
+                result._content = json.dumps(next(bodies), separators=(',', ':')).encode()
+                return result
+
+            with patch.object(client.session, 'request', side_effect=response), \
+                    patch('scripts.sources.time.sleep'), \
+                    patch('scripts.sources.datetime', wraps=datetime) as clock:
+                clock.now.side_effect = [older, NOW]
+                provider, count = twc_lines._collect_kalshi(client, self.fixture(), REGISTRY, NOW, 'synthetic-read')
+            self.assertEqual(count, 2)
+            self.assertIsNotNone(provider['quote'])
+            self.assertEqual(provider['observed_at'], iso(older), 'An unrelated later page re-aged the selected event')
 
     def test_combined_line_expires_from_the_oldest_contributing_observation(self):
         fixture = self.fixture()

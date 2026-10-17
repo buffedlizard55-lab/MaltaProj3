@@ -380,7 +380,9 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
     while pages < MAX_KALSHI_PAGES:
         suffix = '' if cursor is None else '&cursor=' + str(cursor)
         url = (KALSHI_API + '?series_ticker=' + KALSHI_SERIES + '&status=open&with_nested_markets=true&limit=200' + suffix)
-        label = 'twc-day4-kalshi-page-' + str(pages) + ('-' + stamp if stamp else '')
+        # Both semifinals query the same API. Keep their originals distinct:
+        # the second response can contain a trade/update even seconds later.
+        label = 'twc-day4-kalshi-page-' + str(pages) + '-' + fixture['id'] + ('-' + stamp if stamp else '')
         try:
             body, _ = client.json(url, label)
         except SourceError as exc:
@@ -388,22 +390,24 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
                     'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages
         labels.append(label)
         pages += 1
-        events.extend(body.get('events') or [])
+        events.extend((event, label) for event in (body.get('events') or []))
         cursor = body.get('cursor') or None
         if not cursor:
             break
-    joined = [e for e in events
+    joined = [(e, label) for e, label in events
               if pair_join([m.get('yes_sub_title') for m in (e.get('markets') or [])][:2], kalshi_start(e),
                            fixture, registry)[2] == 'matched'] if len(events) else []
-    joined = [e for e in joined if len(e.get('markets') or []) == 2]
+    joined = [(e, label) for e, label in joined if len(e.get('markets') or []) == 2]
     if len(joined) != 1:
         return {'provider': 'Kalshi', 'status': 'unresolved',
-                'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
-                           else 'More than one Kalshi event joins this pair and start time'),
-                'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
-                'evidence': _record_evidence(client, labels)}, pages
-    event = joined[0]
-    observed = max((client_manifest_time(client, label) for label in labels), default=iso(now))
+                 'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
+                            else 'More than one Kalshi event joins this pair and start time'),
+                 'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
+                 'evidence': _record_evidence(client, labels)}, pages
+    event, selected_label = joined[0]
+    # This event belongs to one specific source page, not the newest unrelated
+    # request in the pagination loop. Missing request time is never synthesized.
+    observed = client_manifest_time(client, selected_label)
     quote, reason = kalshi_quote(event, fixture, registry, observed, now)
     return {'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
             'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
