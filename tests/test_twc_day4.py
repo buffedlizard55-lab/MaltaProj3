@@ -74,6 +74,19 @@ class Day4Canonical(unittest.TestCase):
         self.research['pages'].append(record())
         self.assertIsNone(self.derive()['matches'][0]['hltv'])
 
+    def test_an_exactly_even_line_says_so_instead_of_claiming_unverified_data(self):
+        c = self.d['complete_picks']['matches'][0]
+        c['origination']['probabilities'] = [0.5, 0.5]
+        c['origination']['fair_decimal'] = [2.0, 2.0]
+        c['origination']['method'] = 'bookmaker'
+        c['pick_index'] = None
+        self.d['matches'][0]['pick_index'] = None
+        text = BeautifulSoup(build_twc.render_day4(self.derive(), '../'), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('No edge — even line', text)
+        self.assertIn('real coin flip', text)
+        self.assertNotIn('Pick — unverified', text)
+        self.assertEqual(audit_html(build_twc.render_day4(self.derive(), '../'), 'twc-picks/index.html')['violation'], 0)
+
     def test_missing_line_stays_blank_not_half_or_historical_quote(self):
         c = self.d['complete_picks']['matches'][0]
         c['origination'] = c['pick_index'] = None
