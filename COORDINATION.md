@@ -35,6 +35,68 @@ Inspected full git history, repository state, build pipeline, live Pages configu
 ---
 
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
+
+Claimed 2026-10-16T23:58Z on fixed branch `arena/8fa2b226-maltaproj3`. Read the full shared board, `git log`
+(main head `b7e907e` = PR #64, arena-35440d12's merged record), open PRs (none) and workflow state before
+claiming. No competing active session found at that moment: K/P/M/V/E/N/U scopes are all `done` or `needs review` (corrected at merge — `arena-138f48b7` claimed the same minute; see the concurrency note below). The V branch
+`arena/ba7164a0-maltaproj3` stays unmerged per arena-ec75e5bb's record; nothing from it is imported. Historical
+scopes are preserved and no other session's owned file is edited without a logged handoff.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| W-1 Complete the TWC 2026 record from HLTV originals (all ten group-stage series incl. both Day-3 deciders), add the Day-4 semifinal and Day-5 final card with dated external-line observations, and refresh the contrarian leaderboard guidance (score-line base rates, where a contrarian play is defensible) | done 2026-10-17T00:40Z | arena-8fa2b226 | `data/edge-review.json`, `scripts/build_edge.py`, `scripts/build_twc.py`, `data/strategy-rules.json`, `scripts/build_strategy.py`, `tests/test_edge.py`/`tests/test_twc.py`/`tests/test_strategy.py` additions, new `data/research/8fa2b226/` | Dated research page, never a pricing override. No Hotspawn %, no HLTV fan votes, no invented scores or prices. |
+| W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | in progress | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, new `scripts/coverage_probe.py`, `.github/workflows/pages.yml`, new `data/research/8fa2b226/` | `scripts/originate.py` join rules and validation thresholds stay untouched; any needed hook there is logged as a handoff request instead. |
+| W-3 Mobile + executive-summary audit against the brief (one-tap links to picks, Day-4 guidance, unresolved section with inline limitations), plus diagnosis/fix of the post-#64 `verify_live` failure on main (run 38963040905) | done 2026-10-17T00:40Z | arena-8fa2b226 | `scripts/build.py` (exec-summary section only), `assets/*.css` mobile rules, `tests/browser/*`, `scripts/verify_live.py` | Fix only what a reproduced failure proves; every other-session check is preserved. |
+| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | done 2026-10-17T00:45Z | arena-8fa2b226 | `COORDINATION.md`, README additions | Sole active session; takes the shared-board/index changes only after W-1..W-3 land on this branch. |
+
+Concurrency note (resolved at merge): `arena-138f48b7` claimed at the same minute and PR #66 landed on main
+while W-1..W-4 were open. `data/edge-review.json` was re-merged key by key rather than side choosing side:
+their rewritten `day_four` (Polymarket CLOB + Kalshi median), `day_three_results`, `limitations`, `prepared_at`
+and `research_window` are the authority for the priced Day-4 record, this session's `group_stage_record`,
+`day_five_card`, `score_slip_evidence` and coverage dossier are additive, and `#day-four-refresh` now carries a
+`cross_check` against their record so one page cannot read as two competing prices. Guidance keeps their seven
+principles as the spine with this session's group-stage/score-line/format/rest readings appended. Both sessions'
+tests are in `tests/test_edge.py` (31 checks, all passing on the merged tree).
+
+### Publisher outage found after this PR merged — fixed in the follow-up PR (2026-10-17T01:15Z)
+
+`scripts/build` was **failing on main** for both runs after PR #66: 38987976979 (00:47Z) and this session's
+own post-merge run 38989106868 (01:02Z). Each fell back to the last verified snapshot pair, so the site stayed
+correct but stopped refreshing. Reproduced in a clean copy with the publisher's own sequence
+(`python -m scripts.twc_research` then `python -m scripts.build`) → `site/index.html: missing anchor
+./twc-picks/#day-four-tournament-lines`. The Day-4 coverage callout added in PR #66 links that section
+unconditionally, while `scripts/build_twc.py` renders it only `if guide['not_in_hotspawn_snapshot']`; the 01:04Z
+lobby had already listed both semifinals, so the anchor vanished and `scripts/validate.check_links` failed the
+build. Follow-up commit: the shortcut is gated on the same key, a regression test covers both branches, the
+build step now publishes its failure tail as an `::error::` annotation (Actions logs are unreachable from a
+restricted sandbox), and the finding is flagged on the review page as `8fa2b226-publisher-dangling-anchor`.
+Handoff note for the T-1 owner: the tournament-lines collection runs unconditionally inside
+`python -m scripts.twc_research`, and its *evidence* directory is not part of the cached last-good snapshot pair,
+so a fallback rebuild can still disagree with a freshly rewritten TWC report — worth deciding whether
+`data/twc-day3-picks.json` / `data/twc-day4-picks.json` / `data/research/twc-current/` should join that cache.
+Nothing in this session edited `scripts/twc_lines.py`.
+
+## Completion record — arena-8fa2b226 (2026-10-17T00:45Z)
+
+**PR #65** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/65` (branch `arena/8fa2b226-maltaproj3`,
+commits `da8050e` claim → `3138aa0` → `d91d9ef` → `87d156d`). Checks on `87d156d`: **Validate dashboard pass
+(4m39s)** and **Origination source audit pass**, then merged into `main` (no approval wait, per the standing
+brief). Pages deploy and the post-deploy verifier: see the merge note above. **Follow-up PR #70** `https://github.com/buffedlizard55-lab/MaltaProj3/pull/70` carries the publisher-outage fix below and restores this section’s claim table and record after PR #68 rewrote the board from a stale copy.
+
+| Scope | Outcome |
+| --- | --- |
+| W-1 | `data/edge-review.json` gained `group_stage_record` (all ten HLTV series, each row linked + timestamped), `day_four_refresh` (two semifinals, one dated first-party market record each, unread provider fields published as blank), `day_five_card` (18 Oct final + third-place decider: **no teams, no probabilities, no picks** while the bracket is open), `score_slip_evidence` (HLTV 3-month series-score frequencies vs this event's 60% sweep base rate, disagreement published as a disagreement), `session_refresh`, extended `limitations`. Four renderers in `scripts/build_edge.py`; `load_edge()` refuses to load a Day-5 row that carries a team name or a probability. Day 1–3 entries kept unchanged as dated history. |
+| W-2 | New `scripts/coverage_probe.py` writes `data/research/8fa2b226/coverage-probe.json`: for every blank fixture it re-runs the **production** join (`scripts.originate.pair_join`) against the collector's own saved evidence, so the reason published is the real rejection, plus an `applied: false` alias proposal with its evidence file, plus `--live` reachability probes of five books (no price parsed, no fixture resolved from a refusal). Wired into `pages.yml` as a non-fatal step. No alias was added to `data/origination/aliases.json` in this session: nothing met the bar of a reviewed, evidence-linked join. |
+| W-3 | Executive summary now carries the *Coverage probe* callout beside the unresolved section (`scripts/build.py`, with the loader-tuple registration this repo had silently dropped for other sessions' files). New `tests/browser/edge-review.spec.mjs`: 4 widths, row counts and percents compared to a generated manifest, per-row own-match-page link, no-JS at 320px, `overflow-x` scroller proof, no `50.0%` fallback in the Day-5 section, axe WCAG A/AA at 390px — **all 71 Playwright checks pass**. `scripts/verify_live.py` publishes its own numbers as a `::error` annotation (IDs/counts, HTML-vs-data card sets) because Actions log download is unreachable from a restricted sandbox; the run-38963040905 anomaly itself is recorded and **not** papered over — later runs 38971337290/38978237118 passed the same step and the live site served a complete snapshot, so nothing was lost and no page behaviour was changed as a guess. |
+| W-4 | `.venv/bin/python -m unittest discover -s tests` **432 OK** (also verified with `site/` deliberately absent, because CI runs tests *before* the build step — that ordering is what the first `Validate dashboard` run of PR #65 caught, fixed in `87d156d`); `scripts.build` **PASS 578 links**; `scripts.audit_rows --site site --strict` **0 violations** (366 rows, 358 official, 8 site-map, 0 unverified); `node tests/pick-safety-browser.mjs` **PASS 106 assertions**; `npx playwright test` **71 passed**. README stale-count claim corrected (430→432 tests move per session, so the sentence now says to re-measure) — **closes RR-01**; **RR-02** closed here: I-16/T8 "refresh not scheduled" is superseded by `pages.yml` cron `17 */4 * * *` plus catch-up `47 2-22/4 * * *`, unattended. |
+
+### Handoff / notes for other and future sessions
+1. `tests/browser/python.mjs` (new) resolves the fixture-builder interpreter (`PYTHON` → `.venv/bin/python` → `python`) and is now used by `twc`, `twc-day4`, `strategy` and `edge-review` specs. Locally those three pre-existing specs had been failing in `beforeAll` with `ModuleNotFoundError: bs4`, which reads as a page defect and is not one. CI is unchanged (`python` there has the deps).
+2. Two count scopes must stay distinct on the site: featured-method `data/latest.json` (10 picks / 11 unresolved) versus complete researched `data/origination.json` (17 / 17 resolved, 0 unresolved in the current snapshot). Both are labelled; do not merge them into one number.
+3. Root-level `index.html`, `picks.html`, `methodology.html`, `flagged.html` are tracked **fallback** copies of an earlier build (the legacy Pages mode). `index.html` intentionally serves its own "do not treat these as current picks" warning. Not edited here — whoever owns that design should decide whether to refresh or retire them.
+4. GitHub Pages is still in **legacy build mode** (the workflow's `configure-pages` gets HTTP 403 without Administration permission). Needs an owner action in Settings → Pages, as recorded in README.
+5. Unresolved doc claim from another session's register: **RR-03** lock-time mismatch (6 min in fixture data vs 5 min on Hotspawn's help page) is still open and belongs to whoever owns lock windows; not touched here.
+
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
 
 Claimed 2026-10-16T23:58Z on fixed branch `arena/138f48b7-maltaproj3`. Read the complete shared board, `git log`

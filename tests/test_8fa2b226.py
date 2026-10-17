@@ -256,6 +256,54 @@ class BuiltSiteTests(unittest.TestCase):
             self.assertIn(series['url'], hrefs, series['hltv_match_id'])
 
 
+class ExecutiveSummaryAnchorTests(unittest.TestCase):
+    """A link the summary prints into another page must land on an anchor that page actually renders.
+
+    This is the defect that reddened the publisher twice on 2026-10-17: the Day-4 *tournament-card lines*
+    shortcut was emitted unconditionally while the TWC page renders that section only while an HLTV listing
+    is unmatched to the weekly inventory. `scripts/validate.check_links` (run inside the build) turns a
+    dangling in-page anchor into a failed deploy, so the generator - not the checker - has to be honest.
+    """
+
+    def setUp(self):
+        self.data = json.loads((ROOT / 'data' / 'latest.json').read_text())
+
+    def day4(self, **overrides):
+        guide = {'matches': [], 'not_in_hotspawn_snapshot': [], 'lines': {'available': False}}
+        guide.update(overrides)
+        return guide
+
+    def render(self, guide):
+        from scripts.build import summary
+        self.data['_twc_day4'] = guide
+        return summary(self.data, '../')
+
+    def test_the_shortcut_is_absent_when_the_section_will_not_render(self):
+        self.assertNotIn('day-four-tournament-lines', self.render(self.day4()))
+
+    def test_the_shortcut_is_present_when_the_section_renders(self):
+        html = self.render(self.day4(not_in_hotspawn_snapshot=[{'id': 'hltv-2399414'}]))
+        self.assertIn('twc-picks/#day-four-tournament-lines', html)
+
+    def test_the_callout_still_states_the_blank_when_no_lines_are_retained(self):
+        html = self.render(self.day4())
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('No retained external tournament-card book yet', text)
+        self.assertIn('stay blank rather than guessed', text)
+        self.assertIn('twc-picks/#day-four-picks', html, 'the always-rendered sections keep their shortcuts')
+        self.assertIn('twc-picks/#day-three-results', html)
+
+    def test_the_twc_page_and_the_summary_agree_on_the_same_gate(self):
+        # Both sides read one key: no second, weaker definition of "the section exists".
+        from scripts import build_twc
+        twc = (ROOT / 'scripts' / 'build_twc.py').read_text()
+        build = (ROOT / 'scripts' / 'build.py').read_text()
+        self.assertIn("if guide['not_in_hotspawn_snapshot']:", twc)
+        self.assertGreaterEqual(build.count('if pending else'), 1)
+        self.assertIn("pending = len(day4['not_in_hotspawn_snapshot'])", build)
+        self.assertIsNotNone(build_twc.render_day4)
+
+
 class RegressionGuardTests(unittest.TestCase):
     def test_verifier_reports_numbers_not_just_a_sentence(self):
         verify = (ROOT / 'scripts' / 'verify_live.py').read_text()
