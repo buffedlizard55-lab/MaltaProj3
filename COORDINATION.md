@@ -10,7 +10,7 @@ cell still said W-2 in progress. This session takes final integration rather tha
 | --- | --- | --- | --- | --- |
 | FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | done 2026-10-17T01:10Z | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/build.py`, focused tests | Repaired retained-file hashing, current/legacy fixture serialization, every Kalshi collector return path and the conditional Day-4 deep link. Full live branch audit 38989088680 passed collection, evidence replay, build, row audit and links. |
 | FI-2 Integrate PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | done 2026-10-17T01:10Z | arena-fa7ed344 | PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolution | PR #65 actually merged into `main` as `179d473`; merge `bebc08c` integrates it with every FI-1 repair. The sole board conflict preserved both sessions. No source probability or result was selected merely to resolve text. |
-| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Combined local verification is green: 483 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 366 audited rows/0 violations and 583 links. Branch CI, final PR/merge, canonical deployment and public parity still must be observed. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Combined local verification is green: 483 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 366 audited rows/0 violations and 583 links. Integrated live-source audit 38989878038 and dashboard CI 38989878076 are green; final PR/merge, canonical deployment and public parity still must be observed. |
 
 Known starting irregularities (at claim time): main's two consecutive production runs failed in the build step
 after fresh collection; GitHub's downloadable log host is outside this sandbox allowlist and the check exposed
@@ -38,6 +38,12 @@ prematurely recorded itself as merged; the actual merge and reconciliation are r
   independent pick-safety browser audit passes **106 assertions**. The first simultaneous browser invocation
   had one `spawn ETXTBSY` infrastructure error because two suites launched the same restricted Chromium binary;
   rerunning Playwright alone passed all 72 and no page assertion ever failed.
+- Exact integrated head `c811ddd` passed both runner workflows: live-source origination audit
+  [38989878038](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989878038) collected 34 active
+  fixtures, retained 25 supported estimates and 9 explicit unresolved rows (24 current picks after fail-closed
+  presentation gates); dashboard run
+  [38989878076](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989878076) passed all unit,
+  replay/build, strict row/link, Playwright mobile/no-JS/accessibility and independent safety stages.
 - Main run [38989106868](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989106868) failed in the
   reconcile/build step on `179d473`; it predates every FI-1 collector/replay fix and therefore is not publication
   evidence for this integrated tree. FI-3 remains open until this exact merge passes branch checks, merges through
