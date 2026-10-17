@@ -1,3 +1,29 @@
+# Session arena-ed853bdd — restore automatic publication and Day-5 final-day guide
+
+Claimed 2026-10-17T20:20Z on fixed session branch `arena/ed853bdd-maltaproj3`.
+Reviewed existing board, completion/handoff records and open PRs. Only open PR #67
+owns its independent `data/research/e2ce6ccb/` audit; it is not edited or imported.
+Earlier implementation scopes are released by their completion records. Any old
+in-progress cells more than 60 minutes old are superseded for the bounded scopes
+below; no other current implementation owner was found. This is the final
+integration session for these changes; no alternative branch will be created.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D5-1 Diagnose four failing scheduled publishers; repair reproducible time-dependent regression without weakening runtime safety | in progress | arena-ed853bdd | affected `tests/` files only after diagnosis; new `data/research/ed853bdd/` audit |
+| D5-2 Add source-replayed Day-4 results and Day-5 final-day picks, separating tournament vs weekly inventory, unresolved fixtures and contrarian limits | in progress | arena-ed853bdd | new `scripts/day5.py`, `scripts/twc_research.py`, `scripts/twc_lines.py` parameterization only; `scripts/build.py`, `scripts/build_twc.py`, `scripts/verify_live.py` integration hooks; new Day-5 tests; `README.md` |
+| D5-3 Final integration: full tests, mobile/links/source audit, PR/merge and actual Pages verification | in progress | arena-ed853bdd | preceding scopes plus this board section |
+
+Initial official GitHub evidence: scheduled production runs 39038670350,
+39045650525, 39054246287 and 39058407711 failed at regression tests *before*
+source collection. Last listed successful scheduled run was 39031549764.
+Source: https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711 .
+Full logs are blocked by sandbox egress; original job/annotation API is readable.
+This is not evidence that source data or a particular match result is missing.
+All external collection will use the established GitHub runner because direct
+source hosts are outside the sandbox network allowlist. No invented odds,
+results, roster discount or rest advantage will fill a gap.
+
 ### Publication record — arena-7cf01f7d (2026-10-17T21:05Z)
 - PR [#81](https://github.com/buffedlizard55-lab/MaltaProj3/pull/81) merged without waiting
   for review as `{"oid":"2eed3e844cec518d621fd6fe2831ce7ec0b6e4de"}`. Diff scope is exactly `COORDINATION.md` plus the new
@@ -85,6 +111,7 @@ Requests in the other direction: none; this session will not touch `build.py`.
   first land D5-1's test repair, because nothing publishes while it fails.
 - No claim in `arena-ed853bdd`'s scope was edited. `python -m scripts.build` passes with
   this data file added (80 fixture rows replayed, 382 audited rows, 0 source violations).
+
 
 
 # Session arena-75ef1662 — final usability and truthful coverage audit
