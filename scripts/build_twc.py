@@ -463,9 +463,22 @@ def render_day4(guide, prefix):
                     marker = ' ✓ pick' if i == pick else ''
                     picks.append(f'<div class="twc-prob{" twc-favorite" if i == pick else ""}">'
                                  f'<span>{e(name)}</span><strong>{probs[i] * 100:.1f}%</strong></div>')
-                cells = (''.join(picks) + f'<p class="pick-choice"><strong>Default pick: {e(names[pick])}</strong></p>'
-                         f'<small>{e(line.get("label"))}<br>Observed {local_time(line.get("observed_at"))}. '
-                         'Midpoints, not executable quotes.</small>')
+                # An exactly even external book carries pick_index None. Indexing
+                # the team list with None would crash the build; naming a side
+                # would invent one. Say it is a coin flip and keep both prices.
+                even = abs(probs[0] - probs[1]) < 1e-9
+                if pick is None:
+                    cells = (''.join(picks) + '<p class="pick-choice"><strong>No edge — '
+                             + ('even line' if even else 'no directional side') + '.</strong></p>'
+                             '<small>' + ('Both sides are priced at exactly 50% by the external line, so this is a '
+                                          'real coin flip; no side is invented and no default 50/50 is substituted '
+                                          'for a missing number.' if even else
+                                          'The retained estimate has no directional side. See the pricing audit '
+                                          'for the exact inputs.') + '</small>')
+                else:
+                    cells = (''.join(picks) + f'<p class="pick-choice"><strong>Default pick: {e(names[pick])}</strong></p>')
+                cells += (f'<small>{e(line.get("label"))}<br>Observed {local_time(line.get("observed_at"))}. '
+                          'Midpoints, not executable quotes.</small>')
                 cells += movement_html(line)
                 for provider in line.get('providers') or []:
                     cells += (f'<br><small>{e(provider["provider"])}: bid/ask '
@@ -473,7 +486,7 @@ def render_day4(guide, prefix):
                               f'{provider["bid"][1]:.3f}/{provider["ask"][1]:.3f}</small>')
                     cells += activity_line(provider)
                 dog = r.get('line_underdog')
-                if dog:
+                if dog and pick is not None:
                     if dog['passes_floor']:
                         cells += (f'<aside class="twc-watch"><strong>Optional contrarian slot: {e(dog["team"])}</strong>'
                                   f'<p>{dog["probability"] * 100:.1f}% priced chance — at or above the published 30% '
