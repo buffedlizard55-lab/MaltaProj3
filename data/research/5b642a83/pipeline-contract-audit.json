@@ -10,13 +10,13 @@
     "errors": 3
   },
   "after": {
-    "observed_at": "2026-10-17T01:29:21Z",
-    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract tests.test_twc_lines tests.test_twc_day4 -q",
-    "tests": 58,
+    "observed_at": "2026-10-17T01:40:27Z",
+    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract tests.test_twc_lines tests.test_twc_day4 -v",
+    "tests": 61,
     "failures": 0,
     "errors": 0,
-    "actual_client_contract_cases_included": 10,
-    "limitation": "Local contract repair verified; full suite and actual live runner/publication remain to be rechecked."
+    "actual_client_contract_cases_included": 13,
+    "limitation": "Local final guard verified. Actual f73afe3 source collection/replay/build passed38991479862 before the additional cached-clock tamper regression. Final complete combined CI and canonical Pages deployment remain to be verified."
   },
   "production_observation": {
     "run_id": 38987976979,
@@ -120,5 +120,14 @@
     ],
     "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py",
     "status": "Independent tests only; T implementation still not edited at this observation."
+  },
+  "final_boundary_regressions": {
+    "observed_at": "2026-10-17T01:40:27Z",
+    "findings": [
+      "Kalshi request filenames must be distinct for different fixtures so a later request cannot overwrite an earlier original.",
+      "Kalshi selected-event observation must come from its actual source page, not a newer unrelated pagination request.",
+      "Replay must reject changing the cached Kalshi provider clock away from the selected original page observation."
+    ],
+    "status": "Each was independently reproduced failing before repair; all13 actual contract/source-clock cases and61 combined TWC tests now pass."
   }
 }

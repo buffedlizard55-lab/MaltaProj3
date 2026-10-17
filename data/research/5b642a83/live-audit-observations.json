@@ -36,5 +36,27 @@
     "The subsequent TWC collector-to-replay step still fails before the page build; this record cannot establish successful current publication.",
     "The 34-row nonpast-fixture count is the reconciled current weekly inventory scope, not the visible lobby filter count including past fixtures, and not a promise that every provider lists every fixture.",
     "The committed repository-snapshot-source-audit.json is a separately named older 15 October fixture audit. Neither source observation time is substituted for the other."
-  ]
+  ],
+  "successful_followup": {
+    "observed_at": "2026-10-17T01:40:27Z",
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38991479862",
+    "annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117274613819/annotations",
+    "input_commit": "f73afe3c7b85d92915b5616ec0730eea9dc92e70",
+    "conclusion": "success",
+    "annotations": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/f73afe3c7b85d92915b5616ec0730eea9dc92e70/.github",
+        "start_line": 13,
+        "start_column": null,
+        "end_line": 13,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "First-party source-integrity audit",
+        "message": "{\"inventory_observed_at\": \"2026-10-17T01:35:16Z\", \"counts\": {\"canonical_nonpast_fixtures\": 34, \"audited_rows\": 34, \"supported_dated_estimates\": 25, \"currently_usable_lines\": 25, \"explicitly_unresolved\": 9}, \"input_sha256\": {\"latest.json\": \"cf177497de63a4fb7cfaa0f350728c756b33c897abfca5f746eff1e5344fb84d\", \"origination.json\": \"bcf9fb215f43909ab3c5c9c2e57771c719214c20f818b04b01c957d267d6842e\"}}",
+        "raw_details": ""
+      }
+    ],
+    "limitation": "Actual read-only live audit collects and replays all sources then builds linked pages, but does not deploy. Later public production parity remains separately required."
+  }
 }

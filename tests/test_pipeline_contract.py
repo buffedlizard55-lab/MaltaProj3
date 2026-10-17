@@ -148,6 +148,20 @@ class ActualCollectorReplay(unittest.TestCase):
             self.assertEqual(len(loaded['matches']), 2)
             self.assertTrue(all(row['probabilities'] is None for row in loaded['matches']))
 
+    def test_replay_cannot_re_age_a_kalshi_original_by_editing_the_cached_provider_clock(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            report, _ = self.collect(root, priced=False, kalshi_payloads=[
+                {'events': [ProviderObservationContract().kalshi()], 'cursor': ''}])
+            original = twc_lines.load(root, NOW, REGISTRY)['matches'][0]
+            self.assertEqual(original['probabilities'], [0.6, 0.4])
+            provider = next(p for p in report['records'][0]['providers'] if p['provider'] == 'Kalshi')
+            provider['observed_at'] = iso(NOW + timedelta(hours=1))
+            report_path = root / 'research/twc-current' / twc_lines.REPORT
+            report_path.write_text(json.dumps(report))
+            with self.assertRaisesRegex(ValueError, 'observation|timestamp'):
+                twc_lines.load(root, NOW + timedelta(hours=1), REGISTRY)
+
     def test_round_trip_retains_previous_validated_read_after_a_second_collection(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

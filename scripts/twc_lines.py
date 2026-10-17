@@ -445,7 +445,7 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
                'hltv_match_id': saved_fixture.get('hltv_match_id')}
     providers = []
     for provider in record.get('providers') or []:
-        payloads = {}
+        payloads, original_observations = {}, {}
         for item in provider.get('evidence') or []:
             path = _evidence_path(folder, item['file'])
             if not path.exists():
@@ -454,6 +454,7 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
             if hashlib.sha256(raw).hexdigest() != item.get('sha256'):
                 raise ValueError('TWC line evidence hash mismatch: ' + item['file'])
             payloads[item['label']] = json.loads(raw.decode())
+            original_observations[item['label']] = item.get('observed_at')
         quote, reason = None, provider.get('reason')
         if provider['provider'] == 'Polymarket' and payloads:
             event = next((v for k, v in payloads.items() if k.startswith('twc-day4-poly-event-')), None)
@@ -461,10 +462,15 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
             if event is not None:
                 quote, reason = polymarket_quote(event, books, fixture, registry, now)
         if provider['provider'] == 'Kalshi' and payloads:
-            events = [e for page in payloads.values() for e in (page.get('events') or [])]
-            joined = [e for e in events if str(e.get('event_ticker')) == str(provider.get('event_id'))]
+            events = [(event, original_observations[label]) for label, page in payloads.items()
+                      for event in (page.get('events') or [])]
+            joined = [(event, observed) for event, observed in events
+                      if str(event.get('event_ticker')) == str(provider.get('event_id'))]
             if len(joined) == 1:
-                quote, reason = kalshi_quote(joined[0], fixture, registry, provider.get('observed_at'), now)
+                event, observed = joined[0]
+                if provider.get('observed_at') != observed:
+                    raise ValueError('TWC Kalshi observation timestamp does not match its selected original page')
+                quote, reason = kalshi_quote(event, fixture, registry, observed, now)
             elif not joined:
                 reason = 'The retained Kalshi page no longer contains the selected event'
         providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',
