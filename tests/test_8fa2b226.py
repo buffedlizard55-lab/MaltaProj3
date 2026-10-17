@@ -165,7 +165,8 @@ class CrossCheckTests(unittest.TestCase):
         edge = read(ROOT / 'data' / 'edge-review.json')
         self.assertIn('not a live pricing feed', edge['policy'])
         limitations = json.dumps(edge['limitations']) + json.dumps(edge['session_refresh'])
-        self.assertIn('not refreshed by the four-hour pipeline', limitations.replace('It is not refreshed', 'not refreshed'))
+        self.assertIn('keep their stated times until a later session re-reads them', limitations,
+                      'the page must say which parts a refresh will not move')
         self.assertIn('No probability in the pipeline', edge['session_refresh']['not_touched'])
 
     def test_day_five_card_has_no_team_names_while_the_bracket_is_open(self):
@@ -227,6 +228,23 @@ class BuiltSiteTests(unittest.TestCase):
         self.assertTrue((self.tmp / 'site' / link['href'].lstrip('./')).exists(), link['href'])
         published = json.loads((self.tmp / 'site' / 'data/research/8fa2b226/coverage-probe.json').read_text())
         self.assertIn(str(published['counts']['unresolved_fixtures']), text)
+
+    def test_the_single_provider_section_cross_checks_the_canonical_record(self):
+        # Two providers' worth of numbers on one page is only honest if the page reconciles them out loud.
+        edge = read(ROOT / 'data' / 'edge-review.json')
+        canonical = {row['slot']: row['market']['prices'] for row in edge['day_four']}
+        soup = self.page('edge/index.html')
+        rows = soup.select('#day-four-refresh tbody tr')
+        self.assertEqual(len(rows), len(edge['day_four_refresh']['fixtures']))
+        for row, fixture in zip(rows, edge['day_four_refresh']['fixtures']):
+            prices = canonical[fixture['slot']]
+            text = row.get_text(' ', strip=True)
+            self.assertIn('Cross-check', text)
+            for name, value in prices.items():
+                self.assertIn(f'{name} {value * 100:.1f}%', text, name)
+            link = row.select_one('a[href="#day-four"]')
+            self.assertIsNotNone(link, 'the reconciliation must be followable, not just asserted')
+            self.assertTrue(soup.find(id='day-four'), 'the anchor the row links to must exist')
 
     def test_the_group_stage_table_links_each_series_to_its_own_page(self):
         soup = self.page('edge/index.html')

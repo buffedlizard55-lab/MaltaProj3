@@ -287,6 +287,31 @@ def day_three_results_section(review):
     return ''.join(out)
 
 
+def _activity_text(provider):
+    """Provider-reported odds depth, rendered only from recorded fields."""
+    activity = provider.get('activity') or {}
+    bits = []
+    if activity.get('listed_at'):
+        bits.append('listed ' + str(activity['listed_at']))
+    if activity.get('opened_at'):
+        bits.append('opened ' + str(activity['opened_at']))
+    if activity.get('book_updated_at'):
+        bits.append('book updated ' + str(activity['book_updated_at']))
+    if activity.get('changed_since_open') is False:
+        bits.append('no reprice since it opened')
+    elif activity.get('changed_since_open') is True:
+        bits.append('repriced since it opened')
+    for key, label in [('last_price', 'last trade'), ('open_interest', 'open interest'), ('volume', 'traded')]:
+        values = activity.get(key)
+        if isinstance(values, list) and len(values) == 2 and all(isinstance(v, (int, float)) for v in values):
+            bits.append(label + ' ' + ' / '.join(f'{v:,.2f}' for v in values))
+    if isinstance(activity.get('volume_usd'), (int, float)):
+        bits.append(f'volume ${activity["volume_usd"]:,.0f}')
+    if isinstance(activity.get('liquidity_usd'), (int, float)):
+        bits.append(f'liquidity ${activity["liquidity_usd"]:,.0f}')
+    return ' · '.join(bits)
+
+
 def day_four_section(review):
     rows = review.get('day_four') or []
     if not rows:
@@ -313,6 +338,19 @@ def day_four_section(review):
                 price_text += external(market['event_url'], 'market event')
             if market.get('api_url'):
                 price_text += external(market['api_url'], 'official market record')
+            if market.get('fair_decimal'):
+                price_text += ('<p class="tiny">Reference line ' + ' · '.join(
+                    f'{e(name)} {value:.2f}' for name, value in market['fair_decimal'].items())
+                    + f'. {e(market.get("fair_decimal_note") or "")}</p>')
+            for provider in market.get('providers') or []:
+                detail = _activity_text(provider)
+                if detail:
+                    price_text += f'<p class="tiny">{e(provider.get("provider"))}: {e(detail)}</p>'
+            movement = market.get('line_movement') or {}
+            if movement.get('detail'):
+                price_text += f'<p class="tiny"><strong>Line movement:</strong> {e(movement["detail"])}</p>'
+            elif movement.get('points'):
+                price_text += f'<p class="tiny"><strong>Line movement:</strong> {e(str(movement["points"]))}</p>'
         out.append('<tr>'
                    f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
                    f'<small>{e(row["slot"])} · {local_time(row["starts_at"])}</small>'
@@ -426,12 +464,20 @@ def day_four_refresh_section(review):
         statements = ''.join(
             f'<li>{e(x["text"])}<small>{e(x["reading"])} · {local_time(x["observed_at"])}</small>{external(x["url"], "HLTV analytics")}</li>'
             for x in row.get('hltv_statements') or [])
+        check = row.get('cross_check') or {}
+        cross = ''
+        if check.get('prices'):
+            values = ' · '.join(f'{e(name)} {v * 100:.1f}%' for name, v in check['prices'].items())
+            cross = ('<p class="tiny">Cross-check against this page’s Day-4 record'
+                     + (f', read {local_time(check["observed_at"])}' if check.get('observed_at') else '')
+                     + f' from {e(check.get("providers") or "other providers")}: {values}. {e(check.get("detail") or "")} '
+                     + '<a class="internal-link" href="#day-four">Day-4 record ↓</a></p>')
         out.append('<tr>'
                    f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
                    f'<small>{e(row["slot"])} · {local_time(row["starts_at"])} UTC · {e(row["format"])}</small>'
                    + external(row['hltv_url'], 'HLTV match page')
                    + f'<small>{e(row.get("start_time_basis") or "")}</small></th>'
-                   f'<td>{price_text}{prob_pair}</td>'
+                   f'<td>{price_text}{prob_pair}{cross}</td>'
                    f'<td>{e(row.get("assessment") or "")}{("<ul>" + statements + "</ul>") if statements else ""}'
                    f'{source_lines(row.get("sources") or [])}</td></tr>')
     out.append('</tbody></table></div></section>')

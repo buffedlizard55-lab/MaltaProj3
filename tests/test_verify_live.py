@@ -64,9 +64,29 @@ class PublicArtifactParity(unittest.TestCase):
     def test_even_blank_probability_cells_must_match_generated_json(self):
         from bs4 import BeautifulSoup
         html = BeautifulSoup((self.site / 'twc-picks/index.html').read_text(), 'html.parser')
-        html.select_one('.twc-prob strong').string = '55.5%'
+        # The published day-three cards carry blank cells until their market is verified;
+        # a blank cell is still a claim that verify_live has to re-check against the JSON.
+        html.select_one('#day-three-picks .twc-prob strong').string = '55.5%'
         self.overrides['twc-picks/'] = str(html).encode()
         with self.assertRaisesRegex(ValueError, 'HTML probabilities'): self.verify()
+
+    def test_external_market_prices_must_come_from_the_published_json(self):
+        from bs4 import BeautifulSoup
+        html = BeautifulSoup((self.site / 'twc-picks/index.html').read_text(), 'html.parser')
+        cell = html.select_one('table.twc-day4-lines .twc-prob strong')
+        self.assertIsNotNone(cell, 'the generated page must render the external-market table')
+        cell.string = '55.5%'
+        self.overrides['twc-picks/'] = str(html).encode()
+        with self.assertRaisesRegex(ValueError, 'absent from its JSON'): self.verify()
+
+    def test_external_market_table_cannot_drop_a_listed_fixture(self):
+        from bs4 import BeautifulSoup
+        html = BeautifulSoup((self.site / 'twc-picks/index.html').read_text(), 'html.parser')
+        table = html.select_one('table.twc-day4-lines')
+        self.assertGreater(len(table.select('tbody tr')), 1, 'need several listed fixtures to test a drop')
+        table.select('tbody tr')[0].decompose()
+        self.overrides['twc-picks/'] = str(html).encode()
+        with self.assertRaisesRegex(ValueError, 'omits or invents a listed fixture'): self.verify()
 
     def test_day4_json_must_remain_the_same_in_both_exports(self):
         data = json.loads((self.site / 'data/twc-day4-picks.json').read_text())

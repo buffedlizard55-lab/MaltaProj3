@@ -32,9 +32,9 @@ test('both source-backed defaults and optional switches stay distinct; lock and 
   await page.clock.install({ time: new Date('2026-10-16T09:00:00Z') });
   await page.goto(FIXTURE);
   await expect(page.locator('[data-pick-choice]')).toHaveText(['Aurora', 'Legacy']);
-  await expect(page.locator('.twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
-  await expect(page.locator('.twc-watch')).toHaveCount(2);
-  await expect(page.locator('.twc-watch').first()).toContainText('0.380 expected points per 1 base point');
+  await expect(page.locator('#day-three-picks .twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
+  await expect(page.locator('#day-three-picks .twc-watch')).toHaveCount(2);
+  await expect(page.locator('#day-three-picks .twc-watch').first()).toContainText('0.380 expected points per 1 base point');
   await page.clock.fastForward(4 * 3600000 + 54 * 60000);
   await expect(page.locator('#day-three-picks .twc-card').first().locator('[data-pick-choice]')).toContainText('Snapshot: Aurora');
   await expect(page.locator('#day-three-picks .twc-card').first().locator('[data-pick-caption]')).toContainText('Closed for picks');
@@ -48,7 +48,7 @@ test('TWC results, probabilities and review links survive without JavaScript', a
   const page = await context.newPage();
   await page.goto(FIXTURE);
   await expect(page.locator('#day-three-picks .twc-card')).toHaveCount(2);
-  await expect(page.locator('.twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
+  await expect(page.locator('#day-three-picks .twc-prob strong')).toHaveText(['69.0%', '31.0%', '36.0%', '64.0%']);
   await expect(page.locator('#day-one-results tbody tr')).toHaveCount(4);
   await expect(page.locator('#day-two-results tbody tr')).toHaveCount(4);
   for (const row of await page.locator('.twc-results tbody tr').all()) {

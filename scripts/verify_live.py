@@ -16,6 +16,46 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def verify_day4_external_table(day4, page):
+    """No number may appear in the external-market table that is absent from its JSON.
+
+    The table is the only public surface whose prices come from external first-party
+    markets (and, when the pipeline found none, from the repo's dated display-only
+    observation dossier). Both sources are published, so every rendered percentage
+    must be reproducible from ``not_in_hotspawn_snapshot`` or ``observations``.
+    """
+    import re
+    rows = day4.get('not_in_hotspawn_snapshot') or []
+    allowed = set()
+    for row in rows:
+        line = row.get('line') or {}
+        for probability in line.get('probabilities') or []:
+            allowed.add(f'{probability * 100:.1f}%')
+        dog = row.get('line_underdog') or {}
+        if dog.get('probability') is not None:
+            allowed.add(f'{dog["probability"] * 100:.1f}%')
+    for entry in day4.get('observations') or []:
+        for probability in entry.get('median') or []:
+            allowed.add(f'{probability * 100:.1f}%')
+        dog = entry.get('underdog') or {}
+        if dog.get('probability') is not None:
+            allowed.add(f'{dog["probability"] * 100:.1f}%')
+    table = page.select_one('table.twc-day4-lines')
+    if not rows:
+        if table:
+            raise ValueError('Day-4 external-market table renders a fixture its JSON does not list')
+        return 0
+    if not table:
+        raise ValueError('Day-4 external-market table is missing for listed fixtures')
+    if len(table.select('tbody tr')) != len(rows):
+        raise ValueError('Day-4 external-market table omits or invents a listed fixture')
+    shown = re.findall(r'\d+\.\d%', table.get_text(' '))
+    invented = sorted({value for value in shown if value not in allowed})
+    if invented:
+        raise ValueError('Day-4 external-market table shows prices absent from its JSON: ' + ', '.join(invented))
+    return len(shown)
+
+
 def verify_day4(expected, originated, twc, day4, page):
     """All Day-4 picks must agree across inventory, canonical JSON and HTML."""
     from scripts.domain import name_key
@@ -56,6 +96,9 @@ def verify_day4(expected, originated, twc, day4, page):
         probs = row['analysis']['probabilities'] if row.get('analysis') else None
         if values != ([f'{p*100:.1f}%' for p in probs] if probs else ['—', '—']):
             raise ValueError('Day-4 HTML probabilities differ from JSON')
+    external = verify_day4_external_table(day4, page)
+    if external:
+        print('::notice::Day-4 external-market percentages verified against published JSON: ' + str(external))
     return len(rows)
 
 
