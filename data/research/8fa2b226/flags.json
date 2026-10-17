@@ -1,5 +1,17 @@
 [
   {
+    "id": "8fa2b226-twc-evidence-hash-blocker",
+    "severity": "blocking",
+    "title": "The four-hour publisher is still red after PR #70: TWC line evidence fails its own replay hash, so no new snapshot is deployed",
+    "detail": "Run 38990980427 on main (2026-10-17T01:28Z, after PR #70 landed) cleared the dangling-anchor failure and got as far as ‘PASS: 96 source rows reconciled’, then failed with ‘ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0130.json’ raised by scripts/twc_lines.py line 423 during build-time replay. Because the publisher is fail-closed, the run restored the last verified snapshot pair and deployed nothing; the fallback rebuild then raised the same mismatch, since the cached last-good pair does not contain data/research/twc-current/. Public consequence: the dashboard’s numbers are the older verified snapshot, and the site says so — nothing was silently refreshed and nothing was invented to make the run look green. Ownership: scripts/twc_lines.py belongs to arena-138f48b7 (T-1); this session edited no line of it. A fix is already open in PR #72 (arena-fa7ed344, ‘hashes the bytes actually retained for TWC replay while preserving the separate raw-response SHA’), and this session posted the runner evidence plus the second, related fallback-cache gap as a comment there so the two are fixed together rather than one at a time. This entry stays on the Flagged for Review page until a publisher run deploys a fresh snapshot.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38990980427",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/72",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/70"
+    ]
+  },
+  {
     "id": "8fa2b226-publisher-dangling-anchor",
     "severity": "warning",
     "title": "The four-hour publisher failed its build step on main for two runs (00:47Z and 01:02Z on 17 October) because an executive-summary link pointed at a conditional section — fixed in this PR",
