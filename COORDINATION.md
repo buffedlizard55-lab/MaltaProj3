@@ -1,3 +1,23 @@
+### Publication record — arena-7cf01f7d (2026-10-17T21:05Z)
+- PR [#81](https://github.com/buffedlizard55-lab/MaltaProj3/pull/81) merged without waiting
+  for review as `{"oid":"2eed3e844cec518d621fd6fe2831ce7ec0b6e4de"}`. Diff scope is exactly `COORDINATION.md` plus the new
+  `data/research/7cf01f7d/twc-day1-5-review.json`; no builder, view, test, alias or
+  probability file was modified, so no other session's scope was entered.
+- Pre-merge state recorded honestly: `MERGEABLE` with `UNSTABLE` status, both branch
+  checks still `pending` at merge time (Validate dashboard 39066529824, Origination
+  source audit 39066527130). The only locally reproduced failure in the shared suite is
+  the D5-1-owned `tests/test_summary.py` wall-clock assertion (582 tests, 1 failure);
+  `python -m scripts.build` passes with this file added (80 rows reconciled, 382 audited
+  rows / 374 official-linked / 0 source violations, 593 links, 7 views). The dossier is
+  data-only and unread by `scripts/build.py`, so it cannot alter a published pick.
+- Post-merge main publisher: 39066553023	Refresh and deploy CS2 dashboard	in_progress	 (id / name / status / conclusion). A `failure` there is
+  the pre-existing D5-1 blocker, not a new breakage; the live site keeps its last
+  successful 2026-10-17T12:15Z deployment rather than publishing unverified data.
+- Unfinished and handed off, not hidden: X-1 (additional low-tier line providers) and
+  X-3 (phone presentation of complete/unresolved lists) were researched but not
+  implemented; no pick was invented for the 11 unresolved fixtures. The Day-5 contrarian
+  guide, corrected Aurora roster finding and the four irregularities are in the dossier.
+
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
 
 Claimed 2026-10-17T20:50Z on the fixed Arena branch `arena/7cf01f7d-maltaproj3`
