@@ -332,11 +332,13 @@ def validate_origination(data, source):
     canonical = json.loads((source / 'latest.json').read_text())
     registry = load_registry(source / 'origination/aliases.json')
     originals = {m['id']: m for m in canonical['matches'] if m['availability'] != 'past'}
+    assert len({m['id'] for m in data['matches']}) == len(data['matches']), 'Duplicate originated fixture ID'
     assert set(originals) == {m['id'] for m in data['matches']}, 'Origination inventory differs from canonical snapshot'
     assert data['source_snapshot_at'] == canonical['inventory_observed_at'], 'Origination belongs to another inventory observation'
     for m in data['matches']:
         raw = originals[m['id']]
-        assert m['teams'] == raw['teams'] and m['starts_at'] == raw['starts_at'], 'Fixture facts changed'
+        facts = ('teams', 'starts_at', 'locks_at', 'availability', 'competition', 'tier', 'source_url', 'lobby_url')
+        assert all(m.get(k) == raw.get(k) for k in facts), 'Fixture facts or confirmed pick deadline changed'
         o = m.get('origination')
         if raw.get('analysis'):
             upgraded = bool(o) and raw['analysis'].get('method') == 'model' and o.get('method') in {'market', 'bookmaker', 'consensus'}
@@ -352,26 +354,22 @@ def validate_origination(data, source):
             continue
         if o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
-            rows, meta = valve_rows(source, None)
+            rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
             proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))
             expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']), lineup=proof)
             assert (expected or {}).get('lineup_disambiguation') == o.get('lineup_disambiguation'), 'Lineup identity proof differs from original HLTV markup'
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
+            if 'evaluation_at' in o:
+                assert expected['observed_at'] == o['observed_at'], 'Valve source observation restamped'
+                assert expected['inputs'] == o['inputs'], 'Valve input records changed'
+                assert expected['evidence_file'] == o['evidence_file'], 'Valve original source changed'
         values = []
         for q in o.get('quotes', []):
-            if q.get('provider') in {'Kalshi', 'Bovada'}:
-                values.append(_replay_extra_quote(q, raw, registry, source))
+            if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada'}:
+                from scripts.pipeline_audit import replay_provider_quote
+                values.append(replay_provider_quote(q, raw, registry, source, timestamp(data['generated_at'])))
             elif q.get('family') == 'bookmaker':
-                p = source.parent / q['evidence_file'] if source.name == 'data' else source / q['evidence_file'].removeprefix('data/')
-                body = json.loads(p.read_text())['data']
-                rows = body.get('upcoming', body.get('matches', []))
-                hits = [r for r in rows if str(r.get('id')) == q['event_id']]
-                assert len(hits) == 1, 'Bookmaker event missing or ambiguous'
-                sides = [hits[0]['market'][k] for k in ['home', 'away']]
-                odds = align_by_name([s['odds'] for s in sides], [s['name'] for s in sides], raw, registry)
-                assert odds == q['odds'], 'Bookmaker odds differ from original evidence'
-                assert no_vig(odds) == q['probabilities'], 'No-vig calculation changed'
-                values.append(q['probabilities'][0])
+                raise AssertionError('Unsupported bookmaker replay provider; no generic odds-only fallback is permitted')
             elif q.get('family') == 'market':
                 observations = json.loads((source / 'origination/evidence/live-polymarket-observations.json').read_text())
                 ev = next((e for e in observations['polymarket_events'] if e['event_id'] == q['event_id']), None)
@@ -420,35 +418,12 @@ def _evidence(source: Path, evidence_file: str) -> Path:
     return source.parent / evidence_file if source.name == 'data' else source / evidence_file.removeprefix('data/')
 
 
-def _replay_extra_quote(q, raw, registry, source):
-    """Recompute a Kalshi or Bovada quote from its saved original response (session c07e1b40)."""
-    from scripts.originate import align_by_name
-    from scripts.domain import no_vig, normalize_pair, finite
-    saved = json.loads(_evidence(source, q['evidence_file']).read_text())
-    if q['provider'] == 'Kalshi':
-        events = [ev for page in saved.get('pages', []) for ev in (page.get('response') or {}).get('events', [])]
-        hits = [ev for ev in events if str(ev.get('event_ticker')) == q['event_id']]
-        assert len(hits) == 1, 'Kalshi event missing or ambiguous in saved evidence'
-        markets = hits[0]['markets']
-        names = [m['yes_sub_title'] for m in markets]
-        bid = align_by_name([finite(m['yes_bid_dollars']) for m in markets], names, raw, registry)
-        ask = align_by_name([finite(m['yes_ask_dollars']) for m in markets], names, raw, registry)
-        assert bid == q['bid'] and ask == q['ask'], 'Kalshi quotes differ from saved evidence'
-        assert max(a - b for b, a in zip(bid, ask)) <= 0.12 + 1e-9, 'Kalshi spread exceeds the accepted ceiling'
-        expected = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
-        assert expected == q['probabilities'], 'Kalshi calculation changed'
-        return q['probabilities'][0]
-    events = [ev for group in saved.get('response', []) for ev in group.get('events', [])]
-    hits = [ev for ev in events if str(ev.get('id')) == q['event_id']]
-    assert len(hits) == 1, 'Bovada event missing or ambiguous in saved evidence'
-    lines = [m for g in hits[0].get('displayGroups', []) for m in g.get('markets', [])
-             if str(m.get('id')) == str(q.get('market_id')) and m.get('key') == '2W-12']
-    assert len(lines) == 1, 'Bovada moneyline missing in saved evidence'
-    outcomes = lines[0]['outcomes']
-    odds = align_by_name([finite(o['price']['decimal']) for o in outcomes], [o['description'] for o in outcomes], raw, registry)
-    assert odds == q['odds'], 'Bovada odds differ from saved evidence'
-    assert no_vig(odds) == q['probabilities'], 'Bovada no-vig calculation changed'
-    return q['probabilities'][0]
+def _replay_extra_quote(q, raw, registry, source, now=None):
+    """Compatibility entry point; all original states/identities now replay."""
+    from scripts.pipeline_audit import replay_provider_quote
+    clock = now or timestamp(q.get('observed_at'))
+    assert clock is not None, 'Missing original source observation time'
+    return replay_provider_quote(q, raw, registry, source, clock)
 
 
 def build(source: Path, output: Path):

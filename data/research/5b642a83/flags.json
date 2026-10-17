@@ -1,0 +1,65 @@
+[
+  {
+    "id": "5b642a83-live-contract-reproduction",
+    "severity": "warning",
+    "title": "Dated deployment blocker: actual TWC collector-to-replay audit failed",
+    "detail": "On 17 October at 00:58 UTC, the independent read-only source audit collected real public TWC responses but its replay rejected a saved Polymarket JSON file: the HTTP response digest and re-serialized stored-file digest were different. Separate actual-Client regressions also reproduce a malformed Kalshi provider tuple and double-wrapped fixture team names. This is a dated implementation finding, not a match-price claim or a successful deployment. The exact failure and handoff are retained in data/research/5b642a83/pipeline-contract-audit.json. A passing older deployment must not be cited as proof that these newer changes are live.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38988718257",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117266063070/annotations",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/66#issuecomment-6227717972"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "5b642a83-source-discovery-bounds",
+    "severity": "notice",
+    "title": "Market discovery identities are not verified match probabilities",
+    "detail": "The visible Polymarket directory is windowed. The alias-aware researcher now also replays fresh retained CS2-tag identities from the featured collector's original paginated Gamma pages and successful request metadata. These are discovery candidates only: the selected original full-series event and both positive-size executable books must still be fetched and validated. An absent, stale, ambiguous, suspended, one-sided or too-wide line supplies no probability. Additional esportsbook endpoints can remain inaccessible or lack a provable fixture identity; Hotspawn popularity and HLTV fan votes are never substitutes. Every unresolved fixture remains in the complete inventory and its unresolved section.",
+    "source_urls": [
+      "https://polymarket.com/esports/cs2",
+      "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100&offset=0",
+      "https://play.hotspawn.com/lobby",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/5b642a83-maltaproj3/scripts/originate.py"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "5b642a83-no-first-row-default",
+    "severity": "notice",
+    "title": "Duplicate provider candidates fail closed rather than selecting the first",
+    "detail": "Independent synthetic regressions demonstrated that earlier fallback resolution could select the first matching event from a provider, and that an earlier Thunderpick check compared outcome names to themselves instead of checking the enclosing event's team pair. Those demonstrated code paths are now guarded: multiple matching full-series events/markets or conflicting observations from one provider are rejected, while an exactly repeated identical observation counts only once. Another independently unique source can still resolve the match. This audit does not assert that a particular historical match price was wrong; no such source-level mismatch was independently proved.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/originate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/5b642a83-maltaproj3/tests/test_source_integrity.py",
+      "https://thunderpick.io/api/matches"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "5b642a83-dated-estimates-vs-current-lines",
+    "severity": "notice",
+    "title": "Source-row audit distinguishes dated estimates from currently usable picks",
+    "detail": "The read-only row register validates original evidence, fixture facts, confirmed deadlines and every displayed probability without modifying either feed. Its separately named repository-snapshot register is explicitly dated to the checked-in inventory, not today's live fixture count; the audit time is not substituted for a source observation. Model inputs are official Valve ratings with an uncalibrated formula, not betting odds. Live Valve decoded rows must match the original official GitHub Contents response and Git blob, and failed refetches cannot restamp older live text. A new source audit on the existing read-only runner verifies fresh feeds independently of the repository snapshot. Dated or locked estimates can be retained for audit while remaining ineligible as current picks.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/5b642a83-maltaproj3/data/research/5b642a83/repository-snapshot-source-audit.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/origination.yml",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "5b642a83-rebuild-context-not-fatigue-premium",
+    "severity": "notice",
+    "title": "Roster context is sourced; sleep, travel and numerical fatigue effects remain unverified",
+    "detail": "Independent HLTV page inspection re-confirms 9z 2–0 Aurora on 14 October (Inferno13–11, Nuke13–1) and Aurora 2–0 9z on 16 October (Cache13–11, Inferno13–4). HLTV also reports the July international rebuild around Jimpphat, kyxsan and coach ash. These are attributed observations, not proof that rebuild or fatigue caused an upset, nor a quantified Day-4 adjustment. The independent dossier retains no probability input: actual sleep/travel hours and any rebuild/fatigue/veto adjustment stay blank. Different map vetoes are observed but not assigned a causal probability premium. A rendered localized match time is not relabeled UTC. Current external paired lines, not hindsight or popularity, remain the pick basis.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026"
+    ],
+    "match_ids": []
+  }
+]

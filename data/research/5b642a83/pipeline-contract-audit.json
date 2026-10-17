@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "session": "arena-5b642a83",
+  "observed_at": "2026-10-17T00:56:00Z",
+  "scope": "Independent collector-to-replay audit of main commit 03b391c96162d3ec1dce39442125d90cd9a96e51. Synthetic HTTP responses exercise the actual sources.Client; no synthetic match or price is a published pick.",
+  "command": ".venv/bin/python -m unittest tests.test_pipeline_contract -v",
+  "before": {
+    "tests": 6,
+    "failures": 3,
+    "errors": 3
+  },
+  "after": {
+    "observed_at": "2026-10-17T01:40:27Z",
+    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract tests.test_twc_lines tests.test_twc_day4 -v",
+    "tests": 61,
+    "failures": 0,
+    "errors": 0,
+    "actual_client_contract_cases_included": 13,
+    "limitation": "Local final guard verified. Actual f73afe3 source collection/replay/build passed38991479862 before the additional cached-clock tamper regression. Final complete combined CI and canonical Pages deployment remain to be verified."
+  },
+  "production_observation": {
+    "run_id": 38987976979,
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987976979",
+    "observed_via": "GitHub Actions jobs and check-run annotations API",
+    "result": "failed at Reconcile every row, replay every probability and build linked pages; deployment was skipped",
+    "exact_production_traceback": null,
+    "limitation": "The full log download redirects to a host outside the sandbox allowlist. The three defects below were independently reproduced locally, not asserted to be the inaccessible run's exact traceback."
+  },
+  "findings": [
+    {
+      "id": "Q-TWC-01",
+      "status": "handoff-requested",
+      "finding": "TWC line replay compares the SHA-256 of re-serialized saved JSON to the raw HTTP response digest. Compact provider JSON and Client.save's indented representation differ, so normal evidence is rejected.",
+      "observed_exception": "ValueError: TWC line evidence hash mismatch",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L254-L266",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/sources.py#L36-L70"
+      ]
+    },
+    {
+      "id": "Q-TWC-02",
+      "status": "handoff-requested",
+      "finding": "_collect_kalshi returns ((provider, pages), pages); collect appends the first tuple instead of a provider object. JSON turns it into a list. Replay expects a dict. The no-Polymarket success path also breaks the caller's provider.get('quote') test.",
+      "observed_exception": "AttributeError: 'list' object has no attribute 'get'",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L347-L390",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_research.py#L90-L91"
+      ]
+    },
+    {
+      "id": "Q-TWC-03",
+      "status": "handoff-requested",
+      "finding": "collect stores fixture.teams as objects with a name field, but replay wraps each object again in {'name': n}. The replayed team names are dictionaries instead of strings.",
+      "actual_replayed_names_synthetic": [
+        {
+          "name": "Synthetic A"
+        },
+        {
+          "name": "Synthetic B"
+        }
+      ],
+      "expected_replayed_names_synthetic": [
+        "Synthetic A",
+        "Synthetic B"
+      ],
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L337-L344",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L407-L414"
+      ]
+    }
+  ],
+  "handoff": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/66#issuecomment-6227620677",
+  "limitations": [
+    "Active T/A3/W implementations were not edited by this audit.",
+    "A previous successful deployment does not establish that the newly merged code is published.",
+    "The public site was serving the dated checked-in fallback on the observation, not a verified 17 October inventory. No old timestamp was replaced with today's date."
+  ],
+  "live_runner_reproduction": {
+    "observed_at": "2026-10-17T01:03:48.198627Z",
+    "run_id": 38988718257,
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38988718257",
+    "branch_commit": "ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c",
+    "provider_collector": "Actual public HTTP responses fetched by GitHub Actions; this is a branch audit, not a successful Pages publication.",
+    "annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117266063070/annotations",
+    "failure_annotations": [
+      {
+        "annotation_level": "failure",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c/.github",
+        "end_column": null,
+        "end_line": 57,
+        "message": "Process completed with exit code 1.",
+        "path": ".github",
+        "raw_details": "",
+        "start_column": null,
+        "start_line": 57,
+        "title": ""
+      },
+      {
+        "annotation_level": "failure",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/ce9c3bc7aaf41e6232cc87ca9cddee844c132e9c/.github",
+        "end_column": null,
+        "end_line": 56,
+        "message": "ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0058.json",
+        "path": ".github",
+        "raw_details": "",
+        "start_column": null,
+        "start_line": 56,
+        "title": "TWC collect/replay contract"
+      }
+    ]
+  },
+  "additional_observation_regressions": {
+    "observed_at": "2026-10-17T01:27:02Z",
+    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract.ProviderObservationContract -v",
+    "tests": 3,
+    "result": "one positive-control test passes; stale/future rejection and oldest-source consensus tests fail (three failing subcases)",
+    "findings": [
+      "Kalshi accepts a source observation nine hours old and one hour in the future; no is_fresh guard is applied to its nested event quote.",
+      "The combined TWC line takes max(provider observation) rather than min; a newer provider can incorrectly extend the lifetime of an older contributing quote."
+    ],
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py",
+    "status": "Independent tests only; T implementation still not edited at this observation."
+  },
+  "final_boundary_regressions": {
+    "observed_at": "2026-10-17T01:40:27Z",
+    "findings": [
+      "Kalshi request filenames must be distinct for different fixtures so a later request cannot overwrite an earlier original.",
+      "Kalshi selected-event observation must come from its actual source page, not a newer unrelated pagination request.",
+      "Replay must reject changing the cached Kalshi provider clock away from the selected original page observation."
+    ],
+    "status": "Each was independently reproduced failing before repair; all13 actual contract/source-clock cases and61 combined TWC tests now pass."
+  }
+}

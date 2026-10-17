@@ -30,7 +30,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median
 
-from scripts.domain import array, book_midpoint, finite, iso, name_key, normalize_pair, timestamp
+from scripts.domain import array, book_midpoint, finite, iso, is_fresh, name_key, normalize_pair, timestamp
 from scripts.originate import aliased_series_market, kalshi_start, pair_join, resolve_name
 from scripts.sources import SourceError, poly_index
 
@@ -89,9 +89,13 @@ def fixture_key(fixture: dict) -> tuple:
 
 def fixture_record(fixture: dict) -> dict:
     """Stable JSON shape for a collected fixture (team names, not UI dicts)."""
-    names = [t.get('name') if isinstance(t, dict) else t for t in fixture.get('teams') or []]
-    if len(names) != 2 or not all(isinstance(name, str) and name.strip() for name in names):
-        raise ValueError('TWC fixture does not contain two valid team names')
+    saved_teams = fixture.get('teams')
+    if not isinstance(saved_teams, list) or len(saved_teams) != 2:
+        raise ValueError('TWC fixture must retain exactly two named teams')
+    names = [t.get('name') if isinstance(t, dict) else t for t in saved_teams]
+    if (not all(isinstance(name, str) and name.strip() for name in names)
+            or len(set(map(name_key, names))) != 2):
+        raise ValueError('TWC fixture team-name schema is invalid or ambiguous')
     return {'id': fixture['id'], 'teams': names, 'starts_at': fixture['starts_at'],
             'source_url': fixture.get('source_url'), 'hltv_match_id': fixture.get('hltv_match_id')}
 
@@ -166,6 +170,8 @@ def kalshi_quote(event: dict, fixture: dict, registry: dict, observed_at, now: d
     when = timestamp(observed_at)
     if when is None or timestamp(start) is None or timestamp(start) <= when:
         return None, 'Observation is not prematch'
+    if not is_fresh(observed_at, now):
+        return None, 'Kalshi observation is missing, future-dated or older than eight hours'
     quotes, market_by_name = {}, {}
     for name, market in zip(canonical, markets):
         if market.get('status') != 'active':
@@ -241,7 +247,8 @@ def analyse(providers: list, fixture: dict) -> dict:
                               'contract. What each provider actually returned is listed above; a source failure is '
                               'not evidence that no market exists and no value is filled in.']
         return row
-    observed = max(p['observed_at'] for p in usable if p.get('observed_at'))
+    # A new provider cannot extend the validity of an older contributing input.
+    observed = min(p['observed_at'] for p in usable if p.get('observed_at'))
     row['method'] = 'market'
     row['label'] = ('Tournament market line — ' + ('/'.join(sorted({p['quote']['provider'] for p in usable}))
                                                    + (' consensus' if len(usable) > 1 else ', single independent source')))
@@ -373,7 +380,9 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
     while pages < MAX_KALSHI_PAGES:
         suffix = '' if cursor is None else '&cursor=' + str(cursor)
         url = (KALSHI_API + '?series_ticker=' + KALSHI_SERIES + '&status=open&with_nested_markets=true&limit=200' + suffix)
-        label = 'twc-day4-kalshi-page-' + str(pages) + ('-' + stamp if stamp else '')
+        # Both semifinals query the same API. Keep their originals distinct:
+        # the second response can contain a trade/update even seconds later.
+        label = 'twc-day4-kalshi-page-' + str(pages) + '-' + fixture['id'] + ('-' + stamp if stamp else '')
         try:
             body, _ = client.json(url, label)
         except SourceError as exc:
@@ -381,22 +390,24 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
                     'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages
         labels.append(label)
         pages += 1
-        events.extend(body.get('events') or [])
+        events.extend((event, label) for event in (body.get('events') or []))
         cursor = body.get('cursor') or None
         if not cursor:
             break
-    joined = [e for e in events
+    joined = [(e, label) for e, label in events
               if pair_join([m.get('yes_sub_title') for m in (e.get('markets') or [])][:2], kalshi_start(e),
                            fixture, registry)[2] == 'matched'] if len(events) else []
-    joined = [e for e in joined if len(e.get('markets') or []) == 2]
+    joined = [(e, label) for e, label in joined if len(e.get('markets') or []) == 2]
     if len(joined) != 1:
         return {'provider': 'Kalshi', 'status': 'unresolved',
-                'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
-                           else 'More than one Kalshi event joins this pair and start time'),
-                'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
-                'evidence': _record_evidence(client, labels)}, pages
-    event = joined[0]
-    observed = max((client_manifest_time(client, label) for label in labels), default=iso(now))
+                 'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
+                            else 'More than one Kalshi event joins this pair and start time'),
+                 'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
+                 'evidence': _record_evidence(client, labels)}, pages
+    event, selected_label = joined[0]
+    # This event belongs to one specific source page, not the newest unrelated
+    # request in the pagination loop. Missing request time is never synthesized.
+    observed = client_manifest_time(client, selected_label)
     quote, reason = kalshi_quote(event, fixture, registry, observed, now)
     return {'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
             'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
@@ -434,7 +445,7 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
                'hltv_match_id': saved_fixture.get('hltv_match_id')}
     providers = []
     for provider in record.get('providers') or []:
-        payloads = {}
+        payloads, original_observations = {}, {}
         for item in provider.get('evidence') or []:
             path = _evidence_path(folder, item['file'])
             if not path.exists():
@@ -443,6 +454,7 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
             if hashlib.sha256(raw).hexdigest() != item.get('sha256'):
                 raise ValueError('TWC line evidence hash mismatch: ' + item['file'])
             payloads[item['label']] = json.loads(raw.decode())
+            original_observations[item['label']] = item.get('observed_at')
         quote, reason = None, provider.get('reason')
         if provider['provider'] == 'Polymarket' and payloads:
             event = next((v for k, v in payloads.items() if k.startswith('twc-day4-poly-event-')), None)
@@ -450,10 +462,15 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
             if event is not None:
                 quote, reason = polymarket_quote(event, books, fixture, registry, now)
         if provider['provider'] == 'Kalshi' and payloads:
-            events = [e for page in payloads.values() for e in (page.get('events') or [])]
-            joined = [e for e in events if str(e.get('event_ticker')) == str(provider.get('event_id'))]
+            events = [(event, original_observations[label]) for label, page in payloads.items()
+                      for event in (page.get('events') or [])]
+            joined = [(event, observed) for event, observed in events
+                      if str(event.get('event_ticker')) == str(provider.get('event_id'))]
             if len(joined) == 1:
-                quote, reason = kalshi_quote(joined[0], fixture, registry, provider.get('observed_at'), now)
+                event, observed = joined[0]
+                if provider.get('observed_at') != observed:
+                    raise ValueError('TWC Kalshi observation timestamp does not match its selected original page')
+                quote, reason = kalshi_quote(event, fixture, registry, observed, now)
             elif not joined:
                 reason = 'The retained Kalshi page no longer contains the selected event'
         providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',

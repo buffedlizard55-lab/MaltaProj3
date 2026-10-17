@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "session": "arena-5b642a83",
+  "observed_at": "2026-10-17T01:23:15Z",
+  "evidence_kind": "Independent rendered-page inspection via fetch_page, not retained original HTTP bytes. The automated source/replay pipeline retains its own originals separately. No number from this research file is used as a probability input.",
+  "sources": [
+    {
+      "url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "publisher": "HLTV",
+      "observations": {
+        "date_as_displayed": "14 October 2026",
+        "match_status_as_displayed": "Match over",
+        "teams": ["9z", "Aurora"],
+        "series_score": [2, 0],
+        "format_as_displayed": "Best of 3 (LAN)",
+        "stage_as_displayed": "Group A opening match",
+        "maps": [
+          {"name": "Inferno", "score_in_team_order": [13, 11], "picked_by_as_displayed": "9z"},
+          {"name": "Nuke", "score_in_team_order": [13, 1], "picked_by_as_displayed": "Aurora"}
+        ],
+        "start_utc_independently_verified_from_rendered_time": null
+      },
+      "limitations": ["The third map was not played; no Dust2 result is invented.", "A result alone does not establish the prematch fair probability or prove a roster/fatigue cause."]
+    },
+    {
+      "url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "publisher": "HLTV",
+      "observations": {
+        "date_as_displayed": "16 October 2026",
+        "match_status_as_displayed": "Match over",
+        "teams": ["Aurora", "9z"],
+        "series_score": [2, 0],
+        "format_as_displayed": "Best of 3 (LAN)",
+        "stage_as_displayed": "Group A decider match",
+        "maps": [
+          {"name": "Cache", "score_in_team_order": [13, 11], "picked_by_as_displayed": "Aurora"},
+          {"name": "Inferno", "score_in_team_order": [13, 4], "picked_by_as_displayed": "9z"}
+        ],
+        "veto_observation": "Aurora removed Nuke in this rematch; HLTV's first-meeting veto had Aurora picking Nuke.",
+        "start_utc_independently_verified_from_rendered_time": null
+      },
+      "limitations": ["The rematch does not retrospectively change the opening-match probability.", "A different veto is observed, but its causal contribution is not estimated or added to any line."]
+    },
+    {
+      "url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "publisher": "HLTV",
+      "observations": {
+        "title": "Official: Aurora complete rebuild with kyxsan",
+        "timestamp_as_displayed": "8-7-2026 09:00",
+        "headline_context": "HLTV reports Aurora announced kyxsan from Falcons to complete an international summer rebuild, following Jimpphat and coach ash.",
+        "roster_listed_in_article": ["XANTARES", "woxic", "Wicadia", "Jimpphat", "kyxsan"],
+        "coach_listed_in_article": "ash",
+        "replacements_as_reported": ["MAJ3R", "soulfly", "Fabre"]
+      },
+      "limitations": ["This is attributed HLTV reporting of a club announcement, not a separately retrieved organization announcement.", "The July article is historical context, not proof of the exact five players on every October map.", "The rendered article's timezone and the causal performance impact of the rebuild were not independently established."]
+    },
+    {
+      "url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+      "publisher": "HLTV",
+      "observations": {
+        "date_as_displayed": "17 October 2026",
+        "teams": ["FURIA", "Aurora"],
+        "format_as_displayed": "Best of 3 (LAN)",
+        "stage_as_displayed": "Semi-final",
+        "maps_as_displayed": ["TBA", "TBA", "TBA"],
+        "series_result": null,
+        "start_utc_independently_verified_from_rendered_time": null,
+        "probabilities": null,
+        "pick_index": null
+      },
+      "limitations": ["The visible 10:00 is a localized rendered time; it is not relabeled as UTC. The automated original-markup parser independently handles its source epoch.", "No map veto, result, lock time, Hotspawn listing identity or probability is inferred from this fixture page."]
+    }
+  ],
+  "analysis_not_source_facts": [
+    {
+      "statement": "The opening loss and reversed decider are reasons to avoid treating one upset as a permanent team-strength label. They do not estimate a new true win probability.",
+      "basis_urls": [
+        "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "statement": "Day-4 leaderboard choices must start with the current external paired money line. A near-coin-flip underdog can be an optional differentiation choice under the published screen, but a large long shot does not become sensible merely because 9z once upset Aurora. Rest, roster and form context are disclosed separately; no numerical adjustment is manufactured.",
+      "basis_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/strategy-rules.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/twc_lines.py",
+        "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026"
+      ]
+    }
+  ],
+  "unverified_adjustments": {
+    "actual_sleep_hours": null,
+    "travel_hours": null,
+    "fatigue_effect": null,
+    "rebuild_probability_penalty": null,
+    "map_veto_probability_adjustment": null,
+    "source_of_limitation": "No independently observed evidence in the retrieved pages quantifies these values. The fields stay blank and are not probability inputs."
+  }
+}
