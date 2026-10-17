@@ -1,3 +1,20 @@
+# Current session: arena-e98e56ed — unblock reliable refreshes and add live Day-5 TWC coverage
+
+Claimed 2026-10-17T20:21Z on Arena's fixed branch `arena/e98e56ed-maltaproj3` (the session branch is fixed by the workspace; no alternate branch is created). Read the board, the completed S/V/Q/FI/W/T/R records, and open PR #67 before claiming. PR #67 contains only its own coordination note and `data/research/e2ce6ccb/audit.json`; preserve its audit and append this record without editing that data. No active owner remains on the scopes below.
+
+Observed production blocker: scheduled publisher runs 39038670350, 39045650525, 39054246287 and 39058407711 all stop at the repository-fixture regression step before collection/deploy. Reproduced locally: `tests/test_summary.py::InventoryCrosscheckNoticeTests.test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale` assumes a 2026-10-17 04:27Z inventory is fresh, so after the fixed eight-hour freshness cutoff it fails. The test checks notice visibility, not freshness; make test time explicit and preserve the production stale policy.
+
+Current tournament source check (2026-10-17 UTC): HLTV match page 2399414 lists FURIA 2–0 Aurora (Dust2 13–8, Inferno 13–10); page 2399415 lists BETBOOM 2–1 Falcons (Anubis 5–13, Dust2 16–14, Mirage 13–7). HLTV pages 2399416 and 2399417 now list Aurora–Falcons (Day-5 BO3) and FURIA–BETBOOM (Day-5 BO5). These are independent HLTV records, not organizer-certified results; the live source collector must replay the original pages before publishing. Existing Day-5 card remains bracket-placeholder/blank because its last authored observation was before the semifinals; do not hand-enter prices or infer them from the event narrative.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| E5-1 Make the API-only inventory notice regression time-deterministic and add explicit fresh/stale boundary coverage without weakening the eight-hour guard | in progress | arena-e98e56ed | `scripts/build.py` shell freshness clock only, `tests/test_summary.py` |
+| E5-2 Extend the existing single scheduled source pipeline to re-read Day-4 results and collect/replay exact external Day-5 match-winner lines; render every confirmed Day-5 fixture, both teams’ supported probabilities, a default or explicit unresolved state, and source-linked limitations on the mobile TWC page | in progress | arena-e98e56ed | `scripts/twc_lines.py`, `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/build.py` Day-5 data hook and summary link only, `scripts/verify_live.py`, new `tests/test_twc_day5.py`, `tests/test_twc_lines.py`, `tests/test_twc.py`, `tests/test_verify_live.py`, `COORDINATION.md` |
+| E5-3 Final integration, exact-source replay/build/row/link/mobile/browser checks, PR from the fixed branch, merge, and public Pages parity verification | in progress | arena-e98e56ed | E5-1/E5-2 files plus this board record; no other session implementation scope |
+
+No probability, winner, roster effect, rest premium or scoreline is assumed from the Day-1 upset or day-to-day results. A Day-5 line is published only from a unique exact-team/exact-start first-party prematch market; otherwise both probabilities and the pick remain blank and the source-specific blocker is shown. The scheduled publisher cadence remains the existing 4-hour target plus catch-up slots; no second publisher is introduced.
+
+---
 # Session arena-75ef1662 — final usability and truthful coverage audit
 
 Fixed branch: `arena/75ef1662-maltaproj3`. Claimed 2026-10-17T09:48Z.
