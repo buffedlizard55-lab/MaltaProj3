@@ -1,3 +1,46 @@
+# D5 publication complete — arena-ed853bdd · 2026-10-17T20:50:39Z
+
+- Implementation PR [#83](https://github.com/buffedlizard55-lab/MaltaProj3/pull/83)
+  merged **20:45:08Z**, merge `5dea4c3fd1c673db2ac25b4a4cbf207940dfe689`.
+  Both exact-head remote QA runs **39067391643 /39067395797 PASS**; original
+  source replay **39067391650 PASS**. Explicit merge occurred only after all
+  checks were green. No other session's implementation was changed.
+- Canonical production [39068042386](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39068042386)
+  **SUCCESS**, completed **20:50:39Z**. Regression, fresh collection, complete
+  replay/build, actual Pages deployment and public JSON/HTML parity all passed.
+  This is the real artifact publisher, not a substituted legacy-build success.
+- Actual production inventory **20:49:08Z**: **81 records /18 active /63 archived**,
+  full API + both lobby pages reconciled. Complete list: **10 supported picks /
+  8 unresolved**. No missing input was filled in. Separate final-day coverage:
+  **2 fixtures /1 supported estimate /1 unresolved /0 invented bracket slots**.
+- Final-day original Thunderpick decimal odds **Aurora2.70 /Falcons1.42** at
+  **20:49:48Z** normalize to **34.5% /65.5%**. This is a dated single-book estimate,
+  not a guaranteed probability or confirmed current Hotspawn tournament entry.
+  FURIA–BETBOOM remains blank after original Polymarket/Kalshi/Thunderpick/Bovada
+  checks. Tournament lock/entry verification remains unresolved and visible.
+- Independent public page reads confirm the new Day-5 view, bookmaker odds,
+  source-replayed Day-4 results, July8 roster clarification, full18-row summary
+  and explicit unresolved entries. Markdown extraction includes hidden nodes;
+  browser visibility/expiry is independently covered by the real browser suite.
+- Final exact-head local Python suite **604 PASS** (281.746s), full browser suite
+  **85 PASS**, independent runtime/no-JS audit **106 assertions PASS**, final
+  Day-5 browser rerun **7 PASS**. Repository build **607 internal links** and
+  **388 rows /380 source-linked +8 navigation /zero violations**; these QA counts
+  are not mislabeled as current inventory. Mobile screenshot visually inspected.
+- Live: https://buffedlizard55-lab.github.io/MaltaProj3/ · all picks
+  `/origination/#picks` · final-day `/twc-picks/#day-five-picks` · limitations
+  `/twc-picks/#day-five-unresolved` and `/review/`.
+- Retained original official release annotations and machine-readable release
+  record are in `data/research/ed853bdd/`. Four-hour + catch-up scheduling is
+  automatic, best effort; no user input is required. Existing platform legacy
+  Pages setting, source gaps, secondary result reporting and unquantified
+  rest/onboarding/ownership remain clearly flagged and nonblocking.
+- D5-1/D5-2/D5-3 done; implementation scopes released. Record-only follow-up also
+  removes a duplicate HLTV link incorrectly labelled "Pricing source" beside
+  the correctly linked Thunderpick source; no probability or selection changes.
+  Its own merge/deploy result will be recorded on its PR to avoid a recursive
+  series of publication-record commits.
+
 ### D5 scope extension before integration — arena-ed853bdd
 Claim released `assets/twc.css` for new Day-5 card styling only; existing TWC
 heading assertions in `tests/test_twc.py` and `tests/browser/twc.spec.mjs` change
@@ -15,9 +58,9 @@ integration session for these changes; no alternative branch will be created.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| D5-1 Diagnose four failing scheduled publishers; repair reproducible time-dependent regression without weakening runtime safety | in progress | arena-ed853bdd | affected `tests/` files only after diagnosis; new `data/research/ed853bdd/` audit |
-| D5-2 Add source-replayed Day-4 results and Day-5 final-day picks, separating tournament vs weekly inventory, unresolved fixtures and contrarian limits | in progress | arena-ed853bdd | new `scripts/day5.py`, `scripts/twc_research.py`, `scripts/twc_lines.py` parameterization only; `scripts/build.py`, `scripts/build_twc.py`, `scripts/verify_live.py` integration hooks; new Day-5 tests; `README.md` |
-| D5-3 Final integration: full tests, mobile/links/source audit, PR/merge and actual Pages verification | in progress | arena-ed853bdd | preceding scopes plus this board section |
+| D5-1 Diagnose four failing scheduled publishers; repair reproducible time-dependent regression without weakening runtime safety | done | arena-ed853bdd | affected `tests/` files only after diagnosis; new `data/research/ed853bdd/` audit |
+| D5-2 Add source-replayed Day-4 results and Day-5 final-day picks, separating tournament vs weekly inventory, unresolved fixtures and contrarian limits | done | arena-ed853bdd | new `scripts/day5.py`, `scripts/twc_research.py`, `scripts/twc_lines.py` parameterization only; `scripts/build.py`, `scripts/build_twc.py`, `scripts/verify_live.py` integration hooks; new Day-5 tests; `README.md` |
+| D5-3 Final integration: full tests, mobile/links/source audit, PR/merge and actual Pages verification | done | arena-ed853bdd | preceding scopes plus this board section |
 
 Initial official GitHub evidence: scheduled production runs 39038670350,
 39045650525, 39054246287 and 39058407711 failed at regression tests *before*

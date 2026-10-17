@@ -1,0 +1,43 @@
+{
+  "session": "arena-ed853bdd",
+  "implementation_pr": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/83",
+  "merged_at": "2026-10-17T20:45:08Z",
+  "merge_commit": "5dea4c3fd1c673db2ac25b4a4cbf207940dfe689",
+  "production_run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39068042386",
+  "production_conclusion": "success",
+  "completed_at": "2026-10-17T20:50:39Z",
+  "inventory_observed_at": "2026-10-17T20:49:08Z",
+  "coverage_complete": true,
+  "inventory": {
+    "total": 81,
+    "active": 18,
+    "archived": 63
+  },
+  "complete_picks": {
+    "supported": 10,
+    "unresolved": 8
+  },
+  "day5": {
+    "listed": 2,
+    "supported": 1,
+    "unresolved": 1,
+    "confirmed_current_weekly_picks": 0
+  },
+  "verification": {
+    "python_final_head": 604,
+    "full_browser_checks": 85,
+    "independent_safety_assertions": 106,
+    "final_day_browser_rerun": 7,
+    "repository_fixture_links": 607,
+    "repository_fixture_table_rows": 388,
+    "row_source_violations": 0
+  },
+  "limitations": [
+    "Counts and prices are dated observations, not permanent current values.",
+    "Tournament entry/lock is not verified from the weekly inventory.",
+    "FURIA\u2013BETBOOM has no supported paired line at this read.",
+    "HLTV results are secondary reporting, not tournament-organizer verification.",
+    "No numerical roster, rest, health, score or ownership premium.",
+    "Four-hour schedule plus catch-up slots is best effort, not a delivery guarantee."
+  ]
+}
