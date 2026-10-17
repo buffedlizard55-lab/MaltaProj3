@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import { python } from './python.mjs';
 
 const FIXTURE = '/_twc_fixture/';
 test.beforeAll(() => {
-  execFileSync(process.env.PYTHON || 'python', ['tests/browser/twc_fixture.py'], { stdio: 'inherit' });
+  execFileSync(python(), ['tests/browser/twc_fixture.py'], { stdio: 'inherit' });
 });
 test.afterAll(() => fs.rmSync('site/_twc_fixture', { recursive: true, force: true }));
 

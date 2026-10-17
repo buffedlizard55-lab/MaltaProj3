@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "session": "arena-8fa2b226",
+  "generated_at": "2026-10-17T00:50:26Z",
+  "mode": "offline-evidence-only",
+  "environment": "local checkout (not the runner: refusals here describe this machine, not the book)",
+  "source_snapshot_at": "2026-10-15T08:36:04Z",
+  "policy": "Dossier for fixtures the strict ladder leaves blank. It proposes nothing that is applied automatically, records which providers were checked, and publishes the provider error text when a source refuses access. No probability, pick or alias is written by this script.",
+  "excluded_inputs": [
+    "Hotspawn \"% picked\" and offered points",
+    "HLTV fan votes",
+    "outright and map markets",
+    "any price read from a page this script fetched (reachability only)"
+  ],
+  "headline": "No fixture in this snapshot is blank: every live row carries a sourced line.",
+  "counts": {
+    "unresolved_fixtures": 0,
+    "with_provider_lead": 0,
+    "display_name_only": 0
+  },
+  "fixtures": [],
+  "book_probes": [],
+  "limitations": [
+    "A lead is a listing that mentions the same words; only the production join decides whether it is the fixture.",
+    "geo-blocked and 403 responses prove nothing about whether a market exists for a given series.",
+    "The probe runs once per pipeline refresh, so a lead can expire before it is reviewed."
+  ]
+}
