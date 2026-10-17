@@ -424,6 +424,24 @@ class TournamentSection(unittest.TestCase):
         self.assertIn('Hotspawn API: BetBoom 2-1 ✗ differs', html)
         self.assertIn('for 1 of 2 series', html)
 
+    def test_day3_completed_results_and_day4_semifinals_render_with_official_sources_and_bo3_math(self):
+        edge = json.loads(Path('data/edge-review.json').read_text(encoding='utf-8'))
+        twc = json.loads(Path('data/research/1112299f/twc-results.json').read_text(encoding='utf-8'))
+        tour = json.loads(Path('data/research/1112299f/hotspawn-tournament.json').read_text(encoding='utf-8'))
+        html = bs.lessons_block(twc, edge=edge, tour=tour, rules=RULES)
+        self.assertIn('id="day3-completed-results"', html)
+        self.assertIn('Aurora 2-0 9z', html)
+        self.assertIn('Cache 13–11, Inferno 13–4', html)
+        self.assertIn('BETBOOM 2-1 Legacy', html)
+        self.assertIn('Nuke 16–13, Dust2 11–13, Mirage 13–11', html)
+        self.assertIn('id="day4-semifinals-plan"', html)
+        self.assertIn('Default: FURIA (52.4%) · Contrarian play: Aurora (47.6%)', html)
+        self.assertIn('chalk FURIA 2-0 (26.6%, EV 5.0 pts) or contrarian Aurora 2-1 (24.2%, EV 4.5 pts)', html)
+        self.assertIn('Plan pick: Falcons (79.3%) · Lock — do not fade', html)
+        self.assertIn('BETBOOM (20.7%) sits below the 30% underdog floor', html)
+        self.assertIn('Falcons 2-0 (50.1%, EV 8.1 pts)', html)
+        self.assertIn('../twc-picks/#day-four-picks', html)
+
 
 class CommittedResearch(unittest.TestCase):
     """Static, committed research files (not live-restored): every source is an official host and the cross-checks hold."""

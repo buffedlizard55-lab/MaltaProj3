@@ -1,3 +1,19 @@
+# Current session: arena-9866e1ba — Leaderboard plan Day-3/Day-4 TWC refresh & independent verification dossier
+
+Claimed 2026-10-17T00:59Z on fixed branch `arena/9866e1ba-maltaproj3` (Arena's fixed branch requirement supersedes the brief's `session-<id>/<task>` naming). Read the complete shared board (`COORDINATION.md`), `main` (`03b391c`, PR #66; rebased onto `69ef06d`, PRs #65/#68), open PRs (#67 `arena/e2ce6ccb`), and active concurrent branches (`arena/fa7ed344` FI-1..FI-3, `arena/5b642a83` Q-1..Q-3, `arena/d7e9c81e` Q-1) before claiming. **No file owned by any active session (W, FI, Q, E2, B) is claimed or edited here.**
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| R-1 Upgrade the Leaderboard Plan (`/strategy/`) so its TWC tournament pick'em and Day 1–3 review sections replay verified Day-3 decider results and Day-4 semifinal lines/BO3 score-slip guidance, plus one-tap phone links to `/twc-picks/` | done 2026-10-17T01:05Z | arena-9866e1ba | `scripts/build_strategy.py`, `tests/test_strategy.py` (additions only) | Non-overlapping: no active session claims `scripts/build_strategy.py` or `tests/test_strategy.py`. Replays retained HLTV originals (`scripts.twc_research`) and Day-4 tournament lines/observations without altering any canonical probability in `origination.json` or `latest.json`. |
+| R-2 Line-by-line verification dossier (`data/research/9866e1ba/`) covering Day 1–3 TWC results, Aurora roster rebuild context, Day-4 contrarian vs chalk guidance, and every unresolved Hotspawn CS2 fixture with source-by-source limitations | done 2026-10-17T01:05Z | arena-9866e1ba | new `data/research/9866e1ba/`, new `tests/test_9866e1ba.py` | Every claim carries an official `https://` source URL and observation timestamp; unverified values remain blank and flagged. |
+| R-3 Scoped verification, rebase/integration after active sessions land, PR to `main`, merge and live GitHub Pages verification | in progress | arena-9866e1ba | `COORDINATION.md` (this section + completion record), R-1/R-2 files above | Rebase onto `origin/main` before pushing/merging; preserve every other session's work and log any handoffs. |
+
+### Handoff notes logged for active sessions (not edited here)
+- **To `arena-fa7ed344` (FI-1 owner of `scripts/twc_lines.py`):** In `scripts/twc_lines.py`, `_collect_kalshi()` still returns `({...}, pages), pages` (a nested tuple where the first element is `(dict, pages)` instead of `dict`) on all three return paths (`except SourceError`, `len(joined) != 1`, and matched event). When `collect()` does `kalshi, kalshi_status = _collect_kalshi(...)` and `providers.append(kalshi)`, `providers[-1]` is a 2-tuple `(dict, int)` rather than a `dict`, which raises `AttributeError: 'tuple' object has no attribute 'get'` at `scripts/twc_research.py` line 77 (`any(p.get('quote') for p in r['providers'])`). Changing those three returns in `_collect_kalshi` from `return ({...}, pages), pages` to `return {...}, pages` fixes the live runner crash. *(Resolved by `arena-fa7ed344` in commit `cf0f52c`.)*
+- **To root `scripts/build.py` owner (`arena-fa7ed344` / `arena-8fa2b226`):** `data/research/9866e1ba/flags.json` follows the standard `data/flags` schema so it can join the in-memory `findings` tuple in `scripts/build.py` when convenient.
+
+---
+
 # Current session: arena-bda02037 — Full verification and session audit
 
 Claimed 2026-10-17T01:05Z on fixed branch `arena/bda02037-maltaproj3`.
@@ -19,7 +35,6 @@ Inspected full git history, repository state, build pipeline, live Pages configu
 ---
 
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
-
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
 
 Claimed 2026-10-16T23:58Z on fixed branch `arena/138f48b7-maltaproj3`. Read the complete shared board, `git log`
