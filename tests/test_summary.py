@@ -1,6 +1,7 @@
 """Synthetic presentation/access-audit tests; not published source observations."""
 import copy
 import unittest
+from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 from scripts.build import shell, unresolved_table
 from scripts.collect import record_book_check
@@ -51,13 +52,20 @@ class UnresolvedTests(unittest.TestCase):
 class InventoryCrosscheckNoticeTests(unittest.TestCase):
     """An API-only inventory must say so, not claim a three-response reconciliation."""
 
+    # The fixture below carries a fixed observation time. Every assertion that
+    # depends on freshness must pin the reference time, otherwise the test
+    # expires against the wall clock and silently freezes the four-hour
+    # publisher. See tests/test_freshness_determinism.py.
+    OBSERVED_AT = '2026-10-17T04:27:55Z'
+    REFERENCE_TIME = datetime(2026, 10, 17, 5, 27, 55, tzinfo=timezone.utc)
+
     def data(self, crosscheck):
-        return {'flags': [], 'inventory_observed_at': '2026-10-17T04:27:55Z',
+        return {'flags': [], 'inventory_observed_at': self.OBSERVED_AT,
                 'generated_at': '2026-10-17T07:16:06Z', 'coverage_complete': True,
                 'inventory_crosscheck': crosscheck}
 
     def test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale(self):
-        html = shell(self.data('unavailable'), 'methodology', '', '../')
+        html = shell(self.data('unavailable'), 'methodology', '', '../', now=self.REFERENCE_TIME)
         soup = BeautifulSoup(html, 'html.parser')
         notice = soup.find(id='inventory-crosscheck')
         self.assertIsNotNone(notice)
@@ -66,10 +74,10 @@ class InventoryCrosscheckNoticeTests(unittest.TestCase):
         self.assertIn('hidden', soup.find(id='stale-warning').attrs)
 
     def test_partial_crosscheck_names_one_page(self):
-        html = shell(self.data('partial'), 'methodology', '', '../')
+        html = shell(self.data('partial'), 'methodology', '', '../', now=self.REFERENCE_TIME)
         self.assertIn('one rendered lobby page'.capitalize(), html)
 
     def test_complete_crosscheck_adds_no_notice(self):
-        html = shell(self.data('complete'), 'methodology', '', '../')
+        html = shell(self.data('complete'), 'methodology', '', '../', now=self.REFERENCE_TIME)
         self.assertNotIn('inventory-crosscheck', html)
 
