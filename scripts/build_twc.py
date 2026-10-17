@@ -184,21 +184,27 @@ def render(data: dict, prefix: str, source: Path) -> str:
     if guide is None:
         guide = derive_day4(data, source, datetime.now(timezone.utc))
     report['day4'] = guide
+    from scripts.day5 import derive as derive_day5, render as render_day5
+    final_day = data.get('_twc_day5')
+    if final_day is None:
+        final_day = derive_day5(data, source, datetime.now(timezone.utc))
+    report['day5'] = final_day
     data['_twc_report'] = report
-    out = heading('Thunderpick World Championship 2026 · 17 October', 'TWC Day 4: picks & review',
-                  'One probability feed. Days 1–3 evidence. Every listed Day-4 match, without invented odds.')
+    out = heading('Thunderpick World Championship 2026 · 18 October', 'TWC Day 5: picks & review',
+                  'Final-day probabilities. Days 1–4 evidence. Explicit gaps, without invented odds.')
     out += (f'<section class="twc-brief" id="twc-summary"><p class="eyebrow">Executive summary</p>'
             '<h2>Keep the default. Make any upset play deliberate.</h2>'
             '<p>The default is the higher-probability side in the complete picks list below. '
             'For leaderboard catch-up, consider at most one optional underdog, only with a fresh money-backed line '
             'and a specific matchup case. A plausible upset is not evidence that a market is wrong.</p>'
-            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-four-picks">Day 4 picks</a><a href="#day-three-results">Day 3 results</a><a href="#day-three-picks">Day 3 snapshot</a>'
+            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-five-picks">Day 5 picks</a><a href="#day-four-results">Day 4 results</a><a href="#day-five-unresolved">Final-day limitations</a><a href="#day-four-picks">Day 4 picks</a><a href="#day-three-results">Day 3 results</a><a href="#day-three-picks">Day 3 snapshot</a>'
             '<a href="#day-one-results">Day 1 results</a><a href="#day-two-results">Day 2 results</a>'
             '<a href="#roster-check">Roster &amp; rest check</a><a href="#unresolved">Unresolved &amp; limitations</a>'
             f'<a href="{prefix}origination/#picks">Every Hotspawn CS2 pick →</a></nav>'
             f'<p class="small">Inventory {local_time(report["source_snapshot_at"])} · pricing snapshot '
             f'{local_time(report["source_generated_at"])}. Times use the page timezone selector. '
             'All probabilities below regenerate with the same four-hour publisher as the full list.</p></section>')
+    out += render_day5(final_day, prefix)
     out += render_day4(guide, prefix)
     out += '<details class="twc-history"><summary>Historical Day 3 probability snapshot &amp; audit</summary>'
     out += '<section class="content-section twc-section" id="day-three-picks"><div class="section-heading"><div><p class="eyebrow">Same numbers as the complete picks list</p><h2>Day 3 probability snapshot &amp; audit</h2></div></div><div class="twc-grid">'

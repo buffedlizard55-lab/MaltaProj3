@@ -1,6 +1,9 @@
 """Synthetic presentation/access-audit tests; not published source observations."""
 import copy
 import unittest
+from datetime import datetime
+from unittest.mock import patch
+from scripts.domain import timestamp
 from bs4 import BeautifulSoup
 from scripts.build import shell, unresolved_table
 from scripts.collect import record_book_check
@@ -57,7 +60,10 @@ class InventoryCrosscheckNoticeTests(unittest.TestCase):
                 'inventory_crosscheck': crosscheck}
 
     def test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale(self):
-        html = shell(self.data('unavailable'), 'methodology', '', '../')
+        # Pin presentation time to this synthetic fixture, not today's runner clock.
+        with patch('scripts.build.datetime', wraps=datetime) as clock:
+            clock.now.return_value = timestamp('2026-10-17T07:16:06Z')
+            html = shell(self.data('unavailable'), 'methodology', '', '../')
         soup = BeautifulSoup(html, 'html.parser')
         notice = soup.find(id='inventory-crosscheck')
         self.assertIsNotNone(notice)
@@ -73,3 +79,10 @@ class InventoryCrosscheckNoticeTests(unittest.TestCase):
         html = shell(self.data('complete'), 'methodology', '', '../')
         self.assertNotIn('inventory-crosscheck', html)
 
+
+    def test_api_only_inventory_still_expires_after_eight_hours(self):
+        with patch('scripts.build.datetime', wraps=datetime) as clock:
+            clock.now.return_value = timestamp('2026-10-17T12:27:56Z')
+            soup = BeautifulSoup(shell(self.data('unavailable'), 'methodology', '', '../'), 'html.parser')
+        self.assertNotIn('hidden', soup.find(id='stale-warning').attrs)
+        self.assertIsNotNone(soup.find(id='inventory-crosscheck'))

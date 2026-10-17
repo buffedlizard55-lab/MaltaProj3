@@ -161,7 +161,7 @@ class ArtifactIntegration(unittest.TestCase):
             out = Path(tmp) / 'site'; build(ROOT / 'data', out)
             soup = BeautifulSoup((out / 'twc-picks/index.html').read_text(), 'html.parser')
             self.assertEqual(soup.body.get('data-page'), 'twc')
-            self.assertEqual(soup.h1.get_text(), 'TWC Day 4: picks & review')
+            self.assertEqual(soup.h1.get_text(), 'TWC Day 5: picks & review')
             self.assertEqual(len(soup.select('#day-two-results tbody tr')), 4)
             report = json.loads((out / 'data/twc-day3-picks.json').read_text())
             self.assertEqual(report['schema_version'], 2)

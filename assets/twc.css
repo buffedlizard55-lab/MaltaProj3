@@ -32,3 +32,13 @@
 /* Mobile tables become block cards in the shared shell. Native table-caption
    layout otherwise shrinks captions to a single word-wide column. */
 @media(max-width:700px){body[data-page="twc"] caption{display:block;width:auto;max-width:100%;padding:14px 18px;text-align:left;line-height:1.7;font-size:13px}body[data-page="twc"] .simple-table .source-link{font-size:13px;line-height:1.8}body[data-page="twc"] .simple-table small{font-size:12px}}
+
+/* Final-day cards retain the same mobile rhythm and readable evidence links. */
+.twc-day5-card{display:block;min-width:0;padding:22px;border:1px solid #d5e0e6;border-radius:12px;background:#fff;line-height:1.75;overflow-wrap:anywhere}
+.twc-day5-card h3{font-size:23px;line-height:1.4;margin:3px 0 14px}
+.twc-day5-card .pick-safety{border-left:3px solid #9b681a;padding:12px;background:#fff6e8;color:#573a12}
+.twc-day5-card .evidence-links{display:flex;flex-wrap:wrap;gap:8px 15px}
+.twc-day5-card .evidence-links a{min-height:44px;display:inline-flex;align-items:center}
+.twc-day5-card summary{min-height:44px;cursor:pointer;font-weight:600}
+#day-five-picks>p,#day-four-results>p,#day-five-unresolved>p{padding:0 24px;line-height:1.8}
+@media(max-width:700px){.twc-day5-card{padding:20px 16px}.twc-day5-card h3{font-size:22px}}

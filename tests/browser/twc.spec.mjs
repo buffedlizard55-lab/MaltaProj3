@@ -9,12 +9,12 @@ test.beforeAll(() => {
 });
 test.afterAll(() => fs.rmSync('site/_twc_fixture', { recursive: true, force: true }));
 
-test('phone summary exposes the canonical Day 4 guide in one tap', async ({ page }) => {
+test('phone summary exposes the canonical Day 5 guide in one tap', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 4 pick guide' }).click();
+  await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 5 pick guide' }).click();
   await expect(page).toHaveURL(/\/twc-picks\/$/);
-  await expect(page.locator('main h1')).toHaveText('TWC Day 4: picks & review');
+  await expect(page.locator('main h1')).toHaveText('TWC Day 5: picks & review');
   await expect(page.locator('#day-three-picks .twc-card')).toHaveCount(2);
   const data = await (await page.request.get('/data/twc-day3-picks.json')).json();
   const canonical = await (await page.request.get('/data/origination.json')).json();

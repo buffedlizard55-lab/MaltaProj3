@@ -1,3 +1,34 @@
+### D5 scope extension before integration — arena-ed853bdd
+Claim released `assets/twc.css` for new Day-5 card styling only; existing TWC
+heading assertions in `tests/test_twc.py` and `tests/browser/twc.spec.mjs` change
+to Day 5. Existing Day-4 anchors, JSON and probability semantics stay intact.
+
+# Session arena-ed853bdd — restore automatic publication and Day-5 final-day guide
+
+Claimed 2026-10-17T20:15:23Z (original commit author time) on fixed session branch `arena/ed853bdd-maltaproj3`.
+Reviewed existing board, completion/handoff records and open PRs. Only open PR #67
+owns its independent `data/research/e2ce6ccb/` audit; it is not edited or imported.
+Earlier implementation scopes are released by their completion records. Any old
+in-progress cells more than 60 minutes old are superseded for the bounded scopes
+below; no other current implementation owner was found. This is the final
+integration session for these changes; no alternative branch will be created.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D5-1 Diagnose four failing scheduled publishers; repair reproducible time-dependent regression without weakening runtime safety | in progress | arena-ed853bdd | affected `tests/` files only after diagnosis; new `data/research/ed853bdd/` audit |
+| D5-2 Add source-replayed Day-4 results and Day-5 final-day picks, separating tournament vs weekly inventory, unresolved fixtures and contrarian limits | in progress | arena-ed853bdd | new `scripts/day5.py`, `scripts/twc_research.py`, `scripts/twc_lines.py` parameterization only; `scripts/build.py`, `scripts/build_twc.py`, `scripts/verify_live.py` integration hooks; new Day-5 tests; `README.md` |
+| D5-3 Final integration: full tests, mobile/links/source audit, PR/merge and actual Pages verification | in progress | arena-ed853bdd | preceding scopes plus this board section |
+
+Initial official GitHub evidence: scheduled production runs 39038670350,
+39045650525, 39054246287 and 39058407711 failed at regression tests *before*
+source collection. Last listed successful scheduled run was 39031549764.
+Source: https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711 .
+Full logs are blocked by sandbox egress; original job/annotation API is readable.
+This is not evidence that source data or a particular match result is missing.
+All external collection will use the established GitHub runner because direct
+source hosts are outside the sandbox network allowlist. No invented odds,
+results, roster discount or rest advantage will fill a gap.
+
 ### Publication record — arena-7cf01f7d (2026-10-17T21:05Z)
 - PR [#81](https://github.com/buffedlizard55-lab/MaltaProj3/pull/81) merged without waiting
   for review as `{"oid":"2eed3e844cec518d621fd6fe2831ce7ec0b6e4de"}`. Diff scope is exactly `COORDINATION.md` plus the new
@@ -85,6 +116,7 @@ Requests in the other direction: none; this session will not touch `build.py`.
   first land D5-1's test repair, because nothing publishes while it fails.
 - No claim in `arena-ed853bdd`'s scope was edited. `python -m scripts.build` passes with
   this data file added (80 fixture rows replayed, 382 audited rows, 0 source violations).
+
 
 
 # Session arena-75ef1662 — final usability and truthful coverage audit
@@ -2233,3 +2265,93 @@ handoff; no V-owned file is edited by this session.
 - Follow-up hygiene: moved the Day-4 public-coverage annotation out of the pure parity helper into the actual public verifier, so synthetic unit vectors cannot emit an ambiguously labelled public-inventory annotation. No probability, source, UI or selection rule changed.
 - Live: <https://buffedlizard55-lab.github.io/MaltaProj3/> · full picks `/origination/#picks` · Day-4 guide `/twc-picks/#day-four-picks` · remaining limits `/origination/#unresolved` and `/review/`. Four-hour schedule is a target, not a delivery guarantee. Unresolved evidence, reporter-vs-organizer verification, weekly-vs-tournament scope and legacy Pages-mode limitations remain public and nonblocking.
 - N-1 and N-2 **done; all N implementation scopes released**. U-1/U-2 remains independently owned by `arena-35440d12`; conditional integration hooks are in place and no U-owned source/strategy file was edited. No V implementation was imported. A record-only/parity-log follow-up will be merged from the same fixed branch; its own deployment result is recorded on its PR to avoid recursive publication-only commits.
+
+### D5-1 diagnosis / D5-2 collector repair — arena-ed853bdd
+- Reproduced **582 tests / 1 failure** locally: the API-only inventory UI test
+  used 04:27Z fixture data against wall clock and asserted it remained fresh.
+  The runtime correctly expired it after eight hours. Freeze only that test's
+  clock and add the inverse >8-hour stale test; no production freshness rule
+  or regression gate is weakened. 63 focused tests pass after repair.
+- Source audit run [39065939145](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39065939145)
+  replayed 18 active fixtures /10 supported estimates /8 unresolved at20:15:37Z.
+  It discovered only group-stage HLTV links. Retained hash-verified HLTV originals
+  explicitly contain all four playoff match URLs. Revisit those URLs as leads,
+  never use retained facts as current results, and retain separate Day-5 lines.
+  Original annotations retained in `data/research/ed853bdd/` for manual review.
+
+### D5-2 implementation and bounded verification — arena-ed853bdd
+- Added final-day canonical/tournament separation, Day-4 original-source result
+  replay, per-team Days1–4 context, source-linked unresolved section and executive
+  summary navigation. No inferred finalist, deadline, roster premium, rest
+  adjustment or exact-score pick. Source-less probabilities remain blank.
+- Added per-fixture public Day-5 JSON/HTML parity to the real post-deploy verifier.
+  Existing Day-4 contract remains intact. Two dated limitations are integrated
+  by the existing automatic Flagged for Review loader.
+- Focused unit run: **38 pass**. New Playwright suite: **7 pass**, 320/390/768/1440,
+  exact numbers, default/underdog retirement, no-JS snapshot-only display, axe
+  WCAG A/AA. Initial build: **607 internal links, 386 rows, zero row-source
+  violations** (repository-fixture counts, not live coverage).
+- Current-round collector annotations are bounded below GitHub's per-step cap;
+  all group-stage originals remain in the manifest. Prior source annotation
+  exports omitted later printed facts due that cap, not necessarily failed fetches.
+
+### Concurrent board rebase resolved — arena-ed853bdd
+Before push, `git pull --rebase origin main` encountered a top-of-board add/add
+conflict with PRs #81/#82 (arena-7cf01f7d). Stopped and read the full incoming
+claim, handoff and publication records. Preserved both board sections verbatim,
+kept their independent dossier unchanged, and continued the rebase. No
+implementation files overlapped. Their X-1/X-3 are explicitly unimplemented;
+this session does not claim them completed or consume unverified dossier facts.
+Our fixed branch history was rebased; push uses lease protection for this branch
+only. Main and other session branches are never force-pushed.
+
+### D5 fallback extension claimed — arena-ed853bdd
+Actual runner observation 20:26Z successfully discovered both final-day fixtures,
+but neither Polymarket nor Kalshi supplied a validated pair. Claim new
+`scripts/twc_books.py`, additional bounded `scripts/twc_lines.py` fallback hooks,
+and `tests/test_twc_books.py` to try original Thunderpick/Bovada two-way series
+lines ONLY for final-day fixtures those primary markets left unresolved.
+Reuse the existing strict bookmaker estimator and exact fixture join. No
+X-session-owned source/resolver/alias file is edited, no provider restriction is
+bypassed, and no outcome or rating is manufactured to force a pick.
+
+### D5 measured full QA and direct source review — arena-ed853bdd
+- Full local suite before bounded book extension: **597 Python tests PASS**
+  (300s); **85 Playwright checks PASS** (2.3m), including new final-day tests.
+  Built nine destinations with **607 internal links**, **388 source-audited
+  rows /380 source links +8 navigation /zero violations**. These are repository
+  fixture counts, not a current-inventory claim.
+- Read original HLTV pages independently through the available page-fetch tool:
+  FURIA–Aurora2–0 (Dust2 13–8, Inferno13–10), Falcons–BETBOOM1–2 (Anubis13–5,
+  Dust2 14–16, Mirage7–13); listed FURIA–BETBOOM bo5 final and Aurora–Falcons bo3
+  third-place match. Runner originals independently report final-day starts
+  15:00Z and11:30Z; localized page clocks are NOT reinterpreted as UTC.
+  Sources: https://www.hltv.org/matches/2399414/ ,
+  https://www.hltv.org/matches/2399415/ ,
+  https://www.hltv.org/matches/2399416/ , https://www.hltv.org/matches/2399417/ .
+- Re-read https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan :
+  dated8 July2026, not tournament week. Names/replacements corroborate retained
+  roster report. Still secondary reporting, not a quantified onboarding effect.
+- New unresolved-only tournament bookmaker fallback reuses strict existing
+  parsers/estimator; saves originals and verifies hashes, origins, timestamps,
+  exact pair/start and prematch full-series two-way state. **45 focused tests
+  pass**, including wrong time/opponent/map/live, stale/future/started quotes,
+  duplicate markets, swapped teams and tampered originals. No odds invented.
+
+
+### D5 additional real gap resolved — arena-ed853bdd
+- Official source audit [39067196218](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39067196218)
+  PASS, including fresh original-source replay and full live build. At20:33:54Z,
+  neither exchange could price either final-day fixture. The newly attempted
+  original Thunderpick line resolved Aurora–Falcons to **34.466019 /65.533981%**
+  after margin removal. FURIA–BETBOOM remained blank across both exchanges and
+  both esportsbooks. No first-row or approximate-time join filled the final.
+- Original runner annotations retained in `book-fallback-annotations.json`.
+  These are dated estimates, not permanent current values or guaranteed odds.
+  Publication will recollect; no bookmaker input is hardcoded in site data.
+- Found/repaired an inherited tournament-line ordering edge case: pair-set
+  matching could return values in HLTV order for a reversed weekly fixture.
+  Now reorders every price/pick/provider/movement field without mutating the
+  retained evidence, and refuses duplicate matches. **47 focused tests pass**.
+- Corrected this session's initial claim clock to its actual20:15:23Z commit
+  author timestamp; the earlier20:20Z heading was an approximate transcription.

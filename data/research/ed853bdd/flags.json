@@ -1,0 +1,25 @@
+[
+  {
+    "id": "ed853bdd-refresh-test-outage",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Dated publication outage: a clock-dependent regression blocked four refreshes",
+    "detail": "On 17 October, production runs 39038670350, 39045650525, 39054246287 and 39058407711 failed at regression tests before collecting sources. Local reproduction found one UI test asserting an eight-hour-old fixture was still fresh against wall clock. The runtime safety guard was correct. The test now freezes its synthetic clock and explicitly tests expiry too. No probability or freshness rule was relaxed. Four-hour schedules remain best-effort; check the displayed inventory observation, not only deployment success.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_summary.py"
+    ]
+  },
+  {
+    "id": "ed853bdd-day5-scope",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Final-day scope: reported results and external lines do not confirm a Hotspawn entry deadline",
+    "detail": "Day-5 fixtures and Day-4 scores are replayed from original HLTV match pages. HLTV is an independent reporter, not organizer verification. Weekly fixtures copy the complete-picks estimate. Independently listed tournament fixtures can show an external-line snapshot lean, but cannot acquire an invented Hotspawn entry or lock and are not promoted as confirmed current picks. Unconfirmed bracket slots and missing prices remain blank. Actual rest, onboarding effects, player health, score probabilities and other entrants\u2019 ownership are not quantified. A 30% money-backed underdog screen is an editorial risk threshold, not proof of market mispricing or an optimized leaderboard strategy.",
+    "source_urls": [
+      "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+      "https://play.hotspawn.com/tournaments/thunderpick-world-championships",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/day5.py"
+    ]
+  }
+]

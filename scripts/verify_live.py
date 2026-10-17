@@ -102,6 +102,48 @@ def verify_day4(expected, originated, twc, day4, page):
     return len(rows)
 
 
+def verify_day5(expected, originated, twc, final_day, page):
+    """Check per-fixture JSON/HTML parity, not a page-wide allowed-number set."""
+    from scripts.domain import name_key
+    if final_day != twc.get('day5') or final_day.get('schema_version') != 1:
+        raise ValueError('Day-5 JSON differs between published views')
+    if final_day.get('source_snapshot_at') != expected.get('inventory_observed_at'):
+        raise ValueError('Day-5 inventory binding mismatch')
+    wanted = {m['id']: m for m in expected['matches']
+              if name_key(m.get('competition') or '') == name_key('Thunderpick World Championship 2026')
+              and str(m.get('starts_at') or '').startswith('2026-10-18')}
+    cards = final_day.get('cards') or []
+    weekly = [r for r in cards if r.get('scope') == 'weekly']
+    if {r['fixture']['id'] for r in weekly} != set(wanted) or len(weekly) != len(wanted):
+        raise ValueError('Day-5 view omits or invents a weekly fixture')
+    canonical = {m['id']: m for m in originated['matches']}
+    html_cards = page.select('#day-five-picks .twc-day5-card')
+    if len(html_cards) != len(cards):
+        raise ValueError('Day-5 HTML fixture coverage mismatch')
+    for row in cards:
+        fixture, analysis = row['fixture'], row.get('analysis')
+        if row['scope'] == 'weekly':
+            original = wanted[fixture['id']]
+            if any(fixture.get(k) != original.get(k) for k in ['teams', 'starts_at', 'locks_at', 'source_url']):
+                raise ValueError('Day-5 fixture facts differ from inventory')
+            c = canonical.get(fixture['id']) or {}
+            if c.get('origination') and analysis != c['origination']:
+                raise ValueError('Day-5 overwrote a canonical estimate')
+        elif row['state']['current'] or fixture.get('locks_at') is not None:
+            raise ValueError('HLTV-only fixture invented a current Hotspawn entry or lock')
+        card = page.find(id='twc-day5-' + fixture['id'])
+        values = [n.get_text(strip=True) for n in card.select('.twc-prob strong')] if card else []
+        probabilities = (analysis or {}).get('probabilities')
+        if values != ([f'{p*100:.1f}%' for p in probabilities] if probabilities else ['—', '—']):
+            raise ValueError('Day-5 HTML probabilities differ from the fixture JSON')
+        if not card or card.h3.get_text() != ' vs '.join(row['teams']):
+            raise ValueError('Day-5 HTML team direction mismatch')
+    for anchor in ['day-five-picks', 'day-four-results', 'day-five-unresolved']:
+        if not page.find(id=anchor):
+            raise ValueError('Day-5 section missing: ' + anchor)
+    return final_day['counts']
+
+
 def verify(url, expected):
     base = url.rstrip('/') + '/'
     session = requests.Session()
@@ -188,6 +230,9 @@ def verify(url, expected):
     day4 = get('data/twc-day4-picks.json').json()
     day4_count = verify_day4(expected, originated, twc, day4, twc_page)
     print('::notice::Public Day-4 canonical fixture coverage: ' + str(day4_count))
+    final_day = get('data/twc-day5-picks.json').json()
+    day5_counts = verify_day5(expected, originated, twc, final_day, twc_page)
+    print('::notice title=Public final-day coverage::' + json.dumps(day5_counts))
     get('assets/pick-safety.js')
     for row in twc['day3_matches']:
         a = row.get('analysis') or {}

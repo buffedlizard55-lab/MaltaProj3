@@ -24,6 +24,7 @@ tampered evidence file fails closed instead of publishing a number.
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -44,12 +45,14 @@ KALSHI_PAGE = 'https://kalshi.com/markets/kxcs2game/counterstrike-2-game'
 KALSHI_SERIES = 'KXCS2GAME'
 DOCS = 'https://docs.kalshi.com/api-reference/market/get-markets'
 REPORT = Path('evidence/twc-day4-lines.json')
+DAY5_REPORT = Path('evidence/twc-day5-lines.json')
 MAX_SPREAD = 0.12
 MAX_KALSHI_PAGES = 5
 HISTORY_READS = 6  # Earlier pipeline reads retained for verified line movement.
 POLICY = ('External first-party market data only. Every fixture joins on exact team names (or a competition-scoped, '
           'evidence-linked alias) and an exact scheduled start; both sides of the selected full-series market must '
-          'publish a two-sided book no wider than 0.12; in-play and past-start observations are rejected. The '
+          'publish a two-sided exchange book no wider than 0.12, or validated paired prematch bookmaker decimal odds '
+          'with margin removed; in-play and past-start observations are rejected. The '
           'published pair is the median across the independent providers that validated, never a directory '
           'percentage, a fan vote, a Hotspawn figure or a previously stored estimate.')
 
@@ -231,6 +234,7 @@ def analyse(providers: list, fixture: dict) -> dict:
            'hltv_match_id': fixture.get('hltv_match_id'), 'probabilities': probs,
            'providers': [{'provider': p['quote']['provider'], 'probabilities': p['quote']['probabilities'],
                           'bid': p['quote']['bid'], 'ask': p['quote']['ask'],
+                          **({'odds': p['quote']['odds']} if p['quote'].get('odds') else {}),
                           'source_url': p['quote']['source_url'], 'api_url': p['quote']['api_url'],
                           'event_id': p['quote']['event_id'], 'observed_at': p['observed_at'],
                           'activity': p['quote'].get('activity')}
@@ -249,14 +253,16 @@ def analyse(providers: list, fixture: dict) -> dict:
         return row
     # A new provider cannot extend the validity of an older contributing input.
     observed = min(p['observed_at'] for p in usable if p.get('observed_at'))
-    row['method'] = 'market'
+    row['method'] = 'bookmaker' if all(p['quote'].get('family') == 'bookmaker' for p in usable) else 'market'
     row['label'] = ('Tournament market line — ' + ('/'.join(sorted({p['quote']['provider'] for p in usable}))
                                                    + (' consensus' if len(usable) > 1 else ', single independent source')))
     row['observed_at'] = observed
     row['pick_index'] = None if abs(probs[0] - probs[1]) < 1e-8 else (0 if probs[0] > probs[1] else 1)
+    if row['method'] == 'bookmaker':
+        row['label'] = 'Tournament esportsbook line — ' + '/'.join(p['provider'] for p in row['providers']) + ' (no-vig)'
     if len(row['providers']) < 2:
         row['limitations'].append('One independent provider only; this is not a multi-book consensus.')
-    row['limitations'].append('Midpoints are not guaranteed execution prices; fees and exchange rules are excluded.')
+    row['limitations'].append('Margin removed by proportional normalization; odds and estimates are not guarantees.' if row['method'] == 'bookmaker' else 'Midpoints are not guaranteed execution prices; fees and exchange rules are excluded.')
     return row
 
 
@@ -282,16 +288,16 @@ def _record_evidence(client, labels: list) -> list:
         saved = client.evidence / Path(entry['evidence']).name
         if not saved.is_file():
             continue
-        out.append({'label': label, 'url': entry.get('url'), 'observed_at': entry.get('observed_at'),
+        out.append({'label': label, 'url': entry.get('url'), 'method': entry.get('method'), 'observed_at': entry.get('observed_at'),
                     'file': 'evidence/' + saved.name,
                     'sha256': hashlib.sha256(saved.read_bytes()).hexdigest(),
                     'response_sha256': entry.get('response_sha256')})
     return out
 
 
-def _previous_reads(client) -> list:
+def _previous_reads(client, report_path=REPORT) -> list:
     """Earlier pipeline reads, carried forward so movement stays verifiable."""
-    path = client.evidence / 'twc-day4-lines.json'
+    path = client.evidence / report_path.name
     if not path.exists():
         return []
     try:
@@ -304,11 +310,13 @@ def _previous_reads(client) -> list:
     return out[-HISTORY_READS:]
 
 
-def collect(client, research_rows: list, registry: dict, day: str, now: datetime) -> dict:
+def collect(client, research_rows: list, registry: dict, day: str, now: datetime, *, report_path=REPORT) -> dict:
     """Discover, validate and retain external Day-4 lines for TWC fixtures."""
     targets = fixtures(research_rows, day)
     stamp = now.strftime('%Y%m%dT%H%M')
-    history = _previous_reads(client)
+    if report_path not in {REPORT, DAY5_REPORT}:
+        raise ValueError('Unsupported tournament line report path')
+    history = _previous_reads(client, report_path)
     games, poly_health = ([], None)
     if targets:
         try:
@@ -365,12 +373,15 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                               'source_url': POLY_DIRECTORY, 'observed_at': iso(now), 'quote': None})
         kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now, stamp)
         providers.append(kalshi)
+        if report_path == DAY5_REPORT and not any(p.get('quote') for p in providers):
+            from scripts import twc_books
+            providers.extend(twc_books.collect(client, fixture, registry, now, stamp))
         records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
               'request_manifest': list(client.manifest)}
-    client.save('twc-day4-lines', report)
+    client.save(report_path.stem, report)
     return report
 
 
@@ -473,6 +484,9 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
                 quote, reason = kalshi_quote(event, fixture, registry, observed, now)
             elif not joined:
                 reason = 'The retained Kalshi page no longer contains the selected event'
+        if provider['provider'] in {'Thunderpick', 'Bovada'} and payloads:
+            from scripts import twc_books
+            quote, reason = twc_books.replay(provider, payloads, original_observations, fixture, registry, now)
         providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',
                           'reason': reason, 'source_url': provider.get('source_url'),
                           'observed_at': provider.get('observed_at'), 'quote': quote})
@@ -483,7 +497,8 @@ def _movement(row: dict, earlier: dict | None) -> dict | None:
     """Point change between two independently replayed reads of one fixture."""
     if not earlier or not row.get('probabilities') or not earlier.get('probabilities'):
         return None
-    if row['fixture_id'] != earlier.get('fixture_id'):
+    if (row['fixture_id'] != earlier.get('fixture_id')
+            or [name_key(n) for n in row.get('teams', [])] != [name_key(n) for n in earlier.get('teams', [])]):
         return None
     before, after = earlier['probabilities'], row['probabilities']
     delta = [after[i] - before[i] for i in (0, 1)]
@@ -493,7 +508,7 @@ def _movement(row: dict, earlier: dict | None) -> dict | None:
             'label': 'Change against the previous validated read of the same fixture.'}
 
 
-def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
+def load(source: Path, now: datetime, registry: dict | None = None, *, report_file=REPORT) -> dict:
     """Replay retained originals and return validated Day-4 lines.
 
     Stored probabilities are never trusted: each provider is recomputed from the
@@ -503,11 +518,13 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     between two verified observations rather than a remembered number; a read
     whose originals are gone is dropped instead of being trusted.
     """
+    if report_file not in {REPORT, DAY5_REPORT}:
+        raise ValueError('Unsupported tournament line report path')
     folder = source / 'research/twc-current'
-    report_path = folder / REPORT
+    report_path = folder / report_file
     if not report_path.exists():
         folder = source / 'research/138f48b7/twc-current'
-        report_path = folder / REPORT
+        report_path = folder / report_file
     empty = {'schema_version': 1, 'available': False, 'day': None, 'observed_at': None,
              'matches': [], 'reasons': {}, 'report_path': None, 'policy': POLICY}
     if not report_path.exists():
@@ -516,7 +533,7 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     # Evidence paths are stored relative to the research folder, which is the
     # report's own folder minus the report's relative path.
     folder = report_path.parent
-    for _ in range(len(REPORT.parts) - 1):
+    for _ in range(len(report_file.parts) - 1):
         folder = folder.parent
     registry = registry if registry is not None else _registry()
     matches, reasons = [], {}
@@ -568,12 +585,25 @@ def _relative_report(source: Path, report_path: Path) -> str:
 
 
 def for_fixture(lines: dict, teams: list, starts_at) -> dict | None:
-    """The validated line for an exact team pair and start, or None."""
+    """Unique exact pair/start, aligned to caller order without mutating evidence."""
     key = (frozenset(name_key(t) for t in teams), starts_at)
-    for row in lines.get('matches') or []:
-        if fixture_key({'teams': [{'name': n} for n in row['teams']], 'starts_at': row['starts_at']}) == key:
-            return row
-    return None
+    hits = [row for row in lines.get('matches') or []
+            if fixture_key({'teams': [{'name': n} for n in row['teams']], 'starts_at': row['starts_at']}) == key]
+    if len(hits) != 1:
+        return None
+    row = copy.deepcopy(hits[0])
+    if [name_key(n) for n in row['teams']] != [name_key(n) for n in teams]:
+        for item in [row] + (row.get('providers') or []):
+            for field in ['probabilities', 'bid', 'ask', 'odds']:
+                if item.get(field) is not None:
+                    item[field] = list(reversed(item[field]))
+        if row.get('pick_index') is not None:
+            row['pick_index'] = 1 - row['pick_index']
+        for field in ['before', 'delta', 'points']:
+            if (row.get('movement') or {}).get(field) is not None:
+                row['movement'][field] = list(reversed(row['movement'][field]))
+    row['teams'] = list(teams)
+    return row
 
 
 def underdog(line: dict, floor: float = 0.30) -> dict | None:

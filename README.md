@@ -12,7 +12,7 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
 | [Day 1 contrarian review](https://buffedlizard55-lab.github.io/MaltaProj3/#contrarian) | Source-linked 9z–Aurora upset review, Aurora rebuild context and a strictly bounded 9z–Falcons watch that never overrides the primary pick |
 | [Upset review & edge](https://buffedlizard55-lab.github.io/MaltaProj3/edge/) | Dated first-party deep dive: day one at Thunderpick World Championship 2026 (9z 2-0 Aurora and the other three series, map by map), Aurora roster context (not a proven cause of the upset), official Valve standings for the current card, dated market observations and the seven rules applied before disagreeing with a market |
-| [TWC Day 3 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | Both deciders regenerated from the **same complete-picks snapshot**; both probabilities, default picks, optional underdog screens and expected-point costs, Days 1–2 results replayed from original HLTV pages, roster/rest verification and unresolved limitations. No fan votes, outrights or narrative probability adjustments |
+| [TWC Day 5 picks](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/) | Final-day fixtures from the **same complete-picks snapshot**, plus separately labelled HLTV tournament fixtures and replayed external lines. Days 1–4 results, both probabilities, obvious defaults, bounded underdog screens and unresolved limitations. No invented finalists, deadlines, exact scores or narrative probability adjustments |
 | [Coverage & original sources](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/) | Inventory reconciliation, source health, complete past-start archive and JSON/CSV downloads |
 | [Methodology](https://buffedlizard55-lab.github.io/MaltaProj3/methodology/) | Exact matching, formulas, thresholds, source policy and model limitations |
 | [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
@@ -314,3 +314,36 @@ listed with its reason rather than a default 50/50.
   and full evidence, and shows `FURIA vs Aurora` as "No edge — even line" rather
   than inventing a side. The `/review/` and `/twc-picks/` pages are live with their
   source links.
+
+
+## Final day and refresh repair — 17 October 2026
+
+The [Day-5 guide](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/#day-five-picks)
+now leads the TWC view, with a one-tap executive-summary link. Its JSON is
+`data/twc-day5-picks.json`. Existing Day-3/4 anchors and exports remain available
+as historical context. Day-4 results are replayed from original HLTV HTML;
+HLTV is explicitly an independent reporter, not the tournament organizer.
+
+The collector revisits playoff URLs discovered in hash-verified original HLTV
+pages even when the current event page no longer links completed rounds. These
+are discovery leads only: no retained team, score or time becomes a new fact.
+Final-day exchange evidence is retained separately from Day-4 evidence and
+recomputed from original books. All weekly fixtures remain in the canonical
+complete list regardless of tier. Independent tournament lines cannot invent a
+Hotspawn entry or lock, and missing sources remain blank in the dedicated
+[final-day limitations](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/#day-five-unresolved).
+
+An eight-hour clock-dependent regression assertion blocked four scheduled jobs
+before collection. The test now pins its synthetic clock and tests the opposite
+stale case too; runtime freshness checks are unchanged. New final-day checks
+cover canonical equality, missing probabilities, no inferred results, no-JS
+snapshot-only display, per-fixture public JSON/HTML parity, and phone WCAG A/AA.
+
+
+For Day-5 tournament fixtures left unpriced by the exchange stage, the collector
+also attempts original Thunderpick and Bovada full-series two-way lines. It
+reuses the reviewed parsers, exact pair/start matching and proportional no-vig
+formula. Every response is saved and hash/origin/time checked at replay. This
+fallback never changes an existing canonical estimate; unsupported entries
+remain explicitly unresolved. Raw paired decimal odds are shown alongside
+supported final-day bookmaker estimates for manual review.
