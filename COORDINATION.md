@@ -19,6 +19,39 @@ four-hour publisher (`pages.yml` -> `scripts.twc_research`); this session's own 
 dated observations with explicit provenance, never relabelled as pipeline evidence. Historical scopes and every
 other session's work are preserved; the fixed Arena branch overrides the brief's alternative branch naming.
 
+### T-1..T-3 progress — 2026-10-17T00:30Z
+
+- **T-1 (lines)** `scripts/twc_lines.py` collects Day-4 TWC lines from Polymarket CS2 books and Kalshi
+  `KXCS2GAME` only, joins on exact team names or the competition-scoped alias registry plus the exact scheduled
+  start, requires a two-sided book inside the 12-cent ceiling, and replays every provider from its retained
+  original at build time. Fixed a **wiring defect** found while reviewing the handoff: the loader read
+  `research/twc-current/day4-lines.json` while the collector wrote
+  `research/twc-current/evidence/twc-day4-lines.json`, so a collected report could never have been published;
+  both now use one constant and `Wiring::test_the_loader_reads_the_report_where_the_collector_saves_it` fails if
+  the paths drift again.
+- **No-network dry run against the captured live payloads** (real gamma `clobTokenIds`/`outcomes` order, real
+  Kalshi nested markets, both CLOB books) reproduces the published pairs exactly: SF1 median
+  `0.52380654 / 0.47619346`, SF2 `0.79343909 / 0.20656091`, with the aliases `Aurora Gaming->Aurora`,
+  `Team Falcons->Falcons`, `BetBoom Team->BETBOOM` resolving inside the `Thunderpick World Championship 2026`
+  scope. Kalshi's books report `updated_time == open_time` (no reprice since open) on both events.
+- **SF2 identity** HLTV match 2399415 now resolves to `Falcons vs. BETBOOM` at 17:00Z, so the runner's fresh
+  fetch joins both providers. The committed fallback evidence still shows the bracket placeholder; the page now
+  states that explicitly ("HLTV still lists this semi-final slot as a bracket placeholder") instead of leaving an
+  unexplained blank, and never invents a pair.
+- **T-2/T-3 (odds, movement, analysis)** provider activity (listing/open/book-update times, reprice flag, last
+  trade, open interest, traded volume for Kalshi; listing, book-update, volume and liquidity for Polymarket) and a
+  verified line-movement statement are rendered from JSON on both the collected-line and dated-observation rows.
+  Movement is only published when two reads are replayed; a read whose originals are gone is dropped, not
+  remembered. The Day-4 rows also name the Day-3 decider that settled the slot, from the retained result only.
+- Local verification: **439 Python tests OK** (`unittest discover -s tests`), **66 Playwright checks pass**
+  (`npx playwright test`, including the new phone-layout, placeholder and WCAG coverage of the external table),
+  build replay 80 source rows / 342-row audit / 577 links / 7 views.
+- Flagged, non-blocking: `pages.yml`'s deploy job is gated on `refs/heads/main`, so the live publisher cannot be
+  exercised from a session branch; live verification therefore happens on the merge commit and is recorded here.
+  A second session branch `arena/3f7af811-maltaproj3` pushed at 00:04Z; its diff could not be fetched locally and
+  its scope is unknown, so no file of unknown ownership was touched.
+
+
 # Current session: arena-8a6a5a84 — Day-4 TWC handoff and refreshed coverage
 
 Claimed 2026-10-16T19:31Z on fixed branch `arena/8a6a5a84-maltaproj3`. Read the complete shared board (including completed K/P/M publications and stale historical claims), checked main and open PRs. No open PR or active competing implementation found. Historical scopes are preserved; the fixed Arena branch overrides the requested alternative branch naming.
