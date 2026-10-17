@@ -353,6 +353,27 @@ def summary(data, prefix):
     out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
     unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
     out += unresolved_table(unresolved_data, prefix)
+    probe = data.get('coverage_probe') or {}
+    if probe:
+        pc = probe.get('counts') or {}
+        blanks = pc.get('unresolved_fixtures') or 0
+        lead = probe.get('headline') or (f'{blanks} blank fixture(s) documented')
+        where = 'the GitHub runner' if probe.get('environment') == 'github-actions-runner' else 'a local checkout'
+        detail = (f'{e(pc.get("with_provider_lead"))} of them have a provider listing that the strict join rejected for a '
+                  f'named reason, and {e(pc.get("display_name_only"))} are blocked by display-name differences alone — the one '
+                  'class of gap a reviewed alias can close, and the only class where a lead is published with the listing it came from.'
+                  if blanks else
+                  'The dossier is republished on every refresh, so a blank can never appear without a record beside it.')
+        out += ('<div class="limitations-callout"><p class="eyebrow">Coverage probe · every blank, one by one</p>'
+                f'<p><strong>{e(lead)}</strong> {detail} The dossier was written by the probe script against {where} at '
+                f'{local_time(probe.get("generated_at"))} ({e(probe.get("mode"))}); it never writes a probability, a pick or an '
+                'alias, and it does not overwrite the collector’s own reasons above.</p>'
+                f'<p><a class="internal-link" href="{prefix}data/research/8fa2b226/coverage-probe.json">Full probe dossier (JSON) ↓</a>'
+                + ''.join(f' <a class="source-link" href="{e(x.get("url"))}" target="_blank" rel="noopener noreferrer">{e(x.get("name"))}: {e(x.get("status"))}</a>'
+                          for x in (probe.get('book_probes') or [])[:5])
+                + ('' if (probe.get('book_probes') or []) else ' <span class="tiny muted">no endpoint probes in this mode</span>')
+                + f'</p><p class="tiny">{e((probe.get("policy") or "")[:420])}</p>'
+                + '<p class="tiny">' + e('; '.join((probe.get('limitations') or [])[:2])) + '</p></div>')
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'
     out += contrarian_briefing(data, prefix)
@@ -555,10 +576,14 @@ def build(source: Path, output: Path):
     # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
     # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
     # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
-    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json', source / 'research/35440d12/flags.json', source / 'research/8a6a5a84/flags.json'):
+    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json', source / 'research/35440d12/flags.json', source / 'research/8a6a5a84/flags.json',
+                 source / 'research/8fa2b226/flags.json'):
         if findings.exists():
             have = {f['id'] for f in data['flags']}
             data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
+    # Session arena-8fa2b226's coverage dossier: why each blank stayed blank, which providers were checked.
+    if (source / 'research/8fa2b226/coverage-probe.json').exists():
+        data['coverage_probe'] = json.loads((source / 'research/8fa2b226/coverage-probe.json').read_text())
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     if (source / 'research/c07e1b40/repo-review.json').exists():

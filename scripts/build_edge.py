@@ -58,6 +58,22 @@ def load_edge(path: Path) -> dict:
                 for field in ('event_url', 'api_url'):
                     if market.get(field):
                         require(str(market[field]).startswith('https://'), 'market links must be https links')
+    for row in data.get('group_stage_record', {}).get('series', []):
+        require(row.get('sources'), 'every group-stage series needs an official source link')
+        require(str(row.get('url', '')).startswith('https://www.hltv.org/matches/'),
+                'every group-stage series must link its own HLTV match page')
+    for block in (data.get('day_four_refresh', {}).get('fixtures', []),):
+        for row in block:
+            require(row.get('sources'), 'every dated semifinal observation needs an official source link')
+            market = row.get('market') or {}
+            if market:
+                require(market.get('observed_at'), 'a dated market observation needs an observation time')
+                require(str(market.get('api_url', '')).startswith('https://'), 'a market observation needs its provider record link')
+    for row in data.get('day_five_card', {}).get('matches', []):
+        # Fail closed: an unplayed match cannot carry a team, a probability or a pick.
+        require(row.get('teams') in (None, []), 'day-five teams must stay blank while the bracket is open')
+        require(row.get('probabilities') is None and row.get('pick') is None,
+                'day-five fixtures must not carry a probability or a pick before their semifinal finishes')
     if 'day_four_guidance' in data:
         block = data['day_four_guidance']
         require(isinstance(block.get('principles'), list) and block['principles'],
@@ -315,6 +331,166 @@ def day_four_section(review):
     return ''.join(out)
 
 
+def group_stage_section(review):
+    """The completed ten-series group stage, straight from HLTV's results page."""
+    record = review.get('group_stage_record') or {}
+    rows = record.get('series') or []
+    if not rows:
+        return ''
+    summary = record.get('summary') or {}
+    out = ['<section class="content-section" id="group-stage-record"><div class="section-heading"><div>'
+           '<p class="eyebrow">Group stage closed</p><h2>All ten series, as HLTV published them</h2></div>'
+           + badge(local_time(record.get('observed_at')) if record.get('observed_at') else 'undated', 'green') + '</div>',
+           '<p class="section-intro">' + e(record.get('note') or '') + '</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Every completed group-stage '
+           'series at Thunderpick World Championship 2026 with its HLTV result</caption><thead><tr>'
+           '<th scope="col">Series</th><th scope="col">Result</th><th scope="col">What it means for a pick’ems card</th>'
+           '</tr></thead><tbody>']
+    for row in rows:
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                   f'<small>Day {e(row["day"])} · {e(row["group"])} · {e(row["slot"])} · {e(row["date"])}</small></th>'
+                   f'<td><strong>{e(row["winner"])} {e(row["score"])}</strong>'
+                   f'<small>{e(row["maps_played"])} maps · bo3</small>'
+                   + external(row['url'], 'HLTV match page') + '</td>'
+                   f'<td>{"Sweep — the exact-score half of the card was the differentiator." if row["score"] in ("2-0", "0-2") else "Third map — a score pick of 2-0 paid nothing even with the right team."}'
+                   f'{source_lines(row.get("sources") or [])}</td></tr>')
+    out.append('</tbody></table></div>')
+    out.append('<div class="limitations-callout"><p><strong>'
+               f'{e(summary.get("sweeps"))} of {e(summary.get("series_completed"))} series ended 2-0</strong> — '
+               f'{e(round((summary.get("sweep_rate") or 0) * 100))}% — and {e(summary.get("decided_in_third_map"))} went to a third map. '
+               f'{e(summary.get("reading") or "")}</p>'
+               f'<p class="tiny">Qualified: {e(", ".join(summary.get("qualified") or []))}. '
+               f'Eliminated: {e(", ".join(summary.get("eliminated") or []))}. '
+               f'{external(record["source_url"], "HLTV results for event 8932")}</p></div>')
+    load = record.get('map_load') or []
+    if load:
+        out.append('<div class="table-scroll"><table class="simple-table"><caption>Maps played by the four semifinalists '
+                   '(counted from published series scores)</caption><thead><tr><th scope="col">Team</th>'
+                   '<th scope="col">Series · maps</th><th scope="col">Rest before the semifinal</th></tr></thead><tbody>')
+        for row in load:
+            out.append('<tr>'
+                       f'<th scope="row">{e(row["team"])}</th>'
+                       f'<td>{e(row["series_played"])} series · {e(row["maps_played"])} maps<small>{e(row["days_played"])}</small></td>'
+                       f'<td>{e(row["rest_before_semifinal"])}{source_lines(record.get("sources") or [])}</td></tr>')
+        out.append('</tbody></table></div>'
+                   f'<p class="tiny">{e(record.get("map_load_note") or "")}</p>')
+    out.append('</section>')
+    return ''.join(out)
+
+
+def day_four_refresh_section(review):
+    """The two semifinals with the provider record read for each, dated and single-sourced."""
+    block = review.get('day_four_refresh') or {}
+    rows = block.get('fixtures') or []
+    if not rows:
+        return ''
+    out = ['<section class="content-section" id="day-four-refresh"><div class="section-heading"><div>'
+           '<p class="eyebrow">Dated refresh · not a pipeline pick</p><h2>Semifinal card, read from the provider record</h2></div>'
+           + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'amber') + '</div>',
+           '<p class="section-intro">' + e(block.get('policy') or '') + '</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-four semifinals with dated '
+           'first-party market observations</caption><thead><tr><th scope="col">Series</th>'
+           '<th scope="col">Dated market observation</th><th scope="col">Reading</th></tr></thead><tbody>']
+    for row in rows:
+        market = row.get('market') or {}
+        probs = market.get('derived_probabilities') or {}
+        best = max(probs, key=probs.get) if probs else None
+        cells = []
+        for name in (row['team_a'], row['team_b']):
+            value = probs.get(name)
+            if isinstance(value, (int, float)):
+                favored = ' favored' if name == best and max(probs.values()) - min(probs.values()) > 0.05 else ''
+                cells.append(f'<div class="prob-line{favored}"><span class="prob-team">{e(name)}'
+                             f'<small class="fair-line">Fair line {1 / value:.3f}</small></span>'
+                             f'<strong>{value * 100:.1f}%</strong></div>')
+            else:
+                cells.append(f'<div class="prob-line"><span>{e(name)}</span>{blank()}</div>')
+        prob_pair = ('<p class="tiny muted">Estimated win chance from the record above — market-implied, not a verified '
+                     'true probability. No default 50/50 is applied to a blank side.</p>') + ''.join(cells)
+        price_text = '<span class="unverified">no verified market at this observation</span>'
+        if probs:
+            price_text = (f'<strong>{e(market.get("provider") or "")}</strong>'
+                          f'<p class="tiny">bid/ask {e(market.get("best_bid"))}/{e(market.get("best_ask"))} · '
+                          f'spread {e(market.get("spread"))} · last trade {e(market.get("last_trade_price"))} · '
+                          f'volume ${e(market.get("volume_usd"))} · liquidity ${e(market.get("liquidity_usd"))}</p>'
+                          f'<p class="tiny">Provider record updated {e(market.get("provider_updated_at") or "— unverified")} · '
+                          f'read {local_time(market["observed_at"])} · event {e(market.get("event_id") or "—")}'
+                          + (f' · market {e(market.get("market_id"))}' if market.get('market_id') else '')
+                          + (f' · condition {e(market.get("condition_id"))}' if market.get('condition_id') else ' · market/condition id not re-read: blank')
+                          + '</p>'
+                          + f'<small>{e(market.get("note") or "")}</small>'
+                          + (external(market['api_url'], 'official market record') if market.get('api_url') else '')
+                          + (external(market['public_url'], 'market page') if market.get('public_url') else ''))
+        statements = ''.join(
+            f'<li>{e(x["text"])}<small>{e(x["reading"])} · {local_time(x["observed_at"])}</small>{external(x["url"], "HLTV analytics")}</li>'
+            for x in row.get('hltv_statements') or [])
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                   f'<small>{e(row["slot"])} · {local_time(row["starts_at"])} UTC · {e(row["format"])}</small>'
+                   + external(row['hltv_url'], 'HLTV match page')
+                   + f'<small>{e(row.get("start_time_basis") or "")}</small></th>'
+                   f'<td>{price_text}{prob_pair}</td>'
+                   f'<td>{e(row.get("assessment") or "")}{("<ul>" + statements + "</ul>") if statements else ""}'
+                   f'{source_lines(row.get("sources") or [])}</td></tr>')
+    out.append('</tbody></table></div></section>')
+    return ''.join(out)
+
+
+def day_five_section(review):
+    block = review.get('day_five_card') or {}
+    rows = block.get('matches') or []
+    if not rows:
+        return ''
+    out = ['<section class="content-section" id="day-five-card"><div class="section-heading"><div>'
+           '<p class="eyebrow">Blank on purpose</p><h2>Day five: bracket still open</h2></div>'
+           + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'amber') + '</div>',
+           '<p class="section-intro">' + e(block.get('note') or '') + '</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-five fixtures left '
+           'unresolved because their semifinalists are not decided</caption><thead><tr><th scope="col">Fixture</th>'
+           '<th scope="col">Status at observation</th><th scope="col">Pick &amp; probability</th></tr></thead><tbody>']
+    for row in rows:
+        out.append('<tr>'
+                   f'<th scope="row"><strong>{e(row["slot"])}</strong>'
+                   f'<small>bo{e(row.get("best_of"))} · Sunday 18 October 2026 (UTC start not confirmed from an official source)</small>'
+                   + external(row['url'], 'HLTV match page') + '</th>'
+                   f'<td>{e(row.get("status") or "")}</td>'
+                   f'<td><span class="unverified">Teams: — unverified · Pick: — unverified · Probability: — unverified</span></td></tr>')
+    out.append('</tbody></table></div>')
+    out.append('<ul>' + ''.join(f'<li>{e(x)}</li>' for x in block.get('limitations') or []) + '</ul>')
+    out.append(f'<p class="tiny">{external(block["source_url"], "HLTV event schedule")}</p></section>')
+    return ''.join(out)
+
+
+def score_slip_section(review):
+    block = review.get('score_slip_evidence') or {}
+    if not block:
+        return ''
+    out = ['<section class="content-section" id="score-slip"><div class="section-heading"><div>'
+           '<p class="eyebrow">Team plus score</p><h2>' + e(block.get('title') or 'Score-line evidence') + '</h2></div>'
+           + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'neutral') + '</div>',
+           '<p class="section-intro">' + e(block.get('policy') or '') + '</p>',
+           '<div class="table-scroll"><table class="simple-table"><caption>Series-score frequency by team, as published on '
+           'HLTV’s match analytics page</caption><thead><tr><th scope="col">Team</th><th scope="col">Sample</th>'
+           '<th scope="col">Frequency of each series score</th></tr></thead><tbody>']
+    for row in block.get('hltv_frequencies') or []:
+        freqs = ' · '.join(f'{e(label)} {value * 100:.1f}%' for label, value in row.get('rows') or [])
+        out.append('<tr>'
+                   f'<th scope="row">{e(row["team"])}</th>'
+                   f'<td>{e(row["series_count"])} series · {e(row["map_count"])} maps<small>past 3 months, all events</small></td>'
+                   f'<td>{e(freqs)}{external(row["source_url"], "HLTV match analytics")}'
+                   f'<small>read {local_time(row["observed_at"])}</small></td></tr>')
+    out.append('</tbody></table></div>')
+    rate = block.get('event_base_rate') or {}
+    if rate:
+        out.append('<div class="limitations-callout"><p><strong>This event’s own base rate</strong> — '
+                   f'{e(rate.get("detail"))}</p><p>{e(rate.get("reading"))}</p>'
+                   + external(rate['source_url'], 'HLTV results for event 8932')
+                   + f'<small> read {local_time(rate["observed_at"])}</small></div>')
+    out.append('<ul>' + ''.join(f'<li>{e(x)}</li>' for x in block.get('limitations') or []) + '</ul></section>')
+    return ''.join(out)
+
+
 def valve_snapshot_note(snapshot):
     if not snapshot:
         return ''
@@ -384,6 +560,18 @@ def edge_review(data, prefix, edge_path: Path):
     out += day_three_section(review, data)
     out += day_three_results_section(review)
     out += day_four_section(review)
+    out += group_stage_section(review)
+    out += day_four_refresh_section(review)
+    out += score_slip_section(review)
+    out += day_five_section(review)
+    refresh = review.get('session_refresh') or {}
+    if refresh:
+        out += ('<section class="content-section prose" id="edge-refresh-note"><p class="eyebrow">Dated research note</p>'
+                '<h2>What this session changed</h2>'
+                f'<p><strong>Session {e(refresh.get("session"))}</strong>, prepared {local_time(refresh.get("prepared_at"))}. '
+                f'{e(refresh.get("reads") or "")}</p><p>{e(refresh.get("what_changed") or "")}</p>'
+                f'<p class="tiny">{e(refresh.get("not_touched") or "")}</p>'
+                f'<p>{external("https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/edge-review.json", "This page’s data file")}</p></section>')
     day3_path = edge_path.parent / 'day3-guide.json'
     if day3_path.exists():
         from scripts.build_day3 import load_day3, render_section

@@ -238,3 +238,98 @@ class NavigationIntegrationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DayFourRefreshAndGroupStageTests(unittest.TestCase):
+    """The 17 October refresh: verified series, dated single-provider quotes, blanks kept blank."""
+
+    def body(self, data=None):
+        return edge_review(data or inventory(), '../', EDGE)
+
+    def test_group_stage_record_lists_every_completed_series_with_its_own_hltv_link(self):
+        record = review()['group_stage_record']
+        self.assertEqual(len(record['series']), 10)
+        ids = [row['hltv_match_id'] for row in record['series']]
+        self.assertEqual(len(set(ids)), 10, 'a duplicated series would double-count a result')
+        for row in record['series']:
+            self.assertTrue(row['url'].startswith('https://www.hltv.org/matches/'), row['url'])
+            for src in row['sources']:
+                self.assertTrue(src['url'].startswith('https://'), src)
+                self.assertTrue(src.get('observed_at'), src)
+        sweeps = sum(1 for row in record['series'] if row['score'] in ('2-0', '0-2'))
+        self.assertEqual(record['summary']['sweeps'], sweeps)
+        self.assertEqual(record['summary']['series_completed'], len(record['series']))
+        self.assertEqual(record['summary']['decided_in_third_map'], len(record['series']) - sweeps)
+
+    def test_group_stage_rendered_rows_match_the_record_and_link_hltv(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        table = soup.find(id='group-stage-record')
+        rows = table.select('tbody tr')
+        record = review()['group_stage_record']
+        self.assertGreaterEqual(len(rows), len(record['series']))
+        for series in record['series']:
+            text = rows[record['series'].index(series)].get_text(' ', strip=True)
+            self.assertIn(series['winner'], text)
+            self.assertIn(series['score'], text)
+            self.assertTrue(rows[record['series'].index(series)].select_one('a[href^="https://www.hltv.org/matches/"]'))
+
+    def test_day_four_refresh_displays_only_the_recorded_probabilities(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        section = soup.find(id='day-four-refresh')
+        self.assertIsNotNone(section)
+        for fixture in review()['day_four_refresh']['fixtures']:
+            probs = (fixture.get('market') or {}).get('derived_probabilities') or {}
+            for name, value in probs.items():
+                self.assertIn(f'{value * 100:.1f}%', section.get_text(), name)
+            if not probs:
+                self.assertIn('no verified market at this observation', section.get_text())
+
+    def test_unread_provider_fields_render_blank_instead_of_a_guess(self):
+        data = copy.deepcopy(review())
+        second = data['day_four_refresh']['fixtures'][1]
+        self.assertIsNone(second['market'].get('market_id'))
+        self.assertIsNone(second['market'].get('condition_id'))
+        rendered = self.body(data)
+        self.assertIn('market/condition id not re-read: blank', rendered)
+        # Only the second row is asserted: the first row legitimately carries a read condition id.
+        second = BeautifulSoup(rendered, 'html.parser').select('#day-four-refresh tbody tr')[1]
+        self.assertNotIn('0x', second.get_text())
+        self.assertNotIn('market 5', second.get_text())
+
+    def test_score_slip_renders_every_recorded_frequency(self):
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        block = review()['score_slip_evidence']
+        table = soup.find(id='score-slip')
+        for row in block['hltv_frequencies']:
+            self.assertIn(row['team'], table.get_text())
+            for label, value in row['rows']:
+                self.assertIn(f'{value * 100:.1f}%', table.get_text(), label)
+
+    def test_day_five_card_stays_blank_while_the_bracket_is_open(self):
+        data = review()
+        block = data['day_five_card']
+        self.assertTrue(block['matches'])
+        for row in block['matches']:
+            self.assertIsNone(row['teams'])
+            self.assertIsNone(row['probabilities'])
+            self.assertIsNone(row['pick'])
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        section = soup.find(id='day-five-card')
+        self.assertIn('— unverified', section.get_text())
+        self.assertNotIn('50.0%', section.get_text(), 'a blank fixture must never fall back to a coin flip')
+
+    def test_inventing_a_day_five_team_or_probability_is_rejected_at_load(self):
+        data = copy.deepcopy(review())
+        data['day_five_card']['matches'][0]['teams'] = ['FURIA', 'Falcons']
+        with self.assertRaises(ValueError):
+            _write_and_load(data)
+        guessed = copy.deepcopy(review())
+        guessed['day_five_card']['matches'][1]['probabilities'] = [0.5, 0.5]
+        with self.assertRaises(ValueError):
+            _write_and_load(guessed)
+
+    def test_refresh_note_states_what_was_and_was_not_touched(self):
+        rendered = self.body()
+        note = review()['session_refresh']
+        self.assertIn(note['session'], rendered)
+        self.assertIn('not a live pricing feed', rendered)
