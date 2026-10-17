@@ -51,6 +51,20 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Reconciled suite / final R wiring-maintenance claim (01:54Z)
+- Actual reconciled suite is **555 cases**, not the prior550 estimate:554 pass,
+  one newly incorporated R assertion still requires its old literal tuple path.
+  All R findings already render once in the independent actual-build regression;
+  both fresh-source audits on5a2f7e9 pass. No provider/model/clock regression fails.
+- Claim **only `tests/test_9866e1ba.py`'s completed-session loader wiring check**,
+  analogous to W: assert generic source wiring and exact R file membership, retaining
+  all R dossier/policy/build/audit assertions. This claim is pushed before editing.
+  A repository-wide search found no other literal-session loader assertions to
+  maintain. The additional real-render tests remain strict for every session ID.
+- Actual canonical FI production38992090479 now reports SUCCESS; Q's extra guards
+  and findings integration remain pending until this branch's own green merge and
+  new observed production/public parity. Do not relabel the FI artifact as Q's.
+
 ### Main/FI reconciliation completed (01:50Z)
 - Confirmed FI#72 merged01:43:55Z as `9de62de55fa1cb7b4e13672600110d899132ba21`.
   Rebased Q onto that exact main. Board conflict preserved the complete FI/R/W/T
