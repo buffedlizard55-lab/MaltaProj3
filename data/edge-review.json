@@ -2146,44 +2146,394 @@
     ]
   },
   "day_five_card": {
-    "observed_at": "2026-10-16T23:56:00Z",
+    "observed_at": "2026-10-17T20:50:00Z",
     "source_url": "https://www.hltv.org/events/8932/matches",
-    "note": "Both brackets are open until the semifinals finish, so no team, price or pick is published. The site’s rule is to leave a fixture blank rather than infer a winner of a match that has not been played.",
+    "bracket_status": "resolved",
+    "resolved_at": "2026-10-17T20:18:00Z",
+    "note": "Both semifials are final — FURIA 2-0 Aurora, BETBOOM 2-1 Falcons — so the final-day bracket is set. Neither Day-5 fixture had any external full-series money line listed at the market-scan times recorded below (Polymarket discovery and slug probes, Kalshi KXCS2GAME series scan), so each row publishes the labelled Valve-model fallback default and leaves the money-line field blank. The four-hour publisher re-scans the same public markets and replaces the fallback with a priced estimate the moment a compliant two-sided book exists; nothing here is guessed, and no model number is dressed up as betting odds.",
+    "semifinal_results": [
+      {
+        "slot": "Semifinal 1",
+        "team_a": "FURIA",
+        "team_b": "Aurora",
+        "score": "2-0",
+        "maps": [
+          {
+            "map": "Dust2",
+            "a": 13,
+            "b": 8
+          },
+          {
+            "map": "Inferno",
+            "a": 13,
+            "b": 10
+          }
+        ],
+        "hltv_url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+        "observed_at": "2026-10-17T20:52:00Z",
+        "reading": "The market favourite advanced; the map scores are matchup context for the final day, never a new win-rate sample.",
+        "sources": [
+          {
+            "url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+            "source": "HLTV.org match page",
+            "detail": "Series 2-0 to FURIA; Dust2 13-8, Inferno 13-10 as published on the match page.",
+            "observed_at": "2026-10-17T20:52:00Z"
+          },
+          {
+            "url": "https://www.hltv.org/news/45743/furia-ease-past-aurora-into-twc-final",
+            "source": "HLTV.org news report",
+            "detail": "Secondary report naming FURIA the first finalist with wins on Dust2 (13-8) and Inferno (13-10).",
+            "observed_at": "2026-10-17T20:20:00Z"
+          }
+        ]
+      },
+      {
+        "slot": "Semifinal 2",
+        "team_a": "Falcons",
+        "team_b": "BETBOOM",
+        "score": "1-2",
+        "maps": [
+          {
+            "map": "Anubis",
+            "a": 13,
+            "b": 5
+          },
+          {
+            "map": "Dust2",
+            "a": 14,
+            "b": 16
+          },
+          {
+            "map": "Mirage",
+            "a": 7,
+            "b": 13
+          }
+        ],
+        "hltv_url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+        "observed_at": "2026-10-17T20:18:00Z",
+        "reading": "The second upset of the tournament: BETBOOM (HLTV #14 entering the event week per HLTV team page) beat Falcons (HLTV #5) after losing map one 5-13. This is one series result, not calibration of the prematch 79.3/20.7 observation and not a new win-rate sample.",
+        "sources": [
+          {
+            "url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+            "source": "HLTV.org match page",
+            "detail": "Page header reads 'Match over', Falcons 1 : 2 BETBOOM. Map rows: Anubis 13-5 Falcons (halves 8:4; 5:1), Dust2 14-16 BETBOOM (halves 7:5; 5:7; overtime 2:4), Mirage 7-13 BETBOOM (halves 6:6; 1:7). Veto order published on the page.",
+            "observed_at": "2026-10-17T20:18:00Z"
+          },
+          {
+            "url": "https://liquipedia.net/counterstrike/Thunderpick/World_Championship/2026",
+            "source": "Liquipedia tournament page",
+            "detail": "Playoffs bracket shows BETBOOM advancing to the grand final and Falcons dropping to the third-place match against Aurora.",
+            "observed_at": "2026-10-17T20:16:00Z"
+          }
+        ]
+      }
+    ],
+    "market_scan": {
+      "observed_at": "2026-10-17T20:45:00Z",
+      "question": "Does any external full-series match-winner market exist for either Day-5 fixture at observation time?",
+      "reading": "No. Neither Day-5 fixture is listed by Polymarket or Kalshi at the observation times below. Absence of a listing is recorded as observed absence, never as a probability. The scheduled four-hour publisher retries the same public endpoints and scripts/twc_lines.py prices each fixture the moment a compliant two-sided book exists.",
+      "would_count": "Only the pipeline's own gates: an open prematch full-series market with exact-name (or scoped-alias) join to the fixture, a start time agreeing within 60 seconds, two-sided books no wider than 0.12 spread, fresh observation, and originals retained for replay. A directory percentage, an outright market, a map market, a handicap/correct-score price or a fan vote is never re-labelled as a match-winner line.",
+      "probes": [
+        {
+          "provider": "Polymarket (Gamma public search)",
+          "url": "https://gamma-api.polymarket.com/public-search?q=thunderpick",
+          "detail": "Search returns the TWC group-stage and semifinal events only (cs2-furia-bb3-2026-10-14, cs2-furia-aur1-2026-10-17, cs2-fal2-bb3-2026-10-17 and the other completed group fixtures). No 18 October event appears.",
+          "observed_at": "2026-10-17T20:40:00Z",
+          "outcome": "no Day-5 listing"
+        },
+        {
+          "provider": "Polymarket (Gamma public search)",
+          "url": "https://gamma-api.polymarket.com/public-search?q=FURIA%20BetBoom%20BO5",
+          "detail": "Only the 14 October group-stage FURIA vs BetBoom Team (BO3) event is returned (cs2-furia-bb3-2026-10-14, closed). No BO5 grand-final event.",
+          "observed_at": "2026-10-17T20:43:00Z",
+          "outcome": "no Day-5 listing"
+        },
+        {
+          "provider": "Polymarket (Gamma event slug probes)",
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-furia-bb3-2026-10-18",
+          "detail": "Slug probes for cs2-furia-bet1-2026-10-18, cs2-furia-bet-2026-10-18 and cs2-furia-bb3-2026-10-18 all return an empty array. The observed semifinal slugs were cs2-furia-aur1-2026-10-17 and cs2-fal2-bb3-2026-10-17, so the same naming family for 18 October is genuinely unlisted rather than mis-guessed.",
+          "observed_at": "2026-10-17T20:44:00Z",
+          "outcome": "no Day-5 listing"
+        },
+        {
+          "provider": "Kalshi (KXCS2GAME public events API)",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100&status=open",
+          "detail": "The complete open KXCS2GAME event list (four pages) was read. The 18 Oct 07:30 EDT slot (third-place decider) and 11:00 EDT slot (grand final) contain no Thunderpick World Championship event; the list jumps 07:00 (ILLYRIANS/Quintessence/Saint Sinners) to 09:00 and 10:00 to 12:00 with non-TWC series. The semifinal book KXCS2GAME-26OCT171300BBFAL is at 0.99 for BetBoom Team and awaiting settlement, which is consistent with Day-5 events not being created yet.",
+          "observed_at": "2026-10-17T20:38:00Z",
+          "outcome": "no Day-5 listing"
+        }
+      ]
+    },
     "matches": [
       {
         "slot": "Third-place decider",
         "hltv_match_id": 2399416,
-        "teams": null,
-        "starts_at": null,
+        "teams": [
+          "Aurora",
+          "Falcons"
+        ],
+        "starts_at": "2026-10-18T11:30:00Z",
         "best_of": 3,
-        "status": "Listed on HLTV’s event schedule for Sunday 18 October 2026 with no teams and no confirmed UTC start read in this session.",
-        "url": "https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026",
-        "pick": null,
-        "probabilities": null
+        "url": "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+        "status": "Scheduled and fully identified: both teams, best-of 3 (LAN), “3rd place decider match”, 11:30 UTC start on 18 October 2026 (HLTV countdown and Liquipedia’s 07:30 EDT listing agree).",
+        "format": "Best of 3 (LAN), third-place decider — as published on the HLTV match page.",
+        "start_time_basis": "HLTV countdown read at 20:26Z (15h 09m to start) against the page clock, corroborated by Liquipedia’s 07:30 EDT listing = 11:30 UTC.",
+        "sources": [
+          {
+            "url": "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+            "source": "HLTV.org match page",
+            "detail": "Teams (Aurora listed first), “Best of 3 (LAN)”, “* 3rd place decider match” and the start countdown were read directly from this page.",
+            "observed_at": "2026-10-17T20:26:00Z"
+          },
+          {
+            "url": "https://liquipedia.net/counterstrike/Thunderpick/World_Championship/2026",
+            "source": "Liquipedia tournament page",
+            "detail": "Upcoming Matches block lists Falcons vs Aurora in the third-place match at 07:30 EDT (11:30 UTC) on 18 October 2026.",
+            "observed_at": "2026-10-17T20:16:00Z"
+          }
+        ],
+        "market": null,
+        "probabilities": null,
+        "model_estimate": {
+          "method": "model",
+          "label": "Valve-rating research estimate (uncalibrated)",
+          "probabilities": [
+            0.32933352,
+            0.67066648
+          ],
+          "fair_decimal": [
+            3.036,
+            1.491
+          ],
+          "snapshot_date": "2026-10-05",
+          "rd_assumption": 75,
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+          "evidence_file": "data/evidence/valve-ratings.json",
+          "inputs": [
+            {
+              "name": "Aurora",
+              "points": 1716,
+              "standing": 9,
+              "roster": [
+                "Jimpphat",
+                "kyxsan",
+                "Wicadia",
+                "woxic",
+                "XANTARES"
+              ],
+              "snapshot_date": "2026-10-05",
+              "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+            },
+            {
+              "name": "Falcons",
+              "points": 1843,
+              "standing": 6,
+              "roster": [
+                "karrigan",
+                "kyousuke",
+                "m0NESY",
+                "NiKo",
+                "TeSeS"
+              ],
+              "snapshot_date": "2026-10-05",
+              "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+            }
+          ],
+          "limitations": [
+            "Research model, not observed betting odds or a verified true win probability. Not backtested or calibrated in this deployment.",
+            "The 2026-10-05 snapshot predates the event; it does not know this event’s results, vetoes, stand-ins or the Day-4 semifinals.",
+            "A model estimate never satisfies the money-backed screen for an upset play; it only sets a labelled default direction until a real book opens."
+          ]
+        },
+        "pick": "Falcons",
+        "pick_basis": "Default = the higher side of the labelled Valve-model fallback (Falcons 67.1 / Aurora 32.9). No external full-series money line existed for this fixture at the market scan (see the scan record in this card); a compliant book, once one passes the pipeline gates, replaces this basis before lock.",
+        "score": {
+          "suggested": "Falcons 2-0",
+          "basis": "Editorial frequency reading, not a priced probability: 6 of this event’s 10 group-stage series ended 2-0, every one of Aurora’s three group series was a 2-0 either way, and 2-0 is Falcons’ own most common three-month win line (35.3% of 17 series vs 23.5% for 2-1 on HLTV’s analytics page).",
+          "source_url": "https://www.hltv.org/betting/analytics/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+          "observed_at": "2026-10-17T20:35:00Z"
+        },
+        "score_limitation": "A score slip is half-uncertain by construction (Hotspawn pays 5 extra points for it). Frequency tables are Bo3-derived three-month samples, not a price for this match.",
+        "contrarian_watch": {
+          "team": "Aurora",
+          "probability": 0.32933352,
+          "basis": "model",
+          "case": "The one contrarian idea on this row: HLTV’s own analytics give Aurora the better form ranking (3 wins in their last 5), they won three straight group series after the Day-1 onboarding shock, and Falcons arrive off a collapse from 1-0 up in maps (13-5, then 14-16 in overtime and 7-13). The rebuilt-roster lesson from Day 1 cuts both ways — onboarding effects faded inside the event — so this is a watch, not a claim that Falcons are mispriced.",
+          "screen": "At the model fallback (32.9%) Aurora clears the 30% underdog floor on paper, but the published screen requires a money-backed line under 8 hours old before an upset play is recommended. Until such a line exists, Falcons stay the default and Aurora stays the single deliberate risk slot of the day — worth considering only if a fresh book prices her at or above 30% and no pick-count evidence shows the crowd already there.",
+          "cost_per_base_point": 0.34133296,
+          "source_url": "https://www.hltv.org/betting/analytics/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+          "observed_at": "2026-10-17T20:35:00Z"
+        },
+        "context": [
+          "HLTV analytics (2399416): Aurora better form ranking, 3 of last 5 won; Falcons 3 of last 5 won, better ranked (#5 vs #6); Falcons won the only head-to-head in the past 30 days.",
+          "Series-score frequencies, past 3 months: Aurora 46.2% of wins are 2-0 (26 series); Falcons 35.3% (17 series)."
+        ]
       },
       {
         "slot": "Grand final",
         "hltv_match_id": 2399417,
-        "teams": null,
-        "starts_at": null,
+        "teams": [
+          "FURIA",
+          "BETBOOM"
+        ],
+        "starts_at": "2026-10-18T15:00:00Z",
         "best_of": 5,
-        "status": "Listed on HLTV’s event schedule for Sunday 18 October 2026 as a bo5 final with no teams and no confirmed UTC start read in this session.",
-        "url": "https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026",
-        "pick": null,
-        "probabilities": null
+        "url": "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+        "status": "Scheduled and fully identified: both teams, best-of 5 (LAN), “Grand final”, 15:00 UTC start on 18 October 2026 (HLTV countdown and Liquipedia’s 11:00 EDT listing agree).",
+        "format": "Best of 5 (LAN), grand final — as published on the HLTV match page.",
+        "start_time_basis": "HLTV countdown read at 20:27Z (18h 44m to start) against the page clock, corroborated by Liquipedia’s 11:00 EDT listing = 15:00 UTC.",
+        "sources": [
+          {
+            "url": "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+            "source": "HLTV.org match page",
+            "detail": "Teams, “Best of 5 (LAN)”, “* Grand final” and the start countdown were read directly from this page.",
+            "observed_at": "2026-10-17T20:27:00Z"
+          },
+          {
+            "url": "https://liquipedia.net/counterstrike/Thunderpick/World_Championship/2026",
+            "source": "Liquipedia tournament page",
+            "detail": "Upcoming Matches block lists the grand final BB vs FURIA at 11:00 EDT (15:00 UTC) on 18 October 2026.",
+            "observed_at": "2026-10-17T20:16:00Z"
+          }
+        ],
+        "market": null,
+        "probabilities": null,
+        "model_estimate": {
+          "method": "model",
+          "label": "Valve-rating research estimate (uncalibrated)",
+          "probabilities": [
+            0.78664201,
+            0.21335799
+          ],
+          "fair_decimal": [
+            1.271,
+            4.687
+          ],
+          "snapshot_date": "2026-10-05",
+          "rd_assumption": 75,
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+          "evidence_file": "data/evidence/valve-ratings.json",
+          "inputs": [
+            {
+              "name": "FURIA",
+              "points": 1829,
+              "standing": 7,
+              "roster": [
+                "FalleN",
+                "KSCERATO",
+                "molodoy",
+                "YEKINDAR",
+                "yuurih"
+              ],
+              "snapshot_date": "2026-10-05",
+              "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+            },
+            {
+              "name": "BETBOOM",
+              "points": 1596,
+              "standing": 11,
+              "roster": [
+                "Boombl4",
+                "d1Ledez",
+                "Magnojez",
+                "S1ren",
+                "zorte"
+              ],
+              "snapshot_date": "2026-10-05",
+              "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+            }
+          ],
+          "limitations": [
+            "Research model, not observed betting odds or a verified true win probability. Not backtested or calibrated in this deployment.",
+            "The 2026-10-05 snapshot predates the event; it does not know this event’s results, vetoes, stand-ins or the Day-4 semifinals.",
+            "A model estimate never satisfies the money-backed screen for an upset play; it only sets a labelled default direction until a real book opens."
+          ]
+        },
+        "pick": "FURIA",
+        "pick_basis": "Default = the higher side of the labelled Valve-model fallback (FURIA 78.7 / BETBOOM 21.3). No external full-series money line existed for this fixture at the market scan (see the scan record in this card); a compliant book, once one passes the pipeline gates, replaces this basis before lock.",
+        "score": null,
+        "score_limitation": "No Bo5 score slip is published. The 3-0/3-1/3-2 question has no verified base rate for these teams at this event: HLTV’s frequency tables are Bo3-derived (2-0/2-1/0-2/1-2 lines), and the retained score-line evidence on this page says the same. Half of a team-plus-score pick stays blank rather than guessed.",
+        "contrarian_watch": {
+          "team": "BETBOOM",
+          "probability": 0.21335799,
+          "basis": "model",
+          "case": "The high-variance contrarian idea: BETBOOM have improved in every series (0-2 vs FURIA, then 2-1 over PARIVISION, 2-1 over Legacy, 2-1 over Falcons), they beat the event’s #5-ranked side after losing map one 5-13, and Boombl4 said after the decider that the team is playing better and feels the progress (HLTV interview). Their Day-1 loss to FURIA was 10-13 and 9-13 — competitive on both maps. The counter-case is real too: a Bo5 rewards depth and FURIA are defending champions who won the 2025 final’s Bo5 from 0-2 down.",
+          "screen": "At the model fallback (21.3%) BETBOOM sits below the 30% underdog floor — the same “contrarian, not careless” boundary the Day-4 guidance drew when the market had them at 20.7% against Falcons. This becomes the day’s deliberate risk slot only if a fresh money line prices BETBOOM at or above 30% before lock. With no such line, the correct leaderboard move is the chalk FURIA pick, and the differentiator to chase is the score half where it exists.",
+          "cost_per_base_point": 0.57328402,
+          "source_url": "https://www.hltv.org/news/45741/boombl4-this-tournament-were-playing-better-and-i-feel-the-progress",
+          "observed_at": "2026-10-17T20:22:00Z"
+        },
+        "context": [
+          "HLTV analytics (2399417): map stats favour FURIA on Inferno (75% over 8 maps) and Mirage (60% over 15); BETBOOM first-ban Inferno (97%) and first-pick Nuke (60% over 5).",
+          "Day-1 head-to-head at this event: FURIA 2-0 BETBOOM (Ancient 13-10, Mirage 13-9) — context, not a calibrated rematch probability."
+        ]
       }
     ],
+    "prior_observation": {
+      "observed_at": "2026-10-16T23:56:00Z",
+      "source_url": "https://www.hltv.org/events/8932/matches",
+      "state": "Retained as dated history: at 23:56Z on 16 October both rows were deliberately blank — no teams, prices or picks — because both brackets were still open. The site refused to infer a finalist rather than publish a speculative team.",
+      "note": "Both brackets are open until the semifinals finish, so no team, price or pick is published. The site’s rule is to leave a fixture blank rather than infer a winner of a match that has not been played."
+    },
     "limitations": [
-      "A semifinal result cannot be predicted from rest, map load or ranking, and this site will not publish a speculative finalist.",
-      "The best-of-5 final changes the score-pick problem entirely: a 3-0 line is far less common than a 2-0 in a bo3. No bo5 base rate was verified at this event, so no score suggestion is published.",
-      "Whether Hotspawn’s Thunderpick pick’ems card contains these two fixtures was not verified in this session; the dated reading records 15 fixtures in total for the contest, without a per-fixture list."
+      "HLTV and Liquipedia are independent reporters, not tournament-organizer verification; both were read directly and agree on every published Day-5 pairing and start time.",
+      "No external full-series money line existed for either Day-5 fixture at 20:38-20:44Z on 17 October 2026. Both fixtures therefore show the labelled Valve-model fallback default and blank money-line fields, and the four-hour publisher upgrades them automatically when compliant books open.",
+      "Whether Hotspawn's tournament pick'em card contains these two fixtures is treated as likely but was not re-verified in this session; the retained 15-fixture contest reading has no per-fixture list. Lock times for tournament-card picks are not published in a verifiable form and stay blank.",
+      "Series-score frequency tables are Bo3-derived and cannot price a Bo5 scoreline; no grand-final score slip is published.",
+      "Rest, sleep, travel, motivation for a third-place match and veto effects are unquantified; no editorial premium is applied to any estimate."
     ]
   },
   "session_refresh": {
-    "session": "arena-8fa2b226",
-    "prepared_at": "2026-10-17T00:20:00Z",
-    "reads": "Between 2026-10-16T23:52Z and 2026-10-17T00:16Z.",
-    "what_changed": "Added the complete ten-series group-stage record, the two semifinal fixtures with a dated first-party market record each, the day-five blanks, the score-line evidence and the extended guidance set. Reconciled with arena-138f48b7's merged Day-4 record rather than duplicated: their two-provider median, Day-3 results refresh, prepared_at and research window are kept as the authority for those fields, and the single-provider section beside them now cross-references it. The 16 October day_three/day_four entries above are retained as dated history and were not rewritten.",
-    "not_touched": "No probability in the pipeline, the complete picks list or the canonical TWC page was edited. Hotspawn community percentages and HLTV fan votes remain excluded inputs."
+    "session": "arena-9b2a96e1",
+    "prepared_at": "2026-10-17T20:50:00Z",
+    "reads": "Between 2026-10-17T20:15Z and 2026-10-17T20:55Z (session clock): both HLTV semifinal match pages, both HLTV Day-5 match pages and betting-analytics pages, Liquipedia’s tournament page, Polymarket Gamma public-search and event-slug probes, the Kalshi KXCS2GAME open-events API, HLTV’s Boombl4 interview and the retained Valve standings snapshot.",
+    "what_changed": "The Day-4 semifinals finished (FURIA 2-0 Aurora; BETBOOM 2-1 Falcons), which resolved the Day-5 bracket. The day-five card now names both final-day fixtures with HLTV-verified teams, formats and UTC starts, replays the two semifinal results with map scores, records a dated external-market scan showing no Day-5 book existed at observation, and publishes labelled Valve-model fallback defaults with their picks, score context, one contrarian watch per row and the expected-point cost of each risk. A separate final-day guidance block turns Days 1-4 — including the Day-1 9z upset and Aurora’s roster-onboarding arc — into leaderboard rules. The prior open-bracket blank card is retained inside the card as dated history (session_refresh of arena-8fa2b226 keeps its own record below the git history of this file).",
+    "not_touched": "No probability in the pipeline, the complete picks list or the canonical TWC page was edited; the four-hour publisher still owns every live estimate and will upgrade both fixtures the moment a compliant book opens. Hotspawn community percentages and HLTV fan votes remain excluded inputs. The dated market observations keep their stated times until a later session re-reads them."
+  },
+  "day_five_guidance": {
+    "title": "Final-day pick'em guidance from four days of verified results",
+    "prepared_at": "2026-10-17T20:50:00Z",
+    "principles": [
+      "What Days 1-4 actually showed: the only two prematch favourites to lose in this event were Aurora (Day 1 vs 9z, 0-2, while onboarding the rebuilt roster) and Falcons (Day 4 semifinal vs BETBOOM, 1-2). Every other favourite won. At the observed 69.5/30.5 Day-1 and 79.3/20.7 Day-4 prices, roughly one upset in three is normal — so one deliberate risk slot per day is evidence-led, while fading every favourite is not.",
+      "Aurora's arc is the roster-change lesson, not a reason to auto-fade or auto-back them: a freshly-onboarded five (kyxsan/Jimpphat rebuild, HLTV news 45082) lost their opener 0-2 as favourites, then won six straight maps (NiP 2-0, 9z 2-0) before falling 0-2 to FURIA in a match whose two maps were 8-13 and 10-13. Onboarding effects faded inside the event; one result never establishes a pricing error.",
+      "BETBOOM arrive at the grand final having improved in every series (0-2 FURIA, 2-1 PARIVISION, 2-1 Legacy, 2-1 Falcons) and Boombl4 said after the decider that the team is playing better and feels progress (HLTV news 45741). That is a genuine contrarian case for the final — and exactly the kind of case that must still clear the published screens before it becomes a pick.",
+      "Third-place decider: the labelled model fallback makes Falcons the default (67.1/32.9) and Aurora the underdog above the 30% watch floor. The verified context leans slightly to Aurora (better form ranking on HLTV's own analytics, three straight series wins before the FURIA loss, Falcons coming off a demoralising collapse from 1-0 up), but Falcons hold the ranking edge and the 30-day H2H. Decide with a fresh money line if one opens; without one the default stays with the higher estimate and the underdog stays a watch, never a silent swap.",
+      "Grand final: the labelled model fallback makes FURIA the default (78.7/21.3). BETBOOM is the single defensible contrarian idea on the card, but at the fallback number it sits below the 30% underdog floor — the same 'contrarian, not careless' boundary the Day-4 guidance drew for Falcons-BETBOOM. If a fresh money line prices BETBOOM at or above 30% before lock, this becomes the one deliberate risk slot of the day (Bo5, 7 team points plus 5 for the exact score in Hotspawn's tournament card). If no such line appears, the correct leaderboard move is the chalk FURIA pick.",
+      "Score lines: Hotspawn pays 5 extra points for the exact series score. The Bo3 frequency tables above support discussing 2-0/2-1 for the third-place match, and the event's own base rate (6 of 10 group series ended 2-0) favours a 2-0 slip on any Bo3 pick. The Bo5 final is different: no verified 3-0/3-1/3-2 base rate exists for these teams in this event, so no score slip is published for the final — half a pick'em question stays blank rather than guessed.",
+      "Nothing on this page prices rest, motivation, travel or revenge. The third-place match's motivational value is unknown and unquantified. Hotspawn community percentages are never read, so a crowd-following argument cannot be made from this data."
+    ],
+    "screens": [
+      "Default pick = the higher-probability side of the best available estimate (money line when one exists, labelled model fallback otherwise).",
+      "Upset play only when: a money-backed line under 8 hours old prices the underdog at or above 30%, the fixture is worth 3+ Hotspawn points, the crowd is not already on the underdog when pick counts exist, and at most two swaps per UTC day.",
+      "An unpriced fixture keeps its labelled fallback default; it is never silently handed to the underdog and never given a 50/50."
+    ],
+    "sources": [
+      {
+        "url": "https://www.hltv.org/events/8932/matches",
+        "source": "HLTV.org event schedule",
+        "detail": "Day-5 pairings, formats and stage labels.",
+        "observed_at": "2026-10-17T20:15:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/results?event=8932",
+        "source": "HLTV.org event results",
+        "detail": "Days 1-4 series results underlying the guidance.",
+        "observed_at": "2026-10-17T20:15:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/news/45741/boombl4-this-tournament-were-playing-better-and-i-feel-the-progress",
+        "source": "HLTV.org interview",
+        "detail": "Boombl4's quoted assessment after the Legacy decider (secondary narrative source).",
+        "observed_at": "2026-10-17T20:22:00Z"
+      },
+      {
+        "url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+        "source": "HLTV.org news report",
+        "detail": "Aurora rebuild context already retained on the edge page roster watch.",
+        "observed_at": "2026-10-16T07:23:57Z"
+      }
+    ]
   }
 }
