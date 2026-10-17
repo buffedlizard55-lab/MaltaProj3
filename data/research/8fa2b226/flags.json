@@ -1,14 +1,14 @@
 [
   {
     "id": "8fa2b226-twc-evidence-hash-blocker",
-    "severity": "blocking",
-    "title": "The four-hour publisher is still red after PR #70: TWC line evidence fails its own replay hash, so no new snapshot is deployed",
-    "detail": "Run 38990980427 on main (2026-10-17T01:28Z, after PR #70 landed) cleared the dangling-anchor failure and got as far as ‘PASS: 96 source rows reconciled’, then failed with ‘ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0130.json’ raised by scripts/twc_lines.py line 423 during build-time replay. Because the publisher is fail-closed, the run restored the last verified snapshot pair and deployed nothing; the fallback rebuild then raised the same mismatch, since the cached last-good pair does not contain data/research/twc-current/. Public consequence: the dashboard’s numbers are the older verified snapshot, and the site says so — nothing was silently refreshed and nothing was invented to make the run look green. Ownership: scripts/twc_lines.py belongs to arena-138f48b7 (T-1); this session edited no line of it. A fix is already open in PR #72 (arena-fa7ed344, ‘hashes the bytes actually retained for TWC replay while preserving the separate raw-response SHA’), and this session posted the runner evidence plus the second, related fallback-cache gap as a comment there so the two are fixed together rather than one at a time. This entry stays on the Flagged for Review page until a publisher run deploys a fresh snapshot.",
+    "severity": "warning",
+    "title": "Resolved publisher incident: retained TWC evidence once failed its replay hash; the integrated repair now deploys fresh verified snapshots",
+    "detail": "Historical incident: main run 38990980427 (2026-10-17T01:28Z, after PR #70 landed) cleared the dangling-anchor failure and got as far as ‘PASS: 96 source rows reconciled’, then failed with ‘ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0130.json’ at scripts/twc_lines.py line 423. The fail-closed publisher correctly restored the prior verified snapshot and deployed nothing. PR #72 repaired the root cause by hashing the bytes actually retained for replay while keeping the raw-response hash separate; it also made the inventory and data/research/twc-current/ fallback caches symmetric. PR #72 merged as 9de62de55fa1cb7b4e13672600110d899132ba21. Its canonical main run 38992090479 completed successfully at 2026-10-17T01:47:05Z: all regression, refresh, replay, row/link, artifact upload, deployment and public-verification stages passed. The deployed inventory was freshly observed at 2026-10-17T01:45:47Z and reported 34 active fixtures, 25 supported estimates, 9 explicit unresolved fixtures and 24 current picks. GitHub artifact 12085547834 is tied to that exact merge SHA with digest sha256:744f5550ffdeec3431ac4f16dd98ac0c4a8670e3b997b9bfc66bc8a6095fff9e. This finding remains published as a historical fail-closed audit record, not an active blocker.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38990980427",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/72",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/70"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38992090479"
     ]
   },
   {
