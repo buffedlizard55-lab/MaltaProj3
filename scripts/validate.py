@@ -47,7 +47,17 @@ def check_data(root: Path):
     require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
     raw = {str(r['id']): r for r in raw if r.get('sport_alias') == 'cs2'}
     require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
-    require(set(raw) == set(context['api_ids']) == set(context['lobby_ids']) == set(context['cs2_ids']), 'Official inventories were not reconciled')
+    require(set(raw) == set(context['api_ids']), 'Published inventory omits or invents a Hotspawn API row')
+    # Older retained snapshots have no cross-check marker and must keep the
+    # original strict three-way requirement. A new snapshot may only omit a
+    # rendered page when it records that the page was actually unreadable.
+    verified_pages = context.get('verified_pages', ['lobby', 'cs2'])
+    crosscheck = context.get('crosscheck', 'complete')
+    require(crosscheck in {'complete', 'partial', 'unavailable'}, 'Unknown inventory cross-check state')
+    require(crosscheck == ('complete' if len(verified_pages) == 2 else 'partial' if len(verified_pages) == 1 else 'unavailable'), 'Inventory cross-check marker does not match the pages actually read')
+    for page in verified_pages:
+        require(page in {'lobby', 'cs2'}, 'Unknown rendered inventory page')
+        require(set(raw) == set(context[page + '_ids']), 'A rendered Hotspawn inventory did not agree with the API')
     fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api', 'lobby_url', 'availability', 'evidence']
     require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
     attempts = {r['id']: r for r in data.get('requests', [])}
