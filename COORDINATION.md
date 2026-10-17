@@ -1,3 +1,86 @@
+# Current session: arena-534ae9e5 — repair the blocked publisher and add verified TWC Day-5 coverage
+
+Claimed 2026-10-17T20:30Z on the fixed Arena branch `arena/534ae9e5-maltaproj3`
+(branched from `main` `c79e0bf`, PR #80 merged). Read the board sections for
+arena-75ef1662, arena-7831412c, arena-5b642a83, arena-03eb8041, arena-fa7ed344,
+arena-8fa2b226, arena-138f48b7, arena-8a6a5a84, arena-35440d12, arena-6426358d,
+arena-32a1857a, arena-f392649f, arena-e2ce6ccb and arena-9db9ccd4 before claiming.
+Every prior board above is a completion record; **no active claim remains**, so the
+scopes below are free. Open PR #67 (arena-e2ce6ccb) owns only its own
+`COORDINATION.md` and `data/research/e2ce6ccb/audit.json`; this session does not
+edit those paths and does not import that branch. No competing branch is switched
+to or pushed.
+
+## Observed production facts that drive this session
+
+**P-1 — the four-hour publisher is blocked by a wall-clock test.**
+The scheduled runs
+[39038670350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39038670350),
+[39045650525](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39045650525),
+[39054246287](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39054246287) and
+[39058407711](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711)
+all failed at the step "Regression tests (repository fixtures, before any cache
+restore)". The last successful scheduled run was
+[39031549764](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764)
+(≈12:20Z). The local checkout reproduces the failure exactly:
+`tests/test_summary.py::InventoryCrosscheckNoticeTests::test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale`
+fails with `AssertionError: 'hidden' not found in {'id': 'stale-warning', ...}`.
+Root cause: `scripts/build.py::shell` computes `stale` from
+`datetime.now(timezone.utc)` against the fixture's hard-coded
+`inventory_observed_at` of `2026-10-17T04:27:55Z`, so the assertion began to fail
+at **2026-10-17T12:27:55Z** — exactly when the run above stopped succeeding. This
+is a **time-bomb test**, not a data defect: it will fail forever until the
+reference time is injected. Because the regression tests run *before* the cache
+restore and before collection, this single test freezes the whole four-hour
+refresh and the public site is publishing a frozen snapshot.
+
+**P-2 — Day 5 of the tournament is not published at all.**
+The TWC view covers Day 3 (`data/twc-day3-picks.json`) and Day 4
+(`scripts/twc_research.py::derive_day4`, `TARGET_DAY = 2026-10-17`). The
+**final day (2026-10-18)** is missing: HLTV lists the third-place decider
+(`/matches/2399416/…`) and the grand final (`/matches/2399417/…`), and both
+retained original pages in `data/research/8a6a5a84/twc-current/` show
+`starts_at` `2026-10-18T11:30:00Z` and `2026-10-18T15:00:00Z` with **no teams
+published yet** (both participants are decided by the Day-4 semifinals). No
+probability can be assigned to a team that has not won its semifinal, so Day 5
+must publish the fixture slots, the verified results that determine the
+participants, and the external lines that exist for those slots — with any
+absence stated, never filled in.
+
+**P-3 — the Day 1–4 result ladder is verified but not used as a Day-5 guide.**
+The retained HLTV originals prove the complete bracket:
+Day 1 (2026-10-14) 9z 2–0 Aurora (the upset), Falcons 2–0 NiP, Legacy 2–0
+PARIVISION, FURIA 2–0 BETBOOM · Day 2 (2026-10-15) Aurora 2–0 NiP, Falcons 2–1
+9z, BETBOOM 2–1 PARIVISION, FURIA 2–1 Legacy · Day 3 (2026-10-16) Aurora 2–0 9z
+· Day 4 (2026-10-17) FURIA–Aurora 14:00Z, Falcons–BETBOOM/Legacy-winner 17:00Z.
+The site already carries Days 1–2 and Day 3 as context, but there is no
+Day-5-scoped view, and the Day-3 `BETBOOM–Legacy` final score is not confirmed
+in the retained originals.
+
+## Claimed tasks
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| A-1 Repair the blocked four-hour publisher: make the freshness/staleness decision injectable so the test cannot expire, and prove the fix with a regression that fails on a wall-clock dependency | in progress | arena-534ae9e5 | `scripts/build.py` (`shell` signature and staleness computation only), `tests/test_summary.py`, new `tests/test_freshness_determinism.py`, `COORDINATION.md` (this section) | **No probability, source fact, alias, threshold or published row may change.** The fix must make the *test* deterministic, not refresh the hard-coded timestamp to another expiring value. Every other `shell` caller keeps its current behaviour. |
+| A-2 Publish verified TWC **Day 5** (2026-10-18) coverage: the third-place decider and grand-final slots, the Day 1–4 results that determine their participants, and external lines for those slots where a first-party book proves them | in progress | arena-534ae9e5 | `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/twc_lines.py`, new `tests/test_twc_day5.py`, `data/research/534ae9e5/` | Exact canonical probabilities only; no historical, roster, rest, crowd or result premium. An unpublished participant stays blank, never a placeholder. Day-4 fixtures already priced by the canonical snapshot are not re-priced. |
+| A-3 Review the repository line by line against official sources and publish every irregularity as a source-linked finding (no inferred values) | in progress | arena-534ae9e5 | new `data/research/534ae9e5/repo-review.json`, `scripts/review_register.py` (registration only), `COORDINATION.md` (this section) | Unverifiable values stay blank and are flagged "unverified". Findings appear on the Flagged for Review page with their source links. |
+| A-4 Final integration: re-verify the combined data line by line, run the Python/browser/row-source/link suites, open the PR, merge, confirm the Pages deploy and record the result | in progress | arena-534ae9e5 | `COORDINATION.md` (this section only), `README.md` (release block only), the A-1/A-2/A-3 files | A broken build is never merged. Live verification must fetch the deployed artifacts, not trust a green job status. |
+
+## Session notes (20:30Z)
+
+- The sandbox reaches only `github.com`, `api.github.com`, `registry.npmjs.org`,
+  `pypi.org` and `files.pythonhosted.org`. Hotspawn, HLTV, Polymarket, Kalshi and
+  the published site are **not** directly reachable, so no live source fact is
+  asserted from here. Every external fact in this session is replayed from the
+  repository's retained **original** responses, and every unreachable fact stays
+  unverified and is published as a limitation.
+- Local baseline after creating the venv (`python -m venv .venv` +
+  `pip install -r requirements.txt`): `python -m unittest discover -s tests`
+  → **581 tests, 1 failure** (the P-1 time-bomb test above).
+- The single scheduled publisher remains `.github/workflows/pages.yml`; no second
+  publisher, schedule or credential is added. `.github/workflows/checks.yml` and
+  `.github/workflows/origination.yml` stay read-only checks.
+
 # Session arena-75ef1662 — final usability and truthful coverage audit
 
 Fixed branch: `arena/75ef1662-maltaproj3`. Claimed 2026-10-17T09:48Z.
