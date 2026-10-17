@@ -338,3 +338,12 @@ before collection. The test now pins its synthetic clock and tests the opposite
 stale case too; runtime freshness checks are unchanged. New final-day checks
 cover canonical equality, missing probabilities, no inferred results, no-JS
 snapshot-only display, per-fixture public JSON/HTML parity, and phone WCAG A/AA.
+
+
+For Day-5 tournament fixtures left unpriced by the exchange stage, the collector
+also attempts original Thunderpick and Bovada full-series two-way lines. It
+reuses the reviewed parsers, exact pair/start matching and proportional no-vig
+formula. Every response is saved and hash/origin/time checked at replay. This
+fallback never changes an existing canonical estimate; unsupported entries
+remain explicitly unresolved. Raw paired decimal odds are shown alongside
+supported final-day bookmaker estimates for manual review.

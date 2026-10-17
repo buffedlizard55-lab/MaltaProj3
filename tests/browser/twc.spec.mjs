@@ -9,7 +9,7 @@ test.beforeAll(() => {
 });
 test.afterAll(() => fs.rmSync('site/_twc_fixture', { recursive: true, force: true }));
 
-test('phone summary exposes the canonical Day 4 guide in one tap', async ({ page }) => {
+test('phone summary exposes the canonical Day 5 guide in one tap', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.getByRole('navigation', { name: 'Briefing shortcuts' }).getByRole('link', { name: 'Day 5 pick guide' }).click();

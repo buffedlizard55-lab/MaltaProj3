@@ -24,6 +24,7 @@ tampered evidence file fails closed instead of publishing a number.
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -50,7 +51,8 @@ MAX_KALSHI_PAGES = 5
 HISTORY_READS = 6  # Earlier pipeline reads retained for verified line movement.
 POLICY = ('External first-party market data only. Every fixture joins on exact team names (or a competition-scoped, '
           'evidence-linked alias) and an exact scheduled start; both sides of the selected full-series market must '
-          'publish a two-sided book no wider than 0.12; in-play and past-start observations are rejected. The '
+          'publish a two-sided exchange book no wider than 0.12, or validated paired prematch bookmaker decimal odds '
+          'with margin removed; in-play and past-start observations are rejected. The '
           'published pair is the median across the independent providers that validated, never a directory '
           'percentage, a fan vote, a Hotspawn figure or a previously stored estimate.')
 
@@ -495,7 +497,8 @@ def _movement(row: dict, earlier: dict | None) -> dict | None:
     """Point change between two independently replayed reads of one fixture."""
     if not earlier or not row.get('probabilities') or not earlier.get('probabilities'):
         return None
-    if row['fixture_id'] != earlier.get('fixture_id'):
+    if (row['fixture_id'] != earlier.get('fixture_id')
+            or [name_key(n) for n in row.get('teams', [])] != [name_key(n) for n in earlier.get('teams', [])]):
         return None
     before, after = earlier['probabilities'], row['probabilities']
     delta = [after[i] - before[i] for i in (0, 1)]
@@ -582,12 +585,25 @@ def _relative_report(source: Path, report_path: Path) -> str:
 
 
 def for_fixture(lines: dict, teams: list, starts_at) -> dict | None:
-    """The validated line for an exact team pair and start, or None."""
+    """Unique exact pair/start, aligned to caller order without mutating evidence."""
     key = (frozenset(name_key(t) for t in teams), starts_at)
-    for row in lines.get('matches') or []:
-        if fixture_key({'teams': [{'name': n} for n in row['teams']], 'starts_at': row['starts_at']}) == key:
-            return row
-    return None
+    hits = [row for row in lines.get('matches') or []
+            if fixture_key({'teams': [{'name': n} for n in row['teams']], 'starts_at': row['starts_at']}) == key]
+    if len(hits) != 1:
+        return None
+    row = copy.deepcopy(hits[0])
+    if [name_key(n) for n in row['teams']] != [name_key(n) for n in teams]:
+        for item in [row] + (row.get('providers') or []):
+            for field in ['probabilities', 'bid', 'ask', 'odds']:
+                if item.get(field) is not None:
+                    item[field] = list(reversed(item[field]))
+        if row.get('pick_index') is not None:
+            row['pick_index'] = 1 - row['pick_index']
+        for field in ['before', 'delta', 'points']:
+            if (row.get('movement') or {}).get(field) is not None:
+                row['movement'][field] = list(reversed(row['movement'][field]))
+    row['teams'] = list(teams)
+    return row
 
 
 def underdog(line: dict, floor: float = 0.30) -> dict | None:

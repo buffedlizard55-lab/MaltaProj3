@@ -143,3 +143,19 @@ class DiscoveryAndReports(unittest.TestCase):
     def test_report_path_cannot_escape(self):
         with self.assertRaises(ValueError):
             twc_lines.load(Path('data'), NOW, report_file=Path('../escape.json'))
+
+class TournamentAlignment(unittest.TestCase):
+    def test_reversed_canonical_pair_reorders_all_numbers_without_mutating_source(self):
+        row = {'teams': ['Alpha', 'Beta'], 'starts_at': '2026-10-18T15:00:00Z',
+               'probabilities': [0.6, 0.4], 'pick_index': 0,
+               'providers': [{'probabilities': [0.6, 0.4], 'bid': [0.59,0.39], 'ask': [0.61,0.41], 'odds': [1.5,3]}],
+               'movement': {'before': [0.7,0.3], 'delta': [-0.1,0.1], 'points': [-10,10]}}
+        original = copy.deepcopy(row)
+        aligned = twc_lines.for_fixture({'matches': [row]}, ['Beta','Alpha'], row['starts_at'])
+        self.assertEqual(aligned['probabilities'], [0.4,0.6]); self.assertEqual(aligned['pick_index'], 1)
+        self.assertEqual(aligned['providers'][0]['odds'], [3,1.5])
+        self.assertEqual(aligned['movement']['points'], [10,-10]); self.assertEqual(row, original)
+
+    def test_duplicate_fixture_cannot_take_first_line(self):
+        row = {'teams':['Alpha','Beta'], 'starts_at':'2026-10-18T15:00:00Z'}
+        self.assertIsNone(twc_lines.for_fixture({'matches':[row,copy.deepcopy(row)]}, row['teams'], row['starts_at']))

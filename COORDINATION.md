@@ -5,7 +5,7 @@ to Day 5. Existing Day-4 anchors, JSON and probability semantics stay intact.
 
 # Session arena-ed853bdd — restore automatic publication and Day-5 final-day guide
 
-Claimed 2026-10-17T20:20Z on fixed session branch `arena/ed853bdd-maltaproj3`.
+Claimed 2026-10-17T20:15:23Z (original commit author time) on fixed session branch `arena/ed853bdd-maltaproj3`.
 Reviewed existing board, completion/handoff records and open PRs. Only open PR #67
 owns its independent `data/research/e2ce6ccb/` audit; it is not edited or imported.
 Earlier implementation scopes are released by their completion records. Any old
@@ -2337,3 +2337,21 @@ bypassed, and no outcome or rating is manufactured to force a pick.
   exact pair/start and prematch full-series two-way state. **45 focused tests
   pass**, including wrong time/opponent/map/live, stale/future/started quotes,
   duplicate markets, swapped teams and tampered originals. No odds invented.
+
+
+### D5 additional real gap resolved — arena-ed853bdd
+- Official source audit [39067196218](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39067196218)
+  PASS, including fresh original-source replay and full live build. At20:33:54Z,
+  neither exchange could price either final-day fixture. The newly attempted
+  original Thunderpick line resolved Aurora–Falcons to **34.466019 /65.533981%**
+  after margin removal. FURIA–BETBOOM remained blank across both exchanges and
+  both esportsbooks. No first-row or approximate-time join filled the final.
+- Original runner annotations retained in `book-fallback-annotations.json`.
+  These are dated estimates, not permanent current values or guaranteed odds.
+  Publication will recollect; no bookmaker input is hardcoded in site data.
+- Found/repaired an inherited tournament-line ordering edge case: pair-set
+  matching could return values in HLTV order for a reversed weekly fixture.
+  Now reorders every price/pick/provider/movement field without mutating the
+  retained evidence, and refuses duplicate matches. **47 focused tests pass**.
+- Corrected this session's initial claim clock to its actual20:15:23Z commit
+  author timestamp; the earlier20:20Z heading was an approximate transcription.

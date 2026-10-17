@@ -144,6 +144,10 @@ def render(guide, prefix):
                 'Not a confirmed current pick. Check the source time and entry deadline.</p>' + status_html(state))
         if a:
             out += f'<p class="small">{e(a.get("label") or a.get("method"))} · observed {local_time(a.get("observed_at"))}. Estimates, not guarantees.</p>'
+        for provider in (a or {}).get('providers') or []:
+            if provider.get('odds'):
+                out += (f'<p class="small">{e(provider["provider"])} original decimal odds, in the team order above: '
+                        f'{e(" / ".join(map(str, provider["odds"])))}. Probabilities remove the bookmaker margin.</p>')
         dog = row['underdog_screen']
         if dog:
             out += (f'<aside class="twc-watch" data-current-only{current}><strong>Optional underdog screen: {e(dog["team"])}</strong>'
