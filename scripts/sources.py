@@ -128,33 +128,90 @@ def disagreement(api_ids: set, lobby_ids: set, cs2_ids: set, lobby_req: dict, cs
 
 
 def hotspawn(client: Client):
+    """Read the public fixture array; use rendered pages only as a cross-check.
+
+    The scheduled-fixture API is the same public array that feeds the Hotspawn
+    client and is the authoritative inventory. The two rendered lobby pages are
+    an independent reconciliation check. On 2026-10-17T07:16Z both rendered
+    pages answered HTTP 403 while the API had answered 200 four hours earlier;
+    failing the whole refresh in that case discarded a usable official inventory
+    and made every otherwise source-backed pick look unusable. When no rendered
+    page can be read, the valid API array is published with an explicit
+    `unavailable` cross-check marker instead of a reconciliation claim. If any
+    rendered page IS readable, a disagreement still fails closed.
+    """
     def ids(rows):
         values = [str(x['id']) for x in rows if x.get('sport_alias') == 'cs2']
         if len(values) != len(set(values)):
             raise SourceError('Duplicate CS2 fixture IDs')
         return set(values)
 
+    def page(url, label):
+        try:
+            html, req = fetch_fresh_page(client, url, label)
+        except (SourceError, ValueError, KeyError) as exc:
+            # Only transport/access failure is an unreadable page. Keep the
+            # failed request in the manifest; never disguise it as read.
+            return {'html': None, 'req': None, 'rows': None, 'ids': None, 'links': {}, 'error': str(exc)}
+        try:
+            rows, links = hydration(html)
+            page_ids = ids(rows)
+        except SourceError as exc:
+            # A 200 response with no Hotspawn app state is an access/challenge
+            # page, not evidence that the fixture schema changed. Treat only
+            # that specific shape as unreadable; a page that carried app state
+            # but violated the contract still fails closed below.
+            if 'hydration state missing' in str(exc):
+                return {'html': None, 'req': None, 'rows': None, 'ids': None, 'links': {}, 'error': f'{label}: no Hotspawn app state in the response ({exc})'}
+            raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
+        except (ValueError, KeyError) as exc:
+            raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
+        return {'html': html, 'req': req, 'rows': rows, 'ids': page_ids, 'links': links, 'error': None}
+
     for attempt in range(2):
-        lobby_html, lobby_req = fetch_fresh_page(client, LOBBY, 'hotspawn-lobby')
-        cs2_html, cs2_req = fetch_fresh_page(client, CS2_LOBBY, 'hotspawn-cs2')
-        lobby_rows, links = hydration(lobby_html)
-        cs2_rows, more_links = hydration(cs2_html)
-        links.update(more_links)
+        # Observe the API and both rendered pages in the same round so a
+        # fixture added between them is a real disagreement, not a stale read.
         api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
         if not isinstance(api_rows, list):
             raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
         official_ids = ids(api_rows)
-        if official_ids == ids(cs2_rows) == ids(lobby_rows):
+        if not official_ids:
+            raise SourceError('Fixture API returned no CS2 fixtures; refusing an empty inventory claim')
+        lobby = page(LOBBY, 'hotspawn-lobby')
+        cs2 = page(CS2_LOBBY, 'hotspawn-cs2')
+        read = [(name, record) for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
+        if not read:
+            # API-only mode. A retry here would only repeat a refused HTML
+            # request; the API response is already a complete official array.
             break
-        # A fixture can change in the few seconds between the three requests; look once more before giving up.
+        if all(official_ids == record['ids'] for _, record in read):
+            break
+        # A fixture can change in the few seconds between requests; look once
+        # more before giving up, exactly as the reconciled path always has.
         if attempt == 0:
             time.sleep(5)
             continue
-        raise SourceError('Lobby, CS2 lobby and fixture API disagree; complete coverage cannot be confirmed (' + disagreement(official_ids, ids(lobby_rows), ids(cs2_rows), lobby_req, cs2_req) + ')')
-    visible_ids = re.findall(r'<app-pickem-vs-card\b[^>]*\bid="fixture-(\d+)"', cs2_html)
-    evidence = client.save('hotspawn-context', {'lobby_url': LOBBY, 'cs2_url': CS2_LOBBY, 'fixture_api': FIXTURES_API, 'observed_at': api_req['observed_at'], 'visible_ids': visible_ids, 'permalinks': links, 'lobby_ids': sorted(ids(lobby_rows)), 'cs2_ids': sorted(ids(cs2_rows)), 'api_ids': sorted(official_ids)})
+        raise SourceError('Rendered Hotspawn inventory disagrees with the fixture API; complete coverage cannot be confirmed (' + disagreement(official_ids, lobby['ids'] or set(), cs2['ids'] or set(), lobby['req'] or {}, cs2['req'] or {}) + ')')
+
+    links = {}
+    for record in (lobby, cs2):
+        links.update(record['links'])
+    verified_pages = [name for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
+    crosscheck = 'complete' if len(verified_pages) == 2 else ('partial' if verified_pages else 'unavailable')
+    unavailable = [f'{name}: {record["error"]}' for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is None]
+    if crosscheck == 'complete':
+        detail = 'All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.'
+    elif crosscheck == 'partial':
+        detail = ('The public scheduled-fixture API returned a valid, duplicate-free CS2 array and agrees with the rendered page(s) that could be read ('
+                  + ', '.join(verified_pages) + '). The other rendered page was unavailable: ' + '; '.join(unavailable)
+                  + '. Inventory completeness rests on the API array; the missing page was not silently treated as agreement.')
+    else:
+        detail = ('The public scheduled-fixture API returned a valid, duplicate-free CS2 array. Both rendered lobby pages were unavailable: '
+                  + '; '.join(unavailable) + '. The secondary HTML cross-check is unavailable; the API array is published as the complete scheduled inventory and no three-response reconciliation is claimed.')
+    visible_ids = re.findall(r'<app-pickem-vs-card\b[^>]*\bid="fixture-(\d+)"', cs2['html'] or '')
+    evidence = client.save('hotspawn-context', {'lobby_url': LOBBY, 'cs2_url': CS2_LOBBY, 'fixture_api': FIXTURES_API, 'observed_at': api_req['observed_at'], 'visible_ids': visible_ids, 'permalinks': links, 'lobby_ids': sorted(lobby['ids'] or []), 'cs2_ids': sorted(cs2['ids'] or []), 'api_ids': sorted(official_ids), 'crosscheck': crosscheck, 'verified_pages': verified_pages, 'unavailable': unavailable})
     rows = [r for r in api_rows if r.get('sport_alias') == 'cs2']
-    return rows, links, {'status': 'ok', 'name': 'Hotspawn match inventory', 'url': LOBBY, 'api_url': FIXTURES_API, 'observed_at': api_req['observed_at'], 'records': len(rows), 'visible_cards': len(visible_ids), 'detail': 'All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.', 'evidence': evidence}
+    return rows, links, {'status': 'ok', 'name': 'Hotspawn match inventory', 'url': LOBBY, 'api_url': FIXTURES_API, 'observed_at': api_req['observed_at'], 'records': len(rows), 'visible_cards': len(visible_ids), 'crosscheck': crosscheck, 'verified_pages': verified_pages, 'unavailable': unavailable, 'detail': detail, 'evidence': evidence}
 
 
 def polymarket_games(html: str) -> list:

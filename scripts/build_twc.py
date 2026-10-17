@@ -400,8 +400,18 @@ def render_day4(guide, prefix):
         if a and row['pick']:
             out += (f'<p class="pick-choice" data-current-only{current}><strong>Default pick: {e(row["pick"])}</strong></p>'
                     f'<p class="pick-choice" data-historical-only{historical}><strong>Snapshot only: {e(row["pick"])}</strong></p>')
+        elif a:
+            # A genuinely even external market is complete data, not missing
+            # data. Say so explicitly and do not invent a side.
+            even = abs(a['probabilities'][0] - a['probabilities'][1]) < 1e-9
+            out += ('<p class="pick-choice"><strong>No edge — ' + ('even line' if even else 'no directional side') + '.</strong></p>'
+                    '<p class="pick-caption">' + ('Both sides are priced at exactly 50% by the external line, so this is a real coin flip; '
+                                                  'no side is invented and no default 50/50 is substituted for a missing number. '
+                                                  'A directional pick would need an independent second source with a different price.'
+                                                  if even else
+                                                  'The stored estimate has no directional side. See the pricing audit for the exact inputs.') + '</p>')
         else:
-            out += '<p><strong>Pick — unverified.</strong> ' + ('Equal estimate; no arbitrary direction.' if a else e(row['limitation'])) + '</p>'
+            out += '<p><strong>Pick — unverified.</strong> ' + e(row['limitation']) + '</p>'
         out += status_html(state)
         if a:
             out += f'<p class="small">{e(a["label"])}<br>Observed {local_time(a["observed_at"])}</p>'

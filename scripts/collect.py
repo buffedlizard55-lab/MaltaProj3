@@ -111,10 +111,13 @@ def _collect_into(output: Path):
         snapshot['flags'] = [f for f in snapshot.get('flags', []) if f['id'] != 'inventory-failed'] + [flag('inventory-failed', 'Hotspawn refresh failed — current coverage unverified', f'{exc}. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='critical')]
         snapshot['counts'] = counts(snapshot['matches'])
         write_snapshot(output, snapshot)
+        detail = f'{type(exc).__name__}: {exc}'.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+        print('::error title=Hotspawn inventory refresh failed::' + detail)
         print('WARNING: Hotspawn inventory unavailable; retained last-known data without changing its source timestamps.')
         return snapshot
 
     observed = inventory['observed_at']
+    crosscheck = inventory.get('crosscheck', 'complete')
     matches = [normalize_fixture(r, links, observed, now) for r in raw]
     matches.sort(key=lambda m: (m['starts_at'] or '9999', m['id']))
     active = [m for m in matches if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -266,16 +269,19 @@ def _collect_into(output: Path):
         flags.append(flag('unresolved-' + m['id'], 'Unresolved: ' + ' vs '.join(t['name'] or 'Unverified team' for t in m['teams']), '; '.join(m['limitations'] + [r['detail'] for r in m['research'] if r['status'] != 'resolved']), [m['source_url']] + [r['source_url'] for r in m['research']], [m['id']]))
     if (output / 'matches.json').exists() or (output / 'picks-model.json').exists():
         flags.append(flag('legacy-snapshots', 'Earlier session snapshots are archived, not the current feed', 'Concurrent sessions used different identity rules, source timestamps and model weights. Their datasets, scripts and pages are retained for provenance. The current dashboard uses only data/latest.json and its replayed first-party evidence. Legacy records are not silently merged, relabeled as current, or independently reverified by this pipeline.', ['https://github.com/buffedlizard55-lab/MaltaProj3', LOBBY, POLY_INDEX], severity='notice'))
+    if crosscheck != 'complete':
+        flags.append(flag('inventory-crosscheck', 'Hotspawn lobby HTML cross-check unavailable', inventory['detail'] + ' No rendered page was treated as agreement, and no probability, pick or fixture was invented. Picks tied to this API snapshot remain usable and carry their own source observations.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='warning'))
     snapshot = {
         'schema_version': 1, 'generated_at': iso(datetime.now(timezone.utc)), 'last_attempted_at': iso(now), 'analysis_as_of': iso(now),
-        'inventory_observed_at': observed, 'coverage_complete': True,
+        'inventory_observed_at': observed, 'coverage_complete': True, 'inventory_crosscheck': crosscheck,
         'run_status': 'complete' if not unresolved else 'partial-picks',
         'refresh_interval_hours': 4, 'stale_after_hours': 8,
         'counts': counts(matches), 'matches': matches, 'sources': health, 'flags': flags, 'requests': client.manifest,
         'evidence_files': sorted(client.saved),
-        'inventory_definition': 'Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.',
+        'inventory_definition': ('Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.' if crosscheck == 'complete' else 'Every CS2 record returned by Hotspawn’s scheduled-fixture API. The rendered lobby HTML cross-check was ' + ('partial' if crosscheck == 'partial' else 'unavailable') + '; the API array is the authoritative scheduled inventory and no three-response reconciliation is claimed. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.'),
     }
     write_snapshot(output, snapshot)
+    print('::notice title=Hotspawn inventory::' + json.dumps({'records': len(raw), 'crosscheck': crosscheck, 'verified_pages': inventory.get('verified_pages', []), 'unavailable': [x.split(':')[0] for x in inventory.get('unavailable', [])]}))
     print(json.dumps({'status': snapshot['run_status'], 'counts': snapshot['counts'], 'sources': [{k: h[k] for k in ['name', 'status']} for h in health]}, indent=2))
     return snapshot
 
@@ -349,4 +355,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('data'))
     args = parser.parse_args()
-    collect(args.output)
+    try:
+        collect(args.output)
+    except Exception as exc:
+        # Job logs are not always readable through the API; make the exact
+        # failure visible as a check annotation without leaking a traceback
+        # into the published data.
+        import traceback
+        frames = traceback.extract_tb(exc.__traceback__)
+        where = ' > '.join(f'{Path(f.filename).name}:{f.lineno}:{f.name}' for f in frames[-6:])
+        detail = f'{type(exc).__name__}: {exc} @ {where}'.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+        print('::error title=CS2 collection failed::' + detail)
+        raise

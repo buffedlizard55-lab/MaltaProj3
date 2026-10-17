@@ -24,12 +24,15 @@ def page(rows):
 class FakeClient:
     """Serves queued page/API payloads per call and records every requested URL."""
 
-    def __init__(self, rounds, refuse_fresh=False, headers=None):
+    def __init__(self, rounds, refuse_fresh=False, headers=None, block=()):
         self.rounds, self.refuse_fresh, self.headers = list(rounds), refuse_fresh, headers or {}
+        self.block = set(block)
         self.urls, self.manifest, self.saved, self.n = [], [], {}, -1
 
     def fetch(self, url, label, **kw):
         self.urls.append(url)
+        if label in self.block:
+            raise SourceError(label + ': 403 Client Error: Forbidden for url: ' + url)
         if self.refuse_fresh and 'cb=' in url:
             raise SourceError(label + ': 403')
         if label == 'hotspawn-lobby':
@@ -114,6 +117,72 @@ class Reconciliation(unittest.TestCase):
         rnd = {'lobby': [row(1)], 'cs2': [row(1)], 'api': {'data': []}}
         with self.assertRaises(SourceError):
             hotspawn(FakeClient([rnd]))
+
+
+class ApiOnlyFallback(unittest.TestCase):
+    """A blocked rendered page must not make a healthy official API array unusable."""
+
+    def round(self, ids):
+        rows = [row(i) for i in ids]
+        return {'lobby': rows, 'cs2': rows, 'api': rows}
+
+    def test_both_blocked_pages_publish_the_api_array_with_an_explicit_unavailable_crosscheck(self):
+        client = FakeClient([self.round([1, 2])], block=('hotspawn-lobby', 'hotspawn-cs2'))
+        rows, links, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1', '2'])
+        self.assertEqual(health['status'], 'ok')
+        self.assertEqual(health['crosscheck'], 'unavailable')
+        self.assertEqual(health['verified_pages'], [])
+        self.assertIn('both rendered lobby pages were unavailable', health['detail'].lower())
+        self.assertIn('no three-response reconciliation is claimed', health['detail'])
+        self.assertEqual(client.saved['hotspawn-context']['crosscheck'], 'unavailable')
+        self.assertEqual(client.saved['hotspawn-context']['verified_pages'], [])
+        self.assertEqual(client.saved['hotspawn-context']['api_ids'], ['1', '2'])
+        self.assertEqual(links, {})
+
+    def test_one_blocked_page_is_a_partial_crosscheck_not_a_failure(self):
+        client = FakeClient([self.round([1])], block=('hotspawn-cs2',))
+        rows, links, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1'])
+        self.assertEqual(health['crosscheck'], 'partial')
+        self.assertEqual(health['verified_pages'], ['lobby'])
+        self.assertEqual(client.saved['hotspawn-context']['lobby_ids'], ['1'])
+        self.assertIn('was unavailable', health['detail'])
+        self.assertIn('1', links)  # the readable page still supplies the match permalink
+
+    def test_a_readable_page_that_disagrees_still_fails_closed(self):
+        rnd = {'lobby': [row(1), row(9)], 'cs2': [row(1)], 'api': [row(1)]}
+        client = FakeClient([rnd], block=('hotspawn-cs2',))
+        with mock.patch.object(sources.time, 'sleep'):
+            with self.assertRaises(SourceError) as ctx:
+                hotspawn(client)
+        self.assertIn('disagree', str(ctx.exception))
+        self.assertIn("in the page only ['9']", str(ctx.exception))
+
+    def test_a_200_challenge_page_without_app_state_is_unreadable_not_a_schema_break(self):
+        rounds = {'lobby': [row(1)], 'cs2': [row(1)], 'api': [row(1)]}
+        client = FakeClient([rounds])
+
+        def fetch(url, label, **kw):
+            if label == 'hotspawn-cs2':
+                return '<html><body>Please verify you are human</body></html>', {'observed_at': '2026-10-16T08:00:00Z'}
+            return FakeClient.fetch(client, url, label, **kw)
+
+        client.fetch = fetch
+        rows, _, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1'])
+        self.assertEqual(health['crosscheck'], 'partial')
+        self.assertIn('no Hotspawn app state', health['detail'])
+
+    def test_an_invalid_api_still_fails_even_when_both_pages_are_blocked(self):
+        bad = {'lobby': [row(1)], 'cs2': [row(1)], 'api': {'data': []}}
+        with self.assertRaises(SourceError):
+            hotspawn(FakeClient([bad], block=('hotspawn-lobby', 'hotspawn-cs2')))
+
+    def test_an_empty_api_is_refused_even_when_both_pages_are_blocked(self):
+        empty = {'lobby': [], 'cs2': [], 'api': []}
+        with self.assertRaises(SourceError):
+            hotspawn(FakeClient([empty], block=('hotspawn-lobby', 'hotspawn-cs2')))
 
 
 class DisagreementText(unittest.TestCase):

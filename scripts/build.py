@@ -307,6 +307,90 @@ def contrarian_review(data, prefix):
     return out
 
 
+def glance(data, prefix):
+    """Phone-first one-glance index of every active fixture's selected pick.
+
+    The executive summary previously put the first match card ~2,800 px down a
+    phone page. This section is a compact index over the same canonical
+    selection used by the full table: featured estimate first, then an audited
+    researched fallback. It adds no probability, no pick and no fixture.
+    Unresolved fixtures are never dropped from this index; only resolved rows
+    are capped, with an explicit link to the complete list.
+    """
+    fallbacks = data.get('fallbacks') or {}
+    active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
+    if not active:
+        return ''
+    now = datetime.now(timezone.utc)
+
+    def basis(m):
+        fallback = selected_fallback(m, fallbacks)
+        fb = (fallback or {}).get('origination')
+        return (fb, fallback.get('pick_index'), True) if fb else (m['analysis'], m['pick_index'], False)
+
+    def upcoming(m):
+        start = timestamp(m.get('starts_at'))
+        return bool(start and start > now)
+
+    open_rows = [m for m in active if basis(m)[0] and upcoming(m)]
+    resolved_rest = [m for m in active if basis(m)[0] and not upcoming(m)]
+    # A resolved-but-stale row and a truly unresolved row must not be merged:
+    # the summary must never omit the name of a match that has no estimate.
+    blank_rows = [m for m in active if not basis(m)[0] and upcoming(m)]
+    past_blank_rows = [m for m in active if not basis(m)[0] and not upcoming(m)]
+    # Bounded index: upcoming picks first, then every unresolved fixture, then
+    # recent resolved rows for context. Nothing is re-priced or re-ordered by
+    # opinion; the complete list always shows every row.
+    shown, seen = [], set()
+    for group, limit in ((open_rows, 10), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
+        for m in (group if limit is None else group[:limit]):
+            if m['id'] not in seen:
+                shown.append(m)
+                seen.add(m['id'])
+    hidden = len(active) - len(shown)
+    picks = sum(1 for m in active if basis(m)[0] and basis(m)[1] is not None)
+
+    rows = ''
+    for m in shown:
+        names = [t['name'] or 'Unverified team' for t in m['teams']]
+        a, pick, researched = basis(m)
+        detail = f'{prefix}origination/#match-{e(m["id"])}'
+        links = external(m['source_url'], 'Hotspawn')
+        if a:
+            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Bookmaker')
+        links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
+        if a and pick is not None:
+            lock = timestamp(m['locks_at'])
+            closed = lock is not None and lock <= now
+            choice = (f'<span class="glance-pick-label">{"Locked" if closed else "Pick"}</span>'
+                      f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
+                      + ('<span class="badge purple">Researched</span>' if researched else ''))
+        elif a:
+            choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
+                      '<span class="glance-prob">no side</span>')
+        else:
+            choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
+                      f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
+        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}">'
+                 f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
+                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
+                 f'<div class="glance-choice">{choice}</div>'
+                 f'<div class="glance-links">{links}</div></li>')
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
+            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
+            if hidden else
+            f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Open the complete audited list →</a> '
+            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p>')
+    return ('<section class="content-section" id="picks-at-a-glance"><div class="section-heading"><div>'
+            '<p class="eyebrow">Every pick, one tap away</p><h2>Picks at a glance</h2></div>'
+            f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
+            f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
+            f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
+            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
+
+
 def summary(data, prefix):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -320,12 +404,13 @@ def summary(data, prefix):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out += glance(data, prefix)
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         no_direction = cc['resolved'] - cc['with_pick']
         direction_note = f' {no_direction} equal estimate(s) have no directional pick.' if no_direction else ''
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["resolved"]} with probabilities; {cc["unresolved"]} unresolved in the complete researched list.{direction_note} Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{"FULL INVENTORY RECONCILED" if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 4: picks &amp; review →</a></div></div>{ring}</section>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 4: picks &amp; review →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'twc-picks/">Day 4 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     day4 = data.get('_twc_day4')
     if day4 is not None:
@@ -473,7 +558,7 @@ def picks(data, prefix):
 def coverage(data, prefix):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
-    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{"CS2 records reconciled across three official responses" if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">First-party checks</p><h2>Source health</h2></div><a class="internal-link" href="' + prefix + 'data/sources.json">Request manifest ↓</a></div><div class="table-scroll"><table class="simple-table source-table"><caption class="sr-only">Latest source attempts, outcomes and limitations</caption><thead><tr><th>Original source</th><th>Status / observed</th><th>What was actually confirmed</th></tr></thead><tbody>'
     for s in data['sources']:
         out += '<tr><th scope="row">' + external(s['url'], s['name']) + '</th><td>' + badge('Available' if s['status'] == 'ok' else 'Limited / unavailable', 'green' if s['status'] == 'ok' else 'amber') + '<small>' + local_time(s['observed_at']) + '</small></td><td>' + e(s['detail']) + (f'<small>{s["records"]} structured records</small>' if s['records'] is not None else '') + '</td></tr>'
@@ -554,6 +639,14 @@ def shell(data, key, body, prefix):
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
+    crosscheck = data.get('inventory_crosscheck', 'complete')
+    crosscheck_note = ''
+    if data['coverage_complete'] and crosscheck != 'complete':
+        scope = 'one rendered lobby page' if crosscheck == 'partial' else 'both rendered lobby pages'
+        crosscheck_note = (f'<div class="limitations-callout" role="status" id="inventory-crosscheck"><strong>Lobby HTML cross-check unavailable.</strong> '
+                           f'{e(scope.capitalize())} could not be read this cycle, so the inventory is the complete public Hotspawn fixture API array rather than a three-response reconciliation. '
+                           f'Picks remain tied to that API snapshot and keep their own observation times. '
+                           f'<a href="{prefix}coverage/">Source status →</a></div>')
     extra_css = f'<link rel="stylesheet" href="{prefix}assets/twc.css">' if key == 'twc' else ''
     safety_attrs = ''
     if key == 'twc':
@@ -565,7 +658,7 @@ def shell(data, key, body, prefix):
 <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar"><a class="brand" href="{prefix}index.html" aria-label="Spawn Scout home"><span class="brand-mark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h9v9H5zM17 4h7v7h-7zM5 16h7v8H5z"/><path d="m16 17 8-4v11h-8z"/></svg></span><span>spawn<span class="brand-light">scout</span><small>CS2 MATCH INTELLIGENCE</small></span></a><p class="nav-label">YOUR DASHBOARD</p><nav aria-label="Main navigation">{nav}</nav><div class="sidebar-bottom"><div class="sidebar-note"><span class="status-dot"></span><strong>Independent analysis</strong><p>Hotspawn tells us who plays.<br>External sources inform the pick.</p></div>{external(LOBBY, 'Open Hotspawn lobby', 'sidebar-external')}<a class="sidebar-repo" href="{REPO}">Open-source &amp; auditable {icon('external')}</a></div></aside>
 <div class="workspace"><header class="topbar"><div class="mobile-brand"><a href="{prefix}index.html">spawn<strong>scout</strong><span>CS2</span></a></div><div class="desktop-crumb">Workspace <span>/</span> <strong>{e(title)}</strong></div><div class="topbar-tools"><span class="refresh-pill">{icon('clock')} Checks every 4h</span><label class="timezone-control"><span class="sr-only">Display timezone</span><select id="timezone"><option value="Europe/Malta">Malta time</option><option value="UTC">UTC</option><option value="local">Device time</option></select></label></div></header>
-<main id="main" tabindex="-1"><div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
+<main id="main" tabindex="-1"><div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
 
 
 def picks_csv(data):

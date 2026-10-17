@@ -6,7 +6,7 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 
 | View | What it contains |
 | --- | --- |
-| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | Coverage, complete-pick counts, upcoming matches, the Day 1 contrarian review, a map of every page, and unresolved-pick limitations |
+| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | **Picks at a glance** (a phone-first, one-line-per-fixture index that opens above the fold and links every row to its full evidence), coverage, complete-pick counts, upcoming matches, the Day 1 contrarian review, a map of every page, and unresolved-pick limitations |
 | [Complete match picks](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks) | The phone-first list: every non-archived fixture with both probabilities, one obvious pick, lock times and expandable evidence |
 | [Leaderboard plan](https://buffedlizard55-lab.github.io/MaltaProj3/strategy/) | One plan pick per open fixture from our own external-line probabilities, the few underdogs worth an upset play (with their expected-point cost), a separate unresolved section, the Thunderpick tournament pick'em (team plus score), Hotspawn's verified scoring contract and Days 1–2 results cross-checked against Hotspawn's own API |
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
@@ -21,7 +21,7 @@ The observation times and counts on the live site are authoritative for that pub
 
 ## Source and probability rules
 
-1. **Complete inventory first.** Read both official [Hotspawn lobby](https://play.hotspawn.com/lobby) and [CS2 lobby](https://play.hotspawn.com/cs2-pickems) Angular hydration states, then reconcile their CS2 fixture IDs against the public fixture API used by Hotspawn’s client. No pagination was present in the inspected client. A changed schema, duplicate IDs or disagreement invalidates the completeness claim; it is not silently accepted as an empty or partial successful feed. New matches are rediscovered on every successful refresh.
+1. **Complete inventory first, and keep a valid official inventory usable.** The public scheduled-fixture API used by Hotspawn’s own client is the authoritative scheduled inventory. The rendered [Hotspawn lobby](https://play.hotspawn.com/lobby) and [CS2 lobby](https://play.hotspawn.com/cs2-pickems) hydration states are an independent cross-check; when either page is readable it must agree with the API exactly, and a readable page that disagrees still fails the refresh closed. When *no* rendered page can be read (observed HTTP 403 on both pages at 07:16Z on 17 October 2026, while the same API had answered 200 four hours earlier), the validated, duplicate-free API array is published with `inventory_crosscheck: "unavailable"`, a visible notice and a review flag instead of a reconciliation claim, so source-backed picks are not discarded over a secondary page. No pagination was present in the inspected client. A changed schema, duplicate IDs or an empty array still invalidates the refresh; it is never accepted as an empty or partial successful feed. New matches are rediscovered on every successful refresh.
 2. **Never use Hotspawn “% picked.”** Community participation, offered points and crowd voting do not enter the calculations. Missing best-of formats, lineups and results are not inferred.
 3. **Primary external market.** Discover candidates from [Polymarket’s CS2 directory](https://polymarket.com/esports/cs2) **and paginate the official CS2-tag event API to a terminal page** (bounded at 2,000 events; repeated pages/failures are explicitly flagged), verify an active, unique prematch **full-series match-winner** event with exact normalized team names and start time within 60 seconds, then obtain both original CLOB order books. Validate token/condition IDs, positive bid/ask size, noncrossed books, spread ≤0.12 and observation freshness. Normalize the two bid/ask midpoints. Directory percentages, map markets, props and outrights are not inputs. These are market-implied estimates, not verified true win probabilities.
 4. **Research only missing primary matches.** Attempt [HLTV](https://www.hltv.org/matches) context first, then original esportsbook lines. The current split-anchor HLTV cards are parsed with sibling time/team context, and original HTML is saved and hash-checked for replay. Same-time records with one shared opponent but a different other team name are linked for review only—not silently treated as the same match. The public Thunderpick client uses a read-only **POST** `/api/matches` query with `{"gameIds":[6]}`; a failed GET does not establish that POST is unavailable. Require a unique exact fixture and prematch two-way series winner. Decimal odds are converted with `pᵢ = (1/oᵢ) / Σ(1/o)`. A single bookmaker is explicitly a single source, never described as consensus. Unsupported provider aliases stay unresolved.
@@ -221,3 +221,71 @@ Local verification commands (Python 3.11+):
 .venv/bin/python -m scripts.audit_rows --site site --strict
 PYTHON=.venv/bin/python npm test
 ```
+
+## 17 October session arena-7831412c: restore usable picks after the Hotspawn 403
+
+The canonical publisher run
+[39012768749](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749)
+completed at 07:17Z but published `coverage_complete: false`. The collect step took
+two seconds and the inventory source reported `403 Client Error: Forbidden` for
+`https://play.hotspawn.com/lobby`, so the site relabelled every otherwise
+source-backed estimate "Inventory unverified" and the leaderboard plan reported
+**0 currently usable** lines. The same 04:27Z snapshot had recorded HTTP 200 for the
+lobby, the CS2 lobby and the public fixture API, and the live
+[`data/sources.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json)
+still shows those responses. The outage was in the rendered HTML, not in the
+official fixture list.
+
+What changed, and why each piece is verifiable:
+
+1. **Inventory authority (`scripts/sources.py`, `scripts/collect.py`).** The public
+   fixture array is read first in each round and must be a non-empty,
+   duplicate-free array. Both rendered pages are then read; if any page is
+   readable it must match the API exactly or the refresh fails closed, exactly as
+   before. Only when *no* page is readable is the API array published, and it is
+   published with `inventory_crosscheck: "unavailable"`, the actual per-page error,
+   a warning flag (`inventory-crosscheck`) and a `::notice` annotation. An HTTP 200
+   response that carries no Hotspawn app state is treated as an unreadable
+   challenge page; a page that does carry app state but breaks the contract still
+   fails closed. `scripts/validate.py` re-verifies the API row set, the cross-check
+   marker, and every page claimed as read, on every build.
+2. **Visible provenance (`scripts/build.py`).** The executive summary and the
+   coverage page state whether the inventory is a three-response reconciliation,
+   a partial cross-check or API-only, and the hero kicker changes accordingly. A
+   blocked page never silently becomes "reconciled".
+3. **Picks at a glance.** The executive summary now opens with a compact index of
+   active fixtures (upcoming picks first, then every unresolved fixture, then
+   recent context) with the selected team, its probability, the source link and a
+   deep link into the full evidence. It is a view over the same canonical
+   selection, adds no probability and re-orders nothing by opinion. At 390 px the
+   first pick and its sources now appear within the first screen instead of after
+   roughly 2,800 px of page.
+4. **Honest even lines (`scripts/build_twc.py`).** A genuinely even external line
+   (50.0% / 50.0%) is now labelled "No edge — even line" with the reason, instead
+   of the vague "Pick — unverified", which wrongly implied missing data. No side
+   is invented.
+
+Verification performed on this tree before the release PR: **577 Python tests**
+pass, **78 Playwright checks** pass (including two new phone-width glance checks),
+**106 independent pick-safety browser assertions** pass (Python/JS parity, expiry,
+lock, clock rollback, 320/390/768/1440 px and axe WCAG A/AA), `scripts.build`
+replays 80 source rows, validates all internal links/anchors, and the strict row
+audit reports 0 violations. The branch's own read-only
+[origination audit](https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/origination.yml)
+reported `{"records": 93, "crosscheck": "complete", "verified_pages": ["lobby", "cs2"]}`
+on commit `d136c0d`, confirming the reconciled path still runs normally when the
+HTML is readable.
+
+Sources used for this change: the Hotspawn public fixture API and lobby pages
+listed above; HLTV match pages for the Day-1–Day-3 facts already displayed
+(`2399384`–`2399415`, for example
+[9z vs Aurora](https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026));
+the official
+[Valve regional standings](https://github.com/ValveSoftware/counter-strike_regional_standings)
+for rating-model inputs; Polymarket, Kalshi, Thunderpick and Bovada for prices.
+No new probability, alias or editorial adjustment is introduced by this session.
+
+Flagged for review: the intermittent HTTP 403 on the rendered Hotspawn pages is
+recorded on `/review/` with the exact response text. The site continues to treat
+Hotspawn percentages as non-inputs, and every still-unresolved fixture remains
+listed with its reason rather than a default 50/50.

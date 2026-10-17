@@ -6,7 +6,7 @@ from datetime import timedelta
 from pathlib import Path
 from unittest.mock import patch
 from bs4 import BeautifulSoup
-from scripts.build import matches_table, picks, summary
+from scripts.build import glance, matches_table, picks, summary
 from scripts.domain import timestamp
 
 
@@ -199,3 +199,57 @@ class ConsensusQuoteShapeTests(unittest.TestCase):
                                                 'source_url': 'https://thunderpick.io/api/matches'}]}}
         html = matches_table([match], '../', fallbacks={match['id']: fallback})
         self.assertIn('price observation recorded in the saved evidence', html)
+
+class GlanceIndexTests(unittest.TestCase):
+    """The phone summary must expose picks immediately and never hide an unresolved fixture."""
+
+    def match(self, i, probability, future, resolved=True):
+        from datetime import datetime, timedelta, timezone
+        now = datetime.now(timezone.utc)
+        start = now + timedelta(hours=2 + i) if future else now - timedelta(hours=3)
+        m = {'id': str(i), 'teams': [{'id': 'a', 'name': f'TeamA{i}'}, {'id': 'b', 'name': f'TeamB{i}'}],
+             'competition': 'Test Cup', 'starts_at': start.strftime('%Y-%m-%dT%H:%M:%SZ'),
+             'locks_at': (start - timedelta(minutes=6)).strftime('%Y-%m-%dT%H:%M:%SZ'), 'availability': 'open',
+             'source_url': f'https://www.hotspawn.com/matches/x-{i}', 'analysis': None, 'pick_index': None,
+             'observed_at': now.strftime('%Y-%m-%dT%H:%M:%SZ'), 'research': [], 'limitations': [], 'tier': 'b',
+             'source_status': 'scheduled', 'best_of': 3}
+        if resolved:
+            m['analysis'] = {'method': 'market', 'label': 'Market-implied estimate', 'probabilities': [probability, 1 - probability],
+                             'fair_decimal': [round(1 / probability, 3), round(1 / (1 - probability), 3)],
+                             'observed_at': m['observed_at'], 'source': 'Polymarket',
+                             'source_url': 'https://polymarket.com/event/cs2-x', 'quotes': []}
+            m['pick_index'] = 0
+        return m
+
+    def test_first_pick_and_source_links_appear_near_the_top(self):
+        html = glance({'matches': [self.match(1, 0.62, True)], 'fallbacks': {}}, '../')
+        self.assertLess(html.index('Picks at a glance'), html.index('62.0%'))
+        self.assertIn('href="../origination/#match-1"', html)
+        self.assertIn('href="https://www.hotspawn.com/matches/x-1"', html)
+        self.assertIn('href="https://polymarket.com/event/cs2-x"', html)
+
+    def test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50(self):
+        matches = [self.match(i, 0.6, True) for i in range(12)] + [self.match(100, 0.5, True, resolved=False),
+                                                                  self.match(101, 0.5, False, resolved=False)]
+        html = glance({'matches': matches, 'fallbacks': {}}, '')
+        self.assertIn('TeamA100', html)
+        self.assertIn('TeamA101', html)
+        self.assertEqual(html.count('50.0%'), 0)
+        self.assertIn('2</strong> explicitly unresolved', html)
+        self.assertIn('every unresolved fixture is included', html)
+
+    def test_a_researched_fallback_is_labelled_and_uses_its_own_probability(self):
+        m = self.match(7, 0.5, True, resolved=False)
+        fallback = {'id': '7', 'pick_index': 1, 'origination': {
+            'method': 'market', 'label': 'Originated market line (Polymarket)', 'probabilities': [0.3, 0.7],
+            'fair_decimal': [3.333, 1.429], 'observed_at': m['observed_at'], 'source': 'Polymarket',
+            'source_url': 'https://polymarket.com/event/cs2-y', 'quotes': []}}
+        html = glance({'matches': [m], 'fallbacks': {'7': fallback}}, '')
+        self.assertIn('Researched', html)
+        self.assertIn('TeamB7', html)
+        self.assertIn('70.0%', html)
+        self.assertNotIn('50.0%', html)
+
+    def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
+        self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
+
