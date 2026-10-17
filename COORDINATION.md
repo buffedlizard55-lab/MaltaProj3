@@ -1,3 +1,25 @@
+# Current session: arena-fa7ed344 — final integration, production recovery, and verified publication
+
+Claimed 2026-10-17T00:55Z on Arena's fixed branch `arena/fa7ed344-maltaproj3`. Before claiming, read the
+complete shared board, current `main` (PR #66), open PR #65, its completed W-1..W-4 handoff, and both failed
+post-#66 publisher runs 38987040462 / 38987976979. No implementation owner remains active: #66 is merged;
+8fa2b226 records all scopes done and released, although its PR is still open/conflicting and one stale table cell
+still says W-2 in progress. This session takes final integration rather than creating the brief's alternative branch.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | in progress | arena-fa7ed344 | `.github/workflows/pages.yml`, `scripts/twc_lines.py`, `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/build.py`, focused tests only as proven necessary | Both failed runs collected a complete 96-row inventory and then failed the build even after last-good restoration. Diagnose from source/tests and add actionable runner diagnostics; do not guess from a generic exit annotation. |
+| FI-2 Integrate the completed, conflicting PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | in progress | arena-fa7ed344 | released PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolutions | Re-run all provenance contracts. Close superseded PR #65 only after its commits are present in the final integration branch. No source probability or result may be chosen merely to resolve a textual conflict. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Broken CI/deploy blocks merge completion. Every unsupported fixture remains present and explicitly blank/flagged; successful deploy and current dated counts must be observed, not assumed. |
+
+Known starting irregularities: main's two consecutive production runs fail in the build step after fresh collection;
+GitHub's downloadable log host is outside this sandbox allowlist and the check exposes only exit 1. The prior
+static legacy Pages build succeeded, but that is not accepted as the requested verified canonical deployment.
+PR #65 is green on its branch but conflicts with #66 in shared TWC/summary files and falsely records itself as
+merged; this final integration will correct that record rather than silently discarding either session.
+
+---
+
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
 
 Claimed 2026-10-16T23:58Z on fixed branch `arena/138f48b7-maltaproj3`. Read the complete shared board, `git log`
