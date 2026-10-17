@@ -188,6 +188,34 @@ class Fixtures(unittest.TestCase):
         self.assertTrue(all(isinstance(name, str) for name in stored['teams']))
 
 
+class CollectorReturns(unittest.TestCase):
+    def test_kalshi_source_failure_returns_one_provider_dict_not_nested_tuple(self):
+        class FailedClient:
+            manifest = []
+            evidence = Path('.')
+
+            def json(self, _url, _label):
+                raise twc_lines.SourceError('refused')
+
+        provider, pages = twc_lines._collect_kalshi(FailedClient(), fixture(), REGISTRY, NOW)
+        self.assertIsInstance(provider, dict)
+        self.assertEqual(provider['status'], 'unavailable')
+        self.assertEqual(pages, 0)
+
+    def test_kalshi_empty_listing_returns_one_unresolved_provider_dict(self):
+        class EmptyClient:
+            manifest = []
+            evidence = Path('.')
+
+            def json(self, _url, _label):
+                return {'events': [], 'cursor': ''}, {}
+
+        provider, pages = twc_lines._collect_kalshi(EmptyClient(), fixture(), REGISTRY, NOW)
+        self.assertIsInstance(provider, dict)
+        self.assertEqual(provider['status'], 'unresolved')
+        self.assertEqual(pages, 1)
+
+
 class Replay(unittest.TestCase):
     def _write(self, root: Path, *, tamper=False, omit_book=False):
         folder = root / 'research/twc-current'

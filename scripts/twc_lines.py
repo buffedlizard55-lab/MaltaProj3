@@ -377,8 +377,8 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
         try:
             body, _ = client.json(url, label)
         except SourceError as exc:
-            return ({'provider': 'Kalshi', 'status': 'unavailable', 'reason': str(exc)[:300],
-                     'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages), pages
+            return {'provider': 'Kalshi', 'status': 'unavailable', 'reason': str(exc)[:300],
+                    'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None}, pages
         labels.append(label)
         pages += 1
         events.extend(body.get('events') or [])
@@ -390,19 +390,19 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
                            fixture, registry)[2] == 'matched'] if len(events) else []
     joined = [e for e in joined if len(e.get('markets') or []) == 2]
     if len(joined) != 1:
-        return ({'provider': 'Kalshi', 'status': 'unresolved',
-                 'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
-                            else 'More than one Kalshi event joins this pair and start time'),
-                 'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
-                 'evidence': _record_evidence(client, labels)}, pages), pages
+        return {'provider': 'Kalshi', 'status': 'unresolved',
+                'reason': ('No Kalshi CS2 match-winner event joins this pair and start time' if not joined
+                           else 'More than one Kalshi event joins this pair and start time'),
+                'source_url': KALSHI_PAGE, 'observed_at': iso(now), 'quote': None,
+                'evidence': _record_evidence(client, labels)}, pages
     event = joined[0]
     observed = max((client_manifest_time(client, label) for label in labels), default=iso(now))
     quote, reason = kalshi_quote(event, fixture, registry, observed, now)
-    return ({'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
-             'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
-             'observed_at': observed, 'quote': quote, 'event_id': str(event.get('event_ticker')),
-             'market_tickers': [str(m.get('ticker')) for m in event.get('markets') or []],
-             'evidence': _record_evidence(client, labels)}, pages), pages
+    return {'provider': 'Kalshi', 'status': 'resolved' if quote else 'unresolved', 'reason': reason,
+            'source_url': KALSHI_PAGE + '/' + str(event.get('event_ticker')).lower(),
+            'observed_at': observed, 'quote': quote, 'event_id': str(event.get('event_ticker')),
+            'market_tickers': [str(m.get('ticker')) for m in event.get('markets') or []],
+            'evidence': _record_evidence(client, labels)}, pages
 
 
 def client_manifest_time(client, label: str):
