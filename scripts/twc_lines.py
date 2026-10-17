@@ -320,14 +320,25 @@ def collect(client, research_rows: list, registry: dict, day: str | list, now: d
     """
     days = [day] if isinstance(day, str) else [str(d) for d in day]
     targets = fixtures(research_rows, days)
-    stamp = now.strftime('%Y%m%dT%H%M')
+    # Evidence labels must stay unique across collect runs on one client. The
+    # day-4 and day-5 reports are collected seconds apart and would otherwise
+    # share a minute-resolution stamp, overwriting each other's evidence files
+    # and leaving the provider observation time disagreeing with the evidence
+    # item selected at replay (which fails closed). The report name is stable
+    # per report, so it separates the two runs' originals.
+    stamp = now.strftime('%Y%m%dT%H%M') + '-' + report_path.stem
     if report_path not in {REPORT, DAY5_REPORT}:
         raise ValueError('Unsupported tournament line report path')
     history = _previous_reads(client, report_path)
     games, poly_health = ([], None)
     if targets:
         try:
-            games, poly_health = poly_index(client)
+            # The day-4 and day-5 reports are collected on one client; the
+            # directory evidence names stay disjoint the same way the per-book
+            # labels do, so neither run's originals are overwritten. Label
+            # names remain digits-only where pinned by the evidence-path
+            # safety checks in scripts/validate.py.
+            games, poly_health = poly_index(client, label_base=0 if report_path == REPORT else 10000)
         except (SourceError, ValueError) as exc:
             poly_health = {'status': 'error', 'name': 'Polymarket CS2', 'url': POLY_DIRECTORY,
                            'detail': str(exc)[:300]}
@@ -436,10 +447,14 @@ def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp:
 
 
 def client_manifest_time(client, label: str):
+    # Resolve like _record_evidence's id→entry mapping: when one label appears
+    # more than once in a manifest, both must read the same entry or the replay
+    # timestamp gate fires on evidence this code recorded itself.
+    observed = None
     for entry in client.manifest:
         if entry.get('id') == label and entry.get('observed_at'):
-            return entry['observed_at']
-    return None
+            observed = entry['observed_at']
+    return observed
 
 
 # ---------------------------------------------------------------------------

@@ -180,6 +180,41 @@ class PipelineCoverageTests(unittest.TestCase):
         self.assertEqual(report['records'][0]['fixture']['teams'], ['FURIA', 'BETBOOM'])
         self.assertIs(seen['report'], report)
 
+    def test_two_collect_runs_on_one_client_never_share_evidence_labels(self):
+        # The live research step collects the day-4 and day-5 reports seconds
+        # apart with one client. If both runs ever generate the same label for a
+        # fixture, the second overwrites the first's evidence file and the
+        # replay's observation-timestamp gate (rightly) refuses both reports.
+        captured = []
+
+        class FakeClient:
+            manifest = []
+            evidence = Path('/nonexistent-evidence')
+
+            def save(self, name, report):
+                return 'evidence/' + name + '.json'
+
+            def json(self, url, label, **kwargs):
+                captured.append(label)
+                self.manifest.append({'id': label, 'status': 'error', 'url': url,
+                                      'observed_at': '2026-10-17T21:32:32Z'})
+                raise twc_lines.SourceError('offline test')
+
+            def fetch(self, url, label, **kwargs):
+                raise twc_lines.SourceError('offline test')
+
+        rows = [{'source_url': 'https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026',
+                 'observed_at': '2026-10-17T20:27:00Z',
+                 'facts': {'teams': ['FURIA', 'BETBOOM'], 'starts_at': '2026-10-18T15:00:00Z', 'finished': False}}]
+        registry = {'aliases': []}
+        twc_lines.collect(FakeClient(), rows, registry, twc_research.TARGET_DAYS, NOW)
+        first = list(captured)
+        twc_lines.collect(FakeClient(), rows, registry, '2026-10-18', NOW, report_path=twc_lines.DAY5_REPORT)
+        second = list(captured[len(first):])
+        self.assertTrue(first and second, 'both runs actually attempt provider discovery')
+        overlap = set(first) & set(second)
+        self.assertFalse(overlap, f'collect runs shared evidence labels: {sorted(overlap)}')
+
 
 if __name__ == '__main__':
     unittest.main()
