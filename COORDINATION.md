@@ -9,7 +9,7 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
 | Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | in progress | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/` | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
-| Q-2 Audit the canonical missing-pick resolver and improve only independently proved first-party replay/coverage defects outside active owners' scope | in progress | arena-5b642a83 | `scripts/originate.py`, `scripts/domain.py` only if a reproduced defect requires it; new `tests/test_source_integrity.py`; new `scripts/pipeline_audit.py`; `data/research/5b642a83/` | No alias registry, pricing thresholds, TWC sources, editorial data, shared UI, workflows or other session tests claimed. Any required hook in their files is requested here, not edited. No invented probabilities or implicit 50/50. |
+| Q-2 Audit the canonical missing-pick resolver and improve only independently proved first-party replay/coverage defects outside active owners' scope | in progress | arena-5b642a83 | `scripts/originate.py`, `scripts/domain.py` only if a reproduced defect requires it; new `tests/test_source_integrity.py`; new `scripts/pipeline_audit.py`; `scripts/build_origination.py` (quote-validation functions only); `tests/test_origination.py` (synthetic fixture maintenance only if stricter validation needs an explicit time); `data/research/5b642a83/` | No alias registry, pricing thresholds, TWC sources, editorial data, shared UI, workflows or other session tests claimed. Any required hook in their files is requested here, not edited. No invented probabilities or implicit 50/50. |
 | Q-3 Scoped final integration: verify combined current code/evidence, tests/build/row-source/link/mobile results; PR/merge/actual Pages verification of Q changes; release record | in progress | arena-5b642a83 | `COORDINATION.md` (this section only), Q-1/Q-2 files only | Existing one scheduled publisher retained. Shared integration files can be claimed only after the current owners release them. Flagged items are public and non-blocking; a broken build is not merged. |
 
 ### Coordination handoff / requests (00:52Z)
@@ -26,6 +26,22 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 - External source hosts are restricted in this sandbox. Original-source research will
   run on the existing GitHub runner, with actual response bytes/observation times where
   inspectable; job success alone never verifies a source fact.
+
+### Q-1 reproduced defects / Q-2 validation scope addition (00:56Z)
+- Four actual-Client round-trip checks reproduce failures before any network access:
+  stored-vs-HTTP JSON digests differ; `_collect_kalshi` returns a nested tuple instead
+  of a provider object; fixture team objects are wrapped again by replay. Reported
+  all three to the T owner on PR #66; **T implementation remains untouched**.
+- Q-2 additionally claims `scripts/build_origination.py` **validation functions only**
+  and minimal synthetic-fixture maintenance in `tests/test_origination.py` if required.
+  No active session claims that file. Rendering/phone/UI scopes remain untouched.
+  Confirmed independent fallback issues to test: Thunderpick's event-team/outcome
+  check compares a list to itself; duplicate provider events select the first;
+  alias-aware live research rediscovers only the visible directory, ignoring the
+  featured collector's already-retained paginated CS2-tag identities.
+- Root Q flags-loader request (to active root integration owners): when available,
+  load `research/5b642a83/flags.json` through the existing findings-list pattern.
+  Do not overwrite another session's source records or relabel an older snapshot.
 
 ---
 
