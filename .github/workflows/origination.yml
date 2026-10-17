@@ -41,11 +41,33 @@ jobs:
           # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
-      # Exercise the same source stage that production runs before its build.
-      # This caught the post-PR-66 failure that fixture-only CI could not reproduce,
-      # while remaining read-only/data-only: this audit never publishes or commits.
-      - name: Refresh and replay TWC tournament-card sources before the build
-        run: python -m scripts.twc_research
+      # Match the production collector -> replay boundary before allowing a PR
+      # to pass. Repository-fixture builds alone never exercised TWC collection.
+      # This workflow is read-only and still never publishes or commits data.
+      - name: Exercise the production TWC collector-to-replay contract
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from scripts.twc_research import collect
+          from scripts.twc_lines import load
+          try:
+              report = collect(Path('data'))
+              lines = load(Path('data'), datetime.now(timezone.utc))
+              expected = report['day4_lines']['fixtures']
+              assert len(lines['matches']) == expected, 'Collected TWC fixtures disappeared during replay'
+              print('::notice title=TWC collect/replay audit::' + json.dumps({
+                  'observed_at': lines['observed_at'], 'collected_fixtures': expected,
+                  'replayed_fixtures': len(lines['matches']),
+                  'supported_lines': sum(bool(m.get('probabilities')) for m in lines['matches'])}))
+          except Exception as exc:
+              # Annotations are readable through api.github.com even when the
+              # full log storage host is unreachable from a coding sandbox.
+              message = (type(exc).__name__ + ': ' + str(exc)).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+              print('::error title=TWC collect/replay contract::' + message)
+              raise
+          PY
       - name: Build the origination page and check it
         run: |
           python - <<'PY'

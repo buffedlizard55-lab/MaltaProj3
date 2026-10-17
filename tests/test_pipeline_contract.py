@@ -142,5 +142,19 @@ class ActualCollectorReplay(unittest.TestCase):
                 self.assertEqual(move['delta'], [0.0, 0.0])
 
 
+class ReadOnlyRunnerAudit(unittest.TestCase):
+    def test_session_source_audit_exercises_twc_collection_before_building(self):
+        workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/origination.yml').read_text()
+        collect_at = workflow.index("report = collect(Path('data'))")
+        replay_at = workflow.index("lines = load(Path('data'), datetime.now(timezone.utc))")
+        build_at = workflow.index('      - name: Build the origination page and check it')
+        self.assertLess(collect_at, replay_at)
+        self.assertLess(replay_at, build_at)
+        self.assertIn('::error title=TWC collect/replay contract::', workflow)
+        self.assertIn('contents: read', workflow)
+        self.assertNotIn('git push', workflow)
+        self.assertNotIn('deploy-pages@', workflow)
+
+
 if __name__ == '__main__':
     unittest.main()
