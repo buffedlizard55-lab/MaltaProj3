@@ -232,6 +232,7 @@ def analyse(providers: list, fixture: dict) -> dict:
            'hltv_match_id': fixture.get('hltv_match_id'), 'probabilities': probs,
            'providers': [{'provider': p['quote']['provider'], 'probabilities': p['quote']['probabilities'],
                           'bid': p['quote']['bid'], 'ask': p['quote']['ask'],
+                          **({'odds': p['quote']['odds']} if p['quote'].get('odds') else {}),
                           'source_url': p['quote']['source_url'], 'api_url': p['quote']['api_url'],
                           'event_id': p['quote']['event_id'], 'observed_at': p['observed_at'],
                           'activity': p['quote'].get('activity')}
@@ -250,14 +251,16 @@ def analyse(providers: list, fixture: dict) -> dict:
         return row
     # A new provider cannot extend the validity of an older contributing input.
     observed = min(p['observed_at'] for p in usable if p.get('observed_at'))
-    row['method'] = 'market'
+    row['method'] = 'bookmaker' if all(p['quote'].get('family') == 'bookmaker' for p in usable) else 'market'
     row['label'] = ('Tournament market line — ' + ('/'.join(sorted({p['quote']['provider'] for p in usable}))
                                                    + (' consensus' if len(usable) > 1 else ', single independent source')))
     row['observed_at'] = observed
     row['pick_index'] = None if abs(probs[0] - probs[1]) < 1e-8 else (0 if probs[0] > probs[1] else 1)
+    if row['method'] == 'bookmaker':
+        row['label'] = 'Tournament esportsbook line — ' + '/'.join(p['provider'] for p in row['providers']) + ' (no-vig)'
     if len(row['providers']) < 2:
         row['limitations'].append('One independent provider only; this is not a multi-book consensus.')
-    row['limitations'].append('Midpoints are not guaranteed execution prices; fees and exchange rules are excluded.')
+    row['limitations'].append('Margin removed by proportional normalization; odds and estimates are not guarantees.' if row['method'] == 'bookmaker' else 'Midpoints are not guaranteed execution prices; fees and exchange rules are excluded.')
     return row
 
 
@@ -283,7 +286,7 @@ def _record_evidence(client, labels: list) -> list:
         saved = client.evidence / Path(entry['evidence']).name
         if not saved.is_file():
             continue
-        out.append({'label': label, 'url': entry.get('url'), 'observed_at': entry.get('observed_at'),
+        out.append({'label': label, 'url': entry.get('url'), 'method': entry.get('method'), 'observed_at': entry.get('observed_at'),
                     'file': 'evidence/' + saved.name,
                     'sha256': hashlib.sha256(saved.read_bytes()).hexdigest(),
                     'response_sha256': entry.get('response_sha256')})
@@ -368,6 +371,9 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                               'source_url': POLY_DIRECTORY, 'observed_at': iso(now), 'quote': None})
         kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now, stamp)
         providers.append(kalshi)
+        if report_path == DAY5_REPORT and not any(p.get('quote') for p in providers):
+            from scripts import twc_books
+            providers.extend(twc_books.collect(client, fixture, registry, now, stamp))
         records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
@@ -476,6 +482,9 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
                 quote, reason = kalshi_quote(event, fixture, registry, observed, now)
             elif not joined:
                 reason = 'The retained Kalshi page no longer contains the selected event'
+        if provider['provider'] in {'Thunderpick', 'Bovada'} and payloads:
+            from scripts import twc_books
+            quote, reason = twc_books.replay(provider, payloads, original_observations, fixture, registry, now)
         providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',
                           'reason': reason, 'source_url': provider.get('source_url'),
                           'observed_at': provider.get('observed_at'), 'quote': quote})

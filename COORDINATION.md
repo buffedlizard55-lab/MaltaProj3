@@ -2314,3 +2314,26 @@ lines ONLY for final-day fixtures those primary markets left unresolved.
 Reuse the existing strict bookmaker estimator and exact fixture join. No
 X-session-owned source/resolver/alias file is edited, no provider restriction is
 bypassed, and no outcome or rating is manufactured to force a pick.
+
+### D5 measured full QA and direct source review — arena-ed853bdd
+- Full local suite before bounded book extension: **597 Python tests PASS**
+  (300s); **85 Playwright checks PASS** (2.3m), including new final-day tests.
+  Built nine destinations with **607 internal links**, **388 source-audited
+  rows /380 source links +8 navigation /zero violations**. These are repository
+  fixture counts, not a current-inventory claim.
+- Read original HLTV pages independently through the available page-fetch tool:
+  FURIA–Aurora2–0 (Dust2 13–8, Inferno13–10), Falcons–BETBOOM1–2 (Anubis13–5,
+  Dust2 14–16, Mirage7–13); listed FURIA–BETBOOM bo5 final and Aurora–Falcons bo3
+  third-place match. Runner originals independently report final-day starts
+  15:00Z and11:30Z; localized page clocks are NOT reinterpreted as UTC.
+  Sources: https://www.hltv.org/matches/2399414/ ,
+  https://www.hltv.org/matches/2399415/ ,
+  https://www.hltv.org/matches/2399416/ , https://www.hltv.org/matches/2399417/ .
+- Re-read https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan :
+  dated8 July2026, not tournament week. Names/replacements corroborate retained
+  roster report. Still secondary reporting, not a quantified onboarding effect.
+- New unresolved-only tournament bookmaker fallback reuses strict existing
+  parsers/estimator; saves originals and verifies hashes, origins, timestamps,
+  exact pair/start and prematch full-series two-way state. **45 focused tests
+  pass**, including wrong time/opponent/map/live, stale/future/started quotes,
+  duplicate markets, swapped teams and tampered originals. No odds invented.

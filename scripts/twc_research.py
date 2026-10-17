@@ -131,7 +131,11 @@ def collect(source: Path):
     report['day5_lines'] = {'report': twc_lines.DAY5_REPORT.as_posix(),
                             'fixtures': len(day5['records']),
                             'resolved': sum(any(p.get('quote') for p in r['providers']) for r in day5['records']),
-                            'observed_at': day5['observed_at']}
+                            'observed_at': day5['observed_at'],
+                            'attempts': [{'teams': r['fixture']['teams'], 'providers':
+                                          [{'provider': p['provider'], 'status': p['status'], 'reason': p['reason'],
+                                            'probabilities': (p.get('quote') or {}).get('probabilities')}
+                                           for p in r['providers']]} for r in day5['records']]}
     print('::notice title=TWC day5 lines::' + json.dumps(report['day5_lines']))
     (folder / 'source-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     return report

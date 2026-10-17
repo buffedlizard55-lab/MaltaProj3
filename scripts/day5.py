@@ -180,7 +180,11 @@ def render(guide, prefix):
     out += ('<p>The Day-1 9z upset is a reason to consider plausible underdogs, not to fade Aurora automatically. '
             'Read the linked Day-2 recovery and Day-3 rematch alongside Day-4 results. Recent roster changes widen uncertainty; '
             'they are not a quantified disadvantage or a verified cause of an upset. We do not double-count public results '
-            'by adding a narrative premium to an already updated market price.</p>'
+            'by adding a narrative premium to an already updated market price. A losing favorite or winning long shot '
+            'does not, by itself, prove a prematch probability was wrong; do not rewrite the underdog screen after seeing the result.</p>'
+            '<p>The Aurora rebuild report is dated <strong>8 July 2026</strong>, not tournament week: '
+            + external('https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan', 'HLTV transfer report (secondary)') +
+            '. It supports summer roster context, not an assumed last-minute onboarding disadvantage.</p>'
             '<p><a href="#day-one-results">Day 1 review</a> · <a href="#day-two-results">Day 2 review</a> · '
             '<a href="#day-three-results">Day 3 results</a> · <a href="#roster-check">Roster &amp; rest evidence</a></p></section>')
     out += '<section class="content-section" id="day-five-unresolved"><h2>Final-day unresolved picks &amp; limitations</h2>'
