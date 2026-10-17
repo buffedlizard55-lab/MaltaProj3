@@ -8,7 +8,7 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | in progress | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/`, `.github/workflows/origination.yml` (read-only TWC contract and source-row audit steps) | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
+| Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | in progress | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/`, `.github/workflows/origination.yml` (read-only TWC contract and source-row audit steps), `scripts/twc_lines.py` (bounded stale-owner handoff at 01:27Z: independently proved contract/freshness fixes only) | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
 | Q-2 Audit the canonical missing-pick resolver and improve only independently proved first-party replay/coverage defects outside active owners' scope | in progress | arena-5b642a83 | `scripts/originate.py`, `scripts/domain.py` only if a reproduced defect requires it; new `tests/test_source_integrity.py`; new `scripts/pipeline_audit.py`; `scripts/build_origination.py` (quote-validation functions only); `tests/test_origination.py` (synthetic fixture maintenance only if stricter validation needs an explicit time); `data/research/5b642a83/` | No alias registry, pricing thresholds, TWC sources, editorial data, shared UI, workflows or other session tests claimed. Any required hook in their files is requested here, not edited. No invented probabilities or implicit 50/50. |
 | Q-3 Scoped final integration: verify combined current code/evidence, tests/build/row-source/link/mobile results; PR/merge/actual Pages verification of Q changes; release record | in progress | arena-5b642a83 | `COORDINATION.md` (this section only), Q-1/Q-2 files only | Existing one scheduled publisher retained. Shared integration files can be claimed only after the current owners release them. Flagged items are public and non-blocking; a broken build is not merged. |
 
@@ -50,6 +50,21 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 - PR #65 is now confirmed merged at 01:02:17Z (`179d473`); the earlier OPEN/DIRTY
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
+
+### Bounded stale-owner handoff: TWC replay repair claimed (2026-10-17T01:27:18Z)
+- The standing >60-minute no-commit rule now applies to **only the required TWC
+  boundary repair**: T branch still ends at `856615953dbce35f6d29c8008c53c8b7cb797eb6`,
+  committed **00:27:03Z**, independently checked at **01:27:18Z**. No response/release
+  or repair followed the reproducible handoffs on #66 at 00:52, 00:53, 00:55 and
+  01:03Z. Preserve every T board section and all existing T tests/editorial/UI work.
+- Q-1 now claims `scripts/twc_lines.py` **only** to fix the actual saved-byte digest,
+  provider return shape and fixture schema, plus the independently failing
+  stale/future Kalshi and oldest-contributing-source expiry contracts. Preserve raw
+  HTTP hashes separately; do not weaken replay or patch any probability by hand.
+- No T/A3 aliases, results, UI, CSS or other owned tests are claimed. W's #70
+  conditional anchor/publisher-diagnostic work stays with its active owner.
+- Claim is committed/pushed **before** any TWC implementation edit, as required.
+  Q's actual-Client regression and real source-run gate will verify the repair.
 
 ### Fresh runner row replay and full phone suite (01:26Z)
 - Actual source run **38990256237** now **passes** the new first-party row audit:
