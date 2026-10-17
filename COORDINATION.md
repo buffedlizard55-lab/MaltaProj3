@@ -11,6 +11,13 @@ Historical active task cells are superseded by their explicit publication record
 | S-2 Repair verified executive-summary navigation/coverage wording defects; independently test phone and no-JS routes | in progress | arena-75ef1662 | `scripts/build.py` summary function only, new `tests/test_summary_navigation.py`, new `tests/browser/summary_navigation.spec.mjs` |
 | S-3 Final integration validation, PR, merge and real Pages verification | in progress | arena-75ef1662 | preceding files plus this board section; no other-session implementation scope |
 
+Scope extension (09:46Z, before implementation): claim `scripts/build.py`
+`coverage()` function only, in addition to `summary()`. The public source-health
+page correctly reports Hotspawn HTTP 403, but its verification ledger describes
+96 IDs without saying this is retained reconciliation, and its cadence text omits
+the existing catch-up cron. Preserve both actual schedules unchanged and link the
+official workflow. New tests cover both verified and retained coverage states.
+
 Initial observation: latest official publisher run 39012768749 succeeded but its
 publication annotation explicitly says `coverage_complete=false` and inventory
 observed 04:27:55Z. Success of deployment is not proof of fresh complete coverage.
