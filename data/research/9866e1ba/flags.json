@@ -1,0 +1,58 @@
+[
+  {
+    "id": "9866e1ba-twc-day4-contrarian-vs-chalk-screen",
+    "severity": "notice",
+    "title": "TWC Day 4 leaderboard plan: Semifinal 1 (FURIA vs Aurora) is the sole defensible contrarian slot; Semifinal 2 (Falcons vs BETBOOM) is a Lock",
+    "detail": "Across both independent external providers (Polymarket CLOB order books and Kalshi KXCS2GAME yes books), Semifinal 1 (FURIA 52.4% / Aurora 47.6%) clears the 30% underdog floor with an expected give-up of 0.048 points per base point, while Semifinal 2 (Falcons 79.3% / BETBOOM 20.7%) places BETBOOM below the 30% floor (fading Falcons costs 0.587 expected points per base point). Under the tournament BO3 scoring rule (7 points team + 5 points score), the uncalibrated BO3 score model recommends FURIA 2-0 (26.6%, EV 5.0 pts) for chalk or Aurora 2-1 (24.2%, EV 4.5 pts) for the contrarian slip in Semifinal 1, and Falcons 2-0 (50.1%, EV 8.1 pts) in Semifinal 2.",
+    "match_ids": [
+      "1080205",
+      "1081775"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+      "https://polymarket.com/event/cs2-furia-aur1-2026-10-17",
+      "https://polymarket.com/event/cs2-fal2-bb3-2026-10-17",
+      "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA",
+      "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL"
+    ]
+  },
+  {
+    "id": "9866e1ba-aurora-july-rebuild-no-double-discount",
+    "severity": "notice",
+    "title": "Aurora's July 2026 rebuild (kyxsan, Jimpphat, coach ash) is already priced; Day 2 and Day 3 sweeps confirm no second roster discount",
+    "detail": "Aurora's documented roster rebuild occurred on 8 July 2026 (+kyxsan, +Jimpphat, +coach ash; -MAJ3R, -soulfly, -coach Fabre), three months before TWC 2026 in Malta. After dropping the Day 1 opener 0-2 to 9z (Mirage 10-13, Dust2 11-13), the same five-man lineup swept Ninjas in Pyjamas 2-0 (13-6, 13-6) on Day 2 and swept the Day 3 rematch against 9z 2-0 (Cache 13-11, Inferno 13-4). No October roster, stand-in, illness, travel or rest adjustment is established by official sources or applied to any probability.",
+    "match_ids": [
+      "1080205"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "9866e1ba-unresolved-picks-strict-blank-policy",
+    "severity": "warning",
+    "title": "Unresolved low-tier fixtures remain blank with documented source-by-source limitations — never filled with 50/50 or crowd votes",
+    "detail": "All eight fixtures that lacked a compliant money line or unique five-player Valve rating at the 2026-10-16T19:38:00Z snapshot (1079170, 1081515, 1081526, 1081527, 1081521, 1081522, 1081861, 1081863) were audited across HLTV, Polymarket CLOB, Kalshi KXCS2GAME, Thunderpick, Bovada and Valve's 2026-10-05 regional standings. Two fixtures (1079170 BET-M vs Just Players, 1081515 Apogee Betclic vs Nemesis) had compliant Polymarket books blocked only by display-name variants and are unblocked via scoped alias entries; the remaining six stay blank and flagged because only wide books (spread 0.56–0.90), zero-volume placeholders, or ambiguous/missing Valve team rows exist.",
+    "match_ids": [
+      "1079170",
+      "1081515",
+      "1081526",
+      "1081527",
+      "1081521",
+      "1081522",
+      "1081861",
+      "1081863"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+      "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  }
+]
