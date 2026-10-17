@@ -100,7 +100,8 @@ class Session9866e1baDossierTests(unittest.TestCase):
 
     def test_flags_are_registered_with_the_executive_review_builder(self):
         build_source = (ROOT / 'scripts' / 'build.py').read_text(encoding='utf-8')
-        self.assertIn("source / 'research/9866e1ba/flags.json'", build_source)
+        self.assertIn("for findings in sorted((source / 'research').glob('*/flags.json')):", build_source)
+        self.assertIn(FLAGS, sorted((ROOT / 'data/research').glob('*/flags.json')))
 
     def test_strategy_build_exports_day3_and_day4_to_html_and_json_and_passes_strict_audit(self):
         with tempfile.TemporaryDirectory() as tmp:
