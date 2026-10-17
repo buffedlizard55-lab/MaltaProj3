@@ -830,6 +830,7 @@ def _verified_valve_rows(repo_data: Path, live: bool, manifest: list):
     observations = [r for r in manifest if r.get('id') == label and r.get('status') == 'ok']
     if (len(observations) != 1 or not timestamp(observations[0].get('observed_at'))
             or observations[0].get('url') != VALVE_REPO + '/contents/' + path
+            or observations[0].get('method') != 'GET'
             or observations[0].get('evidence') != original_reference):
         raise ValueError('Valve source lacks its original unique successful request')
     text = raw.decode('utf-8')

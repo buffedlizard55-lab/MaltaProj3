@@ -51,6 +51,26 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Fresh runner row replay and full phone suite (01:26Z)
+- Actual source run **38990256237** now **passes** the new first-party row audit:
+  source inventory **17 October 01:18:11Z**, **34** nonpast canonical fixtures,
+  **34** rows audited, **25** supported/current lines, **9** explicitly unresolved.
+  Exact input hashes and the subsequent TWC digest failure are retained verbatim
+  in `research/5b642a83/live-audit-observations.json`. This is branch-run evidence,
+  **not** a deployment success. No stale 15 October count is substituted for it.
+- Independently executed full Playwright suite: **72 passed (1.5m)**. Existing
+  mobile/desktop/no-JS/expiry/accessibility/source-link contracts all pass on the
+  dated fixture build. The separate 106-assertion safety browser audit also passes.
+- Real research-Collector manifest regression and original endpoint/method checks
+  now protect the Q replay boundary. **129 selected checks pass** after tests
+  independently reproduced a request that could otherwise be relabelled from an
+  unrelated endpoint while rendering an official provider URL. No thresholds changed.
+- New independent rendered-HLTV check is retained separately from raw-original
+  evidence (`independent-twc-source-check.json`): opening 9z win, reversed decider,
+  July rebuild context and Day-4 BO3 pairing confirmed; localized displayed time
+  is not relabelled UTC, and sleep/travel/fatigue/rebuild/veto penalties stay blank.
+  It does not introduce a price or rewrite any active T/W/A3 editorial source.
+
 ### Combined measured QA / real manifest correction (01:17Z)
 - Full local unit run: **520 tests in 131.905s**, exactly **3 failures + 3 errors**,
   all in Q-1's independently added actual-Client tests against T-owned `twc_lines.py`.

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-17T01:23:15Z",
+  "provenance": "Actual public-source GitHub Actions branch audit; annotation metadata independently read through api.github.com. This is not a successful Pages deployment or a locally downloaded original-response archive.",
+  "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38990256237",
+  "annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117270857736/annotations",
+  "input_commit": "f548234c57b83bb96fa816d9ddc8cc4b81095d4b",
+  "annotations": [
+    {
+      "annotation_level": "failure",
+      "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/f548234c57b83bb96fa816d9ddc8cc4b81095d4b/.github",
+      "end_column": null,
+      "end_line": 56,
+      "message": "ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0118.json",
+      "path": ".github",
+      "raw_details": "",
+      "start_column": null,
+      "start_line": 56,
+      "title": "TWC collect/replay contract"
+    },
+    {
+      "annotation_level": "notice",
+      "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/f548234c57b83bb96fa816d9ddc8cc4b81095d4b/.github",
+      "end_column": null,
+      "end_line": 13,
+      "message": "{\"inventory_observed_at\": \"2026-10-17T01:18:11Z\", \"counts\": {\"canonical_nonpast_fixtures\": 34, \"audited_rows\": 34, \"supported_dated_estimates\": 25, \"currently_usable_lines\": 25, \"explicitly_unresolved\": 9}, \"input_sha256\": {\"latest.json\": \"d1535862dba45a0efd227bc10c3af1a511462c4c29a9893dc95fd01b13708a8d\", \"origination.json\": \"48fbf4b42057346321f9846b073f0c3e75a1cc94c83d14a06fa56dfdc8113080\"}}",
+      "path": ".github",
+      "raw_details": "",
+      "start_column": null,
+      "start_line": 13,
+      "title": "First-party source-integrity audit"
+    }
+  ],
+  "limitations": [
+    "Every live featured/origination row was replayed on the runner before the passing row-audit notice. Its original responses and row register remain in that audit run artifact.",
+    "The subsequent TWC collector-to-replay step still fails before the page build; this record cannot establish successful current publication.",
+    "The 34-row nonpast-fixture count is the reconciled current weekly inventory scope, not the visible lobby filter count including past fixtures, and not a promise that every provider lists every fixture.",
+    "The committed repository-snapshot-source-audit.json is a separately named older 15 October fixture audit. Neither source observation time is substituted for the other."
+  ]
+}

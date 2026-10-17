@@ -284,7 +284,7 @@ class OriginalStateReplay(unittest.TestCase):
         self.saved = {'ok': True, 'data': {'upcoming': [thunderpick_event()]}}
         self.path = self.root / 'evidence/thunderpick-matches.json'
         self.path.write_text(json.dumps(self.saved))
-        self.latest['requests'] = [{'id': 'thunderpick-matches', 'status': 'ok', 'observed_at': iso(NOW),
+        self.latest['requests'] = [{'id': 'thunderpick-matches', 'method': 'POST', 'status': 'ok', 'observed_at': iso(NOW),
                                     'url': originate.THUNDERPICK_API,
                                     'evidence': 'data/evidence/thunderpick-matches.json'}]
         self.write_latest()
@@ -332,6 +332,15 @@ class OriginalStateReplay(unittest.TestCase):
         self.write_latest()
         with self.assertRaises((AssertionError, ValueError)):
             self.validate()
+
+    def test_original_source_request_cannot_be_relabelled_as_an_official_endpoint(self):
+        original = copy.deepcopy(self.latest['requests'][0])
+        for field, value in (('url', 'https://unverified.invalid/api'), ('method', 'GET')):
+            with self.subTest(field=field):
+                self.latest['requests'][0] = dict(original, **{field: value})
+                self.write_latest()
+                with self.assertRaises((AssertionError, ValueError)):
+                    self.validate()
 
     def test_fixture_deadlines_and_availability_are_not_rewritten(self):
         row = self.data['matches'][0]
@@ -389,7 +398,7 @@ class ExtraProviderOriginalStates(unittest.TestCase):
         url = originate.KALSHI_EVENTS + '?series_ticker=KXCS2GAME&status=open'
         saved = {'observed_at': iso(NOW), 'pages': [{'url': url, 'observed_at': iso(NOW), 'response': {'events': [event]}}]}
         self.write('live-kalshi-events.json', saved)
-        self.write('live-collection-manifest.json', [{'id': 'live-kalshi-events-0', 'url': url,
+        self.write('live-collection-manifest.json', [{'id': 'live-kalshi-events-0', 'url': url, 'method': 'GET',
                                                      'status': 'ok', 'observed_at': iso(NOW)}])
         row = originate.kalshi_rows(self.folder)[0]
         quote, reason = originate.market_estimate(row, MATCH, REGISTRY, NOW)
@@ -409,7 +418,7 @@ class ExtraProviderOriginalStates(unittest.TestCase):
         saved = {'observed_at': iso(NOW), 'url': originate.BOVADA_API,
                  'response': [{'path': [{'description': MATCH['competition']}], 'events': [event]}]}
         self.write('live-bovada-cs2.json', saved)
-        self.write('live-collection-manifest.json', [{'id': 'live-bovada-cs2', 'url': originate.BOVADA_API,
+        self.write('live-collection-manifest.json', [{'id': 'live-bovada-cs2', 'url': originate.BOVADA_API, 'method': 'GET',
                                                      'status': 'ok', 'observed_at': iso(NOW)}])
         row = originate.bovada_rows(self.folder)[0]
         quote, reason = originate.bookmaker_estimate(row, MATCH, REGISTRY, now=NOW)
@@ -528,10 +537,10 @@ class LiveValveOriginalReplay(unittest.TestCase):
             (self.folder / 'live-valve-standings-text.json').write_text(json.dumps(payload))
             requests_ = [{'id': 'live-valve-standings', 'url': originate.VALVE_REPO + '/contents/' + path,
                           'evidence': 'live-valve-standings.json',
-                          'status': 'ok', 'observed_at': iso(observed)},
+                          'status': 'ok', 'method': 'GET', 'observed_at': iso(observed)},
                          {'id': 'live-valve-directory', 'url': originate.VALVE_REPO + '/contents/live/2026',
                           'evidence': 'live-valve-directory.json',
-                          'status': 'ok', 'observed_at': iso(observed)}]
+                          'status': 'ok', 'method': 'GET', 'observed_at': iso(observed)}]
             (self.folder / 'live-collection-manifest.json').write_text(json.dumps(requests_))
         else:
             payload = {'snapshot_date': day, 'source_url': url, 'git_blob_sha': sha,
@@ -541,7 +550,7 @@ class LiveValveOriginalReplay(unittest.TestCase):
             (self.root / 'evidence/valve-ratings.json').write_text(json.dumps(payload))
             requests_ = [{'id': 'valve-standings-response', 'url': originate.VALVE_REPO + '/contents/' + path,
                           'evidence': 'data/evidence/valve-standings-response.json',
-                          'status': 'ok', 'observed_at': iso(observed)}]
+                          'status': 'ok', 'method': 'GET', 'observed_at': iso(observed)}]
             self.latest['requests'].extend(requests_)
         return {'requests': requests_}
 
@@ -550,6 +559,36 @@ class LiveValveOriginalReplay(unittest.TestCase):
         rows, meta = originate.valve_rows(self.root, self.live)
         result = originate.originate_match(self.raw, [], [], rows, meta, REGISTRY, NOW)
         self.assertIsNotNone(result['origination'])
+        data = {'source_snapshot_at': iso(NOW), 'generated_at': iso(NOW),
+                'matches': [dict(self.raw, **result)]}
+        validate_origination(data, self.root)
+
+    def test_actual_collector_valve_originals_and_relative_manifest_replay(self):
+        from scripts.build_origination import validate_origination
+        original = json.loads((self.folder / 'live-valve-standings.json').read_text())
+        directory = json.loads((self.folder / 'live-valve-directory.json').read_text())
+        client = originate.Collector(self.folder)
+
+        def response(method, url, **kwargs):
+            body = directory if url.endswith('/live/2026') else original
+            result = requests.Response()
+            result.status_code, result.url = 200, url
+            result.headers['Content-Type'] = 'application/json'
+            result._content = json.dumps(body, separators=(',', ':')).encode()
+            return result
+
+        with patch.object(client.session, 'request', side_effect=response), \
+                patch('scripts.originate.time.sleep'), \
+                patch('scripts.originate.datetime', wraps=datetime) as clock:
+            clock.now.return_value = NOW
+            client.get_json(originate.VALVE_REPO + '/contents/live/2026', 'live-valve-directory')
+            client.get_json(originate.VALVE_REPO + '/contents/' + original['path'], 'live-valve-standings')
+        (self.folder / 'live-collection-manifest.json').write_text(json.dumps(client.requests))
+        rows, meta = originate.valve_rows(self.root, {'requests': client.requests})
+        self.assertEqual(meta['evidence_file'], 'data/origination/evidence/live-valve-standings-text.json')
+        self.assertEqual(meta['observed_at'], iso(NOW))
+        self.assertEqual(rows[0]['points'], 1400)
+        result = originate.originate_match(self.raw, [], [], rows, meta, REGISTRY, NOW)
         data = {'source_snapshot_at': iso(NOW), 'generated_at': iso(NOW),
                 'matches': [dict(self.raw, **result)]}
         validate_origination(data, self.root)

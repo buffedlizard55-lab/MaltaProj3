@@ -44,13 +44,17 @@ def _requests(source: Path, *, live: bool):
     return result
 
 
-def _observation(requests_: list, label: str, observed: str, now: datetime, *, reference=None):
+def _observation(requests_: list, label: str, observed: str, now: datetime, *, reference=None, url=None, method=None):
     hits = [r for r in requests_ if r.get('id') == label and r.get('status') == 'ok']
     assert len(hits) == 1, label + ': original successful request is missing or ambiguous'
     assert hits[0].get('observed_at') == observed, label + ': source observation restamped'
     assert is_fresh(observed, now), label + ': original source is stale, future-dated or missing its observation'
     if reference is not None:
         assert hits[0].get('evidence') == reference, label + ': original request points to different evidence'
+    if url is not None:
+        assert hits[0].get('url') == url, label + ': original request was not the official source endpoint'
+    if method is not None:
+        assert hits[0].get('method') == method, label + ': original HTTP method changed'
 
 
 def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, now: datetime) -> float:
@@ -74,7 +78,8 @@ def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, no
         # sources.Client stores data/-rooted references; research Collector.save
         # deliberately stores a basename relative to origination/evidence.
         request_reference = Path(reference).name if live else reference
-        _observation(manifest, label, q.get('observed_at'), now, reference=request_reference)
+        _observation(manifest, label, q.get('observed_at'), now, reference=request_reference,
+                     url=originate.THUNDERPICK_API, method='POST')
         assert saved.get('ok') is True, 'Original Thunderpick response is not successful'
         payload = {'thunderpick': saved, 'requests': manifest} if live else None
         rows = originate.thunderpick_rows(source, payload)
@@ -82,14 +87,17 @@ def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, no
         assert reference == 'data/origination/evidence/live-kalshi-events.json', 'Unrecognized Kalshi original path'
         manifest = _requests(source, live=True)
         for i, page in enumerate(saved.get('pages') or []):
-            _observation(manifest, 'live-kalshi-events-' + str(i), page.get('observed_at'), now)
+            assert str(page.get('url', '')).startswith(originate.KALSHI_EVENTS + '?'), 'Unverified Kalshi source endpoint'
+            _observation(manifest, 'live-kalshi-events-' + str(i), page.get('observed_at'), now,
+                         url=page['url'], method='GET')
             assert page.get('url') == next(r['url'] for r in manifest if r.get('id') == 'live-kalshi-events-' + str(i)
                                           and r.get('status') == 'ok'), 'Kalshi original page URL changed'
         rows = originate.kalshi_rows(folder)
     else:
         assert reference == 'data/origination/evidence/live-bovada-cs2.json', 'Unrecognized Bovada original path'
         manifest = _requests(source, live=True)
-        _observation(manifest, 'live-bovada-cs2', saved.get('observed_at'), now)
+        _observation(manifest, 'live-bovada-cs2', saved.get('observed_at'), now,
+                     url=originate.BOVADA_API, method='GET')
         assert saved.get('url') == originate.BOVADA_API, 'Bovada original API URL changed'
         rows = originate.bovada_rows(folder)
     # Match against all original full-series candidates, not just the ID that a
