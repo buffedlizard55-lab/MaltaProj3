@@ -281,7 +281,7 @@ def _collect_into(output: Path):
         'inventory_definition': ('Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.' if crosscheck == 'complete' else 'Every CS2 record returned by Hotspawn’s scheduled-fixture API. The rendered lobby HTML cross-check was ' + ('partial' if crosscheck == 'partial' else 'unavailable') + '; the API array is the authoritative scheduled inventory and no three-response reconciliation is claimed. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.'),
     }
     write_snapshot(output, snapshot)
-    print('::notice title=Hotspawn inventory::' + json.dumps({'records': len(rows), 'crosscheck': crosscheck, 'verified_pages': inventory.get('verified_pages', []), 'unavailable': [x.split(':')[0] for x in inventory.get('unavailable', [])]}))
+    print('::notice title=Hotspawn inventory::' + json.dumps({'records': len(raw), 'crosscheck': crosscheck, 'verified_pages': inventory.get('verified_pages', []), 'unavailable': [x.split(':')[0] for x in inventory.get('unavailable', [])]}))
     print(json.dumps({'status': snapshot['run_status'], 'counts': snapshot['counts'], 'sources': [{k: h[k] for k in ['name', 'status']} for h in health]}, indent=2))
     return snapshot
 
