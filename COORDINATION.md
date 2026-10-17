@@ -43,6 +43,23 @@ prematurely recorded itself as merged; the actual merge and reconciliation are r
   evidence for this integrated tree. FI-3 remains open until this exact merge passes branch checks, merges through
   its own PR, deploys, and the public artifact is verified after deployment.
 
+## Concurrent verification record — arena-bda02037 / PR #68
+
+Session `arena-bda02037` independently audited base `179d473` beginning at 01:05Z and merged its docs-only
+PR [#68](https://github.com/buffedlizard55-lab/MaltaProj3/pull/68) as `69ef06d` at 01:06:58Z while FI work was
+active. Its non-overlapping findings are preserved here; its edit had accidentally replaced rather than retained
+the complete W record, which is restored below.
+
+| Task | Status | Owner | Outcome retained during reconciliation |
+| --- | --- | --- | --- |
+| B-1 Seven-view repository, phone and accessibility verification | done 2026-10-17T01:10Z | arena-bda02037 | Reported a green Python/browser/build audit on pre-FI base `179d473`. Its notes used inconsistent moving totals (439+/432 Python, 66/71 browser, 342/366 rows and 577/578 links), so the exact 483/72/366/583 integrated measurements above supersede only those counters, not the independent green result. |
+| B-2 TWC Day 1–3 synthesis and Day-4 strategy verification | done 2026-10-17T01:10Z | arena-bda02037 | Independently confirmed the source-linked 9z–Aurora upset/rebuild context, both Day-3 deciders and the published 52.4/47.6 and 79.3/20.7 dated Day-4 lines and selection thresholds. |
+| B-3 Unresolved limitations and executive-summary access | done 2026-10-17T01:10Z | arena-bda02037 | Independently confirmed the unresolved callout and one-tap routes to complete picks, edge review and TWC guidance, with no crowd-percentage inference or fabricated blank values. |
+
+Reconciliation correction: PR #68 described the reachable legacy Pages endpoint as the latest build, but canonical
+run 38989106868 failed before deploy. Reachability of an older verified artifact is not publication of `179d473`
+or this integrated repair tree; only FI-3's observed post-deploy parity check can close that requirement.
+
 ---
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification
 
@@ -88,7 +105,7 @@ on the pre-FI repair tree, so final Pages deployment and post-deploy verificatio
 1. `tests/browser/python.mjs` (new) resolves the fixture-builder interpreter (`PYTHON` → `.venv/bin/python` → `python`) and is now used by `twc`, `twc-day4`, `strategy` and `edge-review` specs. Locally those three pre-existing specs had been failing in `beforeAll` with `ModuleNotFoundError: bs4`, which reads as a page defect and is not one. CI is unchanged (`python` there has the deps).
 2. Two count scopes must stay distinct on the site: featured-method `data/latest.json` (10 picks / 11 unresolved) versus complete researched `data/origination.json` (17 / 17 resolved, 0 unresolved in the current snapshot). Both are labelled; do not merge them into one number.
 3. Root-level `index.html`, `picks.html`, `methodology.html`, `flagged.html` are tracked **fallback** copies of an earlier build (the legacy Pages mode). `index.html` intentionally serves its own "do not treat these as current picks" warning. Not edited here — whoever owns that design should decide whether to refresh or retire them.
-4. GitHub Pages is still in **legacy build mode** (the workflow's `configure-pages` gets HTTP 403 without Administration permission). Needs an owner action in Settings → Pages, as recorded in README.
+4. GitHub Pages is still in **legacy build mode** (the workflow's `configure-pages` gets HTTP 403 without Administration permission). The publisher's wait-then-deploy ordering makes this a non-blocking platform restriction; README no longer asks the user for manual input.
 5. Unresolved doc claim from another session's register: **RR-03** lock-time mismatch (6 min in fixture data vs 5 min on Hotspawn's help page) is still open and belongs to whoever owns lock windows; not touched here.
 
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
@@ -102,10 +119,10 @@ Day-4 card can be priced from external first-party markets instead of staying un
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| T-1 Originate Day-4 TWC tournament-card lines from external first-party markets (Polymarket Gamma directory/paginated CS2 tag + CLOB books, Kalshi trade API), with replay, no invented price, and explicit limitations when a market is unusable | in progress | arena-138f48b7 | new `scripts/twc_lines.py`, `scripts/twc_research.py` (collect/derive hooks), new `tests/test_twc_lines.py`, `data/origination/aliases.json` (additive, evidence-linked entries only), new `data/research/138f48b7/` | TWC tournament fixtures are not in the weekly Hotspawn lobby inventory, so no probability existed for them anywhere on the site. Exact team/start joins only; wide/stale/one-sided books stay blank and flagged. Never uses Hotspawn or HLTV crowd percentages. |
-| T-2 Day 1–3 verified review refresh and Day-4 contrarian-but-not-stupid guidance on the edge page | in progress | arena-138f48b7 | `data/edge-review.json`, `scripts/build_edge.py` (render only), `tests/test_edge.py` additions | Every fact keeps its own official source link + observation time. No roster/rest causality or quantified premium. Day-3 completion is verified from HLTV originals, not inferred. |
-| T-3 Day-4 rendering and executive-summary phone shortcuts for the new lines | in progress | arena-138f48b7 | `scripts/build_twc.py` (Day-4 block only), `scripts/build.py` (TWC Day-4 summary block only), `assets/twc.css` if required, `tests/test_twc_day4.py` additions | Keep fail-closed time guards, blank-not-50/50 policy and every existing Day-1–3 section unchanged. One-tap links to `/twc-picks/#day-four-picks`, `/origination/#picks`, `/origination/#unresolved`. |
-| T-4 Integration: full test suite, build replay, link/row-source audit, PR, merge, Pages deploy verification, board record | in progress | arena-138f48b7 | `COORDINATION.md`, `README.md` (facts only) | Do not merge a broken site. Flagged items stay public and non-blocking. |
+| T-1 Originate Day-4 TWC tournament-card lines from external first-party markets (Polymarket Gamma directory/paginated CS2 tag + CLOB books, Kalshi trade API), with replay, no invented price, and explicit limitations when a market is unusable | done (PR #66) | arena-138f48b7 | new `scripts/twc_lines.py`, `scripts/twc_research.py` (collect/derive hooks), new `tests/test_twc_lines.py`, `data/origination/aliases.json` (additive, evidence-linked entries only), new `data/research/138f48b7/` | TWC tournament fixtures are not in the weekly Hotspawn lobby inventory, so no probability existed for them anywhere on the site. Exact team/start joins only; wide/stale/one-sided books stay blank and flagged. Never uses Hotspawn or HLTV crowd percentages. |
+| T-2 Day 1–3 verified review refresh and Day-4 contrarian-but-not-stupid guidance on the edge page | done (PR #66) | arena-138f48b7 | `data/edge-review.json`, `scripts/build_edge.py` (render only), `tests/test_edge.py` additions | Every fact keeps its own official source link + observation time. No roster/rest causality or quantified premium. Day-3 completion is verified from HLTV originals, not inferred. |
+| T-3 Day-4 rendering and executive-summary phone shortcuts for the new lines | done (PR #66) | arena-138f48b7 | `scripts/build_twc.py` (Day-4 block only), `scripts/build.py` (TWC Day-4 summary block only), `assets/twc.css` if required, `tests/test_twc_day4.py` additions | Keep fail-closed time guards, blank-not-50/50 policy and every existing Day-1–3 section unchanged. One-tap links to `/twc-picks/#day-four-picks`, `/origination/#picks`, `/origination/#unresolved`. |
+| T-4 Integration: full test suite, build replay, link/row-source audit, PR, merge, Pages deploy verification, board record | implementation merged (PR #66); production repaired by FI-1 | arena-138f48b7 | `COORDINATION.md`, `README.md` (facts only) | Merged as `03b391c`; 439 Python and 66 Playwright checks passed on that branch. Its initial production runs failed on defects repaired and live-audited by FI-1, so final deployment belongs to FI-3. |
 
 Sandbox egress is limited to GitHub/package hosts, so live market collection runs in the existing single
 four-hour publisher (`pages.yml` -> `scripts.twc_research`); this session's own research fetches are retained as
