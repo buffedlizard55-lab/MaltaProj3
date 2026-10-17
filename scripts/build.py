@@ -431,7 +431,7 @@ def summary(data, prefix):
                            else 'in the retained Hotspawn snapshot; current coverage is unverified')
         tournament_link = (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Tournament-card lines →</a> '
                            if pending else '')
-        out += (f'<section class="limitations-callout" aria-label="TWC playoff coverage"><h2>TWC final day · where the picks are</h2>'
+        out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
                 f'<p><a href="{prefix}edge/#day-five-card"><strong>Day-5 final-day picks (Sun 18 Oct) →</strong></a> '
                 f'<a href="{prefix}edge/#day-five-guidance">Days 1–4 reviewed → final-day strategy →</a> '
                 f'<a href="{prefix}edge/#day-five-market-scan">Why the final-day money lines are still blank →</a></p>'
