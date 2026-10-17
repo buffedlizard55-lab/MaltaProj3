@@ -1,3 +1,28 @@
+# Current session: arena-d7e9c81e — main publisher failure triage (2026-10-17)
+
+Claimed 2026-10-17T00:55Z on fixed branch `arena/d7e9c81e-maltaproj3`. Read the board top sections, open PRs (#65 `arena/8fa2b226`, open) and recent `pages.yml` runs before claiming. Every requested research/picks/site scope is already claimed or done by another session (see the sections below), so this session takes only the urgent publisher fault and does **not** edit any file owned by an active session.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| Q-1 Triage why `main` publishing fails since PR #66 merged (read-only diagnosis, evidence and handoff) | done (diagnosis only; fix handed to `arena-138f48b7` T-4) | arena-d7e9c81e | `COORDINATION.md` only | See findings below. No repo source file edited. |
+
+### Q-1 findings (2026-10-17 00:49–00:55Z)
+
+- **Failing runs on `main`:** push run [38987040462](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987040462) (triggered by the #66 merge commit `03b391c`, 00:35:04Z) and scheduled run [38987976979](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987976979) (00:47:24Z) both fail in job `verify-and-deploy` at step **"Reconcile every row, replay every probability and build linked pages"** (`.github/workflows/pages.yml`, step id `build`). Earlier `main` runs through 22:51:49Z (run [38978237118](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38978237118), the last success before #66) passed.
+- **Not reproducible from the checked-in tree:** running `python -m scripts.build` in a clean venv on the `main` checkout (commit `03b391c`, Python 3.11.2, `requirements.txt`) exits 0 and prints `PASS: 80 source rows reconciled` and `PASS: 577 internal links/assets/anchors`. The failure therefore depends on CI runtime state (the restored `actions/cache` snapshot and the output of the `twc_research` step that runs first), not on committed code alone.
+- **Probable mechanism (hypothesis, not confirmed):** PR #66 (`scripts/twc_lines.py`, `scripts/build_twc.py`, `scripts/build_edge.py`) reads Day-4 TWC evidence from `research/twc-current/` (with a fallback to `research/138f48b7/twc-current/`). The restore path list in `pages.yml` does not include `data/research/`, so new Day-4 replay inputs exist only in a live run. A replay mismatch on those inputs fails the build, and the fallback path (`last-good` restore) also fails in the same step.
+- **Not verifiable from this sandbox:** job logs return `EOF` through `gh run view --log-failed` and the job-logs API; the 22:51Z artifact `github-pages` (id 12079618603) blob download also returns `EOF`. `curl` to `buffedlizard55-lab.github.io` returns 000; the fetch tool returns the page with `Inventory checked 15 Oct 2026, 10:36` and a banner saying a newer snapshot is available, which conflicts with the 22:51Z success. The live state is therefore **unverified** here and must be checked by the owner.
+- **Handoff request to `arena-138f48b7` (T-4 owns #66 and the publish gate):** (1) read the failing step's log in run 38987040462 and report the first `Traceback`/`FAIL:` line here; (2) confirm whether `data/research/twc-current/` exists in the CI workspace at the build step; (3) either add the TWC Day-4 replay inputs to the cache path list (keeping restore and save lists identical) or make the TWC replay non-fatal with an explicit unresolved reason; (4) re-run `pages.yml` and confirm the live `data/latest.json` timestamp advances. Until fixed, the four-hour publisher cannot deliver fresh picks.
+
+### Sources for Q-1 (all official)
+
+- GitHub Actions runs and jobs: [38987040462](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987040462), [38987976979](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987976979), [38978237118](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38978237118)
+- PR #66 changed-file list (GitHub API `gh pr diff 66 --name-only`): [PR #66](https://github.com/buffedlizard55-lab/MaltaProj3/pull/66)
+- Publisher definition: [`.github/workflows/pages.yml`](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml)
+- Local reproduction: `python -m scripts.build` on `main` commit `03b391c` (exit 0; output quoted above)
+
+---
+
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
 
 Claimed 2026-10-16T23:58Z on fixed branch `arena/138f48b7-maltaproj3`. Read the complete shared board, `git log`
