@@ -51,6 +51,23 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Final test maintenance claim / measured QA (01:46Z)
+- Full545-case suite ran:544 pass, exactly one old W assertion fails because it
+  requires its literal path inside the former seven-session tuple. All W5 records
+  are in fact rendered once by the new real-build regression, alongside all other
+  session flags. This is source-scaffold maintenance, not a provider/model failure.
+- **Claim `tests/test_8fa2b226.py` only its loader-wiring assertion/docstring**, W's
+  scope being completed/merged: preserve its source-level wiring check using the
+  new generic glob plus proof its exact file is discovered. Do not change any W
+  source/quote/schedule/probe checks. The new actual-build regression independently
+  verifies all49 session findings, duplicate policy and byte-unchanged canonical JSON.
+  Claim committed/pushed before the test maintenance.
+- Real final browser suite **72 pass /1.6min**; independent pick-presentation safety
+  **106 assertions pass**, including no-JS, clock rollback, in-tab expiry/locks,
+  320/390/768/1440px and axe A/AA. Strict local artifact audit:379 rows,
+  371 official-source-linked +8 navigation, zero violations;585 local links pass.
+  These are dated repository-artifact results, not claimed current live coverage.
+
 ### Final review hook measured result (01:42Z)
 - The claimed bounded loader now discovers the existing session flags schema in
   deterministic filename order and retains every unique finding once. Both Q's5
