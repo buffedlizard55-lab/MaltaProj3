@@ -159,6 +159,21 @@ class ApiOnlyFallback(unittest.TestCase):
         self.assertIn('disagree', str(ctx.exception))
         self.assertIn("in the page only ['9']", str(ctx.exception))
 
+    def test_a_200_challenge_page_without_app_state_is_unreadable_not_a_schema_break(self):
+        rounds = {'lobby': [row(1)], 'cs2': [row(1)], 'api': [row(1)]}
+        client = FakeClient([rounds])
+
+        def fetch(url, label, **kw):
+            if label == 'hotspawn-cs2':
+                return '<html><body>Please verify you are human</body></html>', {'observed_at': '2026-10-16T08:00:00Z'}
+            return FakeClient.fetch(client, url, label, **kw)
+
+        client.fetch = fetch
+        rows, _, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1'])
+        self.assertEqual(health['crosscheck'], 'partial')
+        self.assertIn('no Hotspawn app state', health['detail'])
+
     def test_an_invalid_api_still_fails_even_when_both_pages_are_blocked(self):
         bad = {'lobby': [row(1)], 'cs2': [row(1)], 'api': {'data': []}}
         with self.assertRaises(SourceError):

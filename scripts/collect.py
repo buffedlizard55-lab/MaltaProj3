@@ -111,6 +111,8 @@ def _collect_into(output: Path):
         snapshot['flags'] = [f for f in snapshot.get('flags', []) if f['id'] != 'inventory-failed'] + [flag('inventory-failed', 'Hotspawn refresh failed — current coverage unverified', f'{exc}. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='critical')]
         snapshot['counts'] = counts(snapshot['matches'])
         write_snapshot(output, snapshot)
+        detail = f'{type(exc).__name__}: {exc}'.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+        print('::error title=Hotspawn inventory refresh failed::' + detail)
         print('WARNING: Hotspawn inventory unavailable; retained last-known data without changing its source timestamps.')
         return snapshot
 

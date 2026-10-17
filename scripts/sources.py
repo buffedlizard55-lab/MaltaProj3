@@ -156,9 +156,15 @@ def hotspawn(client: Client):
         try:
             rows, links = hydration(html)
             page_ids = ids(rows)
-        except (SourceError, ValueError, KeyError) as exc:
-            # A readable page that violates the inventory contract is a real
-            # defect, not an access limitation. Never degrade it to "blocked".
+        except SourceError as exc:
+            # A 200 response with no Hotspawn app state is an access/challenge
+            # page, not evidence that the fixture schema changed. Treat only
+            # that specific shape as unreadable; a page that carried app state
+            # but violated the contract still fails closed below.
+            if 'hydration state missing' in str(exc):
+                return {'html': None, 'req': None, 'rows': None, 'ids': None, 'links': {}, 'error': f'{label}: no Hotspawn app state in the response ({exc})'}
+            raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
+        except (ValueError, KeyError) as exc:
             raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
         return {'html': html, 'req': req, 'rows': rows, 'ids': page_ids, 'links': links, 'error': None}
 
