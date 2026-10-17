@@ -182,6 +182,11 @@ class Fixtures(unittest.TestCase):
         kept = twc_lines.fixtures(rows, '2026-10-17')
         self.assertEqual([r['hltv_match_id'] for r in kept], ['2399414'])
 
+    def test_collected_fixture_serializes_team_names_not_ui_dicts(self):
+        stored = twc_lines.fixture_record(fixture())
+        self.assertEqual(stored['teams'], ['FURIA', 'Aurora'])
+        self.assertTrue(all(isinstance(name, str) for name in stored['teams']))
+
 
 class Replay(unittest.TestCase):
     def _write(self, root: Path, *, tamper=False, omit_book=False):
@@ -228,6 +233,16 @@ class Replay(unittest.TestCase):
             path.write_bytes(path.read_bytes().replace(b'0.52', b'0.99'))
             with self.assertRaises(ValueError):
                 twc_lines.load(Path(tmp), NOW, REGISTRY)
+
+    def test_replay_normalizes_the_old_collector_ui_dict_shape(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._write(Path(tmp))
+            report_path = folder / twc_lines.REPORT
+            report = json.loads(report_path.read_text())
+            report['records'][0]['fixture']['teams'] = [{'name': 'FURIA'}, {'name': 'Aurora'}]
+            report_path.write_text(json.dumps(report))
+            lines = twc_lines.load(Path(tmp), NOW, REGISTRY)
+            self.assertEqual(lines['matches'][0]['teams'], ['FURIA', 'Aurora'])
 
     def test_missing_book_publishes_blank_with_reason(self):
         with tempfile.TemporaryDirectory() as tmp:

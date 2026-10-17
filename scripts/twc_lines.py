@@ -87,6 +87,15 @@ def fixture_key(fixture: dict) -> tuple:
     return (frozenset(name_key(t['name']) for t in fixture['teams']), fixture.get('starts_at'))
 
 
+def fixture_record(fixture: dict) -> dict:
+    """Stable JSON shape for a collected fixture (team names, not UI dicts)."""
+    names = [t.get('name') if isinstance(t, dict) else t for t in fixture.get('teams') or []]
+    if len(names) != 2 or not all(isinstance(name, str) and name.strip() for name in names):
+        raise ValueError('TWC fixture does not contain two valid team names')
+    return {'id': fixture['id'], 'teams': names, 'starts_at': fixture['starts_at'],
+            'source_url': fixture.get('source_url'), 'hltv_match_id': fixture.get('hltv_match_id')}
+
+
 # ---------------------------------------------------------------------------
 # Provider re-derivation (pure: original payloads in, probability pair out)
 # ---------------------------------------------------------------------------
@@ -349,7 +358,7 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                               'source_url': POLY_DIRECTORY, 'observed_at': iso(now), 'quote': None})
         kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now, stamp)
         providers.append(kalshi)
-        records.append({'fixture': {k: fixture[k] for k in ('id', 'teams', 'starts_at', 'source_url', 'hltv_match_id')},
+        records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
@@ -418,10 +427,11 @@ def _evidence_path(folder: Path, name: str) -> Path:
 
 def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) -> dict:
     """Re-derive one collected fixture from its hash-verified originals."""
-    fixture = {'id': record['fixture']['id'], 'teams': [{'name': n} for n in record['fixture']['teams']],
-               'starts_at': record['fixture']['starts_at'], 'competition': EVENT,
-               'source_url': record['fixture'].get('source_url'),
-               'hltv_match_id': record['fixture'].get('hltv_match_id')}
+    saved_fixture = fixture_record(record['fixture'])
+    fixture = {'id': saved_fixture['id'], 'teams': [{'name': n} for n in saved_fixture['teams']],
+               'starts_at': saved_fixture['starts_at'], 'competition': EVENT,
+               'source_url': saved_fixture.get('source_url'),
+               'hltv_match_id': saved_fixture.get('hltv_match_id')}
     providers = []
     for provider in record.get('providers') or []:
         payloads = {}
