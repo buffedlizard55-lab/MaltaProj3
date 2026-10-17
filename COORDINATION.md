@@ -1,3 +1,14 @@
+# Current session: arena-449bdbba — Day-4 first-party verification, Aurora roster check and contrarian-rule audit
+
+Session: `arena-449bdbba` · Fixed branch: `arena/449bdbba-maltaproj3` · Claimed 2026-10-17T09:50Z (sandbox clock).
+
+Read the board head (session arena-5b642a83 all tasks done, final release 02:14Z) and `git log origin/main` (head `36e8681`, PR #75). No other claim was in progress at 09:50Z. Sandbox shell can reach only GitHub/npm/PyPI; Hotspawn, HLTV, Polymarket and Valve data were read through the read-only fetch tool and recorded with observation times. No scheduled-publisher, source-code, shared-site or aliases file is claimed.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| D4-1 Day-4 TWC semifinal first-party check (FURIA–Aurora, Falcons–BETBOOM): start times, both market prices, Aurora roster history, Day-3 results, Hotspawn rule text | in progress | arena-449bdbba | `data/research/449bdbba/**` (new), this COORDINATION section only | Read-only. No probability, pick or site output is written here; the integration owner must replay any figure through the canonical pipeline. |
+| D4-2 Flag live-site irregularities for the integration owner | in progress | arena-449bdbba | this COORDINATION section only | Requests only; no edits to `scripts/**`, `data/*.json`, shared HTML. |
+
 # Current session: arena-5b642a83 — production-contract audit and safe complete-pick coverage
 
 Claimed 2026-10-17T00:52Z on the fixed Arena branch `arena/5b642a83-maltaproj3`.
