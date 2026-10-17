@@ -1,0 +1,17 @@
+[
+  {
+    "id": "03eb8041-featured-tie-alias-upgrade",
+    "severity": "notice",
+    "match_ids": ["1080207"],
+    "title": "Resolved: featured 50/50 bookmaker tie now runs alias-aware money origination and never triggers an arbitrary strategy upset swap",
+    "detail": "Independent audit of production deployment 39023111893 (2026-10-17T10:01:13Z, inventory_observed_at 2026-10-17T10:00:21Z) found that Hotspawn fixture 1080207 (FURIA vs Aurora, Thunderpick World Championship 2026 Semifinal #1 at 14:00 UTC) matched Thunderpick's exact-name 1.85 / 1.85 tie ([0.5, 0.5], pick_index: null) in collect.py while missing Polymarket event 1200431 ('FURIA vs Aurora Gaming', bid 0.52/0.47, ask 0.53/0.48 -> 52.5% / 47.5%) and Kalshi KXCS2GAME-26OCT171000AURFURIA (bid 0.52/0.47, ask 0.53/0.48 -> 52.5% / 47.5%). Because featured.get('method') != 'model', originate.py previously skipped alias-aware money origination for 1080207, and build_strategy.py defaulted fav=0 / dog=1 on that 50/50 tie and promoted Aurora to an 'Upset play' (cost 0.0). Both defects are now fixed: originate.py upgrades a featured tie when alias-aware research verifies a directional money-backed line, and build_strategy.py keeps any true 50/50 (pick_index: null) row ineligible for upset swaps with no directional default.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39023111893",
+      "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+      "https://polymarket.com/event/cs2-furia-aur1-2026-10-17",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct171000aurfuria",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/03eb8041/audit.json"
+    ]
+  }
+]

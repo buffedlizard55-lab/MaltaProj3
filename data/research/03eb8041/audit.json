@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "session": "arena-03eb8041",
+  "audited_at": "2026-10-17T10:08:00Z",
+  "observed_production_run": {
+    "run_id": 39023111893,
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39023111893",
+    "check_run_id": 117368707787,
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117368707787/annotations",
+    "inventory_observed_at": "2026-10-17T10:00:21Z",
+    "generated_at": "2026-10-17T10:01:13Z",
+    "coverage_complete": true,
+    "active_fixtures": 32,
+    "resolved_fixtures": 24,
+    "unresolved_fixtures": 8,
+    "with_pick_before_fix": 23
+  },
+  "reproduced_defects": [
+    {
+      "id": "U-1",
+      "fixture_id": "1080207",
+      "teams": ["FURIA", "Aurora"],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-17T14:00:00Z",
+      "summary": "Featured 50/50 bookmaker tie (Thunderpick 1.85 / 1.85, pick_index: null) skipped alias-aware money origination in scripts/originate.py because featured.get('method') != 'model', omitting Polymarket event 1200431 ('FURIA vs Aurora Gaming', bid 0.52/0.47, ask 0.53/0.48 -> [0.525, 0.475]) and Kalshi event KXCS2GAME-26OCT171000AURFURIA (bid 0.52/0.47, ask 0.53/0.48 -> [0.525, 0.475]).",
+      "fix": "Extend live_collect and resolve_match in scripts/originate.py and validate_origination in scripts/build_origination.py so an equal-estimate featured tie (pick_index is None) runs alias-aware money origination and upgrades when a directional money-backed estimate is verified."
+    },
+    {
+      "id": "U-2",
+      "fixture_id": "1080207",
+      "teams": ["FURIA", "Aurora"],
+      "summary": "In scripts/build_strategy.py line 222, a 50/50 row with pick_index is None defaulted to fav = 0 ('FURIA') and dog = 1 ('Aurora'), turning an equal 50/50 tie with no directional pick into an arbitrary 'Upset play' (swap: true, default: 1 'Aurora', cost: 0.0).",
+      "fix": "Set fav = None, dog = None, default = None and add blocker 'equal 50/50 line (no favorite or underdog)' when probs[0] == probs[1] and pick_index not in (0, 1)."
+    }
+  ],
+  "official_sources": [
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39023111893",
+    "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117368707787/annotations",
+    "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+    "https://polymarket.com/event/cs2-furia-aur1-2026-10-17",
+    "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct171000aurfuria",
+    "https://thunderpick.io/esports/counter-strike"
+  ]
+}

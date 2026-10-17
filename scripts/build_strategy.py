@@ -219,14 +219,15 @@ def plan(inputs: dict, now: datetime) -> dict:
         observed = timestamp(o.get('observed_at'))
         age_h = (now - observed).total_seconds() / 3600 if observed else None
         fresh = age_h is not None and -0.1 <= age_h <= th['max_line_age_hours']
-        fav = 0 if probs[0] > probs[1] else 1 if probs[1] > probs[0] else (m.get('pick_index') if m.get('pick_index') in (0, 1) else 0)
-        dog = 1 - fav
-        p_dog, p_fav = probs[dog], probs[fav]
+        fav = 0 if probs[0] > probs[1] else 1 if probs[1] > probs[0] else (m.get('pick_index') if m.get('pick_index') in (0, 1) else None)
+        dog = None if fav is None else (1 - fav)
+        p_dog = 0.5 if dog is None else probs[dog]
+        p_fav = 0.5 if fav is None else probs[fav]
         klass = classify(p_dog, rules)
         context = match_context({'teams': [{'name': n} for n in names]}, inputs['twc'])
         tour = inputs.get('tournament') or {}
         score_model = None
-        if context and str(context.get('format') or '').startswith('Best of 3') and base['competition'] in (tour.get('tournament') or {}).get('competition_names', []):
+        if fav is not None and context and str(context.get('format') or '').startswith('Best of 3') and base['competition'] in (tour.get('tournament') or {}).get('competition_names', []):
             raw_model = bo3_score_probabilities(p_fav)
             if raw_model:
                 sc = tour['scoring']
@@ -235,7 +236,7 @@ def plan(inputs: dict, now: datetime) -> dict:
                                'chalk_ev': team_pts * p_fav + score_pts * raw_model['fav_2_0'], 'dog_ev': team_pts * p_dog + score_pts * raw_model['dog_2_1']}
         field = field_info(m, raw)
         f_dog = None
-        if field and field['n'] >= th['field_min_sample_for_filter']:
+        if dog is not None and field and field['n'] >= th['field_min_sample_for_filter']:
             f_dog = field['pct'][dog] / 100
         crowd_on_dog = bool(rules.get('use_field_for_leverage') and f_dog is not None and f_dog >= th['max_field_share_on_underdog'])
         blockers = []
@@ -249,6 +250,8 @@ def plan(inputs: dict, now: datetime) -> dict:
             blockers.append('model-only line')
         if not fresh:
             blockers.append('line older than 8 hours')
+        if fav is None:
+            blockers.append('equal 50/50 line (no favorite or underdog)')
         if p_dog < th['swap_min_underdog_probability']:
             blockers.append('underdog under 30%')
         if points is None or points < th['swap_min_points']:
@@ -358,8 +361,8 @@ def context_block(r) -> str:
 
 def card(r) -> str:
     a, b = r['names']
-    default_name = r['names'][r['default']]
-    fav_name = r['names'][r['fav']]
+    default_name = r['names'][r['default']] if r['default'] in (0, 1) else 'No directional pick (50/50)'
+    fav_name = r['names'][r['fav']] if r['fav'] in (0, 1) else 'Equal 50/50'
     klass = r['klass']
     safety = r['presentation']
     current = safety['current']
@@ -369,6 +372,9 @@ def card(r) -> str:
     if r['swap']:
         verdict = f'<span class="ribbon swap">Upset play</span>'
         pick_line = f'<p class="pickline">Plan pick <strong>{e(default_name)}</strong><small>Most likely winner: {e(fav_name)} {pct(r["p_fav"])}</small></p>'
+    elif r['default'] not in (0, 1):
+        verdict = f'<span class="ribbon {e(klass)}">No edge (50/50)</span>'
+        pick_line = f'<p class="pickline">Plan pick <strong>— unverified</strong><small>Equal 50.0% / 50.0% estimate; no arbitrary side chosen</small></p>'
     else:
         verdict = f'<span class="ribbon {e(klass)}">{e({"lock": "Lock", "lean": "Lean", "live_dog": "Live dog", "coin_flip": "Coin flip"}[klass])}</span>'
         pick_line = f'<p class="pickline">Plan pick <strong>{e(default_name)}</strong><small>Same as the most likely winner</small></p>'
