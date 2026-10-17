@@ -22,7 +22,10 @@ from scripts.sources import Client, SourceError
 from scripts import twc_lines
 
 EVENT_URL = 'https://www.hltv.org/events/8932/thunderpick-world-championship-2026'
-TARGET_DAY = '2026-10-17'
+# Both playoff days are collected and priced together so a scheduled run can
+# never leave the final-day fixtures (third place + grand final) unpriced.
+TARGET_DAYS = ['2026-10-17', '2026-10-18']
+TARGET_DAY = TARGET_DAYS[0]  # retained for compatibility with older reports/tests
 FINAL_DAY = '2026-10-18'
 OBSERVATIONS = Path('research/138f48b7/day4-market-observations.json')
 FOLDER = Path('research/twc-current')
@@ -108,22 +111,23 @@ def collect(source: Path):
         except SourceError:
             pages.append({'label': label, 'request': dict(client.manifest[-1])})
     report = {'schema_version': 1, 'policy': 'Source research only; canonical picks supply all probabilities. HLTV is an independent reporter, not tournament organizer verification.',
-              'target_day': TARGET_DAY, 'pages': pages}
-    # Tournament-card lines for the target day. The weekly Hotspawn lobby feed
+              'target_day': TARGET_DAY, 'target_days': list(TARGET_DAYS), 'pages': pages}
+    # Tournament-card lines for every target day. The weekly Hotspawn lobby feed
     # does not carry TWC playoff fixtures, so without this step they could never
     # have a probability. External first-party markets only; blanks stay blank.
     rows = [{'source_url': page['request']['url'], 'observed_at': page['request'].get('observed_at'),
              'facts': page['facts']} for page in pages if page.get('facts')]
     registry_path = Path('data/origination/aliases.json')
     registry = json.loads(registry_path.read_text()) if registry_path.exists() else {'aliases': []}
-    lines = twc_lines.collect(client, rows, registry, TARGET_DAY, datetime.now(timezone.utc))
+    lines = twc_lines.collect(client, rows, registry, TARGET_DAYS, datetime.now(timezone.utc))
     resolved = [r for r in lines['records'] if any(p.get('quote') for p in r['providers'])]
     report['day4_lines'] = {
         'report': 'evidence/twc-day4-lines.json', 'fixtures': len(lines['records']),
-        'resolved': len(resolved), 'observed_at': lines['observed_at'],
+        'resolved': len(resolved), 'observed_at': lines['observed_at'], 'days': list(TARGET_DAYS),
         'detail': 'External Polymarket/Kalshi full-series books for TWC fixtures that are absent from the weekly '
                   'Hotspawn inventory. Probabilities are recomputed from the retained originals at build time.'}
-    print('::notice title=TWC day4 lines::' + json.dumps({'observed_at': lines['observed_at'],
+    print('::notice title=TWC tournament-card lines::' + json.dumps({'observed_at': lines['observed_at'],
+                                                          'days': list(TARGET_DAYS),
                                                           'fixtures': len(lines['records']),
                                                           'resolved': len(resolved)}))
     day5 = twc_lines.collect(client, rows, registry, FINAL_DAY, datetime.now(timezone.utc),
@@ -149,7 +153,7 @@ def load(source: Path):
         folder = source / 'research/8a6a5a84/twc-current'
         path = folder / 'source-report.json'
     if not path.exists():
-        return {'pages': [], 'target_day': TARGET_DAY}
+        return {'pages': [], 'target_day': TARGET_DAY, 'target_days': list(TARGET_DAYS)}
     report = json.loads(path.read_text())
     records = []
     for page in report['pages']:
@@ -169,7 +173,7 @@ def load(source: Path):
         if facts.get('event_url') != EVENT_URL or not all(facts.get('teams', [])):
             continue
         records.append({'source_url': request['url'], 'observed_at': request['observed_at'], 'facts': facts})
-    return {'pages': records, 'target_day': TARGET_DAY}
+    return {'pages': records, 'target_day': TARGET_DAY, 'target_days': list(TARGET_DAYS)}
 
 
 def load_observations(source: Path) -> list:
@@ -191,6 +195,7 @@ def load_observations(source: Path) -> list:
 
 def derive_day4(data, source: Path, now, *, target_day=TARGET_DAY, line_report=twc_lines.REPORT):
     """Join only exact teams/event/date/time; use canonical prices unchanged."""
+    days = (target_day,) if isinstance(target_day, str) else tuple(str(d) for d in target_day)
     from scripts.domain import name_key
     from scripts.pick_safety import presentation, valid_pair
     research = load(source)
@@ -200,8 +205,8 @@ def derive_day4(data, source: Path, now, *, target_day=TARGET_DAY, line_report=t
     by_id = {m['id']: m for m in complete.get('matches', [])}
     event_name = 'Thunderpick World Championship 2026'
     fixtures = [m for m in data['matches'] if name_key(m.get('competition') or '') == name_key(event_name)
-                and str(m.get('starts_at') or '').startswith(target_day)]
-    records = [r for r in research['pages'] if str(r['facts'].get('starts_at') or '').startswith(target_day)]
+                and str(m.get('starts_at') or '').startswith(days)]
+    records = [r for r in research['pages'] if str(r['facts'].get('starts_at') or '').startswith(days)]
     rows, consumed = [], set()
     for fixture in fixtures:
         row = by_id.get(fixture['id'])
@@ -258,7 +263,7 @@ def derive_day4(data, source: Path, now, *, target_day=TARGET_DAY, line_report=t
                          'score': facts['score'], 'maps': facts['maps'], 'finished': facts['finished'],
                          'source_url': r['source_url'], 'observed_at': r['observed_at'],
                          'lesson': 'Use the completed series as matchup context, not a new win-rate sample or proof the earlier odds were wrong.' if facts['score'] else 'Result unverified. A past scheduled start does not establish a winner.'})
-    return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': target_day, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
+    return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': days[0], 'event_days': list(days), 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
             'day3_results': day3, 'research_report': str(FOLDER / 'source-report.json') if (source / FOLDER / 'source-report.json').exists() else 'research/8a6a5a84/twc-current/source-report.json',
             'lines': {'available': lines['available'], 'day': lines['day'], 'observed_at': lines['observed_at'],
                       'report_path': lines['report_path'], 'policy': lines['policy'],

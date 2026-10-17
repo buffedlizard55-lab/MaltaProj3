@@ -16,7 +16,7 @@ test.beforeAll(() => {
 test.afterAll(() => fs.rmSync('site/_edge_review_fixture', { recursive: true, force: true }));
 
 for (const width of [320, 390, 768, 1440]) {
-  test(`group stage, refresh, score slip and day-five blanks fit and agree with the data at ${width}px`, async ({ page }) => {
+  test(`group stage, refresh, score slip and day-five card fit and agree with the data at ${width}px`, async ({ page }) => {
     const expected = manifest();
     await page.clock.install({ time: new Date('2026-10-17T06:00:00Z') });
     await page.setViewportSize({ width, height: 900 });
@@ -31,7 +31,8 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('#group-stage-series tbody tr')).toHaveCount(expected.group_series);
     await expect(page.locator('#group-stage-load tbody tr')).toHaveCount(4);
     await expect(page.locator('#day-four-refresh tbody tr')).toHaveCount(expected.refresh_rows);
-    await expect(page.locator('#day-five-card tbody tr')).toHaveCount(expected.day_five_rows);
+    await expect(page.locator('#day-five-matches tbody tr')).toHaveCount(expected.day_five_rows);
+    await expect(page.locator('#day-five-recap tbody tr')).toHaveCount(expected.day5_semifinal_rows);
     await expect(page.locator('#day-four-guidance li')).toHaveCount(expected.guidance_principles);
 
     // Displayed percentages are exactly the recorded, normalised readings - in order, on every width.
@@ -41,10 +42,18 @@ for (const width of [320, 390, 768, 1440]) {
       await expect(page.locator('#day-four-refresh .prob-line').filter({ hasText: entry.team })).toContainText(entry.text);
     }
 
-    // A blank day-five slot stays blank: no 50/50 fallback may appear anywhere in that section.
+    // Unpriced fields stay visibly blank and no 50/50 fallback may appear anywhere in that section.
     const dayFive = await page.locator('#day-five-card').innerText();
     expect(dayFive).toContain('— unverified');
     expect(dayFive).not.toMatch(/50\.0%/);
+    // Every resolved row shows its default pick and the label that keeps the
+    // fallback estimate from being mistaken for betting odds.
+    for (const pick of expected.day_five_picks) {
+      expect(dayFive).toContain(pick);
+    }
+    expect(dayFive).toContain('Valve-model fallback');
+    await expect(page.locator('#day-five-market-scan')).toBeVisible();
+    await expect(page.locator('#day-five-guidance li')).toHaveCount(expected.day5_guidance_principles);
 
     // Nothing may force the document sideways; wide tables scroll inside their own wrapper.
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

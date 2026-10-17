@@ -95,7 +95,7 @@ def render(data, prefix):
         out += '</tbody></table></div>'
     else:
         out += '<p>No current unlocked market-backed match passes this screen at build time. No model estimate or stale line is promoted to fill the watchlist.</p>'
-    out += f'<p>Read the <a class="internal-link" href="{prefix}review/#day-one-review">day-one postmortem &amp; official Aurora roster snapshot check</a>. An unexpected winner is possible even with a well-estimated favorite; one result does not validate a new strategy.</p></section>'
+    out += f'<p>Read the <a style="text-decoration:underline" href="{prefix}review/#day-one-review">day-one postmortem &amp; official Aurora roster snapshot check</a>. An unexpected winner is possible even with a well-estimated favorite; one result does not validate a new strategy.</p></section>'
     return out
 
 
