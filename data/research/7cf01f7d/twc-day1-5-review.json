@@ -1,0 +1,200 @@
+{
+ "schema_version": 1,
+ "session": "arena-7cf01f7d",
+ "observed_at": "2026-10-17T20:55Z",
+ "scope": "Thunderpick World Championship 2026 (Malta, Oct 14-18, $1,000,000) - dated research dossier for the Hotspawn weekly pick'em and tournament pick'em. Read-only: this file is NOT consumed by scripts/build.py and does not overwrite any automated estimate.",
+ "event_facts": {
+  "prize_pool": "$1,000,000 (Player share $500,000 / Club share $500,000)",
+  "places": {
+   "1st": "$250,000 + $250,000 club",
+   "2nd": "$125,000 + $125,000 club",
+   "3rd": "$50,000 + $50,000 club",
+   "4th": "$25,000 + $25,000 club",
+   "5-6th": "$15,000 + $15,000 club",
+   "7-8th": "$10,000 + $10,000 club"
+  },
+  "grand_final_format": "Best of 5 (LAN)",
+  "source": "https://www.hltv.org/events/8932/thunderpick-world-championship-2026",
+  "observed_at": "2026-10-17T20:55Z"
+ },
+ "aurora_roster_context": {
+  "finding": "Aurora's rebuild is a JULY 2026 change, not a pre-TWC one, and the Day-1 loss to 9z was not a fresh-lineup adjustment story.",
+  "in": [
+   "Jimi 'Jimpphat' Salo (from MOUZ, announced 3 Jul 2026)",
+   "Damjan 'kyxsan' Stoilkovski (IGL, from Falcons, 8 Jul 2026)",
+   "Ashley 'ashhh' Battye (head coach, 3 Jul 2026)"
+  ],
+  "out": [
+   "Engin 'MAJ3R' Kupeli (stepped away, inactive 2 Jul 2026)",
+   "Caner 'soulfly' Kesici (benched 2 Jul 2026)",
+   "Sezgin 'Fabre' Kalayci (coach, left 29 Jun 2026, to Eternal Fire)"
+  ],
+  "active_lineup_at_twc": [
+   "XANTARES",
+   "woxic",
+   "Wicadia",
+   "Jimpphat",
+   "kyxsan (IGL)"
+  ],
+  "form_before_twc": "Runners-up at StarSeries, 3rd at ESL Pro League Season 24 (lost to Spirit Oct 11), VRS #5-6 entering TWC.",
+  "sources": [
+   {
+    "url": "https://www.strafe.com/news/read/aurora-locks-in-new-cs2-roster-with-kyxsan-and-jimpphat/",
+    "observed_at": "2026-10-17T20:55Z",
+    "note": "secondary aggregator of the official announcements"
+   },
+   {
+    "url": "https://pley.gg/cs2/aurora-finalizes-international-transition-with-the-signing-of-kyxsan/",
+    "observed_at": "2026-10-17T20:55Z",
+    "note": "secondary; dates agree with strafe.com"
+   },
+   {
+    "url": "https://www.hltv.org/team/11861/aurora",
+    "observed_at": "2026-10-17T20:55Z",
+    "note": "HLTV team roster timeline (authoritative for lineup, not for announcement dates)"
+   }
+  ],
+  "limitation": "No organizer or club press release was reachable from this sandbox (network allowlist), so the change is corroborated by two independent secondary reports plus HLTV's roster timeline, and is published as dated context only. It is NOT converted into a rest bonus, onboarding discount or probability adjustment anywhere in the pipeline."
+ },
+ "contrarian_rules_for_day5": {
+  "what_day1_actually_taught": "The single Day-1 upset was a 2-0 with a 13-1 stomp on the opponent's own map pick - i.e. the market mispriced a single map, not a series collapse. Every other Day-1 series also ended 2-0, so 'fade the favorite' had no payoff on day one.",
+  "what_day3_actually_taught": "The same fixture reversed on four days' rest with the favorite picking the map it had just lost (Cache 13-11, then Inferno 13-4). Day-to-day team strength at this event was not unstable; the veto was.",
+  "usable_contrarian_conditions": [
+   "Only fade a side when our OWN money-backed line disagrees with the crowd, never when Hotspawn '% picked' disagrees (Hotspawn popularity is excluded by rule 2 of the README and stays excluded).",
+   "The underdog must be >= 30% in our own no-vig probability AND the fixture must be worth 3+ Hotspawn points (tier b/c multipliers 1.5/1.0 x game multiplier 1.25 as published in the fixture API).",
+   "The crowd must NOT already be on the underdog: 10+ pickers on record with at least half on that side cannot move you past anyone.",
+   "At most 2 upset plays per UTC day, ranked by points x underdog probability x share-of-field passed, because Hotspawn scores correct picks only, so the expected cost of a contrarian play is points x (favorite - underdog probability)."
+  ],
+  "day5_specific": "The TWC tournament pick'em Day-5 card is one Bo5. A Bo5 raises the favorite's series win rate for a given per-map edge, so a contrarian score-line (e.g. 3-1 BETBOOM) is a higher-variance, not a higher-edge, play. No probability, price or score-line is published here because no money-backed GF line was read in this session.",
+  "leaderboard_note": "Hotspawn weekly scoring and lock lead time remain as recorded in data/research/1112299f/hotspawn-contract.json (360 s lock in the API vs 5 min on the rules page is a flagged conflict, still unresolved)."
+ },
+ "series": [
+  {
+   "day": "Day 1 (Oct 14)",
+   "stage": "Group A opener",
+   "fixture": "9z vs Aurora",
+   "result": "9z 2-0",
+   "maps": "Inferno 13-11 (9z pick), Nuke 13-1 (Aurora pick)",
+   "source": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
+   "verification_note": "Huge upset: Aurora was the VRS #5 team; luchov 1.61 rating / 97.4 ADR. 9z +62 VRS pts, Aurora -21. Head-to-head 11 days earlier (Oct 3, EPL S24) Aurora had won 2-0.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 1 (Oct 14)",
+   "stage": "Group A",
+   "fixture": "Team Falcons vs Ninjas in Pyjamas",
+   "result": "Falcons 2-0",
+   "maps": "Ancient 16-13 (OT), Dust2 13-6",
+   "source": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+   "verification_note": "Cologne Major champions, group favorite. Secondary-reported map scores (HLTV day-one recap), not individually re-read from the match page.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 1 (Oct 14)",
+   "stage": "Group B",
+   "fixture": "Legacy vs PARIVISION",
+   "result": "Legacy 2-0",
+   "maps": "Dust2 13-11, Mirage 16-14 (OT)",
+   "source": "https://esportsinsider.com/2026/10/thunderpick-world-championship",
+   "verification_note": "SECONDARY REPORTER ONLY - map scores not re-read from an HLTV/organizer page in this session. Flagged, not promoted to verified.",
+   "verified_first_party": false
+  },
+  {
+   "day": "Day 1 (Oct 14)",
+   "stage": "Group B",
+   "fixture": "FURIA vs BETBOOM",
+   "result": "FURIA 2-0",
+   "maps": "Ancient 13-10, Mirage 13-9",
+   "source": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+   "verification_note": "Reigning champions. All four Day-1 series ended 2-0; only 9z-Aurora was an upset against the market.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 2 (Oct 15)",
+   "stage": "Group A elimination",
+   "fixture": "Aurora vs Ninjas in Pyjamas",
+   "result": "Aurora 2-0",
+   "maps": "Cache 13-9, Dust2 13-7",
+   "source": "https://www.hltv.org/team/11861/aurora",
+   "verification_note": "Aurora's must-win after the Day-1 loss; Wicadia 1.65 rating per secondary report. Two independent write-ups agree on 2-0.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 2 (Oct 15)",
+   "stage": "Group A winners",
+   "fixture": "9z vs Team Falcons",
+   "result": "Falcons 2-1",
+   "maps": "map scores not re-read",
+   "source": "https://ua.tribuna.com/cybersport/1000000384545-falcons-i-furia-vyyshly-v-pleyof-thunderpick-world-champ/",
+   "verification_note": "SECONDARY REPORTER ONLY. 9z's upset run ended; they dropped to the 1-1 decider instead of advancing.",
+   "verified_first_party": false
+  },
+  {
+   "day": "Day 2 (Oct 15)",
+   "stage": "Group B",
+   "fixture": "Legacy vs FURIA / PARIVISION vs BETBOOM",
+   "result": "FURIA 2-1, BETBOOM 2-1",
+   "maps": "map scores not re-read",
+   "source": "https://ua.tribuna.com/cybersport/1000000384545-falcons-i-furia-vyyshly-v-pleyof-thunderpick-world-champ/",
+   "verification_note": "SECONDARY REPORTER ONLY. Results corroborated by the HLTV Day-3 recap chain, individual map scores not verified here.",
+   "verified_first_party": false
+  },
+  {
+   "day": "Day 3 (Oct 16)",
+   "stage": "Group A decider",
+   "fixture": "Aurora vs 9z",
+   "result": "Aurora 2-0",
+   "maps": "Cache 13-11, Inferno 13-4",
+   "source": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance",
+   "verification_note": "REVERSAL of Day 1: Aurora flipped its own map veto (picked Cache, the map it lost to 9z before), kyxsan 1.45 rating, 9z finish 5th-6th for $15,000 player share.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 3 (Oct 16)",
+   "stage": "Group B decider",
+   "fixture": "BETBOOM vs Legacy",
+   "result": "BETBOOM 2-1",
+   "maps": "Nuke 16-13 (OT), Dust2 11-13, Mirage 13-11",
+   "source": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+   "verification_note": "Read from the original HLTV match page by session arena-75ef1662 (Oct 17) and retained in data/research/75ef1662/audit.json.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 4 (Oct 17)",
+   "stage": "Semifinal",
+   "fixture": "FURIA vs Aurora",
+   "result": "FURIA 2-0",
+   "maps": "Dust2 13-8, Inferno 13-10",
+   "source": "https://www.hltv.org/news/45743/furia-ease-past-aurora-into-twc-final",
+   "verification_note": "Aurora's fourth series of the event in four days; no map decided by more than 3 rounds after the mid-map force-buy losses.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 4 (Oct 17)",
+   "stage": "Semifinal",
+   "fixture": "Team Falcons vs BETBOOM",
+   "result": "BETBOOM 2-1",
+   "maps": "Anubis 13-5 (Falcons), Dust2 14-16 (OT, BETBOOM), Mirage 7-13",
+   "source": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+   "verification_note": "VERIFIED line by line from the original HLTV match page in this session (map scores, veto, per-player stats: m0NESY 1.14, NiKo 0.93). Falcons eliminated; BETBOOM reaches the final as the lower-seeded qualifier.",
+   "verified_first_party": true
+  },
+  {
+   "day": "Day 5 (Oct 18)",
+   "stage": "Grand Final (Bo5)",
+   "fixture": "FURIA vs BETBOOM",
+   "result": "scheduled",
+   "maps": "Best of 5 (LAN)",
+   "source": "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+   "verification_note": "HLTV page rendered '11:00 18 Oct' with a live countdown of 18h43m at 20:16Z on Oct 17, i.e. a 15:00 UTC start (the page timezone is UTC-4). The 15:00Z figure is DERIVED from the countdown and is flagged, not asserted. No organizer-confirmed start time was read.",
+   "verified_first_party": true
+  }
+ ],
+ "irregularities_flagged": [
+  "tests/test_summary.py has a wall-clock-dependent assertion that has failed the four most recent scheduled publishers on main (runs 39038670350, 39045650525, 39054246287, 39058407711) and is reproduced locally here (582 tests, 1 failure). Until it is repaired no new inventory, price or Day-5 estimate can be published; the public site is frozen at the 2026-10-17T12:15Z snapshot.",
+  "Four Day-2/Day-3 group results are only corroborated by secondary reporters, not re-read from HLTV match pages in this session, and are labelled as such.",
+  "The 15:00 UTC Grand Final start is derived from a countdown on a UTC-4 rendered HLTV page, not from an organizer schedule.",
+  "Low-tier Hotspawn fixtures (European Pro League Series 8 Play-In, DraculaN Season 7, Svenska CS-Ligan, LG UltraGear, Rainhas do Clutch, CCT, TWC South American Series) had no wired line provider: Polymarket does not list them, and the probed books in scripts/coverage_probe.py include dead endpoints (api.rivalry.com answered a Cloudflare tunnel error when re-probed on 2026-10-17T20:40Z). No pick was invented for them.",
+  "Roster/rest/onboarding effects on Aurora's rebuild and on 9z's four-day gap remain unverified; nothing was quantified."
+ ]
+}

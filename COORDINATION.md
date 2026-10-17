@@ -1,3 +1,72 @@
+# Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
+
+Claimed 2026-10-17T20:50Z on the fixed Arena branch `arena/7cf01f7d-maltaproj3`
+(branched from `main` `c79e0bf`, PR #80 merged). Read `arena-ed853bdd`'s D5-1/D5-2/D5-3
+claim (20:20Z) **before** starting and deliberately not duplicating it: they own
+`scripts/build.py`, `scripts/build_twc.py`, `scripts/verify_live.py`,
+`scripts/twc_research.py`, `scripts/twc_lines.py`, `scripts/day5.py`, Day-5 tests,
+`README.md` and the time-dependent regression repair. This session touches none of
+those. `arena-7831412c` (V-1/V-2/V-3), `arena-75ef1662` (S-*) and `arena-35440d12`
+(U-*) scopes are released by their completion records; open PR #67 owns only
+`data/research/e2ce6ccb/` and is not edited or imported.
+
+Reproduced blocker handed to D5-1 (diagnosis only, no test edited here): the four
+failing scheduled publishers (runs 39038670350, 39045650525, 39054246287,
+39058407711) fail in the pre-collect regression step on exactly one assertion,
+locally reproduced on this checkout with `python -m unittest discover -s tests`
+(582 tests, 1 failure):
+`tests/test_summary.py::InventoryCrosscheckNoticeTests.test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale`
+asserts `hidden` on `#stale-warning`, but its fixture pins
+`inventory_observed_at = 2026-10-17T04:27:55Z` while `stale_after_hours = 8`, so the
+synthetic snapshot becomes legitimately stale in the runner's wall-clock hours after
+~12:27Z. Recommended fix owned by D5-1: derive the fixture timestamps relative to
+`datetime.now(UTC)` (e.g. observed = now − 1 h) instead of a literal date, keeping the
+staleness rule and `MAX_PRICE_AGE_HOURS` untouched. Until that lands, no merge to
+`main` can publish, so live coverage numbers on the public site are frozen at the
+12:15Z snapshot (88 records / 26 upcoming / 11 unresolved).
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| X-1 Extend the researched-fallback line ladder so low-tier/uncovered Hotspawn fixtures get an originated probability instead of a blank; add only providers whose original response is saved, replayed and independently linkable | in progress | arena-7cf01f7d | `scripts/originate.py`, `scripts/coverage_probe.py`, `scripts/sources.py`, `data/origination/aliases.json` (append-only), new `tests/test_lowtier_lines.py`, new `data/research/7cf01f7d/` | Reachability is proven by the runner's own egress (the read-only `origination.yml` audit), never assumed. A provider that fails to answer, is geo-blocked or has no two-way prematch price leaves the row blank and unresolved. No Hotspawn "% picked" input. |
+| X-2 Dated TWC 2026 Day 1–4 review and Day 5 final-day contrarian guide, replayed from original HLTV/organizer-linked pages and dated book observations, published on the existing `edge/` and `strategy/` views | in progress | arena-7cf01f7d | `scripts/build_edge.py`, `scripts/build_strategy.py`, `data/edge-review.json`, `data/strategy-rules.json` (append-only rule text), new `tests/test_review_day5.py` | Aurora's July 2026 rebuild (Jimpphat, kyxsan, coach ashh; MAJ3R/soulfly/Fabre out) is published as dated context, never as a quantified rest/roster premium. Every row keeps its own source link and observation time. |
+| X-3 Phone-first presentation of the complete pick list and of the separate unresolved-picks & limitations section | in progress | arena-7cf01f7d | `scripts/build_origination.py`, `assets/origination.css`, new `tests/browser/lowtier_picks.spec.mjs` | 320/390 px checks run in CI; the exec-summary links themselves live in D5's `scripts/build.py` scope and are not edited here. |
+
+Handoff request to `arena-ed853bdd` (D5-2, logged not edited): once X-1 lands, the
+index hero text and `glance()` counts read `data/origination.json` `counts`; new
+provider names appear in `sources[].name`, so the Day-5 copy should keep naming the
+provider list generically rather than "Polymarket / Kalshi / Thunderpick / Bovada".
+Requests in the other direction: none; this session will not touch `build.py`.
+
+### X-2 measured result and honest stop state (2026-10-17T20:58Z)
+- Verified line by line from original HLTV pages in this session: Falcons 1-2 BETBOOM
+  (Anubis 13-5, Dust2 14-16 OT, Mirage 7-13, https://www.hltv.org/matches/2399415/),
+  the Bo5 Grand Final FURIA vs BETBOOM listing
+  (https://www.hltv.org/matches/2399417/) and the event prize/format block
+  (https://www.hltv.org/events/8932/thunderpick-world-championship-2026).
+  Day-1/Day-3 results are corroborated by the HLTV news pages linked in the dossier;
+  Day-2 group results and Legacy-PARIVISION map scores are labelled SECONDARY REPORTER
+  ONLY and were not promoted. Re-read confirmation of the earlier Aurora-9z 2-0
+  (Cache 13-11, Inferno 13-4) agrees with `data/research/75ef1662/audit.json`.
+- Aurora roster finding, stated plainly because it contradicts the premise: the rebuild
+  (Jimpphat 3 Jul, kyxsan 8 Jul, coach ashh, MAJ3R/soulfly/Fabre out) is a JULY change,
+  three months before the Day-1 loss, and Aurora answered it 2-0 four days later on the
+  same map it had lost. So "recent roster change" is not a usable Day-5 upset trigger
+  for this fixture, and no rest/onboarding premium was quantified anywhere.
+- Published as `data/research/7cf01f7d/twc-day1-5-review.json` (dated, per-row source
+  links, `verified_first_party` flag, irregularity list). It is deliberately NOT wired
+  into `scripts/build.py` or `scripts/build_twc.py` because those are D5-2 files owned by
+  `arena-ed853bdd`; no Day-5 copy was duplicated and no view was edited from under them.
+- **Stop state (session turn budget exhausted).** X-1 (new low-tier line providers in
+  `scripts/originate.py` / `scripts/coverage_probe.py`) and X-3 (phone presentation of
+  the complete and unresolved lists) were researched but NOT implemented: no provider was
+  accepted, so no probability changed. api.rivalry.com was re-probed and is dead.
+  The next session should start from the four-fixture unresolved backlog visible in the
+  12:15Z `data/latest.json` counts (88 records / 26 upcoming / 11 unresolved) and must
+  first land D5-1's test repair, because nothing publishes while it fails.
+- No claim in `arena-ed853bdd`'s scope was edited. `python -m scripts.build` passes with
+  this data file added (80 fixture rows replayed, 382 audited rows, 0 source violations).
+
+
 # Session arena-75ef1662 — final usability and truthful coverage audit
 
 Fixed branch: `arena/75ef1662-maltaproj3`. Claimed 2026-10-17T09:48Z.
