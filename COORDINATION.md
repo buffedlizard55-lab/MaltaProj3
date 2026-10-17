@@ -105,7 +105,7 @@ absence of fixtures. No pick, probability or source result is invented here.
 | V-2 Verify the Day-4/executive-summary/mobile path against the current build and fix only reproduced presentation defects; keep all probabilities/sources unchanged | done | arena-7831412c | `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`, `tests/test_summary.py`, `tests/test_twc_day4.py`, `tests/test_build.py` | Includes checking that the executive summary's picks/unresolved links are visible at 320/390 px, that a 50/50 external market is labelled "no edge" rather than assigned an arbitrary side, and that a blocked-inventory notice does not hide known fixture facts. No new probability model and no Hotspawn popularity input. |
 | V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | in progress | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), V-1/V-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
 
-### S-1 DONE — inventory authority (10:30Z)
+### V-1 DONE — inventory authority (10:30Z)
 - Scope: `scripts/sources.py`, `scripts/collect.py`, `scripts/validate.py`,
   `tests/test_lobby_freshness.py`, `tests/test_summary.py`. No other session's
   file was edited.
@@ -129,7 +129,7 @@ absence of fixtures. No pick, probability or source result is invented here.
   cross-check presentation cases. Existing disagreement, duplicate-ID and
   non-array cases still pass unchanged.
 
-### S-2 DONE — phone summary and even-line wording (10:35Z)
+### V-2 DONE — phone summary and even-line wording (10:35Z)
 - Scope: `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`,
   `tests/test_build.py`, `tests/test_summary.py`, `tests/test_twc_day4.py`,
   `tests/browser/dashboard.spec.mjs`.
