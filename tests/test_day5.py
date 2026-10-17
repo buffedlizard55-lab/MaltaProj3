@@ -97,6 +97,7 @@ class FinalDay(unittest.TestCase):
         self.assertEqual(row['scope'], 'hltv-only')
         self.assertIsNone(row['fixture']['locks_at'])
         self.assertFalse(row['state']['current'])
+        self.assertNotIn('>Pricing source</a>', day5.render(g, '../'))
         self.assertEqual(g['counts']['current_picks'], 0)
         soup = BeautifulSoup(day5.render(g, '../'), 'html.parser')
         self.assertTrue(all(n.has_attr('hidden') for n in soup.select('[data-current-only]')))

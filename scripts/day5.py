@@ -160,7 +160,7 @@ def render(guide, prefix):
         for provider in (a or {}).get('providers') or []:
             if provider.get('source_url'):
                 out += external(provider['source_url'], provider.get('provider') or 'External line')
-        if a and a.get('source_url'):
+        if a and a.get('source_url') and a['source_url'] not in {fixture['source_url'], (row.get('hltv') or {}).get('source_url')}:
             out += external(a['source_url'], a.get('provider') or 'Pricing source')
         if row['scope'] == 'weekly':
             out += f'<a href="{prefix}origination/#match-{e(fixture["id"])}">Canonical pick &amp; research →</a>'
