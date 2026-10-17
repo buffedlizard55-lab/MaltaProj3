@@ -1,0 +1,15 @@
+[
+  {
+    "id": "75ef1662-dated-inventory-outage",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Dated coverage limitation: successful deployment is not successful inventory verification",
+    "detail": "Independent audit read 17 October 2026 at 09:45 UTC: official publisher run 39012768749 completed successfully at 07:17:36 UTC, but its public verification annotation explicitly reported coverage_complete=false with inventory retained from 04:27:55 UTC. The source-health page reported a Hotspawn lobby HTTP 403. The complete list contained 34 retained future records, 26 estimates, 25 directional snapshot picks and 8 unresolved fixtures; the remaining equal estimate had no arbitrary pick. These are dated observations, not permanent live counts. The executive summary and source ledger now label retained reconciliation explicitly and route the Next matches all-picks link to the complete researched feed. Missing matches during failed inventory access cannot be ruled out. Never treat this successful deploy as evidence of full live coverage; use the latest timestamp/status and every unresolved row’s source trail. No probability or source threshold was changed by this presentation audit.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117338607275/annotations",
+      "https://play.hotspawn.com/lobby",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/75ef1662/audit.json"
+    ]
+  }
+]

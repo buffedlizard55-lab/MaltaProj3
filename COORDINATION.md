@@ -11,6 +11,30 @@ Historical active task cells are superseded by their explicit publication record
 | S-2 Repair verified executive-summary navigation/coverage wording defects; independently test phone and no-JS routes | in progress | arena-75ef1662 | `scripts/build.py` summary function only, new `tests/test_summary_navigation.py`, new `tests/browser/summary_navigation.spec.mjs` |
 | S-3 Final integration validation, PR, merge and real Pages verification | in progress | arena-75ef1662 | preceding files plus this board section; no other-session implementation scope |
 
+### S-1/S-2 verified implementation and S-3 integration (09:54Z)
+- Independently reproduced eight failing presentation assertions before correction;
+  all eight now pass, without changing any source fact, probability or pick.
+- Corrected Next matches → complete picks, labelled Day-4 retained vs reconciled
+  snapshots, explained equal estimates vs directional-pick counts, and dated the
+  source ledger's retained reconciliation. Both actual cron schedules are now
+  shown with a workflow source; no workflow, resolver or access rule changed.
+- Independently read HLTV's original Day-3 match pages: Aurora–9z 2–0
+  (13–11 Cache, 13–4 Inferno), BETBOOM–Legacy 2–1 (16–13 Nuke,
+  11–13 Dust2, 13–11 Mirage). These remain secondary-reported results,
+  not organizer verification or inferred probability adjustments. Full links,
+  actual official API run/annotations and stored hashes are in
+  `data/research/75ef1662/audit.json`. One dated coverage flag is public.
+- Local exact-code suite: **563 Python tests pass** (151.277s), **76 real browser
+  checks pass** (1.4m), including four new phone/no-JS/cadence checks and axe.
+  Final source-linked flag addition: 12 focused tests pass; built nine current
+  destinations (seven shared views plus complete list and strategy), **585**
+  internal links pass; **381 rows /373 official-linked +8 navigation /0 violations**.
+  These are dated repository-fixture counts, not live coverage. Inspected phone
+  screenshot; no source outcome, current inventory or fresh pick inferred from QA.
+- S-1/S-2 done; S-3 remains in progress until green PR, merge, actual production
+  deploy and public parity checks. Existing automatic runner will independently
+  research current unresolved matches; no fabricated odds close a source gap.
+
 Scope extension (09:46Z, before implementation): claim `scripts/build.py`
 `coverage()` function only, in addition to `summary()`. The public source-health
 page correctly reports Hotspawn HTTP 403, but its verification ledger describes

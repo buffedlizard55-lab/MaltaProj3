@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "session": "arena-75ef1662",
+  "observed_at": "2026-10-17T09:45:09Z",
+  "scope": "Independent dated audit; not a replacement live match/probability feed.",
+  "official_publisher": {
+    "run_id": 39012768749,
+    "check_run_id": 117338607275,
+    "conclusion": "success",
+    "completed_at": "2026-10-17T07:17:36Z",
+    "inventory_observed_at": "2026-10-17T04:27:55Z",
+    "coverage_complete": false,
+    "complete_picks": {
+      "active": 34,
+      "resolved": 26,
+      "unresolved": 8,
+      "with_pick": 25,
+      "market": 10,
+      "consensus": 4,
+      "bookmaker": 3,
+      "model": 9
+    },
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749",
+    "meaning": "Deploy/parity succeeded. This does not verify fresh or complete inventory; 26 estimates and 25 directional snapshot picks differ because one paired estimate is equal."
+  },
+  "public_source_health": {
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+    "method": "fetch_page rendered text; not original provider response bytes",
+    "observed_status": "Hotspawn inventory unavailable; hotspawn-lobby HTTP 403 at https://play.hotspawn.com/lobby",
+    "original_source_url": "https://play.hotspawn.com/lobby",
+    "limitation": "A failed source request is not proof that no new matches exist. The actual source inventory remains unverified."
+  },
+  "independent_secondary_result_checks": [
+    {
+      "url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "teams": [
+        "Aurora",
+        "9z"
+      ],
+      "result": [
+        2,
+        0
+      ],
+      "maps": [
+        {
+          "name": "Cache",
+          "score": [
+            13,
+            11
+          ]
+        },
+        {
+          "name": "Inferno",
+          "score": [
+            13,
+            4
+          ]
+        }
+      ],
+      "reported_status": "Match over",
+      "verification": "Independently read source-owned HLTV rendered page, fetch_page chunk 0. Not primary organizer verification. No retrospective prematch probability reconstructed."
+    },
+    {
+      "url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026",
+      "teams": [
+        "BETBOOM",
+        "Legacy"
+      ],
+      "result": [
+        2,
+        1
+      ],
+      "maps": [
+        {
+          "name": "Nuke",
+          "score": [
+            16,
+            13
+          ]
+        },
+        {
+          "name": "Dust2",
+          "score": [
+            11,
+            13
+          ]
+        },
+        {
+          "name": "Mirage",
+          "score": [
+            13,
+            11
+          ]
+        }
+      ],
+      "reported_status": "Match over",
+      "verification": "Independently read source-owned HLTV rendered page, fetch_page chunk 0. Not primary organizer verification. No retrospective prematch probability reconstructed."
+    }
+  ],
+  "analysis": {
+    "day4_use": "Aurora won the rematch 2–0 after losing the opener 0–2; the opening loss alone is not a reason to fade it. BETBOOM advanced through a close three-map decider; that is matchup context, not a measured fatigue penalty. Compare current exact-fixture external lines; do not infer a rest, roster, veto or onboarding adjustment.",
+    "roster_change": "Existing source-linked Valve snapshots and HLTV summer-rebuild report are retained. A new October change, match-day substitution, onboarding impact and causal probability discount remain unverified.",
+    "contrarian_policy": "Keep externally supported favorite as default; optional underdog requires fresh money-backed evidence, verified inventory and future lock. Current failed inventory verification blocks current contrarian advice. Ownership, user score and leader gap are unknown; no leaderboard-win claim is made."
+  },
+  "limitations": [
+    "Not all listed matches have defensible win probabilities. The complete view retains every known fixture and publishes a separate unresolved section.",
+    "Source-host access is restricted locally. Existing GitHub runners fetch originals; their source failures remain visible.",
+    "No attempt was made to bypass source access controls, select a same-name roster arbitrarily or treat Hotspawn popularity as odds.",
+    "The current live snapshot may change after this dated audit. Repository fixture tests are not current inventory verification.",
+    "Official organizer confirmation for the independently checked results remains blank; HLTV is explicitly a secondary reporter."
+  ],
+  "retained_official_records": [
+    {
+      "file": "publisher-run-39012768749.json",
+      "stored_sha256": "b366c440356507ba18f7f2a1027a196036a7502c44586bb7fc7ec1bf3f91dc0f",
+      "source_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749"
+    },
+    {
+      "file": "publisher-annotations-117338607275.json",
+      "stored_sha256": "21d56e484afd346f30e4aa5eac8c233e6851e54af52476795a3004e4deca9ea4",
+      "source_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117338607275/annotations"
+    }
+  ]
+}
