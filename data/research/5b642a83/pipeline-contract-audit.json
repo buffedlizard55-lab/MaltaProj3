@@ -9,7 +9,15 @@
     "failures": 3,
     "errors": 3
   },
-  "after": null,
+  "after": {
+    "observed_at": "2026-10-17T01:29:21Z",
+    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract tests.test_twc_lines tests.test_twc_day4 -q",
+    "tests": 58,
+    "failures": 0,
+    "errors": 0,
+    "actual_client_contract_cases_included": 10,
+    "limitation": "Local contract repair verified; full suite and actual live runner/publication remain to be rechecked."
+  },
   "production_observation": {
     "run_id": 38987976979,
     "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38987976979",

@@ -30,7 +30,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median
 
-from scripts.domain import array, book_midpoint, finite, iso, name_key, normalize_pair, timestamp
+from scripts.domain import array, book_midpoint, finite, iso, is_fresh, name_key, normalize_pair, timestamp
 from scripts.originate import aliased_series_market, kalshi_start, pair_join, resolve_name
 from scripts.sources import SourceError, poly_index
 
@@ -89,9 +89,13 @@ def fixture_key(fixture: dict) -> tuple:
 
 def fixture_record(fixture: dict) -> dict:
     """Stable JSON shape for a collected fixture (team names, not UI dicts)."""
-    names = [t.get('name') if isinstance(t, dict) else t for t in fixture.get('teams') or []]
-    if len(names) != 2 or not all(isinstance(name, str) and name.strip() for name in names):
-        raise ValueError('TWC fixture does not contain two valid team names')
+    saved_teams = fixture.get('teams')
+    if not isinstance(saved_teams, list) or len(saved_teams) != 2:
+        raise ValueError('TWC fixture must retain exactly two named teams')
+    names = [t.get('name') if isinstance(t, dict) else t for t in saved_teams]
+    if (not all(isinstance(name, str) and name.strip() for name in names)
+            or len(set(map(name_key, names))) != 2):
+        raise ValueError('TWC fixture team-name schema is invalid or ambiguous')
     return {'id': fixture['id'], 'teams': names, 'starts_at': fixture['starts_at'],
             'source_url': fixture.get('source_url'), 'hltv_match_id': fixture.get('hltv_match_id')}
 
@@ -166,6 +170,8 @@ def kalshi_quote(event: dict, fixture: dict, registry: dict, observed_at, now: d
     when = timestamp(observed_at)
     if when is None or timestamp(start) is None or timestamp(start) <= when:
         return None, 'Observation is not prematch'
+    if not is_fresh(observed_at, now):
+        return None, 'Kalshi observation is missing, future-dated or older than eight hours'
     quotes, market_by_name = {}, {}
     for name, market in zip(canonical, markets):
         if market.get('status') != 'active':
@@ -241,7 +247,8 @@ def analyse(providers: list, fixture: dict) -> dict:
                               'contract. What each provider actually returned is listed above; a source failure is '
                               'not evidence that no market exists and no value is filled in.']
         return row
-    observed = max(p['observed_at'] for p in usable if p.get('observed_at'))
+    # A new provider cannot extend the validity of an older contributing input.
+    observed = min(p['observed_at'] for p in usable if p.get('observed_at'))
     row['method'] = 'market'
     row['label'] = ('Tournament market line — ' + ('/'.join(sorted({p['quote']['provider'] for p in usable}))
                                                    + (' consensus' if len(usable) > 1 else ', single independent source')))

@@ -51,6 +51,16 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Bounded TWC repair measured result (01:29Z)
+- All **58** pipeline-contract + existing TWC-line + Day-4 regressions now pass.
+  Exact retained bytes are hashed separately from the preserved raw HTTP digest;
+  Kalshi returns one provider object, actual fixture team objects normalize once,
+  stale/future Kalshi observations are rejected, and combined expiry uses the
+  oldest contributing observation. **No existing T test or UI source was edited.**
+- Existing prematch rejection wording/order is preserved; freshness is an additional
+  guard, not a changed source threshold. Full unit/mobile/live-data/deploy rechecks
+  follow. These local results alone do not establish a successful publication.
+
 ### Bounded stale-owner handoff: TWC replay repair claimed (2026-10-17T01:27:18Z)
 - The standing >60-minute no-commit rule now applies to **only the required TWC
   boundary repair**: T branch still ends at `856615953dbce35f6d29c8008c53c8b7cb797eb6`,
