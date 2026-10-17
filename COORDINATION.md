@@ -10,7 +10,7 @@ cell still said W-2 in progress. This session takes final integration rather tha
 | --- | --- | --- | --- | --- |
 | FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | done 2026-10-17T01:10Z | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/build.py`, focused tests | Repaired retained-file hashing, current/legacy fixture serialization, every Kalshi collector return path and the conditional Day-4 deep link. Full live branch audit 38989088680 passed collection, evidence replay, build, row audit and links. |
 | FI-2 Integrate PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | done 2026-10-17T01:10Z | arena-fa7ed344 | PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolution | PR #65 actually merged into `main` as `179d473`; merge `bebc08c` integrates it with every FI-1 repair. The sole board conflict preserved both sessions. No source probability or result was selected merely to resolve text. |
-| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Final combined local verification after preserving PR #69 is green: 492 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 373 audited rows/0 violations and 585 links. Pre-#69 integrated audits 38989878038/38989878076 and PR #72's first check set are green; rebased PR checks, canonical deployment and public parity still must be observed. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Final combined local verification after preserving PRs #69/#70 is green: 496 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 374 audited rows/0 violations and 585 links. Earlier integrated audits 38989878038/38989878076 and PR #72's first check set are green; rebased PR checks, canonical deployment and public parity still must be observed. |
 
 Known starting irregularities (at claim time): main's two consecutive production runs failed in the build step
 after fresh collection; GitHub's downloadable log host is outside this sandbox allowlist and the check exposed
@@ -32,9 +32,9 @@ prematurely recorded itself as merged; the actual merge and reconciliation are r
 - PR [#65](https://github.com/buffedlizard55-lab/MaltaProj3/pull/65) subsequently **did** merge into `main` as
   `179d473`. Local integration merge `bebc08c` combines its group-stage/Day-5/coverage-probe work with all
   production repairs above. The only textual conflict was this board; both complete session records were kept.
-- Final combined local verification after integrating PR #69: **492/492 Python tests pass**; canonical build
-  replays **80 source rows**, audits **373 rows** (**365 official-source + 8 site-map**, **0 violations**) and
-  validates **585** links/assets/anchors; **72/72 Playwright cases pass** across 320/390/768/1440 px, no-JS and
+- Final combined local verification after integrating PRs #69/#70: **496/496 Python tests pass**; canonical
+  build replays **80 source rows**, audits **374 rows** (**366 official-source + 8 site-map**, **0 violations**)
+  and validates **585** links/assets/anchors; **72/72 Playwright cases pass** across 320/390/768/1440 px, no-JS and
   automated WCAG A/AA checks; the
   independent pick-safety browser audit passes **106 assertions**. The first simultaneous browser invocation
   had one `spawn ETXTBSY` infrastructure error because two suites launched the same restricted Chromium binary;
@@ -108,6 +108,17 @@ and `research_window` are the authority for the priced Day-4 record, this sessio
 `cross_check` against their record so one page cannot read as two competing prices. Guidance keeps their seven
 principles as the spine with this session's group-stage/score-line/format/rest readings appended. Both sessions'
 tests are in `tests/test_edge.py` (31 checks, all passing on the merged tree).
+
+### Concurrent publisher follow-up — PR #70, reconciled by FI
+
+The released W branch independently reproduced the same conditional-anchor incident and merged follow-up PR
+[#70](https://github.com/buffedlizard55-lab/MaltaProj3/pull/70) as `6bcb2ab` at 01:28:05Z while PR #72 was
+under test. It added an equivalent `pending` gate, four focused summary/renderer contract tests, a source-linked
+`8fa2b226-publisher-dangling-anchor` review finding and build-failure annotations. All are preserved. Conflict
+resolution retains FI's already runner-proven conditional implementation and full traceback annotation (rather
+than reducing it to a six-line tail), plus FI's symmetric `data/research/twc-current/` cache/restore. That cache
+resolves PR #70's logged risk that a fallback could combine an older inventory pair with freshly rewritten TWC
+originals. No probability, pick, result or join changed in either repair.
 
 ## Completion record — arena-8fa2b226 (2026-10-17T00:45Z)
 
