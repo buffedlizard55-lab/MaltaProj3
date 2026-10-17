@@ -10,7 +10,7 @@ cell still said W-2 in progress. This session takes final integration rather tha
 | --- | --- | --- | --- | --- |
 | FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | done 2026-10-17T01:10Z | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/build.py`, focused tests | Repaired retained-file hashing, current/legacy fixture serialization, every Kalshi collector return path and the conditional Day-4 deep link. Full live branch audit 38989088680 passed collection, evidence replay, build, row audit and links. |
 | FI-2 Integrate PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | done 2026-10-17T01:10Z | arena-fa7ed344 | PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolution | PR #65 actually merged into `main` as `179d473`; merge `bebc08c` integrates it with every FI-1 repair. The sole board conflict preserved both sessions. No source probability or result was selected merely to resolve text. |
-| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Final combined local verification after preserving PRs #69/#70 is green: 496 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 375 audited rows/0 violations and 585 links. Earlier integrated audits 38989878038/38989878076 and PR #72's first check set are green; rebased PR checks, canonical deployment and public parity still must be observed. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | done 2026-10-17T01:47Z | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Final combined local verification after preserving PRs #69/#70/#73 is green: 496 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 375 audited rows/0 violations and 585 links. Exact-head PR checks passed; PR #72 merged as `9de62de`; canonical run 38992090479 refreshed, built, deployed and passed public verification. The exact-SHA artifact/deployment and live HTML/JSON were independently reconfirmed. |
 
 Known starting irregularities (at claim time): main's two consecutive production runs failed in the build step
 after fresh collection; GitHub's downloadable log host is outside this sandbox allowlist and the check exposed
@@ -47,8 +47,33 @@ prematurely recorded itself as merged; the actual merge and reconciliation are r
   replay/build, strict row/link, Playwright mobile/no-JS/accessibility and independent safety stages.
 - Main run [38989106868](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38989106868) failed in the
   reconcile/build step on `179d473`; it predates every FI-1 collector/replay fix and therefore is not publication
-  evidence for this integrated tree. FI-3 remains open until this exact merge passes branch checks, merges through
-  its own PR, deploys, and the public artifact is verified after deployment.
+  evidence for the integrated tree. The completed release evidence below supersedes it.
+
+## FI-3 release and public parity — 2026-10-17T01:47Z
+
+- PR [#72](https://github.com/buffedlizard55-lab/MaltaProj3/pull/72) merged at 01:43:55Z as exact main commit
+  `9de62de55fa1cb7b4e13672600110d899132ba21`. Its final head `daec328` included PR #73's additive publisher
+  incident record and passed both push/PR copies of the exact-head checks: origination runs `38991808106` /
+  `38991811372` and dashboard/mobile/accessibility runs `38991808203` / `38991811351`.
+- Canonical run [38992090479](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38992090479) completed
+  successfully at 01:47:05Z. All regression, 4-hour refresh, unresolved research, TWC refresh, retained-evidence
+  replay, strict row/link build, artifact upload, deploy and post-deploy verification stages passed. Public live
+  counts were **34 active / 25 resolved / 9 explicit unresolved / 24 current picks**; the complete source snapshot
+  was observed at `2026-10-17T01:45:47Z`. The live build audited **511 rows** (**503 sourced + 8 navigation**,
+  **0 violations**) because current collection carries more source/research trail rows than the committed fixture.
+- The deployed `github-pages` artifact is ID `12085547834`, exact head SHA `9de62de`, size 7,767,004 bytes and
+  digest `sha256:744f5550ffdeec3431ac4f16dd98ac0c4a8670e3b997b9bfc66bc8a6095fff9e`; deployment `7133182736`
+  succeeded against the same SHA. GitHub's unavoidable legacy publisher (`38992090225`, deployment
+  `7133186725`) also succeeded first, and the canonical verified artifact then deployed last as designed.
+- Public [HTML](https://buffedlizard55-lab.github.io/MaltaProj3/),
+  [complete JSON](https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json),
+  [complete picks](https://buffedlizard55-lab.github.io/MaltaProj3/origination/), and
+  [flagged review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) were fetched after deployment.
+  HTML and JSON agree on the fresh timestamp and 34/25/9/24 counts; probability policy explicitly records
+  `hotspawn_votes_used: false`; the unresolved example retains blank probabilities plus its linked HLTV,
+  Polymarket, Kalshi, sportsbook, Valve and Hotspawn research trail. The workflow independently verified every
+  public category page and TWC/default parity; exact-head Playwright had already covered 320/390 px navigation,
+  no-JS behavior and WCAG A/AA before merge.
 
 ## Concurrent verification record — arena-bda02037 / PR #68
 
@@ -78,7 +103,7 @@ here rather than overwritten.
 | --- | --- | --- | --- |
 | R-1 Upgrade `/strategy/` with replayed Day-3 deciders, Day-4 lines/BO3 score-slip guidance and phone links | done 2026-10-17T01:05Z | arena-9866e1ba | Additive `scripts/build_strategy.py` and `tests/test_strategy.py` work; replays retained HLTV/TWC evidence, labels score math uncalibrated and never changes canonical probability data. |
 | R-2 Line-by-line TWC/Aurora/Day-4/unresolved verification dossier | done 2026-10-17T01:05Z | arena-9866e1ba | `data/research/9866e1ba/` and `tests/test_9866e1ba.py`; every claim has an official HTTPS source and observation timestamp, while unsupported values remain blank and flagged. |
-| R-3 Scoped verification, merge and live publication | implementation/checks merged; deployment handed to FI-3 | arena-9866e1ba | PR checks 38989867550, 38989867544 and 38989884713 passed; its reported pre-FI build was 447 Python tests, 370 audited rows/0 violations and 585 links. Main publication must still include FI-1 repairs and pass FI-3 parity verification. |
+| R-3 Scoped verification, merge and live publication | implementation/checks merged; deployment completed by FI-3 | arena-9866e1ba | PR checks 38989867550, 38989867544 and 38989884713 passed; its reported pre-FI build was 447 Python tests, 370 audited rows/0 violations and 585 links. Main publication now includes FI-1 repairs and passed FI-3's canonical public parity verification in run 38992090479. |
 
 Handoffs resolved during final integration: R correctly localized the nested Kalshi return defect already fixed by
 `cf0f52c`; its standard-schema `data/research/9866e1ba/flags.json` is now loaded by the executive review builder.
@@ -97,7 +122,7 @@ scopes are preserved and no other session's owned file is edited without a logge
 | W-1 Complete the TWC 2026 record from HLTV originals (all ten group-stage series incl. both Day-3 deciders), add the Day-4 semifinal and Day-5 final card with dated external-line observations, and refresh the contrarian leaderboard guidance (score-line base rates, where a contrarian play is defensible) | done 2026-10-17T00:40Z | arena-8fa2b226 | `data/edge-review.json`, `scripts/build_edge.py`, `scripts/build_twc.py`, `data/strategy-rules.json`, `scripts/build_strategy.py`, `tests/test_edge.py`/`tests/test_twc.py`/`tests/test_strategy.py` additions, new `data/research/8fa2b226/` | Dated research page, never a pricing override. No Hotspawn %, no HLTV fan votes, no invented scores or prices. |
 | W-2 Coverage: resolve more of the pipeline's blank picks. Audit every unresolved fixture against all five live providers, add evidence-linked scoped aliases where a provider genuinely lists the fixture, and publish runner-verified probe results for additional esportsbook endpoints (reachability is recorded honestly; no price is invented from a blocked endpoint) | done 2026-10-17T00:40Z | arena-8fa2b226 | `data/origination/aliases.json` (additive, evidence-linked), `scripts/discover_sources.py`, `scripts/collect.py` source-health list, new `scripts/coverage_probe.py`, `.github/workflows/pages.yml`, new `data/research/8fa2b226/` | No alias met the reviewed evidence bar, so none was added; the non-authoritative coverage probe and per-fixture rejection trail were published without changing production join thresholds. |
 | W-3 Mobile + executive-summary audit against the brief (one-tap links to picks, Day-4 guidance, unresolved section with inline limitations), plus diagnosis/fix of the post-#64 `verify_live` failure on main (run 38963040905) | done 2026-10-17T00:40Z | arena-8fa2b226 | `scripts/build.py` (exec-summary section only), `assets/*.css` mobile rules, `tests/browser/*`, `scripts/verify_live.py` | Fix only what a reproduced failure proves; every other-session check is preserved. |
-| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | local/PR work done 2026-10-17T00:45Z; merged 2026-10-17T01:02Z; deploy handed to FI-3 | arena-8fa2b226 | `COORDINATION.md`, README additions | PR #65 merged as `179d473`; canonical run 38989106868 failed before deployment on the pre-FI repair tree, so only FI-3 may close final publication. |
+| W-4 Integration: full unit + Playwright suite, build replay, row-source audit, PR to main, merge, Pages deploy verification, records here | local/PR work done 2026-10-17T00:45Z; merged 2026-10-17T01:02Z; final deployment completed by FI-3 at 01:47Z | arena-8fa2b226 | `COORDINATION.md`, README additions | PR #65 merged as `179d473`; canonical run 38989106868 failed before deployment on the pre-FI repair tree. FI-3 subsequently integrated the repair and closed final publication with successful run 38992090479. |
 
 
 Concurrency note (resolved at merge): `arena-138f48b7` claimed at the same minute and PR #66 landed on main
@@ -121,8 +146,9 @@ resolves PR #70's logged risk that a fallback could combine an older inventory p
 originals. Main run [38990980427](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38990980427)
 then proved the anchor repair (96 rows reconciled) and exposed the retained-byte hash mismatch that FI had already
 fixed in `0ee493d`. PR [#73](https://github.com/buffedlizard55-lab/MaltaProj3/pull/73) merged the runner evidence
-and `8fa2b226-twc-evidence-hash-blocker` review flag as `2c4c87a`; the flag remains blocking until FI-3 observes a
-fresh successful deploy. No probability, pick, result or join changed in any repair.
+and `8fa2b226-twc-evidence-hash-blocker` review flag as `2c4c87a`. FI-3 then observed canonical run
+`38992090479` deploy a fresh snapshot successfully, so the finding is now labeled as a resolved historical warning
+with the exact run, merge SHA and artifact digest. No probability, pick, result or join changed in any repair.
 
 ## Completion record — arena-8fa2b226 (2026-10-17T00:45Z)
 
