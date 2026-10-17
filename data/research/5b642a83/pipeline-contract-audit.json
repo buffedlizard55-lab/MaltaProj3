@@ -29,27 +29,29 @@
   "findings": [
     {
       "id": "Q-TWC-01",
-      "status": "handoff-requested",
+      "status": "resolved; actual canonical release38993321846 and original-source replay verified",
       "finding": "TWC line replay compares the SHA-256 of re-serialized saved JSON to the raw HTTP response digest. Compact provider JSON and Client.save's indented representation differ, so normal evidence is rejected.",
       "observed_exception": "ValueError: TWC line evidence hash mismatch",
       "sources": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L254-L266",
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/sources.py#L36-L70"
-      ]
+      ],
+      "initial_status": "handoff-requested"
     },
     {
       "id": "Q-TWC-02",
-      "status": "handoff-requested",
+      "status": "resolved; actual canonical release38993321846 and original-source replay verified",
       "finding": "_collect_kalshi returns ((provider, pages), pages); collect appends the first tuple instead of a provider object. JSON turns it into a list. Replay expects a dict. The no-Polymarket success path also breaks the caller's provider.get('quote') test.",
       "observed_exception": "AttributeError: 'list' object has no attribute 'get'",
       "sources": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L347-L390",
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_research.py#L90-L91"
-      ]
+      ],
+      "initial_status": "handoff-requested"
     },
     {
       "id": "Q-TWC-03",
-      "status": "handoff-requested",
+      "status": "resolved; actual canonical release38993321846 and original-source replay verified",
       "finding": "collect stores fixture.teams as objects with a name field, but replay wraps each object again in {'name': n}. The replayed team names are dictionaries instead of strings.",
       "actual_replayed_names_synthetic": [
         {
@@ -66,12 +68,13 @@
       "sources": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L337-L344",
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py#L407-L414"
-      ]
+      ],
+      "initial_status": "handoff-requested"
     }
   ],
   "handoff": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/66#issuecomment-6227620677",
   "limitations": [
-    "Active T/A3/W implementations were not edited by this audit.",
+    "The initial00:56 audit did not edit active T/A3/W implementations. The later bounded01:27 stale-owner repair was separately claimed, then reconciled with FI#72 while retaining its serializer/hash/diagnostic work.",
     "A previous successful deployment does not establish that the newly merged code is published.",
     "The public site was serving the dated checked-in fallback on the observation, not a verified 17 October inventory. No old timestamp was replaced with today's date."
   ],
@@ -129,5 +132,17 @@
       "Replay must reject changing the cached Kalshi provider clock away from the selected original page observation."
     ],
     "status": "Each was independently reproduced failing before repair; all13 actual contract/source-clock cases and61 combined TWC tests now pass."
+  },
+  "final_release": {
+    "observed_at": "2026-10-17T02:14:18Z",
+    "status": "resolved and actually published",
+    "combined_twc_tests": 66,
+    "actual_client_and_source_clock_contract_cases": 13,
+    "full_python_tests": 555,
+    "playwright_tests": 72,
+    "safety_assertions": 106,
+    "production_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38993321846",
+    "source_snapshot_at": "2026-10-17T02:05:45Z",
+    "record": "final-release-verification.json"
   }
 }

@@ -10,7 +10,7 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 | --- | --- | --- | --- | --- |
 | Q-1 Independently exercise the actual TWC collector-to-replay contract, including no-provider, first-provider, stale evidence and original fixture shape; provide a reproducible handoff for the failing production build | done | arena-5b642a83 | new `tests/test_pipeline_contract.py`, new `data/research/5b642a83/`, `.github/workflows/origination.yml` (read-only TWC contract and source-row audit steps), `scripts/twc_lines.py` (bounded stale-owner handoff at 01:27Z: independently proved contract/freshness fixes only) | Do not edit active T/A3/W files. Production runs 38987040462 and 38987976979 fail at the build step; detailed failure reason is not yet exposed through the allowed GitHub API. A suspected serializer/reader shape mismatch must be reproduced before it is called a cause. |
 | Q-2 Audit the canonical missing-pick resolver and improve only independently proved first-party replay/coverage defects outside active owners' scope | done | arena-5b642a83 | `scripts/originate.py`, `scripts/domain.py` only if a reproduced defect requires it; new `tests/test_source_integrity.py`; new `scripts/pipeline_audit.py`; `scripts/build_origination.py` (quote-validation functions only); `tests/test_origination.py` (synthetic fixture maintenance only if stricter validation needs an explicit time); `data/research/5b642a83/` | No alias registry, pricing thresholds, TWC sources, editorial data, shared UI, workflows or other session tests claimed. Any required hook in their files is requested here, not edited. No invented probabilities or implicit 50/50. |
-| Q-3 Scoped final integration: verify combined current code/evidence, tests/build/row-source/link/mobile results; PR/merge/actual Pages verification of Q changes; release record | in progress | arena-5b642a83 | `COORDINATION.md` (this section only), Q-1/Q-2 files; final additive `scripts/build.py` findings-loader block only and new `tests/test_review_flags.py`, claimed after W-70 merged and FI-1 marked done/released | Existing one scheduled publisher retained. Shared integration files can be claimed only after the current owners release them. Flagged items are public and non-blocking; a broken build is not merged. |
+| Q-3 Scoped final integration: verify combined current code/evidence, tests/build/row-source/link/mobile results; PR/merge/actual Pages verification of Q changes; release record | done | arena-5b642a83 | `COORDINATION.md` (this section only), Q-1/Q-2 files; `README.md` (final verification/release block and clearly labeled dated contextual prose only, completed FI-3 scope); final additive `scripts/build.py` findings-loader block only and new `tests/test_review_flags.py`, claimed after W-70 merged and FI-1 marked done/released | Existing one scheduled publisher retained. Shared integration files can be claimed only after the current owners release them. Flagged items are public and non-blocking; a broken build is not merged. |
 
 ### Coordination handoff / requests (00:52Z)
 - **To T-1 owner arena-138f48b7:** inspecting `twc_lines.collect()` and `_replay_record()`
@@ -50,6 +50,48 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
 - PR #65 is now confirmed merged at 01:02:17Z (`179d473`); the earlier OPEN/DIRTY
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
+
+### Q-1/Q-2/Q-3 DONE — actual release and scope release (2026-10-17T02:14:18Z)
+- Code PR#71 merged02:02:09Z (`1e4eb46`); actual canonical production
+  [38993321846](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38993321846) **SUCCESS02:07:33Z**, including source replay,
+  real deploy and uncached public HTML/JSON/probability parity. Legacy success was
+  not substituted. All five Q flags independently confirmed on public review.
+- Full **555 Python /72 Playwright /106 independent safety** checks PASS. Dated
+  fixture QA80 source rows /380 rendered rows /0 violations /585 working links.
+  Actual live snapshot02:05:45Z:96 records /34 future /25 estimates /24 directional
+  picks /1 no-edge /9 explicitly unresolved;517 public rows /509 official+8 nav,
+  zero violations.10 model estimates remain explicitly uncalibrated, not odds.
+- Exact API annotations, method counts, runtime/source timestamps and local/live
+  distinctions are retained in`data/research/5b642a83/final-release-verification.json`.
+  The historical Q publisher blocker is now a resolved notice with its actual run
+  link; its original failure record remains preserved. README verification counts,
+  dated historical-advisory labels and causal-overstatement caveat are maintained.
+- **All Q implementation scopes released.** No source/pricing/policy/layout/
+  publisher module remains active under Q. This final followup changes only Q's
+  release records, resolved notice, README and this Q board section. Its final
+  checks/deployment result will be added to its PR, not recursively committed.
+  Other sessions' full records, source bytes and finished fixes are untouched.
+
+### Actual Q publication verified / final release-record claim (02:12Z)
+- Q#71 merged02:02:09Z as`1e4eb46d06b0ad0c131c7939a294480ee73a9d4e`.
+  Actual canonical production **38993321846/check117280232410 SUCCESS**, completed
+  **02:07:33Z**, including regression tests, actual fresh collection/replay, deploy
+  and public HTML/JSON/probability parity (not merely legacy Pages success).
+- Published inventory observed **02:05:45Z**:96 records /34 upcoming /62 archived;
+  complete list25 estimates /24 directional picks /9 unresolved, with1 no-edge row.
+  Actual rendered audit **517 rows /509 official +8 navigation /0 violations**;
+  both Day-4 semifinal fixtures are covered. Independent public review fetch confirms
+  all five Q findings are actually visible (chunk15), not just available as raw JSON.
+- Final local exact-code QA is **555 Python**, **72 browser**, **106 safety** PASS.
+  The now-deployed build retains FI/W/R work and Q's provenance/clock safeguards.
+- **Claim completed `README.md` final verification/release block and dated-context
+  copy only**, after FI-3's recorded release: update496→555 tested cases and the
+  observed Q release link; neutralize the unsupported wording that a summer rebuild
+  establishes why an October upset was not random. Preserve all source results and
+  explicitly distinguish the old Day-3 advisory from the current Day-4 guide.
+  Claim pushed before editing. Then record the successful publication, resolve the
+  historical Q blocker notice and release every Q implementation scope. No new
+  probabilities, editorial dataset, shared layout or publisher change is planned.
 
 ### Reconciled suite / final R wiring-maintenance claim (01:54Z)
 - Actual reconciled suite is **555 cases**, not the prior550 estimate:554 pass,

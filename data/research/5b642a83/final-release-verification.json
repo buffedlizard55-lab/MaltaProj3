@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "session": "arena-5b642a83",
+  "verified_at": "2026-10-17T02:14:18Z",
+  "code_pr": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/71",
+  "tested_code_commit": "bf93a54ef85270078bed47404c43b9765028902c",
+  "merge_commit": "1e4eb46d06b0ad0c131c7939a294480ee73a9d4e",
+  "merged_at": "2026-10-17T02:02:09Z",
+  "canonical_production": {
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38993321846",
+    "check_id": 117280232410,
+    "conclusion": "success",
+    "completed_at": "2026-10-17T02:07:33Z",
+    "annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117280232410/annotations",
+    "publication": {
+      "inventory_observed_at": "2026-10-17T02:05:45Z",
+      "coverage_complete": true,
+      "counts": {
+        "inventory": 96,
+        "upcoming": 34,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "market": 7,
+        "bookmaker": 3,
+        "model": 9,
+        "unresolved": 15,
+        "picks": 18,
+        "no_edge": 1
+      },
+      "pages_mode": "legacy"
+    },
+    "complete_picks": {
+      "active": 34,
+      "resolved": 25,
+      "unresolved": 9,
+      "with_pick": 24,
+      "consensus": 3,
+      "market": 9,
+      "bookmaker": 3,
+      "model": 10,
+      "alias_joined": 6
+    },
+    "row_source_audit": {
+      "rows": 517,
+      "ok": 509,
+      "flagged": 0,
+      "navigation": 8,
+      "violation": 0
+    },
+    "annotations": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 19,
+        "start_column": null,
+        "end_line": 19,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Public complete-picks counts: {\"active\": 34, \"resolved\": 25, \"unresolved\": 9, \"with_pick\": 24, \"consensus\": 3, \"market\": 9, \"bookmaker\": 3, \"model\": 10, \"alias_joined\": 6}",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 18,
+        "start_column": null,
+        "end_line": 18,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Row-source audit: {\"rows\": 517, \"ok\": 509, \"flagged\": 0, \"navigation\": 8, \"violation\": 0}",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 17,
+        "start_column": null,
+        "end_line": 17,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Leaderboard plan published with its slate and unresolved section",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 16,
+        "start_column": null,
+        "end_line": 16,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "TWC probabilities and defaults match this deployment’s complete-picks snapshot",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 13,
+        "start_column": null,
+        "end_line": 13,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Public Day-4 canonical fixture coverage: 2",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 14,
+        "start_column": null,
+        "end_line": 14,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "Publication snapshot",
+        "message": "{\"inventory_observed_at\": \"2026-10-17T02:05:45Z\", \"coverage_complete\": true, \"counts\": {\"inventory\": 96, \"upcoming\": 34, \"archived\": 62, \"unknown_schedule\": 0, \"market\": 7, \"bookmaker\": 3, \"model\": 9, \"unresolved\": 15, \"picks\": 18, \"no_edge\": 1}, \"pages_mode\": \"legacy\"}",
+        "raw_details": ""
+      }
+    ]
+  },
+  "local_qa": {
+    "code_commit": "bf93a54ef85270078bed47404c43b9765028902c",
+    "python": {
+      "command": ".venv/bin/python -m unittest discover -s tests -v",
+      "tests": 555,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 161.348
+    },
+    "playwright": {
+      "command": "npx playwright test",
+      "tests": 72,
+      "failures": 0
+    },
+    "independent_safety": {
+      "command": "node tests/pick-safety-browser.mjs",
+      "assertions": 106,
+      "failures": 0
+    },
+    "source_rows_replayed": 80,
+    "rendered_rows": 380,
+    "official_source_linked": 372,
+    "navigation_rows": 8,
+    "source_violations": 0,
+    "internal_links_assets_anchors": 585,
+    "limitation": "These local fixture counts are distinct from actual production96-source-record/517-rendered-row figures, not retimed as live coverage."
+  },
+  "public_inspection": {
+    "review_url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/index.html?release=1e4eb46-q",
+    "review_observation": "Public rendered review at inventory02:05:45Z independently includes all five Q findings; chunk15 contains their displayed titles/details and source links.",
+    "day4_json_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/twc-day4-picks.json?release=1e4eb46-q",
+    "source_snapshot_at": "2026-10-17T02:05:45Z",
+    "coverage": 2,
+    "limitation": "Rendered-page extraction can include hidden stale-warning text or a cached route. The canonical runner independently fetched uncached public HTML/JSON and checked exact generated-snapshot/probability parity after actual deploy; raw response originals are retained by that run, not fabricated from the extraction."
+  },
+  "limitations": [
+    "Nine fixtures remain explicitly unresolved; no price or pick is inferred.",
+    "Twenty-five supported estimates comprise15 external-money lines and10 uncalibrated rating-model estimates; they are not25 independently verified true win probabilities.",
+    "Twenty-four directional picks plus one no-edge row are not25 directional recommendations. The actual paired1.85/1.85 bookmaker line for FURIA–Aurora normalizes to50/50; it is retained as no edge, not a fabricated fallback or forced contrarian pick.",
+    "Sleep/travel/rebuild/veto numerical adjustments remain unverified and unapplied. Historical HLTV reporting is not reclassified as primary club/organizer confirmation.",
+    "Pages mode remains legacy after a403 integration-permission restriction. The single canonical workflow waits for that platform build, then publishes last and verifies public parity. No user credentials or manual action is required.",
+    "These are dated release observations. Later automatic refreshes can legitimately change fixture coverage, prices, supported methods and unresolved counts."
+  ]
+}

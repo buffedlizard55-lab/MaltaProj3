@@ -58,5 +58,88 @@
       }
     ],
     "limitation": "Actual read-only live audit collects and replays all sources then builds linked pages, but does not deploy. Later public production parity remains separately required."
+  },
+  "final_publication": {
+    "observed_at": "2026-10-17T02:14:18Z",
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38993321846",
+    "input_commit": "1e4eb46d06b0ad0c131c7939a294480ee73a9d4e",
+    "conclusion": "success",
+    "completed_at": "2026-10-17T02:07:33Z",
+    "source_snapshot_at": "2026-10-17T02:05:45Z",
+    "annotations": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 19,
+        "start_column": null,
+        "end_line": 19,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Public complete-picks counts: {\"active\": 34, \"resolved\": 25, \"unresolved\": 9, \"with_pick\": 24, \"consensus\": 3, \"market\": 9, \"bookmaker\": 3, \"model\": 10, \"alias_joined\": 6}",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 18,
+        "start_column": null,
+        "end_line": 18,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Row-source audit: {\"rows\": 517, \"ok\": 509, \"flagged\": 0, \"navigation\": 8, \"violation\": 0}",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 17,
+        "start_column": null,
+        "end_line": 17,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Leaderboard plan published with its slate and unresolved section",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 16,
+        "start_column": null,
+        "end_line": 16,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "TWC probabilities and defaults match this deployment’s complete-picks snapshot",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 13,
+        "start_column": null,
+        "end_line": 13,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "",
+        "message": "Public Day-4 canonical fixture coverage: 2",
+        "raw_details": ""
+      },
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/1e4eb46d06b0ad0c131c7939a294480ee73a9d4e/.github",
+        "start_line": 14,
+        "start_column": null,
+        "end_line": 14,
+        "end_column": null,
+        "annotation_level": "notice",
+        "title": "Publication snapshot",
+        "message": "{\"inventory_observed_at\": \"2026-10-17T02:05:45Z\", \"coverage_complete\": true, \"counts\": {\"inventory\": 96, \"upcoming\": 34, \"archived\": 62, \"unknown_schedule\": 0, \"market\": 7, \"bookmaker\": 3, \"model\": 9, \"unresolved\": 15, \"picks\": 18, \"no_edge\": 1}, \"pages_mode\": \"legacy\"}",
+        "raw_details": ""
+      }
+    ],
+    "limitation": "This actual post-merge canonical deployment is separate from all preceding read-only audits and the dated15October repository fixture register."
   }
 }
