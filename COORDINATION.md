@@ -1,3 +1,26 @@
+# Session arena-75ef1662 — final usability and truthful coverage audit
+
+Fixed branch: `arena/75ef1662-maltaproj3`. Claimed 2026-10-17T09:48Z.
+Existing Q/T/W/FI implementation scopes are released by their completion records.
+Open PR #67 owns only its own `data/research/e2ce6ccb/` audit; it is not imported or edited.
+Historical active task cells are superseded by their explicit publication records.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S-1 Audit current publication and source-linked TWC/coverage limitations; retain dated official runner observations | in progress | arena-75ef1662 | new `data/research/75ef1662/` only |
+| S-2 Repair verified executive-summary navigation/coverage wording defects; independently test phone and no-JS routes | in progress | arena-75ef1662 | `scripts/build.py` summary function only, new `tests/test_summary_navigation.py`, new `tests/browser/summary_navigation.spec.mjs` |
+| S-3 Final integration validation, PR, merge and real Pages verification | in progress | arena-75ef1662 | preceding files plus this board section; no other-session implementation scope |
+
+Initial observation: latest official publisher run 39012768749 succeeded but its
+publication annotation explicitly says `coverage_complete=false` and inventory
+observed 04:27:55Z. Success of deployment is not proof of fresh complete coverage.
+The public executive summary nevertheless calls Day-4 records “reconciled”, and
+the Next matches “All match picks” link leads to the featured-only audit view.
+These bounded presentation defects will be regression-tested before correction.
+No probability, alias, match outcome, roster premium or source threshold is claimed.
+Live source collection remains in the existing single scheduled runner; this sandbox
+cannot directly reach source hosts outside the supplied network allowlist.
+
 # Current session: arena-5b642a83 — production-contract audit and safe complete-pick coverage
 
 Claimed 2026-10-17T00:52Z on the fixed Arena branch `arena/5b642a83-maltaproj3`.
