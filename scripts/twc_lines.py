@@ -44,6 +44,7 @@ KALSHI_PAGE = 'https://kalshi.com/markets/kxcs2game/counterstrike-2-game'
 KALSHI_SERIES = 'KXCS2GAME'
 DOCS = 'https://docs.kalshi.com/api-reference/market/get-markets'
 REPORT = Path('evidence/twc-day4-lines.json')
+DAY5_REPORT = Path('evidence/twc-day5-lines.json')
 MAX_SPREAD = 0.12
 MAX_KALSHI_PAGES = 5
 HISTORY_READS = 6  # Earlier pipeline reads retained for verified line movement.
@@ -289,9 +290,9 @@ def _record_evidence(client, labels: list) -> list:
     return out
 
 
-def _previous_reads(client) -> list:
+def _previous_reads(client, report_path=REPORT) -> list:
     """Earlier pipeline reads, carried forward so movement stays verifiable."""
-    path = client.evidence / 'twc-day4-lines.json'
+    path = client.evidence / report_path.name
     if not path.exists():
         return []
     try:
@@ -304,11 +305,13 @@ def _previous_reads(client) -> list:
     return out[-HISTORY_READS:]
 
 
-def collect(client, research_rows: list, registry: dict, day: str, now: datetime) -> dict:
+def collect(client, research_rows: list, registry: dict, day: str, now: datetime, *, report_path=REPORT) -> dict:
     """Discover, validate and retain external Day-4 lines for TWC fixtures."""
     targets = fixtures(research_rows, day)
     stamp = now.strftime('%Y%m%dT%H%M')
-    history = _previous_reads(client)
+    if report_path not in {REPORT, DAY5_REPORT}:
+        raise ValueError('Unsupported tournament line report path')
+    history = _previous_reads(client, report_path)
     games, poly_health = ([], None)
     if targets:
         try:
@@ -370,7 +373,7 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
               'request_manifest': list(client.manifest)}
-    client.save('twc-day4-lines', report)
+    client.save(report_path.stem, report)
     return report
 
 
@@ -493,7 +496,7 @@ def _movement(row: dict, earlier: dict | None) -> dict | None:
             'label': 'Change against the previous validated read of the same fixture.'}
 
 
-def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
+def load(source: Path, now: datetime, registry: dict | None = None, *, report_file=REPORT) -> dict:
     """Replay retained originals and return validated Day-4 lines.
 
     Stored probabilities are never trusted: each provider is recomputed from the
@@ -503,11 +506,13 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     between two verified observations rather than a remembered number; a read
     whose originals are gone is dropped instead of being trusted.
     """
+    if report_file not in {REPORT, DAY5_REPORT}:
+        raise ValueError('Unsupported tournament line report path')
     folder = source / 'research/twc-current'
-    report_path = folder / REPORT
+    report_path = folder / report_file
     if not report_path.exists():
         folder = source / 'research/138f48b7/twc-current'
-        report_path = folder / REPORT
+        report_path = folder / report_file
     empty = {'schema_version': 1, 'available': False, 'day': None, 'observed_at': None,
              'matches': [], 'reasons': {}, 'report_path': None, 'policy': POLICY}
     if not report_path.exists():
@@ -516,7 +521,7 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     # Evidence paths are stored relative to the research folder, which is the
     # report's own folder minus the report's relative path.
     folder = report_path.parent
-    for _ in range(len(REPORT.parts) - 1):
+    for _ in range(len(report_file.parts) - 1):
         folder = folder.parent
     registry = registry if registry is not None else _registry()
     matches, reasons = [], {}

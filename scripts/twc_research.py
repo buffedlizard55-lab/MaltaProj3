@@ -23,6 +23,7 @@ from scripts import twc_lines
 
 EVENT_URL = 'https://www.hltv.org/events/8932/thunderpick-world-championship-2026'
 TARGET_DAY = '2026-10-17'
+FINAL_DAY = '2026-10-18'
 OBSERVATIONS = Path('research/138f48b7/day4-market-observations.json')
 FOLDER = Path('research/twc-current')
 DAY3_URLS = [
@@ -38,11 +39,43 @@ def discovered_urls(text):
                    if re.fullmatch(r'/matches/\d+/[a-z0-9-]*thunderpick-world-championship-2026', a['href'])})
 
 
+
+def retained_discovery_urls(source: Path):
+    """Previously observed links are discovery leads only, never current facts.
+
+    Event schedules can stop linking completed rounds. Replay retained originals
+    to keep those known match pages in the refresh, without guessing URL slugs.
+    """
+    urls = set()
+    for relative in [FOLDER, Path('research/8a6a5a84/twc-current')]:
+        folder = source / relative
+        manifest = folder / 'source-report.json'
+        if not manifest.exists():
+            continue
+        report = json.loads(manifest.read_text())
+        for page in report.get('pages', []):
+            if page.get('request', {}).get('status') != 'ok' or not page.get('original_response'):
+                continue
+            original = folder / page['original_response']
+            if original.resolve().parent != folder.resolve():
+                raise ValueError('TWC discovery path escapes research folder')
+            raw = gzip.decompress(original.read_bytes())
+            if hashlib.sha256(raw).hexdigest() != page.get('stored_sha256'):
+                raise ValueError('TWC discovery original hash mismatch')
+            url = page['request']['url']
+            if url.startswith('https://www.hltv.org/'):
+                urls.update(discovered_urls(raw.decode()))
+                if re.fullmatch(r'https://www\.hltv\.org/matches/\d+/[a-z0-9-]*thunderpick-world-championship-2026', url):
+                    urls.add(url)
+    # One request per stable match ID, even when the source changes the slug.
+    return set({url.split('/')[4]: url for url in sorted(urls)}.values())
+
+
 def collect(source: Path):
     folder = source / FOLDER
     folder.mkdir(parents=True, exist_ok=True)
     client = Client(folder)
-    pages, urls = [], set(DAY3_URLS)
+    pages, urls = [], set(DAY3_URLS) | retained_discovery_urls(source)
     for label, url in [('event', EVENT_URL), ('matches', 'https://www.hltv.org/events/8932/matches'),
                        ('results', 'https://www.hltv.org/results?event=8932'),
                        ('hotspawn-tournament', 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/tournaments/thunderpick-world-championships?tenantId=1'),
@@ -58,7 +91,7 @@ def collect(source: Path):
         except SourceError:
             pages.append({'label': label, 'request': dict(client.manifest[-1])})
     # The event has a small finite bracket. Never follow arbitrary embedded links.
-    for url in sorted(urls)[:24]:
+    for url in sorted({url.split('/')[4]: url for url in sorted(urls)}.values())[:24]:
         label = 'match-' + url.split('/')[4]
         try:
             text, req = client.fetch(url, 'twc-' + label)
@@ -90,6 +123,13 @@ def collect(source: Path):
     print('::notice title=TWC day4 lines::' + json.dumps({'observed_at': lines['observed_at'],
                                                           'fixtures': len(lines['records']),
                                                           'resolved': len(resolved)}))
+    day5 = twc_lines.collect(client, rows, registry, FINAL_DAY, datetime.now(timezone.utc),
+                             report_path=twc_lines.DAY5_REPORT)
+    report['day5_lines'] = {'report': twc_lines.DAY5_REPORT.as_posix(),
+                            'fixtures': len(day5['records']),
+                            'resolved': sum(any(p.get('quote') for p in r['providers']) for r in day5['records']),
+                            'observed_at': day5['observed_at']}
+    print('::notice title=TWC day5 lines::' + json.dumps(report['day5_lines']))
     (folder / 'source-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     return report
 
@@ -142,7 +182,7 @@ def load_observations(source: Path) -> list:
     return payload.get('fixtures') or []
 
 
-def derive_day4(data, source: Path, now):
+def derive_day4(data, source: Path, now, *, target_day=TARGET_DAY, line_report=twc_lines.REPORT):
     """Join only exact teams/event/date/time; use canonical prices unchanged."""
     from scripts.domain import name_key
     from scripts.pick_safety import presentation, valid_pair
@@ -153,8 +193,8 @@ def derive_day4(data, source: Path, now):
     by_id = {m['id']: m for m in complete.get('matches', [])}
     event_name = 'Thunderpick World Championship 2026'
     fixtures = [m for m in data['matches'] if name_key(m.get('competition') or '') == name_key(event_name)
-                and str(m.get('starts_at') or '').startswith(TARGET_DAY)]
-    records = [r for r in research['pages'] if str(r['facts'].get('starts_at') or '').startswith(TARGET_DAY)]
+                and str(m.get('starts_at') or '').startswith(target_day)]
+    records = [r for r in research['pages'] if str(r['facts'].get('starts_at') or '').startswith(target_day)]
     rows, consumed = [], set()
     for fixture in fixtures:
         row = by_id.get(fixture['id'])
@@ -194,7 +234,8 @@ def derive_day4(data, source: Path, now):
     # Tournament-card lines are replayed from retained external originals. They
     # are attached beside the canonical pair, never over it, and only a fixture
     # without a supported estimate is allowed to use one as its own line.
-    lines = twc_lines.load(source, now)
+    lines = (twc_lines.load(source, now) if line_report == twc_lines.REPORT else
+             twc_lines.load(source, now, report_file=line_report))
     for row in rows:
         if row['analysis'] is None:
             row['line'] = twc_lines.for_fixture(lines, row['teams'], row['fixture']['starts_at'])
@@ -210,7 +251,7 @@ def derive_day4(data, source: Path, now):
                          'score': facts['score'], 'maps': facts['maps'], 'finished': facts['finished'],
                          'source_url': r['source_url'], 'observed_at': r['observed_at'],
                          'lesson': 'Use the completed series as matchup context, not a new win-rate sample or proof the earlier odds were wrong.' if facts['score'] else 'Result unverified. A past scheduled start does not establish a winner.'})
-    return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': TARGET_DAY, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
+    return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': target_day, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
             'day3_results': day3, 'research_report': str(FOLDER / 'source-report.json') if (source / FOLDER / 'source-report.json').exists() else 'research/8a6a5a84/twc-current/source-report.json',
             'lines': {'available': lines['available'], 'day': lines['day'], 'observed_at': lines['observed_at'],
                       'report_path': lines['report_path'], 'policy': lines['policy'],

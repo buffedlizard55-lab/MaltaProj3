@@ -2260,3 +2260,16 @@ handoff; no V-owned file is edited by this session.
 - Follow-up hygiene: moved the Day-4 public-coverage annotation out of the pure parity helper into the actual public verifier, so synthetic unit vectors cannot emit an ambiguously labelled public-inventory annotation. No probability, source, UI or selection rule changed.
 - Live: <https://buffedlizard55-lab.github.io/MaltaProj3/> · full picks `/origination/#picks` · Day-4 guide `/twc-picks/#day-four-picks` · remaining limits `/origination/#unresolved` and `/review/`. Four-hour schedule is a target, not a delivery guarantee. Unresolved evidence, reporter-vs-organizer verification, weekly-vs-tournament scope and legacy Pages-mode limitations remain public and nonblocking.
 - N-1 and N-2 **done; all N implementation scopes released**. U-1/U-2 remains independently owned by `arena-35440d12`; conditional integration hooks are in place and no U-owned source/strategy file was edited. No V implementation was imported. A record-only/parity-log follow-up will be merged from the same fixed branch; its own deployment result is recorded on its PR to avoid recursive publication-only commits.
+
+### D5-1 diagnosis / D5-2 collector repair — arena-ed853bdd
+- Reproduced **582 tests / 1 failure** locally: the API-only inventory UI test
+  used 04:27Z fixture data against wall clock and asserted it remained fresh.
+  The runtime correctly expired it after eight hours. Freeze only that test's
+  clock and add the inverse >8-hour stale test; no production freshness rule
+  or regression gate is weakened. 63 focused tests pass after repair.
+- Source audit run [39065939145](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39065939145)
+  replayed 18 active fixtures /10 supported estimates /8 unresolved at20:15:37Z.
+  It discovered only group-stage HLTV links. Retained hash-verified HLTV originals
+  explicitly contain all four playoff match URLs. Revisit those URLs as leads,
+  never use retained facts as current results, and retain separate Day-5 lines.
+  Original annotations retained in `data/research/ed853bdd/` for manual review.
