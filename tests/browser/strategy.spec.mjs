@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import { python } from './python.mjs';
 
 // The page under test is a synthetic fixture built with a pinned clock (see strategy_fixture.py),
 // so these checks never depend on live data or on the time they run.
@@ -9,7 +10,7 @@ const PAGE = '/_fixture/strategy/';
 const BUILD_TIME = '2026-10-16T09:00:00Z';
 
 test.beforeAll(() => {
-  execFileSync(process.env.PYTHON || 'python', ['tests/browser/strategy_fixture.py'], { stdio: 'inherit' });
+  execFileSync(python(), ['tests/browser/strategy_fixture.py'], { stdio: 'inherit' });
 });
 
 test.afterAll(() => {

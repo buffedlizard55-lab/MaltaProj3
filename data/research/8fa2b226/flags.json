@@ -1,0 +1,46 @@
+[
+  {
+    "id": "8fa2b226-verify-live-diagnostics",
+    "severity": "warning",
+    "title": "One main-branch deploy reported a post-deploy verification failure that could not be read from the log",
+    "detail": "Run 38963040905 (push after PR #64, 2026-10-16T20:32Z) succeeded through deploy-pages and failed only at 'Verify the public site, its complete data and category pages'. The next two scheduled runs (38971337290 at 21:17Z and 38978237118 at 22:47Z) passed the same step, and the live site serves the 22:54Z snapshot with a complete inventory, so no deployment was lost. The cause could not be read in this sandbox because Actions log downloads redirect to a host outside the allowed network. Session arena-8fa2b226 therefore made the verifier publish its own numbers as a workflow annotation, so the next occurrence is diagnosable from the API rather than needing the raw log. No probability, page or data behaviour was changed as a guess at the cause.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38963040905",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38978237118"
+    ]
+  },
+  {
+    "id": "8fa2b226-coverage-probe",
+    "severity": "notice",
+    "title": "Every blank pick now ships a per-fixture probe dossier (leads, blockers and provider errors)",
+    "detail": "scripts/coverage_probe.py re-tests each unresolved fixture against the provider listings the collector already saved, using the production join, so the published reason is the real rejection (display name / listed start time / market state) rather than a generic 'no market'. It also re-checks five esportsbook endpoints for reachability. It writes no probability, no pick and no alias: a lead is only an entry a reviewed alias could close in data/origination/aliases.json. The step runs in the four-hour publisher and is non-fatal by design; the dossier is linked from the executive summary's unresolved section.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/coverage_probe.py"
+    ]
+  },
+  {
+    "id": "8fa2b226-book-endpoints-geo-blocked",
+    "severity": "warning",
+    "title": "Additional esportsbook endpoints checked from a second vantage point were refused; that is not proof that no market exists",
+    "detail": "On 2026-10-17T00:0xZ a 1xBet public line feed returned its own geo-block page for the request's country and Rivalry's documented public sports path returned HTTP 502 through its CDN. Those reads came from this sandbox's fetch tool, whose egress IP is not the GitHub runner's, so they are recorded as reachability observations only and are re-checked on the runner by the probe. GG.BET and Stake returned 403 to the collector. No price was taken from any of these endpoints and no fixture was resolved from a blocked one.",
+    "match_ids": [],
+    "source_urls": [
+      "https://1xbet.com/LineFeed/Get1x2_VZip?sports=71&count=25&mode=4&getEmpty=true",
+      "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal"
+    ]
+  },
+  {
+    "id": "8fa2b226-twc-dated-research-not-refreshed",
+    "severity": "notice",
+    "title": "The Day-4/Day-5 TWC card on the upset review page is dated research, not a live feed",
+    "detail": "The 17 October semifinal observations (Polymarket series moneyline bid/ask, midpoints, volume and liquidity; HLTV results and analytics statements) were read between 2026-10-16T23:52Z and 2026-10-17T00:16Z and are frozen with those times. The four-hour pipeline does not refresh them, the semifinals are not Hotspawn weekly-lobby fixtures, and the grand final plus third-place decider stay blank while the bracket is open. Market prices move: the numbers on the current picks pages, not this section, are the site's live estimates.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hltv.org/results?event=8932",
+      "https://gamma-api.polymarket.com/markets?slug=cs2-furia-aur1-2026-10-17",
+      "https://gamma-api.polymarket.com/markets?slug=cs2-fal2-bb3-2026-10-17"
+    ]
+  }
+]

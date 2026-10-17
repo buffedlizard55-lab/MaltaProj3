@@ -68,9 +68,16 @@ def verify_day4(expected, originated, twc, day4, page):
               and str(m.get('starts_at') or '').startswith('2026-10-17')}
     rows = day4.get('matches') or []
     if len(rows) != len(wanted) or {r['fixture']['id'] for r in rows} != set(wanted):
-        raise ValueError('Day-4 view omits or invents a Hotspawn fixture')
-    if len(page.select('#day-four-picks .twc-day4-card')) != len(rows):
-        raise ValueError('Day-4 HTML fixture coverage mismatch')
+        raise ValueError('Day-4 view omits or invents a Hotspawn fixture: ' + json.dumps({
+            'inventory_ids': sorted(wanted), 'data_ids': sorted(r['fixture']['id'] for r in rows),
+            'inventory_starts': {m['id']: m.get('starts_at') for m in wanted.values()},
+            'data_source_snapshot_at': day4.get('source_snapshot_at'),
+            'inventory_observed_at': expected.get('inventory_observed_at')}, ensure_ascii=False))
+    cards = {el.get('id') for el in page.select('#day-four-picks .twc-day4-card')}
+    if len(cards) != len(rows):
+        raise ValueError('Day-4 HTML fixture coverage mismatch: ' + json.dumps({
+            'html_cards': sorted(cards), 'data_cards': sorted('twc-day4-' + r['fixture']['id'] for r in rows)},
+            ensure_ascii=False))
     canonical = {m['id']: m for m in originated['matches']}
     for row in rows:
         fixture = row['fixture']
@@ -245,6 +252,13 @@ def main():
             return
         except (requests.RequestException, ValueError) as exc:
             if attempt == 11:
+                # Actions log downloads redirect to a host that is not always reachable, so the reason is
+                # published as a workflow annotation too: `gh api .../check-runs/<id>/annotations` returns it.
+                counts = (expected.get('counts') or {})
+                print('::error title=Public deployment verification failed::' +
+                      f"{type(exc).__name__}: {str(exc)[:1800]} | snapshot "
+                      f"{expected.get('inventory_observed_at')} | counts {json.dumps(counts)} | "
+                      f"coverage_complete={expected.get('coverage_complete')}")
                 raise SystemExit(f'Public deployment verification failed: {exc}') from exc
             print(f'Waiting for Pages/CDN propagation ({attempt + 1}/12): {exc}', flush=True)
             time.sleep(5)
