@@ -1,13 +1,14 @@
 [
   {
     "id": "5b642a83-live-contract-reproduction",
-    "severity": "warning",
-    "title": "Dated deployment blocker: actual TWC collector-to-replay audit failed",
-    "detail": "On 17 October at 00:58 UTC, the independent read-only source audit collected real public TWC responses but its replay rejected a saved Polymarket JSON file: the HTTP response digest and re-serialized stored-file digest were different. Separate actual-Client regressions also reproduce a malformed Kalshi provider tuple and double-wrapped fixture team names. This is a dated implementation finding, not a match-price claim or a successful deployment. The exact failure and handoff are retained in data/research/5b642a83/pipeline-contract-audit.json. A passing older deployment must not be cited as proof that these newer changes are live.",
+    "severity": "notice",
+    "title": "Resolved publisher incident: dated actual TWC collector-to-replay failure",
+    "detail": "On 17 October at 00:58 UTC, the independent read-only source audit collected real public TWC responses but its replay rejected a saved Polymarket JSON file: the HTTP response digest and re-serialized stored-file digest were different. Separate actual-Client regressions also reproduce a malformed Kalshi provider tuple and double-wrapped fixture team names. This is a dated implementation finding, not a match-price claim or a successful deployment. The exact failure and handoff are retained in data/research/5b642a83/pipeline-contract-audit.json. A passing older deployment must not be cited as proof that these newer changes are live. Resolution independently verified 17 October at 02:07:33 UTC: merged PR #71 canonical production 38993321846 successfully collected/replayed fresh sources, deployed and passed public HTML/JSON/probability parity for inventory observed at 02:05:45 UTC. The original failure remains dated audit history, not an active publication blocker.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38988718257",
       "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117266063070/annotations",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/66#issuecomment-6227717972"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/66#issuecomment-6227717972",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/38993321846"
     ],
     "match_ids": []
   },
