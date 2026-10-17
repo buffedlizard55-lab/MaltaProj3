@@ -142,6 +142,44 @@ class ActualCollectorReplay(unittest.TestCase):
                 self.assertEqual(move['delta'], [0.0, 0.0])
 
 
+class ProviderObservationContract(unittest.TestCase):
+    def fixture(self):
+        return twc_lines.fixtures([MATCH], '2026-10-17')[0]
+
+    def kalshi(self):
+        ticker = 'KXCS2GAME-26OCT171000SYNTHETIC'
+        return {'event_ticker': ticker, 'series_ticker': 'KXCS2GAME',
+                'product_metadata': {'competition': 'CS2'}, 'mutually_exclusive': True,
+                'markets': [{'ticker': ticker + '-' + suffix, 'yes_sub_title': name, 'status': 'active',
+                             'yes_bid_dollars': bid, 'yes_ask_dollars': ask,
+                             'rules_primary': 'This game was originally scheduled for Oct 17, 2026 at 10:00 AM EDT'}
+                            for name, suffix, bid, ask in (('Synthetic A', 'A', '0.59', '0.61'),
+                                                          ('Synthetic B', 'B', '0.39', '0.41'))]}
+
+    def test_kalshi_valid_current_observation_is_accepted(self):
+        quote, reason = twc_lines.kalshi_quote(self.kalshi(), self.fixture(), REGISTRY, iso(NOW), NOW)
+        self.assertIsNotNone(quote, reason)
+        self.assertEqual(quote['probabilities'], [0.6, 0.4])
+
+    def test_kalshi_stale_future_or_missing_source_observation_stays_blank(self):
+        for observed in (iso(NOW - timedelta(hours=9)), iso(NOW + timedelta(hours=1)), None):
+            with self.subTest(observed=observed):
+                quote, reason = twc_lines.kalshi_quote(self.kalshi(), self.fixture(), REGISTRY, observed, NOW)
+                self.assertIsNone(quote)
+
+    def test_combined_line_expires_from_the_oldest_contributing_observation(self):
+        fixture = self.fixture()
+        quote, reason = twc_lines.polymarket_quote(event(), [book('synthetic-token-a'), book('synthetic-token-b')],
+                                                    fixture, REGISTRY, NOW)
+        self.assertIsNotNone(quote, reason)
+        older = iso(NOW - timedelta(hours=7))
+        providers = [{'provider': name, 'quote': dict(quote, provider=name), 'status': 'resolved',
+                      'reason': '', 'source_url': quote['source_url'], 'observed_at': observed}
+                     for name, observed in (('Polymarket', older), ('Kalshi', iso(NOW)))]
+        row = twc_lines.analyse(providers, fixture)
+        self.assertEqual(row['observed_at'], older, 'A new provider response cannot re-age an older consensus input')
+
+
 class ReadOnlyRunnerAudit(unittest.TestCase):
     def test_session_source_audit_exercises_twc_collection_before_building(self):
         workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/origination.yml').read_text()

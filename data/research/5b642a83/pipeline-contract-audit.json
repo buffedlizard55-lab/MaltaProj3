@@ -100,5 +100,17 @@
         "title": "TWC collect/replay contract"
       }
     ]
+  },
+  "additional_observation_regressions": {
+    "observed_at": "2026-10-17T01:27:02Z",
+    "command": ".venv/bin/python -m unittest tests.test_pipeline_contract.ProviderObservationContract -v",
+    "tests": 3,
+    "result": "one positive-control test passes; stale/future rejection and oldest-source consensus tests fail (three failing subcases)",
+    "findings": [
+      "Kalshi accepts a source observation nine hours old and one hour in the future; no is_fresh guard is applied to its nested event quote.",
+      "The combined TWC line takes max(provider observation) rather than min; a newer provider can incorrectly extend the lifetime of an older contributing quote."
+    ],
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/03b391c96162d3ec1dce39442125d90cd9a96e51/scripts/twc_lines.py",
+    "status": "Independent tests only; T implementation still not edited at this observation."
   }
 }
