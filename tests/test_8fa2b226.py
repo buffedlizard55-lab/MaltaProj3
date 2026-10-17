@@ -2,9 +2,9 @@
 
 Three separate traps are guarded here, all of them real failures this repo has already produced once:
 
-1. a findings file under ``data/research/<session>/`` is invisible to the site unless its path is in
-   the loader tuple in ``scripts/build.py`` — so the tuple is asserted directly, not inferred from a
-   rendered page that might be rendering an older copy;
+1. a findings file under ``data/research/<session>/`` must be discovered by the current loader in
+   ``scripts/build.py`` — so its source-level glob wiring and exact file membership are asserted
+   directly, not inferred from a rendered page that might be rendering an older copy;
 2. the coverage probe has to stay *outside* the decision path: a dossier that ever grew a probability,
    a pick or an applied alias would mean a blank was filled by a guess;
 3. the probe step in the four-hour publisher has to be non-fatal. A blocking step whose only job is to
@@ -33,9 +33,11 @@ def read(path):
 
 
 class FlagsRegisterTests(unittest.TestCase):
-    def test_findings_file_is_registered_in_the_loader_tuple(self):
-        # Without this the file is silently never published, however well-formed it is.
-        self.assertIn("source / 'research/8fa2b226/flags.json'", BUILD)
+    def test_findings_file_is_discovered_by_the_current_loader(self):
+        # Preserve the wiring guard after the tuple became general discovery.
+        # A real-build integration regression also checks every rendered flag ID.
+        self.assertIn("for findings in sorted((source / 'research').glob('*/flags.json')):", BUILD)
+        self.assertIn(FLAGS, sorted((ROOT / 'data/research').glob('*/flags.json')))
 
     def test_every_flag_is_actionable_and_sourced(self):
         flags = read(FLAGS)

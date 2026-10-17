@@ -51,6 +51,16 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Completed wiring maintenance / FI merge handoff (01:48Z)
+- W's one source-level loader check now asserts the new exact generic loop and
+  membership of its unchanged flags file; all other W assertions are untouched.
+  Combined **88 W/review/actual-Client/TWC tests pass /41.167s**. Independent real
+  rendering still verifies every retained session flag, not a cached HTML copy.
+- PR#72 is now actually **MERGED**, independently read through GitHub API. Q will
+  rebase/preserve its full board and finished repair/diagnostic work, reconcile any
+  overlapping T implementation without dropping its stable fixture serializer,
+  then run final combined checks. A new real Pages result is not yet claimed.
+
 ### Final test maintenance claim / measured QA (01:46Z)
 - Full545-case suite ran:544 pass, exactly one old W assertion fails because it
   requires its literal path inside the former seven-session tuple. All W5 records
