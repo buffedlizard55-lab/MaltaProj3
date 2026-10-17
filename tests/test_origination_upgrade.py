@@ -106,6 +106,31 @@ class DecisionRule(unittest.TestCase):
         self.assertNotIn('upgraded_from_featured_model', r)
         self.assertEqual(r['origination']['method'], 'market')
 
+    def test_a_featured_bookmaker_tie_upgrades_to_a_directional_aliased_money_line(self):
+        m = match(None)
+        m['analysis'] = {**model_featured(), 'method': 'bookmaker', 'label': 'No-vig bookmaker estimate',
+                         'probabilities': [0.5, 0.5], 'source': 'Thunderpick',
+                         'source_url': 'https://thunderpick.io/esports/counter-strike'}
+        m['pick_index'] = None
+        r = resolve(m, [poly(bid=(0.52, 0.47), ask=(0.53, 0.48))])
+        self.assertIs(r['upgraded_from_featured_model'], True)
+        self.assertEqual(r['origination']['method'], 'market')
+        self.assertEqual(r['origination']['probabilities'], [0.525, 0.475])
+        self.assertEqual(r['pick_index'], 0)
+        self.assertEqual([a['alias'] for a in r['aliases_used']], ['Aurora Gaming'])
+
+    def test_a_featured_bookmaker_tie_is_kept_when_no_directional_money_line_exists(self):
+        m = match(None)
+        m['analysis'] = {**model_featured(), 'method': 'bookmaker', 'label': 'No-vig bookmaker estimate',
+                         'probabilities': [0.5, 0.5], 'source': 'Thunderpick',
+                         'source_url': 'https://thunderpick.io/esports/counter-strike'}
+        m['pick_index'] = None
+        r = resolve(m, [poly(bid=(0.49, 0.49), ask=(0.51, 0.51))])
+        self.assertNotIn('upgraded_from_featured_model', r)
+        self.assertEqual(r['origination']['method'], 'bookmaker')
+        self.assertEqual(r['origination']['probabilities'], [0.5, 0.5])
+        self.assertIsNone(r['pick_index'])
+
 
 class EndToEnd(unittest.TestCase):
     """run() -> replay validation -> both renderers, on a copy of the committed data with one synthetic live observation."""
@@ -184,6 +209,28 @@ class EndToEnd(unittest.TestCase):
         again = originate.run(self.tmp, live=False)
         key = lambda d: {m['id']: (m['pick_index'], (m['origination'] or {}).get('probabilities'), m.get('upgraded_from_featured_model')) for m in d['matches']}
         self.assertEqual(key(self.data), key(again))
+
+    def test_a_featured_bookmaker_tie_upgrades_end_to_end_and_passes_replay_validation(self):
+        latest = json.loads((self.tmp / 'latest.json').read_text())
+        target = next(m for m in latest['matches'] if m['id'] == self.TARGET)
+        target['analysis'] = {
+            'method': 'bookmaker', 'label': 'No-vig bookmaker estimate',
+            'probabilities': [0.5, 0.5], 'fair_decimal': [2.0, 2.0],
+            'observed_at': originate.iso(datetime.now(UTC)),
+            'source': 'Thunderpick', 'source_url': 'https://thunderpick.io/esports/counter-strike',
+            'quotes': [], 'limitations': [],
+        }
+        target['pick_index'] = None
+        (self.tmp / 'latest.json').write_text(json.dumps(latest))
+        data = originate.run(self.tmp, live=False)
+        build_origination.validate_origination(data, self.tmp)
+        r = next(m for m in data['matches'] if m['id'] == self.TARGET)
+        self.assertIs(r.get('upgraded_from_featured_model'), True)
+        self.assertEqual(r['featured_method'], 'bookmaker')
+        self.assertIsNone(r['featured_pick_index'])
+        self.assertEqual(r['pick_index'], 1)
+        page = build_origination.page(data, inventory_complete=True)
+        self.assertIn('Upgraded from the featured bookmaker tie (50.0% / 50.0%)', page)
 
 
 class LiveModelResearch(unittest.TestCase):

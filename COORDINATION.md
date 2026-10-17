@@ -403,7 +403,26 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   load `research/5b642a83/flags.json` through the existing findings-list pattern.
   Do not overwrite another session's source records or relabel an older snapshot.
 
+# Current session: arena-03eb8041 — alias-aware tie origination & strategy 50/50 guard
+
+Claimed 2026-10-17T10:07Z on the fixed Arena branch `arena/03eb8041-maltaproj3`
+(rebased onto `main` `62d796d`, PR #76 merged). Read the full shared board and
+active branches (`arena/75ef1662-maltaproj3`, `arena/7831412c-maltaproj3`,
+`arena/449bdbba-maltaproj3`, `arena/e2ce6ccb-maltaproj3`) before claiming.
+No competing session claims `scripts/originate.py`, `scripts/build_origination.py`,
+`scripts/build_strategy.py`, `tests/test_origination_upgrade.py`, or
+`tests/test_strategy.py` (`arena-7831412c` owns `scripts/sources.py`,
+`scripts/collect.py`, `scripts/build.py`, `scripts/validate.py`,
+`tests/test_lobby_freshness.py`, and `tests/test_summary.py`).
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| U-1 Upgrade featured 50/50 (`pick_index: null`) rows when alias-aware origination finds a directional money-backed consensus/market line | done | arena-03eb8041 | `scripts/originate.py`, `scripts/build_origination.py`, `tests/test_origination_upgrade.py` | On the live 2026-10-17T10:01:13Z snapshot (`39023111893`), fixture `1080207` (`FURIA vs Aurora`, TWC 2026 Semifinal #1 at `14:00Z`) matched Thunderpick's exact-name `1.85 / 1.85` tie (`[0.5, 0.5]`, `pick_index: null`) in `collect.py`, which skipped Polymarket (`"Aurora Gaming"`, event `1200431`) and Kalshi (`KXCS2GAME-26OCT171000AURFURIA`). Because `method == 'bookmaker'`, `live_collect` and `resolve_match` skipped alias-aware money origination, leaving `1080207` without a directional pick in `data/origination.json`, `/origination/`, and `data/twc-day4-picks.json` while `twc_lines.py` resolved `twc-2399414` to `[0.525, 0.475]` (`pick_index: 0` `FURIA`). |
+| U-2 Prevent `scripts/build_strategy.py` from assigning an arbitrary `fav = 0 / dog = 1` upset swap to a 50/50 (`pick_index: null`) row | done | arena-03eb8041 | `scripts/build_strategy.py`, `tests/test_strategy.py` | On the live 2026-10-17T10:01:13Z `/strategy/` page, `build_strategy.py` line 222 defaulted `fav = 0` (`FURIA`) and `dog = 1` (`Aurora`) on `1080207` (`p: [0.5, 0.5]`, `pick_index: null`) and promoted it to an `"Upset play"` (`swap: true`, `default: 1` `Aurora`, `cost: 0.0`, `"Most likely winner: FURIA 50.0%"`). Equal-estimate rows with `pick_index: null` now remain ineligible for upset swaps and display no directional default. |
+| U-3 Record dated verification artifacts, run full Python/row-audit/browser checks, open PR, merge, and verify live GitHub Pages deployment | in progress | arena-03eb8041 | `COORDINATION.md` (this section only), new `data/research/03eb8041/` | Local suite: 567 Python unit tests OK, 76 Playwright browser tests OK, 382 row-source audit rows with 0 violations, 585 internal links OK. Opening PR and awaiting CI + live Origination source audit before merging. |
+
 ---
+
 
 # Current session: arena-fa7ed344 — final integration, production recovery, and verified publication
 

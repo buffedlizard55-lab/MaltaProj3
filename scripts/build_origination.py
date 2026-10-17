@@ -121,7 +121,10 @@ def pick_row(m, safety=None):
         out.append(f'<p class="alias-note">Verified alias join: {e(used)}</p>')
     if m.get('upgraded_from_featured_model') and m.get('featured_probabilities'):
         fp = m['featured_probabilities']
-        out.append(f'<p class="alias-note">Upgraded from the featured Valve-model estimate ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.</p>')
+        if m.get('featured_method') == 'model':
+            out.append(f'<p class="alias-note">Upgraded from the featured Valve-model estimate ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.</p>')
+        else:
+            out.append(f'<p class="alias-note">Upgraded from the featured {e(m.get("featured_method") or "equal")} tie ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a directional money-backed line.</p>')
     details = '<details><summary>Research trail &amp; limitations</summary>'
     details += '<ol class="trail">'
     for r in m.get('research', []):
@@ -341,13 +344,17 @@ def validate_origination(data, source):
         assert all(m.get(k) == raw.get(k) for k in facts), 'Fixture facts or confirmed pick deadline changed'
         o = m.get('origination')
         if raw.get('analysis'):
-            upgraded = bool(o) and raw['analysis'].get('method') == 'model' and o.get('method') in {'market', 'bookmaker', 'consensus'}
+            upgraded = bool(o) and o.get('method') in {'market', 'bookmaker', 'consensus'} and (
+                raw['analysis'].get('method') == 'model'
+                or (raw.get('pick_index') is None and m.get('pick_index') is not None)
+            )
             if not upgraded:
                 assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
                 assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
                 continue
-            # The only permitted change to a featured estimate: a verified money-backed line replaces the featured
-            # *model* estimate. It must say so and is replayed from its saved first-party responses below.
+            # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
+            # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.
+            # Either must be marked and is replayed from its saved first-party responses below.
             assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
         if not o:
             assert m['pick_index'] is None

@@ -186,6 +186,22 @@ class SwapRules(unittest.TestCase):
         r = self.only(self.plan([match('1', 'A', 'B', [0.5, 0.5], pick_index=1)], [fixture('1', shares=(95, 5), n=60)]))
         self.assertEqual(r['fav'], 1)
 
+    def test_an_equal_line_without_a_pipeline_pick_never_guesses_an_upset_swap(self):
+        pl = self.plan([match('1', 'FURIA', 'Aurora', [0.5, 0.5], method='bookmaker', tier='s', pick_index=None)],
+                       [fixture('1', points=7, shares=(78, 22), n=18, tier_mult=3)])
+        r = self.only(pl)
+        self.assertIsNone(r['fav'])
+        self.assertIsNone(r['dog'])
+        self.assertIsNone(r['default'])
+        self.assertFalse(r['eligible'])
+        self.assertFalse(r['swap'])
+        self.assertIn('equal 50/50 line (no favorite or underdog)', r['blockers'])
+        html = bs.page(inputs([match('1', 'FURIA', 'Aurora', [0.5, 0.5], method='bookmaker', tier='s', pick_index=None)],
+                              [fixture('1', points=7, shares=(78, 22), n=18, tier_mult=3)]), pl)
+        self.assertNotIn('class="ribbon swap"', html)
+        self.assertIn('No edge (50/50)', html)
+        self.assertIn('Plan pick <strong>— unverified</strong>', html)
+
     def test_locked_fixtures_leave_the_slate_and_are_listed_as_closed(self):
         pl = self.plan([match('1', 'A', 'B', [0.6, 0.4], locks='2026-10-16T08:59:00Z'), match('2', 'C', 'D', [0.6, 0.4])], [])
         self.assertEqual([r['id'] for r in pl['rows']], ['2'])

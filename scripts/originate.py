@@ -314,11 +314,13 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     """
     client = Collector(evidence_dir)
     out = {'requests': [], 'observed_at': iso(datetime.now(UTC))}
-    # A model-only row has not been resolved by a money line. The resolver has
-    # always allowed that upgrade, but the collector previously never fetched
-    # its aliased Polymarket books. Run the same research for those rows too.
+    # A model-only row has not been resolved by a money line, and an equal-estimate
+    # featured tie (selection(...) is None) has no directional pick because the
+    # exact-name collector missed aliased markets or exchanges. Run the same
+    # research for those rows too.
     active = [m for m in matches if m.get('availability') != 'past'
-              and (m.get('analysis') is None or m['analysis'].get('method') == 'model')]
+              and (m.get('analysis') is None or m['analysis'].get('method') == 'model'
+                   or selection(m['analysis'].get('probabilities')) is None)]
     # Fetch only exact, already discovered HLTV identities for primary gaps.
     # Old proof files are removed before refetch so an access failure cannot
     # leave yesterday's lineup looking newly observed.
@@ -1245,26 +1247,33 @@ MONEY_METHODS = {'market', 'bookmaker', 'consensus'}
 def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
     """One fixture's origination row.
 
-    Featured estimates from the exact-name collector are preserved unchanged, with one exception: a featured *model*
-    estimate is the lowest rung of the ladder, and the exact-name join can miss a market that exists under a provider's
-    display name ("Aurora Gaming" for Aurora). For such fixtures the alias-aware money research runs too. A verified
-    money-backed line (Polymarket, Kalshi, Thunderpick, Bovada or their per-provider consensus, with every existing spread,
-    freshness, start-time and alias-scope check) replaces the model estimate and the row says so. Without one, the featured
-    model estimate is kept exactly as it was.
+    Featured estimates from the exact-name collector are preserved unchanged, with two exceptions:
+    (1) a featured *model* estimate is the lowest rung of the ladder, and the exact-name join can miss a market that
+        exists under a provider's display name ("Aurora Gaming" for Aurora);
+    (2) a featured equal-estimate tie (no directional pick) can occur when the exact-name collector hits an even
+        esportsbook line while missing aliased markets or exchange order books.
+    For such fixtures the alias-aware money research runs too. A verified money-backed line (or a directional
+    money-backed line for a featured tie) replaces the featured estimate and the row says so. Without one, the featured
+    estimate is kept exactly as it was.
     """
     featured = match.get('analysis')
+    featured_pick = match.get('pick_index') if match.get('pick_index') is not None else (
+        selection(featured.get('probabilities')) if featured else None)
 
     def keep_featured():
         return {'origination': dict(featured, quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])], model_crosscheck=None),
                       'pick_index': match.get('pick_index'), 'aliases_used': [],
                       'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
 
-    if featured and featured.get('method') != 'model':
+    if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
     result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
     if not featured:
         return result
-    if (result.get('origination') or {}).get('method') in MONEY_METHODS:
+    method = (result.get('origination') or {}).get('method')
+    if featured.get('method') == 'model' and method in MONEY_METHODS:
+        return dict(result, upgraded_from_featured_model=True)
+    if featured_pick is None and method in MONEY_METHODS and result.get('pick_index') is not None:
         return dict(result, upgraded_from_featured_model=True)
     return keep_featured()
 
