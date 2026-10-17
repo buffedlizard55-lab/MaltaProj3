@@ -267,10 +267,11 @@ def gamma_games(events: list, evidence: str) -> list:
     return result
 
 
-def poly_index(client: Client):
+def poly_index(client: Client, label_base: int = 0):
     games, limitations, observed = [], [], None
+    tag = '' if label_base == 0 else f'-{label_base}'
     try:
-        html, req = client.fetch(POLY_INDEX, 'polymarket-directory')
+        html, req = client.fetch(POLY_INDEX, f'polymarket-directory{tag}')
         games = polymarket_games(html)
         observed = req['observed_at']
     except SourceError as exc:
@@ -281,7 +282,7 @@ def poly_index(client: Client):
     for offset in range(0, 2000, 100):
         url = 'https://gamma-api.polymarket.com/events?' + urlencode({'tag_slug': 'cs2', 'active': 'true', 'closed': 'false', 'limit': 100, 'offset': offset})
         try:
-            events, req = client.json(url, f'polymarket-discovery-{offset}')
+            events, req = client.json(url, f'polymarket-discovery-{label_base + offset}')
             if not isinstance(events, list) or any(not isinstance(e, dict) or not e.get('id') for e in events):
                 raise SourceError('Gamma event pagination contract changed')
             ids = [str(e['id']) for e in events]
