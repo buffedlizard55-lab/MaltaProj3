@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "session": "arena-75ef1662",
+  "verification": "Actual production release, independently read official run/check annotations and public Pages content; not repository-fixture counts.",
+  "pr_url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/76",
+  "merged_at": "2026-10-17T09:58:13Z",
+  "merge_commit": "62d796d4941a03f20f173e1a9355a69bfbd04395",
+  "production_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39023111893",
+  "production_conclusion": "success",
+  "production_completed_at": "2026-10-17T10:01:56Z",
+  "inventory_observed_at": "2026-10-17T10:00:21Z",
+  "coverage_complete": true,
+  "source_records": 93,
+  "upcoming": 32,
+  "archived": 61,
+  "complete_picks": {
+    "resolved": 24,
+    "with_pick": 23,
+    "unresolved": 8,
+    "market": 8,
+    "bookmaker": 4,
+    "consensus": 1,
+    "model": 11
+  },
+  "public_row_audit": {
+    "rows": 504,
+    "ok": 496,
+    "navigation": 8,
+    "violation": 0
+  },
+  "source_recovery": "The dated 07:16 source outage remains an immutable historical finding. This later run reconciled all three official Hotspawn inventory responses; current coverage is separately verified at its own observation time.",
+  "day4_public_page_observation": {
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/?audit=39023111893",
+    "method": "fetch_page rendered content, independently matched with production parity verification",
+    "matches": [
+      {
+        "teams": [
+          "FURIA",
+          "Aurora"
+        ],
+        "percentages": [
+          50.0,
+          50.0
+        ],
+        "directional_pick": null,
+        "basis": "No-vig bookmaker estimate (Thunderpick)"
+      },
+      {
+        "teams": [
+          "Falcons",
+          "BetBoom"
+        ],
+        "percentages": [
+          72.5,
+          27.5
+        ],
+        "directional_pick": "Falcons",
+        "basis": "Originated consensus line (Polymarket + Kalshi)"
+      }
+    ],
+    "limitations": "One-decimal displayed estimates at this snapshot, not guaranteed odds or an inferred new price. Equal estimate is supported, not a default used to fill missing evidence."
+  },
+  "local_qa": {
+    "python_tests": 563,
+    "browser_tests": 76,
+    "links": 585,
+    "final_repository_rows": 381,
+    "final_repository_row_violations": 0
+  },
+  "remote_checks": [
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39022778172",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39022775107",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39022775104"
+  ],
+  "retained_annotation_record": {
+    "path": "release-annotations-117368707787.json",
+    "source_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117368707787/annotations",
+    "sha256": "3533c129f63aeb211ce39c6167069389181592d51faab0ed51cf965117992822"
+  },
+  "remaining_limits": [
+    "8 unresolved match rows have source-linked reasons, never invented probabilities.",
+    "11 model estimates are explicitly uncalibrated rating estimates, not betting lines.",
+    "Primary organizer confirmation, unmeasured roster onboarding/rest effects, ownership and leaderboard-gain probabilities remain unverified.",
+    "GitHub schedules and source access are best-effort; existing freshness and lock guards remain active.",
+    "Pages legacy-mode restriction remains public; the successful canonical publisher verified its artifact last."
+  ],
+  "followup": "This record-only follow-up does not change implementation or source policy. Its final deployment result is recorded on the follow-up PR to avoid recursive record-only commits."
+}

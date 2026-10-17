@@ -7,9 +7,9 @@ Historical active task cells are superseded by their explicit publication record
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| S-1 Audit current publication and source-linked TWC/coverage limitations; retain dated official runner observations | in progress | arena-75ef1662 | new `data/research/75ef1662/` only |
-| S-2 Repair verified executive-summary navigation/coverage wording defects; independently test phone and no-JS routes | in progress | arena-75ef1662 | `scripts/build.py` summary function only, new `tests/test_summary_navigation.py`, new `tests/browser/summary_navigation.spec.mjs` |
-| S-3 Final integration validation, PR, merge and real Pages verification | in progress | arena-75ef1662 | preceding files plus this board section; no other-session implementation scope |
+| S-1 Audit current publication and source-linked TWC/coverage limitations; retain dated official runner observations | done | arena-75ef1662 | new `data/research/75ef1662/` only |
+| S-2 Repair verified executive-summary navigation/coverage wording defects; independently test phone and no-JS routes | done | arena-75ef1662 | `scripts/build.py` summary function only, new `tests/test_summary_navigation.py`, new `tests/browser/summary_navigation.spec.mjs` |
+| S-3 Final integration validation, PR, merge and real Pages verification | done | arena-75ef1662 | preceding files plus this board section; no other-session implementation scope |
 
 ### S-1/S-2 verified implementation and S-3 integration (09:54Z)
 - Independently reproduced eight failing presentation assertions before correction;
@@ -51,6 +51,34 @@ These bounded presentation defects will be regression-tested before correction.
 No probability, alias, match outcome, roster premium or source threshold is claimed.
 Live source collection remains in the existing single scheduled runner; this sandbox
 cannot directly reach source hosts outside the supplied network allowlist.
+
+### S-3 actual production release — done (2026-10-17T10:03Z)
+- PR [#76](https://github.com/buffedlizard55-lab/MaltaProj3/pull/76) merged
+  **09:58:13Z**, commit `62d796d4941a03f20f173e1a9355a69bfbd04395`.
+  Both remote complete QA runs **39022778172 /39022775107 PASS**; actual
+  original-source replay audit **39022775104 PASS**. All checks were green
+  before explicit merge; no failing build or other-session work was merged.
+- Actual canonical [production 39023111893](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39023111893)
+  **SUCCESS at10:01:56Z**, including new collection/research, full replay,
+  actual deployment and public JSON/HTML/probability parity. Legacy build success
+  was not substituted. Independent public reads confirm corrected next-match
+  navigation, count explanation, both schedules and dated inventory ledger.
+- Hotspawn access recovered: inventory observed **10:00:21Z**, **93 records /
+  32 upcoming /61 archived**. Complete list **24 estimates /23 directional picks /
+  8 unresolved**; the equal estimate has no arbitrary direction. Actual public
+  row audit **504 rows /496 official-linked +8 navigation /0 violations**.
+  Both Day-4 canonical fixtures are covered; public display FURIA–Aurora50/50
+  (no direction), Falcons–BETBOOM72.5/27.5 (default Falcons), with original
+  provider links. These are timestamped displayed estimates, not guaranteed odds.
+- Release/API evidence retained in `data/research/75ef1662/release.json` and its
+  hashed original official check-annotation response. Historical outage is dated,
+  not misrepresented as an ongoing source failure after this recovery.
+- All S scopes released. Eight unresolved picks, uncalibrated models, secondary
+  reporter vs organizer evidence, unknown rest/onboarding effects and legacy
+  Pages mode remain public/nonblocking. No user input or manual refresh needed.
+- This final record-only follow-up is from the same fixed Arena branch. Its own
+  deploy result will be recorded on its PR rather than recursively committing
+  another publication-only record. All existing other-session records preserved.
 
 # Current session: arena-5b642a83 — production-contract audit and safe complete-pick coverage
 
