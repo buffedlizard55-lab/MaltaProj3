@@ -77,6 +77,7 @@ def load_inputs(source: Path) -> dict:
         'contract': read_json(source / RESEARCH_DIR / 'hotspawn-contract.json'),
         'twc': read_json(source / RESEARCH_DIR / 'twc-results.json'),
         'tournament': read_json(source / RESEARCH_DIR / 'hotspawn-tournament.json'),
+        'edge': read_json(source / 'edge-review.json'),
     }
 
 
@@ -457,7 +458,115 @@ def unresolved_block(pl) -> str:
     return out
 
 
-def lessons_block(twc) -> str:
+def day3_4_lessons_block(edge, tour=None, rules=None) -> str:
+    if not isinstance(edge, dict):
+        return ''
+    d3 = edge.get('day_three_results') or []
+    d4 = edge.get('day_four') or []
+    if not d3 and not d4:
+        return ''
+    th = ((rules or {}).get('thresholds') or {})
+    floor = float(th.get('swap_min_underdog_probability', 0.30))
+    sc_cfg = ((tour or {}).get('scoring') or {})
+    t_pts = int(sc_cfg.get('team_points') or 7)
+    s_pts = int(sc_cfg.get('score_points') or 5)
+    parts = []
+    if d3:
+        rows = ''
+        for r in d3:
+            res = r.get('result') or {}
+            loser = r.get('team_b') if res.get('winner') == r.get('team_a') else r.get('team_a')
+            maps = ', '.join(
+                f"{m.get('map')} {m.get('a')}–{m.get('b')}"
+                for m in (res.get('maps') or [])
+                if m.get('map') is not None
+            )
+            srcs = ' '.join(
+                ext(s.get('url'), s.get('source') or 'HLTV')
+                for s in (r.get('sources') or [])
+                if s.get('url')
+            ) or (ext(r.get('hltv_url'), 'HLTV') if r.get('hltv_url') else '<span class="unverified">unverified</span>')
+            rows += (
+                f'<tr><th scope="row">{e(r.get("slot"))}<small>{e(r.get("starts_at"))}</small></th>'
+                f'<td data-label="Result"><strong>{e(res.get("winner"))} {e(res.get("score"))} {e(loser)}</strong>'
+                f'<small>{e(maps)}</small></td>'
+                f'<td data-label="Leaderboard takeaway">{e(r.get("assessment"))}</td>'
+                f'<td data-label="Sources">{srcs}</td></tr>'
+            )
+        parts.append(
+            '<h3 class="sub" id="day3-completed-results">Day 3 decider results (16 Oct · verified from HLTV)</h3>'
+            '<div class="table-scroll"><table class="simple">'
+            '<caption>Day 3 decider results and map scores (HLTV)</caption>'
+            '<thead><tr><th scope="col">Slot</th><th scope="col">Result</th>'
+            '<th scope="col">Leaderboard takeaway</th><th scope="col">Sources</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div>'
+        )
+    if d4:
+        rows = ''
+        for m in d4:
+            ta = m.get('team_a') or ''
+            tb = m.get('team_b') or ''
+            mkt = m.get('market') or {}
+            prices = mkt.get('prices') or {}
+            pa = prices.get(ta)
+            pb = prices.get(tb)
+            if isinstance(pa, (int, float)) and isinstance(pb, (int, float)):
+                if pa >= pb:
+                    fav, p_fav, dog, p_dog = ta, float(pa), tb, float(pb)
+                else:
+                    fav, p_fav, dog, p_dog = tb, float(pb), ta, float(pa)
+                ev_cost = p_fav - p_dog
+                sc = bo3_score_probabilities(p_fav) or {'fav_2_0': 0.0, 'dog_2_1': 0.0}
+                p_fav_20 = sc['fav_2_0']
+                p_dog_21 = sc['dog_2_1']
+                ev_fav_slip = p_fav * t_pts + p_fav_20 * s_pts
+                ev_dog_slip = p_dog * t_pts + p_dog_21 * s_pts
+                prob_cell = (
+                    f'{e(ta)} {pct(pa)} · {e(tb)} {pct(pb)}'
+                    f'<small>{e(mkt.get("provider"))} · read {e(mkt.get("observed_at"))}</small>'
+                )
+                if p_dog >= floor:
+                    verdict_cell = (
+                        f'<strong>Default: {e(fav)} ({pct(p_fav)}) · Contrarian play: {e(dog)} ({pct(p_dog)})</strong>'
+                        f'<small>Clears the {floor:.0%} underdog floor (costs {ev_cost:.3f} expected pts per base pt). '
+                        f'Tournament BO3 slip ({t_pts}+{s_pts} pts, uncalibrated): chalk {e(fav)} 2-0 ({pct(p_fav_20)}, EV {ev_fav_slip:.1f} pts) '
+                        f'or contrarian {e(dog)} 2-1 ({pct(p_dog_21)}, EV {ev_dog_slip:.1f} pts).</small>'
+                    )
+                else:
+                    verdict_cell = (
+                        f'<strong>Plan pick: {e(fav)} ({pct(p_fav)}) · Lock — do not fade</strong>'
+                        f'<small>{e(dog)} ({pct(p_dog)}) sits below the {floor:.0%} underdog floor (fading costs {ev_cost:.3f} expected pts per base pt). '
+                        f'Tournament BO3 slip ({t_pts}+{s_pts} pts, uncalibrated): {e(fav)} 2-0 ({pct(p_fav_20)}, EV {ev_fav_slip:.1f} pts).</small>'
+                    )
+            else:
+                prob_cell = '<span class="unverified">unverified</span>'
+                verdict_cell = '<span class="unverified">unverified</span>'
+            srcs = ' '.join(
+                ext(s.get('url'), s.get('source') or 'Source')
+                for s in (m.get('sources') or [])
+                if s.get('url')
+            ) or (ext(m.get('hltv_url'), 'HLTV') if m.get('hltv_url') else '<span class="unverified">unverified</span>')
+            rows += (
+                f'<tr><th scope="row">{e(ta)} vs {e(tb)}<small>{e(m.get("slot"))} · {e(m.get("starts_at"))}</small></th>'
+                f'<td data-label="External market">{prob_cell}</td>'
+                f'<td data-label="Contrarian &amp; BO3 slip plan">{verdict_cell}</td>'
+                f'<td data-label="Sources">{srcs}</td></tr>'
+            )
+        parts.append(
+            '<h3 class="sub" id="day4-semifinals-plan">Day 4 TWC 2026 semifinal plan &amp; BO3 score-slip math (17 Oct)</h3>'
+            '<div class="table-scroll"><table class="simple">'
+            '<caption>Day 4 TWC 2026 semifinals: external market probabilities, contrarian screen and BO3 score-slip guidance</caption>'
+            '<thead><tr><th scope="col">Semifinal</th><th scope="col">External market</th>'
+            '<th scope="col">Contrarian &amp; BO3 slip plan</th><th scope="col">Sources</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div>'
+            '<p class="tiny muted">For full provider order-book depth, Day 1–3 map-veto breakdowns, and Day 5 bracket links, open '
+            '<a class="src" href="../twc-picks/#day-four-picks">the dedicated TWC 2026 picks page (/twc-picks/)</a> or jump to '
+            '<a class="src" href="../origination/#picks">the complete CS2 picks list</a>.</p>'
+        )
+    return ''.join(parts)
+
+
+def lessons_block(twc, edge=None, tour=None, rules=None) -> str:
     if not twc or not twc.get('series'):
         return '<p class="ok-note">No Day 1–2 research file is present in this build.</p>'
     series = twc['series']
@@ -496,7 +605,8 @@ def lessons_block(twc) -> str:
     return (f'<div class="table-scroll"><table class="simple"><caption>Thunderpick World Championship 2026 results, Days 1–2 (HLTV)</caption><thead><tr><th scope="col">Series</th><th scope="col">Result</th><th scope="col">Hotspawn field</th><th scope="col">Source</th></tr></thead><tbody>{rows}</tbody></table></div>'
             f'<ul class="facts">{"".join(f"<li>{x}</li>" for x in facts)}</ul>'
             f'<p class="tiny muted">Read from HLTV on {e((twc.get("results_observed_at") or "")[:10])}. These results do not change any probability on this page; probabilities come from the lines.</p>'
-            f'<h3 class="sub">Next: the Day 3 deciders</h3><div class="table-scroll"><table class="simple"><caption>Day 3 deciders: Hotspawn status and listed prices</caption><thead><tr><th scope="col">Decider</th><th scope="col">Hotspawn</th><th scope="col">Price (not a pick input here)</th><th scope="col">Sources</th></tr></thead><tbody>{d3}</tbody></table></div>')
+            f'<h3 class="sub">Next: the Day 3 deciders</h3><div class="table-scroll"><table class="simple"><caption>Day 3 deciders: Hotspawn status and listed prices</caption><thead><tr><th scope="col">Decider</th><th scope="col">Hotspawn</th><th scope="col">Price (not a pick input here)</th><th scope="col">Sources</th></tr></thead><tbody>{d3}</tbody></table></div>'
+            + day3_4_lessons_block(edge, tour=tour, rules=rules))
 
 
 def tournament_block(t) -> str:
@@ -616,7 +726,7 @@ def page(inputs: dict, pl: dict) -> str:
 <p class="lede">No pick is shown when no external line or official rating covers both teams. Nothing is inferred and there is no default 50/50. An unavailable source is not proof that no market exists. The collector re-checks every four hours.</p>
 {unresolved_block(pl)}</section>
 <section class="block" id="tournament"><h2>TWC tournament pick'em: team + score</h2>{tournament_block(inputs.get("tournament"))}</section>
-<section class="block" id="lessons"><h2>What Days 1–2 showed, and what is next</h2>{lessons_block(inputs.get("twc"))}</section>
+<section class="block" id="lessons"><h2>What Days 1–2 showed, and what is next</h2>{lessons_block(inputs.get("twc"), edge=inputs.get("edge"), tour=inputs.get("tournament"), rules=inputs.get("rules"))}</section>
 <section class="block" id="rules"><h2>How the plan picks are chosen</h2>{rules_block(inputs["rules"])}</section>
 <section class="block" id="hotspawn"><h2>How Hotspawn scores and locks</h2>{contract_block(inputs.get("contract"))}</section>
 </main>
@@ -637,6 +747,10 @@ def build(source: Path, output: Path, now: datetime | None = None) -> Path:
     public['rows'] = [{k: v for k, v in r.items() if k not in {'quotes', 'model_crosscheck', 'context'}} for r in pl['rows']]
     public['unresolved'] = [{k: v for k, v in r.items() if k != 'research'} for r in pl['unresolved']]
     public['rules_version'] = inputs['rules']['version']
+    edge = inputs.get('edge')
+    if isinstance(edge, dict):
+        public['twc_day3_results'] = edge.get('day_three_results') or []
+        public['twc_day4_semifinals'] = edge.get('day_four') or []
     (Path(output) / 'data' / 'strategy.json').write_text(json.dumps(public, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
     return target / 'index.html'
 
