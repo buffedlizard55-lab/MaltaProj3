@@ -61,9 +61,9 @@ in the retained originals.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| A-1 Repair the blocked four-hour publisher: make the freshness/staleness decision injectable so the test cannot expire, and prove the fix with a regression that fails on a wall-clock dependency | in progress | arena-534ae9e5 | `scripts/build.py` (`shell` signature and staleness computation only), `tests/test_summary.py`, new `tests/test_freshness_determinism.py`, `COORDINATION.md` (this section) | **No probability, source fact, alias, threshold or published row may change.** The fix must make the *test* deterministic, not refresh the hard-coded timestamp to another expiring value. Every other `shell` caller keeps its current behaviour. |
-| A-2 Publish verified TWC **Day 5** (2026-10-18) coverage: the third-place decider and grand-final slots, the Day 1–4 results that determine their participants, and external lines for those slots where a first-party book proves them | in progress | arena-534ae9e5 | `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/twc_lines.py`, new `tests/test_twc_day5.py`, `data/research/534ae9e5/` | Exact canonical probabilities only; no historical, roster, rest, crowd or result premium. An unpublished participant stays blank, never a placeholder. Day-4 fixtures already priced by the canonical snapshot are not re-priced. |
-| A-3 Review the repository line by line against official sources and publish every irregularity as a source-linked finding (no inferred values) | in progress | arena-534ae9e5 | new `data/research/534ae9e5/repo-review.json`, `scripts/review_register.py` (registration only), `COORDINATION.md` (this section) | Unverifiable values stay blank and are flagged "unverified". Findings appear on the Flagged for Review page with their source links. |
+| A-1 Repair the blocked four-hour publisher: make the freshness/staleness decision injectable so the test cannot expire, and prove the fix with a regression that fails on a wall-clock dependency | done | arena-534ae9e5 | `scripts/build.py` (`shell` signature and staleness computation only), `tests/test_summary.py`, new `tests/test_freshness_determinism.py`, `COORDINATION.md` (this section) | **No probability, source fact, alias, threshold or published row may change.** The fix must make the *test* deterministic, not refresh the hard-coded timestamp to another expiring value. Every other `shell` caller keeps its current behaviour. |
+| A-2 Publish verified TWC **Day 5** (2026-10-18) coverage: the third-place decider and grand-final slots, the Day 1–4 results that determine their participants, and external lines for those slots where a first-party book proves them | done | arena-534ae9e5 | `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/twc_lines.py`, new `tests/test_twc_day5.py`, `data/research/534ae9e5/` | Exact canonical probabilities only; no historical, roster, rest, crowd or result premium. An unpublished participant stays blank, never a placeholder. Day-4 fixtures already priced by the canonical snapshot are not re-priced. |
+| A-3 Review the repository line by line against official sources and publish every irregularity as a source-linked finding (no inferred values) | done | arena-534ae9e5 | new `data/research/534ae9e5/repo-review.json`, `scripts/review_register.py` (registration only), `COORDINATION.md` (this section) | Unverifiable values stay blank and are flagged "unverified". Findings appear on the Flagged for Review page with their source links. |
 | A-4 Final integration: re-verify the combined data line by line, run the Python/browser/row-source/link suites, open the PR, merge, confirm the Pages deploy and record the result | in progress | arena-534ae9e5 | `COORDINATION.md` (this section only), `README.md` (release block only), the A-1/A-2/A-3 files | A broken build is never merged. Live verification must fetch the deployed artifacts, not trust a green job status. |
 
 ## Session notes (20:30Z)
@@ -80,6 +80,112 @@ in the retained originals.
 - The single scheduled publisher remains `.github/workflows/pages.yml`; no second
   publisher, schedule or credential is added. `.github/workflows/checks.yml` and
   `.github/workflows/origination.yml` stay read-only checks.
+
+### A-1 DONE — the four-hour publisher is unblocked (21:05Z)
+
+**Root cause, reproduced locally before any change.** The scheduled runs
+[39038670350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39038670350),
+[39045650525](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39045650525),
+[39054246287](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39054246287) and
+[39058407711](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711) all
+failed at "Regression tests (repository fixtures, before any cache restore)"; the last successful
+scheduled run [39031549764](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764)
+completed at about 12:20Z. The failing assertion was
+`tests/test_summary.py::InventoryCrosscheckNoticeTests::test_unavailable_crosscheck_is_visible_and_does_not_mark_picks_stale`.
+`scripts/build.py::shell` decided staleness with `datetime.now(timezone.utc)` against a fixture
+hard-coded to `2026-10-17T04:27:55Z`, so the eight-hour window closed at **2026-10-17T12:27:55Z**
+— the exact moment the successful run stopped. The regression tests run *before* the cache restore
+and before collection, so that one expired assertion froze the whole refresh.
+
+**Fix (no probability, source fact, alias, threshold or published row changed).**
+`shell`, `matches_table`, `glance`, `summary`, `picks`, `coverage`,
+`scripts.build_origination.pick_row` and `scripts.build.build` now take an explicit reference time;
+one build passes a single reference time to every page, so a page can never disagree with itself
+about freshness. The wall-clock-dependent assertion pins its own reference time.
+
+**Guard.** `tests/test_freshness_determinism.py` checks the injectability contract and re-runs the
+repository's time-sensitive test modules with the production clock **pinned to four absolute
+instants** that bracket the fixture which broke the publisher
+(`2026-10-16T12:00Z`, `2026-10-17T05:30Z`, `2026-10-17T13:00Z`, `2026-10-20T12:00Z`). Because the
+instants are absolute the guard keeps working whatever the wall clock says. Verified: the fixed
+form passes at all four; the old wall-clock form fails at three of the four, so the guard has
+teeth. The first guard draft used a *relative* shift and did **not** catch an already-expired
+bomb — that was corrected before the commit.
+
+**Verification.** 616 Python tests pass; `scripts.build` PASS (80 source rows, 607 links/anchors,
+406 audited rows / 398 official / 8 site-map / 0 violations); 79 Playwright checks pass; 106
+pick-safety assertions pass.
+
+### A-2 DONE — the final day of the tournament is published (21:10Z)
+
+HLTV lists the third-place decider (match 2399416, 18 Oct 11:30Z) and the grand final (match
+2399417, 18 Oct 15:00Z). The retained original pages publish **no participants yet**, because both
+are decided by the 17 October semifinals, so the site previously carried nothing at all for the
+last day.
+
+- `scripts/twc_research.py::derive_day5` finds the two series from **HLTV's own page titles**
+  ("Grand Final", "3rd Place Decider Match") and their published start times.
+- A participant is used only when the source publishes it, or derived from a **verified semifinal
+  final score** and then labelled as a derivation with the semifinal pages it came from. An
+  undecided series keeps its participants blank: no placeholder, no default 50/50, no outright.
+- `scripts/build_twc.py::render_day5` publishes the final-day cards, the **verified Days 1–4
+  ladder** (9 series with their published scores and source links) and a guide that states what
+  those results can and cannot do.
+- `scripts/twc_lines.py` collects the semifinal day and the final day in one pass;
+  `twc_lines.for_day` scopes each day's counts so the Day-4 section is unaffected.
+- `scripts/verify_live.py::verify_day5` checks the deployed page against the published JSON: every
+  percentage on the page must exist in the JSON, and a series without participants must show no
+  percentage at all.
+- `data/twc-day5-picks.json` is the machine-readable view; the executive summary links Day 5.
+
+**Scope extension, recorded before the edit:** A-2 also claimed `scripts/verify_live.py`,
+`tests/test_verify_live.py`, `tests/test_twc.py` and `tests/browser/twc.spec.mjs`. No other
+session holds those files (every prior board above is a completion record), and each edit was
+required by the Day-5 work: the public verifier needs to check the new section, and the two
+existing TWC tests asserted the old page heading and the old TWC card set.
+
+**Verification.** 17 new tests in `tests/test_twc_day5.py`; 4 new public-parity checks in
+`tests/test_verify_live.py`; 1 new phone test in `tests/browser/twc.spec.mjs` (390 px: both
+final-day cards visible, source link visible, no percentage shown for a series without decided
+participants).
+
+### A-3 DONE — the line-by-line repository review is published (21:20Z)
+
+`data/research/534ae9e5/repo-review.json` holds eight reviewed items, each with https source
+links, rendered on the Flagged for Review page by `scripts/review_register.py` (every declared
+register now gets its own section id, so a page carrying more than one register never repeats an
+element id).
+
+| Item | Area | Status | Summary |
+| --- | --- | --- | --- |
+| 534-01 | publisher / regression gate | fixed | The expired wall-clock assertion that froze the four-hour refresh. |
+| 534-02 | tournament coverage | fixed | The final day of the tournament was published nowhere. |
+| 534-03 | workflow permissions | **needs review** | `.github/workflows/collect-preview.yml` still requests `contents: write` and commits to the finished session branch `arena/11c1fa20-maltaproj3`. It cannot reach `main` and publishes nothing, but it is a write-capable leftover. **Deliberately not changed** — removing a workflow is the owner's decision. |
+| 534-04 | documentation | fixed | The README's measured counts no longer matched the tree. |
+| 534-05 | archive separation | verified | `docs/` and `archive/root-session/` are banner-marked in the artifact; the retired root URLs redirect. |
+| 534-06 | exported data | verified | `data/picks.csv`: 80 rows, every row has a Hotspawn source, every priced row has an analysis source, unresolved rows are blank. |
+| 534-07 | identity registry | verified | 17 aliases, all evidenced and competition-scoped; no alias matches outside its declared competition. |
+| 534-08 | platform | platform limitation | GitHub Pages stays in legacy build mode (HTTP 403 on the setting change); the publisher orders the two steps itself. |
+
+**Scope extension, recorded before the edit:** A-3 also claimed `scripts/build.py` (register
+loading only) and `tests/test_review_register.py`. No other session holds those files.
+
+### A-4 in progress — final integration
+
+Local checks on the integration tree: **616 Python tests pass** (281.7 s), **79 Playwright checks
+pass** (1.5 m, including the new 390 px final-day check and the axe WCAG A/AA scans at phone and
+desktop widths), **106 pick-safety assertions pass**, `scripts.build` PASS (80 source rows
+replayed, 607 internal links/assets/anchors, 406 audited rows / 398 official / 8 site-map /
+0 violations), strict row-source audit PASS with 0 violations. PR, merge, the actual Pages
+deployment and the public verification are recorded below.
+
+**Verification limits for this session.** The sandbox reaches only `github.com`, `api.github.com`,
+`registry.npmjs.org`, `pypi.org` and `files.pythonhosted.org`. Hotspawn, HLTV, Polymarket, Kalshi
+and the published site are not directly reachable, so no live source fact is asserted from here.
+Every external fact in this session is replayed from the repository's retained **original**
+responses, and every unreachable fact stays unverified and is published as a limitation. The live
+inventory, prices and the final-day participants will be re-collected by the scheduled publisher
+on the runner; this session does not claim what that run will find.
 
 # Session arena-75ef1662 — final usability and truthful coverage audit
 
