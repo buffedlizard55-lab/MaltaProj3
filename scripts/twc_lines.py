@@ -304,9 +304,19 @@ def _previous_reads(client) -> list:
     return out[-HISTORY_READS:]
 
 
-def collect(client, research_rows: list, registry: dict, day: str, now: datetime) -> dict:
-    """Discover, validate and retain external Day-4 lines for TWC fixtures."""
-    targets = fixtures(research_rows, day)
+def collect(client, research_rows: list, registry: dict, days, now: datetime) -> dict:
+    """Discover, validate and retain external lines for the TWC fixtures on `days`.
+
+    `days` is one tournament day or a list of them. The semifinal day and the
+    final day are collected together so the two final-day series (the
+    third-place decider and the grand final) can be priced from the same
+    first-party books as the semifinals. A fixture whose participants are not
+    published yet cannot be joined on exact team names, so it is never priced.
+    """
+    day_list = [days] if isinstance(days, str) else [d for d in days if d]
+    targets = []
+    for day in day_list:
+        targets.extend(fixtures(research_rows, day))
     stamp = now.strftime('%Y%m%dT%H%M')
     history = _previous_reads(client)
     games, poly_health = ([], None)
@@ -367,7 +377,8 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
         providers.append(kalshi)
         records.append({'fixture': fixture_record(fixture),
                         'providers': providers, 'kalshi_pages': kalshi_status})
-    report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
+    report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day_list[0] if day_list else None,
+              'days': day_list, 'observed_at': iso(now),
               'polymarket': poly_health, 'records': records, 'history': history,
               'request_manifest': list(client.manifest)}
     client.save('twc-day4-lines', report)
@@ -542,6 +553,7 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
             row['movement_note'] = ('No earlier validated read of this fixture is retained yet; movement is published '
                                     'once a second observation of the same book is verified.')
     return {'schema_version': report.get('schema_version', 1), 'available': True, 'day': report.get('day'),
+            'days': report.get('days') or ([report['day']] if report.get('day') else []),
             'observed_at': report.get('observed_at'), 'matches': matches, 'reasons': reasons,
             'report_path': _relative_report(source, report_path), 'policy': POLICY,
             'earlier_reads': len(earlier), 'read_sources': [r.get('observed_at') for r in report.get('history') or []],
@@ -574,6 +586,19 @@ def for_fixture(lines: dict, teams: list, starts_at) -> dict | None:
         if fixture_key({'teams': [{'name': n} for n in row['teams']], 'starts_at': row['starts_at']}) == key:
             return row
     return None
+
+
+def for_day(lines: dict, day: str) -> dict:
+    """Scope a loaded set of lines to one tournament day.
+
+    The semifinals and the final day are collected in one pass, so each day's
+    section reports only the fixtures that actually start on that day.
+    """
+    matches = [row for row in (lines.get('matches') or []) if str(row.get('starts_at') or '').startswith(day)]
+    return {'available': bool(lines.get('available')), 'day': day,
+            'observed_at': lines.get('observed_at'), 'matches': matches,
+            'resolved': sum(1 for row in matches if row.get('probabilities')),
+            'total': len(matches)}
 
 
 def underdog(line: dict, floor: float = 0.30) -> dict | None:

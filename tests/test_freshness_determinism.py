@@ -32,16 +32,16 @@ import inspect
 import io
 import sys
 import unittest
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from bs4 import BeautifulSoup
 
 from scripts import build as build_module
 from scripts.build import coverage, glance, matches_table, picks, shell, summary
 
-# The modules that render time-dependent output. They are re-run under a
-# shifted production clock; a module that cannot be imported is skipped rather
-# than failing the guard for an unrelated reason.
+# The modules that render time-dependent output. They are re-run with the
+# production clock pinned to several absolute times; a module that cannot be
+# imported is skipped rather than failing the guard for an unrelated reason.
 TIME_SENSITIVE_MODULES = (
     'tests.test_summary',
     'tests.test_build',
@@ -51,16 +51,26 @@ TIME_SENSITIVE_MODULES = (
     'tests.test_pick_presentation_safety',
     'tests.test_twc',
     'tests.test_twc_day4',
+    'tests.test_twc_day5',
 )
 
-# Far enough ahead that every eight-hour freshness window and every "future
-# start" fixture in a fixed-date fixture set is in the past.
-FAR_FUTURE_DAYS = 400
+# Absolute reference times, not offsets. A guard that shifted the clock
+# relative to "now" would stop detecting a bomb once the real clock had moved
+# past it, which is exactly when the bomb has already broken the publisher.
+# These four instants bracket the fixture that broke it: before the inventory
+# observation, inside the eight-hour window that used to be valid, exactly
+# after that window closed, and well after the tournament.
+PINNED_CLOCKS = (
+    '2026-10-16T12:00:00+00:00',
+    '2026-10-17T05:30:00+00:00',
+    '2026-10-17T13:00:00+00:00',
+    '2026-10-20T12:00:00+00:00',
+)
 
 
 @contextlib.contextmanager
-def shifted_production_clock(days):
-    """Move the clock the production code reads, leaving the test's own clock alone.
+def pinned_production_clock(target):
+    """Pin the clock the production code reads, leaving the test's own clock alone.
 
     `scripts.*` modules import `datetime` directly (`from datetime import
     datetime`), so the class they hold is what has to be replaced. The
@@ -69,24 +79,24 @@ def shifted_production_clock(days):
     """
     base = datetime
 
-    class Shifted(base):
+    class Pinned(base):
         @classmethod
         def now(cls, tz=None):
-            return base.now(tz) + timedelta(days=days)
+            return target.replace(tzinfo=None) if tz is None else target.astimezone(tz)
 
         @classmethod
         def today(cls):
-            return base.today() + timedelta(days=days)
+            return target.replace(tzinfo=None).date()
 
         @classmethod
         def utcnow(cls):
-            return base.utcnow() + timedelta(days=days)
+            return target.replace(tzinfo=None)
 
     modules = [m for name, m in list(sys.modules.items())
                if name == 'scripts' or name.startswith('scripts.')]
     patched = [m for m in modules if getattr(m, 'datetime', None) is base]
     for module in patched:
-        module.datetime = Shifted
+        module.datetime = Pinned
     try:
         yield
     finally:
@@ -172,20 +182,34 @@ class StalenessFollowsTheInjectedTimeTests(unittest.TestCase):
         self.assertFalse(self.hidden(shell(data, 'methodology', '', '../', now=self.FRESH_AT)))
 
 
-class FarFutureClockTests(unittest.TestCase):
+class PinnedClockTests(unittest.TestCase):
     """The repository's own time-sensitive tests must not expire."""
 
-    def test_time_sensitive_suite_passes_with_the_clock_moved_far_forward(self):
+    def run_subset(self, pinned):
         suite = load_time_sensitive_suite()
         if suite.countTestCases() == 0:
             self.skipTest('no time-sensitive test module could be loaded')
-        with shifted_production_clock(FAR_FUTURE_DAYS):
+        with pinned_production_clock(pinned):
             stream = io.StringIO()
             result = unittest.TextTestRunner(stream=stream, verbosity=0).run(suite)
-        problems = [f'{test.id()}: {text.strip().splitlines()[-1]}'
-                    for test, text in result.failures + result.errors]
-        self.assertFalse(problems, 'time-sensitive tests expired against the wall clock:\n' + '\n'.join(problems))
-        self.assertGreaterEqual(result.testsRun, 20)
+        return result
+
+    def test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times(self):
+        """A test whose outcome moves with the clock is a time bomb.
+
+        The same modules are run four times with the production clock pinned
+        to four absolute instants that bracket the fixture that broke the
+        publisher. The wall-clock-dependent form of the assertion fails at
+        three of them; the fixed form passes at all four. Because the instants
+        are absolute, this guard keeps working no matter when it runs.
+        """
+        problems = []
+        for raw in PINNED_CLOCKS:
+            result = self.run_subset(datetime.fromisoformat(raw))
+            for test, text in result.failures + result.errors:
+                problems.append(f'{raw} · {test.id()}: {text.strip().splitlines()[-1]}')
+            self.assertGreaterEqual(result.testsRun, 20, f'the time-sensitive suite shrank at {raw}')
+        self.assertFalse(problems, 'these tests expire against the wall clock:\n' + '\n'.join(problems))
 
 
 if __name__ == '__main__':

@@ -179,20 +179,24 @@ def results_table(rows, prefix):
 def render(data: dict, prefix: str, source: Path) -> str:
     from scripts.build import e, heading, external, local_time, blank, badge
     report = derive(data, source)
-    from scripts.twc_research import derive_day4
+    from scripts.twc_research import derive_day4, derive_day5
     guide = data.get('_twc_day4')
     if guide is None:
         guide = derive_day4(data, source, datetime.now(timezone.utc))
     report['day4'] = guide
+    guide5 = data.get('_twc_day5')
+    if guide5 is None:
+        guide5 = derive_day5(data, source, datetime.now(timezone.utc))
+    report['day5'] = guide5
     data['_twc_report'] = report
-    out = heading('Thunderpick World Championship 2026 · 17 October', 'TWC Day 4: picks & review',
-                  'One probability feed. Days 1–3 evidence. Every listed Day-4 match, without invented odds.')
+    out = heading('Thunderpick World Championship 2026 · 17–18 October', 'TWC Day 4 & Day 5: picks & review',
+                  'One probability feed. Days 1–3 evidence. The semifinals, the final day, without invented odds.')
     out += (f'<section class="twc-brief" id="twc-summary"><p class="eyebrow">Executive summary</p>'
             '<h2>Keep the default. Make any upset play deliberate.</h2>'
             '<p>The default is the higher-probability side in the complete picks list below. '
             'For leaderboard catch-up, consider at most one optional underdog, only with a fresh money-backed line '
             'and a specific matchup case. A plausible upset is not evidence that a market is wrong.</p>'
-            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-four-picks">Day 4 picks</a><a href="#day-three-results">Day 3 results</a><a href="#day-three-picks">Day 3 snapshot</a>'
+            f'<nav class="briefing-links" aria-label="TWC sections"><a href="#day-four-picks">Day 4 picks</a><a href="#day-five-picks">Day 5 final day</a><a href="#day-five-ladder">Days 1–4 ladder</a><a href="#day-three-results">Day 3 results</a><a href="#day-three-picks">Day 3 snapshot</a>'
             '<a href="#day-one-results">Day 1 results</a><a href="#day-two-results">Day 2 results</a>'
             '<a href="#roster-check">Roster &amp; rest check</a><a href="#unresolved">Unresolved &amp; limitations</a>'
             f'<a href="{prefix}origination/#picks">Every Hotspawn CS2 pick →</a></nav>'
@@ -200,6 +204,7 @@ def render(data: dict, prefix: str, source: Path) -> str:
             f'{local_time(report["source_generated_at"])}. Times use the page timezone selector. '
             'All probabilities below regenerate with the same four-hour publisher as the full list.</p></section>')
     out += render_day4(guide, prefix)
+    out += render_day5(guide5, prefix)
     out += '<details class="twc-history"><summary>Historical Day 3 probability snapshot &amp; audit</summary>'
     out += '<section class="content-section twc-section" id="day-three-picks"><div class="section-heading"><div><p class="eyebrow">Same numbers as the complete picks list</p><h2>Day 3 probability snapshot &amp; audit</h2></div></div><div class="twc-grid">'
     for row in report['day3_matches']:
@@ -575,4 +580,121 @@ def render_day4(guide, prefix):
             'Prefer the externally priced favorite for expected base points. Only consider an optional underdog with a fresh money line, '
             'confirmed deadline and a specific matchup case. A roster rebuild, travel or rest advantage needs independent evidence; none is quantified here. '
             'Ownership, streak state and the points needed to catch the leaders are unknown, so a leaderboard-gain claim would be invented.</p></section>')
+    return out
+
+
+def render_day5(guide, prefix):
+    """The final day: the two final-day slots and the verified ladder behind them.
+
+    A final-day series cannot be priced before its participants exist. This
+    section therefore publishes three things and never a fourth: the slot and
+    its verified start time, the participants when a source publishes or a
+    verified semifinal result decides them, and an external full-series price
+    when one validates. Everything else stays blank with its reason.
+    """
+    from scripts.build import e, local_time, external, blank
+    out = ('<section class="content-section twc-section" id="day-five-picks"><div class="section-heading"><div>'
+           '<p class="eyebrow">18 October 2026 · the final day</p><h2>Day 5: the two final-day series</h2></div></div>'
+           '<p class="section-intro">HLTV lists the third-place decider and the grand final for 18 October. Their '
+           'participants are decided by the two semifinals, so no probability is published for a series whose '
+           'participants are not yet known, and no participant is guessed. Prices below come from external '
+           'first-party full-series books only — the same Polymarket and Kalshi endpoints the rest of the site '
+           'uses. Hotspawn participation, tournament outrights and fan votes are never substituted for a missing '
+           'price.</p><div class="twc-grid">')
+    for slot in guide['slots']:
+        line = slot.get('line') or {}
+        probs = line.get('probabilities')
+        pick = line.get('pick_index')
+        names = slot['teams'] or []
+        out += (f'<article class="pick-card twc-card twc-day5-card" id="twc-day5-{e(slot["hltv_match_id"])}">'
+                f'<p class="eyebrow">{e(slot["slot"])} · HLTV match {e(slot["hltv_match_id"])}</p>'
+                f'<h3>{e(" vs ".join(names)) if names else "Participants not published yet"}</h3>'
+                f'<p>Start {local_time(slot["starts_at"])}<br>'
+                f'<small>{e(slot["title"] or "")}</small></p>')
+        if names:
+            for i, name in enumerate(names):
+                value = f'{probs[i] * 100:.1f}%' if probs else '—'
+                out += f'<div class="twc-prob"><span>{e(name)}</span><strong>{value}</strong></div>'
+        else:
+            out += ('<p class="pick-choice"><strong>Pick — unverified.</strong></p>'
+                    '<p class="pick-caption">Neither participant is published by a source yet, so there is no '
+                    'match to price. No placeholder, no default 50/50 and no outright price is used as a '
+                    'substitute for a full-series line.</p>')
+        if probs and pick is not None:
+            out += (f'<p class="pick-choice"><strong>Default pick: {e(names[pick])}</strong></p>'
+                    f'<p class="pick-caption">{probs[pick] * 100:.1f}% estimated series-win chance from the '
+                    'external line. An estimate, not a guarantee.</p>')
+        elif probs:
+            even = abs(probs[0] - probs[1]) < 1e-9
+            out += ('<p class="pick-choice"><strong>No edge — ' + ('even line' if even else 'no directional side')
+                    + '.</strong></p><p class="pick-caption">' + ('Both sides are priced at exactly 50% by the '
+                    'external line, so this is a real coin flip; no side is invented and no default 50/50 is '
+                    'substituted for a missing number.' if even else 'The retained estimate has no directional '
+                    'side. See the pricing audit for the exact inputs.') + '</p>')
+        elif names:
+            out += (f'<p class="pick-choice"><strong>Pick — unverified.</strong></p>'
+                    f'<p class="pick-caption">{e(slot["limitation"] or "")}</p>')
+        if slot['participant_basis'] == 'derived' and slot.get('derivation'):
+            out += ('<p class="small"><strong>Participants derived from verified semifinal results.</strong> '
+                    + e(slot['derivation']['rule']) + '</p>')
+            out += '<div class="evidence-links">' + ''.join(external(u, 'Semifinal result') for u in slot['derivation']['from']) + '</div>'
+        elif slot['participant_basis'] == 'published':
+            out += '<p class="small">Participants as published by the source page.</p>'
+        out += '<div class="evidence-links">' + external(slot['source_url'], 'HLTV final-day match listing')
+        for provider in line.get('providers') or []:
+            if provider.get('source_url'):
+                out += external(provider['source_url'], provider.get('provider') or 'External market')
+        out += '</div>'
+        if line:
+            out += (f'<p class="small">{e(line.get("label"))}<br>Observed {local_time(line.get("observed_at"))}. '
+                    'Midpoints, not executable quotes.</p>')
+        out += '</article>'
+    if not guide['slots']:
+        out += ('<p class="section-intro"><strong>No final-day series is confirmed in the retained research.</strong> '
+                'The third-place decider and the grand final are not published, so nothing is invented for them.</p>')
+    out += '</div>'
+    out += ('<p class="section-intro">A final-day series has no weekly Hotspawn inventory row, so it carries no '
+            'Hotspawn lock deadline and is not part of the weekly lobby pick list. It is listed here because the '
+            'tournament itself schedules it. <a href="' + prefix + 'origination/#picks">Every weekly CS2 pick →</a> · '
+            '<a href="' + prefix + 'origination/#unresolved">All unresolved picks &amp; limitations →</a> · '
+            + (f'<a href="{prefix}data/{e(guide["research_report"])}">TWC source manifest ↓</a>'
+               if guide.get('research_available') else 'TWC source evidence unavailable — unverified') + '</p></section>')
+    # The verified ladder: every series of this event that a retained original
+    # has finished. This is the "review Days 1-4 to guide Day 5" evidence.
+    out += ('<section class="content-section" id="day-five-ladder"><div class="section-heading"><div>'
+            '<p class="eyebrow">Days 1–4 · source-checked</p><h2>The verified ladder behind the final</h2></div></div>')
+    if guide['ladder']:
+        out += ('<div class="table-scroll"><table class="simple-table twc-ladder"><caption>Every series of this '
+                'event with a published final score in a retained original HLTV page. Scores are reported by HLTV, '
+                'an independent reporter, not verified by the tournament organizer.</caption><thead><tr>'
+                '<th>Series &amp; result</th><th>Maps played</th><th>Source</th></tr></thead><tbody>')
+        for row in guide['ladder']:
+            names = ' vs '.join(row['teams'])
+            score = '–'.join(str(x) for x in row['score'])
+            maps = '<br>'.join(f'{e(m["map"])} {m["a"]}–{m["b"]}' for m in row['maps']) or blank()
+            out += (f'<tr><th scope="row">{e(names)}<small>{e(score)} · HLTV-reported · won by {e(row["winner"])}</small></th>'
+                    f'<td>{maps}</td><td>{external(row["source_url"], "HLTV match record")}'
+                    f'<small>Read {local_time(row["observed_at"])}</small></td></tr>')
+        out += '</tbody></table></div>'
+    else:
+        out += ('<p class="section-intro">No finished series is confirmed in the retained research, so no result is '
+                'shown and no winner is inferred from a start time or a price.</p>')
+    out += ('</section>')
+    out += ('<section class="content-section prose" id="day-five-guide"><p class="eyebrow">How the ladder guides '
+            'Day 5</p><h2>What the Days 1–4 results do and do not tell you</h2>'
+            '<p><strong>What they do:</strong> they fix who is in the final and who is in the third-place decider, '
+            'they show which side has been playing long series and which has been playing short ones, and they '
+            'show which teams have already beaten each other in this event. That is real information for judging '
+            'whether a priced underdog is plausible.</p>'
+            '<p><strong>What they do not do:</strong> they do not set a probability. A 2–0 series score is not a '
+            'win rate, a comeback is not momentum, and the 30% underdog screen is an editorial floor, not a '
+            'calibrated edge. No roster, rest, travel or veto factor is quantified anywhere on this page, and the '
+            'Day-1 upset is not evidence that a market is systematically wrong.</p>'
+            '<p><strong>How to pick Day 5:</strong> take the higher-probability side of the external line as the '
+            'default. Consider at most one optional underdog, only when the line is money-backed, fresh and '
+            'unlocked, and only with a specific matchup case from the ladder above. A plausible upset is a reason '
+            'to look; it is never a reason to override a price without a line.</p>'
+            '<p class="small">The final-day participants and prices refresh with the same four-hour publisher as '
+            'the complete picks list. Where a source is unreachable or a book is stale, wide or one-sided, the '
+            'value stays blank and the reason is shown.</p></section>')
     return out

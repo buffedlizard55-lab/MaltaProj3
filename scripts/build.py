@@ -435,6 +435,7 @@ def summary(data, prefix, now=None):
                 f'{line_note} '
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
                 f'{tournament_link}'
+                f'<a href="{prefix}twc-picks/#day-five-picks">Day 5 final day →</a>'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
@@ -705,12 +706,13 @@ def build(source: Path, output: Path, now: datetime | None = None):
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
     if (source / 'research/c07e1b40/repo-review.json').exists():
         data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
-    from scripts.twc_research import derive_day4
+    from scripts.twc_research import derive_day4, derive_day5
     # One reference time for the whole build: every time-sensitive renderer
     # receives it explicitly, so a page can never disagree with itself about
     # freshness and a test can never expire against the wall clock.
     now = now or datetime.now(timezone.utc)
     data['_twc_day4'] = derive_day4(data, source, now)
+    data['_twc_day5'] = derive_day5(data, source, now)
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
@@ -737,6 +739,7 @@ def build(source: Path, output: Path, now: datetime | None = None):
     if data.get('_twc_report'):
         (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')
         (output / 'data/twc-day4-picks.json').write_text(json.dumps(data['_twc_report']['day4'], ensure_ascii=False, indent=2) + '\n')
+        (output / 'data/twc-day5-picks.json').write_text(json.dumps(data['_twc_report']['day5'], ensure_ascii=False, indent=2) + '\n')
     # Preserve the old root URLs without exposing a competing current feed.
     aliases = {'picks.html': 'picks/', 'methodology.html': 'methodology/', 'flagged.html': 'review/'}
     for old, target in aliases.items():
