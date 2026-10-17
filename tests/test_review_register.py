@@ -50,5 +50,68 @@ class ReviewRegisterTests(unittest.TestCase):
             self.assertTrue((out / 'data' / review_register.REGISTER).exists())
 
 
+class EverySessionRegisterTests(unittest.TestCase):
+    """Every declared register is valid, published and uniquely identified."""
+
+    def test_every_declared_register_exists_and_validates(self):
+        self.assertGreaterEqual(len(review_register.REGISTERS), 2)
+        for relative in review_register.REGISTERS:
+            path = ROOT / 'data' / relative
+            self.assertTrue(path.exists(), relative)
+            review_register.validate(json.loads(path.read_text()))
+
+    def test_every_register_item_carries_a_source_link(self):
+        for relative in review_register.REGISTERS:
+            register = json.loads((ROOT / 'data' / relative).read_text())
+            for item in register['items']:
+                self.assertTrue(item['evidence'], item['id'])
+                for evidence in item['evidence']:
+                    self.assertTrue(evidence['url'].startswith('https://'), item['id'])
+                    self.assertTrue(evidence['detail'].strip(), item['id'])
+
+    def test_the_review_page_publishes_every_register_without_repeating_an_id(self):
+        from scripts.build import build
+        from bs4 import BeautifulSoup
+        with TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'site'
+            build(ROOT / 'data', out)
+            soup = BeautifulSoup((out / 'review' / 'index.html').read_text(), 'html.parser')
+            sections = soup.select('section[id^="session-review"]')
+            self.assertEqual(len(sections), len(review_register.REGISTERS))
+            ids = [s.get('id') for s in sections]
+            self.assertEqual(len(ids), len(set(ids)))
+            for relative in review_register.REGISTERS:
+                self.assertTrue((out / 'data' / relative).exists(), relative)
+            # Every published finding is visible on the page with its evidence.
+            for relative in review_register.REGISTERS:
+                register = json.loads((ROOT / 'data' / relative).read_text())
+                for item in register['items']:
+                    self.assertIsNotNone(soup.find(id='review-' + item['id']), item['id'])
+
+    def test_no_element_id_is_repeated_on_the_review_page(self):
+        """Two registers must not emit the page-wide blocks twice.
+
+        The lineup-disambiguation block belongs to the page, not to a register.
+        Rendering it once per register repeated its element ids, which breaks
+        every in-page anchor that points at them.
+        """
+        from scripts.build import build
+        from bs4 import BeautifulSoup
+        with TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'site'
+            build(ROOT / 'data', out)
+            soup = BeautifulSoup((out / 'review' / 'index.html').read_text(), 'html.parser')
+            ids = [element.get('id') for element in soup.select('[id]')]
+            repeated = sorted({i for i in ids if ids.count(i) > 1})
+            self.assertEqual(repeated, [], 'repeated element ids: ' + ', '.join(repeated))
+
+    def test_render_all_keeps_one_section_id_per_register(self):
+        registers = [json.loads((ROOT / 'data' / relative).read_text())
+                     for relative in review_register.REGISTERS]
+        html = review_register.render_all(registers, '../', list(review_register.REGISTERS))
+        self.assertEqual(html.count('id="session-review"'), 1)
+        self.assertEqual(html.count('id="session-review-1"'), 1)
+
+
 if __name__ == '__main__':
     unittest.main()

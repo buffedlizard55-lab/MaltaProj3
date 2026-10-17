@@ -147,12 +147,12 @@ def evidence(m, prefix, fallback=None):
     return f'<details class="row-details"><summary>Evidence &amp; analysis <span aria-hidden="true">+</span></summary>{body}</details>'
 
 
-def matches_table(matches, prefix, *, table_id='match-list', filters=False, fallbacks=None):
+def matches_table(matches, prefix, *, table_id='match-list', filters=False, fallbacks=None, now=None):
     fallbacks = fallbacks or {}
     if not matches:
         return '<div class="empty-state">No verified future fixtures in this snapshot. Check the <a href="' + prefix + 'coverage/">source status</a> before assuming there are no matches.</div>'
     out = f'<div class="matches-wrap"><table class="matches-table" id="{table_id}"><caption class="sr-only">Hotspawn CS2 match picks. Percentages are calculated estimates, never guaranteed outcomes. Times are Europe/Malta unless changed.</caption><thead><tr><th scope="col">Match &amp; start</th><th scope="col">Win probabilities</th><th scope="col">Our pick</th><th scope="col">Basis &amp; verification</th></tr></thead><tbody>'
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
     for m in matches:
         a, pick = m['analysis'], m['pick_index']
         fallback = selected_fallback(m, fallbacks)
@@ -307,7 +307,7 @@ def contrarian_review(data, prefix):
     return out
 
 
-def glance(data, prefix):
+def glance(data, prefix, now=None):
     """Phone-first one-glance index of every active fixture's selected pick.
 
     The executive summary previously put the first match card ~2,800 px down a
@@ -321,7 +321,7 @@ def glance(data, prefix):
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
     if not active:
         return ''
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
 
     def basis(m):
         fallback = selected_fallback(m, fallbacks)
@@ -391,7 +391,7 @@ def glance(data, prefix):
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
-def summary(data, prefix):
+def summary(data, prefix, now=None):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
     complete = data.get('complete_picks')
@@ -404,7 +404,7 @@ def summary(data, prefix):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
-    out += glance(data, prefix)
+    out += glance(data, prefix, now=now)
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         no_direction = cc['resolved'] - cc['with_pick']
@@ -453,7 +453,7 @@ def summary(data, prefix):
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The short version</p><h2>What to know before you pick</h2></div>' + badge('Read-only analysis', 'neutral') + '</div><div class="briefing-notes">'
     out += f'<div><span class="note-number">01</span><p><strong>Start with the full picks list.</strong> Both team probabilities, the suggested team, lock time and original evidence are shown together. {external(LOBBY, "Submit picks on Hotspawn")}</p></div><div><span class="note-number">02</span><p><strong>Know what backs the number.</strong> Green means an external market; purple means an uncalibrated rating model used only when the primary method failed. Neither is a guarantee.</p></div><div><span class="note-number">03</span><p><strong>Check the timestamp.</strong> Automatic checks are scheduled every four hours. GitHub may delay a run. After eight hours without a successful observation, the site warns you not to treat the snapshot as current.</p></div></div></section>'
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'origination/#picks">All match picks ' + icon('arrow') + '</a></div>'
-    out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks')) + '</section>'
+    out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks'), now=now) + '</section>'
     out += contrarian_review(data, prefix)
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
     out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
@@ -528,7 +528,7 @@ def where_everything_lives(data, prefix):
     return out + '</tbody></table></div></section>'
 
 
-def picks(data, prefix):
+def picks(data, prefix, now=None):
     c = data['counts']
     fallbacks = data.get('fallbacks') or {}
     active = [m for m in data['matches'] if m['availability'] != 'past']
@@ -555,13 +555,13 @@ def picks(data, prefix):
     for value, label, count in [('all', 'All matches', shown['all']), ('market', 'Market-backed', shown['market']), ('model', 'Research', shown['model']), ('unresolved', 'Unresolved', shown['unresolved'])]:
         out += f'<button type="button" data-basis="{value}" aria-pressed="{"true" if value == "all" else "false"}">{label}<span>{count}</span></button>'
     out += f'</div><p id="filter-count" aria-live="polite">{len(active)} matches</p></div><noscript><p class="limitations-callout">JavaScript is off. Every row and source remains visible; interactive search and live freshness/lock checks are unavailable. Status reflects build time only; confirm the published observation and Hotspawn countdown before choosing a team.</p></noscript>'
-    out += matches_table(active, prefix, filters=True, fallbacks=fallbacks) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Researched fallback', 'purple') + ' Featured method rejected the fixture; audited research ladder produced this estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
+    out += matches_table(active, prefix, filters=True, fallbacks=fallbacks, now=now) + '</section><div class="legend"><span>' + badge('Market-backed', 'green') + ' Independent external prices</span><span>' + badge('Research model', 'purple') + ' Uncalibrated rating estimate</span><span>' + badge('Researched fallback', 'purple') + ' Featured method rejected the fixture; audited research ladder produced this estimate</span><span>' + badge('Unresolved', 'amber') + ' No supported probability</span></div>'
     out += f'<p class="muted small">Showing future-start and unknown-schedule fixtures at the last inventory check. Past-start records remain available in the <a href="{prefix}coverage/#archive">complete source archive</a>. Fair decimal lines are calculated in each row’s evidence panel; they are not executable bookmaker quotes.</p>'
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Every gap stays visible</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All flagged findings →</a></div>' + unresolved_table(data, prefix) + '</section>'
     return out
 
 
-def coverage(data, prefix):
+def coverage(data, prefix, now=None):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
     out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
@@ -593,7 +593,7 @@ def coverage(data, prefix):
     out += f'<div class="limitations-callout"><strong>Earlier session outputs, preserved for review</strong><p>These archived dashboards use older observation times and different identity/model rules. They are not the current picks feed and are not independently reverified by this pipeline.</p><div class="inline-links"><a href="{prefix}docs/index.html">Earlier research snapshot →</a><a href="{prefix}archive/root-session/index.html">Earlier root dashboard →</a></div></div>'
     unknown = [m for m in data['matches'] if m['availability'] == 'unknown']
     if unknown:
-        out += '<section class="content-section" id="unknown-schedules"><h2>Unverified schedules</h2>' + matches_table(unknown, prefix, table_id='unknown-schedules') + '</section>'
+        out += '<section class="content-section" id="unknown-schedules"><h2>Unverified schedules</h2>' + matches_table(unknown, prefix, table_id='unknown-schedules', now=now) + '</section>'
     return out
 
 
@@ -614,9 +614,9 @@ def review(data, prefix):
     out += review_note(prefix, data.get('day_one_audit'))
     if data.get('repo_audit'):
         out += audit_register(data['repo_audit'], prefix)
-    if data.get('session_review'):
-        from scripts.review_register import render as session_register
-        out += session_register(data['session_review'], prefix)
+    if data.get('session_reviews'):
+        from scripts.review_register import render_all as session_register
+        out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
     for f in data['flags']:
@@ -633,7 +633,7 @@ def urlparse_host(url):
     return urlparse(url).netloc
 
 
-def shell(data, key, body, prefix):
+def shell(data, key, body, prefix, now=None):
     title = PAGES[key][0]
     nav = ''
     for k, (label, path, sym) in PAGES.items():
@@ -643,7 +643,7 @@ def shell(data, key, body, prefix):
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
     mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     inventory = data.get('inventory_observed_at') or ''
-    stale = not data['coverage_complete'] or not is_fresh(inventory, datetime.now(timezone.utc))
+    stale = not data['coverage_complete'] or not is_fresh(inventory, now or datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
     crosscheck = data.get('inventory_crosscheck', 'complete')
     crosscheck_note = ''
@@ -682,7 +682,10 @@ def picks_csv(data):
     return stream.getvalue()
 
 
-def build(source: Path, output: Path):
+def build(source: Path, output: Path, now=None):
+    # A single reference time for the whole site: a page can never disagree with
+    # itself about freshness, and a test can pin the site to a known instant.
+    now = now or datetime.now(timezone.utc)
     data = check_data(source)
     contrarian_data = load_review(source / 'contrarian.json')
     data['_contrarian'] = derive_context(data, contrarian_data)
@@ -709,12 +712,21 @@ def build(source: Path, output: Path):
         data['coverage_probe'] = json.loads((source / 'research/8fa2b226/coverage-probe.json').read_text())
     if (source / 'research/de176356/repo-review-register.json').exists():
         data['repo_audit'] = json.loads((source / 'research/de176356/repo-review-register.json').read_text())
-    if (source / 'research/c07e1b40/repo-review.json').exists():
-        data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
+    from scripts.review_register import REGISTERS
+    session_reviews, session_review_paths = [], []
+    for relative in REGISTERS:
+        candidate = source / relative
+        if not candidate.exists():
+            continue
+        session_reviews.append(json.loads(candidate.read_text()))
+        session_review_paths.append(relative)
+    if session_reviews:
+        data['session_reviews'] = session_reviews
+        data['session_review_paths'] = session_review_paths
     from scripts.twc_research import derive_day4
-    data['_twc_day4'] = derive_day4(data, source, datetime.now(timezone.utc))
+    data['_twc_day4'] = derive_day4(data, source, now)
     from scripts.day5 import derive as derive_day5
-    data['_twc_day5'] = derive_day5(data, source, datetime.now(timezone.utc))
+    data['_twc_day5'] = derive_day5(data, source, now)
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
@@ -726,14 +738,17 @@ def build(source: Path, output: Path):
     from scripts.build_twc import render as twc_review
     edge_path = source / 'edge-review.json'
     _self.EDGE_SOURCE = edge_path
-    renderers = {'summary': summary, 'picks': picks, 'coverage': coverage, 'methodology': methodology,
-                 'review': review, 'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
-                 'twc': lambda d, pfx: twc_review(d, pfx, source)}
+    renderers = {'summary': lambda d, pfx: summary(d, pfx, now=now),
+                 'picks': lambda d, pfx: picks(d, pfx, now=now),
+                 'coverage': lambda d, pfx: coverage(d, pfx, now=now),
+                 'methodology': methodology, 'review': review,
+                 'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
+                 'twc': lambda d, pfx: twc_review(d, pfx, source, now=now)}
     for key, (_, path, _) in PAGES.items():
         target = output / path
         target.parent.mkdir(parents=True, exist_ok=True)
         prefix = './' if key == 'summary' else '../'
-        target.write_text(shell(data, key, renderers[key](data, prefix), prefix))
+        target.write_text(shell(data, key, renderers[key](data, prefix), prefix, now=now))
     (output / 'data/picks.csv').write_text(picks_csv(data))
     if data.get('_twc_report'):
         (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')

@@ -176,18 +176,19 @@ def results_table(rows, prefix):
     return out + '</tbody></table></div>'
 
 
-def render(data: dict, prefix: str, source: Path) -> str:
+def render(data: dict, prefix: str, source: Path, now=None) -> str:
     from scripts.build import e, heading, external, local_time, blank, badge
-    report = derive(data, source)
+    now = now or datetime.now(timezone.utc)
+    report = derive(data, source, now)
     from scripts.twc_research import derive_day4
     guide = data.get('_twc_day4')
     if guide is None:
-        guide = derive_day4(data, source, datetime.now(timezone.utc))
+        guide = derive_day4(data, source, now)
     report['day4'] = guide
     from scripts.day5 import derive as derive_day5, render as render_day5
     final_day = data.get('_twc_day5')
     if final_day is None:
-        final_day = derive_day5(data, source, datetime.now(timezone.utc))
+        final_day = derive_day5(data, source, now)
     report['day5'] = final_day
     data['_twc_report'] = report
     out = heading('Thunderpick World Championship 2026 · 18 October', 'TWC Day 5: picks & review',

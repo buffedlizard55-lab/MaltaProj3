@@ -11,6 +11,13 @@ from html import escape
 from urllib.parse import urlparse
 
 REGISTER = 'research/c07e1b40/repo-review.json'
+# Every session review register that is published on the Flagged for Review
+# page. Each file is a dated, source-linked register; a register that is not
+# present in the tree is simply not rendered.
+REGISTERS = (
+    REGISTER,
+    'research/534ae9e5/repo-review.json',
+)
 STATUS = {
     'fixed': ('Fixed', 'green'),
     'verified': ('Verified', 'green'),
@@ -49,17 +56,18 @@ def validate(register: dict) -> None:
                 raise ValueError(f'Review item {item["id"]} needs https evidence links with details')
 
 
-def render(register: dict, prefix: str) -> str:
+def render(register: dict, prefix: str, section_id: str = 'session-review',
+           register_path: str = REGISTER, include_shared: bool = True) -> str:
     validate(register)
     counts = {}
     for item in register['items']:
         counts[item['status']] = counts.get(item['status'], 0) + 1
     summary = ' · '.join(f'{n} {STATUS[s][0].lower()}' for s, n in counts.items())
-    out = ['<section class="content-section" id="session-review"><div class="section-heading"><div>'
+    out = [f'<section class="content-section" id="{e(section_id)}"><div class="section-heading"><div>'
            f'<p class="eyebrow">Line-by-line review · {e(register["session"])}</p><h2>Repository review register</h2></div>'
            f'<span class="muted small">{e(summary)}</span></div>',
            f'<p>{e(register["scope"])} Reviewed {e(register["review_clock_utc"])}. {e(register["method"])} '
-           f'<a style="text-decoration:underline" href="{prefix}data/{REGISTER}">Original register (JSON) ↓</a></p>',
+           f'<a style="text-decoration:underline" href="{prefix}data/{e(register_path)}">Original register (JSON) ↓</a></p>',
            '<div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">'
            'Repository review findings with status, handling and evidence links</caption><thead><tr>'
            '<th scope="col">Finding</th><th scope="col">Handling</th><th scope="col">Evidence</th></tr></thead><tbody>']
@@ -73,7 +81,33 @@ def render(register: dict, prefix: str) -> str:
                        f'rel="noopener noreferrer">{e(host(ev["url"]))}</a></li>')
         out.append('</ul></details></td></tr>')
     out.append('</tbody></table></div></section>')
+    if include_shared:
+        out.append(shared_disambiguation_section(prefix))
+    return ''.join(out)
+
+
+def shared_disambiguation_section(prefix: str) -> str:
+    """The lineup-disambiguation block is page-wide, not part of a register.
+
+    It is rendered once for the page, never once per register, so a page that
+    carries two registers never repeats an element id.
+    """
     from scripts.lineup_disambiguation import DISAMBIGUATION_PATH, VALVE_EVIDENCE_PATH, load_disambiguation, render_disambiguation_section
     if DISAMBIGUATION_PATH.exists() and VALVE_EVIDENCE_PATH.exists():
-        out.append(render_disambiguation_section(load_disambiguation(DISAMBIGUATION_PATH, VALVE_EVIDENCE_PATH), prefix))
+        return render_disambiguation_section(load_disambiguation(DISAMBIGUATION_PATH, VALVE_EVIDENCE_PATH), prefix)
+    return ''
+
+
+def render_all(registers: list, prefix: str, paths: list | None = None) -> str:
+    """Render every session review register, in the order they are declared.
+
+    Each register gets its own section id so a page that carries more than one
+    register never repeats an element id.
+    """
+    out = []
+    for index, register in enumerate(registers):
+        path = (paths[index] if paths and index < len(paths) else REGISTER)
+        section_id = 'session-review' if index == 0 else f'session-review-{index}'
+        out.append(render(register, prefix, section_id=section_id, register_path=path,
+                          include_shared=(index == 0)))
     return ''.join(out)
