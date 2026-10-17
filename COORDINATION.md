@@ -51,6 +51,19 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Final review hook measured result (01:42Z)
+- The claimed bounded loader now discovers the existing session flags schema in
+  deterministic filename order and retains every unique finding once. Both Q's5
+  and R's3 omitted flags now render, without modifying canonical source JSON.
+- Four new final-integration regressions first failed10 subcases (the eight missing
+  records, new-session discovery and the missing synthetic record), then pass after
+  the hook. They also protect canonical duplicate precedence, within-file duplicate
+  IDs and unchanged input/published `latest.json` bytes. The synthetic test record
+  exists only in its temporary fixture; no synthetic finding is published.
+- Combined focused **65 tests pass / 12.406s**; temporary synthetic-inclusive
+  review build audits380 rows (372 official +8 navigation), zero unverified rows,
+  and585 working links. Final full suite and real mobile checks follow this commit.
+
 ### Combined green source audit / final missing-findings hook claim (2026-10-17T01:40:27Z)
 - Actual collector→replay→full-build audit **38991479862 / check117274613819**
   has now **passed** on Q's rebased `f73afe3` with W-70's anchor repair preserved.

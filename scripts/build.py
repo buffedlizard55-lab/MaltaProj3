@@ -584,14 +584,16 @@ def build(source: Path, output: Path):
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
-    # Session 1112299f's dated findings go through the same Flagged for Review table. This only extends the
-    # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
-    # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
-    for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json', source / 'research/35440d12/flags.json', source / 'research/8a6a5a84/flags.json',
-                 source / 'research/8fa2b226/flags.json', source / 'research/9866e1ba/flags.json'):
-        if findings.exists():
-            have = {f['id'] for f in data['flags']}
-            data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
+    # Session findings share the dated, source-linked review schema. Discover all
+    # retained session files so a new completed audit cannot silently be omitted
+    # by a hardcoded allowlist. Extend only the in-memory rendering list; the
+    # published latest.json remains the untouched source-directory copy.
+    have = {f['id'] for f in data['flags']}
+    for findings in sorted((source / 'research').glob('*/flags.json')):
+        for finding in json.loads(findings.read_text()):
+            if finding['id'] not in have:
+                data['flags'].append(finding)
+                have.add(finding['id'])
     # Session arena-8fa2b226's coverage dossier: why each blank stayed blank, which providers were checked.
     if (source / 'research/8fa2b226/coverage-probe.json').exists():
         data['coverage_probe'] = json.loads((source / 'research/8fa2b226/coverage-probe.json').read_text())
