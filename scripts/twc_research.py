@@ -10,6 +10,7 @@ import gzip
 import hashlib
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -18,9 +19,11 @@ from bs4 import BeautifulSoup
 from scripts.domain import iso, timestamp
 from scripts.hltv_match import parse_match
 from scripts.sources import Client, SourceError
+from scripts import twc_lines
 
 EVENT_URL = 'https://www.hltv.org/events/8932/thunderpick-world-championship-2026'
 TARGET_DAY = '2026-10-17'
+OBSERVATIONS = Path('research/138f48b7/day4-market-observations.json')
 FOLDER = Path('research/twc-current')
 DAY3_URLS = [
     'https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026',
@@ -70,6 +73,23 @@ def collect(source: Path):
             pages.append({'label': label, 'request': dict(client.manifest[-1])})
     report = {'schema_version': 1, 'policy': 'Source research only; canonical picks supply all probabilities. HLTV is an independent reporter, not tournament organizer verification.',
               'target_day': TARGET_DAY, 'pages': pages}
+    # Tournament-card lines for the target day. The weekly Hotspawn lobby feed
+    # does not carry TWC playoff fixtures, so without this step they could never
+    # have a probability. External first-party markets only; blanks stay blank.
+    rows = [{'source_url': page['request']['url'], 'observed_at': page['request'].get('observed_at'),
+             'facts': page['facts']} for page in pages if page.get('facts')]
+    registry_path = Path('data/origination/aliases.json')
+    registry = json.loads(registry_path.read_text()) if registry_path.exists() else {'aliases': []}
+    lines = twc_lines.collect(client, rows, registry, TARGET_DAY, datetime.now(timezone.utc))
+    resolved = [r for r in lines['records'] if any(p.get('quote') for p in r['providers'])]
+    report['day4_lines'] = {
+        'report': 'evidence/twc-day4-lines.json', 'fixtures': len(lines['records']),
+        'resolved': len(resolved), 'observed_at': lines['observed_at'],
+        'detail': 'External Polymarket/Kalshi full-series books for TWC fixtures that are absent from the weekly '
+                  'Hotspawn inventory. Probabilities are recomputed from the retained originals at build time.'}
+    print('::notice title=TWC day4 lines::' + json.dumps({'observed_at': lines['observed_at'],
+                                                          'fixtures': len(lines['records']),
+                                                          'resolved': len(resolved)}))
     (folder / 'source-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     return report
 
@@ -103,6 +123,23 @@ def load(source: Path):
             continue
         records.append({'source_url': request['url'], 'observed_at': request['observed_at'], 'facts': facts})
     return {'pages': records, 'target_day': TARGET_DAY}
+
+
+def load_observations(source: Path) -> list:
+    """Dated market observations captured by a scoped research fetch.
+
+    These are display-only context for fixtures the pipeline has not collected
+    yet. They are never merged into a canonical pair, never used as a pricing
+    input and never presented as freshly collected evidence.
+    """
+    path = source / OBSERVATIONS
+    if not path.exists():
+        return []
+    try:
+        payload = json.loads(path.read_text())
+    except ValueError:
+        return []
+    return payload.get('fixtures') or []
 
 
 def derive_day4(data, source: Path, now):
@@ -154,6 +191,17 @@ def derive_day4(data, source: Path, now):
     # Report independently listed fixtures even before Hotspawn adds them, but
     # never claim they are in the pick-em inventory or manufacture a lock/price.
     unlisted = [r for r in records if r['source_url'] not in consumed]
+    # Tournament-card lines are replayed from retained external originals. They
+    # are attached beside the canonical pair, never over it, and only a fixture
+    # without a supported estimate is allowed to use one as its own line.
+    lines = twc_lines.load(source, now)
+    for row in rows:
+        if row['analysis'] is None:
+            row['line'] = twc_lines.for_fixture(lines, row['teams'], row['fixture']['starts_at'])
+            row['line_underdog'] = twc_lines.underdog(row['line']) if row.get('line') else None
+    for record in unlisted:
+        record['line'] = twc_lines.for_fixture(lines, record['facts']['teams'], record['facts']['starts_at'])
+        record['line_underdog'] = twc_lines.underdog(record['line']) if record.get('line') else None
     day3 = []
     for r in research['pages']:
         facts = r['facts']
@@ -164,6 +212,18 @@ def derive_day4(data, source: Path, now):
                          'lesson': 'Use the completed series as matchup context, not a new win-rate sample or proof the earlier odds were wrong.' if facts['score'] else 'Result unverified. A past scheduled start does not establish a winner.'})
     return {'schema_version': 1, 'generated_at': data.get('generated_at'), 'source_snapshot_at': data.get('inventory_observed_at'), 'evaluated_at': iso(now), 'event_day': TARGET_DAY, 'research_available': bool(research['pages']), 'matches': rows, 'not_in_hotspawn_snapshot': unlisted,
             'day3_results': day3, 'research_report': str(FOLDER / 'source-report.json') if (source / FOLDER / 'source-report.json').exists() else 'research/8a6a5a84/twc-current/source-report.json',
+            'lines': {'available': lines['available'], 'day': lines['day'], 'observed_at': lines['observed_at'],
+                      'report_path': lines['report_path'], 'policy': lines['policy'],
+                      'resolved': len([m for m in lines['matches'] if m.get('probabilities')]),
+                      'total': len(lines['matches']),
+                      'fixtures': [{'fixture_id': m['fixture_id'], 'teams': m['teams'], 'starts_at': m['starts_at'],
+                                    'probabilities': m.get('probabilities'), 'pick_index': m.get('pick_index'),
+                                    'method': m.get('method'), 'label': m.get('label'), 'observed_at': m.get('observed_at'),
+                                    'providers': m.get('providers') or [], 'attempts': m.get('attempts') or [],
+                                    'limitations': m.get('limitations') or [], 'source_url': m.get('source_url')}
+                                   for m in lines['matches']]},
+            'observations': load_observations(source),
+            'observations_path': OBSERVATIONS.as_posix(),
             'policy': 'Exact canonical probabilities; no historical, roster, crowd, rest or result premium.'}
 
 

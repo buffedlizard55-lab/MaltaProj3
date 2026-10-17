@@ -298,6 +298,18 @@ def render(data: dict, prefix: str, source: Path) -> str:
     return out
 
 
+def observation_for(observations, teams, starts_at):
+    """The dated observation for an exact team pair and start, or None.
+
+    Display-only context: it is never merged into a canonical or collected pair.
+    """
+    key = (frozenset(name_key(t) for t in teams or []), starts_at)
+    for entry in observations or []:
+        if (frozenset(name_key(t) for t in entry.get('teams') or []), entry.get('starts_at')) == key:
+            return entry
+    return None
+
+
 def render_day4(guide, prefix):
     """Mobile-readable canonical picks with the shared fail-closed time guards."""
     from scripts.build import e, local_time, external, blank
@@ -343,12 +355,108 @@ def render_day4(guide, prefix):
         out += '</article>'
     out += '</div>'
     if not guide['matches']:
-        out += '<p class="section-intro"><strong>No Day-4 TWC fixture is confirmed in this Hotspawn snapshot.</strong> No pair, lock, price or default is invented. The complete CS2 list remains available below.</p>'
+        out += ('<p class="section-intro"><strong>No Day-4 TWC fixture is confirmed in the weekly Hotspawn snapshot.</strong> '
+                'No pair, lock, price or default is invented for that inventory. Any validated tournament-card line is '
+                'shown in the separate external-market table below, and the complete CS2 list remains available.</p>')
     if guide['not_in_hotspawn_snapshot']:
-        out += '<div class="table-scroll"><table class="simple-table"><caption>HLTV-listed Day-4 fixtures not uniquely matched to the Hotspawn weekly inventory — not playable picks here</caption><thead><tr><th>Match</th><th>HLTV start</th><th>Hotspawn probability / pick</th><th>Source</th></tr></thead><tbody>'
+        out += ('<section id="day-four-tournament-lines"></section>'
+                '<h3>Tournament-card lines (not in the weekly Hotspawn lobby inventory)</h3>'
+                '<p class="section-intro">These fixtures are listed by HLTV and by the Thunderpick tournament '
+                'pick&#8217;em, so they carry no weekly inventory lock. Their win probabilities come from external '
+                'first-party markets only: the public Polymarket CS2 directory and CS2-tag event API with both '
+                'original order books, and Kalshi&#8217;s public CS2 match-winner series. Each fixture must join on '
+                'exact team names (or a competition-scoped, evidence-linked alias) and an exact start time, and both '
+                'sides must publish a two-sided book no wider than 0.12. No Hotspawn percentage, directory estimate '
+                'or fan vote is used anywhere.</p>')
+        out += '<div class="table-scroll"><table class="simple-table twc-day4-lines"><caption>HLTV-listed Day-4 fixtures absent from the weekly inventory — probabilities recomputed from retained market originals</caption><thead><tr><th>Match &amp; start</th><th>Probability &amp; pick</th><th>Evidence &amp; limitations</th></tr></thead><tbody>'
         for r in guide['not_in_hotspawn_snapshot']:
-            out += f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}</th><td>{local_time(r["facts"]["starts_at"])}</td><td>{blank()}<small>No unique exact pair/time join to the weekly inventory; placeholder opponents are not confirmed. No price or lock inferred. Separate tournament picks may differ.</small></td><td>{external(r["source_url"], "HLTV fixture")}<small>Read {local_time(r["observed_at"])}</small></td></tr>'
+            line = r.get('line') or {}
+            probs = line.get('probabilities')
+            cells = ''
+            if probs:
+                names = r['facts']['teams']
+                pick = line.get('pick_index')
+                picks = []
+                for i, name in enumerate(names):
+                    marker = ' ✓ pick' if i == pick else ''
+                    picks.append(f'<div class="twc-prob{" twc-favorite" if i == pick else ""}">'
+                                 f'<span>{e(name)}</span><strong>{probs[i] * 100:.1f}%</strong></div>')
+                cells = (''.join(picks) + f'<p class="pick-choice"><strong>Default pick: {e(names[pick])}</strong></p>'
+                         f'<small>{e(line.get("label"))}<br>Observed {local_time(line.get("observed_at"))}. '
+                         'Midpoints, not executable quotes.</small>')
+                for provider in line.get('providers') or []:
+                    cells += (f'<br><small>{e(provider["provider"])}: bid/ask '
+                              f'{provider["bid"][0]:.3f}/{provider["ask"][0]:.3f} vs '
+                              f'{provider["bid"][1]:.3f}/{provider["ask"][1]:.3f}</small>')
+                dog = r.get('line_underdog')
+                if dog:
+                    if dog['passes_floor']:
+                        cells += (f'<aside class="twc-watch"><strong>Optional contrarian slot: {e(dog["team"])}</strong>'
+                                  f'<p>{dog["probability"] * 100:.1f}% priced chance — at or above the published 30% '
+                                  f'money-backed floor. Switching costs {dog["cost_per_base_point"]:.3f} expected points '
+                                  'per 1 base point, before streak effects. A defensible risk choice, not a proven edge.</p></aside>')
+                    else:
+                        cells += (f'<aside class="twc-watch"><strong>No upset play offered: {e(dog["team"])}</strong>'
+                                  f'<p>{dog["probability"] * 100:.1f}% priced chance — below the published 30% underdog '
+                                  'floor, so fading this favourite is the avoidable kind of contrarian. Keep the default.</p></aside>')
+            else:
+                observed = observation_for(guide.get('observations'), r['facts']['teams'], r['facts']['starts_at'])
+                if observed:
+                    names = r['facts']['teams']
+                    median = observed.get('median') or []
+                    pick = names[0] if median and median[0] >= median[1] else (names[1] if median else None)
+                    cells = ''
+                    for i, name in enumerate(names):
+                        if i >= len(median):
+                            continue
+                        marker = ' ✓ lean' if name == pick else ''
+                        cells += f'<div class="twc-prob"><span>{e(name)}{marker}</span><strong>{median[i] * 100:.1f}%</strong></div>'
+                    if pick:
+                        cells += (f'<p class="pick-choice"><strong>Dated lean: {e(pick)}</strong></p>'
+                                  '<small>Dated market observation from this session\'s own research capture, not the '
+                                  'publisher\'s collected evidence. The four-hour pipeline re-collects the same public '
+                                  'endpoints and supersedes it; no Hotspawn or fan-vote input.</small>')
+                    for provider in observed.get('providers') or []:
+                        pairs = list(zip(provider.get('bid') or [], provider.get('ask') or [],
+                                         provider.get('outcomes') or []))
+                        detail = ' · '.join(f'{e(o)} {b:.3f}/{a:.3f}' for b, a, o in pairs)
+                        cells += (f'<br><small>{e(provider["provider"])}: {detail} — observed '
+                                  f'{local_time(provider.get("observed_at"))}'
+                                  + (f', book updated {local_time(provider["book_updated_at"])}'
+                                     if provider.get('book_updated_at') else '') + '</small>')
+                    dog = observed.get('underdog') or {}
+                    if dog:
+                        if dog.get('passes_floor'):
+                            cells += (f'<aside class="twc-watch"><strong>Optional contrarian slot: {e(dog["team"])}</strong>'
+                                      f'<p>{dog["probability"] * 100:.1f}% observed chance — above the published 30% '
+                                      f'floor. Switching costs {dog["cost_per_base_point"]:.3f} expected points per 1 '
+                                      f'base point. {e(dog.get("reading") or "")}</p></aside>')
+                        else:
+                            cells += (f'<aside class="twc-watch"><strong>No upset play offered: {e(dog["team"])}</strong>'
+                                      f'<p>{dog["probability"] * 100:.1f}% observed chance — below the published 30% '
+                                      f'floor. {e(dog.get("reading") or "")}</p></aside>')
+                else:
+                    attempts = ''.join(f'<li>{e(a["provider"])}: {e(a["reason"])}</li>' for a in (line.get('attempts') or []))
+                    cells = (blank() + '<small>No validated two-sided external line at this observation. No price or pick '
+                             'is invented; a source failure is not evidence that no market exists.</small>'
+                             + (f'<ul class="small">{attempts}</ul>' if attempts else ''))
+            links = ''.join(external(p['source_url'], p['provider']) for p in (line.get('providers') or [])
+                            if p.get('source_url'))
+            links += external(r['source_url'], 'HLTV fixture')
+            if guide['lines'].get('report_path'):
+                links += f'<a href="{prefix}data/{e(guide["lines"]["report_path"])}">Retained market originals ↓</a>'
+            out += (f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}'
+                    f'<small>{local_time(r["facts"]["starts_at"])} · HLTV start</small></th>'
+                    f'<td>{cells}</td><td>{links}<small>Read {local_time(r["observed_at"])}</small></td></tr>')
         out += '</tbody></table></div>'
+        if guide['lines'].get('available'):
+            out += (f'<p class="small">External lines observed {local_time(guide["lines"]["observed_at"])}: '
+                    f'{guide["lines"]["resolved"]} of {guide["lines"]["total"]} Day-4 fixtures validated. '
+                    'They refresh with the same four-hour publisher and are recomputed from the retained originals, '
+                    'so a stale, wide or one-sided book publishes nothing.</p>')
+        else:
+            out += ('<p class="small">No retained external-market evidence for the Day-4 tournament card yet. '
+                    'Probabilities stay blank until a validated book is collected.</p>')
     out += (f'<p class="section-intro"><a href="{prefix}origination/#picks">Every updated CS2 pick →</a> · '
             f'<a href="{prefix}origination/#unresolved">All unresolved picks &amp; limitations →</a> · '
             + (f'<a href="{prefix}data/{e(guide["research_report"])}">Day-3/4 source manifest ↓</a>' if guide.get('research_available') else 'Day-3/4 source evidence unavailable — unverified') + '</p></section>')
