@@ -51,6 +51,23 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Main/FI reconciliation completed (01:50Z)
+- Confirmed FI#72 merged01:43:55Z as `9de62de55fa1cb7b4e13672600110d899132ba21`.
+  Rebased Q onto that exact main. Board conflict preserved the complete FI/R/W/T
+  and historical records alongside Q. No other branch/worktree is pushed.
+- Overlapping finished TWC fixes were reconciled, **retaining FI's canonical
+  `fixture_record()` serializer and retained-file/HTTP hash separation**, with Q's
+  additional exact two/distinct-name validation, freshness and page-clock/immutable
+  filename guards layered on top. All **66 combined Q + FI/T TWC tests pass**.
+- Read-only workflow retains FI's full traceback/location diagnostics and the
+  same actual tournament collection stage, now with Q's explicit original replay
+  assertion/annotation in that **single** stage. Do not duplicate both collection
+  calls and overwrite a same-minute history read. No publisher workflow changed.
+- Generic flags loader includes FI's newly added R hook and expanded W findings
+  automatically; no existing finding is removed, replaced or retimed. Source-level
+  W assertion maintenance and all real-render flag regressions are retained.
+  Final fresh-source/full Python/mobile CI runs now test this reconciled head.
+
 ### Completed wiring maintenance / FI merge handoff (01:48Z)
 - W's one source-level loader check now asserts the new exact generic loop and
   membership of its unchanged flags file; all other W assertions are untouched.
