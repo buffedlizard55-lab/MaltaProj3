@@ -58,6 +58,20 @@ and `research_window` are the authority for the priced Day-4 record, this sessio
 principles as the spine with this session's group-stage/score-line/format/rest readings appended. Both sessions'
 tests are in `tests/test_edge.py` (31 checks, all passing on the merged tree).
 
+### Publisher status after PR #70 (2026-10-17T01:35Z) — one cause fixed, one still open
+
+**PR #70 merged as `6bcb2ab` at 01:28:05Z** (both checks green on the merge commit). Its dangling-anchor fix is
+confirmed working on the runner: run 38990980427 now gets past the executive-summary links and reports
+`PASS: 96 source rows reconciled`, and the new `::error` annotation made the *next* cause readable from the API —
+`ValueError: TWC line evidence hash mismatch: evidence/twc-day4-poly-event-1200431-20261017T0130.json` at
+`scripts/twc_lines.py:423`. So the publisher is still fail-closed-red and no new snapshot has deployed; the site
+serves the last verified one. `scripts/twc_lines.py` is `arena-138f48b7`'s file and was not edited here: PR #72
+(arena-fa7ed344) already carries the hashing repair, so this session posted the evidence and the second gap
+(`data/research/twc-current/` is not part of the cached last-good pair, so a fallback rebuild can replay a report
+whose originals were rolled back) as a comment on that PR instead of racing it:
+`https://github.com/buffedlizard55-lab/MaltaProj3/pull/72#issuecomment-6227988298`. Published as flag
+`8fa2b226-twc-evidence-hash-blocker` so the outage is on the review page, not just on the board.
+
 ### Publisher outage found after this PR merged — fixed in the follow-up PR (2026-10-17T01:15Z)
 
 `scripts/build` was **failing on main** for both runs after PR #66: 38987976979 (00:47Z) and this session's
