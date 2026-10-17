@@ -41,6 +41,8 @@ jobs:
           # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
+      - name: Replay every live source row without changing either feed
+        run: python -m scripts.pipeline_audit --source data --output data/research/5b642a83/live-source-integrity-audit.json
       # Match the production collector -> replay boundary before allowing a PR
       # to pass. Repository-fixture builds alone never exercised TWC collection.
       # This workflow is read-only and still never publishes or commits data.

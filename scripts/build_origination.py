@@ -354,11 +354,15 @@ def validate_origination(data, source):
             continue
         if o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
-            rows, meta = valve_rows(source, None)
+            rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
             proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))
             expected, reason = model_estimate(raw, rows, registry, meta, timestamp(data['generated_at']), lineup=proof)
             assert (expected or {}).get('lineup_disambiguation') == o.get('lineup_disambiguation'), 'Lineup identity proof differs from original HLTV markup'
             assert expected and expected['probabilities'] == o['probabilities'], 'Model calculation differs from original Valve ratings'
+            if 'evaluation_at' in o:
+                assert expected['observed_at'] == o['observed_at'], 'Valve source observation restamped'
+                assert expected['inputs'] == o['inputs'], 'Valve input records changed'
+                assert expected['evidence_file'] == o['evidence_file'], 'Valve original source changed'
         values = []
         for q in o.get('quotes', []):
             if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada'}:

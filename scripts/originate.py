@@ -462,6 +462,8 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             out['bovada_error'] = 'Bovada coupon contract unrecognized'
     except RuntimeError as exc:
         out['bovada_error'] = str(exc)
+    for stale in ('live-valve-directory.json', 'live-valve-standings.json', 'live-valve-standings-text.json'):
+        (evidence_dir / stale).unlink(missing_ok=True)
     try:
         now = datetime.now(UTC)
         directory, _ = client.get_json(f'{VALVE_REPO}/contents/live/{now.year}', 'live-valve-directory')
@@ -793,17 +795,82 @@ def bovada_rows(orig_evidence: Path) -> list:
     return rows
 
 
-def valve_rows(repo_data: Path, live: dict | None) -> tuple[list | None, dict | None]:
+def _verified_valve_rows(repo_data: Path, live: bool, manifest: list):
+    """Verify decoded rows against the official Contents response and blob ID."""
     from scripts.domain import parse_valve_table
-    if live and (repo_data / 'origination' / 'evidence' / 'live-valve-standings-text.json').exists():
-        payload = load_json(repo_data / 'origination' / 'evidence' / 'live-valve-standings-text.json')
-        rows = parse_valve_table(payload['text'], payload['source_url'], payload['snapshot_date'])
-        return rows, {'source_url': payload['source_url'], 'snapshot_date': payload['snapshot_date'], 'evidence_file': 'data/origination/evidence/live-valve-standings-text.json'}
-    path = repo_data / 'evidence' / 'valve-ratings.json'
-    if not path.exists():
+    if live:
+        folder = repo_data / 'origination/evidence'
+        payload = load_json(folder / 'live-valve-standings-text.json')
+        original = load_json(folder / 'live-valve-standings.json')
+        directory = load_json(folder / 'live-valve-directory.json')
+        label, original_reference = 'live-valve-standings', 'data/origination/evidence/live-valve-standings.json'
+        reference = 'data/origination/evidence/live-valve-standings-text.json'
+    else:
+        folder = repo_data / 'evidence'
+        payload = load_json(folder / 'valve-ratings.json')
+        original = load_json(folder / 'valve-standings-response.json')
+        directory = load_json(folder / 'valve-directory.json')
+        label, original_reference = 'valve-standings-response', 'data/evidence/valve-standings-response.json'
+        reference = 'data/evidence/valve-ratings.json'
+    day = payload.get('snapshot_date')
+    if not isinstance(day, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', day):
+        raise ValueError('Valve snapshot date is unverified')
+    path = 'live/' + day[:4] + '/standings_global_' + day.replace('-', '_') + '.md'
+    url = 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/' + path
+    if (original.get('encoding') != 'base64' or original.get('path') != path
+            or original.get('html_url') != url or payload.get('source_url') != url):
+        raise ValueError('Valve decoded source does not match the official Contents identity')
+    raw = base64.b64decode(''.join(original['content'].split()), validate=True)
+    blob = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+    if blob != original.get('sha'):
+        raise ValueError('Valve original content does not match its Git blob ID')
+    entries = [e for e in directory if isinstance(e, dict) and e.get('path') == path]
+    if len(entries) != 1 or entries[0].get('sha') != blob:
+        raise ValueError('Valve standings do not match the original directory entry')
+    observations = [r for r in manifest if r.get('id') == label and r.get('status') == 'ok']
+    if (len(observations) != 1 or not timestamp(observations[0].get('observed_at'))
+            or observations[0].get('url') != VALVE_REPO + '/contents/' + path
+            or observations[0].get('evidence') != original_reference):
+        raise ValueError('Valve source lacks its original unique successful request')
+    text = raw.decode('utf-8')
+    rows = parse_valve_table(text, url, day)
+    if live:
+        if payload.get('text') != text or payload.get('text_sha256') != hashlib.sha256(raw).hexdigest():
+            raise ValueError('Decoded Valve text differs from the original official content')
+    elif payload.get('rows') != rows or payload.get('git_blob_sha') != blob:
+        raise ValueError('Derived Valve rating rows differ from the original official content')
+    return rows, {'source_url': url, 'snapshot_date': day, 'evidence_file': reference,
+                  'observed_at': observations[0]['observed_at'], 'git_blob_sha': blob}
+
+
+def valve_rows(repo_data: Path, live: dict | None, *, evidence_file: str | None = None) -> tuple[list | None, dict | None]:
+    """Select a verified original, preserving source time and the replayed path.
+
+    A failed live attempt may fall back only to the independently verified
+    featured original. A publisher replay explicitly selecting live evidence must
+    reject missing/altered originals, never quietly change its evidence source.
+    """
+    live_reference = 'data/origination/evidence/live-valve-standings-text.json'
+    if evidence_file not in (None, live_reference, 'data/evidence/valve-ratings.json'):
+        raise ValueError('Unrecognized Valve evidence reference')
+    forced_live = evidence_file == live_reference
+    limitation = None
+    if forced_live or live is not None:
+        try:
+            manifest = (live.get('requests', []) if live is not None
+                        else load_json(repo_data / 'origination/evidence/live-collection-manifest.json'))
+            return _verified_valve_rows(repo_data, True, manifest)
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+            if forced_live:
+                raise ValueError('Original live Valve source rejected: ' + str(exc)) from exc
+            limitation = 'Live Valve source was not verified; only the separately verified dated featured original is available: ' + str(exc)
+    if not (repo_data / 'evidence/valve-ratings.json').exists():
         return None, None
-    payload = load_json(path)
-    return payload['rows'], {'source_url': payload['source_url'], 'snapshot_date': payload['snapshot_date'], 'evidence_file': 'data/evidence/valve-ratings.json'}
+    snapshot = load_json(repo_data / 'latest.json')
+    rows, meta = _verified_valve_rows(repo_data, False, snapshot.get('requests', []))
+    if limitation:
+        meta['limitations'] = [limitation]
+    return rows, meta
 
 
 # ---------------------------------------------------------------------------
@@ -985,7 +1052,7 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
                          'source_url': r.get('source_url') or meta['source_url']} for r in inputs],
              'snapshot_date': meta['snapshot_date'], 'source_url': meta['source_url'],
              'evidence_file': meta['evidence_file'], 'rd_assumption': VALVE_RD, 'g': g,
-             'aliases_used': used, 'observed_at': iso(now)}
+             'aliases_used': used, 'observed_at': meta.get('observed_at'), 'evaluation_at': iso(now)}
     if disambiguated:
         quote['lineup_disambiguation'] = disambiguated
     return quote, ('Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula).'

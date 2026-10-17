@@ -132,7 +132,8 @@ def audit(source: Path, now: datetime | None = None) -> dict:
         if o:
             for q in o.get('quotes') or []:
                 refs.append({'url': q['source_url'], 'provider': q.get('provider'),
-                             'role': 'Original paired prematch money line',
+                             'role': ('Official ratings input; uncalibrated research model' if q.get('family') == 'model'
+                                      else 'Original paired prematch money line'),
                              'observed_at': q.get('observed_at'), 'evidence_file': q.get('evidence_file')})
             if not o.get('quotes'):
                 refs.append({'url': o['source_url'], 'role': 'Official ratings input; uncalibrated research model',
@@ -167,10 +168,17 @@ def main():
     parser.add_argument('--source', type=Path, default=Path('data'))
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    report = audit(args.source)
+    try:
+        report = audit(args.source)
+    except Exception as exc:
+        message = (type(exc).__name__ + ': ' + str(exc)).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+        print('::error title=First-party source-integrity audit::' + message)
+        raise
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print('Source-integrity audit: ' + json.dumps(report['counts']))
+    print('::notice title=First-party source-integrity audit::' + json.dumps({
+        'inventory_observed_at': report['inventory_observed_at'],
+        'counts': report['counts'], 'input_sha256': report['input_sha256']}))
 
 
 if __name__ == '__main__':

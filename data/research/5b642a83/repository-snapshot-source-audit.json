@@ -1,0 +1,666 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-17T01:11:18Z",
+  "scope": "Read-only source/replay register. Dated input estimates are not restamped or promoted to current picks.",
+  "inventory_observed_at": "2026-10-15T08:36:04Z",
+  "origination_generated_at": "2026-10-15T09:31:24Z",
+  "inventory_fresh_at_audit": false,
+  "inventory_complete": true,
+  "input_sha256": {
+    "latest.json": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+    "origination.json": "661ac8ff3a202e6ffc6dc2da8d57d94c91653ff71dfa790b1448422bf02ff5b2"
+  },
+  "counts": {
+    "canonical_nonpast_fixtures": 17,
+    "audited_rows": 17,
+    "supported_dated_estimates": 17,
+    "currently_usable_lines": 0,
+    "explicitly_unresolved": 0
+  },
+  "research_discovery": null,
+  "rows": [
+    {
+      "fixture_id": "1079440",
+      "teams": [
+        "MIBR",
+        "BC.Game"
+      ],
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.54959786,
+        0.45040214
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/mibr-vs-bc-game-stake-pulse-beat-iii-1079440",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-15T08:36:11Z",
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079442",
+      "teams": [
+        "Heroic",
+        "Envy"
+      ],
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.635,
+        0.365
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/heroic-vs-envy-stake-pulse-beat-iii-1079442",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080280",
+      "teams": [
+        "ENCE",
+        "BOJONG"
+      ],
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.745,
+        0.255
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/ence-vs-bojong-elisa-breakout-series-2-1080280",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080202",
+      "teams": [
+        "9z",
+        "Falcons"
+      ],
+      "starts_at": "2026-10-15T11:00:00Z",
+      "locks_at": "2026-10-15T10:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.15709516,
+        0.84290484
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-15T08:36:13Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080281",
+      "teams": [
+        "WROTBERRY",
+        "ENCE"
+      ],
+      "starts_at": "2026-10-15T12:00:00Z",
+      "locks_at": "2026-10-15T11:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.61538462,
+        0.38461538
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/wrotberry-vs-ence-elisa-breakout-series-2-1080281",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-15T08:36:11Z",
+          "evidence_file": "data/evidence/thunderpick-matches.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080203",
+      "teams": [
+        "PARIVISION",
+        "BetBoom"
+      ],
+      "starts_at": "2026-10-15T13:30:00Z",
+      "locks_at": "2026-10-15T13:24:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.26192226,
+        0.73807774
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-15T08:36:13Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080282",
+      "teams": [
+        "EAC",
+        "BOJONG"
+      ],
+      "starts_at": "2026-10-15T14:00:00Z",
+      "locks_at": "2026-10-15T13:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.96095469,
+        0.03904531
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-15T08:36:13Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080204",
+      "teams": [
+        "Legacy",
+        "FURIA"
+      ],
+      "starts_at": "2026-10-15T16:00:00Z",
+      "locks_at": "2026-10-15T15:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.435,
+        0.565
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1080204",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080283",
+      "teams": [
+        "WROTBERRY",
+        "BOJONG"
+      ],
+      "starts_at": "2026-10-15T16:00:00Z",
+      "locks_at": "2026-10-15T15:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/wrotberry-vs-bojong-elisa-breakout-series-2-1080283",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-15T08:36:11Z",
+          "evidence_file": "data/evidence/thunderpick-matches.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080284",
+      "teams": [
+        "EAC",
+        "ENCE"
+      ],
+      "starts_at": "2026-10-15T18:00:00Z",
+      "locks_at": "2026-10-15T17:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.51399636,
+        0.48600364
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-15T08:36:13Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080285",
+      "teams": [
+        "Voca",
+        "Phantom"
+      ],
+      "starts_at": "2026-10-16T08:00:00Z",
+      "locks_at": "2026-10-16T07:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.445,
+        0.555
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080286",
+      "teams": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "starts_at": "2026-10-16T10:00:00Z",
+      "locks_at": "2026-10-16T09:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-15T08:36:11Z",
+          "evidence_file": "data/evidence/thunderpick-matches.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080287",
+      "teams": [
+        "Voca",
+        "HAVU"
+      ],
+      "starts_at": "2026-10-16T12:00:00Z",
+      "locks_at": "2026-10-16T11:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/voca-vs-havu-elisa-breakout-series-2-1080287",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080288",
+      "teams": [
+        "Phantom",
+        "RoundsGG"
+      ],
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.92,
+        0.08
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/phantom-vs-roundsgg-elisa-breakout-series-2-1080288",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081120",
+      "teams": [
+        "mellren",
+        "Privateer"
+      ],
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.85989312,
+        0.14010688
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-15T08:36:13Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080289",
+      "teams": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "starts_at": "2026-10-16T16:00:00Z",
+      "locks_at": "2026-10-16T15:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.15942029,
+        0.84057971
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-15T08:36:11Z",
+          "evidence_file": "data/evidence/thunderpick-matches.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1080290",
+      "teams": [
+        "Phantom",
+        "HAVU"
+      ],
+      "starts_at": "2026-10-16T18:00:00Z",
+      "locks_at": "2026-10-16T17:54:00Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.705,
+        0.295
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": false,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/phantom-vs-havu-elisa-breakout-series-2-1080290",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    }
+  ]
+}

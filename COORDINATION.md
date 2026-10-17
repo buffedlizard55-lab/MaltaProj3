@@ -51,6 +51,28 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Q-2 original-state and live-rating replay complete (01:12Z)
+- **126 selected regression checks pass**: source-integrity, existing origination,
+  upgrade, lineup and read-only workflow contracts. This is not yet a full-suite
+  pass: Q-1's six real-Client TWC boundary checks are still red on T-owned code.
+- Five additional independently failing Valve tests proved the live model replayed
+  a different primary cache, accepted altered decoded text, and stamped the model
+  evaluation clock as a source observation. Fixed with original Contents/base64 +
+  Git blob/directory identity verification, unique successful request metadata,
+  explicit original-source replay, preserved source time, and a separate evaluation
+  time. Failed live requests fall back only to a separately verified dated original;
+  that limitation is carried into the per-row output. No point/roster/alias inferred.
+- Added the actual live row register to the existing read-only source audit before
+  TWC collection. It validates both feeds and emits its exact counts/input hashes or
+  actual exception in a readable Actions annotation; artifacts retain the register.
+- New Q flags are ready at `research/5b642a83/flags.json` for the existing root findings
+  loader. The committed `repository-snapshot-source-audit.json` is explicitly for
+  **15 October 08:36:04Z** input: 17/17 dated estimates, **0 currently usable lines**
+  at this audit. It is not today's inventory and does not overwrite either feed.
+- A real mocked-HTTP integration test confirms a tag-only **alias-aware** candidate
+  fetches the selected original event plus **both** executable books, even when
+  the windowed directory is unavailable. Tag discovery supplies no numerical prices.
+
 ### Q-2 source-row audit hook claimed (01:05Z)
 - Extend the same Q-owned read-only `origination.yml` audit scope with the new
   `scripts.pipeline_audit` row register immediately after source collection.

@@ -150,6 +150,8 @@ class ReadOnlyRunnerAudit(unittest.TestCase):
         build_at = workflow.index('      - name: Build the origination page and check it')
         self.assertLess(collect_at, replay_at)
         self.assertLess(replay_at, build_at)
+        row_audit_at = workflow.index('run: python -m scripts.pipeline_audit --source data')
+        self.assertLess(row_audit_at, collect_at)
         self.assertIn('::error title=TWC collect/replay contract::', workflow)
         self.assertIn('contents: read', workflow)
         self.assertNotIn('git push', workflow)

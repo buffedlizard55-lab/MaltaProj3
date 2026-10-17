@@ -5,7 +5,9 @@ paired market are verified. More discovery must never relax these contracts.
 """
 from __future__ import annotations
 
+import base64
 import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -206,6 +208,65 @@ class RetainedTagDiscovery(unittest.TestCase):
             self.assertEqual(games, [])
 
 
+    def test_alias_aware_live_collection_fetches_tag_only_original_event_and_both_books(self):
+        registry = {'aliases': [{'alias': 'Synthetic A', 'canonical': 'Synthetic A Display', 'kind': 'synthetic test only',
+                                'applies_to': [MATCH['competition']],
+                                'evidence': [{'url': 'https://github.com/buffedlizard55-lab/MaltaProj3',
+                                              'detail': 'Synthetic fixture mapping; never published.'}]}]}
+        fixture = dict(copy.deepcopy(MATCH), availability='open', analysis=None)
+        fixture['teams'][0]['name'] = 'Synthetic A Display'
+        event = {'id': 'synthetic-tag-only', 'slug': 'cs2-synthetic-a-synthetic-b',
+                 'active': True, 'closed': False, 'live': False,
+                 'markets': [{'id': 'synthetic-full-series', 'conditionId': 'synthetic-condition',
+                              'sportsMarketType': 'moneyline', 'question': 'Synthetic A vs Synthetic B (BO3)',
+                              'active': True, 'closed': False, 'acceptingOrders': True,
+                              'outcomes': ['Synthetic A', 'Synthetic B'], 'gameStartTime': START,
+                              'clobTokenIds': ['synthetic-token-a', 'synthetic-token-b']}]}
+        for directory_fails in (False, True):
+            with self.subTest(directory_fails=directory_fails), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                self.seed(root)
+                folder = root / 'origination/evidence'
+                seen = []
+
+                def get_json(client, url, label, **kwargs):
+                    seen.append(label)
+                    if label == 'live-thunderpick-matches': body = {'ok': True, 'data': {'upcoming': []}}
+                    elif label.startswith('live-polymarket-event-'): body = event
+                    elif label.startswith('live-polymarket-book-'):
+                        token = url.split('=')[-1]
+                        midpoint = 0.6 if token.endswith('-a') else 0.4
+                        body = {'asset_id': token, 'market': 'synthetic-condition',
+                                'timestamp': str(int(NOW.timestamp() * 1000)),
+                                'bids': [{'price': midpoint - 0.01, 'size': '10'}],
+                                'asks': [{'price': midpoint + 0.01, 'size': '10'}]}
+                    elif label.startswith('live-kalshi-events-'): body = {'events': [], 'cursor': ''}
+                    else: body = []
+                    entry = {'id': label, 'url': url, 'observed_at': iso(NOW), 'status': 'ok'}
+                    if kwargs.get('save', True): entry['evidence'] = client.save(label, body)
+                    client.requests.append(entry)
+                    return body, entry
+
+                with patch.object(originate.Collector, 'get_json', new=get_json), \
+                        patch.object(originate.Collector, 'fetch_html',
+                                     side_effect=RuntimeError('Synthetic unavailable directory') if directory_fails else None,
+                                     return_value=('synthetic empty directory', {})), \
+                        patch('scripts.sources.polymarket_games', return_value=[]), \
+                        patch('scripts.originate.datetime', wraps=datetime) as clock:
+                    clock.now.return_value = NOW
+                    report = originate.live_collect(folder, [fixture], registry)
+                self.assertIn('live-polymarket-event-synthetic-tag-only', seen)
+                self.assertIn('live-polymarket-book-synthetic-tag-only-0', seen)
+                self.assertIn('live-polymarket-book-synthetic-tag-only-1', seen)
+                self.assertEqual(report['polymarket_discovery']['supplemental_identities'], 1)
+                self.assertFalse(report['polymarket_discovery']['prices_used'])
+                saved = json.loads((folder / 'live-polymarket-observations.json').read_text())
+                self.assertEqual(len(saved['polymarket_events']), 1)
+                self.assertEqual(saved['polymarket_events'][0]['outcomes'], ['Synthetic A', 'Synthetic B'])
+                self.assertEqual(saved['polymarket_events'][0]['observed_at'], iso(NOW))
+                self.assertTrue((folder / 'live-discovery-audit.json').is_file())
+
+
 class OriginalStateReplay(unittest.TestCase):
     """A summarized price must fail if its full original state cannot replay."""
     def setUp(self):
@@ -302,6 +363,226 @@ class EstimateInputContract(unittest.TestCase):
         row = dict(market_row(), start=iso(NOW - timedelta(seconds=1)))
         quote, _ = originate.market_estimate(row, MATCH, REGISTRY, NOW)
         self.assertIsNone(quote)
+
+
+class ExtraProviderOriginalStates(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.folder = self.root / 'origination/evidence'
+        self.folder.mkdir(parents=True)
+
+    def write(self, name, saved):
+        (self.folder / name).write_text(json.dumps(saved))
+
+    def kalshi(self):
+        ticker = 'KXCS2GAME-26OCT170800SYNTHETIC'
+        event = {'event_ticker': ticker, 'series_ticker': originate.KALSHI_SERIES,
+                 'product_metadata': {'competition': 'CS2'}, 'mutually_exclusive': True, 'markets': []}
+        for name, suffix, bid, ask in (('Synthetic A', 'A', '0.59', '0.61'), ('Synthetic B', 'B', '0.39', '0.41')):
+            event['markets'].append({'ticker': ticker + '-' + suffix, 'yes_sub_title': name, 'status': 'active',
+                'rules_primary': 'The game originally scheduled for Oct 17, 2026 at 8:00 AM EDT must complete.',
+                'yes_bid_dollars': bid, 'yes_ask_dollars': ask})
+        url = originate.KALSHI_EVENTS + '?series_ticker=KXCS2GAME&status=open'
+        saved = {'observed_at': iso(NOW), 'pages': [{'url': url, 'observed_at': iso(NOW), 'response': {'events': [event]}}]}
+        self.write('live-kalshi-events.json', saved)
+        self.write('live-collection-manifest.json', [{'id': 'live-kalshi-events-0', 'url': url,
+                                                     'status': 'ok', 'observed_at': iso(NOW)}])
+        row = originate.kalshi_rows(self.folder)[0]
+        quote, reason = originate.market_estimate(row, MATCH, REGISTRY, NOW)
+        self.assertIsNotNone(quote, reason)
+        return saved, event, quote
+
+    def bovada(self):
+        outcomes = [{'description': 'Synthetic A', 'status': 'O', 'price': {'decimal': '1.5'}},
+                    {'description': 'Synthetic B', 'status': 'O', 'price': {'decimal': '2.5'}}]
+        market = {'id': 'synthetic-moneyline', 'key': '2W-12', 'description': 'Moneyline', 'status': 'O',
+                  'period': {'main': True, 'live': False}, 'outcomes': outcomes}
+        event = {'id': 'synthetic-bovada-1', 'type': 'GAMEEVENT', 'live': False,
+                 'startTime': int(originate.timestamp(START).timestamp() * 1000),
+                 'link': '/esports/counter-strike-2/synthetic-a-vs-synthetic-b',
+                 'competitors': [{'name': 'Synthetic A'}, {'name': 'Synthetic B'}],
+                 'displayGroups': [{'markets': [market]}]}
+        saved = {'observed_at': iso(NOW), 'url': originate.BOVADA_API,
+                 'response': [{'path': [{'description': MATCH['competition']}], 'events': [event]}]}
+        self.write('live-bovada-cs2.json', saved)
+        self.write('live-collection-manifest.json', [{'id': 'live-bovada-cs2', 'url': originate.BOVADA_API,
+                                                     'status': 'ok', 'observed_at': iso(NOW)}])
+        row = originate.bovada_rows(self.folder)[0]
+        quote, reason = originate.bookmaker_estimate(row, MATCH, REGISTRY, now=NOW)
+        self.assertIsNotNone(quote, reason)
+        return saved, event, quote
+
+    def replay(self, q):
+        from scripts.pipeline_audit import replay_provider_quote
+        return replay_provider_quote(q, MATCH, REGISTRY, self.root, NOW)
+
+    def test_kalshi_original_paired_series_replays(self):
+        _, _, quote = self.kalshi()
+        self.assertEqual(self.replay(quote), 0.6)
+
+    def test_kalshi_original_status_rules_start_and_competition_are_checked(self):
+        for field in ('status', 'rules', 'competition', 'exclusive', 'start', 'team'):
+            with self.subTest(field=field):
+                saved, event, quote = self.kalshi()
+                if field == 'status': event['markets'][0]['status'] = 'settled'
+                elif field == 'rules': event['markets'][0]['rules_primary'] = 'Unverified schedule'
+                elif field == 'competition': event['product_metadata']['competition'] = 'Basketball'
+                elif field == 'exclusive': event['mutually_exclusive'] = False
+                elif field == 'start':
+                    for market in event['markets']:
+                        market['rules_primary'] = market['rules_primary'].replace('8:00 AM', '9:00 AM')
+                else: event['markets'][0]['yes_sub_title'] = 'Unrelated team'
+                self.write('live-kalshi-events.json', saved)
+                with self.assertRaises((AssertionError, ValueError)):
+                    self.replay(quote)
+
+    def test_bovada_original_paired_series_replays(self):
+        _, _, quote = self.bovada()
+        self.assertEqual(self.replay(quote), 0.625)
+
+    def test_bovada_original_inplay_status_competitors_and_period_are_checked(self):
+        for field in ('live', 'market', 'outcome', 'team', 'period', 'start'):
+            with self.subTest(field=field):
+                saved, event, quote = self.bovada()
+                market = event['displayGroups'][0]['markets'][0]
+                if field == 'live': event['live'] = True
+                elif field == 'market': market['status'] = 'S'
+                elif field == 'outcome': market['outcomes'][0]['status'] = 'S'
+                elif field == 'team': event['competitors'][0]['name'] = 'Unrelated team'
+                elif field == 'period': market['period']['main'] = False
+                else: event['startTime'] += 3600000
+                self.write('live-bovada-cs2.json', saved)
+                with self.assertRaises((AssertionError, ValueError)):
+                    self.replay(quote)
+
+    def test_an_extra_matching_bovada_moneyline_is_ambiguous(self):
+        saved, event, quote = self.bovada()
+        second = copy.deepcopy(event['displayGroups'][0]['markets'][0])
+        second['id'] = 'a-second-series-market'
+        event['displayGroups'][0]['markets'].append(second)
+        self.write('live-bovada-cs2.json', saved)
+        with self.assertRaises((AssertionError, ValueError)):
+            self.replay(quote)
+
+    def test_request_time_does_not_get_replaced_with_wrapper_time(self):
+        _, _, quote = self.kalshi()
+        manifest = json.loads((self.folder / 'live-collection-manifest.json').read_text())
+        manifest[0]['observed_at'] = iso(NOW - timedelta(hours=1))
+        self.write('live-collection-manifest.json', manifest)
+        with self.assertRaises((AssertionError, ValueError)):
+            self.replay(quote)
+
+
+class RowRegister(unittest.TestCase):
+    def test_dated_repository_snapshot_is_audited_without_being_restamped(self):
+        from scripts.pipeline_audit import audit
+        source = Path(__file__).resolve().parents[1] / 'data'
+        before = {name: (source / name).read_bytes() for name in ('latest.json', 'origination.json')}
+        report = audit(source, NOW)
+        for name in before:
+            self.assertEqual(before[name], (source / name).read_bytes())
+        self.assertEqual(report['counts']['audited_rows'], report['counts']['canonical_nonpast_fixtures'])
+        self.assertFalse(report['inventory_fresh_at_audit'])
+        self.assertEqual(report['counts']['currently_usable_lines'], 0)
+        self.assertTrue(all(r['featured_facts_unchanged'] for r in report['rows']))
+        for row in report['rows']:
+            self.assertTrue(row['sources'])
+            self.assertTrue(all(s['url'].startswith('https://') for s in row['sources']))
+
+
+class LiveValveOriginalReplay(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        (self.root / 'evidence').mkdir()
+        self.folder = self.root / 'origination/evidence'
+        self.folder.mkdir(parents=True)
+        registry_source = Path(__file__).resolve().parents[1] / 'data/origination/aliases.json'
+        (self.root / 'origination/aliases.json').write_text(registry_source.read_text())
+        self.raw = dict(copy.deepcopy(MATCH), availability='open', locks_at='2026-10-17T11:54:00Z', analysis=None)
+        self.latest = {'inventory_observed_at': iso(NOW), 'matches': [self.raw], 'requests': []}
+        self.primary = self.seed_valve(False, 1200, '2026-10-05', NOW - timedelta(hours=1))
+        self.live = self.seed_valve(True, 1400, '2026-10-16', NOW)
+        (self.root / 'latest.json').write_text(json.dumps(self.latest))
+
+    def seed_valve(self, live, points, day, observed):
+        from scripts.domain import parse_valve_table
+        text = (f'| 1 | {points} | Synthetic A | a1, a2, a3, a4, a5 | details |\n'
+                '| 2 | 1000 | Synthetic B | b1, b2, b3, b4, b5 | details |\n')
+        raw = text.encode()
+        path = 'live/2026/standings_global_' + day.replace('-', '_') + '.md'
+        url = 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/' + path
+        sha = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+        original = {'path': path, 'sha': sha, 'html_url': url, 'encoding': 'base64',
+                    'content': base64.b64encode(raw).decode()}
+        directory = [{'name': path.split('/')[-1], 'path': path, 'sha': sha, 'html_url': url}]
+        if live:
+            payload = {'snapshot_date': day, 'source_url': url, 'text_sha256': hashlib.sha256(raw).hexdigest(), 'text': text}
+            (self.folder / 'live-valve-standings.json').write_text(json.dumps(original))
+            (self.folder / 'live-valve-directory.json').write_text(json.dumps(directory))
+            (self.folder / 'live-valve-standings-text.json').write_text(json.dumps(payload))
+            requests_ = [{'id': 'live-valve-standings', 'url': originate.VALVE_REPO + '/contents/' + path,
+                          'evidence': 'data/origination/evidence/live-valve-standings.json',
+                          'status': 'ok', 'observed_at': iso(observed)},
+                         {'id': 'live-valve-directory', 'url': originate.VALVE_REPO + '/contents/live/2026',
+                          'evidence': 'data/origination/evidence/live-valve-directory.json',
+                          'status': 'ok', 'observed_at': iso(observed)}]
+            (self.folder / 'live-collection-manifest.json').write_text(json.dumps(requests_))
+        else:
+            payload = {'snapshot_date': day, 'source_url': url, 'git_blob_sha': sha,
+                       'rows': parse_valve_table(text, url, day)}
+            (self.root / 'evidence/valve-standings-response.json').write_text(json.dumps(original))
+            (self.root / 'evidence/valve-directory.json').write_text(json.dumps(directory))
+            (self.root / 'evidence/valve-ratings.json').write_text(json.dumps(payload))
+            requests_ = [{'id': 'valve-standings-response', 'url': originate.VALVE_REPO + '/contents/' + path,
+                          'evidence': 'data/evidence/valve-standings-response.json',
+                          'status': 'ok', 'observed_at': iso(observed)}]
+            self.latest['requests'].extend(requests_)
+        return {'requests': requests_}
+
+    def test_fresh_live_model_replays_live_original_not_a_different_primary_cache(self):
+        from scripts.build_origination import validate_origination
+        rows, meta = originate.valve_rows(self.root, self.live)
+        result = originate.originate_match(self.raw, [], [], rows, meta, REGISTRY, NOW)
+        self.assertIsNotNone(result['origination'])
+        data = {'source_snapshot_at': iso(NOW), 'generated_at': iso(NOW),
+                'matches': [dict(self.raw, **result)]}
+        validate_origination(data, self.root)
+
+    def test_failed_refetch_never_reuses_old_live_text_and_restamps_it(self):
+        failed = copy.deepcopy(self.live)
+        failed['requests'][0]['status'] = 'error'
+        rows, meta = originate.valve_rows(self.root, failed)
+        self.assertEqual(meta['evidence_file'], 'data/evidence/valve-ratings.json')
+        self.assertEqual(meta['observed_at'], iso(NOW - timedelta(hours=1)))
+        self.assertEqual(rows[0]['points'], 1200)
+
+    def test_unverified_decoded_live_text_cannot_override_official_content(self):
+        file = self.folder / 'live-valve-standings-text.json'
+        payload = json.loads(file.read_text())
+        payload['text'] = payload['text'].replace('1400', '1800')
+        file.write_text(json.dumps(payload))
+        rows, meta = originate.valve_rows(self.root, self.live)
+        self.assertEqual(meta['evidence_file'], 'data/evidence/valve-ratings.json')
+        self.assertEqual(rows[0]['points'], 1200)
+
+    def test_primary_model_observation_is_not_replaced_by_its_computation_time(self):
+        rows, meta = originate.valve_rows(self.root, None)
+        quote, reason = originate.model_estimate(self.raw, rows, REGISTRY, meta, NOW)
+        self.assertIsNotNone(quote, reason)
+        self.assertEqual(quote['observed_at'], iso(NOW - timedelta(hours=1)))
+        self.assertEqual(quote['evaluation_at'], iso(NOW))
+
+    def test_primary_derived_ratings_must_match_the_original_official_contents(self):
+        file = self.root / 'evidence/valve-ratings.json'
+        payload = json.loads(file.read_text())
+        payload['rows'][0]['points'] = 1900
+        file.write_text(json.dumps(payload))
+        with self.assertRaises((AssertionError, ValueError)):
+            originate.valve_rows(self.root, None)
 
 
 if __name__ == '__main__':
