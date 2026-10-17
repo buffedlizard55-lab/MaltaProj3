@@ -342,8 +342,8 @@ def group_stage_section(review):
            '<p class="eyebrow">Group stage closed</p><h2>All ten series, as HLTV published them</h2></div>'
            + badge(local_time(record.get('observed_at')) if record.get('observed_at') else 'undated', 'green') + '</div>',
            '<p class="section-intro">' + e(record.get('note') or '') + '</p>',
-           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Every completed group-stage '
-           'series at Thunderpick World Championship 2026 with its HLTV result</caption><thead><tr>'
+           '<div class="table-scroll"><table class="simple-table" id="group-stage-series"><caption class="sr-only">Every '
+           'completed group-stage series at Thunderpick World Championship 2026 with its HLTV result</caption><thead><tr>'
            '<th scope="col">Series</th><th scope="col">Result</th><th scope="col">What it means for a pick’ems card</th>'
            '</tr></thead><tbody>']
     for row in rows:
@@ -365,8 +365,8 @@ def group_stage_section(review):
                f'{external(record["source_url"], "HLTV results for event 8932")}</p></div>')
     load = record.get('map_load') or []
     if load:
-        out.append('<div class="table-scroll"><table class="simple-table"><caption>Maps played by the four semifinalists '
-                   '(counted from published series scores)</caption><thead><tr><th scope="col">Team</th>'
+        out.append('<div class="table-scroll"><table class="simple-table" id="group-stage-load"><caption>Maps played by the '
+                   'four semifinalists (counted from published series scores)</caption><thead><tr><th scope="col">Team</th>'
                    '<th scope="col">Series · maps</th><th scope="col">Rest before the semifinal</th></tr></thead><tbody>')
         for row in load:
             out.append('<tr>'
@@ -374,7 +374,8 @@ def group_stage_section(review):
                        f'<td>{e(row["series_played"])} series · {e(row["maps_played"])} maps<small>{e(row["days_played"])}</small></td>'
                        f'<td>{e(row["rest_before_semifinal"])}{source_lines(record.get("sources") or [])}</td></tr>')
         out.append('</tbody></table></div>'
-                   f'<p class="tiny">{e(record.get("map_load_note") or "")}</p>')
+                   f'<p class="tiny">{e(record.get("map_load_note") or "")} The rest read is weighed against the priced '
+                   'card in <a class="internal-link" href="#day-four-refresh">the dated semifinal section</a>.</p>')
     out.append('</section>')
     return ''.join(out)
 
@@ -487,6 +488,10 @@ def score_slip_section(review):
                    f'{e(rate.get("detail"))}</p><p>{e(rate.get("reading"))}</p>'
                    + external(rate['source_url'], 'HLTV results for event 8932')
                    + f'<small> read {local_time(rate["observed_at"])}</small></div>')
+    out.append('<p class="tiny">The ten series behind that base rate are listed row by row in '
+               '<a class="internal-link" href="#group-stage-series">All ten series, as HLTV published them</a>; '
+               'what the same sweep rate is worth against a specific priced line is in '
+               '<a class="internal-link" href="#day-four-refresh">the dated semifinal card</a>.</p>')
     out.append('<ul>' + ''.join(f'<li>{e(x)}</li>' for x in block.get('limitations') or []) + '</ul></section>')
     return ''.join(out)
 

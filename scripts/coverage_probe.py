@@ -263,6 +263,10 @@ def run(data_dir: Path, *, live: bool = False, timeout: int = 20, sleep: float =
         'session': 'arena-8fa2b226',
         'generated_at': now_iso(),
         'mode': 'live' if live else 'offline-evidence-only',
+        # Reachability proves nothing about a book unless the reader knows where the request came from: a
+        # sandbox, the CI runner and an end user get refused for different reasons.
+        'environment': ('github-actions-runner' if os.environ.get('CI') == 'true'
+                        else 'local checkout (not the runner: refusals here describe this machine, not the book)'),
         'source_snapshot_at': origination.get('source_snapshot_at') or latest.get('inventory_observed_at'),
         'policy': ('Dossier for fixtures the strict ladder leaves blank. It proposes nothing that is applied '
                    'automatically, records which providers were checked, and publishes the provider error text '

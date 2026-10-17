@@ -2,9 +2,10 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import { python } from './python.mjs';
 
 const FIXTURE = '/_twc_day4_fixture/';
-test.beforeAll(() => execFileSync(process.env.PYTHON || 'python', ['tests/browser/twc_day4_fixture.py'], { stdio: 'inherit' }));
+test.beforeAll(() => execFileSync(python(), ['tests/browser/twc_day4_fixture.py'], { stdio: 'inherit' }));
 test.afterAll(() => fs.rmSync('site/_twc_day4_fixture', { recursive: true, force: true }));
 
 for (const width of [320, 390, 768, 1440]) {

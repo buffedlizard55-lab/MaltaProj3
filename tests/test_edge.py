@@ -263,10 +263,10 @@ class DayFourRefreshAndGroupStageTests(unittest.TestCase):
 
     def test_group_stage_rendered_rows_match_the_record_and_link_hltv(self):
         soup = BeautifulSoup(self.body(), 'html.parser')
-        table = soup.find(id='group-stage-record')
+        table = soup.find(id='group-stage-series')
         rows = table.select('tbody tr')
         record = review()['group_stage_record']
-        self.assertGreaterEqual(len(rows), len(record['series']))
+        self.assertEqual(len(rows), len(record['series']), 'the series table is one row per completed series')
         for series in record['series']:
             text = rows[record['series'].index(series)].get_text(' ', strip=True)
             self.assertIn(series['winner'], text)
