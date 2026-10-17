@@ -144,6 +144,19 @@ class ResearchedFallbackDisplayTests(unittest.TestCase):
         for target in ['./origination/#picks', './picks/', './edge/']:
             self.assertIn(target, {a.get('href') for a in site_map.select('a[href]')})
 
+    def test_summary_never_links_an_absent_tournament_lines_anchor(self):
+        data = self.inventory()
+        data['_twc_day4'] = {'matches': [], 'not_in_hotspawn_snapshot': [],
+                             'lines': {'available': True, 'resolved': 0, 'total': 0}}
+        soup = BeautifulSoup(summary(data, './'), 'html.parser')
+        hrefs = {a.get('href') for a in soup.select('a[href]')}
+        self.assertIn('./twc-picks/#day-four-picks', hrefs)
+        self.assertNotIn('./twc-picks/#day-four-tournament-lines', hrefs)
+        data['_twc_day4']['not_in_hotspawn_snapshot'] = [{'facts': {'teams': ['A', 'B']}}]
+        soup = BeautifulSoup(summary(data, './'), 'html.parser')
+        self.assertIn('./twc-picks/#day-four-tournament-lines',
+                      {a.get('href') for a in soup.select('a[href]')})
+
 
 class ConsensusQuoteShapeTests(unittest.TestCase):
     """Market-family quotes carry bid/ask, bookmaker quotes carry odds; both render."""

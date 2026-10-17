@@ -337,13 +337,15 @@ def summary(data, prefix):
         else:
             line_note = ('No retained external tournament-card book yet, so those Day-4 probabilities stay blank '
                          'rather than guessed.')
+        tournament_link = (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Day 4 tournament-card lines →</a> '
+                           if pending else '')
         out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC Day 4 coverage</h2>'
                 f'<p>{confirmed} fixture(s) in the reconciled Hotspawn inventory; {unresolved4} without a supported estimate. '
                 f'{pending} HLTV listing(s) not uniquely matched to that inventory. Unconfirmed opponents, lock times and prices stay blank; '
                 'a tournament listing is not silently treated as a weekly lobby fixture. '
                 f'{line_note} '
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
-                f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Day 4 tournament-card lines →</a> '
+                f'{tournament_link}'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
