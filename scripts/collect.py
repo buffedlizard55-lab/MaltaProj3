@@ -355,4 +355,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('data'))
     args = parser.parse_args()
-    collect(args.output)
+    try:
+        collect(args.output)
+    except Exception as exc:
+        # Job logs are not always readable through the API; make the exact
+        # failure visible as a check annotation without leaking a traceback
+        # into the published data.
+        import traceback
+        frames = traceback.extract_tb(exc.__traceback__)
+        where = ' > '.join(f'{Path(f.filename).name}:{f.lineno}:{f.name}' for f in frames[-6:])
+        detail = f'{type(exc).__name__}: {exc} @ {where}'.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+        print('::error title=CS2 collection failed::' + detail)
+        raise
