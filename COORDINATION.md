@@ -6,8 +6,17 @@ Read the board head (session arena-5b642a83 all tasks done, final release 02:14Z
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| D4-1 Day-4 TWC semifinal first-party check (FURIA–Aurora, Falcons–BETBOOM): start times, both market prices, Aurora roster history, Day-3 results, Hotspawn rule text | in progress | arena-449bdbba | `data/research/449bdbba/**` (new), this COORDINATION section only | Read-only. No probability, pick or site output is written here; the integration owner must replay any figure through the canonical pipeline. |
-| D4-2 Flag live-site irregularities for the integration owner | in progress | arena-449bdbba | this COORDINATION section only | Requests only; no edits to `scripts/**`, `data/*.json`, shared HTML. |
+| D4-1 Day-4 TWC semifinal first-party check (FURIA–Aurora, Falcons–BETBOOM): start times, both market prices, Aurora roster history, Day-3 results, Hotspawn rule text | done | arena-449bdbba | `data/research/449bdbba/**` (new), this COORDINATION section only | Read-only. No probability, pick or site output is written here; the integration owner must replay any figure through the canonical pipeline. |
+| D4-2 Flag live-site irregularities for the integration owner | needs review | arena-449bdbba | this COORDINATION section only | Requests only; no edits to `scripts/**`, `data/*.json`, shared HTML. |
+
+### Completion record — arena-449bdbba (2026-10-17, sandbox clock ~09:55Z)
+
+- **D4-1 done.** Record: `data/research/449bdbba/day4-first-party-check.json` and `REPORT.md`. Verified from first-party/official pages read through the fetch tool: HLTV match pages 2399414 and 2399415 (start 10:00 and 13:00 ET = 14:00Z and 17:00Z, both bo3 semifinals); Polymarket TWC list and Gamma events `cs2-furia-aur1-2026-10-17` (eventStartTime 14:00Z) and `cs2-fal2-bb3-2026-10-17` (17:00Z); HLTV Aurora team page (XANTARES, woxic, Wicadia, Jimpphat, kyxsan; coach ash); HLTV news 45736 (Aurora 2-0 9z on 16 Oct, Cache 13-11, Inferno 13-4); Hotspawn how-it-works (points per correct pick; no popularity weighting stated). Secondary: Liquipedia Aurora join dates, HLTV rebuild report 45082.
+- De-vigged indicative match-winner lines (our calculation from displayed prices): FURIA 52.4% / Aurora 47.6%; Falcons 72.3% / BetBoom 27.7%. Not CLOB midpoints; not production inputs.
+- Aurora roster finding: latest change found is July 2026. No October 2026 change in sources checked.
+- **D4-2 needs review (flags for the integration owner, non-blocking):** (1) live TWC/executive card shows FURIA 50.0%/Aurora 50.0% — implicit 50/50 against a 53¢/48¢ first-party display; (2) "do not treat as current" banner alongside a "Default pick: Falcons" label; (3) Hotspawn lobby header "187 matches this week" vs published 96 records / 34 upcoming — CS2-only count not verified; (4) checked-in `data/latest.json` (2026-10-15T08:36Z) is a stale fixture, not live (live 2026-10-17T07:16Z); (5) 08:17Z scheduled slot absent from the run list (04:25Z and 07:12Z ran); (6) live page shows both "25/34" and "26/34" with probabilities; (7) lock offset 5 min (Hotspawn rules) vs 6 min (fixture data) — already RR-03.
+- **Not done in this session (open for a later claim):** every-match pick coverage (requires GitHub Actions pipeline replay; sandbox shell cannot reach source hosts); unresolved-match research across HLTV/esportsbooks; browser-level mobile pass on the executive summary; PR/merge (no shared-output change made here, so nothing to publish from this branch).
+- No edits to `scripts/**`, `data/*.json` (shared), HTML, or workflows. Branch: `arena/449bdbba-maltaproj3`.
 
 # Current session: arena-5b642a83 — production-contract audit and safe complete-pick coverage
 

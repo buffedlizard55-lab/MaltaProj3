@@ -1,0 +1,132 @@
+{
+  "session": "arena-449bdbba",
+  "task": "D4-1",
+  "scope": "Read-only first-party check for TWC Day-4 semifinals. Not a pick, not a production probability.",
+  "sandbox_clock_start_utc": "2026-10-17T09:44:08Z",
+  "observation_method": "fetch tool (read-only HTTP GET) with the sandbox clock; exact per-request seconds were not recorded, so times are bounded to after 09:44:08Z",
+  "matches": [
+    {
+      "name": "FURIA vs Aurora (TWC 2026 semifinal 1)",
+      "start_utc": "2026-10-17T14:00:00Z",
+      "start_evidence": [
+        "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026 (HLTV shows 10:00, 17 Oct; HLTV displays in the viewer time zone and the Polymarket event text says 10:00 AM ET)",
+        "https://gamma-api.polymarket.com/events?slug=cs2-furia-aur1-2026-10-17 (eventStartTime 2026-10-17T14:00:00Z)"
+      ],
+      "format": "Best of 3 (LAN), semifinal (HLTV match page)",
+      "market_match_winner_display": {
+        "FURIA_cents": 53,
+        "Aurora_Gaming_cents": 48,
+        "decimal_odds": [
+          1.89,
+          2.08
+        ],
+        "volume_usd_display": "74.7K",
+        "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship (displayed 2026-10-17 after 09:44Z)"
+      },
+      "market_match_winner_devig_pct": {
+        "FURIA": 52.4,
+        "Aurora": 47.6
+      },
+      "devig_method": "p_i = (1/o_i)/sum(1/o_j) using the displayed decimal odds; indicative only, not CLOB midpoints",
+      "map1_market": {
+        "FURIA_outcomePrice": 0.465,
+        "Aurora_outcomePrice": 0.535,
+        "bestBid": 0.46,
+        "bestAsk": 0.47,
+        "lastTradePrice": 0.48,
+        "source": "https://gamma-api.polymarket.com/events?slug=cs2-furia-aur1-2026-10-17 (market 5778022)",
+        "note": "Map 1 only; not a series price; outcome-to-token ordering not independently verified beyond the outcomes field"
+      },
+      "resolution_source_stated": "HLTV (market text); 50-50 on cancellation or tie",
+      "hotspawn_community_percent_NOT_a_probability": {
+        "FURIA": 82,
+        "Aurora": 18,
+        "source": "https://play.hotspawn.com/lobby (lobby card, fetched after 09:44Z)"
+      },
+      "hotspawn_points_card": "7 pts, Tier S x3, multiplier x1.25 (lobby card)"
+    },
+    {
+      "name": "Falcons vs BetBoom (TWC 2026 semifinal 2)",
+      "start_utc": "2026-10-17T17:00:00Z",
+      "start_evidence": [
+        "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026 (HLTV shows 13:00, 17 Oct, displayed in the viewer time zone)",
+        "https://gamma-api.polymarket.com/events?slug=cs2-fal2-bb3-2026-10-17 (eventStartTime 2026-10-17T17:00:00Z)"
+      ],
+      "format": "Best of 3 (LAN), semifinal (HLTV match page)",
+      "market_match_winner_display": {
+        "Falcons_cents": 73,
+        "BetBoom_cents": 28,
+        "decimal_odds": [
+          1.37,
+          3.57
+        ],
+        "volume_usd_gamma": 274304.09,
+        "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship and gamma event cs2-fal2-bb3-2026-10-17"
+      },
+      "market_match_winner_devig_pct": {
+        "Falcons": 72.3,
+        "BetBoom": 27.7
+      },
+      "map1_market": {
+        "Falcons_outcomePrice": 0.645,
+        "BetBoom_outcomePrice": 0.355,
+        "bestBid": 0.64,
+        "bestAsk": 0.65,
+        "lastTradePrice": 0.68,
+        "source": "gamma cs2-fal2-bb3-2026-10-17 market 5787757"
+      },
+      "hotspawn_community_percent_NOT_a_probability": "not captured in this session (lobby text truncated before this card)"
+    }
+  ],
+  "aurora_roster_and_form": {
+    "current_five_hltv": [
+      "XANTARES",
+      "woxic",
+      "Wicadia",
+      "Jimpphat",
+      "kyxsan"
+    ],
+    "coach_hltv": "Ashley 'ash' Battye",
+    "sources": [
+      "https://www.hltv.org/team/11861/aurora (roster and rank shown)",
+      "https://liquipedia.net/counterstrike/Aurora_Gaming (active join dates: Jimpphat 2026-07-03, kyxsan 2026-07-08, ashhh coach 2026-07-03; former: Fabre left 2026-09-11, soulfly left 2026-08-23)",
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan (rebuild completed 8 Jul 2026)"
+    ],
+    "latest_roster_change_found_in_sources": "July 2026 (kyxsan signed 8 Jul 2026). No October 2026 roster change was found in the sources checked here. Roughly 14 weeks before the TWC semifinal.",
+    "hltv_world_rank_shown": 6,
+    "valve_rank_shown": 5
+  },
+  "day_1_and_day_3_head_to_head": [
+    {
+      "date": "2026-10-14",
+      "series": "9z 2-0 Aurora",
+      "maps": "Inferno 13-11, Nuke 13-1",
+      "source": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance (describes Day-1 maps)"
+    },
+    {
+      "date": "2026-10-16",
+      "series": "Aurora 2-0 9z",
+      "maps": "Cache 13-11, Inferno 13-4",
+      "source": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance (HLTV map table)"
+    }
+  ],
+  "hotspawn_rules": {
+    "picks_lock": "5 minutes before the scheduled start (official how-it-works page). The repo's fixture saves 6 minutes; flagged earlier as RR-03.",
+    "points": "Points for each correct pick; higher-tier matches give more points; streak bonus for consecutive correct picks. The page does NOT say points depend on how many players chose each side.",
+    "forfeit_or_cancel": "Voided or cancelled; no points",
+    "source": "https://play.hotspawn.com/how-it-works"
+  },
+  "calculations": {
+    "FURIA_vs_Aurora_expected_point_cost_of_backing_Aurora": {
+      "value_pts": 0.34,
+      "formula": "7 x (p_FURIA - p_Aurora) using de-vigged display prices; ignores the streak bonus, which a wrong pick would lose",
+      "assumption": "7-pt value shown on the Hotspawn card; per-pick formula not published"
+    }
+  },
+  "unverified_or_missing": [
+    "Hotspawn lineups/roster confirmations for the 17 Oct semifinals (not captured).",
+    "Map pool/veto for either semifinal (HLTV shows TBA).",
+    "Hotspawn lobby 'pick' ownership for Falcons vs BetBoom (not captured).",
+    "CLOB order-book midpoints for either semifinal (only display prices and Map-1 book fields were read)."
+  ]
+}
