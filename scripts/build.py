@@ -307,6 +307,90 @@ def contrarian_review(data, prefix):
     return out
 
 
+def glance(data, prefix):
+    """Phone-first one-glance index of every active fixture's selected pick.
+
+    The executive summary previously put the first match card ~2,800 px down a
+    phone page. This section is a compact index over the same canonical
+    selection used by the full table: featured estimate first, then an audited
+    researched fallback. It adds no probability, no pick and no fixture.
+    Unresolved fixtures are never dropped from this index; only resolved rows
+    are capped, with an explicit link to the complete list.
+    """
+    fallbacks = data.get('fallbacks') or {}
+    active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
+    if not active:
+        return ''
+    now = datetime.now(timezone.utc)
+
+    def basis(m):
+        fallback = selected_fallback(m, fallbacks)
+        fb = (fallback or {}).get('origination')
+        return (fb, fallback.get('pick_index'), True) if fb else (m['analysis'], m['pick_index'], False)
+
+    def upcoming(m):
+        start = timestamp(m.get('starts_at'))
+        return bool(start and start > now)
+
+    open_rows = [m for m in active if basis(m)[0] and upcoming(m)]
+    resolved_rest = [m for m in active if basis(m)[0] and not upcoming(m)]
+    # A resolved-but-stale row and a truly unresolved row must not be merged:
+    # the summary must never omit the name of a match that has no estimate.
+    blank_rows = [m for m in active if not basis(m)[0] and upcoming(m)]
+    past_blank_rows = [m for m in active if not basis(m)[0] and not upcoming(m)]
+    # Bounded index: upcoming picks first, then every unresolved fixture, then
+    # recent resolved rows for context. Nothing is re-priced or re-ordered by
+    # opinion; the complete list always shows every row.
+    shown, seen = [], set()
+    for group, limit in ((open_rows, 10), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
+        for m in (group if limit is None else group[:limit]):
+            if m['id'] not in seen:
+                shown.append(m)
+                seen.add(m['id'])
+    hidden = len(active) - len(shown)
+    picks = sum(1 for m in active if basis(m)[0] and basis(m)[1] is not None)
+
+    rows = ''
+    for m in shown:
+        names = [t['name'] or 'Unverified team' for t in m['teams']]
+        a, pick, researched = basis(m)
+        detail = f'{prefix}origination/#match-{e(m["id"])}'
+        links = external(m['source_url'], 'Hotspawn')
+        if a:
+            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Bookmaker')
+        links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
+        if a and pick is not None:
+            lock = timestamp(m['locks_at'])
+            closed = lock is not None and lock <= now
+            choice = (f'<span class="glance-pick-label">{"Locked" if closed else "Pick"}</span>'
+                      f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
+                      + ('<span class="badge purple">Researched</span>' if researched else ''))
+        elif a:
+            choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
+                      '<span class="glance-prob">no side</span>')
+        else:
+            choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
+                      f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
+        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}">'
+                 f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
+                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
+                 f'<div class="glance-choice">{choice}</div>'
+                 f'<div class="glance-links">{links}</div></li>')
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
+            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
+            if hidden else
+            f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Open the complete audited list →</a> '
+            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p>')
+    return ('<section class="content-section" id="picks-at-a-glance"><div class="section-heading"><div>'
+            '<p class="eyebrow">Every pick, one tap away</p><h2>Picks at a glance</h2></div>'
+            f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
+            f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
+            f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
+            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
+
+
 def summary(data, prefix):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -320,6 +404,7 @@ def summary(data, prefix):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out += glance(data, prefix)
     if complete:
         coverage_label = 'Complete picks' if data['coverage_complete'] else 'Retained snapshot picks'
         no_direction = cc['resolved'] - cc['with_pick']

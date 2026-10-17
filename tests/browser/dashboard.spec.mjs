@@ -219,6 +219,28 @@ test('every match row shows either a pick or an explicit blank, never a silent g
   }
 });
 
+for (const width of [320, 390]) {
+  test(`the phone summary lists picks and their sources above the fold at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const glance = page.locator('#picks-at-a-glance');
+    await expect(glance).toBeVisible();
+    const rows = glance.locator('.glance-row');
+    expect(await rows.count()).toBeGreaterThan(0);
+    const first = rows.first();
+    await expect(first.locator('.glance-choice')).toBeVisible();
+    expect(await first.locator('a[href*="hotspawn.com"]').count()).toBeGreaterThan(0);
+    await expect(first.locator('a', { hasText: 'Full detail' })).toHaveAttribute('href', /#match-\d+/);
+    const box = await glance.boundingBox();
+    expect(box.y).toBeLessThan(1500);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    const unresolved = glance.locator('.glance-pick-label.unresolved-text');
+    for (let i = 0; i < await unresolved.count(); i += 1) {
+      await expect(unresolved.nth(i).locator('xpath=..').locator('a[href*="origination/#unresolved"]')).toHaveCount(1);
+    }
+  });
+}
+
 test('the summary states complete pick coverage and maps every page', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
