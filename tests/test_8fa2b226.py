@@ -171,19 +171,35 @@ class CrossCheckTests(unittest.TestCase):
                       'the page must say which parts a refresh will not move')
         self.assertIn('No probability in the pipeline', edge['session_refresh']['not_touched'])
 
-    def test_day_five_card_has_no_team_names_while_the_bracket_is_open(self):
+    def test_day_five_card_keeps_every_unpriced_field_blank_and_sourced(self):
         edge = read(ROOT / 'data' / 'edge-review.json')
         block = edge['day_five_card']
         self.assertTrue(block['observed_at'] and block['source_url'].startswith('https://www.hltv.org/'))
+        self.assertEqual(block['bracket_status'], 'resolved')
         self.assertGreaterEqual(len(block['limitations']), 2)
+        # The dated open-bracket observation is retained as history, not deleted.
+        self.assertIn('Retained as dated history', block['prior_observation']['state'])
         for row in block['matches']:
-            self.assertIsNone(row['teams'])
-            self.assertIsNone(row['starts_at'])
-            self.assertIsNone(row['pick'])
+            self.assertEqual(len(row['teams']), 2)
+            self.assertTrue(row['starts_at'])
+            self.assertIn(row['pick'], row['teams'])
+            self.assertTrue(row['pick_basis'])
+            # No external money line existed at the market scan: the price field
+            # stays blank and only the labelled model fallback carries numbers.
             self.assertIsNone(row['probabilities'])
-            # A blank row still needs the official page that proves it is blank.
+            self.assertIsNone(row['market'])
+            self.assertEqual(row['model_estimate']['method'], 'model')
+            self.assertTrue(row['model_estimate']['snapshot_date'])
             self.assertTrue(row['url'].startswith('https://www.hltv.org/matches/'), row['url'])
-            self.assertIn('no teams', row['status'].lower())
+        # The grand-final Bo5 score stays blank: no verified Bo5 base rate exists.
+        final = [r for r in block['matches'] if r['best_of'] == 5][0]
+        self.assertIsNone(final['score'])
+        self.assertIn('Bo5', final['score_limitation'])
+        # The market scan records observed absence with its probe links.
+        for probe in block['market_scan']['probes']:
+            self.assertTrue(probe['url'].startswith('https://'), probe['url'])
+            self.assertTrue(probe['observed_at'])
+            self.assertEqual(probe['outcome'], 'no Day-5 listing')
 
 
 

@@ -332,28 +332,76 @@ class DayFourRefreshAndGroupStageTests(unittest.TestCase):
             for label, value in row['rows']:
                 self.assertIn(f'{value * 100:.1f}%', table.get_text(), label)
 
-    def test_day_five_card_stays_blank_while_the_bracket_is_open(self):
+    def test_day_five_card_publishes_only_sourced_resolved_values(self):
         data = review()
         block = data['day_five_card']
-        self.assertTrue(block['matches'])
+        self.assertEqual(block['bracket_status'], 'resolved')
+        self.assertTrue(block['semifinal_results'], 'the resolved card replays the semifinal results that set the bracket')
+        self.assertEqual(len(block['matches']), 2)
+        seen_teams = []
         for row in block['matches']:
-            self.assertIsNone(row['teams'])
-            self.assertIsNone(row['probabilities'])
-            self.assertIsNone(row['pick'])
+            self.assertIsNotNone(row['teams'], 'a resolved bracket names its teams')
+            self.assertEqual(len(row['teams']), 2)
+            seen_teams += row['teams']
+            self.assertIsNotNone(row['starts_at'])
+            self.assertIn(row['best_of'], (3, 5))
+            self.assertTrue(row['url'].startswith('https://www.hltv.org/matches/'), row['url'])
+            self.assertTrue(row['sources'], 'every resolved row keeps its official source links')
+            for src in row['sources']:
+                self.assertTrue(src['url'].startswith('https://'))
+                self.assertTrue(src['observed_at'])
+            # No money line existed at the market scan, so the price fields stay
+            # blank and only the labelled model fallback is shown.
+            self.assertIsNone(row['probabilities'], 'no probability without a dated provider record')
+            self.assertIsNone(row['market'])
+            model = row['model_estimate']
+            self.assertEqual(model['method'], 'model')
+            self.assertTrue(model['source_url'].startswith('https://'))
+            self.assertTrue(model['formula_source'].startswith('https://'))
+            self.assertAlmostEqual(sum(model['probabilities']), 1.0, places=2)
+            self.assertNotIn('50.0%', f"{model['probabilities'][0] * 100:.1f}%",
+                             'a fallback estimate must never render as a coin flip default')
+            self.assertIn(row['pick'], row['teams'])
+            self.assertTrue(row['pick_basis'])
+            self.assertTrue(row['contrarian_watch']['case'])
+            self.assertIn(row['contrarian_watch']['team'], row['teams'])
+            self.assertTrue(row['contrarian_watch']['screen'])
+        self.assertEqual(sorted(seen_teams), sorted(['Aurora', 'Falcons', 'FURIA', 'BETBOOM']))
         soup = BeautifulSoup(self.body(), 'html.parser')
         section = soup.find(id='day-five-card')
-        self.assertIn('— unverified', section.get_text())
-        self.assertNotIn('50.0%', section.get_text(), 'a blank fixture must never fall back to a coin flip')
+        text = section.get_text()
+        self.assertIn('— unverified', text, 'the blank money-line field renders as unverified')
+        self.assertNotIn('50.0%', text, 'no 50/50 fallback anywhere in the section')
+        self.assertIn('Final day', text)
+        for team in seen_teams:
+            self.assertIn(team, text)
 
-    def test_inventing_a_day_five_team_or_probability_is_rejected_at_load(self):
-        data = copy.deepcopy(review())
-        data['day_five_card']['matches'][0]['teams'] = ['FURIA', 'Falcons']
+    def test_inventing_a_day_five_value_without_its_source_is_rejected_at_load(self):
+        # A price with no dated provider record is fabrication.
+        priced = copy.deepcopy(review())
+        priced['day_five_card']['matches'][0]['probabilities'] = [0.5, 0.5]
         with self.assertRaises(ValueError):
-            _write_and_load(data)
-        guessed = copy.deepcopy(review())
-        guessed['day_five_card']['matches'][1]['probabilities'] = [0.5, 0.5]
+            _write_and_load(priced)
+        # A model fallback without its official source/formula links is fabrication.
+        modelless = copy.deepcopy(review())
+        modelless['day_five_card']['matches'][1]['model_estimate']['source_url'] = 'http://example.com'
         with self.assertRaises(ValueError):
-            _write_and_load(guessed)
+            _write_and_load(modelless)
+        # A pick must be one of the two verified teams and state its basis.
+        invented = copy.deepcopy(review())
+        invented['day_five_card']['matches'][0]['pick'] = '9z'
+        with self.assertRaises(ValueError):
+            _write_and_load(invented)
+        unbasis = copy.deepcopy(review())
+        unbasis['day_five_card']['matches'][1]['pick_basis'] = ''
+        with self.assertRaises(ValueError):
+            _write_and_load(unbasis)
+        # The open-bracket fail-closed rule still holds the moment the card
+        # claims the bracket is open again.
+        reopened = copy.deepcopy(review())
+        reopened['day_five_card']['bracket_status'] = 'open'
+        with self.assertRaises(ValueError):
+            _write_and_load(reopened)
 
     def test_refresh_note_states_what_was_and_was_not_touched(self):
         rendered = self.body()
