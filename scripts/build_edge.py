@@ -69,11 +69,79 @@ def load_edge(path: Path) -> dict:
             if market:
                 require(market.get('observed_at'), 'a dated market observation needs an observation time')
                 require(str(market.get('api_url', '')).startswith('https://'), 'a market observation needs its provider record link')
-    for row in data.get('day_five_card', {}).get('matches', []):
-        # Fail closed: an unplayed match cannot carry a team, a probability or a pick.
-        require(row.get('teams') in (None, []), 'day-five teams must stay blank while the bracket is open')
-        require(row.get('probabilities') is None and row.get('pick') is None,
-                'day-five fixtures must not carry a probability or a pick before their semifinal finishes')
+    five = data.get('day_five_card') or {}
+    bracket = five.get('bracket_status')
+    require(bracket in ('open', 'resolved'), 'day_five_card needs an explicit bracket_status')
+    for row in five.get('matches', []):
+        if bracket == 'open':
+            # Fail closed: an unplayed match cannot carry a team, a probability or a pick.
+            require(row.get('teams') in (None, []), 'day-five teams must stay blank while the bracket is open')
+            require(row.get('probabilities') is None and row.get('pick') is None,
+                    'day-five fixtures must not carry a probability or a pick before their semifinal finishes')
+            continue
+        # Resolved: every published value needs its own official source, and a
+        # price without a dated first-party market record stays blank. The
+        # labelled Valve-model fallback is never written into `probabilities`.
+        teams = row.get('teams')
+        require(isinstance(teams, list) and len(teams) == 2 and all(isinstance(t, str) and t.strip() for t in teams)
+                and len({str(t).strip().lower() for t in teams}) == 2,
+                'a resolved day-five row needs exactly two distinct team names')
+        require(timestamp(row.get('starts_at')) is not None, 'a resolved day-five row needs a verified start time')
+        require(row.get('best_of') in (3, 5), 'a resolved day-five row needs its published best-of format')
+        require(str(row.get('url', '')).startswith('https://www.hltv.org/matches/'),
+                'a resolved day-five row must link its own HLTV match page')
+        sources = row.get('sources') or []
+        require(sources, 'a resolved day-five row needs at least one official source link')
+        for src_ in sources:
+            require(str(src_.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
+            require(src_.get('observed_at'), 'edge-review sources must carry an observation time')
+        market = row.get('market')
+        if market is not None:
+            require(market.get('observed_at'), 'market observations must carry an observation time')
+            require(str(market.get('api_url', '' )).startswith('https://'), 'a market observation needs its provider record link')
+        probs = row.get('probabilities')
+        if probs is not None:
+            require(market is not None, 'day-five probabilities require their own dated provider record')
+            require(isinstance(probs, list) and len(probs) == 2
+                    and all(isinstance(x, (int, float)) and 0 < x < 1 for x in probs)
+                    and abs(sum(probs) - 1) < 0.02, 'day-five probabilities must be a normalised pair')
+        model = row.get('model_estimate')
+        if model is not None:
+            require(model.get('method') == 'model', 'day-five model estimates must say method= model')
+            require(str(model.get('source_url', '')).startswith('https://'), 'model estimates need their official source link')
+            require(str(model.get('formula_source', '')).startswith('https://'), 'model estimates need the published formula link')
+            require(model.get('snapshot_date'), 'model estimates need their rating snapshot date')
+            pair = model.get('probabilities')
+            require(isinstance(pair, list) and len(pair) == 2
+                    and all(isinstance(x, (int, float)) and 0 < x < 1 for x in pair)
+                    and abs(sum(pair) - 1) < 0.02, 'day-five model estimates must be a normalised pair')
+        pick = row.get('pick')
+        if pick is not None:
+            require(pick in teams, 'day-five pick must be one of the two verified teams')
+            require(row.get('pick_basis'), 'day-five pick needs its stated basis')
+            require(model is not None or probs is not None, 'day-five pick needs an estimate to stand on')
+        score = row.get('score')
+        if score is not None:
+            require(score.get('suggested') and score.get('basis'), 'a day-five score slip needs its suggestion and basis')
+            require(str(score.get('source_url', '')).startswith('https://'), 'a day-five score slip needs its source link')
+        watch = row.get('contrarian_watch')
+        if watch is not None:
+            require(watch.get('team') in teams, 'a contrarian watch must name one of the two verified teams')
+            require(watch.get('case') and watch.get('screen'), 'a contrarian watch needs its case and its screen')
+    if 'day_five_guidance' in data:
+        guide = data['day_five_guidance']
+        require(isinstance(guide.get('principles'), list) and guide['principles'],
+                'day_five_guidance.principles must be a non-empty list')
+        require(guide.get('sources'), 'day_five_guidance needs its evidence links')
+        for src_ in guide['sources']:
+            require(str(src_.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
+            require(src_.get('observed_at'), 'edge-review sources must carry an observation time')
+    for group in ('semifinal_results',):
+        for row in five.get(group) or []:
+            require(row.get('sources'), 'every day-five recap row needs an official source link')
+            for src_ in row['sources']:
+                require(str(src_.get('url', '')).startswith('https://'), 'edge-review sources must be https links')
+                require(src_.get('observed_at'), 'edge-review sources must carry an observation time')
     if 'day_four_guidance' in data:
         block = data['day_four_guidance']
         require(isinstance(block.get('principles'), list) and block['principles'],
@@ -489,21 +557,144 @@ def day_five_section(review):
     rows = block.get('matches') or []
     if not rows:
         return ''
+    resolved = block.get('bracket_status') == 'resolved'
+    if not resolved:
+        out = ['<section class="content-section" id="day-five-card"><div class="section-heading"><div>'
+               '<p class="eyebrow">Blank on purpose</p><h2>Day five: bracket still open</h2></div>'
+               + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'amber') + '</div>',
+               '<p class="section-intro">' + e(block.get('note') or '') + '</p>',
+               '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-five fixtures left '
+               'unresolved because their semifinalists are not decided</caption><thead><tr><th scope="col">Fixture</th>'
+               '<th scope="col">Status at observation</th><th scope="col">Pick &amp; probability</th></tr></thead><tbody>']
+        for row in rows:
+            out.append('<tr>'
+                       f'<th scope="row"><strong>{e(row["slot"])}</strong>'
+                       f'<small>bo{e(row.get("best_of"))} · Sunday 18 October 2026 (UTC start not confirmed from an official source)</small>'
+                       + external(row['url'], 'HLTV match page') + '</th>'
+                       f'<td>{e(row.get("status") or "")}</td>'
+                       f'<td><span class="unverified">Teams: — unverified · Pick: — unverified · Probability: — unverified</span></td></tr>')
+        out.append('</tbody></table></div>')
+        out.append('<ul>' + ''.join(f'<li>{e(x)}</li>' for x in block.get('limitations') or []) + '</ul>')
+        out.append(f'<p class="tiny">{external(block["source_url"], "HLTV event schedule")}</p></section>')
+        return ''.join(out)
+
     out = ['<section class="content-section" id="day-five-card"><div class="section-heading"><div>'
-           '<p class="eyebrow">Blank on purpose</p><h2>Day five: bracket still open</h2></div>'
-           + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'amber') + '</div>',
-           '<p class="section-intro">' + e(block.get('note') or '') + '</p>',
-           '<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Day-five fixtures left '
-           'unresolved because their semifinalists are not decided</caption><thead><tr><th scope="col">Fixture</th>'
-           '<th scope="col">Status at observation</th><th scope="col">Pick &amp; probability</th></tr></thead><tbody>']
+           '<p class="eyebrow">Final day · Sunday 18 October 2026</p><h2>Day five: the final day</h2></div>'
+           + badge(local_time(block['observed_at']) if block.get('observed_at') else 'undated', 'green') + '</div>',
+           '<p class="section-intro">' + e(block.get('note') or '') + '</p>']
+
+    semis = block.get('semifinal_results') or []
+    if semis:
+        out.append('<div class="table-scroll"><table class="simple-table" id="day-five-recap"><caption class="sr-only">Day-four semifinal '
+                   'results, as HLTV published them</caption><thead><tr><th scope="col">Semifinal</th>'
+                   '<th scope="col">Result &amp; maps</th><th scope="col">Reading</th></tr></thead><tbody>')
+        for row in semis:
+            maps = ' · '.join(f'{e(m["map"])} {m["a"]}-{m["b"]}' for m in row.get('maps') or [])
+            out.append('<tr>'
+                       f'<th scope="row"><strong>{e(row["team_a"])} vs {e(row["team_b"])}</strong>'
+                       f'<small>{e(row["slot"])} · 17 Oct 2026</small>'
+                       + external(row['hltv_url'], 'HLTV match page') + '</th>'
+                       f'<td><strong>{e(row["team_a"])} {e(row["score"])} {e(row["team_b"])}</strong><small>{maps}</small></td>'
+                       f'<td><p>{e(row.get("reading") or "")}</p>{source_lines(row.get("sources") or [])}</td></tr>')
+        out.append('</tbody></table></div>')
+
+    scan = block.get('market_scan') or {}
+    if scan:
+        probes = ''.join(f'<li>{e(p.get("provider") or "")} — {e(p.get("outcome") or "")}'
+                         f'<small>{e(p.get("detail") or "")} · read {local_time(p["observed_at"])}</small>'
+                         + external(p['url'], 'probe record') + '</li>'
+                         for p in scan.get('probes') or [])
+        out.append('<div class="limitations-callout" id="day-five-market-scan"><p class="eyebrow">External market scan</p>'
+                   f'<p><strong>{e(scan.get("question") or "")}</strong> {e(scan.get("reading") or "")}</p>'
+                   f'<ul>{probes}</ul><p class="tiny">{e(scan.get("would_count") or "")}</p></div>')
+
+    out.append('<div class="table-scroll"><table class="simple-table" id="day-five-matches"><caption class="sr-only">Day-five fixtures with '
+               'labelled fallback estimates, default picks, score context and official sources</caption><thead><tr>'
+               '<th scope="col">Series</th><th scope="col">Estimate &amp; default pick</th>'
+               '<th scope="col">Score, contrarian watch &amp; evidence</th></tr></thead><tbody>')
     for row in rows:
+        names = row.get('teams') or []
+        model = row.get('model_estimate') or {}
+        probs = row.get('probabilities')
+        pair = probs if probs is not None else (model.get('probabilities') if model else None)
+        basis_label = 'External money line' if probs is not None else 'Valve-model fallback (uncalibrated research estimate)'
+        cells = []
+        if pair:
+            best = max(range(2), key=lambda i: pair[i]) if abs(pair[0] - pair[1]) >= 1e-8 else None
+            for i, name in enumerate(names):
+                value = pair[i]
+                favored = ' favored' if i == best else ''
+                cells.append(f'<div class="prob-line{favored}"><span class="prob-team">{e(name)}'
+                             f'<small class="fair-line">Fair line {1 / value:.3f}</small></span>'
+                             f'<strong>{value * 100:.1f}%</strong></div>')
+        else:
+            cells.append('<div class="prob-line"><span>Both teams</span>'
+                         '<span class="unverified">— unverified (no estimate could be established)</span></div>')
+        prob_pair = (f'<p class="tiny muted">{e(basis_label)} — market-implied or model-estimated, not a verified '
+                     'true probability. No default 50/50 is applied to a blank side.</p>') + ''.join(cells)
+        money_line = ('<p class="tiny"><strong>External money line:</strong> '
+                      + (f'{e((row.get("market") or {}).get("provider") or "provider record")} · read '
+                         f'{local_time((row.get("market") or {}).get("observed_at"))}'
+                         if row.get('market') else
+                         '<span class="unverified">— unverified (no full-series book listed at the market scan)</span>')
+                      + '</p>')
+        if model:
+            inputs = ' · '.join(f'{e(i["name"])} {i["points"]} pts (#{i["standing"]}, snapshot {e(i.get("snapshot_date") or model.get("snapshot_date") or "")})'
+                                for i in model.get('inputs') or [])
+            money_line += (f'<p class="tiny">{e(model.get("label") or "Model fallback")}: {inputs}'
+                           f' · RD {e(model.get("rd_assumption"))} · snapshot {e(model.get("snapshot_date") or "")}</p>'
+                           + external(model.get('formula_source', ''), 'published formula')
+                           + (f'<a href="../{e(model.get("evidence_file"))}">Saved Valve evidence ↓</a>'
+                              if model.get('evidence_file') else ''))
+        pick = row.get('pick')
+        pick_text = (f'<p><span class="glance-pick-label">Default pick</span><strong>{e(pick)}</strong></p>'
+                     f'<p class="tiny">{e(row.get("pick_basis") or "")}</p>') if pick else \
+                    '<p><span class="unverified">Pick: — unverified</span></p>'
+        score = row.get('score') or {}
+        if score:
+            score_text = (f'<p><strong>Score slip (editorial): {e(score.get("suggested"))}</strong></p>'
+                          f'<p class="tiny">{e(score.get("basis") or "")}</p>'
+                          + (external(score['source_url'], 'HLTV analytics') if score.get('source_url') else ''))
+        else:
+            score_text = ('<p><strong>Score slip:</strong> <span class="unverified">— not published</span></p>'
+                          f'<p class="tiny">{e(row.get("score_limitation") or "")}</p>')
+        watch = row.get('contrarian_watch') or {}
+        watch_text = ''
+        if watch:
+            cost = watch.get('cost_per_base_point')
+            cost_text = (f' Expected-point cost of the risk versus the default pick: {cost:.3f} per base point on offer.'
+                         if isinstance(cost, (int, float)) else '')
+            watch_text = (f'<div class="evidence-box"><p class="eyebrow">Contrarian watch · {e(watch.get("team") or "")}</p>'
+                          f'<p>{e(watch.get("case") or "")}</p><p class="tiny">{e(watch.get("screen") or "")}{cost_text}</p>'
+                          + (external(watch['source_url'], 'source') if watch.get('source_url') else '')
+                          + f'<p class="tiny">Read {local_time(watch.get("observed_at")) if watch.get("observed_at") else "— unverified"}</p></div>')
+        context = ''.join(f'<li>{e(x)}</li>' for x in row.get('context') or [])
         out.append('<tr>'
-                   f'<th scope="row"><strong>{e(row["slot"])}</strong>'
-                   f'<small>bo{e(row.get("best_of"))} · Sunday 18 October 2026 (UTC start not confirmed from an official source)</small>'
-                   + external(row['url'], 'HLTV match page') + '</th>'
-                   f'<td>{e(row.get("status") or "")}</td>'
-                   f'<td><span class="unverified">Teams: — unverified · Pick: — unverified · Probability: — unverified</span></td></tr>')
+                   f'<th scope="row"><strong>{e(names[0])} vs {e(names[1])}</strong>'
+                   f'<small>{e(row.get("slot") or "")} · bo{e(row.get("best_of"))} · {local_time(row.get("starts_at"))} UTC · '
+                   f'{e(row.get("format") or "")}</small>'
+                   + external(row['url'], 'HLTV match page')
+                   + f'<small>{e(row.get("status") or "")}</small>'
+                   + f'<small>{e(row.get("start_time_basis") or "")}</small></th>'
+                   f'<td>{money_line}{prob_pair}{pick_text}</td>'
+                   f'<td>{score_text}{watch_text}'
+                   + (f'<ul class="tiny">{context}</ul>' if context else '')
+                   + f'{source_lines(row.get("sources") or [])}</td></tr>')
     out.append('</tbody></table></div>')
+
+    guidance = review.get('day_five_guidance') or {}
+    if guidance.get('principles'):
+        out.append('<div class="evidence-box" id="day-five-guidance"><p class="eyebrow">Final-day strategy notes</p>'
+                   f'<h3>{e(guidance.get("title") or "Day-five guidance")}</h3><ul>'
+                   + ''.join(f'<li>{e(item)}</li>' for item in guidance['principles']) + '</ul>'
+                   + ('<p class="tiny"><strong>Screens applied:</strong> ' + ' · '.join(e(x) for x in guidance.get('screens') or []) + '</p>'
+                      if guidance.get('screens') else '')
+                   + source_list(guidance.get('sources') or []) + '</div>')
+
+    prior = block.get('prior_observation') or {}
+    if prior:
+        out.append(f'<p class="tiny"><strong>Dated history</strong> — {local_time(prior.get("observed_at"))}: '
+                   f'{e(prior.get("state") or prior.get("note") or "")}</p>')
     out.append('<ul>' + ''.join(f'<li>{e(x)}</li>' for x in block.get('limitations') or []) + '</ul>')
     out.append(f'<p class="tiny">{external(block["source_url"], "HLTV event schedule")}</p></section>')
     return ''.join(out)
