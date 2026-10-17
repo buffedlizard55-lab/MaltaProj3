@@ -22,7 +22,7 @@ LOBBY = 'https://play.hotspawn.com/lobby'
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 4 picks', 'twc-picks/index.html', 'target'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
@@ -410,8 +410,11 @@ def summary(data, prefix):
         no_direction = cc['resolved'] - cc['with_pick']
         direction_note = f' {no_direction} equal estimate(s) have no directional pick.' if no_direction else ''
         out += f'<section class="limitations-callout" aria-label="Complete pick coverage"><h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2><p>{cc["resolved"]} with probabilities; {cc["unresolved"]} unresolved in the complete researched list.{direction_note} Estimate snapshot: {local_time(complete["generated_at"])}. <a class="internal-link" href="{prefix}origination/#picks">All matches, both probabilities &amp; picks →</a> <a class="internal-link" href="{prefix}origination/#unresolved">Unresolved picks &amp; limitations →</a></p><p><a class="internal-link" href="#contrarian">Day-one review →</a></p></section>'
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 4: picks &amp; review →</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'twc-picks/">Day 4 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    if data.get('_twc_day5') is not None:
+        from scripts.day5 import summary as final_day_summary
+        out += final_day_summary(data['_twc_day5'], prefix)
     day4 = data.get('_twc_day4')
     if day4 is not None:
         confirmed = len(day4['matches'])
@@ -496,7 +499,7 @@ def where_everything_lives(data, prefix):
         ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
-        ('TWC Day 4 picks & review', 'twc-picks/', 'All listed Day-4 matches from the same refreshed feed, Days 1–3 results and explicit source gaps.', 'No fan votes or narrative probability adjustments'),
+        ('TWC Day 5 picks & review', 'twc-picks/', 'Final-day probabilities, Days 1–4 results, canonical picks and separate tournament research with explicit source gaps.', 'No fan votes or narrative probability adjustments'),
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
@@ -707,6 +710,8 @@ def build(source: Path, output: Path):
         data['session_review'] = json.loads((source / 'research/c07e1b40/repo-review.json').read_text())
     from scripts.twc_research import derive_day4
     data['_twc_day4'] = derive_day4(data, source, datetime.now(timezone.utc))
+    from scripts.day5 import derive as derive_day5
+    data['_twc_day5'] = derive_day5(data, source, datetime.now(timezone.utc))
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'assets').resolve() != Path('assets').resolve():
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
@@ -730,6 +735,7 @@ def build(source: Path, output: Path):
     if data.get('_twc_report'):
         (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')
         (output / 'data/twc-day4-picks.json').write_text(json.dumps(data['_twc_report']['day4'], ensure_ascii=False, indent=2) + '\n')
+        (output / 'data/twc-day5-picks.json').write_text(json.dumps(data['_twc_report']['day5'], ensure_ascii=False, indent=2) + '\n')
     # Preserve the old root URLs without exposing a competing current feed.
     aliases = {'picks.html': 'picks/', 'methodology.html': 'methodology/', 'flagged.html': 'review/'}
     for old, target in aliases.items():

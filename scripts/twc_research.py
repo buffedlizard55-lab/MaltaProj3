@@ -101,7 +101,10 @@ def collect(source: Path):
             facts = parse_match(text)
             pages.append({'label': label, 'request': dict(req), 'original_response': filename,
                           'stored_sha256': hashlib.sha256(raw).hexdigest(), 'facts': facts})
-            print('::notice title=TWC source facts::' + json.dumps({'source_url': url, 'observed_at': req['observed_at'], **facts}))
+            # GitHub caps annotations per step. Keep the current-round facts
+            # visible; all earlier originals still live in the full manifest.
+            if str(facts.get('starts_at') or '')[:10] >= '2026-10-16':
+                print('::notice title=TWC source facts::' + json.dumps({'source_url': url, 'observed_at': req['observed_at'], **facts}))
         except SourceError:
             pages.append({'label': label, 'request': dict(client.manifest[-1])})
     report = {'schema_version': 1, 'policy': 'Source research only; canonical picks supply all probabilities. HLTV is an independent reporter, not tournament organizer verification.',

@@ -1,3 +1,8 @@
+### D5 scope extension before integration — arena-ed853bdd
+Claim released `assets/twc.css` for new Day-5 card styling only; existing TWC
+heading assertions in `tests/test_twc.py` and `tests/browser/twc.spec.mjs` change
+to Day 5. Existing Day-4 anchors, JSON and probability semantics stay intact.
+
 # Session arena-ed853bdd — restore automatic publication and Day-5 final-day guide
 
 Claimed 2026-10-17T20:20Z on fixed session branch `arena/ed853bdd-maltaproj3`.
@@ -2273,3 +2278,19 @@ handoff; no V-owned file is edited by this session.
   explicitly contain all four playoff match URLs. Revisit those URLs as leads,
   never use retained facts as current results, and retain separate Day-5 lines.
   Original annotations retained in `data/research/ed853bdd/` for manual review.
+
+### D5-2 implementation and bounded verification — arena-ed853bdd
+- Added final-day canonical/tournament separation, Day-4 original-source result
+  replay, per-team Days1–4 context, source-linked unresolved section and executive
+  summary navigation. No inferred finalist, deadline, roster premium, rest
+  adjustment or exact-score pick. Source-less probabilities remain blank.
+- Added per-fixture public Day-5 JSON/HTML parity to the real post-deploy verifier.
+  Existing Day-4 contract remains intact. Two dated limitations are integrated
+  by the existing automatic Flagged for Review loader.
+- Focused unit run: **38 pass**. New Playwright suite: **7 pass**, 320/390/768/1440,
+  exact numbers, default/underdog retirement, no-JS snapshot-only display, axe
+  WCAG A/AA. Initial build: **607 internal links, 386 rows, zero row-source
+  violations** (repository-fixture counts, not live coverage).
+- Current-round collector annotations are bounded below GitHub's per-step cap;
+  all group-stage originals remain in the manifest. Prior source annotation
+  exports omitted later printed facts due that cap, not necessarily failed fetches.
