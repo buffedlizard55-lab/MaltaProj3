@@ -2488,3 +2488,18 @@ every published row keeps its own official source link and observation time.
   cached Valve rankings snapshot 2026-10-05 (per-row URLs), Polymarket Gamma
   public-search, Kalshi trade-api events. Contrarian watches (Aurora 32.9%,
   BETBOOM 21.3%) are screen-only unless a fresh money line prices ≥30%.
+- **Post-merge integration incident (fixed same session, follow-up PR):** the
+  first PR #85 merge went in with a masked local suite result (a `cmd | tail`
+  pipeline returned tail's exit code) and broke the CI unittest gate twice over:
+  (1) the rebase onto arena-ed853bdd silently merged their
+  `aria-label="TWC Day 4 coverage"` selector away in the shared summary callout
+  (2 `test_summary_navigation` errors); (2) with real Day-5 Kalshi books listed
+  for the first time, the live collector's evidence labels collided across the
+  day-4/day-5 collect runs (same-minute stamp, one client) and the fail-closed
+  replay timestamp gate correctly refused both reports. Both are fixed: the
+  landmark name is restored (final-day entry points kept), labels now carry the
+  report name (directory labels stay digits-only per the safety regexes) with a
+  regression test requiring disjoint labels across two collects on one client,
+  and checks.yml now publishes unittest FAIL/ERROR lines as annotations so log
+  retrieval outages cannot hide a failure. Full suites re-verified with real
+  exit codes: 615 Python tests OK, 85/85 Playwright.
