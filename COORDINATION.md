@@ -2304,3 +2304,13 @@ implementation files overlapped. Their X-1/X-3 are explicitly unimplemented;
 this session does not claim them completed or consume unverified dossier facts.
 Our fixed branch history was rebased; push uses lease protection for this branch
 only. Main and other session branches are never force-pushed.
+
+### D5 fallback extension claimed — arena-ed853bdd
+Actual runner observation 20:26Z successfully discovered both final-day fixtures,
+but neither Polymarket nor Kalshi supplied a validated pair. Claim new
+`scripts/twc_books.py`, additional bounded `scripts/twc_lines.py` fallback hooks,
+and `tests/test_twc_books.py` to try original Thunderpick/Bovada two-way series
+lines ONLY for final-day fixtures those primary markets left unresolved.
+Reuse the existing strict bookmaker estimator and exact fixture join. No
+X-session-owned source/resolver/alias file is edited, no provider restriction is
+bypassed, and no outcome or rating is manufactured to force a pick.
