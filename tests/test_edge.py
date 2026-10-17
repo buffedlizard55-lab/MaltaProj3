@@ -12,7 +12,9 @@ These tests protect three properties of `data/edge-review.json` and
 """
 import copy
 import json
+import re
 import unittest
+from statistics import median
 from html import escape
 from pathlib import Path
 
@@ -185,8 +187,37 @@ class ReviewRenderingTests(unittest.TestCase):
             market = row.get('market') or {}
             for name, value in (market.get('prices') or {}).items():
                 self.assertIn(f'{value * 100:.1f}%', table.get_text(), name)
-        # the unpriced semifinal must render an explicit unverified marker, not a guess
+
+    def test_day_four_prices_equal_the_median_of_its_provider_books(self):
+        """Every published pair must be reproducible from its own provider quotes."""
+        for row in review()['day_four']:
+            market = row['market']
+            providers = market['providers']
+            self.assertGreaterEqual(len(providers), 2, market['provider'])
+            for provider in providers:
+                for bid, ask in zip(provider['bid'], provider['ask']):
+                    self.assertLess(bid, ask, provider['provider'])
+                    self.assertLessEqual(round(ask - bid, 8), 0.12, provider['provider'])
+            normalized = []
+            for provider in providers:
+                mids = [(bid + ask) / 2 for bid, ask in zip(provider['bid'], provider['ask'])]
+                normalized.append([mid / sum(mids) for mid in mids])
+            combined = [median(pair[index] for pair in normalized) for index in (0, 1)]
+            total = sum(combined)
+            expected = [round(value / total, 4) for value in combined]
+            self.assertEqual([round(v, 4) for v in market['prices'].values()], expected, market['provider'])
+
+    def test_a_semifinal_without_a_market_renders_an_unverified_marker(self):
+        """No market ⇒ explicit unverified marker, never an invented number."""
+        row = {'slot': 'Semifinal 1', 'competition': 'Thunderpick World Championship 2026',
+               'team_a': 'FURIA', 'team_b': 'Aurora', 'starts_at': '2026-10-17T14:00:00Z',
+               'market': None, 'status_at_observation': 'Scheduled.', 'assessment': 'No price written.',
+               'sources': [{'url': 'https://www.hltv.org/results?event=8932', 'source': 'HLTV.org event results',
+                            'detail': 'Fixture only.', 'observed_at': '2026-10-17T00:02:00Z'}]}
+        rendered = build_edge.day_four_section({'day_four': [row]})
+        table = BeautifulSoup(rendered, 'html.parser').find('table')
         self.assertIn('no verified market at the dated observation', table.get_text())
+        self.assertIsNone(re.search(r'\d+(\.\d+)?%', table.get_text()), table.get_text())
 
     def test_day_four_guidance_lists_every_principle(self):
         soup = BeautifulSoup(self.body(), 'html.parser')
@@ -238,3 +269,35 @@ class NavigationIntegrationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DayFourOddsAndMovement(unittest.TestCase):
+    """The Day-4 edge rows must publish odds depth and movement from their own JSON."""
+
+    def review(self):
+        review = copy.deepcopy(json.loads((ROOT / 'data/edge-review.json').read_text()))
+        return review
+
+    def test_every_day_four_market_publishes_its_own_activity_and_movement(self):
+        review = self.review()
+        for row in review['day_four']:
+            market = row['market']
+            self.assertTrue(market.get('fair_decimal'), row['slot'])
+            self.assertLess(abs(sum(1 / v for v in market['fair_decimal'].values()) - 1), 0.02)
+            movement = market.get('line_movement') or {}
+            self.assertEqual(movement.get('status'), 'no_reprice_observed')
+            self.assertTrue(movement.get('sources'))
+            for provider in market['providers']:
+                self.assertIsInstance(provider.get('activity'), dict, provider['provider'])
+                self.assertIn('book_updated_at', provider['activity'])
+
+    def test_rendered_movement_matches_the_json_not_the_html(self):
+        review = self.review()
+        html = build_edge.day_four_section(review)
+        text = BeautifulSoup(html, 'html.parser').get_text()
+        self.assertIn('Line movement:', text)
+        self.assertIn('no reprice since it opened', text)
+        self.assertIn('Reference line', text)
+        # A tampered JSON must change the page: nothing is hard-coded in the renderer.
+        review['day_four'][0]['market']['line_movement']['detail'] = 'TAMPERED MOVEMENT'
+        self.assertIn('TAMPERED MOVEMENT', BeautifulSoup(build_edge.day_four_section(review), 'html.parser').get_text())

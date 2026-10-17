@@ -67,3 +67,25 @@ test('published TWC source-table captions remain full-width rather than one-word
     expect(box.height).toBeLessThan(220);
   }
 });
+
+
+test('the source-listed fixture table publishes its dated read and movement on a phone', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-16T20:00:00Z') });
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto(FIXTURE);
+  const table = page.locator('table.twc-day4-lines');
+  await expect(table).toHaveCount(1);
+  await expect(table.locator('tbody tr')).toHaveCount(2);
+  const listed = table.locator('tbody tr').first();
+  await expect(listed.locator('.twc-prob strong')).toHaveText(['52.4%', '47.6%']);
+  await expect(listed).toContainText('Dated lean: FURIA');
+  await expect(listed).toContainText("this session's own research capture");
+  await expect(listed.locator('.twc-movement')).toContainText('Line movement:');
+  await expect(listed).toContainText('no reprice since it opened');
+  await expect(listed.locator('a[href*="hltv.org/matches/2399414"]')).toHaveCount(1);
+  // A bracket placeholder stays unpriced and says why.
+  const placeholder = table.locator('tbody tr').nth(1);
+  await expect(placeholder).toContainText('bracket placeholder');
+  await expect(placeholder.locator('.twc-prob strong')).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
