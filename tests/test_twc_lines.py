@@ -49,6 +49,10 @@ def kalshi_event(teams=('Aurora', 'FURIA'), bids=('0.46', '0.52'), asks=('0.48',
                         'yes_bid_dollars': bid, 'yes_ask_dollars': ask,
                         'rules_primary': 'If %s wins the CS2 match originally scheduled for Oct 17, 2026 at '
                                          '10:00 AM EDT, then the market resolves to Yes.' % name})
+    for index, (name, bid, ask) in enumerate(zip(teams, bids, asks)):
+        markets[index].update({'created_time': '2026-10-16T17:25:43Z', 'open_time': '2026-10-16T17:30:00Z',
+                               'updated_time': '2026-10-16T17:30:00Z', 'last_price_dollars': ask,
+                               'open_interest_fp': str(100 + index), 'volume_fp': str(50 + index)})
     return {'series_ticker': 'KXCS2GAME', 'product_metadata': {'competition': 'CS2'}, 'mutually_exclusive': True,
             'event_ticker': ticker, 'markets': markets}
 
@@ -248,3 +252,93 @@ class Replay(unittest.TestCase):
             (folder / twc_lines.REPORT).write_text(json.dumps(report))
             with self.assertRaises(ValueError):
                 twc_lines.load(Path(tmp), NOW, REGISTRY)
+
+
+class Activity(unittest.TestCase):
+    def test_kalshi_reprice_since_open_is_recorded_from_its_own_timestamps(self):
+        event = kalshi_event()
+        event['markets'][0]['updated_time'] = '2026-10-16T20:00:00Z'
+        quote, reason = twc_lines.kalshi_quote(event, fixture(), REGISTRY, iso(NOW), NOW)
+        self.assertEqual(reason, '')
+        activity = quote['activity']
+        self.assertTrue(activity['changed_since_open'])
+        self.assertEqual(activity['opened_at'], '2026-10-16T17:30:00Z')
+        self.assertEqual(activity['book_updated_at'], '2026-10-16T20:00:00Z')
+        # Values are ordered onto the fixture's teams, not the provider's listing order.
+        self.assertEqual(activity['open_interest'], [101, 100])
+        self.assertEqual(quote['activity']['last_price'], [0.54, 0.48])
+
+    def test_activity_reaches_the_published_row(self):
+        quote, _ = twc_lines.kalshi_quote(kalshi_event(), fixture(), REGISTRY, iso(NOW), NOW)
+        row = twc_lines.analyse([{'provider': 'Kalshi', 'status': 'resolved', 'reason': '', 'observed_at': iso(NOW),
+                                  'source_url': quote['source_url'], 'quote': quote}], fixture())
+        self.assertEqual(row['providers'][0]['activity']['opened_at'], '2026-10-16T17:30:00Z')
+
+
+class Movement(unittest.TestCase):
+    def _write(self, root: Path, *, previous_bids=('0.50', '0.52'), drop_previous_evidence=False):
+        folder = root / 'research/twc-current'
+        (folder / 'evidence').mkdir(parents=True)
+        reads = [('2026-10-16T23:20:00Z', previous_bids, drop_previous_evidence), (iso(NOW), ('0.52', '0.47'), False)]
+        history, current = [], None
+        for stamp, (observed, bids, drop) in enumerate(reads):
+            payloads = {'twc-day4-poly-event-5778024-' + str(stamp): polymarket_event()}
+            payloads['twc-day4-poly-book-5778024-0-' + str(stamp)] = book('t-furia', float(bids[0]), float(bids[0]) + 0.01)
+            payloads['twc-day4-poly-book-5778024-1-' + str(stamp)] = book('t-aurora', float(bids[1]), float(bids[1]) + 0.01)
+            evidence = []
+            for label, payload in payloads.items():
+                raw = json.dumps(payload, indent=2).encode()
+                if not drop:
+                    (folder / 'evidence' / (label + '.json')).write_bytes(raw)
+                evidence.append({'label': label, 'url': 'https://example.invalid/' + label,
+                                 'observed_at': observed, 'file': 'evidence/' + label + '.json',
+                                 'sha256': hashlib.sha256(raw).hexdigest()})
+            record = {'fixture': {'id': 'twc-2399414', 'teams': ['FURIA', 'Aurora'], 'starts_at': START,
+                                  'source_url': 'https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026',
+                                  'hltv_match_id': '2399414'},
+                      'providers': [{'provider': 'Polymarket', 'status': 'resolved', 'reason': '',
+                                     'source_url': 'https://polymarket.com/event/cs2-furia-aur1-2026-10-17',
+                                     'observed_at': observed, 'evidence': evidence, 'event_id': '5778024'}]}
+            if stamp == len(reads) - 1:
+                current = record
+            else:
+                history.append({'observed_at': observed, 'records': [record]})
+        report = {'schema_version': 1, 'policy': twc_lines.POLICY, 'event': twc_lines.EVENT, 'day': '2026-10-17',
+                  'observed_at': iso(NOW), 'records': [current], 'history': history}
+        (folder / twc_lines.REPORT).write_text(json.dumps(report))
+        return folder
+
+    def test_movement_is_a_change_between_two_replayed_reads(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self._write(Path(tmp))
+            lines = twc_lines.load(Path(tmp), NOW, REGISTRY)
+            self.assertEqual(lines['earlier_reads'], 1)
+            row = lines['matches'][0]
+            self.assertIsNotNone(row['movement'])
+            self.assertEqual(row['movement']['from'], '2026-10-16T23:20:00Z')
+            self.assertEqual([round(p, 1) for p in row['movement']['points']], [3.5, -3.5])
+
+    def test_a_read_whose_originals_are_gone_is_dropped_not_remembered(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self._write(Path(tmp), drop_previous_evidence=True)
+            lines = twc_lines.load(Path(tmp), NOW, REGISTRY)
+            self.assertEqual(lines['earlier_reads'], 0)
+            self.assertEqual(lines['unverifiable_reads'], 1)
+            row = lines['matches'][0]
+            self.assertIsNone(row['movement'])
+            self.assertIn('No earlier validated read', row['movement_note'])
+
+
+class Wiring(unittest.TestCase):
+    def test_the_loader_reads_the_report_where_the_collector_saves_it(self):
+        from scripts.sources import Client
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            client = Client(root / 'research/twc-current')
+            report = {'schema_version': 1, 'policy': twc_lines.POLICY, 'event': twc_lines.EVENT, 'day': '2026-10-17',
+                      'observed_at': iso(NOW), 'records': [], 'history': []}
+            saved = client.save('twc-day4-lines', report)
+            self.assertEqual(saved, 'data/evidence/twc-day4-lines.json')
+            lines = twc_lines.load(root, NOW, REGISTRY)
+            self.assertTrue(lines['available'], 'the pipeline would silently publish blanks if these paths drifted')
+            self.assertEqual(lines['day'], '2026-10-17')

@@ -310,6 +310,74 @@ def observation_for(observations, teams, starts_at):
     return None
 
 
+def activity_line(provider):
+    """Provider-reported odds depth and book freshness, from the JSON only."""
+    from scripts.build import e, local_time
+    activity = provider.get('activity') or {}
+    bits = []
+    if activity.get('listed_at'):
+        bits.append('listed ' + local_time(activity['listed_at']))
+    if activity.get('opened_at'):
+        bits.append('opened ' + local_time(activity['opened_at']))
+    if activity.get('book_updated_at'):
+        bits.append('book updated ' + local_time(activity['book_updated_at']))
+    if activity.get('changed_since_open') is False:
+        bits.append('no reprice since it opened')
+    elif activity.get('changed_since_open') is True:
+        bits.append('repriced since it opened')
+    for key, label, money in [('last_price', 'last trade', False), ('open_interest', 'open interest', False),
+                              ('volume', 'traded', False)]:
+        values = activity.get(key)
+        if isinstance(values, list) and len(values) == 2 and all(isinstance(v, (int, float)) for v in values):
+            bits.append(label + ' ' + ' / '.join(f'{v:,.2f}' for v in values))
+    if isinstance(activity.get('volume_usd'), (int, float)):
+        bits.append(f'volume ${activity["volume_usd"]:,.0f}')
+    if isinstance(activity.get('liquidity_usd'), (int, float)):
+        bits.append(f'liquidity ${activity["liquidity_usd"]:,.0f}')
+    return ('<br><small>' + e(provider.get('provider')) + ': ' + e(' · '.join(bits)) + '.</small>') if bits else ''
+
+
+def movement_html(row):
+    """Verified movement, a dated no-reprice statement, or the honest blank state."""
+    from scripts.build import e, local_time
+    movement = row.get('movement') or {}
+    points = movement.get('points')
+    teams = row.get('teams') or []
+    if points and len(points) == len(teams):
+        change = ', '.join(f'{e(n)} {p:+.1f} pts' for n, p in zip(teams, points))
+        return ('<p class="twc-movement"><strong>Verified line movement:</strong> ' + e(change)
+                + ' against the previous validated read (' + e(local_time(movement.get('from')))
+                + '). ' + e(movement.get('label') or '') + '</p>')
+    if movement.get('detail'):
+        return '<p class="twc-movement"><strong>Line movement:</strong> ' + e(movement['detail']) + '</p>'
+    if row.get('movement_note'):
+        return '<p class="twc-movement"><strong>Line movement:</strong> ' + e(row['movement_note']) + '</p>'
+    return ''
+
+
+def pairing_note(teams, day3_results):
+    """Which Day-3 decider settled this slot, from the retained result only.
+
+    No winner is inferred from a start time; a note appears only when the
+    retained Day-3 record names the team as the higher scorer.
+    """
+    from scripts.build import e, external
+    from scripts.domain import name_key
+    notes = []
+    for team in teams or []:
+        for row in day3_results or []:
+            names, score = row.get('teams') or [], row.get('score') or []
+            if len(names) != 2 or len(score) != 2 or score[0] == score[1]:
+                continue
+            winner, loser = (names[0], names[1]) if score[0] > score[1] else (names[1], names[0])
+            if name_key(winner) != name_key(team):
+                continue
+            link = external(row['source_url'], 'HLTV record') if row.get('source_url') else ''
+            notes.append(f'<p class="twc-pairing"><strong>Slot settled on Day 3:</strong> {e(winner)} advanced by winning '
+                         f'{score[0]}&#8211;{score[1]} against {e(loser)}. {link}</p>')
+    return ''.join(notes)
+
+
 def render_day4(guide, prefix):
     """Mobile-readable canonical picks with the shared fail-closed time guards."""
     from scripts.build import e, local_time, external, blank
@@ -384,10 +452,12 @@ def render_day4(guide, prefix):
                 cells = (''.join(picks) + f'<p class="pick-choice"><strong>Default pick: {e(names[pick])}</strong></p>'
                          f'<small>{e(line.get("label"))}<br>Observed {local_time(line.get("observed_at"))}. '
                          'Midpoints, not executable quotes.</small>')
+                cells += movement_html(line)
                 for provider in line.get('providers') or []:
                     cells += (f'<br><small>{e(provider["provider"])}: bid/ask '
                               f'{provider["bid"][0]:.3f}/{provider["ask"][0]:.3f} vs '
                               f'{provider["bid"][1]:.3f}/{provider["ask"][1]:.3f}</small>')
+                    cells += activity_line(provider)
                 dog = r.get('line_underdog')
                 if dog:
                     if dog['passes_floor']:
@@ -416,6 +486,7 @@ def render_day4(guide, prefix):
                                   '<small>Dated market observation from this session\'s own research capture, not the '
                                   'publisher\'s collected evidence. The four-hour pipeline re-collects the same public '
                                   'endpoints and supersedes it; no Hotspawn or fan-vote input.</small>')
+                    cells += movement_html(observed)
                     for provider in observed.get('providers') or []:
                         pairs = list(zip(provider.get('bid') or [], provider.get('ask') or [],
                                          provider.get('outcomes') or []))
@@ -424,6 +495,7 @@ def render_day4(guide, prefix):
                                   f'{local_time(provider.get("observed_at"))}'
                                   + (f', book updated {local_time(provider["book_updated_at"])}'
                                      if provider.get('book_updated_at') else '') + '</small>')
+                        cells += activity_line(provider)
                     dog = observed.get('underdog') or {}
                     if dog:
                         if dog.get('passes_floor'):
@@ -437,16 +509,21 @@ def render_day4(guide, prefix):
                                       f'floor. {e(dog.get("reading") or "")}</p></aside>')
                 else:
                     attempts = ''.join(f'<li>{e(a["provider"])}: {e(a["reason"])}</li>' for a in (line.get('attempts') or []))
-                    cells = (blank() + '<small>No validated two-sided external line at this observation. No price or pick '
-                             'is invented; a source failure is not evidence that no market exists.</small>'
-                             + (f'<ul class="small">{attempts}</ul>' if attempts else ''))
+                    unresolved = [n for n in r['facts']['teams'] if '/' in n and 'winner' in n.lower()]
+                    reason = (f'HLTV still lists this semi-final slot as a bracket placeholder ({", ".join(unresolved)}). A market '
+                              'cannot be joined to an unresolved slot, so no price or pick is invented for it.' if unresolved else
+                              'No validated two-sided external line at this observation. No price or pick is invented; a source '
+                              'failure is not evidence that no market exists.')
+                    cells = blank() + '<small>' + e(reason) + '</small>' + (f'<ul class="small">{attempts}</ul>' if attempts else '')
             links = ''.join(external(p['source_url'], p['provider']) for p in (line.get('providers') or [])
                             if p.get('source_url'))
             links += external(r['source_url'], 'HLTV fixture')
             if guide['lines'].get('report_path'):
                 links += f'<a href="{prefix}data/{e(guide["lines"]["report_path"])}">Retained market originals ↓</a>'
             out += (f'<tr><th scope="row">{e(" vs ".join(r["facts"]["teams"]))}'
-                    f'<small>{local_time(r["facts"]["starts_at"])} · HLTV start</small></th>'
+                    f'<small>{local_time(r["facts"]["starts_at"])} · HLTV start</small>'
+                    + pairing_note(r['facts']['teams'], guide.get('day3_results'))
+                    + '</th>'
                     f'<td>{cells}</td><td>{links}<small>Read {local_time(r["observed_at"])}</small></td></tr>')
         out += '</tbody></table></div>'
         if guide['lines'].get('available'):

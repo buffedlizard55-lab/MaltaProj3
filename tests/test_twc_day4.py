@@ -256,6 +256,16 @@ class TournamentCardLines(unittest.TestCase):
                     self.assertLess(bid, ask)
                     self.assertLessEqual(round(ask - bid, 8), 0.12)
                 self.assertTrue(provider['observed_at'])
+                self.assertIn('book_updated_at', provider.get('activity') or {}, provider['provider'])
+                if provider['provider'] == 'Kalshi':
+                    self.assertFalse(provider['activity']['changed_since_open'],
+                                     'a reprice since open must be published as movement, not hidden here')
+                if provider.get('token_ids'):
+                    self.assertEqual(sorted(provider['token_ids']), sorted(set(provider['outcomes'])))
+            movement = row['movement']
+            self.assertEqual(movement['status'], 'no_reprice_observed')
+            self.assertTrue(movement['detail'])
+            self.assertTrue(all(url.startswith('https://') for url in movement['sources']))
             total = sum(row['median'])
             self.assertAlmostEqual(total, 1, places=4)
             # The published median must equal the median of the provider midpoints.
@@ -272,3 +282,108 @@ class TournamentCardLines(unittest.TestCase):
     def test_missing_observation_file_is_empty_not_invented(self):
         with tempfile.TemporaryDirectory() as tmp:
             self.assertEqual(twc_research.load_observations(Path(tmp)), [])
+
+
+class LineMovementAndActivity(unittest.TestCase):
+    """Odds depth and movement are rendered from JSON only, never invented."""
+
+    def guide(self, line=None, observation=None, teams=('FURIA', 'Aurora')):
+        row = {'source_url': SOURCE, 'observed_at': iso(NOW), 'line': line, 'line_underdog': None,
+               'facts': {'teams': list(teams), 'starts_at': '2026-10-17T14:00:00Z'}}
+        return {'matches': [], 'not_in_hotspawn_snapshot': [row],
+                'lines': {'available': line is not None, 'observed_at': iso(NOW), 'resolved': 1 if line else 0,
+                          'total': 1, 'report_path': 'research/twc-current/evidence/twc-day4-lines.json'},
+                'observations': [observation] if observation else [], 'research_available': True,
+                'research_report': 'research/twc-current/source-report.json', 'day3_results': [],
+                'day1_results': [], 'day2_results': [], 'day3_matches': [], 'roster_report': None,
+                'roster_listings': {}, 'unresolved': [], 'global_unresolved': 0, 'limitations': []}
+
+    def line(self, movement=None, note=None):
+        return {'fixture_id': 'twc-2399414', 'teams': ['FURIA', 'Aurora'], 'starts_at': '2026-10-17T14:00:00Z',
+                'probabilities': [0.52380654, 0.47619346], 'pick_index': 0, 'method': 'market',
+                'label': 'Tournament market line — Kalshi/Polymarket consensus', 'observed_at': iso(NOW),
+                'movement': movement, 'movement_note': note,
+                'providers': [{'provider': 'Kalshi', 'probabilities': [0.5226, 0.4774], 'bid': [0.51, 0.47],
+                               'ask': [0.53, 0.48], 'source_url': 'https://kalshi.com/markets/kxcs2game/x',
+                               'observed_at': iso(NOW),
+                               'activity': {'opened_at': '2026-10-16T17:30:00Z', 'book_updated_at': '2026-10-16T17:30:00Z',
+                                            'changed_since_open': False, 'last_price': [0.53, 0.48],
+                                            'open_interest': [375.31, 1428.4], 'volume': [806.69, 1428.4]}}],
+                'attempts': []}
+
+    def test_two_verified_reads_publish_a_signed_point_change(self):
+        movement = {'from': '2026-10-16T19:00:00Z', 'before': [0.4888, 0.5112], 'delta': [0.035, -0.035],
+                    'points': [3.5, -3.5], 'providers_before': ['Kalshi'], 'label': 'Change against the previous validated read.'}
+        text = BeautifulSoup(build_twc.render_day4(self.guide(self.line(movement)), '../'), 'html.parser').get_text()
+        self.assertIn('Verified line movement', text)
+        self.assertIn('FURIA +3.5 pts', text)
+        self.assertIn('Aurora -3.5 pts', text)
+
+    def test_first_read_says_so_instead_of_claiming_a_move(self):
+        text = BeautifulSoup(build_twc.render_day4(
+            self.guide(self.line(note='No earlier validated read of this fixture is retained yet; movement is published once '
+                                      'a second observation of the same book is verified.')), '../'), 'html.parser').get_text()
+        self.assertIn('No earlier validated read', text)
+        self.assertNotIn('Verified line movement', text)
+
+    def test_provider_activity_is_rendered_from_the_json_fields(self):
+        html = build_twc.render_day4(self.guide(self.line()), '../')
+        text = BeautifulSoup(html, 'html.parser').get_text()
+        self.assertIn('no reprice since it opened', text)
+        self.assertIn('open interest 375.31 / 1,428.40', text)
+        self.assertIn('last trade 0.53 / 0.48', text)
+
+    def test_dated_observation_renders_its_own_movement_statement(self):
+        observation = {'teams': ['FURIA', 'Aurora'], 'starts_at': '2026-10-17T14:00:00Z', 'median': [0.52380654, 0.47619346],
+                       'providers': [{'provider': 'Kalshi', 'outcomes': ['FURIA', 'Aurora Gaming'], 'bid': [0.51, 0.47],
+                                      'ask': [0.53, 0.48], 'observed_at': iso(NOW),
+                                      'activity': {'changed_since_open': False, 'open_interest': [375.31, 1428.4]}}],
+                       'movement': {'status': 'no_reprice_observed',
+                                    'detail': "No verified price change: Kalshi's yes books are unchanged since they opened.",
+                                    'sources': ['https://api.elections.kalshi.com/trade-api/v2/events/X?with_nested_markets=true']}}
+        text = BeautifulSoup(build_twc.render_day4(self.guide(observation=observation), '../'), 'html.parser').get_text()
+        self.assertIn('Line movement:', text)
+        self.assertIn('No verified price change', text)
+        self.assertIn('no reprice since it opened', text)
+        self.assertIn('Dated lean: FURIA', text)
+
+    def test_a_bracket_placeholder_is_never_priced(self):
+        guide = self.guide(teams=('Falcons', 'BETBOOM/Legacy winner'))
+        table = BeautifulSoup(build_twc.render_day4(guide, '../'), 'html.parser').find('table')
+        text = table.get_text()
+        self.assertIn('bracket placeholder', text)
+        self.assertIn('BETBOOM/Legacy winner', text)
+        self.assertIsNone(re.search(r'\d+\.\d%', text), text)
+
+
+class DayThreeToDayFourLink(unittest.TestCase):
+    """A Day-4 slot is only tied to a Day-3 decider when the result says so."""
+
+    def guide(self, day3):
+        return {'matches': [], 'not_in_hotspawn_snapshot': [{
+                    'source_url': SOURCE, 'observed_at': iso(NOW), 'line': None, 'line_underdog': None,
+                    'facts': {'teams': ['FURIA', 'Aurora'], 'starts_at': '2026-10-17T14:00:00Z'}}],
+                'lines': {'available': False, 'observed_at': None, 'resolved': 0, 'total': 1, 'report_path': None},
+                'observations': [], 'research_available': True, 'research_report': 'research/twc-current/source-report.json',
+                'day3_results': day3, 'day1_results': [], 'day2_results': [], 'day3_matches': [], 'roster_report': None,
+                'roster_listings': {}, 'unresolved': [], 'global_unresolved': 0, 'limitations': []}
+
+    def result(self, teams, score):
+        return {'label': '2399412', 'teams': teams, 'score': score, 'maps': [], 'finished': True,
+                'source_url': 'https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026',
+                'observed_at': iso(NOW), 'lesson': 'Context only.'}
+
+    def test_a_retained_day3_win_is_named_as_the_reason_the_slot_is_settled(self):
+        text = BeautifulSoup(build_twc.render_day4(
+            self.guide([self.result(['Aurora', '9z'], [2, 0])]), '../'), 'html.parser').get_text()
+        self.assertIn('Slot settled on Day 3', text)
+        self.assertIn('Aurora advanced by winning 2–0 against 9z', text)
+
+    def test_no_day3_record_means_no_claim(self):
+        html = build_twc.render_day4(self.guide([]), '../')
+        self.assertNotIn('Slot settled on Day 3', BeautifulSoup(html, 'html.parser').get_text())
+
+    def test_a_loss_never_claims_the_slot(self):
+        text = BeautifulSoup(build_twc.render_day4(
+            self.guide([self.result(['Aurora', '9z'], [0, 2])]), '../'), 'html.parser').get_text()
+        self.assertNotIn('Slot settled on Day 3', text)

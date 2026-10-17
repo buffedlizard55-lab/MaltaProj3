@@ -9,7 +9,8 @@
     "Kalshi traded volume on these two events is small (hundreds to about 2.8k contracts) and its published books had not moved since 17:30Z/21:40Z, so that provider contributes a thinner signal than Polymarket.",
     "Midpoints are not guaranteed execution prices; exchange fees and rule differences are excluded.",
     "TWC playoff fixtures are not in the weekly Hotspawn scheduled-fixture inventory, so no Hotspawn lock time exists for them; the tournament pick'em lock is not published in a verifiable form here and is therefore left blank.",
-    "Hotspawn community percentages, HLTV fan votes and tournament outright odds are not used anywhere."
+    "Hotspawn community percentages, HLTV fan votes and tournament outright odds are not used anywhere.",
+    "Line movement shown here is limited to what the captured books prove: provider book update timestamps and the absence of a reprice. A verified point change requires the pipeline's own retained earlier read, which scripts/twc_lines.py replays and drops if its originals are gone."
   ],
   "fixtures": [
     {
@@ -49,7 +50,21 @@
           "liquidity_usd": 158522.83,
           "note": "Both original order books were one cent wide with positive size; the FURIA token book carried a 0.52 bid / 0.53 ask and the Aurora token book a 0.47 bid / 0.48 ask.",
           "book_url": "https://clob.polymarket.com/book?token_id=63023602674955856573289020133927363067610772118484087348457096650810218334865",
-          "order_note": "Polymarket lists FURIA first, matching the fixture order."
+          "order_note": "Polymarket lists FURIA first, matching the fixture order.",
+          "token_ids": {
+            "FURIA": "63023602674955856573289020133927363067610772118484087348457096650810218334865",
+            "Aurora Gaming": "16095432482862916819785432598863637949937692164180581166076490121814179242231"
+          },
+          "token_order_note": "Gamma's clobTokenIds array is in its outcomes order [FURIA, Aurora Gaming]; that is how each retained book was fetched and attributed before the quotes were re-ordered to the fixture's team order.",
+          "activity": {
+            "listed_at": "2026-10-16T16:35:10Z",
+            "book_updated_at": "2026-10-16T23:56:13Z",
+            "volume_usd": 38837.57,
+            "volume_usd_earlier_read": 38365.68,
+            "liquidity_usd": 157699.19,
+            "last_price": null,
+            "note": "Volume grew from $38,365.68 to $38,837.57 between the session read at 23:45Z and the re-read at 00:01Z while both order books kept the same bid/ask, i.e. money traded without a reprice. CLOB books are the priced evidence."
+          }
         },
         {
           "provider": "Kalshi",
@@ -80,7 +95,26 @@
             "Aurora Gaming",
             "FURIA"
           ],
-          "order_note": "Kalshi lists the event as 'Aurora Gaming vs. FURIA'; the quote arrays here follow the fixture's own (HLTV) order."
+          "order_note": "Kalshi lists the event as 'Aurora Gaming vs. FURIA'; the quote arrays here follow the fixture's own (HLTV) order.",
+          "activity": {
+            "listed_at": "2026-10-16T17:25:43Z",
+            "opened_at": "2026-10-16T17:30:00Z",
+            "book_updated_at": "2026-10-16T17:30:00Z",
+            "changed_since_open": false,
+            "last_price": [
+              0.53,
+              0.48
+            ],
+            "open_interest": [
+              375.31,
+              1428.4
+            ],
+            "volume": [
+              806.69,
+              1428.4
+            ],
+            "note": "Both yes books still carry the prices they opened with: updated_time equals open_time (17:30:00Z on 16 October), so Kalshi has not repriced this match since listing. Last traded: FURIA 0.53, Aurora 0.48."
+          }
         }
       ],
       "median": [
@@ -94,6 +128,19 @@
         "passes_floor": true,
         "cost_per_base_point": 0.04761308,
         "reading": "Aurora at 47.6% is a coin-flip side, far above the published 30% underdog floor, so taking Aurora to climb a leaderboard is defensible rather than reckless. The evidence for it is a market price, not a claim that the price is wrong: Aurora swept their Day-2 and Day-3 series 2-0 while FURIA needed three maps against Legacy, and FURIA's own IGL described an overbooked season on 15 October. None of that is quantified here and it never overrides the higher-probability side."
+      },
+      "movement": {
+        "status": "no_reprice_observed",
+        "basis": "provider book prices and their own update timestamps",
+        "kalshi_changed_since_open": false,
+        "polymarket_book_updated_at": "2026-10-16T23:56:13Z",
+        "detail": "No verified price change: Kalshi's yes books are unchanged since they opened at 17:30:00Z (updated_time equals open_time), and Polymarket's two CLOB books were last updated at 23:52:26Z and 23:56:13Z with 0.52/0.53 (FURIA) and 0.47/0.48 (Aurora). Directory volume rose $471.89 between the session's two reads with no book reprice, so money traded but the line did not move.",
+        "pipeline_note": "The four-hour publisher re-collects these same endpoints and keeps earlier reads, so the page publishes a verified point change only once a second read of the same book is retained and replayed; a read whose originals are gone is dropped rather than remembered.",
+        "sources": [
+          "https://clob.polymarket.com/book?token_id=63023602674955856573289020133927363067610772118484087348457096650810218334865",
+          "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA?with_nested_markets=true",
+          "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA"
+        ]
       }
     },
     {
@@ -133,7 +180,21 @@
           "liquidity_usd": 60484.48,
           "note": "Both original order books were one cent wide with positive size; the Falcons token book carried a 0.79 bid / 0.80 ask and the BetBoom token book a 0.20 bid / 0.21 ask.",
           "book_url": "https://clob.polymarket.com/book?token_id=47622028095849160413206485367562454297339753649482670304878425133936822721830",
-          "order_note": "Polymarket lists Team Falcons first, matching the fixture order."
+          "order_note": "Polymarket lists Team Falcons first, matching the fixture order.",
+          "token_ids": {
+            "Team Falcons": "47622028095849160413206485367562454297339753649482670304878425133936822721830",
+            "BetBoom Team": "38009478302610382064335258958689107486211614770248890993914277043780727541453"
+          },
+          "token_order_note": "Gamma's clobTokenIds array is in its outcomes order [Team Falcons, BetBoom Team]; each retained book was fetched by its own token id, which is also what the fixture-order quote arrays were built from.",
+          "activity": {
+            "listed_at": "2026-10-16T20:45:13Z",
+            "book_updated_at": "2026-10-16T23:55:32Z",
+            "volume_usd": 12271.77,
+            "volume_usd_earlier_read": 12271.77,
+            "liquidity_usd": 60484.48,
+            "last_price": null,
+            "note": "Both order books were updated at 23:55:32Z (0.79/0.80 Falcons, 0.20/0.21 BETBOOM) and the re-read at 00:1xZ showed the same volume, so this market is quiet rather than moving."
+          }
         },
         {
           "provider": "Kalshi",
@@ -164,7 +225,26 @@
             "BetBoom Team",
             "Team Falcons"
           ],
-          "order_note": "Kalshi lists the event as 'BetBoom Team vs. Team Falcons'; the quote arrays here follow the fixture's own (HLTV) order."
+          "order_note": "Kalshi lists the event as 'BetBoom Team vs. Team Falcons'; the quote arrays here follow the fixture's own (HLTV) order.",
+          "activity": {
+            "listed_at": "2026-10-16T21:35:43Z",
+            "opened_at": "2026-10-16T21:40:00Z",
+            "book_updated_at": "2026-10-16T21:40:00Z",
+            "changed_since_open": false,
+            "last_price": [
+              0.79,
+              0.21
+            ],
+            "open_interest": [
+              108.46,
+              1162.56
+            ],
+            "volume": [
+              108.46,
+              1162.56
+            ],
+            "note": "Opened 21:40:00Z with the current 0.77/0.79 Falcons and 0.20/0.21 BETBOOM books and has not been updated since, so no reprice has happened since the semi-final pairing was confirmed."
+          }
         }
       ],
       "median": [
@@ -178,6 +258,19 @@
         "passes_floor": false,
         "cost_per_base_point": 0.58687818,
         "reading": "BETBOOM at 20.7% sits below the published 30% underdog floor, so fading Falcons here is the avoidable kind of contrarian: it buys a much smaller chance of the same base points, and the two providers agree rather than disagree. No upset play is offered on this semifinal."
+      },
+      "movement": {
+        "status": "no_reprice_observed",
+        "basis": "provider book prices and their own update timestamps",
+        "kalshi_changed_since_open": false,
+        "polymarket_book_updated_at": "2026-10-16T23:55:32Z",
+        "detail": "No verified price change: Kalshi's yes books are unchanged since opening at 21:40:00Z, and Polymarket's books were updated at 23:55:32Z keeping 0.79/0.80 (Falcons) and 0.20/0.21 (BETBOOM). The market is quiet, not drifting, and no movement is claimed.",
+        "pipeline_note": "The four-hour publisher re-collects these same endpoints and keeps earlier reads, so the page publishes a verified point change only once a second read of the same book is retained and replayed; a read whose originals are gone is dropped rather than remembered.",
+        "sources": [
+          "https://clob.polymarket.com/book?token_id=47622028095849160413206485367562454297339753649482670304878425133936822721830",
+          "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL?with_nested_markets=true",
+          "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL"
+        ]
       }
     }
   ]

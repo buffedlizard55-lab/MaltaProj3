@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Day-1 upset review & contrarian edge",
-  "prepared_at": "2026-10-17T00:25:00Z",
+  "prepared_at": "2026-10-17T00:45:00Z",
   "research_window": {
     "from": "2026-10-14T00:00:00Z",
-    "to": "2026-10-17T00:24:00Z"
+    "to": "2026-10-17T00:45:00Z"
   },
   "policy": "Dated first-party research for review, not a live pricing feed. Every result, ranking, roster fact and market price below was read from the linked official source during the stated research window and carries its own observation time. Nothing here overwrites the automated picks pipeline, and no value is inferred: facts that could not be confirmed from an official source are left blank and labeled unverified. Hotspawn community percentages, offered points and popularity are never read, so 'contrarian' on this page means disagreeing with the external market or ranking consensus only when verified evidence supports it.",
   "event": {
@@ -1182,7 +1182,20 @@
               0.48
             ],
             "observed_at": "2026-10-16T23:56:13Z",
-            "book_url": "https://clob.polymarket.com/book?token_id=63023602674955856573289020133927363067610772118484087348457096650810218334865"
+            "book_url": "https://clob.polymarket.com/book?token_id=63023602674955856573289020133927363067610772118484087348457096650810218334865",
+            "activity": {
+              "listed_at": "2026-10-16T16:35:10Z",
+              "book_updated_at": "2026-10-16T23:56:13Z",
+              "volume_usd": 38837.57,
+              "volume_usd_earlier_read": 38365.68,
+              "liquidity_usd": 157699.19,
+              "last_price": null,
+              "note": "Volume grew from $38,365.68 to $38,837.57 between the session read at 23:45Z and the re-read at 00:01Z while both order books kept the same bid/ask, i.e. money traded without a reprice. CLOB books are the priced evidence."
+            },
+            "token_ids": {
+              "FURIA": "63023602674955856573289020133927363067610772118484087348457096650810218334865",
+              "Aurora Gaming": "16095432482862916819785432598863637949937692164180581166076490121814179242231"
+            }
           },
           {
             "provider": "Kalshi",
@@ -1199,10 +1212,48 @@
               0.48
             ],
             "observed_at": "2026-10-17T00:08:00Z",
-            "book_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA"
+            "book_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA",
+            "activity": {
+              "listed_at": "2026-10-16T17:25:43Z",
+              "opened_at": "2026-10-16T17:30:00Z",
+              "book_updated_at": "2026-10-16T17:30:00Z",
+              "changed_since_open": false,
+              "last_price": [
+                0.53,
+                0.48
+              ],
+              "open_interest": [
+                375.31,
+                1428.4
+              ],
+              "volume": [
+                806.69,
+                1428.4
+              ],
+              "note": "Both yes books still carry the prices they opened with: updated_time equals open_time (17:30:00Z on 16 October), so Kalshi has not repriced this match since listing. Last traded: FURIA 0.53, Aurora 0.48."
+            }
           }
         ],
-        "combination": "median of the normalized per-provider midpoints, one vote per independent provider"
+        "combination": "median of the normalized per-provider midpoints, one vote per independent provider",
+        "line_movement": {
+          "status": "no_reprice_observed",
+          "basis": "provider book prices and their own update timestamps",
+          "kalshi_changed_since_open": false,
+          "polymarket_book_updated_at": "2026-10-16T23:56:13Z",
+          "detail": "No verified price change: Kalshi's yes books are unchanged since they opened at 17:30:00Z (updated_time equals open_time), and Polymarket's two CLOB books were last updated at 23:52:26Z and 23:56:13Z with 0.52/0.53 (FURIA) and 0.47/0.48 (Aurora). Directory volume rose $471.89 between the session's two reads with no book reprice, so money traded but the line did not move.",
+          "pipeline_note": "The four-hour publisher re-collects these same endpoints and keeps earlier reads, so the page publishes a verified point change only once a second read of the same book is retained and replayed; a read whose originals are gone is dropped rather than remembered.",
+          "sources": [
+            "https://clob.polymarket.com/book?token_id=63023602674955856573289020133927363067610772118484087348457096650810218334865",
+            "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA?with_nested_markets=true",
+            "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171000AURFURIA"
+          ]
+        },
+        "fair_decimal": {
+          "FURIA": 1.909,
+          "Aurora": 2.1
+        },
+        "fair_decimal_note": "Reciprocal of the published pair: an illustrative reference line, not odds offered by any bookmaker. The priced evidence is the two providers' order books above.",
+        "coverage_note": "Two independent first-party providers (Polymarket CLOB books, Kalshi KXCS2GAME yes books) with the same exact scheduled start; the published pair is the median of their normalized midpoints."
       },
       "assessment": "The closest market left in the tournament and therefore the one defensible contrarian slot on the Day-4 card: both sides are far above the published 30% underdog floor, so taking Aurora is a coin-flip risk call rather than a reckless fade. The case for Aurora is a form and integration read (sweeps on Day 2 and Day 3, kyxsan 1.45 in the rematch) and the case for FURIA is a stronger roster with three maps needed against Legacy and an in-game leader who described an overbooked season on 15 October. Neither read is quantified here and neither overrides the higher-probability side. The live publisher re-collects both markets and publishes its own replayed pair; this row is a dated observation.",
       "sources": [
@@ -1270,7 +1321,20 @@
               0.21
             ],
             "observed_at": "2026-10-16T23:55:32Z",
-            "book_url": "https://clob.polymarket.com/book?token_id=47622028095849160413206485367562454297339753649482670304878425133936822721830"
+            "book_url": "https://clob.polymarket.com/book?token_id=47622028095849160413206485367562454297339753649482670304878425133936822721830",
+            "activity": {
+              "listed_at": "2026-10-16T20:45:13Z",
+              "book_updated_at": "2026-10-16T23:55:32Z",
+              "volume_usd": 12271.77,
+              "volume_usd_earlier_read": 12271.77,
+              "liquidity_usd": 60484.48,
+              "last_price": null,
+              "note": "Both order books were updated at 23:55:32Z (0.79/0.80 Falcons, 0.20/0.21 BETBOOM) and the re-read at 00:1xZ showed the same volume, so this market is quiet rather than moving."
+            },
+            "token_ids": {
+              "Team Falcons": "47622028095849160413206485367562454297339753649482670304878425133936822721830",
+              "BetBoom Team": "38009478302610382064335258958689107486211614770248890993914277043780727541453"
+            }
           },
           {
             "provider": "Kalshi",
@@ -1287,10 +1351,48 @@
               0.21
             ],
             "observed_at": "2026-10-17T00:10:00Z",
-            "book_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL"
+            "book_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL",
+            "activity": {
+              "listed_at": "2026-10-16T21:35:43Z",
+              "opened_at": "2026-10-16T21:40:00Z",
+              "book_updated_at": "2026-10-16T21:40:00Z",
+              "changed_since_open": false,
+              "last_price": [
+                0.79,
+                0.21
+              ],
+              "open_interest": [
+                108.46,
+                1162.56
+              ],
+              "volume": [
+                108.46,
+                1162.56
+              ],
+              "note": "Opened 21:40:00Z with the current 0.77/0.79 Falcons and 0.20/0.21 BETBOOM books and has not been updated since, so no reprice has happened since the semi-final pairing was confirmed."
+            }
           }
         ],
-        "combination": "median of the normalized per-provider midpoints, one vote per independent provider"
+        "combination": "median of the normalized per-provider midpoints, one vote per independent provider",
+        "line_movement": {
+          "status": "no_reprice_observed",
+          "basis": "provider book prices and their own update timestamps",
+          "kalshi_changed_since_open": false,
+          "polymarket_book_updated_at": "2026-10-16T23:55:32Z",
+          "detail": "No verified price change: Kalshi's yes books are unchanged since opening at 21:40:00Z, and Polymarket's books were updated at 23:55:32Z keeping 0.79/0.80 (Falcons) and 0.20/0.21 (BETBOOM). The market is quiet, not drifting, and no movement is claimed.",
+          "pipeline_note": "The four-hour publisher re-collects these same endpoints and keeps earlier reads, so the page publishes a verified point change only once a second read of the same book is retained and replayed; a read whose originals are gone is dropped rather than remembered.",
+          "sources": [
+            "https://clob.polymarket.com/book?token_id=47622028095849160413206485367562454297339753649482670304878425133936822721830",
+            "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL?with_nested_markets=true",
+            "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT171300BBFAL"
+          ]
+        },
+        "fair_decimal": {
+          "Falcons": 1.26,
+          "BETBOOM": 4.84
+        },
+        "fair_decimal_note": "Reciprocal of the published pair: an illustrative reference line, not odds offered by any bookmaker. The priced evidence is the two providers' order books above.",
+        "coverage_note": "Two independent first-party providers (Polymarket CLOB books, Kalshi KXCS2GAME yes books) with the same exact scheduled start; the published pair is the median of their normalized midpoints."
       },
       "assessment": "Chalk, and the page says so: BETBOOM at 20.7% sits below the published 30% underdog floor and the two independent providers agree rather than disagree, so fading Falcons is the avoidable kind of contrarian. BETBOOM needed three maps against the group's weakest side while Falcons beat NiP 2-0 and 9z 2-1, and no roster, rest or health advantage is established for either side. Keep the favourite here and spend the single risk slot on Semifinal 1 if a contrarian play is wanted at all.",
       "sources": [

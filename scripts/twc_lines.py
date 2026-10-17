@@ -43,9 +43,10 @@ KALSHI_API = 'https://api.elections.kalshi.com/trade-api/v2/events'
 KALSHI_PAGE = 'https://kalshi.com/markets/kxcs2game/counterstrike-2-game'
 KALSHI_SERIES = 'KXCS2GAME'
 DOCS = 'https://docs.kalshi.com/api-reference/market/get-markets'
-REPORT = 'day4-lines.json'
+REPORT = Path('evidence/twc-day4-lines.json')
 MAX_SPREAD = 0.12
 MAX_KALSHI_PAGES = 5
+HISTORY_READS = 6  # Earlier pipeline reads retained for verified line movement.
 POLICY = ('External first-party market data only. Every fixture joins on exact team names (or a competition-scoped, '
           'evidence-linked alias) and an exact scheduled start; both sides of the selected full-series market must '
           'publish a two-sided book no wider than 0.12; in-play and past-start observations are rejected. The '
@@ -119,6 +120,9 @@ def polymarket_quote(event: dict, books: list, fixture: dict, registry: dict, no
         probs = normalize_pair(*(q['midpoint'] for q in ordered))
     except ValueError as exc:
         return None, 'Normalization failed: ' + str(exc)
+    updated = max((timestamp(by_token[str(t)].get('timestamp')) for t in tokens), default=None)
+    listed = timestamp(market.get('createdAt') or market.get('startDate') or event.get('creationDate')
+                       or event.get('startDate'))
     return {'provider': 'Polymarket', 'family': 'market', 'probabilities': probs,
             'bid': [q['bid'] for q in ordered], 'ask': [q['ask'] for q in ordered],
             'source_url': 'https://polymarket.com/event/' + str(event.get('slug')),
@@ -126,7 +130,13 @@ def polymarket_quote(event: dict, books: list, fixture: dict, registry: dict, no
             'event_id': str(event.get('id')), 'market_id': str(market.get('id')),
             'source_outcomes': [str(n) for n in names],
             'volume': finite(market.get('volumeNum', market.get('volume'))),
-            'liquidity': finite(market.get('liquidityNum', market.get('liquidity')))}, ''
+            'liquidity': finite(market.get('liquidityNum', market.get('liquidity'))),
+            'activity': {'listed_at': iso(listed) if listed else None,
+                         'book_updated_at': iso(updated) if updated else None,
+                         'volume': finite(market.get('volumeNum', market.get('volume'))),
+                         'liquidity': finite(market.get('liquidityNum', market.get('liquidity'))),
+                         'last_price': None,
+                         'note': 'Order books are the priced evidence; the directory price is never used.'}}, ''
 
 
 def kalshi_quote(event: dict, fixture: dict, registry: dict, observed_at, now: datetime) -> tuple[dict | None, str]:
@@ -147,7 +157,7 @@ def kalshi_quote(event: dict, fixture: dict, registry: dict, observed_at, now: d
     when = timestamp(observed_at)
     if when is None or timestamp(start) is None or timestamp(start) <= when:
         return None, 'Observation is not prematch'
-    quotes = {}
+    quotes, market_by_name = {}, {}
     for name, market in zip(canonical, markets):
         if market.get('status') != 'active':
             return None, 'A Kalshi outcome market is not active'
@@ -157,20 +167,33 @@ def kalshi_quote(event: dict, fixture: dict, registry: dict, observed_at, now: d
         if ask - bid > MAX_SPREAD + 1e-9:
             return None, 'Kalshi yes book is wider than the 12-cent ceiling'
         quotes[name] = {'bid': bid, 'ask': ask, 'midpoint': (bid + ask) / 2}
+        market_by_name[name] = market
     wanted = [name_key(t['name']) for t in fixture['teams']]
     if set(quotes) != set(wanted):
         return None, 'Kalshi outcomes do not map onto the fixture teams'
     ordered = [quotes[key] for key in wanted]
+    ordered_markets = [market_by_name[key] for key in wanted]
     try:
         probs = normalize_pair(*(q['midpoint'] for q in ordered))
     except ValueError as exc:
         return None, 'Normalization failed: ' + str(exc)
     ticker = str(event.get('event_ticker'))
+    updated, opened = timestamp(markets[0].get('updated_time')), timestamp(markets[0].get('open_time'))
     return {'provider': 'Kalshi', 'family': 'market', 'probabilities': probs,
             'bid': [q['bid'] for q in ordered], 'ask': [q['ask'] for q in ordered],
             'source_url': KALSHI_PAGE + '/' + ticker.lower(), 'api_url': KALSHI_API + '/' + ticker,
             'event_id': ticker, 'market_tickers': [str(m.get('ticker')) for m in markets],
-            'source_outcomes': [str(n) for n in names]}, ''
+            'source_outcomes': [str(n) for n in names],
+            'activity': {'listed_at': iso(timestamp(markets[0].get('created_time'))) if timestamp(markets[0].get('created_time')) else None,
+                         'opened_at': iso(opened) if opened else None,
+                         'book_updated_at': iso(updated) if updated else None,
+                         # Kalshi publishes the book's own update time, so "has this market
+                         # repriced since it opened" is answerable from the retained original.
+                         'changed_since_open': None if not (updated and opened) else bool(updated > opened),
+                         'last_price': [finite(m.get('last_price_dollars')) for m in ordered_markets],
+                         'open_interest': [finite(m.get('open_interest_fp')) for m in ordered_markets],
+                         'volume': [finite(m.get('volume_fp')) for m in ordered_markets],
+                         'note': 'Book and last-trade values are provider-reported; the midpoints are the priced evidence.'}}, ''
 
 
 def median_pair(pairs: list) -> list | None:
@@ -194,7 +217,8 @@ def analyse(providers: list, fixture: dict) -> dict:
            'providers': [{'provider': p['quote']['provider'], 'probabilities': p['quote']['probabilities'],
                           'bid': p['quote']['bid'], 'ask': p['quote']['ask'],
                           'source_url': p['quote']['source_url'], 'api_url': p['quote']['api_url'],
-                          'event_id': p['quote']['event_id'], 'observed_at': p['observed_at']}
+                          'event_id': p['quote']['event_id'], 'observed_at': p['observed_at'],
+                          'activity': p['quote'].get('activity')}
                          for p in usable],
            'attempts': [{'provider': p['provider'], 'status': p['status'], 'reason': p['reason'],
                          'source_url': p['source_url'], 'observed_at': p['observed_at']} for p in providers],
@@ -238,9 +262,26 @@ def _record_evidence(client, labels: list) -> list:
     return out
 
 
+def _previous_reads(client) -> list:
+    """Earlier pipeline reads, carried forward so movement stays verifiable."""
+    path = client.evidence / 'twc-day4-lines.json'
+    if not path.exists():
+        return []
+    try:
+        previous = json.loads(path.read_text())
+    except ValueError:
+        return []
+    out = list(previous.get('history') or [])[-HISTORY_READS:]
+    if previous.get('records'):
+        out.append({'observed_at': previous.get('observed_at'), 'records': previous.get('records')})
+    return out[-HISTORY_READS:]
+
+
 def collect(client, research_rows: list, registry: dict, day: str, now: datetime) -> dict:
     """Discover, validate and retain external Day-4 lines for TWC fixtures."""
     targets = fixtures(research_rows, day)
+    stamp = now.strftime('%Y%m%dT%H%M')
+    history = _previous_reads(client)
     games, poly_health = ([], None)
     if targets:
         try:
@@ -257,7 +298,7 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
         event_ids = {str(g.get('id')) for g in candidates}
         if len(event_ids) == 1:
             event_id = next(iter(event_ids))
-            labels = ['twc-day4-poly-event-' + event_id]
+            labels = ['twc-day4-poly-event-' + event_id + '-' + stamp]
             try:
                 event, req = client.json(POLY_EVENTS + event_id, labels[0])
             except SourceError as exc:
@@ -269,7 +310,7 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                 tokens = array(market.get('clobTokenIds')) if market else []
                 books = []
                 for index, token in enumerate(tokens):
-                    label = 'twc-day4-poly-book-' + event_id + '-' + str(index)
+                    label = 'twc-day4-poly-book-' + event_id + '-' + str(index) + '-' + stamp
                     try:
                         book, _ = client.json(CLOB_BOOK + str(token), label)
                     except SourceError:
@@ -295,24 +336,24 @@ def collect(client, research_rows: list, registry: dict, day: str, now: datetime
                                          'and paginated CS2-tag events' if not candidates
                                          else 'More than one CS2 event matches this pair and start time'),
                               'source_url': POLY_DIRECTORY, 'observed_at': iso(now), 'quote': None})
-        kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now)
+        kalshi, kalshi_status = _collect_kalshi(client, fixture, registry, now, stamp)
         providers.append(kalshi)
         records.append({'fixture': {k: fixture[k] for k in ('id', 'teams', 'starts_at', 'source_url', 'hltv_match_id')},
                         'providers': providers, 'kalshi_pages': kalshi_status})
     report = {'schema_version': 1, 'policy': POLICY, 'event': EVENT, 'day': day, 'observed_at': iso(now),
-              'polymarket': poly_health, 'records': records,
+              'polymarket': poly_health, 'records': records, 'history': history,
               'request_manifest': list(client.manifest)}
     client.save('twc-day4-lines', report)
     return report
 
 
-def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime) -> tuple[dict, int | None]:
+def _collect_kalshi(client, fixture: dict, registry: dict, now: datetime, stamp: str = '') -> tuple[dict, int | None]:
     labels, pages, cursor = [], 0, None
     events = []
     while pages < MAX_KALSHI_PAGES:
         suffix = '' if cursor is None else '&cursor=' + str(cursor)
         url = (KALSHI_API + '?series_ticker=' + KALSHI_SERIES + '&status=open&with_nested_markets=true&limit=200' + suffix)
-        label = 'twc-day4-kalshi-page-' + str(pages)
+        label = 'twc-day4-kalshi-page-' + str(pages) + ('-' + stamp if stamp else '')
         try:
             body, _ = client.json(url, label)
         except SourceError as exc:
@@ -358,9 +399,60 @@ def client_manifest_time(client, label: str):
 def _evidence_path(folder: Path, name: str) -> Path:
     """Resolve a retained evidence file, refusing anything outside its folder."""
     path = (folder / name).resolve()
-    if folder.resolve() not in path.parents:
+    root = folder.resolve()
+    if path == root or root not in path.parents:
         raise ValueError('TWC line evidence path escapes its research folder')
     return path
+
+
+def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) -> dict:
+    """Re-derive one collected fixture from its hash-verified originals."""
+    fixture = {'id': record['fixture']['id'], 'teams': [{'name': n} for n in record['fixture']['teams']],
+               'starts_at': record['fixture']['starts_at'], 'competition': EVENT,
+               'source_url': record['fixture'].get('source_url'),
+               'hltv_match_id': record['fixture'].get('hltv_match_id')}
+    providers = []
+    for provider in record.get('providers') or []:
+        payloads = {}
+        for item in provider.get('evidence') or []:
+            path = _evidence_path(folder, item['file'])
+            if not path.exists():
+                raise ValueError('TWC line evidence missing: ' + item['file'])
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != item.get('sha256'):
+                raise ValueError('TWC line evidence hash mismatch: ' + item['file'])
+            payloads[item['label']] = json.loads(raw.decode())
+        quote, reason = None, provider.get('reason')
+        if provider['provider'] == 'Polymarket' and payloads:
+            event = next((v for k, v in payloads.items() if k.startswith('twc-day4-poly-event-')), None)
+            books = [v for k, v in sorted(payloads.items()) if k.startswith('twc-day4-poly-book-')]
+            if event is not None:
+                quote, reason = polymarket_quote(event, books, fixture, registry, now)
+        if provider['provider'] == 'Kalshi' and payloads:
+            events = [e for page in payloads.values() for e in (page.get('events') or [])]
+            joined = [e for e in events if str(e.get('event_ticker')) == str(provider.get('event_id'))]
+            if len(joined) == 1:
+                quote, reason = kalshi_quote(joined[0], fixture, registry, provider.get('observed_at'), now)
+            elif not joined:
+                reason = 'The retained Kalshi page no longer contains the selected event'
+        providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',
+                          'reason': reason, 'source_url': provider.get('source_url'),
+                          'observed_at': provider.get('observed_at'), 'quote': quote})
+    return analyse(providers, fixture)
+
+
+def _movement(row: dict, earlier: dict | None) -> dict | None:
+    """Point change between two independently replayed reads of one fixture."""
+    if not earlier or not row.get('probabilities') or not earlier.get('probabilities'):
+        return None
+    if row['fixture_id'] != earlier.get('fixture_id'):
+        return None
+    before, after = earlier['probabilities'], row['probabilities']
+    delta = [after[i] - before[i] for i in (0, 1)]
+    return {'from': earlier.get('observed_at'), 'before': before, 'delta': delta,
+            'points': [round(d * 100, 1) for d in delta],
+            'providers_before': [p['provider'] for p in earlier.get('providers') or []],
+            'label': 'Change against the previous validated read of the same fixture.'}
 
 
 def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
@@ -369,6 +461,9 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     Stored probabilities are never trusted: each provider is recomputed from the
     hash-verified original response, and any mismatch raises instead of
     publishing. A missing report returns an empty, explicitly unresolved result.
+    Earlier reads are replayed too, so published line movement is a change
+    between two verified observations rather than a remembered number; a read
+    whose originals are gone is dropped instead of being trusted.
     """
     folder = source / 'research/twc-current'
     report_path = folder / REPORT
@@ -380,48 +475,39 @@ def load(source: Path, now: datetime, registry: dict | None = None) -> dict:
     if not report_path.exists():
         return empty
     report = json.loads(report_path.read_text())
+    # Evidence paths are stored relative to the research folder, which is the
+    # report's own folder minus the report's relative path.
     folder = report_path.parent
+    for _ in range(len(REPORT.parts) - 1):
+        folder = folder.parent
     registry = registry if registry is not None else _registry()
     matches, reasons = [], {}
     for record in report.get('records') or []:
-        fixture = {'id': record['fixture']['id'], 'teams': [{'name': n} for n in record['fixture']['teams']],
-                   'starts_at': record['fixture']['starts_at'], 'competition': EVENT,
-                   'source_url': record['fixture'].get('source_url'),
-                   'hltv_match_id': record['fixture'].get('hltv_match_id')}
-        providers = []
-        for provider in record.get('providers') or []:
-            payloads = {}
-            for item in provider.get('evidence') or []:
-                path = _evidence_path(folder, item['file'])
-                if not path.exists():
-                    raise ValueError('TWC line evidence missing: ' + item['file'])
-                raw = path.read_bytes()
-                if hashlib.sha256(raw).hexdigest() != item.get('sha256'):
-                    raise ValueError('TWC line evidence hash mismatch: ' + item['file'])
-                payloads[item['label']] = json.loads(raw.decode())
-            quote, reason = None, provider.get('reason')
-            if provider['provider'] == 'Polymarket' and payloads:
-                event = next((v for k, v in payloads.items() if k.startswith('twc-day4-poly-event-')), None)
-                books = [v for k, v in sorted(payloads.items()) if k.startswith('twc-day4-poly-book-')]
-                if event is not None:
-                    quote, reason = polymarket_quote(event, books, fixture, registry, now)
-            if provider['provider'] == 'Kalshi' and payloads:
-                events = [e for page in payloads.values() for e in (page.get('events') or [])]
-                joined = [e for e in events if str(e.get('event_ticker')) == str(provider.get('event_id'))]
-                if len(joined) == 1:
-                    quote, reason = kalshi_quote(joined[0], fixture, registry, provider.get('observed_at'), now)
-                elif not joined:
-                    reason = 'The retained Kalshi page no longer contains the selected event'
-            providers.append({'provider': provider['provider'], 'status': 'resolved' if quote else 'unresolved',
-                              'reason': reason, 'source_url': provider.get('source_url'),
-                              'observed_at': provider.get('observed_at'), 'quote': quote})
-        row = analyse(providers, fixture)
+        row = _replay_record(record, folder, registry, now)
         matches.append(row)
         if row['probabilities'] is None:
             reasons[' vs '.join(row['teams'])] = [a for a in row['attempts']]
+    earlier, dropped = [], 0
+    for read in report.get('history') or []:
+        try:
+            rows = [_replay_record(record, folder, registry, now) for record in read.get('records') or []]
+        except ValueError:
+            dropped += 1  # Originals already rotated away: never trust a remembered number.
+            continue
+        if rows:
+            earlier.append(rows)
+    for row in matches:
+        prior = next((candidate for rows in reversed(earlier) for candidate in rows
+                      if candidate['fixture_id'] == row['fixture_id'] and candidate.get('probabilities')), None)
+        row['movement'] = _movement(row, prior)
+        if row['movement'] is None:
+            row['movement_note'] = ('No earlier validated read of this fixture is retained yet; movement is published '
+                                    'once a second observation of the same book is verified.')
     return {'schema_version': report.get('schema_version', 1), 'available': True, 'day': report.get('day'),
             'observed_at': report.get('observed_at'), 'matches': matches, 'reasons': reasons,
-            'report_path': _relative_report(source, report_path), 'policy': POLICY}
+            'report_path': _relative_report(source, report_path), 'policy': POLICY,
+            'earlier_reads': len(earlier), 'read_sources': [r.get('observed_at') for r in report.get('history') or []],
+            'unverifiable_reads': dropped}
 
 
 _REGISTRY: dict | None = None

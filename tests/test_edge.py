@@ -269,3 +269,35 @@ class NavigationIntegrationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DayFourOddsAndMovement(unittest.TestCase):
+    """The Day-4 edge rows must publish odds depth and movement from their own JSON."""
+
+    def review(self):
+        review = copy.deepcopy(json.loads((ROOT / 'data/edge-review.json').read_text()))
+        return review
+
+    def test_every_day_four_market_publishes_its_own_activity_and_movement(self):
+        review = self.review()
+        for row in review['day_four']:
+            market = row['market']
+            self.assertTrue(market.get('fair_decimal'), row['slot'])
+            self.assertLess(abs(sum(1 / v for v in market['fair_decimal'].values()) - 1), 0.02)
+            movement = market.get('line_movement') or {}
+            self.assertEqual(movement.get('status'), 'no_reprice_observed')
+            self.assertTrue(movement.get('sources'))
+            for provider in market['providers']:
+                self.assertIsInstance(provider.get('activity'), dict, provider['provider'])
+                self.assertIn('book_updated_at', provider['activity'])
+
+    def test_rendered_movement_matches_the_json_not_the_html(self):
+        review = self.review()
+        html = build_edge.day_four_section(review)
+        text = BeautifulSoup(html, 'html.parser').get_text()
+        self.assertIn('Line movement:', text)
+        self.assertIn('no reprice since it opened', text)
+        self.assertIn('Reference line', text)
+        # A tampered JSON must change the page: nothing is hard-coded in the renderer.
+        review['day_four'][0]['market']['line_movement']['detail'] = 'TAMPERED MOVEMENT'
+        self.assertIn('TAMPERED MOVEMENT', BeautifulSoup(build_edge.day_four_section(review), 'html.parser').get_text())
