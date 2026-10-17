@@ -101,9 +101,72 @@ absence of fixtures. No pick, probability or source result is invented here.
 
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
-| V-1 Restore usable current inventory when the rendered Hotspawn lobby pages are blocked but the official scheduled-fixture API is healthy; keep reconciliation strict whenever a rendered page IS available | in progress | arena-7831412c | `scripts/sources.py`, `scripts/collect.py`, `tests/test_lobby_freshness.py`, new `tests/test_inventory_fallback.py`, `COORDINATION.md` (this section) | A valid, duplicate-free public API array is the authoritative scheduled inventory. API-only mode must publish an explicit `inventory_crosscheck: unavailable` field and a visible warning flag, never a "three responses reconciled" claim. A disagreement between an available rendered page and the API still fails closed. No WAF bypass, no user-agent spoofing, no retry flood. |
-| V-2 Verify the Day-4/executive-summary/mobile path against the current build and fix only reproduced presentation defects; keep all probabilities/sources unchanged | unclaimed | arena-7831412c | `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`, `tests/test_summary.py`, `tests/test_twc_day4.py`, `tests/test_build.py` | Includes checking that the executive summary's picks/unresolved links are visible at 320/390 px, that a 50/50 external market is labelled "no edge" rather than assigned an arbitrary side, and that a blocked-inventory notice does not hide known fixture facts. No new probability model and no Hotspawn popularity input. |
-| V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | unclaimed | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), S-1/S-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
+| V-1 Restore usable current inventory when the rendered Hotspawn lobby pages are blocked but the official scheduled-fixture API is healthy; keep reconciliation strict whenever a rendered page IS available | done | arena-7831412c | `scripts/sources.py`, `scripts/collect.py`, `tests/test_lobby_freshness.py`, new `tests/test_inventory_fallback.py`, `COORDINATION.md` (this section) | A valid, duplicate-free public API array is the authoritative scheduled inventory. API-only mode must publish an explicit `inventory_crosscheck: unavailable` field and a visible warning flag, never a "three responses reconciled" claim. A disagreement between an available rendered page and the API still fails closed. No WAF bypass, no user-agent spoofing, no retry flood. |
+| V-2 Verify the Day-4/executive-summary/mobile path against the current build and fix only reproduced presentation defects; keep all probabilities/sources unchanged | done | arena-7831412c | `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`, `tests/test_summary.py`, `tests/test_twc_day4.py`, `tests/test_build.py` | Includes checking that the executive summary's picks/unresolved links are visible at 320/390 px, that a 50/50 external market is labelled "no edge" rather than assigned an arbitrary side, and that a blocked-inventory notice does not hide known fixture facts. No new probability model and no Hotspawn popularity input. |
+| V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | in progress | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), V-1/V-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
+
+### S-1 DONE — inventory authority (10:30Z)
+- Scope: `scripts/sources.py`, `scripts/collect.py`, `scripts/validate.py`,
+  `tests/test_lobby_freshness.py`, `tests/test_summary.py`. No other session's
+  file was edited.
+- Reproduced fact: production run 39012768749 (07:12Z) completed with
+  `coverage_complete: false` after a two-second collect step; the annotation said
+  `403 Client Error: Forbidden for url: https://play.hotspawn.com/lobby`. The live
+  `data/sources.json` still shows HTTP 200 for the lobby, CS2 lobby and fixture API
+  at 04:27Z. The rendered pages failed; the API did not.
+- Change: the public fixture array is read first each round and must be a
+  non-empty duplicate-free array; both rendered pages are compared against it and
+  any readable disagreement still fails closed; only when no page can be read is
+  the API array published, with `inventory_crosscheck: unavailable`, per-page
+  error text, a warning flag and a notice annotation. A 200 response with no app
+  state counts as unreadable; a page that carries app state but breaks the
+  contract still fails closed. `validate.py` independently re-checks the API row
+  set, the marker and each page claimed as read.
+- Evidence that the normal path still works:
+  [origination audit on d136c0d](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39024513591)
+  reported `{"records": 93, "crosscheck": "complete", "verified_pages": ["lobby","cs2"]}`.
+- Tests added: five API-only/partial fallback cases, one challenge-page case, three
+  cross-check presentation cases. Existing disagreement, duplicate-ID and
+  non-array cases still pass unchanged.
+
+### S-2 DONE — phone summary and even-line wording (10:35Z)
+- Scope: `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`,
+  `tests/test_build.py`, `tests/test_summary.py`, `tests/test_twc_day4.py`,
+  `tests/browser/dashboard.spec.mjs`.
+- Added `#picks-at-a-glance`: a compact index of active fixtures that puts the
+  first pick and its sources inside the first phone screen. Measured before:
+  first match card at 2,779 px on a 390 px viewport. After: section starts at
+  425 px, first row fully visible at 816 px. The index is a view over the same
+  canonical selection: upcoming picks first, then **every unresolved fixture**,
+  then recent context, and it never substitutes a 50/50. A regression test fails
+  if an unresolved fixture name is missing from the index.
+- An exactly even external line now reads "No edge — even line" with the reason,
+  instead of "Pick — unverified", which wrongly implied missing data.
+- Fixed a real contrast failure found by the axe pass (`.glance-match .versus`
+  measured 4.16:1; now 5.3:1) before merging.
+- Verified: 569 Python tests, 74 Playwright checks (two new phone-width glance
+  checks at 320/390 px), 106 safety assertions, `scripts.build` (80 source rows,
+  593 links/anchors), strict row audit 0 violations.
+
+### Sources for manual review
+- Hotspawn public fixture API: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1
+- Hotspawn lobby and CS2 lobby: https://play.hotspawn.com/lobby , https://play.hotspawn.com/cs2-pickems
+- HLTV Day-1–Day-3 match records already displayed, e.g. https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026
+- Valve official standings: https://github.com/ValveSoftware/counter-strike_regional_standings
+- Production run that exposed the defect: https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39012768749
+
+### Irregularities flagged for review (non-blocking)
+1. Intermittent HTTP 403 on both rendered Hotspawn lobby pages while the same
+   official fixture API answers 200. Published on `/review/` with the exact text;
+   the fallback keeps picks usable and says so.
+2. A stale interactive element: the historical Day-3 block on `/twc-picks/` still
+   renders "Start — unverified" for two fixtures whose dates are known, because
+   the canonical feed no longer contains those fixtures. It is inside a collapsed
+   `<details>` labelled historical and is not a current pick. Not changed here to
+   keep the canonical-feed contract strict; flagged for the owning integration.
+3. `data/strategy.json` in this checkout is generated at build time from the
+   repository snapshot and is dated; live values come from the deployed build.
+   The checked-in file is not treated as current by any page.
 
 ### Claim notes (09:55Z)
 - The sandbox has no outbound access to Hotspawn, HLTV, Polymarket or the published
