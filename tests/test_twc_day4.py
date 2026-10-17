@@ -213,6 +213,17 @@ class TournamentCardLines(unittest.TestCase):
         self.assertIn('kalshi.com/markets/kxcs2game', html)
         self.assertIn('day-four-tournament-lines', html)
 
+    def test_an_exactly_even_external_line_never_invents_a_side(self):
+        line = self.line()
+        line['probabilities'] = [0.5, 0.5]
+        line['pick_index'] = None
+        html = build_twc.render_day4(self.guide(line), '../')
+        text = BeautifulSoup(html, 'html.parser').get_text()
+        self.assertIn('No edge — even line', text)
+        self.assertNotIn('Default pick:', text)
+        self.assertIn('50.0%', text)
+        self.assertIn('no side is invented', text)
+
     def test_underdog_verdicts_follow_the_published_floor(self):
         guide = self.guide(self.line())
         guide['not_in_hotspawn_snapshot'][0]['line_underdog'] = {

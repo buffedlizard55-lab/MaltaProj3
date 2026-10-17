@@ -103,7 +103,7 @@ absence of fixtures. No pick, probability or source result is invented here.
 | --- | --- | --- | --- | --- |
 | V-1 Restore usable current inventory when the rendered Hotspawn lobby pages are blocked but the official scheduled-fixture API is healthy; keep reconciliation strict whenever a rendered page IS available | done | arena-7831412c | `scripts/sources.py`, `scripts/collect.py`, `tests/test_lobby_freshness.py`, new `tests/test_inventory_fallback.py`, `COORDINATION.md` (this section) | A valid, duplicate-free public API array is the authoritative scheduled inventory. API-only mode must publish an explicit `inventory_crosscheck: unavailable` field and a visible warning flag, never a "three responses reconciled" claim. A disagreement between an available rendered page and the API still fails closed. No WAF bypass, no user-agent spoofing, no retry flood. |
 | V-2 Verify the Day-4/executive-summary/mobile path against the current build and fix only reproduced presentation defects; keep all probabilities/sources unchanged | done | arena-7831412c | `scripts/build.py`, `scripts/build_twc.py`, `assets/scout.css`, `tests/test_summary.py`, `tests/test_twc_day4.py`, `tests/test_build.py` | Includes checking that the executive summary's picks/unresolved links are visible at 320/390 px, that a 50/50 external market is labelled "no edge" rather than assigned an arbitrary side, and that a blocked-inventory notice does not hide known fixture facts. No new probability model and no Hotspawn popularity input. |
-| V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | in progress | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), V-1/V-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
+| V-3 Scoped final integration and release: verify combined data line by line, run Python/browser/row-source/link checks, open the PR, merge, verify actual Pages deployment, record sources and irregularities | done | arena-7831412c | `COORDINATION.md` (this section only), `README.md` (final release/verification block only), V-1/V-2 files | Do not merge a broken build. Live verification must fetch the deployed HTML/JSON, not rely on a job's green status. Flagged items remain public on `/review/`. |
 
 ### V-1 DONE — inventory authority (10:30Z)
 - Scope: `scripts/sources.py`, `scripts/collect.py`, `scripts/validate.py`,
@@ -148,6 +148,35 @@ absence of fixtures. No pick, probability or source result is invented here.
   577 Python tests, 78 Playwright checks (two new phone-width glance checks at
   320/390 px), 106 safety assertions, `scripts.build` (80 source rows, 593
   links/anchors, 381 audited rows / 373 official + 8 navigation / 0 violations).
+
+### V-3 DONE — integration, merge and live deploy (11:05Z)
+- Scope: `COORDINATION.md` (this section) and `README.md` (release block), plus the
+  V-2 files for one reproduced guard listed below. No other session's file edited.
+- PR [#79](https://github.com/buffedlizard55-lab/MaltaProj3/pull/79) merged into
+  `main` as `0318219`. Both required checks were green on the PR head `07b4f3c`:
+  `originate` (1m20s) and "Rows, build, links, mobile and accessibility" (5m16s,
+  run [39025599425](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39025599425)).
+- Post-merge runs on `0318219`: `Refresh and deploy CS2 dashboard` and
+  `pages build and deployment` both completed successfully.
+- Live verification by fetching the deployed artifacts, not by trusting the job
+  status: `data/latest.json` was generated at `2026-10-17T10:49:22Z` with
+  `coverage_complete: true`, `inventory_crosscheck: "complete"`, 93 fixtures
+  (32 upcoming), 24 priced and 8 explicitly unresolved. The deployed `/` renders
+  `#picks-at-a-glance` with 18 rows including every unresolved fixture, the
+  Day-4 card shows FURIA–Aurora as "No edge — even line", and `/review/`,
+  `/twc-picks/` and `/origination/#picks` are live with their source links.
+  Production therefore ran the three-response reconciliation path, not the
+  API-only fallback.
+- Additional guard fixed while verifying (V-2 scope, reproduced defect): the
+  `not_in_hotspawn_snapshot` table in `build_twc.render_day4` indexed the team
+  list with `pick_index`, which `twc_lines` sets to `None` for an exactly even
+  external book. That path would raise `TypeError` instead of publishing. It now
+  mirrors the Day-4 card — both 50.0% prices, "No edge — even line", no side
+  named — and skips the underdog block when there is no directional side. New
+  test: `TournamentCardLines.test_an_exactly_even_external_line_never_invents_a_side`.
+- Re-verified on this tree: **578 Python tests OK** (197.5 s), **78 Playwright
+  checks** pass, `scripts.build` PASS (80 source rows; 381 audit rows — 373
+  official, 8 site-map, 0 flagged; 593 links; 7 views).
 
 ### Sources for manual review
 - Hotspawn public fixture API: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1

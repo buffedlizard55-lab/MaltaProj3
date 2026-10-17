@@ -264,13 +264,19 @@ What changed, and why each piece is verifiable:
    (50.0% / 50.0%) is now labelled "No edge — even line" with the reason, instead
    of the vague "Pick — unverified", which wrongly implied missing data. No side
    is invented.
+5. **The same guard for unlisted fixtures (`scripts/build_twc.py`).** The
+   tournament-card table for HLTV-listed Day-4 fixtures absent from the weekly
+   inventory still assumed a directional `pick_index`. An exactly even external
+   book stores `pick_index: null`, so that path would have raised `TypeError`
+   instead of publishing. It now prints both 50.0% prices with "No edge — even
+   line" and never names a side. A new test covers it.
 
-Verification performed on this tree before the release PR: **577 Python tests**
-pass, **78 Playwright checks** pass (including two new phone-width glance checks),
-**106 independent pick-safety browser assertions** pass (Python/JS parity, expiry,
-lock, clock rollback, 320/390/768/1440 px and axe WCAG A/AA), `scripts.build`
-replays 80 source rows, validates all internal links/anchors, and the strict row
-audit reports 0 violations. The branch's own read-only
+Verification performed on this tree before and after the release PR: **578 Python
+tests** pass, **78 Playwright checks** pass (including two new phone-width glance
+checks), **106 independent pick-safety browser assertions** pass (Python/JS parity,
+expiry, lock, clock rollback, 320/390/768/1440 px and axe WCAG A/AA),
+`scripts.build` replays 80 source rows, validates all internal links/anchors, and
+the strict row audit reports 0 violations. The branch's own read-only
 [origination audit](https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/origination.yml)
 reported `{"records": 93, "crosscheck": "complete", "verified_pages": ["lobby", "cs2"]}`
 on commit `d136c0d`, confirming the reconciled path still runs normally when the
@@ -289,3 +295,22 @@ Flagged for review: the intermittent HTTP 403 on the rendered Hotspawn pages is
 recorded on `/review/` with the exact response text. The site continues to treat
 Hotspawn percentages as non-inputs, and every still-unresolved fixture remains
 listed with its reason rather than a default 50/50.
+
+### Release and live verification (17 October, 11:00Z)
+
+- PR [#79](https://github.com/buffedlizard55-lab/MaltaProj3/pull/79) merged to
+  `main` as `0318219`. Both required checks were green on the PR: `originate`
+  (1m20s) and "Rows, build, links, mobile and accessibility" (5m16s).
+- `Refresh and deploy CS2 dashboard` and `pages build and deployment` both
+  completed successfully for `0318219`, and the deployed artifacts were then
+  fetched directly rather than trusting the job status.
+- Live [`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json)
+  was generated at `2026-10-17T10:49:22Z` with `coverage_complete: true`,
+  `inventory_crosscheck: "complete"`, 93 fixtures (32 upcoming), 24 priced with
+  probabilities and 8 explicitly unresolved. Production therefore exercised the
+  normal three-response reconciliation path, not the API-only fallback.
+- The deployed executive summary renders `#picks-at-a-glance` with 18 rows
+  including every unresolved fixture, links each row to its Hotspawn page, source
+  and full evidence, and shows `FURIA vs Aurora` as "No edge — even line" rather
+  than inventing a side. The `/review/` and `/twc-picks/` pages are live with their
+  source links.
