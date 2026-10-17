@@ -10,7 +10,7 @@ cell still said W-2 in progress. This session takes final integration rather tha
 | --- | --- | --- | --- | --- |
 | FI-1 Reproduce and repair the post-#66 production failure without weakening evidence replay or inventing a line | done 2026-10-17T01:10Z | arena-fa7ed344 | `.github/workflows/pages.yml`, `.github/workflows/origination.yml` (branch-only full-pipeline diagnostic), `scripts/twc_lines.py`, `scripts/build.py`, focused tests | Repaired retained-file hashing, current/legacy fixture serialization, every Kalshi collector return path and the conditional Day-4 deep link. Full live branch audit 38989088680 passed collection, evidence replay, build, row audit and links. |
 | FI-2 Integrate PR #65 on top of #66, preserving both Day-4 market origination and the source-linked Day-1..5/coverage-probe work | done 2026-10-17T01:10Z | arena-fa7ed344 | PR #65 files (`data/edge-review.json`, `scripts/build_edge.py`, `scripts/coverage_probe.py`, `scripts/verify_live.py`, summary/workflow hooks, tests and `data/research/8fa2b226/`) plus conflict resolution | PR #65 actually merged into `main` as `179d473`; merge `bebc08c` integrates it with every FI-1 repair. The sole board conflict preserved both sessions. No source probability or result was selected merely to resolve text. |
-| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Combined local verification is green: 483 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 366 audited rows/0 violations and 583 links. Integrated live-source audit 38989878038 and dashboard CI 38989878076 are green; final PR/merge, canonical deployment and public parity still must be observed. |
+| FI-3 Line-by-line final verification, mobile/accessibility audit, PR merge, real Pages deployment and public parity check | in progress | arena-fa7ed344 | integration outputs, `README.md`, `COORDINATION.md`; generated artifacts only after validated build | Final combined local verification after preserving PR #69 is green: 492 Python tests, 72 Playwright cases, 106 independent safety assertions, 80 replayed source rows, 373 audited rows/0 violations and 585 links. Pre-#69 integrated audits 38989878038/38989878076 and PR #72's first check set are green; rebased PR checks, canonical deployment and public parity still must be observed. |
 
 Known starting irregularities (at claim time): main's two consecutive production runs failed in the build step
 after fresh collection; GitHub's downloadable log host is outside this sandbox allowlist and the check exposed
@@ -32,9 +32,10 @@ prematurely recorded itself as merged; the actual merge and reconciliation are r
 - PR [#65](https://github.com/buffedlizard55-lab/MaltaProj3/pull/65) subsequently **did** merge into `main` as
   `179d473`. Local integration merge `bebc08c` combines its group-stage/Day-5/coverage-probe work with all
   production repairs above. The only textual conflict was this board; both complete session records were kept.
-- Combined local verification: **483/483 Python tests pass**; canonical build replays **80 source rows**, audits
-  **366 rows** (**358 official-source + 8 site-map**, **0 violations**) and validates **583** links/assets/anchors;
-  **72/72 Playwright cases pass** across 320/390/768/1440 px, no-JS and automated WCAG A/AA checks; the
+- Final combined local verification after integrating PR #69: **492/492 Python tests pass**; canonical build
+  replays **80 source rows**, audits **373 rows** (**365 official-source + 8 site-map**, **0 violations**) and
+  validates **585** links/assets/anchors; **72/72 Playwright cases pass** across 320/390/768/1440 px, no-JS and
+  automated WCAG A/AA checks; the
   independent pick-safety browser audit passes **106 assertions**. The first simultaneous browser invocation
   had one `spawn ETXTBSY` infrastructure error because two suites launched the same restricted Chromium binary;
   rerunning Playwright alone passed all 72 and no page assertion ever failed.
@@ -65,6 +66,22 @@ the complete W record, which is restored below.
 Reconciliation correction: PR #68 described the reachable legacy Pages endpoint as the latest build, but canonical
 run 38989106868 failed before deploy. Reachability of an older verified artifact is not publication of `179d473`
 or this integrated repair tree; only FI-3's observed post-deploy parity check can close that requirement.
+
+## Concurrent strategy/dossier record — arena-9866e1ba / PR #69
+
+Claimed 2026-10-17T00:59Z on fixed branch `arena/9866e1ba-maltaproj3` after reading the shared board and
+explicitly excluding FI-owned files. This non-overlapping work merged through PR
+[#69](https://github.com/buffedlizard55-lab/MaltaProj3/pull/69) as `3497433` at 01:19:15Z and is integrated
+here rather than overwritten.
+
+| Task | Status | Owner | Scope and outcome |
+| --- | --- | --- | --- |
+| R-1 Upgrade `/strategy/` with replayed Day-3 deciders, Day-4 lines/BO3 score-slip guidance and phone links | done 2026-10-17T01:05Z | arena-9866e1ba | Additive `scripts/build_strategy.py` and `tests/test_strategy.py` work; replays retained HLTV/TWC evidence, labels score math uncalibrated and never changes canonical probability data. |
+| R-2 Line-by-line TWC/Aurora/Day-4/unresolved verification dossier | done 2026-10-17T01:05Z | arena-9866e1ba | `data/research/9866e1ba/` and `tests/test_9866e1ba.py`; every claim has an official HTTPS source and observation timestamp, while unsupported values remain blank and flagged. |
+| R-3 Scoped verification, merge and live publication | implementation/checks merged; deployment handed to FI-3 | arena-9866e1ba | PR checks 38989867550, 38989867544 and 38989884713 passed; its reported pre-FI build was 447 Python tests, 370 audited rows/0 violations and 585 links. Main publication must still include FI-1 repairs and pass FI-3 parity verification. |
+
+Handoffs resolved during final integration: R correctly localized the nested Kalshi return defect already fixed by
+`cf0f52c`; its standard-schema `data/research/9866e1ba/flags.json` is now loaded by the executive review builder.
 
 ---
 # Current session: arena-8fa2b226 — Day-4/Day-5 TWC completion, coverage ladder extension, mobile verification

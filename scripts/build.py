@@ -588,7 +588,7 @@ def build(source: Path, output: Path):
     # in-memory list used for rendering; the published latest.json is the source directory copy and is untouched.
     # Session e6c0f47d's first-party unresolved-pick re-verification joins the same table the same way.
     for findings in (source / 'research/1112299f/flags.json', source / 'research/e6c0f47d/flags.json', source / 'research/6426358d/flags.json', source / 'research/32a1857a/flags.json', source / 'research/35440d12/flags.json', source / 'research/8a6a5a84/flags.json',
-                 source / 'research/8fa2b226/flags.json'):
+                 source / 'research/8fa2b226/flags.json', source / 'research/9866e1ba/flags.json'):
         if findings.exists():
             have = {f['id'] for f in data['flags']}
             data['flags'] = data['flags'] + [f for f in json.loads(findings.read_text()) if f['id'] not in have]
