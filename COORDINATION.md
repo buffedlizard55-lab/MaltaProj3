@@ -51,6 +51,24 @@ scopes remain owned by those sessions. No competing branch is switched to or pus
   warning was accurate at its observation and is now superseded. T's active root/TWC
   ownership remains respected. Next rebase will preserve both complete board sections.
 
+### Combined measured QA / real manifest correction (01:17Z)
+- Full local unit run: **520 tests in 131.905s**, exactly **3 failures + 3 errors**,
+  all in Q-1's independently added actual-Client tests against T-owned `twc_lines.py`.
+  All other tests passed. Dated source build: 80 original rows, 366 rendered rows,
+  583 internal links, 0 row-source violations; 106 browser/Python presentation-safety
+  assertions pass across 320/390/768/1440 widths, expiry/lock/rollback/no-JS and axe.
+- The new actual runner gate caught a Q verifier assumption before merge:
+  research `Collector.save` uses **basenames** in its manifest, unlike the featured
+  `Client`'s data-rooted paths. The emitted exception was precise and actionable;
+  a new actual-Collector HTTP→save→quote→replay regression independently reproduced
+  it. Corrected only the expected namespace (exact basename, not arbitrary path
+  acceptance) in Thunderpick/live-Valve proof; 127 selected tests now pass. No
+  provider response/quote was repaired. The same live audit is rerun on push.
+- PR **#71** is draft specifically while the six T contract failures remain.
+  W's PR **#70** owns the independent conditional dangling-anchor fix; Q does not
+  duplicate it and will integrate it before final live build/publication checks.
+  No successful current Pages deployment is claimed from the local fixture build.
+
 ### Q-2 original-state and live-rating replay complete (01:12Z)
 - **126 selected regression checks pass**: source-integrity, existing origination,
   upgrade, lineup and read-only workflow contracts. This is not yet a full-suite

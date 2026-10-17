@@ -803,7 +803,7 @@ def _verified_valve_rows(repo_data: Path, live: bool, manifest: list):
         payload = load_json(folder / 'live-valve-standings-text.json')
         original = load_json(folder / 'live-valve-standings.json')
         directory = load_json(folder / 'live-valve-directory.json')
-        label, original_reference = 'live-valve-standings', 'data/origination/evidence/live-valve-standings.json'
+        label, original_reference = 'live-valve-standings', 'live-valve-standings.json'
         reference = 'data/origination/evidence/live-valve-standings-text.json'
     else:
         folder = repo_data / 'evidence'

@@ -11,6 +11,8 @@ import hashlib
 import json
 import tempfile
 import unittest
+
+import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
@@ -525,10 +527,10 @@ class LiveValveOriginalReplay(unittest.TestCase):
             (self.folder / 'live-valve-directory.json').write_text(json.dumps(directory))
             (self.folder / 'live-valve-standings-text.json').write_text(json.dumps(payload))
             requests_ = [{'id': 'live-valve-standings', 'url': originate.VALVE_REPO + '/contents/' + path,
-                          'evidence': 'data/origination/evidence/live-valve-standings.json',
+                          'evidence': 'live-valve-standings.json',
                           'status': 'ok', 'observed_at': iso(observed)},
                          {'id': 'live-valve-directory', 'url': originate.VALVE_REPO + '/contents/live/2026',
-                          'evidence': 'data/origination/evidence/live-valve-directory.json',
+                          'evidence': 'live-valve-directory.json',
                           'status': 'ok', 'observed_at': iso(observed)}]
             (self.folder / 'live-collection-manifest.json').write_text(json.dumps(requests_))
         else:
@@ -583,6 +585,32 @@ class LiveValveOriginalReplay(unittest.TestCase):
         file.write_text(json.dumps(payload))
         with self.assertRaises((AssertionError, ValueError)):
             originate.valve_rows(self.root, None)
+
+
+class ActualResearchCollectorManifest(unittest.TestCase):
+    def test_actual_collector_basename_reference_round_trips_through_source_replay(self):
+        from scripts.pipeline_audit import replay_provider_quote
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            folder = root / 'origination/evidence'
+            client = originate.Collector(folder)
+            response = requests.Response()
+            response.status_code = 200
+            response.url = originate.THUNDERPICK_API
+            response.headers['Content-Type'] = 'application/json'
+            response._content = json.dumps({'ok': True, 'data': {'upcoming': [thunderpick_event()]}},
+                                           separators=(',', ':')).encode()
+            with patch.object(client.session, 'request', return_value=response), \
+                    patch('scripts.originate.datetime', wraps=datetime) as clock:
+                clock.now.return_value = NOW
+                body, request = client.get_json(originate.THUNDERPICK_API, 'live-thunderpick-matches',
+                                                method='POST', payload={'gameIds': [6]})
+            self.assertEqual(request['evidence'], 'live-thunderpick-matches.json')
+            (folder / 'live-collection-manifest.json').write_text(json.dumps(client.requests))
+            row = originate.thunderpick_rows(root, {'thunderpick': body, 'requests': client.requests})[0]
+            quote, reason = originate.bookmaker_estimate(row, MATCH, REGISTRY, now=NOW)
+            self.assertIsNotNone(quote, reason)
+            self.assertEqual(replay_provider_quote(quote, MATCH, REGISTRY, root, NOW), 0.625)
 
 
 if __name__ == '__main__':

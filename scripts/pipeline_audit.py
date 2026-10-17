@@ -71,7 +71,10 @@ def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, no
         live = reference.startswith('data/origination/')
         manifest = _requests(source, live=live)
         label = 'live-thunderpick-matches' if live else 'thunderpick-matches'
-        _observation(manifest, label, q.get('observed_at'), now, reference=reference)
+        # sources.Client stores data/-rooted references; research Collector.save
+        # deliberately stores a basename relative to origination/evidence.
+        request_reference = Path(reference).name if live else reference
+        _observation(manifest, label, q.get('observed_at'), now, reference=request_reference)
         assert saved.get('ok') is True, 'Original Thunderpick response is not successful'
         payload = {'thunderpick': saved, 'requests': manifest} if live else None
         rows = originate.thunderpick_rows(source, payload)
