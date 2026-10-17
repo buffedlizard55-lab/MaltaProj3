@@ -342,3 +342,20 @@ class Wiring(unittest.TestCase):
             lines = twc_lines.load(root, NOW, REGISTRY)
             self.assertTrue(lines['available'], 'the pipeline would silently publish blanks if these paths drifted')
             self.assertEqual(lines['day'], '2026-10-17')
+
+    def test_collector_hashes_the_saved_json_that_replay_reads(self):
+        """Raw HTTP JSON and the retained pretty JSON need not have equal bytes."""
+        from scripts.sources import Client
+        with tempfile.TemporaryDirectory() as tmp:
+            client = Client(Path(tmp) / 'research/twc-current')
+            saved_name = client.save('twc-day4-poly-event-1200431', {'id': 1200431, 'markets': []})
+            saved = client.evidence / Path(saved_name).name
+            raw_provider_bytes = b'{"id":1200431,"markets":[]}'
+            self.assertNotEqual(saved.read_bytes(), raw_provider_bytes)
+            client.manifest.append({'id': 'event', 'status': 'ok', 'url': 'https://gamma-api.polymarket.com/events/1200431',
+                                    'observed_at': iso(NOW), 'evidence': saved_name,
+                                    'response_sha256': hashlib.sha256(raw_provider_bytes).hexdigest()})
+            item = twc_lines._record_evidence(client, ['event'])[0]
+            self.assertEqual(item['sha256'], hashlib.sha256(saved.read_bytes()).hexdigest())
+            self.assertEqual(item['response_sha256'], hashlib.sha256(raw_provider_bytes).hexdigest())
+            self.assertNotEqual(item['sha256'], item['response_sha256'])

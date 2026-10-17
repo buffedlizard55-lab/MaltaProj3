@@ -249,16 +249,27 @@ def analyse(providers: list, fixture: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def _record_evidence(client, labels: list) -> list:
-    """Reference the exact saved responses this run used, with their hashes."""
+    """Reference the exact saved responses this run used, with their hashes.
+
+    ``Client.fetch`` hashes the provider's raw HTTP bytes, while ``Client.json``
+    retains a deterministic JSON serialization for replay. Those byte streams
+    are legitimately different (whitespace alone is enough), so the replay hash
+    must cover the file that replay actually reads. The raw-response hash stays
+    in the request manifest and is also retained here as separate provenance.
+    """
     manifest = {entry['id']: entry for entry in client.manifest}
     out = []
     for label in labels:
         entry = manifest.get(label) or {}
         if entry.get('status') != 'ok' or not entry.get('evidence'):
             continue
+        saved = client.evidence / Path(entry['evidence']).name
+        if not saved.is_file():
+            continue
         out.append({'label': label, 'url': entry.get('url'), 'observed_at': entry.get('observed_at'),
-                    'file': 'evidence/' + Path(entry['evidence']).name,
-                    'sha256': entry.get('response_sha256')})
+                    'file': 'evidence/' + saved.name,
+                    'sha256': hashlib.sha256(saved.read_bytes()).hexdigest(),
+                    'response_sha256': entry.get('response_sha256')})
     return out
 
 

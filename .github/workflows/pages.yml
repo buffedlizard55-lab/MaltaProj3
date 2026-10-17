@@ -69,13 +69,23 @@ jobs:
       # scheduled runs 38742696250 and 38797535468 (2026-10-15) failed at the
       # build step and left the public site frozen while this fallback did
       # not exist.
+      # TWC originals have a separate cache contract so adding them cannot
+      # invalidate the already verified inventory/origination v2 cache.
+      - name: Restore last successfully verified TWC source snapshot
+        id: restore-twc
+        uses: actions/cache/restore@v6
+        with:
+          path: data/research/twc-current/
+          key: twc-verified-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: twc-verified-v1-
       - name: Preserve last-good snapshot pair for in-run fallback
         run: |
-          mkdir -p "$RUNNER_TEMP/last-good/data"
+          mkdir -p "$RUNNER_TEMP/last-good/data/research"
           cp data/latest.json data/sources.json "$RUNNER_TEMP/last-good/data/"
           cp data/origination.json "$RUNNER_TEMP/last-good/data/" 2>/dev/null || true
           cp -r data/evidence "$RUNNER_TEMP/last-good/data/evidence"
           cp -r data/origination "$RUNNER_TEMP/last-good/data/origination" 2>/dev/null || true
+          cp -r data/research/twc-current "$RUNNER_TEMP/last-good/data/research/twc-current" 2>/dev/null || true
       - name: Refresh all Hotspawn CS2 records and supported external lines
         env:
           # Authenticated GitHub API calls: the shared unauthenticated quota (60/h) is routinely exhausted on runners.
@@ -95,7 +105,21 @@ jobs:
       - name: Reconcile every row, replay every probability and build linked pages
         id: build
         run: |
-          if python -m scripts.build; then
+          run_build() {
+            BUILD_ATTEMPT="$1" python - <<'PY'
+          import os
+          from pathlib import Path
+          from scripts.build import build
+          try:
+              build(Path('data'), Path('site'))
+          except Exception as exc:
+              detail = f'{type(exc).__name__}: {exc}'.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+              attempt = os.environ.get('BUILD_ATTEMPT', 'unknown')
+              print(f'::error title={attempt} snapshot build failed::{detail}')
+              raise
+          PY
+          }
+          if run_build fresh; then
             echo "degraded=false" >> "$GITHUB_OUTPUT"
           else
             echo "::warning::Fresh snapshot failed full replay validation; republishing the last verified snapshot pair (original timestamps and stale warnings preserved). No probability was repaired or invented."
@@ -106,12 +130,13 @@ jobs:
               echo 'The last verified snapshot pair was restored unchanged and rebuilt instead;'
               echo 'its original observation timestamps and stale warnings remain visible on the site.'
             } >> "$GITHUB_STEP_SUMMARY"
-            rm -rf site data/evidence data/origination
+            rm -rf site data/evidence data/origination data/research/twc-current
             cp "$RUNNER_TEMP/last-good/data/latest.json" "$RUNNER_TEMP/last-good/data/sources.json" data/
             cp "$RUNNER_TEMP/last-good/data/origination.json" data/ 2>/dev/null || true
             cp -r "$RUNNER_TEMP/last-good/data/evidence" data/evidence
             cp -r "$RUNNER_TEMP/last-good/data/origination" data/origination 2>/dev/null || true
-            python -m scripts.build
+            cp -r "$RUNNER_TEMP/last-good/data/research/twc-current" data/research/twc-current 2>/dev/null || true
+            run_build last-good
             echo "degraded=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Inspect source freshness for cache eligibility
@@ -142,6 +167,12 @@ jobs:
             data/evidence/
             data/origination/evidence/
           key: ${{ steps.restore.outputs.cache-primary-key }}
+      - name: Preserve verified TWC originals and line-movement history
+        if: steps.snapshot.outputs.inventory_ok == 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: data/research/twc-current/
+          key: ${{ steps.restore-twc.outputs.cache-primary-key }}
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
