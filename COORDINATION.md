@@ -2398,3 +2398,55 @@ bypassed, and no outcome or rating is manufactured to force a pick.
   retained evidence, and refuses duplicate matches. **47 focused tests pass**.
 - Corrected this session's initial claim clock to its actual20:15:23Z commit
   author timestamp; the earlier20:20Z heading was an approximate transcription.
+# Current session: arena-9b2a96e1 — Day-5 final-day TWC card, Day 1–4 review-driven picks, and Day-5 pipeline coverage
+
+Claimed 2026-10-17T20:50Z on the fixed Arena branch `arena/9b2a96e1-maltaproj3`
+(branched from `main` `c79e0bf`, which includes PR #80 / session arena-7831412c).
+Read the completed board records for arena-75ef1662, arena-7831412c, arena-138f48b7,
+arena-8fa2b226, arena-1112299f and arena-35440d12 before claiming. No open
+implementation claim exists at claim time. Scopes below are non-overlapping with
+every retained record; files outside this scope are not edited.
+
+Observed fact that drives this session: the Day-4 semifinals are now **final** —
+FURIA 2–0 Aurora (HLTV 2399414) and **BETBOOM 2–1 Falcons** (HLTV 2399415:
+Anubis 5–13, Dust2 16–14 OT, Mirage 13–7) — so the Day-5 bracket is resolved:
+Aurora–Falcons third-place decider (HLTV 2399416, Bo3, 18 Oct 11:30 UTC) and
+FURIA–BETBOOM grand final (HLTV 2399417, Bo5, 18 Oct 15:00 UTC). The retained
+`day_five_card` still publishes deliberate blanks for an open bracket and the
+TWC research/pricing path is scoped to `TARGET_DAY = '2026-10-17'` only, so
+neither Day-5 fixture could ever receive a pick from the 4-hour runner.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D5-1 Day-5 source research: Day-4 results, Day-5 fixtures/times/formats, dated external-market scan (Polymarket CS2 discovery + Kalshi KXCS2GAME series), HLTV analytics context; store as dated, source-linked evidence | in progress | arena-9b2a96e1 | new `data/research/9b2a96e1/` only |
+| D5-2 Resolve `day_five_card` (and Day-4 results/guidance additions) in `data/edge-review.json`; every value carries an official source link and observation time; no money line ⇒ no fabricated price (Valve-model fallback is labelled uncalibrated research) | in progress | arena-9b2a96e1 | `data/edge-review.json` |
+| D5-3 Edge builder: render resolved Day-4 results + Day-5 final-day card (picks, both probabilities, score context, contrarian-but-not-stupid guidance, market-scan record, limitations); fail closed on unsourced values | in progress | arena-9b2a96e1 | `scripts/build_edge.py` |
+| D5-4 Pipeline: extend TWC collect/pricing to both playoff days (`2026-10-17`, `2026-10-18`) so the scheduled runner prices Day-5 fixtures when Polymarket/Kalshi books open | in progress | arena-9b2a96e1 | `scripts/twc_research.py`, `scripts/twc_lines.py` |
+| D5-5 Executive-summary/phone navigation: final-day picks entry point and unresolved-picks separation | in progress | arena-9b2a96e1 | `scripts/build.py` (summary copy only) |
+| D5-6 Tests for the new contract + full suite/browser green, PR, merge, real Pages verification, record | in progress | arena-9b2a96e1 | `tests/test_edge.py`, `tests/test_8fa2b226.py`, `tests/test_twc_day4.py`, new `tests/test_day5_card.py`, `tests/browser/edge_review_fixture.py`, `tests/browser/edge-review.spec.mjs`, this board section |
+
+### D5-1 dated observations (2026-10-17T20:15Z–20:50Z, session clock)
+- HLTV match pages read directly: 2399415 shows "Match over", Falcons 1–2 BETBOOM
+  (Anubis 13–5 Falcons / Dust2 14–16 BETBOOM OT / Mirage 7–13 BETBOOM);
+  2399416 = Aurora vs Falcons, "3rd place decider match", Bo3 (LAN), 18 Oct;
+  2399417 = FURIA vs BETBOOM, "Grand final", Bo5 (LAN), 18 Oct.
+  Liquipedia's tournament page agrees on both Day-5 pairings and countdowns
+  (11:30 UTC / 15:00 UTC starts).
+- External market scan at 20:30–20:45Z: **no Day-5 series market is listed yet.**
+  Polymarket Gamma public-search for "thunderpick"/"FURIA BetBoom BO5" returns
+  only the group-stage and semifinal events (`cs2-furia-bb3-2026-10-14`,
+  `cs2-furia-aur1-2026-10-17`, `cs2-fal2-bb3-2026-10-17`); slug probes
+  `cs2-furia-bet1-2026-10-18`, `cs2-furia-bet-2026-10-18`, `cs2-furia-bb3-2026-10-18`
+  return empty. Kalshi `KXCS2GAME` open-event scan covers 18 Oct 07:30 and 11:00
+  EDT slots with no TWC event (SF2 `KXCS2GAME-26OCT171300BBFAL` still awaiting
+  settlement at 0.99). Nothing is inferred from the absence; the scheduled runner
+  retries every four hours and `twc_lines` will price both fixtures the moment a
+  compliant two-sided book exists.
+- HLTV betting-analytics pages for 2399416/2399417 provide the verified
+  form/H2H/map context and series-score frequency tables used for score context.
+  Their per-book rows are handicap-correct-score prices, which the published
+  policy excludes from match-winner estimates.
+
+Principles unchanged: no Hotspawn "% picked", no fan votes, no roster/rest/momentum
+premium, no probability without a first-party price or the labelled Valve fallback,
+every published row keeps its own official source link and observation time.
