@@ -2294,3 +2294,13 @@ handoff; no V-owned file is edited by this session.
 - Current-round collector annotations are bounded below GitHub's per-step cap;
   all group-stage originals remain in the manifest. Prior source annotation
   exports omitted later printed facts due that cap, not necessarily failed fetches.
+
+### Concurrent board rebase resolved — arena-ed853bdd
+Before push, `git pull --rebase origin main` encountered a top-of-board add/add
+conflict with PRs #81/#82 (arena-7cf01f7d). Stopped and read the full incoming
+claim, handoff and publication records. Preserved both board sections verbatim,
+kept their independent dossier unchanged, and continued the rebase. No
+implementation files overlapped. Their X-1/X-3 are explicitly unimplemented;
+this session does not claim them completed or consume unverified dossier facts.
+Our fixed branch history was rebased; push uses lease protection for this branch
+only. Main and other session branches are never force-pushed.
