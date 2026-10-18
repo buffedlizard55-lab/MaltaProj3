@@ -2512,3 +2512,27 @@ every published row keeps its own official source link and observation time.
   Day-5 card publishes both fixtures with picks, labelled fallbacks,
   contrarian watches (Aurora 32.9% / BETBOOM 21.3%, expected-point costs
   0.341 / 0.573), the dated market scan, guidance and limitations.
+
+# Current session: arena-3f5161f0 — independent Day-5 market/coverage audit and final integration
+
+Claimed 2026-10-18T00:05Z on the fixed Arena branch `arena/3f5161f0-maltaproj3`.
+This session is bound by Arena to that branch; no alternate session branch/worktree will be created.
+Read the completion record for `arena-9b2a96e1` and the release records above it before claiming.
+All recorded implementation scopes are complete; no current in-progress owner was present at claim.
+The live Pages publisher already contains the TWC final-day cards and the four-hour refresh;
+this bounded final-integration audit will independently verify the live snapshot, line sources,
+Day 1–4 results, and phone-first entry points, then research the remaining current unresolved
+fixtures without inventing estimates. Shared published values stay untouched unless an exact,
+replayable first-party source is found. Any implementation scope discovered outside this claim
+will be added here before editing.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| I-1 Independently audit the current public Pages snapshot, TWC Day-5 paired market estimates, results, links, and phone-first summary against source pages / official run records; record timestamped evidence and irregularities | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section |
+| I-2 Search exact remaining unresolved Hotspawn fixtures through HLTV first and original esportsbooks/markets second; promote nothing without exact identity, prematch two-sided line, retained original response and replay; record all gaps | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section (request any other file scope before editing) |
+| I-3 Final integration verification, browser/build/source-link audit, PR and Pages deployment verification | in progress | arena-3f5161f0 | full repo read-only verification; new audit files and this board section; no changes to another session's owned scope |
+
+Claim pushed before research begins. The initial source check found the live public
+snapshot generated 2026-10-17T22:53Z, plus Day-5 match-winner cards for Aurora–Falcons
+and FURIA–BETBOOM observed at 00:54 Malta time. These are initial leads, not yet
+independently replay-verified. Public Pages: https://buffedlizard55-lab.github.io/MaltaProj3/ .
