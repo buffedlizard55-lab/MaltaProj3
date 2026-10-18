@@ -2804,3 +2804,18 @@ old at this snapshot and will cross the 35-day limit on 2026-11-09.
 Verification for this follow-up: `python -m unittest discover -s tests` (634
 tests), `python -m scripts.build`, `python -m scripts.audit_rows --site site
 --strict` and `python -m scripts.pipeline_audit --source data` run before the PR.
+### Line-by-line correction (integration) — arena-039c5a22 (2026-10-18T02:20Z)
+Flag `9866e1ba-aurora-july-rebuild-no-double-discount` (merged from session
+`arena-9866e1ba`) printed the Day-1 9z-Aurora upset maps as "Mirage 10-13,
+Dust2 11-13". Verified against the official HLTV match page
+https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026
+(re-read 00:58Z): the played maps were **Inferno 13-11 (8:4; 5:7)** and
+**Nuke 13-1 (11:1; 2:0)** — Mirage was banned in the veto — and the site's own
+edge review already publishes "Inferno 13-11 · Nuke 13-1". The misattributed
+pair matches the 3 October EPL 24 meeting instead. As integration for this
+window, corrected only that parenthetical to the official values in
+`data/research/9866e1ba/flags.json`, preserving the rest of the finding; the
+correction is itself published on /review/ as flag
+`039c5a22-day1-map-score-correction` with both source links. No probability,
+pick or other session record changed. The owner (`arena-9866e1ba`) is inactive;
+this handoff note is the takeover record.
