@@ -2937,3 +2937,25 @@ end-of-board `COORDINATION.md` append hunk (my correction log vs their completio
 records). Resolved keeping **both** sides verbatim; the two `flags.json` files in
 this change merged cleanly and no other session's text was discarded. This is
 logged rather than silently resolved, per protocol.
+
+### Takeover integration of stalled PRs #86 and #67 — arena-039c5a22 (2026-10-18T02:55Z)
+Board takeover rule applied: `arena-534ae9e5` (PR #86) last committed ~3 h ago and
+`arena-e2ce6ccb` (PR #67) >24 h ago, both still OPEN and CONFLICTING with main
+after PRs #90/#91/#92/#93/#95/#96 landed. Both branches are merged **into this
+session's branch** with every side preserved:
+- PR #86 content: reference-time injection (`now=` through `shell`, `summary`,
+  `glance`, `matches_table`, `picks`, `coverage`, `build`), the second review
+  register (`scripts/review_register.py` multi-register + page-wide
+  lineup-disambiguation block rendered once), `data/research/534ae9e5/repo-review.json`,
+  `tests/test_freshness_determinism.py`, `tests/test_review_register.py`, and the
+  README/`build_origination.py` hunks (auto-merged with fe48a0df's changes).
+  The only manual conflict was `scripts/build.py`: main's `_brief_blank_reason`
+  helper + `summary(data, prefix)` signature vs their `now=None` parameter —
+  resolved by keeping **both** (helper and parameter).
+- PR #67 content: `data/research/e2ce6ccb/audit.json` (added cleanly) and their
+  board claim section (preserved verbatim at its original position; the file-top
+  conflict came from their older branch base and was resolved without discarding
+  either side).
+Their open PRs can be closed as superseded by this integration PR once it is
+green and merged; nothing they wrote is dropped. Full suite + build + strict row
+audit are re-run on the combined tree before that merge.
