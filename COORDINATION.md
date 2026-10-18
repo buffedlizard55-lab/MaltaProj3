@@ -2827,3 +2827,30 @@ end-of-board `COORDINATION.md` append hunk (my correction log vs their completio
 records). Resolved keeping **both** sides verbatim; the two `flags.json` files in
 this change merged cleanly and no other session's text was discarded. This is
 logged rather than silently resolved, per protocol.
+
+--strict` and `python -m scripts.pipeline_audit --source data` run before the PR.
+
+### Addendum 2026-10-18T02:01Z — PR #95 merged, deploy verified, and the flags made refresh-proof
+
+PR **#95** merged at 2026-10-18T01:52:39Z as **`0e09cca`**
+(https://github.com/buffedlizard55-lab/MaltaProj3/pull/95). Deploy on that
+commit: "Refresh and deploy CS2 dashboard" run 39088055645 **success**
+(after bounded source retries) and "pages build and deployment" run 39088055564
+**success**.
+
+The post-merge refresh (inventory observed 2026-10-18T01:58:20Z) moved the
+unresolved set within forty minutes of the flags being written: Privateer vs
+antidaun (1081129) acquired a Bovada line that prices the series even and is
+published as **no edge / no side**, not forced onto a side. The live list is now
+**34 active, 28 directional picks, 1 equal-price no-side, 5 blanks**, with 29
+fixtures carrying a probability (19 external-line, 10 research-model). Because a
+dated count goes stale that fast, the two live-state flags were rewritten as
+policy statements with dated examples that point to the executive summary's "No
+pick yet" list as authoritative; PR #95's body keeps the 01:11Z counts as
+history. This is the session's final board record.
+
+Still true and still the next session's first job: the reviewed EGamersWorld
+capture expires at **08:10:45Z** (1081521 and 1081522 were re-sourced to Bovada
+at 01:58Z and no longer depend on it), and the five blanks keep only their
+documented reasons until a first-party price or a new scoped evidence path
+exists. No alias was widened and no wide-book midpoint was promoted to a pick.
