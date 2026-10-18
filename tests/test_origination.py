@@ -105,6 +105,59 @@ class EstimateTests(unittest.TestCase):
         quote, detail = originate.market_estimate(row, self.match(), registry(), now)
         self.assertIsNone(quote)
 
+    def test_fallback_accepts_a_thirteen_cent_book_and_flags_it_thin(self):
+        # Production case 2026-10-18: Infinite vs Insiders, Polymarket books
+        # 0.75/0.88 and 0.12/0.25. The featured path still rejects at 0.12; the
+        # fallback ladder uses it only with the explicit thin limitation.
+        now = datetime(2026, 10, 18, 0, 30, tzinfo=UTC)
+        row = {'names': ['WBT', 'ENCE'], 'bid': [0.75, 0.12], 'ask': [0.88, 0.25],
+               'observed_at': originate.iso(now),
+               'source_url': 'https://polymarket.com/event/x', 'event_id': '1', 'evidence_file': 'e.json'}
+        quote, detail = originate.market_estimate(row, self.match(), registry(), now)
+        self.assertIsNotNone(quote)
+        self.assertTrue(quote['thin'])
+        self.assertAlmostEqual(quote['spread'], 0.13, places=8)
+        self.assertAlmostEqual(quote['probabilities'][0], 0.815, places=6)
+
+    def test_fallback_rejects_a_sixteen_cent_book(self):
+        now = datetime(2026, 10, 18, 0, 30, tzinfo=UTC)
+        row = {'names': ['WBT', 'ENCE'], 'bid': [0.70, 0.14], 'ask': [0.86, 0.30],
+               'observed_at': originate.iso(now),
+               'source_url': 'https://polymarket.com/event/x', 'event_id': '1', 'evidence_file': 'e.json'}
+        quote, detail = originate.market_estimate(row, self.match(), registry(), now)
+        self.assertIsNone(quote)
+        self.assertIn('0.15', detail)
+
+    def test_ex_6666_reverse_alias_uses_valve_name_6666_inside_its_competition(self):
+        ratings = [
+            {'name': '6666', 'points': 923, 'standing': 127,
+             'roster': ['amster', 'dENZY', 'kL1o', 'rendysky', 'skcH'], 'snapshot_date': '2026-10-05'},
+            {'name': 'Privateer', 'points': 608, 'standing': 271,
+             'roster': ['Ariant0', 'Frazehh', 'JAUSTERE', 'M1n1maL', 'Prime'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        match = {'id': '1081521', 'starts_at': '2026-10-18T13:45:00Z',
+                 'competition': 'CCT Europe 2026 Challengers #8',
+                 'teams': [{'name': 'ex-6666'}, {'name': 'Privateer'}]}
+        quote, detail = originate.model_estimate(match, ratings, registry(), meta, datetime(2026, 10, 18, 0, 35, tzinfo=UTC))
+        self.assertIsNotNone(quote)
+        self.assertGreater(quote['probabilities'][0], 0.8)
+        self.assertTrue(any(a['alias'] == '6666' for a in quote['aliases_used']))
+
+    def test_ex_6666_reverse_alias_never_joins_outside_its_competition(self):
+        ratings = [
+            {'name': '6666', 'points': 923, 'standing': 127,
+             'roster': ['amster', 'dENZY', 'kL1o', 'rendysky', 'skcH'], 'snapshot_date': '2026-10-05'},
+            {'name': 'Privateer', 'points': 608, 'standing': 271,
+             'roster': ['Ariant0', 'Frazehh', 'JAUSTERE', 'M1n1maL', 'Prime'], 'snapshot_date': '2026-10-05'},
+        ]
+        meta = {'source_url': 'https://x', 'snapshot_date': '2026-10-05', 'evidence_file': 'v.json'}
+        match = {'id': 'x', 'starts_at': '2026-10-18T13:45:00Z', 'competition': 'Some Other Cup',
+                 'teams': [{'name': 'ex-6666'}, {'name': 'Privateer'}]}
+        quote, detail = originate.model_estimate(match, ratings, registry(), meta, datetime(2026, 10, 18, tzinfo=UTC))
+        self.assertIsNone(quote)
+        self.assertIn('no Valve rating row', detail)
+
     def test_bookmaker_estimate_removes_margin_and_aligns(self):
         row = {'provider': 'Thunderpick', 'names': ['ENCE', 'WBT'], 'odds': [2.4, 1.5],
                'source_url': 'https://thunderpick.io/esports/counter-strike', 'api_url': 'https://thunderpick.io/api/matches',

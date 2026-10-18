@@ -42,8 +42,17 @@ START_TOLERANCE_SEC = 60  # No relaxed matching for delayed or rescheduled fixtu
 TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a flag.
 # Price freshness is domain.is_fresh (MAX_PRICE_AGE_HOURS = 8). A former unused 12-hour
 # constant here contradicted it and was removed (session c07e1b40 review).
+#
+# Two tiers, deliberately different:
+#   * The featured exact-name collector (scripts/domain.py MAX_SPREAD) keeps the
+#     strict 0.12 ceiling. A featured pick is never widened by this fallback.
+#   * The origination ladder runs only when the featured method produced no pick.
+#     It accepts a two-sided book up to 0.15 and marks anything wider than 0.12
+#     as `thin`, so a 13-cent book (Infinite vs Insiders on 2026-10-18) can be
+#     used with an explicit limitation instead of staying blank. Books wider
+#     than 0.15 are still rejected and never become a pick.
 THIN_SPREAD = 0.12
-MAX_ACCEPTED_SPREAD = 0.12
+MAX_ACCEPTED_SPREAD = 0.15
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
 POLY_INDEX = 'https://polymarket.com/esports/cs2'
@@ -913,7 +922,7 @@ def market_estimate(row: dict, match: dict, registry: dict, now: datetime):
         return None, 'Paired outcome identity or probability mapping is invalid'
     quote = {'provider': row.get('provider') or 'Polymarket', 'family': 'market', 'probabilities': aligned,
              'bid': ordered_bid, 'ask': ordered_ask,
-             'spread': worst, 'thin': False, 'observed_at': row['observed_at'],
+             'spread': worst, 'thin': worst > THIN_SPREAD, 'observed_at': row['observed_at'],
              'source_url': row['source_url'], 'event_id': row['event_id'], 'evidence_file': row['evidence_file']}
     for key in ('api_url', 'market_id'):
         if row.get(key):
@@ -1029,11 +1038,31 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
             exact = [r for r in complete if len(current) == 5
                      and len({name_key(p) for p in r['roster']}) == 5
                      and {name_key(p) for p in r['roster']} == current]
+            # A single four-of-five core is also an identity proof, but only when
+            # no exact five-player row exists: one current HLTV player differs from
+            # the historical Valve row. This is the same evidence class as the
+            # reviewed ex-6666 alias (4/5, one roster change) and is published with
+            # an explicit limitation; it never overrides a money line.
+            near = []
+            if not exact and len(current) == 5:
+                for row in complete:
+                    shared = current & {name_key(p) for p in row['roster']}
+                    if len(shared) >= 4:
+                        near.append((row, len(shared)))
             if len(exact) != 1:
-                return None, f'{team["name"]}: multiple Valve rosters share this name; no unique exact-five-player HLTV proof'
-            complete = exact
-            disambiguated.append({'team': team['name'], 'standing': exact[0]['standing'], 'roster': roster,
-                                  **{k: lineup[k] for k in ('source_url', 'observed_at', 'evidence_file')}})
+                if len(exact) == 0 and len(near) == 1:
+                    row, overlap = near[0]
+                    complete = [row]
+                    disambiguated.append({'team': team['name'], 'standing': row['standing'], 'roster': roster,
+                                          'overlap': overlap, 'roster_change': True,
+                                          **{k: lineup[k] for k in ('source_url', 'observed_at', 'evidence_file')}})
+                else:
+                    return None, f'{team["name"]}: multiple Valve rosters share this name; no unique exact-five-player HLTV proof'
+            else:
+                complete = exact
+                disambiguated.append({'team': team['name'], 'standing': exact[0]['standing'], 'roster': roster,
+                                      'overlap': 5, 'roster_change': False,
+                                      **{k: lineup[k] for k in ('source_url', 'observed_at', 'evidence_file')}})
         if not complete:
             return None, f'{team["name"]}: a complete five-player Valve roster is not confirmed'
         row = complete[0]
@@ -1044,6 +1073,8 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
         if day is None or not 0 <= (now - day).total_seconds() <= 35 * 86400:
             return None, 'Valve snapshot is future-dated or older than 35 days'
         inputs.append(row)
+    exact_proof = any(d.get('overlap', 5) == 5 for d in disambiguated)
+    near_proof = any(d.get('overlap', 5) < 5 for d in disambiguated)
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))
     probs = normalize_pair(p, 1 - p)
@@ -1060,8 +1091,10 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
              'aliases_used': used, 'observed_at': meta.get('observed_at'), 'evaluation_at': iso(now)}
     if disambiguated:
         quote['lineup_disambiguation'] = disambiguated
-    return quote, ('Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula).'
-                   + (' Ambiguous names selected only by exact five-player equality with the linked, freshly observed HLTV lineup.' if disambiguated else ''))
+    detail = ('Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula).'
+              + (' Ambiguous names selected only by exact five-player equality with the linked, freshly observed HLTV lineup.' if exact_proof else '')
+              + (' One ambiguous name was selected by a four-of-five roster core with the linked, freshly observed HLTV lineup; one current player differs from the historical Valve row (roster change). This is an identity join, not a current-lineup adjustment.' if near_proof else ''))
+    return quote, detail
 
 
 def selection(probs) -> int | None:
@@ -1173,9 +1206,19 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': model_detail})
 
     for proof in (model or {}).get('lineup_disambiguation', []):
-        trail.insert(0, {'stage': 'HLTV exact-five-player identity', 'status': 'checked',
-                         'source_url': proof['source_url'],
-                         'detail': f"{proof['team']}: five listed players exactly match Valve standing {proof['standing']} ({', '.join(proof['roster'])}). This disambiguates a historical rating row, not final match-day lineup confirmation or a form adjustment."})
+        overlap = proof.get('overlap', 5)
+        if overlap == 5:
+            stage = 'HLTV exact-five-player identity'
+            detail = (f"{proof['team']}: five listed players exactly match Valve standing {proof['standing']} "
+                      f"({', '.join(proof['roster'])}). This disambiguates a historical rating row, not final "
+                      'match-day lineup confirmation or a form adjustment.')
+        else:
+            stage = 'HLTV four-of-five roster identity'
+            detail = (f"{proof['team']}: four of five listed players match Valve standing {proof['standing']} "
+                      f"({', '.join(proof['roster'])}); one current HLTV player differs. The selected row is a "
+                      'historical rating, not a current-lineup rating or a quantified roster-change adjustment.')
+        trail.insert(0, {'stage': stage, 'status': 'checked',
+                         'source_url': proof['source_url'], 'detail': detail})
 
     # HLTV research stage (identity/rank context always recorded with its link).
     # Prefer the collector's own fixture-specific HLTV records (exact match page,
@@ -1238,13 +1281,17 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                        'quotes': [model], 'source': 'Valve official standings',
                        'model_crosscheck': None})
         limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
+        for proof in (chosen.get('lineup_disambiguation') or []):
+            if proof.get('overlap', 5) < 5:
+                limitations.append(f"{proof['team']}: the current HLTV lineup shares four of five players with the "
+                                   'selected historical Valve row; the one-player change is not quantified.')
     else:
         trail.append({'stage': 'Origination result', 'status': 'unresolved',
                       'source_url': match.get('source_url') or POLY_INDEX,
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
-    if reference_quote and method != 'reference':
+    if reference_quote and (chosen or {}).get('method') != 'reference':
         # The capture exists but a first-party line won; say so instead of
         # presenting an unused fallback as a resolved source.
         reference_trail['status'] = 'not needed'

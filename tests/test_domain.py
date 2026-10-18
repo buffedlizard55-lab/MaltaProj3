@@ -93,6 +93,14 @@ class MarketTests(unittest.TestCase):
         for bid, ask in [(.01, .99), (.6, .59)]:
             with self.assertRaises(ValueError): book_midpoint(book(bid=bid, ask=ask), 'a', 'condition', NOW)
 
+    def test_fallback_ceiling_is_explicit_not_the_featured_default(self):
+        wide = book(bid=.60, ask=.73)  # 13 cents
+        with self.assertRaises(ValueError):
+            book_midpoint(wide, 'a', 'condition', NOW)
+        level = book_midpoint(wide, 'a', 'condition', NOW, max_spread=0.15)
+        self.assertAlmostEqual(level['spread'], 0.13)
+        self.assertAlmostEqual(level['midpoint'], 0.665)
+
     def test_one_sided_book_rejected(self):
         b = book(); b['bids'] = []
         with self.assertRaises(ValueError): book_midpoint(b, 'a', 'condition', NOW)

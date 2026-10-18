@@ -51,6 +51,10 @@ OFFICIAL = [
     # Kalshi: CFTC-regulated exchange publishing its own CS2 match prices, its public
     # market-data API and official API docs (added by session c07e1b40 with the source).
     ('kalshi.com', None),
+    # EGamersWorld: the published source of the reviewed aggregated-bookmaker
+    # average (scripts/reference_odds.py). A third-party aggregation, but the
+    # primary publisher of the figure this site quotes.
+    ('egamersworld.com', None),
     # Valve's own regional standings repository and model code.
     ('github.com', '/ValveSoftware/'), ('raw.githubusercontent.com', '/ValveSoftware/'),
     ('api.github.com', '/repos/ValveSoftware/'),

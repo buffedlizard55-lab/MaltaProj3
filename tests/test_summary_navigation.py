@@ -61,6 +61,24 @@ class SummaryNavigation(unittest.TestCase):
         self.assertIn('1 equal estimate(s) have no directional pick', text)
         self.assertIn(f'{counts["unresolved"]} unresolved', text)
 
+    def test_summary_indexes_no_pick_fixtures_with_reason_and_link(self):
+        complete = self.data['complete_picks']
+        match = complete['matches'][0]
+        match['origination'] = None
+        match['pick_index'] = None
+        match['research'] = [{'stage': 'Betting market (Polymarket series winner)', 'status': 'unresolved',
+                              'detail': 'Order book spread 0.41 exceeds the 0.12 indicative ceiling.',
+                              'source_url': 'https://polymarket.com/event/x'}]
+        complete['counts']['unresolved'] = 1
+        complete['counts']['resolved'] = complete['counts']['active'] - 1
+        complete['counts']['with_pick'] = complete['counts']['resolved']
+        soup = self.render()
+        text = soup.select_one('[aria-label="Complete pick coverage"]').get_text(' ', strip=True)
+        self.assertIn('No pick yet (1)', text)
+        self.assertIn('book too wide', text)
+        link = soup.select_one(f'[aria-label="Complete pick coverage"] a[href$="#match-{match["id"]}"]')
+        self.assertIsNotNone(link)
+
     def test_preview_is_not_described_as_featured_only(self):
         text = self.render().get_text(' ', strip=True)
         self.assertNotIn('metrics and next-match preview below describe the original featured method only', text)

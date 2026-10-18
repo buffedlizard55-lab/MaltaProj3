@@ -200,7 +200,9 @@ def section_unresolved(data):
     out.append('<h3>Standing limitations for originated picks</h3><ul class="limits">')
     out.append('<li>Hotspawn participation percentages are <strong>never</strong> a probability input, and neither are HLTV fan votes. '
                'Only paired betting/market prices and official published ratings produce numbers.</li>')
-    out.append('<li>Prediction-market and exchange books (Polymarket, Kalshi) wider than 12 cents are rejected; the observed quotes are shown on unresolved cards for guidance only.</li>')
+    out.append('<li>Prediction-market and exchange books (Polymarket, Kalshi) pass the featured path only at a spread of 12 cents or less. '
+               'The fallback ladder accepts a two-sided book up to 15 cents and marks anything above 12 cents as thin; '
+               'wider books are rejected, and their observed quotes are shown on unresolved cards for guidance only.</li>')
     out.append('<li>The aggregated bookmaker rung is a <strong>third-party average published by EGamersWorld</strong>, not a first-party bookmaker quote. It is used only for fixtures the entire first-party ladder leaves blank, must be fresh and hash-matched to its captured sentence, and is rejected when both sides print identical prices or observations contradict each other. Those rejected captures are listed below with their reason.</li>')
     out.append('<li>The Valve-rating fallback model is <strong>uncalibrated</strong>: it is not observed betting odds and has not been backtested. '
                'It is used only when no money source resolves a match.</li>')
@@ -399,7 +401,7 @@ def validate_origination(data, source):
                     # A summarized bid/ask is not enough: replay statuses, alias
                     # identity, unique series market, token/condition, timestamps
                     # and positive-size executable levels from those originals.
-                    from scripts.originate import aliased_series_market
+                    from scripts.originate import aliased_series_market, MAX_ACCEPTED_SPREAD
                     from scripts.domain import array, book_midpoint
                     folder = source / 'origination/evidence'
                     event = json.loads((folder / f"live-polymarket-event-{q['event_id']}.json").read_text())
@@ -411,7 +413,8 @@ def validate_origination(data, source):
                     tokens = array(market.get('clobTokenIds'))
                     assert [str(t) for t in tokens] == ev['clob_token_ids'], 'Original market token IDs changed'
                     levels = [book_midpoint(json.loads((folder / f"live-polymarket-book-{q['event_id']}-{i}.json").read_text()),
-                                            str(t), market['conditionId'], timestamp(data['generated_at']))
+                                            str(t), market['conditionId'], timestamp(data['generated_at']),
+                                            max_spread=MAX_ACCEPTED_SPREAD)
                               for i, t in enumerate(tokens)]
                     assert [l['bid'] for l in levels] == ev['book_bid'], 'Summarized bids differ from original executable books'
                     assert [l['ask'] for l in levels] == ev['book_ask'], 'Summarized asks differ from original executable books'

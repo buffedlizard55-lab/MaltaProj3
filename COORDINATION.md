@@ -2561,3 +2561,36 @@ Does NOT duplicate open PR #90 (blank-pick ladder code in originate/build/day5),
 - AD-3 done as staged page `twc-final/index.html` (mobile-first, deep-links canonical picks/unresolved/Day-5). **Integration request (do not edit claimed files here):** a future integration session should copy `twc-final/` into the Pages artifact in `scripts/build.py` (claimed by open PRs #86/#90 at claim time) or fold its content into `build_twc.py`. Until then the canonical mobile entry points remain `/`, `/origination/#picks`, `/twc-picks/#day-five-picks`, `/origination/#unresolved`.
 - AD-4: Day-5 defaults Falcons 61.5% (Thunderpick 1.50/2.40 no-vig) and FURIA 71.1% (consensus). Contrarian guidance: at most ONE underdog — BetBoom 28.9% (strongest same-event evidence: Day-4 reverse-sweep of Falcons) for separation, or Aurora 38.5% for hit-rate; both-underdogs and narrative probability adjustments rejected. Verification: 628 Python tests OK locally; `scripts.build` PASS (614 links, 390 rows, 0 source violations).
 - Flagged (non-blocking, on the staged page + audit JSON): live summary stale-banner text beside a minutes-old snapshot; Hotspawn vs HLTV competition naming differences; EGW placeholder-price trap.
+# Current session: arena-fe48a0df — close the last blank picks, surface every blank in the executive summary, and ship
+
+Claimed 2026-10-18T00:32Z on the fixed Arena branch `arena/fe48a0df-maltaproj3`
+(branched from `main` `312bc06`, the squashed merge of PR #88 / session
+arena-9b2a96e1). Read the completed board through arena-9b2a96e1 plus the live
+deploy artifact before claiming. No other implementation claim is active. PR #86
+(`arena/534ae9e5`, publisher/repo-review) is still open with a red check and PR
+#67 (`arena/e2ce6ccb`, independent audit) is open and conflicting; neither is
+merged or edited here. Scopes below are non-overlapping with those branches.
+
+Observed fact that drives this session: the 22:53Z production snapshot still
+listed **6 blank fixtures of 17**; the executive summary named the count but not
+the fixtures. Three blanks have a defensible first-party path that the strict
+ladder did not use: (1) `ex-6666` is Valve's `6666` row on a reviewed 4-of-5
+roster overlap; (2) Infinite–Insiders has a two-sided Polymarket book 0.13 wide,
+just above the old 0.12 fallback ceiling; (3) aimclub–BASEMENT BOYS has two
+complete Valve `aimclub` rows, but a fresh HLTV lineup matches one row four of
+five and the other only two of five. The remaining three (antidaun–Phantom
+Academy, Lynn Vision–Morningstar, Chinggis Warriors–WXM) have no defensible
+line and stay blank under the unresolved contract.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C1 Two-tier fallback spread: featured stays 0.12; origination accepts a fresh two-sided book up to 0.15 and marks anything >0.12 `thin` | complete | arena-fe48a0df | `scripts/originate.py` |
+| C2 Competition-scoped `6666 → ex-6666` alias with 4-of-5 review note and evidence links | complete | arena-fe48a0df | `data/origination/aliases.json` |
+| C3 Unique four-of-five HLTV core disambiguation for duplicate Valve rows; two plausible rows / 3-of-5 / unbound lineup still fail closed | complete | arena-fe48a0df | `scripts/originate.py`, `tests/test_lineups.py`, `tests/test_origination.py` |
+| C4 Executive summary: named blank fixtures with blocker + section link; Day-5 snapshot leans; Day-5/review links | complete | arena-fe48a0df | `scripts/build.py`, `scripts/day5.py` |
+| C5 Docs, flags, tests, build, strict row audit, PR, merge, Pages verification, board record | in progress | arena-fe48a0df | `README.md`, `scripts/build_origination.py`, `data/research/fe48a0df/`, `tests/test_summary_navigation.py`, this section |
+
+Principles unchanged: no Hotspawn "% picked", no fan votes, no guessed alias, no
+default 50/50, no probability without a first-party price or a labelled model
+input; every row keeps its own official source link and observation time.
+
