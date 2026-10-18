@@ -2984,3 +2984,50 @@ capture expires at **08:10:45Z** (1081521 and 1081522 were re-sourced to Bovada
 at 01:58Z and no longer depend on it), and the five blanks keep only their
 documented reasons until a first-party price or a new scoped evidence path
 exists. No alias was widened and no wide-book midpoint was promoted to a pick.
+# Publication record — arena-039c5a22 (2026-10-18, final integration for this window)
+
+- **PR [#94](https://github.com/buffedlizard55-lab/MaltaProj3/pull/94)** — Day-5
+  independent verification, market scan and Days 1-4 contrarian review. Merged on
+  green checks; production run [39086877577](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39086877577)
+  **success** (handled source-403 annotations only; fail-closed refresh path).
+- **PR [#97](https://github.com/buffedlizard55-lab/MaltaProj3/pull/97)** —
+  line-by-line correction: Day-1 9z-Aurora map scores in flag
+  `9866e1ba-aurora-july-rebuild-no-double-discount` ("Mirage 10-13, Dust2 11-13",
+  the 3 Oct EPL 24 pair) corrected to the official HLTV 2399384 values (Inferno
+  11-13, Nuke 1-13; Mirage banned in the veto), correction published on /review/.
+  Merged on green; production run [39088467078](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39088467078)
+  **success**.
+- **PR [#101](https://github.com/buffedlizard55-lab/MaltaProj3/pull/101)** —
+  takeover integration of stalled PRs **#86** (`arena-534ae9e5`: publisher
+  reference-time freshness guard, `data/research/534ae9e5/repo-review.json`,
+  multi-register review rendering, freshness-determinism + review-register tests)
+  and **#67** (`arena-e2ce6ccb`: `data/research/e2ce6ccb/audit.json` + board
+  claim), plus main's PRs #95/#99. Both merged sides preserved; GitHub marked
+  #86 and #67 MERGED automatically when their commits reached main through this
+  merge — nothing dropped. Merged on green checks (654 local Python tests OK;
+  415 audited rows / 0 violations; `audit_rows --strict` PASS); production run
+  [39091003663](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39091003663)
+  **success**, Pages deployed.
+- **Live verification after deploy (2026-10-18T02:50Z = 04:50 Malta):** executive
+  summary "Picks at a glance" one-tap index working; **34 active / 28
+  directional picks / 1 equal no-side / 5 explicitly unresolved** with named
+  blockers in the summary ("book too wide" / "no rating") and section links;
+  Day-5 Falcons 61.5% card live; NEXVOID-Off Chops resolved via Kalshi 68.0%;
+  `data/research/039c5a22/flags.json` (8 findings) served and rendered on
+  /review/; the 534ae9e5 repository review register rendered.
+- **Sources used this session:** HLTV match pages 2399384/2399408 context,
+  2399409/2399412/2399414/2399415/2399416/2399417, HLTV news 45082/44652;
+  Polymarket `cs2-aur1-fal2-2026-10-18` and `cs2-furia-bb3-2026-10-18` series
+  moneylines and CS2 directory; Liquipedia PGL Bucharest 2027 qualifier; the
+  Hotspawn fixture API; the live published snapshot. Per-row links in
+  `data/research/039c5a22/{verification,day5-market-scan,contrarian-review,flags}.json`.
+- **Irregularities for manual review (all published on /review/, none blocking):**
+  thin grand-final book ($6.1K vs $41.2K); BETBOOM 28.9% below the 30% screen
+  (watch-only) despite beating Falcons; kyxsan-vs-Falcons history unquantified;
+  5 fixtures still blank with source-by-source blockers (ownership of further
+  research logged); hidden stale-banner node visible to text extraction on fresh
+  snapshots (extraction artifact per repository notes, browser suite covers
+  visibility); the corrected Day-1 map scores (above).
+- **This record-only PR's own merge/deploy result is recorded on the PR page**
+  to avoid a recursive series of publication-record commits (same convention as
+  arena-ed853bdd). P-1, P-2 and P-3 are **done**.
