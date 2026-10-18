@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-16T20:15:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added.",
+  "updated_at": "2026-10-18T00:18:22Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added.; extended by arena-3f5161f0 (2026-10-18): Privateer Gaming \u2192 Privateer only in CCT Europe 2026 Challengers #8, supported by exact-slot Hotspawn, HLTV and Polymarket identity evidence; quote remains conditional on normal original-book replay.",
   "aliases": [
     {
       "alias": "WBT",
@@ -466,6 +466,33 @@
         }
       ],
       "review_note": "Display-name expansion (\"eSports\" suffix) only."
+    },
+    {
+      "alias": "Privateer Gaming",
+      "canonical": "Privateer",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CCT Europe 2026 Challengers #8"
+      ],
+      "competition_note": "Only Hotspawn fixture 1081521 (ex-6666 vs Privateer), scheduled 2026-10-18 13:45 UTC. No cross-competition join.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-66661-pg5-2026-10-18",
+          "source": "Polymarket official market record (market 5837615; event 1207557)",
+          "detail": "The active full-match moneyline is titled \u201cCounter-Strike: ex-6666 vs Privateer Gaming (BO3) - CCT Europe Challengers Series Playoffs\u201d; outcomes are ex-6666 and Privateer Gaming, gameStartTime is 2026-10-18 13:45:00+00, and the resolution source is HLTV. This is the same opponent pair, competition round and start slot as the Hotspawn fixture."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+          "source": "HLTV.org match page 2399681",
+          "detail": "HLTV lists ex-6666 vs Privateer at 09:45 on 18 October 2026 in CCT 2026 Challengers Europe Series 8, Best of 3 (Online). The event and start correspond to the Polymarket market; HLTV is its declared resolution source."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521",
+          "source": "Hotspawn official match page (fixture 1081521)",
+          "detail": "Hotspawn lists ex-6666 vs Privateer in CCT Europe 2026 Challengers #8 for 18 October at 13:45 UTC and displays a Privateer lineup. HLTV independently confirms the Best of 3 format; no Hotspawn best-of value is inferred."
+        }
+      ],
+      "review_note": "Display-name expansion only. Exact opponent, event/round, date and start time align across Polymarket, HLTV and Hotspawn; the market names HLTV as its resolution source. This alias is restricted to this Hotspawn competition. A preliminary CLOB observation is recorded in data/research/3f5161f0/audit.json and is not publishable until the normal live collector independently refetches and replays both books."
     }
   ]
 }

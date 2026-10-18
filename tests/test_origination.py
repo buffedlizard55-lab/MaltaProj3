@@ -55,6 +55,21 @@ class AliasRegistryTests(unittest.TestCase):
         canon, used = originate.resolve_name('Phantom Esports', registry())
         self.assertEqual(canon, 'phantom')
 
+    def test_privateer_gaming_alias_is_scoped_to_the_exact_hotspawn_event(self):
+        match = {'id': '1081521', 'starts_at': '2026-10-18T13:45:00Z',
+                 'competition': 'CCT Europe 2026 Challengers #8',
+                 'teams': [{'name': 'ex-6666'}, {'name': 'Privateer'}]}
+        _, used, status = originate.pair_join(
+            ['Privateer Gaming', 'ex-6666'], '2026-10-18T13:45:00Z', match, registry())
+        self.assertEqual(status, 'matched')
+        self.assertTrue(any(a['alias'] == 'Privateer Gaming' and a['canonical'] == 'Privateer' for a in used))
+
+        other = {**match, 'competition': 'Some Other CCT Event'}
+        _, used, status = originate.pair_join(
+            ['Privateer Gaming', 'ex-6666'], '2026-10-18T13:45:00Z', other, registry())
+        self.assertEqual(status, 'names')
+        self.assertEqual(used, [])
+
 
 class JoinTests(unittest.TestCase):
     def match(self):
@@ -104,6 +119,20 @@ class EstimateTests(unittest.TestCase):
                'source_url': 'https://polymarket.com/event/x', 'event_id': '1', 'evidence_file': 'e.json'}
         quote, detail = originate.market_estimate(row, self.match(), registry(), now)
         self.assertIsNone(quote)
+
+    def test_scoped_market_alias_reorders_outcomes_to_hotspawn_team_order(self):
+        match = {'id': '1081521', 'starts_at': '2026-10-18T13:45:00Z',
+                 'competition': 'CCT Europe 2026 Challengers #8',
+                 'teams': [{'name': 'ex-6666'}, {'name': 'Privateer'}]}
+        now = datetime(2026, 10, 18, 0, 17, tzinfo=UTC)
+        row = {'names': ['Privateer Gaming', 'ex-6666'], 'bid': [0.15, 0.75], 'ask': [0.25, 0.85],
+               'observed_at': originate.iso(now), 'source_url': 'https://polymarket.com/event/synthetic',
+               'event_id': 'synthetic', 'evidence_file': 'synthetic.json'}
+        quote, detail = originate.market_estimate(row, match, registry(), now)
+        self.assertIsNotNone(quote, detail)
+        self.assertEqual(quote['probabilities'], [0.8, 0.2])
+        self.assertEqual(quote['bid'], [0.75, 0.15])
+        self.assertEqual(quote['ask'], [0.85, 0.25])
 
     def test_bookmaker_estimate_removes_margin_and_aligns(self):
         row = {'provider': 'Thunderpick', 'names': ['ENCE', 'WBT'], 'odds': [2.4, 1.5],

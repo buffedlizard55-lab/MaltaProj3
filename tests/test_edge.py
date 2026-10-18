@@ -224,6 +224,38 @@ class ReviewRenderingTests(unittest.TestCase):
         guidance = review()['day_four_guidance']
         self.assertEqual(len(soup.select('#day-four-guidance li')), len(guidance['principles']))
 
+    def test_day1_price_map_and_roster_context_are_not_misrepresented(self):
+        data = review()
+        day_one = next(r for r in data['day_one'] if r['team_a'] == '9z' and r['team_b'] == 'Aurora')
+        self.assertIn('Day-1 prematch market price is — unverified', day_one['read'])
+        self.assertIn("beat Aurora 13-1 on Aurora's Nuke pick", day_one['read'])
+
+        rematch = next(r for r in data['day_three'] if r['team_a'] == 'Aurora' and r['team_b'] == '9z')
+        market = rematch['market']
+        self.assertEqual(market['observed_at'], '2026-10-16T07:19:39Z')
+        self.assertEqual(market['prices'], {'Aurora': 0.695, '9z': 0.305})
+        self.assertIn('cs2-aur1-9z-2026-10-16', market['event_url'])
+        result_note = data['day_three_results'][0]['assessment']
+        self.assertIn('Day-3 rematch', result_note)
+        self.assertNotIn('Day-1 rematch', result_note)
+
+        guidance = ' '.join(data['day_four_guidance']['principles'] + data['day_five_guidance']['principles'])
+        watch = data['day_five_card']['matches'][0]['contrarian_watch']['case']
+        published_text = guidance + ' ' + watch + ' ' + data['session_refresh']['what_changed']
+        self.assertIn('69.5/30.5 Aurora/9z market observation', guidance)
+        self.assertNotIn('69.5/30.5 Day-1', published_text)
+        self.assertNotIn('freshly-onboarded', published_text.lower())
+        self.assertNotIn('day-1 onboarding shock', published_text.lower())
+        self.assertNotIn('onboarding effects faded', published_text.lower())
+        self.assertNotIn('won three straight group series', published_text.lower())
+
+        soup = BeautifulSoup(self.body(), 'html.parser')
+        self.assertIn(market['event_url'], str(soup))
+        day5_guidance = soup.find(id='day-five-guidance').get_text(' ', strip=True)
+        self.assertIn('Day-3 rematch', day5_guidance)
+        self.assertNotIn('69.5/30.5 Day-1', day5_guidance)
+        self.assertNotIn('onboarding effects faded', day5_guidance.lower())
+
     def test_day_three_results_never_complete_an_unfinished_series(self):
         data = review()
         open_rows = [r for r in data['day_three_results'] if r.get('result') is None]

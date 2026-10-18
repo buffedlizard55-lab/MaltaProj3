@@ -2531,8 +2531,39 @@ will be added here before editing.
 | I-1 Independently audit the current public Pages snapshot, TWC Day-5 paired market estimates, results, links, and phone-first summary against source pages / official run records; record timestamped evidence and irregularities | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section |
 | I-2 Search exact remaining unresolved Hotspawn fixtures through HLTV first and original esportsbooks/markets second; promote nothing without exact identity, prematch two-sided line, retained original response and replay; record all gaps | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section (request any other file scope before editing) |
 | I-3 Final integration verification, browser/build/source-link audit, PR and Pages deployment verification | in progress | arena-3f5161f0 | full repo read-only verification; new audit files and this board section; no changes to another session's owned scope |
+| I-4 Correct Day-1/Day-3 price attribution and unsupported roster-causation copy in the published TWC review; add a regression assertion without changing picks | implementation done; publication pending | arena-3f5161f0 | `data/edge-review.json` (seven narrative fields only), `tests/test_edge.py` (focused regression), `COORDINATION.md`; no renderer or probability code |
+
+### Scope extension claimed before edits (2026-10-18T00:24Z; clarified before data edits)
+Inspection of the public `/edge/` narrative found the 69.5%/30.5% Aurora–9z market observation incorrectly attributed to Day 1 in multiple places; the retained Polymarket/Kalshi quote is for the **Day-3 rematch** on 16 October (Aurora 69.5%, 9z 30.5%), with the exact 16 October start and market URLs in `data/day3-guide.json`. The Day-1 result record and public `/review/` page explicitly say that no historical prematch price for the 14 October opener was captured. The same public copy calls the July rebuild "freshly onboarded" in October and asserts onboarding effects faded, although the four observed event series do not establish that cause or time course. The Day-1 row also reverses the 13-1 Nuke attribution: HLTV records Aurora scoring one round on its Nuke pick, not 9z conceding that round. Update only these seven `data/edge-review.json` prose fields: Day-1 row `read`, Day-3 Aurora–9z `assessment`, Day-4 guidance principle 2, Day-5 Aurora contrarian-watch case, Day-5 guidance principles 1–2, and the Day-5 research-refresh summary; explicitly leave the Day-1 line unverified, pin 69.5/30.5 to the Day-3 rematch, correct who scored on Nuke, and remove causal/incorrect roster-duration claims. Add a focused assertion in `tests/test_edge.py` that retains the Day-3 quote and prevents it being labeled as a Day-1 price or an onboarding effect. This is a copy/provenance correction only: no probability, pick, source gate, or market estimate changes. The previous X-2 owner (`arena-7cf01f7d`) is complete/released; its completed board record identifies this file scope, and no current owner is active.
+
+### Scope extension claimed before edits (2026-10-18T00:18Z)
+A newly verified exact-fixture Polymarket lead can close one unresolved row, but its market-side name differs from Hotspawn by the display suffix “Gaming.” The first-party Hotspawn fixture 1081521 is **ex-6666 vs Privateer** in CCT Europe 2026 Challengers #8 at 13:45Z; HLTV match 2399681 lists the same teams, slot, competition and BO3; Polymarket market 5837615/event 1207557 lists **ex-6666 vs Privateer Gaming**, BO3, 13:45Z, with HLTV as its resolution source. The current paired CLOBs (timestamp 2026-10-18T00:15:44Z) show ex-6666 0.86/0.91 and Privateer Gaming 0.09/0.14, each a 0.05 spread; top-of-book sizes are 5 shares and the market page reports $0 filled volume. That implies a preliminary 88.5%/11.5% midpoint only; it is shallow and single-source, and **must not enter published data until the scheduled production collector independently re-fetches, retains, and replays the exact event and both books**.
+
+Before editing, I-2 is expanded to permit the one-competition-only alias `Privateer Gaming` → `Privateer`, its alias-scope regression tests, and the audit’s source-linked CLOB observation in `data/research/3f5161f0/`. The alias is limited to `CCT Europe 2026 Challengers #8`; no global/sponsor inference is being added. At the time of this 00:18Z claim, all five other unsupported fixtures remained blank under the first-party source contract. Subsequent main-branch work introduced a separately labelled, hash-checked EGamersWorld average fallback (#89) and a further three-fixture research PR (#90); those outputs must be reviewed as distinct sources and not conflated with this branch’s shallow Polymarket CLOB observation.
 
 Claim pushed before research begins. The initial source check found the live public
 snapshot generated 2026-10-17T22:53Z, plus Day-5 match-winner cards for Aurora–Falcons
 and FURIA–BETBOOM observed at 00:54 Malta time. These are initial leads, not yet
 independently replay-verified. Public Pages: https://buffedlizard55-lab.github.io/MaltaProj3/ .
+
+### Interim verification after the independent main-branch refresh (2026-10-18)
+The pre-PR-#89 local tree passed `.venv/bin/python -m unittest discover -s tests`
+(618 tests), `npm test` (85 Playwright tests), and `.venv/bin/python -m scripts.build`
+(80 source rows replayed; 614 internal links/assets/anchors; zero row-source
+violations on that tree). These results must be rerun after integrating the newer
+main-branch PRs.
+
+Production run [39083401681](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39083401681)
+completed successfully after PR #89. Its public snapshot was observed at
+2026-10-18T00:42:36Z: 98 inventory records (34 upcoming, 64 archived); the
+extended origination page showed 34 active, 27 with picks and 7 explicitly
+unresolved (3 consensus, 5 market, 3 bookmaker, 4 reference, 12 model). The TWC
+Day-5 card refreshed to Falcons 61.5% / Aurora 38.5% from Thunderpick and FURIA
+71.1% / BetBoom 28.9% from the Polymarket–Kalshi median. However, the public
+row-source audit recorded one violation on the EGamersWorld source-register row
+(generic matches index, outside the primary-source allow-list). PR #91 is open to
+correct that exact finding; PR #90 is separately open for additional low-tier
+coverage and summary navigation. Do not call this an end-to-end clean audit until
+those PRs are integrated and live verification is repeated. Extracted TWC HTML
+contains the stale-warning template; the current-page browser visibility of that
+node has not been independently inspected.
