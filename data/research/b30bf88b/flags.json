@@ -1,0 +1,39 @@
+[
+  {
+    "id": "b30bf88b-additional-low-tier-resolutions",
+    "severity": "notice",
+    "title": "Four additional low-tier CS2 fixtures resolved via verified EGamersWorld bookmaker averages, Kalshi order books, and HLTV-backed Valve aliases",
+    "detail": "Session arena-b30bf88b audited the 7 fixtures that remained unresolved in the 2026-10-18T00:42:49Z live deployment: (1) Hotspawn 1081129 (Privateer vs antidaun, CCT Europe 2026 Series 12 Play-In, 2026-10-18T11:00:00Z, HLTV 2399480) resolved via EGamersWorld's published bookmaker average (Privateer Gaming 1.853 / antidaun 1.803 -> 49.3% / 50.7% no-vig, pick antidaun); (2) Hotspawn 1082206 (Damajuana vs A NATA, CCT South America 2026 Series 7, 2026-10-18T16:00:00Z, HLTV 2399791) resolved via EGamersWorld's published bookmaker average (Damajuana 1.71 / A NATA 1.95 -> 53.3% / 46.7% no-vig, pick Damajuana) after Polymarket and Kalshi both failed the spread check at 0.63; (3) Hotspawn 1079181 (Fire Flux vs ex-6666, NODWIN Clutch Series #13, 2026-10-19T17:00:00Z, HLTV 2399098) resolved via the official 2026-10-05 Valve standings (Fire Flux #131, 907 pts vs 6666 #127, 923 pts -> 47.8% / 52.2%, pick ex-6666) after HLTV match 2399098 confirmed ex-6666 (teamId=14100, VRS #103) fields skcH, kL1o, amster, rendysky, stefienson (4/5 core of Valve's 6666 entry); and (4) Hotspawn 1081519 (NEXVOID vs Off Chops, Logitech G Pro Series 2026, 2026-10-18T03:00:00Z, HLTV 2399547) resolved via Kalshi KXCS2GAME-26OCT172300OFFNEX (spread 0.09, 70.5% / 29.5%, pick NEXVOID) with an EGamersWorld bookmaker-average backup (1.785 / 2.026 -> 53.2% / 46.8%).",
+    "match_ids": [
+      "1081129",
+      "1082206",
+      "1079181",
+      "1081519"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/1sGIL2gAYu/antidaun-vs-privateer-gaming-j6HuT4rca",
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/damajuana-vs-a-nata-ixAZI2YGA",
+      "https://egamersworld.com/counterstrike/match/41jwiu8cNl/nexvoid-vs-off-chops--z6OIhTIs",
+      "https://www.hltv.org/matches/2399098/fire-flux-vs-ex-6666-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399480/antidaun-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+      "https://www.hltv.org/matches/2399791/damajuana-vs-a-nata-cct-2026-south-america-series-7"
+    ]
+  },
+  {
+    "id": "b30bf88b-remaining-three-unresolved-audit",
+    "severity": "warning",
+    "title": "Three active low-tier fixtures (1082207, 1081861, 1081863) remain intentionally blank after first-party HLTV, market, bookmaker, aggregator, and Valve audits",
+    "detail": "Following the resolution of 31 of 34 active fixtures, three matches remain fail-closed with no fabricated probability: (1) Hotspawn 1082207 (QUINTESSÊNCIA vs RED Canids Academy, CCT South America 2026 Series 7, 2026-10-18T19:00:00Z, HLTV 2399792) has a 0.44 spread on Polymarket (event 1205550), a placeholder 1.8 / 1.8 banner on EGamersWorld (6MDDjJ0jUT), and RED Canids Academy (teamId=13029: n1cks, rafa, sanc, gtw, FasteR) is VRS Unranked in Valve's 2026-10-05 standings; (2) Hotspawn 1081861 (Lynn Vision vs Morningstar, VOID Autumn Cup 2026, 2026-10-20T03:00:00Z, HLTV 2399576) has a 0.90 spread (0.05/0.95) on Kalshi (KXCS2GAME-26OCT192300MORLVG), contradictory 1.8/1.8 vs 1.01/15 text on EGamersWorld, and Morningstar (teamId=13602: Freeman, fineshine52, swiftsteel, Terryyy, Apraki) is VRS Unranked; and (3) Hotspawn 1081863 (Chinggis Warriors vs WXM, VOID Autumn Cup 2026, 2026-10-20T07:00:00Z, HLTV 2399578) has no Polymarket/Kalshi/Thunderpick/Bovada listing, a 1.8/1.8 placeholder on EGamersWorld, and WXM (teamId=14011: Kinatie, 1romma, outccc, Genxiu, Currant) is VRS Unranked.",
+    "match_ids": [
+      "1082207",
+      "1081861",
+      "1081863"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399792/quintessncia-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+      "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/quintessencia-vs-red-canids-academy-6MDDjJ0jUT"
+    ]
+  }
+]

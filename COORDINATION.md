@@ -2576,3 +2576,23 @@ Principles unchanged: no Hotspawn "% picked", no fan votes, no guessed alias, no
 default 50/50, no probability without a first-party price or a labelled model
 input; every row keeps its own official source link and observation time.
 
+
+# Session arena-b30bf88b — live unresolved-fixture research, TWC Day 1–5 verification & final integration
+
+Claimed 2026-10-18T00:52Z on the fixed Arena branch `arena/b30bf88b-maltaproj3`
+(originally branched from `main` `4111e90`, rebased onto `main` `c28a101` after
+PRs #89, #91, and #90 merged). Does **not** edit any file owned by another
+session (`arena-fe48a0df`, `arena-57b1ee04`, `arena-ad216fd9`, `arena-3f5161f0`,
+`arena-039c5a22`, `arena-be84edde`).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B3-1 First-party verification & contrarian review of TWC Day 1–4 results (including 9z vs Aurora Day-1 upset, Aurora's 8 July 2026 rebuild context via HLTV news 45082/45057, and Day-3 rematch) and Day-5 final-day lines (`Aurora vs Falcons` 3rd-place decider, `FURIA vs BETBOOM` Grand Final) + line-by-line repo/table-row audit | complete | arena-b30bf88b | `data/research/b30bf88b/twc-day1-to-5-audit.json`, `data/research/b30bf88b/repo-line-by-line-review.json` |
+| B3-2 Live external-source research on the 7 unresolved Hotspawn fixtures (`1081519`, `1081129`, `1082206`, `1082207`, `1079181`, `1081861`, `1081863`): verified 3 new EGamersWorld published bookmaker-average quotes (`1081129` `1.853/1.803`, `1082206` `1.71/1.95`, `1081519` `1.785/2.026`), 1 HLTV-verified Valve model join (`1079181` `Fire Flux vs ex-6666`), and 3 fail-closed unresolved records (`1082207`, `1081861`, `1081863`) | complete | arena-b30bf88b | `data/research/b30bf88b/reference-odds.json`, `data/research/b30bf88b/unresolved-live-audit.json`, `data/research/b30bf88b/flags.json`, `tests/test_b30bf88b_verification.py` |
+| B3-3 Full test suite, build, strict row-source audit, PR to `main`, merge, and live GitHub Pages deployment verification | in progress | arena-b30bf88b | `COORDINATION.md` |
+
+### Cross-scope requests logged by `arena-b30bf88b` (not applied directly to preserve non-overlapping scopes)
+- `data/origination/aliases.json` (`arena-fe48a0df` / `arena-3f5161f0`): Extend the `6666 -> ex-6666` alias `applies_to` list with `"NODWIN Clutch Series #13"` and `"NODWIN Clutch Series 13"` backed by `https://www.hltv.org/matches/2399098/fire-flux-vs-ex-6666-nodwin-clutch-series-13`, where HLTV lists `ex-6666` (`teamId=14100`, HLTV `#80`, VRS `#103`) with the exact same 5-player roster (`skcH, kL1o, amster, rendysky, stefienson` — 4/5 core of Valve standing #127 `6666`, 923 pts) against `Fire Flux` (`teamId=12960`, Valve standing #131, 907 pts), resolving fixture `1079181` (`47.76% / 52.24%`, pick `ex-6666`).
+- `scripts/reference_odds.py` / `data/research/57b1ee04/reference-odds.json`: Hash-verified EGamersWorld published bookmaker-average captures for `1081129` (`Privateer vs antidaun`, `[1.853, 1.803]` -> `[0.49316193, 0.50683807]`), `1082206` (`Damajuana vs A NATA`, `[1.71, 1.95]` -> `[0.53278689, 0.46721311]`), and `1081519` (`NEXVOID vs Off Chops`, `[1.785, 2.026]` -> `[0.531619, 0.468381]`), plus rejected placeholder records for `1082207` and `1079181`, are retained in `data/research/b30bf88b/reference-odds.json` and verified by `tests/test_b30bf88b_verification.py`.
+
+

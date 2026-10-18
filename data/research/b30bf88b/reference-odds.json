@@ -1,0 +1,138 @@
+{
+  "session_id": "arena-b30bf88b",
+  "captured_at": "2026-10-18T00:52:04Z",
+  "policy": "Second-tier reference quotes from EGamersWorld's match pages for fixtures that remained unresolved after session arena-57b1ee04's initial capture. Only pages that publish an explicit bookmaker-average quote in the betting-tips block are accepted. Pages that print only the default 1.8 / 1.8 banner with no bookmaker-average quote are recorded under rejected and cannot supply a pick. First-party market (Polymarket, Kalshi) and bookmaker (Thunderpick, Bovada) lines always take priority over this rung.",
+  "entries": [
+    {
+      "fixture_id": "1081129",
+      "event": "CCT Europe 2026 Series 12 Play-In",
+      "starts_at": "2026-10-18T11:00:00Z",
+      "teams": [
+        "Privateer",
+        "antidaun"
+      ],
+      "provider_teams": [
+        "Privateer Gaming",
+        "antidaun"
+      ],
+      "provider": "EGamersWorld (published bookmaker average)",
+      "source_url": "https://egamersworld.com/counterstrike/match/1sGIL2gAYu/antidaun-vs-privateer-gaming-j6HuT4rca",
+      "observed_at": "2026-10-18T00:50:12Z",
+      "banner_odds": [
+        1.86,
+        1.8
+      ],
+      "odds": [
+        1.853,
+        1.803
+      ],
+      "overround": 1.094297,
+      "no_vig": [
+        0.49316193,
+        0.50683807
+      ],
+      "excerpt": "According to leading bookmakers predictions, the team antidaun are the favorite with average odds 1.803 at the moment. Respectively, bookmakers consider Privateer Gaming to be the outsider of the match with odds on a victory in the sum of about 1.853.",
+      "excerpt_sha256": "ebc9c33c726d36d93475dfcd936e665fd4c32e444b771c2f71a4e11b22d14907",
+      "note": "EGamersWorld lists the fixture as antidaun vs Privateer Gaming (1.803 / 1.853); odds are ordered to match Hotspawn's team order (Privateer vs antidaun -> [1.853, 1.803])."
+    },
+    {
+      "fixture_id": "1082206",
+      "event": "CCT South America 2026 Series 7",
+      "starts_at": "2026-10-18T16:00:00Z",
+      "teams": [
+        "Damajuana",
+        "A NATA"
+      ],
+      "provider_teams": [
+        "Damajuana",
+        "A NATA"
+      ],
+      "provider": "EGamersWorld (published bookmaker average)",
+      "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/damajuana-vs-a-nata-ixAZI2YGA",
+      "observed_at": "2026-10-18T00:52:04Z",
+      "banner_odds": [
+        1.71,
+        1.95
+      ],
+      "odds": [
+        1.71,
+        1.95
+      ],
+      "overround": 1.097616,
+      "no_vig": [
+        0.53278689,
+        0.46721311
+      ],
+      "excerpt": "At the moment, the majority of bookmakers unanimously see the team Damajuana as the favorite of the game with average odds on a victory in the sum of 1.71. A NATA chances to prevail are evaluated with average odds 1.95 by bookmakers.",
+      "excerpt_sha256": "7480fcf426904dff139286fcf4fe5d99a144e80d8ea0a67365c5f072dcac035b"
+    },
+    {
+      "fixture_id": "1081519",
+      "event": "Logitech G Pro Series 2026",
+      "starts_at": "2026-10-18T03:00:00Z",
+      "teams": [
+        "NEXVOID",
+        "Off Chops"
+      ],
+      "provider_teams": [
+        "NEXVOID",
+        "Off Chops"
+      ],
+      "provider": "EGamersWorld (published bookmaker average)",
+      "source_url": "https://egamersworld.com/counterstrike/match/41jwiu8cNl/nexvoid-vs-off-chops--z6OIhTIs",
+      "observed_at": "2026-10-18T00:50:12Z",
+      "banner_odds": [
+        1.57,
+        2.32
+      ],
+      "odds": [
+        1.785,
+        2.026
+      ],
+      "overround": 1.053808,
+      "no_vig": [
+        0.531619,
+        0.468381
+      ],
+      "excerpt": "According to leading bookmakers predictions, the team NEXVOID are the favorite with average odds 1.785 at the moment. Respectively, bookmakers consider Off Chops to be the outsider of the match with odds on a victory in the sum of about 2.026.",
+      "excerpt_sha256": "79fde61d89b55842a8103e52ddfb9ea9a0c3e7dcfda04b86ba07b860cbeda2e5",
+      "note": "Serves as the aggregated-bookmaker fallback only if Kalshi's KXCS2GAME-26OCT172300OFFNEX order book widens past the spread ceiling; when Kalshi's order book is within ceiling (e.g., spread 0.09 at 2026-10-18T00:52:13Z), the first-party market rung takes precedence."
+    }
+  ],
+  "rejected": [
+    {
+      "fixture_id": "1082207",
+      "event": "CCT South America 2026 Series 7",
+      "starts_at": "2026-10-18T19:00:00Z",
+      "teams": [
+        "QUINTESSÊNCIA",
+        "RED Canids Academy"
+      ],
+      "provider": "EGamersWorld",
+      "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/quintessencia-vs-red-canids-academy-6MDDjJ0jUT",
+      "observed_at": "2026-10-18T00:50:12Z",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "Match page prints only the default 1.8 / 1.8 banner and has no published bookmaker-average quote."
+    },
+    {
+      "fixture_id": "1079181",
+      "event": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-19T17:00:00Z",
+      "teams": [
+        "Fire Flux",
+        "ex-6666"
+      ],
+      "provider": "EGamersWorld",
+      "source_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/fire-flux-esports-vs-ex-6666-g84ZstIes",
+      "observed_at": "2026-10-18T00:52:04Z",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "Match page prints only the default 1.8 / 1.8 banner and has no published bookmaker-average quote; fixture resolves instead via the official Valve rating model (Fire Flux #131, 907 pts vs 6666 #127, 923 pts) once the HLTV-verified 6666 -> ex-6666 alias scope includes NODWIN Clutch Series #13."
+    }
+  ]
+}
