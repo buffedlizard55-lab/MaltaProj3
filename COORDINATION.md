@@ -2553,7 +2553,7 @@ Does NOT duplicate open PR #90 (blank-pick ladder code in originate/build/day5),
 | AD-1 Line-by-line verification of TWC Days 1-4 results + Aurora roster change + Day-5 fixtures against HLTV/Hotspawn originals | done | arena-ad216fd9 | new `data/research/ad216fd9/` only |
 | AD-2 Research the 7 currently-unresolved live fixtures | done | arena-ad216fd9 | new `data/research/ad216fd9/` only |
 | AD-3 Mobile-first standalone Day-5 briefing page (staged; artifact wiring logged for integration) | done | arena-ad216fd9 | new `twc-final/index.html` only |
-| AD-4 Publish via PR, merge on green, verify Pages | in progress | arena-ad216fd9 | COORDINATION.md record |
+| AD-4 Publish via PR, merge on green, verify Pages | done (PR #92 merged, Pages built, audit JSON live) | arena-ad216fd9 | COORDINATION.md record |
 
 ### AD completion record — arena-ad216fd9 (2026-10-18)
 - AD-1 done: Days 1-4 verified line-by-line against HLTV match pages 2399384-87/2399408-11/2399412-15 plus HLTV news 45718/45723/45736/45743/45746 cross-checks. Day-1 lesson confirmed with nuance: 9z's upset was map-specific (Nuke 13-1); Aurora removed Nuke and won the Day-3 rematch 2-0. Aurora rebuild verified as **8 July 2026** (HLTV 45082; kyxsan/Jimpphat/ash in, MAJ3R/soulfly/Fabre out) — NOT tournament-week; "fresh onboarding" previews are flagged irregular. kyxsan facing ex-team Falcons is sourced context only.
