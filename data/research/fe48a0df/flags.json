@@ -1,0 +1,89 @@
+[
+  {
+    "id": "fe48a0df-fallback-spread-tiers",
+    "severity": "notice",
+    "title": "Fallback book ceiling is now 0.15 while the featured path keeps 0.12",
+    "detail": "The featured exact-name collector (scripts/domain.py MAX_SPREAD = 0.12) is unchanged. The origination ladder, which only runs when the featured method produced no pick, now accepts a two-sided exchange book up to 0.15 and marks anything wider than 0.12 as thin. The production case is Infinite vs Insiders (fixture 1081526): Polymarket books were Infinite 0.75/0.88 and Insiders Esport 0.12/0.25 (spread 0.13) at the 2026-10-18T00:53Z snapshot, just above the old featured ceiling, while Kalshi's book was 0.22 wide and still rejects. The accepted 0.13 book is published with the explicit thin-market limitation. Books wider than 0.15 remain rejected and never become a pick; no featured probability is widened or replaced by this rule.",
+    "match_ids": [
+      "1081526"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-inf6-ins-2026-10-19",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct190500insinf",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081526"
+    ]
+  },
+  {
+    "id": "fe48a0df-6666-identity-join",
+    "severity": "warning",
+    "title": "Valve name 6666 joined to ex-6666 on a 4-of-5 roster overlap (manual review)",
+    "detail": "The Valve 2026-10-05 global table lists '6666' at standing 127 with 923 points and the five-player roster amster, dENZY, kL1o, rendysky, skcH. HLTV lists the same competition slot as 'ex-6666' vs 'Privateer' with the lineup skcH, kL1o, amster, rendysky, stefienson. Four of five players match; Valve's dENZY is replaced by stefienson in the current HLTV lineup. The scoped alias in data/origination/aliases.json therefore supports identity, not an exact current five-player roster. It feeds only the labelled, uncalibrated Valve model and never joins a betting price. Manual review requested.",
+    "match_ids": [
+      "1081521"
+    ],
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/team/14100/ex-6666",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081521"
+    ]
+  },
+  {
+    "id": "fe48a0df-three-unresolved",
+    "severity": "notice",
+    "title": "Three fixtures still have no defensible pick line; every source and blocker is published",
+    "detail": "At the 2026-10-18 snapshot three active fixtures remain unresolved after the reviewed fallback ladder. antidaun vs Phantom Academy has Polymarket and Kalshi books about 0.41 wide (both midpoints near Phantom Academy 74.5%), but a market that illiquid cannot produce a verified pick; the observed quotes stay on the card as guidance only. Lynn Vision vs Morningstar has no market and Morningstar has no row in the global, Europe, Americas or Asia Valve tables. Chinggis Warriors vs WXM has no market, WXM has no Valve row, and Chinggis Warriors has two complete Valve rosters whose current five cannot be proven. These stay blank with no default 50/50; the unresolved section lists every attempted source and its link. Three other formerly blank fixtures now resolve transparently: ex-6666 via the competition-scoped alias, Infinite vs Insiders via the widened 0.15 fallback book (thin, 0.13 spread), and aimclub vs BASEMENT BOYS via the unique four-of-five roster identity join documented in the next flag.",
+    "match_ids": [
+      "1081522",
+      "1081861",
+      "1081863"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-antida-phanto-2026-10-18",
+      "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19",
+      "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+      "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+    ]
+  },
+  {
+    "id": "fe48a0df-day5-price-check",
+    "severity": "notice",
+    "title": "Day-5 final-day leans rechecked against both Polymarket event pages",
+    "detail": "The final-day summary now shows the two snapshot leans directly. At 2026-10-18T00:20Z the Polymarket series pages priced Team Falcons 61% / Aurora Gaming 40% (normalized 60.5% / 39.5%) for the 11:30 UTC third-place decider, and FURIA 71% / BetBoom Team 30% (normalized 70.8% / 29.2%) for the 15:00 UTC BO5 grand final. The page labels them as snapshot leans, not confirmed picks, because these are HLTV-listed tournament fixtures whose Hotspawn entry and lock are unverified. Prices can move before the matches.",
+    "match_ids": [],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-aur1-fal2-2026-10-18",
+      "https://polymarket.com/event/cs2-furia-bb3-2026-10-18",
+      "https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "fe48a0df-featured-vs-complete-counts",
+    "severity": "notice",
+    "title": "Coverage and summary pages count different tiers (featured vs complete)",
+    "detail": "The coverage page's 'Future probabilities' figure counts only the featured exact-name method (8 of 17 at the 2026-10-18T00:53Z snapshot). The executive summary and the complete-picks list count the researched fallback ladder too (11 of 17 at that snapshot, before the 6666 identity join and the 0.13-book fallback are applied by a fresh live run). Both figures are correct for their scope, but reading them side by side can look contradictory. The executive summary now states its figures as external-line and research-model counts and links both lists; the coverage page keeps the featured-only label.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "fe48a0df-four-of-five-identity",
+    "severity": "warning",
+    "title": "A unique four-of-five HLTV core now disambiguates duplicate Valve rows",
+    "detail": "aimclub vs BASEMENT BOYS had two complete 'aimclub' rows in the 2026-10-05 global standings (standing 77 with ERSIN, mhN1, ragga, waZz, zewts; standing 336 with Ed1m, ERSIN, RoberttMP, XELLOW, zewts). HLTV match 2399591 publishes aimclub as ragga, waZz, mhN1, zewts, XELLOW: four of five match standing 77, one current player differs (ERSIN replaced by XELLOW), and only two of five match standing 336. The fallback now accepts a *unique* four-of-five core as a roster-change identity join, labels the row as historical rather than current-lineup, and adds an explicit limitation. Two plausible four-of-five rows, a three-of-five overlap, or an unbound/stale lineup still fail closed. The same rule is covered by tests against archived real fixtures (BET-M and aimclub); no probability or price is invented.",
+    "match_ids": [
+      "1081527"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399591/aimclub-vs-basement-boys-digital-crusade-draculan-season-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081527"
+    ]
+  }
+]
