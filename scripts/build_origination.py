@@ -401,7 +401,7 @@ def validate_origination(data, source):
                     # A summarized bid/ask is not enough: replay statuses, alias
                     # identity, unique series market, token/condition, timestamps
                     # and positive-size executable levels from those originals.
-                    from scripts.originate import aliased_series_market
+                    from scripts.originate import aliased_series_market, MAX_ACCEPTED_SPREAD
                     from scripts.domain import array, book_midpoint
                     folder = source / 'origination/evidence'
                     event = json.loads((folder / f"live-polymarket-event-{q['event_id']}.json").read_text())
@@ -413,7 +413,8 @@ def validate_origination(data, source):
                     tokens = array(market.get('clobTokenIds'))
                     assert [str(t) for t in tokens] == ev['clob_token_ids'], 'Original market token IDs changed'
                     levels = [book_midpoint(json.loads((folder / f"live-polymarket-book-{q['event_id']}-{i}.json").read_text()),
-                                            str(t), market['conditionId'], timestamp(data['generated_at']))
+                                            str(t), market['conditionId'], timestamp(data['generated_at']),
+                                            max_spread=MAX_ACCEPTED_SPREAD)
                               for i, t in enumerate(tokens)]
                     assert [l['bid'] for l in levels] == ev['book_bid'], 'Summarized bids differ from original executable books'
                     assert [l['ask'] for l in levels] == ev['book_ask'], 'Summarized asks differ from original executable books'

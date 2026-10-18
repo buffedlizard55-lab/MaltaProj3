@@ -131,7 +131,7 @@ def polymarket_candidate(event: dict, match: dict, now: datetime) -> tuple[dict 
     return candidates[0], ''
 
 
-def book_midpoint(book: dict, token: str, condition: str, now: datetime) -> dict:
+def book_midpoint(book: dict, token: str, condition: str, now: datetime, *, max_spread: float = MAX_SPREAD) -> dict:
     if str(book.get('asset_id')) != str(token) or book.get('market') != condition:
         raise ValueError('Order book token/condition does not match the market')
     when = timestamp(book.get('timestamp'))
@@ -142,8 +142,11 @@ def book_midpoint(book: dict, token: str, condition: str, now: datetime) -> dict
     if not bids or not asks or any(x is None or not 0 < x < 1 for x in bids + asks):
         raise ValueError('Two-sided executable order book unavailable')
     bid, ask = max(bids), min(asks)  # Do not rely on provider array order.
-    if bid > ask or ask - bid > MAX_SPREAD + 1e-9:
-        raise ValueError('Crossed or wider-than-12-cent order book')
+    if bid > ask or ask - bid > max_spread + 1e-9:
+        # The default is the featured collector's strict selection ceiling.
+        # The origination replay passes its own, separately tested fallback
+        # ceiling; the raw book is still required to be two-sided and non-crossed.
+        raise ValueError(f'Crossed or wider-than-{max_spread * 100:g}-cent order book')
     return {'bid': bid, 'ask': ask, 'spread': round(ask - bid, 8), 'midpoint': (bid + ask) / 2, 'timestamp': iso(when)}
 
 
