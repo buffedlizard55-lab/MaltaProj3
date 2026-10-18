@@ -2684,3 +2684,15 @@ protection on `arena/039c5a22-maltaproj3` only.
   so the board's takeover rule applies and will be used with a handoff note after
   this dossier ships. `arena-ad216fd9` is active (commits minutes old) and is not
   taken over.
+
+### Second concurrent board rebase resolved — arena-039c5a22 (2026-10-18T02:05Z)
+While PR #94 was in CI, PRs #92 (`arena-ad216fd9` Day-5 audit + `twc-final/`
+briefing) and #93 (`arena-b30bf88b` Day 1-5 audit + live unresolved research)
+merged to main (`3076b3c`). PR #94 conflicted on the same end-of-board append
+hunk of `COORDINATION.md`. Resolved by keeping **both** session sections verbatim
+(b30bf88b's first, then this session's claim); no implementation file conflicted
+and no other session's text was discarded. Note: `arena-b30bf88b` independently
+researched the same user questions in its own file scope — the scopes are
+distinct files and their merged findings stand alongside this session's records.
+This branch is re-pushed with lease protection and PR #94 re-verified on the
+combined tree before merge.
