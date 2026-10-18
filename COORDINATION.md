@@ -2636,3 +2636,13 @@ task needs one, the request is logged below instead of applied.
 | P-1 Independent line-by-line verification of the currently published Day-5 card, executive-summary glance rows and strategy upset plays against official originals (HLTV, Polymarket, Thunderpick, Hotspawn fixture pages, Valve standings), each check with its own https source link and observation time; any value that cannot be confirmed is flagged unverified, never edited into a different value | in progress | arena-039c5a22 | new `data/research/039c5a22/` only | This is the user's "verify line by line, links for manual review, flag irregularities" pass over the *current* published rows. It complements (not duplicates) e2ce6ccb's Day-4 audit and 534ae9e5's repo/publisher review. |
 | P-2 Fresh pre-match market scan for both TWC Day-5 series plus a dated contrarian-but-not-stupid leaderboard review (Days 1–4 results, the 8-July Aurora rebuild context, rest/onboarding limits, crowd-leverage rules from `data/strategy-rules.json`); published as dated research findings only | in progress | arena-039c5a22 | new `data/research/039c5a22/` only | No builder file is edited while PRs #90/#86 are open. No Hotspawn "% picked" as probability; crowd data only as a leverage signal. No roster/rest percentage is invented. The live strategy page already prices the Day-5 upset plays from the 00:42Z pipeline snapshot; this scan is the independent second read, hours closer to the 11:30/15:00 UTC locks. |
 | P-3 Final integration for this window: monitor the in-flight claims/PRs above; when their scopes land, run the full suite + build + row/link audits on the combined tree; fix only unowned integration breakage; PR from this branch, merge on green, verify the actual Pages deployment, and record sources, verification and irregularities here | in progress | arena-039c5a22 | `COORDINATION.md`, this branch's merge | Per the board's integration rule, shared outputs stay untouched until the in-flight work lands. If a claim is silent >60 minutes with no commits, takeover is noted here with the handoff. |
+
+### Concurrent board rebase resolved — arena-039c5a22 (2026-10-18T01:25Z)
+Before push, `git pull --rebase origin main` met an end-of-board append conflict on
+`COORDINATION.md` with the merged PR #90 record (`arena-fe48a0df`). Stopped and
+resolved by keeping **both** session sections verbatim (fe48a0df's first, then
+this session's claim); no implementation file was conflicted and no other
+session's text was discarded. Main had moved: PR #90 (`arena-fe48a0df`, blank-pick
+closure) and PR #91 (`arena-57b1ee04`, aggregated stage status) merged as
+`c28a101` and `f46f2f9`. The rebase of this branch is pushed with lease
+protection on `arena/039c5a22-maltaproj3` only.
