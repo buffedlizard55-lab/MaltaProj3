@@ -141,8 +141,68 @@ def collect(source: Path):
                                             'probabilities': (p.get('quote') or {}).get('probabilities')}
                                            for p in r['providers']]} for r in day5['records']]}
     print('::notice title=TWC day5 lines::' + json.dumps(report['day5_lines']))
+    report['pinnacle'] = collect_pinnacle(folder, rows, datetime.now(timezone.utc))
     (folder / 'source-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     return report
+
+
+# Pinnacle is a first-party bookmaker whose public guest board lists Counter-Strike 2,
+# including the Thunderpick World Championship playoffs. Session arena-be84edde verified
+# reachability and coverage from the runner (data/research/be84edde/provider-probe.json).
+# The step is deliberately non-fatal: an outage must never stop a data refresh, and a
+# refused quote leaves the fixture blank rather than priced from something else.
+PINNACLE_TARGETS = [
+    {'slot': 'Third-place decider', 'team_a': 'Aurora', 'team_b': 'Falcons',
+     'starts_at': '2026-10-18T11:30:00Z', 'best_of': 3,
+     'hltv_url': 'https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026'},
+    {'slot': 'Grand final', 'team_a': 'FURIA', 'team_b': 'BETBOOM',
+     'starts_at': '2026-10-18T15:00:00Z', 'best_of': 5,
+     'hltv_url': 'https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026'},
+]
+
+
+def collect_pinnacle(folder: Path, rows: list, now) -> dict:
+    """Read Pinnacle's own board for the final-day fixtures. Evidence only.
+
+    Writes ``pinnacle.json`` beside the other TWC originals. It never writes a
+    probability into the canonical pick feed: the final-day card decides whether
+    a first-party book may replace a labelled model estimate, and a refusal
+    leaves the fixture blank.
+    """
+    out = {'schema_version': 1, 'observed_at': iso(now), 'provider': 'Pinnacle',
+           'policy': ('First-party bookmaker board, read-only public guest endpoints. '
+                      'Only the lowest-period two-way series moneyline is accepted; map '
+                      'markets, specials and live games are rejected. A refusal is '
+                      'recorded with its reason and prices nothing.'),
+           'fixtures': [], 'available': False}
+    try:
+        from scripts import pinnacle_lines
+    except Exception as exc:  # pragma: no cover - import guard
+        out['error'] = f'{type(exc).__name__}: {exc}'
+        return out
+    for target in PINNACLE_TARGETS:
+        try:
+            quote, reason = pinnacle_lines.quote(target['team_a'], target['team_b'],
+                                                 target['starts_at'], now)
+        except Exception as exc:  # never block a refresh on one provider
+            quote, reason = None, f'{type(exc).__name__}: {exc}'
+        entry = dict(target)
+        if quote:
+            entry.update(quote=quote, status='priced')
+        else:
+            entry.update(quote=None, status='unresolved', reason=reason)
+        out['fixtures'].append(entry)
+    out['available'] = any(f.get('quote') for f in out['fixtures'])
+    try:
+        (folder / 'pinnacle.json').write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n')
+    except OSError as exc:
+        out['write_error'] = f'{type(exc).__name__}: {exc}'
+    print('::notice title=TWC Pinnacle board::' + json.dumps(
+        {'observed_at': out['observed_at'], 'available': out['available'],
+         'fixtures': [{'teams': [f['team_a'], f['team_b']], 'status': f['status'],
+                       'probabilities': (f.get('quote') or {}).get('probabilities')}
+                      for f in out['fixtures']]}))
+    return out
 
 
 def load(source: Path):

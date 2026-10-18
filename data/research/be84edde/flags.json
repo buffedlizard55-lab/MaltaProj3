@@ -1,0 +1,124 @@
+[
+  {
+    "id": "be84edde-two-books-agree-on-the-final-day",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Pinnacle and Polymarket agree on both final-day prices to within 0.7 points — and both put BETBOOM just under the 30% screen",
+    "detail": "The Pinnacle board read by this session at 2026-10-18T01:37:58Z gives Aurora 39.7% / Falcons 60.3% (Aurora +140, Falcons -172) and FURIA 70.7% / BETBOOM 29.3% (FURIA -286, BB Team +226). An independent re-read of the Polymarket series pages by session arena-039c5a22 at 00:42Z gives 39.6% / 60.4% and 71.3% / 28.7%. Two first-party books, read through different code at different times, land within 0.7 points on both fixtures. The practical consequence is that BETBOOM's position under the published 30% contrarian screen is a genuine near-miss and is reported as one rather than rounded up: the rule returns FURIA, and the number to watch before the 14:54 UTC lock is whether the line reaches 30%. No probability is adjusted to force agreement between the two books.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be84edde/pinnacle-day5.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pinnacle_lines.py",
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18",
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-fal2-2026-10-18",
+      "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "be84edde-aurora-roster-change-not-october",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The brief's \"recent roster change for Aurora\" is a July 2026 rebuild, not an October or in-event change",
+    "detail": "No October 2026 Aurora roster change could be verified from any source in the 2026-10-18T00:40Z–01:20Z research window. The most recent verified change is the international rebuild completed on 8 July 2026 (kyxsan from Falcons completing the five; Jimpphat and coach ashhh on 3 July; MAJ3R and soulfly benched on 2 July; Fabre benched 29 June) — three months before the event. Nothing in the verified sources demonstrates that the rebuild caused the 9z loss on 14 October; roster context is published as context, never as a proven cause and never as a numerical adjustment to any probability. Liquipedia is a community wiki, so its dated transfer timeline is flagged unverified wherever no HLTV report covers the same date.",
+    "source_urls": [
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "https://liquipedia.net/counterstrike/Aurora_Gaming",
+      "https://www.hltv.org/team/11861/aurora"
+    ]
+  },
+  {
+    "id": "be84edde-committed-snapshot-is-not-the-live-feed",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The data committed in this repository is a frozen fallback, not the live published snapshot",
+    "detail": "A manual reviewer comparing data/latest.json (generated_at 2026-10-15T08:36:13Z; 80 source records, 17 active, 0 unresolved in the originated list) with the live site will see different numbers. The four-hour publisher regenerates the snapshot on the GitHub runner and caches it; the checked-in copy is only the last-good fallback for an outage. Measured live on the runner at 2026-10-18T01:01:14Z: 98 source records, 34 active fixtures, 28 resolved and 6 unresolved in the complete researched list. Neither figure is wrong; they are different observation times. Always read the timestamp printed on the page.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  },
+  {
+    "id": "be84edde-six-unresolved-fixtures-dated",
+    "severity": "warning",
+    "match_ids": [
+      "1081129",
+      "1082206",
+      "1082207",
+      "1079181",
+      "1081861",
+      "1081863"
+    ],
+    "title": "Five of 34 active fixtures had no compliant price at the 2026-10-18T02:12Z live observation (six at 01:01Z)",
+    "detail": "Every one is a low-tier fixture: Damajuana vs A NATA (1082206) and QUINTESSÊNCIA vs RED Canids Academy (1082207) in CCT South America 2026 Series #7, Fire Flux vs ex-6666 (1079181) in NODWIN Clutch Series #13, and Lynn Vision vs Morningstar (1081861) and Chinggis Warriors vs WXM (1081863) in VOID Autumn Cup 2026. Two distinct causes: (a) no market lists the fixture at all on Polymarket, Kalshi, Thunderpick or Bovada; (b) a market exists but its two-sided book is far wider than the 0.12 indicative ceiling — observed spreads were 0.64 (Polymarket 1205549), 0.61 (Kalshi KXCS2GAME-26OCT181200ANADAM), 0.44 (Polymarket 1205550) and 0.90 (Kalshi KXCS2GAME-26OCT192300MORLVG), so those observations are recorded and not used as prices. The rating fallback also fails for four of them because one team has no row in Valve's official standings, and for a fifth because a team name matches more than one Valve roster. The count moved from six to five between the 01:01Z and 02:12Z reads because CCT Europe 2026 Series #12 Play-In fixture 1081129 (Privateer vs antidaun) closed on a source this project did not control; the five that remain are unchanged in cause. Nothing was filled in at either reading.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be84edde/live-probe.json",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "be84edde-pinnacle-board-found",
+    "severity": "notice",
+    "match_ids": [
+      "1079181",
+      "1081129",
+      "1081861",
+      "1081863",
+      "1082206",
+      "1082207"
+    ],
+    "title": "New first-party source found: Pinnacle's public guest board lists Counter-Strike 2",
+    "detail": "A provider probe run on the GitHub runner (the session sandbox has no egress to Hotspawn, HLTV or any bookmaker) found Pinnacle's public guest endpoints reachable and listing CS2 leagues, including 'CS2 - TP World Championship'. Of the sixteen candidate sources probed, only Pinnacle, bo3.gg and 1xBet answered at all; oddsportal returned 503 and egamersworld, ggscore, escorenews, stake, tips.gg and esports.gg returned 403. Pinnacle covers the two Thunderpick final-day fixtures but not any of the six blank low-tier fixtures, which sit in competitions Pinnacle does not board. It is wired in as a strictly non-fatal step: an outage records a reason and prices nothing, and only the lowest-period two-way series moneyline is accepted (higher periods repeat identical per-map prices and Yes/No specials live on their own matchups).",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be84edde/provider-probe.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pinnacle_lines.py",
+      "https://www.pinnacle.com/en/esports/counter-strike-2"
+    ]
+  },
+  {
+    "id": "be84edde-aggregator-quotes-are-not-official",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The final-day price quotes on the Final day review page come from news aggregators, not a bookmaker feed",
+    "detail": "stavka.tv quotes FURIA 1.40 (~68%) / BETBOOM 3.00 (~32%) for the 18 October grand final, and cybersport.metaratings quotes FURIA 1.36–1.40 / BETBOOM 2.70–3.09. Neither is a first-party bookmaker price, neither is reproducible from an official API, and neither is used to overwrite the site's automated estimate. Both rows are published with a visible 'Unverified — not an official source' badge next to the HLTV match link for the fixture they describe. Treat them as dated context, not as odds you can take.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+      "https://stavka.tv/matches/csgo/18-10-2026-furia-betboom-team",
+      "https://cybersport.metaratings.ru/prognozy/cs2/prognoz-na-match-furia-betboom-team-zashita-titula-nachnyotsya-s-pobedy/"
+    ]
+  },
+  {
+    "id": "be84edde-final-day-start-times",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Final-day start times are derived from HLTV page times cross-checked against Liquipedia countdowns",
+    "detail": "HLTV rendered times in Eastern Daylight Time during this research window, so the page times (07:30 for the third-place decider, 11:00 for the grand final) are not UTC. Both were cross-checked against Liquipedia's EDT countdowns and against the countdowns printed on the HLTV match pages: 07:30 EDT = 11:30 UTC = 13:30 Malta (CEST), and 11:00 EDT = 15:00 UTC = 17:00 Malta. Hotspawn's own lock times, where the fixture appears in the Hotspawn inventory, remain the authoritative pick deadline and are shown on the match rows.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+      "https://liquipedia.net/counterstrike/Thunderpick/World_Championship/2026"
+    ]
+  },
+  {
+    "id": "be84edde-shared-file-scope",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "This session entered scripts/build.py additively while two other sessions had open pull requests touching it",
+    "detail": "Open PRs #90 (arena-fe48a0df) and #86 (arena-534ae9e5) both edit scripts/build.py. This session's edits there are limited to: one PAGES entry for the new Final day review view, one renderer entry in the build loop, one phone-first 'start here' jump bar under the page title, one briefing shortcut link and one site-map row. No freshness rule, expiry threshold, probability, pick, alias or safety semantics were changed, and no other session's file was edited. If #90 or #86 merges first this branch may need a trivial rebase; nothing either of them owns was altered.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/90",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/86"
+    ]
+  },
+  {
+    "id": "be84edde-probe-workflow-scope",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The be84edde probe workflow is a branch-path manual audit tool, never a publisher",
+    "detail": ".github/workflows/be84edde-probe.yml runs only when its own files change on this session branch. It never deploys, never writes to the published dashboard, restores every tracked data file before committing so only its report is added, and runs the repository's own collectors read-only to record the live state. It exists because the session sandbox has no egress to Hotspawn, HLTV or any bookmaker while the GitHub runner does. It can be deleted once the audit is done without affecting the four-hour publisher.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/be84edde-probe.yml"
+    ]
+  }
+]

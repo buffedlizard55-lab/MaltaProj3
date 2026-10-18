@@ -22,7 +22,7 @@ LOBBY = 'https://play.hotspawn.com/lobby'
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
@@ -309,6 +309,40 @@ def contrarian_review(data, prefix):
     return out
 
 
+def start_here(data, prefix):
+    """A phone-first jump bar directly under the page title.
+
+    The brief asked for one place on the phone that says where the picks are.
+    This block links only; it adds no probability, no pick and no fixture.
+    """
+    complete = data.get('complete_picks')
+    cc = (complete or {}).get('counts') or {}
+    active = cc.get('active') or data['counts']['upcoming']
+    unresolved = cc.get('unresolved', data['counts']['unresolved'])
+    with_pick = cc.get('with_pick')
+    items = [
+        (prefix + 'origination/#picks', 'All match picks', 'target',
+         f'{active} active Hotspawn CS2 fixtures, both probabilities each.'),
+        (prefix + 'strategy/', 'Leaderboard plan', 'layers',
+         'One plan pick per open fixture and the underdogs worth a play.'),
+        (prefix + 'final-day/', 'Final day · Day 5', 'clock',
+         'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
+        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
+         'Fixtures with no compliant external price, and the reason for each.'),
+    ]
+    out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
+           '<p class="start-here-label">Start here · where the picks are</p><ul>')
+    for href, title, sym, detail in items:
+        out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
+                f'<span>{e(detail)}</span></a></li>')
+    out += '</ul>'
+    if with_pick is not None:
+        out += (f'<p class="tiny muted" style="padding:10px 2px 0">'
+                f'<strong>{with_pick}</strong> of {active} active fixtures currently carry a directional pick; '
+                f'the remaining {unresolved} are listed, never filled with a guess.</p>')
+    return out + '</nav>'
+
+
 def glance(data, prefix, now=None):
     """Phone-first one-glance index of every active fixture's selected pick.
 
@@ -426,6 +460,7 @@ def summary(data, prefix, now=None):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
     if complete:
         coverage_label = 'Picks for every match' if data['coverage_complete'] else 'Picks in the retained snapshot'
@@ -455,7 +490,7 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="{prefix}review/">Review flags →</a> '
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
         out += final_day_summary(data['_twc_day5'], prefix)
@@ -547,6 +582,7 @@ def where_everything_lives(data, prefix):
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
         ('TWC Day 5 picks & review', 'twc-picks/', 'Final-day probabilities, Days 1–4 results, canonical picks and separate tournament research with explicit source gaps.', 'No fan votes or narrative probability adjustments'),
+        ('Final day review', 'final-day/', 'Days 1–4 read series by series with an official link per row, the verified Aurora roster timeline, the two 18 October fixtures, dated external line observations and the contrarian shortlist.', 'Dated research · read-only'),
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
@@ -782,12 +818,14 @@ def build(source: Path, output: Path, now=None):
     from scripts.build_twc import render as twc_review
     edge_path = source / 'edge-review.json'
     _self.EDGE_SOURCE = edge_path
+    from scripts.build_final_day import render as final_day_render
     renderers = {'summary': lambda d, pfx: summary(d, pfx, now=now),
                  'picks': lambda d, pfx: picks(d, pfx, now=now),
                  'coverage': lambda d, pfx: coverage(d, pfx, now=now),
                  'methodology': methodology, 'review': review,
                  'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
-                 'twc': lambda d, pfx: twc_review(d, pfx, source, now=now)}
+                 'twc': lambda d, pfx: twc_review(d, pfx, source, now=now),
+                 'final': lambda d, pfx: final_day_render(d, pfx, edge_path, source)}
     for key, (_, path, _) in PAGES.items():
         target = output / path
         target.parent.mkdir(parents=True, exist_ok=True)
