@@ -30,28 +30,34 @@
     ]
   },
   {
-    "id": "fe48a0df-two-unresolved",
+    "id": "fe48a0df-unresolved-inventory",
     "severity": "notice",
-    "title": "Two fixtures remain blank; antidaun depends on a dated third-party capture",
-    "detail": "After the merged ladder (first-party books and esportsbooks, the reviewed EGamersWorld aggregation, then the Valve model) two fixtures still have no defensible pick. Lynn Vision vs Morningstar: no Polymarket/Kalshi/Thunderpick/Bovada line, Morningstar has no global/Europe/Americas/Asia Valve row, and the EGamersWorld page carries only the site's 1.8/1.8 placeholder with no bookmaker-average sentence. Chinggis Warriors vs WXM: the same absence, WXM has no Valve row, and Chinggis has two complete rows whose current five cannot be proven. Both stay blank with no default 50/50. antidaun vs Phantom Academy is no longer blank only because a reviewed EGamersWorld capture (5.345 / 1.115, observed 2026-10-18T00:10:45Z) supplies an aggregated average; its Polymarket and Kalshi books remain 0.41 wide and are never used. That capture is fresh for eight hours, so the fixture can return to the blank list when it ages out unless a new capture is reviewed. ex-6666, Infinite vs Insiders and aimclub vs BASEMENT BOYS now resolve through the alias, the widened 0.13 fallback book and the reviewed reference/roster paths respectively.",
+    "title": "Six of 34 active fixtures are explicitly unresolved, each with a published reason",
+    "detail": "At the 2026-10-18T01:10:54Z live snapshot the inventory holds 34 active fixtures: 28 carry a pick and 6 are explicitly unresolved. Privateer vs antidaun (1081129, 11:00 UTC) is 'no rating': antidaun has no global, Europe, Americas or Asia Valve row, and no fallback line for that fixture passed the published gates. Damajuana vs A NATA (1082206, 16:00 UTC) and QUINTESSENCIA vs RED Canids Academy (1082207, 19:00 UTC) are 'book too wide': the observed exchange books exceed even the widened fallback ceiling. Fire Flux vs ex-6666 (1079181, 19 Oct, 17:00 UTC) is 'no rating': the 6666/ex-6666 alias is scoped to CCT Europe 2026 Challengers #8 and is not extended to another competition. The two long-standing blanks stay Lynn Vision vs Morningstar (1081861, 'book too wide') and Chinggis Warriors vs WXM (1081863, 'no rating'; WXM has no Valve row). No blank is filled with a default 50/50, no source failure is treated as proof that no market exists, and every card keeps its full provider trail. antidaun vs Phantom Academy (1081522) is resolved by the reviewed EGamersWorld capture, which is time-limited; see the separate reference-capture flag.",
     "match_ids": [
-      "1081522",
+      "1081129",
+      "1082206",
+      "1082207",
+      "1079181",
       "1081861",
       "1081863"
     ],
     "source_urls": [
-      "https://polymarket.com/event/cs2-antida-phanto-2026-10-18",
-      "https://polymarket.com/event/cs2-aim1-bmb-2026-10-19",
-      "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
-      "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
-      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://www.hotspawn.com/matches/antidaun-vs-privateer-cct-europe-2026-series-12-play-in-1081129",
+      "https://www.hotspawn.com/matches/damajuana-vs-a-nata-cct-south-america-2026-series-7-1082206",
+      "https://www.hotspawn.com/matches/quintessencia-vs-red-canids-academy-cct-south-america-2026-series-7-1082207",
+      "https://www.hotspawn.com/matches/fire-flux-vs-ex-6666-nodwin-clutch-series-13-1079181",
+      "https://www.hotspawn.com/matches/lynn-vision-vs-morningstar-void-autumn-cup-2026-1081861",
+      "https://www.hotspawn.com/matches/chinggis-warriors-vs-wxm-void-autumn-cup-2026-1081863",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
     ]
   },
   {
     "id": "fe48a0df-day5-price-check",
     "severity": "notice",
     "title": "Day-5 final-day leans rechecked against both Polymarket event pages",
-    "detail": "The final-day summary now shows the two snapshot leans directly. At 2026-10-18T00:20Z the Polymarket series pages priced Team Falcons 61% / Aurora Gaming 40% (normalized 60.5% / 39.5%) for the 11:30 UTC third-place decider, and FURIA 71% / BetBoom Team 30% (normalized 70.8% / 29.2%) for the 15:00 UTC BO5 grand final. The page labels them as snapshot leans, not confirmed picks, because these are HLTV-listed tournament fixtures whose Hotspawn entry and lock are unverified. Prices can move before the matches.",
+    "detail": "The final-day summary shows the two snapshot leans directly. The 2026-10-18T01:11Z publisher regenerated them at Team Falcons 61.5% / Aurora 38.5% (no-vig Thunderpick line) for the 11:30 UTC third-place decider and FURIA 71.7% / BetBoom 28.3% (originated consensus line) for the 15:00 UTC BO5 grand final; the earlier manual Polymarket check at 00:20Z read 60.5% / 70.8% after normalization. The page labels them snapshot leans, not confirmed picks, because these are HLTV-listed tournament fixtures whose Hotspawn entry and lock are unverified, and because prices can move before the matches.",
     "match_ids": [],
     "source_urls": [
       "https://polymarket.com/event/cs2-aur1-fal2-2026-10-18",
@@ -61,10 +67,30 @@
     ]
   },
   {
+    "id": "fe48a0df-reference-capture-expiry",
+    "severity": "warning",
+    "title": "Four reference-backed picks expire at 08:10:45Z unless a reviewer records a new capture",
+    "detail": "Four picks rest on the reviewed EGamersWorld bookmaker-average capture observed 2026-10-18T00:10:45Z: ex-6666 vs Privateer (1081521, 1.13 / 4.75), antidaun vs Phantom Academy (1081522, 5.345 / 1.115), Infinite vs Insiders (1081526, 1.275 / 3.399) and aimclub vs BASEMENT BOYS (1081527, 2.03 / 1.683). scripts/reference_odds.py accepts a capture for eight hours, so all four return to the unresolved list at 2026-10-18T08:10:45Z unless a reviewer records a new dated capture from the same pages. The current page is correct now; the blanking at the first refresh after that deadline is the intended fail-closed behaviour, not a calculation error, and it will happen before the 13:45 UTC locks for the two CCT Challengers fixtures. The capture file is data/research/57b1ee04/reference-odds.json; nothing rewrites it automatically, and the policy is that every refresh is re-observed and hash-checked rather than edited in place.",
+    "match_ids": [
+      "1081521",
+      "1081522",
+      "1081526",
+      "1081527"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/57b1ee04/reference-odds.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-challengers-8-1081521",
+      "https://www.hotspawn.com/matches/antidaun-vs-phantom-academy-cct-europe-2026-challengers-8-1081522",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081526",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081527"
+    ]
+  },
+  {
     "id": "fe48a0df-featured-vs-complete-counts",
     "severity": "notice",
     "title": "Coverage and summary pages count different tiers (featured vs complete)",
-    "detail": "The coverage page's 'Future probabilities' figure counts only the featured exact-name method (8 of 17 at the 2026-10-18T00:53Z snapshot). The executive summary and the complete-picks list count the researched fallback ladder too (11 of 17 at that snapshot, before the 6666 identity join and the 0.13-book fallback are applied by a fresh live run). Both figures are correct for their scope, but reading them side by side can look contradictory. The executive summary now states its figures as external-line and research-model counts and links both lists; the coverage page keeps the featured-only label.",
+    "detail": "The coverage page's 'Future probabilities' figure counts only the featured exact-name method: 19 of 34 with 7 market / 0 aggregated / 12 model / 15 unresolved at the 2026-10-18T01:11Z snapshot. The executive summary and the complete-picks list count the researched fallback ladder too: 28 of 34 with 17 external-line and 11 research-model estimates, 6 unresolved. The '0 aggregated' bucket is the featured ladder's own stage counter; the four EGamersWorld reference picks are reported in the origination list, not in that featured counter. Both figures are correct for their scope, but reading them side by side can look contradictory, so the executive summary states its figures as external-line and research-model counts and links both lists.",
     "match_ids": [],
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",

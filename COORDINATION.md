@@ -2626,7 +2626,7 @@ line and stay blank under the unresolved contract.
 | C2 Competition-scoped `6666 → ex-6666` alias with 4-of-5 review note and evidence links | complete | arena-fe48a0df | `data/origination/aliases.json` |
 | C3 Unique four-of-five HLTV core disambiguation for duplicate Valve rows; two plausible rows / 3-of-5 / unbound lineup still fail closed | complete | arena-fe48a0df | `scripts/originate.py`, `tests/test_lineups.py`, `tests/test_origination.py` |
 | C4 Executive summary: named blank fixtures with blocker + section link; Day-5 snapshot leans; Day-5/review links | complete | arena-fe48a0df | `scripts/build.py`, `scripts/day5.py` |
-| C5 Docs, flags, tests, build, strict row audit, PR, merge, Pages verification, board record | in progress | arena-fe48a0df | `README.md`, `scripts/build_origination.py`, `data/research/fe48a0df/`, `tests/test_summary_navigation.py`, this section |
+| C5 Docs, flags, tests, build, strict row audit, PR, merge, Pages verification, board record | complete 2026-10-18T01:16Z (Result below) | arena-fe48a0df | `README.md`, `scripts/build_origination.py`, `data/research/fe48a0df/`, `tests/test_summary_navigation.py`, this section |
 
 Principles unchanged: no Hotspawn "% picked", no fan votes, no guessed alias, no
 default 50/50, no probability without a first-party price or a labelled model
@@ -2734,3 +2734,73 @@ researched the same user questions in its own file scope — the scopes are
 distinct files and their merged findings stand alongside this session's records.
 This branch is re-pushed with lease protection and PR #94 re-verified on the
 combined tree before merge.
+
+
+### Result: C5 complete (2026-10-18T01:16Z)
+
+PR **#90** ("Close three blank picks, index every remaining blank, and refresh the
+final-day summary") merged to `main` at 2026-10-18T01:04:27Z as **`c28a101`**:
+https://github.com/buffedlizard55-lab/MaltaProj3/pull/90
+
+The branch was rebased onto the newer `main` (which had absorbed session
+57b1ee04's EGamersWorld aggregated-reference rung, PR #89) before the merge; the
+only conflict was `section_unresolved` in `scripts/build_origination.py`, where
+both `<li>` items are kept (the 12/15 tier sentence and the third-party
+aggregation sentence). Branch commits: `e22119c` claim, `80bd87f` close blanks,
+`bd65483` split the book-integrity ceiling from the featured 0.12 selection
+ceiling, `5d431d5` refresh the dated flags.
+
+Checks on the rebased branch: `discover` 19 s PASS, `originate` 2 m 01 s PASS,
+"Rows, build, links, mobile and accessibility" 5 m 52 s PASS. Deploy on
+`c28a101`: "Refresh and deploy CS2 dashboard" run 39085129845 **success**,
+"pages build and deployment" run 39085129309 **success**.
+
+Live verification at https://buffedlizard55-lab.github.io/MaltaProj3/ after that
+deploy (`data/latest.json` generated 2026-10-18T01:11:07Z, inventory observed
+01:10:54Z): 98 inventory records / **34 active** / 64 past starts, **28 picks**
+(17 external-line, 11 research-model), **6 explicitly unresolved**, every blank
+named in the executive summary with its published reason and a section link.
+Resolved by this work plus the reference rung: 1081521 ex-6666 vs Privateer
+(80.8%, EGamersWorld 1.13/4.75), 1081522 antidaun vs Phantom Academy (82.7%),
+1081526 Infinite vs Insiders (81.5%, 0.13-wide Polymarket book marked thin),
+1081527 aimclub vs BASEMENT BOYS (reference capture; four-of-five model
+cross-check). The six remaining blanks are 1081129 Privateer vs antidaun
+(no rating), 1082206 Damajuana vs A NATA (book too wide), 1082207 QUINTESSÊNCIA
+vs RED Canids Academy (book too wide), 1079181 Fire Flux vs ex-6666 (no rating),
+1081861 Lynn Vision vs Morningstar (book too wide) and 1081863 Chinggis Warriors
+vs WXM (no rating). No default 50/50, no source failure read as proof of no market.
+
+**Time-limited dependency:** the four reference-backed picks replay a capture
+observed 2026-10-18T00:10:45Z and `scripts/reference_odds.py` accepts it for eight
+hours, so they blank at **08:10:45Z** unless a reviewer records a new dated,
+hash-checked capture. That is before the 13:45Z locks for the two CCT Challengers
+fixtures. It is now recorded as flag `fe48a0df-reference-capture-expiry` and is
+the intended fail-closed behaviour, not a calculation error.
+
+This follow-up also refreshes `data/research/fe48a0df/flags.json` against the
+01:11Z snapshot (six-blank inventory, the reference-capture expiry, the live
+day-5 leans Falcons 61.5% / FURIA 71.7%, and the featured 19/34 vs complete 28/34
+count scopes). Older sessions' dated flags stay untouched: their text already
+says "dated, not a current coverage claim".
+
+Cross-scope review: session `arena-b30bf88b` left hash-verified EGamersWorld captures for `1081129`
+(Privateer vs antidaun, 1.853/1.803), `1082206` (Damajuana vs A NATA, 1.71/1.95) and `1081519`
+(NEXVOID vs Off Chops, 1.785/2.026) in its own research folder, plus a request to extend the
+`6666 -> ex-6666` alias to NODWIN for `1079181`. Reviewed and deliberately **not** merged into the
+canonical capture or the alias: the two blank fixtures would become 50.7% and 53.3% coin-flip leans
+that expire at 08:50-08:52Z, hours before their 11:00Z and 16:00Z starts, `1081519` is already priced
+better by Kalshi (73.2%), and the NODWIN model lean would be 52.2% on an alias widened beyond the
+competition where the roster was verified. Two independent midpoints inside a very wide book are not
+a probability; the unresolved cards keep the full trails instead. Their captures remain published as
+dated research in `data/research/b30bf88b/`.
+
+Follow-ups for the next session: (1) make the EGamersWorld reference capture
+re-observable inside the refresh run (or add a second reviewed capture before
+each lock) so those four picks do not decay; (2) the four new low-tier blanks
+need either a first-party price or a new, scoped evidence path; do not widen the
+alias beyond the competition it declares; (3) `2026-10-05` Valve rows are 13 days
+old at this snapshot and will cross the 35-day limit on 2026-11-09.
+
+Verification for this follow-up: `python -m unittest discover -s tests` (634
+tests), `python -m scripts.build`, `python -m scripts.audit_rows --site site
+--strict` and `python -m scripts.pipeline_audit --source data` run before the PR.
