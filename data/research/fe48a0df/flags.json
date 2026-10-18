@@ -18,7 +18,7 @@
     "id": "fe48a0df-6666-identity-join",
     "severity": "warning",
     "title": "Valve name 6666 joined to ex-6666 on a 4-of-5 roster overlap (manual review)",
-    "detail": "The Valve 2026-10-05 global table lists '6666' at standing 127 with 923 points and the five-player roster amster, dENZY, kL1o, rendysky, skcH. HLTV lists the same competition slot as 'ex-6666' vs 'Privateer' with the lineup skcH, kL1o, amster, rendysky, stefienson. Four of five players match; Valve's dENZY is replaced by stefienson in the current HLTV lineup. The scoped alias in data/origination/aliases.json therefore supports identity, not an exact current five-player roster. It feeds only the labelled, uncalibrated Valve model and never joins a betting price. Manual review requested.",
+    "detail": "The Valve 2026-10-05 global table lists '6666' at standing 127 with 923 points and the five-player roster amster, dENZY, kL1o, rendysky, skcH. HLTV lists the same competition slot as 'ex-6666' vs 'Privateer' with the lineup skcH, kL1o, amster, rendysky, stefienson. Four of five players match; Valve's dENZY is replaced by stefienson in the current HLTV lineup. The scoped alias in data/origination/aliases.json therefore supports identity, not an exact current five-player roster. It feeds the labelled, uncalibrated Valve model cross-check. The displayed pick for this fixture comes from the fresh, reviewed EGamersWorld bookmaker-average capture (1.13 / 4.75), explicitly labelled a third-party aggregation; the alias never joins or alters that price. Manual review requested.",
     "match_ids": [
       "1081521"
     ],
@@ -30,10 +30,10 @@
     ]
   },
   {
-    "id": "fe48a0df-three-unresolved",
+    "id": "fe48a0df-two-unresolved",
     "severity": "notice",
-    "title": "Three fixtures still have no defensible pick line; every source and blocker is published",
-    "detail": "At the 2026-10-18 snapshot three active fixtures remain unresolved after the reviewed fallback ladder. antidaun vs Phantom Academy has Polymarket and Kalshi books about 0.41 wide (both midpoints near Phantom Academy 74.5%), but a market that illiquid cannot produce a verified pick; the observed quotes stay on the card as guidance only. Lynn Vision vs Morningstar has no market and Morningstar has no row in the global, Europe, Americas or Asia Valve tables. Chinggis Warriors vs WXM has no market, WXM has no Valve row, and Chinggis Warriors has two complete Valve rosters whose current five cannot be proven. These stay blank with no default 50/50; the unresolved section lists every attempted source and its link. Three other formerly blank fixtures now resolve transparently: ex-6666 via the competition-scoped alias, Infinite vs Insiders via the widened 0.15 fallback book (thin, 0.13 spread), and aimclub vs BASEMENT BOYS via the unique four-of-five roster identity join documented in the next flag.",
+    "title": "Two fixtures remain blank; antidaun depends on a dated third-party capture",
+    "detail": "After the merged ladder (first-party books and esportsbooks, the reviewed EGamersWorld aggregation, then the Valve model) two fixtures still have no defensible pick. Lynn Vision vs Morningstar: no Polymarket/Kalshi/Thunderpick/Bovada line, Morningstar has no global/Europe/Americas/Asia Valve row, and the EGamersWorld page carries only the site's 1.8/1.8 placeholder with no bookmaker-average sentence. Chinggis Warriors vs WXM: the same absence, WXM has no Valve row, and Chinggis has two complete rows whose current five cannot be proven. Both stay blank with no default 50/50. antidaun vs Phantom Academy is no longer blank only because a reviewed EGamersWorld capture (5.345 / 1.115, observed 2026-10-18T00:10:45Z) supplies an aggregated average; its Polymarket and Kalshi books remain 0.41 wide and are never used. That capture is fresh for eight hours, so the fixture can return to the blank list when it ages out unless a new capture is reviewed. ex-6666, Infinite vs Insiders and aimclub vs BASEMENT BOYS now resolve through the alias, the widened 0.13 fallback book and the reviewed reference/roster paths respectively.",
     "match_ids": [
       "1081522",
       "1081861",
@@ -76,7 +76,7 @@
     "id": "fe48a0df-four-of-five-identity",
     "severity": "warning",
     "title": "A unique four-of-five HLTV core now disambiguates duplicate Valve rows",
-    "detail": "aimclub vs BASEMENT BOYS had two complete 'aimclub' rows in the 2026-10-05 global standings (standing 77 with ERSIN, mhN1, ragga, waZz, zewts; standing 336 with Ed1m, ERSIN, RoberttMP, XELLOW, zewts). HLTV match 2399591 publishes aimclub as ragga, waZz, mhN1, zewts, XELLOW: four of five match standing 77, one current player differs (ERSIN replaced by XELLOW), and only two of five match standing 336. The fallback now accepts a *unique* four-of-five core as a roster-change identity join, labels the row as historical rather than current-lineup, and adds an explicit limitation. Two plausible four-of-five rows, a three-of-five overlap, or an unbound/stale lineup still fail closed. The same rule is covered by tests against archived real fixtures (BET-M and aimclub); no probability or price is invented.",
+    "detail": "aimclub vs BASEMENT BOYS had two complete 'aimclub' rows in the 2026-10-05 global standings (standing 77 with ERSIN, mhN1, ragga, waZz, zewts; standing 336 with Ed1m, ERSIN, RoberttMP, XELLOW, zewts). HLTV match 2399591 publishes aimclub as ragga, waZz, mhN1, zewts, XELLOW: four of five match standing 77, one current player differs (ERSIN replaced by XELLOW), and only two of five match standing 336. The fallback now accepts a *unique* four-of-five core as a roster-change identity join, labels the row as historical rather than current-lineup, and adds an explicit limitation. Two plausible four-of-five rows, a three-of-five overlap, or an unbound/stale lineup still fail closed. The same rule is covered by tests against archived real fixtures (BET-M and aimclub); no probability or price is invented. In the live 2026-10-18 snapshot the reviewed EGamersWorld capture resolves aimclub first, so the four-of-five model is a cross-check there; it remains the fallback for a duplicate-name fixture with no reference capture.",
     "match_ids": [
       "1081527"
     ],
