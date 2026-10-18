@@ -1,0 +1,90 @@
+{
+  "session": "arena-ad216fd9",
+  "audited_at": "2026-10-18T00:47Z",
+  "scope": "Independent verification audit. Does not replace the canonical 4-hour publisher feed; probabilities below are copied from the live 2026-10-18T00:42Z snapshot or computed here from a single cited aggregated sentence and labelled as such.",
+  "live_snapshot": {
+    "source_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/twc-day5-picks.json",
+    "source_snapshot_at": "2026-10-18T00:42:36Z",
+    "evaluated_at": "2026-10-18T00:43:41Z",
+    "inventory": "34 active Hotspawn CS2 fixtures / 27 directional picks / 7 unresolved (executive summary, read 2026-10-18T00:47Z)",
+    "executive_summary_url": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  },
+  "day5_cards": [
+    {
+      "fixture_id": "1080209",
+      "match": "Falcons vs Aurora",
+      "stage": "3rd-place decider (HLTV match page title)",
+      "starts_at": "2026-10-18T11:30:00Z",
+      "locks_at": "2026-10-18T11:24:00Z",
+      "probabilities": {"Falcons": 0.615, "Aurora": 0.385},
+      "default_pick": "Falcons",
+      "method": "No-vig bookmaker estimate, Thunderpick decimal 1.50 / 2.40, event 2843582, observed 2026-10-18T00:42:46Z; single source, not consensus",
+      "sources": [
+        "https://www.hotspawn.com/matches/aurora-vs-falcons-thunderpick-world-championship-2026-1080209",
+        "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+        "https://thunderpick.io/api/matches"
+      ],
+      "contrarian": {
+        "candidate": "Aurora 38.5%",
+        "for": "Won Day-3 rematch vs 9z 2-0 (Cache 13-11, Inferno 13-4); kyxsan was Falcons IGL Jan 2025-Apr 2026 (HLTV news 45082) so opponent familiarity is plausible context",
+        "against": "Lost Day-4 semi 0-2 to FURIA (HLTV 45743); 3rd-place-decider motivation is unverified and must not be assumed for either side",
+        "verdict": "Highest hit-rate contrarian option; lowest leaderboard separation of the two Day-5 underdogs"
+      }
+    },
+    {
+      "fixture_id": "1080210",
+      "match": "FURIA vs BetBoom",
+      "stage": "Grand final, best of 5 (HLTV)",
+      "starts_at": "2026-10-18T15:00:00Z (17:00 Europe/Malta display)",
+      "probabilities": {"FURIA": 0.711, "BetBoom": 0.289},
+      "default_pick": "FURIA",
+      "method": "Originated consensus line (median of independent money sources), observed 2026-10-18T00:42Z per live Day-5 JSON/page; pricing source linked on canonical card",
+      "sources": [
+        "https://www.hotspawn.com/matches/furia-vs-betboom-thunderpick-world-championship-2026-1080210",
+        "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1080210"
+      ],
+      "contrarian": {
+        "candidate": "BetBoom 28.9%",
+        "for": "Day-4 reverse-sweep upset of Falcons (5-13 Anubis, 16-14 Dust2, 13-7 Mirage) called 'the upset of the tournament' by HLTV news 45746; won Day-3 decider vs Legacy 2-1; already in this final on merit, not by bracket luck",
+        "against": "FURIA beat BetBoom 2-0 on Day 1 (Ancient 13-10, Mirage 13-9, HLTV 2399387); a best-of-5 tests map-pool depth more than a best-of-3",
+        "verdict": "Contrarian-but-not-stupid pick if exactly one upset is needed for leaderboard separation: lowest price, strongest same-event evidence. Never take both Day-5 underdogs as a pair on a guess; leaderboard deficit and opponents' picks are unknown, so no choice here is claimed to maximise leaderboard win probability"
+      }
+    }
+  ],
+  "verified_results": [
+    {"day": 1, "match": "9z 2-0 Aurora", "maps": "Inferno 13-11, Nuke 13-1", "source_url": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026", "crosscheck": "HLTV news 45718 '9z beat Aurora 2-0 to kick off TWC 2026'; HLTV news 45723: Aurora were 'the only favorite to falter' on Day 1"},
+    {"day": 1, "match": "Falcons 2-0 Ninjas in Pyjamas", "maps": "Ancient 16-13, Dust2 13-6", "source_url": "https://www.hltv.org/matches/2399385/falcons-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026"},
+    {"day": 1, "match": "Legacy 2-0 PARIVISION", "maps": "Dust2 13-11, Mirage 16-14", "source_url": "https://www.hltv.org/matches/2399386/legacy-vs-parivision-thunderpick-world-championship-2026"},
+    {"day": 1, "match": "FURIA 2-0 BetBoom", "maps": "Ancient 13-10, Mirage 13-9", "source_url": "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026", "crosscheck": "HLTV news 45723"},
+    {"day": 2, "match": "Aurora 2-0 Ninjas in Pyjamas", "maps": "Cache 13-9, Dust2 13-7", "source_url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026", "lesson": "Aurora recovered the day after the upset; do not blind-fade them"},
+    {"day": 2, "match": "9z 1-2 Falcons", "maps": "Nuke 9-13, Mirage 13-8, Dust2 9-13", "source_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026", "lesson": "9z took a map off Falcons; upset plausibility is real but series class told"},
+    {"day": 2, "match": "PARIVISION 1-2 BetBoom", "maps": "Ancient 13-10, Anubis 4-13, Mirage 7-13", "source_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026"},
+    {"day": 2, "match": "Legacy 1-2 FURIA", "maps": "Cache 13-10, Inferno 5-13, Mirage 8-13", "source_url": "https://www.hltv.org/matches/2399411/legacy-vs-furia-thunderpick-world-championship-2026"},
+    {"day": 3, "match": "Aurora 2-0 9z", "maps": "Cache 13-11, Inferno 13-4", "source_url": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026", "crosscheck": "HLTV news 45736 (rematch; Aurora removed Nuke this time)", "lesson": "Day-1 upset was partly map-pool specific; Aurora adjusted the veto"},
+    {"day": 3, "match": "BetBoom 2-1 Legacy", "maps": "see HLTV record", "source_url": "https://www.hltv.org/matches/2399413/betboom-vs-legacy-thunderpick-world-championship-2026"},
+    {"day": 4, "match": "FURIA 2-0 Aurora", "maps": "Dust2 13-8, Inferno 13-10", "source_url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026", "crosscheck": "HLTV news 45743 'FURIA ease past Aurora into TWC final'"},
+    {"day": 4, "match": "Falcons 1-2 BetBoom", "maps": "Anubis 13-5 Falcons, Dust2 14-16, Mirage 7-13", "source_url": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026", "crosscheck": "HLTV news 45746 'BETBOOM stun Falcons to make TWC grand final' — reverse sweep, 'upset of the tournament'"}
+  ],
+  "aurora_roster_change": {
+    "verified": "HLTV news 45082, 8 July 2026: kyxsan (ex-Falcons IGL) signed to complete a summer rebuild; Jimpphat and coach ash added days earlier; MAJ3R, soulfly and coach Fabre replaced; switch from Turkish-speaking core to international lineup",
+    "source_url": "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+    "correction_to_folk_narrative": "This is NOT a tournament-week change. By HLTV news 45553 (19 Sep 2026) this was already the roster's fifth event together and they had reached a final with it. Treat onboarding as widened uncertainty in July-August form, not as a verified Day-5 disadvantage, and never as a numeric discount on the market price.",
+    "crosscheck": "https://www.hltv.org/news/45553/aurora-punish-limp-vitality-offense-to-reach-first-final-with-new-roster"
+  },
+  "unresolved_at_audit": [
+    {"fixture_id": "1081519", "match": "NEXVOID vs Off Chops", "competition": "DFRAG Logitech G Pro Series 2026 (Hotspawn: Logitech G Pro Series 2026)", "finding": "Already started/finished before a prematch pick could be originated: HLTV match 2399543 shows veto and maps (NEXVOID won Dust2 13-5; EGamersWorld records NEXVOID 2-0). Correctly blank — no retrospective probability may be manufactured.", "sources": ["https://www.hltv.org/matches/2399543/nexvoid-vs-off-chops-dfrag-logitech-g-pro-series-2026", "https://egamersworld.com/counterstrike/match/41jwiu8cNl/nexvoid-vs-off-chops--z6OIhTIs"], "audit_pick": null},
+    {"fixture_id": "1081129", "match": "Privateer vs antidaun", "competition": "CCT Europe 2026 Series #12 Play-In", "finding": "EGamersWorld lists only its 1.8 placeholder for antidaun (rejected by policy: identical/placeholder prices carry no information); Polymarket snippet shows $0 volume. HLTV confirms both teams in the event (e.g. match 2399471) but no first-party paired price was verified. Guidance only: both teams 1 win in last 5 per EGW — no probability published.", "sources": ["https://egamersworld.com/counterstrike/match/1sGIL2gAYu/antidaun-vs-privateer-gaming-j6HuT4rca", "https://www.hltv.org/matches/2399471/mellren-vs-privateer-cct-2026-europe-series-12-closed-qualifier"], "audit_pick": null},
+    {"fixture_id": "1082206", "match": "Damajuana vs A NATA", "competition": "CCT South America 2026 Series #7", "finding": "RESOLVED at aggregated-reference rung in this audit only: EGamersWorld betting-tips sentence (read 2026-10-18) — 'majority of bookmakers unanimously see Damajuana as the favorite with average odds 1.71; A NATA 1.95'. No-vig: Damajuana 53.3% / A NATA 46.7%. Limitations: aggregated average, not a first-party book; EGW page clock differs from Hotspawn's, so start-time identity rests on exact team names + competition, and the canonical feed has not adopted this rung for this fixture.", "sources": ["https://egamersworld.com/counterstrike/match/0U32SId-H/damajuana-vs-a-nata-ixAZI2YGA", "https://www.hltv.org/events/9452/cct-2026-south-america-series-7"], "audit_pick": "Damajuana", "audit_probabilities": {"Damajuana": 0.533, "A NATA": 0.467}},
+    {"fixture_id": "1082207", "match": "QUINTESSÊNCIA vs RED Canids Academy", "competition": "CCT South America 2026 Series #7", "finding": "EGamersWorld shows only the 1.8/1.8 placeholder (rejected). HLTV event 9452 form: QUINTESSÊNCIA beat Damajuana 2-0 on 16 Oct; RED Canids Academy beat Sementes do Mal 2-0. Guidance leans QUINTESSÊNCIA on same-event form, but no sourced price = no probability published.", "sources": ["https://egamersworld.com/counterstrike/match/0U32SId-H/quintessencia-vs-red-canids-academy-6MDDjJ0jUT", "https://www.hltv.org/events/9452/cct-2026-south-america-series-7"], "audit_pick": null},
+    {"fixture_id": "1079181", "match": "Fire Flux vs ex-6666", "competition": "NODWIN Clutch Series #13 (19 Oct)", "finding": "EGamersWorld 1.8/1.8 placeholder only (rejected). HLTV event 9440 confirms the fixture context. No probability published; recheck nearer start when books open.", "sources": ["https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/fire-flux-esports-vs-ex-6666-g84ZstIes", "https://www.hltv.org/events/9440/nodwin-clutch-series-13"], "audit_pick": null},
+    {"fixture_id": "1081861", "match": "Lynn Vision vs Morningstar", "competition": "MaceMedia VOID Autumn Cup 2026 (20 Oct)", "finding": "No bookmaker price on EGamersWorld page. HLTV event 9435: Lynn Vision listed #39, head-to-head 3-0 vs Morningstar per EGW. Strong guidance lean Lynn Vision, no invented percentage. WXM/Morningstar Valve-ranking gaps were already flagged by PR #90's research.", "sources": ["https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026", "https://egamersworld.com/counterstrike/match/EJcHRdr5Vx/lynn-vision-vs-morningstar-7AWA3eTHD"], "audit_pick": null},
+    {"fixture_id": "1081863", "match": "Chinggis Warriors vs WXM", "competition": "MaceMedia VOID Autumn Cup 2026 (20 Oct)", "finding": "No bookmaker price on EGamersWorld page; WXM unranked there, Chinggis Warriors HLTV #61 with 7 wins in last 10 (EGW). Guidance lean Chinggis Warriors, no invented percentage.", "sources": ["https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026", "https://egamersworld.com/counterstrike/match/EJcHRdr5Vx/chinggis-warriors-vs-wxm-_ddme1I7dZ", "https://www.hltv.org/team/12646/chinggis-warriors"], "audit_pick": null}
+  ],
+  "irregularities_flagged": [
+    "Live executive-summary banner simultaneously says 'Do not treat these as current picks / older than eight hours' while displaying a 2026-10-18T00:42Z snapshot — banner logic vs snapshot freshness should be rechecked by the owning session (publisher code is claimed by open PRs #86/#90; not edited here).",
+    "Hotspawn competition naming differs from HLTV/EGW for the same fixtures (Logitech G Pro Series vs DFRAG Logitech G Pro Series; VOID Autumn Cup vs MaceMedia VOID Autumn Cup) — joins must stay team+start based, never name-only.",
+    "EGamersWorld 1.8/1.8 placeholder prices appear on at least three of the seven unresolved fixtures; any scraper treating them as real would fabricate 50/50 picks. The canonical rung already rejects them; this audit confirms the rejection is load-bearing.",
+    "Aurora 'recent roster change' is routinely misdated: the rebuild completed 8 July 2026, ~3 months and at least five events before TWC. Any Day-5 preview calling it a fresh onboarding risk is unverified."
+  ]
+}
