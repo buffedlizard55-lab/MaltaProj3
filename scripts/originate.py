@@ -34,6 +34,7 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
+from scripts import reference_odds
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -57,6 +58,7 @@ HLTV_EVENT = 'https://www.hltv.org/events/9332/elisa-breakout-series-2'
 # Kalshi is a CFTC-regulated exchange with an officially documented market-data
 # API; Bovada's coupon feed is the sportsbook's own public client contract.
 KALSHI_EVENTS = 'https://api.elections.kalshi.com/trade-api/v2/events'
+REFERENCE_INDEX = 'https://egamersworld.com/counterstrike/matches'
 KALSHI_DOCS = 'https://docs.kalshi.com/api-reference/market/get-markets'
 KALSHI_PAGE = 'https://kalshi.com/markets/kxcs2game/counterstrike-2-game/'
 KALSHI_SERIES = 'KXCS2GAME'
@@ -1067,7 +1069,8 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
-def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None) -> dict:
+def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
+                    reference: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -1136,7 +1139,28 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             url = rejected[0][1] if rejected and str(rejected[0][1]).startswith('https://') else fallback_url
             trail.append({'stage': stage, 'status': 'unresolved', 'source_url': url, 'detail': detail})
 
-    # 3. Research model cross-check (always attempted, never overrides money lines).
+    # 3. Reviewed aggregated-bookmaker fallback (EGamersWorld averages).
+    # Only for fixtures the entire first-party ladder left blank; never used to
+    # outvote a first-party market or esportsbook quote. Identical prices are
+    # rejected as placeholders, and the exact captured sentence is hash-checked.
+    reference_quote = None
+    reference_reason = 'No reviewed aggregated-bookmaker capture matches this fixture.'
+    for entry in reference or []:
+        candidate, reason = reference_odds.quote(entry, match, now)
+        if candidate:
+            reference_quote, reference_reason = candidate, reason
+            break
+        if str(entry.get('fixture_id')) == str(match.get('id')):
+            reference_reason = reason
+    reference_trail = {'stage': 'Aggregated bookmaker reference (EGamersWorld)',
+                       'status': 'resolved' if reference_quote else 'unresolved',
+                       'source_url': reference_quote['source_url'] if reference_quote else 'https://egamersworld.com/counterstrike/matches',
+                       'detail': (reference_reason + ' Third-party aggregation, not a first-party bookmaker quote; '
+                                  'used only when every first-party market and bookmaker check failed.')
+                       if reference_quote else reference_reason}
+    trail.append(reference_trail)
+
+    # 4. Research model cross-check (always attempted, never overrides money lines).
     model, model_detail = model_estimate(match, ratings, registry, valve_meta or {}, now, lineup=match.get('_hltv_lineup'))
     if model:
         aliases.extend(model.get('aliases_used') or [])
@@ -1167,7 +1191,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         trail.insert(0, {'stage': 'HLTV research', 'status': 'unresolved', 'source_url': 'https://www.hltv.org/matches',
                          'detail': 'See the featured pipeline research trail; no additional fixture-specific HLTV identity was verified by this fallback.'})
 
-    # 4. Choose the originated line: consensus of money sources, else model.
+    # 5. Choose the originated line: consensus of money sources, else model.
     # One vote per independent provider (Polymarket, Kalshi, Thunderpick, Bovada).
     families = {}
     for quote, _ in estimates['market'] + estimates['bookmaker']:
@@ -1198,6 +1222,15 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if len(families) == 1:
             limitations.append('Single independent source; not a multi-source consensus.')
         limitations.append('Margin removed where applicable. Estimate is not a guaranteed outcome.')
+    elif reference_quote:
+        chosen = dict(reference_quote)
+        chosen.update({'method': 'reference',
+                       'label': 'Aggregated bookmaker average (EGamersWorld, no-vig)',
+                       'fair_decimal': [round(1 / p, 3) for p in reference_quote['probabilities']],
+                       'quotes': [reference_quote], 'source': 'EGamersWorld (bookmaker average)',
+                       'model_crosscheck': model})
+        limitations.append('Aggregated third-party bookmaker average, not a first-party bookmaker quote. '
+                           'Dated observation; confirm the price before relying on it.')
     elif model:
         chosen = dict(model)
         chosen.update({'method': 'model', 'label': 'Research model estimate (Valve official ratings)',
@@ -1211,6 +1244,12 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
+    if reference_quote and method != 'reference':
+        # The capture exists but a first-party line won; say so instead of
+        # presenting an unused fallback as a resolved source.
+        reference_trail['status'] = 'not needed'
+        reference_trail['detail'] = ('A first-party market or esportsbook quote resolved this fixture, so the '
+                                     'aggregated reference was not used. ' + reference_trail['detail'])
     if time_flags:
         limitations.append('Provider start-time disagreement: ' + '; '.join(sorted(set(time_flags))) + '. Times are never silently overwritten.')
     pick = selection(chosen['probabilities']) if chosen else None
@@ -1241,10 +1280,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     }
 
 
-MONEY_METHODS = {'market', 'bookmaker', 'consensus'}
+MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
 
 
-def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime) -> dict:
+def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *,
+                  reference: list | None = None) -> dict:
     """One fixture's origination row.
 
     Featured estimates from the exact-name collector are preserved unchanged, with two exceptions:
@@ -1267,7 +1307,7 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
 
     if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
-    result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'))
+    result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'), reference=reference)
     if not featured:
         return result
     method = (result.get('origination') or {}).get('method')
@@ -1286,6 +1326,8 @@ def run(output: Path, *, live: bool = False) -> dict:
     now = datetime.now(UTC)
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
+    reference_capture = reference_odds.load(output)
+    reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir)
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
@@ -1301,7 +1343,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             continue
         featured = match.get('analysis')
         proof = hltv_lineup_proof(evidence_dir, match, registry, now)
-        result = resolve_match(dict(match, _hltv_lineup=proof), poly_rows, book_rows, ratings, valve_meta, registry, now)
+        result = resolve_match(dict(match, _hltv_lineup=proof), poly_rows, book_rows, ratings, valve_meta, registry, now,
+                               reference=reference_rows)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],
@@ -1329,6 +1372,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         'consensus': sum((m['origination'] or {}).get('method') == 'consensus' for m in matches_out),
         'market': sum((m['origination'] or {}).get('method') == 'market' for m in matches_out),
         'bookmaker': sum((m['origination'] or {}).get('method') == 'bookmaker' for m in matches_out),
+        'reference': sum((m['origination'] or {}).get('method') == 'reference' for m in matches_out),
         'model': sum((m['origination'] or {}).get('method') == 'model' for m in matches_out),
         'alias_joined': sum(bool(m['aliases_used']) for m in matches_out),
     }
@@ -1344,6 +1388,15 @@ def run(output: Path, *, live: bool = False) -> dict:
             flags.append({'id': 'start-time-' + m['id'], 'severity': 'notice',
                           'title': 'Provider start-time disagreement', 'detail': note,
                           'match_ids': [m['id']], 'source_urls': [m['source_url']]})
+    reference_ids = [m['id'] for m in matches_out if (m['origination'] or {}).get('method') == 'reference']
+    if reference_ids:
+        flags.append({'id': 'aggregated-reference-lines', 'severity': 'notice',
+                      'title': 'Aggregated third-party bookmaker averages used for otherwise unpriced fixtures',
+                      'detail': 'These fixtures had no usable Polymarket, Kalshi, Thunderpick, Bovada or Valve-rating input. '
+                                'Their estimates replay a dated EGamersWorld published bookmaker-average sentence (hash-checked) and are labelled '
+                                'as an aggregation, not a first-party bookmaker quote. Confirm the live price before relying on one. '
+                                'Identical prices and contradictory observations were rejected and the affected fixtures stay unresolved.',
+                      'match_ids': reference_ids, 'source_urls': [REFERENCE_INDEX]})
     thin = [m['id'] for m in matches_out if any(q.get('thin') for q in (m['origination'] or {}).get('quotes', []) if isinstance(q, dict))]
     if thin:
         flags.append({'id': 'thin-markets', 'severity': 'notice',
@@ -1372,9 +1425,12 @@ def run(output: Path, *, live: bool = False) -> dict:
             'max_accepted_spread': MAX_ACCEPTED_SPREAD,
             'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias Kalshi CS2 match-winner books',
                        'verified-alias esportsbook paired prices (Thunderpick, Bovada; no-vig)',
-                       'median consensus across independent money providers', 'Valve-rating research model fallback',
+                       'median consensus across independent money providers',
+                       'reviewed aggregated bookmaker average (EGamersWorld; labelled third-party aggregate, never overrides a first-party price)',
+                       'Valve-rating research model fallback',
                        'blank + flagged'],
             'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada'],
+            'aggregated_reference': ['EGamersWorld published bookmaker average (manual, dated, hash-checked capture)'],
         },
         'matches': matches_out,
         'unresolved_ids': unresolved,
@@ -1386,6 +1442,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             {'name': 'Thunderpick esportsbook', 'url': THUNDERPICK_PAGE, 'api_url': THUNDERPICK_API, 'role': 'original paired prematch prices (money source)'},
             {'name': 'Bovada esportsbook', 'url': BOVADA_SITE, 'api_url': BOVADA_API, 'role': 'original paired prematch series moneylines (money source)'},
             {'name': 'HLTV.org', 'url': HLTV_EVENT, 'role': 'identity research and published ranks; fan votes never a probability input'},
+            {'name': 'EGamersWorld aggregated bookmaker average', 'url': REFERENCE_INDEX,
+             'role': 'dated third-party bookmaker-average fallback for otherwise unpriced fixtures; never overrides a first-party price'},
             {'name': 'Valve official standings', 'url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'), 'role': 'uncalibrated research-model fallback only'},
         ],
         'alias_registry': registry,

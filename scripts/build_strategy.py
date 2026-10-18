@@ -32,7 +32,8 @@ MALTA = ZoneInfo('Europe/Malta')
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
 MONEY = {'market', 'bookmaker', 'consensus'}
-METHOD_LABEL = {'market': 'Prediction market', 'bookmaker': 'Bookmaker line', 'consensus': 'Median of money sources', 'model': 'Research model (uncalibrated)'}
+METHOD_LABEL = {'market': 'Prediction market', 'bookmaker': 'Bookmaker line', 'consensus': 'Median of money sources',
+                'reference': 'Aggregated bookmaker average (third-party)', 'model': 'Research model (uncalibrated)'}
 RESEARCH_DIR = 'research/1112299f'
 
 
@@ -247,7 +248,7 @@ def plan(inputs: dict, now: datetime) -> dict:
         if m.get('availability') != 'open' or not locks or not starts or locks > starts:
             blockers.append('open status and a valid future lock/start are not confirmed')
         if not money:
-            blockers.append('model-only line')
+            blockers.append('aggregated line, not a first-party money line' if method == 'reference' else 'model-only line')
         if not fresh:
             blockers.append('line older than 8 hours')
         if fav is None:

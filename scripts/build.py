@@ -117,9 +117,11 @@ def evidence(m, prefix, fallback=None):
                 facts.append(f'bid/ask {bid[0]:.3f}/{ask[0]:.3f} vs {bid[1]:.3f}/{ask[1]:.3f}')
             if not facts:
                 facts.append('price observation recorded in the saved evidence')
+            ident = (f'Retained sentence SHA-256: <code>{e(q.get("excerpt_sha256"))}</code>. '
+                     if q.get('family') == 'reference' else
+                     f'Original event ID: <strong>{e(q.get("event_id") or "unverified")}</strong>. ')
             body += (f'<p>{e(q.get("provider") or "Provider")} ({e(q.get("family") or "source")}): '
-                     + ' · '.join(facts)
-                     + f'. Original event ID: <strong>{e(q.get("event_id") or "unverified")}</strong>. '
+                     + ' · '.join(facts) + '. ' + ident
                      + external(q.get('source_url') or o['source_url'], (q.get('provider') or 'Provider') + ' record') + '</p>')
         for r in o.get('inputs') or []:
             body += (f'<p class="tiny">Valve rating input: <strong>{e(r["name"])}</strong> {e(r["points"])} points, '
@@ -196,10 +198,10 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
         if researched:
             out += badge('Researched fallback', 'purple')
         else:
-            out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'model': 'Research model', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'model': 'purple', 'unresolved': 'amber'}[method])
+            out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Bookmaker API')
+            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Bookmaker API')
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -214,7 +216,7 @@ def selected_fallback(m, fallbacks):
         return None
     a = m.get('analysis')
     if a is None or (a.get('method') == 'model' and row.get('upgraded_from_featured_model')
-                     and row['origination']['method'] in {'market', 'bookmaker', 'consensus'}):
+                     and row['origination']['method'] in {'market', 'bookmaker', 'consensus', 'reference'}):
         return row
     return None
 
@@ -357,7 +359,7 @@ def glance(data, prefix):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Bookmaker')
+            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Bookmaker')
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
@@ -398,7 +400,7 @@ def summary(data, prefix):
     cc = complete['counts'] if complete else None
     total = cc['active'] if cc else c['upcoming']
     resolved = cc['resolved'] if cc else c['upcoming'] - c['unresolved']
-    money = cc['market'] + cc['bookmaker'] + cc['consensus'] if cc else c['market'] + c['bookmaker']
+    money = (cc['market'] + cc['bookmaker'] + cc['consensus'] + cc.get('reference', 0)) if cc else (c['market'] + c['bookmaker'] + c.get('reference', 0))
     models = cc['model'] if cc else c['model']
     unresolved = cc['unresolved'] if cc else c['unresolved']
     p = round(100 * resolved / total) if total else 0
@@ -434,7 +436,7 @@ def summary(data, prefix):
         out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
                 f'<p><a href="{prefix}edge/#day-five-card"><strong>Day-5 final-day picks (Sun 18 Oct) →</strong></a> '
                 f'<a href="{prefix}edge/#day-five-guidance">Days 1–4 reviewed → final-day strategy →</a> '
-                f'<a href="{prefix}edge/#day-five-market-scan">Why the final-day money lines are still blank →</a></p>'
+                f'<a href="{prefix}edge/#day-five-market-scan">Final-day prices, sources &amp; rejected lines →</a></p>'
                 f'<p>{confirmed} playoff fixture(s) {inventory_scope}; {unresolved4} without a supported estimate. '
                 f'{pending} HLTV listing(s) not uniquely matched to that inventory. Unconfirmed opponents, lock times and prices stay blank; '
                 'a tournament listing is not silently treated as a weekly lobby fixture. '
@@ -534,14 +536,14 @@ def picks(data, prefix):
     active = [m for m in data['matches'] if m['availability'] != 'past']
     basis = [effective_basis(m, fallbacks) for m in active]
     shown = {'all': len(active),
-             'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker', 'consensus')),
+             'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker', 'consensus', 'reference')),
              'model': sum(1 for b, _ in basis if b == 'model'),
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
     with_pick = shown['all'] - shown['unresolved']
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
     out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
-            f'{c["market"] + c["bookmaker"]} come from the featured exact-name market or bookmaker method'
+            f'{c["market"] + c["bookmaker"] + c.get("reference", 0)} come from an external market, esportsbook or aggregated bookmaker line'
             + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
             + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
             f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
@@ -564,7 +566,7 @@ def picks(data, prefix):
 def coverage(data, prefix):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
-    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">First-party checks</p><h2>Source health</h2></div><a class="internal-link" href="' + prefix + 'data/sources.json">Request manifest ↓</a></div><div class="table-scroll"><table class="simple-table source-table"><caption class="sr-only">Latest source attempts, outcomes and limitations</caption><thead><tr><th>Original source</th><th>Status / observed</th><th>What was actually confirmed</th></tr></thead><tbody>'
     for s in data['sources']:
         out += '<tr><th scope="row">' + external(s['url'], s['name']) + '</th><td>' + badge('Available' if s['status'] == 'ok' else 'Limited / unavailable', 'green' if s['status'] == 'ok' else 'amber') + '<small>' + local_time(s['observed_at']) + '</small></td><td>' + e(s['detail']) + (f'<small>{s["records"]} structured records</small>' if s['records'] is not None else '') + '</td></tr>'
