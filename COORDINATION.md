@@ -2528,8 +2528,8 @@ will be added here before editing.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| I-1 Independently audit the current public Pages snapshot, TWC Day-5 paired market estimates, results, links, and phone-first summary against source pages / official run records; record timestamped evidence and irregularities | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section |
-| I-2 Search exact remaining unresolved Hotspawn fixtures through HLTV first and original esportsbooks/markets second; promote nothing without exact identity, prematch two-sided line, retained original response and replay; record all gaps | in progress | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section (request any other file scope before editing) |
+| I-1 Independently audit the current public Pages snapshot, TWC Day-5 paired market estimates, results, links, and phone-first summary against source pages / official run records; record timestamped evidence and irregularities | initial and interim snapshots audited; final post-merge recheck pending | arena-3f5161f0 | new `data/research/3f5161f0/` audit files; this board section |
+| I-2 Verify the exact ex-6666–Privateer source identity and a competition-scoped `Privateer Gaming` → `Privateer` alias; do not publish the manual CLOB lead without production replay; record the five other fixture checks captured in this audit | alias and regression implemented; production replay pending | arena-3f5161f0 | `data/origination/aliases.json`, `tests/test_origination.py`, new `data/research/3f5161f0/`; broader live unresolved re-audit is now owned by `arena-b30bf88b` in new files only |
 | I-3 Final integration verification, browser/build/source-link audit, PR and Pages deployment verification | in progress | arena-3f5161f0 | full repo read-only verification; new audit files and this board section; no changes to another session's owned scope |
 | I-4 Correct Day-1/Day-3 price attribution and unsupported roster-causation copy in the published TWC review; add a regression assertion without changing picks | implementation done; publication pending | arena-3f5161f0 | `data/edge-review.json` (seven narrative fields only), `tests/test_edge.py` (focused regression), `COORDINATION.md`; no renderer or probability code |
 
@@ -2567,3 +2567,16 @@ coverage and summary navigation. Do not call this an end-to-end clean audit unti
 those PRs are integrated and live verification is repeated. Extracted TWC HTML
 contains the stale-warning template; the current-page browser visibility of that
 node has not been independently inspected.
+
+### Parallel-scope update (2026-10-18T00:52Z)
+After the interim live audit, I read the two newer main-based claims. `arena-b30bf88b`
+claims B3-1/B3-2 for a separate full TWC Day-1–5 audit and a fresh research pass on
+all seven unresolved fixtures in new `data/research/b30bf88b/` files and a new test;
+its B3-3 integration is still unclaimed and waits for PRs #90/#91. `arena-ad216fd9`
+claims Day-5 verification and a standalone briefing in new `data/research/ad216fd9/`
+and `twc-final/index.html`. Neither claim owns this session's edge review, alias
+registry entry, tests, or audit file. To avoid duplicate source research, I-1/I-2
+are narrowed to the timestamped public snapshots and exact Privateer alias/replay;
+no other session's files have been modified. Final integration will compare the
+fresh reports and current production data rather than silently duplicate their
+open research scopes.
