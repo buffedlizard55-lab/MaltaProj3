@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "session": "arena-039c5a22",
+  "kind": "day5-pre-match-market-scan",
+  "observed_window_utc": "2026-10-18T00:56Z/2026-10-18T01:12Z",
+  "policy": "Dated first-party reads only. Hotspawn community percentages are not read and are never a probability. Prices are series-winner quotes; no map, prop or outright market is used. Normalization p_i = (1/o_i) / sum(1/o) for decimal equivalents; cent quotes normalized over the two outcomes. These are market-implied estimates, not guaranteed true probabilities. Prices move before the 11:30/15:00 UTC starts.",
+  "series": [
+    {
+      "fixture": "Aurora vs Falcons",
+      "context": "Thunderpick World Championship 2026, 3rd place decider, Bo3 (LAN)",
+      "starts_utc": "2026-10-18T11:30:00Z",
+      "hotspawn_fixture": "1080209",
+      "hltv_match_id": "2399416",
+      "observations": [
+        {
+          "provider": "Polymarket",
+          "market": "Series winner moneyline (cs2-aur1-fal2-2026-10-18)",
+          "quote": "aur1 40c / fal2 61c",
+          "normalized": {"Aurora": 0.396, "Falcons": 0.604},
+          "moneyline_volume_usd": 41200,
+          "event_volume_usd": 44130,
+          "observed_at": "2026-10-18T01:04Z",
+          "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-fal2-2026-10-18"
+        },
+        {
+          "provider": "Polymarket",
+          "market": "Event header (same page)",
+          "quote": "Team Falcons 61% / Aurora Gaming 40%",
+          "observed_at": "2026-10-18T01:04Z",
+          "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-fal2-2026-10-18"
+        },
+        {
+          "provider": "HLTV",
+          "market": "Fixture identity only (no price used)",
+          "quote": "Aurora vs Falcons, Best of 3 (LAN), 3rd place decider, 18 Oct, countdown 10h33m at 00:57Z",
+          "observed_at": "2026-10-18T00:57Z",
+          "source": "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026"
+        }
+      ],
+      "independent_estimate": {"Aurora": 0.396, "Falcons": 0.604},
+      "published_pipeline_estimate_at_0042Z": {"Aurora": 0.385, "Falcons": 0.615, "basis": "No-vig bookmaker estimate (Thunderpick), replayed in CI"},
+      "consistency": "agrees within cross-book spread; favourite identical",
+      "lock_utc": "2026-10-18T11:24:00Z",
+      "status_at_read": "open for picks"
+    },
+    {
+      "fixture": "FURIA vs BetBoom Team",
+      "context": "Thunderpick World Championship 2026, Grand final, Bo5 (LAN)",
+      "starts_utc": "2026-10-18T15:00:00Z",
+      "hotspawn_fixture": "1080210",
+      "hltv_match_id": "2399417",
+      "observations": [
+        {
+          "provider": "Polymarket",
+          "market": "Series winner moneyline (cs2-furia-bb3-2026-10-18)",
+          "quote": "furia 72c / bb3 29c",
+          "normalized": {"FURIA": 0.713, "BetBoom Team": 0.287},
+          "moneyline_volume_usd": 6100,
+          "event_volume_usd": 11610,
+          "observed_at": "2026-10-18T01:00Z",
+          "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18"
+        },
+        {
+          "provider": "Polymarket",
+          "market": "Event header (same page)",
+          "quote": "FURIA 72% / BetBoom Team 28%",
+          "observed_at": "2026-10-18T01:00Z",
+          "source": "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18"
+        },
+        {
+          "provider": "HLTV",
+          "market": "Fixture identity only (no price used)",
+          "quote": "FURIA vs BETBOOM, Best of 5 (LAN), Grand final, 18 Oct, countdown 14h08m at 01:00Z",
+          "observed_at": "2026-10-18T01:00Z",
+          "source": "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026"
+        }
+      ],
+      "independent_estimate": {"FURIA": 0.713, "BetBoom Team": 0.287},
+      "published_pipeline_estimate_at_0042Z": {"FURIA": 0.711, "BetBoom Team": 0.289, "basis": "Originated consensus line (median of independent money sources), replayed in CI"},
+      "consistency": "agrees to 0.2pp; favourite identical",
+      "lock_utc": "2026-10-18T14:54:00Z",
+      "status_at_read": "open for picks",
+      "caveat": "Polymarket moneyline volume ($6.1K) is thin versus the third-place market ($41.2K); treat this estimate as more fragile to movement before lock."
+    }
+  ],
+  "movement_since_prior_reads": {
+    "aurora_falcons": "ed853bdd recorded original Thunderpick 2.70/1.42 (34.5%/65.5%) at 2026-10-17T20:49Z; fe48a0df recorded Polymarket 61%/40% (60.5%/39.5%) at 2026-10-18T00:20Z; this read 61c/40c (60.4%/39.6%) at 01:04Z. Aurora has traded at 39-40% all night.",
+    "furia_betboom": "9b2a96e1 recorded no Day-5 book at 2026-10-17T20:38-20:44Z; fe48a0df recorded Polymarket 71%/30% (70.8%/29.2%) at 00:20Z; this read 72c/29c (71.3%/28.7%) at 01:00Z. The market opened overnight with FURIA near 71% and has held."
+  },
+  "not_read": [
+    "Thunderpick and Bovada direct pages this session (their saved originals are replayed in the CI pipeline).",
+    "Kalshi KXCS2GAME series book for these fixtures this session.",
+    "Any Hotspawn community pick percentage (never used)."
+  ]
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "id": "039c5a22-day5-lines-reverified",
+    "severity": "notice",
+    "title": "Day-5 series lines independently re-read at 01:00-01:04Z and agree with the published 00:42Z snapshot",
+    "detail": "Session arena-039c5a22 re-read both Day-5 Polymarket series pages directly (not from retained evidence): Aurora-Falcons moneyline 40c/61c (normalized 39.6%/60.4%, $41.2K moneyline volume) and FURIA-BetBoom 72c/29c (normalized 71.3%/28.7%, $6.1K). The published snapshot (Falcons 61.5%/Aurora 38.5% Thunderpick no-vig; FURIA 71.1%/BetBoom 28.9% consensus) agrees within cross-book spread. HLTV 2399416/2399417 confirm Bo3 third-place decider at 11:30 UTC and Bo5 grand final at 15:00 UTC. Both fixtures were open for picks at read time. Full record: data/research/039c5a22/day5-market-scan.json.",
+    "match_ids": ["1080209", "1080210"],
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-fal2-2026-10-18",
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18",
+      "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "039c5a22-thin-grand-final-book",
+    "severity": "notice",
+    "title": "Grand-final estimate rests on a thinner book than the third-place match",
+    "detail": "The FURIA-BetBoom Polymarket series moneyline carried about $6.1K of volume at 01:00Z versus $41.2K for Aurora-Falcons. The consensus method and its labels already disclose single/median sources, but the grand-final probability is more fragile to movement before the 14:54 UTC lock. Not a defect: a dated market characteristic, recorded so manual review can weigh it. No probability is adjusted for volume.",
+    "match_ids": ["1080210"],
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/"
+    ]
+  },
+  {
+    "id": "039c5a22-betboom-below-screen",
+    "severity": "notice",
+    "title": "BetBoom's Day-5 form case is real but stays below the 30% underdog screen - watch, not a pick",
+    "detail": "BETBOOM have won three straight series (PARIVISION 2-1, Legacy 2-1, Falcons 2-1) and the market re-rated them from roughly 21% (17 Oct labelled fallback) to 28.7-28.9% (01:00Z reads). Contrarian-but-not-stupid still refuses the upset play: the line is below the published 30% screen, it is a Bo5 against the defending champion who beat them 2-0 on Day 1, and the form case is already in the price. Recorded so the reasoning is reviewable, not as a hidden recommendation. See data/research/039c5a22/contrarian-review.json.",
+    "match_ids": ["1080210"],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+    ]
+  },
+  {
+    "id": "039c5a22-kyxsan-context-unquantified",
+    "severity": "notice",
+    "title": "kyxsan faces his former team Falcons in the third-place match - verified history, unverified effect",
+    "detail": "HLTV's 8 July 2026 rebuild report (verified re-read 01:03Z) records that Aurora IGL kyxsan led Falcons from January 2025 until he was benched for karrigan in April 2026. This is a plausible motivation storyline for the 11:30 UTC decider and nothing more: no roster, revenge, rest or onboarding premium is applied to any price. The same report dates the whole rebuild (kyxsan, Jimpphat, coach ash) to July, not tournament week, so it cannot support a last-minute onboarding discount either.",
+    "match_ids": ["1080209"],
+    "source_urls": [
+      "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+      "https://www.hltv.org/news/44652/kyxsan-on-falcons-removal-i-do-think-its-unfair-to-me-we-were-promised-time"
+    ]
+  },
+  {
+    "id": "039c5a22-day1-upset-mean-reverted",
+    "severity": "notice",
+    "title": "Days 1-4 verification: the 9z-Aurora upset did not persist and should not be generalized into fading favourites",
+    "detail": "Independent HLTV re-reads confirm 9z 2-0 Aurora on 14 Oct (Inferno 13-11, Nuke 13-1), then Aurora 2-0 9z on 16 Oct (Cache 13-11, Inferno 13-4) in the rematch, plus Falcons 1-2 BETBOOM and FURIA 2-0 Aurora on 17 Oct with the exact published map scores. The correct contrarian reading of the week is selective: one deliberate underdog (Aurora, money-backed and >=30%) rather than a pattern of upsets. Full day-by-day record: data/research/039c5a22/contrarian-review.json.",
+    "match_ids": ["1080209", "1080210"],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026",
+      "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026"
+    ]
+  },
+  {
+    "id": "039c5a22-blank-fixtures-owned-elsewhere",
+    "severity": "warning",
+    "title": "Seven weekly fixtures remain blank; three closers and the blank-fixture research are claimed by concurrent sessions",
+    "detail": "At the 00:42Z snapshot the complete list still shows 7 unresolved fixtures (including NEXVOID-Off Chops 1081519, which locks 02:54 UTC today - time-sensitive). Independent review of the published resolution trails confirms they fail closed correctly (e.g. VOID Autumn Cup: Kalshi spread 0.90 rejected, EGamersWorld 1.8/1.8 placeholder rejected, ambiguous Valve name). Closing the remaining blanks is owned: arena-fe48a0df (PR #90, three blanks) and arena-ad216fd9 (AD-2, per-fixture research). This session verified the trails and flagged the lock timing; it did not duplicate the resolution work.",
+    "match_ids": ["1081519", "1081129", "1082206", "1082207", "1079181", "1081861", "1081863"],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct192300morlvg"
+    ]
+  },
+  {
+    "id": "039c5a22-hidden-stale-banner",
+    "severity": "notice",
+    "title": "Text extraction of the live pages shows the stale-warning banner even on a fresh snapshot - likely a hidden-node artifact",
+    "detail": "The live data/latest.json at 00:42:48Z is fresh (inventory_observed_at 00:42:36Z, inventory_crosscheck complete), yet markdown extraction of every page includes the 'Do not treat these as current picks' banner text. Repository notes record that extraction includes hidden nodes and that browser visibility is covered by the Playwright suite; a real-browser/phone check was not repeated in this session. If a human ever sees this banner on a fresh snapshot in a phone browser, that would be a real presentation defect worth escalating - current evidence points to an extraction artifact only.",
+    "match_ids": [],
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/039c5a22-maltaproj3/data/research/039c5a22/verification.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  }
+]

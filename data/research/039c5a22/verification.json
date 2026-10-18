@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "session": "arena-039c5a22",
+  "kind": "independent-line-verification",
+  "observed_window_utc": "2026-10-18T00:56Z/2026-10-18T01:15Z",
+  "method": "Every row below was re-read from its linked official page through a read-only page-fetch tool in this session (not from the repository's retained evidence and not from Hotspawn). A published value is marked verified only when an independent reading of the linked official source agrees with it within market movement; anything not re-read in this pass is explicitly scoped out, not silently trusted.",
+  "published_snapshot_referenced": {
+    "data": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "generated_at": "2026-10-18T00:42:48Z",
+    "inventory_observed_at": "2026-10-18T00:42:36Z",
+    "inventory_crosscheck": "complete",
+    "pages_read": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+    ]
+  },
+  "rows": [
+    {
+      "id": "twc-day5-aurora-falcons",
+      "published": "TwC Day-5 card: Falcons 61.5% / Aurora 38.5%, default pick Falcons, Bo3, 18 Oct 11:30 UTC (13:30 Malta), no-vig bookmaker estimate (Thunderpick), observed 00:42Z",
+      "independent_read": "HLTV 2399416: Aurora vs Falcons, Best of 3 (LAN), 3rd place decider, countdown 10h33m at 00:57Z (start 11:30 UTC). Polymarket cs2-aur1-fal2-2026-10-18 moneyline aur1 40c / fal2 61c (normalized 39.6%/60.4%), $41.2K moneyline volume, page states 3rd Place match scheduled 07:30 ET = 11:30 UTC.",
+      "verdict": "verified",
+      "notes": "Published 61.5/38.5 (Thunderpick no-vig) and independent Polymarket read 60.4/39.6 agree within cross-book spread and 80 minutes of market movement. Direction (Falcons favourite) confirmed by two independent books.",
+      "sources": [
+        "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+        "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-aur1-fal2-2026-10-18",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/"
+      ]
+    },
+    {
+      "id": "twc-day5-furia-betboom",
+      "published": "TwC Day-5 card: FURIA 71.1% / BetBoom 28.9%, default pick FURIA, Bo5, 18 Oct 15:00 UTC (17:00 Malta), originated consensus line, observed 00:42Z",
+      "independent_read": "HLTV 2399417: FURIA vs BETBOOM, Best of 5 (LAN), Grand final, countdown 14h08m at ~01:00Z (start 15:00 UTC). Polymarket cs2-furia-bb3-2026-10-18 series moneyline furia 72c / bb3 29c (normalized 71.3%/28.7%), $6.1K moneyline volume, page states Grand Final scheduled 11:00 ET = 15:00 UTC.",
+      "verdict": "verified",
+      "notes": "Published 71.1/28.9 and independent Polymarket read 71.3/28.7 agree to 0.2pp. Volume caveat recorded separately (flag 039c5a22-thin-grand-final-book).",
+      "sources": [
+        "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+        "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/"
+      ]
+    },
+    {
+      "id": "twc-day1-9z-aurora-upset",
+      "published": "Day-1 review: 9z 2-0 Aurora, the opening-round upset",
+      "independent_read": "HLTV 2399384: Match over, 9z 2-0 Aurora, Group A opening match, 14 Oct. Inferno 13-11 (8:4; 5:7), Nuke 13-1 (11:1; 2:0).",
+      "verdict": "verified",
+      "notes": "Series score and both map scores read directly from the HLTV match page at 00:58Z.",
+      "sources": [
+        "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "twc-day2-9z-falcons",
+      "published": "Day-2 context row: 9z vs Falcons 1-2",
+      "independent_read": "HLTV 2399409: Match over, 9z 1-2 Falcons, Group A winners' match, 15 Oct. Nuke 9-13 (4:8; 5:5), Mirage 13-8 (9:3; 4:5), Dust2 9-13 (4:8; 5:5).",
+      "verdict": "verified",
+      "notes": "Series score read directly at 01:05Z; map scores recorded here for manual review.",
+      "sources": [
+        "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "twc-day3-aurora-9z",
+      "published": "Day-3 context row: Aurora vs 9z 2-0",
+      "independent_read": "HLTV 2399412: Match over, Aurora 2-0 9z, Group A decider match, 16 Oct. Cache 13-11 (8:4; 5:7), Inferno 13-4 (9:3; 4:1).",
+      "verdict": "verified",
+      "notes": "Series score read directly at 01:05Z. This is the rematch the Day-1 review points to: the upset did not repeat.",
+      "sources": [
+        "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "twc-day4-furia-aurora",
+      "published": "Day-4 results table: FURIA 2-0 Aurora (Dust2 13-8, Inferno 13-10)",
+      "independent_read": "HLTV 2399414: Match over, FURIA 2-0 Aurora, Semi-final, 17 Oct. Dust2 13-8 (9:3; 4:5), Inferno 13-10 (8:4; 5:6).",
+      "verdict": "verified",
+      "notes": "Published map scores match the HLTV page exactly, read at 01:02Z.",
+      "sources": [
+        "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "twc-day4-falcons-betboom",
+      "published": "Day-4 results table: Falcons 1-2 BETBOOM (Anubis 13-5, Dust2 14-16, Mirage 7-13)",
+      "independent_read": "HLTV 2399415: Match over, Falcons 1-2 BETBOOM, Semi-final, 17 Oct. Anubis Falcons 13-5 (8:4; 5:1), Dust2 BETBOOM 16-14 OT (7:5; 5:7; 2:4), Mirage BETBOOM 13-7 (6:6; 1:7).",
+      "verdict": "verified",
+      "notes": "Published map scores match the HLTV page exactly (in Falcons' perspective), read at 01:02Z. The Dust2 overtime detail (2:4 in OT) is recorded here for manual review.",
+      "sources": [
+        "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "aurora-roster-july-rebuild",
+      "published": "Site context: 'The Aurora rebuild report is dated 8 July 2026, not tournament week' (HLTV transfer report, secondary)",
+      "independent_read": "HLTV news 45082 'Official: Aurora complete rebuild with kyxsan', dated 8-7-2026 09:00. kyxsan signed from Falcons (whom he led Jan 2025-Apr 2026 before being benched for karrigan); Jimpphat and coach ash added; MAJ3R, soulfly, Fabre replaced. Lineup: XANTARES, woxic, Wicadia, Jimpphat, kyxsan, ash (coach).",
+      "verdict": "verified",
+      "notes": "The July dating is confirmed. The report is secondary reporting; no onboarding/rest effect is quantified anywhere and none is inferred here.",
+      "sources": [
+        "https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan",
+        "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"
+      ]
+    },
+    {
+      "id": "weekly-upset-eyeballers-nemesis-row",
+      "published": "Strategy upset play: EYEBALLERS 35.8% over Nemesis, 3 pts, money-backed (Thunderpick), fixture 1081523, 18 Oct 16:00 Malta",
+      "independent_read": "Polymarket CS2 directory lists 'EYEBALLERS vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs' with quoted multipliers 2.56x/1.59x (implied approx. 39%/63%, normalized approx. 38.3%/61.7%), $6.03K event volume. Liquipedia PGL Bucharest 2027 Qualifier lists the same Lower Bracket Round 1 fixture at Oct 18 16:00 CEST.",
+      "verdict": "verified-links-consistent",
+      "notes": "Only the directory-level quote was re-read in this pass (full order book not re-read). The published Thunderpick-based 35.8% and the directory-implied approx. 38% agree in direction and sit within cross-book spread; both keep the row in the >=30% underdog screen. Fixture identity and start time confirmed by a second independent site (Liquipedia).",
+      "sources": [
+        "https://polymarket.com/esports/cs2",
+        "https://liquipedia.net/counterstrike/PGL/2027/Bucharest/Qualifier",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+      ]
+    },
+    {
+      "id": "weekly-upset-apogee-bbl-row",
+      "published": "Strategy upset play: Apogee Betclic 45.5% over BBL, 3 pts, fixture 1081546",
+      "independent_read": "Polymarket CS2 directory lists 'Betclic Apogee Esports vs BBL (BO3) - PGL Bucharest Closed Qualifier Playoffs' as an active event. Liquipedia confirms the PGL Bucharest 2027 Closed Qualifier playoff path (Betclic Apogee Esports 2-0 Team Nemesis on 17 Oct; BBL 2-0 EYEBALLERS on 16 Oct; ex-RUSTEC-BBL upper-bracket semifinal 17 Oct).",
+      "verdict": "verified-links",
+      "notes": "Market existence and both teams' verified playoff path confirmed from official pages; the 45.5% figure itself was not re-derived in this pass (kept as the published pipeline value, whose own evidence is replayed in CI). No value copied between sessions.",
+      "sources": [
+        "https://polymarket.com/esports/cs2",
+        "https://liquipedia.net/counterstrike/PGL/2027/Bucharest/Qualifier",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+      ]
+    },
+    {
+      "id": "unresolved-void-autumn-cup-pair",
+      "published": "Two VOID Autumn Cup fixtures (1081861 Lynn Vision-Morningstar, 1081863 Chinggis Warriors-WXM) remain blank after the full ladder",
+      "independent_read": "Published research trails on /strategy/ show: HLTV confirms both fixtures (2399576 Bo3, 2399578 Bo3); Kalshi book for 1081861 spread 0.90 (0.05/0.95 both sides) rejected; EGamersWorld pages rejected (1.8/1.8 placeholder; contradictory 1.01/15 listing observation); no Polymarket/Thunderpick/Bovada pair; Valve ratings missing or ambiguous (Chinggis Warriors name-ambiguous).",
+      "verdict": "verified-fail-closed",
+      "notes": "Independently agrees the blanks are correct behaviour: no compliant two-sided prematch price exists in the reviewed sources. Rows stay in the unresolved section with limitations; no 50/50 invented. Remaining research for these fixtures is owned by arena-ad216fd9 (AD-2); this session did not duplicate it.",
+      "sources": [
+        "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+        "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct192300morlvg",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+      ]
+    },
+    {
+      "id": "executive-summary-mobile-links",
+      "published": "Executive summary carries 'Picks at a glance', 'TWC final day - where the picks are' callout with three final-day entry points, and Unresolved & limitations links; strategy page carries the 4 current upset plays with expected-point costs",
+      "independent_read": "Read the live executive summary, twc-picks and strategy pages at 00:55-01:10Z. All listed in-site entry points (origination/#picks, origination/#unresolved, twc-picks/#day-five-picks, twc-picks/#day-four-results, twc-picks/#day-five-unresolved, edge/#day-five-card, edge/#day-five-guidance, edge/#day-five-market-scan, strategy/#tournament, review/) resolve as links from the summary. Phone widths (320/390px) are covered by the repository's Playwright suite; a device check on a real phone was not performed in this session and is not claimed.",
+      "verdict": "verified-links",
+      "notes": "One presentation artifact recorded (flag 039c5a22-hidden-stale-banner).",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+      ]
+    }
+  ],
+  "explicitly_not_re_read_in_this_pass": [
+    "Full Polymarket/Kalshi order-book replay for every weekly row (CI replays the saved first-party responses on each production run; this pass spot-checked two rows live).",
+    "The Thunderpick bookmaker API (runner evidence only; its saved originals are replayed in CI).",
+    "HLTV pages for the seven unresolved weekly fixtures beyond the two VOID fixtures (owned by arena-ad216fd9 AD-2).",
+    "Hotspawn lobby rendering and tournament pick'em field counts (last runner reads are recorded in the repository's retained evidence)."
+  ]
+}

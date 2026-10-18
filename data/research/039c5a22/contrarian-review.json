@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "session": "arena-039c5a22",
+  "kind": "days1-4-review-driven-day5-contrarian-brief",
+  "observed_at": "2026-10-18T01:15Z",
+  "question": "How can the leaderboard be climbed on the final day by picking contrarian but not stupid, after the Day-1 9z-Aurora upset, the Aurora roster change, and the Day 2-4 results?",
+  "principles": [
+    "Hotspawn '% picked' is never a probability (repository rule 2). It may only inform leverage: an underdog the field is already on cannot move you past anyone (strategy rule).",
+    "No roster, rest, onboarding or momentum premium is ever added to a market price. Context below is dated, sourced and explicitly unquantified.",
+    "A completed series is context, not a retroactive correction of the prematch probability. A losing favourite does not by itself prove the line was wrong.",
+    "An upset play requires all of: money-backed line <8h old, underdog >=30% in our own probability, 3+ Hotspawn points on the line, field not already on the underdog (10+ pickers on record), and at most 2 plays per UTC day."
+  ],
+  "days_1_to_4_verified_results": [
+    {"day": 1, "date": "2026-10-14", "series": "9z 2-0 Aurora", "maps": "Inferno 13-11, Nuke 13-1", "source": "https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026", "read_at": "2026-10-18T00:58Z"},
+    {"day": 2, "date": "2026-10-15", "series": "9z 1-2 Falcons", "maps": "Nuke 9-13, Mirage 13-8, Dust2 9-13", "source": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026", "read_at": "2026-10-18T01:05Z"},
+    {"day": 3, "date": "2026-10-16", "series": "Aurora 2-0 9z", "maps": "Cache 13-11, Inferno 13-4", "source": "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026", "read_at": "2026-10-18T01:05Z"},
+    {"day": 4, "date": "2026-10-17", "series": "FURIA 2-0 Aurora", "maps": "Dust2 13-8, Inferno 13-10", "source": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026", "read_at": "2026-10-18T01:02Z"},
+    {"day": 4, "date": "2026-10-17", "series": "Falcons 1-2 BETBOOM", "maps": "Anubis 13-5, Dust2 14-16 (OT), Mirage 7-13", "source": "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026", "read_at": "2026-10-18T01:02Z"}
+  ],
+  "what_the_four_days_imply": [
+    {
+      "lesson": "The Day-1 9z upset was real but did not persist: Aurora beat 9z 2-0 in the Day-3 rematch and beat NIP 2-0 in between. Do not fade a team for the rest of the event on one upset, and do not chase the underdog side of that matchup after the market has re-rated.",
+      "evidence": ["https://www.hltv.org/matches/2399384/9z-vs-aurora-thunderpick-world-championship-2026", "https://www.hltv.org/matches/2399412/aurora-vs-9z-thunderpick-world-championship-2026"]
+    },
+    {
+      "lesson": "BETBOOM are the form story of the week (three straight series wins: PARIVISION 2-1, Legacy 2-1, Falcons 2-1 after a 0-2 opening loss to FURIA). The market has already re-rated them: they sat near 21% in the labelled fallback estimates on 17 Oct and trade near 28.7-28.9% now. At 28.9% they are below the 30% underdog screen, so they are a watch, not a forced contrarian pick - especially in a Bo5 against the defending champion who beat them 2-0 on Day 1.",
+      "evidence": ["https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026", "https://www.hltv.org/matches/2399387/furia-vs-betboom-thunderpick-world-championship-2026", "https://polymarket.com/esports/cs2/thunderpick-world-championship/cs2-furia-bb3-2026-10-18"]
+    },
+    {
+      "lesson": "Falcons' semifinal loss came on the margins (won Anubis 13-5, lost Dust2 in overtime 14-16, then lost Mirage). That is not evidence the third-place line is wrong; it is the kind of variance the price already contains.",
+      "evidence": ["https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026"]
+    },
+    {
+      "lesson": "Aurora's roster change (summer rebuild with kyxsan IGL, Jimpphat, coach ash - dated 8 July 2026) is verified context, not a quantified onboarding disadvantage in tournament week. It is three months old and the roster has since posted top finishes (second at StarSeries Fall, third at ESL Pro League 24 per dated previews). No percentage is attached to it. The one storyline with a verified factual basis: kyxsan was benched by Falcons in April 2026 and now leads Aurora against them - motivation is plausible but unmeasured.",
+      "evidence": ["https://www.hltv.org/news/45082/official-aurora-complete-rebuild-with-kyxsan", "https://www.hltv.org/news/44652/kyxsan-on-falcons-removal-i-do-think-its-unfair-to-me-we-were-promised-time"]
+    },
+    {
+      "lesson": "Rest: both Day-5 teams played their semifinal on 17 Oct; scheduled starts do not establish actual finish times or recovery. No rest edge is claimed for either fixture.",
+      "evidence": ["https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026", "https://www.hltv.org/matches/2399415/falcons-vs-betboom-thunderpick-world-championship-2026"]
+    }
+  ],
+  "day5_plan_contrarian_not_stupid": {
+    "defaults": [
+      {"fixture": "Falcons vs Aurora (Bo3, 11:30 UTC)", "pick": "Falcons", "probability": "61.5% published (60.4% independent Polymarket read)", "source": "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/"},
+      {"fixture": "FURIA vs BetBoom (Bo5, 15:00 UTC)", "pick": "FURIA", "probability": "71.1% published (71.3% independent Polymarket read)", "source": "https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/"}
+    ],
+    "the_one_deliberate_upset_play": {
+      "pick": "Aurora over Falcons",
+      "why_it_qualifies": "Money-backed (Polymarket 40c / Thunderpick no-vig), our probability 38.5-39.6% >= 30% screen, the weekly Hotspawn fixture carries 7 points (and the TWC pick'em pays 7 for the team), and the field signal is unknown (too few pickers on record) so no anti-leverage block applies.",
+      "expected_cost": "approx. 1.6 expected points against taking Falcons on the weekly slate (published strategy card); the upside is variance plus a 7-point team slip on the tournament card.",
+      "why_not_more": "At most one deliberate underdog on the card. The 30% screen and money-backed requirements exist precisely to stop a Day-1 upset from being generalized into fading favourites.",
+      "source": "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+    },
+    "explicitly_not_an_upset_play": {
+      "pick": "BetBoom over FURIA",
+      "why": "28.7-28.9% is below the 30% screen; Bo5 reduces underdog variance versus Bo3; FURIA beat them 2-0 on Day 1 and is the defending champion. Form arguments are already reflected in the move from ~21% to ~29%. Contrarian but not stupid means leaving this as a watch.",
+      "source": "https://buffedlizard55-lab.github.io/MaltaProj3/strategy/"
+    },
+    "score_slip_note": "The TWC pick'em pays 5 extra for the exact series score. Score slips are the site's own labelled model (per-map chance solved from the series price), published only where a verified Bo3 base rate exists; the Bo5 grand final publishes no score slip. This session adds no score estimate.",
+    "caveats": [
+      "We do not know your leaderboard deficit or other players' entries; nothing here maximizes a guaranteed rank.",
+      "Prices can move before the 11:24/14:54 UTC locks; re-check the dated snapshot on the picks pages.",
+      "Tournament fixture lock/entry state on Hotspawn is separate from these lines and is flagged wherever unverified."
+    ]
+  }
+}
