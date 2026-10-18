@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-16T20:15:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added.",
+  "updated_at": "2026-10-18T00:35:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added. Extended by arena-fe48a0df (2026-10-18): one scoped, evidence-linked identity join (Valve table name 6666 to Hotspawn/HLTV ex-6666) with a review note recording the 4-of-5 roster overlap.",
   "aliases": [
     {
       "alias": "WBT",
@@ -466,6 +466,33 @@
         }
       ],
       "review_note": "Display-name expansion (\"eSports\" suffix) only."
+    },
+    {
+      "alias": "6666",
+      "canonical": "ex-6666",
+      "kind": "organization rename",
+      "applies_to": [
+        "CCT Europe 2026 Challengers #8"
+      ],
+      "competition_note": "CCT 2026 Challengers Europe Series 8 (HLTV event 9453), Hotspawn fixture 1081521 / HLTV match 2399681.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official regional standings",
+          "detail": "Valve's 2026-10-05 global table lists team '6666' at standing 127 with 923 points and the five-player roster amster, dENZY, kL1o, rendysky, skcH. The Europe table lists the same row at standing 93."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-6666' vs 'Privateer' in CCT 2026 Challengers Europe Series 8 on 18 Oct 2026 at 09:45 (13:45 UTC), the exact Hotspawn fixture 1081521 slot. HLTV's published lineup is skcH, kL1o, amster, rendysky, stefienson."
+        },
+        {
+          "url": "https://www.hltv.org/team/14100/ex-6666",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team id 14100 is named 'ex-6666' (Ukraine). Four of the five players in Valve's '6666' rating row (skcH, kL1o, amster, rendysky) are also in HLTV's current ex-6666 lineup."
+        }
+      ],
+      "review_note": "Flagged 2026-10-18 (session arena-fe48a0df): this is a 4-of-5 roster overlap, not an exact five-player match. Valve's 2026-10-05 snapshot lists dENZY, while HLTV listed stefienson on 2026-10-18, so the joined 923-point rating is a historical team rating rather than a current-lineup rating. The alias is scoped to this competition and feeds only the labelled, uncalibrated Valve model; it never joins a betting price or overrides a money line. Manual review requested."
     }
   ]
 }

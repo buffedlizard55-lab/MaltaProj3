@@ -103,10 +103,21 @@ class ProofTests(unittest.TestCase):
         self.assertEqual(quote['inputs'][0]['standing'], 100)
         self.assertEqual(quote['lineup_disambiguation'][0]['source_url'], URL)
         self.assertGreater(quote['probabilities'][0], 0.5)
+        # One changed player leaves a unique four-of-five core. That is a
+        # documented roster-change identity join, explicitly flagged, not a
+        # silent exact-five match.
         partial = copy.deepcopy(ratings); partial[1]['roster'][0] = 'substitute'
-        self.assertIsNone(originate.model_estimate(match(), partial, registry(), meta, NOW, lineup=self.proof())[0])
+        near, _ = originate.model_estimate(match(), partial, registry(), meta, NOW, lineup=self.proof())
+        self.assertIsNotNone(near)
+        self.assertEqual(near['inputs'][0]['standing'], 100)
+        self.assertEqual(near['lineup_disambiguation'][0]['overlap'], 4)
+        self.assertTrue(near['lineup_disambiguation'][0]['roster_change'])
+        # Two different rows within four of five stay ambiguous and fail closed.
         ratings.append(copy.deepcopy(ratings[1]))
         self.assertIsNone(originate.model_estimate(match(), ratings, registry(), meta, NOW, lineup=self.proof())[0])
+        # Three of five is never an automated identity proof.
+        weak = copy.deepcopy(ratings[:2]); weak[1]['roster'] = ['a1', 'a2', 'a3', 'old4', 'old5']
+        self.assertIsNone(originate.model_estimate(match(), weak, registry(), meta, NOW, lineup=self.proof())[0])
 
 
 class OriginalSourceReplayTests(unittest.TestCase):
@@ -138,15 +149,25 @@ class OriginalSourceReplayTests(unittest.TestCase):
             self.assertEqual(facts['best_of'], 3)
             self.assertFalse(facts['finished']); self.assertIsNone(facts['score'])
 
-    def test_two_new_resolutions_and_four_player_overlaps_are_not_equivalent(self):
+    def test_exact_and_unique_four_of_five_cores_resolve_and_stay_labeled(self):
         report = json.loads((RESEARCH / 'source-report.json').read_text())
         ratings, meta = originate.valve_rows(ROOT / 'data', None)
-        for mid, resolves in [('1081513', True), ('1081532', True), ('1079170', False), ('1081527', False)]:
+        # 1081513 and 1081532 have exact five-player rows. 1079170 (BET-M,
+        # Just Players) and 1081527 (aimclub) each have one unique four-of-five
+        # core and one unrelated same-name row, so they resolve as documented
+        # roster-change identity joins rather than staying blank.
+        for mid, resolves in [('1081513', True), ('1081532', True), ('1079170', True), ('1081527', True)]:
             page = next(p for p in report['pages'] if p['label'] == 'unresolved-' + mid)
             m = next(m for m in report['fixtures'] if m['id'] == mid)
             facts = parse_match(gzip.decompress((RESEARCH / page['original_response']).read_bytes()).decode())
             proof = {'fixture_id': mid, 'source_url': page['request']['url'], 'observed_at': page['request']['observed_at'],
                      'starts_at': facts['starts_at'], 'names': facts['teams'],
                      'rosters': {name_key(t['name']): t['roster'] for t in facts['lineups']}, 'evidence_file': 'research-only'}
-            q, _ = originate.model_estimate(m, ratings, registry(), meta, timestamp(page['request']['observed_at']), lineup=proof)
+            q, detail = originate.model_estimate(m, ratings, registry(), meta, timestamp(page['request']['observed_at']), lineup=proof)
             self.assertEqual(q is not None, resolves, mid)
+            if q:
+                for proof_row in q.get('lineup_disambiguation') or []:
+                    self.assertIn(proof_row['overlap'], (4, 5))
+                    if proof_row['overlap'] == 4:
+                        self.assertTrue(proof_row['roster_change'])
+                        self.assertIn('four-of-five', detail)

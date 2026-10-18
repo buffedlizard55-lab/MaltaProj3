@@ -95,12 +95,28 @@ def _card(fixture, record, line, state, scope, history):
 
 def summary(guide, prefix):
     c = guide['counts']
+    from scripts.build import e, local_time
+    # Surface the final-day lean in the executive summary, not only behind a tap.
+    # These fixtures are HLTV-listed rather than confirmed weekly Hotspawn slots,
+    # so the wording stays "snapshot lean" and never claims a confirmed entry.
+    leans = []
+    for row in guide.get('cards') or []:
+        analysis = row.get('analysis') or {}
+        probabilities = analysis.get('probabilities')
+        index = row.get('pick_index')
+        if not probabilities or index is None or not row.get('pick'):
+            continue
+        leans.append(f'{e(" vs ".join(row["teams"]))} → <strong>{e(row["pick"])} '
+                     f'{probabilities[index] * 100:.1f}%</strong>')
+    lean_line = (('<p class="small"><strong>Snapshot leans (not confirmed picks; Hotspawn entry and lock unverified):</strong> '
+                  + ' · '.join(leans) + '.</p>') if leans else '')
     return (f'<section class="limitations-callout" id="final-day-summary" aria-label="TWC final-day coverage">'
             '<strong>Day 5 · 18 October: final-day picks</strong>'
             f'<p>{c["listed"]} source-listed fixtures · {c["supported_estimates"]} supported estimates · '
             f'{c["current_picks"]} confirmed current weekly picks · {c["unresolved"]} unresolved lines · '
             f'{c["unverified_slots"]} unverified bracket slots. Tournament research is separate from weekly lobby coverage; '
             'a line does not confirm a Hotspawn entry or lock.</p>'
+            + lean_line +
             f'<p><a href="{prefix}twc-picks/#day-five-picks">Day 5 probabilities &amp; picks →</a> · '
             f'<a href="{prefix}twc-picks/#day-four-results">Day 4 results →</a> · '
             f'<a href="{prefix}twc-picks/#day-five-unresolved">Final-day unresolved picks &amp; limitations →</a></p></section>')
