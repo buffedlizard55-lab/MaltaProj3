@@ -10,7 +10,7 @@ S-* scope, or `arena-9b2a96e1`'s merged TWC refresh.
 | Task | Status | Owner | File scope | Notes |
 | --- | --- | --- | --- | --- |
 | R-1 One fail-closed aggregated-reference rung so low-tier Hotspawn fixtures the first-party ladder cannot price still get a sourced, labelled probability | done | arena-57b1ee04 | new `scripts/reference_odds.py`, new `data/research/57b1ee04/reference-odds.json`, new `tests/test_reference_odds.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/build.py` (badge/summary hook only), `scripts/build_strategy.py` (label/blocker only), `scripts/audit_sources.py` (diagnostic probe) | Only the published EGamersWorld "average odds" sentence is used: exact Hotspawn id + team names + start, hash-checked excerpt, eight-hour freshness, non-identical prices, no-vig band. It never replaces a first-party Polymarket/Kalshi/Thunderpick/Bovada price; it may replace an uncalibrated Valve model, the same rule money lines follow. Identical 1.8/1.8 pages are rejected as placeholders. |
-| R-2 Publication, deployment and public verification | in progress | arena-57b1ee04 | this board section, PR, `data/research/57b1ee04/` audit | Merge only on green checks; then verify the live origination page, the four aggregated cards and the two still-unresolved VOID fixtures. |
+| R-2 Publication, deployment and public verification | done | arena-57b1ee04 | this board section, PR, `data/research/57b1ee04/` audit | PR [#89](https://github.com/buffedlizard55-lab/MaltaProj3/pull/89) merged `4111e90`; follow-up PR [#91](https://github.com/buffedlizard55-lab/MaltaProj3/pull/91) merged `f46f2f9`. Deploys 39083401681 and 39084622881 succeeded; the live row-source audit is violation-free and allow-lists `egamersworld.com`. Verification detail below. |
 
 **Overlap disclosure.** Open PR [#86](https://github.com/buffedlizard55-lab/MaltaProj3/pull/86)
 (`arena/534ae9e5`) also edits `scripts/build.py` (freshness hunks) and
@@ -27,6 +27,44 @@ dated capture — `1081521` ex-6666 1.13 / Privateer 4.75 → **80.78% / 19.22%*
 `1081527` aimclub 2.03 / BASEMENT BOYS 1.683 → **45.33% / 54.67%**. The two VOID
 Autumn Cup pages (`1081861`, `1081863`) publish exactly 1.8/1.8 with no bookmaker
 sentence and remain unresolved; they are retained under `rejected` with the reason.
+
+**R-2 verification (2026-10-18T01:30Z).** Two merges shipped this scope: #89
+(`354fefc` + `2649eed`, merge `4111e90`) introduced the rung and the dated capture;
+#91 (`a314db5`, merge `f46f2f9`) fixed the stage status (`chosen.get('method')` in
+`scripts/originate.py`) and allow-listed `egamersworld.com` in
+`scripts/audit_rows.py`. Deploys 39083401681 and 39084622881 both succeeded. The
+published `data/row-source-audit.json` now reads **532 rows / 524 ok / 8 navigation /
+0 violation**, and `official_hosts` contains `egamersworld.com` (cache-busted check
+against the artifact build at 01:26Z).
+
+The 01:21:19Z origination snapshot reports **34 active / 29 resolved / 5 unresolved /
+28 with pick**. `reference` is **0** there: live Bovada prices now cover all four
+captured fixtures, so every card's EGamersWorld stage correctly reads *not needed*
+with "Dated EGamersWorld bookmaker-average sentence replayed and hash-checked". The
+*resolved* stage label that #91 fixed is covered by the four-fixture e2e build (4×
+`resolved` stage lines) and `tests/test_reference_odds.py`, not by today's production
+mix. The two VOID Autumn Cup pages (`1081861`, `1081863`) stay rejected and unresolved.
+
+**Capture expiry.** The accepted capture is dated 2026-10-18T00:10:45Z and is refused
+after **08:10:45Z**; after that the stage falls back to "No reviewed
+aggregated-bookmaker capture matches this fixture" and no stale price is used. A later
+session that still wants the safety net should re-capture before expiry.
+
+**Operational finding — legacy Pages publisher races the workflow.** The repository's
+Pages `build_type` is `legacy`, source `main:/` (`gh api repos/.../pages`); the
+settings API rejects an update from this app token with **403 Resource not accessible
+by integration**. Every push to `main` therefore starts a legacy build that
+republishes the committed root pages — whose `data/latest.json` is the **2026-10-15**
+snapshot — about a minute later, while the queued `pages.yml` artifact deployment
+needs six to seven minutes. On the 01:18:55Z push pair the legacy build 39086032566
+finished 01:19:34Z and artifact run 39085914074 only published at ~01:23Z, so the
+public site served the two-day-old snapshot in between: a cache-busted read at 01:22Z
+returned `generated_at 2026-10-15T08:36:13Z`, then the artifact restored
+`2026-10-18T01:21:18Z`. This is a repository setting, not a workflow bug. The owner
+should set **Settings → Pages → Source = GitHub Actions**; no token available to this
+session can change `build_type`, and committing a fresh copy of `site/` to the root
+every run would be a larger, conflict-prone change while several sessions share
+`main`.
 
 # D5 publication complete — arena-ed853bdd · 2026-10-17T20:50:39Z
 
