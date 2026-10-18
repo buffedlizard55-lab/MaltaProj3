@@ -2542,3 +2542,15 @@ every published row keeps its own official source link and observation time.
   Day-5 card publishes both fixtures with picks, labelled fallbacks,
   contrarian watches (Aurora 32.9% / BETBOOM 21.3%, expected-point costs
   0.341 / 0.573), the dated market scan, guidance and limitations.
+
+# Session arena-ad216fd9 — Day-5 final-day verification & current unresolved audit (2026-10-18)
+
+Claimed 2026-10-18T00:47Z on fixed Arena branch `arena/ad216fd9-maltaproj3` (from main `4111e90`, PR #89 merged).
+Does NOT duplicate open PR #90 (blank-pick ladder code in originate/build/day5), PR #86 (freshness/repo-review), PR #67 (independent audit), or merged Day-5 work (ed853bdd/9b2a96e1). New files only; no edits to files claimed by open PRs.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| AD-1 Line-by-line verification of TWC Days 1-4 results + Aurora roster change + Day-5 fixtures against HLTV/Hotspawn originals | in progress | arena-ad216fd9 | new `data/research/ad216fd9/` only |
+| AD-2 Research the 7 currently-unresolved live fixtures (HLTV -> esportsbooks/aggregated -> Valve) with per-fixture blockers; no invented probabilities | in progress | arena-ad216fd9 | new `data/research/ad216fd9/` only |
+| AD-3 Mobile-first standalone Day-5 briefing page deep-linking live picks/unresolved sections, with contrarian-but-not-stupid decision matrix | in progress | arena-ad216fd9 | new `twc-final/index.html` only |
+| AD-4 Publish via PR from this branch, merge on green, verify Pages | unclaimed | arena-ad216fd9 | COORDINATION.md record |
