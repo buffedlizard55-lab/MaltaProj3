@@ -2550,7 +2550,14 @@ Does NOT duplicate open PR #90 (blank-pick ladder code in originate/build/day5),
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| AD-1 Line-by-line verification of TWC Days 1-4 results + Aurora roster change + Day-5 fixtures against HLTV/Hotspawn originals | in progress | arena-ad216fd9 | new `data/research/ad216fd9/` only |
-| AD-2 Research the 7 currently-unresolved live fixtures (HLTV -> esportsbooks/aggregated -> Valve) with per-fixture blockers; no invented probabilities | in progress | arena-ad216fd9 | new `data/research/ad216fd9/` only |
-| AD-3 Mobile-first standalone Day-5 briefing page deep-linking live picks/unresolved sections, with contrarian-but-not-stupid decision matrix | in progress | arena-ad216fd9 | new `twc-final/index.html` only |
-| AD-4 Publish via PR from this branch, merge on green, verify Pages | unclaimed | arena-ad216fd9 | COORDINATION.md record |
+| AD-1 Line-by-line verification of TWC Days 1-4 results + Aurora roster change + Day-5 fixtures against HLTV/Hotspawn originals | done | arena-ad216fd9 | new `data/research/ad216fd9/` only |
+| AD-2 Research the 7 currently-unresolved live fixtures | done | arena-ad216fd9 | new `data/research/ad216fd9/` only |
+| AD-3 Mobile-first standalone Day-5 briefing page (staged; artifact wiring logged for integration) | done | arena-ad216fd9 | new `twc-final/index.html` only |
+| AD-4 Publish via PR, merge on green, verify Pages | in progress | arena-ad216fd9 | COORDINATION.md record |
+
+### AD completion record — arena-ad216fd9 (2026-10-18)
+- AD-1 done: Days 1-4 verified line-by-line against HLTV match pages 2399384-87/2399408-11/2399412-15 plus HLTV news 45718/45723/45736/45743/45746 cross-checks. Day-1 lesson confirmed with nuance: 9z's upset was map-specific (Nuke 13-1); Aurora removed Nuke and won the Day-3 rematch 2-0. Aurora rebuild verified as **8 July 2026** (HLTV 45082; kyxsan/Jimpphat/ash in, MAJ3R/soulfly/Fabre out) — NOT tournament-week; "fresh onboarding" previews are flagged irregular. kyxsan facing ex-team Falcons is sourced context only.
+- AD-2 done: all 7 live unresolved (1081519, 1081129, 1082206, 1082207, 1079181, 1081861, 1081863) re-researched HLTV -> EGamersWorld/books -> Valve. One audit-only aggregated estimate: Damajuana 53.3%/46.7% (EGW average-odds sentence 1.71/1.95, no-vig). NEXVOID-Off Chops was already played (HLTV 2399543) — correctly blank. EGW 1.8/1.8 placeholders rejected on 3 fixtures. Record: `data/research/ad216fd9/day5-final-audit.json` (deploys automatically via data/ copy; verified in local `scripts.build` output).
+- AD-3 done as staged page `twc-final/index.html` (mobile-first, deep-links canonical picks/unresolved/Day-5). **Integration request (do not edit claimed files here):** a future integration session should copy `twc-final/` into the Pages artifact in `scripts/build.py` (claimed by open PRs #86/#90 at claim time) or fold its content into `build_twc.py`. Until then the canonical mobile entry points remain `/`, `/origination/#picks`, `/twc-picks/#day-five-picks`, `/origination/#unresolved`.
+- AD-4: Day-5 defaults Falcons 61.5% (Thunderpick 1.50/2.40 no-vig) and FURIA 71.1% (consensus). Contrarian guidance: at most ONE underdog — BetBoom 28.9% (strongest same-event evidence: Day-4 reverse-sweep of Falcons) for separation, or Aurora 38.5% for hit-rate; both-underdogs and narrative probability adjustments rejected. Verification: 628 Python tests OK locally; `scripts.build` PASS (614 links, 390 rows, 0 source violations).
+- Flagged (non-blocking, on the staged page + audit JSON): live summary stale-banner text beside a minutes-old snapshot; Hotspawn vs HLTV competition naming differences; EGW placeholder-price trap.
