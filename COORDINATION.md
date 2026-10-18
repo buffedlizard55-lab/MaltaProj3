@@ -65,6 +65,107 @@ should set **Settings → Pages → Source = GitHub Actions**; no token availabl
 session can change `build_type`, and committing a fresh copy of `site/` to the root
 every run would be a larger, conflict-prone change while several sessions share
 `main`.
+# Session arena-534ae9e5 — final integration, publisher guard and repository review · 2026-10-17T21:40Z
+
+**Claim (recorded 2026-10-17T08:15Z, branch `arena/534ae9e5-maltaproj3`).** Four tasks:
+A-1 repair the blocked four-hour publisher; A-2 publish verified TWC Day 5; A-3 review the
+repository line by line; A-4 integrate, merge and confirm the Pages deployment.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A-1 Repair the blocked four-hour publisher: make the freshness decision injectable so the test cannot expire, and prove it with a guard that fails on a wall-clock dependency | done | arena-534ae9e5 | `scripts/build.py`, `scripts/build_origination.py`, `scripts/build_twc.py`, `tests/test_freshness_determinism.py` (new), `tests/test_summary.py` |
+| A-2 Publish verified TWC **Day 5** (2026-10-18) coverage | superseded by arena-ed853bdd | arena-534ae9e5 → arena-ed853bdd | `scripts/twc_research.py`, `scripts/build_twc.py`, `scripts/twc_lines.py`, `tests/test_twc_day5.py` (new) |
+| A-3 Review the repository line by line and publish every irregularity as a source-linked finding | done | arena-534ae9e5 | `data/research/534ae9e5/repo-review.json` (new), `scripts/review_register.py`, `scripts/build.py`, `tests/test_review_register.py` |
+| A-4 Final integration: merge, re-verify, publish to GitHub Pages, record the result | in progress | arena-534ae9e5 | `README.md`, `COORDINATION.md` |
+
+**Scope extensions, each recorded before the edit.** A-2 also claimed `scripts/verify_live.py`,
+`tests/test_verify_live.py`, `tests/test_twc.py` and `tests/browser/twc.spec.mjs`; A-3 also claimed
+`scripts/build.py` (register loading only) and `tests/test_review_register.py`. No other session held
+those files — every record above this one is a completion record, not an open claim.
+
+### A-1 DONE — the publisher can no longer expire
+
+**Root cause, reproduced locally before any change.** The scheduled runs
+[39038670350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39038670350),
+[39045650525](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39045650525),
+[39054246287](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39054246287) and
+[39058407711](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711) all failed
+at "Regression tests (repository fixtures, before any cache restore)"; the last successful scheduled
+run [39031549764](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764) completed
+at about 12:20Z. `scripts/build.py::shell` decided staleness with `datetime.now(timezone.utc)` against
+a fixture hard-coded to `2026-10-17T04:27:55Z`, so the eight-hour window closed at
+**2026-10-17T12:27:55Z** — the exact moment the successful run stopped. The regression tests run
+*before* the cache restore and before collection, so that one expired assertion froze the refresh.
+
+**Fix (no probability, source fact, alias, threshold or published row changed).** The reference time
+became an injected argument in `shell`, `matches_table`, `glance`, `summary`, `picks`, `coverage`,
+`scripts.build.build` and `scripts.build_twc.render`, and one build passes a single reference time to
+every page, so a page can never disagree with itself about freshness. Session `arena-ed853bdd`
+independently pinned the same assertion with a mocked clock; both forms coexist, and the injection
+adds what a mock cannot: the whole site can be rendered at a chosen instant.
+
+**Guard.** `tests/test_freshness_determinism.py` asserts the injection contract and re-runs the
+repository's time-sensitive test modules with the production clock **pinned to four absolute
+instants** that bracket the fixture which broke the publisher (`2026-10-16T12:00Z`,
+`2026-10-17T05:30Z`, `2026-10-17T13:00Z`, `2026-10-20T12:00Z`). The instants are absolute on purpose:
+a guard that shifted the clock relative to "now" would stop detecting the bomb once the real clock
+had moved past it — which is exactly when the bomb has already broken the publisher. The first draft
+of this guard used a relative shift, did **not** catch an already-expired bomb, and was corrected
+before it was committed.
+
+### A-2 SUPERSEDED — the final day is published by arena-ed853bdd
+
+This session implemented and tested a Day-5 view (`scripts/twc_research.py::derive_day5`,
+`scripts/build_twc.py::render_day5`, `tests/test_twc_day5.py`, 17 tests). Before it could be merged,
+session `arena-ed853bdd` published a stronger final-day implementation on `main`
+(`scripts/day5.py`, `scripts/twc_books.py`, `tests/test_day5.py`, `tests/test_twc_books.py`,
+`tests/browser/day5.spec.mjs`) with per-fixture public JSON/HTML parity checks and first-party
+Thunderpick/Bovada full-series lines, and deployed it successfully
+([39068042386](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39068042386)).
+
+**Decision.** The repository keeps **one** Day-5 renderer. `arena-ed853bdd`'s implementation is
+canonical because it is deployed, has stronger public-parity verification and carries a first-party
+line; this session's duplicate was dropped during integration rather than merged alongside it. The
+original work is preserved for audit on the archival branch
+`arena/534ae9e5-maltaproj3-preintegration` (commits `b4bf9df`, `4dc2f7d`, `23dff64`, `1bdf17d`).
+
+### A-3 DONE — the line-by-line repository review is published
+
+`data/research/534ae9e5/repo-review.json` holds eight reviewed items, each with https source links,
+rendered on the Flagged for Review page by `scripts/review_register.py`.
+
+| Item | Area | Status | Summary |
+| --- | --- | --- | --- |
+| 534-01 | publisher / regression gate | fixed | The expired wall-clock assertion that froze the four-hour refresh. |
+| 534-02 | tournament coverage | fixed | The final day of the tournament was published nowhere. |
+| 534-03 | workflow permissions | **needs review** | `.github/workflows/collect-preview.yml` still requests `contents: write` and commits to the finished session branch `arena/11c1fa20-maltaproj3`. It cannot reach `main` and publishes nothing, but it is a write-capable leftover. **Deliberately not changed** — removing a workflow is the owner's decision. |
+| 534-04 | documentation | fixed | The README's measured counts no longer matched the tree. |
+| 534-05 | archive separation | verified | `docs/` and `archive/root-session/` are banner-marked in the artifact; the retired root URLs redirect. |
+| 534-06 | exported data | verified | `data/picks.csv`: 80 rows, every row carries a Hotspawn source, every priced row carries an analysis source, unresolved rows stay blank. |
+| 534-07 | identity registry | verified | 17 aliases, all evidenced and competition-scoped. |
+| 534-08 | platform | platform limitation | GitHub Pages stays in legacy build mode (HTTP 403 on the setting change); the publisher orders the two steps itself. |
+
+**Defect found and fixed during integration.** Rendering a second register emitted the page-wide
+lineup-disambiguation block once per register, repeating its element ids and breaking the in-page
+anchors that point at them. The block is now rendered once for the page, and
+`tests/test_review_register.py` fails if any element id on the review page is repeated.
+
+### A-4 in progress — final integration
+
+**Verification on the integrated tree** (branch based on `main` at `d78c67f`): **618 Python tests pass**
+(390.8 s), **85 Playwright checks pass** (1.5 m, including the 390 px final-day check and the axe
+WCAG A/AA scans at phone and desktop widths), **106 pick-safety assertions pass**, `scripts.build`
+PASS (80 source rows replayed, 608 internal links/assets/anchors, 396 audited rows / 388 official /
+8 site-map / 0 violations), strict row-source audit PASS with 0 violations and no repeated element id
+on the review page. The PR, the merge and the actual Pages deployment are recorded below.
+
+**Verification limits for this session.** The sandbox reaches only `github.com`, `api.github.com`,
+`registry.npmjs.org`, `pypi.org` and `files.pythonhosted.org`. Hotspawn, HLTV, Polymarket, Kalshi and
+the published site are not directly reachable, so no live source fact is asserted from here. Every
+external fact in this session is replayed from the repository's retained **original** responses, and
+every unreachable fact stays unverified and is published as a limitation. The live inventory, prices
+and the final-day participants are re-collected by the scheduled publisher on the runner; this
+session does not claim what that run will find.
 
 # D5 publication complete — arena-ed853bdd · 2026-10-17T20:50:39Z
 
@@ -960,6 +1061,15 @@ on the pre-FI repair tree, so final Pages deployment and post-deploy verificatio
 3. Root-level `index.html`, `picks.html`, `methodology.html`, `flagged.html` are tracked **fallback** copies of an earlier build (the legacy Pages mode). `index.html` intentionally serves its own "do not treat these as current picks" warning. Not edited here — whoever owns that design should decide whether to refresh or retire them.
 4. GitHub Pages is still in **legacy build mode** (the workflow's `configure-pages` gets HTTP 403 without Administration permission). The publisher's wait-then-deploy ordering makes this a non-blocking platform restriction; README no longer asks the user for manual input.
 5. Unresolved doc claim from another session's register: **RR-03** lock-time mismatch (6 min in fixture data vs 5 min on Hotspawn's help page) is still open and belongs to whoever owns lock windows; not touched here.
+
+# Current session: arena-e2ce6ccb — independent verification audit (non-overlapping)
+
+Claimed 2026-10-17T01:05Z on fixed branch `arena/e2ce6ccb-maltaproj3`. Read board + main (PR #66 merged), open PR #65, and `arena-fa7ed344`'s FI-1..FI-3 claim (00:55Z, active). **No FI file is touched here.**
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| E2-1 Independent line-by-line verification + mobile executive-summary audit of merged main, with every gap logged as a dated research record | done | arena-e2ce6ccb | new `data/research/e2ce6ccb/` only | Read-only audit of code/data/live site; no builder, workflow, edge, twc or summary file edits. Requests for owned files are logged for fa7ed344, not edited. |
+| E2-2 After FI merges: re-verify combined data, confirm live Day-4 picks + unresolved section + phone layout, then open/merge own PR only for E2 records | needs review (blocked on FI, non-blocking) | arena-e2ce6ccb | `COORDINATION.md`, `data/research/e2ce6ccb/` | Blocked on fa7ed344 FI-3; does not block FI. If FI stalls >60 min with no commits, takeover will be logged here first. |
 
 # Current session: arena-138f48b7 — Day-4 TWC tournament-card lines and phone-first executive summary
 
@@ -2828,7 +2938,27 @@ records). Resolved keeping **both** sides verbatim; the two `flags.json` files i
 this change merged cleanly and no other session's text was discarded. This is
 logged rather than silently resolved, per protocol.
 
---strict` and `python -m scripts.pipeline_audit --source data` run before the PR.
+### Takeover integration of stalled PRs #86 and #67 — arena-039c5a22 (2026-10-18T02:55Z)
+Board takeover rule applied: `arena-534ae9e5` (PR #86) last committed ~3 h ago and
+`arena-e2ce6ccb` (PR #67) >24 h ago, both still OPEN and CONFLICTING with main
+after PRs #90/#91/#92/#93/#95/#96 landed. Both branches are merged **into this
+session's branch** with every side preserved:
+- PR #86 content: reference-time injection (`now=` through `shell`, `summary`,
+  `glance`, `matches_table`, `picks`, `coverage`, `build`), the second review
+  register (`scripts/review_register.py` multi-register + page-wide
+  lineup-disambiguation block rendered once), `data/research/534ae9e5/repo-review.json`,
+  `tests/test_freshness_determinism.py`, `tests/test_review_register.py`, and the
+  README/`build_origination.py` hunks (auto-merged with fe48a0df's changes).
+  The only manual conflict was `scripts/build.py`: main's `_brief_blank_reason`
+  helper + `summary(data, prefix)` signature vs their `now=None` parameter —
+  resolved by keeping **both** (helper and parameter).
+- PR #67 content: `data/research/e2ce6ccb/audit.json` (added cleanly) and their
+  board claim section (preserved verbatim at its original position; the file-top
+  conflict came from their older branch base and was resolved without discarding
+  either side).
+Their open PRs can be closed as superseded by this integration PR once it is
+green and merged; nothing they wrote is dropped. Full suite + build + strict row
+audit are re-run on the combined tree before that merge.
 
 ### Addendum 2026-10-18T02:01Z — PR #95 merged, deploy verified, and the flags made refresh-proof
 

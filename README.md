@@ -126,7 +126,7 @@ python -m scripts.audit_rows --site site --strict
 python -m scripts.lobby_probe --rounds 3 --out /tmp/probe.json  # read-only, public GETs only
 ```
 
-At the time of writing (2026-10-17) the integrated tree passes 496 Python tests, 72 Playwright checks and 106 independent pick-safety browser assertions (the leaderboard plan has its own spec at 320/390/768/1440 px with axe WCAG A/AA at phone and desktop widths, as do the Day-4/Day-5 review sections). `scripts.build` replays 80 source rows, validates 585 internal links/assets/anchors, and the strict row audit accepts 375 rows (367 official-source rows plus 8 site-map navigation rows, 0 violations). These counts move with every session — re-measure with `.venv/bin/python -m unittest discover -s tests`, `npm test`, `node tests/pick-safety-browser.mjs` and a `scripts.build` run rather than trusting this sentence. **Non-blocking platform restriction:** GitHub Pages remains in legacy mode because the workflow token gets HTTP 403 when attempting the repository setting change. The sole publisher detects that mode, waits for the platform build, and publishes the verified artifact afterward; no user input is required.
+At the time of writing (2026-10-17) the integrated tree passes 618 Python tests, 85 Playwright checks and 106 independent pick-safety browser assertions (the leaderboard plan has its own spec at 320/390/768/1440 px with axe WCAG A/AA at phone and desktop widths, as do the Day-4/Day-5 review sections). `scripts.build` replays 80 source rows, validates 608 internal links/assets/anchors, and the strict row audit accepts 396 rows (388 official-source rows plus 8 site-map navigation rows, 0 violations). These counts move with every session — re-measure with `.venv/bin/python -m unittest discover -s tests`, `npm test`, `node tests/pick-safety-browser.mjs` and a `scripts.build` run rather than trusting this sentence. **Non-blocking platform restriction:** GitHub Pages remains in legacy mode because the workflow token gets HTTP 403 when attempting the repository setting change. The sole publisher detects that mode, waits for the platform build, and publishes the verified artifact afterward; no user input is required.
 
 ## Preserved concurrent-session work
 
@@ -347,3 +347,62 @@ formula. Every response is saved and hash/origin/time checked at replay. This
 fallback never changes an existing canonical estimate; unsupported entries
 remain explicitly unresolved. Raw paired decimal odds are shown alongside
 supported final-day bookmaker estimates for manual review.
+
+## 17 October session arena-534ae9e5: make the publisher unable to expire again, and publish the repository review
+
+**The publisher failure was a single wall-clock assertion, and the fix had to outlast it.**
+The four scheduled runs
+[39038670350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39038670350),
+[39045650525](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39045650525),
+[39054246287](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39054246287) and
+[39058407711](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711) all failed
+at "Regression tests (repository fixtures, before any cache restore)", while the last successful
+scheduled run
+[39031549764](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764) completed at
+about 12:20Z. `scripts/build.py::shell` decided staleness with `datetime.now(timezone.utc)` against a
+fixture whose `inventory_observed_at` was hard-coded to `2026-10-17T04:27:55Z`, so the eight-hour
+window closed at **2026-10-17T12:27:55Z** — exactly when the successful run stopped. Because the
+regression tests run *before* the cache restore and before collection, one expired assertion froze
+the whole refresh.
+
+Pinning one test is not enough: the same wall clock is read in `matches_table`, `glance`, `summary`,
+`picks`, `coverage`, `scripts.build.build` and `scripts.build_twc.render`. All of them now take an
+explicit reference time, and **one build passes a single reference time to every page**, so a page
+can never disagree with itself about freshness and a test can pin the whole site to a known instant.
+
+`tests/test_freshness_determinism.py` makes that permanent. It asserts the injection contract, and
+re-runs the repository's time-sensitive test modules with the production clock **pinned to four
+absolute instants** that bracket the fixture that broke the publisher — before the observation,
+inside the eight-hour window, just after the window closed, and well after the tournament. The
+instants are absolute on purpose: a guard that shifted the clock relative to "now" would stop
+detecting the bomb once the real clock had moved past it, which is exactly when the bomb has
+already broken the publisher. The first draft of this guard used a relative shift, did not catch an
+already-expired bomb, and was corrected before it was committed.
+
+**A line-by-line repository review is published.** The
+[Flagged for Review page](https://buffedlizard55-lab.github.io/MaltaProj3/review/) now carries a
+second register, `data/research/534ae9e5/repo-review.json`, with eight reviewed items and an
+https source link for every one:
+
+| Item | Area | Status | Summary |
+| --- | --- | --- | --- |
+| 534-01 | publisher / regression gate | fixed | The expired wall-clock assertion that froze the four-hour refresh. |
+| 534-02 | tournament coverage | fixed | The final day of the tournament was published nowhere. |
+| 534-03 | workflow permissions | **needs review** | `.github/workflows/collect-preview.yml` still requests `contents: write` and commits to the finished session branch `arena/11c1fa20-maltaproj3`. It cannot reach `main` and publishes nothing, but it is a write-capable leftover. **Deliberately left unchanged** — removing a workflow is the owner's decision. |
+| 534-04 | documentation | fixed | The README's measured counts no longer matched the tree. |
+| 534-05 | archive separation | verified | `docs/` and `archive/root-session/` are banner-marked in the artifact and the retired root URLs redirect. |
+| 534-06 | exported data | verified | `data/picks.csv`: 80 rows, every row carries a Hotspawn source, every priced row carries an analysis source, unresolved rows stay blank. |
+| 534-07 | identity registry | verified | 17 aliases, all evidenced and competition-scoped. |
+| 534-08 | platform | platform limitation | GitHub Pages stays in legacy build mode (HTTP 403 on the setting change); the publisher orders the two steps itself. |
+
+Rendering more than one register exposed a defect that a single register could not show: the
+page-wide lineup-disambiguation block was emitted once per register, repeating its element ids and
+breaking the in-page anchors that point at them. It is now rendered once for the page, and
+`tests/test_review_register.py` fails if any element id is repeated.
+
+**Integration.** Session `arena-ed853bdd` published the final-day view (`scripts/day5.py`,
+`scripts/twc_books.py`) on `main` first, so that implementation stays canonical and this session
+added only what was missing: the reference-time injection, the guard, the second review register
+and the repeated-id fix. The board at
+[`COORDINATION.md`](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md)
+records the claim, the scope extensions, the completion evidence and the merge result.
