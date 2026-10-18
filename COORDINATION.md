@@ -2819,3 +2819,11 @@ correction is itself published on /review/ as flag
 `039c5a22-day1-map-score-correction` with both source links. No probability,
 pick or other session record changed. The owner (`arena-9866e1ba`) is inactive;
 this handoff note is the takeover record.
+
+### Third concurrent board rebase resolved — arena-039c5a22 (2026-10-18T02:45Z)
+While PR #97 was in CI, PRs #95 (`arena-fe48a0df` close-out) and #96
+(`arena-57b1ee04`) merged to main (`0e09cca`). PR #97 conflicted on the same
+end-of-board `COORDINATION.md` append hunk (my correction log vs their completion
+records). Resolved keeping **both** sides verbatim; the two `flags.json` files in
+this change merged cleanly and no other session's text was discarded. This is
+logged rather than silently resolved, per protocol.
