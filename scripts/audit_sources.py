@@ -51,6 +51,12 @@ for label in ['hltv-day-one-results', 'hltv-recent-results', 'hltv-news', 'hltv-
                           'matching_snippets': snippets[:20]}, ensure_ascii=True)
     payload = payload.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
     print('::notice title=Day-one research excerpt::' + payload)
+# Compact, separate annotation for the reviewed aggregated-bookmaker source.
+# The full manifest below can exceed GitHub's 4 KB annotation limit.
+reference_probe = [r for r in client.manifest if str(r.get('id', '')).startswith('egamersworld')]
+probe_notice = json.dumps(reference_probe, ensure_ascii=True)
+probe_notice = probe_notice.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+print('::notice title=EGamersWorld reference probe::' + probe_notice[:3500])
 manifest_notice = json.dumps(client.manifest, ensure_ascii=True)
 manifest_notice = manifest_notice.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
 print('::notice title=Source audit observation manifest::' + manifest_notice)
