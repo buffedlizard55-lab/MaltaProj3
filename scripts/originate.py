@@ -1244,7 +1244,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
-    if reference_quote and method != 'reference':
+    if reference_quote and (chosen or {}).get('method') != 'reference':
         # The capture exists but a first-party line won; say so instead of
         # presenting an unused fallback as a resolved source.
         reference_trail['status'] = 'not needed'
