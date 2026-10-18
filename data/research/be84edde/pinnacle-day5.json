@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-18T02:31:47Z",
+  "provider": "Pinnacle",
+  "policy": "First-party bookmaker board, read-only public guest endpoints. Only the lowest-period two-way series moneyline is accepted; map markets, specials and live games are rejected. A refusal is recorded with its reason and prices nothing.",
+  "fixtures": [
+    {
+      "slot": "Third-place decider",
+      "team_a": "Aurora",
+      "team_b": "Falcons",
+      "starts_at": "2026-10-18T11:30:00Z",
+      "best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399416/aurora-vs-falcons-thunderpick-world-championship-2026",
+      "quote": {
+        "period": 0,
+        "participants": [
+          "Aurora",
+          "Falcons"
+        ],
+        "american": [
+          140,
+          -172
+        ],
+        "decimal": [
+          2.4,
+          1.5814
+        ],
+        "probabilities": [
+          0.397196,
+          0.602804
+        ],
+        "cutoff_at": "2026-10-18T11:30:00+00:00",
+        "matchup_id": 1638694288,
+        "period_note": "Lowest period on the board. Higher periods repeat identical per-map prices and are excluded.",
+        "provider": "Pinnacle (first-party bookmaker)",
+        "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        "league": "CS2 - TP World Championship",
+        "best_of": 3,
+        "observed_at": "2026-10-18T02:31:47+00:00"
+      },
+      "status": "priced"
+    },
+    {
+      "slot": "Grand final",
+      "team_a": "FURIA",
+      "team_b": "BETBOOM",
+      "starts_at": "2026-10-18T15:00:00Z",
+      "best_of": 5,
+      "hltv_url": "https://www.hltv.org/matches/2399417/furia-vs-betboom-thunderpick-world-championship-2026",
+      "quote": {
+        "period": 0,
+        "participants": [
+          "FURIA",
+          "BB Team"
+        ],
+        "american": [
+          -286,
+          226
+        ],
+        "decimal": [
+          1.3497,
+          3.26
+        ],
+        "probabilities": [
+          0.707212,
+          0.292788
+        ],
+        "cutoff_at": "2026-10-18T15:00:00+00:00",
+        "matchup_id": 1638694289,
+        "period_note": "Lowest period on the board. Higher periods repeat identical per-map prices and are excluded.",
+        "provider": "Pinnacle (first-party bookmaker)",
+        "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        "league": "CS2 - TP World Championship",
+        "best_of": 5,
+        "observed_at": "2026-10-18T02:31:47+00:00"
+      },
+      "status": "priced"
+    }
+  ],
+  "available": true
+}

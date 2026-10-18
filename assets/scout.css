@@ -92,3 +92,65 @@
 .glance-match>strong{font-size:14.5px}
 .glance-choice{margin-top:1px}
 .glance-links{margin-top:2px}
+
+/* ---- Session arena-be84edde: final-day review page and the "start here" jump bar ---- */
+.start-here{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:23px}
+.start-here-label{margin:0 0 12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#576b79;font-weight:650}
+.start-here ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}
+.start-here a{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--navy);background:#fbfcfd;min-height:56px}
+.start-here a:hover,.start-here a:focus-visible{border-color:var(--orange-dark);background:#fff5ee}
+.start-here .icon{width:18px;height:18px;flex:none;color:var(--orange-dark);margin-top:1px}
+.start-here strong{display:block;font-size:13px;font-weight:650;letter-spacing:-.2px}
+.start-here span{display:block;font-size:10px;line-height:1.7;color:#576b79;margin-top:3px}
+.day-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:13px;padding:0 20px 20px}
+.day-card{border:1px solid var(--border);border-radius:10px;padding:16px 17px;background:#fbfcfd}
+.day-card h3{font-size:15px;letter-spacing:-.3px;margin:6px 0 9px;line-height:1.5}
+.day-card p{font-size:12px;line-height:1.9;color:#33454f}
+.final-day-card{border:1px solid var(--border);border-radius:12px;margin:0 20px 15px;overflow:hidden;background:var(--white)}
+.final-day-head{padding:17px 20px;border-bottom:1px solid var(--border)}
+.final-day-head h3{font-size:20px;letter-spacing:-.6px;margin:6px 0 8px}
+.final-day-time{display:flex;align-items:center;gap:7px;font-size:11px;color:#576b79}
+.final-day-time .icon{width:15px;height:15px}
+.final-day-card>.unresolved-text,.final-day-card>div:not(.final-day-head):not(.row-sources){padding:15px 20px}
+.prob-pair{display:flex;gap:12px;padding:17px 20px 10px;flex-wrap:wrap}
+.prob-side{flex:1 1 130px;border:1px solid var(--border);border-radius:9px;padding:12px 14px;background:#fbfcfd}
+.prob-side span{display:block;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#576b79}
+.prob-side strong{display:block;font-size:27px;letter-spacing:-1px;margin-top:5px}
+.prob-pair+.badge{margin:0 20px 12px}
+.final-day-card .tiny{margin:0 20px 12px}
+.dated-context{margin:0;padding:0 20px 15px 38px;list-style:disc}
+.dated-context li{font-size:12px;line-height:1.9;margin-bottom:5px}
+.contrarian-list{list-style:none;margin:0;padding:0 20px 20px;counter-reset:none}
+.contrarian-list li{display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--border);align-items:flex-start}
+.contrarian-list li:first-child{border-top:0}
+.contrarian-list p{font-size:12.5px;line-height:1.95;color:#33454f;margin:0}
+.candidate-card{border:1px solid var(--border);border-radius:11px;margin:0 20px 15px;padding:17px 19px;background:var(--white)}
+.candidate-head h3{font-size:19px;letter-spacing:-.5px;margin:0}
+.candidate-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:15px;margin:13px 0}
+.candidate-body p{font-size:12px;line-height:1.9;color:#33454f}
+.candidate-verdict{border-top:1px solid var(--border);padding-top:13px;font-size:12.5px;line-height:1.9}
+.candidate-verdict.amber strong{color:#8a5a12}
+.row-sources{display:flex;flex-wrap:wrap;gap:11px;padding:0 20px 17px}
+.row-sources:not(:last-child){padding-bottom:12px}
+.simple-table .row-sources{padding:0;gap:9px}
+.limitations-callout ul{margin:10px 0 0;padding-left:19px}
+.limitations-callout li{font-size:12px;line-height:1.9;margin-bottom:7px}
+@media(max-width:700px){
+  .start-here{padding:15px 16px;margin-bottom:20px}
+  .start-here ul{grid-template-columns:1fr;gap:9px}
+  .start-here a{min-height:52px;padding:12px 13px}
+  .day-read{padding:0 16px 18px;grid-template-columns:1fr;gap:11px}
+  .final-day-card{margin:0 16px 13px}
+  .final-day-head{padding:15px 16px}
+  .final-day-head h3{font-size:18px}
+  .final-day-card>.unresolved-text,.final-day-card>div:not(.final-day-head):not(.row-sources){padding:13px 16px}
+  .prob-pair{padding:15px 16px 8px;gap:10px}
+  .prob-side{flex:1 1 100%}
+  .prob-pair+.badge{margin:0 16px 10px}
+  .final-day-card .tiny{margin:0 16px 10px}
+  .dated-context{padding:0 16px 13px 32px}
+  .contrarian-list{padding:0 16px 18px}
+  .candidate-card{margin:0 16px 13px;padding:15px 16px}
+  .candidate-body{grid-template-columns:1fr;gap:12px}
+  .row-sources{padding:0 16px 15px}
+}

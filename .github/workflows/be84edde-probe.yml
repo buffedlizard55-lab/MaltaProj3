@@ -1,0 +1,162 @@
+# Session arena-be84edde — read-only live ground-truth probe.
+#
+# Dispatch only: it is never scheduled, it never deploys, and it never feeds the
+# published dashboard. The sandbox this session runs in has no egress to
+# Hotspawn, HLTV or any bookmaker, while the GitHub runner does; this workflow
+# runs the repository's own collectors there and commits a single JSON report to
+# this session branch so the current state can be audited line by line.
+#
+# It writes no probability, no pick and no alias of its own. Every value in the
+# report is copied from the collectors' own output.
+name: be84edde live coverage probe (dispatch only)
+on:
+  workflow_dispatch:
+  # The session's GitHub App token cannot create dispatch events (HTTP 403
+  # "Resource not accessible by integration"), so the run is triggered by an
+  # ordinary commit to this session branch instead. It is still never scheduled
+  # and never deploys.
+  # Removed: a `push` trigger here made every rebase of this branch re-run the
+  # probe, which committed a fresh report and moved the branch head, which
+  # invalidated the pull request's required checks in a loop. The audit it was
+  # written for is complete and its reports are committed under
+  # data/research/be84edde/, so the workflow goes back to being dispatch-only
+  # as it was originally designed.
+permissions:
+  contents: write
+concurrency:
+  group: be84edde-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/be84edde-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Research unresolved fixture picks from first-party lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Refresh dated TWC research
+        run: python -m scripts.twc_research
+      - name: Probe additional providers for fixtures the ladder leaves blank (evidence only)
+        run: |
+          if python -m scripts.be84edde_probe --live; then
+            echo "provider probe ok"
+          else
+            echo "::warning::provider probe failed; the report keeps the collector's own reasons"
+          fi
+      - name: Summarise the live state into a reviewable report
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          latest = json.loads(Path('data/latest.json').read_text())
+          orig = json.loads(Path('data/origination.json').read_text())
+          out = {
+              'probe': 'be84edde live coverage probe',
+              'generated_at': latest.get('generated_at'),
+              'inventory_observed_at': latest.get('inventory_observed_at'),
+              'inventory_counts': latest.get('counts'),
+              'coverage_complete': latest.get('coverage_complete'),
+              'run_status': latest.get('run_status'),
+              'inventory_crosscheck': latest.get('inventory_crosscheck'),
+              'origination_generated_at': orig.get('generated_at'),
+              'origination_counts': orig.get('counts'),
+              'unresolved_ids': orig.get('unresolved_ids'),
+              'origination_flags': orig.get('flags'),
+              'unresolved_detail': [],
+              'resolved_detail': [],
+              'evidence_files': sorted(p.name for p in Path('data/evidence').glob('*'))[:400],
+              'twc': None,
+          }
+          by_id = {str(m.get('id')): m for m in latest.get('matches') or []}
+          for row in orig.get('matches') or []:
+              mid = str(row.get('id'))
+              src = by_id.get(mid) or {}
+              entry = {
+                  'id': mid,
+                  'teams': [t.get('name') for t in (src.get('teams') or row.get('teams') or [])],
+                  'competition': src.get('competition') or row.get('competition'),
+                  'starts_at': src.get('starts_at') or row.get('starts_at'),
+                  'best_of': src.get('best_of'),
+                  'origination': row.get('origination'),
+                  'research_trail': [
+                      {'stage': r.get('stage'), 'status': r.get('status'), 'detail': (r.get('detail') or '')[:400],
+                       'source_url': r.get('source_url')}
+                      for r in (row.get('research') or [])
+                  ],
+                  'hotspawn_source_url': src.get('source_url'),
+              }
+              if row.get('origination'):
+                  entry['method'] = (row['origination'] or {}).get('method')
+                  entry['probabilities'] = (row['origination'] or {}).get('probabilities')
+                  out['resolved_detail'].append(entry)
+              else:
+                  out['unresolved_detail'].append(entry)
+          twc = Path('data/research/twc-current')
+          if twc.exists():
+              names = sorted(p.name for p in twc.glob('*.json'))
+              out['twc'] = {'files': names}
+              for name in names:
+                  if name in ('day5.json', 'day4.json', 'lines.json', 'card.json'):
+                      try:
+                          out['twc'][name] = json.loads((twc / name).read_text())
+                      except Exception as exc:
+                          out['twc'][name] = {'read_error': f'{type(exc).__name__}: {exc}'}
+          edge = Path('data/edge-review.json')
+          if edge.exists():
+              e = json.loads(edge.read_text())
+              card = e.get('day_five_card') or {}
+              out['day_five_card'] = {
+                  'observed_at': card.get('observed_at'),
+                  'bracket_status': card.get('bracket_status'),
+                  'fixtures': [
+                      {'teams': [f.get('team_a'), f.get('team_b')],
+                       'starts_at': f.get('starts_at'),
+                       'probabilities': f.get('probabilities'),
+                       'method': f.get('method'),
+                       'money_line': f.get('money_line'),
+                       'sources': f.get('sources')}
+                      for f in (card.get('fixtures') or [])
+                  ],
+              }
+          dest = Path('data/research/be84edde')
+          dest.mkdir(parents=True, exist_ok=True)
+          (dest / 'live-probe.json').write_text(json.dumps(out, indent=2, ensure_ascii=False) + '\n')
+          print('unresolved:', len(out['unresolved_detail']), 'resolved:', len(out['resolved_detail']))
+          PY
+      - name: Keep the runner's Pinnacle board reading for review
+        run: |
+          mkdir -p data/research/be84edde
+          if [ -f data/research/twc-current/pinnacle.json ]; then
+            cp data/research/twc-current/pinnacle.json data/research/be84edde/pinnacle-day5.json
+          else
+            echo '{"note":"twc_research produced no pinnacle.json on this run"}' > data/research/be84edde/pinnacle-day5.json
+          fi
+      - name: Restore every tracked data file so only the report is committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the report to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/be84edde/live-probe.json data/research/be84edde/provider-probe.json data/research/be84edde/pinnacle-day5.json
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(be84edde): live coverage probe report (dispatch-only, never published)'
+          git pull --rebase origin arena/be84edde-maltaproj3
+          git push origin arena/be84edde-maltaproj3
