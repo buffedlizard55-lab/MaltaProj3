@@ -1,0 +1,220 @@
+{
+  "session_id": "arena-b30bf88b",
+  "generated_at": "2026-10-18T00:54:00Z",
+  "baseline_snapshot_at": "2026-10-18T00:42:49Z",
+  "summary": {
+    "baseline_active_fixtures": 34,
+    "baseline_unresolved_fixtures": 7,
+    "newly_resolved_by_verified_sources": 4,
+    "remaining_fail_closed_unresolved": 3
+  },
+  "fixtures": [
+    {
+      "fixture_id": "1081519",
+      "teams": [
+        "NEXVOID",
+        "Off Chops"
+      ],
+      "event": "Logitech G Pro Series 2026",
+      "starts_at": "2026-10-18T03:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1081519",
+      "hltv_url": "https://www.hltv.org/matches/2399547/off-chops-vs-nexvoid-logitech-g-pro-series-2026",
+      "resolution_status": "resolved",
+      "primary_resolution": {
+        "method": "market",
+        "provider": "Kalshi",
+        "event_id": "KXCS2GAME-26OCT172300OFFNEX",
+        "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct172300offnex",
+        "observed_at": "2026-10-18T00:52:13Z",
+        "bid": [
+          0.67,
+          0.25
+        ],
+        "ask": [
+          0.74,
+          0.34
+        ],
+        "spread": 0.09,
+        "probabilities": [
+          0.705,
+          0.295
+        ],
+        "pick": "NEXVOID"
+      },
+      "secondary_reference_backup": {
+        "method": "reference",
+        "provider": "EGamersWorld (published bookmaker average)",
+        "source_url": "https://egamersworld.com/counterstrike/match/41jwiu8cNl/nexvoid-vs-off-chops--z6OIhTIs",
+        "observed_at": "2026-10-18T00:50:12Z",
+        "odds": [
+          1.785,
+          2.026
+        ],
+        "probabilities": [
+          0.531619,
+          0.468381
+        ],
+        "pick": "NEXVOID"
+      }
+    },
+    {
+      "fixture_id": "1081129",
+      "teams": [
+        "Privateer",
+        "antidaun"
+      ],
+      "event": "CCT Europe 2026 Series 12 Play-In",
+      "starts_at": "2026-10-18T11:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1081129",
+      "hltv_url": "https://www.hltv.org/matches/2399480/antidaun-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+      "resolution_status": "resolved",
+      "primary_resolution": {
+        "method": "reference",
+        "provider": "EGamersWorld (published bookmaker average)",
+        "source_url": "https://egamersworld.com/counterstrike/match/1sGIL2gAYu/antidaun-vs-privateer-gaming-j6HuT4rca",
+        "observed_at": "2026-10-18T00:50:12Z",
+        "odds": [
+          1.853,
+          1.803
+        ],
+        "probabilities": [
+          0.49316193,
+          0.50683807
+        ],
+        "pick": "antidaun",
+        "hltv_roster_note": "HLTV match 2399480 lists Privateer (teamId=13914, HLTV #226, VRS #230: Frazehh, Prime, moz, M1n1maL, Amqn) vs antidaun (teamId=14085, VRS #257: levantino, AdaMmMm, svn, newhope, Pedrinho2011; 4/5 core of Valve standing #217 Strael Bora, 692 pts)."
+      }
+    },
+    {
+      "fixture_id": "1082206",
+      "teams": [
+        "Damajuana",
+        "A NATA"
+      ],
+      "event": "CCT South America 2026 Series 7",
+      "starts_at": "2026-10-18T16:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1082206",
+      "hltv_url": "https://www.hltv.org/matches/2399791/damajuana-vs-a-nata-cct-2026-south-america-series-7",
+      "resolution_status": "resolved",
+      "primary_resolution": {
+        "method": "reference",
+        "provider": "EGamersWorld (published bookmaker average)",
+        "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/damajuana-vs-a-nata-ixAZI2YGA",
+        "observed_at": "2026-10-18T00:52:04Z",
+        "odds": [
+          1.71,
+          1.95
+        ],
+        "probabilities": [
+          0.53278689,
+          0.46721311
+        ],
+        "pick": "Damajuana",
+        "market_rejection_note": "Polymarket (event 1205549, spread 0.63) and Kalshi (KXCS2GAME-26OCT181200ANADAM, spread 0.63) both exceed the spread ceiling; A NATA (teamId=14090: Straafer, badran, veroneze, rzk, R99) is VRS Unranked."
+      }
+    },
+    {
+      "fixture_id": "1079181",
+      "teams": [
+        "Fire Flux",
+        "ex-6666"
+      ],
+      "event": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-19T17:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1079181",
+      "hltv_url": "https://www.hltv.org/matches/2399098/fire-flux-vs-ex-6666-nodwin-clutch-series-13",
+      "resolution_status": "resolved",
+      "primary_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05",
+        "inputs": [
+          {
+            "name": "Fire Flux",
+            "standing": 131,
+            "points": 907,
+            "roster": [
+              "Cizzx",
+              "Quality",
+              "xEternaLxx",
+              "zemix",
+              "zer0UKY"
+            ]
+          },
+          {
+            "name": "6666",
+            "standing": 127,
+            "points": 923,
+            "roster": [
+              "amster",
+              "dENZY",
+              "kL1o",
+              "rendysky",
+              "skcH"
+            ]
+          }
+        ],
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick": "ex-6666",
+        "alias_evidence": "HLTV match 2399098 confirms ex-6666 (teamId=14100, HLTV #80, VRS #103) fields skcH, kL1o, amster, rendysky, stefienson (4/5 core of Valve standing #127 6666, 923 pts) at NODWIN Clutch Series #13 against Fire Flux (teamId=12960, HLTV #90, VRS #123: Quality, Cizzx, xEternaLxx, zer0UKY, zemix; 5/5 match with Valve standing #131 Fire Flux, 907 pts)."
+      }
+    },
+    {
+      "fixture_id": "1082207",
+      "teams": [
+        "QUINTESSÊNCIA",
+        "RED Canids Academy"
+      ],
+      "event": "CCT South America 2026 Series 7",
+      "starts_at": "2026-10-18T19:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1082207",
+      "hltv_url": "https://www.hltv.org/matches/2399792/quintessncia-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "resolution_status": "unresolved",
+      "limitations": [
+        "Polymarket event 1205550 (cs2-quin-reda-2026-10-18) has a wide order book (spread 0.44: bid [0.35, 0.21], ask [0.79, 0.65]), exceeding the spread ceiling.",
+        "Kalshi, Thunderpick, and Bovada do not list this fixture.",
+        "EGamersWorld match page (6MDDjJ0jUT) prints only the default 1.8 / 1.8 placeholder banner with no bookmaker-average quote.",
+        "Valve's 2026-10-05 global standings contain QUINTESSÊNCIA (#203, 723 pts) but do not contain RED Canids Academy (HLTV #221, VRS Unranked; only main roster RED Canids #243, 653 pts appears)."
+      ]
+    },
+    {
+      "fixture_id": "1081861",
+      "teams": [
+        "Lynn Vision",
+        "Morningstar"
+      ],
+      "event": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T03:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1081861",
+      "hltv_url": "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+      "resolution_status": "unresolved",
+      "limitations": [
+        "Kalshi event KXCS2GAME-26OCT192300MORLVG has an unquoted 0.05 / 0.95 order book (spread 0.90), exceeding the spread ceiling.",
+        "Polymarket, Thunderpick, and Bovada do not list this fixture.",
+        "EGamersWorld match page (S4bM15g-O) prints a 1.8 / 1.8 header alongside a contradictory 1.01 / 15 tip block (~105.7% implied probability sum) and is rejected.",
+        "Valve's 2026-10-05 global standings contain Lynn Vision (#43, 1280 pts; HLTV #39, VRS #71) but do not contain Morningstar (teamId=13602: Freeman, fineshine52, swiftsteel, Terryyy, Apraki; HLTV Unranked, VRS Unranked)."
+      ]
+    },
+    {
+      "fixture_id": "1081863",
+      "teams": [
+        "Chinggis Warriors",
+        "WXM"
+      ],
+      "event": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T07:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2/match/1081863",
+      "hltv_url": "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+      "resolution_status": "unresolved",
+      "limitations": [
+        "Polymarket, Kalshi, Thunderpick, and Bovada do not list this fixture.",
+        "EGamersWorld match page (P5E_t_WMIe) prints only the default 1.8 / 1.8 placeholder banner with no bookmaker-average quote.",
+        "Valve's 2026-10-05 global standings contain two Chinggis Warriors entries (#87, 1084 pts and #220, 685 pts; HLTV match 2399578 lists ROUX, sk0R, cool4st, tikuak, fury5k — 4/5 overlap with #87) and no entry for WXM (teamId=14011: Kinatie, 1romma, outccc, Genxiu, Currant; HLTV Unranked, VRS Unranked)."
+      ]
+    }
+  ]
+}

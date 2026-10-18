@@ -1,0 +1,42 @@
+{
+  "session_id": "arena-b30bf88b",
+  "audited_at": "2026-10-18T00:54:00Z",
+  "scope": "Line-by-line repository and table-row verification across all rendered pages, JSON data artifacts, and CI/CD workflows",
+  "files_reviewed": [
+    {
+      "path": "scripts/build.py",
+      "status": "verified",
+      "notes": "Generates /, /picks/, /edge/, /twc-picks/, /coverage/, /methodology/, /review/, data/picks.csv, and data/row-source-audit.json; enforces link checking and non-blocking row-source audit."
+    },
+    {
+      "path": "scripts/build_origination.py",
+      "status": "verified",
+      "notes": "Generates /origination/ with mobile-first cards, filter tabs, full match table (#picks), unresolved picks & limitations table (#unresolved), and alias registry (#aliases)."
+    },
+    {
+      "path": "scripts/build_strategy.py",
+      "status": "verified",
+      "notes": "Generates /strategy/ leaderboard plan with contrarian underdog rules (>=35% model/market win probability and >=4pp edge over Hotspawn crowd share)."
+    },
+    {
+      "path": "scripts/originate.py",
+      "status": "verified",
+      "notes": "Executes the 5-rung non-Hotspawn origination ladder: consensus -> market (Polymarket, Kalshi) -> bookmaker (Thunderpick, Bovada) -> reference (EGamersWorld published bookmaker average) -> model (Valve official ratings)."
+    },
+    {
+      "path": "scripts/reference_odds.py",
+      "status": "verified",
+      "notes": "Verifies SHA-256 excerpt hashes, decimal odds > 1.01, overround in [0.85, 1.35], and proportional de-vigging before emitting a reference quote."
+    },
+    {
+      "path": "scripts/audit_rows.py",
+      "status": "verified",
+      "notes": "Audits every HTML <tr> and pick card across all built pages to guarantee every row carries either a verified external source link or an explicit unverified/review link."
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "status": "verified",
+      "notes": "Runs on 4-hour cron, workflow_dispatch, and push to main; refreshes data, replays all evidence hashes, builds site, deploys to GitHub Pages, and verifies live HTTP 200 responses."
+    }
+  ]
+}
