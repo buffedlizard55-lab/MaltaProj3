@@ -2614,3 +2614,25 @@ session (`arena-fe48a0df`, `arena-57b1ee04`, `arena-ad216fd9`, `arena-3f5161f0`,
 - `scripts/reference_odds.py` / `data/research/57b1ee04/reference-odds.json`: Hash-verified EGamersWorld published bookmaker-average captures for `1081129` (`Privateer vs antidaun`, `[1.853, 1.803]` -> `[0.49316193, 0.50683807]`), `1082206` (`Damajuana vs A NATA`, `[1.71, 1.95]` -> `[0.53278689, 0.46721311]`), and `1081519` (`NEXVOID vs Off Chops`, `[1.785, 2.026]` -> `[0.531619, 0.468381]`), plus rejected placeholder records for `1082207` and `1079181`, are retained in `data/research/b30bf88b/reference-odds.json` and verified by `tests/test_b30bf88b_verification.py`.
 
 
+# Session arena-039c5a22 — independent source verification, Day-5 market & contrarian check, final integration (2026-10-18)
+
+Claimed **2026-10-18T00:55Z** on the fixed Arena branch `arena/039c5a22-maltaproj3`
+(branched from `main` `4111e90`, PR #89 merged). Read the full board first and
+deliberately do **not** duplicate: `arena-ad216fd9` (AD-1..AD-4: Days 1–4/Aurora
+verification + the 7-blank research + the `twc-final/` briefing page, new files
+only), open PR [#90](https://github.com/buffedlizard55-lab/MaltaProj3/pull/90)
+`arena-fe48a0df` (blank-pick closure in `originate.py`/`build.py`/`day5.py`/
+`domain.py`/`aliases.json` + summary copy), open PR
+[#91](https://github.com/buffedlizard55-lab/MaltaProj3/pull/91) `arena-57b1ee04`
+(aggregated stage status in `audit_rows.py`/`originate.py`), open PR
+[#86](https://github.com/buffedlizard55-lab/MaltaProj3/pull/86) `arena-534ae9e5`
+(freshness injection in `build.py`/`build_twc.py` + repo review), open PR
+[#67](https://github.com/buffedlizard55-lab/MaltaProj3/pull/67) `arena-e2ce6ccb`
+(independent Day-4 audit). Files owned by any open claim are not edited here; if a
+task needs one, the request is logged below instead of applied.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| P-1 Independent line-by-line verification of the currently published Day-5 card, executive-summary glance rows and strategy upset plays against official originals (HLTV, Polymarket, Thunderpick, Hotspawn fixture pages, Valve standings), each check with its own https source link and observation time; any value that cannot be confirmed is flagged unverified, never edited into a different value | in progress | arena-039c5a22 | new `data/research/039c5a22/` only | This is the user's "verify line by line, links for manual review, flag irregularities" pass over the *current* published rows. It complements (not duplicates) e2ce6ccb's Day-4 audit and 534ae9e5's repo/publisher review. |
+| P-2 Fresh pre-match market scan for both TWC Day-5 series plus a dated contrarian-but-not-stupid leaderboard review (Days 1–4 results, the 8-July Aurora rebuild context, rest/onboarding limits, crowd-leverage rules from `data/strategy-rules.json`); published as dated research findings only | in progress | arena-039c5a22 | new `data/research/039c5a22/` only | No builder file is edited while PRs #90/#86 are open. No Hotspawn "% picked" as probability; crowd data only as a leverage signal. No roster/rest percentage is invented. The live strategy page already prices the Day-5 upset plays from the 00:42Z pipeline snapshot; this scan is the independent second read, hours closer to the 11:30/15:00 UTC locks. |
+| P-3 Final integration for this window: monitor the in-flight claims/PRs above; when their scopes land, run the full suite + build + row/link audits on the combined tree; fix only unowned integration breakage; PR from this branch, merge on green, verify the actual Pages deployment, and record sources, verification and irregularities here | in progress | arena-039c5a22 | `COORDINATION.md`, this branch's merge | Per the board's integration rule, shared outputs stay untouched until the in-flight work lands. If a claim is silent >60 minutes with no commits, takeover is noted here with the handoff. |
