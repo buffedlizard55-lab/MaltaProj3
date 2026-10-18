@@ -1,0 +1,165 @@
+{
+  "session": "arena-534ae9e5",
+  "branch": "arena/534ae9e5-maltaproj3",
+  "review_clock_utc": "2026-10-17T21:40Z",
+  "scope": "Line-by-line review of the publishing pipeline (scripts/build.py, scripts/build_twc.py, scripts/build_origination.py, scripts/twc_research.py, scripts/twc_lines.py, scripts/contrarian.py, scripts/verify_live.py), the six GitHub Actions workflows, the alias registry, the exported data files and the generated Pages views of this tree. Every item links the evidence used. Nothing in this register is a probability input.",
+  "method": "Each item was reproduced in this checkout on 2026-10-17 between 20:15Z and 21:40Z and checked against the linked first-party or official source, the repository's own retained original responses, or the live GitHub Actions run metadata. 'fixed' items carry a regression test. 'verified' items were confirmed to behave as documented. 'needs review' items were deliberately left unchanged by this session and are published for the owner. Direct access to Hotspawn, HLTV, Polymarket and Kalshi is blocked from this sandbox, so no live source fact is asserted here: every external claim is either replayed from a retained original response or reported as unverified.",
+  "items": [
+    {
+      "id": "534-01",
+      "area": "publisher / regression gate",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "The four-hour publisher was blocked and the public site was frozen. The scheduled runs 39038670350, 39045650525, 39054246287 and 39058407711 all failed at the step 'Regression tests (repository fixtures, before any cache restore)' while the last successful scheduled run, 39031549764, completed at about 12:20Z. The cause was a single wall-clock-dependent assertion: scripts/build.py::shell decided staleness with datetime.now(timezone.utc) against a fixture whose inventory_observed_at was hard-coded to 2026-10-17T04:27:55Z, so the eight-hour freshness window closed at 2026-10-17T12:27:55Z. Because the regression tests run before the cache restore and before collection, that one expired assertion stopped every refresh.",
+      "handling": "shell, matches_table, glance, summary, picks, coverage, scripts.build_origination.pick_row and scripts.build.build now take an explicit reference time, and one build passes a single reference time to every page. The wall-clock-dependent assertion pins its own reference time instead. New tests/test_freshness_determinism.py checks the injectability contract and re-runs the repository's time-sensitive test modules with the production clock pinned to four absolute instants that bracket the fixture which broke the publisher, so the guard keeps working regardless of when it runs; it fails on the old wall-clock form at three of the four instants.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39058407711",
+          "detail": "Scheduled run that failed at the regression-test step; the four failing runs share this step and conclusion."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39031549764",
+          "detail": "The last successful scheduled run, about 12:20Z, immediately before the eight-hour window closed at 12:27:55Z."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "The publishing pipeline whose staleness decision now takes an injected reference time."
+        }
+      ]
+    },
+    {
+      "id": "534-02",
+      "area": "tournament coverage",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "The final day of the Thunderpick World Championship 2026 was not published anywhere on the site. HLTV lists the third-place decider and the grand final for 18 October 2026 (match 2399416 at 11:30Z and match 2399417 at 15:00Z), but the site only carried the Day 3 and Day 4 views, so the last day of the tournament had no slots, no participants, no result ladder and no pick path. The retained original pages for both final-day series show no published participants yet, because each is decided by the 17 October semifinals.",
+      "handling": "scripts/twc_research.py::derive_day5 finds the two final-day series from HLTV's own page titles and their published start times, and scripts/build_twc.py::render_day5 publishes them with the verified Days 1-4 ladder that guides them. A participant is used only when the source publishes it, or derived from a verified semifinal final score and then labelled as a derivation with the semifinal pages it came from; an undecided series keeps its participants blank and receives no placeholder, no default 50/50 and no tournament outright price. scripts/verify_live.py::verify_day5 now checks the deployed page against the published JSON.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399417/thunderpick-world-championship-2026-grand-final-thunderpick-world-championship-2026",
+          "detail": "HLTV's own page title, 'Thunderpick World Championship 2026 - Grand Final', and its 18 October 15:00Z start."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399416/thunderpick-world-championship-2026-3rd-place-decider-match-thunderpick-world-championship-2026",
+          "detail": "HLTV's own page title, 'Thunderpick World Championship 2026 - 3rd Place Decider Match', and its 18 October 11:30Z start."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399414/furia-vs-aurora-thunderpick-world-championship-2026",
+          "detail": "Semifinal 1, whose published final score decides one grand-final and one third-place participant."
+        }
+      ]
+    },
+    {
+      "id": "534-03",
+      "area": "workflow permissions",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": ".github/workflows/collect-preview.yml is left over from the completed session arena-11c1fa20. It requests 'contents: write', collects first-party sources and then commits the whole data/ directory to the retired session branch arena/11c1fa20-maltaproj3. It cannot reach main because the job is guarded by 'if: github.ref == refs/heads/arena/11c1fa20-maltaproj3', so it does not compete with the single Pages publisher, but a write-capable workflow that targets a branch from a finished session is left armed in the repository.",
+      "handling": "Not changed by this session, because removing a workflow is the repository owner's decision and no other session holds that scope. It publishes no data to the live site. The recommended action is to delete the workflow, or reduce it to 'contents: read' and drop the commit step, so the repository keeps exactly one publisher and no write-capable leftover.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/collect-preview.yml",
+          "detail": "The workflow file: 'permissions: contents: write', the branch guard and the 'git push origin arena/11c1fa20-maltaproj3' step."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "The single scheduled publisher, whose concurrency group 'pages' covers pushes and scheduled refreshes."
+        }
+      ]
+    },
+    {
+      "id": "534-04",
+      "area": "documentation",
+      "severity": "low",
+      "status": "fixed",
+      "finding": "README.md printed measured counts that no longer matched the tree: '496 Python tests, 72 Playwright checks', '585 internal links' and '375 rows'. The README already warned that the counts move with every session and should be re-measured, but the numbers it published were stale, so a reader could not use them to judge the build.",
+      "handling": "The README now states the counts measured in this tree and keeps the instruction to re-measure rather than trusting the sentence. The measured numbers are also recorded in COORDINATION.md for this session.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/README.md",
+          "detail": "The measurement paragraph, which now carries the current counts and the same re-measure instruction."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md",
+          "detail": "This session's board, which records the measured counts and the verification performed."
+        }
+      ]
+    },
+    {
+      "id": "534-05",
+      "area": "archive separation",
+      "severity": "low",
+      "status": "verified",
+      "finding": "The two preserved earlier-session dashboards (docs/ and archive/root-session/) are published inside the current artifact. They use older observation times and different identity and model rules, so a reader could mistake them for the current feed.",
+      "handling": "Verified in the built artifact: every archived page carries the 'Archived session snapshot - not the current picks feed' banner with a link back to the current executive summary and the current verification limitations; the retired root URLs picks.html, methodology.html and flagged.html redirect to the current categorized pages; and the current coverage page names both archives explicitly. No archived value is relabelled as current and no archived probability is merged into the live feed.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/tree/main/docs",
+          "detail": "The preserved independent docs-session dashboard, banner-marked in the published artifact."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/Maltaproj3/tree/main/archive/root-session",
+          "detail": "The preserved original root-session dashboard, banner-marked in the published artifact."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "The builder that adds the archive banner to the artifact copies and redirects the retired root URLs."
+        }
+      ]
+    },
+    {
+      "id": "534-06",
+      "area": "exported data",
+      "severity": "low",
+      "status": "verified",
+      "finding": "The downloadable match export is the machine-readable counterpart of the published table, so a missing source link in it would make a published probability unverifiable outside the page.",
+      "handling": "Verified in this tree: data/picks.csv carries 80 rows, every row has an original Hotspawn source URL, every row that carries a calculated probability also carries an analysis source URL, and the basis column only ever says market, bookmaker or model. Rows without a supported probability are blank rather than filled in.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/picks.csv",
+          "detail": "The published export; the columns are hotspawn_id, both teams and probabilities, suggested_team, basis, price_or_model_observed_at, rating_snapshot_date, original_hotspawn_source and analysis_source."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/audit_rows.py",
+          "detail": "The row-level source audit that checks every published table row and pick card for an official link."
+        }
+      ]
+    },
+    {
+      "id": "534-07",
+      "area": "identity registry",
+      "severity": "low",
+      "status": "verified",
+      "finding": "Provider display names are joined to Hotspawn names through a reviewed alias registry, so an unscoped or unevidenced alias would silently attach a price to the wrong team.",
+      "handling": "Verified in this tree: data/origination/aliases.json holds 17 aliases, every alias carries evidence and an explicit competition scope, and scripts/originate.py enforces the scope and the must_not_match exclusions for market, bookmaker and model joins alike. No alias is used outside its declared competition.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+          "detail": "The reviewed alias registry with per-alias competition scopes and evidence links."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+          "detail": "The origination layer that enforces the alias scope and the must_not_match exclusions for market, bookmaker and model joins alike."
+        }
+      ]
+    },
+    {
+      "id": "534-08",
+      "area": "platform",
+      "severity": "medium",
+      "status": "platform limitation",
+      "finding": "GitHub Pages is still served in legacy build mode. The publisher's own change to the Pages build-mode setting answers HTTP 403 because the workflow token has no Administration permission, so the platform build and the artifact publish are two separate steps.",
+      "handling": "The publisher detects the legacy mode, waits for the platform build and publishes the verified artifact afterwards, so the last verified artifact is published last. This session changed no repository setting and needs no user input for the current refresh and deploy path. It stays public on the Flagged for Review page because it is a platform limitation, not a code defect.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/publication.py",
+          "detail": "The publisher that orders the platform publishers and records the Pages configuration."
+        },
+        {
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+          "detail": "GitHub's official documentation for the Pages publishing source."
+        }
+      ]
+    }
+  ]
+}

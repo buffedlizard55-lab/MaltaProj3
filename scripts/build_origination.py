@@ -54,12 +54,12 @@ def team_names(m):
     return [t['name'] or 'Unverified team' for t in m['teams']]
 
 
-def pick_row(m, safety=None):
+def pick_row(m, safety=None, now=None):
     sourced = m.get('origination')
     o = sourced if sourced and valid_pair(sourced.get('probabilities')) else None
     names = team_names(m)
     pick = m['pick_index']
-    safety = safety or presentation(m, None, False, datetime.now(timezone.utc))
+    safety = safety or presentation(m, None, False, now or datetime.now(timezone.utc))
     current = safety['current']
     hidden = '' if current else ' hidden'
     historical_hidden = ' hidden' if current else ''
