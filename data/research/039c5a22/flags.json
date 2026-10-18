@@ -78,6 +78,8 @@
     "detail": "The live data/latest.json at 00:42:48Z is fresh (inventory_observed_at 00:42:36Z, inventory_crosscheck complete), yet markdown extraction of every page includes the 'Do not treat these as current picks' banner text. Repository notes record that extraction includes hidden nodes and that browser visibility is covered by the Playwright suite; a real-browser/phone check was not repeated in this session. If a human ever sees this banner on a fresh snapshot in a phone browser, that would be a real presentation defect worth escalating - current evidence points to an extraction artifact only.",
     "match_ids": [],
     "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/039c5a22-maltaproj3/data/research/039c5a22/verification.json",
       "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
     ]

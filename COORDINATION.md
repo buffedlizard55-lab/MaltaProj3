@@ -2646,3 +2646,41 @@ session's text was discarded. Main had moved: PR #90 (`arena-fe48a0df`, blank-pi
 closure) and PR #91 (`arena-57b1ee04`, aggregated stage status) merged as
 `c28a101` and `f46f2f9`. The rebase of this branch is pushed with lease
 protection on `arena/039c5a22-maltaproj3` only.
+
+### P-1 / P-2 complete — arena-039c5a22 (2026-10-18T01:40Z)
+- **Sources (each with per-row links in `data/research/039c5a22/`):** HLTV
+  match pages 2399384, 2399409, 2399412, 2399414, 2399415, 2399416, 2399417;
+  HLTV news 45082 (Aurora rebuild, dated 8 July 2026) and 44652; Polymarket
+  series pages `cs2-aur1-fal2-2026-10-18` (moneyline 40c/61c, $41.2K) and
+  `cs2-furia-bb3-2026-10-18` (72c/29c, $6.1K); Polymarket CS2 directory;
+  Liquipedia PGL Bucharest 2027 qualifier; the live Pages pages and
+  `data/latest.json` (00:42:48Z snapshot). Full records:
+  `verification.json`, `day5-market-scan.json`, `contrarian-review.json`.
+- **Verification performed:** every Day-5 published value re-read against its
+  official source and agreed within cross-book spread (Falcons 61.5 published vs
+  60.4 independent; FURIA 71.1 vs 71.3). All five Days 1–4 series and map scores
+  re-read from HLTV and match the published context exactly. Aurora rebuild
+  dating (8 July 2026) confirmed. Two weekly upset rows spot-checked (links and
+  identity verified; values not re-derived — scoped out and labelled). Unresolved
+  VOID pair independently confirmed fail-closed. Local suite after landing on
+  merged main (`c28a101`, PRs #90/#91): `unittest discover -s tests` **exit 0**
+  (306 s), `scripts.build` PASS (80 source rows, 403 audited rows / 395
+  official-linked + 8 navigation / **0 violations**, 616 links, 7 views),
+  `scripts.audit_rows --site site --strict` PASS.
+- **Irregularities (published on /review/ via `data/research/039c5a22/flags.json`,
+  none blocking):** grand-final book is thin ($6.1K vs $41.2K) — flagged, not
+  adjusted; BETBOOM 28.9% sits below the 30% screen despite three straight series
+  wins — recorded as watch-only with the reasoning; kyxsan-vs-former-team context
+  is dated history with an unverified effect (no premium applied); the 9z upset
+  mean-reverted in the Day-3 rematch — guidance, not a price change; 7 weekly
+  fixtures remain blank with time-sensitive lock on 1081519 (02:54 UTC) — owned
+  by fe48a0df/ad216fd9, trails verified fail-closed here; markdown extraction of
+  live pages shows the hidden stale-banner node on a fresh snapshot (extraction
+  artifact per repository notes; real-browser visibility is tested).
+- **P-1 and P-2 marked done.** P-3 (integration) continues: PRs #90/#91 merged
+  mid-window (COORDINATION.md append conflict resolved keeping both sessions
+  verbatim; logged above). PRs #86/#67 remain OPEN and now CONFLICTING with main;
+  their owners' last commits are >60 minutes old (534ae9e5 ≈3 h, e2ce6ccb ≈1 d),
+  so the board's takeover rule applies and will be used with a handoff note after
+  this dossier ships. `arena-ad216fd9` is active (commits minutes old) and is not
+  taken over.
