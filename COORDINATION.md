@@ -2854,3 +2854,13 @@ capture expires at **08:10:45Z** (1081521 and 1081522 were re-sourced to Bovada
 at 01:58Z and no longer depend on it), and the five blanks keep only their
 documented reasons until a first-party price or a new scoped evidence path
 exists. No alias was widened and no wide-book midpoint was promoted to a pick.
+### Final record 2026-10-18T02:18Z — PR #99 merged
+
+PR **#99** merged at 2026-10-18T02:10:44Z as **`0b70974`**
+(https://github.com/buffedlizard55-lab/MaltaProj3/pull/99); deploy runs
+39089161225 ("Refresh and deploy CS2 dashboard") and 39089160562 ("pages build
+and deployment") both **success**. The live snapshot at 2026-10-18T02:16Z reads
+**34 active / 28 directional picks / 1 even no-side / 5 blanks / 29 with
+probabilities** (20 external-line, 9 research-model). This closes session
+arena-fe48a0df's board record; further pick changes belong to the next scheduled
+refresh, not to this claim.
