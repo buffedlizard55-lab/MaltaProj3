@@ -87,9 +87,11 @@ def pick_row(m, safety=None):
         else:
             out.append('<p class="pick-line">Pick: <strong>No directional edge</strong> <small>(equal estimate)</small></p>')
         out.append(f'<p class="line-time">Estimate observed {local_time(o.get("observed_at"))}.<span data-historical-only{historical_hidden}> Historical / unverified for current use.</span></p>')
-        money = o['method'] in {'market', 'bookmaker', 'consensus'}
+        money = o['method'] in {'market', 'bookmaker', 'consensus', 'reference'}
         kind = 'green' if money else 'purple'
         label = 'Money-backed line' if money else 'Research model'
+        if o['method'] == 'reference':
+            label = 'Aggregated money line · third-party bookmaker average'
         if any(isinstance(q, dict) and q.get('thin') for q in o.get('quotes', [])):
             label += ' · thin market'
             kind = 'amber'
@@ -199,6 +201,7 @@ def section_unresolved(data):
     out.append('<li>Hotspawn participation percentages are <strong>never</strong> a probability input, and neither are HLTV fan votes. '
                'Only paired betting/market prices and official published ratings produce numbers.</li>')
     out.append('<li>Prediction-market and exchange books (Polymarket, Kalshi) wider than 12 cents are rejected; the observed quotes are shown on unresolved cards for guidance only.</li>')
+    out.append('<li>The aggregated bookmaker rung is a <strong>third-party average published by EGamersWorld</strong>, not a first-party bookmaker quote. It is used only for fixtures the entire first-party ladder leaves blank, must be fresh and hash-matched to its captured sentence, and is rejected when both sides print identical prices or observations contradict each other. Those rejected captures are listed below with their reason.</li>')
     out.append('<li>The Valve-rating fallback model is <strong>uncalibrated</strong>: it is not observed betting odds and has not been backtested. '
                'It is used only when no money source resolves a match.</li>')
     out.append('<li>Provider display names are joined only through the verified alias registry below. Unregistered names stay unmatched.</li>')
@@ -264,7 +267,8 @@ def executive_summary(data):
     out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · COMPLETE SOURCE SNAPSHOT · INDEPENDENT LINES</p>',
            '<h1>Hotspawn CS2 match picks.<br>Source-backed or explicitly unresolved.</h1>']
     out.append(f'<p class="hero-stats"><strong>{c["active"]}</strong> snapshot fixtures · <strong>{c["with_pick"]}</strong> with a sourced lean · '
-               f'<strong>{c["unresolved"]}</strong> unresolved · {c["consensus"]} consensus, {c["market"] + c["bookmaker"]} single-source, {c["model"]} model-backed.</p>')
+               f'<strong>{c["unresolved"]}</strong> unresolved · {c["consensus"]} consensus, {c["market"] + c["bookmaker"]} single-source, '
+               f'{c.get("reference", 0)} aggregated, {c["model"]} model-backed.</p>')
     out.append('<nav class="quick" aria-label="Jump to section">'
                '<a class="q primary" href="#picks">📋 Updated picks list <small>all matches</small></a>'
                '<a class="q" href="#unresolved">🚩 Unresolved &amp; limitations <small>what we can’t verify</small></a>'
@@ -344,7 +348,7 @@ def validate_origination(data, source):
         assert all(m.get(k) == raw.get(k) for k in facts), 'Fixture facts or confirmed pick deadline changed'
         o = m.get('origination')
         if raw.get('analysis'):
-            upgraded = bool(o) and o.get('method') in {'market', 'bookmaker', 'consensus'} and (
+            upgraded = bool(o) and o.get('method') in {'market', 'bookmaker', 'consensus', 'reference'} and (
                 raw['analysis'].get('method') == 'model'
                 or (raw.get('pick_index') is None and m.get('pick_index') is not None)
             )
@@ -372,6 +376,15 @@ def validate_origination(data, source):
                 assert expected['evidence_file'] == o['evidence_file'], 'Valve original source changed'
         values = []
         for q in o.get('quotes', []):
+            if q.get('family') == 'reference':
+                from scripts import reference_odds
+                capture = reference_odds.load(source)
+                pooled = list(capture.get('entries') or []) + list(capture.get('rejected') or [])
+                entry = next((item for item in pooled if str(item.get('fixture_id')) == str(m['id'])), None)
+                assert entry is not None, 'Reference capture for this fixture is missing'
+                reference_odds.replay(entry, q)
+                values.append(q['probabilities'][0])
+                continue
             if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada'}:
                 from scripts.pipeline_audit import replay_provider_quote
                 values.append(replay_provider_quote(q, raw, registry, source, timestamp(data['generated_at'])))

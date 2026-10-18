@@ -17,6 +17,11 @@ for label, url in [
     ('stake-cs2', 'https://stake.com/sports/esports/counter-strike'),
     ('pinnacle-cs2', 'https://www.pinnacle.com/en/esports-hub/cs2'),
     ('polymarket-api-docs', 'https://docs.polymarket.com/api-reference/events/list-events'),
+    # Reviewed aggregated-bookmaker fallback (scripts/reference_odds.py).
+    # Reachability here decides whether a live refresh is even possible; the
+    # published capture is replayed from data/research/57b1ee04/ regardless.
+    ('egamersworld-cs2', 'https://egamersworld.com/counterstrike/matches'),
+    ('egamersworld-match', 'https://egamersworld.com/counterstrike/match/EkjkYUfoNl/ex-6666-vs-privateer-gaming-sfo_MjtRV'),
 ]:
     try:
         text, request = client.fetch(url, label)

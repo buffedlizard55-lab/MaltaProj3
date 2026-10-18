@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "title": "Reviewed aggregated-bookmaker fallback for low-tier Hotspawn fixtures",
+  "observed_at": "2026-10-18T00:10:45Z",
+  "source": "EGamersWorld match pages (third-party aggregation of bookmaker averages)",
+  "policy": "One deliberately narrow fallback rung for fixtures that Polymarket, Kalshi, Thunderpick, Bovada and the Valve rating model all leave blank. Only the published 'average odds' sentence is used; both decimal prices must be non-identical, inside the project's no-vig acceptance band, joined to the exact Hotspawn fixture id, team names and start time, and no older than eight hours. This is an aggregation, not a first-party bookmaker quote; it never replaces a first-party money line.",
+  "entries": [
+    {
+      "fixture_id": "1081521",
+      "teams": [
+        "ex-6666",
+        "Privateer"
+      ],
+      "provider_teams": [
+        "ex-6666",
+        "Privateer Gaming"
+      ],
+      "starts_at": "2026-10-18T13:45:00Z",
+      "odds": [
+        1.13,
+        4.75
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/EkjkYUfoNl/ex-6666-vs-privateer-gaming-sfo_MjtRV",
+      "provider": "EGamersWorld",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "excerpt": "ex-6666 are listed as the favorites of the match in the majority of bookmakers and odds on them are equal to 1.13. Privateer Gaming, in turn, are the outsiders of the match. Odds on their victory are about 4.75.",
+      "excerpt_sha256": "76ed8e1a89a33f38b45082256c01eb3b21a314ee9a319804864d470623274e26"
+    },
+    {
+      "fixture_id": "1081522",
+      "teams": [
+        "antidaun",
+        "Phantom Academy"
+      ],
+      "provider_teams": [
+        "antidaun",
+        "Phantom Academy"
+      ],
+      "starts_at": "2026-10-18T13:45:00Z",
+      "odds": [
+        5.345,
+        1.115
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/antidaun-vs-phantom-academy-zXFTwo17o8",
+      "provider": "EGamersWorld",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "excerpt": "According to leading bookmakers predictions, the team Phantom Academy are the favorite with average odds 1.115 at the moment. Respectively, bookmakers consider antidaun to be the outsider of the match with odds on a victory in the sum of about 5.345.",
+      "excerpt_sha256": "9dcc0119296da0ce20a2a434783ff280559eccbcf3f8b5d65ea6aa19a0933362"
+    },
+    {
+      "fixture_id": "1081526",
+      "teams": [
+        "Infinite",
+        "Insiders"
+      ],
+      "provider_teams": [
+        "Infinite Gaming",
+        "Insiders Esport"
+      ],
+      "starts_at": "2026-10-19T09:00:00Z",
+      "odds": [
+        1.275,
+        3.399
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/V1JAWhPomg/infinite-gaming-vs-insiders-esport-sy3npvC5f",
+      "provider": "EGamersWorld",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "excerpt": "According to leading bookmakers predictions, the team Infinite Gaming are the favorite with average odds 1.275 at the moment. Respectively, bookmakers consider Insiders Esport to be the outsider of the match with odds on a victory in the sum of about 3.399.",
+      "excerpt_sha256": "ae4402183bb5fd88085a8409d5a0c115499ee23a7e7581db4134ca6cc4900928"
+    },
+    {
+      "fixture_id": "1081527",
+      "teams": [
+        "aimclub",
+        "BASEMENT BOYS"
+      ],
+      "provider_teams": [
+        "aimclub",
+        "BASEMENT BOYS"
+      ],
+      "starts_at": "2026-10-19T09:00:00Z",
+      "odds": [
+        2.03,
+        1.683
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/V1JAWhPomg/aimclub-vs-basement-boys-TxC6-kx8ZJ",
+      "provider": "EGamersWorld",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "excerpt": "At the moment, the majority of bookmakers unanimously see the team BASEMENT BOYS as the favorite of the game with average odds on a victory in the sum of 1.683. aimclub chances to prevail are evaluated with average odds 2.03 by bookmakers.",
+      "excerpt_sha256": "6c761877e434d951f0274bc83a313932830570a8ee8a93e6f5d9f4a48305a39e"
+    }
+  ],
+  "rejected": [
+    {
+      "fixture_id": "1081861",
+      "teams": [
+        "Lynn Vision",
+        "Morningstar"
+      ],
+      "starts_at": "2026-10-20T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/EJcHRdr5Vx/lynn-vision-vs-morningstar-7AWA3eTHD",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "reason": "Match page printed identical 1.8/1.8 prices and carried no bookmaker-average sentence; an earlier listing observation printed 1.01/15 for the same fixture. The two observations contradict each other, so no two-sided quote is accepted and the fixture stays unresolved."
+    },
+    {
+      "fixture_id": "1081863",
+      "teams": [
+        "Chinggis Warriors",
+        "WXM"
+      ],
+      "starts_at": "2026-10-20T07:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/EJcHRdr5Vx/chinggis-warriors-vs-wxm-_ddme1I7dZ",
+      "observed_at": "2026-10-18T00:10:45Z",
+      "reason": "Match page printed identical 1.8/1.8 prices and carried no bookmaker-average sentence. Identical prices are treated as a site placeholder, so no quote is accepted and the fixture stays unresolved."
+    }
+  ]
+}

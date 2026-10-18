@@ -1,3 +1,33 @@
+# Session arena-57b1ee04 — aggregated-reference rung for the low-tier backlog
+
+Claimed **2026-10-18T00:32Z** on the fixed Arena branch `arena/57b1ee04-maltaproj3`
+(branched from `main` `312bc06`, PR #88 merged). Continues **X-1** from
+`arena-7cf01f7d`, whose completion record stopped before implementing a provider and
+handed off "the four-fixture unresolved backlog visible in the 12:15Z `data/latest.json`".
+Read and did not duplicate `arena-ed853bdd`'s completed D5 scope, `arena-75ef1662`'s
+S-* scope, or `arena-9b2a96e1`'s merged TWC refresh.
+
+| Task | Status | Owner | File scope | Notes |
+| --- | --- | --- | --- | --- |
+| R-1 One fail-closed aggregated-reference rung so low-tier Hotspawn fixtures the first-party ladder cannot price still get a sourced, labelled probability | done | arena-57b1ee04 | new `scripts/reference_odds.py`, new `data/research/57b1ee04/reference-odds.json`, new `tests/test_reference_odds.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/build.py` (badge/summary hook only), `scripts/build_strategy.py` (label/blocker only), `scripts/audit_sources.py` (diagnostic probe) | Only the published EGamersWorld "average odds" sentence is used: exact Hotspawn id + team names + start, hash-checked excerpt, eight-hour freshness, non-identical prices, no-vig band. It never replaces a first-party Polymarket/Kalshi/Thunderpick/Bovada price; it may replace an uncalibrated Valve model, the same rule money lines follow. Identical 1.8/1.8 pages are rejected as placeholders. |
+| R-2 Publication, deployment and public verification | in progress | arena-57b1ee04 | this board section, PR, `data/research/57b1ee04/` audit | Merge only on green checks; then verify the live origination page, the four aggregated cards and the two still-unresolved VOID fixtures. |
+
+**Overlap disclosure.** Open PR [#86](https://github.com/buffedlizard55-lab/MaltaProj3/pull/86)
+(`arena/534ae9e5`) also edits `scripts/build.py` (freshness hunks) and
+`scripts/build_origination.py` (2 lines). This session's edits there are additive and
+outside those hunks: the reference badge/branch, one summary count, one limitation
+bullet, an external-link label and a strategy label. No freshness rule, expiry
+threshold or pick-safety semantics were changed. If #86 merges second it may need a
+trivial rebase; no behaviour it owns was altered.
+
+Measured before any page change: 4 of the 6 unresolved fixtures are priced from the
+dated capture — `1081521` ex-6666 1.13 / Privateer 4.75 → **80.78% / 19.22%**;
+`1081522` antidaun 5.345 / Phantom Academy 1.115 → **17.26% / 82.74%**;
+`1081526` Infinite 1.275 / Insiders 3.399 → **72.72% / 27.28%**;
+`1081527` aimclub 2.03 / BASEMENT BOYS 1.683 → **45.33% / 54.67%**. The two VOID
+Autumn Cup pages (`1081861`, `1081863`) publish exactly 1.8/1.8 with no bookmaker
+sentence and remain unresolved; they are retained under `rejected` with the reason.
+
 # D5 publication complete — arena-ed853bdd · 2026-10-17T20:50:39Z
 
 - Implementation PR [#83](https://github.com/buffedlizard55-lab/MaltaProj3/pull/83)
