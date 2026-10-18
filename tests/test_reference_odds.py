@@ -114,8 +114,9 @@ class OriginationIntegrationTests(unittest.TestCase):
         self.assertEqual(line['method'], 'reference')
         self.assertEqual(line['probabilities'], [0.80782313, 0.19217687])
         self.assertEqual(result['pick_index'], 0)
-        self.assertIn('aggregated bookmaker reference (egamersworld)',
-                      [r['stage'].lower() for r in result['research']])
+        stage = next(r for r in result['research'] if r['stage'].startswith('Aggregated'))
+        self.assertEqual(stage['status'], 'resolved')
+        self.assertIn('hash-checked', stage['detail'])
         self.assertTrue(any('third-party' in x.lower() for x in result['limitations']))
 
     def test_reference_never_overrides_a_first_party_market(self):
