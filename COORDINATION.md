@@ -437,6 +437,29 @@ results, roster discount or rest advantage will fill a gap.
   implemented; no pick was invented for the 11 unresolved fixtures. The Day-5 contrarian
   guide, corrected Aurora roster finding and the four irregularities are in the dossier.
 
+
+# Current session: arena-7e429607 — deployed-artifact evidence audit and current-phone-status verification
+
+Claimed **2026-10-19T04:03Z** on the fixed Arena branch
+`arena/7e429607-maltaproj3` (this environment is branch-pinned; no session branch
+will be created or switched to). This claim starts after reading every completed
+session record above and the open PR list on 19 October. It is deliberately
+non-overlapping with prior pick, probability, source-collection and shared-page
+work.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C-1 | **in progress** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and a new dispatch-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing workflows. |
+
+**C-1 objective.** Independently retrieve the latest successful GitHub Pages
+artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
+and verify that the deployed artifact preserves a complete source-linked match
+list, explicit unresolved rows, the phone-first pick entry point and no
+unattributed probability rows. The audit is evidence-only: it never originates a
+line, changes a pick, or treats a source outage as proof of no market. Any
+failure is published as a review finding rather than repaired or inferred.
+
+
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
 
 Claimed 2026-10-17T20:50Z on the fixed Arena branch `arena/7cf01f7d-maltaproj3`
