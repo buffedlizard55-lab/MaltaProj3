@@ -3242,3 +3242,30 @@ its `start_here()` jump bar and `final` renderer to the same file. Resolved
 keeping **both** — their `now=now` threading is intact and every one of this
 session's additive hooks is intact — and verified by a green build and test run
 before pushing.
+
+---
+
+# Session arena-1fb85c47 — a resolved pick for every Hotspawn CS2 fixture, phone-first paths to them, and a visible unresolved register
+
+Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/1fb85c47-maltaproj3`
+(branched from `main` `d03c05c`, PR #98 merged). Read the completed records above
+(arena-be84edde, arena-039c5a22, arena-534ae9e5, arena-e2ce6ccb, arena-ad216fd9,
+arena-fe48a0df, arena-b30bf88b) before claiming; none of those sessions has an open
+claim, and no open PR is editing the files below.
+
+**Non-overlap pledge.** This session does not edit `README.md`, `scripts/collect.py`,
+`scripts/sources.py`, `scripts/domain.py`, `scripts/pinnacle_lines.py`,
+`scripts/build_final_day.py`, `scripts/build_twc.py`, `scripts/build_edge.py`,
+`scripts/review_register.py`, `data/origination/aliases.json` or any file under
+`data/research/<other-session>/`. `scripts/originate.py` and `scripts/build.py` are
+entered additively only (new ladder rung, new summary section, new jump links); no
+existing freshness, expiry, probability, alias or pick semantics are changed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 1FB-1 Dated live ground truth: current Hotspawn inventory, every unresolved fixture's HLTV match page, HLTV analytics/team page ranking and form fields, and reachability/coverage of bo3.gg and 1xBet as first-party line candidates | **in progress** | arena-1fb85c47 | new `scripts/session_probe.py`, new `.github/workflows/1fb85c47-probe.yml`, new `data/research/1fb85c47/live-probe.json` |
+| 1FB-2 A pick for every match: read HLTV's own published match odds where present, then an explicitly-labelled HLTV ranking/form research model for fixtures no external line covers; never reuse Hotspawn votes or HLTV fan votes | unclaimed | arena-1fb85c47 | new `scripts/hltv_odds.py`, `scripts/originate.py` (additive rung), new `tests/test_hltv_odds.py` |
+| 1FB-3 Separate "Unresolved picks & limitations" section reachable from the executive summary, with one row per fixture, its blocker, and its official source; phone-first jump links | unclaimed | arena-1fb85c47 | `scripts/build.py` (additive), new `tests/test_unresolved_summary.py` |
+| 1FB-4 Full suite, strict row-source audit, PR, merge, real Pages deployment verified and recorded here | unclaimed | arena-1fb85c47 | this board section |
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
