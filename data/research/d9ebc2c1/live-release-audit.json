@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "session": "arena-d9ebc2c1",
+  "audit_clock_utc": "2026-10-19T04:22:28Z",
+  "scope": "Independent release-health audit. Production run metadata was read from the GitHub Actions API. The live Pages artifact and logs could not be downloaded in this session, so no current live match count, fixture, probability or unresolved reason is asserted here.",
+  "latest_scheduled_pages_run_visible_at_audit_time": {
+    "run_id": 39181195691,
+    "run_number": 131,
+    "event": "schedule",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-19T00:31:58Z",
+    "updated_at": "2026-10-19T00:39:36Z",
+    "head_branch": "main",
+    "head_sha": "d03c05c72e8ad0f2c007f6ad843b4d7e3a09bf46",
+    "job": {
+      "name": "verify-and-deploy",
+      "started_at": "2026-10-19T00:32:02Z",
+      "completed_at": "2026-10-19T00:39:35Z",
+      "conclusion": "success",
+      "relevant_steps_reported_successful_by_github": [
+        "Regression tests (repository fixtures, before any cache restore)",
+        "Refresh all Hotspawn CS2 records and supported external lines",
+        "Research only unresolved fixture picks using first-party lines",
+        "Document why every blank pick stayed blank (leads only, never prices)",
+        "Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)",
+        "Reconcile every row, replay every probability and build linked pages",
+        "Run actions/deploy-pages@v5",
+        "Verify the public site, its complete data and category pages"
+      ]
+    },
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691"
+  },
+  "github_pages": {
+    "url_reported_by_github_pages_api": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "source_branch": "main",
+    "source_path": "/",
+    "https_enforced": true,
+    "deployment": {
+      "id": 7163010430,
+      "created_at": "2026-10-19T00:31:58Z",
+      "updated_at": "2026-10-19T00:39:36Z",
+      "ref": "main",
+      "sha": "d03c05c72e8ad0f2c007f6ad843b4d7e3a09bf46",
+      "task": "deploy",
+      "environment": "github-pages"
+    },
+    "artifact": {
+      "id": 12156751173,
+      "name": "github-pages",
+      "created_at": "2026-10-19T00:39:23Z",
+      "size_in_bytes": 11950740,
+      "expired": false,
+      "independent_download": "failed",
+      "failure": "gh run download returned EOF while following the signed artifact download URL. The artifact contents were not inspected."
+    }
+  },
+  "refresh_schedule_from_workflow": {
+    "primary_cron_utc": "17 */4 * * *",
+    "catch_up_cron_utc": "47 2-22/4 * * *",
+    "interpretation": "Two staggered scheduled trigger sets are configured in the production Pages workflow. GitHub's run history and workflow documentation note that scheduled delivery can be delayed or dropped; this is a schedule target, not a real-time SLA."
+  },
+  "checked_in_snapshot_only_not_current_live_data": {
+    "latest_json": {
+      "generated_at": "2026-10-15T08:36:13Z",
+      "inventory_observed_at": "2026-10-15T08:36:04Z",
+      "coverage_complete": true,
+      "run_status": "partial-picks",
+      "counts": {
+        "inventory": 80,
+        "upcoming": 17,
+        "archived": 63,
+        "unknown_schedule": 0,
+        "market": 7,
+        "bookmaker": 1,
+        "model": 5,
+        "unresolved": 4,
+        "picks": 13,
+        "no_edge": 0
+      }
+    },
+    "origination_json": {
+      "generated_at": "2026-10-15T09:31:24Z",
+      "source_snapshot_at": "2026-10-15T08:36:04Z",
+      "live_collection": false,
+      "counts": {
+        "active": 17,
+        "resolved": 17,
+        "unresolved": 0,
+        "with_pick": 17,
+        "consensus": 0,
+        "market": 7,
+        "bookmaker": 5,
+        "model": 5,
+        "alias_joined": 4
+      }
+    },
+    "handling": "These are checked-in fallback fixtures, not a representation of the live Pages artifact observed by the scheduled run. Do not publish these counts as current."
+  },
+  "local_verification_on_checked_in_fixtures": {
+    "python_unit_tests": {
+      "command": ".venv/bin/python -m unittest discover -s tests",
+      "result": "passed",
+      "tests": 676,
+      "timing": "Full suite was run before adding this audit-only flag; the four review-flag integration tests passed again after the flag was added."
+    },
+    "review_flag_integration_tests_after_flag": {
+      "command": ".venv/bin/python -m unittest tests.test_review_flags",
+      "result": "passed",
+      "tests": 4
+    },
+    "site_build_and_row_source_audit": {
+      "commands": [
+        ".venv/bin/python -m scripts.build",
+        ".venv/bin/python -m scripts.audit_rows --site site --strict"
+      ],
+      "result": "passed",
+      "source_rows_reconciled": 80,
+      "all_published_probabilities_and_picks_replayed_from_saved_evidence": true,
+      "audited_rows": 477,
+      "rows_with_official_links": 463,
+      "rows_flagged_unverified": 5,
+      "site_map_rows": 9,
+      "rows_without_source_or_flag": 0,
+      "row_audit_violations": 0,
+      "internal_links_assets_anchors_checked": 662
+    },
+    "browser_tests": {
+      "commands": [
+        "npm ci",
+        "npm test"
+      ],
+      "result": "passed",
+      "tests": 85,
+      "responsive_viewports_css_px": [
+        320,
+        390,
+        768,
+        1440
+      ],
+      "includes_phone_navigation_unresolved_links_and_automated_accessibility_checks": true
+    },
+    "data_caveat": "These local checks exercise the checked-in 2026-10-15 snapshot and deterministic fixtures. They do not replace reading the inaccessible 2026-10-19 Pages artifact."
+  },
+  "confirmed": [
+    "GitHub reported the 2026-10-19 scheduled Pages run and its deployment job as successful.",
+    "GitHub reported the public Pages configuration, deployment record and github-pages artifact metadata.",
+    "The workflow defines the primary and catch-up cron expressions recorded above.",
+    "The checked-in site builds from saved originals, all source-row checks pass, and mobile/browser checks pass locally."
+  ],
+  "not_confirmed_by_this_session": [
+    "The exact Hotspawn match IDs in the 2026-10-19 live artifact.",
+    "The latest live probabilities, picks, and per-match unresolved reasons.",
+    "Whether the successful runner used newly fetched source data or a last-good cached pair for every source."
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691",
+      "purpose": "Official scheduled workflow run and deployment job metadata."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691/artifacts",
+      "purpose": "Official artifact listing; its github-pages archive could not be downloaded from this session."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "purpose": "Production refresh schedule, collection, replay, deployment and live verification steps."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "purpose": "Checked-in fallback fixture snapshot and its timestamps."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "purpose": "Checked-in fallback originated-picks snapshot and its timestamps."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "purpose": "GitHub Pages URL reported by the official GitHub Pages API."
+    }
+  ]
+}

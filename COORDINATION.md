@@ -1,3 +1,25 @@
+# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
+
+Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
+branched from `main` at `d03c05c`. I read this board before starting. The only
+open PR found is #100 (`arena/fe48a0df`), a stale record-only change at the end of
+this file; this claim is inserted here at the top and does not touch its EOF hunk.
+The older in-progress rows below are treated as historical unless their branch/PR
+is current; no implementation scope from those rows is entered.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D9-1 Independently audit the latest scheduled GitHub Pages artifact against the canonical inventory, selected picks, both probabilities, unresolved reasons and source-link/replay contracts; record only values confirmed from the artifact and its retained originals, and publish any verified irregularities on Flagged for Review | needs review | arena-d9ebc2c1 | new `data/research/d9ebc2c1/` only; this session's claim/result in `COORDINATION.md` |
+
+### D9-1 audit result — completed with live-row verification flagged (2026-10-19T04:22Z)
+
+- **Official production evidence:** GitHub Actions API reports scheduled run [#39181195691](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691), `main` at `d03c05c`, created 00:31:58Z and completed 00:39:36Z with `success`. The job metadata reports success for collection, unresolved-line research, replay/build, Pages deployment and `verify_live`. GitHub's Pages API reports the public project URL and a `github-pages` artifact (11,950,740 bytes). The production workflow's two configured schedules are in [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml).
+- **What could not be independently verified:** downloading the Pages archive returned EOF after redirect, and the run logs were also inaccessible from this session. Therefore no exact current match count, match ID, probability or unresolved-row reason is asserted from the 19 October live artifact. The checked-in `data/latest.json` and `data/origination.json` snapshots are dated 15 October and are explicitly not treated as current. This limitation is published as flag `d9ebc2c1-live-pages-artifact-not-independently-readable` on Flagged for Review; it is a sandbox inspection limitation, not a reported production-run failure.
+- **Local replay / site verification:** `.venv/bin/python -m unittest discover -s tests` — 676 passed; after the new data-only flag, `tests.test_review_flags` — 4 passed. `.venv/bin/python -m scripts.build` replayed all 80 checked-in source records and confirmed all published probabilities/picks against saved evidence. Strict row-source audit after adding this flag: 477 rows, 463 with official links, 5 explicitly unverified, 9 site-map rows, 0 rows without source or flag, 0 violations; 662 internal links/assets/anchors. `npm test` — 85 passed, including 320/390/768/1440px layout, phone navigation and accessibility checks. New evidence is in `data/research/d9ebc2c1/live-release-audit.json`; no odds or pick values were changed.
+- **Status:** D9-1 is **needs review** only for the live fixture rows that this workspace could not read. The verified run metadata and local checks are complete; the flag does not block deployment.
+
+**Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
 Claimed **2026-10-18T00:55Z** on the fixed Arena branch `arena/be84edde-maltaproj3`
