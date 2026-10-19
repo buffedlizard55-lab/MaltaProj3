@@ -449,8 +449,8 @@ work.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| C-1 | **in progress** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and a new dispatch-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing workflows. |
-| C-2 | **in progress** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: add a per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
+| C-1 | **DONE** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and new path-filtered evidence-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing production workflows. |
+| C-2 | **DONE** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
 
 **C-1 objective.** Independently retrieve the latest successful GitHub Pages
 artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
@@ -459,6 +459,56 @@ list, explicit unresolved rows, the phone-first pick entry point and no
 unattributed probability rows. The audit is evidence-only: it never originates a
 line, changes a pick, or treats a source outage as proof of no market. Any
 failure is published as a review finding rather than repaired or inferred.
+
+**C-1/C-2 completion record — 2026-10-19.**
+
+- **Official evidence and current artifact.** GitHub Actions run
+  [39181195691](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691)
+  (scheduled production publisher, success) produced GitHub Pages artifact
+  [12156751173](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12156751173).
+  The new runner-side audit downloaded the artifact through that official API,
+  calculated `sha256:563e8a3f5da2612d9839029636449f9a55bd5a4c5e4992f054e3ae851451b8b9`,
+  and matched GitHub's advertised digest exactly. Its full, source-linked
+  report is `data/research/7e429607/deployment-artifact-audit.json` and the
+  automatically discovered review finding links to it from `/review/` after
+  publication.
+- **Line-by-line verification.** The artifact's 2026-10-19T00:37:35Z inventory
+  contained **95** CS2 records, **34** non-archived fixtures and exactly **34**
+  complete-picks rows; every inventory row had an HTTPS Hotspawn/API source
+  link. Every populated estimate had two normalized probabilities, an HTTPS
+  evidence URL, a recorded observation time and a non-underdog default. The
+  rebuilt row-source audit found **0** violations. The artifact has the
+  executive `#picks-at-a-glance` section, normal and mobile links to
+  `origination/#picks`, and a distinct `#unresolved` section. This checks the
+  deployed files, rather than trusting a template or the checked-in fallback.
+- **Unresolved / limitations (published, not filled).** Seven complete-picks
+  rows remained blank and are all retained in the per-fixture ledger with the
+  exact HLTV, Polymarket, Kalshi, Thunderpick, Bovada, EGamersWorld, Valve and
+  Hotspawn trails: `1082152` Apogee Betclic–Spirit Academy, `1081131` ex-6666–
+  Privateer, `1079643` The Last Resort–LFO 10, `1081861` Lynn Vision–Morningstar,
+  `1081863` Chinggis Warriors–WXM, `1082157` Sangal–Aurora YB and `1079646`
+  Lavked–ex-6666. Two contain a name-equivalence mismatch that is explicitly
+  not registered as an alias; the two VOID fixtures had a wide,
+  contradictory or placeholder market; the other rows had no alias-verified two-sided line or complete
+  Valve-rating join. No midpoint, default 50/50, alias or narrative adjustment
+  was manufactured. The report and `/review/` are the manual-review links.
+- **Checks.** New targeted archive/digest/content/phone-route tests: **8/8
+  passed** locally. GitHub runs
+  [39200567504](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200567504)
+  (artifact audit),
+  [39199125839](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199125839)
+  (live origination audit), and
+  [39199125984](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199125984)
+  (full rows/build/mobile/accessibility suite) all succeeded. Local strict row
+  audit after rendering the new review flag: **477 rows; 463 official,
+  5 explicit-unverified, 9 navigation, 0 violations**.
+- **Environment limitation, flagged rather than hidden.** This sandbox can read
+  the official GitHub API metadata but its egress policy blocks the temporary
+  blob-storage redirect used for artifact bytes. The path-filtered GitHub
+  Actions job has the same official API evidence plus runner egress and records
+  the digest/content result; it writes only its two audit files and never feeds
+  a pick. That is why the committed report is runner-derived rather than
+  pretending the sandbox inspected bytes it could not download.
 
 
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
