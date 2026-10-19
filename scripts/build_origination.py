@@ -417,6 +417,7 @@ def validate_origination(data, source):
                 # Guidance rows replay exactly like the ladder builds them:
                 # unique per-provider match, market book fails every ceiling,
                 # narrowest remaining wide book wins, midpoint recomputed.
+                from scripts import originate
                 from scripts.originate import (kalshi_rows, market_estimate, polymarket_rows,
                                                wide_book_quote)
                 now_ts = timestamp(data['generated_at'])

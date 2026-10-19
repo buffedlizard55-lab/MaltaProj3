@@ -277,5 +277,94 @@ class AliasRegistryTest(unittest.TestCase):
         self.assertEqual(canon, 'aurora yb')
 
 
+
+
+class ReplayBoundaryTest(unittest.TestCase):
+    """The build-time replay validator must actually execute the guidance path.
+
+    The first CI run of the guidance rung failed with NameError: name 'originate'
+    is not defined inside validate_origination's guidance branch — a path the
+    frozen repository fixtures never exercised (they contain no guidance rows).
+    This test runs that branch end-to-end on a synthetic tree.
+    """
+
+    def test_validate_origination_replays_guidance_rows(self):
+        import shutil
+        from unittest.mock import patch
+        from scripts.build_origination import validate_origination
+        from scripts.domain import normalize_pair
+
+        row = wide_market_row()
+        start = row['start']
+        with TemporaryDirectory() as tmp:
+            source = Path(tmp)
+            (source / 'origination' / 'evidence').mkdir(parents=True)
+            shutil.copy('data/origination/aliases.json', source / 'origination' / 'aliases.json')
+            fx = dict(fixture(), availability='open', lobby_url=fixture()['source_url'],
+                      tier=None, source_status='scheduled')
+            latest = {'inventory_observed_at': row['observed_at'],
+                      'matches': [dict(fx, analysis=None, pick_index=None)]}
+            (source / 'latest.json').write_text(json.dumps(latest))
+            quote, spread = wide_book_quote(row, fx, {'aliases': []}, NOW)
+            self.assertIsNotNone(quote)
+            probs = quote['probabilities']
+            origination = {
+                'schema_version': 1, 'generated_at': iso(NOW),
+                'source_snapshot_at': row['observed_at'],
+                'matches': [dict(fx, origination={
+                    'method': 'guidance', 'label': 'Wide-book indicative midpoint (guidance only)',
+                    'probabilities': probs,
+                    'fair_decimal': [round(1 / p, 3) for p in probs],
+                    'quotes': [quote], 'source': quote['provider'],
+                    'source_url': quote['source_url'], 'observed_at': quote['observed_at'],
+                }, pick_index=(0 if probs[0] > probs[1] else 1 if probs[1] > probs[0] else None),
+                    aliases_used=[], research=[], limitations=['GUIDANCE ONLY'], time_flags=[])],
+            }
+            with patch('scripts.originate.polymarket_rows', return_value=[row]), \
+                    patch('scripts.originate.kalshi_rows', return_value=[]):
+                validate_origination(origination, source)  # must not raise
+
+    def test_validate_origination_replays_hltv_ranking_rows(self):
+        import shutil
+        from scripts.build_origination import validate_origination
+
+        with TemporaryDirectory() as tmp:
+            source = Path(tmp)
+            (source / 'origination' / 'evidence').mkdir(parents=True)
+            shutil.copy('data/origination/aliases.json', source / 'origination' / 'aliases.json')
+            fx = dict(fixture(), availability='open', lobby_url=fixture()['source_url'],
+                      tier=None, source_status='scheduled')
+            latest = {'inventory_observed_at': '2026-10-19T11:00:00Z',
+                      'matches': [dict(fx, analysis=None, pick_index=None)]}
+            (source / 'latest.json').write_text(json.dumps(latest))
+            day = NOW.date().isoformat()
+            capture = {'source': 'HLTV official weekly world ranking',
+                       'source_url': 'https://www.hltv.org/ranking/teams',
+                       'observed_at': '2026-10-19T11:00:00Z', 'snapshot_date': day,
+                       'pages': [{'url': 'https://www.hltv.org/ranking/teams', 'status': 'ok',
+                                  'observed_at': '2026-10-19T11:00:00Z', 'rows': [
+                                      {'team': 'Fire Flux', 'points': 412.0, 'rank': 30},
+                                      {'team': 'ex-6666', 'points': 188.0, 'rank': 120}]}]}
+            (source / 'origination' / 'evidence' / 'live-hltv-ranking.json').write_text(json.dumps(capture))
+            registry = load_registry(source / 'origination' / 'aliases.json')
+            quote, detail = hltv_ranking.estimate(fx, hltv_ranking.load(source / 'origination' / 'evidence')[0],
+                                                  registry, NOW,
+                                                  meta=hltv_ranking.load(source / 'origination' / 'evidence')[1])
+            self.assertIsNotNone(quote, detail)
+            probs = quote['probabilities']
+            origination = {
+                'schema_version': 1, 'generated_at': iso(NOW),
+                'source_snapshot_at': '2026-10-19T11:00:00Z',
+                'matches': [dict(fx, origination=dict(
+                    quote, method='model',
+                    label='Research model estimate (HLTV world ranking)',
+                    fair_decimal=[round(1 / p, 3) for p in probs], quotes=[dict(quote)],
+                    source='HLTV world ranking'),
+                    pick_index=(0 if probs[0] > probs[1] else 1 if probs[1] > probs[0] else None),
+                    aliases_used=[], research=[], limitations=['Research model'], time_flags=[])],
+            }
+            validate_origination(origination, source)  # must not raise
+
+
 if __name__ == '__main__':
     unittest.main()
