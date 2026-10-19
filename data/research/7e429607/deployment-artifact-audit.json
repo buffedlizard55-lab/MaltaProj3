@@ -4,9 +4,9 @@
   "site_root": ".",
   "status": "pass",
   "snapshot": {
-    "generated_at": "2026-10-19T00:37:59Z",
-    "inventory_observed_at": "2026-10-19T00:37:35Z",
-    "analysis_as_of": "2026-10-19T00:37:35Z",
+    "generated_at": "2026-10-19T04:54:54Z",
+    "inventory_observed_at": "2026-10-19T04:54:37Z",
+    "analysis_as_of": "2026-10-19T04:54:37Z",
     "coverage_complete": true,
     "run_status": "partial-picks",
     "counts": {
@@ -14,11 +14,11 @@
       "upcoming": 34,
       "archived": 61,
       "unknown_schedule": 0,
-      "market": 7,
+      "market": 10,
       "bookmaker": 1,
-      "model": 11,
-      "unresolved": 15,
-      "picks": 19,
+      "model": 10,
+      "unresolved": 13,
+      "picks": 21,
       "no_edge": 0
     }
   },
@@ -248,13 +248,13 @@
         {
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
-          "detail": "Polymarket event 1208918: Order book spread 0.45 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.49/0.94, Morningstar bid/ask 0.06/0.51); observation recorded, not used as a pick input.",
+          "detail": "Polymarket event 1208918: Order book spread 0.40 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.54/0.94, Morningstar bid/ask 0.06/0.46); observation recorded, not used as a pick input.",
           "source_url": "https://polymarket.com/event/cs2-lvg-mornin-2026-10-19"
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
-          "detail": "Kalshi event KXCS2GAME-26OCT192300MORLVG: Order book spread 0.43 exceeds the 0.15 indicative ceiling (Morningstar bid/ask 0.07/0.50, Lynn Vision bid/ask 0.51/0.93); observation recorded, not used as a pick input.",
+          "detail": "Kalshi event KXCS2GAME-26OCT192300MORLVG: Order book spread 0.37 exceeds the 0.15 indicative ceiling (Morningstar bid/ask 0.07/0.44, Lynn Vision bid/ask 0.58/0.94); observation recorded, not used as a pick input.",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct192300morlvg"
         },
         {
@@ -452,7 +452,7 @@
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
-          "detail": "Kalshi event KXCS2GAME-26OCT201300EXLAV: Order book spread 0.89 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.95, Lavked bid/ask 0.06/0.92); observation recorded, not used as a pick input.",
+          "detail": "Kalshi event KXCS2GAME-26OCT201300EXLAV: Order book spread 0.90 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.95, Lavked bid/ask 0.06/0.94); observation recorded, not used as a pick input.",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct201300exlav"
         },
         {
@@ -577,29 +577,29 @@
   "provenance": {
     "repository": "buffedlizard55-lab/MaltaProj3",
     "workflow_run": {
-      "id": 39181195691,
+      "id": 39200682562,
       "name": "Refresh and deploy CS2 dashboard",
       "event": "schedule",
       "head_branch": "main",
-      "head_sha": "d03c05c72e8ad0f2c007f6ad843b4d7e3a09bf46",
-      "created_at": "2026-10-19T00:31:58Z",
-      "updated_at": "2026-10-19T00:39:36Z",
+      "head_sha": "9edf763c1feba9342044c404b7e9aa5267c242f3",
+      "created_at": "2026-10-19T04:40:51Z",
+      "updated_at": "2026-10-19T04:56:41Z",
       "conclusion": "success",
-      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691"
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200682562"
     },
     "artifact": {
-      "id": 12156751173,
+      "id": 12164575227,
       "name": "github-pages",
-      "size_in_bytes": 11950740,
-      "digest": "sha256:563e8a3f5da2612d9839029636449f9a55bd5a4c5e4992f054e3ae851451b8b9",
-      "created_at": "2026-10-19T00:39:23Z",
-      "updated_at": "2026-10-19T00:39:23Z",
-      "expires_at": "2026-10-20T00:39:21Z",
+      "size_in_bytes": 11810875,
+      "digest": "sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee",
+      "created_at": "2026-10-19T04:56:22Z",
+      "updated_at": "2026-10-19T04:56:22Z",
+      "expires_at": "2026-10-20T04:56:20Z",
       "expired": false,
-      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12156751173",
-      "downloaded_sha256": "sha256:563e8a3f5da2612d9839029636449f9a55bd5a4c5e4992f054e3ae851451b8b9",
+      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12164575227",
+      "downloaded_sha256": "sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee",
       "digest_matches_github_api": true
     }
   },
-  "audited_at": "2026-10-19T04:42:28Z"
+  "audited_at": "2026-10-19T05:10:59Z"
 }
