@@ -54,6 +54,9 @@ DEFAULT_REPOSITORY = "buffedlizard55-lab/MaltaProj3"
 DEFAULT_WORKFLOW = "pages.yml"
 ARTIFACT_NAME = "github-pages"
 MAX_ARTIFACT_BYTES = 128 * 1024 * 1024
+# A source link in the review finding points reviewers to the per-fixture
+# unresolved ledger after this session's branch is merged to main.
+PUBLISHED_REPORT_PATH = "data/research/7e429607/deployment-artifact-audit.json"
 REQUIRED_PATHS = (
     "index.html",
     "origination/index.html",
@@ -671,6 +674,8 @@ def report_flag(report: dict[str, Any]) -> list[dict[str, Any]]:
         links.append(artifact_url)
     if repository and sha:
         links.append(f"https://github.com/{repository}/blob/{sha}/.github/workflows/pages.yml")
+    if repository:
+        links.append(f"https://github.com/{repository}/blob/main/{PUBLISHED_REPORT_PATH}")
     status = report.get("status")
     snapshot = report.get("snapshot") or {}
     counts = report.get("counts") or {}

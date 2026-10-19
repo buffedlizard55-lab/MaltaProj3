@@ -153,6 +153,8 @@ class DeploymentArtifactAuditTests(unittest.TestCase):
         flag = report_flag(report)[0]
         self.assertEqual(flag["severity"], "notice")
         self.assertIn("actions/runs/123", flag["source_urls"][0])
+        self.assertTrue(any(link.endswith("/blob/main/data/research/7e429607/deployment-artifact-audit.json")
+                            for link in flag["source_urls"]))
         self.assertTrue(all(link.startswith("https://github.com/") or link.startswith("https://api.github.com/")
                             for link in flag["source_urls"]))
 
