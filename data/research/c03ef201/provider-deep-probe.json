@@ -1,87 +1,8 @@
 {
   "probe": "c03ef201 provider deep probe (evidence only; never a pick)",
   "policy": "Dated research evidence for fixtures the published ladder leaves blank. HLTV first (official ranking and fixture identity), then esportsbook/betting-line providers. Listing hits are observations for the reviewed rung work; this file never writes a probability or fills a blank.",
-  "generated_at": "2026-10-19T05:22:53Z",
+  "generated_at": "2026-10-19T05:29:48Z",
   "blank_fixtures": [
-    {
-      "hotspawn_id": "1082152",
-      "teams": [
-        "Apogee Betclic",
-        "Spirit Academy"
-      ],
-      "competition": "Stake Ranked Episode 6: Closed Qualifier",
-      "starts_at": "2026-10-19T09:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
-      "hotspawn_source_url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
-      "research_trail": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "No unique structured HLTV identity confirmed.",
-          "source_url": "https://www.hltv.org/matches"
-        },
-        {
-          "stage": "HLTV identity review",
-          "status": "unresolved",
-          "detail": "HLTV lists Betclic vs Spirit Academy at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.",
-          "source_url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "Apogee Betclic: multiple Valve rosters share this name; no unique exact-five-player HLTV proof",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "No official HLTV world-ranking capture is available",
-          "source_url": "https://www.hltv.org/ranking/"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152"
-        }
-      ]
-    },
     {
       "hotspawn_id": "1081131",
       "teams": [
@@ -144,8 +65,8 @@
         {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "unresolved",
-          "detail": "No official HLTV world-ranking capture is available",
-          "source_url": "https://www.hltv.org/ranking/"
+          "detail": "ex-6666: no HLTV world-ranking entry found (including registry aliases)",
+          "source_url": "https://www.hltv.org/ranking/teams"
         },
         {
           "stage": "Origination result",
@@ -217,8 +138,8 @@
         {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "unresolved",
-          "detail": "No official HLTV world-ranking capture is available",
-          "source_url": "https://www.hltv.org/ranking/"
+          "detail": "LFO 10: no HLTV world-ranking entry found (including registry aliases)",
+          "source_url": "https://www.hltv.org/ranking/teams"
         },
         {
           "stage": "Origination result",
@@ -290,8 +211,8 @@
         {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "unresolved",
-          "detail": "No official HLTV world-ranking capture is available",
-          "source_url": "https://www.hltv.org/ranking/"
+          "detail": "WXM: no HLTV world-ranking entry found (including registry aliases)",
+          "source_url": "https://www.hltv.org/ranking/teams"
         },
         {
           "stage": "Origination result",
@@ -303,34 +224,35 @@
     }
   ],
   "hltv": {
-    "ranking_url": "https://www.hltv.org/ranking/",
+    "ranking_url": "https://www.hltv.org/ranking/teams",
     "ranking_pages": [
       {
-        "url": "https://www.hltv.org/ranking/",
-        "status": "fetch-failed"
+        "url": "https://www.hltv.org/ranking/teams",
+        "status": "ok",
+        "rows": 245
+      },
+      {
+        "url": "https://www.hltv.org/ranking/teams?offset=30",
+        "status": "ok",
+        "rows": 245
+      },
+      {
+        "url": "https://www.hltv.org/ranking/teams?offset=60",
+        "status": "ok",
+        "rows": 245
+      },
+      {
+        "url": "https://www.hltv.org/ranking/teams?offset=90",
+        "status": "ok",
+        "rows": 245
+      },
+      {
+        "url": "https://www.hltv.org/ranking/teams?offset=120",
+        "status": "ok",
+        "rows": 245
       }
     ],
     "teams": {
-      "https://www.hltv.org/team/12916/betclic": {
-        "team": "Betclic",
-        "world_ranking": 71,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/7900/spirit-academy": {
-        "team": "Spirit Academy",
-        "world_ranking": 111,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/13355/nemesis": {
-        "team": "Nemesis",
-        "world_ranking": 46,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/11251/eternal-fire": {
-        "team": "Eternal Fire",
-        "world_ranking": 38,
-        "team_url": null
-      },
       "https://www.hltv.org/team/14100/ex-6666": {
         "team": "ex-6666",
         "world_ranking": null,
@@ -361,6 +283,11 @@
         "world_ranking": null,
         "team_url": null
       },
+      "https://www.hltv.org/team/7900/spirit-academy": {
+        "team": "Spirit Academy",
+        "world_ranking": 111,
+        "team_url": null
+      },
       "https://www.hltv.org/team/12646/chinggis-warriors": {
         "team": "Chinggis Warriors",
         "world_ranking": 61,
@@ -383,30 +310,6 @@
       }
     },
     "matches": {
-      "1082152": {
-        "teams": [
-          "Apogee Betclic",
-          "Spirit Academy"
-        ],
-        "ranking_hits": {
-          "Apogee Betclic": {
-            "ranking_entry": null
-          },
-          "Spirit Academy": {
-            "ranking_entry": null
-          }
-        },
-        "match_page": {
-          "url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
-          "status": "ok",
-          "team_links": [
-            "https://www.hltv.org/team/12916/betclic",
-            "https://www.hltv.org/team/7900/spirit-academy",
-            "https://www.hltv.org/team/13355/nemesis",
-            "https://www.hltv.org/team/11251/eternal-fire"
-          ]
-        }
-      },
       "1081131": {
         "teams": [
           "ex-6666",
@@ -417,7 +320,12 @@
             "ranking_entry": null
           },
           "Privateer": {
-            "ranking_entry": null
+            "ranking_entry": {
+              "rank": 226,
+              "points": 1.0,
+              "published_team": "Privateer",
+              "source_url": "https://www.hltv.org/ranking/teams"
+            }
           }
         },
         "match_page": {
@@ -438,7 +346,12 @@
         ],
         "ranking_hits": {
           "The Last Resort": {
-            "ranking_entry": null
+            "ranking_entry": {
+              "rank": 159,
+              "points": 4.0,
+              "published_team": "The Last Resort",
+              "source_url": "https://www.hltv.org/ranking/teams"
+            }
           },
           "LFO 10": {
             "ranking_entry": null
@@ -462,7 +375,12 @@
         ],
         "ranking_hits": {
           "Chinggis Warriors": {
-            "ranking_entry": null
+            "ranking_entry": {
+              "rank": 61,
+              "points": 15.0,
+              "published_team": "Chinggis Warriors",
+              "source_url": "https://www.hltv.org/ranking/teams"
+            }
           },
           "WXM": {
             "ranking_entry": null
@@ -480,7 +398,7 @@
         }
       }
     },
-    "ranking_teams": 0
+    "ranking_teams": 245
   },
   "pinnacle": {
     "matchups": [
@@ -4290,19 +4208,18 @@
     ],
     "series_lines": [],
     "fixture_hits": {
-      "1082152": [],
       "1081131": [],
       "1079643": [],
       "1081863": []
     },
     "leagues": [
       {
-        "id": 278848,
-        "name": "CS2 - NODWIN Clutch Series Qualifier"
+        "id": 9587,
+        "name": "League of Legends - World Championship"
       },
       {
-        "id": 225201,
-        "name": "League of Legends - EMEA Masters"
+        "id": 295354,
+        "name": "CS2 - Private Club"
       },
       {
         "id": 285202,
@@ -4313,8 +4230,8 @@
         "name": "CS2 - United21"
       },
       {
-        "id": 285925,
-        "name": "CS2 - CCT Europe Challengers"
+        "id": 296113,
+        "name": "CS2 - PGL Bucharest Qualifier"
       },
       {
         "id": 295831,
@@ -4325,30 +4242,26 @@
         "name": "CS2 - DraculaN"
       },
       {
+        "id": 225201,
+        "name": "League of Legends - EMEA Masters"
+      },
+      {
+        "id": 278848,
+        "name": "CS2 - NODWIN Clutch Series Qualifier"
+      },
+      {
+        "id": 285925,
+        "name": "CS2 - CCT Europe Challengers"
+      },
+      {
         "id": 293235,
         "name": "Dota 2 - EPL Masters"
-      },
-      {
-        "id": 296113,
-        "name": "CS2 - PGL Bucharest Qualifier"
-      },
-      {
-        "id": 9587,
-        "name": "League of Legends - World Championship"
-      },
-      {
-        "id": 295354,
-        "name": "CS2 - Private Club"
       }
     ]
   },
   "x1bet": {
     "url": "https://1xbet.com/en/line/Esports",
     "fixture_hits": {
-      "1082152": {
-        "Apogee Betclic": null,
-        "Spirit Academy": null
-      },
       "1081131": {
         "ex-6666": null,
         "Privateer": null
@@ -4396,10 +4309,6 @@
       }
     ],
     "fixture_hits": {
-      "1082152": {
-        "Apogee Betclic": null,
-        "Spirit Academy": null
-      },
       "1081131": {
         "ex-6666": null,
         "Privateer": null
@@ -4412,6 +4321,7 @@
         "Chinggis Warriors": null,
         "WXM": null
       }
-    }
+    },
+    "js_discovered_api_paths": []
   }
 }
