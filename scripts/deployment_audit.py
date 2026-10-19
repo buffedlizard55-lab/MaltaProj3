@@ -660,6 +660,36 @@ def add_metadata(report: dict[str, Any], audited_at: str | None = None) -> dict[
     return report
 
 
+def preserve_equivalent_audit_time(report: dict[str, Any], previous: Any) -> dict[str, Any]:
+    """Keep an existing observation time when a repeat audit has identical facts.
+
+    The branch workflow writes its report back to the branch. Without this
+    guard, a repeat read of the *same* immutable Pages artifact would differ
+    only by ``audited_at`` and create a bot commit. That new commit moves a pull
+    request head even though the underlying artifact did not change, which can
+    cancel a useful validation run. A changed artifact, report field or failure
+    remains a new observation and receives its actual current audit time.
+    """
+    if not isinstance(previous, dict) or not previous.get("audited_at"):
+        return report
+    current_without_time = {key: value for key, value in report.items() if key != "audited_at"}
+    previous_without_time = {key: value for key, value in previous.items() if key != "audited_at"}
+    if current_without_time != previous_without_time:
+        return report
+    stable = dict(report)
+    stable["audited_at"] = previous["audited_at"]
+    return stable
+
+
+def read_json_if_object(path: Path) -> dict[str, Any] | None:
+    """Read a prior report only when it is a valid object; never mask corruption."""
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def report_flag(report: dict[str, Any]) -> list[dict[str, Any]]:
     """Create one Flagged-for-Review entry using only audit evidence URLs."""
     provenance = report.get("provenance") or {}
@@ -760,6 +790,9 @@ def main(argv: list[str] | None = None) -> int:
         }
     report = add_metadata(report, args.audited_at)
     if args.output:
+        # Re-reading an unchanged artifact is useful, but should not produce a
+        # timestamp-only branch commit that races the validation workflows.
+        report = preserve_equivalent_audit_time(report, read_json_if_object(args.output))
         write_json(args.output, report)
     if args.flags_output:
         write_json(args.flags_output, report_flag(report))

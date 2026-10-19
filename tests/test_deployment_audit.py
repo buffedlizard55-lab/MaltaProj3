@@ -21,6 +21,7 @@ from scripts.deployment_audit import (
     AuditError,
     audit_archive,
     audit_site,
+    preserve_equivalent_audit_time,
     report_flag,
     select_latest_successful_run,
     select_pages_artifact,
@@ -100,6 +101,33 @@ class DeploymentArtifactAuditTests(unittest.TestCase):
         self.assertEqual(ledger["limitations"], row["limitations"])
         self.assertNotIn("probabilities", ledger)
         self.assertEqual(ledger["hotspawn_source_url"], row["source_url"])
+
+    def test_repeat_of_identical_artifact_keeps_its_original_audit_time(self):
+        prior = {
+            "schema_version": 1,
+            "status": "pass",
+            "provenance": {"artifact": {"id": 456, "digest": "sha256:abc"}},
+            "audited_at": "2026-10-19T04:11:17Z",
+        }
+        repeated = dict(prior, audited_at="2026-10-19T05:11:17Z")
+        stable = preserve_equivalent_audit_time(repeated, prior)
+        self.assertEqual(stable["audited_at"], prior["audited_at"])
+        self.assertEqual({key: value for key, value in stable.items() if key != "audited_at"},
+                         {key: value for key, value in repeated.items() if key != "audited_at"})
+
+    def test_changed_artifact_or_audit_result_keeps_a_new_audit_time(self):
+        prior = {
+            "schema_version": 1,
+            "status": "pass",
+            "provenance": {"artifact": {"id": 456, "digest": "sha256:abc"}},
+            "audited_at": "2026-10-19T04:11:17Z",
+        }
+        changed = {
+            **prior,
+            "provenance": {"artifact": {"id": 789, "digest": "sha256:def"}},
+            "audited_at": "2026-10-19T05:11:17Z",
+        }
+        self.assertEqual(preserve_equivalent_audit_time(changed, prior)["audited_at"], changed["audited_at"])
 
     def test_a_missing_mobile_pick_surface_is_a_visible_review_failure(self):
         site = self.copy_site("missing-glance")
