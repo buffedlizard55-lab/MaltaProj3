@@ -1,0 +1,60 @@
+# Session arena-c03ef201 — read-only live ground-truth + deep provider probe.
+#
+# Dispatch only plus a guarded push trigger: it is never scheduled and it never
+# deploys. The coding sandbox has no egress to Hotspawn, HLTV or any bookmaker;
+# the GitHub runner does. This workflow runs the repository's own collectors
+# there, then scripts/c03ef201_research.py deep-probes the sources the brief
+# names for unresolved matches (HLTV first, then esportsbooks / betting lines),
+# and commits only the dated reports under data/research/c03ef201/.
+#
+# The push guard skips runs whose head commit is the workflow's own report
+# commit (message starts with 'research(c03ef201)'), so a report push can never
+# re-trigger the probe in a loop.
+name: c03ef201 unresolved-fixture research probe (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/c03ef201-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: c03ef201-research
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(c03ef201)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Deep research probe for every fixture the ladder leaves blank
+        run: python -m scripts.c03ef201_research --live
+      - name: Restore every tracked data file so only the reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated reports to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/c03ef201/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(c03ef201): live coverage + provider deep-probe reports (never published)'
+          git pull --rebase origin arena/c03ef201-maltaproj3
+          git push origin arena/c03ef201-maltaproj3

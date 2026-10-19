@@ -28,6 +28,71 @@ is current; no implementation scope from those rows is entered.
 - **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103, #105 and #107, their merges, the latest recorded publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
 
 **Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+# Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
+
+Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
+(branched from `main` `d03c05c`, merge of PR #98). Arena fixes every session to
+its own `arena/<id>-maltaproj3` branch, so this session works there instead of a
+`session-<id>/<task>` branch; the file-scope rules below are unchanged and this
+branch is the session branch for all coordination purposes.
+
+**Handoff taken over.** PR #100 (`arena-fe48a0df`, "Record the PR #99 merge in
+the board", COORDINATION.md only) has been open with no commits since
+2026-10-18T02:19Z — far past the 60-minute rule. Its content is a one-line
+historical record of PR #99's merge/deploy; this session owns integrating or
+closing it and will note the outcome in C-6. No other session holds an open
+claim in the board at claim time.
+
+**Non-overlap pledge.** This session does not edit `archive/`, `docs/`
+sources, `data/origination/aliases.json` semantics (additive reviewed entries
+only if a probe proves a scoped join, each with official evidence), or any
+other session's `data/research/<other-session>/` directories. `scripts/build.py`
+is entered only additively (copy, links, one section hook); no freshness rule,
+expiry threshold, probability, pick or alias semantics are changed there.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C-1 Board claim, session setup | **done** (this section, commit 7f9be0c) | arena-c03ef201 | `COORDINATION.md` |
+| C-2 Runner-side live ground truth: current Hotspawn CS2 inventory, every fixture the ladder leaves blank with its reason, and a deep first-party provider probe (Pinnacle guest board, 1xBet full line, bo3.gg, HLTV team/ranking pages) with saved original evidence | **done** — runner workflow `.github/workflows/c03ef201-research.yml` (`workflow_dispatch` is HTTP 403 for this token; guarded push trigger used, report commits never re-trigger). Three live runs 2026-10-19 (39198880905, 39204191252, 39204781421); reports + hash-checked originals in `data/research/c03ef201/` | arena-c03ef201 |
+| C-3 Resolution rungs for the blanks the brief demands (HLTV first, then esportsbooks/esports betting lines): an official-HLTV-derived research model, additive esportsbook rows (Pinnacle guest board, 1xBet/bo3.gg if contract-clean), and a clearly-labelled wide-book indicative guidance rung (never a book-validated pick), with tests | **done** — three additive rungs (commit bc2e572+): Pinnacle guest-board series moneylines as an independent money vote (period 0 only; Yes/No + score-grid specials rejected by participant text — latent `pinnacle_lines.py` defect the probe exposed, now regression-tested); `scripts/hltv_ranking.py` uncalibrated model over HLTV official weekly ranking points (400-scale transform, same-dated publication, 14-day ceiling); wide-book midpoint published as `method: guidance` only after every compliant rung fails (amber "Guidance only", excluded from `MONEY_METHODS` and the upset rules; even midpoints = "No edge · Even"). 1xBet answers HTTP 203, bo3.gg is a client-side shell — dated access limitations recorded, nothing fabricated | arena-c03ef201 |
+| C-4 Phone-first executive summary: links to the updated picks lists, a separate unresolved-picks section with the limitations of generating those picks, mobile-friendly | **done** — verified on the built site: hero + briefing nav link to `origination/#picks`, `#unresolved` section on the summary, "Picks at a glance" phone-first index, viewport/mobile-nav/skip-link landmarks (build validator: 663 internal links + mobile landmarks checked); methodology page documents both new rungs (step 05 + formula sections) | arena-c03ef201 |
+| C-5 Line-by-line repository review with source links and every irregularity flagged; full verification suites green | **done** — `data/research/c03ef201/repo-review.json` (7 items, rendered on Flagged for Review) + `flags.json` (7 findings); gates: 708 Python tests OK, build replay validator OK (80 source rows reconciled), `scripts.audit_rows --strict` 490 rows / 0 violations, pick-presentation safety 14/14. `npm test` (Playwright) cannot run in this sandbox (browser CDN unreachable); its no-JS/mobile audits run in the Python suite | arena-c03ef201 |
+| C-6 Full suites green, PR to main, merge, real Pages deployment verified, record (including the PR #100 takeover outcome) | **in progress** (PR #100 takeover complete: closed unmergeable stale PR with verbatim comment 6260642447; record preserved below) | arena-c03ef201 | `COORDINATION.md`, PR |
+
+Principles re-asserted: no Hotspawn "% picked" or crowd input, no invented odds,
+no probability without an official source link and observation time, every
+published row keeps its source link or an explicit unverified marker, and a
+fixture that still has no compliant input after the extended ladder stays blank
+and visible in the executive summary's unresolved section with its limitations.
+
+### C-6 integration record (session arena-c03ef201)
+
+- **PR #100 takeover (complete).** Stale since 2026-10-18T02:19:50Z and **not
+  mergeable** (board end-of-file context diverged on main). Closed with
+  takeover comment
+  https://github.com/buffedlizard55-lab/MaltaProj3/pull/100#issuecomment-6260642447
+  preserving fe48a0df's content verbatim. Verbatim record, preserved here so
+  nothing is lost:
+  > ### Final record 2026-10-18T02:18Z — PR #99 merged
+  >
+  > PR **#99** merged at 2026-10-18T02:10:44Z as **`0b70974`**
+  > (https://github.com/buffedlizard55-lab/MaltaProj3/pull/99); deploy runs
+  > 39089161225 ("Refresh and deploy CS2 dashboard") and 39089160562 ("pages
+  > build and deployment") both **success**. The live snapshot at
+  > 2026-10-18T02:16Z reads **34 active / 28 directional picks / 1 even no-side
+  > / 5 blanks / 29 with probabilities** (20 external-line, 9 research-model).
+  > This closes session arena-fe48a0df's board record; further pick changes
+  > belong to the next scheduled refresh, not to this claim.
+- **Live research result (2026-10-19T05:29Z snapshot, runner-evidenced):**
+  **31 of 34 active fixtures carry a researched estimate** (11 market, 5
+  bookmaker, 4 consensus, 9 research-model of which 1 HLTV-ranking, 2
+  guidance-only), 6 alias-joined. The 3 remaining blanks are intentional and
+  published with full trails: **ex-6666–Privateer (1081131)**, **The Last
+  Resort–LFO 10 (1079643)**, **Chinggis Warriors–WXM (1081863)** — each has one
+  team (ex-6666, LFO 10, WXM) with an official HLTV page but no ranking entry,
+  no Valve row and no price on any checked provider. Guidance rows: Lynn
+  Vision–Morningstar 75/25 (Polymarket book, 0.35 spread), Lavked–ex-6666
+  ~50/50 (Kalshi book, 0.90 spread) — guidance only, never book-validated.
 
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 

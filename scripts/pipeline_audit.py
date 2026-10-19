@@ -64,7 +64,7 @@ def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, no
     unique-candidate verification. Snapshot time is explicit and stable.
     """
     provider = q.get('provider')
-    assert provider in {'Thunderpick', 'Kalshi', 'Bovada'}, 'Unsupported replay provider'
+    assert provider in {'Thunderpick', 'Kalshi', 'Bovada', 'Pinnacle'}, 'Unsupported replay provider'
     reference = q.get('evidence_file')
     saved = _read(evidence_path(source, reference))
     folder = source / 'origination/evidence'
@@ -93,13 +93,22 @@ def replay_provider_quote(q: dict, match: dict, registry: dict, source: Path, no
             assert page.get('url') == next(r['url'] for r in manifest if r.get('id') == 'live-kalshi-events-' + str(i)
                                           and r.get('status') == 'ok'), 'Kalshi original page URL changed'
         rows = originate.kalshi_rows(folder)
-    else:
+    elif provider == 'Bovada':
         assert reference == 'data/origination/evidence/live-bovada-cs2.json', 'Unrecognized Bovada original path'
         manifest = _requests(source, live=True)
         _observation(manifest, 'live-bovada-cs2', saved.get('observed_at'), now,
                      url=originate.BOVADA_API, method='GET')
         assert saved.get('url') == originate.BOVADA_API, 'Bovada original API URL changed'
         rows = originate.bovada_rows(folder)
+    else:
+        assert reference == 'data/origination/evidence/live-pinnacle-cs.json', 'Unrecognized Pinnacle original path'
+        manifest = _requests(source, live=True)
+        api_url = str(q.get('api_url') or '')
+        lid = api_url.split('/leagues/')[-1].split('/')[0] if '/leagues/' in api_url else ''
+        assert lid.isdigit(), 'Pinnacle quote lacks its league market endpoint'
+        _observation(manifest, 'live-pinnacle-straight-' + lid, q.get('observed_at'), now,
+                     url=originate.PINNACLE_API + '/leagues/' + lid + '/markets/straight', method='GET')
+        rows = originate.pinnacle_rows(folder)
     # Match against all original full-series candidates, not just the ID that a
     # summarized quote selected. Otherwise a forged summary could hide a second
     # equally matching event/market and turn ambiguity into an arbitrary pick.

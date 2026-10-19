@@ -92,6 +92,9 @@ def pick_row(m, safety=None, now=None):
         label = 'Money-backed line' if money else 'Research model'
         if o['method'] == 'reference':
             label = 'Aggregated money line · third-party bookmaker average'
+        if o['method'] == 'guidance':
+            label = 'Wide-book guidance · indicative only'
+            kind = 'amber'
         if any(isinstance(q, dict) and q.get('thin') for q in o.get('quotes', [])):
             label += ' · thin market'
             kind = 'amber'
@@ -365,7 +368,17 @@ def validate_origination(data, source):
         if not o:
             assert m['pick_index'] is None
             continue
-        if o['method'] == 'model' and (o.get('family') == 'form'
+        if o['method'] == 'model' and o.get('source') == 'HLTV world ranking':
+            from scripts import hltv_ranking
+            rows, meta = hltv_ranking.load(source / 'origination/evidence')
+            expected, reason = hltv_ranking.estimate(raw, rows, registry, timestamp(data['generated_at']), meta=meta)
+            assert expected and expected['probabilities'] == o['probabilities'], \
+                'HLTV ranking model differs from the saved official ranking capture: ' + str(reason)
+            if 'evaluation_at' in o:
+                assert expected['observed_at'] == o['observed_at'], 'HLTV ranking source observation restamped'
+                assert expected['inputs'] == o['inputs'], 'HLTV ranking input records changed'
+                assert expected['evidence_file'] == o['evidence_file'], 'HLTV ranking original source changed'
+        elif o['method'] == 'model' and (o.get('family') == 'form'
                                        or any((q or {}).get('family') == 'form' for q in o.get('quotes') or [])):
             # Lowest rung: re-derive the published probability from the
             # published inputs only. Each unrated side carries the sample size
@@ -400,6 +413,38 @@ def validate_origination(data, source):
                 assert expected['evidence_file'] == o['evidence_file'], 'Valve original source changed'
         values = []
         for q in o.get('quotes', []):
+            if q.get('family') == 'guidance':
+                # Guidance rows replay exactly like the ladder builds them:
+                # unique per-provider match, market book fails every ceiling,
+                # narrowest remaining wide book wins, midpoint recomputed.
+                from scripts import originate
+                from scripts.originate import (kalshi_rows, market_estimate, polymarket_rows,
+                                               wide_book_quote)
+                now_ts = timestamp(data['generated_at'])
+                grouped = {}
+                for row in polymarket_rows(source, source / 'origination/evidence') + kalshi_rows(source / 'origination/evidence'):
+                    if originate.pair_join(row['names'], row['start'], raw, registry)[2] == 'matched':
+                        grouped.setdefault((row.get('family'), row.get('provider') or 'Polymarket'), []).append(row)
+                candidates = []
+                for rows_ in grouped.values():
+                    if len(rows_) != 1:
+                        continue
+                    row = rows_[0]
+                    ok, _ = market_estimate(row, raw, registry, now_ts)
+                    if ok:
+                        continue
+                    wide, spread = wide_book_quote(row, raw, registry, now_ts)
+                    if wide:
+                        candidates.append((spread, wide))
+                assert candidates, 'No wide-book observation replays for this guidance row'
+                candidates.sort(key=lambda item: item[0])
+                expected = candidates[0][1]
+                assert expected['probabilities'] == q['probabilities'], 'Guidance midpoint changed'
+                assert expected['bid'] == q['bid'] and expected['ask'] == q['ask'], 'Guidance book changed'
+                assert expected['provider'] == q['provider'] and expected['event_id'] == q['event_id'], \
+                    'Guidance identity changed'
+                values.append(q['probabilities'][0])
+                continue
             if q.get('family') == 'reference':
                 from scripts import reference_odds
                 capture = reference_odds.load(source)
@@ -409,7 +454,7 @@ def validate_origination(data, source):
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])
                 continue
-            if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada'}:
+            if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada', 'Pinnacle'}:
                 from scripts.pipeline_audit import replay_provider_quote
                 values.append(replay_provider_quote(q, raw, registry, source, timestamp(data['generated_at'])))
             elif q.get('family') == 'bookmaker':

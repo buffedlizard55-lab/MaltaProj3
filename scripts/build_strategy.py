@@ -33,7 +33,8 @@ REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
 MONEY = {'market', 'bookmaker', 'consensus'}
 METHOD_LABEL = {'market': 'Prediction market', 'bookmaker': 'Bookmaker line', 'consensus': 'Median of money sources',
-                'reference': 'Aggregated bookmaker average (third-party)', 'model': 'Research model (uncalibrated)'}
+                'reference': 'Aggregated bookmaker average (third-party)', 'model': 'Research model (uncalibrated)',
+                'guidance': 'Wide-book guidance (indicative only, never money-backed)'}
 RESEARCH_DIR = 'research/1112299f'
 
 

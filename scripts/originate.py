@@ -34,7 +34,10 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
-from scripts import reference_odds, form_model
+from scripts import form_model
+from scripts import hltv_ranking
+from scripts import pinnacle_lines
+from scripts import reference_odds
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -76,6 +79,13 @@ KALSHI_SERIES = 'KXCS2GAME'
 BOVADA_API = ('https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?'
               + urlencode({'marketFilterId': 'def', 'preMatchOnly': 'true', 'lang': 'en'}))
 BOVADA_SITE = 'https://www.bovada.lv/sports'
+# Pinnacle public guest market board (first-party esportsbook prices). Added by
+# session c03ef201 alongside the HLTV world-ranking research model: both rungs
+# exist so low-tier fixtures the exchange books never list still get researched
+# picks before anything is published as unresolved.
+PINNACLE_PAGE = pinnacle_lines.SOURCE_URL
+PINNACLE_API = 'https://guest.api.arcadia.pinnacle.com/0.1'
+HLTV_RANKING_URL = hltv_ranking.RANKING_URL
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
@@ -573,6 +583,80 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['bovada_error'] = str(exc)
     for stale in ('live-valve-directory.json', 'live-valve-standings.json', 'live-valve-standings-text.json'):
         (evidence_dir / stale).unlink(missing_ok=True)
+    # Pinnacle public guest board (first-party esportsbook prices). Non-fatal:
+    # an outage records a reason and prices nothing. Period-0 series moneylines
+    # only; the loader rejects specials and per-map periods by construction.
+    (evidence_dir / 'live-pinnacle-cs.json').unlink(missing_ok=True)
+    try:
+        leagues_body, _ = client.get_json(PINNACLE_API + '/sports/12/leagues', 'live-pinnacle-leagues', save=False)
+        matchups_body, _ = client.get_json(PINNACLE_API + '/sports/12/matchups', 'live-pinnacle-matchups', save=False)
+        straight = []
+        for lg in leagues_body or []:
+            if not isinstance(lg, dict) or lg.get('id') is None:
+                continue
+            if not str(lg.get('name') or '').startswith('CS2'):
+                continue
+            try:
+                rows, entry = client.get_json(f"{PINNACLE_API}/leagues/{lg['id']}/markets/straight",
+                                              f'live-pinnacle-straight-{lg["id"]}', save=False)
+            except RuntimeError as exc:
+                out['pinnacle_error'] = str(exc)
+                continue
+            straight.append({'league_id': lg['id'], 'observed_at': entry['observed_at'], 'markets': rows})
+        (evidence_dir / 'live-pinnacle-cs.json').write_text(json.dumps({
+            'source': 'Pinnacle public guest market board', 'url': PINNACLE_PAGE,
+            'api_url': PINNACLE_API, 'docs': 'https://www.pinnacle.com/en/esports',
+            'observed_at': iso(datetime.now(UTC)),
+            'leagues': [l for l in leagues_body or [] if isinstance(l, dict)],
+            'matchups': [m for m in matchups_body or [] if isinstance(m, dict)],
+            'straight': straight}, ensure_ascii=False, indent=2) + '\n')
+        out['pinnacle'] = {'cs2_leagues': len(straight),
+                           'matchups': sum(1 for m in matchups_body or [] if isinstance(m, dict))}
+    except RuntimeError as exc:
+        out['pinnacle_error'] = str(exc)
+    # Official HLTV weekly world ranking (research-model rung; never a money
+    # line). Pages are read with the same public GET as every other source and
+    # saved for replay; a failed fetch leaves the rung inactive.
+    (evidence_dir / 'live-hltv-ranking.json').unlink(missing_ok=True)
+    try:
+        pages = []
+        for offset in (0, 30, 60, 90):
+            url = HLTV_RANKING_URL + (f'?offset={offset}' if offset else '')
+            try:
+                text, req = client.fetch_html(url, 'live-hltv-ranking-' + str(offset))
+            except RuntimeError as exc:
+                out['hltv_ranking_error'] = str(exc)
+                break
+            rows = hltv_ranking.parse_ranking_page(text)
+            for position, row in enumerate(rows):
+                row['rank'] = offset + position + 1
+            final_url = req.get('final_url') or url
+            pages.append({'url': final_url, 'status': 'ok', 'observed_at': req.get('observed_at') or iso(datetime.now(UTC)),
+                          'rows': rows})
+            # The whole world ranking renders on one page when it carries at
+            # least 200 rows; offset pages exist only for older split layouts.
+            if len(rows) < 25 or len(rows) >= 200:
+                break
+        if pages:
+            observed_at = pages[0]['observed_at']
+            # HLTV's canonical page redirects to a dated publication slug such
+            # as /ranking/teams/2026/october/12; that date is the publication
+            # date the model runs against, not the fetch wall clock.
+            dated = re.search(r'/ranking/teams/(\d{4})/([a-z]+)/(\d{1,2})', pages[0]['url'] or '')
+            if dated:
+                month = MONTHS.index(dated.group(2)[:3].title()) + 1
+                snapshot_date = f'{int(dated.group(1)):04d}-{month:02d}-{int(dated.group(3)):02d}'
+            else:
+                snapshot_date = observed_at[:10]
+            (evidence_dir / 'live-hltv-ranking.json').write_text(json.dumps({
+                'source': 'HLTV official weekly world ranking', 'source_url': HLTV_RANKING_URL,
+                'observed_at': observed_at, 'snapshot_date': snapshot_date,
+                'pages': pages}, ensure_ascii=False, indent=2) + '\n')
+            out['hltv_ranking'] = {'pages': len(pages),
+                                   'teams': sum(len(p['rows']) for p in pages),
+                                   'snapshot_date': snapshot_date}
+    except RuntimeError as exc:
+        out['hltv_ranking_error'] = str(exc)
     valve_text = None
     try:
         now = datetime.now(UTC)
@@ -922,6 +1006,60 @@ def bovada_rows(orig_evidence: Path) -> list:
     return rows
 
 
+def pinnacle_rows(orig_evidence: Path) -> list:
+    """Pinnacle guest-board two-way series moneylines from the saved response.
+
+    Series lines only (lowest period, per pinnacle_lines.series_moneyline —
+    period 0 when present, higher periods are per-map prices and are never
+    taken for a series). American prices are converted to decimal by the same
+    module; "Yes/No", "Odd/Even" and score-grid specials are rejected there by
+    participant text before any price is read.
+    """
+    path = orig_evidence / 'live-pinnacle-cs.json'
+    if not path.exists():
+        return []
+    saved = load_json(path)
+    if not isinstance(saved, dict):
+        return []
+    observed = saved.get('observed_at')
+    out = []
+    for m in saved.get('matchups') or []:
+        if not isinstance(m, dict):
+            continue
+        league = (m.get('league') or {}).get('name') or ''
+        if not league.startswith('CS2'):
+            continue
+        if m.get('isLive') is not False:
+            continue
+        lid = (m.get('league') or {}).get('id')
+        block = next((b for b in saved.get('straight') or []
+                      if isinstance(b, dict) and str(b.get('league_id')) == str(lid)), None)
+        found = pinnacle_lines.series_moneyline(m, (block or {}).get('markets') or [])
+        if not found:
+            continue
+        # Period 0 is the series line on this board (verified 2026-10-18: the
+        # higher periods repeat identical per-map prices). A matchup priced
+        # only on periods >= 1 has NO series line and is never quoted here.
+        if found['period'] != 0:
+            continue
+        names = [p.get('name') for p in m.get('participants') or []]
+        # The quote's prices follow the price array's own keying; realign the
+        # converted decimals onto the participant order carried in 'names',
+        # exactly as align_by_name does for every other provider.
+        odds_by_name = dict(zip(found['participants'], found['decimal']))
+        if len(odds_by_name) != 2 or any(n not in odds_by_name for n in names):
+            continue
+        out.append({'family': 'bookmaker', 'provider': 'Pinnacle', 'names': names,
+                    'start': m.get('startTime'), 'odds': [odds_by_name[n] for n in names],
+                    'event_id': str(m.get('id')), 'market_id': 'series-moneyline-period-0',
+                    'source_url': PINNACLE_PAGE,
+                    'api_url': f'{PINNACLE_API}/leagues/{lid}/markets/straight',
+                    'evidence_file': 'data/origination/evidence/live-pinnacle-cs.json',
+                    'observed_at': (block or {}).get('observed_at') or observed,
+                    'league': league, 'best_of': m.get('bestOfX')})
+    return out
+
+
 def _verified_valve_rows(repo_data: Path, live: bool, manifest: list):
     """Verify decoded rows against the official Contents response and blob ID."""
     from scripts.domain import parse_valve_table
@@ -1066,6 +1204,51 @@ def bookmaker_estimate(row: dict, match: dict, registry: dict, *, now: datetime 
         if row.get(key):
             quote[key] = row[key]
     return quote, 'Verified paired prematch decimal prices; margin removed by proportional normalization.'
+
+
+def wide_book_quote(row: dict, match: dict, registry: dict, now: datetime):
+    """Indicative midpoint of an otherwise-rejected two-sided book (guidance only).
+
+    When the entire ladder has no compliant input but a prediction-market book
+    was actually observed and simply too wide for the published ceilings, the
+    brief still asks for a researched percentage. This returns that observed
+    midpoint, labelled ``family='guidance'``. It never becomes a book-validated
+    pick, never enters MONEY_METHODS, never overrides any compliant quote, and
+    is only ever used as the very last rung. Returns (quote, worst_spread) or
+    (None, reason).
+    """
+    from scripts.domain import is_fresh
+    if not is_fresh(row.get('observed_at'), now):
+        return None, 'Observation is missing, future-dated or stale'
+    observed, start = timestamp(row.get('observed_at')), timestamp(row.get('start'))
+    if start and observed and observed >= start:
+        return None, 'Observation is not prematch'
+    bid, ask = row.get('bid'), row.get('ask')
+    if not isinstance(bid, list) or not isinstance(ask, list) or len(bid) != 2 or len(ask) != 2:
+        return None, 'No complete paired prices'
+    bid, ask = [finite(b) for b in bid], [finite(a) for a in ask]
+    if any(v is None for v in bid + ask):
+        return None, 'Paired prices are not finite numbers'
+    if any(not 0 < b <= a < 1 for b, a in zip(bid, ask)):
+        return None, 'Crossed or invalid order book'
+    spreads = [round(a - b, 8) for b, a in zip(bid, ask)]
+    worst = max(spreads)
+    try:
+        probs = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
+        aligned = align_by_name(probs, row['names'], match, registry)
+        ordered_bid = align_by_name(bid, row['names'], match, registry)
+        ordered_ask = align_by_name(ask, row['names'], match, registry)
+    except (ValueError, KeyError, TypeError):
+        return None, 'Paired outcome identity or probability mapping is invalid'
+    quote = {'provider': row.get('provider') or 'Polymarket', 'family': 'guidance',
+             'probabilities': aligned, 'bid': ordered_bid, 'ask': ordered_ask,
+             'spread': worst, 'observed_at': row['observed_at'],
+             'source_url': row['source_url'], 'event_id': row.get('event_id'),
+             'evidence_file': row.get('evidence_file')}
+    for key in ('api_url', 'market_id'):
+        if row.get(key):
+            quote[key] = row[key]
+    return quote, worst
 
 
 def hltv_lineup_proof(evidence_dir: Path, match: dict, registry: dict, now: datetime):
@@ -1241,7 +1424,8 @@ def selection(probs) -> int | None:
 
 
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
-                    reference: list | None = None) -> dict:
+                    reference: list | None = None, hltv_rank: list | None = None,
+                    hltv_meta: dict | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -1250,16 +1434,19 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     trail = []
     aliases = []
     estimates = {'market': [], 'bookmaker': []}
+    guidance_candidates = []
     time_flags = []
 
     # 1-2. Money sources, one provider at a time: prediction markets/exchanges
-    # (Polymarket, Kalshi) and esportsbooks (Thunderpick, Bovada). Every provider
-    # gets its own audit-trail stage, including rejected observations.
+    # (Polymarket, Kalshi) and esportsbooks (Thunderpick, Bovada, Pinnacle).
+    # Every provider gets its own audit-trail stage, including rejected
+    # observations.
     stage_names = {
         ('market', 'Polymarket'): ('Betting market (Polymarket series winner)', POLY_INDEX),
         ('market', 'Kalshi'): ('Exchange market (Kalshi CS2 match winner)', KALSHI_PAGE.rstrip('/')),
         ('bookmaker', 'Thunderpick'): ('Esportsbook line (Thunderpick original prices)', THUNDERPICK_PAGE),
         ('bookmaker', 'Bovada'): ('Esportsbook line (Bovada original prices)', BOVADA_SITE),
+        ('bookmaker', 'Pinnacle'): ('Esportsbook line (Pinnacle original prices)', PINNACLE_PAGE),
     }
     notes = {key: [] for key in stage_names}
     matched = {}
@@ -1295,6 +1482,13 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             estimates[family].append((quote, detail))
         else:
             notes[key].append((f'{provider} event {row.get("event_id")}: {detail}', row.get('source_url')))
+            # A valid two-sided book that only failed the spread ceilings still
+            # carries money information; keep the narrowest one as the final
+            # guidance rung (used only if every compliant rung fails).
+            if family == 'market':
+                wide, spread = wide_book_quote(row, match, registry, now)
+                if wide:
+                    guidance_candidates.append((spread, wide))
     for key, (stage, fallback_url) in stage_names.items():
         family, provider = key
         hits = [(q, d) for q, d in estimates[family] if q['provider'] == provider]
@@ -1359,6 +1553,22 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             trail.append({'stage': 'Results model (own, bo3.gg series results)', 'status': 'unresolved',
                           'source_url': 'https://bo3.gg/matches', 'detail': match['_form_reason']})
 
+    # 4b. HLTV world-ranking research model — same uncalibrated evidence class
+    # as the Valve rung, but sourced from HLTV's official weekly ranking and
+    # used only when the Valve rung has no row (which is exactly the low-tier
+    # gap the brief asks to close). It never overrides money, reference or
+    # Valve estimates.
+    hltv_model, hltv_model_detail = hltv_ranking.estimate(match, hltv_rank or [], registry, now, meta=hltv_meta)
+    if hltv_model:
+        aliases.extend(hltv_model.get('aliases_used') or [])
+        trail.append({'stage': 'Research model cross-check (HLTV world ranking)', 'status': 'resolved',
+                      'source_url': hltv_model['source_url'],
+                      'detail': hltv_model_detail + ' Cross-check only unless every money and Valve rung fails.'})
+    else:
+        trail.append({'stage': 'Research model cross-check (HLTV world ranking)', 'status': 'unresolved',
+                      'source_url': (hltv_meta or {}).get('source_url', HLTV_RANKING_URL),
+                      'detail': hltv_model_detail})
+
     for proof in (model or {}).get('lineup_disambiguation', []):
         overlap = proof.get('overlap', 5)
         if overlap == 5:
@@ -1389,7 +1599,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                          'detail': 'See the featured pipeline research trail; no additional fixture-specific HLTV identity was verified by this fallback.'})
 
     # 5. Choose the originated line: consensus of money sources, else model.
-    # One vote per independent provider (Polymarket, Kalshi, Thunderpick, Bovada).
+    # One vote per independent provider (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle).
     families = {}
     for quote, _ in estimates['market'] + estimates['bookmaker']:
         families.setdefault(quote['provider'], quote)
@@ -1397,6 +1607,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     method = None
     label = None
     limitations = []
+    # Last-resort rungs, in published order: Valve research model, HLTV
+    # world-ranking research model, then — only if every rung above failed —
+    # the narrowest observed wide-book midpoint as guidance-only output.
+    guidance_candidates.sort(key=lambda item: item[0])
+    guidance_spread, guidance_quote = (guidance_candidates[0] if guidance_candidates else (None, None))
     if families:
         probs_list = [q['probabilities'] for q in families.values()]
         p0 = median(pr[0] for pr in probs_list)
@@ -1455,6 +1670,31 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if proof.get('overlap', 5) < 5:
                 limitations.append(f"{proof['team']}: the current HLTV lineup shares four of five players with the "
                                    'selected historical Valve row; the one-player change is not quantified.')
+    elif hltv_model:
+        chosen = dict(hltv_model)
+        chosen.update({'method': 'model', 'label': 'Research model estimate (HLTV world ranking)',
+                       'fair_decimal': [round(1 / p, 3) for p in hltv_model['probabilities']],
+                       'quotes': [hltv_model], 'source': 'HLTV world ranking',
+                       'model_crosscheck': model})
+        limitations.append('Research model, not observed betting odds. Uncalibrated HLTV ranking transform; '
+                           'current lineups, stand-ins, form and map veto unverified.')
+    elif guidance_quote:
+        chosen = dict(guidance_quote)
+        trail.append({'stage': 'Wide-book guidance fallback', 'status': 'resolved',
+                      'source_url': guidance_quote['source_url'],
+                      'detail': f'The only observed two-sided book (spread {guidance_spread:.2f}, above every '
+                                'published ceiling) is shown as guidance-only output after all compliant rungs '
+                                'failed. This is not a validated price.'})
+        chosen.update({'method': 'guidance',
+                       'label': 'Wide-book indicative midpoint (guidance only)',
+                       'fair_decimal': [round(1 / p, 3) for p in guidance_quote['probabilities']],
+                       'quotes': [guidance_quote], 'source': guidance_quote['provider'],
+                       'model_crosscheck': model})
+        limitations.append(
+            f'GUIDANCE ONLY — not a pick under the published book contract. The only observed two-sided book '
+            f'has a spread of {guidance_spread:.2f}, far wider than the {MAX_ACCEPTED_SPREAD:.2f} acceptance '
+            'ceiling, so the midpoint is barely a price. It is shown because the brief asks for a researched '
+            'percentage even when no compliant source lists the match. Do not treat it as a validated line.')
     else:
         trail.append({'stage': 'Origination result', 'status': 'unresolved',
                       'source_url': match.get('source_url') or POLY_INDEX,
@@ -1501,7 +1741,8 @@ MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
 
 
 def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *,
-                  reference: list | None = None) -> dict:
+                  reference: list | None = None, hltv_rank: list | None = None,
+                  hltv_meta: dict | None = None) -> dict:
     """One fixture's origination row.
 
     Featured estimates from the exact-name collector are preserved unchanged, with two exceptions:
@@ -1524,7 +1765,8 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
 
     if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
-    result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'), reference=reference)
+    result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'),
+                             reference=reference, hltv_rank=hltv_rank, hltv_meta=hltv_meta)
     if not featured:
         return result
     method = (result.get('origination') or {}).get('method')
@@ -1546,8 +1788,9 @@ def run(output: Path, *, live: bool = False) -> dict:
     reference_capture = reference_odds.load(output)
     reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir)
-    book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir)
+    book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
+    hltv_rank_rows, hltv_meta = hltv_ranking.load(evidence_dir)
     # Preserve original source observation timestamps. Never stamp retained quotes as new.
     for row in poly_rows:
         if not row.get('observed_at'):
@@ -1566,7 +1809,7 @@ def run(output: Path, *, live: bool = False) -> dict:
                              if ratings else (None, 'Official Valve ratings unavailable'))
         result = resolve_match(dict(match, _hltv_lineup=proof, _form=form, _form_reason=form_reason),
                                poly_rows, book_rows, ratings, valve_meta, registry, now,
-                               reference=reference_rows)
+                               reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],
@@ -1596,6 +1839,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         'bookmaker': sum((m['origination'] or {}).get('method') == 'bookmaker' for m in matches_out),
         'reference': sum((m['origination'] or {}).get('method') == 'reference' for m in matches_out),
         'model': sum((m['origination'] or {}).get('method') == 'model' for m in matches_out),
+        'guidance': sum((m['origination'] or {}).get('method') == 'guidance' for m in matches_out),
         'alias_joined': sum(bool(m['aliases_used']) for m in matches_out),
     }
     flags = []
@@ -1620,6 +1864,27 @@ def run(output: Path, *, live: bool = False) -> dict:
                                 'Identical prices and contradictory observations were rejected and the affected fixtures stay unresolved.',
                       'match_ids': reference_ids, 'source_urls': [REFERENCE_INDEX]})
     thin = [m['id'] for m in matches_out if any(q.get('thin') for q in (m['origination'] or {}).get('quotes', []) if isinstance(q, dict))]
+    guidance_ids = [m['id'] for m in matches_out if (m['origination'] or {}).get('method') == 'guidance']
+    if guidance_ids:
+        flags.append({'id': 'wide-book-guidance-only', 'severity': 'warning',
+                      'title': 'Wide-book indicative midpoints published as guidance only',
+                      'detail': 'These fixtures had no compliant market, esportsbook, aggregated or research-model '
+                                'input. Their displayed percentages are the midpoints of observed two-sided books '
+                                'far wider than every published spread ceiling, labelled guidance only. They are '
+                                'not validated picks and must never be treated as executable prices. See each '
+                                "row's research trail for the exact spreads.",
+                      'match_ids': guidance_ids, 'source_urls': [POLY_INDEX, KALSHI_PAGE.rstrip('/')]})
+    hltv_model_ids = [m['id'] for m in matches_out
+                      if (m['origination'] or {}).get('method') == 'model'
+                      and (m['origination'] or {}).get('source') == 'HLTV world ranking']
+    if hltv_model_ids:
+        flags.append({'id': 'hltv-ranking-model-lines', 'severity': 'notice',
+                      'title': 'HLTV world-ranking research model used for otherwise unpriced fixtures',
+                      'detail': 'These fixtures had no usable Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, '
+                                'aggregated-reference or Valve-rating input. Their estimates are the uncalibrated '
+                                '400-scale logistic transform of HLTV\'s official weekly ranking points and are '
+                                'labelled research models, not betting odds.',
+                      'match_ids': hltv_model_ids, 'source_urls': [HLTV_RANKING_URL]})
     if thin:
         flags.append({'id': 'thin-markets', 'severity': 'notice',
                       'title': 'Thin/wide markets used as indicative inputs',
@@ -1649,12 +1914,14 @@ def run(output: Path, *, live: bool = False) -> dict:
             'thin_spread': THIN_SPREAD,
             'max_accepted_spread': MAX_ACCEPTED_SPREAD,
             'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias Kalshi CS2 match-winner books',
-                       'verified-alias esportsbook paired prices (Thunderpick, Bovada; no-vig)',
+                       'verified-alias esportsbook paired prices (Thunderpick, Bovada, Pinnacle; no-vig)',
                        'median consensus across independent money providers',
                        'reviewed aggregated bookmaker average (EGamersWorld; labelled third-party aggregate, never overrides a first-party price)',
                        'Valve-rating research model fallback',
+                       'HLTV world-ranking research model fallback (session c03ef201)',
+                       'wide-book indicative midpoint, guidance only (session c03ef201; never a validated pick)',
                        'blank + flagged'],
-            'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada'],
+            'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada', 'Pinnacle'],
             'aggregated_reference': ['EGamersWorld published bookmaker average (manual, dated, hash-checked capture)'],
         },
         'matches': matches_out,
@@ -1666,7 +1933,11 @@ def run(output: Path, *, live: bool = False) -> dict:
             {'name': 'Kalshi CS2 match markets', 'url': KALSHI_PAGE.rstrip('/'), 'api_url': KALSHI_EVENTS, 'docs': KALSHI_DOCS, 'role': 'CFTC-regulated exchange; paired yes bid/ask books (money source, 12-cent spread ceiling)'},
             {'name': 'Thunderpick esportsbook', 'url': THUNDERPICK_PAGE, 'api_url': THUNDERPICK_API, 'role': 'original paired prematch prices (money source)'},
             {'name': 'Bovada esportsbook', 'url': BOVADA_SITE, 'api_url': BOVADA_API, 'role': 'original paired prematch series moneylines (money source)'},
+            {'name': 'Pinnacle esportsbook', 'url': PINNACLE_PAGE, 'api_url': PINNACLE_API,
+             'role': 'public guest board two-way series moneylines (money source; period 0 only, specials rejected)'},
             {'name': 'HLTV.org', 'url': HLTV_EVENT, 'role': 'identity research and published ranks; fan votes never a probability input'},
+            {'name': 'HLTV world ranking', 'url': HLTV_RANKING_URL,
+             'role': 'uncalibrated ranking research-model fallback only (session c03ef201)'},
             {'name': 'EGamersWorld aggregated bookmaker average', 'url': REFERENCE_INDEX,
              'role': 'dated third-party bookmaker-average fallback for otherwise unpriced fixtures; never overrides a first-party price'},
             {'name': 'Valve official standings', 'url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'), 'role': 'uncalibrated research-model fallback only'},

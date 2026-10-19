@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-19T04:40:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier — every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added. Extended by arena-fe48a0df (2026-10-18): one scoped, evidence-linked identity join (Valve table name 6666 to Hotspawn/HLTV ex-6666) with a review note recording the 4-of-5 roster overlap.; extended by arena-1fb85c47 (2026-10-19): the reviewed 6666 -> ex-6666 join now covers CCT Europe 2026 Series #12 Play-In and #11, and one abbreviation join (Aurora YB -> Aurora Young Blud) was added for Stake Ranked Episode 6: Closed Qualifier. Both carry their fixture pages and HLTV match URLs.",
+  "updated_at": "2026-10-19T05:55:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier — every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added. Extended by arena-fe48a0df (2026-10-18): one scoped, evidence-linked identity join (Valve table name 6666 to Hotspawn/HLTV ex-6666) with a review note recording the 4-of-5 roster overlap.; extended by arena-1fb85c47 (2026-10-19): the reviewed 6666 -> ex-6666 join now covers CCT Europe 2026 Series #12 Play-In and #11, and one abbreviation join (Aurora YB -> Aurora Young Blud) was added for Stake Ranked Episode 6: Closed Qualifier. Both carry their fixture pages and HLTV match URLs.; extended by arena-c03ef201 (2026-10-19): the Stake Ranked Betclic -> Apogee Betclic display-name join (HLTV match 2399772 + Hotspawn fixture 1082152 evidence). Session c03ef201 also independently drafted the Aurora Young Blud -> Aurora YB join on the same fixture evidence; the reviewed entry above is kept as the single registry record.",
   "aliases": [
     {
       "alias": "WBT",
@@ -542,6 +542,28 @@
         }
       ],
       "review_note": "Added by arena-1fb85c47 on 2026-10-19. This is a display-name variant bounded to one competition: Valve and HLTV both publish \"Aurora Young Blud\" while Hotspawn shows \"Aurora YB\". It feeds only the labelled, uncalibrated Valve model and never a betting price."
+    },
+    {
+      "alias": "Betclic",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "HLTV short display name vs Hotspawn 'Apogee Betclic' in Stake Ranked Episode 6 Closed Qualifier (HLTV match 2399772, Hotspawn fixture 1082152). Related reviewed entry: 'Betclic Apogee Esports' -> 'Apogee Betclic' scoped to PGL Bucharest 2027 Closed Qualifier.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Betclic vs Spirit Academy' in Stake Ranked Episode 6 Closed Qualifier at the exact Hotspawn fixture 1082152 start time (2026-10-19T09:00Z) with the exact shared opponent Spirit Academy; Hotspawn lists 'Apogee Betclic vs Spirit Academy'. The collector's own HLTV identity review recorded this record on 2026-10-19 (data/research/c03ef201/live-probe.json)."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
+          "source": "Hotspawn fixture page",
+          "detail": "Hotspawn fixture 1082152 lists 'Apogee Betclic' in the same event and slot; no separate 'Betclic' competitor exists in the event inventory."
+        }
+      ],
+      "review_note": "Added by session c03ef201 (2026-10-19): same-event/same-slot/shared-opponent triangulation, matching the reviewed 'Betclic Apogee Esports' -> 'Apogee Betclic' display-name precedent. Published on the Flagged for Review page for manual confirmation; the join is competition-scoped and cannot match any other event."
     }
   ]
 }
