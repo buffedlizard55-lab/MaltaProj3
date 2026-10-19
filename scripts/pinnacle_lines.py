@@ -73,6 +73,21 @@ def _norm(value: str) -> str:
     return re.sub(r'[^a-z0-9]+', '', (value or '').lower())
 
 
+# Pinnacle lists specials ("Yes"/"No", "Odd"/"Even", "Team By N" grids, exact
+# score grids, "Tie") on the same board as real two-team series. None of those
+# is a match-winner line. Session c03ef201 found that series_moneyline() used to
+# accept a Yes/No special as a valid two-participant pairing whenever a caller
+# did not itself pass team names; this guard rejects them by participant text
+# before any price is read.
+_SPECIAL = re.compile(
+    r'^(yes|no|odd|even|tie|draw|over|under|home|away|1|x|2'
+    r'|.+ by \d+|\d+([,:\-]\s*\d+)*|\d+\s*-\s*\d+)$', re.I)
+
+
+def _is_special_participant(name: str) -> bool:
+    return bool(_SPECIAL.match(str(name or '').strip()))
+
+
 # Pinnacle's own board shortens a few organisation names. Only these reviewed
 # display-name equivalences are applied, and only after the exact name has been
 # tried first, so an unreviewed shortening can never silently join a fixture.
@@ -119,6 +134,8 @@ def _resolve_participants(matchup: dict, row: dict) -> list[str] | None:
     if len(participants) != 2:
         return None
     names = [p.get('name') for p in participants]
+    if any(_is_special_participant(n) for n in names):
+        return None
     # Esports participants on this board are published without an id. Building the
     # map unconditionally would collapse both prices onto the last name (observed
     # 2026-10-18: both sides of FURIA vs BB Team resolved to "BB Team"), so a

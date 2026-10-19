@@ -41,17 +41,21 @@ import hashlib
 import json
 import re
 import time
-import urllib.error
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+import requests
+
+from scripts.hltv_ranking import parse_ranking_page  # shared, tested parser
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data' / 'research' / 'c03ef201'
 EVIDENCE = OUT / 'evidence'
 
-UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
-      'Chrome/124.0 Safari/537.36')
+# The honest project UA that scripts/sources.py uses to read HLTV successfully
+# from GitHub runners. A fake browser UA was answered HTTP 403 on 2026-10-19
+# while this UA read the same pages in the same job; keep the working style.
+UA = 'HotspawnCS2Research/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'
 
 HLTV_RANKING = 'https://www.hltv.org/ranking/'
 HLTV_MATCHES = 'https://www.hltv.org/matches'
@@ -64,6 +68,15 @@ X1BET_SITE = 'https://1xbet.com/en/line/Esports'
 BO3GG_CURRENT = 'https://bo3.gg/matches/current?game=csgo'
 BO3GG_UPCOMING = 'https://bo3.gg/matches/upcoming?game=csgo'
 BO3GG_SITE = 'https://bo3.gg/matches'
+# The public HTML is a Nuxt client shell, so the site's own JSON endpoints are
+# probed too. Each candidate is recorded whatever it answers; a missing API is
+# an observation, not an error.
+BO3GG_API_CANDIDATES = (
+    'https://bo3.gg/api/matches?game=csgo&status=upcoming',
+    'https://bo3.gg/api/v1/matches?game=csgo',
+    'https://bo3.gg/api/v1/matches/upcoming?game=csgo',
+    'https://bo3.gg/_nuxt/matches.json',
+)
 
 # Pinnacle prints specials ("Yes"/"No", "Odd"/"Even", "Team By N", exact score
 # grids) as matchups on the same board as real two-team series. Those are never
@@ -80,34 +93,31 @@ def iso(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
-def _fetch(url: str, timeout: int = 30):
-    req = urllib.request.Request(url, headers={
-        'User-Agent': UA, 'Accept': '*/*', 'Accept-Encoding': 'gzip, identity'})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read()
-        if resp.headers.get('Content-Encoding') == 'gzip':
-            try:
-                raw = gzip.decompress(raw)
-            except OSError:
-                pass
-        return resp.status, resp.headers.get('Content-Type', ''), raw
-
-
 def probe_fetch(label: str, url: str, manifest: list, *, timeout: int = 30):
-    """One read-only GET. Every outcome is recorded; failures are never fatal."""
+    """One read-only GET. Every outcome is recorded; failures are never fatal.
+
+    Any 2xx is kept: some providers answer 203 for public pages (observed from
+    1xbet.com on 2026-10-19). The body is still scanned and hashed — never
+    trusted as verified odds without the published book contract.
+    """
     entry = {'id': label, 'url': url, 'method': 'GET',
              'observed_at': iso(datetime.now(timezone.utc)), 'status': 'error'}
     manifest.append(entry)
     try:
-        status, ctype, raw = _fetch(url, timeout=timeout)
-        entry.update(http_status=status, content_type=ctype, bytes=len(raw),
+        response = requests.get(url, headers={'User-Agent': UA, 'Accept': '*/*',
+                                              'Accept-Encoding': 'gzip, identity'},
+                                timeout=(15, timeout))
+        raw = response.content
+        entry.update(http_status=response.status_code,
+                     content_type=response.headers.get('Content-Type', ''),
+                     bytes=len(raw),
                      response_sha256=hashlib.sha256(raw).hexdigest())
-        if status != 200:
-            entry['error'] = f'HTTP {status}'
+        if not 200 <= response.status_code < 300:
+            entry['error'] = f'HTTP {response.status_code}'
             return None
         entry['status'] = 'ok'
         text = raw.decode('utf-8', errors='replace')
-        if 'html' in (ctype or '') or text.lstrip()[:1] not in ('{', '['):
+        if 'html' in (entry['content_type'] or '') or text.lstrip()[:1] not in ('{', '['):
             # Large HTML originals are kept gzip-compressed, as twc_research.py
             # does, so the committed evidence stays small but byte-verifiable.
             path = EVIDENCE / f'{label}.html.gz'
@@ -125,8 +135,8 @@ def probe_fetch(label: str, url: str, manifest: list, *, timeout: int = 30):
                 ensure_ascii=False) + '\n')
             entry['evidence'] = 'data/research/c03ef201/evidence/' + path.name
         return text
-    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
-        code = getattr(exc, 'code', None)
+    except (requests.RequestException, TimeoutError, OSError, ValueError) as exc:
+        code = getattr(getattr(exc, 'response', None), 'status_code', None)
         if code is not None:
             entry['http_status'] = code
         entry['error'] = str(exc)[:300]
@@ -170,33 +180,8 @@ def blank_fixtures(latest: dict, origination: dict) -> list:
 # ---------------------------------------------------------------------------
 # HLTV PROBE — ranking facts first, per the brief's research order
 # ---------------------------------------------------------------------------
-
-def parse_ranking_page(text: str) -> list:
-    """Official HLTV world-ranking rows: team name plus published points.
-
-    The page repeats one ``.ranked-team`` block per team with a ``.points``
-    value such as "754 points". Ranks are the sequential page position; the
-    caller adds the page offset. Anything missing a name or points is skipped,
-    never filled in.
-    """
-    from bs4 import BeautifulSoup
-    soup = BeautifulSoup(text, 'html.parser')
-    rows = []
-    for block in soup.select('.ranked-team'):
-        name = block.select_one('.ranked-team-header .name') or block.select_one('.name')
-        points = block.select_one('.points')
-        team_link = block.select_one('a[href*="/team/"]')
-        if not name or not points:
-            continue
-        m = re.search(r'(-?\d+(?:\.\d+)?)', points.get_text(' ', strip=True))
-        if not m:
-            continue
-        rows.append({
-            'team': name.get_text(' ', strip=True),
-            'points': float(m.group(1)),
-            'team_url': ('https://www.hltv.org' + team_link['href']) if team_link and team_link.get('href') else None,
-        })
-    return rows
+# parse_ranking_page is imported from scripts.hltv_ranking (single tested
+# parser shared with the origination rung).
 
 
 def parse_team_page(text: str) -> dict:
@@ -430,6 +415,12 @@ def bo3gg_probe(fixtures: list, manifest: list) -> dict:
     for label, url in (('bo3gg-current', BO3GG_CURRENT), ('bo3gg-upcoming', BO3GG_UPCOMING)):
         text = probe_fetch(label, url, manifest)
         report['pages'].append({'url': url, 'status': 'ok' if text is not None else 'fetch-failed'})
+        if text is not None:
+            combined += text
+    for candidate in BO3GG_API_CANDIDATES:
+        label = 'bo3gg-api-' + re.sub(r'[^a-z0-9]+', '-', candidate.split('bo3.gg/')[-1])[:40]
+        text = probe_fetch(label, candidate, manifest)
+        report['pages'].append({'url': candidate, 'status': 'ok' if text is not None else 'fetch-failed'})
         if text is not None:
             combined += text
     if combined:
