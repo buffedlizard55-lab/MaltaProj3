@@ -6,16 +6,9 @@
 # job makes cannot retrigger it.
 name: 1fb85c47 unresolved-fixture probe (dispatch only)
 on:
+  # Manual only: the probe has published its evidence and must not push a
+  # research commit onto every later change of the files it reads.
   workflow_dispatch:
-  push:
-    branches: [arena/1fb85c47-maltaproj3]
-    paths:
-      - '.github/workflows/1fb85c47-probe.yml'
-      - 'scripts/session_probe.py'
-      - 'scripts/bo3_odds_probe.py'
-      - 'scripts/form_model.py'
-      - 'scripts/originate.py'
-      - 'data/origination/aliases.json'
 permissions:
   contents: write
 concurrency:
