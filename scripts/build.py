@@ -88,13 +88,38 @@ def evidence(m, prefix, fallback=None):
                 body += f'<tr><th scope="row">{e(t["name"])}</th><td>{q["bid"]:.3f} / {q["ask"]:.3f}</td><td>{external(a["source_api"], "Polymarket API")}</td></tr>'
             body += '</tbody></table></div>'
             body += '<div class="evidence-links">' + ''.join(f'<a href="{prefix}data/evidence/polymarket-{kind}-{a["event_id"]}{suffix}.json">{label} ↓</a>' for kind, suffix, label in [('event', '', 'Saved event'), ('book', '-0', 'First order book'), ('book', '-1', 'Second order book')]) + '</div>'
+        elif a['method'] == 'model' and a.get('family') == 'form':
+            body += (f'<p class="notice-inline"><strong>Own results-based estimate.</strong> One team has no '
+                     f'complete five-player row in the official Valve table, so its rating was fitted to '
+                     f'{e(a.get("n_series"))} finished series against officially rated opponents '
+                     f'(posterior SD {e(a.get("rating_sd"))} points). This is a research model, not a '
+                     'bookmaker price.</p><div class="mini-table-wrap"><table class="mini-table">'
+                     '<caption>Published model inputs</caption><thead><tr><th>Team</th><th>Fitted points</th>'
+                     '<th>Source</th></tr></thead><tbody>')
+            for r in a['inputs']:
+                label = 'bo3.gg series' if 'results-based' in str(r.get('source') or '') else 'Valve'
+                body += (f'<tr><th scope="row">{e(r["name"])}</th><td>{e(r["points"])}</td>'
+                         f'<td>{external(r["source_url"], label)}</td></tr>')
+            body += '</tbody></table></div>'
+            samples = a.get('samples') or []
+            if samples:
+                body += ('<details class="sample-detail"><summary>Series used in the fit '
+                         f'({len(samples)} shown)</summary><ul class="sample-list">')
+                for s in samples:
+                    result = 'W' if s.get('won') else 'L'
+                    body += (f'<li><span class="sample-result {result.lower()}">{result}</span> '
+                             f'{e(s.get("date"))} · {external(s.get("source_url"), e(s.get("opponent") or "Opponent"))}'
+                             f' <span class="tiny muted">BO{e(s.get("bo"))}</span></li>')
+                body += '</ul></details>'
+            body += (f'<div class="evidence-links">{external(a.get("source_url"), "bo3.gg fixture")}'
+                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
             for r in a['inputs']:
                 body += f'<tr><th scope="row">{e(r["name"])}</th><td>{r["points"]}</td><td>{external(r["source_url"], "Valve")}</td></tr>'
             body += '</tbody></table></div>'
             for r in a['inputs']:
-                body += f'<p class="tiny"><strong>{e(r["name"])}</strong>: {e(", ".join(r["roster"]))}</p>'
+                body += f'<p class="tiny"><strong>{e(r["name"])}</strong>: {e(", ".join(r["roster"] or []))}</p>'
             body += f'<div class="evidence-links"><a href="{prefix}data/evidence/valve-standings-response.json">Original Valve response ↓</a><a href="{prefix}data/evidence/valve-ratings.json">Parsed official inputs ↓</a></div>'
         elif a['method'] == 'bookmaker':
             for q in a['quotes']:

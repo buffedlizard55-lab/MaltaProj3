@@ -180,3 +180,14 @@
   .unresolved-limits{margin:0 12px 14px}
   .unresolved-links .internal-link{width:100%;justify-content:space-between;border:1px solid #dce4e8;border-radius:7px;padding:8px 10px}
 }
+
+/* Session 1fb85c47 — own results-based fit: the exact series used */
+.sample-detail{margin:.55rem 0 .35rem}
+.sample-detail summary{cursor:pointer;font-size:.78rem;font-weight:650;color:var(--muted,#5b6675)}
+.sample-list{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.25rem}
+.sample-list li{display:flex;align-items:baseline;gap:.45rem;font-size:.76rem;line-height:1.35}
+.sample-result{display:inline-block;min-width:1.15rem;text-align:center;border-radius:4px;font-weight:750;font-size:.68rem;padding:.05rem .25rem}
+.sample-result.w{background:#dff3e6;color:#17603a}
+.sample-result.l{background:#fde5e5;color:#8a2323}
+.notice-inline{background:#f6f1e2;border-left:3px solid #b98b2f;padding:.5rem .65rem;border-radius:0 6px 6px 0}
+@media (max-width:620px){.sample-list li{flex-wrap:wrap}.notice-inline{font-size:.85rem}}

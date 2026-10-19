@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-18T00:35:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier \u2014 every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added. Extended by arena-fe48a0df (2026-10-18): one scoped, evidence-linked identity join (Valve table name 6666 to Hotspawn/HLTV ex-6666) with a review note recording the 4-of-5 roster overlap.",
+  "updated_at": "2026-10-19T04:40:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40 (NIP and Liquid for Stake Pulse Beat III, WBT for DraculaN Season 7, with a review note on outdated WBT evidence); extended by arena-35440d12 (2026-10-16): six scoped display-name joins for NODWIN Clutch Series #13, DraculaN Season 7 and PGL Bucharest 2027: Closed Qualifier — every entry carries first-party Gamma/HLTV/Hotspawn evidence and stays inside its declared competition. No sponsor-only or fuzzy join was added. Extended by arena-fe48a0df (2026-10-18): one scoped, evidence-linked identity join (Valve table name 6666 to Hotspawn/HLTV ex-6666) with a review note recording the 4-of-5 roster overlap.; extended by arena-1fb85c47 (2026-10-19): the reviewed 6666 -> ex-6666 join now covers CCT Europe 2026 Series #12 Play-In and #11, and one abbreviation join (Aurora YB -> Aurora Young Blud) was added for Stake Ranked Episode 6: Closed Qualifier. Both carry their fixture pages and HLTV match URLs.",
   "aliases": [
     {
       "alias": "WBT",
@@ -41,7 +41,7 @@
           "detail": "HLTV lists 'WBT' (team id 13683) vs 'Nexus' (team id 7187), Group B opening match, 19 Oct 2026 at 09:00 UTC (BO1 LAN), the exact Hotspawn fixture 1081529 start time."
         }
       ],
-      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed \u2014 HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed — HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
     },
     {
       "alias": "ROUNDS",
@@ -55,7 +55,7 @@
         {
           "url": "https://liquipedia.net/rocketleague/ROUNDS",
           "source": "Liquipedia",
-          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere \u2014 the city hosting Elisa BreakOut Series 2."
+          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
         },
         {
           "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
@@ -298,12 +298,12 @@
         {
           "url": "https://www.bovada.lv/sports/esports/counter-strike-2/pulse-beat-iii/ninjas-in-pyjamas-team-liquid-202610160400",
           "source": "Bovada sportsbook event",
-          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) \u2014 Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
+          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) — Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
         },
         {
           "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
           "source": "Kalshi market rules",
-          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP \u2026 Oct 16, 2026 at 4:00 AM EDT'."
+          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP … Oct 16, 2026 at 4:00 AM EDT'."
         }
       ]
     },
@@ -320,7 +320,7 @@
         {
           "url": "https://polymarket.com/esports/cs2/nodwin-clutch-series/cs2-33-justpl-2026-10-17",
           "source": "Polymarket event page",
-          "detail": "Polymarket lists \"Counter-Strike: BET-M 33 vs Just Players (BO3) - NODWIN Clutch Series Group Stage\" with gameStartTime 2026-10-17 08:00:00 UTC \u2014 the exact Hotspawn fixture 1079170 slot and opponent name. Observed 2026-10-16T19:43Z."
+          "detail": "Polymarket lists \"Counter-Strike: BET-M 33 vs Just Players (BO3) - NODWIN Clutch Series Group Stage\" with gameStartTime 2026-10-17 08:00:00 UTC — the exact Hotspawn fixture 1079170 slot and opponent name. Observed 2026-10-16T19:43Z."
         },
         {
           "url": "https://gamma-api.polymarket.com/markets?slug=cs2-33-justpl-2026-10-17",
@@ -330,7 +330,7 @@
         {
           "url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
           "source": "HLTV.org match page",
-          "detail": "HLTV \u2014 Polymarket's declared resolution source \u2014 lists the same series as \"BET-M vs Just Players\" in NODWIN Clutch Series 13 at the same start time; the only differing string is Polymarket's \"BET-M 33\" suffix. Observed 2026-10-16T19:58Z."
+          "detail": "HLTV — Polymarket's declared resolution source — lists the same series as \"BET-M vs Just Players\" in NODWIN Clutch Series 13 at the same start time; the only differing string is Polymarket's \"BET-M 33\" suffix. Observed 2026-10-16T19:58Z."
         },
         {
           "url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170",
@@ -352,7 +352,7 @@
         {
           "url": "https://polymarket.com/esports/cs2/draculan/cs2-inf6-ins-2026-10-19",
           "source": "Polymarket event page",
-          "detail": "Polymarket lists \"Infinite vs Insiders Esport (BO1) - DraculaN Group A\", Oct 19 09:00 UTC \u2014 the exact Hotspawn fixture 1081526 slot, opponent and BO1 format. Observed 2026-10-16T19:41Z."
+          "detail": "Polymarket lists \"Infinite vs Insiders Esport (BO1) - DraculaN Group A\", Oct 19 09:00 UTC — the exact Hotspawn fixture 1081526 slot, opponent and BO1 format. Observed 2026-10-16T19:41Z."
         },
         {
           "url": "https://gamma-api.polymarket.com/markets?slug=cs2-inf6-ins-2026-10-19",
@@ -385,7 +385,7 @@
         {
           "url": "https://polymarket.com/esports/cs2/pgl/cs2-bca-nem-2026-10-17",
           "source": "Polymarket event page",
-          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC \u2014 the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
+          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC — the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
         },
         {
           "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
@@ -472,9 +472,11 @@
       "canonical": "ex-6666",
       "kind": "organization rename",
       "applies_to": [
-        "CCT Europe 2026 Challengers #8"
+        "CCT Europe 2026 Challengers #8",
+        "CCT Europe 2026 Series #12 Play-In",
+        "CCT Europe 2026 Series #11"
       ],
-      "competition_note": "CCT 2026 Challengers Europe Series 8 (HLTV event 9453), Hotspawn fixture 1081521 / HLTV match 2399681.",
+      "competition_note": "Originally CCT 2026 Challengers Europe Series 8 (HLTV event 9453, Hotspawn fixture 1081521 / HLTV match 2399681). Extended by arena-1fb85c47 (2026-10-19) to CCT Europe 2026 Series #12 Play-In (Hotspawn fixture 1081131 / HLTV match 2399482) and CCT Europe 2026 Series #11 (Hotspawn fixture 1079646 / HLTV match 2399323), where HLTV lists the same team as ex-6666.",
       "evidence": [
         {
           "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -490,9 +492,56 @@
           "url": "https://www.hltv.org/team/14100/ex-6666",
           "source": "HLTV.org team page",
           "detail": "HLTV team id 14100 is named 'ex-6666' (Ukraine). Four of the five players in Valve's '6666' rating row (skcH, kL1o, amster, rendysky) are also in HLTV's current ex-6666 lineup."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131",
+          "source": "Hotspawn match page (fixture 1081131)",
+          "detail": "Hotspawn schedules ex-6666 vs Privateer in CCT Europe 2026 Series #12 Play-In for 2026-10-19T11:00Z and links HLTV match 2399482 as the same fixture. Observed 2026-10-19T04:14Z by the session probe."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists ex-6666 vs Privateer at 2026-10-19 13:00 local (11:00 UTC) in the CCT 2026 Europe Series 12 Closed Qualifier, the exact Hotspawn fixture 1081131 slot."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399323/lavked-vs-ex-6666-cct-2026-europe-series-11",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists Lavked vs ex-6666 at 2026-10-20 19:00 local (17:00 UTC) in CCT 2026 Europe Series 11, the exact Hotspawn fixture 1079646 slot."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/lavked-vs-ex-6666-cct-europe-2026-series-11-1079646",
+          "source": "Hotspawn match page (fixture 1079646)",
+          "detail": "Hotspawn schedules Lavked vs ex-6666 in CCT Europe 2026 Series #11 for 2026-10-20T17:00Z; the page links HLTV match 2399323. Observed 2026-10-19T04:14Z."
         }
       ],
-      "review_note": "Flagged 2026-10-18 (session arena-fe48a0df): this is a 4-of-5 roster overlap, not an exact five-player match. Valve's 2026-10-05 snapshot lists dENZY, while HLTV listed stefienson on 2026-10-18, so the joined 923-point rating is a historical team rating rather than a current-lineup rating. The alias is scoped to this competition and feeds only the labelled, uncalibrated Valve model; it never joins a betting price or overrides a money line. Manual review requested."
+      "review_note": "Flagged 2026-10-18 (session arena-fe48a0df): this is a 4-of-5 roster overlap, not an exact five-player match. Valve's 2026-10-05 snapshot lists dENZY, while HLTV listed stefienson on 2026-10-18, so the joined 923-point rating is a historical team rating rather than a current-lineup rating. The alias is scoped to this competition and feeds only the labelled, uncalibrated Valve model; it never joins a betting price or overrides a money line. Manual review requested. Scope extended 2026-10-19 by arena-1fb85c47 to the two CCT Europe fixtures the same roster plays on 19-20 October; the identity evidence is unchanged (Valve global five-player 6666 row at 923 points, 4-of-5 overlap with HLTV ex-6666, plus the two HLTV fixture pages above). Still a 4-of-5 roster join that feeds only the labelled, uncalibrated Valve model and never a betting price."
+    },
+    {
+      "alias": "Aurora Young Blud",
+      "canonical": "Aurora YB",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "Registry names the provider/Valve spelling (Aurora Young Blud) as the alias and Hotspawn's display name (Aurora YB) as the canonical, matching every other entry: alias = the name another source publishes, canonical = the name Hotspawn shows. Stake Ranked Episode 6: Closed Qualifier, Hotspawn fixture 1082157 / HLTV match 2399777.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399777/sangal-vs-aurora-young-blud-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's own match slug and title name the second team \"Aurora Young Blud\" at the same 2026-10-20 12:00 UTC slot as Hotspawn fixture 1082157, which displays \"Aurora YB\"."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/sangal-vs-aurora-yb-stake-ranked-episode-6-closed-qualifier-1082157",
+          "source": "Hotspawn match page (fixture 1082157)",
+          "detail": "Hotspawn schedules Sangal vs Aurora YB in Stake Ranked Episode 6: Closed Qualifier for 2026-10-20T12:00Z and links HLTV match 2399777. Observed 2026-10-19T04:14Z by the session probe."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official regional standings",
+          "detail": "Valve's 2026-10-05 global table lists 'Aurora Young Blud' at standing 326 with 526 points and the complete five-player roster k1nco, kurosse, meetyoxanaji, r1pa4, redzed."
+        }
+      ],
+      "review_note": "Added by arena-1fb85c47 on 2026-10-19. This is a display-name variant bounded to one competition: Valve and HLTV both publish \"Aurora Young Blud\" while Hotspawn shows \"Aurora YB\". It feeds only the labelled, uncalibrated Valve model and never a betting price."
     }
   ]
 }

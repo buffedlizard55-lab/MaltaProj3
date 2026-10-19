@@ -13,6 +13,8 @@ on:
       - '.github/workflows/1fb85c47-probe.yml'
       - 'scripts/session_probe.py'
       - 'scripts/bo3_odds_probe.py'
+      - 'scripts/form_model.py'
+      - 'data/origination/aliases.json'
 permissions:
   contents: write
 concurrency:
@@ -45,7 +47,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/research/1fb85c47
+          git add data/research/1fb85c47 data/origination.json
           git diff --cached --quiet && exit 0
           git commit -m 'research: 1fb85c47 live unresolved-fixture probe'
           # The collector leaves tracked data files dirty; rebase refuses to run

@@ -365,7 +365,22 @@ def validate_origination(data, source):
         if not o:
             assert m['pick_index'] is None
             continue
-        if o['method'] == 'model':
+        if o['method'] == 'model' and (o.get('family') == 'form'
+                                       or any((q or {}).get('family') == 'form' for q in o.get('quotes') or [])):
+            # Lowest rung: replay the own results-based fit from the saved
+            # bo3.gg series and the same official Valve rows. Any drift fails
+            # the build instead of publishing a changed number.
+            from scripts import form_model
+            from scripts.originate import valve_rows
+            rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
+            bindings = form_model.load_bindings(source / 'origination/evidence')
+            expected, reason = form_model.estimate_fixture(raw, bindings.get(str(raw['id'])), rows,
+                                                           registry, timestamp(data['generated_at']))
+            assert expected and expected['probabilities'] == o['probabilities'], (
+                'Results-model calculation differs from the saved series evidence: ' + reason)
+            assert expected['inputs'] == o['inputs'], 'Results-model input records changed'
+            assert expected['samples'] == o['samples'], 'Results-model sample list changed'
+        elif o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
             proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))
