@@ -1,36 +1,8 @@
 {
   "schema_version": 1,
   "session": "arena-d9ebc2c1",
-  "audit_clock_utc": "2026-10-19T04:22:28Z",
-  "scope": "Independent release-health audit. Production run metadata was read from the GitHub Actions API. The live Pages artifact and logs could not be downloaded in this session, so no current live match count, fixture, probability or unresolved reason is asserted here.",
-  "latest_scheduled_pages_run_visible_at_audit_time": {
-    "run_id": 39181195691,
-    "run_number": 131,
-    "event": "schedule",
-    "status": "completed",
-    "conclusion": "success",
-    "created_at": "2026-10-19T00:31:58Z",
-    "updated_at": "2026-10-19T00:39:36Z",
-    "head_branch": "main",
-    "head_sha": "d03c05c72e8ad0f2c007f6ad843b4d7e3a09bf46",
-    "job": {
-      "name": "verify-and-deploy",
-      "started_at": "2026-10-19T00:32:02Z",
-      "completed_at": "2026-10-19T00:39:35Z",
-      "conclusion": "success",
-      "relevant_steps_reported_successful_by_github": [
-        "Regression tests (repository fixtures, before any cache restore)",
-        "Refresh all Hotspawn CS2 records and supported external lines",
-        "Research only unresolved fixture picks using first-party lines",
-        "Document why every blank pick stayed blank (leads only, never prices)",
-        "Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)",
-        "Reconcile every row, replay every probability and build linked pages",
-        "Run actions/deploy-pages@v5",
-        "Verify the public site, its complete data and category pages"
-      ]
-    },
-    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691"
-  },
+  "audit_clock_utc": "2026-10-19T04:55:17Z",
+  "scope": "Independent release-health audit. Production run metadata and annotations were read from the GitHub Actions API. The initial pre-merge artifact could not be downloaded; the post-merge run annotations later supplied current aggregate inventory, complete-picks and row-audit counts. The current artifact contents and per-fixture team probabilities/reasons were not inspected, and no such values are asserted here.",
   "github_pages": {
     "url_reported_by_github_pages_api": "https://buffedlizard55-lab.github.io/MaltaProj3/",
     "source_branch": "main",
@@ -51,8 +23,9 @@
       "created_at": "2026-10-19T00:39:23Z",
       "size_in_bytes": 11950740,
       "expired": false,
-      "independent_download": "failed",
-      "failure": "gh run download returned EOF while following the signed artifact download URL. The artifact contents were not inspected."
+      "independent_download": "failed for the pre-merge artifact",
+      "failure": "The pre-merge gh run download returned EOF while following the signed artifact download URL. That archive contents were not inspected; the post-merge artifact is separately recorded below as metadata-only.",
+      "run_id": 39181195691
     }
   },
   "refresh_schedule_from_workflow": {
@@ -143,15 +116,18 @@
     "data_caveat": "These local checks exercise the checked-in 2026-10-15 snapshot and deterministic fixtures. They do not replace reading the inaccessible 2026-10-19 Pages artifact."
   },
   "confirmed": [
-    "GitHub reported the 2026-10-19 scheduled Pages run and its deployment job as successful.",
-    "GitHub reported the public Pages configuration, deployment record and github-pages artifact metadata.",
+    "The 2026-10-19 post-merge run 39199948605 completed successfully; its collection, replay/build, deploy-pages and verify_live steps report success.",
+    "Official run annotations report a complete 95-record Hotspawn fixture-API cross-check against both the lobby and CS2 pages, with 34 upcoming records as of 2026-10-19T04:43:36Z.",
+    "The complete-picks ladder reports 34 active fixtures: 27 with a pick and 7 unresolved. The unresolved set is not represented as resolved.",
+    "The deployed row-source audit reports 618 rows, 604 official-linked, 5 explicitly flagged unverified, 9 navigation rows, and 0 violations.",
+    "GitHub reports a successful Pages deployment for merge SHA 9edf763c1feba9342044c404b7e9aa5267c242f3.",
     "The workflow defines the primary and catch-up cron expressions recorded above.",
     "The checked-in site builds from saved originals, all source-row checks pass, and mobile/browser checks pass locally."
   ],
   "not_confirmed_by_this_session": [
-    "The exact Hotspawn match IDs in the 2026-10-19 live artifact.",
-    "The latest live probabilities, picks, and per-match unresolved reasons.",
-    "Whether the successful runner used newly fetched source data or a last-good cached pair for every source."
+    "The individual match IDs/team names, team probabilities, source quotes, and reasons for each of the seven unresolved rows in the current 2026-10-19 artifact.",
+    "Which specific current fixture received each market/bookmaker/model method; run annotations provide aggregate method counts only.",
+    "The current artifact file contents: GitHub artifact metadata is available, but this session did not read the archive. The earlier artifact download attempt returned EOF."
   ],
   "sources": [
     {
@@ -177,6 +153,160 @@
     {
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "purpose": "GitHub Pages URL reported by the official GitHub Pages API."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/103",
+      "purpose": "Integration PR, merged at 2026-10-19T04:32:00Z as merge SHA 9edf763c."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199948605",
+      "purpose": "Post-merge production refresh, publication and live verification; aggregate coverage and row-audit annotations."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199948605/artifacts",
+      "purpose": "Post-merge github-pages artifact listing; metadata was read, contents were not inspected."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "purpose": "Live complete-picks page for per-fixture manual review."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "purpose": "Live unresolved-picks section with current source blockers."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "purpose": "Published runtime inventory JSON (not the checked-in fallback copy)."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "purpose": "Published runtime complete-picks JSON (not the checked-in fallback copy)."
     }
-  ]
+  ],
+  "post_merge_publication": {
+    "integration_pr": {
+      "number": 103,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/103",
+      "state": "merged",
+      "merged_at": "2026-10-19T04:32:00Z",
+      "merge_sha": "9edf763c1feba9342044c404b7e9aa5267c242f3"
+    },
+    "run": {
+      "run_id": 39199948605,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-19T04:32:02Z",
+      "job_started_at": "2026-10-19T04:32:07Z",
+      "job_completed_at": "2026-10-19T04:46:44Z",
+      "head_sha": "9edf763c1feba9342044c404b7e9aa5267c242f3",
+      "steps": {
+        "collect_hotspawn_inventory": "success",
+        "originate_unresolved_lines": "success",
+        "replay_build": "success",
+        "deploy_pages": "success",
+        "verify_live_site": "success"
+      },
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199948605"
+    },
+    "deployment": {
+      "id": 7165917030,
+      "environment": "github-pages",
+      "ref": "main",
+      "sha": "9edf763c1feba9342044c404b7e9aa5267c242f3",
+      "created_at": "2026-10-19T04:46:45Z",
+      "updated_at": "2026-10-19T04:46:49Z",
+      "site_url": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    },
+    "artifact_metadata": {
+      "id": 12163273661,
+      "name": "github-pages",
+      "created_at": "2026-10-19T04:46:09Z",
+      "size_in_bytes": 11831616,
+      "expired": false,
+      "content_inspected_by_this_session": false
+    },
+    "live_inventory_from_official_run_annotations": {
+      "observed_at": "2026-10-19T04:43:36Z",
+      "coverage_complete": true,
+      "source_record_count": 95,
+      "crosscheck": "complete",
+      "verified_pages": [
+        "lobby",
+        "cs2"
+      ],
+      "unavailable_pages": [],
+      "featured_snapshot_counts": {
+        "inventory": 95,
+        "upcoming": 34,
+        "archived": 61,
+        "unknown_schedule": 0,
+        "market": 10,
+        "bookmaker": 1,
+        "model": 10,
+        "unresolved": 13,
+        "picks": 21,
+        "no_edge": 0
+      }
+    },
+    "complete_pick_ladder_from_official_run_annotations": {
+      "active": 34,
+      "resolved": 27,
+      "unresolved": 7,
+      "with_pick": 27,
+      "consensus": 3,
+      "market": 11,
+      "bookmaker": 4,
+      "reference": 0,
+      "model": 9,
+      "alias_joined": 4
+    },
+    "row_source_audit_from_official_run_annotations": {
+      "rows": 618,
+      "ok": 604,
+      "flagged_unverified": 5,
+      "navigation": 9,
+      "violations": 0
+    },
+    "pages_mode_limitation": {
+      "mode": "legacy",
+      "reported_by_workflow": "Pages remains in legacy build mode after a configuration attempt returned HTTP 403. The workflow reported that it waits for the main-branch legacy build to finish and then deploys the verified current artifact last.",
+      "deployment_conclusion": "success",
+      "source_data_verification_failure": false,
+      "manual_review_flag": "The production publisher already adds pages-publication-mode to the runtime findings when legacy mode remains."
+    },
+    "independent_row_level_inspection": {
+      "result": "not performed on current artifact",
+      "what_is_verified": "Aggregate inventory, complete-picks counts, official row-source audit totals, deployment and live verifier results are available in official GitHub run/check annotations.",
+      "what_remains_unverified_here": "The current artifact’s individual fixture IDs/team names, per-team probabilities and the seven unresolved fixtures’ names/reasons could not be inspected from this workspace. Do not infer those values from the older checked-in snapshot."
+    }
+  },
+  "latest_scheduled_pages_run_visible_at_initial_audit": {
+    "run_id": 39181195691,
+    "run_number": 131,
+    "event": "schedule",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-19T00:31:58Z",
+    "updated_at": "2026-10-19T00:39:36Z",
+    "head_branch": "main",
+    "head_sha": "d03c05c72e8ad0f2c007f6ad843b4d7e3a09bf46",
+    "job": {
+      "name": "verify-and-deploy",
+      "started_at": "2026-10-19T00:32:02Z",
+      "completed_at": "2026-10-19T00:39:35Z",
+      "conclusion": "success",
+      "relevant_steps_reported_successful_by_github": [
+        "Regression tests (repository fixtures, before any cache restore)",
+        "Refresh all Hotspawn CS2 records and supported external lines",
+        "Research only unresolved fixture picks using first-party lines",
+        "Document why every blank pick stayed blank (leads only, never prices)",
+        "Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)",
+        "Reconcile every row, replay every probability and build linked pages",
+        "Run actions/deploy-pages@v5",
+        "Verify the public site, its complete data and category pages"
+      ]
+    },
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691"
+  }
 }
