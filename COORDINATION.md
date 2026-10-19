@@ -450,6 +450,7 @@ work.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | C-1 | **in progress** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and a new dispatch-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing workflows. |
+| C-2 | **in progress** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: add a per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
 
 **C-1 objective.** Independently retrieve the latest successful GitHub Pages
 artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
