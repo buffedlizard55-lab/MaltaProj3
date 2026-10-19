@@ -364,7 +364,7 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
         candidates = []
         for row in rows:
             other = timestamp(row.get('start_date'))
-            if other is None or abs(other - start) > 5400:
+            if other is None or abs((other - start).total_seconds()) > 5400:
                 continue
             sides = {name_key((row.get('team1') or {}).get('name') or ''),
                      name_key((row.get('team2') or {}).get('name') or '')}
