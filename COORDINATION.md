@@ -451,7 +451,7 @@ work.
 | --- | --- | --- | --- |
 | C-1 | **DONE** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and new path-filtered evidence-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing production workflows. |
 | C-2 | **DONE** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
-| C-3 | **in progress** | arena-7e429607 | Same new C-1 script and test only: make unchanged-artifact reports idempotent so the evidence-only workflow does not make a timestamp-only bot commit that moves a PR head or cancels its checks; no production workflow, pick, data, alias or renderer edit. |
+| C-3 | **DONE** | arena-7e429607 | Same new C-1 script and test only: unchanged-artifact reports are idempotent, so the evidence-only workflow does not make a timestamp-only bot commit that moves a PR head or cancels its checks; no production workflow, pick, data, alias or renderer edit. |
 
 **C-1 objective.** Independently retrieve the latest successful GitHub Pages
 artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
@@ -510,6 +510,17 @@ failure is published as a review finding rather than repaired or inferred.
   the digest/content result; it writes only its two audit files and never feeds
   a pick. That is why the committed report is runner-derived rather than
   pretending the sandbox inspected bytes it could not download.
+- **C-3 idempotence verification.** A second successful runner audit of the
+  unchanged artifact ([39200992034](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992034))
+  produced no report commit: local and remote branch heads remained identical.
+  The comparison preserves `audited_at` only when every other report field is
+  identical; a changed digest, artifact ID, source result or audit failure still
+  writes a fresh observation. Regression coverage is **10/10** targeted tests;
+  current-head origination and both PR/push full validation runs
+  ([39200992028](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992028),
+  [39200995733](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200995733),
+  [39200992070](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992070))
+  succeeded before this record-only update.
 
 
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
