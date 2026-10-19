@@ -112,7 +112,8 @@ def estimate_fixture(match: dict, binding: dict | None, ratings: list, registry:
             raw = (binding.get('results') or {}).get(key(name)) or []
             side['fit'] = None
             if not raw:
-                return None, f'{name}: no published Valve rating and no saved results history'
+                return None, (f'{name}: no published Valve rating, and bo3.gg lists no finished '
+                              'series saved for this fixture')
             anchored = []
             for sample in raw:
                 row = rating_row(sample.get('opponent') or '', ratings, registry, match.get('competition'))

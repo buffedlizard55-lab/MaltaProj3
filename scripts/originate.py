@@ -601,7 +601,12 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         if valve_text:
             try:
                 from scripts.domain import parse_valve_table
-                known = {name_key(row['name']) for row in parse_valve_table(valve_text, '', '2000-01-01')}
+                groups = {}
+                for row in parse_valve_table(valve_text, '', '2000-01-01'):
+                    groups.setdefault(name_key(row['name']), []).append(row)
+                # "Known" means usable by rating_row: exactly one complete row.
+                known = {name for name, rows in groups.items()
+                         if len([r for r in rows if len(r.get('roster') or []) == 5]) == 1}
             except (ValueError, KeyError, TypeError):
                 known = set()
         out['bo3_results'] = collect_bo3_results(client, evidence_dir, matches, registry, known or None)

@@ -92,7 +92,7 @@ class FixtureTests(unittest.TestCase):
         quote, reason = form_model.estimate_fixture(self.match(), self.binding(n=0), ratings(('Rated One', 1100)),
                                                     {'aliases': []}, NOW)
         self.assertIsNone(quote)
-        self.assertIn('no saved results history', reason)
+        self.assertIn('no finished', reason)
 
     def test_no_binding_is_reported_not_guessed(self):
         quote, reason = form_model.estimate_fixture(self.match(), None, ratings(('Rated One', 1100)),
