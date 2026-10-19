@@ -45,6 +45,10 @@ jobs:
           git add data/research/1fb85c47
           git diff --cached --quiet && exit 0
           git commit -m 'research: 1fb85c47 live unresolved-fixture probe'
+          # The collector leaves tracked data files dirty; rebase refuses to run
+          # on a dirty worktree. Keep only the staged research report and stash
+          # the regenerated (uncommitted) collector outputs.
+          git stash push --keep-index --include-untracked -m '1fb85c47 probe scratch' || true
           # The branch can move while the probe runs; retry the rebase+push
           # instead of failing the evidence commit on a non-fast-forward.
           for attempt in 1 2 3 4; do
