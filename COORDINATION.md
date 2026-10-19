@@ -451,6 +451,7 @@ work.
 | --- | --- | --- | --- |
 | C-1 | **DONE** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and new path-filtered evidence-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing production workflows. |
 | C-2 | **DONE** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
+| C-3 | **in progress** | arena-7e429607 | Same new C-1 script and test only: make unchanged-artifact reports idempotent so the evidence-only workflow does not make a timestamp-only bot commit that moves a PR head or cancels its checks; no production workflow, pick, data, alias or renderer edit. |
 
 **C-1 objective.** Independently retrieve the latest successful GitHub Pages
 artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
