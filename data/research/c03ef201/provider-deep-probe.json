@@ -1,81 +1,8 @@
 {
   "probe": "c03ef201 provider deep probe (evidence only; never a pick)",
   "policy": "Dated research evidence for fixtures the published ladder leaves blank. HLTV first (official ranking and fixture identity), then esportsbook/betting-line providers. Listing hits are observations for the reviewed rung work; this file never writes a probability or fills a blank.",
-  "generated_at": "2026-10-19T05:55:43Z",
+  "generated_at": "2026-10-19T06:13:23Z",
   "blank_fixtures": [
-    {
-      "hotspawn_id": "1081131",
-      "teams": [
-        "ex-6666",
-        "Privateer"
-      ],
-      "competition": "CCT Europe 2026 Series #12 Play-In",
-      "starts_at": "2026-10-19T11:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
-      "hotspawn_source_url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131",
-      "research_trail": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-          "source_url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "ex-6666: no Valve rating row found (including registry aliases)",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "ex-6666: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131"
-        }
-      ]
-    },
     {
       "hotspawn_id": "1079643",
       "teams": [
@@ -136,6 +63,12 @@
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
         },
         {
+          "stage": "Results model (own, bo3.gg series results)",
+          "status": "unresolved",
+          "detail": "LFO 10: no published Valve rating, and bo3.gg lists no finished series saved for this fixture",
+          "source_url": "https://bo3.gg/matches"
+        },
+        {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "unresolved",
           "detail": "LFO 10: no HLTV world-ranking entry found (including registry aliases)",
@@ -146,6 +79,85 @@
           "status": "unresolved",
           "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
           "source_url": "https://www.hotspawn.com/matches/the-last-resort-vs-lfo-10-cct-europe-2026-series-11-1079643"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082580",
+      "teams": [
+        "A NATA",
+        "Hacha"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-19T22:00:00Z",
+      "hltv_url": "https://www.hltv.org/matches/2399804/a-nata-vs-hacha-cct-2026-south-america-series-7",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/a-nata-vs-hacha-cct-south-america-2026-series-7-1082580",
+      "research_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399804/a-nata-vs-hacha-cct-2026-south-america-series-7"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "A NATA: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Results model (own, bo3.gg series results)",
+          "status": "unresolved",
+          "detail": "No bo3.gg fixture binding (results model needs an observed series history)",
+          "source_url": "https://bo3.gg/matches"
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "unresolved",
+          "detail": "A NATA: no HLTV world-ranking entry found (including registry aliases)",
+          "source_url": "https://www.hltv.org/ranking/teams"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/a-nata-vs-hacha-cct-south-america-2026-series-7-1082580"
         }
       ]
     },
@@ -209,6 +221,12 @@
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
         },
         {
+          "stage": "Results model (own, bo3.gg series results)",
+          "status": "unresolved",
+          "detail": "WXM: no published Valve rating, and bo3.gg lists no finished series saved for this fixture",
+          "source_url": "https://bo3.gg/matches"
+        },
+        {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "unresolved",
           "detail": "WXM: no HLTV world-ranking entry found (including registry aliases)",
@@ -253,26 +271,6 @@
       }
     ],
     "teams": {
-      "https://www.hltv.org/team/14100/ex-6666": {
-        "team": "ex-6666",
-        "world_ranking": null,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/13914/privateer": {
-        "team": "Privateer",
-        "world_ranking": 226,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/12889/g2-ares": {
-        "team": "G2 Ares",
-        "world_ranking": 103,
-        "team_url": null
-      },
-      "https://www.hltv.org/team/13759/mellren": {
-        "team": "mellren",
-        "world_ranking": 94,
-        "team_url": null
-      },
       "https://www.hltv.org/team/6089/the-last-resort": {
         "team": "The Last Resort",
         "world_ranking": 159,
@@ -286,6 +284,31 @@
       "https://www.hltv.org/team/7900/spirit-academy": {
         "team": "Spirit Academy",
         "world_ranking": 111,
+        "team_url": null
+      },
+      "https://www.hltv.org/team/12889/g2-ares": {
+        "team": "G2 Ares",
+        "world_ranking": 103,
+        "team_url": null
+      },
+      "https://www.hltv.org/team/14090/a-nata": {
+        "team": "A NATA",
+        "world_ranking": null,
+        "team_url": null
+      },
+      "https://www.hltv.org/team/13722/hacha": {
+        "team": "Hacha",
+        "world_ranking": null,
+        "team_url": null
+      },
+      "https://www.hltv.org/team/13697/damajuana": {
+        "team": "DAMAJUANA",
+        "world_ranking": 234,
+        "team_url": null
+      },
+      "https://www.hltv.org/team/13978/sementes-do-mal": {
+        "team": "Sementes do Mal",
+        "world_ranking": 238,
         "team_url": null
       },
       "https://www.hltv.org/team/12646/chinggis-warriors": {
@@ -310,35 +333,6 @@
       }
     },
     "matches": {
-      "1081131": {
-        "teams": [
-          "ex-6666",
-          "Privateer"
-        ],
-        "ranking_hits": {
-          "ex-6666": {
-            "ranking_entry": null
-          },
-          "Privateer": {
-            "ranking_entry": {
-              "rank": 226,
-              "points": 1.0,
-              "published_team": "Privateer",
-              "source_url": "https://www.hltv.org/ranking/teams"
-            }
-          }
-        },
-        "match_page": {
-          "url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
-          "status": "ok",
-          "team_links": [
-            "https://www.hltv.org/team/14100/ex-6666",
-            "https://www.hltv.org/team/13914/privateer",
-            "https://www.hltv.org/team/12889/g2-ares",
-            "https://www.hltv.org/team/13759/mellren"
-          ]
-        }
-      },
       "1079643": {
         "teams": [
           "The Last Resort",
@@ -365,6 +359,30 @@
             "https://www.hltv.org/team/14084/lfo-10",
             "https://www.hltv.org/team/7900/spirit-academy",
             "https://www.hltv.org/team/12889/g2-ares"
+          ]
+        }
+      },
+      "1082580": {
+        "teams": [
+          "A NATA",
+          "Hacha"
+        ],
+        "ranking_hits": {
+          "A NATA": {
+            "ranking_entry": null
+          },
+          "Hacha": {
+            "ranking_entry": null
+          }
+        },
+        "match_page": {
+          "url": "https://www.hltv.org/matches/2399804/a-nata-vs-hacha-cct-2026-south-america-series-7",
+          "status": "ok",
+          "team_links": [
+            "https://www.hltv.org/team/14090/a-nata",
+            "https://www.hltv.org/team/13722/hacha",
+            "https://www.hltv.org/team/13697/damajuana",
+            "https://www.hltv.org/team/13978/sementes-do-mal"
           ]
         }
       },
@@ -403,350 +421,7 @@
   "pinnacle": {
     "matchups": [
       {
-        "id": 1638757224,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Nemesis 0, Nuclear TigeRES 2",
-          "Nemesis 1, Nuclear TigeRES 2",
-          "Nemesis 2, Nuclear TigeRES 0",
-          "Nemesis 2, Nuclear TigeRES 1"
-        ],
-        "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765210,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Dawn Bulls",
-          "CyberHero"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638758761,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yellow Submarine",
-          "Zero Tenacity"
-        ],
-        "start": "2026-10-19T09:15:00Z",
-        "is_live": false,
-        "best_of": 3
-      },
-      {
-        "id": 1638576352,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 2,
-          "group": "Europe",
-          "id": 227987,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - United21",
-          "sequence": 521,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "CPH Wolves",
-          "Prestige"
-        ],
-        "start": "2026-10-19T08:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638748203,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Hanwha Life",
-          "Top Esports"
-        ],
-        "start": "2026-10-23T21:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638721228,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 278848,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - NODWIN Clutch Series Qualifier",
-          "sequence": 521,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "GenOne",
-          "FORZE Reload"
-        ],
-        "start": "2026-10-19T08:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638753281,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T15:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1637750238,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Gen.G",
-          "Hanwha Life",
-          "T1",
-          "Bilibili",
-          "Anyone's Legend",
-          "Dplus KIA",
-          "G2",
-          "Invictus",
-          "Top Esports",
-          "LYON",
-          "Liquid",
-          "Karmine Corp",
-          "Movistar KOI",
-          "Cloud9",
-          "LOS",
-          "Secret Whales",
-          "CTBC Flying Oyster",
-          "FURIA",
-          "MVK"
-        ],
-        "start": "2026-10-18T18:00:00Z",
-        "is_live": false,
-        "best_of": 5
-      },
-      {
-        "id": 1638765216,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Dawn Bulls",
-          "CyberHero"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768715,
+        "id": 1638768654,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -760,78 +435,6 @@
           "matchupCount": 1,
           "matchupCountSE": 1,
           "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768759,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638757238,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
           "sequence": 520,
           "sport": {
             "featureOrder": 1,
@@ -849,164 +452,12 @@
           "Odd",
           "Even"
         ],
-        "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1637769687,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "LCK",
-          "LPL",
-          "LEC",
-          "LCS",
-          "CBLOL",
-          "LCP"
-        ],
-        "start": "2026-10-18T18:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768768,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
         "start": "2026-10-19T12:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638717698,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 2,
-          "group": "Europe",
-          "id": 225201,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "League of Legends - EMEA Masters",
-          "sequence": 304,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Solary 0, Galions 3",
-          "Solary 1, Galions 3",
-          "Solary 2, Galions 3",
-          "Solary 3, Galions 0",
-          "Solary 3, Galions 1",
-          "Solary 3, Galions 2"
-        ],
-        "start": "2026-10-22T16:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638753284,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T15:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765209,
+        "id": 1638765204,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1034,8 +485,10 @@
           }
         },
         "participants": [
-          "Dawn Bulls (Kills)",
-          "CyberHero (Kills)"
+          "Dawn Bulls 0, CyberHero 2",
+          "Dawn Bulls 1, CyberHero 2",
+          "Dawn Bulls 2, CyberHero 0",
+          "Dawn Bulls 2, CyberHero 1"
         ],
         "start": "2026-10-19T15:15:00Z",
         "is_live": false,
@@ -1074,6 +527,404 @@
           "No"
         ],
         "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638764592,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Romania",
+          "id": 276139,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - DraculaN",
+          "sequence": 519,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T09:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638753287,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765216,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls",
+          "CyberHero"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638263316,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Liquid",
+          "fnatic"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": 3
+      },
+      {
+        "id": 1638768718,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765176,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "HULIGANI",
+          "Nemiga"
+        ],
+        "start": "2026-10-19T12:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765219,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls",
+          "CyberHero"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638275341,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Liquid 0, fnatic 2",
+          "Liquid 1, fnatic 2",
+          "Liquid 2, fnatic 0",
+          "Liquid 2, fnatic 1"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638768765,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638535096,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757293,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T14:00:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -1137,6 +988,114 @@
         "best_of": null
       },
       {
+        "id": 1638765225,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls",
+          "CyberHero"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638748200,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Gen.G",
+          "Invictus"
+        ],
+        "start": "2026-10-23T17:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638765185,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "HULIGANI",
+          "Nemiga"
+        ],
+        "start": "2026-10-19T12:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
         "id": 1638765161,
         "league_id": null,
         "league": {
@@ -1173,43 +1132,7 @@
         "best_of": null
       },
       {
-        "id": 1638757232,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Odd",
-          "Even"
-        ],
-        "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638753287,
+        "id": 1638753284,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1245,43 +1168,7 @@
         "best_of": null
       },
       {
-        "id": 1638765121,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yellow Submarine",
-          "Zero Tenacity"
-        ],
-        "start": "2026-10-19T09:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638753272,
+        "id": 1638534949,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1315,78 +1202,6 @@
         "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
-      },
-      {
-        "id": 1638754646,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Romania",
-          "id": 276139,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - DraculaN",
-          "sequence": 519,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "WBT",
-          "Nexus"
-        ],
-        "start": "2026-10-19T09:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638750814,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Liquid",
-          "CTBC Flying Oyster"
-        ],
-        "start": "2026-10-23T18:00:00Z",
-        "is_live": false,
-        "best_of": 1
       },
       {
         "id": 1638753275,
@@ -1425,7 +1240,318 @@
         "best_of": null
       },
       {
-        "id": 1638768663,
+        "id": 1638534797,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638748203,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Hanwha Life",
+          "Top Esports"
+        ],
+        "start": "2026-10-23T21:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638768768,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638758770,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "GenOne",
+          "Omega"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": 3
+      },
+      {
+        "id": 1638535063,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Liquid By 2",
+          "Liquid By 3",
+          "Liquid By 4",
+          "Liquid By 5",
+          "Liquid By 6",
+          "Liquid By 7",
+          "Liquid By 8",
+          "Liquid By 9",
+          "Liquid By 10",
+          "Liquid By 11",
+          "Liquid By 12",
+          "Liquid By 13",
+          "fnatic By 2",
+          "fnatic By 3",
+          "fnatic By 4",
+          "fnatic By 5",
+          "fnatic By 6",
+          "fnatic By 7",
+          "fnatic By 8",
+          "fnatic By 9",
+          "fnatic By 10",
+          "fnatic By 11",
+          "fnatic By 12",
+          "fnatic By 13",
+          "Tie"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638750814,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Liquid",
+          "CTBC Flying Oyster"
+        ],
+        "start": "2026-10-23T18:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638768756,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638754648,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "HULIGANI",
+          "Nemiga"
+        ],
+        "start": "2026-10-19T12:15:00Z",
+        "is_live": false,
+        "best_of": 3
+      },
+      {
+        "id": 1638768727,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1480,6 +1606,395 @@
           "Tie"
         ],
         "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765234,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls",
+          "CyberHero"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638717698,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 2,
+          "group": "Europe",
+          "id": 225201,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "League of Legends - EMEA Masters",
+          "sequence": 304,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Solary 0, Galions 3",
+          "Solary 1, Galions 3",
+          "Solary 2, Galions 3",
+          "Solary 3, Galions 0",
+          "Solary 3, Galions 1",
+          "Solary 3, Galions 2"
+        ],
+        "start": "2026-10-22T16:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638768660,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638748205,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "LOS",
+          "T1"
+        ],
+        "start": "2026-10-23T22:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638768724,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 285679,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T12:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638764553,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Romania",
+          "id": 276139,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - DraculaN",
+          "sequence": 519,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T09:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638516538,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "CIS",
+          "id": 200736,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 0,
+          "matchupCountSE": 0,
+          "name": "Dota 2 - DreamLeague: Western Europe Qualifier",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Potn9ki 0, White Sails 2",
+          "Potn9ki 1, White Sails 2",
+          "Potn9ki 2, White Sails 0",
+          "Potn9ki 2, White Sails 1"
+        ],
+        "start": "2026-10-16T10:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757267,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Nemesis By 2",
+          "Nemesis By 3",
+          "Nemesis By 4",
+          "Nemesis By 5",
+          "Nemesis By 6",
+          "Nemesis By 7",
+          "Nemesis By 8",
+          "Nemesis By 9",
+          "Nemesis By 10",
+          "Nemesis By 11",
+          "Nemesis By 12",
+          "Nemesis By 13",
+          "Nuclear TigeRES By 2",
+          "Nuclear TigeRES By 3",
+          "Nuclear TigeRES By 4",
+          "Nuclear TigeRES By 5",
+          "Nuclear TigeRES By 6",
+          "Nuclear TigeRES By 7",
+          "Nuclear TigeRES By 8",
+          "Nuclear TigeRES By 9",
+          "Nuclear TigeRES By 10",
+          "Nuclear TigeRES By 11",
+          "Nuclear TigeRES By 12",
+          "Nuclear TigeRES By 13",
+          "Tie"
+        ],
+        "start": "2026-10-19T14:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638754606,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Secret Whales",
+          "LYON"
+        ],
+        "start": "2026-10-23T23:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638765127,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yellow Submarine",
+          "Zero Tenacity"
+        ],
+        "start": "2026-10-19T09:15:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -1543,303 +2058,7 @@
         "best_of": null
       },
       {
-        "id": 1638765240,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Odd",
-          "Even"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768765,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638715527,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295831,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "Dota 2 - P Universe",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yandex",
-          "PVISION",
-          "Spirit",
-          "1W",
-          "Liquid",
-          "BB Team",
-          "OG",
-          "Astra Invicta",
-          "GamerLegion",
-          "LEGION"
-        ],
-        "start": "2026-10-22T17:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638750876,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Nemesis",
-          "Nuclear TigeRES"
-        ],
-        "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": 3
-      },
-      {
-        "id": 1638709103,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 2,
-          "group": "Europe",
-          "id": 225201,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "League of Legends - EMEA Masters",
-          "sequence": 304,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Solary",
-          "Galions"
-        ],
-        "start": "2026-10-22T16:00:00Z",
-        "is_live": false,
-        "best_of": 5
-      },
-      {
-        "id": 1638750815,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "G2",
-          "Dplus KIA"
-        ],
-        "start": "2026-10-23T20:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638765136,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yellow Submarine",
-          "Zero Tenacity"
-        ],
-        "start": "2026-10-19T09:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765173,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "HULIGANI",
-          "Nemiga"
-        ],
-        "start": "2026-10-19T12:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765234,
+        "id": 1638765222,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1875,43 +2094,7 @@
         "best_of": null
       },
       {
-        "id": 1638768660,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Odd",
-          "Even"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638534665,
+        "id": 1638534896,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -1939,101 +2122,52 @@
           }
         },
         "participants": [
-          "Odd",
-          "Even"
+          "Liquid By 2",
+          "Liquid By 3",
+          "Liquid By 4",
+          "Liquid By 5",
+          "Liquid By 6",
+          "Liquid By 7",
+          "Liquid By 8",
+          "Liquid By 9",
+          "Liquid By 10",
+          "Liquid By 11",
+          "Liquid By 12",
+          "Liquid By 13",
+          "fnatic By 2",
+          "fnatic By 3",
+          "fnatic By 4",
+          "fnatic By 5",
+          "fnatic By 6",
+          "fnatic By 7",
+          "fnatic By 8",
+          "fnatic By 9",
+          "fnatic By 10",
+          "fnatic By 11",
+          "fnatic By 12",
+          "fnatic By 13",
+          "Tie"
         ],
         "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765111,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yellow Submarine (Kills)",
-          "Zero Tenacity (Kills)"
-        ],
-        "start": "2026-10-19T09:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765133,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Odd",
-          "Even"
-        ],
-        "start": "2026-10-19T09:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638753278,
+        "id": 1638754644,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
           "group": "Europe",
-          "id": 295354,
+          "id": 285925,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
+          "name": "CS2 - CCT Europe Challengers",
+          "sequence": 521,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -2047,82 +2181,10 @@
           }
         },
         "participants": [
-          "Yes",
-          "No"
+          "Ryvex",
+          "Phantom Academy"
         ],
-        "start": "2026-10-19T15:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638764553,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Romania",
-          "id": 276139,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - DraculaN",
-          "sequence": 519,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T09:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765112,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yellow Submarine",
-          "Zero Tenacity"
-        ],
-        "start": "2026-10-19T09:15:00Z",
+        "start": "2026-10-19T13:45:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -2165,7 +2227,7 @@
         "best_of": null
       },
       {
-        "id": 1638765185,
+        "id": 1638765136,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2193,64 +2255,28 @@
           }
         },
         "participants": [
-          "HULIGANI",
-          "Nemiga"
+          "Yellow Submarine",
+          "Zero Tenacity"
         ],
-        "start": "2026-10-19T12:15:00Z",
+        "start": "2026-10-19T09:15:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638748200,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Gen.G",
-          "Invictus"
-        ],
-        "start": "2026-10-23T17:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638535007,
+        "id": 1638757302,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
           "group": "Europe",
-          "id": 295354,
+          "id": 296113,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
+          "name": "CS2 - PGL Bucharest Qualifier",
           "sequence": 520,
           "sport": {
             "featureOrder": 1,
@@ -2265,53 +2291,15 @@
           }
         },
         "participants": [
-          "Yes",
-          "No"
+          "Odd",
+          "Even"
         ],
-        "start": "2026-10-19T15:00:00Z",
+        "start": "2026-10-19T14:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765204,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Dawn Bulls 0, CyberHero 2",
-          "Dawn Bulls 1, CyberHero 2",
-          "Dawn Bulls 2, CyberHero 0",
-          "Dawn Bulls 2, CyberHero 1"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768721,
+        "id": 1638768753,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2343,152 +2331,6 @@
           "No"
         ],
         "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638534858,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T15:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765170,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "HULIGANI",
-          "Nemiga"
-        ],
-        "start": "2026-10-19T12:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765155,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "HULIGANI 0, Nemiga 2",
-          "HULIGANI 1, Nemiga 2",
-          "HULIGANI 2, Nemiga 0",
-          "HULIGANI 2, Nemiga 1"
-        ],
-        "start": "2026-10-19T12:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638535096,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -2529,21 +2371,21 @@
         "best_of": null
       },
       {
-        "id": 1638754648,
+        "id": 1638757296,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -2557,15 +2399,184 @@
           }
         },
         "participants": [
-          "HULIGANI",
-          "Nemiga"
+          "Yes",
+          "No"
         ],
-        "start": "2026-10-19T12:15:00Z",
+        "start": "2026-10-19T14:00:00Z",
         "is_live": false,
-        "best_of": 3
+        "best_of": null
       },
       {
-        "id": 1638768756,
+        "id": 1638764589,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Romania",
+          "id": 276139,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - DraculaN",
+          "sequence": 519,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T09:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638534665,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295354,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T15:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757224,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Nemesis 0, Nuclear TigeRES 2",
+          "Nemesis 1, Nuclear TigeRES 2",
+          "Nemesis 2, Nuclear TigeRES 0",
+          "Nemesis 2, Nuclear TigeRES 1"
+        ],
+        "start": "2026-10-19T14:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757241,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Nemesis By 2",
+          "Nemesis By 3",
+          "Nemesis By 4",
+          "Nemesis By 5",
+          "Nemesis By 6",
+          "Nemesis By 7",
+          "Nemesis By 8",
+          "Nemesis By 9",
+          "Nemesis By 10",
+          "Nemesis By 11",
+          "Nemesis By 12",
+          "Nemesis By 13",
+          "Nuclear TigeRES By 2",
+          "Nuclear TigeRES By 3",
+          "Nuclear TigeRES By 4",
+          "Nuclear TigeRES By 5",
+          "Nuclear TigeRES By 6",
+          "Nuclear TigeRES By 7",
+          "Nuclear TigeRES By 8",
+          "Nuclear TigeRES By 9",
+          "Nuclear TigeRES By 10",
+          "Nuclear TigeRES By 11",
+          "Nuclear TigeRES By 12",
+          "Nuclear TigeRES By 13",
+          "Tie"
+        ],
+        "start": "2026-10-19T14:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638768657,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2601,92 +2612,20 @@
         "best_of": null
       },
       {
-        "id": 1638263316,
+        "id": 1638576352,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": -1,
+          "featureOrder": 2,
           "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
+          "id": 227987,
+          "isFeatured": true,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Liquid",
-          "fnatic"
-        ],
-        "start": "2026-10-19T15:00:00Z",
-        "is_live": false,
-        "best_of": 3
-      },
-      {
-        "id": 1638768724,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Odd",
-          "Even"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638754644,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285925,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - CCT Europe Challengers",
+          "name": "CS2 - United21",
           "sequence": 521,
           "sport": {
             "featureOrder": 1,
@@ -2701,15 +2640,15 @@
           }
         },
         "participants": [
-          "Ryvex",
-          "Phantom Academy"
+          "CPH Wolves",
+          "Prestige"
         ],
-        "start": "2026-10-19T13:45:00Z",
+        "start": "2026-10-19T08:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765231,
+        "id": 1638765240,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2781,43 +2720,7 @@
         "best_of": null
       },
       {
-        "id": 1638748205,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "LOS",
-          "T1"
-        ],
-        "start": "2026-10-23T22:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638757293,
+        "id": 1638750876,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2845,74 +2748,15 @@
           }
         },
         "participants": [
-          "Yes",
-          "No"
+          "Nemesis",
+          "Nuclear TigeRES"
         ],
         "start": "2026-10-19T14:00:00Z",
         "is_live": false,
-        "best_of": null
+        "best_of": 3
       },
       {
-        "id": 1638757267,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Nemesis By 2",
-          "Nemesis By 3",
-          "Nemesis By 4",
-          "Nemesis By 5",
-          "Nemesis By 6",
-          "Nemesis By 7",
-          "Nemesis By 8",
-          "Nemesis By 9",
-          "Nemesis By 10",
-          "Nemesis By 11",
-          "Nemesis By 12",
-          "Nemesis By 13",
-          "Nuclear TigeRES By 2",
-          "Nuclear TigeRES By 3",
-          "Nuclear TigeRES By 4",
-          "Nuclear TigeRES By 5",
-          "Nuclear TigeRES By 6",
-          "Nuclear TigeRES By 7",
-          "Nuclear TigeRES By 8",
-          "Nuclear TigeRES By 9",
-          "Nuclear TigeRES By 10",
-          "Nuclear TigeRES By 11",
-          "Nuclear TigeRES By 12",
-          "Nuclear TigeRES By 13",
-          "Tie"
-        ],
-        "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638765142,
+        "id": 1638765112,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -2940,28 +2784,28 @@
           }
         },
         "participants": [
-          "Odd",
-          "Even"
+          "Yellow Submarine",
+          "Zero Tenacity"
         ],
         "start": "2026-10-19T09:15:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638768753,
+        "id": 1638535007,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
           "group": "Europe",
-          "id": 285679,
+          "id": 295354,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
+          "name": "CS2 - Private Club",
           "sequence": 520,
           "sport": {
             "featureOrder": 1,
@@ -2979,45 +2823,7 @@
           "Yes",
           "No"
         ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638516538,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "CIS",
-          "id": 200736,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 0,
-          "matchupCountSE": 0,
-          "name": "Dota 2 - DreamLeague: Western Europe Qualifier",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Potn9ki 0, White Sails 2",
-          "Potn9ki 1, White Sails 2",
-          "Potn9ki 2, White Sails 0",
-          "Potn9ki 2, White Sails 1"
-        ],
-        "start": "2026-10-16T10:00:00Z",
+        "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -3058,7 +2864,7 @@
         "best_of": 1
       },
       {
-        "id": 1638758770,
+        "id": 1638768663,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3086,15 +2892,74 @@
           }
         },
         "participants": [
-          "GenOne",
-          "Omega"
+          "GenOne By 2",
+          "GenOne By 3",
+          "GenOne By 4",
+          "GenOne By 5",
+          "GenOne By 6",
+          "GenOne By 7",
+          "GenOne By 8",
+          "GenOne By 9",
+          "GenOne By 10",
+          "GenOne By 11",
+          "GenOne By 12",
+          "GenOne By 13",
+          "Omega By 2",
+          "Omega By 3",
+          "Omega By 4",
+          "Omega By 5",
+          "Omega By 6",
+          "Omega By 7",
+          "Omega By 8",
+          "Omega By 9",
+          "Omega By 10",
+          "Omega By 11",
+          "Omega By 12",
+          "Omega By 13",
+          "Tie"
         ],
         "start": "2026-10-19T12:00:00Z",
         "is_live": false,
-        "best_of": 3
+        "best_of": null
       },
       {
-        "id": 1638757229,
+        "id": 1638765111,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yellow Submarine (Kills)",
+          "Zero Tenacity (Kills)"
+        ],
+        "start": "2026-10-19T09:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757238,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3122,118 +2987,10 @@
           }
         },
         "participants": [
-          "Yes",
-          "No"
+          "Odd",
+          "Even"
         ],
         "start": "2026-10-19T14:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638755497,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Dawn Bulls",
-          "CyberHero"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": 3
-      },
-      {
-        "id": 1638765176,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "HULIGANI",
-          "Nemiga"
-        ],
-        "start": "2026-10-19T12:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768762,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Yes",
-          "No"
-        ],
-        "start": "2026-10-19T12:00:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -3297,21 +3054,21 @@
         "best_of": null
       },
       {
-        "id": 1638534896,
+        "id": 1638765173,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
-          "isFeatured": false,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
-          "sequence": 520,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -3325,51 +3082,225 @@
           }
         },
         "participants": [
-          "Liquid By 2",
-          "Liquid By 3",
-          "Liquid By 4",
-          "Liquid By 5",
-          "Liquid By 6",
-          "Liquid By 7",
-          "Liquid By 8",
-          "Liquid By 9",
-          "Liquid By 10",
-          "Liquid By 11",
-          "Liquid By 12",
-          "Liquid By 13",
-          "fnatic By 2",
-          "fnatic By 3",
-          "fnatic By 4",
-          "fnatic By 5",
-          "fnatic By 6",
-          "fnatic By 7",
-          "fnatic By 8",
-          "fnatic By 9",
-          "fnatic By 10",
-          "fnatic By 11",
-          "fnatic By 12",
-          "fnatic By 13",
-          "Tie"
+          "HULIGANI",
+          "Nemiga"
         ],
-        "start": "2026-10-19T15:00:00Z",
+        "start": "2026-10-19T12:15:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638534949,
+        "id": 1638754646,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
-          "group": "Europe",
-          "id": 295354,
+          "group": "Romania",
+          "id": 276139,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - Private Club",
+          "name": "CS2 - DraculaN",
+          "sequence": 519,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "WBT",
+          "Nexus"
+        ],
+        "start": "2026-10-19T09:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638765210,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls",
+          "CyberHero"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765209,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Dawn Bulls (Kills)",
+          "CyberHero (Kills)"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1637750238,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Gen.G",
+          "Hanwha Life",
+          "T1",
+          "Bilibili",
+          "Anyone's Legend",
+          "Dplus KIA",
+          "G2",
+          "Invictus",
+          "Top Esports",
+          "LYON",
+          "Liquid",
+          "Karmine Corp",
+          "Movistar KOI",
+          "Cloud9",
+          "LOS",
+          "Secret Whales",
+          "CTBC Flying Oyster",
+          "FURIA",
+          "MVK"
+        ],
+        "start": "2026-10-18T18:00:00Z",
+        "is_live": false,
+        "best_of": 5
+      },
+      {
+        "id": 1638750815,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "G2",
+          "Dplus KIA"
+        ],
+        "start": "2026-10-23T20:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638757229,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
           "sequence": 520,
           "sport": {
             "featureOrder": 1,
@@ -3387,12 +3318,12 @@
           "Yes",
           "No"
         ],
-        "start": "2026-10-19T15:00:00Z",
+        "start": "2026-10-19T14:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765127,
+        "id": 1638765121,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3428,21 +3359,21 @@
         "best_of": null
       },
       {
-        "id": 1638764589,
+        "id": 1638753278,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
-          "group": "Romania",
-          "id": 276139,
+          "group": "Europe",
+          "id": 295354,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - DraculaN",
-          "sequence": 519,
+          "name": "CS2 - Private Club",
+          "sequence": 520,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -3459,12 +3390,48 @@
           "Yes",
           "No"
         ],
-        "start": "2026-10-19T09:00:00Z",
+        "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638768718,
+        "id": 1638765124,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yellow Submarine",
+          "Zero Tenacity"
+        ],
+        "start": "2026-10-19T09:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638768759,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3538,21 +3505,21 @@
         "best_of": null
       },
       {
-        "id": 1638765222,
+        "id": 1637769687,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
           "isFeatured": true,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -3566,15 +3533,19 @@
           }
         },
         "participants": [
-          "Dawn Bulls",
-          "CyberHero"
+          "LCK",
+          "LPL",
+          "LEC",
+          "LCS",
+          "CBLOL",
+          "LCP"
         ],
-        "start": "2026-10-19T15:15:00Z",
+        "start": "2026-10-18T18:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638757302,
+        "id": 1638757232,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3610,7 +3581,87 @@
         "best_of": null
       },
       {
-        "id": 1638768657,
+        "id": 1638715527,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 295831,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "Dota 2 - P Universe",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yandex",
+          "PVISION",
+          "Spirit",
+          "1W",
+          "Liquid",
+          "BB Team",
+          "OG",
+          "Astra Invicta",
+          "GamerLegion",
+          "LEGION"
+        ],
+        "start": "2026-10-22T17:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638757299,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 296113,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - PGL Bucharest Qualifier",
+          "sequence": 520,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yes",
+          "No"
+        ],
+        "start": "2026-10-19T14:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638768715,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3646,7 +3697,115 @@
         "best_of": null
       },
       {
-        "id": 1638275341,
+        "id": 1638765133,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T09:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638709103,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 2,
+          "group": "Europe",
+          "id": 225201,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "League of Legends - EMEA Masters",
+          "sequence": 304,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Solary",
+          "Galions"
+        ],
+        "start": "2026-10-22T16:00:00Z",
+        "is_live": false,
+        "best_of": 5
+      },
+      {
+        "id": 1638765231,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Odd",
+          "Even"
+        ],
+        "start": "2026-10-19T15:15:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638753281,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3674,17 +3833,15 @@
           }
         },
         "participants": [
-          "Liquid 0, fnatic 2",
-          "Liquid 1, fnatic 2",
-          "Liquid 2, fnatic 0",
-          "Liquid 2, fnatic 1"
+          "Yes",
+          "No"
         ],
         "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638535063,
+        "id": 1638753272,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3712,31 +3869,8 @@
           }
         },
         "participants": [
-          "Liquid By 2",
-          "Liquid By 3",
-          "Liquid By 4",
-          "Liquid By 5",
-          "Liquid By 6",
-          "Liquid By 7",
-          "Liquid By 8",
-          "Liquid By 9",
-          "Liquid By 10",
-          "Liquid By 11",
-          "Liquid By 12",
-          "Liquid By 13",
-          "fnatic By 2",
-          "fnatic By 3",
-          "fnatic By 4",
-          "fnatic By 5",
-          "fnatic By 6",
-          "fnatic By 7",
-          "fnatic By 8",
-          "fnatic By 9",
-          "fnatic By 10",
-          "fnatic By 11",
-          "fnatic By 12",
-          "fnatic By 13",
-          "Tie"
+          "Yes",
+          "No"
         ],
         "start": "2026-10-19T15:00:00Z",
         "is_live": false,
@@ -3851,20 +3985,20 @@
         "best_of": null
       },
       {
-        "id": 1638757299,
+        "id": 1638768762,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
           "group": "Europe",
-          "id": 296113,
+          "id": 285679,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
+          "name": "CS2 - STK Ranked Qualifier",
           "sequence": 520,
           "sport": {
             "featureOrder": 1,
@@ -3882,48 +4016,12 @@
           "Yes",
           "No"
         ],
-        "start": "2026-10-19T14:00:00Z",
+        "start": "2026-10-19T12:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638754606,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Secret Whales",
-          "LYON"
-        ],
-        "start": "2026-10-23T23:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638765124,
+        "id": 1638765170,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -3951,51 +4049,15 @@
           }
         },
         "participants": [
-          "Yellow Submarine",
-          "Zero Tenacity"
+          "HULIGANI",
+          "Nemiga"
         ],
-        "start": "2026-10-19T09:15:00Z",
+        "start": "2026-10-19T12:15:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765225,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 1,
-          "group": "Undefined",
-          "id": 293235,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 3,
-          "matchupCountSE": 3,
-          "name": "Dota 2 - EPL Masters",
-          "sequence": 203,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Dawn Bulls",
-          "CyberHero"
-        ],
-        "start": "2026-10-19T15:15:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638534797,
+        "id": 1638534858,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -4023,29 +4085,29 @@
           }
         },
         "participants": [
-          "Odd",
-          "Even"
+          "Yes",
+          "No"
         ],
         "start": "2026-10-19T15:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638757296,
+        "id": 1638750902,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
+          "featureOrder": 0,
+          "group": "World",
+          "id": 9587,
+          "isFeatured": true,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
+          "matchupCount": 10,
+          "matchupCountSE": 10,
+          "name": "League of Legends - World Championship",
+          "sequence": 301,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -4059,10 +4121,84 @@
           }
         },
         "participants": [
-          "Yes",
-          "No"
+          "Anyone's Legend",
+          "Karmine Corp"
         ],
-        "start": "2026-10-19T14:00:00Z",
+        "start": "2026-10-23T19:00:00Z",
+        "is_live": false,
+        "best_of": 1
+      },
+      {
+        "id": 1638721228,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": -1,
+          "group": "Europe",
+          "id": 278848,
+          "isFeatured": false,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 1,
+          "matchupCountSE": 1,
+          "name": "CS2 - NODWIN Clutch Series Qualifier",
+          "sequence": 521,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "GenOne",
+          "FORZE Reload"
+        ],
+        "start": "2026-10-19T08:00:00Z",
+        "is_live": false,
+        "best_of": null
+      },
+      {
+        "id": 1638765155,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "HULIGANI 0, Nemiga 2",
+          "HULIGANI 1, Nemiga 2",
+          "HULIGANI 2, Nemiga 0",
+          "HULIGANI 2, Nemiga 1"
+        ],
+        "start": "2026-10-19T12:15:00Z",
         "is_live": false,
         "best_of": null
       },
@@ -4126,21 +4262,21 @@
         "best_of": null
       },
       {
-        "id": 1638764592,
+        "id": 1638768721,
         "league_id": null,
         "league": {
           "ageLimit": 0,
           "featureOrder": -1,
-          "group": "Romania",
-          "id": 276139,
+          "group": "Europe",
+          "id": 285679,
           "isFeatured": false,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
           "matchupCount": 1,
           "matchupCountSE": 1,
-          "name": "CS2 - DraculaN",
-          "sequence": 519,
+          "name": "CS2 - STK Ranked Qualifier",
+          "sequence": 520,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -4157,12 +4293,48 @@
           "Yes",
           "No"
         ],
-        "start": "2026-10-19T09:00:00Z",
+        "start": "2026-10-19T12:00:00Z",
         "is_live": false,
         "best_of": null
       },
       {
-        "id": 1638765219,
+        "id": 1638758761,
+        "league_id": null,
+        "league": {
+          "ageLimit": 0,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
+          "isHidden": false,
+          "isPromoted": false,
+          "isSticky": false,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
+          "sport": {
+            "featureOrder": 1,
+            "id": 12,
+            "isFeatured": true,
+            "isHidden": false,
+            "isSticky": false,
+            "matchupCount": 25,
+            "matchupCountSE": 22,
+            "name": "E Sports",
+            "primaryMarketType": "moneyline"
+          }
+        },
+        "participants": [
+          "Yellow Submarine",
+          "Zero Tenacity"
+        ],
+        "start": "2026-10-19T09:15:00Z",
+        "is_live": false,
+        "best_of": 3
+      },
+      {
+        "id": 1638755497,
         "league_id": null,
         "league": {
           "ageLimit": 0,
@@ -4195,24 +4367,24 @@
         ],
         "start": "2026-10-19T15:15:00Z",
         "is_live": false,
-        "best_of": null
+        "best_of": 3
       },
       {
-        "id": 1638768654,
+        "id": 1638765142,
         "league_id": null,
         "league": {
           "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
+          "featureOrder": 1,
+          "group": "Undefined",
+          "id": 293235,
+          "isFeatured": true,
           "isHidden": false,
           "isPromoted": false,
           "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
+          "matchupCount": 3,
+          "matchupCountSE": 3,
+          "name": "Dota 2 - EPL Masters",
+          "sequence": 203,
           "sport": {
             "featureOrder": 1,
             "id": 12,
@@ -4229,161 +4401,7 @@
           "Odd",
           "Even"
         ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638768727,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 285679,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - STK Ranked Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "GenOne By 2",
-          "GenOne By 3",
-          "GenOne By 4",
-          "GenOne By 5",
-          "GenOne By 6",
-          "GenOne By 7",
-          "GenOne By 8",
-          "GenOne By 9",
-          "GenOne By 10",
-          "GenOne By 11",
-          "GenOne By 12",
-          "GenOne By 13",
-          "Omega By 2",
-          "Omega By 3",
-          "Omega By 4",
-          "Omega By 5",
-          "Omega By 6",
-          "Omega By 7",
-          "Omega By 8",
-          "Omega By 9",
-          "Omega By 10",
-          "Omega By 11",
-          "Omega By 12",
-          "Omega By 13",
-          "Tie"
-        ],
-        "start": "2026-10-19T12:00:00Z",
-        "is_live": false,
-        "best_of": null
-      },
-      {
-        "id": 1638750902,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": 0,
-          "group": "World",
-          "id": 9587,
-          "isFeatured": true,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 10,
-          "matchupCountSE": 10,
-          "name": "League of Legends - World Championship",
-          "sequence": 301,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Anyone's Legend",
-          "Karmine Corp"
-        ],
-        "start": "2026-10-23T19:00:00Z",
-        "is_live": false,
-        "best_of": 1
-      },
-      {
-        "id": 1638757241,
-        "league_id": null,
-        "league": {
-          "ageLimit": 0,
-          "featureOrder": -1,
-          "group": "Europe",
-          "id": 296113,
-          "isFeatured": false,
-          "isHidden": false,
-          "isPromoted": false,
-          "isSticky": false,
-          "matchupCount": 1,
-          "matchupCountSE": 1,
-          "name": "CS2 - PGL Bucharest Qualifier",
-          "sequence": 520,
-          "sport": {
-            "featureOrder": 1,
-            "id": 12,
-            "isFeatured": true,
-            "isHidden": false,
-            "isSticky": false,
-            "matchupCount": 25,
-            "matchupCountSE": 22,
-            "name": "E Sports",
-            "primaryMarketType": "moneyline"
-          }
-        },
-        "participants": [
-          "Nemesis By 2",
-          "Nemesis By 3",
-          "Nemesis By 4",
-          "Nemesis By 5",
-          "Nemesis By 6",
-          "Nemesis By 7",
-          "Nemesis By 8",
-          "Nemesis By 9",
-          "Nemesis By 10",
-          "Nemesis By 11",
-          "Nemesis By 12",
-          "Nemesis By 13",
-          "Nuclear TigeRES By 2",
-          "Nuclear TigeRES By 3",
-          "Nuclear TigeRES By 4",
-          "Nuclear TigeRES By 5",
-          "Nuclear TigeRES By 6",
-          "Nuclear TigeRES By 7",
-          "Nuclear TigeRES By 8",
-          "Nuclear TigeRES By 9",
-          "Nuclear TigeRES By 10",
-          "Nuclear TigeRES By 11",
-          "Nuclear TigeRES By 12",
-          "Nuclear TigeRES By 13",
-          "Tie"
-        ],
-        "start": "2026-10-19T14:00:00Z",
+        "start": "2026-10-19T09:15:00Z",
         "is_live": false,
         "best_of": null
       }
@@ -4402,66 +4420,6 @@
         ],
         "league": "League of Legends - World Championship",
         "start": "2026-10-23T23:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638750815,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          2.04,
-          1.8197
-        ],
-        "league": "League of Legends - World Championship",
-        "start": "2026-10-23T20:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638750814,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.3509,
-          3.28
-        ],
-        "league": "League of Legends - World Championship",
-        "start": "2026-10-23T18:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638750902,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.5128,
-          2.63
-        ],
-        "league": "League of Legends - World Championship",
-        "start": "2026-10-23T19:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638748203,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.2577,
-          3.95
-        ],
-        "league": "League of Legends - World Championship",
-        "start": "2026-10-23T21:00:00Z",
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       },
       {
@@ -4510,6 +4468,171 @@
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       },
       {
+        "matchup_id": 1638750902,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.5128,
+          2.63
+        ],
+        "league": "League of Legends - World Championship",
+        "start": "2026-10-23T19:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638748203,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.2577,
+          3.95
+        ],
+        "league": "League of Legends - World Championship",
+        "start": "2026-10-23T21:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638750815,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          2.04,
+          1.8197
+        ],
+        "league": "League of Legends - World Championship",
+        "start": "2026-10-23T20:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638750814,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.3509,
+          3.28
+        ],
+        "league": "League of Legends - World Championship",
+        "start": "2026-10-23T18:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638768721,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.1887,
+          4.07
+        ],
+        "league": "CS2 - STK Ranked Qualifier",
+        "start": "2026-10-19T12:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638768718,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.4566,
+          2.59
+        ],
+        "league": "CS2 - STK Ranked Qualifier",
+        "start": "2026-10-19T12:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638758770,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.5714,
+          2.37
+        ],
+        "league": "CS2 - STK Ranked Qualifier",
+        "start": "2026-10-19T12:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638709103,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.9804,
+          1.8403
+        ],
+        "league": "League of Legends - EMEA Masters",
+        "start": "2026-10-22T16:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638754648,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.431,
+          2.87
+        ],
+        "league": "Dota 2 - EPL Masters",
+        "start": "2026-10-19T12:15:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638758761,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.1368,
+          6.02
+        ],
+        "league": "Dota 2 - EPL Masters",
+        "start": "2026-10-19T09:15:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638755497,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.7042,
+          2.17
+        ],
+        "league": "Dota 2 - EPL Masters",
+        "start": "2026-10-19T15:15:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
         "matchup_id": 1638534858,
         "period": 0,
         "names": [
@@ -4540,33 +4663,18 @@
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       },
       {
-        "matchup_id": 1638576352,
+        "matchup_id": 1638754644,
         "period": 0,
         "names": [
           null,
           null
         ],
         "odds": [
-          1.8696,
-          1.8696
+          3.93,
+          1.1931
         ],
-        "league": "CS2 - United21",
-        "start": "2026-10-19T08:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638750876,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.6897,
-          2.14
-        ],
-        "league": "CS2 - PGL Bucharest Qualifier",
-        "start": "2026-10-19T14:00:00Z",
+        "league": "CS2 - CCT Europe Challengers",
+        "start": "2026-10-19T13:45:00Z",
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       },
       {
@@ -4579,6 +4687,21 @@
         "odds": [
           1.2398,
           3.61
+        ],
+        "league": "CS2 - PGL Bucharest Qualifier",
+        "start": "2026-10-19T14:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638750876,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.6897,
+          2.14
         ],
         "league": "CS2 - PGL Bucharest Qualifier",
         "start": "2026-10-19T14:00:00Z",
@@ -4600,6 +4723,36 @@
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       },
       {
+        "matchup_id": 1638576352,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          1.8696,
+          1.8696
+        ],
+        "league": "CS2 - United21",
+        "start": "2026-10-19T08:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
+        "matchup_id": 1638721228,
+        "period": 0,
+        "names": [
+          null,
+          null
+        ],
+        "odds": [
+          2.75,
+          1.3984
+        ],
+        "league": "CS2 - NODWIN Clutch Series Qualifier",
+        "start": "2026-10-19T08:00:00Z",
+        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
+      },
+      {
         "matchup_id": 1638754646,
         "period": 0,
         "names": [
@@ -4613,146 +4766,11 @@
         "league": "CS2 - DraculaN",
         "start": "2026-10-19T09:00:00Z",
         "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638709103,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.9804,
-          1.8403
-        ],
-        "league": "League of Legends - EMEA Masters",
-        "start": "2026-10-22T16:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638721228,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          2.63,
-          1.4348
-        ],
-        "league": "CS2 - NODWIN Clutch Series Qualifier",
-        "start": "2026-10-19T08:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638754644,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          3.93,
-          1.1931
-        ],
-        "league": "CS2 - CCT Europe Challengers",
-        "start": "2026-10-19T13:45:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638755497,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.7042,
-          2.17
-        ],
-        "league": "Dota 2 - EPL Masters",
-        "start": "2026-10-19T15:15:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638758761,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.1332,
-          6.13
-        ],
-        "league": "Dota 2 - EPL Masters",
-        "start": "2026-10-19T09:15:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638754648,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.431,
-          2.87
-        ],
-        "league": "Dota 2 - EPL Masters",
-        "start": "2026-10-19T12:15:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638768721,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.1838,
-          4.12
-        ],
-        "league": "CS2 - STK Ranked Qualifier",
-        "start": "2026-10-19T12:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638768718,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.4673,
-          2.56
-        ],
-        "league": "CS2 - STK Ranked Qualifier",
-        "start": "2026-10-19T12:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
-      },
-      {
-        "matchup_id": 1638758770,
-        "period": 0,
-        "names": [
-          null,
-          null
-        ],
-        "odds": [
-          1.5556,
-          2.4
-        ],
-        "league": "CS2 - STK Ranked Qualifier",
-        "start": "2026-10-19T12:00:00Z",
-        "source_url": "https://www.pinnacle.com/en/esports/csgo/matchups"
       }
     ],
     "fixture_hits": {
-      "1081131": [],
       "1079643": [],
+      "1082580": [],
       "1081863": []
     },
     "leagues": [
@@ -4761,57 +4779,57 @@
         "name": "League of Legends - World Championship"
       },
       {
-        "id": 295354,
-        "name": "CS2 - Private Club"
-      },
-      {
-        "id": 227987,
-        "name": "CS2 - United21"
-      },
-      {
-        "id": 296113,
-        "name": "CS2 - PGL Bucharest Qualifier"
+        "id": 285679,
+        "name": "CS2 - STK Ranked Qualifier"
       },
       {
         "id": 295831,
         "name": "Dota 2 - P Universe"
       },
       {
-        "id": 276139,
-        "name": "CS2 - DraculaN"
-      },
-      {
         "id": 225201,
         "name": "League of Legends - EMEA Masters"
-      },
-      {
-        "id": 278848,
-        "name": "CS2 - NODWIN Clutch Series Qualifier"
-      },
-      {
-        "id": 285925,
-        "name": "CS2 - CCT Europe Challengers"
       },
       {
         "id": 293235,
         "name": "Dota 2 - EPL Masters"
       },
       {
-        "id": 285679,
-        "name": "CS2 - STK Ranked Qualifier"
+        "id": 295354,
+        "name": "CS2 - Private Club"
+      },
+      {
+        "id": 285925,
+        "name": "CS2 - CCT Europe Challengers"
+      },
+      {
+        "id": 296113,
+        "name": "CS2 - PGL Bucharest Qualifier"
+      },
+      {
+        "id": 227987,
+        "name": "CS2 - United21"
+      },
+      {
+        "id": 278848,
+        "name": "CS2 - NODWIN Clutch Series Qualifier"
+      },
+      {
+        "id": 276139,
+        "name": "CS2 - DraculaN"
       }
     ]
   },
   "x1bet": {
     "url": "https://1xbet.com/en/line/Esports",
     "fixture_hits": {
-      "1081131": {
-        "ex-6666": null,
-        "Privateer": null
-      },
       "1079643": {
         "The Last Resort": null,
         "LFO 10": null
+      },
+      "1082580": {
+        "A NATA": null,
+        "Hacha": null
       },
       "1081863": {
         "Chinggis Warriors": null,
@@ -4852,13 +4870,13 @@
       }
     ],
     "fixture_hits": {
-      "1081131": {
-        "ex-6666": null,
-        "Privateer": null
-      },
       "1079643": {
         "The Last Resort": null,
         "LFO 10": null
+      },
+      "1082580": {
+        "A NATA": null,
+        "Hacha": null
       },
       "1081863": {
         "Chinggis Warriors": null,
