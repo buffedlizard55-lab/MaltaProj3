@@ -522,6 +522,21 @@ failure is published as a review finding rather than repaired or inferred.
   [39200992070](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992070))
   succeeded before this record-only update.
 
+**Post-rebase artifact refresh — 2026-10-19 (final validation pending).** After
+rebasing this isolated evidence work onto current `main`, the audit correctly
+observed a genuinely newer successful production deployment, not a timestamp-only
+rewrite: Pages run [39200682562](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200682562)
+produced official artifact [12164575227](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12164575227),
+whose advertised and recomputed digest is
+`sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee`.
+The refreshed evidence report still records 95 inventory records, 34 active
+complete-picks rows, zero row-source violations and the same seven explicitly
+blank unresolved ledger entries. Automated report commit `aebb527` updates only
+that factual report and its Review notice. This coordination-only record
+intentionally triggers final branch validation against the exact refreshed
+head; no pick, probability, source, alias, renderer or production workflow is
+changed.
+
 
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
 
