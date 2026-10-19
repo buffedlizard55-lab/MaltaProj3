@@ -1,3 +1,32 @@
+# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
+
+Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
+branched from `main` at `d03c05c`. I read this board before starting. The only
+open PR found is #100 (`arena/fe48a0df`), a stale record-only change at the end of
+this file; this claim is inserted here at the top and does not touch its EOF hunk.
+The older in-progress rows below are treated as historical unless their branch/PR
+is current; no implementation scope from those rows is entered.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D9-1 Independently audit the latest scheduled GitHub Pages artifact against the canonical inventory, selected picks, both probabilities, unresolved reasons and source-link/replay contracts; record only values confirmed from the artifact and its retained originals, and publish any verified irregularities on Flagged for Review | needs review | arena-d9ebc2c1 | new `data/research/d9ebc2c1/` only; this session's claim/result in `COORDINATION.md` |
+
+### D9-1 audit result — completed with live-row verification flagged (2026-10-19T04:22Z)
+
+- **Official production evidence:** GitHub Actions API reports scheduled run [#39181195691](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691), `main` at `d03c05c`, created 00:31:58Z and completed 00:39:36Z with `success`. The job metadata reports success for collection, unresolved-line research, replay/build, Pages deployment and `verify_live`. GitHub's Pages API reports the public project URL and a `github-pages` artifact (11,950,740 bytes). The production workflow's two configured schedules are in [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml).
+- **Initial artifact-access limitation (04:22Z):** downloading the Pages archive returned EOF after redirect, and the run logs were also inaccessible. At that point, no current match counts were available from this session; the checked-in `data/latest.json` and `data/origination.json` snapshots (15 October) were explicitly not treated as current. A later post-merge verification exposed aggregate counts through GitHub job annotations, recorded below; individual live rows and probabilities remain inaccessible to this session. This limitation is published as flag `d9ebc2c1-live-pages-artifact-not-independently-readable`; it is an audit-session limitation, not a reported deployment failure.
+- **Local replay / site verification:** `.venv/bin/python -m unittest discover -s tests` — 676 passed; after the new data-only flag, `tests.test_review_flags` — 4 passed. `.venv/bin/python -m scripts.build` replayed all 80 checked-in source records and confirmed all published probabilities/picks against saved evidence. Strict row-source audit after adding this flag: 477 rows, 463 with official links, 5 explicitly unverified, 9 site-map rows, 0 rows without source or flag, 0 violations; 662 internal links/assets/anchors. `npm test` — 85 passed, including 320/390/768/1440px layout, phone navigation and accessibility checks. New evidence is in `data/research/d9ebc2c1/live-release-audit.json`; no odds or pick values were changed.
+- **Status:** D9-1 is **needs review** only for the live fixture rows that this workspace could not read. The verified run metadata and local checks are complete; the flag does not block deployment.
+
+### D9-1 post-merge deployment and live aggregate verification — updated 2026-10-19T05:24Z
+
+- **PR / merge:** [PR #103](https://github.com/buffedlizard55-lab/MaltaProj3/pull/103) merged at 04:32:00Z as `9edf763c1feba9342044c404b7e9aa5267c242f3`.
+- **First Pages deployment after PR #103:** push run [39199948605](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199948605) completed successfully at 04:46:45Z. The production job reported success for collection, fallback origination, row replay/build, `actions/deploy-pages` and `verify_live`. GitHub Pages deployment `7165917030` points to the merge SHA; the public site is [live](https://buffedlizard55-lab/MaltaProj3/).
+- **PR #105 follow-up and latest deployment:** [PR #105](https://github.com/buffedlizard55-lab/MaltaProj3/pull/105) merged at 05:09:07Z as `fe98e915d5b4394a87ebffa683e7f3c4cfaa9924`. Push run [39203046786](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39203046786) completed successfully at 05:22:29Z, including collection, research, replay/build, deploy and `verify_live`. Deployment `7166181489` is `success` for the merge SHA; the artifact metadata is recorded but contents were not inspected. **Latest official annotations (observation 05:20:02Z):** 95 Hotspawn records (34 upcoming, 61 archived), complete coverage and fixture-API ID cross-check against lobby and CS2 pages. Featured snapshot: 20 picks / 14 unresolved. Separate complete-picks ladder: **34 active, 27 with a pick, 7 unresolved** (4 consensus, 11 market, 4 bookmaker, 8 model; 4 alias-joined). Row-source audit: 620 rows, 606 official-linked, 5 flagged unverified, 9 navigation rows, **0 violations**. See `live-release-audit.json` and the official [check annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/117899906404/annotations); these are aggregate counts, not a manual re-read of each match card.
+- **Remaining limitation:** the 7 complete-ladder blanks are still unresolved and must remain blank unless an accepted source closes them. This session cannot independently name the seven or verify each probability/blocker because artifact contents were not readable. The site’s own `verify_live` step confirmed the full page and unresolved section; the per-fixture review remains flagged. The production workflow also reports Pages is still in legacy mode after a configuration request returned 403; it waited for the legacy build and deployed the verified artifact last, so this was not a failed deployment or a source-data claim.
+- **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103 and #105, their merges, the latest publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
+
+**Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
 Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
@@ -472,6 +501,107 @@ results, roster discount or rest advantage will fill a gap.
   X-3 (phone presentation of complete/unresolved lists) were researched but not
   implemented; no pick was invented for the 11 unresolved fixtures. The Day-5 contrarian
   guide, corrected Aurora roster finding and the four irregularities are in the dossier.
+
+
+# Current session: arena-7e429607 — deployed-artifact evidence audit and current-phone-status verification
+
+Claimed **2026-10-19T04:03Z** on the fixed Arena branch
+`arena/7e429607-maltaproj3` (this environment is branch-pinned; no session branch
+will be created or switched to). This claim starts after reading every completed
+session record above and the open PR list on 19 October. It is deliberately
+non-overlapping with prior pick, probability, source-collection and shared-page
+work.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C-1 | **DONE** | arena-7e429607 | New `scripts/deployment_audit.py`, new `tests/test_deployment_audit.py`, new `data/research/7e429607/`, and new path-filtered evidence-only `.github/workflows/deployment-artifact-audit.yml`; no changes to canonical data, pick logic, aliases, shared renderer or existing production workflows. |
+| C-2 | **DONE** | arena-7e429607 | The same new C-1 script, test and `data/research/7e429607/` report only: per-fixture unresolved ledger copied from the deployed complete-picks artifact, preserving every provider/HLTV research trail and limitation verbatim; no new research, prices, aliases or UI renderer edits. |
+| C-3 | **DONE** | arena-7e429607 | Same new C-1 script and test only: unchanged-artifact reports are idempotent, so the evidence-only workflow does not make a timestamp-only bot commit that moves a PR head or cancels its checks; no production workflow, pick, data, alias or renderer edit. |
+
+**C-1 objective.** Independently retrieve the latest successful GitHub Pages
+artifact through GitHub's official API, record its SHA-256 and snapshot metadata,
+and verify that the deployed artifact preserves a complete source-linked match
+list, explicit unresolved rows, the phone-first pick entry point and no
+unattributed probability rows. The audit is evidence-only: it never originates a
+line, changes a pick, or treats a source outage as proof of no market. Any
+failure is published as a review finding rather than repaired or inferred.
+
+**C-1/C-2 completion record — 2026-10-19.**
+
+- **Official evidence and current artifact.** GitHub Actions run
+  [39181195691](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691)
+  (scheduled production publisher, success) produced GitHub Pages artifact
+  [12156751173](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12156751173).
+  The new runner-side audit downloaded the artifact through that official API,
+  calculated `sha256:563e8a3f5da2612d9839029636449f9a55bd5a4c5e4992f054e3ae851451b8b9`,
+  and matched GitHub's advertised digest exactly. Its full, source-linked
+  report is `data/research/7e429607/deployment-artifact-audit.json` and the
+  automatically discovered review finding links to it from `/review/` after
+  publication.
+- **Line-by-line verification.** The artifact's 2026-10-19T00:37:35Z inventory
+  contained **95** CS2 records, **34** non-archived fixtures and exactly **34**
+  complete-picks rows; every inventory row had an HTTPS Hotspawn/API source
+  link. Every populated estimate had two normalized probabilities, an HTTPS
+  evidence URL, a recorded observation time and a non-underdog default. The
+  rebuilt row-source audit found **0** violations. The artifact has the
+  executive `#picks-at-a-glance` section, normal and mobile links to
+  `origination/#picks`, and a distinct `#unresolved` section. This checks the
+  deployed files, rather than trusting a template or the checked-in fallback.
+- **Unresolved / limitations (published, not filled).** Seven complete-picks
+  rows remained blank and are all retained in the per-fixture ledger with the
+  exact HLTV, Polymarket, Kalshi, Thunderpick, Bovada, EGamersWorld, Valve and
+  Hotspawn trails: `1082152` Apogee Betclic–Spirit Academy, `1081131` ex-6666–
+  Privateer, `1079643` The Last Resort–LFO 10, `1081861` Lynn Vision–Morningstar,
+  `1081863` Chinggis Warriors–WXM, `1082157` Sangal–Aurora YB and `1079646`
+  Lavked–ex-6666. Two contain a name-equivalence mismatch that is explicitly
+  not registered as an alias; the two VOID fixtures had a wide,
+  contradictory or placeholder market; the other rows had no alias-verified two-sided line or complete
+  Valve-rating join. No midpoint, default 50/50, alias or narrative adjustment
+  was manufactured. The report and `/review/` are the manual-review links.
+- **Checks.** New targeted archive/digest/content/phone-route tests: **8/8
+  passed** locally. GitHub runs
+  [39200567504](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200567504)
+  (artifact audit),
+  [39199125839](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199125839)
+  (live origination audit), and
+  [39199125984](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39199125984)
+  (full rows/build/mobile/accessibility suite) all succeeded. Local strict row
+  audit after rendering the new review flag: **477 rows; 463 official,
+  5 explicit-unverified, 9 navigation, 0 violations**.
+- **Environment limitation, flagged rather than hidden.** This sandbox can read
+  the official GitHub API metadata but its egress policy blocks the temporary
+  blob-storage redirect used for artifact bytes. The path-filtered GitHub
+  Actions job has the same official API evidence plus runner egress and records
+  the digest/content result; it writes only its two audit files and never feeds
+  a pick. That is why the committed report is runner-derived rather than
+  pretending the sandbox inspected bytes it could not download.
+- **C-3 idempotence verification.** A second successful runner audit of the
+  unchanged artifact ([39200992034](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992034))
+  produced no report commit: local and remote branch heads remained identical.
+  The comparison preserves `audited_at` only when every other report field is
+  identical; a changed digest, artifact ID, source result or audit failure still
+  writes a fresh observation. Regression coverage is **10/10** targeted tests;
+  current-head origination and both PR/push full validation runs
+  ([39200992028](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992028),
+  [39200995733](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200995733),
+  [39200992070](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200992070))
+  succeeded before this record-only update.
+
+**Post-rebase artifact refresh — 2026-10-19 (final validation pending).** After
+rebasing this isolated evidence work onto current `main`, the audit correctly
+observed a genuinely newer successful production deployment, not a timestamp-only
+rewrite: Pages run [39200682562](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200682562)
+produced official artifact [12164575227](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12164575227),
+whose advertised and recomputed digest is
+`sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee`.
+The refreshed evidence report still records 95 inventory records, 34 active
+complete-picks rows, zero row-source violations and the same seven explicitly
+blank unresolved ledger entries. Automated report commit `aebb527` updates only
+that factual report and its Review notice. This coordination-only record
+intentionally triggers final branch validation against the exact refreshed
+head; no pick, probability, source, alias, renderer or production workflow is
+changed.
+
 
 # Current session: arena-7cf01f7d — low-tier pick origination, Day-1→5 contrarian review and phone-first pick presentation
 
@@ -3286,3 +3416,76 @@ its `start_here()` jump bar and `final` renderer to the same file. Resolved
 keeping **both** — their `now=now` threading is intact and every one of this
 session's additive hooks is intact — and verified by a green build and test run
 before pushing.
+
+---
+
+# Session arena-1fb85c47 — a resolved pick for every Hotspawn CS2 fixture, phone-first paths to them, and a visible unresolved register
+
+Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/1fb85c47-maltaproj3`
+(branched from `main` `d03c05c`, PR #98 merged). Read the completed records above
+(arena-be84edde, arena-039c5a22, arena-534ae9e5, arena-e2ce6ccb, arena-ad216fd9,
+arena-fe48a0df, arena-b30bf88b) before claiming; none of those sessions has an open
+claim, and no open PR is editing the files below.
+
+**Non-overlap pledge.** This session does not edit `README.md`, `scripts/collect.py`,
+`scripts/sources.py`, `scripts/domain.py`, `scripts/pinnacle_lines.py`,
+`scripts/build_final_day.py`, `scripts/build_twc.py`, `scripts/build_edge.py`,
+`scripts/review_register.py`, `data/origination/aliases.json` or any file under
+`data/research/<other-session>/`. `scripts/originate.py` and `scripts/build.py` are
+entered additively only (new ladder rung, new summary section, new jump links); no
+existing freshness, expiry, probability, alias or pick semantics are changed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 1FB-1 Dated live ground truth: current Hotspawn inventory, every unresolved fixture's HLTV match page, HLTV analytics/team page ranking and form fields, and reachability/coverage of bo3.gg and 1xBet as first-party line candidates | **done** | arena-1fb85c47 | `scripts/session_probe.py`, `.github/workflows/1fb85c47-probe.yml`, `data/research/1fb85c47/live-probe.json`, `netcheck.txt`, `bo3-odds.json` |
+| 1FB-2 A pick for every match: read HLTV's own published match odds where present, then an explicitly-labelled ranking/form research model for fixtures no external line covers; never reuse Hotspawn votes or HLTV fan votes | **done (redirected, see note)** | arena-1fb85c47 | new `scripts/form_model.py`, `scripts/originate.py` (additive rung), new `tests/test_form_model.py`, `data/origination/aliases.json` (additive: one alias added, one scope extended) |
+| 1FB-3 Separate "Unresolved picks & limitations" section reachable from the executive summary, with one row per fixture, its blocker, and its official source; phone-first jump links | **done** | arena-1fb85c47 | `scripts/build.py` (additive), new `tests/test_unresolved_summary.py` |
+| 1FB-4 Full suite, strict row-source audit, PR, merge, real Pages deployment verified and recorded here | **in progress** | arena-1fb85c47 | this board section |
+
+**What the evidence forced (2026-10-19).** Two premises of 1FB-2 did not survive
+contact with the runner:
+
+1. **HLTV cannot be fetched from GitHub Actions at all.** Six HLTV paths — match,
+   team, dated world ranking, dated Valve regional ranking, plain and
+   browser-header curl — all answer **Cloudflare HTTP 403 "Just a moment…"**
+   (`data/research/1fb85c47/netcheck.txt`, run 39199094714). HLTV's betting
+   block is also affiliate-only now: the match page's Betting section renders
+   Stake promo cards with no decimal price. So there is no HLTV price rung to
+   write, and no HLTV page can be an automated input.
+2. **The low-tier blanks have no bookmaker price on any reachable source.**
+   Pinnacle's guest board (200), bo3.gg (200) and 1xBet's HTML surface (200,
+   but its LineFeed answers 203 with an HTML shell) were probed read-only.
+   bo3.gg does publish Thunderpick prices for some fixtures (`bet_updates` with
+   provider and both `coeff` values) — for example Sangal 1.08 / Aurora Young
+   Blud 6.30 — but **null for every one of the seven blanks**.
+
+The fallback actually implemented is therefore an **own results-based fit**
+(`scripts/form_model.py`): a single MAP rating fitted to observed finished
+series on bo3.gg against opponents that do have an official Valve row, on
+Valve's published logistic scale, with a Gaussian prior centred on the anchors,
+a minimum of 8 anchored series over 3 distinct opponents in 120 days, a
+published one-sigma interval and a low-confidence flag. It never reads a
+bookmaker price and never copies another model's number. If any rule fails the
+fixture stays blank.
+
+**Pledge amendment (disclosed).** The claim above pledged not to edit
+`data/origination/aliases.json`. That file had to be touched, additively only:
+one display-name alias was added (`Aurora Young Blud` → Hotspawn's
+`Aurora YB`, scoped to Stake Ranked Episode 6: Closed Qualifier) and the
+reviewed `6666` → `ex-6666` join had its competition scope extended to the two
+CCT Europe fixtures the same roster plays on 19-20 October. No existing alias
+was removed or re-pointed. Every entry keeps its per-competition scope and its
+evidence links, and the registry remains the only name-join path.
+
+**Result of the live run (2026-10-19T05:04Z, run 39202631712).** 34 active
+fixtures; **30 resolved with a pick** (11 market, 4 bookmaker, 3 consensus,
+12 model); **4 unresolved** (Apogee Betclic vs Spirit Academy, The Last Resort
+vs LFO 10, Lynn Vision vs Morningstar, Chinggis Warriors vs WXM). The three
+fixtures resolved by the alias work are Sangal vs Aurora YB, ex-6666 vs
+Privateer and Lavked vs ex-6666. The four remaining blanks have no bookmaker
+price, no complete official rating for at least one side, and — measured from
+bo3.gg — either zero finished series (Apogee, LFO 10, WXM) or one anchored
+series (Morningstar). They stay blank with that exact reason on the new
+unresolved register; no value was inferred.
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).

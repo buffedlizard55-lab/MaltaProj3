@@ -554,13 +554,14 @@ class PublicContractTests(unittest.TestCase):
         from bs4 import BeautifulSoup
         data = json.loads((ROOT / 'data' / 'origination.json').read_text())
         data = copy.deepcopy(data)
+        baseline = sum(1 for m in data['matches'] if not m.get('origination'))
         victim = data['matches'][0]
         victim['origination'], victim['pick_index'] = None, None
         victim['research'] = [{'stage': 'Exchange market (Kalshi CS2 match winner)', 'status': 'unresolved',
                                'source_url': 'https://kalshi.com/markets/kxcs2game', 'detail': 'spread too wide'}]
         page = BeautifulSoup(build_origination.page(data), 'html.parser')
         self.assertEqual({el.get('id') for el in page.select('.pick-card')}, {'match-' + m['id'] for m in data['matches']})
-        self.assertEqual(len(page.select('.unresolved-card')), 1)
+        self.assertEqual(len(page.select('.unresolved-card')), baseline + 1)
         self.assertIsNotNone(page.find(id='unresolved-' + victim['id']))
 
 

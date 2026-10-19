@@ -34,6 +34,7 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
+from scripts import form_model
 from scripts import hltv_ranking
 from scripts import pinnacle_lines
 from scripts import reference_odds
@@ -63,6 +64,8 @@ CLOB_BOOK = 'https://clob.polymarket.com/book?token_id='
 THUNDERPICK_API = 'https://thunderpick.io/api/matches'
 THUNDERPICK_PAGE = 'https://thunderpick.io/esports/counter-strike'
 VALVE_REPO = 'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings'
+BO3_API = 'https://api.bo3.gg/api/v1'
+BO3_HEADERS = {'Origin': 'https://bo3.gg', 'Referer': 'https://bo3.gg/', 'Accept': 'application/json'}
 HLTV_EVENT = 'https://www.hltv.org/events/9332/elisa-breakout-series-2'
 # Independent money sources added by session c07e1b40 for fixtures the featured
 # pipeline cannot price. Both are public, unauthenticated first-party feeds:
@@ -212,7 +215,7 @@ class Collector:
             entry['error'] = str(exc)[:300]
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
-    def get_json(self, url: str, label: str, *, method='GET', payload=None, save=True):
+    def get_json(self, url: str, label: str, *, method='GET', payload=None, save=True, headers=None):
         delay = 0.25 - (time.monotonic() - self.last)
         if delay > 0:
             time.sleep(delay)
@@ -220,7 +223,9 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': method, 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.request(method, url, json=payload, headers=auth_headers(url), timeout=(15, 45))
+            merged = dict(headers or {})
+            merged.update(auth_headers(url))
+            response = self.session.request(method, url, json=payload, headers=merged, timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
@@ -322,6 +327,98 @@ def supplement_polymarket_discovery(directory_games: list, repo_data: Path, now:
         'prices_used': False, 'reused_requests': requests_used,
         'limitations': list(dict.fromkeys(limitations)),
     }
+
+
+def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dict,
+                        known: set | None = None) -> dict:
+    """Bind fixtures on bo3.gg and save the series history the results model uses.
+
+    The bridge is an exact start time (within 90 minutes) plus at least one
+    matching team name; the other side is then the opponent of that same
+    fixture. Nothing is inferred from a name alone and every saved sample keeps
+    its own bo3.gg match URL.
+    """
+    rows, pages = [], 0
+    while pages < 4:
+        query = ('/matches?page[offset]=' + str(pages * 100) + '&page[limit]=100&sort=start_date'
+                 '&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1'
+                 '&with=teams,tournament')
+        body, _ = client.get_json(BO3_API + query, f'live-bo3-upcoming-{pages}', headers=BO3_HEADERS)
+        chunk = body.get('results') or []
+        rows.extend(chunk)
+        pages += 1
+        if len(chunk) < 100:
+            break
+    bindings, cache, observed = {}, {}, iso(datetime.now(UTC))
+    for match in matches:
+        if match.get('availability') == 'past':
+            continue
+        start = timestamp(match.get('starts_at'))
+        if start is None:
+            continue
+        # Only fixtures with a team the official table cannot rate need this.
+        wanted = []
+        for team in match.get('teams') or []:
+            if known is None:
+                wanted.append(team)
+                continue
+            reverse = {}
+            for entry in scoped_aliases(registry, match.get('competition')):
+                reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
+            candidates = {name_key(team.get('name') or '')} | set(reverse.get(name_key(team.get('name') or ''), []))
+            if not candidates & known:
+                wanted.append(team)
+        if not wanted:
+            continue
+        names = {name_key(t.get('name') or '') for t in match.get('teams') or []}
+        candidates = []
+        for row in rows:
+            other = timestamp(row.get('start_date'))
+            if other is None or abs((other - start).total_seconds()) > 5400:
+                continue
+            sides = {name_key((row.get('team1') or {}).get('name') or ''),
+                     name_key((row.get('team2') or {}).get('name') or '')}
+            if sides & names:
+                candidates.append(row)
+        if len(candidates) != 1:
+            continue
+        fixture = candidates[0]
+        record = {'bo3_id': fixture.get('id'),
+                  'source_url': 'https://bo3.gg/matches/' + str(fixture.get('slug')),
+                  'observed_at': observed, 'bridge': 'start_time_and_team_name',
+                  'results': {}}
+        for side in ('team1', 'team2'):
+            team = fixture.get(side) or {}
+            team_id = team.get('id')
+            if not team_id:
+                continue
+            if known is not None and name_key(team.get('name') or '') in known:
+                continue
+            if team_id not in cache:
+                query = ('/matches?page[offset]=0&page[limit]=40&sort=-start_date'
+                         '&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1'
+                         f'&filter[matches.team_ids][overlap]={team_id}&with=teams')
+                body, entry = client.get_json(BO3_API + query, f'live-bo3-results-{team_id}', headers=BO3_HEADERS)
+                samples = []
+                for game in body.get('results') or []:
+                    involves = game.get('team1_id') == team_id
+                    opponent = game.get('team2') if involves else game.get('team1')
+                    samples.append({'date': str(game.get('start_date') or '')[:10],
+                                    'opponent': (opponent or {}).get('name'),
+                                    'won': game.get('winner_team_id') == team_id,
+                                    'bo': game.get('bo_type'),
+                                    'parsed': game.get('parsed_status'),
+                                    'source_url': 'https://bo3.gg/matches/' + str(game.get('slug'))})
+                cache[team_id] = {'team_id': team_id, 'name': team.get('name'),
+                                  'source_url': entry.get('url'), 'observed_at': entry.get('observed_at'),
+                                  'samples': samples}
+                (evidence_dir / f'live-bo3-results-{team_id}.json').write_text(json.dumps(
+                    cache[team_id], ensure_ascii=False, indent=2) + '\n')
+            record['results'][form_model.key(team.get('name') or '')] = cache[team_id]['samples']
+        bindings[str(match['id'])] = record
+    form_model.save_bindings(evidence_dir, {'observed_at': observed, 'matches': bindings})
+    return {'fixtures_bound': len(bindings), 'teams_saved': len(cache),
+            'samples': sum(len(v['samples']) for v in cache.values())}
 
 
 def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
@@ -560,6 +657,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
                                    'snapshot_date': snapshot_date}
     except RuntimeError as exc:
         out['hltv_ranking_error'] = str(exc)
+    valve_text = None
     try:
         now = datetime.now(UTC)
         directory, _ = client.get_json(f'{VALVE_REPO}/contents/live/{now.year}', 'live-valve-directory')
@@ -574,6 +672,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             day, path = max(names)
             content, _ = client.get_json(f'{VALVE_REPO}/contents/{path}', 'live-valve-standings')
             text = base64.b64decode(content['content']).decode('utf-8')
+            valve_text = text
             (evidence_dir / 'live-valve-standings-text.json').write_text(
                 json.dumps({'snapshot_date': day, 'source_url': content['html_url'],
                             'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'text': text},
@@ -581,6 +680,22 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             out['valve'] = {'snapshot_date': day, 'source_url': content['html_url']}
     except RuntimeError as exc:
         out['valve_error'] = str(exc)
+    try:
+        known = set()
+        if valve_text:
+            try:
+                from scripts.domain import parse_valve_table
+                groups = {}
+                for row in parse_valve_table(valve_text, '', '2000-01-01'):
+                    groups.setdefault(name_key(row['name']), []).append(row)
+                # "Known" means usable by rating_row: exactly one complete row.
+                known = {name for name, rows in groups.items()
+                         if len([r for r in rows if len(r.get('roster') or []) == 5]) == 1}
+            except (ValueError, KeyError, TypeError):
+                known = set()
+        out['bo3_results'] = collect_bo3_results(client, evidence_dir, matches, registry, known or None)
+    except Exception as exc:  # noqa: BLE001 - a results outage prices nothing
+        out['bo3_results_error'] = f'{type(exc).__name__}: {exc}'[:200]
     out['requests'] = client.requests
     (evidence_dir / 'live-collection-manifest.json').write_text(json.dumps(out['requests'], ensure_ascii=False, indent=2) + '\n')
     return out
@@ -1176,6 +1291,30 @@ def hltv_lineup_proof(evidence_dir: Path, match: dict, registry: dict, now: date
         return None
 
 
+def rating_row(name: str, ratings: list, registry: dict, competition: str | None):
+    """One unique, complete five-player Valve row for this name, or None.
+
+    Same identity rule as ``model_estimate``: incomplete remnants are ignored
+    before the uniqueness test, and two complete rows stay ambiguous. Used by
+    the results model so both rungs read the same official table.
+    """
+    if not ratings:
+        return None
+    by_name = {}
+    for row in ratings:
+        by_name.setdefault(name_key(row['name']), []).append(row)
+    reverse = {}
+    for entry in scoped_aliases(registry, competition):
+        reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
+    for candidate in [name_key(name)] + reverse.get(name_key(name), []):
+        complete = [r for r in by_name.get(candidate) or [] if len(r.get('roster') or []) == 5]
+        if len(complete) == 1:
+            return complete[0]
+        if len(complete) > 1:
+            return None
+    return None
+
+
 def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: datetime, *, lineup=None):
     """Alias-aware Valve-rating research estimate (explicitly uncalibrated)."""
     if not ratings:
@@ -1397,6 +1536,22 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         trail.append({'stage': 'Research model cross-check (Valve official ratings)', 'status': 'unresolved',
                       'source_url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'),
                       'detail': model_detail})
+        # Lowest rung: our own results-based rating, only when one side has no
+        # official row at all. Every input is an observed finished series on
+        # bo3.gg; nothing is copied from a bookmaker or another model.
+        if match.get('_form'):
+            model = dict(match['_form'])
+            model['evidence_file'] = (valve_meta or {}).get('evidence_file')
+            model['snapshot_date'] = (valve_meta or {}).get('snapshot_date')
+            model['observed_at'] = model.get('observed_at') or (valve_meta or {}).get('observed_at')
+            model_detail = ('Own results-based fit from observed bo3.gg series results; '
+                            f'{model.get("n_series")} anchored series, posterior SD '
+                            f'{model.get("rating_sd")} points.')
+            trail.append({'stage': 'Results model (own, bo3.gg series results)', 'status': 'resolved',
+                          'source_url': model['source_url'], 'detail': model_detail})
+        elif match.get('_form_reason'):
+            trail.append({'stage': 'Results model (own, bo3.gg series results)', 'status': 'unresolved',
+                          'source_url': 'https://bo3.gg/matches', 'detail': match['_form_reason']})
 
     # 4b. HLTV world-ranking research model — same uncalibrated evidence class
     # as the Valve rung, but sourced from HLTV's official weekly ranking and
@@ -1490,11 +1645,27 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                            'Dated observation; confirm the price before relying on it.')
     elif model:
         chosen = dict(model)
-        chosen.update({'method': 'model', 'label': 'Research model estimate (Valve official ratings)',
+        results_model = model.get('family') == 'form'
+        chosen.update({'method': 'model',
+                       'label': ('Own results-based estimate (bo3.gg series results)' if results_model
+                                 else 'Research model estimate (Valve official ratings)'),
                        'fair_decimal': [round(1 / p, 3) for p in model['probabilities']],
-                       'quotes': [model], 'source': 'Valve official standings',
+                       'quotes': [model],
+                       'source': model.get('provider') or 'Valve official standings',
                        'model_crosscheck': None})
-        limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
+        if results_model:
+            limitations.append(
+                'Own uncalibrated results model, not observed betting odds: a single rating was fitted to '
+                f'{model.get("n_series")} finished series against officially rated opponents (posterior SD '
+                f'{model.get("rating_sd")} points, one-sigma interval '
+                f'{model.get("interval")[0]:.3f}-{model.get("interval")[1]:.3f}). '
+                'The sample is small, opponent strength is taken from a dated official snapshot and '
+                'current lineups, stand-ins and map vetoes are unverified.')
+            if model.get('low_confidence'):
+                limitations.append('Low confidence: the one-sigma interval or the sample size is wide. '
+                                   'Treat the direction as indicative only.')
+        else:
+            limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
         for proof in (chosen.get('lineup_disambiguation') or []):
             if proof.get('overlap', 5) < 5:
                 limitations.append(f"{proof['team']}: the current HLTV lineup shares four of five players with the "
@@ -1627,12 +1798,17 @@ def run(output: Path, *, live: bool = False) -> dict:
             row['observed_at'] = next((r.get('observed_at') for r in snapshot.get('requests', []) if r.get('id') == 'polymarket-event-' + str(event_id) and r.get('status') == 'ok'), None)
 
     matches_out = []
+    form_bindings = form_model.load_bindings(evidence_dir)
     for match in snapshot['matches']:
         if match.get('availability') == 'past':
             continue
         featured = match.get('analysis')
         proof = hltv_lineup_proof(evidence_dir, match, registry, now)
-        result = resolve_match(dict(match, _hltv_lineup=proof), poly_rows, book_rows, ratings, valve_meta, registry, now,
+        form, form_reason = (form_model.estimate_fixture(match, form_bindings.get(str(match['id'])),
+                                                         ratings, registry, now)
+                             if ratings else (None, 'Official Valve ratings unavailable'))
+        result = resolve_match(dict(match, _hltv_lineup=proof, _form=form, _form_reason=form_reason),
+                               poly_rows, book_rows, ratings, valve_meta, registry, now,
                                reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta)
         matches_out.append({
             'id': match['id'],
@@ -1726,6 +1902,9 @@ def run(output: Path, *, live: bool = False) -> dict:
         'source_generated_at': snapshot.get('generated_at'),
         'registry_updated_at': registry.get('updated_at'),
         'live_collection': bool(live),
+        'collection': ({key: live_payload.get(key) for key in
+                        ('bo3_results', 'bo3_results_error', 'valve', 'valve_error', 'vrs_mirror_error',
+                         'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
         'research_discovery': (live_payload or {}).get('polymarket_discovery'),
         'counts': counts,
         'policy': {
