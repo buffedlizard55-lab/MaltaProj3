@@ -88,13 +88,38 @@ def evidence(m, prefix, fallback=None):
                 body += f'<tr><th scope="row">{e(t["name"])}</th><td>{q["bid"]:.3f} / {q["ask"]:.3f}</td><td>{external(a["source_api"], "Polymarket API")}</td></tr>'
             body += '</tbody></table></div>'
             body += '<div class="evidence-links">' + ''.join(f'<a href="{prefix}data/evidence/polymarket-{kind}-{a["event_id"]}{suffix}.json">{label} ↓</a>' for kind, suffix, label in [('event', '', 'Saved event'), ('book', '-0', 'First order book'), ('book', '-1', 'Second order book')]) + '</div>'
+        elif a['method'] == 'model' and a.get('family') == 'form':
+            body += (f'<p class="notice-inline"><strong>Own results-based estimate.</strong> One team has no '
+                     f'complete five-player row in the official Valve table, so its rating was fitted to '
+                     f'{e(a.get("n_series"))} finished series against officially rated opponents '
+                     f'(posterior SD {e(a.get("rating_sd"))} points). This is a research model, not a '
+                     'bookmaker price.</p><div class="mini-table-wrap"><table class="mini-table">'
+                     '<caption>Published model inputs</caption><thead><tr><th>Team</th><th>Fitted points</th>'
+                     '<th>Source</th></tr></thead><tbody>')
+            for r in a['inputs']:
+                label = 'bo3.gg series' if 'results-based' in str(r.get('source') or '') else 'Valve'
+                body += (f'<tr><th scope="row">{e(r["name"])}</th><td>{e(r["points"])}</td>'
+                         f'<td>{external(r["source_url"], label)}</td></tr>')
+            body += '</tbody></table></div>'
+            samples = a.get('samples') or []
+            if samples:
+                body += ('<details class="sample-detail"><summary>Series used in the fit '
+                         f'({len(samples)} shown)</summary><ul class="sample-list">')
+                for s in samples:
+                    result = 'W' if s.get('won') else 'L'
+                    body += (f'<li><span class="sample-result {result.lower()}">{result}</span> '
+                             f'{e(s.get("date"))} · {external(s.get("source_url"), e(s.get("opponent") or "Opponent"))}'
+                             f' <span class="tiny muted">BO{e(s.get("bo"))}</span></li>')
+                body += '</ul></details>'
+            body += (f'<div class="evidence-links">{external(a.get("source_url"), "bo3.gg fixture")}'
+                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
             for r in a['inputs']:
                 body += f'<tr><th scope="row">{e(r["name"])}</th><td>{r["points"]}</td><td>{external(r["source_url"], "Valve")}</td></tr>'
             body += '</tbody></table></div>'
             for r in a['inputs']:
-                body += f'<p class="tiny"><strong>{e(r["name"])}</strong>: {e(", ".join(r["roster"]))}</p>'
+                body += f'<p class="tiny"><strong>{e(r["name"])}</strong>: {e(", ".join(r["roster"] or []))}</p>'
             body += f'<div class="evidence-links"><a href="{prefix}data/evidence/valve-standings-response.json">Original Valve response ↓</a><a href="{prefix}data/evidence/valve-ratings.json">Parsed official inputs ↓</a></div>'
         elif a['method'] == 'bookmaker':
             for q in a['quotes']:
@@ -329,6 +354,8 @@ def start_here(data, prefix):
          'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
         (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
          'Fixtures with no compliant external price, and the reason for each.'),
+        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
+         'This summary lists every blank pick, its blocker and the sources actually tried.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -447,6 +474,88 @@ def _brief_blank_reason(match: dict) -> str:
     return 'no verified line'
 
 
+def unresolved_register(data, prefix):
+    """A separate, phone-first register of every fixture without a pick.
+
+    The brief asked for the unresolved picks and their limitations to be a
+    section of their own inside the executive summary, not a footnote. This
+    renderer reads only the published research trail: it never re-prices a
+    row, never averages a rejected book and never converts a missing value
+    into a default 50/50.
+    """
+    complete = data.get('complete_picks') or {}
+    rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
+    if not rows:
+        rows = [m for m in data.get('matches') or []
+                if m.get('availability') in {'open', 'locked', 'unknown_lock'} and not m.get('analysis')]
+    active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
+    out = ['<section class="content-section unresolved-register" id="unresolved-register" '
+           'aria-labelledby="unresolved-register-title">'
+           '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
+           '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
+           f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
+    if not rows:
+        out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
+                   f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
+                   f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '
+                   'This is a dated observation: the inventory refreshes every four hours and new '
+                   'fixtures can appear before a market opens.</div>')
+    else:
+        out.append(f'<p class="section-intro"><strong>{len(rows)}</strong> of {active} active Hotspawn CS2 '
+                   'fixtures have <strong>no verified pick</strong> in this snapshot. Each card shows the '
+                   'blocker and the sources actually tried. A blank stays blank; an unavailable source is never '
+                   'treated as proof that no market exists.</p>')
+        out.append('<ul class="unresolved-summary-list">')
+        for m in rows:
+            names = [t.get('name') or 'Unverified team' for t in m.get('teams') or []]
+            trail = [r for r in m.get('research') or [] if r.get('stage') != 'Origination result']
+            tried = []
+            seen = set()
+            for r in trail:
+                label = str(r.get('stage') or '')
+                key = (label, r.get('status'))
+                if key in seen:
+                    continue
+                seen.add(key)
+                tried.append(f'<span class="tried-chip {e(r.get("status") or "unknown")}">'
+                             f'{e(label)} · {e(r.get("status") or "unknown")}</span>')
+            source_links = external(m.get('source_url') or 'https://play.hotspawn.com/lobby', 'Hotspawn fixture')
+            used = {m.get('source_url')}
+            for r in trail:
+                url = str(r.get('source_url') or '')
+                if not url.startswith('https://') or url in used:
+                    continue
+                used.add(url)
+                host = 'HLTV' if 'hltv.org' in url else 'Valve' if 'ValveSoftware' in url else 'Source'
+                source_links += external(url, host)
+                if len(used) >= 4:
+                    break
+            tried_html = ''.join(tried) or '<span class="tried-chip unresolved">No source returned a usable pair</span>'
+            out.append(f'<li class="unresolved-summary-card" id="unresolved-summary-{e(m.get("id"))}">'
+                       f'<div class="unresolved-summary-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
+                       f'<span class="badge amber">No verified pick</span></div>'
+                       f'<h3>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</h3>'
+                       f'<p class="unresolved-when">{local_time(m.get("starts_at"))} · '
+                       f'<strong>{e(_brief_blank_reason(m))}</strong></p>'
+                       f'<div class="unresolved-tried">{tried_html}</div>'
+                       f'<p class="unresolved-links">{source_links}'
+                       f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">Full trail {icon("arrow")}</a></p>'
+                       '</li>')
+        out.append('</ul>')
+    out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
+               '<ul>'
+               '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
+               'participation percentages and HLTV “Pick a winner” fan votes are never inputs.</li>'
+               '<li>Thin or wide books are recorded for guidance but rejected as picks; an outage or a 403 is '
+               'not evidence that no market exists.</li>'
+               '<li>Display names are joined only through the reviewed alias registry; unregistered names stay unmatched.</li>'
+               '<li>The Valve-rating fallback is explicitly uncalibrated and is used only when no money source resolves a fixture.</li>'
+               '<li>Every four-hour refresh retries all sources, so this register shrinks when a market opens — '
+               'reload the page rather than treating this list as permanent.</li>'
+               '</ul></div></section>')
+    return ''.join(out)
+
+
 def summary(data, prefix, now=None):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -462,6 +571,7 @@ def summary(data, prefix, now=None):
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
+    out += unresolved_register(data, prefix)
     if complete:
         coverage_label = 'Picks for every match' if data['coverage_complete'] else 'Picks in the retained snapshot'
         no_direction = cc['resolved'] - cc['with_pick']

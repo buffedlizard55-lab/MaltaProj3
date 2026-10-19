@@ -1,0 +1,59 @@
+# Session arena-1fb85c47 — read-only live ground-truth probe.
+#
+# Dispatch/push only. Never scheduled, never deploys, never feeds the published
+# dashboard. The sandbox has no egress to Hotspawn/HLTV/books; the runner does.
+# A push trigger is scoped to this workflow file only, so the data commit this
+# job makes cannot retrigger it.
+name: 1fb85c47 unresolved-fixture probe (dispatch only)
+on:
+  # Manual only: the probe has published its evidence and must not push a
+  # research commit onto every later change of the files it reads.
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 1fb85c47-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/1fb85c47-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh inventory and current picks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect || echo "::warning::collect failed; probe continues on the checked-in snapshot"
+          python -m scripts.originate --live || echo "::warning::originate failed; probe continues on the checked-in origination"
+      - name: Probe every unresolved fixture's HLTV and bookmaker surfaces
+        run: python -m scripts.session_probe
+      - name: Check bo3.gg for a published bookmaker price per blank fixture
+        run: python -m scripts.bo3_odds_probe
+      - name: Commit the dated report to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/1fb85c47
+          git diff --cached --quiet && exit 0
+          git commit -m 'research: 1fb85c47 live unresolved-fixture probe'
+          # The collector leaves tracked data files dirty; rebase refuses to run
+          # on a dirty worktree. Keep only the staged research report and stash
+          # the regenerated (uncommitted) collector outputs.
+          git stash push --keep-index --include-untracked -m '1fb85c47 probe scratch' || true
+          # The branch can move while the probe runs; retry the rebase+push
+          # instead of failing the evidence commit on a non-fast-forward.
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/1fb85c47-maltaproj3 || true
+            git rebase origin/arena/1fb85c47-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/1fb85c47-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1

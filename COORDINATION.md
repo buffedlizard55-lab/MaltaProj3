@@ -3351,3 +3351,76 @@ its `start_here()` jump bar and `final` renderer to the same file. Resolved
 keeping **both** — their `now=now` threading is intact and every one of this
 session's additive hooks is intact — and verified by a green build and test run
 before pushing.
+
+---
+
+# Session arena-1fb85c47 — a resolved pick for every Hotspawn CS2 fixture, phone-first paths to them, and a visible unresolved register
+
+Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/1fb85c47-maltaproj3`
+(branched from `main` `d03c05c`, PR #98 merged). Read the completed records above
+(arena-be84edde, arena-039c5a22, arena-534ae9e5, arena-e2ce6ccb, arena-ad216fd9,
+arena-fe48a0df, arena-b30bf88b) before claiming; none of those sessions has an open
+claim, and no open PR is editing the files below.
+
+**Non-overlap pledge.** This session does not edit `README.md`, `scripts/collect.py`,
+`scripts/sources.py`, `scripts/domain.py`, `scripts/pinnacle_lines.py`,
+`scripts/build_final_day.py`, `scripts/build_twc.py`, `scripts/build_edge.py`,
+`scripts/review_register.py`, `data/origination/aliases.json` or any file under
+`data/research/<other-session>/`. `scripts/originate.py` and `scripts/build.py` are
+entered additively only (new ladder rung, new summary section, new jump links); no
+existing freshness, expiry, probability, alias or pick semantics are changed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 1FB-1 Dated live ground truth: current Hotspawn inventory, every unresolved fixture's HLTV match page, HLTV analytics/team page ranking and form fields, and reachability/coverage of bo3.gg and 1xBet as first-party line candidates | **done** | arena-1fb85c47 | `scripts/session_probe.py`, `.github/workflows/1fb85c47-probe.yml`, `data/research/1fb85c47/live-probe.json`, `netcheck.txt`, `bo3-odds.json` |
+| 1FB-2 A pick for every match: read HLTV's own published match odds where present, then an explicitly-labelled ranking/form research model for fixtures no external line covers; never reuse Hotspawn votes or HLTV fan votes | **done (redirected, see note)** | arena-1fb85c47 | new `scripts/form_model.py`, `scripts/originate.py` (additive rung), new `tests/test_form_model.py`, `data/origination/aliases.json` (additive: one alias added, one scope extended) |
+| 1FB-3 Separate "Unresolved picks & limitations" section reachable from the executive summary, with one row per fixture, its blocker, and its official source; phone-first jump links | **done** | arena-1fb85c47 | `scripts/build.py` (additive), new `tests/test_unresolved_summary.py` |
+| 1FB-4 Full suite, strict row-source audit, PR, merge, real Pages deployment verified and recorded here | **in progress** | arena-1fb85c47 | this board section |
+
+**What the evidence forced (2026-10-19).** Two premises of 1FB-2 did not survive
+contact with the runner:
+
+1. **HLTV cannot be fetched from GitHub Actions at all.** Six HLTV paths — match,
+   team, dated world ranking, dated Valve regional ranking, plain and
+   browser-header curl — all answer **Cloudflare HTTP 403 "Just a moment…"**
+   (`data/research/1fb85c47/netcheck.txt`, run 39199094714). HLTV's betting
+   block is also affiliate-only now: the match page's Betting section renders
+   Stake promo cards with no decimal price. So there is no HLTV price rung to
+   write, and no HLTV page can be an automated input.
+2. **The low-tier blanks have no bookmaker price on any reachable source.**
+   Pinnacle's guest board (200), bo3.gg (200) and 1xBet's HTML surface (200,
+   but its LineFeed answers 203 with an HTML shell) were probed read-only.
+   bo3.gg does publish Thunderpick prices for some fixtures (`bet_updates` with
+   provider and both `coeff` values) — for example Sangal 1.08 / Aurora Young
+   Blud 6.30 — but **null for every one of the seven blanks**.
+
+The fallback actually implemented is therefore an **own results-based fit**
+(`scripts/form_model.py`): a single MAP rating fitted to observed finished
+series on bo3.gg against opponents that do have an official Valve row, on
+Valve's published logistic scale, with a Gaussian prior centred on the anchors,
+a minimum of 8 anchored series over 3 distinct opponents in 120 days, a
+published one-sigma interval and a low-confidence flag. It never reads a
+bookmaker price and never copies another model's number. If any rule fails the
+fixture stays blank.
+
+**Pledge amendment (disclosed).** The claim above pledged not to edit
+`data/origination/aliases.json`. That file had to be touched, additively only:
+one display-name alias was added (`Aurora Young Blud` → Hotspawn's
+`Aurora YB`, scoped to Stake Ranked Episode 6: Closed Qualifier) and the
+reviewed `6666` → `ex-6666` join had its competition scope extended to the two
+CCT Europe fixtures the same roster plays on 19-20 October. No existing alias
+was removed or re-pointed. Every entry keeps its per-competition scope and its
+evidence links, and the registry remains the only name-join path.
+
+**Result of the live run (2026-10-19T05:04Z, run 39202631712).** 34 active
+fixtures; **30 resolved with a pick** (11 market, 4 bookmaker, 3 consensus,
+12 model); **4 unresolved** (Apogee Betclic vs Spirit Academy, The Last Resort
+vs LFO 10, Lynn Vision vs Morningstar, Chinggis Warriors vs WXM). The three
+fixtures resolved by the alias work are Sangal vs Aurora YB, ex-6666 vs
+Privateer and Lavked vs ex-6666. The four remaining blanks have no bookmaker
+price, no complete official rating for at least one side, and — measured from
+bo3.gg — either zero finished series (Apogee, LFO 10, WXM) or one anchored
+series (Morningstar). They stay blank with that exact reason on the new
+unresolved register; no value was inferred.
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).

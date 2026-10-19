@@ -365,7 +365,29 @@ def validate_origination(data, source):
         if not o:
             assert m['pick_index'] is None
             continue
-        if o['method'] == 'model':
+        if o['method'] == 'model' and (o.get('family') == 'form'
+                                       or any((q or {}).get('family') == 'form' for q in o.get('quotes') or [])):
+            # Lowest rung: re-derive the published probability from the
+            # published inputs only. Each unrated side carries the sample size
+            # its rating deviation came from, so the check needs no live
+            # evidence and cannot drift with a rebuild.
+            import math
+            from scripts import form_model
+            inputs = o.get('inputs') or []
+            assert len(inputs) == 2, 'Results-model quote must publish two inputs'
+            for row in inputs:
+                assert str(row.get('source_url') or '').startswith('https://'), row.get('name')
+            assert any(str(row.get('source_url') or '').startswith('https://bo3.gg/')
+                       for row in inputs if row.get('fitted')), 'Fitted input lacks its bo3.gg link'
+            fitted_n = [row['fitted']['n'] for row in inputs if row.get('fitted')]
+            assert fitted_n, 'Results-model quote must show the sample it was fitted on'
+            rd = min(400.0, 150.0 + 300.0 / math.sqrt(max(1, min(fitted_n))))
+            expected = form_model.win_probability(inputs[0]['points'], inputs[1]['points'], rd)
+            assert abs(expected - o['probabilities'][0]) < 1e-9, 'Results-model arithmetic differs from its published inputs'
+            assert o.get('samples'), 'Results-model quote must publish the series it used'
+            for sample in o['samples']:
+                assert str(sample.get('source_url') or '').startswith('https://bo3.gg/')
+        elif o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
             proof = hltv_lineup_proof(source / 'origination/evidence', raw, registry, timestamp(data['generated_at']))

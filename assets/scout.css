@@ -154,3 +154,40 @@
   .candidate-body{grid-template-columns:1fr;gap:12px}
   .row-sources{padding:0 16px 15px}
 }
+
+/* Session 1fb85c47 — phone-first unresolved register in the executive summary. */
+.unresolved-register .section-intro{padding-bottom:14px}
+.unresolved-summary-list{list-style:none;margin:0;padding:0 20px 18px;display:grid;gap:10px}
+.unresolved-summary-card{border:1px solid #e6d8bf;border-left:4px solid #d99a34;border-radius:10px;background:#fffdf8;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.unresolved-summary-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.unresolved-summary-head .comp{font-size:10px;color:#576b79;line-height:1.6;overflow-wrap:anywhere}
+.unresolved-summary-card h3{margin:0;font-size:16px;line-height:1.45;color:#2e5260;overflow-wrap:anywhere}
+.unresolved-summary-card h3 .versus{font-weight:400;color:#576b79;font-size:11px;padding-inline:2px}
+.unresolved-when{margin:0;font-size:11px;color:#576b79;line-height:1.7}
+.unresolved-when strong{color:#8a5a12}
+.unresolved-tried{display:flex;flex-wrap:wrap;gap:5px}
+.tried-chip{font-size:9px;line-height:1.5;border:1px solid #dce4e8;border-radius:999px;padding:3px 8px;background:#f4f7f8;color:#526472;max-width:100%;overflow-wrap:anywhere}
+.tried-chip.resolved{background:#e7f4ec;border-color:#cfe6d9;color:#1f6b46}
+.tried-chip.unresolved,.tried-chip.unavailable{background:#fdf1dc;border-color:#efdcb9;color:#8a5a12}
+.unresolved-links{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:10px}
+.unresolved-links .internal-link{min-height:32px}
+.unresolved-limits{margin:0 20px 20px;border-left:4px solid #d99a34;background:#fffdf8;border-radius:8px;padding:14px 16px}
+.unresolved-limits ul{margin:8px 0 0;padding-left:1.1rem;font-size:11px;line-height:1.9;color:#526472}
+@media(max-width:620px){
+  .unresolved-summary-list{padding:0 12px 14px}
+  .unresolved-summary-card{padding:13px 14px}
+  .unresolved-summary-card h3{font-size:15px}
+  .unresolved-limits{margin:0 12px 14px}
+  .unresolved-links .internal-link{width:100%;justify-content:space-between;border:1px solid #dce4e8;border-radius:7px;padding:8px 10px}
+}
+
+/* Session 1fb85c47 — own results-based fit: the exact series used */
+.sample-detail{margin:.55rem 0 .35rem}
+.sample-detail summary{cursor:pointer;font-size:.78rem;font-weight:650;color:var(--muted,#5b6675)}
+.sample-list{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.25rem}
+.sample-list li{display:flex;align-items:baseline;gap:.45rem;font-size:.76rem;line-height:1.35}
+.sample-result{display:inline-block;min-width:1.15rem;text-align:center;border-radius:4px;font-weight:750;font-size:.68rem;padding:.05rem .25rem}
+.sample-result.w{background:#dff3e6;color:#17603a}
+.sample-result.l{background:#fde5e5;color:#8a2323}
+.notice-inline{background:#f6f1e2;border-left:3px solid #b98b2f;padding:.5rem .65rem;border-radius:0 6px 6px 0}
+@media (max-width:620px){.sample-list li{flex-wrap:wrap}.notice-inline{font-size:.85rem}}
