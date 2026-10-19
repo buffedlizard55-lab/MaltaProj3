@@ -45,5 +45,12 @@ jobs:
           git add data/research/1fb85c47
           git diff --cached --quiet && exit 0
           git commit -m 'research: 1fb85c47 live unresolved-fixture probe'
-          git pull --rebase origin arena/1fb85c47-maltaproj3
-          git push origin arena/1fb85c47-maltaproj3
+          # The branch can move while the probe runs; retry the rebase+push
+          # instead of failing the evidence commit on a non-fast-forward.
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/1fb85c47-maltaproj3 || true
+            git rebase origin/arena/1fb85c47-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/1fb85c47-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
