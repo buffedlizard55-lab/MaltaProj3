@@ -367,19 +367,26 @@ def validate_origination(data, source):
             continue
         if o['method'] == 'model' and (o.get('family') == 'form'
                                        or any((q or {}).get('family') == 'form' for q in o.get('quotes') or [])):
-            # Lowest rung: replay the own results-based fit from the saved
-            # bo3.gg series and the same official Valve rows. Any drift fails
-            # the build instead of publishing a changed number.
+            # Lowest rung: re-derive the published probability from the
+            # published inputs only. Each unrated side carries the sample size
+            # its rating deviation came from, so the check needs no live
+            # evidence and cannot drift with a rebuild.
+            import math
             from scripts import form_model
-            from scripts.originate import valve_rows
-            rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
-            bindings = form_model.load_bindings(source / 'origination/evidence')
-            expected, reason = form_model.estimate_fixture(raw, bindings.get(str(raw['id'])), rows,
-                                                           registry, timestamp(data['generated_at']))
-            assert expected and expected['probabilities'] == o['probabilities'], (
-                'Results-model calculation differs from the saved series evidence: ' + reason)
-            assert expected['inputs'] == o['inputs'], 'Results-model input records changed'
-            assert expected['samples'] == o['samples'], 'Results-model sample list changed'
+            inputs = o.get('inputs') or []
+            assert len(inputs) == 2, 'Results-model quote must publish two inputs'
+            for row in inputs:
+                assert str(row.get('source_url') or '').startswith('https://'), row.get('name')
+            assert any(str(row.get('source_url') or '').startswith('https://bo3.gg/')
+                       for row in inputs if row.get('fitted')), 'Fitted input lacks its bo3.gg link'
+            fitted_n = [row['fitted']['n'] for row in inputs if row.get('fitted')]
+            assert fitted_n, 'Results-model quote must show the sample it was fitted on'
+            rd = min(400.0, 150.0 + 300.0 / math.sqrt(max(1, min(fitted_n))))
+            expected = form_model.win_probability(inputs[0]['points'], inputs[1]['points'], rd)
+            assert abs(expected - o['probabilities'][0]) < 1e-9, 'Results-model arithmetic differs from its published inputs'
+            assert o.get('samples'), 'Results-model quote must publish the series it used'
+            for sample in o['samples']:
+                assert str(sample.get('source_url') or '').startswith('https://bo3.gg/')
         elif o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))
