@@ -8,7 +8,7 @@ on:
       - '.github/workflows/1fb85c47-netcheck.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   check:
@@ -19,6 +19,8 @@ jobs:
         run: |
           set -u
           UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+          : > /tmp/netcheck.log
+          exec > >(tee -a /tmp/netcheck.log) 2>&1
           probe () {
             label="$1"; shift
             code=$(curl -sS -L --max-time 25 -o /tmp/body -w '%{http_code}' "$@" || echo ERR)
@@ -41,3 +43,23 @@ jobs:
           probe 'bo3-matches-upcoming'   -H 'Accept: application/json' -H 'Origin: https://bo3.gg' -H 'Referer: https://bo3.gg/' 'https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=0&page%5Blimit%5D=50&sort=start_date&filter%5Bmatches.status%5D%5Bin%5D=upcoming&filter%5Bmatches.discipline_id%5D%5Beq%5D=1&with=teams,tournament,ai_predictions,games'
           probe 'bo3-match-slug'         -H 'Accept: application/json' -H 'Origin: https://bo3.gg' -H 'Referer: https://bo3.gg/' 'https://api.bo3.gg/api/v1/matches/chinggis-warriors-vs-wxm-20-10-2026?with=teams,tournament,ai_predictions,games'
           echo '== 1xbet raw head =='; curl -sS --max-time 25 'https://1xbet.com/LineFeed/Get1x2_VZip?sports=3&count=5&lng=en&mode=4&country=1&partner=51&getEmpty=true' | head -c 600; echo
+      - name: Publish the transport results on the session branch
+        if: always()
+        run: |
+          set -eu
+          mkdir -p data/research/1fb85c47
+          {
+            echo "# Runner transport check"
+            echo
+            echo "Observed $(date -u +%Y-%m-%dT%H:%M:%SZ) from $GITHUB_REPOSITORY run $GITHUB_RUN_ID."
+            echo
+            echo '```'
+          } > data/research/1fb85c47/netcheck.txt
+          cat /tmp/netcheck.log 2>/dev/null >> data/research/1fb85c47/netcheck.txt || true
+          echo '```' >> data/research/1fb85c47/netcheck.txt
+          git config user.name 'arena-1fb85c47'
+          git config user.email 'arena-1fb85c47@users.noreply.github.com'
+          git add data/research/1fb85c47/netcheck.txt
+          git commit -m 'research: record runner transport check' || exit 0
+          git pull --rebase origin "$GITHUB_REF_NAME" || true
+          git push origin "HEAD:$GITHUB_REF_NAME" || true
