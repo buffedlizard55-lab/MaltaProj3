@@ -1,3 +1,40 @@
+# Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
+
+Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
+(branched from `main` `d03c05c`, merge of PR #98). Arena fixes every session to
+its own `arena/<id>-maltaproj3` branch, so this session works there instead of a
+`session-<id>/<task>` branch; the file-scope rules below are unchanged and this
+branch is the session branch for all coordination purposes.
+
+**Handoff taken over.** PR #100 (`arena-fe48a0df`, "Record the PR #99 merge in
+the board", COORDINATION.md only) has been open with no commits since
+2026-10-18T02:19Z — far past the 60-minute rule. Its content is a one-line
+historical record of PR #99's merge/deploy; this session owns integrating or
+closing it and will note the outcome in C-6. No other session holds an open
+claim in the board at claim time.
+
+**Non-overlap pledge.** This session does not edit `archive/`, `docs/`
+sources, `data/origination/aliases.json` semantics (additive reviewed entries
+only if a probe proves a scoped join, each with official evidence), or any
+other session's `data/research/<other-session>/` directories. `scripts/build.py`
+is entered only additively (copy, links, one section hook); no freshness rule,
+expiry threshold, probability, pick or alias semantics are changed there.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C-1 Board claim, session setup | **in progress** | arena-c03ef201 | `COORDINATION.md` |
+| C-2 Runner-side live ground truth: current Hotspawn CS2 inventory, every fixture the ladder leaves blank with its reason, and a deep first-party provider probe (Pinnacle guest board, 1xBet full line, bo3.gg, HLTV team/ranking pages) with saved original evidence | **in progress** | arena-c03ef201 | new `.github/workflows/c03ef201-research.yml`, new `scripts/c03ef201_research.py`, new `data/research/c03ef201/` |
+| C-3 Resolution rungs for the blanks the brief demands (HLTV first, then esportsbooks/esports betting lines): an official-HLTV-derived research model, additional first-party esportsbook rows where the published book contract can be met, and a clearly labelled wide-book indicative estimate that never becomes a book-validated pick | pending | arena-c03ef201 | `scripts/originate.py` (additive rungs only), new `scripts/hltv_ranking.py`, new `scripts/xbet_lines.py`, new `tests/test_unresolved_rungs.py` |
+| C-4 Phone-first executive summary: links to the updated picks lists, a separate unresolved-picks section with the limitations of generating those picks, mobile readability | pending | arena-c03ef201 | `scripts/build.py` (additive copy/links only) |
+| C-5 Line-by-line repository review with source links and every irregularity flagged; full verification suites green | pending | arena-c03ef201 | new `data/research/c03ef201/flags.json` |
+| C-6 Full suites green, PR to main, merge, real Pages deployment verified, record (including the PR #100 takeover outcome) | pending | arena-c03ef201 | `COORDINATION.md` |
+
+Principles re-asserted: no Hotspawn "% picked" or crowd input, no invented odds,
+no probability without an official source link and observation time, every
+published row keeps its source link or an explicit unverified marker, and a
+fixture that still has no compliant input after the extended ladder stays blank
+and visible in the executive summary's unresolved section with its limitations.
+
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
 Claimed **2026-10-18T00:55Z** on the fixed Arena branch `arena/be84edde-maltaproj3`
