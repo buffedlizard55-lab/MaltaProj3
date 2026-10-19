@@ -35,6 +35,35 @@ published row keeps its source link or an explicit unverified marker, and a
 fixture that still has no compliant input after the extended ladder stays blank
 and visible in the executive summary's unresolved section with its limitations.
 
+### C-6 integration record (session arena-c03ef201)
+
+- **PR #100 takeover (complete).** Stale since 2026-10-18T02:19:50Z and **not
+  mergeable** (board end-of-file context diverged on main). Closed with
+  takeover comment
+  https://github.com/buffedlizard55-lab/MaltaProj3/pull/100#issuecomment-6260642447
+  preserving fe48a0df's content verbatim. Verbatim record, preserved here so
+  nothing is lost:
+  > ### Final record 2026-10-18T02:18Z — PR #99 merged
+  >
+  > PR **#99** merged at 2026-10-18T02:10:44Z as **`0b70974`**
+  > (https://github.com/buffedlizard55-lab/MaltaProj3/pull/99); deploy runs
+  > 39089161225 ("Refresh and deploy CS2 dashboard") and 39089160562 ("pages
+  > build and deployment") both **success**. The live snapshot at
+  > 2026-10-18T02:16Z reads **34 active / 28 directional picks / 1 even no-side
+  > / 5 blanks / 29 with probabilities** (20 external-line, 9 research-model).
+  > This closes session arena-fe48a0df's board record; further pick changes
+  > belong to the next scheduled refresh, not to this claim.
+- **Live research result (2026-10-19T05:29Z snapshot, runner-evidenced):**
+  **31 of 34 active fixtures carry a researched estimate** (11 market, 5
+  bookmaker, 4 consensus, 9 research-model of which 1 HLTV-ranking, 2
+  guidance-only), 6 alias-joined. The 3 remaining blanks are intentional and
+  published with full trails: **ex-6666–Privateer (1081131)**, **The Last
+  Resort–LFO 10 (1079643)**, **Chinggis Warriors–WXM (1081863)** — each has one
+  team (ex-6666, LFO 10, WXM) with an official HLTV page but no ranking entry,
+  no Valve row and no price on any checked provider. Guidance rows: Lynn
+  Vision–Morningstar 75/25 (Polymarket book, 0.35 spread), Lavked–ex-6666
+  ~50/50 (Kalshi book, 0.90 spread) — guidance only, never book-validated.
+
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
 Claimed **2026-10-18T00:55Z** on the fixed Arena branch `arena/be84edde-maltaproj3`
@@ -3257,32 +3286,3 @@ its `start_here()` jump bar and `final` renderer to the same file. Resolved
 keeping **both** — their `now=now` threading is intact and every one of this
 session's additive hooks is intact — and verified by a green build and test run
 before pushing.
-
-### C-6 integration record (session arena-c03ef201)
-
-- **PR #100 takeover (complete).** Stale since 2026-10-18T02:19:50Z and **not
-  mergeable** (board end-of-file context diverged on main). Closed with
-  takeover comment
-  https://github.com/buffedlizard55-lab/MaltaProj3/pull/100#issuecomment-6260642447
-  preserving fe48a0df's content verbatim. Verbatim record, preserved here so
-  nothing is lost:
-  > ### Final record 2026-10-18T02:18Z — PR #99 merged
-  >
-  > PR **#99** merged at 2026-10-18T02:10:44Z as **`0b70974`**
-  > (https://github.com/buffedlizard55-lab/MaltaProj3/pull/99); deploy runs
-  > 39089161225 ("Refresh and deploy CS2 dashboard") and 39089160562 ("pages
-  > build and deployment") both **success**. The live snapshot at
-  > 2026-10-18T02:16Z reads **34 active / 28 directional picks / 1 even no-side
-  > / 5 blanks / 29 with probabilities** (20 external-line, 9 research-model).
-  > This closes session arena-fe48a0df's board record; further pick changes
-  > belong to the next scheduled refresh, not to this claim.
-- **Live research result (2026-10-19T05:29Z snapshot, runner-evidenced):**
-  **31 of 34 active fixtures carry a researched estimate** (11 market, 5
-  bookmaker, 4 consensus, 9 research-model of which 1 HLTV-ranking, 2
-  guidance-only), 6 alias-joined. The 3 remaining blanks are intentional and
-  published with full trails: **ex-6666–Privateer (1081131)**, **The Last
-  Resort–LFO 10 (1079643)**, **Chinggis Warriors–WXM (1081863)** — each has one
-  team (ex-6666, LFO 10, WXM) with an official HLTV page but no ranking entry,
-  no Valve row and no price on any checked provider. Guidance rows: Lynn
-  Vision–Morningstar 75/25 (Polymarket book, 0.35 spread), Lavked–ex-6666
-  ~50/50 (Kalshi book, 0.90 spread) — guidance only, never book-validated.
