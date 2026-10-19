@@ -195,8 +195,11 @@ def valve_ranking_probe(team_names):
             if page.get('status') != 200:
                 out['pages'].append(entry)
                 continue
-            text = BeautifulSoup(page['text'], 'html.parser').get_text(' ', strip=True)
+            soup = BeautifulSoup(page['text'], 'html.parser')
+            text = soup.get_text(' ', strip=True)
             rows = re.findall(r'#(\d+)\s*(.+?)\s*\((\d+) Valve points\)', text)
+            entry['row_html'] = [str(tag)[:1800] for tag in soup.find_all(True)
+                                 if 'Valve points' in tag.get_text(' ', strip=True)][:3]
             entry['rows'] = len(rows)
             entry['sha256'] = page['sha256']
             out['pages'].append(entry)
