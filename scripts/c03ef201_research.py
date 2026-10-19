@@ -57,7 +57,7 @@ EVIDENCE = OUT / 'evidence'
 # while this UA read the same pages in the same job; keep the working style.
 UA = 'HotspawnCS2Research/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'
 
-HLTV_RANKING = 'https://www.hltv.org/ranking/'
+HLTV_RANKING = 'https://www.hltv.org/ranking/teams'
 HLTV_MATCHES = 'https://www.hltv.org/matches'
 PINNACLE_LEAGUES = 'https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues'
 PINNACLE_MATCHUPS = 'https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups'
@@ -412,15 +412,38 @@ def xbet_probe(fixtures: list, manifest: list) -> dict:
 def bo3gg_probe(fixtures: list, manifest: list) -> dict:
     report = {'urls': [BO3GG_CURRENT, BO3GG_UPCOMING], 'pages': [], 'fixture_hits': {}}
     combined = ''
+    shell = ''
     for label, url in (('bo3gg-current', BO3GG_CURRENT), ('bo3gg-upcoming', BO3GG_UPCOMING)):
         text = probe_fetch(label, url, manifest)
         report['pages'].append({'url': url, 'status': 'ok' if text is not None else 'fetch-failed'})
         if text is not None:
             combined += text
+            shell += text
     for candidate in BO3GG_API_CANDIDATES:
         label = 'bo3gg-api-' + re.sub(r'[^a-z0-9]+', '-', candidate.split('bo3.gg/')[-1])[:40]
         text = probe_fetch(label, candidate, manifest)
         report['pages'].append({'url': candidate, 'status': 'ok' if text is not None else 'fetch-failed'})
+        if text is not None:
+            combined += text
+    # The public HTML is a Nuxt client shell, so its own bundled modules are
+    # read (bounded to three) to discover the API paths the site calls. Any
+    # discovered path is probed read-only once and recorded whatever it answers.
+    chunks = re.findall(r'href="(/_nuxt/[^"]+\.js)"', shell)[:3]
+    discovered = set()
+    for index, chunk in enumerate(chunks):
+        text = probe_fetch(f'bo3gg-js-{index}', 'https://bo3.gg' + chunk, manifest)
+        if text is None:
+            continue
+        for path in re.findall(r'["\'](/(?:api|v\d+)/[^"\']{2,80})["\']', text):
+            if '{' in path or '}' in path or path.count('/') > 5:
+                continue
+            discovered.add(path)
+    report['js_discovered_api_paths'] = sorted(discovered)[:12]
+    for path in report['js_discovered_api_paths'][:6]:
+        url = 'https://bo3.gg' + path
+        label = 'bo3gg-jsapi-' + re.sub(r'[^a-z0-9]+', '-', path)[:40]
+        text = probe_fetch(label, url, manifest)
+        report['pages'].append({'url': url, 'status': 'ok' if text is not None else 'fetch-failed'})
         if text is not None:
             combined += text
     if combined:

@@ -47,7 +47,7 @@ from pathlib import Path
 from scripts.domain import is_fresh, name_key, normalize_pair, timestamp
 
 UTC = timezone.utc
-RANKING_URL = 'https://www.hltv.org/ranking/'
+RANKING_URL = 'https://www.hltv.org/ranking/teams'
 MAX_RANKING_AGE_DAYS = 14  # HLTV republishes the world ranking weekly.
 POINTS_SCALE = 400.0       # Same logistic scale as the Valve fit.js expectation.
 

@@ -533,19 +533,29 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             rows = hltv_ranking.parse_ranking_page(text)
             for position, row in enumerate(rows):
                 row['rank'] = offset + position + 1
-            pages.append({'url': url, 'status': 'ok', 'observed_at': req.get('observed_at') or iso(datetime.now(UTC)),
+            final_url = req.get('final_url') or url
+            pages.append({'url': final_url, 'status': 'ok', 'observed_at': req.get('observed_at') or iso(datetime.now(UTC)),
                           'rows': rows})
             if len(rows) < 25:
                 break
         if pages:
             observed_at = pages[0]['observed_at']
+            # HLTV's canonical page redirects to a dated publication slug such
+            # as /ranking/teams/2026/october/12; that date is the publication
+            # date the model runs against, not the fetch wall clock.
+            dated = re.search(r'/ranking/teams/(\d{4})/([a-z]+)/(\d{1,2})', pages[0]['url'] or '')
+            if dated:
+                month = MONTHS.index(dated.group(2)[:3].title()) + 1
+                snapshot_date = f'{int(dated.group(1)):04d}-{month:02d}-{int(dated.group(3)):02d}'
+            else:
+                snapshot_date = observed_at[:10]
             (evidence_dir / 'live-hltv-ranking.json').write_text(json.dumps({
                 'source': 'HLTV official weekly world ranking', 'source_url': HLTV_RANKING_URL,
-                'observed_at': observed_at, 'snapshot_date': observed_at[:10],
+                'observed_at': observed_at, 'snapshot_date': snapshot_date,
                 'pages': pages}, ensure_ascii=False, indent=2) + '\n')
             out['hltv_ranking'] = {'pages': len(pages),
                                    'teams': sum(len(p['rows']) for p in pages),
-                                   'snapshot_date': observed_at[:10]}
+                                   'snapshot_date': snapshot_date}
     except RuntimeError as exc:
         out['hltv_ranking_error'] = str(exc)
     try:
