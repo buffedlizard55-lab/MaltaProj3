@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/research/1fb85c47 data/origination.json
+          git add data/research/1fb85c47
           git diff --cached --quiet && exit 0
           git commit -m 'research: 1fb85c47 live unresolved-fixture probe'
           # The collector leaves tracked data files dirty; rebase refuses to run
