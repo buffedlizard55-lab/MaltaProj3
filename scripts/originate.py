@@ -62,6 +62,7 @@ THUNDERPICK_API = 'https://thunderpick.io/api/matches'
 THUNDERPICK_PAGE = 'https://thunderpick.io/esports/counter-strike'
 VALVE_REPO = 'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings'
 BO3_API = 'https://api.bo3.gg/api/v1'
+BO3_HEADERS = {'Origin': 'https://bo3.gg', 'Referer': 'https://bo3.gg/', 'Accept': 'application/json'}
 HLTV_EVENT = 'https://www.hltv.org/events/9332/elisa-breakout-series-2'
 # Independent money sources added by session c07e1b40 for fixtures the featured
 # pipeline cannot price. Both are public, unauthenticated first-party feeds:
@@ -204,7 +205,7 @@ class Collector:
             entry['error'] = str(exc)[:300]
             raise RuntimeError(f'{label}: {entry["error"]}') from exc
 
-    def get_json(self, url: str, label: str, *, method='GET', payload=None, save=True):
+    def get_json(self, url: str, label: str, *, method='GET', payload=None, save=True, headers=None):
         delay = 0.25 - (time.monotonic() - self.last)
         if delay > 0:
             time.sleep(delay)
@@ -212,7 +213,9 @@ class Collector:
         entry = {'id': label, 'url': url, 'method': method, 'observed_at': iso(datetime.now(UTC)), 'status': 'error'}
         self.requests.append(entry)
         try:
-            response = self.session.request(method, url, json=payload, headers=auth_headers(url), timeout=(15, 45))
+            merged = dict(headers or {})
+            merged.update(auth_headers(url))
+            response = self.session.request(method, url, json=payload, headers=merged, timeout=(15, 45))
             entry.update(http_status=response.status_code,
                          response_sha256=hashlib.sha256(response.content).hexdigest())
             response.raise_for_status()
@@ -330,7 +333,7 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
         query = ('/matches?page[offset]=' + str(pages * 100) + '&page[limit]=100&sort=start_date'
                  '&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1'
                  '&with=teams,tournament')
-        body, _ = client.get_json(BO3_API + query, f'live-bo3-upcoming-{pages}')
+        body, _ = client.get_json(BO3_API + query, f'live-bo3-upcoming-{pages}', headers=BO3_HEADERS)
         chunk = body.get('results') or []
         rows.extend(chunk)
         pages += 1
@@ -385,7 +388,7 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
                 query = ('/matches?page[offset]=0&page[limit]=40&sort=-start_date'
                          '&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1'
                          f'&filter[matches.team_ids][overlap]={team_id}&with=teams')
-                body, entry = client.get_json(BO3_API + query, f'live-bo3-results-{team_id}')
+                body, entry = client.get_json(BO3_API + query, f'live-bo3-results-{team_id}', headers=BO3_HEADERS)
                 samples = []
                 for game in body.get('results') or []:
                     involves = game.get('team1_id') == team_id
@@ -1629,6 +1632,9 @@ def run(output: Path, *, live: bool = False) -> dict:
         'source_generated_at': snapshot.get('generated_at'),
         'registry_updated_at': registry.get('updated_at'),
         'live_collection': bool(live),
+        'collection': ({key: live_payload.get(key) for key in
+                        ('bo3_results', 'bo3_results_error', 'valve', 'valve_error', 'vrs_mirror_error',
+                         'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
         'research_discovery': (live_payload or {}).get('polymarket_discovery'),
         'counts': counts,
         'policy': {
