@@ -1,0 +1,605 @@
+{
+  "schema_version": 1,
+  "artifact_audit": "deployed-pages-content",
+  "site_root": ".",
+  "status": "pass",
+  "snapshot": {
+    "generated_at": "2026-10-19T04:54:54Z",
+    "inventory_observed_at": "2026-10-19T04:54:37Z",
+    "analysis_as_of": "2026-10-19T04:54:37Z",
+    "coverage_complete": true,
+    "run_status": "partial-picks",
+    "counts": {
+      "inventory": 95,
+      "upcoming": 34,
+      "archived": 61,
+      "unknown_schedule": 0,
+      "market": 10,
+      "bookmaker": 1,
+      "model": 10,
+      "unresolved": 13,
+      "picks": 21,
+      "no_edge": 0
+    }
+  },
+  "counts": {
+    "inventory_records": 95,
+    "non_archived_records": 34,
+    "complete_picks_rows": 34,
+    "unresolved_complete_picks": 7,
+    "row_source_violations": 0
+  },
+  "unresolved": [
+    {
+      "id": "1082152",
+      "teams": [
+        "Apogee Betclic",
+        "Spirit Academy"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-19T09:00:00Z",
+      "locks_at": "2026-10-19T08:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "No unique structured HLTV identity confirmed.",
+          "source_url": "https://www.hltv.org/matches"
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "detail": "HLTV lists Betclic vs Spirit Academy at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.",
+          "source_url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "Apogee Betclic: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1081131",
+      "teams": [
+        "ex-6666",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "starts_at": "2026-10-19T11:00:00Z",
+      "locks_at": "2026-10-19T10:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "ex-6666: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1079643",
+      "teams": [
+        "The Last Resort",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-19T17:00:00Z",
+      "locks_at": "2026-10-19T16:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/the-last-resort-vs-lfo-10-cct-europe-2026-series-11-1079643",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399320/the-last-resort-vs-lfo-10-cct-2026-europe-series-11"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "LFO 10: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/the-last-resort-vs-lfo-10-cct-europe-2026-series-11-1079643"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1081861",
+      "teams": [
+        "Lynn Vision",
+        "Morningstar"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T03:00:00Z",
+      "locks_at": "2026-10-20T02:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/lynn-vision-vs-morningstar-void-autumn-cup-2026-1081861",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "Polymarket event 1208918: Order book spread 0.40 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.54/0.94, Morningstar bid/ask 0.06/0.46); observation recorded, not used as a pick input.",
+          "source_url": "https://polymarket.com/event/cs2-lvg-mornin-2026-10-19"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "Kalshi event KXCS2GAME-26OCT192300MORLVG: Order book spread 0.37 exceeds the 0.15 indicative ceiling (Morningstar bid/ask 0.07/0.44, Lynn Vision bid/ask 0.58/0.94); observation recorded, not used as a pick input.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct192300morlvg"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "Reviewed capture rejected: Match page printed identical 1.8/1.8 prices and carried no bookmaker-average sentence; an earlier listing observation printed 1.01/15 for the same fixture. The two observations contradict each other, so no two-sided quote is accepted and the fixture stays unresolved.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "Morningstar: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/lynn-vision-vs-morningstar-void-autumn-cup-2026-1081861"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1081863",
+      "teams": [
+        "Chinggis Warriors",
+        "WXM"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-20T07:00:00Z",
+      "locks_at": "2026-10-20T06:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/chinggis-warriors-vs-wxm-void-autumn-cup-2026-1081863",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "Reviewed capture rejected: Match page printed identical 1.8/1.8 prices and carried no bookmaker-average sentence. Identical prices are treated as a site placeholder, so no quote is accepted and the fixture stays unresolved.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "WXM: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/chinggis-warriors-vs-wxm-void-autumn-cup-2026-1081863"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1082157",
+      "teams": [
+        "Sangal",
+        "Aurora YB"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-20T12:00:00Z",
+      "locks_at": "2026-10-20T11:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/sangal-vs-aurora-yb-stake-ranked-episode-6-closed-qualifier-1082157",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "No unique structured HLTV identity confirmed.",
+          "source_url": "https://www.hltv.org/matches"
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "detail": "HLTV lists Sangal vs Aurora Young Blud at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.",
+          "source_url": "https://www.hltv.org/matches/2399777/sangal-vs-aurora-young-blud-stake-ranked-episode-6-closed-qualifier"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "Aurora YB: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/sangal-vs-aurora-yb-stake-ranked-episode-6-closed-qualifier-1082157"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    },
+    {
+      "id": "1079646",
+      "teams": [
+        "Lavked",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-20T17:00:00Z",
+      "locks_at": "2026-10-20T16:54:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/lavked-vs-ex-6666-cct-europe-2026-series-11-1079646",
+      "research": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+          "source_url": "https://www.hltv.org/matches/2399323/lavked-vs-ex-6666-cct-2026-europe-series-11"
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+          "source_url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "detail": "Kalshi event KXCS2GAME-26OCT201300EXLAV: Order book spread 0.90 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.95, Lavked bid/ask 0.06/0.94); observation recorded, not used as a pick input.",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct201300exlav"
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+          "source_url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+          "source_url": "https://www.bovada.lv/sports"
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+          "source_url": "https://egamersworld.com/counterstrike/matches"
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "unresolved",
+          "detail": "ex-6666: no Valve rating row found (including registry aliases)",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        {
+          "stage": "Origination result",
+          "status": "unresolved",
+          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
+          "source_url": "https://www.hotspawn.com/matches/lavked-vs-ex-6666-cct-europe-2026-series-11-1079646"
+        }
+      ],
+      "limitations": [
+        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "github-artifact-digest",
+      "status": "pass",
+      "detail": "Downloaded archive SHA-256 matches GitHub API artifact.digest."
+    },
+    {
+      "id": "required-files",
+      "status": "pass",
+      "detail": "All required current Pages routes and JSON files are present."
+    },
+    {
+      "id": "inventory-array",
+      "status": "pass",
+      "detail": "Published inventory contains 95 records."
+    },
+    {
+      "id": "inventory-identities",
+      "status": "pass",
+      "detail": "95 unique inventory IDs were found."
+    },
+    {
+      "id": "inventory-count",
+      "status": "pass",
+      "detail": "Published inventory count agrees with 95 records."
+    },
+    {
+      "id": "inventory-source-links",
+      "status": "pass",
+      "detail": "Every inventory row carries an HTTPS Hotspawn/API source link."
+    },
+    {
+      "id": "complete-picks-array",
+      "status": "pass",
+      "detail": "Complete-picks JSON contains 34 rows."
+    },
+    {
+      "id": "complete-picks-coverage",
+      "status": "pass",
+      "detail": "Complete-picks IDs exactly cover 34 non-archived inventory records."
+    },
+    {
+      "id": "probability-bases",
+      "status": "pass",
+      "detail": "Every populated estimate has a normalized pair, an HTTPS evidence URL, observation time and non-underdog default."
+    },
+    {
+      "id": "explicit-unresolved",
+      "status": "pass",
+      "detail": "Every blank complete-picks row is explicitly listed as unresolved, with no unrelated unresolved ID."
+    },
+    {
+      "id": "summary-snapshot-parity",
+      "status": "pass",
+      "detail": "Executive summary declares the same generated timestamp as data/latest.json."
+    },
+    {
+      "id": "phone-first-picks-route",
+      "status": "pass",
+      "detail": "Artifact has the executive pick-at-a-glance section plus full-list links in normal and mobile navigation."
+    },
+    {
+      "id": "unresolved-surface",
+      "status": "pass",
+      "detail": "Complete-picks page exposes both the full list and a separate unresolved/limitations section."
+    },
+    {
+      "id": "complete-picks-html-coverage",
+      "status": "pass",
+      "detail": "Complete-picks HTML has one card for every 34 non-archived inventory record."
+    },
+    {
+      "id": "row-source-manifest-parity",
+      "status": "pass",
+      "detail": "Published row-source totals match a fresh audit of this artifact."
+    },
+    {
+      "id": "row-source-links",
+      "status": "pass",
+      "detail": "Recomputed row-source audit found 0 violations."
+    }
+  ],
+  "findings": [],
+  "provenance": {
+    "repository": "buffedlizard55-lab/MaltaProj3",
+    "workflow_run": {
+      "id": 39200682562,
+      "name": "Refresh and deploy CS2 dashboard",
+      "event": "schedule",
+      "head_branch": "main",
+      "head_sha": "9edf763c1feba9342044c404b7e9aa5267c242f3",
+      "created_at": "2026-10-19T04:40:51Z",
+      "updated_at": "2026-10-19T04:56:41Z",
+      "conclusion": "success",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39200682562"
+    },
+    "artifact": {
+      "id": 12164575227,
+      "name": "github-pages",
+      "size_in_bytes": 11810875,
+      "digest": "sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee",
+      "created_at": "2026-10-19T04:56:22Z",
+      "updated_at": "2026-10-19T04:56:22Z",
+      "expires_at": "2026-10-20T04:56:20Z",
+      "expired": false,
+      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12164575227",
+      "downloaded_sha256": "sha256:e6489dc333e55c71d8f206734de20acf4bbff3b041b8eb3c45e9925973323cee",
+      "digest_matches_github_api": true
+    }
+  },
+  "audited_at": "2026-10-19T05:10:59Z"
+}
