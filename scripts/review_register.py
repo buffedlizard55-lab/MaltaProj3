@@ -17,6 +17,7 @@ REGISTER = 'research/c07e1b40/repo-review.json'
 REGISTERS = (
     REGISTER,
     'research/534ae9e5/repo-review.json',
+    'research/c03ef201/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

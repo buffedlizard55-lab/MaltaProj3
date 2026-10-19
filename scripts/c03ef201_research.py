@@ -285,40 +285,28 @@ def parse_pinnacle_matchups(payload) -> list:
 def parse_pinnacle_straight(payload) -> list:
     """Two-way series moneylines from a league's straight markets.
 
-    Period 0 is the series/game line; periods >= 1 are per-map prices (session
-    be84edde verified periods 1-3 repeat identical numbers). Participants
-    without an id are read by name only, and specials ("Yes"/"No", "Odd/Even",
-    "Team By N") are rejected before any price is read.
+    Delegates the board contract to scripts.pinnacle_lines (the replayed,
+    regression-tested parser): series = period 0 only, American prices
+    converted to decimal, "Yes/No", "Odd/Even" and score-grid specials
+    rejected by participant text. This probe only records observations.
     """
+    from scripts import pinnacle_lines
     out = []
-    for block in payload if isinstance(payload, list) else []:
-        if not isinstance(block, dict):
+    for row in payload if isinstance(payload, list) else []:
+        if not isinstance(row, dict) or row.get('type') != 'moneyline':
             continue
-        matchup_id = block.get('matchupId') or (block.get('matchup') or {}).get('id')
-        for period in block.get('periods') or []:
-            if not isinstance(period, dict) or int(period.get('number') or 0) != 0:
-                continue
-            for market in period.get('markets') or []:
-                if not isinstance(market, dict):
-                    continue
-                if str(market.get('type') or '').lower() not in ('moneyline', '2-way', 'gamel'):
-                    continue
-                prices = {}
-                for side in market.get('prices') or []:
-                    if not isinstance(side, dict):
-                        continue
-                    name = side.get('participant') or side.get('name') or side.get('designation')
-                    price = side.get('price') if isinstance(side.get('price'), (int, float)) else side.get('american')
-                    if isinstance(name, str) and isinstance(price, (int, float)):
-                        prices.setdefault(name, []).append(float(price))
-                names = list(prices)
-                if len(names) != 2 or any(PINNACLE_SPECIAL.match(n) for n in names):
-                    continue
-                values = [prices[n][0] for n in names]
-                if any(v <= 1 for v in values):
-                    continue
-                out.append({'matchup_id': matchup_id, 'period': 0,
-                            'names': names, 'odds': values})
+        period = row.get('period')
+        if not isinstance(period, int) or period != 0:
+            continue
+        names = [p.get('participant') or p.get('name') for p in row.get('prices') or []]
+        if len(names) != 2 or any(PINNACLE_SPECIAL.match(str(n or '')) for n in names):
+            continue
+        try:
+            odds = [pinnacle_lines.american_to_decimal(p.get('price')) for p in row['prices']]
+        except (TypeError, ValueError, KeyError):
+            continue
+        out.append({'matchup_id': row.get('matchupId'), 'period': 0,
+                    'names': names, 'odds': [round(o, 4) for o in odds]})
     return out
 
 

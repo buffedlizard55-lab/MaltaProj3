@@ -1,0 +1,91 @@
+[
+  {
+    "id": "c03ef201-wide-book-guidance-only",
+    "severity": "warning",
+    "match_ids": ["1081861", "1079646"],
+    "title": "Wide-book indicative midpoints published as guidance only (Lynn Vision–Morningstar, Lavked–ex-6666)",
+    "detail": "Neither fixture has any compliant market, esportsbook, aggregated or rating input. The displayed percentages are the midpoints of the only observed two-sided books, which are far wider than every published acceptance ceiling (Polymarket spread 0.35 for Lynn Vision–Morningstar; Kalshi spread 0.90 for Lavked–ex-6666). Both rows are badged guidance-only and are never counted as money-backed picks; the Lavked–ex-6666 midpoint is effectively a coin flip and its 50.2/49.8 lean is not a validated opinion. See each row's research trail for the exact bid/ask books.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081861",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079646",
+      "https://www.hltv.org/matches/2399576/lynn-vision-vs-morningstar-macemedia-void-autumn-cup-2026",
+      "https://www.hltv.org/matches/2399323/lavked-vs-ex-6666-cct-2026-europe-series-11"
+    ]
+  },
+  {
+    "id": "c03ef201-hltv-ranking-model-line",
+    "severity": "notice",
+    "match_ids": ["1082152"],
+    "title": "HLTV world-ranking research model resolved Apogee Betclic–Spirit Academy (50.7/49.3)",
+    "detail": "Every money source, the aggregated reference and the Valve roster model failed for this fixture (Valve: multiple rosters share the short name and no unique exact-five-player HLTV lineup is published). The estimate is the uncalibrated 400-scale logistic transform of HLTV's official weekly world-ranking points (Betclic #71 vs Spirit Academy #111 on the 2026-10-12 publication, read 2026-10-19) and is labelled a research model, not betting odds. The near-even split is the honest output of the published transform at these ranking points.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082152"
+    ]
+  },
+  {
+    "id": "c03ef201-identity-joins-need-confirmation",
+    "severity": "warning",
+    "match_ids": ["1082152", "1082157"],
+    "title": "Two competition-scoped identity joins added on same-slot evidence — manual confirmation requested",
+    "detail": "The reviewed alias registry gained 'Betclic' → 'Apogee Betclic' and 'Aurora Young Blud' → 'Aurora YB', both scoped to Stake Ranked Episode 6: Closed Qualifier. Evidence class: the HLTV match page and the Hotspawn fixture share the exact event slot, start time and one exact-name opponent (Spirit Academy; Sangal). This is the same documented evidence class as the earlier reviewed WBT join, and both entries carry full evidence links in data/origination/aliases.json — but name equivalence itself is not independently confirmed by an official team-statement source, so both are flagged for manual review.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
+      "https://www.hltv.org/matches/2399777/sangal-vs-aurora-young-blud-stake-ranked-episode-6-closed-qualifier",
+      "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
+      "https://www.hotspawn.com/matches/sangal-vs-aurora-yb-stake-ranked-episode-6-closed-qualifier-1082157"
+    ]
+  },
+  {
+    "id": "c03ef201-remaining-unresolved-trio",
+    "severity": "warning",
+    "match_ids": ["1081131", "1079643", "1081863"],
+    "title": "Three fixtures stay intentionally blank: one team per fixture has no HLTV ranking, no Valve row and no market anywhere",
+    "detail": "ex-6666–Privateer, The Last Resort–LFO 10 and Chinggis Warriors–WXM each contain a team (ex-6666, LFO 10, WXM) that has an official HLTV team page but no HLTV world-ranking entry, no Valve rating row and no price on any checked provider (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld capture, 1xBet, bo3.gg). The published rules forbid inventing a probability for such fixtures, so each stays blank with its full research trail and exact failure reasons. Every table row still carries its official Hotspawn and HLTV links.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+      "https://www.hltv.org/matches/2399320/the-last-resort-vs-lfo-10-cct-2026-europe-series-11",
+      "https://www.hltv.org/matches/2399578/chinggis-warriors-vs-wxm-macemedia-void-autumn-cup-2026",
+      "https://www.hltv.org/team/14100/ex-6666",
+      "https://www.hltv.org/team/14084/lfo-10",
+      "https://www.hltv.org/team/14011/wxm"
+    ]
+  },
+  {
+    "id": "c03ef201-pinnacle-specials-defect-fixed",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Fixed: Pinnacle specials (Yes/No, Odd/Even, score grids) could be read as two-team series lines",
+    "detail": "The session probe found that scripts/pinnacle_lines.py accepted any two-participant matchup, so 'Yes'/'No' and 'Odd'/'Even' specials on the shared board could produce a quote whenever a caller did not itself pass team names. Session be84edde's TWC reads were unaffected (they always passed team names), but the new generic Pinnacle rung needed the guard. Participant text is now checked against the specials pattern before any price is read, with regression tests in tests/test_unresolved_rungs.py. Also hardened: price arrays keyed by participantId are realigned onto participant order (a latent mismatch when prices arrive keyed but the matchup is name-only).",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pinnacle_lines.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_unresolved_rungs.py",
+      "https://www.pinnacle.com/en/esports/csgo/matchups"
+    ]
+  },
+  {
+    "id": "c03ef201-hltv-ranking-url-fixed",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Fixed: the bare hltv.org/ranking/ path answers HTTP 404; the canonical ranking URL is /ranking/teams",
+    "detail": "The 2026-10-19 runner probe (manifest run 1) recorded HTTP 404 for https://www.hltv.org/ranking/ while every HLTV match and team page answered 200 with the project UA. HLTV's own team pages link the canonical path /ranking/teams and dated publications such as /ranking/teams/2026/october/12. The capture now reads the canonical page and dates the model input from that publication slug, not the fetch wall clock.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hltv.org/team/12916/betclic",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c03ef201/request-manifest.json"
+    ]
+  },
+  {
+    "id": "c03ef201-second-line-provider-limits",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Second-line provider access limits: 1xBet answers HTTP 203 to the runner, bo3.gg is a client-side shell",
+    "detail": "1xbet.com's public esports line page answers the runner with HTTP 203 and a body that lists none of the uncovered fixtures (original saved and hashed). bo3.gg's public match pages are a Nuxt client shell with no server-rendered fixture data; its API answers {'error': 'Invalid API path'} for the probed candidate paths and the bundled JS chunks expose no match-data API path to this probe. Neither provider produced a usable observation this cycle; both remain documented access limitations, not proof of no market.",
+    "source_urls": [
+      "https://1xbet.com/en/line/Esports",
+      "https://bo3.gg/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c03ef201/provider-deep-probe.json"
+    ]
+  }
+]

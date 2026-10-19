@@ -1,0 +1,156 @@
+{
+  "session": "arena-c03ef201",
+  "branch": "arena/c03ef201-maltaproj3",
+  "review_clock_utc": "2026-10-19T05:45Z",
+  "scope": "Line-by-line review of the last-resort pick-resolution layer (scripts/originate.py rungs, scripts/pinnacle_lines.py, scripts/hltv_ranking.py, scripts/c03ef201_research.py, scripts/build_origination.py replay boundary, data/origination/aliases.json) and the runner research workflow, against official and first-party sources. Every item links the evidence used; nothing here is a probability input.",
+  "method": "Each item was reproduced in the session workspace or on GitHub runner workflow runs 39198880905, 39204191252 and 39204781421 (2026-10-19, 04:19Z-05:29Z) and checked against the linked source pages and APIs. 'fixed' items carry regression tests; 'needs review' items were deliberately left flagged rather than silently decided.",
+  "items": [
+    {
+      "id": "c03-01",
+      "area": "identity registry",
+      "status": "needs review",
+      "finding": "Two provider-name joins were needed to research the Stake Ranked Episode 6 closed-qualifier fixtures: HLTV lists 'Betclic vs Spirit Academy' where Hotspawn lists 'Apogee Betclic vs Spirit Academy', and 'Sangal vs Aurora Young Blud' where Hotspawn lists 'Sangal vs Aurora YB'.",
+      "handling": "Added as competition-scoped registry entries ('Betclic' -> 'Apogee Betclic', 'Aurora Young Blud' -> 'Aurora YB', applies_to: Stake Ranked Episode 6: Closed Qualifier only), each with the HLTV match page and the Hotspawn fixture page as evidence. Same documented evidence class as the earlier reviewed WBT join: exact event slot, exact start time, one exact-name opponent. The joins are published and flagged so a human can confirm or reject them; they never apply outside their declared competition.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
+          "detail": "HLTV match 2399772 lists 'Betclic vs Spirit Academy' at 2026-10-19T09:00Z — the exact Hotspawn fixture 1082152 slot with the exact opponent name."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
+          "detail": "Hotspawn fixture 1082152 lists 'Apogee Betclic' in the same event and slot; the event inventory contains no separate 'Betclic' competitor."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399777/sangal-vs-aurora-young-blud-stake-ranked-episode-6-closed-qualifier",
+          "detail": "HLTV match 2399777 lists 'Sangal vs Aurora Young Blud' at 2026-10-20T12:00Z — the exact Hotspawn fixture 1082157 slot with the exact opponent name."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+          "detail": "Both entries carry full evidence links, competition scopes and review notes in the published registry (updated 2026-10-19)."
+        }
+      ]
+    },
+    {
+      "id": "c03-02",
+      "area": "Pinnacle guest board",
+      "status": "fixed",
+      "finding": "scripts/pinnacle_lines.py accepted any two-participant matchup as a series moneyline, so board specials ('Yes'/'No', 'Odd'/'Even') could produce a quote when a caller did not pass team names — observed directly by the c03ef201 deep probe on 2026-10-19 (series_moneyline returned quotes for Yes/No matchups). Separately, price arrays keyed by participantId were assumed to be in participant order.",
+      "handling": "Specials are rejected by participant text before any price is read (regex-tested against Yes/No, Odd/Even, Tie and 'Team By N' grids). Price-to-name mapping prefers participantId keys and realigns the converted decimals onto participant order; ordering fallback applies only when neither price carries a key. Regression tests: tests/test_unresolved_rungs.py (PinnacleSpecialsTest, PinnacleRowsTest). Session be84edde's earlier TWC quotes were unaffected (they always passed explicit team names) and are not restated.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pinnacle_lines.py",
+          "detail": "The _SPECIAL participant guard and _resolve_participants realignment live in the module used by every Pinnacle read."
+        },
+        {
+          "url": "https://www.pinnacle.com/en/esports/csgo/matchups",
+          "detail": "The public guest board where specials and team series share one matchup list; period 0 is the series line and periods >= 1 repeat per-map prices (session be84edde's dated finding, relied upon here)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_unresolved_rungs.py",
+          "detail": "Regression tests cover specials rejection, participant-id mapping, ordering fallback and the period-0-only series rule."
+        }
+      ]
+    },
+    {
+      "id": "c03-03",
+      "area": "HLTV research model",
+      "status": "fixed",
+      "finding": "The first runner probe (2026-10-19T04:21Z) could not read HLTV at all (HTTP 403 with a browser-mimicking User-Agent) and the bare https://www.hltv.org/ranking/ path answered HTTP 404 even with the project UA.",
+      "handling": "The probe now uses the same honest project User-Agent that scripts/sources.py uses (HLTV match and team pages answer 200). The ranking capture reads the canonical https://www.hltv.org/ranking/teams page and dates the model input from HLTV's own publication slug (e.g. /ranking/teams/2026/october/12, confirmed from team-page rank links), never the fetch wall clock.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "detail": "Canonical world-ranking page; answered 200 with 245 team rows on the 2026-10-19T05:29Z probe run."
+        },
+        {
+          "url": "https://www.hltv.org/team/12916/betclic",
+          "detail": "HLTV team page whose World ranking row links the dated publication /ranking/teams/2026/october/12/details/12916 — the authoritative publication date source."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c03ef201/request-manifest.json",
+          "detail": "Dated request manifest: run 1 recorded the 403/404 trail; run 2 (2026-10-19T05:22-05:29Z) recorded the successful reads with response hashes."
+        }
+      ]
+    },
+    {
+      "id": "c03-04",
+      "area": "origination policy",
+      "status": "verified",
+      "finding": "The brief asks for a pick or probability for every Hotspawn match, while the published ladder left low-tier fixtures blank whenever no exchange, sportsbook or rating row existed. Two gaps needed explicit, labelled rungs rather than silent blanks or invented numbers.",
+      "handling": "Two last-resort rungs were added after every existing rung and never override one: (1) the HLTV world-ranking research model — uncalibrated 400-scale logistic transform of HLTV's official weekly ranking points, both teams required on the same dated publication, 14-day ceiling; (2) wide-book indicative guidance — midpoint of the narrowest observed book that every spread ceiling rejected, badged 'Guidance only', excluded from MONEY_METHODS and from the leaderboard plan's upset rules, with an exactly-even midpoint published as no directional pick. Both replay from saved originals at build time (scripts/build_origination.py).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/hltv_ranking.py",
+          "detail": "The HLTV ranking model: inputs link their own ranking page; alias-aware; fail-closed on stale or incomplete publications."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/methodology/",
+          "detail": "The methodology page publishes both formulas, their order in the ladder and their limits (step 05 plus the two estimation sections)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_unresolved_rungs.py",
+          "detail": "Tests pin the order: money beats guidance; Valve beats guidance; HLTV ranking beats guidance; a featured model is never downgraded to guidance; guidance never enters MONEY_METHODS."
+        }
+      ]
+    },
+    {
+      "id": "c03-05",
+      "area": "unresolved fixtures",
+      "status": "verified",
+      "finding": "After the new rungs and the two identity joins, 31 of 34 active fixtures carry a researched estimate. Three stay blank: ex-6666–Privateer (1081131), The Last Resort–LFO 10 (1079643), Chinggis Warriors–WXM (1081863).",
+      "handling": "Each blank is intentional under the published rules: one team per fixture (ex-6666, LFO 10, WXM) has an official HLTV team page but no HLTV world-ranking entry, no Valve rating row and no price on any checked provider. The site's executive summary and the complete-list page publish them in the unresolved section with their full research trails and official links; nothing is filled with a guess.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/14100/ex-6666",
+          "detail": "Official HLTV team page for ex-6666: the team exists (CCT Europe 2026 Series fixtures) but has no World ranking row."
+        },
+        {
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "detail": "Official HLTV team page for LFO 10: no World ranking row."
+        },
+        {
+          "url": "https://www.hltv.org/team/14011/wxm",
+          "detail": "Official HLTV team page for WXM: no World ranking row."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c03ef201/live-probe.json",
+          "detail": "The dated research dossier: every stage of every blank fixture with its exact failure reason and source URL."
+        }
+      ]
+    },
+    {
+      "id": "c03-06",
+      "area": "provider access",
+      "status": "platform limitation",
+      "finding": "1xbet.com's public line page answers the GitHub runner with HTTP 203 and a body listing none of the uncovered fixtures. bo3.gg's match pages are a Nuxt client shell; its API rejects the probed candidate paths with {'error': 'Invalid API path'} and the bundled JS chunks expose no match-data API path to the probe. Direct sandbox reads of Hotspawn, HLTV and bookmaker sites remain blocked (documented earlier).",
+      "handling": "Both providers are recorded as dated access observations with saved, hash-checked originals — never as proof of no market. All live research runs on the GitHub runner through .github/workflows/c03ef201-research.yml (dispatch is HTTP 403 for this token, so a push trigger with a report-commit guard is used; the workflow commits only data/research/c03ef201/ and never deploys).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c03ef201/provider-deep-probe.json",
+          "detail": "Per-provider reachability, listing scans and API-path discovery results for the 2026-10-19 runs."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/c03ef201-research.yml",
+          "detail": "The runner research workflow: read-only provider GETs, reports-only commits, push-trigger guard, never deploys."
+        }
+      ]
+    },
+    {
+      "id": "c03-07",
+      "area": "replay boundary",
+      "status": "verified",
+      "finding": "New sources must be replayable like every existing one: 'Every published probability is replayed from its saved original response before the site is built.'",
+      "handling": "The replay boundary (scripts/pipeline_audit.py + scripts/build_origination.py) learned the new rungs: Pinnacle quotes replay through the saved guest-board capture with per-league request observations; HLTV ranking estimates recompute from the saved official ranking capture; guidance rows re-derive the unique-provider, widest-book-rejected, narrowest-remaining selection and recompute the midpoint from the saved market observations. The full suite (708 tests) and the built-site validator both pass with the extended boundary.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pipeline_audit.py",
+          "detail": "replay_provider_quote gained the Pinnacle branch with manifest observation checks against the exact straight-market endpoint."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+          "detail": "validate_origination replays HLTV-model and guidance rows from their saved originals and rejects any divergence at build time."
+        }
+      ]
+    }
+  ]
+}

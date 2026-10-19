@@ -82,42 +82,29 @@ class PinnacleParseTest(unittest.TestCase):
         self.assertEqual(rows[0]['id'], 5)
 
     def test_straight_series_moneyline_uses_period_zero_only(self):
-        payload = [{
-            'matchupId': 5,
-            'periods': [
-                {'number': 0, 'markets': [{'type': 'moneyline', 'prices': [
-                    {'participant': 'Fire Flux', 'price': 1.72},
-                    {'participant': 'ex-6666', 'price': 2.10}]}]},
-                {'number': 1, 'markets': [{'type': 'moneyline', 'prices': [
-                    {'participant': 'Fire Flux', 'price': 1.55},
-                    {'participant': 'ex-6666', 'price': 2.40}]}]},
-            ]}]
+        payload = [
+            {'matchupId': 5, 'type': 'moneyline', 'period': 0, 'key': 's;0;m',
+             'prices': [{'participantId': 1, 'price': -143}, {'participantId': 2, 'price': 110}]},
+            {'matchupId': 5, 'type': 'moneyline', 'period': 1, 'key': 's;1;m',
+             'prices': [{'participantId': 1, 'price': -300}, {'participantId': 2, 'price': 250}]},
+        ]
         rows = parse_pinnacle_straight(payload)
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]['period'], 0)
-        self.assertEqual(rows[0]['odds'], [1.72, 2.10])
+        self.assertEqual(rows[0]['odds'], [1.6993, 2.1])
 
     def test_specials_and_non_two_way_rows_are_rejected(self):
-        payload = [{
-            'matchupId': 6,
-            'periods': [
-                # Yes/No special
-                {'number': 0, 'markets': [{'type': 'moneyline', 'prices': [
-                    {'participant': 'Yes', 'price': 1.9}, {'participant': 'No', 'price': 1.9}]}]},
-            ]}, {
-            'matchupId': 7,
-            'periods': [
-                # "Team By N" specials grid
-                {'number': 0, 'markets': [{'type': 'moneyline', 'prices': [
-                    {'participant': 'FURIA By 2', 'price': 5.0},
-                    {'participant': 'BB Team By 2', 'price': 6.0}]}]},
-            ]}, {
-            'matchupId': 8,
-            'periods': [
-                # valid shape but odds <= 1 are never prices
-                {'number': 0, 'markets': [{'type': 'moneyline', 'prices': [
-                    {'participant': 'Alpha', 'price': 0.5}, {'participant': 'Beta', 'price': 0.5}]}]},
-            ]}]
+        payload = [
+            # Yes/No special
+            {'matchupId': 6, 'type': 'moneyline', 'period': 0,
+             'prices': [{'participant': 'Yes', 'price': -190}, {'participant': 'No', 'price': 160}]},
+            # "Team By N" specials grid
+            {'matchupId': 7, 'type': 'moneyline', 'period': 0,
+             'prices': [{'participant': 'FURIA By 2', 'price': 400}, {'participant': 'BB Team By 2', 'price': 500}]},
+            # valid shape but American price 0 carries no probability
+            {'matchupId': 8, 'type': 'moneyline', 'period': 0,
+             'prices': [{'participant': 'Alpha', 'price': 0}, {'participant': 'Beta', 'price': 0}]},
+        ]
         self.assertEqual(parse_pinnacle_straight(payload), [])
 
     def test_missing_market_values_stay_blank(self):

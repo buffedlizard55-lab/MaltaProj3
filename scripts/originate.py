@@ -536,7 +536,9 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             final_url = req.get('final_url') or url
             pages.append({'url': final_url, 'status': 'ok', 'observed_at': req.get('observed_at') or iso(datetime.now(UTC)),
                           'rows': rows})
-            if len(rows) < 25:
+            # The whole world ranking renders on one page when it carries at
+            # least 200 rows; offset pages exist only for older split layouts.
+            if len(rows) < 25 or len(rows) >= 200:
                 break
         if pages:
             observed_at = pages[0]['observed_at']
