@@ -316,7 +316,8 @@ def supplement_polymarket_discovery(directory_games: list, repo_data: Path, now:
     }
 
 
-def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dict) -> dict:
+def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dict,
+                        known: set | None = None) -> dict:
     """Bind fixtures on bo3.gg and save the series history the results model uses.
 
     The bridge is an exact start time (within 90 minutes) plus at least one
@@ -342,6 +343,20 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
         start = timestamp(match.get('starts_at'))
         if start is None:
             continue
+        # Only fixtures with a team the official table cannot rate need this.
+        wanted = []
+        for team in match.get('teams') or []:
+            if known is None:
+                wanted.append(team)
+                continue
+            reverse = {}
+            for entry in scoped_aliases(registry, match.get('competition')):
+                reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
+            candidates = {name_key(team.get('name') or '')} | set(reverse.get(name_key(team.get('name') or ''), []))
+            if not candidates & known:
+                wanted.append(team)
+        if not wanted:
+            continue
         names = {name_key(t.get('name') or '') for t in match.get('teams') or []}
         candidates = []
         for row in rows:
@@ -364,8 +379,10 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
             team_id = team.get('id')
             if not team_id:
                 continue
+            if known is not None and name_key(team.get('name') or '') in known:
+                continue
             if team_id not in cache:
-                query = ('/matches?page[offset]=0&page[limit]=100&sort=-start_date'
+                query = ('/matches?page[offset]=0&page[limit]=40&sort=-start_date'
                          '&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1'
                          f'&filter[matches.team_ids][overlap]={team_id}&with=teams')
                 body, entry = client.get_json(BO3_API + query, f'live-bo3-results-{team_id}')
@@ -553,6 +570,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['bovada_error'] = str(exc)
     for stale in ('live-valve-directory.json', 'live-valve-standings.json', 'live-valve-standings-text.json'):
         (evidence_dir / stale).unlink(missing_ok=True)
+    valve_text = None
     try:
         now = datetime.now(UTC)
         directory, _ = client.get_json(f'{VALVE_REPO}/contents/live/{now.year}', 'live-valve-directory')
@@ -567,6 +585,7 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             day, path = max(names)
             content, _ = client.get_json(f'{VALVE_REPO}/contents/{path}', 'live-valve-standings')
             text = base64.b64decode(content['content']).decode('utf-8')
+            valve_text = text
             (evidence_dir / 'live-valve-standings-text.json').write_text(
                 json.dumps({'snapshot_date': day, 'source_url': content['html_url'],
                             'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'text': text},
@@ -575,7 +594,14 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     except RuntimeError as exc:
         out['valve_error'] = str(exc)
     try:
-        out['bo3_results'] = collect_bo3_results(client, evidence_dir, matches, registry)
+        known = set()
+        if valve_text:
+            try:
+                from scripts.domain import parse_valve_table
+                known = {name_key(row['name']) for row in parse_valve_table(valve_text, '', '2000-01-01')}
+            except (ValueError, KeyError, TypeError):
+                known = set()
+        out['bo3_results'] = collect_bo3_results(client, evidence_dir, matches, registry, known or None)
     except Exception as exc:  # noqa: BLE001 - a results outage prices nothing
         out['bo3_results_error'] = f'{type(exc).__name__}: {exc}'[:200]
     out['requests'] = client.requests
