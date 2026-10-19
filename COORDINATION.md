@@ -56,7 +56,7 @@ expiry threshold, probability, pick or alias semantics are changed there.
 | C-3 Resolution rungs for the blanks the brief demands (HLTV first, then esportsbooks/esports betting lines): an official-HLTV-derived research model, additive esportsbook rows (Pinnacle guest board, 1xBet/bo3.gg if contract-clean), and a clearly-labelled wide-book indicative guidance rung (never a book-validated pick), with tests | **done** — three additive rungs (commit bc2e572+): Pinnacle guest-board series moneylines as an independent money vote (period 0 only; Yes/No + score-grid specials rejected by participant text — latent `pinnacle_lines.py` defect the probe exposed, now regression-tested); `scripts/hltv_ranking.py` uncalibrated model over HLTV official weekly ranking points (400-scale transform, same-dated publication, 14-day ceiling); wide-book midpoint published as `method: guidance` only after every compliant rung fails (amber "Guidance only", excluded from `MONEY_METHODS` and the upset rules; even midpoints = "No edge · Even"). 1xBet answers HTTP 203, bo3.gg is a client-side shell — dated access limitations recorded, nothing fabricated | arena-c03ef201 |
 | C-4 Phone-first executive summary: links to the updated picks lists, a separate unresolved-picks section with the limitations of generating those picks, mobile-friendly | **done** — verified on the built site: hero + briefing nav link to `origination/#picks`, `#unresolved` section on the summary, "Picks at a glance" phone-first index, viewport/mobile-nav/skip-link landmarks (build validator: 663 internal links + mobile landmarks checked); methodology page documents both new rungs (step 05 + formula sections) | arena-c03ef201 |
 | C-5 Line-by-line repository review with source links and every irregularity flagged; full verification suites green | **done** — `data/research/c03ef201/repo-review.json` (7 items, rendered on Flagged for Review) + `flags.json` (7 findings); gates: 708 Python tests OK, build replay validator OK (80 source rows reconciled), `scripts.audit_rows --strict` 490 rows / 0 violations, pick-presentation safety 14/14. `npm test` (Playwright) cannot run in this sandbox (browser CDN unreachable); its no-JS/mobile audits run in the Python suite | arena-c03ef201 |
-| C-6 Full suites green, PR to main, merge, real Pages deployment verified, record (including the PR #100 takeover outcome) | **in progress** (PR #100 takeover complete: closed unmergeable stale PR with verbatim comment 6260642447; record preserved below) | arena-c03ef201 | `COORDINATION.md`, PR |
+| C-6 Full suites green, PR to main, merge, real Pages deployment verified, record (including the PR #100 takeover outcome) | **done** — PR #108 merged `da1e71e` 06:42Z; Pages verified (below). PR #100 takeover recorded above | arena-c03ef201 | `COORDINATION.md`, PR |
 
 Principles re-asserted: no Hotspawn "% picked" or crowd input, no invented odds,
 no probability without an official source link and observation time, every
@@ -92,6 +92,26 @@ and visible in the executive summary's unresolved section with its limitations.
   no Valve row and no price on any checked provider. Guidance rows: Lynn
   Vision–Morningstar 75/25 (Polymarket book, 0.35 spread), Lavked–ex-6666
   ~50/50 (Kalshi book, 0.90 spread) — guidance only, never book-validated.
+
+- **C-6 final record — PR #108.** [PR #108](https://github.com/buffedlizard55-lab/MaltaProj3/pull/108)
+  ("A researched pick for every Hotspawn CS2 match: Pinnacle money rung, HLTV
+  ranking model, wide-book guidance rung") **merged 2026-10-19T06:42Z as
+  `da1e71e`**. Integration included a full merge with main's concurrent session
+  work (arena-d9ebc2c1's form_model rung, arena-1fb85c47's alias additions) —
+  conflicts resolved keeping every side, suites green at 740 tests. CI on the
+  PR: **Origination source audit success** (live collect → originate → replay)
+  and **Validate dashboard success**; one replay defect was found and fixed
+  before merge (NameError in the guidance-replay branch, covered since by
+  ReplayBoundaryTest).
+- **GitHub Pages verified live.** Production run
+  [39211583695](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39211583695)
+  ("Refresh and deploy CS2 dashboard", full live pipeline on `da1e71e`)
+  **success** 06:44Z; `pages build and deployment` run
+  [39211582476](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39211582476)
+  **success**; `github-pages` deployment 7167434249 state **success** at
+  06:44:40Z. The live dashboard at
+  https://buffedlizard55-lab.github.io/MaltaProj3/ now publishes the extended
+  ladder, the unresolved-picks section and the Flagged for Review entries.
 
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
