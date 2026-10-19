@@ -1,0 +1,17 @@
+[
+  {
+    "id": "d9ebc2c1-live-pages-artifact-not-independently-readable",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The latest scheduled Pages deployment passed, but this audit could not inspect its live match rows",
+    "detail": "At 2026-10-19T04:22:28Z, the GitHub Actions API reported scheduled run 39181195691 on main (created 00:31:58Z, completed 00:39:36Z) as successful. Its listed steps, including Hotspawn collection, unresolved-pick research, probability replay/build, Pages deploy and verify_live, all reported success. GitHub also listed the 11,950,740-byte github-pages artifact. However, downloading the artifact returned EOF after redirecting to its signed archive URL, and the run-log download was likewise unavailable in this session. Therefore this audit does not assert the current live fixture count, any live team probability, or the current unresolved set. The checked-in data/latest.json and data/origination.json are dated 15 October and are fallback fixtures, not current live data. This is an independent-audit access limitation, not evidence that the production run failed; follow the official run and workflow links for manual review.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39181195691/artifacts",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  }
+]
