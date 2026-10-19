@@ -12,6 +12,7 @@ on:
     paths:
       - '.github/workflows/1fb85c47-probe.yml'
       - 'scripts/session_probe.py'
+      - 'scripts/bo3_odds_probe.py'
 permissions:
   contents: write
 concurrency:
@@ -38,6 +39,8 @@ jobs:
           python -m scripts.originate --live || echo "::warning::originate failed; probe continues on the checked-in origination"
       - name: Probe every unresolved fixture's HLTV and bookmaker surfaces
         run: python -m scripts.session_probe
+      - name: Check bo3.gg for a published bookmaker price per blank fixture
+        run: python -m scripts.bo3_odds_probe
       - name: Commit the dated report to this session branch
         run: |
           git config user.name 'github-actions[bot]'
