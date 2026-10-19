@@ -69,6 +69,37 @@ class DeploymentArtifactAuditTests(unittest.TestCase):
         self.assertEqual(check(report, "row-source-links")["status"], "pass")
         self.assertEqual(report["counts"]["inventory_records"],
                          len(json.loads((self.site / "data/latest.json").read_text())["matches"]))
+        source = json.loads((self.site / "data/origination.json").read_text())
+        expected_blank = {str(row["id"]) for row in source["matches"] if not row.get("origination")}
+        self.assertEqual({row["id"] for row in report["unresolved"]}, expected_blank)
+        self.assertEqual(report["counts"]["unresolved_complete_picks"], len(expected_blank))
+
+    def test_unresolved_ledger_copies_provider_trail_without_creating_a_probability(self):
+        site = self.copy_site("unresolved-ledger")
+        path = site / "data/origination.json"
+        data = json.loads(path.read_text())
+        row = next(item for item in data["matches"] if item.get("origination"))
+        source_trail = [
+            {"stage": "Primary: Polymarket", "status": "unresolved",
+             "detail": "No unique fixture was verified.", "source_url": "https://polymarket.com/esports/cs2"},
+            {"stage": "HLTV research", "status": "checked",
+             "detail": "Identity checked; no price is claimed.", "source_url": "https://www.hltv.org/"},
+            {"stage": "Original esportsbook lines", "status": "unresolved",
+             "detail": "No paired line was verified.", "source_url": "https://thunderpick.io/esports/counter-strike"},
+        ]
+        row["origination"] = None
+        row["pick_index"] = None
+        row["research"] = source_trail
+        row["limitations"] = ["No verified paired price; value stays blank."]
+        data["unresolved_ids"] = [str(row["id"])]
+        path.write_text(json.dumps(data))
+        report = audit_site(site)
+        self.assertEqual(check(report, "explicit-unresolved")["status"], "pass")
+        ledger = next(item for item in report["unresolved"] if item["id"] == str(row["id"]))
+        self.assertEqual(ledger["research"], source_trail)
+        self.assertEqual(ledger["limitations"], row["limitations"])
+        self.assertNotIn("probabilities", ledger)
+        self.assertEqual(ledger["hotspawn_source_url"], row["source_url"])
 
     def test_a_missing_mobile_pick_surface_is_a_visible_review_failure(self):
         site = self.copy_site("missing-glance")

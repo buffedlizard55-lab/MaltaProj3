@@ -372,6 +372,7 @@ def audit_site(site: Path) -> dict[str, Any]:
             "site_root": ".",
             "status": "needs_review",
             "checks": checks,
+            "unresolved": [],
             "findings": ["Artifact lacks required current-site files; no match values were inferred."],
         }
 
@@ -385,6 +386,7 @@ def audit_site(site: Path) -> dict[str, Any]:
             "site_root": ".",
             "status": "needs_review",
             "checks": checks,
+            "unresolved": [],
             "findings": ["Published JSON could not be read; no match values were inferred."],
         }
 
@@ -400,6 +402,7 @@ def audit_site(site: Path) -> dict[str, Any]:
             "site_root": ".",
             "status": "needs_review",
             "checks": checks,
+            "unresolved": [],
             "findings": ["Published inventory is malformed; no values were inferred."],
         }
 
@@ -439,6 +442,7 @@ def audit_site(site: Path) -> dict[str, Any]:
 
     invalid_estimates: list[str] = []
     unresolved_not_listed: list[str] = []
+    unresolved_rows: list[dict[str, Any]] = []
     unresolved_ids = {str(item) for item in originated.get("unresolved_ids") or []}
     for row in origin_rows:
         if not isinstance(row, dict):
@@ -449,6 +453,26 @@ def audit_site(site: Path) -> dict[str, Any]:
         if not line:
             if match_id not in unresolved_ids:
                 unresolved_not_listed.append(match_id)
+            # This ledger intentionally copies the published source trail and
+            # limitations, rather than deriving a replacement reason or price.
+            # The four fields below are the complete research-record schema in
+            # complete-picks data (provider/HLTV stage, outcome, text, URL).
+            trail = []
+            for research in row.get("research") or []:
+                if isinstance(research, dict):
+                    trail.append({key: research.get(key)
+                                  for key in ("stage", "status", "detail", "source_url")})
+            unresolved_rows.append({
+                "id": match_id,
+                "teams": [team.get("name") if isinstance(team, dict) else None
+                          for team in (row.get("teams") or [])],
+                "competition": row.get("competition"),
+                "starts_at": row.get("starts_at"),
+                "locks_at": row.get("locks_at"),
+                "hotspawn_source_url": row.get("source_url"),
+                "research": trail,
+                "limitations": list(row.get("limitations") or []),
+            })
             continue
         if not isinstance(line, dict):
             invalid_estimates.append(match_id)
@@ -471,10 +495,13 @@ def audit_site(site: Path) -> dict[str, Any]:
            "Every populated estimate has a normalized pair, an HTTPS evidence URL, observation time and non-underdog default."
            if not invalid_estimates else
            "Invalid populated estimate rows: " + ", ".join(invalid_estimates[:12]))
-    _check(checks, "explicit-unresolved", not unresolved_not_listed,
-           "Every blank complete-picks row is explicitly listed as unresolved."
-           if not unresolved_not_listed else
-           "Blank rows absent from unresolved_ids: " + ", ".join(unresolved_not_listed[:12]))
+    unresolved_row_ids = {row["id"] for row in unresolved_rows}
+    unrelated_unresolved_ids = unresolved_ids - unresolved_row_ids
+    _check(checks, "explicit-unresolved", not unresolved_not_listed and not unrelated_unresolved_ids,
+           "Every blank complete-picks row is explicitly listed as unresolved, with no unrelated unresolved ID."
+           if not unresolved_not_listed and not unrelated_unresolved_ids else
+           "Blank rows absent from unresolved_ids: " + ", ".join(unresolved_not_listed[:12]) +
+           "; unresolved_ids without a blank row: " + ", ".join(sorted(unrelated_unresolved_ids)[:12]))
 
     summary = BeautifulSoup((site / "index.html").read_text(encoding="utf-8"), "html.parser")
     originated_page = BeautifulSoup((site / "origination/index.html").read_text(encoding="utf-8"), "html.parser")
@@ -538,9 +565,13 @@ def audit_site(site: Path) -> dict[str, Any]:
             "inventory_records": len(matches),
             "non_archived_records": len(active_ids),
             "complete_picks_rows": len(origin_rows),
-            "unresolved_complete_picks": len(unresolved_ids),
+            "unresolved_complete_picks": len(unresolved_rows),
             "row_source_violations": ((recomputed_rows or {}).get("totals") or {}).get("violation"),
         },
+        # The separate ledger keeps an unresolved fixture discoverable even when
+        # its only available evidence is a failed provider lookup. It is copied
+        # from the canonical complete-picks artifact and contains no estimate.
+        "unresolved": sorted(unresolved_rows, key=lambda row: (str(row.get("starts_at") or ""), row["id"])),
         "checks": checks,
         "findings": [] if checks_ok else [row["detail"] for row in checks if row["status"] != "pass"],
     }
@@ -655,7 +686,8 @@ def report_flag(report: dict[str, Any]) -> list[dict[str, Any]]:
             f"Artifact {artifact_id if artifact_id is not None else 'local'} was inspected after its GitHub Actions deployment. "
             f"Its API digest {'matched the downloaded archive' if artifact.get('digest_matches_github_api') is True else 'was not available for a local archive'}, "
             f"the artifact contains {counts.get('inventory_records')} inventory records and "
-            f"{counts.get('complete_picks_rows')} complete-picks rows, and it preserved the executive/mobile route to "
+            f"{counts.get('complete_picks_rows')} complete-picks rows. Its {counts.get('unresolved_complete_picks')} blank "
+            f"complete-picks rows retain a per-fixture source/limitation ledger in this report, and it preserved the executive/mobile route to "
             f"the full list plus the separate unresolved section. Snapshot generated {snapshot.get('generated_at')}; "
             f"inventory observed {snapshot.get('inventory_observed_at')}. This is an artifact-integrity check, not a new line or probability source."
         )
@@ -717,6 +749,7 @@ def main(argv: list[str] | None = None) -> int:
                 "status": "needs_review",
                 "detail": f"Artifact audit could not complete: {type(exc).__name__}: {exc}",
             }],
+            "unresolved": [],
             "findings": ["Artifact access or extraction failed; no content, probability or source conclusion was drawn."],
             "provenance": {"repository": args.repository},
         }
