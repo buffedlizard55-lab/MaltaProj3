@@ -155,10 +155,14 @@ def analyse_team(url: str):
         return row
     soup = BeautifulSoup(page['text'], 'html.parser')
     body = soup.get_text(' ', strip=True)
-    rank = re.search(r'World ranking\s*#(\d+)', body)
+    valve = re.search(r'Valve ranking\s*VRS.*?#(\d+)', body, flags=re.S)
+    world = re.search(r'World ranking.*?#(\d+)', body, flags=re.S)
     points = re.search(r'(\d+(?:\.\d+)?)\s*(?:HLTV )?[Pp]oints', body)
-    row['world_ranking'] = int(rank.group(1)) if rank else None
+    row['valve_ranking'] = int(valve.group(1)) if valve else None
+    row['world_ranking'] = int(world.group(1)) if world else None
     row['ranking_points'] = float(points.group(1)) if points else None
+    lineup = re.search(r'main lineup of [^ ]+ is (.*?)\.', body)
+    row['hltv_main_lineup'] = [x.strip() for x in lineup.group(1).split(',')] if lineup else None
     row['ranking_snippets'] = re.findall(r'.{0,80}(?:World ranking|Ranking|points).{0,80}', body, flags=re.I)[:8]
     recent = []
     for a in soup.select('a[href^="/matches/"]'):
@@ -174,6 +178,42 @@ def analyse_team(url: str):
     row['blocks'] = snippets(soup, needles=('ranking', 'matches', 'match'), limit=8)
     row['sha256'] = page['sha256']
     return row
+
+
+def valve_ranking_probe(team_names):
+    """HLTV's dated mirror of Valve's regional VRS, filtered to the teams of interest."""
+    out = {'pages': [], 'teams': {}, 'observed_at': now(),
+           'note': 'Points are Valve VRS points as printed by HLTV; the official Valve markdown lives in the repository.'}
+    today = datetime.now(timezone.utc).date()
+    for back in range(0, 21, 7):
+        day = today.fromordinal(today.toordinal() - back)
+        stamp = f'{day:%Y}/{day:%B}/{day.day:02d}'.lower()
+        for region in ('Europe', 'Americas', 'Asia'):
+            url = f'https://www.hltv.org/valve-ranking/teams/{stamp}/region/{region}'
+            page = fetch(url)
+            entry = {'url': url, 'status': page.get('status'), 'error': page.get('error')}
+            if page.get('status') != 200:
+                out['pages'].append(entry)
+                continue
+            text = BeautifulSoup(page['text'], 'html.parser').get_text(' ', strip=True)
+            rows = re.findall(r'#(\d+)\s*(.+?)\s*\((\d+) Valve points\)', text)
+            entry['rows'] = len(rows)
+            entry['sha256'] = page['sha256']
+            out['pages'].append(entry)
+            for rank, blob, points in rows:
+                # Team name is the last token run before the points parenthesis.
+                name = re.sub(r'\s+', ' ', blob).strip().split(' ')[-1] if blob else ''
+                for wanted in team_names:
+                    if wanted and wanted.casefold() in blob.casefold():
+                        out['teams'].setdefault(wanted, []).append(
+                            {'region': region, 'rank': int(rank), 'points': int(points),
+                             'printed': blob[-80:], 'url': url, 'observed_at': now()})
+            if rows:
+                out['latest_date'] = day.isoformat()
+                break
+        if out.get('latest_date'):
+            break
+    return out
 
 
 def bo3_probe():
@@ -242,8 +282,10 @@ def main() -> int:
         for team in fixtures[-1]['match'].get('teams') or []:
             if team.get('url') and '/team/' in team['url']:
                 fixtures[-1]['team_pages'].append(analyse_team(team['url']))
+    wanted = sorted({t.get('name') for f in fixtures for t in (f.get('match') or {}).get('teams') or [] if t.get('name')})
     report = {
         'probe': 'arena-1fb85c47 unresolved-fixture ground truth',
+        'valve_ranking': valve_ranking_probe(wanted),
         'generated_at': now(),
         'inventory_observed_at': latest.get('inventory_observed_at'),
         'counts': orig.get('counts'),
