@@ -1,0 +1,190 @@
+{
+  "session": "arena-69fb4127",
+  "observed_at": "2026-10-21T12:58:08Z",
+  "scope": "Independent verification of production refresh cadence, published aggregate coverage, source-row controls, and local generated site; no picks or probabilities changed.",
+  "production": {
+    "latest_scheduled_run": {
+      "id": 39565977314,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+      "conclusion": "success",
+      "created_at": "2026-10-21T08:00:01Z",
+      "completed_at": "2026-10-21T08:14:55Z",
+      "inventory_observed_at": "2026-10-21T08:12:23Z",
+      "steps_verified": [
+        "full regression tests",
+        "Hotspawn inventory refresh and lobby/CS2 page cross-check",
+        "research only unresolved fixtures",
+        "replay/build and row-source audit",
+        "GitHub Pages upload/deployment",
+        "verify_live"
+      ],
+      "published_inventory": {
+        "records": 91,
+        "upcoming": 29,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "coverage_complete": true,
+        "featured_picks": 19,
+        "featured_unresolved": 10
+      },
+      "complete_pick_ladder": {
+        "active": 29,
+        "resolved": 26,
+        "with_directional_pick": 25,
+        "unresolved": 3,
+        "consensus": 2,
+        "market": 13,
+        "bookmaker": 4,
+        "model": 7,
+        "guidance_only": 0,
+        "alias_joined": 2,
+        "equal_estimates_without_directional_pick": 1,
+        "counts_note": "The current summary builder explicitly labels resolved minus with_pick as equal estimates without a directional pick; 26 resolved minus 25 directional picks = 1."
+      },
+      "source_row_audit": {
+        "rows": 599,
+        "official_linked": 585,
+        "explicitly_flagged": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
+    },
+    "pages_api": {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+      "site_url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "status": "built",
+      "deployment_mode": "legacy"
+    },
+    "schedule": {
+      "workflow_source": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/.github/workflows/pages.yml",
+      "cron_expressions": [
+        "17 */4 * * *",
+        "47 2-22/4 * * *"
+      ],
+      "recent_successful_starts_utc": [
+        "2026-10-21T00:59:38Z",
+        "2026-10-21T04:46:59Z",
+        "2026-10-21T08:00:01Z"
+      ],
+      "observation": "Scheduled production run cadence is about 3h14m then 3h13m in these three starts. At audit time the latest production inventory was about 4h35m old; no later scheduled pages run was listed yet. The 4\u20138 hour freshness bound had not been exceeded."
+    }
+  },
+  "independent_read_only_refresh": {
+    "run_id": 39602171886,
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886",
+    "conclusion": "success",
+    "observed_at": "2026-10-21T12:45:41Z",
+    "inventory": {
+      "records": 81,
+      "crosscheck": "complete",
+      "verified_pages": [
+        "https://play.hotspawn.com/lobby",
+        "https://play.hotspawn.com/cs2-pickems"
+      ]
+    },
+    "fresh_source_replay": {
+      "canonical_nonpast_fixtures": 19,
+      "audited_rows": 19,
+      "supported_dated_estimates": 16,
+      "currently_usable_lines": 16,
+      "explicitly_unresolved": 3,
+      "result": "success"
+    },
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229139352/annotations",
+    "important_scope_note": "This was a read-only audit workflow on the session branch, not a production deployment. Its 81/19 counts are separate from the 08:00Z production snapshot's 91/29 counts and are not presented as live site data."
+  },
+  "method_and_sources": {
+    "hotspawn_inventory": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems"
+    ],
+    "outside_market_discovery": "https://polymarket.com/esports/cs2",
+    "bookmaker_sources_documented_by_pipeline": [
+      "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "https://docs.kalshi.com/api-reference/market/get-markets"
+    ],
+    "hltv_context": "https://www.hltv.org/matches",
+    "official_valve_standings": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+    "methodology_source": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/README.md"
+  },
+  "local_verification": {
+    "command": ".venv/bin/python -m scripts.build; .venv/bin/python -m scripts.audit_rows --site site --strict",
+    "result": "pass",
+    "details": [
+      "80 checked-in source rows reconciled and published picks/probabilities replayed from saved original evidence.",
+      "After adding the three dated Flagged for Review entries: 495 generated-site source rows, 481 officially linked, 5 explicitly flagged unverified, 9 navigation rows, 0 rows without a source or flag.",
+      "669 internal links/assets/anchors and project-subpath/mobile landmarks checked.",
+      "Eight Pages views and compatible legacy routes built; new audit flags render on the local Flagged for Review page."
+    ],
+    "scope_note": "The checked-in fixture snapshot is dated 2026-10-15; it is not treated as today's production snapshot.",
+    "full_suite_note": "The initial direct local full-suite attempt exceeded a 10-minute tool limit, and a second verbose attempt was stopped at 180 seconds while a nested pinned-clock determinism test re-ran the suite. The GitHub Actions validation run above completed the same full suite successfully, then completed build, source-row, mobile and accessibility checks.",
+    "review_flags_tests": ".venv/bin/python -m unittest tests.test_review_flags -v \u2014 4 passed."
+  },
+  "irregularities_for_review": [
+    {
+      "id": "69fb-production-artifact-individual-rows-not-readable",
+      "status": "unverified",
+      "finding": "GitHub Actions exposes the latest Pages artifact metadata and aggregate check annotations, but downloading its 15,126,310-byte github-pages artifact returned EOF because the signed download redirects to a blob-storage host unavailable from this workspace. Full run logs had the same restriction. I could not independently read the latest deployed HTML or identify the three production unresolved match names; no names or probabilities are guessed.",
+      "evidence": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314/artifacts",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
+      ]
+    },
+    {
+      "id": "69fb-next-scheduled-refresh-not-yet-listed",
+      "status": "monitor",
+      "finding": "At 12:47Z the latest scheduled production run was the 08:00Z run; the next scheduled run was not yet visible in the Actions run list. Published inventory was still within the requested 4\u20138 hour age bound. Continue monitoring the schedule; do not claim a missed refresh unless the bound is exceeded.",
+      "evidence": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314"
+      ]
+    },
+    {
+      "id": "69fb-three-production-fixtures-unresolved",
+      "status": "needs-row-level-review",
+      "finding": "The current production annotations show three active complete-ladder fixtures unresolved. The artifact and logs were not readable here, so names and exact source-by-source blockers cannot be confirmed in this independent audit. The build's existing policy leaves these values blank rather than inferring them; consult the live Unresolved picks & limitations / Flagged for Review pages for row-level details.",
+      "evidence": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
+      ]
+    },
+    {
+      "id": "69fb-local-fixture-snapshot-is-not-current",
+      "status": "disclosed",
+      "finding": "The source snapshot checked into this branch is dated 2026-10-15. The generated site/build checks pass against it, but its counts are not evidence of the current live match slate. Production freshness is instead confirmed from the scheduled run annotations.",
+      "evidence": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/data/latest.json"
+      ]
+    },
+    {
+      "id": "69fb-validation-expected-or-transient-source-annotations",
+      "status": "review-context",
+      "finding": "The branch validation workflow completed successfully, but its annotations endpoint reports four failure-level Hotspawn errors (HTTP 403 twice and lobby/API disagreement twice). Because the annotation context is unavailable and the independent fresh source audit completed successfully, this audit does not treat them as a failed published refresh; retain them for review.",
+      "evidence": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886"
+      ]
+    }
+  ],
+  "branch_validation": {
+    "run_id": 39602172050,
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050",
+    "conclusion": "success",
+    "completed_at": "2026-10-21T12:58:08Z",
+    "checks_passed": [
+      "full Python regression suite",
+      "build/replay and local links",
+      "strict official-source row audit",
+      "Playwright phone, desktop, no-JS, staleness and WCAG A/AA checks",
+      "expired/locked recommendation browser safety"
+    ],
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
+    "annotation_irregularity": "Four failure-level annotations mention Hotspawn HTTP 403 or lobby/API disagreement even though the complete validation job passed. A separate live read-only source/origination audit on the same branch completed successfully at 12:45Z with full Hotspawn lobby/CS2 cross-check. The annotation source context was not available, so these are recorded rather than interpreted as a production failure."
+  }
+}
