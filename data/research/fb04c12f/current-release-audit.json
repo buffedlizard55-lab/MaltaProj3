@@ -241,6 +241,82 @@
     {
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
       "purpose": "Published Flagged for Review page."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/111",
+      "purpose": "Merged audit/flag PR and merge SHA."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39604731385",
+      "purpose": "Post-merge production collection, build, deployment and live verification."
+    },
+    {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119237898871/annotations",
+      "purpose": "Post-merge live inventory and pick-ladder aggregates, plus row-source audit totals."
+    },
+    {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7226810239/statuses",
+      "purpose": "Successful deployment status for the post-merge live Pages site."
     }
-  ]
+  ],
+  "integration": {
+    "pr": {
+      "number": 111,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/111",
+      "state": "merged",
+      "merged_at": "2026-10-21T13:03:55Z",
+      "merge_sha": "ca2d583d61fff1edbea53813386cc2714356d072",
+      "checks": {
+        "dashboard_validation": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602567556",
+        "origination_source_audit": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602567966",
+        "both_passed": true
+      }
+    },
+    "post_merge_pages_run": {
+      "run_id": 39604731385,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39604731385",
+      "conclusion": "success",
+      "completed_at": "2026-10-21T13:18:49Z",
+      "all_pipeline_steps_passed": true,
+      "deployment_id": 7226810239,
+      "deployment_status": "success",
+      "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119237898871/annotations",
+      "fresh_inventory_observed_at": "2026-10-21T13:16:49Z",
+      "fresh_inventory": {
+        "records": 81,
+        "upcoming": 19,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "coverage_complete": true
+      },
+      "fresh_featured_snapshot": {
+        "market": 8,
+        "bookmaker": 0,
+        "model": 5,
+        "unresolved": 6,
+        "picks": 13
+      },
+      "fresh_complete_picks_ladder": {
+        "active": 19,
+        "resolved": 16,
+        "unresolved": 3,
+        "with_pick": 15,
+        "consensus": 2,
+        "market": 9,
+        "bookmaker": 1,
+        "model": 4,
+        "guidance": 0,
+        "alias_joined": 1
+      },
+      "fresh_row_source_audit": {
+        "rows": 550,
+        "with_official_links": 536,
+        "flagged_unverified": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "scope_note": "This is a new snapshot later than the 08:12Z run. Counts are reported as annotations state them; the two pick views have different method/scope semantics and are not additive. No per-fixture rows were exposed in these annotations."
+    },
+    "live_site": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  }
 }
