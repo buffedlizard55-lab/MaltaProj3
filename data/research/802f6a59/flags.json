@@ -1,0 +1,40 @@
+[
+  {
+    "id": "802f6a59-three-blanks-have-no-verifiable-input",
+    "severity": "warning",
+    "match_ids": ["1082762", "1082763", "1082837"],
+    "title": "Three fixtures still have no pick, and no reachable source publishes a compliant price for them (21 October 2026)",
+    "detail": "I re-researched the three blanks in the published snapshot (ex-CYBERSHOKE-BlinkDagger 1082762, UPGRADE-flacons 1082763, Zetta-LOS NINOS 1082837) against HLTV, an esportsbook board (Bovada), EGamersWorld's published prices and Valve's official global and regional tables. In each case one side is unranked everywhere and no two-sided match-winner price is published: BlinkDagger is 'Unranked' on both HLTV and VRS and has no recorded maps in 30 days; flacons and LOS NINOS appear in none of Valve's four 2026-10-05 tables; EGamersWorld prints identical 1.80/1.80 placeholder prices for both CIS LAN fixtures; Bovada's live CS2 board carried a CIS LAN Championship section but not these fixtures. The rows therefore stay blank and are listed with their blockers. No probability was invented to fill them.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_europe_2026_10_05.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md",
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/upgrade-vs-flacons-7Y3AgyjdHd",
+      "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+    ]
+  },
+  {
+    "id": "802f6a59-summary-source-label-misattributes-hltv-model",
+    "severity": "warning",
+    "match_ids": ["1082176"],
+    "title": "Executive summary labels an HLTV-ranking research pick as 'Valve'",
+    "detail": "On the live executive summary the Apogee Betclic vs aimclub row is resolved by the HLTV world-ranking research model and links https://www.hltv.org/ranking/teams, but the visible source label reads 'Valve'. The cause is a hardcoded label in the summary's glance renderer ('Valve' for every method='model' quote) that ignores the quote's own source URL. The number and the link are correct; only the attribution text is wrong. Fix requested from the session that owns that renderer; if the file is unowned at integration time this session will correct the label and add a regression assertion.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "802f6a59-egamersworld-placeholder-prices-on-blank-fixtures",
+    "severity": "notice",
+    "match_ids": ["1082762", "1082763"],
+    "title": "EGamersWorld prints identical 1.80/1.80 on both CIS LAN fixtures; one side's roster is unpublished",
+    "detail": "Both MPKBK CIS LAN Season 9 fixtures display exactly 1.80 on each side on EGamersWorld, with no bookmaker-average sentence. For UPGRADE vs flacons the flacons lineup block shows five 'noName' placeholders. This is the same placeholder pattern the reviewed aggregated-reference rung already rejects, so neither page can close a blank; it is recorded so the rejection is auditable rather than silent.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/upgrade-vs-flacons-7Y3AgyjdHd",
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/ex-cybershoke-vs-blinkdagger-5sOoK5oHU4"
+    ]
+  }
+]

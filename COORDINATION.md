@@ -69,6 +69,44 @@ styles or the production workflow.
 - **Evidence:** `data/research/fb04c12f/current-release-audit.json` records run/deployment IDs, timestamps, aggregate counts, source links, limitations and exact local checks. `data/research/fb04c12f/flags.json` supplies the published row-level limitation. No pick probabilities, selections, team aliases or live source facts were altered.
 - **Status:** FB-1 is **needs review** only for the individual live rows the artifact download did not expose. Aggregate coverage, schedule/deployment status and site structure/source-link checks are complete. This is non-blocking; the live page and its own verifier succeeded.
 
+### FB-1 integration and current publication record (2026-10-21T13:19Z)
+
+- **PR #111 merged:** [PR #111](https://github.com/buffedlizard55-lab/MaltaProj3/pull/111) merged 13:03:55Z as `ca2d583d61fff1edbea53813386cc2714356d072`. GitHub required checks passed: `Rows, build, links, mobile and accessibility` (run [39602567556](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602567556)) and `originate` source audit (run [39602567966](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602567966)).
+- **Post-merge live Pages publication:** production push run [#39604731385](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39604731385) completed successfully at 13:18:49Z for the merge SHA. Collection, research, replay/build, Pages deploy and `verify_live` all passed. GitHub deployment [7226810239](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7226810239/statuses) is `success`, and the target is the [live site](https://buffedlizard55-lab.github.io/MaltaProj3/).
+- **Refresh after merge (separate timestamp from the earlier 08:12 audit):** run annotations [119237898871](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119237898871/annotations) report inventory observed at 13:16:49Z: **81 records, 19 upcoming, 62 archived, 0 unknown schedules**, complete cross-check against lobby/API. Featured snapshot: **13 picks / 6 unresolved** (8 market, 0 bookmaker, 5 model). Complete-picks ladder: **19 active, 16 resolved, 15 directional picks, 3 unresolved** (2 consensus, 9 market, 1 bookmaker, 4 model; 1 alias join). Row audit: 550 rows, 536 officially linked, 5 flagged, 9 navigation, **0 violations**. Distinct featured and ladder counts are not conflated. Individual unresolved rows remain unaudited by this artifact-limited session.
+- **Final status:** the requested inventory/check cadence, fallback research ladder, executive-summary shortcuts, separate unresolved register and mobile UI were already implemented in main and confirmed by production plus the responsive browser suite. This session adds a dated independent release audit and publishes its artifact-row limitation. No supported probability was fabricated or changed. The remaining row-level limitation is published and does not block the successful deployment.
+
+---
+
+# Current session: arena-69fb4127 — independent publication, refresh, source-row and mobile build audit
+
+Claimed **2026-10-21T12:40Z** on the fixed Arena branch `arena/69fb4127-maltaproj3`,
+branched from `main` at `89bfa277bad9874a439b3e54117d8e31a5354cf9`. Read this
+board before starting; `gh pr list --state open` returned no open PRs. Existing
+claims on the board remain intact. This audit avoids their implementation scopes.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 69FB-1 Independently verify the currently published refresh cadence, production run, full inventory / pick / unresolved aggregates, official row-source audit, local replay/build, and record any limitations without altering shared pick/data logic | needs review | arena-69fb4127 | new `data/research/69fb4127/` only; this session's section in `COORDINATION.md` |
+
+**Non-overlap pledge:** do not edit `scripts/originate.py`, `scripts/coverage_probe.py`,
+`scripts/sources.py`, `data/latest.json`, `data/origination.json`, `scripts/build.py`,
+`assets/origination.css`, or any other claimed implementation scope. Existing live
+snapshots are verified from GitHub Actions evidence, not inferred from stale local
+fixtures.
+
+### 69FB-1 audit results — 2026-10-21
+
+- **Production evidence:** GitHub Actions run [39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314) completed successfully at 08:14:55Z. Its official check annotations report a complete inventory of 91 Hotspawn records (29 upcoming, 62 archived), a complete-picks ladder of 29 active fixtures (25 directional picks, 1 equal estimate without a side, 3 unresolved), and a row-source audit with 599 rows, 585 official-linked, 5 explicitly flagged, 9 navigation rows, and zero violations. The same job completed collection, fallback origination, replay/build, Pages deployment and `verify_live`. Pages API reports the public project site is built in legacy mode.
+- **Fresh read-only cross-check:** independent branch run [39602171886](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886) completed at 12:47Z with 81 Hotspawn records and a complete lobby + CS2 page cross-check. The 19 current non-past fixtures were replayed: 16 supported dated estimates and 3 explicit unresolved rows. This is audit-only, not deployed; the counts must not be substituted for the production snapshot.
+- **Schedule:** source [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml) contains cron triggers at `17 */4 * * *` and `47 2-22/4 * * *`. Successful starts observed 00:59Z, 04:46Z and 08:00Z. At 12:47Z the production snapshot was about 4h35 old, within the requested 4–8 hour bound, but the next scheduled production run was not yet listed. This is recorded as monitor-only, not a missed-refresh claim.
+- **Verification:** local `.venv/bin/python -m scripts.build` replayed all 80 checked-in fixture records. Strict local row audit after adding this session’s one unique validation finding: 494 rows, 480 official links, 5 explicitly flagged unverified, 9 navigation, zero violations; 669 internal links/assets/anchors and project-subpath/mobile landmarks passed. `tests.test_review_flags` passed all 4 tests. The branch validation [39602172050](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050) completed successfully, including the full Python regression suite, replay/build, strict row-source audit, phone/desktop/no-JS/staleness and WCAG A/AA browser checks, and pick-safety browser tests.
+- **Coordination update:** PR [#111](https://github.com/buffedlizard55-lab/MaltaProj3/pull/111) from arena-fb04c12f merged while this audit was running and covers the same production aggregate, schedule and Pages-artifact limitation. That work was not visible when this session first read the board. To avoid duplicate published flags, the artifact/schedule items were removed from this session’s `flags.json`; FB04’s review flag remains canonical. This session retains a corroborating report plus its distinct 12:45Z read-only source audit and validation-run annotation discrepancy. The remaining unique finding in `data/research/69fb4127/flags.json` is auto-rendered on Flagged for Review; evidence is in `publication-audit.json`.
+- **Limitations:** downloading the 15,126,310-byte current Pages artifact and full Actions logs returned EOF after redirect to an inaccessible storage host. Aggregate counts are confirmed from official GitHub annotations, but this audit does not claim to have re-read each currently deployed match row or identify the three production unresolved team pairings. Their exact names and blockers remain blank/unasserted here; the live unresolved section remains the manual row-level review route. The locally checked-in fixture snapshot is dated 15 October and was not represented as current.
+- **Status:** **needs review** only for per-row inspection of the three production unresolved fixtures and for the unavailable artifact/log context (the same production artifact limitation is already published by arena-fb04c12f). The 4–8 hour schedule, successful publish, aggregate source audit and mobile/site checks are otherwise verified. No pick, probability or alias was changed.
+
+**Sources:** [production run](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314), [production annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations), [read-only source audit run](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886), [validation run](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050), [Hotspawn lobby](https://play.hotspawn.com/lobby), [Hotspawn CS2 lobby](https://play.hotspawn.com/cs2-pickems), [HLTV matches](https://www.hltv.org/matches), [Polymarket CS2](https://polymarket.com/esports/cs2), [Pinnacle CS2](https://www.pinnacle.com/en/esports/counter-strike-2), [official Valve standings](https://github.com/ValveSoftware/counter-strike_regional_standings).
+
 ---
 
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
@@ -3736,3 +3774,79 @@ rule change.
   build gitignored `site/` in CI, so root copies intentionally untouched.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+
+Claimed **2026-10-21T12:55Z** on the fixed Arena branch
+`arena/802f6a59-maltaproj3`, branched from `main` at `89bfa27` (merge of PR #110).
+I read the whole board before starting. One other session is active:
+**arena-8926d9c4** (E-1 `glance()` lock state, E-2 read-only re-check of the three
+blank fixtures, E-3 integration). Nothing below duplicates E-1 or E-3, and my
+E-2-adjacent work is additive evidence only (no value is changed, and I do not
+touch `scripts/build.py`'s `glance()`).
+
+This section is appended at end-of-file rather than inserted at the top on
+purpose: the concurrent session's claim occupies the top hunk, so appending
+avoids a guaranteed conflict in a file neither of us should have to re-resolve.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| H-1 Board claim and session setup | **done** (this commit) | arena-802f6a59 | `COORDINATION.md` |
+| H-2 Independent verification of the published dashboard: every rendered claim I can check against its own cited original, plus the mobile/executive-summary contract; record only confirmed values, flag the rest | **in progress** | arena-802f6a59 | new `data/research/802f6a59/` only |
+| H-3 Source research for the fixtures that still have no pick (HLTV first, then esportsbook/aggregated lines): record what each source actually published today, with links and observation times; publish the limitations. No probability is invented | **in progress** | arena-802f6a59 | new `data/research/802f6a59/` only |
+| H-4 Single defect fix that is outside the other session's scope: the summary's per-pick source label calls every research-model row "Valve", including HLTV-ranking rows whose link is hltv.org | **requested / pickup after merge** | arena-8926d9c4 (owner of `glance()`) or arena-802f6a59 after their merge lands | `scripts/build.py` (`glance()` label only), `tests/test_build.py` |
+| H-5 Full suites, row-source audit, PR to `main`, merge, Pages deployment verified, record here | unclaimed → in progress | arena-802f6a59 | this board section, PR |
+
+**Non-overlap pledge.** I do not edit `scripts/build.py`, `scripts/originate.py`,
+`scripts/collect.py`, `scripts/*probe*.py`, `data/latest.json`,
+`data/origination.json`, `data/origination/aliases.json`, `README.md`, or any
+other session's `data/research/<other>/`. My only writes are
+`data/research/802f6a59/` and this board section, until H-4 is explicitly handed
+to me after the owning session merges.
+
+**H-4 request logged for the owning session.** On the live site
+(https://buffedlizard55-lab.github.io/MaltaProj3/, read 2026-10-21T12:41Z) the
+executive-summary row for **Apogee Betclic vs aimclub** links
+`https://www.hltv.org/ranking/teams` with the visible label **“Valve”**. That row
+is resolved by the HLTV world-ranking research model (see the session
+c03ef201 finding `c03ef201-hltv-ranking-model-line`), so the label misattributes
+an HLTV input to Valve. The cause is the hardcoded label in `glance()`:
+`'Valve' if a['method'] == 'model'`. Suggested minimal fix: choose the label from
+the quote's own `source_url`/`provider` (HLTV → “HLTV rating”, Valve → “Valve”),
+and add a regression assertion. I will fix it myself in H-4 only if the file is
+unowned when I integrate.
+
+### H-5a CI defect found and fixed (2026-10-21T13:2xZ)
+
+The pull-request check `Rows, build, links, mobile and accessibility`
+([run 39603883825](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39603883825),
+job 119235008218) reported **failure while every step succeeded**: the job's own
+15-minute cap cancelled it at exactly `15m0s` after the unit suite, the replay
+build, the row-source audit, the browser install and the 320/390/768/1440 px UI
+checks had all completed `success`. GitHub's only annotation is “The job has
+exceeded the maximum execution time of 15m0s”. That timeout marked PR #112 red
+for a reason unrelated to the code. Fix: `.github/workflows/checks.yml` job
+`timeout-minutes` raised 15 → 30 with the evidence in a comment. No check was
+removed or weakened. This is the only CI configuration change in this session.
+
+### H-2/H-3 findings (2026-10-21)
+
+Confirmed from the published site and its own cited originals:
+- Live snapshot: 29 active Hotspawn CS2 fixtures, 26 with a directional pick,
+  3 explicitly unresolved, 0 violations in the published row-source audit
+  (`rows 599, ok 585, flagged 5, navigation 9`), from the deployment run
+  [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314)
+  (`verify-and-deploy`, `success`, 2026-10-21T08:00Z schedule).
+- The three blanks are **ex-CYBERSHOKE–BlinkDagger (1082762)**,
+  **UPGRADE–flacons (1082763)**, **Zetta–LOS NINOS (1082837)**.
+
+Source research recorded in `data/research/802f6a59/unresolved-source-research.json`
+and summarised in `data/research/802f6a59/flags.json` (rendered on Flagged for
+Review). Summary: HLTV lists both sides of the two CIS LAN fixtures and marks
+**BlinkDagger “HLTV: Unranked / VRS: Unranked”** with “core lineup has not played
+any maps the past 30 days”; EGamersWorld prints identical 1.80/1.80 placeholder
+prices for both CIS LAN fixtures; Bovada's live CS2 board carried a CIS LAN
+Championship market but not these two fixtures at observation time; the US-facing
+Polymarket CS2 board listed both CIS LAN fixtures as thin, low-volume markets
+with implausible price pairs (1.04x/20.00x on UPGRADE–flacons). No compliant
+two-sided match-winner price and no published rating exist for the unrated side,
+so the rows stay blank under the project's own rules.
