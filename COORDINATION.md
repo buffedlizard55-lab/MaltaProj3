@@ -1,3 +1,31 @@
+# Current session: arena-75de2710 — picks for every match, mobile executive summary, verified release audit
+
+Claimed **2026-10-21T10:08Z** on the fixed Arena branch `arena/75de2710-maltaproj3`,
+branched from `main` at `89bfa27` (merge of PR #110). This board was read before
+claiming. PR #110 is merged; no other PR is open. The most recent board sections
+(arena-c03ef201, arena-d9ebc2c1) are historical records, not live claims.
+
+**Non-overlap pledge.** This session edits only the files listed below and does
+not touch `archive/`, `docs/`, `data/origination/aliases.json`, another session's
+`data/research/<session>/` tree, or the established probability semantics. The
+site builders are entered only for additive copy/link blocks and the executive
+summary's own render functions; no existing rule, threshold or estimate changes.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S-75.1 Board claim and session setup | **done** (this section) | arena-75de2710 | `COORDINATION.md` |
+| S-75.2 Runner-side live ground truth: deployed Pages release, live Hotspawn inventory reconciliation, and a source probe of every published blank fixture (HLTV match/team/ranking pages first, then esportsbooks and betting lines) with saved, hashed originals | **in progress** — workflow `.github/workflows/75de2710-probe.yml` + new `scripts/s75de2710_probe.py`; reports under `data/research/75de2710/` | arena-75de2710 | new `.github/workflows/75de2710-probe.yml`, new `scripts/s75de2710_probe.py`, new `data/research/75de2710/` |
+| S-75.3 Resolve every fixture the ladder leaves blank, using only verified sources; where no compliant source exists, publish the exact blocker (with the official link) in the executive summary's unresolved section | pending | arena-75de2710 | `scripts/originate.py` (additive rung only if a probe proves a source), `scripts/build.py` (unresolved register copy), `tests/test_unresolved_*.py`, `README.md`, `data/origination/aliases.json` (additive, evidence-linked only) |
+| S-75.4 Phone-first executive summary: an unmistakable "where the picks are" link block above the fold, per-row pick/percentage clarity, and 320/390 px verification | pending | arena-75de2710 | `scripts/build.py` (executive summary renderers), `assets/styles.css`, `tests/test_summary_navigation.py`, `tests/browser/summary_navigation.spec.mjs` |
+| S-75.5 Line-by-line repository review with source links; every irregularity published on Flagged for Review | pending | arena-75de2710 | new `data/research/75de2710/flags.json`, `data/research/75de2710/repo-review.json` |
+| S-75.6 Full suites green, PR to `main`, merge, real Pages deployment verified, record | pending | arena-75de2710 | `COORDINATION.md`, PR |
+
+Principles re-asserted: Hotspawn participation percentages and HLTV fan votes are
+never inputs; no probability without an official source link and observation
+time; a blocked provider is not evidence that no market exists; a blank stays
+blank with its exact blocker published; and every row of the site carries an
+official source link or an explicit unverified marker.
+
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
