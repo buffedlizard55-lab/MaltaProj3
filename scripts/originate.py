@@ -2088,6 +2088,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),
             'graph_rows_seen': (live_payload.get('bo3_graph') or {}).get('rows'),
             'graph_cutoff': (live_payload.get('bo3_graph') or {}).get('cutoff'),
+            'rows_without_winner': (live_payload.get('bo3_graph') or {}).get('rows_without_winner'),
+            'missing_winner_samples': (live_payload.get('bo3_graph') or {}).get('missing_winner_samples'),
             'graph_error': live_payload.get('bo3_graph_error'),
             'fit_matches': (network_document or {}).get('graph_matches'),
             'fit_teams': (network_document or {}).get('graph_teams'),

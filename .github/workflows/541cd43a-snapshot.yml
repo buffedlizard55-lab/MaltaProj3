@@ -8,6 +8,7 @@
 # It never deploys and it is never scheduled. It writes no probability, pick,
 # price or alias of its own: the snapshot copies what the published pipeline
 # produced, and the probe records what each source answered.
+# Run 5 (2026-10-21) — publish the no-winner row diagnostics.
 # Run 4 (2026-10-21) — diagnostics for finished rows that publish no winner.
 # Run 3 (2026-10-21): wider results graph (100 pages), published graph stats and
 # row-source audit capture. The GitHub token can read this repository but cannot
