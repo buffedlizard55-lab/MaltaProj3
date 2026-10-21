@@ -1,0 +1,40 @@
+[
+  {
+    "id": "f5223859-bovada-prefix-lead-1082762",
+    "severity": "warning",
+    "match_ids": ["1082762"],
+    "title": "Bovada lists CYBERSHOKE vs blinkdagger (1.125 / 5.750) for Hotspawn fixture 1082762 (ex-CYBERSHOKE vs BlinkDagger) without a published roster",
+    "detail": "The 2026-10-21 production coverage probe (run 39565977314, check-run 119108230359) recorded 'alias lead 1082762: Bovada [CYBERSHOKE, blinkdagger] -> [ex-CYBERSHOKE, BlinkDagger] (not applied)'. Bovada's CS2 coupon prices event 32524607 in CIS LAN Championship at the identical 2026-10-21T15:00:00Z start slot with Moneyline decimal odds 1.125 / 5.750 (83.6% / 16.4% no-vig), eliding the 'ex-' organization prefix shown by Hotspawn and HLTV match 2399839. Because Bovada does not publish player lineups on its coupon and BlinkDagger is unranked on both HLTV and Valve VRS, any alias join rests on same-competition/same-opponent/same-time triangulation and is flagged here for manual review.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+      "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+      "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
+    ]
+  },
+  {
+    "id": "f5223859-unrated-opponents-1082763-1082837",
+    "severity": "warning",
+    "match_ids": ["1082763", "1082837"],
+    "title": "Two 2026-10-21 low-tier fixtures (UPGRADE vs flacons, Zetta vs LOS NINOS) remain unresolved because one side has no market price and no Valve or HLTV rating",
+    "detail": "Live runner audit 39605051244 (check-run 119238973323, 2026-10-21T13:06Z) confirmed that neither UPGRADE vs flacons (1082763, CIS LAN Championship #9) nor Zetta vs LOS NINOS (1082837, CCT South America 2026 Series #7) has a two-sided match-winner line on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle. On EGamersWorld, 1082763 shows rejected 1.80 / 1.80 placeholder odds and five 'noName' player placeholders for flacons. In official rating tables (Valve 2026-10-05 global/regional standings and HLTV 2026-10-21 world ranking), UPGRADE (#74 HLTV / #86 VRS, 1185 Valve points) and Zetta (#241 HLTV / #366 VRS, 473 Valve points) are rated, but flacons and LOS NINOS have no rating rows and lack sufficient anchored bo3.gg series history for the results-based model. Both fixtures remain intentionally blank in the executive summary's unresolved section.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+      "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations"
+    ]
+  },
+  {
+    "id": "f5223859-hltv-equal-points-tie-1082836",
+    "severity": "notice",
+    "match_ids": ["1082836"],
+    "title": "HLTV world-ranking model resolves DAMAJUANA vs Hacha (1082836) at an exact 50.0% / 50.0% tie (2.0 vs 2.0 points) with no directional pick",
+    "detail": "In session live audit 39605051244 (2026-10-21T13:06:37Z), fixture 1082836 (DAMAJUANA vs Hacha) had no money-market or Valve-standings row, and resolved on the HLTV world-ranking research model rung. Because both DAMAJUANA (rank #233) and Hacha (rank #229) carry 2.0 points on the 2026-10-21 HLTV ranking publication, the 400-scale logistic transform yields 0.5 / 0.5 (fair decimal 2.0 / 2.0). Per project policy, an exact equal estimate produces 'No directional edge' rather than an arbitrary coin-flip pick, which accounts for the 1-fixture difference between 'resolved' (16) and 'with_pick' (15) in the live origination counts.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations"
+    ]
+  }
+]

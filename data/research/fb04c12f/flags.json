@@ -1,0 +1,16 @@
+[
+  {
+    "id": "fb04c12f-current-live-artifact-row-level-review",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "2026-10-21 live aggregate verified; individual unresolved rows need review",
+    "detail": "GitHub's successful scheduled production run 39565977314 reports a complete 91-record Hotspawn inventory, including 29 upcoming records, cross-checked against the fixture API and both lobby pages. Its check annotations report 26 resolved entries and 3 unresolved in the separate complete-picks ladder (25 directional picks), while the featured view reports 19 picks and 10 unresolved. These are different views and must not be combined. The workflow's row-source audit reports 599 rows, 585 official-linked, 5 explicitly flagged, 9 navigation rows, and 0 violations. The signed Pages archive could not be downloaded by this audit workspace (EOF), and aggregate annotations do not name the individual unresolved fixtures or expose their per-team probabilities. This is an independent audit limitation, not a reported deployment failure: the production build, deploy and verify_live steps succeeded. The checked-in JSON is from 15 October and is not substituted for current rows. Review current pick cards and their evidence on the live site; unsupported values remain blank.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7220904739/statuses",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "b8a142d2-test-diagnostics-emitted-as-live-check-errors",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Failure-level GitHub Actions annotations include expected failure-path test diagnostics",
+    "detail": "The successful scheduled run #39565977314 has four failure-level check annotations: three report HTTP 403 and one reports a lobby/API mismatch. The same run reports the regression-test step, live Hotspawn collection, build, deploy and verify_live steps all succeeded. The checked test file intentionally patches the collector to raise these same error strings in fail-closed tests, and the regression-test step precedes live collection. This is consistent with test-generated diagnostics, but the exact attribution could not be confirmed because the Actions log download returned EOF. The annotations can nevertheless look like a live source incident in the check UI. Flagged for review: distinguish expected failure-path test diagnostics from live operational failures. No match data or probabilities were changed. The Pages artifact itself could not be independently downloaded from this runner, so this finding does not verify individual fixture rows.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/tests/test_domain.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/scripts/collect.py"
+    ]
+  }
+]
