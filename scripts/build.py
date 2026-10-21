@@ -229,7 +229,20 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            # Same rule as the phone summary: an HLTV-ranking quote also has
+            # method 'model', so read the quote's own URL instead of assuming
+            # the Valve model (flagged by session 802f6a59).
+            if method == 'market':
+                basis_label = 'Market'
+            elif method == 'model':
+                basis_label = 'HLTV' if 'hltv.org' in str(a.get('source_url') or '') else 'Valve'
+            elif method == 'reference':
+                basis_label = 'Aggregated odds'
+            elif method == 'guidance':
+                basis_label = 'Wide book'
+            else:
+                basis_label = 'Bookmaker API'
+            out += external(a['source_url'], basis_label)
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -468,7 +481,22 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            # Name the source family the quote actually came from. An
+            # HLTV-ranking research quote carries method 'model' like the Valve
+            # model, but labelling it 'Valve' misattributes the source
+            # (flagged by session 802f6a59); read the quote's own URL.
+            source_host = (a.get('source_url') or '')
+            if a['method'] == 'market':
+                label = 'Market'
+            elif a['method'] == 'model':
+                label = 'HLTV' if 'hltv.org' in source_host else 'Valve'
+            elif a['method'] == 'reference':
+                label = 'Aggregated odds'
+            elif a['method'] == 'guidance':
+                label = 'Wide book'
+            else:
+                label = 'Bookmaker'
+            links += external(a['source_url'], label)
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])

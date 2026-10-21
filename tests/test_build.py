@@ -253,6 +253,21 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('70.0%', html)
         self.assertNotIn('50.0%', html)
 
+    def test_a_researched_model_names_the_ranking_page_it_came_from(self):
+        # Session arena-75de2710, following session 802f6a59's live finding:
+        # an HLTV-ranking quote also carries method 'model', but labelling it
+        # 'Valve' misattributes the source. The label must follow the URL.
+        m = self.match(8, 0.5, True, resolved=False)
+        fallback = {'id': '8', 'pick_index': 0, 'origination': {
+            'method': 'model', 'label': 'HLTV world-ranking research estimate',
+            'probabilities': [0.66, 0.34], 'fair_decimal': [1.515, 2.941],
+            'observed_at': m['observed_at'], 'source': 'HLTV world ranking',
+            'source_url': 'https://www.hltv.org/ranking/teams', 'quotes': []}}
+        html = glance({'matches': [m], 'fallbacks': {'8': fallback}}, '')
+        self.assertIn('href="https://www.hltv.org/ranking/teams"', html)
+        self.assertIn('>HLTV<', html)
+        self.assertNotIn('>Valve<', html)
+
     def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
         self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
 
