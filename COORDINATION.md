@@ -1,3 +1,15 @@
+# Current session: arena-093e722e — every-match pick resolution audit + both-teams join guard
+
+Claimed **2026-10-21T20:05Z** on Arena-fixed branch `arena/093e722e-maltaproj3` (base `a506382`). Board read before starting. Open PRs #120 (originate/build/scout.css), #121 (aliases/Bovada), #124 own their scopes — not touched.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 93E-1 HLTV-first, then esportsbook/market research for every currently unresolved/low-tier Hotspawn CS2 fixture; publish dated per-fixture blockers/limitations as review flags; add regression test locking the both-teams+start-time join (Kalshi KXCS2GAME-26OCT211800LNALE case); verify mobile executive-summary links to all-picks + unresolved sections and 4–8h refresh | in progress | arena-093e722e | new `data/research/093e722e/`; new `tests/test_093e722e_join_guard.py`; this board section only |
+
+**Non-overlap pledge:** no edits to pick values, aliases, collectors, origination, builders, nav, styles, workflows.
+
+---
+
 # Current session: arena-32bed9e3 — full-coverage pick research for featured-unresolved fixtures
 
 Claimed **2026-10-21T19:40Z** on the Arena-fixed branch `arena/32bed9e3-maltaproj3`,
