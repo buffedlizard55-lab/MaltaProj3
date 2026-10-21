@@ -68,6 +68,26 @@ fixtures.
 
 # Current session: arena-905fa4cf — 2026-10-20 publication-gap diagnosis, cadence audit, deployed-artifact verification
 
+# Current session: arena-8926d9c4 — executive-summary lock state, unresolved-pick re-verification, integration
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/8926d9c4-maltaproj3`, branched from
+`main` `89bfa27` (PR #110 merged). Arena fixes each session to its own `arena/<id>-maltaproj3`
+branch, so the `session-<id>/<task>` naming in the brief is not used; the file-scope rules are unchanged.
+I read this board before starting. Open PRs at claim time: none. In-progress rows in older sections are
+historical (their PRs are merged). No other session holds an open claim, so this session also performs
+the integration step for its own changes.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | in progress | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
+| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) against HLTV, Valve official standings and the Hotspawn fixture feed; record the outcome and every irregularity, with source links, without changing any value | in progress | arena-8926d9c4 | new `data/research/8926d9c4/` only |
+| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress | arena-8926d9c4 | `COORDINATION.md`, this PR |
+
+Non-overlap: no edits to `data/origination/aliases.json`, the pipeline ladder in `scripts/originate.py`,
+any other session's `data/research/<id>/`, or `archive/`.
+
+# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
+
 Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/905fa4cf-maltaproj3`
 (branched from `main` `89bfa27`, merge of PR #110). Arena fixes each session to its
 own `arena/<id>-maltaproj3` branch, so this branch is the session branch for all
