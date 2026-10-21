@@ -1,33 +1,43 @@
 {
-  "generated_at": "2026-10-21T13:02:48Z",
+  "generated_at": "2026-10-21T13:07:59Z",
   "copies": [
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/latest.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/latest.json.gz",
-      "bytes": 209094,
-      "compressed_bytes": 16547,
-      "sha256_of_original": "a9f4ce509630d07dd1557c0a88670d78a867ab086f12eceaf41fede1c41fce27"
+      "bytes": 209121,
+      "compressed_bytes": 16567,
+      "sha256_of_original": "8d72064d97147705a22ce27c96a856e239344028bd02e0620b1fa7c7ea47c5d2"
     },
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/sources.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/sources.json.gz",
-      "bytes": 23567,
-      "compressed_bytes": 4106,
-      "sha256_of_original": "9c798287e2d1e0a1999255e9e08044d1fd1b3028a8c92ece3d514a711d0839e9"
+      "bytes": 23565,
+      "compressed_bytes": 4108,
+      "sha256_of_original": "bb880569137e738e39689d7679feed084a3416b374abe4bc45733631491ccf2d"
     },
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/origination.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/origination.json.gz",
-      "bytes": 146718,
-      "compressed_bytes": 19165,
-      "sha256_of_original": "fc5f694d27aede185c906accd3a219fd2a49f73c5a5d47991560341947950e20"
+      "bytes": 147017,
+      "compressed_bytes": 19270,
+      "sha256_of_original": "ccd1d2e5a4fb7cf32ae9c1cc024df457ba550f0922ab439178b8663f65c8a468"
     }
   ],
   "build": {
     "command": "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python -m scripts.build",
     "exit_code": 0,
-    "row_source_audit": "Row-source audit: 551 rows, 536 with an official link, 5 flagged unverified, 9 site-map, 1 without a source",
-    "tail": "PASS: 81 source rows reconciled; every published probability and pick replayed from first-party evidence.\nRow-source audit: 551 rows, 536 with an official link, 5 flagged unverified, 9 site-map, 1 without a source\n::warning title=Rows without an official source::1 table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json\nPASS: 725 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.\nBuilt 8 current Pages views, compatible old URLs and explicitly archived session views in site",
-    "verified_at": "2026-10-21T13:02:48Z"
+    "row_source_audit": "Row-source audit: 551 rows, 537 with an official link, 5 flagged unverified, 9 site-map, 0 without a source",
+    "tail": "PASS: 81 source rows reconciled; every published probability and pick replayed from first-party evidence.\nRow-source audit: 551 rows, 537 with an official link, 5 flagged unverified, 9 site-map, 0 without a source\nPASS: 725 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.\nBuilt 8 current Pages views, compatible old URLs and explicitly archived session views in site",
+    "verified_at": "2026-10-21T13:07:59Z",
+    "row_source_audit_detail": {
+      "totals": {
+        "rows": 551,
+        "ok": 537,
+        "flagged": 5,
+        "navigation": 9,
+        "violation": 0
+      },
+      "violations": []
+    }
   }
 }
