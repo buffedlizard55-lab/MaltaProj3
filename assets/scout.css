@@ -28,6 +28,27 @@
 .briefing-links{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
 .briefing-links a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:650;color:var(--navy)}
 .prob-team{display:flex;flex-direction:column;gap:3px}
+
+/* Session 941ff196 — prominent executive-summary pick finder. */
+.exec-banner{background:var(--white);border:1px solid #f0dcc8;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:0 0 22px;box-shadow:var(--shadow)}
+.exec-banner-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#8a5a12;font-weight:650;margin:0 0 10px}
+.exec-banner h3{font-size:17px;letter-spacing:-.4px;margin:0 0 8px;color:var(--navy)}
+.exec-banner p{font-size:12px;line-height:1.8;color:#526472;margin:0 0 12px}
+.exec-banner-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.exec-banner-actions a{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:12px 14px;border-radius:10px;text-decoration:none!important;font-size:12px;font-weight:650;line-height:1.4}
+.exec-banner-actions a .label{display:flex;flex-direction:column;gap:3px;min-width:0}
+.exec-banner-actions a.primary{background:var(--orange);color:var(--navy-deep);border:1px solid var(--orange)}
+.exec-banner-actions a.secondary{background:#fff7ee;border:1px solid #f0dcc8;color:#7a3a14}
+.exec-banner-actions a.tertiary{background:#f8fafb;border:1px solid var(--border);color:#344e60}
+.exec-banner-actions a .sub{display:block;font-size:9px;font-weight:500;color:inherit;opacity:.85;margin-top:2px}
+.exec-banner-actions a:hover{filter:brightness(1.03)}
+.exec-banner-meta{font-size:10px;color:#7a8a98;margin-top:10px;line-height:1.7}
+@media(max-width:700px){
+  .exec-banner{padding:16px 14px;margin:0 0 20px}
+  .exec-banner h3{font-size:16px}
+  .exec-banner-actions{grid-template-columns:1fr;gap:9px}
+  .exec-banner-actions a{min-height:50px}
+}
 .fair-line{font-size:10px;font-weight:450;color:#576b79;white-space:nowrap}
 .identity-note{padding-left:10px;border-left:3px solid #c78736;font-size:12px;line-height:1.8}
 .match-row:target{outline:2px solid var(--orange-dark);outline-offset:-2px}

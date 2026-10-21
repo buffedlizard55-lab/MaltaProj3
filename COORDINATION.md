@@ -3532,14 +3532,41 @@ rule change.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 941-1 Audit current site vs. Hotspawn brief; verify every table row carries an official source link and flag hallucinations | in progress | arena-941ff196 | `COORDINATION.md`, `data/row-source-audit.json`, `data/research/941ff196/` |
-| 941-2 Mobile executive summary: prominent internal links to updated picks, phone-first readability pass | in progress | arena-941ff196 | `scripts/build.py` (additive), `assets/scout.css` (additive), `index.html` (generated) |
-| 941-3 Hotspawn reverse-engineering documentation and 4-8h refresh provenance: full inventory reconciliation and external betting-line analysis | in progress | arena-941ff196 | `scripts/build.py`, `methodology/` (generated), `coverage/` (generated) |
-| 941-4 HLTV → esportsbooks ladder verification for low-tier unresolved fallback and separate Unresolved picks & limitations section | in progress | arena-941ff196 | `scripts/build.py`, `origination/` (generated), `review/` (generated) |
-| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | unclaimed | arena-941ff196 | this board section, `site/` (artifact) |
+| 941-1 Audit current site vs. Hotspawn brief; verify every table row carries an official source link and flag hallucinations | **done** | arena-941ff196 | `COORDINATION.md`, `data/research/941ff196/` |
+| 941-2 Mobile executive summary: prominent internal links to updated picks, phone-first readability pass | **done** | arena-941ff196 | `scripts/build.py` (additive `exec_banner`), `assets/scout.css` (additive), `tests/test_941ff196.py` |
+| 941-3 Hotspawn reverse-engineering documentation and 4-8h refresh provenance: full inventory reconciliation and external betting-line analysis | **done** | arena-941ff196 | `scripts/build.py` (additive `#hotspawn-integration`), `tests/test_941ff196.py` |
+| 941-4 HLTV → esportsbooks ladder verification for low-tier unresolved fallback and separate Unresolved picks & limitations section | **done** | arena-941ff196 | `data/research/941ff196/audit.json`, `scripts/build.py` (guidance display fix) |
+| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | in progress | arena-941ff196 | this board section, `site/` (artifact) |
 
-### 941-1 Live audit — 2026-10-21
+### 941-1/941-4 Audit result — 2026-10-21 (evidence: `data/research/941ff196/audit.json`)
 
-_Working._
+- **Inventory:** checked-in snapshot `2026-10-15T08:36:04Z`, 80 Hotspawn CS2 records
+  (17 upcoming, 63 past-start, 0 unknown schedule), `coverage_complete: true`.
+  Reconciled across fixture API + lobby + CS2 lobby hydration; evidence in
+  `data/evidence/hotspawn-fixtures.json` (80 rows) and `hotspawn-context.json`.
+- **Featured method:** 13/17 picks (7 market, 1 bookmaker, 5 Valve model),
+  4 unresolved. **Complete researched list:** 17/17 with a pick (7 market,
+  5 bookmaker, 5 model, 4 alias-joined) — every featured gap closed by a
+  reviewed alias-joined Thunderpick paired-price line (WBT→WROTBERRY ×2,
+  HAVU Gaming→HAVU, ROUNDS→RoundsGG), all with official HLTV/Liquipedia
+  evidence in `data/origination/aliases.json`. No value inferred; every
+  probability sums to 1.0 and every row links Hotspawn + its analysis source.
+- **Row-source audit (strict):** 492 rows, 478 official-linked, 5 flagged
+  unverified (final-day page, explicit), 9 site-map, **0 violations**.
+  Internal link/asset/anchor check: 675 verified, exit 0.
+- **Unresolved sections:** executive summary (`#unresolved-register`,
+  `#unresolved`), complete list (`origination/#unresolved`), featured feed
+  (`picks/#unresolved`) and review page (`review/#unresolved`) all present
+  and interlinked; the checked-in snapshot has 0 complete-list blanks, and
+  the empty state says so explicitly instead of hiding the section.
+- **Refresh provenance:** `.github/workflows/pages.yml` schedules `17 */4 * * *`
+  + catch-up `47 2-22/4 * * *`; 8-hour stale bound enforced in `scripts/domain.py`
+  and rendered as a visible warning. The 6-day age of the checked-in fallback
+  snapshot is by design (live refresh runs on the GitHub runner); the site
+  labels it stale rather than current. Observed, not flagged.
+- **Mobile:** viewport meta, bottom `mobile-nav` (Summary/Picks/Edge/Sources/
+  Methods/Review), 700px/375px breakpoints, 44px+ tap targets, and the new
+  `exec-banner` stacking to one column under 700px. No probability, pick or
+  alias semantics changed; `collect.py`/`originate.py` untouched.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
