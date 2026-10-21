@@ -3767,3 +3767,11 @@ so the rows stay blank under the project's own rules.
   published with their blockers, because no reachable source publishes a
   compliant two-sided price and one side is unranked everywhere. That is the
   project's documented rule, not a gap in coverage.
+- **Addendum (2026-10-21T14:2xZ):** the record-only PR **#122 merged as `511701a`**
+  at 14:08:52Z after both checks passed (`Validate dashboard` 12m18s,
+  `originate` 1m46s). Its push run
+  [39614283289](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39614283289)
+  completed **success** (`verify-and-deploy`, including `verify_live`) and Pages
+  build [39614285034](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39614285034)
+  is `success` for the same commit, so the public site is live with this
+  session's evidence and findings.
