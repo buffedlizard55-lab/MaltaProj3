@@ -1,0 +1,16 @@
+[
+  {
+    "id": "69fb4127-hotspawn-validation-annotations",
+    "severity": "review",
+    "match_ids": [],
+    "title": "Successful validation included source-access error annotations",
+    "detail": "The branch validation run 39602172050 completed successfully, including the full Python suite, replay/build, strict source-row audit, phone/desktop/no-JavaScript and WCAG A/AA browser checks. Its annotations endpoint also reports four failure-level Hotspawn errors (HTTP 403 twice and lobby/API disagreement twice). A separate same-branch read-only live audit completed successfully at 12:47Z with the Hotspawn lobby and CS2 page cross-check and 19 current non-past fixtures. The annotation context is not available, so this audit records the discrepancy without attributing those errors to production or dismissing them.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886",
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems"
+    ]
+  }
+]
