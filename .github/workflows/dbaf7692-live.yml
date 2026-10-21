@@ -39,6 +39,8 @@ jobs:
         run: python -m scripts.originate --live
       - name: Document why any remaining pick is blank
         run: python -m scripts.coverage_probe --live || echo "::warning::coverage probe failed"
+      - name: Capture HLTV match pages / listed odds for pick-less fixtures
+        run: python -m scripts.dbaf7692_research || echo "::warning::HLTV odds probe failed"
       - name: Build the site from this snapshot
         run: python -m scripts.build
       - name: Summary
