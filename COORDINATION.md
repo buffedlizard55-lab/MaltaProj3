@@ -4067,3 +4067,21 @@ The sandbox cannot reach `github.io` directly, so the rendered DOM was not check
 - **Deploy annotations (source-level, the run still succeeded):** Hotspawn lobby HTTP 403 (several), "Lobby and API disagree" (one), and Pages
   "legacy build mode" after the configuration attempt (HTTP 403; "Resource not accessible by integration"). The workflow falls back to the last
   verified snapshot. Owner: `pages.yml` / the Hotspawn-source owner.
+
+---
+
+# Current session: arena-0582cbe9-maltaproj3 — full-coverage pick verification, Hotspawn reverse-engineering & mobile executive summary
+
+Claimed **2026-10-21T19:41Z** on the fixed Arena branch `arena/0582cbe9-maltaproj3`, branched from `main` at `46200d04c09fa84a61c5ef788b67e227d56a3615`.
+Read the entire board before starting. Existing feature claims (941ff196, 802f6a59, 8926d9c4, fb04c12f, 69fb4127) remain intact. This session does not invent picks or overwrite another session's research directory.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 0582-1 Line-by-line verification of every table row against official sources; record source links and flag hallucinations | in progress | arena-0582cbe9 | new `data/research/0582cbe9/` only; this board section |
+| 0582-2 Reverse-engineer Hotspawn lobby (API, hydration, cache, 4-8h refresh) and verify betting-line analysis for every CS2 fixture | in progress | arena-0582cbe9 | `data/research/0582cbe9/` only; doc updates in `README.md` if needed |
+| 0582-3 HLTV → esportsbook fallback ladder verification for low-tier matches; separate unresolved section audit and executive-summary inclusion | in progress | arena-0582cbe9 | `scripts/build.py` additive (exec banner clarity only), `assets/scout.css` additive (tap-target clarity), `data/research/0582cbe9/` |
+| 0582-4 Mobile-first executive summary: one-tap links to updated picks, readable probabilities & obvious picks on phone | in progress | arena-0582cbe9 | `scripts/build.py` additive, `assets/scout.css` additive, `data/research/0582cbe9/` |
+| 0582-5 Final rebuild, strict row-source audit (0 violations), link check, 85 browser mobile tests, PR to main, Pages deployment | unclaimed | arena-0582cbe9 | this board section, PR, site artifact |
+
+**Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/coverage_probe.py` semantics (probabilities, picks, aliases unchanged). It writes only to `data/research/0582cbe9/` and this board section, plus minimal additive UI copy/CSS that preserves all existing behavior. If a file is owned by another session, the request is logged here instead of editing.
+

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "0582cbe9-full-coverage-verified-17-of-17",
+    "title": "Full pick coverage verified: 17 of 17 active fixtures have a sourced line in the complete list",
+    "detail": "Checked 2026-10-21T19:41Z against data/origination.json (generated 2026-10-15T09:31:24Z, snapshot 08:36:04Z). 7 market (Polymarket CLOB midpoint, spread ≤0.12), 5 bookmaker (Thunderpick paired decimal, margin removed; 4 required alias join: WBT→WROTBERRY ×2, HAVU Gaming→HAVU, ROUNDS→RoundsGG with HLTV 13683/9332 + Liquipedia evidence in data/origination/aliases.json), 5 Valve model (RD 75, uncalibrated). Every probability sums to 1.0, every row links an official source (Hotspawn, Polymarket, Thunderpick, HLTV, Valve GitHub). Featured method alone left 4 unresolved (1080281,1080283,1080286,1080289); the originated ladder closed all 4 via Thunderpick. No value invented. Evidence: data/research/0582cbe9/audit.json, data/origination/aliases.json, data/evidence/*.json",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://polymarket.com/esports/cs2",
+      "https://thunderpick.io/api/matches",
+      "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ],
+    "match_ids": [
+      "1079440",
+      "1079442",
+      "1080280",
+      "1080202",
+      "1080281",
+      "1080203",
+      "1080282",
+      "1080204",
+      "1080283",
+      "1080284",
+      "1080285",
+      "1080286",
+      "1080287",
+      "1080288",
+      "1081120",
+      "1080289",
+      "1080290"
+    ],
+    "severity": "notice"
+  },
+  {
+    "id": "0582cbe9-hotspawn-reverse-engineered-and-refreshed-every-4h",
+    "title": "Hotspawn lobby reverse-engineered: full inventory every 4-8 hours, not Hotspawn popularity",
+    "detail": "Public fixture API (https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) is authoritative; lobby + CS2 lobby hydration (<script id='ng-state'>) are cross-checked (sources.py hotspawn()). CDN cache can lag >1h (X-Cache HIT Age 4500-5500s; fresh render via ?cb=<epoch> => MISS Age 0, evidence data/research/1112299f/lobby-probe.json). Workflow .github/workflows/pages.yml runs 17 */4 * * * + catch-up 47 2-22/4 * * *; stale bound 8h (scripts/domain.py). Hotspawn % picked never enters probability; all probabilities from external Polymarket/Thunderpick/Valve lines with replayed original evidence. Coverage: 80 records reconciled, 17 upcoming, 63 past-start archived. Evidence: data/research/0582cbe9/hotspawn-reverse-engineering.json, data/research/1112299f/hotspawn-contract.json, .github/workflows/pages.yml",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ],
+    "match_ids": [],
+    "severity": "notice"
+  },
+  {
+    "id": "0582cbe9-fallback-ladder-hltv-then-esportsbooks",
+    "title": "Low-tier fallback ladder verified: HLTV identity research first, then esportsbook betting lines, then rating model, else blank",
+    "detail": "For fixtures the featured Polymarket path does not resolve (sponsor/abbreviated names not silented), the originated ladder tries: 1) HLTV exact teams/time (https://www.hltv.org/matches) for identity + BO format only (fan votes never probability), 2) alias-joined Thunderpick paired prices (https://thunderpick.io/api/matches POST {gameIds:[6]}, margin removed), plus Kalshi/Bovada/Pinnacle where reachable, median consensus, 3) EGamersWorld aggregated average only as fallback (rejected on 1.80/1.80 placeholders), 4) Valve rating model (https://github.com/ValveSoftware/counter-strike_regional_standings, RD 75, uncalibrated), 5) HLTV ranking model or wide-book guidance, else blank. 2026-10-15 snapshot: 4 alias-joined Thunderpick lines closed the 4 featured gaps; 0 fixtures remain blank in the complete list. Every step logged in each match's research trail with source URL and status. Evidence: data/research/0582cbe9/fallback-ladder.json, data/origination.json, data/evidence/hltv-page.json, data/evidence/thunderpick-matches.json",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://thunderpick.io/api/matches",
+      "https://polymarket.com/esports/cs2",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+    ],
+    "match_ids": [
+      "1080281",
+      "1080283",
+      "1080286",
+      "1080289"
+    ],
+    "severity": "notice"
+  },
+  {
+    "id": "0582cbe9-executive-summary-one-tap-mobile",
+    "title": "Executive summary is one tap on a phone: every updated pick and the unresolved register",
+    "detail": "viewport meta + 6-item fixed bottom nav (Summary/Picks/Edge/Sources/Methods/Review, 44px tap targets). Top exec-banner (primary → origination/#picks '17 of 17 with a pick', secondary → picks/, tertiary → origination/#unresolved '0 without a line'), 5-item start-here jump bar, phone-first Picks at a glance (17 rows with MIBR 55.0% etc., Hotspawn+Market source links, Full detail), separate Unresolved picks & limitations section (with empty-state when 0), site-map table 'Every page on this site'. Probabilities in 21-22px type on ≤850px, pick obvious via ✓ + team name + fair line + green/purple badge. 85 browser tests pass at 320/390/768/1440 including axe A/AA (run npm test). Evidence: data/research/0582cbe9/mobile-audit.json, site/index.html (exec-banner, start-here, picks-at-a-glance, unresolved, site-map, mobile-nav)",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby"
+    ],
+    "match_ids": [],
+    "severity": "notice"
+  },
+  {
+    "id": "0582cbe9-stale-snapshot-not-current-live-data",
+    "title": "Checked-in snapshot is stale (6 days old); live refresh runs on GitHub, site warns correctly",
+    "detail": "data/latest.json inventory_observed_at 2026-10-15T08:36:04Z, generated 08:36:13Z, coverage_complete true but run_status partial-picks (4 featured unresolved). Local build replays this fallback fixture; live site's freshness label shows 'Snapshot needs attention' and stale-warning banner when older than 8h, per scripts/domain.py stale_after_hours 8. This is expected: four-hour scheduled workflow (.github/workflows/pages.yml) collects live on the runner; the repo's checked-in JSON is a reproducible fixture for tests, not the live feed. No current-pick completeness is claimed beyond the snapshot timestamp. Evidence: data/latest.json, data/origination.json, .github/workflows/pages.yml",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ],
+    "match_ids": [],
+    "severity": "warning"
+  },
+  {
+    "id": "0582cbe9-valve-model-uncalibrated",
+    "title": "5 Valve-rating estimates are uncalibrated research models, not betting odds",
+    "detail": "Fixtures 1080202 (9z 15.7% vs Falcons 84.3%), 1080203 (PARIVISION 26.2% vs BetBoom 73.8%), 1080282 (EAC 96.1% vs BOJONG 3.9%), 1080284 (EAC 51.4% vs ENCE 48.6%), 1081120 (mellren 86.0% vs Privateer 14.0%) use Valve official standings 2026-10-05 (global 380 rows) with RD 75 via Valve model/fit.js. Duplicate exact-name rows, incomplete rosters, or >35d snapshots are rejected. Current lineups, stand-ins, vetoes unverified; not backtested. Labeled 'Valve-rating research estimate' on every row, never overriding a market line. Evidence: data/evidence/valve-ratings.json, https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js, data/origination.json limitations",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ],
+    "match_ids": [
+      "1080202",
+      "1080203",
+      "1080282",
+      "1080284",
+      "1081120"
+    ],
+    "severity": "notice"
+  }
+]

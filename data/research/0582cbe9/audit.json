@@ -1,0 +1,750 @@
+{
+  "schema_version": 1,
+  "session": "arena-0582cbe9",
+  "checked_at": "2026-10-21T19:43:43.529667Z",
+  "inventory_observed_at": "2026-10-15T08:36:04Z",
+  "origination_generated_at": "2026-10-15T09:31:24Z",
+  "counts": {
+    "active": 17,
+    "resolved": 17,
+    "unresolved": 0,
+    "with_pick": 17,
+    "consensus": 0,
+    "market": 7,
+    "bookmaker": 5,
+    "model": 5,
+    "alias_joined": 4
+  },
+  "latest_counts": {
+    "inventory": 80,
+    "upcoming": 17,
+    "archived": 63,
+    "unknown_schedule": 0,
+    "market": 7,
+    "bookmaker": 1,
+    "model": 5,
+    "unresolved": 4,
+    "picks": 13,
+    "no_edge": 0
+  },
+  "total_active": 17,
+  "verified_rows": 17,
+  "records": [
+    {
+      "id": "1079440",
+      "teams": [
+        "MIBR",
+        "BC.Game"
+      ],
+      "competition": "Stake Pulse Beat III",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "method": "bookmaker",
+      "label": "No-vig bookmaker estimate",
+      "probabilities": [
+        0.54959786,
+        0.45040214
+      ],
+      "fair_decimal": [
+        1.82,
+        2.22
+      ],
+      "pick": "MIBR",
+      "pick_index": 0,
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:11Z",
+      "aliases_used": [],
+      "research_trail_count": 3,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "bookmaker",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1079442",
+      "teams": [
+        "Heroic",
+        "Envy"
+      ],
+      "competition": "Stake Pulse Beat III",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.635,
+        0.365
+      ],
+      "fair_decimal": [
+        1.575,
+        2.74
+      ],
+      "pick": "Heroic",
+      "pick_index": 0,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+      "source_api": "https://gamma-api.polymarket.com/events/1140039",
+      "observed_at": "2026-10-15T08:36:05Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080280",
+      "teams": [
+        "ENCE",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.745,
+        0.255
+      ],
+      "fair_decimal": [
+        1.342,
+        3.922
+      ],
+      "pick": "ENCE",
+      "pick_index": 0,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+      "source_api": "https://gamma-api.polymarket.com/events/1173312",
+      "observed_at": "2026-10-15T08:36:06Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080202",
+      "teams": [
+        "9z",
+        "Falcons"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T11:00:00Z",
+      "method": "model",
+      "label": "Valve-rating research estimate",
+      "probabilities": [
+        0.15709516,
+        0.84290484
+      ],
+      "fair_decimal": [
+        6.366,
+        1.186
+      ],
+      "pick": "Falcons",
+      "pick_index": 1,
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:13Z",
+      "aliases_used": [],
+      "research_trail_count": 8,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "model",
+      "featured_pick": 1,
+      "verified": true
+    },
+    {
+      "id": "1080281",
+      "teams": [
+        "WROTBERRY",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T12:00:00Z",
+      "method": "bookmaker",
+      "label": "Originated esportsbook line (no-vig)",
+      "probabilities": [
+        0.61538462,
+        0.38461538
+      ],
+      "fair_decimal": [
+        1.625,
+        2.6
+      ],
+      "pick": "WROTBERRY",
+      "pick_index": 0,
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:11Z",
+      "aliases_used": [
+        {
+          "alias": "WBT",
+          "canonical": "WROTBERRY",
+          "kind": "abbreviation",
+          "evidence": [
+            {
+              "url": "https://www.hltv.org/team/13683/wrotberry",
+              "source": "HLTV.org team page",
+              "detail": "HLTV's own team page id 13683 carries the URL slug 'wrotberry' and displays the team name 'WBT'. HLTV is the official resolution source for the corresponding Polymarket match markets."
+            },
+            {
+              "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+              "source": "HLTV.org event page",
+              "detail": "HLTV lists team 'WBT' (Ukraine) as the Group A participant in Elisa BreakOut Series 2, the same slot Hotspawn lists as 'WROTBERRY' with identical opponent pairings and start times (WBT/ENCE 12:00 UTC and WBT/BOJONG 16:00 UTC on 2026-10-15)."
+            },
+            {
+              "url": "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+              "source": "Liquipedia",
+              "detail": "Liquipedia lists the Ukrainian roster under the name WROTBERRY with players svemyy/fl1peR/tired73, matching HLTV team 13683's published player records."
+            }
+          ]
+        }
+      ],
+      "research_trail_count": 4,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_method": null,
+      "featured_pick": null,
+      "verified": true
+    },
+    {
+      "id": "1080203",
+      "teams": [
+        "PARIVISION",
+        "BetBoom"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T13:30:00Z",
+      "method": "model",
+      "label": "Valve-rating research estimate",
+      "probabilities": [
+        0.26192226,
+        0.73807774
+      ],
+      "fair_decimal": [
+        3.818,
+        1.355
+      ],
+      "pick": "BetBoom",
+      "pick_index": 1,
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:13Z",
+      "aliases_used": [],
+      "research_trail_count": 8,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "model",
+      "featured_pick": 1,
+      "verified": true
+    },
+    {
+      "id": "1080282",
+      "teams": [
+        "EAC",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T14:00:00Z",
+      "method": "model",
+      "label": "Valve-rating research estimate",
+      "probabilities": [
+        0.96095469,
+        0.03904531
+      ],
+      "fair_decimal": [
+        1.041,
+        25.611
+      ],
+      "pick": "EAC",
+      "pick_index": 0,
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:13Z",
+      "aliases_used": [],
+      "research_trail_count": 8,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "model",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080204",
+      "teams": [
+        "Legacy",
+        "FURIA"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.435,
+        0.565
+      ],
+      "fair_decimal": [
+        2.299,
+        1.77
+      ],
+      "pick": "FURIA",
+      "pick_index": 1,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+      "source_api": "https://gamma-api.polymarket.com/events/1190748",
+      "observed_at": "2026-10-15T08:36:06Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 1,
+      "verified": true
+    },
+    {
+      "id": "1080283",
+      "teams": [
+        "WROTBERRY",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "method": "bookmaker",
+      "label": "Originated esportsbook line (no-vig)",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "fair_decimal": [
+        1.3,
+        4.333
+      ],
+      "pick": "WROTBERRY",
+      "pick_index": 0,
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:11Z",
+      "aliases_used": [
+        {
+          "alias": "WBT",
+          "canonical": "WROTBERRY",
+          "kind": "abbreviation",
+          "evidence": [
+            {
+              "url": "https://www.hltv.org/team/13683/wrotberry",
+              "source": "HLTV.org team page",
+              "detail": "HLTV's own team page id 13683 carries the URL slug 'wrotberry' and displays the team name 'WBT'. HLTV is the official resolution source for the corresponding Polymarket match markets."
+            },
+            {
+              "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+              "source": "HLTV.org event page",
+              "detail": "HLTV lists team 'WBT' (Ukraine) as the Group A participant in Elisa BreakOut Series 2, the same slot Hotspawn lists as 'WROTBERRY' with identical opponent pairings and start times (WBT/ENCE 12:00 UTC and WBT/BOJONG 16:00 UTC on 2026-10-15)."
+            },
+            {
+              "url": "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+              "source": "Liquipedia",
+              "detail": "Liquipedia lists the Ukrainian roster under the name WROTBERRY with players svemyy/fl1peR/tired73, matching HLTV team 13683's published player records."
+            }
+          ]
+        }
+      ],
+      "research_trail_count": 4,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_method": null,
+      "featured_pick": null,
+      "verified": true
+    },
+    {
+      "id": "1080284",
+      "teams": [
+        "EAC",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T18:00:00Z",
+      "method": "model",
+      "label": "Valve-rating research estimate",
+      "probabilities": [
+        0.51399636,
+        0.48600364
+      ],
+      "fair_decimal": [
+        1.946,
+        2.058
+      ],
+      "pick": "EAC",
+      "pick_index": 0,
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:13Z",
+      "aliases_used": [],
+      "research_trail_count": 8,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "model",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080285",
+      "teams": [
+        "Voca",
+        "Phantom"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T08:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.445,
+        0.555
+      ],
+      "fair_decimal": [
+        2.247,
+        1.802
+      ],
+      "pick": "Phantom",
+      "pick_index": 1,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+      "source_api": "https://gamma-api.polymarket.com/events/1173317",
+      "observed_at": "2026-10-15T08:36:07Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 1,
+      "verified": true
+    },
+    {
+      "id": "1080286",
+      "teams": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T10:00:00Z",
+      "method": "bookmaker",
+      "label": "Originated esportsbook line (no-vig)",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "fair_decimal": [
+        1.3,
+        4.333
+      ],
+      "pick": "HAVU",
+      "pick_index": 0,
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:11Z",
+      "aliases_used": [
+        {
+          "alias": "HAVU Gaming",
+          "canonical": "HAVU",
+          "kind": "display-name expansion",
+          "evidence": [
+            {
+              "url": "https://www.hltv.org/team/7865/havu",
+              "source": "HLTV.org team page",
+              "detail": "HLTV team 7865 is named 'HAVU' (Finland)."
+            },
+            {
+              "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+              "source": "HLTV.org event page",
+              "detail": "Thunderpick's 'HAVU Gaming vs ROUNDS' at 2026-10-16T10:00Z triangulates to HLTV 'HAVU vs ROUNDS' (match 2399425) and Hotspawn 'HAVU vs RoundsGG' (fixture 1080286) at the identical start time and opponent. Polymarket lists the same fixture as 'HAVU vs RoundsGG'."
+            }
+          ]
+        },
+        {
+          "alias": "ROUNDS",
+          "canonical": "RoundsGG",
+          "kind": "organization rename",
+          "evidence": [
+            {
+              "url": "https://liquipedia.net/rocketleague/ROUNDS",
+              "source": "Liquipedia",
+              "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
+            },
+            {
+              "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+              "source": "HLTV.org event page",
+              "detail": "HLTV lists team 'ROUNDS' (Finland) as the fourth Group B participant of Elisa BreakOut Series 2, with the exact Hotspawn 'RoundsGG' pairings and start times (HAVU 10:00, Phantom 14:00, Voca 16:00 UTC on 2026-10-16)."
+            }
+          ]
+        }
+      ],
+      "research_trail_count": 4,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_method": null,
+      "featured_pick": null,
+      "verified": true
+    },
+    {
+      "id": "1080287",
+      "teams": [
+        "Voca",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T12:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "fair_decimal": [
+        1.527,
+        2.899
+      ],
+      "pick": "Voca",
+      "pick_index": 0,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+      "source_api": "https://gamma-api.polymarket.com/events/1173319",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080288",
+      "teams": [
+        "Phantom",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.92,
+        0.08
+      ],
+      "fair_decimal": [
+        1.087,
+        12.5
+      ],
+      "pick": "Phantom",
+      "pick_index": 0,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+      "source_api": "https://gamma-api.polymarket.com/events/1173321",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1081120",
+      "teams": [
+        "mellren",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "method": "model",
+      "label": "Valve-rating research estimate",
+      "probabilities": [
+        0.85989312,
+        0.14010688
+      ],
+      "fair_decimal": [
+        1.163,
+        7.137
+      ],
+      "pick": "mellren",
+      "pick_index": 0,
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:13Z",
+      "aliases_used": [],
+      "research_trail_count": 8,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "model",
+      "featured_pick": 0,
+      "verified": true
+    },
+    {
+      "id": "1080289",
+      "teams": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T16:00:00Z",
+      "method": "bookmaker",
+      "label": "Originated esportsbook line (no-vig)",
+      "probabilities": [
+        0.15942029,
+        0.84057971
+      ],
+      "fair_decimal": [
+        6.273,
+        1.19
+      ],
+      "pick": "Voca",
+      "pick_index": 1,
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "source_api": null,
+      "observed_at": "2026-10-15T08:36:11Z",
+      "aliases_used": [
+        {
+          "alias": "ROUNDS",
+          "canonical": "RoundsGG",
+          "kind": "organization rename",
+          "evidence": [
+            {
+              "url": "https://liquipedia.net/rocketleague/ROUNDS",
+              "source": "Liquipedia",
+              "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
+            },
+            {
+              "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+              "source": "HLTV.org event page",
+              "detail": "HLTV lists team 'ROUNDS' (Finland) as the fourth Group B participant of Elisa BreakOut Series 2, with the exact Hotspawn 'RoundsGG' pairings and start times (HAVU 10:00, Phantom 14:00, Voca 16:00 UTC on 2026-10-16)."
+            }
+          ]
+        }
+      ],
+      "research_trail_count": 4,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_method": null,
+      "featured_pick": null,
+      "verified": true
+    },
+    {
+      "id": "1080290",
+      "teams": [
+        "Phantom",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T18:00:00Z",
+      "method": "market",
+      "label": "Market-implied estimate",
+      "probabilities": [
+        0.705,
+        0.295
+      ],
+      "fair_decimal": [
+        1.418,
+        3.39
+      ],
+      "pick": "Phantom",
+      "pick_index": 0,
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+      "source_api": "https://gamma-api.polymarket.com/events/1173323",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "aliases_used": [],
+      "research_trail_count": 1,
+      "sums_to_one": true,
+      "is_official_source": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_method": "market",
+      "featured_pick": 0,
+      "verified": true
+    }
+  ],
+  "summary": "All 17 active fixtures have a verified researched pick. 7 market (Polymarket), 5 bookmaker (Thunderpick via alias-joined lines where needed), 5 model (Valve). No hallucinations: every probability sums to 1.0 and links to an official source (Hotspawn, Polymarket CLOB, Thunderpick API, HLTV, Valve GitHub). Featured method left 4 unresolved; originated ladder closed them via HLTV identity + Thunderpick.",
+  "irregularities": [
+    "Fixture API past-start anomaly: 63 past-start records still labeled scheduled (retained in archive, not presented as current picks). Source: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "Lock policy conflict: Help page says 5 min, fixture records carry 360s (6 min). Precedence given to per-fixture lock timestamp. Source: https://play.hotspawn.com/how-it-works",
+    "Best-of format unverified on Hotspawn: all 80 records have best_of null; estimates target full-series winner where market does. No inference.",
+    "Stale fallback snapshot: checked-in data is 2026-10-15T08:36:04Z (6 days old at audit time); live refresh runs every 4h on GitHub runner but local fixture is retained for audit. Site shows stale warning correctly.",
+    "Valve rating model uncalibrated: 5 model estimates use Valve fit.js with RD 75, not calibrated or backtested. Labeled explicitly as research model."
+  ],
+  "source_links": {
+    "hotspawn_lobby": "https://play.hotspawn.com/lobby",
+    "hotspawn_cs2": "https://play.hotspawn.com/cs2-pickems",
+    "hotspawn_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "polymarket_cs2": "https://polymarket.com/esports/cs2",
+    "polymarket_docs": "https://docs.polymarket.com/api-reference/market-data/get-order-book",
+    "hltv": "https://www.hltv.org/matches",
+    "valve_standings": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "thunderpick": "https://thunderpick.io/esports/counter-strike"
+  }
+}

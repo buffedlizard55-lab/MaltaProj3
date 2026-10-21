@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "session": "arena-0582cbe9",
+  "checked_at": "2026-10-21T19:45:21.973896Z",
+  "title": "Hotspawn lobby reverse-engineering — how we get a full list every 4-8 hours",
+  "endpoints": {
+    "fixture_api": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "auth": "none — public JSON, same array the Hotspawn Angular client hydrates",
+      "evidence": "data/evidence/hotspawn-fixtures.json (80 rows, 2026-10-15T08:36:04Z), SHA256 9e94059a6d9901b70d3402e83dcdd994f568f711650c9fec57c55b08a2672104",
+      "contract": "Unpaginated array of CS2 fixtures with id, participants, scheduled_start_time, lock_time, competition_name, tier, offered_points. If response is not an array, or has duplicate IDs, or is empty, refresh fails closed (scripts/sources.py).",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    },
+    "lobby_hydration": {
+      "url": "https://play.hotspawn.com/lobby",
+      "method": "GET (server-rendered HTML)",
+      "how": "Parse <script id='ng-state'> JSON. Same fixture array appears under value.u == '/api/v1/fixtures' with s==200. Also contains permalink map.",
+      "evidence": "data/evidence/hotspawn-context.json, lobby-probe.json (2026-10-15T22:25:16Z, 86 fixtures)",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    "cs2_lobby": {
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "method": "GET",
+      "how": "Same hydration as lobby, filtered to CS2 picks view. Used as cross-check; must exactly match API IDs when readable.",
+      "evidence": "data/evidence/hotspawn-context.json",
+      "source_url": "https://play.hotspawn.com/cs2-pickems"
+    },
+    "week_prizes": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget",
+      "note": "Weekly window Mon 12 Oct 00:00 UTC — Sun 18 Oct 23:59:59.999 UTC (weekId 270, OPEN). Prizes: $400/$200/$100/$50x7 Steam vouchers. Source of tier point math.",
+      "evidence": "data/research/1112299f/lobby-probe.json, hotspawn-contract.json H-05/H-06",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget"
+    },
+    "rules": {
+      "url": "https://play.hotspawn.com/how-it-works",
+      "note": "Lock rule says 5 min; fixture data says 360s (6 min). Published as conflict, per-fixture lock timestamp takes precedence.",
+      "evidence": "data/research/1112299f/hotspawn-contract.json H-02, data/evidence/hotspawn-rules.json",
+      "source_url": "https://play.hotspawn.com/how-it-works"
+    }
+  },
+  "cache_behavior": {
+    "observation": "Server-rendered lobby pages are CDN-cached (X-Cache: HIT, Age 4500-5500s, growing ~27s between reads) while fixture API is live (no cache headers). Fixture list in HTML can lag >1h.",
+    "evidence": "data/research/1112299f/lobby-probe.json rounds 1-3 plain vs cache-busted ?cb=<epoch> => X-Cache MISS Age 0",
+    "mitigation": "Collector requests fresh render (?cb=<epoch>), retries once, names differing IDs and cache state on failure (scripts/sources.py fresh_url).",
+    "source_url": "https://play.hotspawn.com/lobby"
+  },
+  "refresh_cadence": {
+    "workflow": ".github/workflows/pages.yml",
+    "schedule": [
+      "17 */4 * * * (primary, e.g., 00:17,04:17,08:17 UTC)",
+      "47 2-22/4 * * * (catch-up 2.5h later)"
+    ],
+    "rationale": "GitHub drops/delays scheduled runs under load (2026-10-15 only 04:39,13:26,19:53 ran → 8.8h gap). Two offsets ensure a refresh within ~4h; stale bound 8h in scripts/domain.py shows warning.",
+    "stale_rule": "Fresh if observed_at within 8h and not in future; otherwise banner 'Do not treat these as current picks' (data/latest.json stale_after_hours 8).",
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+  },
+  "coverage_guarantee": "Every CS2 record returned by scheduled-fixture API, reconciled with both lobby payloads. Future starts separate from past-start anomalies (63 past-start still labeled scheduled, archived). New matches rediscovered on every successful refresh; failures retain last-good snapshot with original timestamps (pages.yml fallback).",
+  "prohibited": "Hotspawn % picked never enters probability; best-of, lineups, results never inferred; empty or duplicate inventory never accepted as success."
+}
