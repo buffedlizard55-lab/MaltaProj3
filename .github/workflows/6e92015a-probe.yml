@@ -1,0 +1,67 @@
+# Session arena-6e92015a — read-only full-coverage research for blank fixtures.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV or bookmakers; the GitHub
+# runner does. This workflow never deploys and never rewrites a published
+# dataset. It runs the live ladder (collect + originate) to learn the current
+# blank list, then probes HLTV-first and every betting-line surface for those
+# fixtures, and commits only the dated report and hashed originals under
+# data/research/6e92015a/.
+#
+# The guarded push trigger skips the workflow's own report commit, so a report
+# push can never re-trigger the probe in a loop.
+name: 6e92015a blank-fixture research probe (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/6e92015a-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: s6e92015a-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(6e92015a)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run the live ladder (collect + originate) to learn the current blanks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          row = json.loads(Path('data/origination.json').read_text())
+          blanks = [m for m in row['matches'] if m.get('origination') is None
+                    and m.get('availability') in {'open', 'locked', 'unknown_lock'}]
+          print('fresh ladder:', row.get('counts'))
+          print('blank fixtures:', [(b['id'], [t['name'] for t in b['teams']]) for b in blanks])
+          PY
+      - name: Restore tracked data so only this session's reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination/evidence data/research/twc-current >/dev/null 2>&1 || true
+          git status --porcelain | head -40
+      - name: Run the read-only probe
+        run: python -m scripts.s6e92015a_probe --live
+      - name: Commit the dated report and hashed originals
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/6e92015a/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(6e92015a): blank-fixture source probe and coverage report'
+          git pull --rebase origin arena/6e92015a-maltaproj3
+          git push origin arena/6e92015a-maltaproj3
