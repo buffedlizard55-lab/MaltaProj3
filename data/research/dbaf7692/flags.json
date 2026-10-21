@@ -73,20 +73,5 @@
       "https://www.hltv.org/ranking/teams",
       "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858"
     ]
-  },
-  {
-    "id": "dbaf7692-zetta-los-ninos-join-still-wrong",
-    "severity": "warning",
-    "match_ids": [
-      "1082837"
-    ],
-    "title": "Zetta vs LOS NINOS (1082837) still publishes a market-backed pick whose market names a different opponent",
-    "detail": "Re-checked 2026-10-21T20:10Z. HLTV match 2399865 is 'Zetta vs LOS NINOS', CCT 2026 South America Series 7, Best of 3, Swiss round 5, 18:00 on 21 October. Polymarket's CCT South America page lists 'Alianza Lima Esports vs Los Ninos' (cs2-ale1-ln-2026-10-21) at 6:00 PM and has no Zetta market; the Kalshi market previously joined to this fixture is titled 'Los Ninos vs Alianza Lima Esports'. Alianza Lima Esports is a separate participant, not a verified alias of Zetta. The 2026-10-21T20:04Z live origination snapshot nevertheless carries method 'consensus' with a directional pick for this fixture. Treat that pick as UNVERIFIED and do not use it for the leaderboard. The earlier flag 32bed9e3-zetta-los-ninos-opponent-mismatch remains the canonical record; this entry is the same-session re-verification against the current Polymarket listing, not a new claim. The collector-side fix (require both team names and the start time before any join) is still outstanding and is requested again in COORDINATION.md.",
-    "source_urls": [
-      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
-      "https://polymarket.com/esports/cs2/cct-south-america",
-      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
-      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837"
-    ]
   }
 ]

@@ -213,5 +213,16 @@
       }
     ],
     "note": "Produced by the production pipeline on this branch after the unranked-floor change: every active fixture now carries a probability pair; 12 of 13 have a directional pick; the remaining fixture is an exact 50/50 from identical published ranking points and is listed in the executive-summary register."
+  },
+  "alias_join_adjudication": {
+    "fixture": "1082837 Zetta vs LOS NINOS (HLTV 2399865)",
+    "market": "Polymarket cs2-ale1-ln-2026-10-21 / Kalshi KXCS2GAME-26OCT211800LNALE, both named \"Alianza Lima Esports vs Los Ninos\"",
+    "finding": "Not a wrong-opponent join. data/origination/aliases.json carries a reviewed, competition-scoped alias Alianza Lima Esports -> Zetta for CCT South America 2026 Series #7, backed by a 5/5 roster match (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) between HLTV 2399865 and bo3.gg. Residual ambiguity is already published by another session as 093e722e-zetta-alianza-identity-ambiguity (Strafe lists ALE and Zetta separately and some ALE lineups show a different fifth), so this session adds no duplicate flag and changes no pick.",
+    "verified_at": "2026-10-21T21:30:00Z",
+    "sources": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026",
+      "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21"
+    ]
   }
 }
