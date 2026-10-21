@@ -475,6 +475,8 @@ def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 100,
     document (``live-bo3-graph.json``) is the replay record and lists every edge.
     """
     edges, pages, rows_seen, oldest = [], 0, 0, None
+    missing_winner = 0
+    samples = []
     cutoff = datetime.now(UTC) - timedelta(days=max_age_days)
     while pages < max_pages:
         query = ('/matches?page[offset]=' + str(pages * 100) + '&page[limit]=100&sort=-start_date'
@@ -493,6 +495,11 @@ def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 100,
             team1, team2 = row.get('team1') or {}, row.get('team2') or {}
             winner = row.get('winner_team_id')
             if not team1.get('id') or not team2.get('id') or winner is None:
+                if winner is None and len(samples) < 2:
+                    samples.append({k: row.get(k) for k in
+                                    ('id', 'slug', 'start_date', 'status', 'parsed_status', 'bo_type',
+                                     'team1_score', 'team2_score', 'scores', 'results', 'winner_team_id')})
+                missing_winner += 1
                 continue
             edges.append({'id': row.get('id') or row.get('slug'),
                           'date': str(row.get('start_date'))[:10],
@@ -504,6 +511,7 @@ def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 100,
         if len(rows) < 100 or (oldest is not None and oldest < cutoff):
             break
     return {'edges': edges, 'pages': pages, 'rows': rows_seen,
+            'rows_without_winner': missing_winner, 'missing_winner_samples': samples,
             'observed_at': iso(datetime.now(UTC)), 'cutoff': iso(cutoff)}
 
 
