@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T20:05:02Z",
-  "source_snapshot_at": "2026-10-21T20:04:36Z",
-  "source_generated_at": "2026-10-21T20:04:48Z",
+  "generated_at": "2026-10-21T20:29:50Z",
+  "source_snapshot_at": "2026-10-21T20:29:27Z",
+  "source_generated_at": "2026-10-21T20:29:35Z",
   "registry_updated_at": "2026-10-19T05:55:00Z",
   "live_collection": true,
   "collection": {
@@ -22,36 +22,36 @@
     "polymarket_discovery": {
       "source": "Polymarket directory plus replayed retained CS2-tag discovery",
       "role": "Identity discovery only; selected original event and both order books are re-fetched.",
-      "supplemental_identities": 325,
-      "retained_identities_replayed": 380,
-      "discovered_identities": 380,
+      "supplemental_identities": 321,
+      "retained_identities_replayed": 377,
+      "discovered_identities": 377,
       "directory_is_exhaustive": false,
       "tagged_discovery_available": true,
       "prices_used": false,
       "reused_requests": [
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-          "observed_at": "2026-10-21T20:04:40Z",
+          "observed_at": "2026-10-21T20:29:29Z",
           "evidence": "data/evidence/polymarket-discovery-0.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-          "observed_at": "2026-10-21T20:04:40Z",
+          "observed_at": "2026-10-21T20:29:29Z",
           "evidence": "data/evidence/polymarket-discovery-100.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-          "observed_at": "2026-10-21T20:04:40Z",
+          "observed_at": "2026-10-21T20:29:30Z",
           "evidence": "data/evidence/polymarket-discovery-200.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-          "observed_at": "2026-10-21T20:04:41Z",
+          "observed_at": "2026-10-21T20:29:30Z",
           "evidence": "data/evidence/polymarket-discovery-300.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-          "observed_at": "2026-10-21T20:04:41Z",
+          "observed_at": "2026-10-21T20:29:30Z",
           "evidence": "data/evidence/polymarket-discovery-400.json"
         }
       ],
@@ -61,36 +61,36 @@
   "research_discovery": {
     "source": "Polymarket directory plus replayed retained CS2-tag discovery",
     "role": "Identity discovery only; selected original event and both order books are re-fetched.",
-    "supplemental_identities": 325,
-    "retained_identities_replayed": 380,
-    "discovered_identities": 380,
+    "supplemental_identities": 321,
+    "retained_identities_replayed": 377,
+    "discovered_identities": 377,
     "directory_is_exhaustive": false,
     "tagged_discovery_available": true,
     "prices_used": false,
     "reused_requests": [
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-        "observed_at": "2026-10-21T20:04:40Z",
+        "observed_at": "2026-10-21T20:29:29Z",
         "evidence": "data/evidence/polymarket-discovery-0.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-        "observed_at": "2026-10-21T20:04:40Z",
+        "observed_at": "2026-10-21T20:29:29Z",
         "evidence": "data/evidence/polymarket-discovery-100.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-        "observed_at": "2026-10-21T20:04:40Z",
+        "observed_at": "2026-10-21T20:29:30Z",
         "evidence": "data/evidence/polymarket-discovery-200.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-        "observed_at": "2026-10-21T20:04:41Z",
+        "observed_at": "2026-10-21T20:29:30Z",
         "evidence": "data/evidence/polymarket-discovery-300.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-        "observed_at": "2026-10-21T20:04:41Z",
+        "observed_at": "2026-10-21T20:29:30Z",
         "evidence": "data/evidence/polymarket-discovery-400.json"
       }
     ],
@@ -98,14 +98,14 @@
   },
   "counts": {
     "active": 13,
-    "resolved": 11,
-    "unresolved": 2,
-    "with_pick": 10,
+    "resolved": 13,
+    "unresolved": 0,
+    "with_pick": 12,
     "consensus": 1,
     "market": 2,
     "bookmaker": 0,
     "reference": 0,
-    "model": 8,
+    "model": 10,
     "guidance": 0,
     "alias_joined": 2
   },
@@ -165,12 +165,12 @@
         "method": "consensus",
         "label": "Originated consensus line (median of independent money sources)",
         "probabilities": [
-          0.38694445,
-          0.61305555
+          0.3853934,
+          0.6146066
         ],
         "fair_decimal": [
-          2.584,
-          1.631
+          2.595,
+          1.627
         ],
         "quotes": [
           {
@@ -190,7 +190,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-21T20:05:06Z",
+            "observed_at": "2026-10-21T20:29:51Z",
             "source_url": "https://polymarket.com/event/cs2-ale1-ln-2026-10-21",
             "event_id": "1227336",
             "evidence_file": "data/origination/evidence/live-polymarket-observations.json",
@@ -201,20 +201,20 @@
             "provider": "Kalshi",
             "family": "market",
             "probabilities": [
-              0.38888889,
-              0.61111111
+              0.3857868,
+              0.6142132
             ],
             "bid": [
-              0.34,
+              0.35,
               0.56
             ],
             "ask": [
-              0.43,
+              0.41,
               0.65
             ],
             "spread": 0.09,
             "thin": false,
-            "observed_at": "2026-10-21T20:05:07Z",
+            "observed_at": "2026-10-21T20:29:53Z",
             "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
             "event_id": "KXCS2GAME-26OCT211800LNALE",
             "evidence_file": "data/origination/evidence/live-kalshi-events.json",
@@ -223,7 +223,7 @@
         ],
         "source": "Polymarket + Kalshi",
         "source_url": "https://polymarket.com/event/cs2-ale1-ln-2026-10-21",
-        "observed_at": "2026-10-21T20:05:06Z",
+        "observed_at": "2026-10-21T20:29:51Z",
         "model_crosscheck": null
       },
       "pick_index": 1,
@@ -347,9 +347,9 @@
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
+          "status": "resolved",
           "source_url": "https://www.hltv.org/ranking/teams",
-          "detail": "LOS NINOS: no HLTV world-ranking entry found (including registry aliases)"
+          "detail": "Alias-aware exact-name HLTV world-ranking row for the ranked side; the unranked side (LOS NINOS) is given HLTV's floor of 0.0 published points because HLTV publishes no ranking row for it. Uncalibrated research model (400-scale logistic transform); low confidence, team-level only — lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
         }
       ],
       "limitations": [
@@ -394,7 +394,7 @@
           3.818,
           1.355
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-21T20:29:34Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -466,28 +466,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:33Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -525,8 +525,95 @@
       "featured_probabilities": null,
       "featured_pick_index": null,
       "featured_source_url": null,
-      "origination": null,
-      "pick_index": null,
+      "origination": {
+        "provider": "HLTV world ranking",
+        "family": "model",
+        "probabilities": [
+          0.50431724,
+          0.49568276
+        ],
+        "inputs": [
+          {
+            "name": "benched gods",
+            "points": 3.0,
+            "rank": 204,
+            "matched_as": "benched gods",
+            "unranked": false,
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams"
+          },
+          {
+            "name": "TitanFlow",
+            "points": 0.0,
+            "rank": null,
+            "matched_as": null,
+            "unranked": true,
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams"
+          }
+        ],
+        "snapshot_date": "2026-10-21",
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
+        "observed_at": "2026-10-21T20:29:56Z",
+        "points_scale": 400.0,
+        "aliases_used": [],
+        "unranked_floor": [
+          "TitanFlow"
+        ],
+        "low_confidence": true,
+        "evaluation_at": "2026-10-21T20:29:50+00:00",
+        "method": "model",
+        "label": "Research model estimate (HLTV world ranking · unranked floor)",
+        "fair_decimal": [
+          1.983,
+          2.017
+        ],
+        "quotes": [
+          {
+            "provider": "HLTV world ranking",
+            "family": "model",
+            "probabilities": [
+              0.50431724,
+              0.49568276
+            ],
+            "inputs": [
+              {
+                "name": "benched gods",
+                "points": 3.0,
+                "rank": 204,
+                "matched_as": "benched gods",
+                "unranked": false,
+                "snapshot_date": "2026-10-21",
+                "source_url": "https://www.hltv.org/ranking/teams"
+              },
+              {
+                "name": "TitanFlow",
+                "points": 0.0,
+                "rank": null,
+                "matched_as": null,
+                "unranked": true,
+                "snapshot_date": "2026-10-21",
+                "source_url": "https://www.hltv.org/ranking/teams"
+              }
+            ],
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
+            "observed_at": "2026-10-21T20:29:56Z",
+            "points_scale": 400.0,
+            "aliases_used": [],
+            "unranked_floor": [
+              "TitanFlow"
+            ],
+            "low_confidence": true,
+            "evaluation_at": "2026-10-21T20:29:50+00:00"
+          }
+        ],
+        "source": "HLTV world ranking",
+        "model_crosscheck": null
+      },
+      "pick_index": 0,
       "aliases_used": [],
       "research": [
         {
@@ -585,19 +672,14 @@
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
+          "status": "resolved",
           "source_url": "https://www.hltv.org/ranking/teams",
-          "detail": "TitanFlow: no HLTV world-ranking entry found (including registry aliases)"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "source_url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
+          "detail": "Alias-aware exact-name HLTV world-ranking row for the ranked side; the unranked side (TitanFlow) is given HLTV's floor of 0.0 published points because HLTV publishes no ranking row for it. Uncalibrated research model (400-scale logistic transform); low confidence, team-level only — lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
         }
       ],
       "limitations": [
-        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+        "Unranked floor: TitanFlow has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
       ],
       "time_flags": []
     },
@@ -638,7 +720,7 @@
           2.472,
           1.679
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-21T20:29:34Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -710,28 +792,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:33Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -767,8 +849,8 @@
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082688",
       "featured_method": "market",
       "featured_probabilities": [
-        0.77,
-        0.23
+        0.775,
+        0.225
       ],
       "featured_pick_index": 0,
       "featured_source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
@@ -776,14 +858,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.77,
-          0.23
+          0.775,
+          0.225
         ],
         "fair_decimal": [
-          1.299,
-          4.348
+          1.29,
+          4.444
         ],
-        "observed_at": "2026-10-21T20:04:42Z",
+        "observed_at": "2026-10-21T20:29:31Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1224236",
@@ -795,28 +877,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.76,
+            "bid": 0.77,
             "ask": 0.78,
-            "spread": 0.02,
-            "midpoint": 0.77,
-            "timestamp": "2026-10-21T20:04:12Z",
+            "spread": 0.01,
+            "midpoint": 0.775,
+            "timestamp": "2026-10-21T20:29:14Z",
             "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           },
           {
             "bid": 0.22,
-            "ask": 0.24,
-            "spread": 0.02,
-            "midpoint": 0.22999999999999998,
-            "timestamp": "2026-10-21T20:04:12Z",
+            "ask": 0.23,
+            "spread": 0.01,
+            "midpoint": 0.225,
+            "timestamp": "2026-10-21T20:29:14Z",
             "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 493.36281599999995,
-        "liquidity": 7959.9976,
+        "liquidity": 7960.4611,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -874,7 +956,7 @@
           1.905,
           2.105
         ],
-        "observed_at": "2026-10-21T20:04:43Z",
+        "observed_at": "2026-10-21T20:29:32Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1224237",
@@ -890,7 +972,7 @@
             "ask": 0.53,
             "spread": 0.01,
             "midpoint": 0.525,
-            "timestamp": "2026-10-21T19:59:48Z",
+            "timestamp": "2026-10-21T20:27:48Z",
             "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
@@ -900,14 +982,14 @@
             "ask": 0.48,
             "spread": 0.01,
             "midpoint": 0.475,
-            "timestamp": "2026-10-21T19:59:48Z",
+            "timestamp": "2026-10-21T20:27:48Z",
             "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
-        "volume": 4441.427751,
-        "liquidity": 11086.5454,
+        "volume": 4447.088129,
+        "liquidity": 11089.4654,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -1079,7 +1161,7 @@
           }
         ],
         "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-        "observed_at": "2026-10-21T20:05:13Z",
+        "observed_at": "2026-10-21T20:29:58Z",
         "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
         "snapshot_date": "2026-10-05",
         "method": "model",
@@ -1217,7 +1299,7 @@
               }
             ],
             "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-            "observed_at": "2026-10-21T20:05:13Z",
+            "observed_at": "2026-10-21T20:29:58Z",
             "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
             "snapshot_date": "2026-10-05"
           }
@@ -1355,6 +1437,7 @@
             "points": 5.0,
             "rank": 143,
             "matched_as": "ground zero",
+            "unranked": false,
             "snapshot_date": "2026-10-21",
             "source_url": "https://www.hltv.org/ranking/teams"
           },
@@ -1363,6 +1446,7 @@
             "points": 5.0,
             "rank": 142,
             "matched_as": "off chops",
+            "unranked": false,
             "snapshot_date": "2026-10-21",
             "source_url": "https://www.hltv.org/ranking/teams"
           }
@@ -1370,10 +1454,12 @@
         "snapshot_date": "2026-10-21",
         "source_url": "https://www.hltv.org/ranking/teams",
         "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-        "observed_at": "2026-10-21T20:05:10Z",
+        "observed_at": "2026-10-21T20:29:56Z",
         "points_scale": 400.0,
         "aliases_used": [],
-        "evaluation_at": "2026-10-21T20:05:02+00:00",
+        "unranked_floor": [],
+        "low_confidence": false,
+        "evaluation_at": "2026-10-21T20:29:50+00:00",
         "method": "model",
         "label": "Research model estimate (HLTV world ranking)",
         "fair_decimal": [
@@ -1394,6 +1480,7 @@
                 "points": 5.0,
                 "rank": 143,
                 "matched_as": "ground zero",
+                "unranked": false,
                 "snapshot_date": "2026-10-21",
                 "source_url": "https://www.hltv.org/ranking/teams"
               },
@@ -1402,6 +1489,7 @@
                 "points": 5.0,
                 "rank": 142,
                 "matched_as": "off chops",
+                "unranked": false,
                 "snapshot_date": "2026-10-21",
                 "source_url": "https://www.hltv.org/ranking/teams"
               }
@@ -1409,10 +1497,12 @@
             "snapshot_date": "2026-10-21",
             "source_url": "https://www.hltv.org/ranking/teams",
             "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-            "observed_at": "2026-10-21T20:05:10Z",
+            "observed_at": "2026-10-21T20:29:56Z",
             "points_scale": 400.0,
             "aliases_used": [],
-            "evaluation_at": "2026-10-21T20:05:02+00:00"
+            "unranked_floor": [],
+            "low_confidence": false,
+            "evaluation_at": "2026-10-21T20:29:50+00:00"
           }
         ],
         "source": "HLTV world ranking",
@@ -1524,7 +1614,7 @@
           1.373,
           3.679
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-21T20:29:34Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1596,28 +1686,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:33Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -1655,8 +1745,95 @@
       "featured_probabilities": null,
       "featured_pick_index": null,
       "featured_source_url": null,
-      "origination": null,
-      "pick_index": null,
+      "origination": {
+        "provider": "HLTV world ranking",
+        "family": "model",
+        "probabilities": [
+          0.52300959,
+          0.47699041
+        ],
+        "inputs": [
+          {
+            "name": "FlyQuest",
+            "points": 16.0,
+            "rank": 61,
+            "matched_as": "flyquest",
+            "unranked": false,
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams"
+          },
+          {
+            "name": "Staqued",
+            "points": 0.0,
+            "rank": null,
+            "matched_as": null,
+            "unranked": true,
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams"
+          }
+        ],
+        "snapshot_date": "2026-10-21",
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
+        "observed_at": "2026-10-21T20:29:56Z",
+        "points_scale": 400.0,
+        "aliases_used": [],
+        "unranked_floor": [
+          "Staqued"
+        ],
+        "low_confidence": true,
+        "evaluation_at": "2026-10-21T20:29:50+00:00",
+        "method": "model",
+        "label": "Research model estimate (HLTV world ranking · unranked floor)",
+        "fair_decimal": [
+          1.912,
+          2.096
+        ],
+        "quotes": [
+          {
+            "provider": "HLTV world ranking",
+            "family": "model",
+            "probabilities": [
+              0.52300959,
+              0.47699041
+            ],
+            "inputs": [
+              {
+                "name": "FlyQuest",
+                "points": 16.0,
+                "rank": 61,
+                "matched_as": "flyquest",
+                "unranked": false,
+                "snapshot_date": "2026-10-21",
+                "source_url": "https://www.hltv.org/ranking/teams"
+              },
+              {
+                "name": "Staqued",
+                "points": 0.0,
+                "rank": null,
+                "matched_as": null,
+                "unranked": true,
+                "snapshot_date": "2026-10-21",
+                "source_url": "https://www.hltv.org/ranking/teams"
+              }
+            ],
+            "snapshot_date": "2026-10-21",
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
+            "observed_at": "2026-10-21T20:29:56Z",
+            "points_scale": 400.0,
+            "aliases_used": [],
+            "unranked_floor": [
+              "Staqued"
+            ],
+            "low_confidence": true,
+            "evaluation_at": "2026-10-21T20:29:50+00:00"
+          }
+        ],
+        "source": "HLTV world ranking",
+        "model_crosscheck": null
+      },
+      "pick_index": 0,
       "aliases_used": [],
       "research": [
         {
@@ -1715,19 +1892,14 @@
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
+          "status": "resolved",
           "source_url": "https://www.hltv.org/ranking/teams",
-          "detail": "Staqued: no HLTV world-ranking entry found (including registry aliases)"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
+          "detail": "Alias-aware exact-name HLTV world-ranking row for the ranked side; the unranked side (Staqued) is given HLTV's floor of 0.0 published points because HLTV publishes no ranking row for it. Uncalibrated research model (400-scale logistic transform); low confidence, team-level only — lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
         }
       ],
       "limitations": [
-        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+        "Unranked floor: Staqued has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
       ],
       "time_flags": []
     },
@@ -1768,7 +1940,7 @@
           2.094,
           1.914
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-21T20:29:34Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1840,28 +2012,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:33Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -1942,8 +2114,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-21T20:05:12Z",
-        "evaluation_at": "2026-10-21T20:05:02Z",
+        "observed_at": "2026-10-21T20:29:57Z",
+        "evaluation_at": "2026-10-21T20:29:50Z",
         "lineup_disambiguation": [
           {
             "team": "The Huns",
@@ -1958,7 +2130,7 @@
             "overlap": 4,
             "roster_change": true,
             "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-            "observed_at": "2026-10-21T20:05:04Z",
+            "observed_at": "2026-10-21T20:29:50Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
           }
         ],
@@ -2012,8 +2184,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-21T20:05:12Z",
-            "evaluation_at": "2026-10-21T20:05:02Z",
+            "observed_at": "2026-10-21T20:29:57Z",
+            "evaluation_at": "2026-10-21T20:29:50Z",
             "lineup_disambiguation": [
               {
                 "team": "The Huns",
@@ -2028,7 +2200,7 @@
                 "overlap": 4,
                 "roster_change": true,
                 "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-                "observed_at": "2026-10-21T20:05:04Z",
+                "observed_at": "2026-10-21T20:29:50Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
               }
             ]
@@ -2144,7 +2316,7 @@
           5.613,
           1.217
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-21T20:29:34Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -2216,28 +2388,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:33Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-21T20:29:34Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2253,64 +2425,17 @@
       "time_flags": []
     }
   ],
-  "unresolved_ids": [
-    "1081597",
-    "1082860"
-  ],
+  "unresolved_ids": [],
   "flags": [
-    {
-      "id": "origination-unresolved-1081597",
-      "severity": "warning",
-      "title": "Unresolved: benched gods vs TitanFlow",
-      "detail": "No alias-verified market, esportsbook or rating input was confirmed. Blank pick is intentional.",
-      "match_ids": [
-        "1081597"
-      ],
-      "source_urls": [
-        "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
-        "https://www.hltv.org/matches",
-        "https://polymarket.com/esports/cs2",
-        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://www.bovada.lv/sports",
-        "https://www.pinnacle.com/en/esports/counter-strike-2",
-        "https://egamersworld.com/counterstrike/matches",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "https://bo3.gg/matches",
-        "https://www.hltv.org/ranking/teams",
-        "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597"
-      ]
-    },
-    {
-      "id": "origination-unresolved-1082860",
-      "severity": "warning",
-      "title": "Unresolved: FlyQuest vs Staqued",
-      "detail": "No alias-verified market, esportsbook or rating input was confirmed. Blank pick is intentional.",
-      "match_ids": [
-        "1082860"
-      ],
-      "source_urls": [
-        "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-        "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-        "https://polymarket.com/esports/cs2",
-        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://www.bovada.lv/sports",
-        "https://www.pinnacle.com/en/esports/counter-strike-2",
-        "https://egamersworld.com/counterstrike/matches",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "https://bo3.gg/matches",
-        "https://www.hltv.org/ranking/teams",
-        "https://play.hotspawn.com/cs2-pickems#fixture-1082860"
-      ]
-    },
     {
       "id": "hltv-ranking-model-lines",
       "severity": "notice",
       "title": "HLTV world-ranking research model used for otherwise unpriced fixtures",
       "detail": "These fixtures had no usable Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, aggregated-reference or Valve-rating input. Their estimates are the uncalibrated 400-scale logistic transform of HLTV's official weekly ranking points and are labelled research models, not betting odds.",
       "match_ids": [
-        "1082858"
+        "1081597",
+        "1082858",
+        "1082860"
       ],
       "source_urls": [
         "https://www.hltv.org/ranking/teams"

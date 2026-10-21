@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "session": "arena-8fa2b226",
-  "generated_at": "2026-10-21T20:05:16Z",
+  "generated_at": "2026-10-21T20:30:01Z",
   "mode": "live",
   "environment": "github-actions-runner",
-  "source_snapshot_at": "2026-10-21T20:04:36Z",
+  "source_snapshot_at": "2026-10-21T20:29:27Z",
   "policy": "Dossier for fixtures the strict ladder leaves blank. It proposes nothing that is applied automatically, records which providers were checked, and publishes the provider error text when a source refuses access. No probability, pick or alias is written by this script.",
   "excluded_inputs": [
     "Hotspawn \"% picked\" and offered points",
@@ -12,219 +12,18 @@
     "outright and map markets",
     "any price read from a page this script fetched (reachability only)"
   ],
-  "headline": "2 blank, live fixture(s) documented",
+  "headline": "No fixture in this snapshot is blank: every live row carries a sourced line.",
   "counts": {
-    "unresolved_fixtures": 2,
+    "unresolved_fixtures": 0,
     "with_provider_lead": 0,
     "display_name_only": 0
   },
-  "fixtures": [
-    {
-      "id": "1081597",
-      "teams": [
-        "benched gods",
-        "TitanFlow"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-22T11:00:00Z",
-      "locks_at": "2026-10-22T10:54:00Z",
-      "tier": "c",
-      "source_url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
-      "reasons": [
-        "No alias-verified Polymarket match-winner line found for these teams and start time.",
-        "No alias-verified Kalshi match-winner line found for these teams and start time.",
-        "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-        "No alias-verified Bovada match-winner line found for these teams and start time.",
-        "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-        "No reviewed aggregated-bookmaker capture matches this fixture.",
-        "benched gods: multiple Valve rosters share this name; no unique exact-five-player HLTV proof",
-        "TitanFlow: no published Valve rating; only 3 anchored series in the last 120 days (needs 8)",
-        "TitanFlow: no HLTV world-ranking entry found (including registry aliases)",
-        "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
-      ],
-      "resolution_trail": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "No unique structured HLTV identity confirmed.",
-          "source_url": "https://www.hltv.org/matches"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "benched gods: multiple Valve rosters share this name; no unique exact-five-player HLTV proof",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "unresolved",
-          "detail": "TitanFlow: no published Valve rating; only 3 anchored series in the last 120 days (needs 8)",
-          "source_url": "https://bo3.gg/matches"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "TitanFlow: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597"
-        }
-      ],
-      "provider_leads": [],
-      "likely_blocker": "no provider listing found",
-      "alias_proposal": null,
-      "blockers": {
-        "identity": true,
-        "time": false,
-        "name_only": false
-      }
-    },
-    {
-      "id": "1082860",
-      "teams": [
-        "FlyQuest",
-        "Staqued"
-      ],
-      "competition": "DFRAG Invitational 2026",
-      "starts_at": "2026-10-27T03:00:00Z",
-      "locks_at": "2026-10-27T02:54:00Z",
-      "tier": "b",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-      "reasons": [
-        "No alias-verified Polymarket match-winner line found for these teams and start time.",
-        "No alias-verified Kalshi match-winner line found for these teams and start time.",
-        "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-        "No alias-verified Bovada match-winner line found for these teams and start time.",
-        "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-        "No reviewed aggregated-bookmaker capture matches this fixture.",
-        "Staqued: no Valve rating row found (including registry aliases)",
-        "Staqued: no published Valve rating; only 1 anchored series in the last 120 days (needs 8)",
-        "Staqued: no HLTV world-ranking entry found (including registry aliases)",
-        "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
-      ],
-      "resolution_trail": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-          "source_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "Staqued: no Valve rating row found (including registry aliases)",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "unresolved",
-          "detail": "Staqued: no published Valve rating; only 1 anchored series in the last 120 days (needs 8)",
-          "source_url": "https://bo3.gg/matches"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "Staqued: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860"
-        }
-      ],
-      "provider_leads": [],
-      "likely_blocker": "no provider listing found",
-      "alias_proposal": null,
-      "blockers": {
-        "identity": false,
-        "time": false,
-        "name_only": false
-      }
-    }
-  ],
+  "fixtures": [],
   "book_probes": [
     {
       "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:16Z",
+      "observed_at": "2026-10-21T20:30:01Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 403,
@@ -239,7 +38,7 @@
     {
       "url": "https://www.pinnacle.com/en/esports-hub/cs2",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:16Z",
+      "observed_at": "2026-10-21T20:30:02Z",
       "status": "reachable",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 200,
@@ -255,14 +54,14 @@
     {
       "url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:17Z",
+      "observed_at": "2026-10-21T20:30:02Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
-      "http_status": 530,
+      "http_status": 502,
       "final_url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
       "content_type": "application/json; charset=utf-8",
-      "bytes": 777,
-      "sha256": "919d787e53500fcd9d19b21b554008f104b07c425ec024a5a2a2978b01deabc2",
+      "bytes": 884,
+      "sha256": "4dd5b67ff6b645508c7ebcfb2193a7f209006a1c5d6e635c6f58b7cb7333a78c",
       "looks_like_a_fixture_list": false,
       "name": "Rivalry esportsbook",
       "why_checked": "Documented public sports API path rather than the marketing page the collector tries."
@@ -270,14 +69,14 @@
     {
       "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:18Z",
+      "observed_at": "2026-10-21T20:30:03Z",
       "status": "reachable",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 200,
       "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
       "content_type": "application/json",
-      "bytes": 34813,
-      "sha256": "87f3362fd609148fe16d2e50c2ee26241e27cfa94827df2c6dac526fc261a3df",
+      "bytes": 42741,
+      "sha256": "e7e9e0f36c0a013eaaf1e658dcf7e6362394cbe391a0d7795489e6bfbf659318",
       "looks_like_a_fixture_list": true,
       "name": "Bovada CS2 coupon",
       "why_checked": "Already an accepted ladder source; re-checked so the probe can say whether a listing exists at all."
@@ -285,14 +84,14 @@
     {
       "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=71&count=25&mode=4&getEmpty=true",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:19Z",
+      "observed_at": "2026-10-21T20:30:04Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block?sports=71&count=25&mode=4&getEmpty=true",
       "content_type": "text/html;charset=utf-8",
-      "bytes": 2604,
-      "sha256": "090965b430833109a27bc737a6017575f2caa5d91a662d73cdbb87aade942673",
+      "bytes": 2602,
+      "sha256": "73ab832d0ee2a5fd5c0bb198820d07a80235344f20c408ca174db228840c7a8d",
       "looks_like_a_fixture_list": true,
       "name": "1xBet line feed",
       "why_checked": "Lists deep-tier CS2 series, but the operator geo-fences restricted countries."
