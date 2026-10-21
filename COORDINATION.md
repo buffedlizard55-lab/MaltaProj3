@@ -3510,3 +3510,36 @@ series (Morningstar). They stay blank with that exact reason on the new
 unresolved register; no value was inferred.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+---
+
+# Session arena-941ff196 — Hotspawn full-coverage audit, mobile executive summary and unresolved research
+
+Claimed **2026-10-21T12:34Z** on the fixed Arena branch `arena/941ff196-maltaproj3`
+(branched from `main` `89bfa27`, merge of PR #110). Read all completed records
+above before claiming; no open task on this branch overlaps the scopes below.
+Arena fixes sessions to `arena/<id>-maltaproj3`, so this branch is the session
+branch for all coordination purposes.
+
+**Non-overlap pledge.** This session does not edit `archive/`,
+`data/research/<other-session>/` sources, or the semantics of
+`data/origination/aliases.json` beyond additive scoped entries with official
+evidence. `scripts/collect.py` and `scripts/originate.py` are entered only to
+improve provenance notes and source health text; no probability, pick or alias
+semantics are changed. `scripts/build.py` is entered additively (executive
+summary links, mobile callouts, unresolved section) with no freshness or expiry
+rule change.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 941-1 Audit current site vs. Hotspawn brief; verify every table row carries an official source link and flag hallucinations | in progress | arena-941ff196 | `COORDINATION.md`, `data/row-source-audit.json`, `data/research/941ff196/` |
+| 941-2 Mobile executive summary: prominent internal links to updated picks, phone-first readability pass | in progress | arena-941ff196 | `scripts/build.py` (additive), `assets/scout.css` (additive), `index.html` (generated) |
+| 941-3 Hotspawn reverse-engineering documentation and 4-8h refresh provenance: full inventory reconciliation and external betting-line analysis | in progress | arena-941ff196 | `scripts/build.py`, `methodology/` (generated), `coverage/` (generated) |
+| 941-4 HLTV → esportsbooks ladder verification for low-tier unresolved fallback and separate Unresolved picks & limitations section | in progress | arena-941ff196 | `scripts/build.py`, `origination/` (generated), `review/` (generated) |
+| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | unclaimed | arena-941ff196 | this board section, `site/` (artifact) |
+
+### 941-1 Live audit — 2026-10-21
+
+_Working._
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
