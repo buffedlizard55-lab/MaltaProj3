@@ -161,11 +161,29 @@ re-verified after rebasing onto `main`.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| F5-1 Board claim and non-overlapping scope registration | **done** (this commit) | arena-f5223859 | `COORDINATION.md` |
-| F5-2 Independent verification of 2026-10-21 live Hotspawn inventory, 4–8h refresh cadence, complete-picks ladder counts, and per-fixture HLTV / esportsbook / rating-table research for the unresolved matches (`1082762`, `1082763`, `1082837`) | **in progress** | arena-f5223859 | new `data/research/f5223859/unresolved-and-cadence-audit.json` |
-| F5-3 Line-by-line repository review with official/first-party source links and flagged irregularities published on Flagged for Review | **in progress** | arena-f5223859 | new `data/research/f5223859/repo-review.json`, new `data/research/f5223859/flags.json`, `scripts/review_register.py` |
-| F5-4 Regression verification of mobile executive summary links, unresolved-picks section, and row-by-row source audit | **in progress** | arena-f5223859 | new `tests/test_f5223859.py` |
-| F5-5 Rebase integration with `main`, full verification suites, PR, merge and live GitHub Pages deployment confirmation | pending | arena-f5223859 | `COORDINATION.md`, PR |
+| F5-1 Board claim and non-overlapping scope registration | **done** (commit 03eef11) | arena-f5223859 | `COORDINATION.md` |
+| F5-2 Independent verification of 2026-10-21 live Hotspawn inventory, 4–8h refresh cadence, complete-picks ladder counts, and per-fixture HLTV / esportsbook / rating-table research for the unresolved matches (`1082762`, `1082763`, `1082837`) | **done** | arena-f5223859 | new `data/research/f5223859/unresolved-and-cadence-audit.json` |
+| F5-3 Line-by-line repository review with official/first-party source links and flagged irregularities published on Flagged for Review | **done** | arena-f5223859 | new `data/research/f5223859/repo-review.json`, new `data/research/f5223859/flags.json`, `scripts/review_register.py` |
+| F5-4 Regression verification of mobile executive summary links, unresolved-picks section, and row-by-row source audit | **done** | arena-f5223859 | new `tests/test_f5223859.py` |
+| F5-5 Rebase integration with `main`, full verification suites, PR, merge and live GitHub Pages deployment confirmation | **in progress** | arena-f5223859 | `COORDINATION.md`, PR |
+
+### F5-2…F5-4 sources, verification and irregularities (session arena-f5223859)
+
+- **Official sources checked:**
+  - Scheduled production workflow [.github/workflows/pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml), scheduled run [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314) (`2026-10-21T08:14:54Z` `success`) and its official [check-run annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations).
+  - Session live audit run [#39605051244](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39605051244) (`2026-10-21T13:06:18Z` `success`) and its official [check-run annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations).
+  - Hotspawn fixture inventory and match pages: [Hotspawn lobby](https://play.hotspawn.com/lobby), [1082762 ex-CYBERSHOKE vs BlinkDagger](https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762), [1082763 UPGRADE vs flacons](https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763), [1082837 Zetta vs LOS NINOS](https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837).
+  - HLTV match and ranking pages: [HLTV 2399839 ex-CYBERSHOKE vs BlinkDagger](https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9), [HLTV 2399840 UPGRADE vs flacons](https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9), [HLTV 2399437 HOTU vs The Huns](https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026), [HLTV world ranking](https://www.hltv.org/ranking/teams).
+  - Esportsbook and official rating sources: [Bovada CIS LAN Championship event 32524607](https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100), [Pinnacle CS2 board](https://www.pinnacle.com/en/esports/counter-strike-2), [Valve official 2026-10-05 global standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md).
+- **Verification performed:**
+  - Confirmed 81 Hotspawn CS2 records on 2026-10-21T13:06:18Z (19 active non-past fixtures, complete cross-check across API, `/lobby` and `/cs2-pickems`).
+  - Confirmed fallback ladder resolutions on live run 39605051244: `1082831` via Pinnacle period-0 moneyline (`1.5882 / 2.33` → `59.5% / 40.5%`), `1082792` (`HOTU vs The Huns`) via Valve official standings with a 4-of-5 HLTV lineup proof (`94.1% / 5.9%`), and `1082836` (`DAMAJUANA vs Hacha`) via HLTV world-ranking points (`2.0 vs 2.0` → `50.0% / 50.0%` equal estimate, published as `No directional edge`).
+  - Local build & strict row-source audit (`python -m scripts.build && python -m scripts.audit_rows --site site --strict`): 80 checked-in source rows replayed, 503 table rows/cards audited (489 with an official link, 5 flagged unverified, 9 site-map, **0 violations**), 670 internal links/assets/anchors and mobile landmarks verified.
+- **Irregularities flagged on `Flagged for Review` (`data/research/f5223859/flags.json` & `repo-review.json`):**
+  1. `f5223859-bovada-prefix-lead-1082762` (`f52-03`): Bovada prices `CYBERSHOKE vs blinkdagger` at `1.125 / 5.750` (`83.6% / 16.4%` no-vig) for the `1082762` `ex-CYBERSHOKE vs BlinkDagger` slot, eliding the `ex-` prefix without publishing a player roster.
+  2. `f5223859-unrated-opponents-1082763-1082837` (`f52-04`): `flacons` (in `1082763 UPGRADE vs flacons`) and `LOS NINOS` (in `1082837 Zetta vs LOS NINOS`) have no market line on any reachable provider and no row in Valve's official standings or HLTV's world ranking; both stay intentionally blank in the unresolved section.
+  3. `f5223859-hltv-equal-points-tie-1082836` (`f52-02`): `DAMAJUANA vs Hacha` (`1082836`) resolves at an exact `50.0% / 50.0%` tie (`2.0` vs `2.0` HLTV points) and is published as `No directional edge` rather than a coin-flip pick.
+  4. `f52-06` (logged for the session owning `scripts/build.py`): `glance()` uses the short label `'Valve'` for all `method == 'model'` rows even when the row links `https://www.hltv.org/ranking/teams`.
 
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
