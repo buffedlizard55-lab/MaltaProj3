@@ -50,6 +50,25 @@ def external(url, text, cls='source-link'):
     return f'<a class="{e(cls)}" href="{e(url)}" target="_blank" rel="noopener noreferrer">{e(text)}{icon("external")}</a>'
 
 
+def analysis_link_label(a):
+    """Short, honest label for an estimate's own source link.
+
+    Session 541cd43a added two own-model families (results-based and network)
+    whose source is bo3.gg, not Valve; labelling their link "Valve" would
+    misstate where the number came from.
+    """
+    method = (a or {}).get('method')
+    if method == 'market':
+        return 'Market'
+    if method == 'reference':
+        return 'Aggregated odds'
+    if method == 'guidance':
+        return 'Wide book'
+    if method == 'model':
+        return 'bo3.gg model' if (a or {}).get('family') in {'form', 'network'} else 'Valve'
+    return 'Bookmaker API'
+
+
 def local_time(value, date_only=False):
     dt = timestamp(value)
     if not dt:
@@ -112,6 +131,23 @@ def evidence(m, prefix, fallback=None):
                              f' <span class="tiny muted">BO{e(s.get("bo"))}</span></li>')
                 body += '</ul></details>'
             body += (f'<div class="evidence-links">{external(a.get("source_url"), "bo3.gg fixture")}'
+                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
+        elif a['method'] == 'model' and a.get('family') == 'network':
+            body += (f'<p class="notice-inline"><strong>Own network estimate.</strong> Neither side has a '
+                     'complete official rating row and no money line prices this fixture, so both ratings come '
+                     f"from a Bradley–Terry fit over {e(a.get('graph_matches'))} finished bo3.gg series anchored on "
+                     f"Valve's official points for {e(a.get('graph_anchors'))} teams. Research model, not a bookmaker price.</p>"
+                     '<div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption>'
+                     '<thead><tr><th>Team</th><th>Fitted points (SE)</th><th>Series</th><th>Source</th></tr></thead><tbody>')
+            for r in a['inputs']:
+                body += (f'<tr><th scope="row">{e(r["name"])}</th><td>{e(r["points"])} '
+                         f'{("± " + str(e(r.get("se")))) if r.get("se") is not None else ""}</td>'
+                         f'<td>{e(r.get("series"))}</td><td>{external(r["source_url"], "bo3.gg team")}</td></tr>')
+            body += '</tbody></table></div>'
+            body += (f'<p class="tiny">Rating-difference SD {e(a.get("rating_sd_diff"))} points · one-sigma '
+                     f'probability interval {a["interval"][0]:.3f}–{a["interval"][1]:.3f} · graph size '
+                     f'{e(a.get("graph_matches"))} series · {e(a.get("graph_anchors"))} anchored teams.</p>')
+            body += (f'<div class="evidence-links">{external("https://bo3.gg/matches", "bo3.gg results")}'
                      f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
@@ -229,7 +265,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            out += external(a['source_url'], analysis_link_label(a))
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -423,7 +459,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], analysis_link_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])

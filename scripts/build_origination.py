@@ -400,6 +400,13 @@ def validate_origination(data, source):
             assert o.get('samples'), 'Results-model quote must publish the series it used'
             for sample in o['samples']:
                 assert str(sample.get('source_url') or '').startswith('https://bo3.gg/')
+        elif o['method'] == 'model' and o.get('family') == 'network':
+            # Session 541cd43a own-line network model: the published probability
+            # must re-derive from its own two published ratings and the saved
+            # results-graph evidence; a changed rating, graph or hash fails.
+            from scripts import network_model
+            document = network_model.load(source / 'origination/evidence')
+            network_model.replay_check(o, document)
         elif o['method'] == 'model':
             from scripts.originate import valve_rows, model_estimate, hltv_lineup_proof
             rows, meta = valve_rows(source, None, evidence_file=o.get('evidence_file'))

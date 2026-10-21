@@ -36,6 +36,7 @@ from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, fin
 from scripts.github_auth import auth_headers
 from scripts import form_model
 from scripts import hltv_ranking
+from scripts import network_model
 from scripts import pinnacle_lines
 from scripts import reference_odds
 
@@ -386,6 +387,13 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
         record = {'bo3_id': fixture.get('id'),
                   'source_url': 'https://bo3.gg/matches/' + str(fixture.get('slug')),
                   'observed_at': observed, 'bridge': 'start_time_and_team_name',
+                  # Exact bo3.gg team ids for both sides. Session 541cd43a's own
+                  # network model needs a machine identity, not a display name:
+                  # names are joined to ratings through the reviewed registry and
+                  # an ambiguous name is never guessed.
+                  'sides': [{'name': (fixture.get(side) or {}).get('name'),
+                             'team_id': (fixture.get(side) or {}).get('id')}
+                            for side in ('team1', 'team2')],
                   'results': {}}
         for side in ('team1', 'team2'):
             team = fixture.get(side) or {}
@@ -419,6 +427,49 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
     form_model.save_bindings(evidence_dir, {'observed_at': observed, 'matches': bindings})
     return {'fixtures_bound': len(bindings), 'teams_saved': len(cache),
             'samples': sum(len(v['samples']) for v in cache.values())}
+
+
+def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 40,
+                      max_age_days: int = network_model.WINDOW_DAYS) -> dict:
+    """Fetch the finished-series graph the own network model fits on.
+
+    Reads bo3.gg's public finished-match listing, newest first, 100 series per
+    request, and stops at the model's 120-day window or the page cap. Every edge
+    keeps its bo3.gg match URL, so each observation behind a published rating is
+    linked. Raw listing responses are not duplicated into evidence: the fitted
+    document (``live-bo3-graph.json``) is the replay record and lists every edge.
+    """
+    edges, pages, rows_seen, oldest = [], 0, 0, None
+    cutoff = datetime.now(UTC) - timedelta(days=max_age_days)
+    while pages < max_pages:
+        query = ('/matches?page[offset]=' + str(pages * 100) + '&page[limit]=100&sort=-start_date'
+                 '&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1&with=teams')
+        body, _ = client.get_json(BO3_API + query, f'live-bo3-graph-{pages}',
+                                  headers=BO3_HEADERS, save=False)
+        rows = body.get('results') or []
+        rows_seen += len(rows)
+        for row in rows:
+            start = timestamp(row.get('start_date'))
+            if start is None:
+                continue
+            oldest = start if oldest is None or start < oldest else oldest
+            if start < cutoff:
+                continue
+            team1, team2 = row.get('team1') or {}, row.get('team2') or {}
+            winner = row.get('winner_team_id')
+            if not team1.get('id') or not team2.get('id') or winner is None:
+                continue
+            edges.append({'id': row.get('id') or row.get('slug'),
+                          'date': str(row.get('start_date'))[:10],
+                          'a': int(team1['id']), 'b': int(team2['id']),
+                          'a_name': team1.get('name'), 'b_name': team2.get('name'),
+                          'winner': int(winner), 'parsed': row.get('parsed_status'),
+                          'url': 'https://bo3.gg/matches/' + str(row.get('slug'))})
+        pages += 1
+        if len(rows) < 100 or (oldest is not None and oldest < cutoff):
+            break
+    return {'edges': edges, 'pages': pages, 'rows': rows_seen,
+            'observed_at': iso(datetime.now(UTC)), 'cutoff': iso(cutoff)}
 
 
 def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
@@ -696,6 +747,18 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['bo3_results'] = collect_bo3_results(client, evidence_dir, matches, registry, known or None)
     except Exception as exc:  # noqa: BLE001 - a results outage prices nothing
         out['bo3_results_error'] = f'{type(exc).__name__}: {exc}'[:200]
+    # Own-line network model (session 541cd43a): the results graph is only
+    # fetched when at least one active fixture has no money-backed featured
+    # estimate, i.e. exactly the rows the research rungs must price. A failure
+    # here leaves the rung inactive and is published as a reason, never a value.
+    needs_graph = any(m.get('availability') != 'past'
+                      and (m.get('analysis') is None or m.get('analysis', {}).get('method') == 'model')
+                      for m in matches)
+    if needs_graph:
+        try:
+            out['bo3_graph'] = collect_bo3_graph(client, evidence_dir)
+        except Exception as exc:  # noqa: BLE001 - a results outage prices nothing
+            out['bo3_graph_error'] = f'{type(exc).__name__}: {exc}'[:200]
     out['requests'] = client.requests
     (evidence_dir / 'live-collection-manifest.json').write_text(json.dumps(out['requests'], ensure_ascii=False, indent=2) + '\n')
     return out
@@ -1436,6 +1499,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     estimates = {'market': [], 'bookmaker': []}
     guidance_candidates = []
     time_flags = []
+    network_quote = match.get('_network')
 
     # 1-2. Money sources, one provider at a time: prediction markets/exchanges
     # (Polymarket, Kalshi) and esportsbooks (Thunderpick, Bovada, Pinnacle).
@@ -1552,6 +1616,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         elif match.get('_form_reason'):
             trail.append({'stage': 'Results model (own, bo3.gg series results)', 'status': 'unresolved',
                           'source_url': 'https://bo3.gg/matches', 'detail': match['_form_reason']})
+        # Own network model (session 541cd43a): a Bradley–Terry fit over the whole
+        # bo3.gg results graph, expressed on Valve's official scale through
+        # anchored teams. It is the only rung that can price a fixture whose
+        # *both* sides are missing from every official rating table.
+        if match.get('_network'):
+            model = dict(match['_network'])
+            model_detail = (f"Own Bradley–Terry network fit over {model.get('graph_matches')} bo3.gg finished "
+                            f"series with {model.get('graph_anchors')} Valve-anchored teams; "
+                            f"{model.get('n_series')} series for the thinner side, rating-difference SD "
+                            f"{model.get('rating_sd_diff')} points.")
+            trail.append({'stage': 'Own network model (bo3.gg results graph)', 'status': 'resolved',
+                          'source_url': model['source_url'], 'detail': model_detail})
+        elif match.get('_network_reason'):
+            trail.append({'stage': 'Own network model (bo3.gg results graph)', 'status': 'unresolved',
+                          'source_url': 'https://bo3.gg/matches', 'detail': match['_network_reason']})
 
     # 4b. HLTV world-ranking research model — same uncalibrated evidence class
     # as the Valve rung, but sourced from HLTV's official weekly ranking and
@@ -1670,6 +1749,28 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if proof.get('overlap', 5) < 5:
                 limitations.append(f"{proof['team']}: the current HLTV lineup shares four of five players with the "
                                    'selected historical Valve row; the one-player change is not quantified.')
+    elif network_quote:
+        # Session 541cd43a: our own line from observed results, used only after
+        # every money line, the aggregated reference and both official-rating
+        # models have failed. It is a labelled research model, never odds.
+        chosen = dict(network_quote)
+        chosen.update({'method': 'model',
+                       'label': 'Own network estimate (bo3.gg results graph)',
+                       'fair_decimal': [round(1 / p, 3) for p in network_quote['probabilities']],
+                       'quotes': [network_quote],
+                       'source': 'Own network model (bo3.gg results graph)',
+                       'model_crosscheck': model})
+        limitations.append(
+            'Own uncalibrated network model, not observed betting odds: no money line, no aggregated '
+            'reference and no complete official rating row existed for this fixture. Both ratings come from '
+            f"a Bradley–Terry fit over {network_quote.get('graph_matches')} finished bo3.gg series, anchored on "
+            f"Valve's official points for {network_quote.get('graph_anchors')} teams; the rating-difference "
+            f"one-sigma interval is {network_quote.get('rating_sd_diff')} points "
+            f"(probability interval {network_quote['interval'][0]:.3f}-{network_quote['interval'][1]:.3f}). "
+            'Current lineups, stand-ins and map vetoes are unverified.')
+        if network_quote.get('low_confidence'):
+            limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
+                               'finished series. Treat the direction as indicative only.')
     elif hltv_model:
         chosen = dict(hltv_model)
         chosen.update({'method': 'model', 'label': 'Research model estimate (HLTV world ranking)',
@@ -1799,6 +1900,21 @@ def run(output: Path, *, live: bool = False) -> dict:
 
     matches_out = []
     form_bindings = form_model.load_bindings(evidence_dir)
+    # Own-line network model (session 541cd43a). The graph is fitted once per run
+    # and saved as dated evidence; the gate inside the model fails closed when the
+    # graph is thin, unanchored, stale or too uncertain for a fixture.
+    network_document = None
+    network_error = None
+    if live_payload and live_payload.get('bo3_graph'):
+        try:
+            network_document = network_model.build(live_payload['bo3_graph']['edges'], ratings or [], now, registry)
+            network_model.save(network_document, evidence_dir)
+        except Exception as exc:  # noqa: BLE001 - evidence outage, never a value
+            network_error = f'{type(exc).__name__}: {exc}'[:200]
+    elif live_payload and live_payload.get('bo3_graph_error'):
+        network_error = 'Results graph unavailable this run: ' + str(live_payload['bo3_graph_error'])
+    elif not live_payload:
+        network_document = network_model.load(evidence_dir)
     for match in snapshot['matches']:
         if match.get('availability') == 'past':
             continue
@@ -1807,7 +1923,12 @@ def run(output: Path, *, live: bool = False) -> dict:
         form, form_reason = (form_model.estimate_fixture(match, form_bindings.get(str(match['id'])),
                                                          ratings, registry, now)
                              if ratings else (None, 'Official Valve ratings unavailable'))
-        result = resolve_match(dict(match, _hltv_lineup=proof, _form=form, _form_reason=form_reason),
+        network, network_reason = network_model.estimate_fixture(
+            match, form_bindings.get(str(match['id'])), network_document, now)
+        if network is None and network_error and network_reason:
+            network_reason = network_reason + ' (' + network_error + ')'
+        result = resolve_match(dict(match, _hltv_lineup=proof, _form=form, _form_reason=form_reason,
+                                    _network=network, _network_reason=network_reason),
                                poly_rows, book_rows, ratings, valve_meta, registry, now,
                                reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta)
         matches_out.append({
@@ -1839,6 +1960,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         'bookmaker': sum((m['origination'] or {}).get('method') == 'bookmaker' for m in matches_out),
         'reference': sum((m['origination'] or {}).get('method') == 'reference' for m in matches_out),
         'model': sum((m['origination'] or {}).get('method') == 'model' for m in matches_out),
+        'network': sum((m['origination'] or {}).get('family') == 'network' for m in matches_out),
         'guidance': sum((m['origination'] or {}).get('method') == 'guidance' for m in matches_out),
         'alias_joined': sum(bool(m['aliases_used']) for m in matches_out),
     }
@@ -1874,6 +1996,19 @@ def run(output: Path, *, live: bool = False) -> dict:
                                 'not validated picks and must never be treated as executable prices. See each '
                                 "row's research trail for the exact spreads.",
                       'match_ids': guidance_ids, 'source_urls': [POLY_INDEX, KALSHI_PAGE.rstrip('/')]})
+    network_ids = [m['id'] for m in matches_out
+                   if (m['origination'] or {}).get('family') == 'network']
+    if network_ids:
+        flags.append({'id': 'own-network-model-lines', 'severity': 'notice',
+                      'title': 'Own network model used where no money line or official rating exists',
+                      'detail': 'These fixtures had no usable Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, '
+                                'aggregated-reference, Valve or HLTV-ranking input. Their estimates come from a '
+                                'Bradley–Terry fit over bo3.gg finished series anchored on Valve official points; '
+                                'each row publishes its ratings, sample sizes, rating-difference standard error and '
+                                'probability interval, and is a research model, not betting odds. Confirm the '
+                                'current lineup and market before relying on one.',
+                      'match_ids': network_ids, 'source_urls': ['https://bo3.gg/matches',
+                                                                (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings')]})
     hltv_model_ids = [m['id'] for m in matches_out
                       if (m['origination'] or {}).get('method') == 'model'
                       and (m['origination'] or {}).get('source') == 'HLTV world ranking']
@@ -1918,6 +2053,8 @@ def run(output: Path, *, live: bool = False) -> dict:
                        'median consensus across independent money providers',
                        'reviewed aggregated bookmaker average (EGamersWorld; labelled third-party aggregate, never overrides a first-party price)',
                        'Valve-rating research model fallback',
+                       'own Bradley–Terry network model over bo3.gg results, anchored on Valve points '
+                       '(session 541cd43a; prices fixtures where both sides lack an official row)',
                        'HLTV world-ranking research model fallback (session c03ef201)',
                        'wide-book indicative midpoint, guidance only (session c03ef201; never a validated pick)',
                        'blank + flagged'],
@@ -1941,6 +2078,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             {'name': 'EGamersWorld aggregated bookmaker average', 'url': REFERENCE_INDEX,
              'role': 'dated third-party bookmaker-average fallback for otherwise unpriced fixtures; never overrides a first-party price'},
             {'name': 'Valve official standings', 'url': (valve_meta or {}).get('source_url', 'https://github.com/ValveSoftware/counter-strike_regional_standings'), 'role': 'uncalibrated research-model fallback only'},
+            {'name': 'bo3.gg finished-series results', 'url': 'https://bo3.gg/matches', 'api_url': BO3_API + '/matches',
+             'role': 'own-line network model only (session 541cd43a); every rating links its series results, never a bookmaker price'},
         ],
         'alias_registry': registry,
     }
