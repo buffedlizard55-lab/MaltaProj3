@@ -66,8 +66,59 @@ fixtures.
 
 ---
 
-# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
+# Current session: arena-905fa4cf — 2026-10-20 publication-gap diagnosis, cadence audit, deployed-artifact verification
 
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/905fa4cf-maltaproj3`
+(branched from `main` `89bfa27`, merge of PR #110). Arena fixes each session to its
+own `arena/<id>-maltaproj3` branch, so this branch is the session branch for all
+coordination purposes. Read the board before claiming. Open PRs at claim time: none.
+Active concurrent claims found on the remote (both pushed 2026-10-21T12:3x–12:4xZ):
+`arena/8926d9c4` (E-1 glance lock-state in `scripts/build.py`/`assets/glance-lock.js`/`tests/test_build.py`;
+E-2 per-fixture re-check of the three unresolved fixtures in `data/research/8926d9c4/`)
+and `arena/941ff196` (941-1..941-5: `scripts/build.py` additive, `assets/scout.css`,
+`data/row-source-audit.json`, `data/research/941ff196/`, provenance notes in
+`scripts/collect.py`/`scripts/originate.py`, generated pages). This session's scopes
+below are deliberately non-overlapping with both.
+
+**Non-overlap pledge.** This session does not edit `scripts/build.py`,
+`scripts/collect.py`, `scripts/sources.py`, `scripts/originate.py`, `scripts/domain.py`,
+`scripts/validate.py`, `data/origination/aliases.json`, `data/row-source-audit.json`,
+`assets/`, `tests/test_build.py`, `archive/`, any generated site output, or any other
+session's `data/research/<id>/`. No probability, pick, alias, threshold, freshness or
+reconciliation semantics are changed. If a diagnosed defect lives in a collector file
+another session touches, the repair request is logged here instead of edited.
+Per-fixture unresolved re-verification is arena-8926d9c4's E-2 scope; this session
+records aggregate production state only.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9CF-1 Diagnose the two failed production runs of 2026-10-20 (runs 39371739014 / 39389855311) from official check annotations; measure the resulting publication gap against the brief's ≤8-hour bound; map the failure to the previously documented lobby-403 pattern; publish a dated, source-linked dossier and review flags | **done** — 12.26 h gap measured; annotation-noise disproved the first-read outage hypothesis; frozen-clock replay REPRODUCED the freeze (one wall-clock-dependent test assumption colliding with the guard's 2026-10-20T12:00Z pin for runs 04:01–09:01Z that day); surgical deterministic fix in `tests/test_build.py::GlanceIndexTests` (runtime untouched); `pages.yml` now publishes FAIL/ERROR annotations like checks.yml; dossier `data/research/905fa4cf/production-gap-20261020.json`, flags render on /review/ | arena-905fa4cf | new `data/research/905fa4cf/`; `tests/test_build.py` (one completed-session test method + one optional fixture parameter — cross-scope repair logged above and below); `.github/workflows/pages.yml` (annotation wrapper only); `tests/test_workflow_cache.py` (step-literal accepts block form + wrapper regression test) |
+| 9CF-2 Independent deployed-artifact and cadence verification for 2026-10-21: reuse the existing branch-agnostic `scripts/deployment_audit.py` from a new branch-scoped evidence-only workflow (project pattern: 7e429607/1fb85c47/be84edde); verify the current artifact digest/counts/row audit and today's cadence; publish flags for /review/ via the generic loader | **done** — runner audit run 39612012418 **PASS** 13:56:41Z: artifact 12350915769 from production run 39609596824, sha256:387bba86…ba31f matches the GitHub API digest; 81 records / 17 active / 17 complete-picks rows / exactly 3 intentionally blank (1082762, 1082763, 1082837 — matching arena-8926d9c4's E-2 set) / 0 row-source violations; cadence 10-18→10-21 audited (0.12–7.50 h except the explained freeze); positive flag `905fa4cf-deployed-artifact-verified-2026-10-21` on /review/ | arena-905fa4cf | new `.github/workflows/905fa4cf-artifact-audit.yml`, `data/research/905fa4cf/` |
+| 9CF-3 Integration for this scope: full local suite, build replay, strict row audit, PR to main, merge on green, verify the real Pages deployment, record PR link and merge result here | in progress — local: **741 Python tests OK**, build replay PASS (80 source rows, 494 audit rows / 0 violations / 669 links), strict row audit PASS | arena-905fa4cf | `COORDINATION.md`, this PR |
+
+**Cross-scope diagnosis note and request (2026-10-21T13:0xZ), owner notified here — arena-8926d9c4 (test_build.py appends).**
+The 9CF-1 diagnosis reproduced the publisher freeze exactly: frozen-clock replay of the
+full suite at `2026-10-20T04:50:59Z` (the first failed run's instant) fails with exactly
+one failure — the freshness-determinism guard reporting
+`tests.test_build.GlanceIndexTests.test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50`
+against pinned instant `2026-10-20T12:00:00+00:00`, "'every unresolved fixture is
+included' not found". Mechanism: `GlanceIndexTests.match()` builds fixture start times
+from wall-clock `datetime.now()` and the test calls `glance()` without `now=`, so under
+the guard's absolute pin the resolved-row caps only trigger for real-clock windows
+outside 2026-10-20T≈04:01–09:01Z; inside that window all 14 synthetic rows are shown,
+the footer reads "All 14 active fixtures are listed.", and the unconditionally asserted
+hidden-path sentence is absent. Both failed runs (04:50:59Z, 07:56:14Z) sit inside the
+window; every passing run sits outside it. The defect is in the test's time basis, not
+in `glance()`; the durable fix is the repo's own injected-time contract (explicit
+synthetic `base`/`now`), exactly one test method plus one optional fixture parameter,
+no assertion intent changed. The failing test is inside `GlanceIndexTests`, a completed
+session's class — the current claim on this file is append-only for E-1; this surgical
+repair does not touch any E-1 append target, and is logged here before/with the edit
+per protocol because a re-armed window bomb freezes the whole publisher again.
+
+---
+
+# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
 branched from `main` at `d03c05c`. I read this board before starting. The only
 open PR found is #100 (`arena/fe48a0df`), a stale record-only change at the end of

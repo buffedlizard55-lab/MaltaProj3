@@ -78,6 +78,23 @@ class PublisherScheduleTests(unittest.TestCase):
 class PublisherStepOrderTests(unittest.TestCase):
     def test_regression_tests_run_on_repository_fixtures_before_the_cache_restore(self):
         text = WORKFLOW.read_text()
-        tests_at = text.index('run: python -m unittest discover -s tests')
+        # Accept both the single-line and the block-list form of the step's
+        # `run:` (the step adopted the checks.yml FAIL/ERROR annotation wrapper).
+        match = re.search(r'run:\s*(?:\|\n\s+)?python -m unittest discover -s tests', text)
+        self.assertIsNotNone(match, 'the regression-test step must run the unittest suite')
+        tests_at = match.start()
         restore_at = text.index('uses: actions/cache/restore@')
         self.assertLess(tests_at, restore_at, 'fixture-coupled tests must not run against restored runtime data')
+    def test_the_regression_step_publishes_fail_and_error_lines_as_annotations(self):
+        """A step failure must name its failing test in the official annotations.
+
+        On 2026-10-20 the two failed scheduled runs (39371739014, 39389855311)
+        showed only "exit code 1" plus four synthetic SourceError lines from
+        patched tests; the real failing test was unreadable without log access.
+        """
+        text = WORKFLOW.read_text()
+        step = text[re.search(r'name: Regression tests \(repository fixtures', text).start():]
+        step = step[:step.index('\n      - name:')]
+        self.assertIn('grep -E "^(FAIL|ERROR):"', step)
+        self.assertIn('::error title=unittest::', step)
+        self.assertIn('PIPESTATUS[0]', step, 'a bare pipeline would return tee\u2019s exit code, masking a suite failure')

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "905fa4cf-2026-10-20-publication-gap",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Publisher froze for 12.26 h on 2026-10-20 — longer than the 8 h refresh bound; root cause found and fixed 2026-10-21",
+    "detail": "Scheduled runs 39371739014 (04:50:59Z) and 39389855311 (07:56:14Z) failed at the pre-collection regression step on the identical head SHA (89bfa27) as the neighbouring successful runs, freezing publication between the 01:17:47Z and 13:33:30Z successes. The public site kept serving the 2026-10-20T01:29:53Z inventory and labelled it stale from about 09:29:53Z until the ~13:42Z recovery deploy; no unreconciled or invented data was published. Frozen-clock replay of the full suite at 04:50:59Z reproduced exactly one failure: tests.test_build.GlanceIndexTests.test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50 assumed glance() would always cap its synthetic rows, but the freshness-determinism guard's absolute pin 2026-10-20T12:00Z made the cap depend on the real time of day, so every run started on 2026-10-20 between about 04:01Z and 09:01Z failed. The test now uses an explicit synthetic time base (the repository's injected-time contract); frozen-clock replays at both failure instants pass 740/740, the failing module and the guard are green, and the production runtime (which never drops unresolved rows) was not changed. Full evidence chain: data/research/905fa4cf/production-gap-20261020.json.",
+    "source_urls": ["https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39371739014", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39389855311", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39352634388", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39431428827", "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/905fa4cf/production-gap-20261020.json"]
+  },
+  {
+    "id": "905fa4cf-regression-annotations-were-suite-noise",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The four 'SourceError: HTTP 403 / Lobby and API disagree' annotations in the failed runs are synthetic-test output, not a source outage",
+    "detail": "Both failed 2026-10-20 runs listed 'Process completed with exit code 1' plus four SourceError lines (three HTTP 403, one 'Lobby and API disagree'). Those four lines are printed by scripts/collect.py's degraded path while running four PATCHED tests in tests/test_domain.py::SourceSafetyTests; the successful run 39524645584 (2026-10-21T00:59:38Z) carries the identical four, and a green local run of that module prints them too. Initially they pointed the diagnosis at a Hotspawn outage that the runner evidence then disproved. pages.yml now publishes unittest FAIL/ERROR lines as ::error annotations (mirroring checks.yml's existing wrapper) so the next regression failure names its own test in the official annotations feed instead of hiding behind this noise.",
+    "source_urls": ["https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39371739014", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39524645584", "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"]
+  },
+  {
+    "id": "905fa4cf-deployed-artifact-verified-2026-10-21",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Independent verification: deployed 2026-10-21T13:49Z artifact passes digest, coverage, unresolved-ledger and row-source checks (81 records / 17 active / 3 intentionally blank)",
+    "detail": "Session arena-905fa4cf's branch-scoped audit (runner run 39612012418) downloaded production Pages artifact 12350915769 from run 39609596824 through GitHub's official API: the archive SHA-256 matches GitHub's advertised digest, every required route and JSON is present, and the rebuilt row-source audit reports 0 violations. The deployed 2026-10-21T13:49:06Z snapshot holds 81 inventory records with coverage_complete=true — 17 active fixtures, all 17 in the complete-picks list, 14 with a source-backed estimate and exactly 3 intentionally blank: 1082762 ex-CYBERSHOKE–BlinkDagger and 1082763 UPGRADE–flacons (CIS LAN Championship #9) and 1082837 Zetta–LOS NINOS (CCT South America 2026 Series #7), each kept blank with its full provider/HLTV research trail rather than an invented probability. This is an aggregate verification of the deployed artifact, not a per-fixture re-read of each match card; per-fixture re-verification of the three blanks is session arena-8926d9c4's claimed E-2 scope. Production cadence measured 2026-10-18→10-21: every successful-run gap is 0.12–7.50 h except the explained 12.26 h freeze above (fixed).",
+    "source_urls": ["https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39612012418", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609596824", "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12350915769", "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/905fa4cf/deployment-artifact-audit.json"]
+  }
+]

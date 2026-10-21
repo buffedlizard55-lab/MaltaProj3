@@ -1,0 +1,16 @@
+{
+  "frozen_instant": "2026-10-20T04:50:59+00:00",
+  "tests_run": 740,
+  "failure_count": 1,
+  "error_count": 0,
+  "failures": [
+    "test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times (test_freshness_determinism.PinnedClockTests.test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times): 2026-10-20T12:00:00+00:00 \u00b7 tests.test_build.GlanceIndexTests.test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50: AssertionError: 'every unresolved fixture is included' not found in '<section class=\"content-section\" id=\"picks-at-a-glance\"><div class=\"section-heading\"><div><p class=\"eyebrow\">Every \u2026 [HTML excerpt trimmed for reviewability by session arena-905fa4cf; assertion text intact] \u2026 6 6\"/></svg></a></div></li></ol><p class=\"tiny muted glance-foot\">All 14 active fixtures are listed. <a class=\"internal-link\" href=\"origination/#picks\">Open the complete audited list \u2192</a> <a class=\"internal-link\" href=\"origination/#unresolved\">Unresolved picks &amp; limitations \u2192</a></p></section>'"
+  ],
+  "errors": [],
+  "summary_lines": [
+    "Ran 740 tests in 0.000s",
+    "FAILED (failures=1)"
+  ],
+  "success": false,
+  "note_trimmed_html": "Failure entry trimmed by session arena-905fa4cf: the original message embedded the complete rendered glance section HTML (about 14 KB) which added no diagnostic content beyond the assertion text. Reproduce byte-exact output with: .venv/bin/python data/research/905fa4cf/replay_suite_at.py 2026-10-20T04:50:59+00:00 on the pre-fix tree (git rev-parse HEAD back to 89bfa27 + staged fix reverted)."
+}

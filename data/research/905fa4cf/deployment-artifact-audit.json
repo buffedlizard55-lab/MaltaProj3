@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "artifact_audit": "deployed-pages-content",
+  "site_root": ".",
+  "status": "pass",
+  "snapshot": {
+    "generated_at": "2026-10-21T14:15:47Z",
+    "inventory_observed_at": "2026-10-21T14:15:34Z",
+    "analysis_as_of": "2026-10-21T14:15:34Z",
+    "coverage_complete": true,
+    "run_status": "partial-picks",
+    "counts": {
+      "inventory": 78,
+      "upcoming": 12,
+      "archived": 66,
+      "unknown_schedule": 0,
+      "market": 5,
+      "bookmaker": 0,
+      "model": 2,
+      "unresolved": 5,
+      "picks": 7,
+      "no_edge": 0
+    }
+  },
+  "counts": {
+    "inventory_records": 78,
+    "non_archived_records": 12,
+    "complete_picks_rows": 12,
+    "unresolved_complete_picks": 0,
+    "row_source_violations": 0
+  },
+  "unresolved": [],
+  "checks": [
+    {
+      "id": "github-artifact-digest",
+      "status": "pass",
+      "detail": "Downloaded archive SHA-256 matches GitHub API artifact.digest."
+    },
+    {
+      "id": "required-files",
+      "status": "pass",
+      "detail": "All required current Pages routes and JSON files are present."
+    },
+    {
+      "id": "inventory-array",
+      "status": "pass",
+      "detail": "Published inventory contains 78 records."
+    },
+    {
+      "id": "inventory-identities",
+      "status": "pass",
+      "detail": "78 unique inventory IDs were found."
+    },
+    {
+      "id": "inventory-count",
+      "status": "pass",
+      "detail": "Published inventory count agrees with 78 records."
+    },
+    {
+      "id": "inventory-source-links",
+      "status": "pass",
+      "detail": "Every inventory row carries an HTTPS Hotspawn/API source link."
+    },
+    {
+      "id": "complete-picks-array",
+      "status": "pass",
+      "detail": "Complete-picks JSON contains 12 rows."
+    },
+    {
+      "id": "complete-picks-coverage",
+      "status": "pass",
+      "detail": "Complete-picks IDs exactly cover 12 non-archived inventory records."
+    },
+    {
+      "id": "probability-bases",
+      "status": "pass",
+      "detail": "Every populated estimate has a normalized pair, an HTTPS evidence URL, observation time and non-underdog default."
+    },
+    {
+      "id": "explicit-unresolved",
+      "status": "pass",
+      "detail": "Every blank complete-picks row is explicitly listed as unresolved, with no unrelated unresolved ID."
+    },
+    {
+      "id": "summary-snapshot-parity",
+      "status": "pass",
+      "detail": "Executive summary declares the same generated timestamp as data/latest.json."
+    },
+    {
+      "id": "phone-first-picks-route",
+      "status": "pass",
+      "detail": "Artifact has the executive pick-at-a-glance section plus full-list links in normal and mobile navigation."
+    },
+    {
+      "id": "unresolved-surface",
+      "status": "pass",
+      "detail": "Complete-picks page exposes both the full list and a separate unresolved/limitations section."
+    },
+    {
+      "id": "complete-picks-html-coverage",
+      "status": "pass",
+      "detail": "Complete-picks HTML has one card for every 12 non-archived inventory record."
+    },
+    {
+      "id": "row-source-manifest-parity",
+      "status": "pass",
+      "detail": "Published row-source totals match a fresh audit of this artifact."
+    },
+    {
+      "id": "row-source-links",
+      "status": "pass",
+      "detail": "Recomputed row-source audit found 0 violations."
+    }
+  ],
+  "findings": [],
+  "provenance": {
+    "repository": "buffedlizard55-lab/MaltaProj3",
+    "workflow_run": {
+      "id": 39612934455,
+      "name": "Refresh and deploy CS2 dashboard",
+      "event": "push",
+      "head_branch": "main",
+      "head_sha": "586af666a4fec9ed4dcefa0961d60fa8709b47db",
+      "created_at": "2026-10-21T14:00:08Z",
+      "updated_at": "2026-10-21T14:17:38Z",
+      "conclusion": "success",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39612934455"
+    },
+    "artifact": {
+      "id": 12351489477,
+      "name": "github-pages",
+      "size_in_bytes": 17139100,
+      "digest": "sha256:7ac05bd34a0d241ca164d08bd50cc3a611a98b74ea811dae8d44998a5f9d1224",
+      "created_at": "2026-10-21T14:17:24Z",
+      "updated_at": "2026-10-21T14:17:24Z",
+      "expires_at": "2026-10-22T14:17:22Z",
+      "expired": false,
+      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12351489477",
+      "downloaded_sha256": "sha256:7ac05bd34a0d241ca164d08bd50cc3a611a98b74ea811dae8d44998a5f9d1224",
+      "digest_matches_github_api": true
+    }
+  },
+  "audited_at": "2026-10-21T14:18:37Z"
+}

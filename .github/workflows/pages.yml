@@ -41,7 +41,27 @@ jobs:
       # once the cache restore started hitting (identical path lists), running them
       # after the restore failed the 17983a6 deploy (run 38821346854).
       - name: Regression tests (repository fixtures, before any cache restore)
-        run: python -m unittest discover -s tests -v
+        # Mirror checks.yml: publish unittest FAIL/ERROR lines as ::error
+        # annotations. Runs 39371739014 and 39389855311 (2026-10-20) failed here
+        # with only "exit code 1" in the official annotations (run logs sit on a
+        # host that restricted sandboxes cannot fetch), and the four SourceError
+        # lines that appeared instead are synthetic output of patched tests in
+        # tests/test_domain.py. A failing step must name its own failing test.
+        run: |
+          python -m unittest discover -s tests -v 2>&1 | tee unittest-output.log
+          status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ]; then
+            {
+              echo '## unittest failures'
+              echo '```'
+              grep -E "^(FAIL|ERROR):|^Ran |^FAILED|^OK" unittest-output.log || true
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            grep -E "^(FAIL|ERROR):" unittest-output.log | while IFS= read -r line; do
+              echo "::error title=unittest::${line}"
+            done
+          fi
+          exit "$status"
       # v2 isolates the new HLTV original-markup/format evidence contract.
       # Restoring v1 over this checkout mixes incompatible derived records and
       # leaves newer evidence files behind; never relabel that overlay verified.

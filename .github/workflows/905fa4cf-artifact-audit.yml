@@ -1,0 +1,76 @@
+# Evidence-only deployed-artifact verification for session arena-905fa4cf.
+#
+# Pattern: identical to .github/workflows/deployment-artifact-audit.yml (session
+# arena-7e429607), re-scoped to this session's branch and output directory.
+# This workflow neither collects an esports source nor changes a probability,
+# pick, alias or production deployment. It reads GitHub's own most recent Pages
+# artifact through the official Actions API, writes a dated report to this
+# branch, and is path-filtered so its report commit cannot trigger itself again.
+name: Audit deployed Pages artifact (905fa4cf)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/905fa4cf-maltaproj3']
+    paths:
+      - '.github/workflows/905fa4cf-artifact-audit.yml'
+      - 'scripts/deployment_audit.py'
+      - 'tests/test_deployment_audit.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: deployment-artifact-audit-905fa4cf
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/arena/905fa4cf-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test the archive, digest, source and phone-route audit logic
+        run: python -m unittest tests.test_deployment_audit -v
+      - name: Read the latest successful main Pages artifact through GitHub's official API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.deployment_audit \
+            --repository "$GITHUB_REPOSITORY" \
+            --token "$GITHUB_TOKEN" \
+            --output data/research/905fa4cf/deployment-artifact-audit.json
+      - name: Publish a compact review annotation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('data/research/905fa4cf/deployment-artifact-audit.json').read_text())
+          snapshot = report.get('snapshot') or {}
+          counts = report.get('counts') or {}
+          artifact = ((report.get('provenance') or {}).get('artifact') or {})
+          print('::notice title=Pages artifact audit (905fa4cf)::status=' + str(report.get('status')) +
+                '; artifact=' + str(artifact.get('id')) +
+                '; inventory=' + str(counts.get('inventory_records')) +
+                '; active=' + str(counts.get('non_archived_records')) +
+                '; observed=' + str(snapshot.get('inventory_observed_at')))
+          if report.get('status') != 'pass':
+              for finding in report.get('findings') or ['Artifact audit needs manual review.']:
+                  print('::warning title=Pages artifact audit needs review::' + str(finding)[:1800])
+          PY
+      - name: Commit the evidence-only audit report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/905fa4cf/deployment-artifact-audit.json
+          git diff --cached --quiet && echo 'No deployed-artifact report change.' && exit 0
+          git commit -m 'research(905fa4cf): audit deployed Pages artifact'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
