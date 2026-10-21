@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "session": "arena-091e0e2e",
+  "title": "Independent live coverage, pick navigation, mobile, and identity review",
+  "observed_at": "2026-10-21T21:02:10Z",
+  "scope": "Evidence and coordination only. No shared match data, probabilities, picks, aliases, collectors, builders, styles, or workflows were modified.",
+  "method": "Compared the public Hotspawn CS2 lobby and fixture API with the latest successful Pages workflow annotations and the published JSON/pages. Replayed the selected pick inputs from the public originated JSON where available. Checked the named match against Hotspawn, HLTV, the Polymarket contract, and independent event/roster records. Audited the summary-to-picks and unresolved links and ran a local build/source validation against the checked-in repository snapshot.",
+  "live_refresh": {
+    "workflow": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+    "latest_successful_run_at_audit": {
+      "run_id": 39672993677,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39672993677",
+      "head_sha": "f9b0ded5a9e68d8e4614af2e51af7d6c769ad12c",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-21T20:45:03Z",
+      "started_at": "2026-10-21T20:45:59Z",
+      "completed_at": "2026-10-21T20:54:38Z",
+      "job_id": 119475557354,
+      "inventory_observed_at": "2026-10-21T20:52:48Z",
+      "coverage_complete": true,
+      "inventory_crosscheck": "complete",
+      "counts": {
+        "inventory": 75,
+        "upcoming": 13,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "featured_market": 2,
+        "featured_bookmaker": 0,
+        "featured_model": 5,
+        "featured_unresolved": 6,
+        "featured_picks": 7
+      },
+      "complete_pick_counts": {
+        "active": 13,
+        "resolved": 11,
+        "unresolved": 2,
+        "with_directional_pick": 10,
+        "no_edge": 1,
+        "consensus": 1,
+        "market": 2,
+        "bookmaker": 0,
+        "reference": 0,
+        "model": 8,
+        "guidance": 0,
+        "alias_joined": 2
+      },
+      "row_source_audit": {
+        "rows": 545,
+        "official_linked": 531,
+        "explicitly_flagged_unverified": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "pages_mode": "legacy",
+      "pages_mode_limitation": "The workflow annotation reports GitHub Pages configuration returned HTTP 403 and used legacy build mode. The complete current artifact nevertheless deployed and the workflow Verify the public site step passed."
+    },
+    "other_run_at_audit": {
+      "run_id": 39667890897,
+      "event": "schedule",
+      "head_sha": "a506382c46762d134876f7d33a7723faa729a5ad",
+      "status_at_2026_10_21T20_19Z": "in_progress during regression tests; completed success at 20:22:20Z",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39667890897"
+    },
+    "hotspawn_lobby": {
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "observation": "At approximately 20:09Z, the CS2 lobby all-tournaments filter showed 76 entries and the lobby reported 138 matches this week. The complete 20:20Z inventory crosscheck showed 75 (13 upcoming, 62 past); the latest successful 20:52:48Z crosscheck again showed 75 (13 upcoming, 62 archived), with lobby and API verified. These are dated source observations; no cause is inferred for the earlier one-record change. At 20:09Z Hotspawn community picks were 11% vs 89% for Zetta–LOS NINOS; those votes are popularity only and were never used as match probability.",
+      "fixture_api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    },
+    "previous_successful_run": {
+      "run_id": 39667890897,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39667890897",
+      "head_sha": "a506382c46762d134876f7d33a7723faa729a5ad",
+      "status": "completed",
+      "conclusion": "success",
+      "updated_at": "2026-10-21T20:22:20Z",
+      "check_run_id": 119457989703,
+      "inventory_observed_at": "2026-10-21T20:20:18Z",
+      "coverage_complete": true,
+      "inventory_crosscheck": "complete",
+      "counts": {
+        "inventory": 75,
+        "upcoming": 13,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "featured_market": 2,
+        "featured_bookmaker": 0,
+        "featured_model": 5,
+        "featured_unresolved": 6,
+        "featured_picks": 7
+      },
+      "complete_pick_counts": {
+        "active": 13,
+        "resolved": 11,
+        "unresolved": 2,
+        "with_directional_pick": 10,
+        "no_edge": 1,
+        "consensus": 1,
+        "market": 2,
+        "bookmaker": 0,
+        "reference": 0,
+        "model": 8,
+        "guidance": 0,
+        "alias_joined": 2
+      },
+      "row_source_audit": {
+        "rows": 537,
+        "official_linked": 523,
+        "explicitly_flagged_unverified": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "pages_mode": "legacy",
+      "pages_mode_limitation": "The workflow annotation reports the Pages-mode configuration attempt returned HTTP 403. It states that the workflow waits for the legacy build and publishes the verified current artifact last. This is a platform configuration limitation, not evidence that source collection failed."
+    },
+    "public_snapshot_at_initial_audit": {
+      "latest_json_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?verified_snapshot=2026-10-21T20%3A20%3A18Z",
+      "origination_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/?verified_snapshot=2026-10-21T20%3A20%3A18Z",
+      "summary_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/?verified_snapshot=2026-10-21T20%3A20%3A18Z",
+      "review_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/?verified_snapshot=2026-10-21T20%3A20%3A18Z",
+      "generated_at": "2026-10-21T20:20:28Z",
+      "origination_generated_at": "2026-10-21T20:20:40Z",
+      "inventory_observed_at": "2026-10-21T20:20:18Z",
+      "coverage_complete": true,
+      "refresh_interval_hours": 4,
+      "stale_after_hours": 8,
+      "run_status": "partial-picks",
+      "public_results": "The latest public latest.json, origination page, summary, and review routes served the Oct 21 20:20 UTC snapshot after the successful 20:22 deployment. The earlier Oct 15 content was fetched around 20:09 while a Pages refresh/deployment was still in progress; it was not reproduced after deployment. Text extraction includes hidden warning elements and is not proof those warnings are visibly displayed.",
+      "counts": {
+        "inventory": 75,
+        "upcoming": 13,
+        "archived": 62,
+        "unknown_schedule": 0
+      },
+      "complete_pick_counts": {
+        "active": 13,
+        "resolved": 11,
+        "unresolved": 2,
+        "with_directional_pick": 10,
+        "no_edge": 1,
+        "consensus": 1,
+        "single_source_market": 2,
+        "model": 8,
+        "guidance": 0,
+        "alias_joined": 2
+      }
+    },
+    "earlier_successful_run": {
+      "run_id": 39666468012,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012",
+      "head_sha": "da5a10c496cadab972ead4ce587f7c7531d54523",
+      "conclusion": "success",
+      "updated_at": "2026-10-21T20:10:28Z",
+      "inventory_observed_at": "2026-10-21T20:08:16Z",
+      "counts": {
+        "inventory": 76,
+        "upcoming": 13,
+        "archived": 63,
+        "unknown_schedule": 0,
+        "featured_market": 2,
+        "featured_bookmaker": 0,
+        "featured_model": 5,
+        "featured_unresolved": 6,
+        "featured_picks": 7
+      },
+      "note": "A successful earlier publication at 20:08 contained 76 inventory rows; the subsequent complete 20:20 crosscheck contained 75. The one-record difference is preserved as two observations; no cause is inferred."
+    },
+    "intervening_main_runs": [
+      {
+        "run_id": 39669432264,
+        "head_sha": "594e695d831f4c174a9412a94ca5ad60c0f1efde",
+        "conclusion": "success",
+        "completed_at": "2026-10-21T20:45:15Z",
+        "note": "Earlier successful main push/deploy, superseded by the later complete 20:52 snapshot."
+      },
+      {
+        "run_id": 39671160572,
+        "head_sha": "b4c5e82002a1171accb4395d27f325dd6161cc4f",
+        "conclusion": "cancelled",
+        "updated_at": "2026-10-21T20:45:04Z",
+        "note": "Superseded in the Actions concurrency group by later main push activity; not a source or build failure."
+      }
+    ],
+    "public_snapshot": {
+      "latest_json_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?verified_snapshot=2026-10-21T20%3A52%3A48Z",
+      "origination_json_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?verified_snapshot=2026-10-21T20%3A52%3A48Z",
+      "origination_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/?verified_snapshot=2026-10-21T20%3A52%3A48Z",
+      "summary_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/?verified_snapshot=2026-10-21T20%3A52%3A48Z",
+      "review_page_url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/?verified_snapshot=2026-10-21T20%3A52%3A48Z",
+      "generated_at": "2026-10-21T20:52:58Z",
+      "origination_generated_at": "2026-10-21T20:53:09Z",
+      "inventory_observed_at": "2026-10-21T20:52:48Z",
+      "coverage_complete": true,
+      "refresh_interval_hours": 4,
+      "stale_after_hours": 8,
+      "run_status": "partial-picks",
+      "counts": {
+        "inventory": 75,
+        "upcoming": 13,
+        "archived": 62,
+        "unknown_schedule": 0
+      },
+      "complete_pick_counts": {
+        "active": 13,
+        "resolved": 11,
+        "unresolved": 2,
+        "with_directional_pick": 10,
+        "no_edge": 1,
+        "consensus": 1,
+        "single_source_market": 2,
+        "model": 8,
+        "guidance": 0,
+        "alias_joined": 2
+      },
+      "row_source_audit": {
+        "rows": 545,
+        "official_linked": 531,
+        "flagged_unverified": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "public_results": "Fetched latest.json, origination.json, the summary, origination and review routes after successful run #39672993677; their source timestamps match the 20:52:48Z inventory and 20:53Z origination snapshot. The summary and review text extraction still includes stale-warning/alternate-state copy despite the fresh snapshot, and the originated page labels this line historical/unverified for current use; fetch_page does not establish whether these warning strings are visible in the rendered browser state. The 091e0e2e flag is not yet part of this pre-merge public review page."
+    }
+  },
+  "complete_pick_navigation": {
+    "summary": "The executive summary presents direct links to updated picks, the searchable featured feed, and unresolved picks/limitations. It states 13 active fixtures, 10 directional picks, and 2 unresolved; the complete list separately identifies one even/no-edge estimate.",
+    "all_picks_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+    "unresolved_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+    "review_url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+    "unresolved_fixtures_seen": [
+      {
+        "id": "1081597",
+        "teams": [
+          "benched gods",
+          "TitanFlow"
+        ],
+        "hotspawn_url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+        "displayed_blocker": "ambiguous rating"
+      },
+      {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
+        "displayed_state": "unresolved; no directional pick"
+      }
+    ]
+  },
+  "identity_review": {
+    "match_id": "1082837",
+    "status": "same-roster and fixture continuity are supported, but the Alianza market identity remains unconfirmed for safe alias-based publication",
+    "hotspawn_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+    "hltv_match_url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+    "hltv_event_url": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+    "polymarket_gamma_url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+    "polymarket_page_url": "https://polymarket.com/esports/cs2/cct-south-america/cs2-ale1-ln-2026-10-21",
+    "facts": [
+      {
+        "status": "primary-source match agreement",
+        "detail": "Hotspawn fixture 1082837 and HLTV match 2399865 both label the CCT South America Series 7 round-5 BO3 at 2026-10-21 22:00Z as Zetta vs LOS NINOS. HLTV lists the Zetta five as Notjuanjo, zockie, BabyRage, Antuanette, and Slayerhz. Hotspawn lists Antuanette, Slayerhz, zock, babyrage, and Notjuanjo (zock/zockie spelling differs)."
+      },
+      {
+        "status": "primary-source market-name discrepancy",
+        "detail": "Polymarket Gamma event 1227336 and the Polymarket page label the same advertised 22:00Z CCT round-5 BO3 as Alianza Lima Esports vs Los Niños. The contract text allows minor name differences only when the intended participant is clearly and uniquely identified; it says the market resolves 50-50 if the label could reasonably refer to another team in the same competition and intended identity is not unambiguous. The Gamma event lists a Polymarket resolution source and the market metadata points to HLTV for the series market."
+      },
+      {
+        "status": "roster continuity supported, organization change not established",
+        "detail": "bo3.gg's current Alianza match page assigns the same five names (zockie, Slayerhz, NotJuanjo, BabyRage, Antuanette) to Alianza. Secondary records also use Alianza for earlier CCT fixtures. Zetta Games' own 2026-04-28 CS2 launch post identifies Zetta and an earlier roster but does not announce an Alianza acquisition or rebrand. No first-party Alianza/CCT statement explicitly confirming that change was located in the sources searched."
+      },
+      {
+        "status": "contradictory secondary event roster",
+        "detail": "Strafe's CCT Series 7 event page lists both Alianza Lima Esports and Zetta among the event standings/participants. Strafe is secondary evidence, not an official participant register; this observation raises an identity question but does not settle it."
+      },
+      {
+        "status": "published treatment",
+        "detail": "The 20:52Z public originated JSON now displays LOS NINOS at 79.0% from Polymarket/Kalshi consensus quotes observed at 20:53:11Z and 20:53:12Z. The earlier 20:20Z snapshot displayed 60.9%; the intervening move is a market-price change, not evidence that Alianza Lima Esports is Zetta. Independent direct market API/book checks reproduce the latest quotes. The remaining blocker is identity/contract adjudication, not quote provenance or Hotspawn popularity; this audit does not endorse the alias-dependent estimate."
+      },
+      {
+        "status": "primary-source quote replay; prices move",
+        "detail": "At approximately 20:24Z, Polymarket Gamma market 6001634 returned the exact Alianza Lima Esports vs Los Niños match-winner market (active, accepting orders, start 22:00Z). Its CLOB books returned Alianza best bid/ask 0.38/0.39 and Los Niños 0.61/0.62 at book timestamp 2026-10-21T20:24:06.667Z. The official Kalshi event API returned two active mutually exclusive outcome markets; at retrieval, Alianza yes bid/ask was 0.35/0.43 and Los Ninos 0.57/0.65. These later Kalshi quotes differ from the 20:20 captured pair, consistent with price movement. The two source inputs in the 20:20 public JSON replay to its 60.9% consensus; no replacement number was calculated."
+      },
+      {
+        "status": "latest primary-source quote replay; identity remains separate",
+        "detail": "The successful 20:52:48Z public snapshot (generated 20:52:58Z; origination 20:53:09Z) publishes Zetta–LOS NINOS at 20.980769%/79.019231% (pick LOS NINOS 79.0%). Its Polymarket quote is 23.5%/76.5% (bid 0.23/0.76, ask 0.24/0.77) observed 20:53:11Z; its Kalshi quote is 18.461538%/81.538462% (bid 0.16/0.78, ask 0.20/0.81) observed 20:53:12Z. At the later direct check, Polymarket CLOB books carried the same best levels at 2026-10-21T20:57:46.567Z, and Kalshi’s official event API returned both outcome markets active at the same bid/ask levels. The market names still say Alianza Lima Esports vs Los Niños/Los Ninos, not Zetta. Quote replay verifies the inputs and consensus arithmetic, not the alias identity."
+      }
+    ],
+    "searched_sources": [
+      {
+        "role": "primary fixture source",
+        "url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837"
+      },
+      {
+        "role": "primary esports match and lineup source",
+        "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7"
+      },
+      {
+        "role": "primary event source",
+        "url": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7"
+      },
+      {
+        "role": "primary market contract API",
+        "url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21"
+      },
+      {
+        "role": "primary market page",
+        "url": "https://polymarket.com/esports/cs2/cct-south-america/cs2-ale1-ln-2026-10-21"
+      },
+      {
+        "role": "first-party Zetta roster/project post; not a rebrand announcement",
+        "url": "https://x.com/ZettaGames01/status/2049113837983470037"
+      },
+      {
+        "role": "secondary event standings (both labels appear)",
+        "url": "https://www.strafe.com/event/2026-cct-south-america-series-7-75c83e/"
+      },
+      {
+        "role": "secondary roster/match cross-check",
+        "url": "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026"
+      },
+      {
+        "role": "secondary earlier Alianza fixture records",
+        "url": "https://www.offstage.ru/cs2/matches/damajuana-vs-alianza-lima-2026-10-14"
+      },
+      {
+        "role": "secondary earlier Alianza fixture records",
+        "url": "https://www.offstage.ru/cs2/matches/alianza-lima-vs-sukeban-2026-10-15"
+      },
+      {
+        "role": "secondary earlier Alianza fixture records",
+        "url": "https://www.offstage.ru/cs2/matches/alianza-lima-vs-exodia-2026-10-17"
+      },
+      {
+        "role": "official Kalshi event page; primary event API used for quote replay",
+        "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale"
+      },
+      {
+        "role": "primary Polymarket market metadata",
+        "url": "https://gamma-api.polymarket.com/markets/6001634"
+      },
+      {
+        "role": "primary Polymarket CLOB order book for Alianza outcome",
+        "url": "https://clob.polymarket.com/book?token_id=63142317075924332286067599881392444963525427435571053356490812095677986050781"
+      },
+      {
+        "role": "primary Polymarket CLOB order book for Los Niños outcome",
+        "url": "https://clob.polymarket.com/book?token_id=17309593001255282687449447374733860183589262620099633867183899970381654455854"
+      },
+      {
+        "role": "primary Kalshi event with nested outcome markets",
+        "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT211800LNALE?with_nested_markets=true"
+      }
+    ],
+    "market_quote_replay": {
+      "published_snapshot_at": "2026-10-21T20:20:18Z",
+      "published_match": "1082837",
+      "published_consensus_probabilities": [
+        0.39095361,
+        0.60904639
+      ],
+      "published_directional_pick": "LOS NINOS",
+      "published_quotes": [
+        {
+          "provider": "Polymarket",
+          "event_id": "1227336",
+          "market_id": "6001634",
+          "source_outcomes": [
+            "Alianza Lima Esports",
+            "Los Niños"
+          ],
+          "bid": [
+            0.38,
+            0.61
+          ],
+          "ask": [
+            0.39,
+            0.62
+          ],
+          "midpoint_probabilities": [
+            0.385,
+            0.615
+          ],
+          "observed_at": "2026-10-21T20:20:44Z",
+          "replay": "Direct Gamma market lookup and both direct CLOB book requests at the later ~20:24Z check confirmed the same top-of-book levels."
+        },
+        {
+          "provider": "Kalshi",
+          "event_ticker": "KXCS2GAME-26OCT211800LNALE",
+          "source_outcomes": [
+            "Alianza Lima Esports",
+            "Los Ninos"
+          ],
+          "bid": [
+            0.35,
+            0.55
+          ],
+          "ask": [
+            0.42,
+            0.62
+          ],
+          "midpoint_probabilities": [
+            0.39690722,
+            0.60309278
+          ],
+          "observed_at": "2026-10-21T20:20:45Z",
+          "replay": "The official Kalshi event endpoint later returned two active markets with updated yes bid/ask values (Alianza 0.35/0.43; Los Ninos 0.57/0.65), confirming the source pair but not the exact old quotes; price movement is expected."
+        }
+      ],
+      "calculation_note": "The displayed probabilities are the mean of the two normalized independent market estimates at their recorded 20:20 observation times; the published LOS NINOS value is 60.904639% rounded to 60.9%. This mathematical replay does not settle market-team identity."
+    },
+    "latest_public_pick": {
+      "snapshot_at": "2026-10-21T20:52:48Z",
+      "generated_at": "2026-10-21T20:53:09Z",
+      "fixture_id": "1082837",
+      "displayed_match": "Zetta vs LOS NINOS",
+      "displayed_pick": "LOS NINOS",
+      "displayed_probabilities": [
+        0.20980769,
+        0.79019231
+      ],
+      "displayed_percent": "79.0%",
+      "displayed_alias": "Alianza Lima Esports → Zetta",
+      "warning": "Do not treat the alias-dependent estimate as identity-adjudicated; public page labels the estimate historical/unverified for current use."
+    },
+    "latest_market_quote_replay": {
+      "published_snapshot_at": "2026-10-21T20:52:48Z",
+      "published_consensus_probabilities": [
+        0.20980769,
+        0.79019231
+      ],
+      "published_pick": "LOS NINOS",
+      "quotes": [
+        {
+          "provider": "Polymarket",
+          "event_id": "1227336",
+          "market_id": "6001634",
+          "source_outcomes": [
+            "Alianza Lima Esports",
+            "Los Niños"
+          ],
+          "bid": [
+            0.23,
+            0.76
+          ],
+          "ask": [
+            0.24,
+            0.77
+          ],
+          "midpoint_probabilities": [
+            0.235,
+            0.765
+          ],
+          "observed_at": "2026-10-21T20:53:11Z",
+          "direct_clob_replay_at": "2026-10-21T20:57:46.567Z",
+          "direct_clob_levels_match": true
+        },
+        {
+          "provider": "Kalshi",
+          "event_ticker": "KXCS2GAME-26OCT211800LNALE",
+          "source_outcomes": [
+            "Alianza Lima Esports",
+            "Los Ninos"
+          ],
+          "bid": [
+            0.16,
+            0.78
+          ],
+          "ask": [
+            0.2,
+            0.81
+          ],
+          "midpoint_probabilities": [
+            0.18461538,
+            0.81538462
+          ],
+          "observed_at": "2026-10-21T20:53:12Z",
+          "direct_event_api_replay_at": "approximately 2026-10-21T20:58Z",
+          "markets_active": true
+        }
+      ],
+      "calculation_note": "The published probabilities are the median consensus (arithmetic median for two inputs) of the two normalized independent market estimates. This reproduces 20.980769%/79.019231%. The earlier 20:20Z consensus was 39.095361%/60.904639%; the movement is price movement only and does not establish the team alias."
+    }
+  },
+  "local_validation": {
+    "data_scope": "checked-in repository snapshot, not the Oct 21 live run artifact",
+    "build": "passed",
+    "build_command": ".venv/bin/python -m scripts.build --data data --output site",
+    "source_row_validation": {
+      "fixture_rows_reconciled": 80,
+      "probabilities_and_picks_replayed": true,
+      "rendered_rows": 534,
+      "official_source_linked": 520,
+      "flagged_unverified": 5,
+      "navigation": 9,
+      "violations": 0,
+      "internal_links_assets_anchors_checked": 678,
+      "pages_built": 8
+    },
+    "mobile_source_review": "The rendered build reported project-subpath routing and mobile landmarks checked. Nine focused Playwright tests passed for the originated picks and summary navigation at 320px, 390px, 768px, and 1440px; the tests checked no horizontal overflow, direct picks/unresolved links (including no-JavaScript navigation), and axe WCAG A/AA on the picks page.",
+    "focused_unit_tests": {
+      "commands": [
+        ".venv/bin/python -m unittest discover -s tests -p 'test_review_flags.py' -v",
+        ".venv/bin/python -m unittest discover -s tests -p 'test_row_sources.py' -v",
+        ".venv/bin/python -m unittest discover -s tests -p 'test_summary_navigation.py' -v",
+        ".venv/bin/python -m unittest discover -s tests -p 'test_093e722e_join_guard.py' -v"
+      ],
+      "result": "35 distinct focused tests passed: 4 review-flag integration, 13 row-source, 12 summary-navigation, and 6 both-team join-guard tests. After the latest flag update, review-flag (4) and join-guard (6) suites were re-run and passed."
+    },
+    "focused_browser_tests": {
+      "command": "npm test -- tests/browser/summary_navigation.spec.mjs tests/browser/origination.spec.mjs --reporter=line",
+      "result": "9 passed in 25.6 seconds",
+      "viewports_px": [
+        320,
+        390,
+        768,
+        1440
+      ],
+      "checks": [
+        "no horizontal overflow",
+        "summary to all-picks link",
+        "summary to unresolved link",
+        "no-JavaScript navigation",
+        "axe WCAG A/AA on originated picks"
+      ]
+    },
+    "full_unittest_run": "The local full unittest command exceeded the 180-second shell limit before a final suite summary; no full-suite pass/fail conclusion is drawn from that incomplete local run.",
+    "validated_base_sha": "f0aa7e5d57037830fdd5200721098c9175ea14bf",
+    "followup_main_regression": {
+      "run_id": 39672993677,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39672993677",
+      "conclusion": "success",
+      "head_sha": "f9b0ded5a9e68d8e4614af2e51af7d6c769ad12c",
+      "note": "The merged main regression-test step passed before the latest public build/deploy."
+    },
+    "validation_notes": "The rebased main commit f9b0ded adds coordination/research and the six join-guard tests but no source/build code changes versus f0aa7e5; the new join-guard tests were run separately and passed."
+  }
+}
