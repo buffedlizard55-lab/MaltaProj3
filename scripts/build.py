@@ -458,11 +458,14 @@ def glance(data, prefix, now=None):
     # the summary must never omit the name of a match that has no estimate.
     blank_rows = [m for m in active if not basis(m)[0] and upcoming(m)]
     past_blank_rows = [m for m in active if not basis(m)[0] and not upcoming(m)]
-    # Bounded index: upcoming picks first, then every unresolved fixture, then
-    # recent resolved rows for context. Nothing is re-priced or re-ordered by
-    # opinion; the complete list always shows every row.
+    # Complete index: every upcoming pick, then every unresolved fixture, then
+    # recent resolved rows for context. The earlier ten-row cap hid an active
+    # fixture from the phone summary (5star–1WIN on 2026-10-21, hidden while it
+    # was the thirteenth row), which contradicts the brief that the summary must
+    # lead to a pick for every listed match. Nothing is re-priced or re-ordered
+    # by opinion; the ordering is only grouping.
     shown, seen = [], set()
-    for group, limit in ((open_rows, 10), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
+    for group, limit in ((open_rows, None), (blank_rows + past_blank_rows, None), (resolved_rest, None)):
         for m in (group if limit is None else group[:limit]):
             if m['id'] not in seen:
                 shown.append(m)
@@ -491,7 +494,8 @@ def glance(data, prefix, now=None):
                       + ('<span class="badge purple">Researched</span>' if researched else ''))
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
-                      '<span class="glance-prob">no side</span>')
+                      '<span class="glance-prob">no side</span>'
+                      f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
         else:
             choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
