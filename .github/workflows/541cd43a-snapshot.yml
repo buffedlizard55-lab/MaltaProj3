@@ -1,0 +1,74 @@
+# Session arena-541cd43a — live snapshot and unresolved-fixture source probe.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV, bo3.gg or any bookmaker
+# (TLS to every non-GitHub host fails there), so this workflow runs the
+# repository's own collectors on a GitHub runner, writes a dated evidence report
+# to data/research/541cd43a/ and commits only that report to the session branch.
+#
+# It never deploys and it is never scheduled. It writes no probability, pick,
+# price or alias of its own: the snapshot copies what the published pipeline
+# produced, and the probe records what each source answered.
+name: 541cd43a live snapshot and unresolved-fixture probe (never deploys)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 541cd43a-snapshot
+  cancel-in-progress: true
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/541cd43a-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published origination ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Snapshot the live state and build the site from it
+        id: snapshot
+        run: |
+          set +e
+          python -m scripts.s541cd43a_snapshot
+          code=$?
+          echo "snapshot_exit=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Probe HLTV, bo3.gg and esportsbook surfaces for every blank fixture
+        run: python -m scripts.s541cd43a_probe || echo "::warning::provider probe failed; snapshot still committed"
+      - name: Restore every tracked runtime file so only the report is committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+          git status --short
+      - name: Commit the dated report to the session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/541cd43a/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(541cd43a): live snapshot, build result and provider probe (never published)'
+          for attempt in 1 2 3; do
+            git fetch origin arena/541cd43a-maltaproj3 || true
+            git rebase origin/arena/541cd43a-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/541cd43a-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
+      - name: Fail the job when the snapshot could not build
+        if: steps.snapshot.outputs.snapshot_exit != '0'
+        run: exit 1
