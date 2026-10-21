@@ -1,3 +1,32 @@
+# Current session: arena-fb04c12f — current-release and coverage audit
+
+Claimed **2026-10-21T12:40Z** on the Arena-fixed branch `arena/fb04c12f-maltaproj3`,
+whose base is the current `main` release `89bfa277bad9874a439b3e54117d8e31a5354cf9`.
+The coordination board was read before starting. Existing feature implementation
+and historical claims are complete; the only open item is the earlier audit's
+per-row live artifact limitation. I do not edit another session's implementation
+or canonical match data.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FB-1 Verify current production refresh/deployment, aggregate full-inventory and pick coverage, identify only evidence-supported irregularities, and run local build/source validation; record an auditable dated report without inventing inaccessible fixture rows | **needs review** (aggregate audit done; live row-level artifact inaccessible and published as a review flag) | arena-fb04c12f | new `data/research/fb04c12f/`; this session's board section in `COORDINATION.md` |
+
+**Non-overlap pledge:** evidence/coordination only. No changes to pick values,
+match records, aliases, collectors, origination, site builders, shared navigation,
+styles or the production workflow.
+
+### FB-1 audit result — current production verified, live row-level review flagged (2026-10-21T12:46Z)
+
+- **Official current run/deployment:** scheduled production run [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314) on `main` at `89bfa277bad9874a439b3e54117d8e31a5354cf9` was created 08:00:01Z and completed successfully 08:14:55Z. All listed pipeline steps passed, including regression tests, Hotspawn collection, line research, replay/build, Pages artifact deploy and `verify_live`. GitHub deployment [7220904739](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7220904739/statuses) is `success`. The last eight scheduled runs returned success; schedule target and two cron expressions are in [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml). This confirms automation was working at the recorded observation, not an uninterrupted SLA.
+- **Aggregate current coverage only (not individual-row review):** official [run annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations) report inventory observed 08:12:23Z: **91 records, 29 upcoming, 62 archived, 0 unknown schedules**, with exact cross-check against fixture API, lobby and CS2 page. Featured view reports **19 picks / 10 unresolved** (12 market, 1 bookmaker, 6 model). The separate complete-picks ladder reports **29 active, 26 resolved, 25 with a directional pick, 3 unresolved** (2 consensus, 13 market, 4 bookmaker, 7 model, 0 guidance; 2 alias joins). These separate views are not additive and the resolved-versus-directional distinction is retained. Current row-source audit: 599 rows, 585 officially linked, 5 flagged, 9 navigation, **0 violations**.
+- **Flagged, no invented picks:** downloading run #39565977314's signed Pages artifact returned EOF from this audit workspace. The annotations provide aggregate counts, not individual fixture names/probabilities/research trails. The three complete-ladder unresolved names and their source-by-source blockers therefore remain unverified by this independent audit; none is copied from the 15 October checked-in fallback fixture. A new dated source-linked review flag `fb04c12f-current-live-artifact-row-level-review` is in `data/research/fb04c12f/flags.json`, so the limitation appears under the site's Flagged for Review page after integration. The published Picks/Unresolved sections remain the row-level source of truth.
+- **Other verified platform limitation:** latest workflow annotation reports GitHub Pages is still in legacy mode after configuration HTTP 403; it nevertheless deployed the verified artifact last and reported success. This is not treated as a data or deployment failure.
+- **Local checks:** `.venv/bin/python -m scripts.build` passed on checked-in fixture evidence (80 source rows replayed; 669 internal links/assets/anchors). `scripts.audit_rows --strict` passed with 0 violations. Focused Python suites passed (112 feature regressions; then 18 review/navigation/unresolved checks). `npm ci && npm test` passed **85 browser tests**, including phone widths 320/390/768/1440, summary-to-picks/unresolved shortcuts, explicit blank states and accessibility scans. Full local Python discovery was not completed: an initial system-Python attempt lacked dependencies, and the post-install run exceeded a 300-second sandbox command timeout. The latest official production run's regression-test step did pass. Local builds use a checked-in 15 October data fixture and do not validate the 21 October live row values.
+- **Evidence:** `data/research/fb04c12f/current-release-audit.json` records run/deployment IDs, timestamps, aggregate counts, source links, limitations and exact local checks. `data/research/fb04c12f/flags.json` supplies the published row-level limitation. No pick probabilities, selections, team aliases or live source facts were altered.
+- **Status:** FB-1 is **needs review** only for the individual live rows the artifact download did not expose. Aggregate coverage, schedule/deployment status and site structure/source-link checks are complete. This is non-blocking; the live page and its own verifier succeeded.
+
+---
+
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
