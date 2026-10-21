@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "session": "arena-0582cbe9",
+  "checked_at": "2026-10-21T19:45:21.974403Z",
+  "viewport": "present <meta name='viewport' content='width=device-width, initial-scale=1'> in site/index.html and site/origination/index.html",
+  "breakpoints": [
+    "1600px (large)",
+    "1200px",
+    "1000px",
+    "850px (table → cards)",
+    "700px (sidebar → mobile-nav)",
+    "375px (very small)",
+    "320px (minimum)"
+  ],
+  "exec_summary_links": {
+    "exec_banner": "Top of executive summary: primary 'Updated picks — all matches (17 of 17 with a pick)' → ./origination/#picks, secondary 'Featured picks feed' → ./picks/, tertiary 'Unresolved & limitations (0 without a line)' → ./origination/#unresolved. 44px+ tap targets, stacks to 1 column ≤700px, hides description ≤375px to keep picks above fold.",
+    "start_here": "5-item jump bar: All match picks, Leaderboard plan, Final day, Unresolved (0), Unresolved register — each with icon, title, detail. 56px min-height, verified by browser tests.",
+    "picks_at_a_glance": "Phone-first index: 17 rows, each shows 'MIBR vs BC.Game · Stake Pulse Beat III · 15 Oct 12:00' + pick 'MIBR 55.0%' + Hotspawn+Market/Bookmaker source links + Full detail. Locked rows show 'Locked' badge. All 17 shown (0 hidden), every unresolved included.",
+    "unresolved_register": "Phone-first unresolved register on executive summary lists blanks with blocker ('no external line' etc.) and source chips. 0 unresolved in this snapshot shows explicit empty state, not hidden section.",
+    "site_map": "Every page on this site table: 8 rows linking origination, strategy, TWC, picks, edge, coverage, methodology, review — one tap from summary.",
+    "mobile_nav": "Fixed bottom nav (Summary/Picks/Edge/Sources/Methods/Review) — 6 items, 44px min-height, backdrop blur, safe-area inset, aria-current on active page. Tested at 320/390/768/1440.",
+    "probabilities": "Win probabilities rendered as '55.0%' with fair line '1.820' and horizontal bar (bar-a bar-b). On ≤850px, table becomes 2-col cards, probability-cell spans full width, prob-line shows team + fair line + large 21-22px percentage. Pick cell shows 'Pick: MIBR' or 'Snapshot lean: MIBR' with green check.",
+    "obvious_pick": "Pick column: large check icon + team name + '55.0% estimated win chance' or 'Stale / not a current pick' caption. On origination cards: '✓ pick' beside favorite team in probs list + 'Pick: MIBR (55.0% · fair line 1.82)' + green 'Money-backed line' badge. Research-model rows labeled purple 'Research model'."
+  },
+  "readability": "Font size 15px base, 13px on ≤700px for descriptions, 11-12px for captions. Line-height 1.55-1.95. Color contrast checked via axe A/AA automated scans at 390px and 1440px (85 browser tests pass).",
+  "source_links_per_row": "Every pick card and table row carries ≥1 official link: Hotspawn fixture page + market/bookmaker/rating source (Polymarket event, Thunderpick API, Valve GitHub). Row-source audit 0 violations.",
+  "browser_suite": "85 Playwright tests pass: 320/390/768/1440, summary→picks/unresolved shortcuts, search/filter/sort, evidence expand, timezone change, stale behavior, no-JS content, WCAG axe. Command: npm ci && npm test (playwright.config.mjs uses site/ build).",
+  "no_manual_input": "All data from public APIs + saved evidence; no form, no login. Publish workflow authenticates via GITHUB_TOKEN only for GitHub API rate limit, not for betting sites."
+}

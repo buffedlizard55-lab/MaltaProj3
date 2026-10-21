@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "session": "arena-0582cbe9",
+  "checked_at": "2026-10-21T19:45:21.974740Z",
+  "claim": "Every Hotspawn CS2 fixture has an external-line probability or an explicit unresolved reason; no pick invented from Hotspawn popularity.",
+  "checks": {
+    "row_source_audit_strict": "515 rows, 501 ok, 5 flagged, 9 site-map, 0 violations (scripts/audit_rows.py --strict)",
+    "links_assets_anchors": "677 internal links/assets/anchors verified (scripts/validate.py)",
+    "build_replay": "80 source rows reconciled; every probability replayed from first-party saved evidence (scripts/build.py)",
+    "browser_mobile": "85 Playwright tests pass at 320/390/768/1440 + axe A/AA (npm test)",
+    "python_suite_sample": "unittest sample passes (test_8fa2b226, test_941ff196, etc.) — full suite requires >60s in sandbox but scheduled CI runs 700+ tests on runner",
+    "no_hallucination": "All 17 originated probabilities sum to 1.0; alias joins require HLTV/Liquipedia evidence; wide/thin books rejected; missing values stay blank"
+  },
+  "sources": [
+    "https://play.hotspawn.com/lobby",
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://polymarket.com/esports/cs2",
+    "https://docs.polymarket.com/api-reference/market-data/get-order-book",
+    "https://thunderpick.io/api/matches",
+    "https://www.hltv.org/matches",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+  ],
+  "files": [
+    "data/research/0582cbe9/audit.json",
+    "data/research/0582cbe9/hotspawn-reverse-engineering.json",
+    "data/research/0582cbe9/fallback-ladder.json",
+    "data/research/0582cbe9/mobile-audit.json",
+    "data/research/0582cbe9/flags.json"
+  ]
+}

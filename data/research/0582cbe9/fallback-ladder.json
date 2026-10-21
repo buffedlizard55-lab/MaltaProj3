@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "session": "arena-0582cbe9",
+  "checked_at": "2026-10-21T19:45:21.974164Z",
+  "title": "How every Hotspawn CS2 match gets a pick when the featured market does not cover it",
+  "featured_method": {
+    "steps": [
+      "Polymarket CS2 directory + paginated tag-slug API (up to 2000 events) → exact normalized team names + start within 60s → unique active full-series match-winner market → both CLOB order books (token/condition/size, noncrossed, spread ≤0.12) → midpoint normalized. Source: https://polymarket.com/esports/cs2, https://docs.polymarket.com/api-reference/market-data/get-order-book",
+      "If no market: HLTV research (split-anchor cards, sibling time/team, saved hash-checked HTML) → only for identity, fan votes never probability. Source: https://www.hltv.org/matches",
+      "Then Thunderpick original esportsbook POST /api/matches {gameIds:[6]} → exact fixture + prematch two-way series winner, decimal odds → p = (1/o)/Σ(1/o) with margin removal. Source: https://thunderpick.io/api/matches",
+      "Else Valve global standings snapshot ≤35d old, unique exact-name 5-player row → Glicko expectation with RD 75 via Valve model/fit.js. Uncalibrated research estimate. Source: https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+      "Else blank + flagged"
+    ],
+    "result_on_2026_10_15": "80 records, 17 upcoming, 13 picks (7 market,1 bookmaker,5 model), 4 unresolved"
+  },
+  "originated_complete_list": {
+    "policy": "Only for fixtures the featured method leaves unresolved or with a model-only estimate: re-try with verified-alias-joined names, then consensus. Money lines never overwrite featured money lines; they replace only featured models (upgraded_from_featured_model).",
+    "steps": [
+      "Verified-alias Polymarket series-winner books (alias via registry, e.g., WBT→WROTBERRY with HLTV team page 13683 + event 9332 + Liquipedia evidence). Spread ≤0.12, same freshness/start checks.",
+      "Verified-alias esportsbook paired prices (Thunderpick, Bovada public prematch moneylines, Pinnacle guest board period 0) — one vote each, median consensus. Thunderpick is primary low-tier source (low-tier Elisa fixtures rarely on Polymarket).",
+      "Median consensus across independent money families (Polymarket,Kalshi,Thunderpick,Bovada,Pinnacle) — majority vote, not average.",
+      "Reviewed aggregated bookmaker average (EGamersWorld dated sentence, hash-checked) — only when all first-party ladders fail, never overriding first-party price. Rejected if identical 1.80/1.80 placeholder or contradictory.",
+      "Valve-rating and HLTV-ranking research-model fallbacks (uncalibrated, labeled), or wide-book guidance (wide spread midpoint, guidance only).",
+      "Blank + flagged for review"
+    ],
+    "alias_registry": "data/origination/aliases.json — 6 entries (WBT→WROTBERRY, ROUNDS→RoundsGG, HAVU Gaming→HAVU, EA Copenhagen→EAC, Esport Academy Copenhagen→EAC, Phantom Esports→Phantom), each with HLTV/Liquipedia evidence links. No fuzzy joins.",
+    "result_on_2026_10_15": "17/17 resolved: 7 market, 5 bookmaker (4 alias-joined Thunderpick: WBT/ENCE 1.50/2.40→61.5%, WBT/BOJONG 1.20/4.00→76.9%, HAVU/RoundsGG 1.20/4.00→76.9%, RoundsGG/Voca 5.80/1.10→84.1% Voca), 5 model. 0 unresolved. All probabilities sum to 1.0, all rows link official source."
+  },
+  "hltv_first_then_esportsbook": "HLTV is tried before books because low-tier matches have no betting market at scheduled time; HLTV confirms fixture identity and independently published BO format (without filling Hotspawn's unknown best_of). Books are only read after HLTV identity is confirmed or ruled out. No book line is invented when HLTV has no row; the Valve model is next.",
+  "unresolved_section": "Executive summary (#unresolved), complete list (origination/#unresolved), featured feed (picks/#unresolved) and review page (review/#unresolved) all present. Empty state explicitly says '0 unresolved' or lists blanks with blocker ('no external line', 'no rating', 'book too wide', etc.). Coverage probe dossier (data/research/8fa2b226/coverage-probe.json) lists every blank one-by-one with provider observations, never writing a probability.",
+  "betting_line_sources_tried_per_fixture": [
+    "Polymarket CLOB (primary)",
+    "Kalshi (CFTC-regulated, https://kalshi.com, https://docs.kalshi.com/api-reference/market/get-markets)",
+    "Thunderpick API",
+    "Bovada public moneylines",
+    "Pinnacle guest board",
+    "GG.BET / Rivalry / Stake reachability checks (403/redirect → unavailable, not 'no market')",
+    "EGamersWorld aggregated average (fallback only)",
+    "Valve official standings",
+    "HLTV world ranking"
+  ],
+  "limitations_published": "HLTV/Bookmaker 403/redirect, differing provider names (only alias-joined), uncalibrated models, past-start archive, unverified best-of, wide-book guidance. Every limitation carries source URL and observation time.",
+  "verification": "Every probability in origination.json replayed from saved original responses (scripts/validate.py, scripts/build.py). Row-source audit: 515 rows, 501 official-linked, 5 flagged, 9 nav, 0 violations. No pick invented without a two-sided observed price or a published rating row."
+}

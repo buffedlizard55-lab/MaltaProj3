@@ -548,8 +548,9 @@ def unresolved_register(data, prefix):
     into a default 50/50.
     """
     complete = data.get('complete_picks') or {}
-    rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
-    if not rows:
+    if complete.get('matches') is not None:
+        rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
+    else:
         rows = [m for m in data.get('matches') or []
                 if m.get('availability') in {'open', 'locked', 'unknown_lock'} and not m.get('analysis')]
     active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
@@ -559,11 +560,25 @@ def unresolved_register(data, prefix):
            '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
            f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
     if not rows:
+        closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
+        extra = ''
+        if closed:
+            names = []
+            for m in closed[:6]:
+                n = [t.get('name') or 'Unverified' for t in m.get('teams') or []]
+                names.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">{e(n[0])} vs {e(n[1])}</a>')
+            detail = ' · '.join(names)
+            more = f' <span class="tiny muted">+{len(closed) - len(names)} more</span>' if len(closed) > len(names) else ''
+            extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
+                     f'{len(closed)} fixture(s) blank ({detail}{more}); each now carries an alias-aware researched line '
+                     '— HLTV event identity first, then a verified Thunderpick paired-price book (margin removed) — '
+                     'with the alias evidence and fair lines on its origination card. No line is invented; see the '
+                     f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> for the source links.</p>')
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '
                    'This is a dated observation: the inventory refreshes every four hours and new '
-                   'fixtures can appear before a market opens.</div>')
+                   'fixtures can appear before a market opens.</div>' + extra)
     else:
         out.append(f'<p class="section-intro"><strong>{len(rows)}</strong> of {active} active Hotspawn CS2 '
                    'fixtures have <strong>no verified pick</strong> in this snapshot. Each card shows the '
