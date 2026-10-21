@@ -231,14 +231,16 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('href="https://www.hotspawn.com/matches/x-1"', html)
         self.assertIn('href="https://polymarket.com/event/cs2-x"', html)
 
-    def test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50(self):
-        # Explicit synthetic instant, never the wall clock: with twelve resolved
-        # matches starting 2–13 h after `base`, `glance(now=base)` keeps ten of
-        # them, and the two unresolved rows are never dropped, so the hidden-path
-        # footer is deterministic. Building the times from `datetime.now()` and
-        # leaving `now=None` made the outcome depend on the real time of day —
-        # the exact time bomb that failed scheduled publisher runs 39371739014
-        # and 39389855311 on 2026-10-20 between about 04:01Z and 09:01Z when the
+    def test_every_active_fixture_is_listed_and_never_given_a_50_50(self):
+        # Explicit synthetic instant, never the wall clock: twelve resolved
+        # matches start 2-13 h after `base` and two unresolved rows are added.
+        # The summary used to cap resolved rows at ten, which hid an active
+        # fixture (5star-1WIN, 2026-10-21) from the phone index. Every active
+        # fixture must now appear, so the complete-list footer is deterministic.
+        # Building the times from `datetime.now()` and leaving `now=None` made
+        # the outcome depend on the real time of day - the exact time bomb that
+        # failed scheduled publisher runs 39371739014 and 39389855311 on
+        # 2026-10-20 between about 04:01Z and 09:01Z when the
         # freshness-determinism guard re-ran this module pinned to
         # 2026-10-20T12:00Z (see data/research/905fa4cf/).
         from datetime import datetime, timezone
@@ -246,11 +248,14 @@ class GlanceIndexTests(unittest.TestCase):
         matches = [self.match(i, 0.6, True, base=base) for i in range(12)] + [self.match(100, 0.5, True, resolved=False, base=base),
                                                                              self.match(101, 0.5, False, resolved=False, base=base)]
         html = glance({'matches': matches, 'fallbacks': {}}, '', now=base)
+        for index in range(12):
+            self.assertIn(f'TeamA{index}', html)
         self.assertIn('TeamA100', html)
         self.assertIn('TeamA101', html)
         self.assertEqual(html.count('50.0%'), 0)
         self.assertIn('2</strong> explicitly unresolved', html)
-        self.assertIn('every unresolved fixture is included', html)
+        self.assertIn('All 14 active fixtures are listed', html)
+        self.assertNotIn('Showing', html)
 
     def test_a_researched_fallback_is_labelled_and_uses_its_own_probability(self):
         m = self.match(7, 0.5, True, resolved=False)

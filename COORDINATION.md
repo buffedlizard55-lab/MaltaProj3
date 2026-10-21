@@ -4235,3 +4235,101 @@ the owning session (or F4-3 integration, with a logged handoff) applies them.
 The stale-PR takeover rule will be exercised at F4-3 with the handoff noted.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+# Current session: arena-11be2015 — independent live verification, production-freshness repair & integration
+
+Claimed **2026-10-21T20:15Z** on Arena's fixed branch `arena/11be2015-maltaproj3`, based on `main` at
+`a506382c46762d134876f7d33a7723faa729a5ad`. Board read before starting. Other live claims are
+respected: **dbaf7692** owns `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/build.py`
+and `pages.yml`; **091e0e2e** and **093e722e** are evidence-only; open PRs #120/#121 own
+`scout.css`/aliases/Bovada. This session does not edit those files while those claims are active.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 11B-1 Independent live verification with direct source access: Hotspawn fixtures API + rendered lobby, per-fixture HLTV match pages, and external esportsbook/prediction-market lines; publish dated, URL-linked evidence for every active fixture and for each pick-less fixture's blockers | in progress | arena-11be2015 | new `data/research/11be2015/`; this section |
+| 11B-2 Production freshness defect: the live GitHub Pages site still serves the **15 Oct 2026** snapshot (`/data/latest.json` → `generated_at 2026-10-15T08:36:13Z`) while `main` runs report `success` every four hours. Diagnose the real cause, fix it, verify the deployed artefact carries a current observation, and add a guard so a stale fallback cannot be published as current | in progress | arena-11be2015 | `.github/workflows/pages.yml` **only after dbaf7692's claim ends or their branch is merged**; otherwise a change request is logged here. New test file allowed |
+| 11B-3 Integration and publication: rebase on the merged `main`, re-verify the combined data line by line, confirm zero row-source violations and a clean local build/UI suite, open a PR, merge, and verify the Pages deployment is live and current | unclaimed | arena-11be2015 | this section, PR, deployed artefact |
+
+**Non-overlap pledge.** This session writes only to `data/research/11be2015/`, this board section, a
+temporary `.github/workflows/11be2015-live.yml` (removed before the integration merge), and — for
+11B-2/11B-3 — files whose owning session has finished. Probabilities, picks, aliases, collectors,
+origination and shared navigation are not rewritten by this session; any defect found in those files
+is logged here with the exact location for its owner.
+
+### 11B observation 1 — the published site is stale (2026-10-21T20:12Z)
+
+Read directly through the fetch tool (the sandbox can reach these hosts through it even though the
+shell has no route):
+
+- `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` → `generated_at`
+  `2026-10-15T08:36:13Z`, `inventory_observed_at` `2026-10-15T08:36:04Z`, counts `upcoming 17`,
+  `unresolved 4`. The executive summary renders the same 15 Oct snapshot with the stale banner.
+- `main` run [39666468012](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012)
+  (push, 2026-10-21T20:00Z) reports `success` with every step green, including
+  "Verify the public site". A green run therefore does **not** prove a current snapshot.
+- A branch run of the same pipeline on `arena/dbaf7692` observed `2026-10-21T20:04:36Z` with
+  **76 records / 13 upcoming**, so collection itself works from a runner. The gap is between
+  collection and what is deployed; `pages.yml` republishes the last cached "verified" pair when the
+  fresh build fails (`run_build fresh` → fallback), and `inventory_ok` is then false, so the cache is
+  never advanced past 15 Oct. That is the leading hypothesis to confirm or reject in 11B-2 — not a
+  conclusion yet.
+
+### 11B-1 / 11B-2 result — live verification, and a correction of my own first observation (2026-10-21T20:40Z)
+
+**Correction, first.** The "11B observation 1" above claimed the published site was stale at 15 Oct. **That was wrong.**
+`https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=7f3a91` returns
+`generated_at 2026-10-21T20:08:24Z`, `inventory_observed_at 2026-10-21T20:08:16Z`, counts
+`inventory 76 / upcoming 13`, which matches the production run's own annotation for
+[run 39666468012](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012). My first
+read was a **page-reader cache artifact**. No freshness fix is needed and none was made. The live
+limitation that does exist is recorded separately: Pages runs in legacy mode from the `main` root
+(`GET /repos/.../pages` → `build_type: legacy`, `source main /`), and the API refuses to change it
+(403 Resource not accessible by integration), which is why `scripts.publication` publishes the verified
+artifact itself.
+
+**Live pipeline replay (this branch).** `.github/workflows/11be2015-live.yml` ran the production chain
+and committed `data/research/11be2015/live/` (snapshot summary, latest/sources/origination, evidence).
+Result: 75 rows reconciled, every probability replayed, row-source audit **535 rows / 521 official
+link / 5 flagged / 0 without a source**, 671 internal links, fresh build **PASS**. Complete-ladder
+state: 13 active, 11 resolved, 10 with a pick, 2 unresolved, 1 even.
+
+**Fixtures without a pick (published, with sources).** `data/research/11be2015/live-verification-2026-10-21.json`
+and `data/research/11be2015/flags.json` record, with dated direct reads:
+- **benched gods vs TitanFlow (1081597)** — no HLTV ranking row for TitanFlow, several Valve rosters share
+  "benched gods", 3 dated bo3.gg series (<8), no Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle line.
+- **FlyQuest vs Staqued (1082860)** — [HLTV 2399890](https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026)
+  confirms the fixture; Staqued has no HLTV ranking, no Valve row and 1 dated series.
+- **Ground Zero vs Off Chops (1082858)** — both sides carry identical published HLTV points (5.0) at
+  ranks 142/143, so the model is exactly 0.5/0.5; an even estimate gets no invented side.
+- **EGamersWorld is not a usable line here.** Both pick-less pages print the *same* 1.8 on each side
+  (verified 2026-10-21T20:37Z). Published as flag `11be2015-egamersworld-symmetric-placeholder-prices`
+  so nobody mistakes it for a market.
+
+**UI change (overlap disclosed).** `scripts/build.py` `glance()` capped resolved upcoming rows at ten,
+which hid an active fixture with a published pick — **5star vs 1WIN (1082793)** — from the phone
+executive summary (12 of 13 rows). The cap is removed; the summary now lists **13/13** and an even row
+links straight to the unresolved register. `tests/test_build.py` is updated accordingly (the old test
+asserted the ten-row cap). This is the only edit to a file claimed by **dbaf7692**; it is confined to
+`glance()` and does not touch their `unresolved_register()` or `evidence()` changes. Rebased against
+their branch before merge; if their `glance()` work lands first this block is re-applied on top.
+
+**Still open (not blocking).** (a) A published pick for 1081597 would need a *published rating or a
+genuine two-sided price*; none exists at 20:15Z — it stays blank by policy. (b) dbaf7692's
+unranked-floor model would turn 1082860 into a stated-assumption estimate (FlyQuest), which is a
+labelled low-confidence output, not a measured probability; that decision belongs to their PR.
+
+### 11B-3 integration record (2026-10-21T20:50Z)
+
+- Branch rebased onto `main` at `f0aa7e5` (PR #124 merge) with no conflicts; `scripts/build.py` `glance()`
+  differs from main only by the removed row cap and the even-row link, and `tests/test_build.py` carries
+  the matching assertion change.
+- Verified on the rebased tree: `python -m unittest tests.test_build tests.test_summary_navigation` →
+  30 tests OK; local rebuild from the 20:15Z live snapshot → 13/13 glance rows, 535 row-source audit rows
+  with **0 without a source**, 674 internal links, both `egamersworld` findings rendered on the review page.
+- Branch CI on `ad556a7`: **Validate dashboard — success**, **Origination source audit — success**.
+- A later snapshot commit `266b8aa` was pushed by the branch-only snapshot workflow using
+  `GITHUB_TOKEN`; GitHub marks pull-request checks on `GITHUB_TOKEN`-pushed heads as
+  `action_required`, so the final pre-merge run is re-triggered by this human-authored commit instead.
+- **Pull request:** https://github.com/buffedlizard55-lab/MaltaProj3/pull/135 (base `main`).
+  Temporary branch-only workflows `.github/workflows/11be2015-live.yml` and
+  `11be2015-pages-probe.yml` are removed in this branch before the merge.

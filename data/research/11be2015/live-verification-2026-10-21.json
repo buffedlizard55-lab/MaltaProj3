@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "session": "arena-11be2015",
+  "observed_at": "2026-10-21T20:15:09Z",
+  "purpose": "Independent live verification of every active Hotspawn CS2 fixture and of the picks the published site shows, with dated source links; plus the exact limitations for the fixtures that still have no verified pick.",
+  "method": {
+    "pipeline_run": "The production pipeline (scripts.collect -> scripts.originate --live -> scripts.coverage_probe --live -> scripts.twc_research -> scripts.build -> scripts.audit_rows --strict) was executed on branch arena/11be2015 by .github/workflows/11be2015-live.yml. The sandbox itself has no route to the source hosts.",
+    "snapshot_committed": "data/research/11be2015/live/ holds the snapshot summary, latest.json, origination.json, sources.json, row-source-audit.json and coverage-probe.json. The 32 MB of raw provider payloads those records replay from are not copied into the repository; the pipeline's own originals are published with the site under /data/evidence/ and /data/origination/evidence/ on every refresh, and the recorded request manifest in sources.json names each one.",
+    "build_result": "PASS: 75 source rows reconciled; every published probability and pick replayed from first-party evidence. Row-source audit: 535 rows, 521 with an official link, 5 flagged unverified, 9 site-map, 0 without a source. 671 internal links checked.",
+    "independent_reads": "Direct fetches of the Hotspawn fixtures API, the rendered Hotspawn lobby and match pages, HLTV event pages, Polymarket's CS2 board and EGamersWorld match pages were made with the assistant's web reader and are cited per observation. Nothing below is inferred from Hotspawn '% picked' or HLTV fan votes.",
+    "limitation": "The assistant's reader can return a cached copy of a page. Every timestamp used below was therefore re-read on a cache-busted URL (?cb=...) or comes from the committed runner snapshot."
+  },
+  "published_snapshot_check": {
+    "live_data_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=7f3a91",
+    "live_generated_at": "2026-10-21T20:08:24Z",
+    "live_inventory_observed_at": "2026-10-21T20:08:16Z",
+    "live_counts": {
+      "inventory": 76,
+      "upcoming": 13,
+      "archived": 63,
+      "market": 2,
+      "bookmaker": 0,
+      "model": 5,
+      "unresolved": 6,
+      "picks": 7
+    },
+    "complete_pick_counts": {
+      "active": 13,
+      "resolved": 11,
+      "unresolved": 2,
+      "with_pick": 10,
+      "consensus": 1,
+      "market": 2,
+      "model": 8,
+      "alias_joined": 2
+    },
+    "verdict": "The public site serves the 21 Oct 2026 20:08Z snapshot. An earlier uncache-busted read returned the 15 Oct 2026 snapshot; re-reading with a unique query string returned the current one, so that earlier read was a reader cache artifact and NOT a stale deployment. The production run 39666468012 (2026-10-21T20:08Z) recorded the same inventory and a 0-violation row audit.",
+    "pages_mode": "GitHub Pages for this repository is a legacy build from the main branch root (GET /repos/.../pages -> build_type legacy, source main /). scripts/publication records that the workflow waits for the legacy build and then publishes the verified artifact; the API refuses any change to the Pages build type (403 Resource not accessible by integration), so the setting cannot be corrected from this session."
+  },
+  "active_fixtures": [
+    {
+      "id": "1082837",
+      "match": "Zetta vs LOS NINOS",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T22:00:00Z",
+      "featured": "unresolved",
+      "complete": {
+        "method": "consensus",
+        "probabilities": [
+          0.38694445,
+          0.61305555
+        ],
+        "pick": "LOS NINOS"
+      },
+      "verification": "Complete-ladder line is the median of a Polymarket event (cs2-ale1-ln-2026-10-21, event 1227336) and a Kalshi market (KXCS2GAME-26OCT211800LNALE). Both are titled Los Ninos vs Alianza Lima Esports, while Hotspawn and HLTV name Zetta. Session 32bed9e3 published this as a wrong-opponent join; treat the value as UNVERIFIED.",
+      "status": "unverified_join"
+    },
+    {
+      "id": "1081870",
+      "match": "Vitalem Aerem vs Rare Atom",
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-22T05:00:00Z",
+      "featured": {
+        "method": "model",
+        "probabilities": [
+          0.262,
+          0.738
+        ],
+        "pick": "Rare Atom"
+      },
+      "verification": "Valve official standings model; no market line found.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1081597",
+      "match": "benched gods vs TitanFlow",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "featured": "unresolved",
+      "complete": "unresolved",
+      "verification": "See no_pick_fixtures.benched_gods_titanflow.",
+      "status": "no_pick"
+    },
+    {
+      "id": "1081600",
+      "match": "Donstu vs Banda chuya",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T13:45:00Z",
+      "featured": {
+        "method": "model",
+        "probabilities": [
+          0.405,
+          0.595
+        ],
+        "pick": "Banda chuya"
+      },
+      "verification": "Valve official standings model; no market line found.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1082688",
+      "match": "Imperial vs Turma do Pagode",
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured": {
+        "method": "market",
+        "probabilities": [
+          0.775,
+          0.225
+        ],
+        "pick": "Imperial"
+      },
+      "verification": "Polymarket prematch series market with both order books replayed.",
+      "status": "resolved_market"
+    },
+    {
+      "id": "1082689",
+      "match": "BESTIA vs ShindeN",
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured": {
+        "method": "market",
+        "probabilities": [
+          0.525,
+          0.475
+        ],
+        "pick": "BESTIA"
+      },
+      "verification": "Polymarket prematch series market with both order books replayed.",
+      "status": "resolved_market"
+    },
+    {
+      "id": "1082882",
+      "match": "UNiTY vs Apogee Betclic",
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured": "unresolved",
+      "complete": {
+        "method": "model",
+        "probabilities": [
+          0.38619060701492697,
+          0.613809392985073
+        ],
+        "pick": "Apogee Betclic"
+      },
+      "verification": "Own results-based estimate: UNiTY points from Valve official standings, Apogee fitted from 19 dated bo3.gg series results (posterior sd 92.5). Not a betting line.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1082858",
+      "match": "Ground Zero vs Off Chops",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "featured": "unresolved",
+      "complete": {
+        "method": "model",
+        "probabilities": [
+          0.5,
+          0.5
+        ],
+        "pick": null
+      },
+      "verification": "HLTV match 2399888 confirms the fixture. Both sides carry identical published HLTV points (5.0) at ranks 142 (Off Chops) and 143 (Ground Zero), so the transform returns exactly 0.5/0.5. An even estimate has no defensible side; the summary now links this row to the unresolved register.",
+      "status": "even_no_side"
+    },
+    {
+      "id": "1082859",
+      "match": "NEXVOID vs Alter Ego",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "featured": {
+        "method": "model",
+        "probabilities": [
+          0.728,
+          0.272
+        ],
+        "pick": "NEXVOID"
+      },
+      "verification": "Valve official standings model.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1082860",
+      "match": "FlyQuest vs Staqued",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "featured": "unresolved",
+      "complete": "unresolved",
+      "verification": "See no_pick_fixtures.flyquest_staqued.",
+      "status": "no_pick"
+    },
+    {
+      "id": "1082861",
+      "match": "Rooster vs Abyssal",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "featured": {
+        "method": "model",
+        "probabilities": [
+          0.478,
+          0.522
+        ],
+        "pick": "Abyssal"
+      },
+      "verification": "Valve official standings model.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1082792",
+      "match": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "featured": "unresolved",
+      "complete": {
+        "method": "model",
+        "probabilities": [
+          0.94052062,
+          0.05947938
+        ],
+        "pick": "HOTU"
+      },
+      "verification": "Valve official standings model with a documented four-of-five roster-change join for The Huns. No market line. High uncertainty, single model.",
+      "status": "resolved_model"
+    },
+    {
+      "id": "1082793",
+      "match": "5star vs 1WIN",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "featured": {
+        "method": "model",
+        "probabilities": [
+          0.178,
+          0.822
+        ],
+        "pick": "1WIN"
+      },
+      "verification": "Valve official standings model. This fixture was the thirteenth active row and was omitted from the executive summary by a ten-row cap before this session's fix.",
+      "status": "resolved_model"
+    }
+  ],
+  "no_pick_fixtures": {
+    "benched_gods_titanflow": {
+      "hotspawn": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "hltv_event": "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+      "observations": [
+        {
+          "source": "HLTV event page",
+          "url": "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+          "observed_at": "2026-10-21T20:35Z",
+          "fact": "The CCT 2026 Challengers Europe Series 8 bracket lists both benched gods and TitanFlow; the pipeline's structured identity match returned no unique fixture, so no HLTV-derived input is claimed."
+        },
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+          "observed_at": "2026-10-21T20:37Z",
+          "fact": "Shows 1.8 for benched gods and 1.8 for TitanFlow (and a third 1.8 in the odds strip) with a 'Make a bet' link. Two identical prices on both sides of a match between a 694-rated and a 1408-rated team (EGW's own ratings) are a symmetric placeholder, not a market; the two-way implied margin is zero and no bookmaker is named."
+        }
+      ],
+      "blockers": [
+        "HLTV publishes no world-ranking row for TitanFlow (pipeline research trail, 2026-10-21T20:15Z).",
+        "Valve's official standings contain multiple rosters named benched gods, so the identity is ambiguous before any rating can be used.",
+        "TitanFlow has only 3 anchored bo3.gg series in the last 120 days (8 required by the results model).",
+        "No Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle CS2 series-winner line for this pair was found by the pipeline (each provider recorded separately)."
+      ],
+      "decision": "No probability, no pick. A blank with a published reason is the only defensible output; EGamersWorld's 1.8/1.8 is not a price."
+    },
+    "flyquest_staqued": {
+      "hotspawn": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "hltv_match": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "observations": [
+        {
+          "source": "HLTV match page",
+          "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "observed_at": "2026-10-21T20:15Z (pipeline)",
+          "fact": "Exact teams and start confirmed on HLTV; HLTV lists BO3. FlyQuest is HLTV-ranked; Staqued has no HLTV ranking row."
+        },
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
+          "observed_at": "2026-10-21T20:37Z",
+          "fact": "Shows 1.8 for FlyQuest and 1.8 for Staqued. A top-70 professional side against an unranked qualifier at even money is not a plausible market price; both sides carry the same placeholder."
+        }
+      ],
+      "blockers": [
+        "Staqued has no HLTV world-ranking entry, no Valve standings row and only 1 anchored bo3.gg series (8 required).",
+        "No compliant two-sided prematch price was found on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle for this fixture."
+      ],
+      "decision": "No pick in the published build at 2026-10-21T20:15Z. A one-sided 'FlyQuest is ranked and Staqued is not' estimate would be a stated assumption, not a measured probability; it is only publishable with that limitation printed on the row, and it is not published here."
+    }
+  },
+  "session_change": {
+    "file": "scripts/build.py",
+    "function": "glance",
+    "change": "Removed the resolved-row cap so every active fixture appears in the phone-first executive summary (13/13 instead of 12/13), and added a 'Why' link from an even (50/50) row to the unresolved register.",
+    "evidence": "Local build from the live snapshot: 13 glance rows, footer 'All 13 active fixtures are listed'; 5star vs 1WIN is now present.",
+    "test": "tests/test_build.py::test_every_active_fixture_is_listed_and_never_given_a_50_50 (updated to assert full listing)."
+  }
+}
