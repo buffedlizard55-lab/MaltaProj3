@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "session": "arena-fb04c12f",
+  "observed_at": "2026-10-21T12:46:00Z",
+  "scope": "Current release and coverage audit. GitHub Actions run/check/deployment metadata and check-run annotations are official; they expose aggregates and step outcomes, not individual live pick cards. No per-fixture values are inferred.",
+  "production": {
+    "site": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "pages_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+    "pages_api_state": "built",
+    "source_branch": "main",
+    "pages_mode": "legacy",
+    "latest_scheduled_run": {
+      "run_id": 39565977314,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+      "created_at": "2026-10-21T08:00:01Z",
+      "completed_at": "2026-10-21T08:14:55Z",
+      "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9",
+      "conclusion": "success",
+      "job": "verify-and-deploy",
+      "all_steps_success": true,
+      "deployment_id": 7220904739,
+      "deployment_status": "success",
+      "deployment_url": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    },
+    "last_eight_scheduled_runs": [
+      {
+        "id": 39565977314,
+        "created_at": "2026-10-21T08:00:01Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39545919841,
+        "created_at": "2026-10-21T04:46:59Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39524645584,
+        "created_at": "2026-10-21T00:59:38Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39513283431,
+        "created_at": "2026-10-20T23:10:52Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39504070845,
+        "created_at": "2026-10-20T21:54:17Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39488187449,
+        "created_at": "2026-10-20T19:59:52Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39447938359,
+        "created_at": "2026-10-20T15:23:24Z",
+        "conclusion": "success"
+      },
+      {
+        "id": 39431428827,
+        "created_at": "2026-10-20T13:33:30Z",
+        "conclusion": "success"
+      }
+    ],
+    "refresh_workflow": {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "primary_cron_utc": "17 */4 * * *",
+      "catch_up_cron_utc": "47 2-22/4 * * *",
+      "limitation": "Scheduled delivery is not an SLA; GitHub may delay or drop runs. The latest observed production inventory was captured at 08:12:23Z, about 4.5 hours before this audit."
+    }
+  },
+  "latest_run_annotations": {
+    "annotation_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+    "inventory_observed_at": "2026-10-21T08:12:23Z",
+    "inventory": {
+      "records": 91,
+      "upcoming": 29,
+      "archived": 62,
+      "unknown_schedule": 0,
+      "coverage_complete": true,
+      "crosscheck": "complete",
+      "verified_pages": [
+        "lobby",
+        "cs2"
+      ]
+    },
+    "featured_snapshot": {
+      "market": 12,
+      "bookmaker": 1,
+      "model": 6,
+      "unresolved": 10,
+      "picks": 19
+    },
+    "complete_picks_ladder": {
+      "active": 29,
+      "resolved": 26,
+      "unresolved": 3,
+      "with_pick": 25,
+      "consensus": 2,
+      "market": 13,
+      "bookmaker": 4,
+      "reference": 0,
+      "model": 7,
+      "guidance": 0,
+      "alias_joined": 2
+    },
+    "row_source_audit": {
+      "rows": 599,
+      "with_official_links": 585,
+      "flagged_unverified": 5,
+      "navigation": 9,
+      "violations": 0
+    },
+    "important_scope_note": "Featured and complete-picks figures are separate views/method ladders. Do not add or equate their pick/unresolved totals. A resolved ladder entry is not necessarily a directional pick: annotations report 26 resolved and 25 with_pick."
+  },
+  "limitations_and_irregularities": [
+    {
+      "id": "artifact-row-level-inspection-unavailable",
+      "status": "needs review",
+      "finding": "The signed GitHub Pages artifact download for run 39565977314 returned EOF in this audit workspace. GitHub's official annotations confirm aggregate inventory, method counts and zero row-source violations, but do not provide per-fixture rows. Therefore this report cannot independently name the three unresolved complete-ladder fixtures, verify each pair of probabilities, or check each source trail. No match-level data were copied from the older checked-in snapshot.",
+      "handling": "The published site's own verify_live job passed and the Unresolved section is part of the canonical site. Individual live rows remain outside this independent audit; keep them visibly unresolved unless a compliant source closes them.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+      ]
+    },
+    {
+      "id": "checked-in-fixture-snapshot-is-old",
+      "status": "verified",
+      "finding": "The repository's checked-in data/latest.json and data/origination.json are fallback/test fixtures observed on 2026-10-15, while the latest production run observed inventory at 2026-10-21T08:12:23Z. A local build using the checked-in files must not be presented as a replay of the current live fixture rows.",
+      "handling": "The publisher collects fresh data before building and has a last-good snapshot fallback. This audit treats local build/source-link checks as structural checks only; current aggregate counts come from official 2026-10-21 GitHub annotations.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+      ]
+    },
+    {
+      "id": "legacy-pages-mode",
+      "status": "platform limitation",
+      "finding": "The production check annotation reports that GitHub Pages remains in legacy build mode after its configuration attempt returned HTTP 403. The same run reports that the verified artifact was deployed last, and GitHub's deployment status is success.",
+      "handling": "Not a source-data verification failure or deployment failure. The workflow waits for the legacy build before publishing its verified artifact; no repository credential or configuration workaround was attempted.",
+      "source_urls": [
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7220904739/statuses",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+      ]
+    }
+  ],
+  "local_validation": {
+    "dependency_setup": "python -m venv .venv && .venv/bin/pip install -r requirements.txt; npm ci",
+    "build": {
+      "command": ".venv/bin/python -m scripts.build",
+      "result": "passed",
+      "source_rows_reconciled": 80,
+      "published_probabilities_and_picks_replayed_from_saved_evidence": true,
+      "internal_links_assets_anchors_checked": 669,
+      "row_source_audit_rows_after_flag": 493
+    },
+    "source_audit": {
+      "command": ".venv/bin/python -m scripts.audit_rows --site site --strict",
+      "result": "passed",
+      "rows": 493,
+      "officially_linked": 479,
+      "flagged_unverified": 5,
+      "site_map": 9,
+      "violations": 0
+    },
+    "focused_python_regressions": {
+      "command": ".venv/bin/python -m unittest tests.test_summary_navigation tests.test_unresolved_summary tests.test_pick_presentation_safety tests.test_validation tests.test_origination tests.test_origination_upgrade",
+      "result": "passed",
+      "tests": 112
+    },
+    "browser_tests": {
+      "command": "npm test",
+      "result": "passed",
+      "tests": 85,
+      "viewports_css_px": [
+        320,
+        390,
+        768,
+        1440
+      ],
+      "checks": [
+        "phone navigation",
+        "summary links to complete picks and limitations",
+        "all active match rows have a pick or explicit unresolved marker",
+        "small-screen no-horizontal-overflow",
+        "automated WCAG A/AA scans"
+      ]
+    },
+    "full_python_suite": {
+      "command": ".venv/bin/python -m unittest discover -s tests",
+      "result": "not completed in this workspace",
+      "detail": "The first no-dependency attempt failed imports; after dependency installation a full run exceeded the 300-second command timeout. The latest official production run's Regression tests step completed successfully. Do not represent the local full suite as passed."
+    },
+    "review_flag_tests": {
+      "command": ".venv/bin/python -m unittest tests.test_review_flags",
+      "result": "passed",
+      "tests": 4
+    }
+  },
+  "sources": [
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+      "purpose": "Latest scheduled production refresh, regression tests, collection, origination, build, deployment and live verification steps."
+    },
+    {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+      "purpose": "Official GitHub annotations for live inventory coverage, featured and complete-picks counts, source-row audit and limitations."
+    },
+    {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7220904739/statuses",
+      "purpose": "Official successful deployment status and live environment URL."
+    },
+    {
+      "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+      "purpose": "Official Pages site URL, source branch/path, HTTPS and current platform mode."
+    },
+    {
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "purpose": "Scheduled collection/research/build/deployment cadence and production gates."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "purpose": "Published executive summary and direct links to updated picks/unresolved limitations."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "purpose": "Published full current complete-picks ladder."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "purpose": "Published unresolved fixture register and research trails."
+    },
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+      "purpose": "Published Flagged for Review page."
+    }
+  ]
+}
