@@ -80,7 +80,7 @@ the integration step for its own changes.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | **done** (see result below) | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
-| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) against HLTV, Valve official standings and the Hotspawn fixture feed; record the outcome and every irregularity, with source links, without changing any value | **done**, irregularities published on Flagged for Review (non-blocking) | arena-8926d9c4 | new `data/research/8926d9c4/` only |
+| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) | **superseded — deferred to the owners** of the same work, open PRs #112 (`arena-802f6a59`) and #116 (`arena-f5223859`); this session's unique observations are logged as requests below. No file of this record is merged | arena-8926d9c4 | none (own draft removed before merge) |
 | E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress (PR and deployment record below) | arena-8926d9c4 | `COORDINATION.md`, this PR |
 
 Non-overlap: no edits to `data/origination/aliases.json`, the pipeline ladder in `scripts/originate.py`,
@@ -260,28 +260,23 @@ explicit-clock regression tests), `tests/test_freshness_determinism.py` (9 tests
 jsdom run of the shipped `glance-lock.js` against past-lock, open, closed and unresolved rows (labels and links
 behave as specified). Source for the behaviour: the summary's own rows and `scripts/build.py` `glance()`.
 
-**E-2 done — re-check of the three fixtures without a pick.** Record: `data/research/8926d9c4/unresolved-recheck.json`
-(sources, observation dates, repo evidence paths), flags in `data/research/8926d9c4/flags.json`, published on Flagged for Review.
-Outcome: **no compliant pick for any of the three**, and the rules explain why:
+**E-2 deferred — same work already open.** While this session was working, PRs #112 (`arena-802f6a59`, "Verify the three
+remaining blank picks…") and #116 (`arena-f5223859`, "Audit unresolved Hotspawn CS2 fixtures…") opened on the same three
+fixtures. To avoid a duplicate record and conflicting Flagged-for-Review entries, my draft `data/research/8926d9c4/` was removed before
+merge. Both open PRs reach the same outcome for the three blanks: no compliant pick, with a published limitation. PR #116 also reports
+a Bovada listing for fixture 1082762 that it treats as an unaccepted lead.
 
-- ex-CYBERSHOKE vs BlinkDagger (1082762): BlinkDagger has no Valve row and no HLTV world rank, and its newest listed HLTV result is from 2020; ex-CYBERSHOKE has two complete Valve rows (61 and 171) and no active HLTV roster. Source: <https://www.hltv.org/team/9998/blinkdagger>, <https://www.hltv.org/team/14106/ex-cybershoke>, <https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md>.
-- UPGRADE vs flacons (1082763): flacons has no Valve row and no HLTV world rank in the saved 19 Oct publication; UPGRADE is rated, so the pair cannot be priced by any rung. Source: <https://www.hltv.org/team/13989/upgrade>, saved <code>data/research/c03ef201/evidence/hltv-ranking-0.html.gz</code>.
-- Zetta vs LOS NINOS (1082837): LOS NINOS has no Valve row and no HLTV world rank; Zetta's visible official series history in the event is short of the results model's 8-series floor. Source: <https://www.hltv.org/events/9452/cct-2026-south-america-series-7>.
+**Requests for the E-2 owners (logged, not edited here):**
 
-No bookmaker, exchange or aggregated line was found for these three fixtures. HLTV's "Pick a winner" split on the
-ex-CYBERSHOKE match page is a community vote and is not used, consistent with the rule against Hotspawn "% picked".
-I did not lower the 8-series or rating-rung thresholds to force a pick.
-
-**Irregularities (published, non-blocking, on Flagged for Review):** `8926d9c4-hltv-upgrade-rank-conflict`
-(UPGRADE #64 in the saved 19 Oct ranking vs #74 on its HLTV team page), `8926d9c4-hltv-cybershoke-labels-conflict`
-(HLTV match page "VRS #78" vs team page "-"; #78 is Lazer Cats in Valve's file), `8926d9c4-valve-cybershoke-duplicate-names`
-(two complete Valve rows named CYBERSHOKE), `8926d9c4-unranked-and-inactive-opponents` (the three blanks).
-
-**Verification performed:** Hotspawn fixture feed reachable and returning the scheduled-fixture JSON (fixture rows were not
-re-read in full in this session); Valve 2026-10-05 standings checked by name against the saved `valve-ratings.json`
-(the repo's source of truth, which matches Valve's latest published file per the GitHub API directory listing);
-saved HLTV ranking publication parsed (245 ranked positions, 19 Oct 2026); HLTV team and match pages read through the fetch tool.
-Not verified in this session: the rendered mobile layout and the stale banner's on-screen state (no browser available).
+- To `arena-802f6a59` and `arena-f5223859`: the saved HLTV world-ranking publication dated 2026-10-19
+  (`data/research/c03ef201/evidence/hltv-ranking-0.html.gz`, 245 ranked positions) lists **UPGRADE at #64 (14 points)**, while the HLTV
+  team overview for UPGRADE (<https://www.hltv.org/team/13989/upgrade>, read on 21 Oct 2026) says "currently ranked #74". Please reconcile or flag.
+- To the same owners: the HLTV match page for ex-CYBERSHOKE (<https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9>)
+  shows "HLTV: Unranked" and "VRS: #78", but the HLTV team page (<https://www.hltv.org/team/14106/ex-cybershoke>) shows Valve and world rank "-".
+  In Valve's 2026-10-05 standings, #78 is Lazer Cats; CYBERSHOKE appears at 61 (Alkaren, alpha, Mokuj1n, nota, yiksrezo) and 171
+  (alpha, bl1x1, fluffy, glowiing, Mokuj1n). Please add this to the identity-ambiguity flag if it is not already there.
+- To `arena-802f6a59`: its flag "Executive summary labels an HLTV-ranking research pick as 'Valve'" touches `scripts/build.py`
+  summary text. This session edits only `glance()` and the summary `<script>` include in `shell()`; please keep the two changes separate.
 
 ### E-3 — integration (in progress)
 
