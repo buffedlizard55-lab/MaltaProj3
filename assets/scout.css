@@ -228,3 +228,17 @@
 .sample-result.l{background:#fde5e5;color:#8a2323}
 .notice-inline{background:#f6f1e2;border-left:3px solid #b98b2f;padding:.5rem .65rem;border-radius:0 6px 6px 0}
 @media (max-width:620px){.sample-list li{flex-wrap:wrap}.notice-inline{font-size:.85rem}}
+
+/* 21 October (dbaf7692) — phone readability: the six-item bottom bar scrolls
+   horizontally at comfortable type and 44px targets instead of squeezing every
+   label to 7.5px. The active tab is centred on load by scout.js. */
+@media (max-width:700px){
+  body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+  .mobile-nav{justify-content:flex-start;gap:4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 8px max(8px,env(safe-area-inset-bottom))}
+  .mobile-nav::-webkit-scrollbar{display:none}
+  .mobile-nav>a{flex:0 0 auto;min-width:76px;min-height:46px;padding:4px 10px;font-size:11px;line-height:1.25;gap:4px}
+  .mobile-nav .icon{width:20px;height:20px}
+}
+@media (max-width:375px){
+  .mobile-nav>a{min-width:70px;font-size:10.5px;padding:4px 8px}
+}

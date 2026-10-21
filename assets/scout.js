@@ -174,3 +174,12 @@ document.querySelector('#load-update')?.addEventListener('click', () => location
 setInterval(checkForUpdate, 5 * 60000);
 document.addEventListener('visibilitychange', () => { liveStatus(); checkForUpdate(); });
 checkForUpdate();
+
+// Keep the active destination visible in the horizontally scrolling phone bar.
+(() => {
+  const nav = document.querySelector('.mobile-nav');
+  const current = nav && nav.querySelector('a[aria-current="page"]');
+  if (!nav || !current || nav.scrollWidth <= nav.clientWidth) return;
+  const centre = current.offsetLeft - (nav.clientWidth - current.offsetWidth) / 2;
+  nav.scrollLeft = Math.max(0, centre);
+})();
