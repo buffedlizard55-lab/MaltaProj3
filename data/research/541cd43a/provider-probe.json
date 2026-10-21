@@ -1,0 +1,451 @@
+{
+  "session": "arena-541cd43a",
+  "generated_at": "2026-10-21T12:49:57Z",
+  "policy": "Read-only research. No probability, pick, price or alias is written here. Every value is the source response observed at the recorded time.",
+  "inventory_observed_at": "2026-10-21T12:48:56Z",
+  "origination_counts": {
+    "active": 19,
+    "resolved": 16,
+    "unresolved": 3,
+    "with_pick": 15,
+    "consensus": 2,
+    "market": 9,
+    "bookmaker": 1,
+    "reference": 0,
+    "model": 4,
+    "guidance": 0,
+    "alias_joined": 1
+  },
+  "blank_fixtures": [
+    {
+      "hotspawn_id": "1082762",
+      "teams": [
+        "ex-CYBERSHOKE",
+        "BlinkDagger"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+      "hltv": [
+        {
+          "request": {
+            "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+            "observed_at": "2026-10-21T12:49:57Z",
+            "http_status": 403,
+            "error": "HTTP 403"
+          }
+        }
+      ],
+      "bo3": {
+        "team_lookup": [
+          {
+            "name": "ex-CYBERSHOKE",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-CYBERSHOKE",
+              "observed_at": "2026-10-21T12:49:57Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 213,
+              "sha256": "6eb92cde87ed045255a51d8309f6fbc75ae177e5ba8b889a6f1f2e8b86262980"
+            },
+            "matches": 0,
+            "exact": 0
+          },
+          {
+            "name": "BlinkDagger",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BlinkDagger",
+              "observed_at": "2026-10-21T12:49:57Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 823,
+              "sha256": "314c13c4cf7b1a6e44786dba9c39928485763f6b1ec29d99aea4127a0927844e"
+            },
+            "matches": 1,
+            "exact": 1,
+            "id": 246,
+            "slug": "blinkdagger",
+            "rank": null
+          }
+        ],
+        "bound": null
+      }
+    },
+    {
+      "hotspawn_id": "1082763",
+      "teams": [
+        "UPGRADE",
+        "flacons"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+      "hltv": [
+        {
+          "request": {
+            "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+            "observed_at": "2026-10-21T12:49:58Z",
+            "http_status": 403,
+            "error": "HTTP 403"
+          }
+        }
+      ],
+      "bo3": {
+        "team_lookup": [
+          {
+            "name": "UPGRADE",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UPGRADE",
+              "observed_at": "2026-10-21T12:49:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 1488,
+              "sha256": "3f7f1fb1b7acbfb81cc809648ca0ec2b64359a13f3c9b80c0d481be5eb41f46f"
+            },
+            "matches": 1,
+            "exact": 1,
+            "id": 25212,
+            "slug": "upgrade",
+            "rank": 67
+          },
+          {
+            "name": "flacons",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=flacons",
+              "observed_at": "2026-10-21T12:49:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 207,
+              "sha256": "1a4ab92e8d7bd9a96516168641c5481c1aee7c0eb080d58bd07b306b1a2acd2b"
+            },
+            "matches": 0,
+            "exact": 0
+          }
+        ],
+        "bound": null
+      }
+    },
+    {
+      "hotspawn_id": "1082837",
+      "teams": [
+        "Zetta",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T22:00:00Z",
+      "hotspawn_source_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "hltv": [
+        {
+          "request": {
+            "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+            "observed_at": "2026-10-21T12:49:59Z",
+            "http_status": 403,
+            "error": "HTTP 403"
+          }
+        }
+      ],
+      "bo3": {
+        "team_lookup": [
+          {
+            "name": "Zetta",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Zetta",
+              "observed_at": "2026-10-21T12:49:59Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 1492,
+              "sha256": "92363161f5143233fa2815873ae11aed1f2f754ca5c7d4fe17a546cb95643b83"
+            },
+            "matches": 1,
+            "exact": 1,
+            "id": 23468,
+            "slug": "zetta-games-cs",
+            "rank": 357
+          },
+          {
+            "name": "LOS NINOS",
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=LOS%20NINOS",
+              "observed_at": "2026-10-21T12:49:59Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 818,
+              "sha256": "ba2917b2e9866ca032679507be6804f773be4295adf6fe36650ad9546c90a37b"
+            },
+            "matches": 1,
+            "exact": 1,
+            "id": 25500,
+            "slug": "los-ninos-cs",
+            "rank": null
+          }
+        ],
+        "bound": null
+      }
+    }
+  ],
+  "bo3_graph_endpoint": {
+    "request": {
+      "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=-start_date&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1&with=teams",
+      "observed_at": "2026-10-21T12:49:57Z",
+      "http_status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 241212,
+      "sha256": "ac23c3909dac66e2cfd8f5735a72fbbbaa6b43fdd33857e4cadb0566565474fc"
+    },
+    "rows": 100,
+    "distinct_teams": 132,
+    "has_total": true,
+    "sample": [
+      {
+        "id": 131459,
+        "start_date": "2026-10-21T11:20:00.000+00:00",
+        "team1": "Saint Sinners",
+        "team2": "ex-6666",
+        "winner_team_id": 25508,
+        "parsed_status": "waiting"
+      },
+      {
+        "id": 132211,
+        "start_date": "2026-10-21T11:00:00.000+00:00",
+        "team1": "TitanFlow",
+        "team2": "Noir Verse",
+        "winner_team_id": 25277,
+        "parsed_status": "waiting"
+      },
+      {
+        "id": 131870,
+        "start_date": "2026-10-21T09:10:00.000+00:00",
+        "team1": "The MongolZ",
+        "team2": "magic",
+        "winner_team_id": 736,
+        "parsed_status": "done"
+      },
+      {
+        "id": 132324,
+        "start_date": "2026-10-21T09:00:00.000+00:00",
+        "team1": "FOKUS",
+        "team2": "UNiTY",
+        "winner_team_id": 3829,
+        "parsed_status": "waiting"
+      },
+      {
+        "id": 132544,
+        "start_date": "2026-10-21T08:20:00.000+00:00",
+        "team1": "eSuba",
+        "team2": "KAMUI",
+        "winner_team_id": 1199,
+        "parsed_status": "waiting"
+      }
+    ]
+  },
+  "providers": [
+    {
+      "label": "EGamersWorld CS2 matches",
+      "request": {
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-21T12:50:00Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "EGamersWorld search",
+      "request": {
+        "url": "https://egamersworld.com/search?query=BlinkDagger",
+        "observed_at": "2026-10-21T12:50:00Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "Oddspedia CS2",
+      "request": {
+        "url": "https://oddspedia.com/csgo",
+        "observed_at": "2026-10-21T12:50:00Z",
+        "http_status": 404,
+        "error": "HTTP 404"
+      }
+    },
+    {
+      "label": "Oddspedia search",
+      "request": {
+        "url": "https://oddspedia.com/search?q=BlinkDagger",
+        "observed_at": "2026-10-21T12:50:00Z",
+        "http_status": 404,
+        "error": "HTTP 404"
+      }
+    },
+    {
+      "label": "Escorenews CS2",
+      "request": {
+        "url": "https://escorenews.com/en/csgo",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "Escorenews search",
+      "request": {
+        "url": "https://escorenews.com/en/search?q=BlinkDagger",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "1xBet CS2 line",
+      "request": {
+        "url": "https://1xbet.com/Line/Counter-Strike-2",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 203,
+        "content_type": "text/html;charset=utf-8",
+        "bytes": 2621,
+        "sha256": "5079bdad0f35db21f900410bd5616aa94aafb5425c6ce1a3a1cbc405bd65b489"
+      },
+      "title": null,
+      "teams_present": {
+        "BlinkDagger": false,
+        "LOS NINOS": false,
+        "UPGRADE": false,
+        "Zetta": false,
+        "ex-CYBERSHOKE": false,
+        "flacons": false
+      }
+    },
+    {
+      "label": "GG.bet CS2",
+      "request": {
+        "url": "https://gg.bet/en/esports/counter-strike",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "Betano CS2",
+      "request": {
+        "url": "https://www.betano.com/sport/esports/counter-strike-2/",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 29842,
+        "sha256": "e9c42e4487508a997931497faa22371e4914598d384735887958da5f753e230e"
+      },
+      "title": "Online Betting - Great Odds and Live Betting | Betano",
+      "teams_present": {
+        "BlinkDagger": false,
+        "LOS NINOS": false,
+        "UPGRADE": false,
+        "Zetta": false,
+        "ex-CYBERSHOKE": false,
+        "flacons": false
+      }
+    },
+    {
+      "label": "Betway CS2",
+      "request": {
+        "url": "https://betway.com/en/sports/grp/esports/counter-strike",
+        "observed_at": "2026-10-21T12:50:01Z",
+        "http_status": 404,
+        "error": "HTTP 404"
+      }
+    },
+    {
+      "label": "Unibet esports",
+      "request": {
+        "url": "https://www.unibet.com/betting/sports/filter/esports",
+        "observed_at": "2026-10-21T12:50:02Z",
+        "http_status": 503,
+        "error": "HTTP 503"
+      }
+    },
+    {
+      "label": "Betsson esports",
+      "request": {
+        "url": "https://www.betsson.com/en/odds/esports",
+        "observed_at": "2026-10-21T12:50:02Z",
+        "http_status": 202,
+        "content_type": "text/html; charset=UTF-8",
+        "bytes": 2583,
+        "sha256": "111a9956008e0db4b34645cc6cdacb93f095b0298cdfc0f26c133ba1be492d87"
+      },
+      "title": "",
+      "teams_present": {
+        "BlinkDagger": false,
+        "LOS NINOS": false,
+        "UPGRADE": false,
+        "Zetta": false,
+        "ex-CYBERSHOKE": false,
+        "flacons": false
+      }
+    },
+    {
+      "label": "Thunderpick CS2",
+      "request": {
+        "url": "https://thunderpick.io/esports/counter-strike",
+        "observed_at": "2026-10-21T12:50:02Z",
+        "http_status": 403,
+        "error": "HTTP 403"
+      }
+    },
+    {
+      "label": "Pinnacle CS2",
+      "request": {
+        "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "observed_at": "2026-10-21T12:50:02Z",
+        "http_status": 404,
+        "error": "HTTP 404"
+      }
+    },
+    {
+      "label": "Bovada CS2",
+      "request": {
+        "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+        "observed_at": "2026-10-21T12:50:03Z",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 1200000,
+        "sha256": "215a04dcaaef190f0ce628fcc83c147e6f0e30287e59a18ce9669f1471e57c8c"
+      },
+      "title": "Counter Strike 2 Betting Odds | Bovada",
+      "teams_present": {
+        "BlinkDagger": false,
+        "LOS NINOS": false,
+        "UPGRADE": false,
+        "Zetta": false,
+        "ex-CYBERSHOKE": false,
+        "flacons": false
+      }
+    },
+    {
+      "label": "Kalshi CS2 series",
+      "request": {
+        "url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
+        "observed_at": "2026-10-21T12:50:07Z",
+        "http_status": 429,
+        "error": "HTTP 429"
+      }
+    },
+    {
+      "label": "Polymarket CS2",
+      "request": {
+        "url": "https://polymarket.com/esports/cs2",
+        "observed_at": "2026-10-21T12:50:07Z",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 1200000,
+        "sha256": "e43db518746ec44a950a7b3863ccfc17fd284db78aadeebf0806e601f35e041f"
+      },
+      "title": "Counter-Strike 2 Odds &amp; Prediction Markets 2026 | Polymarket",
+      "teams_present": {
+        "BlinkDagger": true,
+        "LOS NINOS": false,
+        "UPGRADE": true,
+        "Zetta": false,
+        "ex-CYBERSHOKE": false,
+        "flacons": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-10-21T12:49:56Z",
+  "copies": [
+    {
+      "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/latest.json",
+      "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/latest.json.gz",
+      "bytes": 209046,
+      "compressed_bytes": 16585,
+      "sha256_of_original": "bfc995a878127889fb0fdd3147514c742251c6c89ce1a0ab7c1884f5be1bdd70"
+    },
+    {
+      "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/sources.json",
+      "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/sources.json.gz",
+      "bytes": 23515,
+      "compressed_bytes": 4117,
+      "sha256_of_original": "4dd88a5870e13e48528324b64c163f076366a1e0a4f5d55f79684499b9faf760"
+    },
+    {
+      "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/origination.json",
+      "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/origination.json.gz",
+      "bytes": 144719,
+      "compressed_bytes": 18892,
+      "sha256_of_original": "57a99ea5edaf49bc230b17958ab6625ebe322d01e118352923b2a0054d7cf049"
+    }
+  ],
+  "build": {
+    "command": "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python -m scripts.build",
+    "exit_code": 0,
+    "row_source_audit": "Row-source audit: 547 rows, 533 with an official link, 5 flagged unverified, 9 site-map, 0 without a source",
+    "tail": "PASS: 81 source rows reconciled; every published probability and pick replayed from first-party evidence.\nRow-source audit: 547 rows, 533 with an official link, 5 flagged unverified, 9 site-map, 0 without a source\nPASS: 708 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.\nBuilt 8 current Pages views, compatible old URLs and explicitly archived session views in site",
+    "verified_at": "2026-10-21T12:49:56Z"
+  }
+}
