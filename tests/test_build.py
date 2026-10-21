@@ -203,9 +203,12 @@ class ConsensusQuoteShapeTests(unittest.TestCase):
 class GlanceIndexTests(unittest.TestCase):
     """The phone summary must expose picks immediately and never hide an unresolved fixture."""
 
-    def match(self, i, probability, future, resolved=True):
+    def match(self, i, probability, future, resolved=True, base=None):
         from datetime import datetime, timedelta, timezone
-        now = datetime.now(timezone.utc)
+        # `base` pins the fixture to an explicit instant (the repository's
+        # injected-time contract); the default keeps the historical wall-clock
+        # behaviour for tests that never depend on which side of a cap a row falls.
+        now = base or datetime.now(timezone.utc)
         start = now + timedelta(hours=2 + i) if future else now - timedelta(hours=3)
         m = {'id': str(i), 'teams': [{'id': 'a', 'name': f'TeamA{i}'}, {'id': 'b', 'name': f'TeamB{i}'}],
              'competition': 'Test Cup', 'starts_at': start.strftime('%Y-%m-%dT%H:%M:%SZ'),
@@ -229,9 +232,20 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('href="https://polymarket.com/event/cs2-x"', html)
 
     def test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50(self):
-        matches = [self.match(i, 0.6, True) for i in range(12)] + [self.match(100, 0.5, True, resolved=False),
-                                                                  self.match(101, 0.5, False, resolved=False)]
-        html = glance({'matches': matches, 'fallbacks': {}}, '')
+        # Explicit synthetic instant, never the wall clock: with twelve resolved
+        # matches starting 2–13 h after `base`, `glance(now=base)` keeps ten of
+        # them, and the two unresolved rows are never dropped, so the hidden-path
+        # footer is deterministic. Building the times from `datetime.now()` and
+        # leaving `now=None` made the outcome depend on the real time of day —
+        # the exact time bomb that failed scheduled publisher runs 39371739014
+        # and 39389855311 on 2026-10-20 between about 04:01Z and 09:01Z when the
+        # freshness-determinism guard re-ran this module pinned to
+        # 2026-10-20T12:00Z (see data/research/905fa4cf/).
+        from datetime import datetime, timezone
+        base = datetime(2026, 10, 20, 12, 0, tzinfo=timezone.utc)
+        matches = [self.match(i, 0.6, True, base=base) for i in range(12)] + [self.match(100, 0.5, True, resolved=False, base=base),
+                                                                             self.match(101, 0.5, False, resolved=False, base=base)]
+        html = glance({'matches': matches, 'fallbacks': {}}, '', now=base)
         self.assertIn('TeamA100', html)
         self.assertIn('TeamA101', html)
         self.assertEqual(html.count('50.0%'), 0)
