@@ -1,0 +1,122 @@
+{
+  "id": "905fa4cf-production-gap-20261020",
+  "session": "arena-905fa4cf",
+  "claimed_at": "2026-10-21T12:45Z",
+  "written_at": "2026-10-21T13:35Z",
+  "summary": "Scheduled publisher froze for 12.26 h on 2026-10-20 (two consecutive failing scheduled runs), exceeding the brief's ≤8 h refresh bound. Root cause reproduced with frozen-clock replay: a wall-clock-dependent test assumption in tests/test_build.py::GlanceIndexTests collided with the freshness-determinism guard's absolute pinned instant 2026-10-20T12:00:00+00:00 and failed the pre-collection regression step for every run started on 2026-10-20 between about 04:01Z and 09:01Z. Fixed by giving the failing test an explicit synthetic time basis (the repository's own injected-time contract). No probability, pick, alias, source or renderer value was changed anywhere.",
+  "frozen_publisher_window": {
+    "last_successful_run_before_window": {
+      "run": 39352634388,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39352634388",
+      "created_at": "2026-10-20T01:17:47Z",
+      "completed_at": "2026-10-20T01:32:40Z",
+      "inventory_observed_at": "2026-10-20T01:29:53Z",
+      "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9"
+    },
+    "failed_runs": [
+      {
+        "run": 39371739014,
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39371739014",
+        "created_at": "2026-10-20T04:50:59Z",
+        "completed_at": "2026-10-20T05:02:42Z",
+        "event": "schedule",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "check_run": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/118460915768",
+        "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9"
+      },
+      {
+        "run": 39389855311,
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39389855311",
+        "created_at": "2026-10-20T07:56:14Z",
+        "completed_at": "2026-10-20T08:05:10Z",
+        "event": "schedule",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "check_run": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/118518456591",
+        "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9"
+      }
+    ],
+    "first_successful_run_after_window": {
+      "run": 39431428827,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39431428827",
+      "created_at": "2026-10-20T13:33:30Z",
+      "completed_at": "2026-10-20T13:42:36Z",
+      "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9"
+    },
+    "gap_run_start_to_run_start_hours": 12.26,
+    "gap_completed_to_completed_hours": 12.16,
+    "brief_bound_hours": 8,
+    "all_four_runs_share_head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9",
+    "visible_staleness": "The public site kept serving the 2026-10-20T01:29:53Z inventory; the site's own 8-hour staleness rule visibly demoted it from about 09:29:53Z until the recovery deploy at ~13:42Z (about 4 h 13 min of labelled stale data). No unreconciled or invented data was published."
+  },
+  "misleading_annotations_analysis": {
+    "failed_run_annotations": ["Process completed with exit code 1", "SourceError: HTTP 403", "SourceError: HTTP 403", "SourceError: Lobby and API disagree", "SourceError: HTTP 403"],
+    "finding": "The four SourceError lines are NOT diagnostics of the failure. They are printed by scripts/collect.py's degraded path while executing four PATCHED synthetic tests in tests/test_domain.py::SourceSafetyTests (test_failed_replay_never_changes_the_published_snapshot, test_partial_inventory_failure_cannot_overwrite_last_good_evidence, test_source_failure_does_not_claim_empty_inventory, test_source_failure_preserves_success_timestamps).",
+    "proof": "Successful run 39524645584 (2026-10-21T00:59:38Z) carries the identical four SourceError annotations (check-run enumeration via the official API returned count=4). The same four lines appear in a green local run of tests.test_domain. They are suite noise present in every run, success or failure.",
+    "successful_control_run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39524645584",
+    "consequence": "The only signal in the failed runs was 'Process completed with exit code 1'. The real failing test name was unreachable from this sandbox.",
+    "remediation": ".github/workflows/pages.yml now publishes unittest FAIL/ERROR lines as ::error annotations exactly like .github/workflows/checks.yml already does, so the next occurrence is self-describing in the official annotations feed."
+  },
+  "log_access_limitation": {
+    "blocked_hosts": ["results-receiver.actions.githubusercontent.com (run-log download redirect)", "productionresultssa*.blob.core.windows.net (artifact bytes)"],
+    "check_run_output_fields": null,
+    "note": "The sandbox egress allowlist covers github.com/api.github.com only; run logs and artifact bytes redirect to hosts outside it. The frozen-clock replay below is how root cause was established without log access."
+  },
+  "root_cause": {
+    "failed_test": "tests.test_build.GlanceIndexTests.test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50",
+    "guard": "tests.test_freshness_determinism.PinnedClockTests.test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times re-runs the time-sensitive module suite with scripts.* modules' datetime pinned to absolute instants including '2026-10-20T12:00:00+00:00'.",
+    "mechanism": [
+      "GlanceIndexTests.match() built fixture start/lock/observation times from wall-clock datetime.now() (call it T0) and the test called glance() without now=, so inside the guard's pinned re-run glance() classified rows at pinned time P = 2026-10-20T12:00Z against fixtures defined relative to the real T0.",
+      "glance() shows at most 10 resolved upcoming rows (open_rows), ALL unresolved rows (blank + past_blank), and at most 6 resolved past/locked rows (resolved_rest). The hidden>0 footer reads 'Showing X of N; every unresolved fixture is included.'; the hidden==0 footer reads 'All N active fixtures are listed.' instead.",
+      "The test hard-asserts the hidden-path sentence. With 12 resolved matches starting T0+2h..T0+13h and 2 unresolved rows, hidden = 14 - (min(open,10) + 2 + min(rest,6)) is 0 exactly when 6 <= open <= 10, i.e. when T0 falls in 2026-10-20 ~04:01Z..~09:01Z. Both failed runs (04:50:59Z, 07:56:14Z) are inside the window; the neighbouring successes (01:17:47Z, 13:33:30Z) and all runs after 2026-10-20 (fixtures a full day past the fixed pin, open=12 capped to 10) are outside it.",
+      "Result: identical head SHA passes or fails depending only on the wall clock — the same wall-clock-bomb class as the 2026-10-17 publisher freeze, in a different test."
+    ],
+    "why_only_that_day": "The pin is a fixed literal (2026-10-20T12:00Z). For every run whose real date is after 2026-10-20, all 12 synthetic resolved starts fall after the pin, so open=12 and the cap always triggers (hidden=2). The collision window existed only on 2026-10-20 ~04:01Z-~09:01Z.",
+    "production_runtime_is_correct": "glance() itself behaves correctly for real now=build-time data: it never drops unresolved rows in either branch; only the TEST's assertion assumed the capped branch would always be taken. No runtime change was made."
+  },
+  "reproduction": {
+    "harness": "data/research/905fa4cf/replay_suite_at.py (dev-only freezegun install; not added to requirements.txt; not wired into CI)",
+    "pre_fix": {
+      "file": "data/research/905fa4cf/replay-0450-prefail.json",
+      "frozen_instant": "2026-10-20T04:50:59+00:00",
+      "result": "740 tests, 1 failure: the guard reports GlanceIndexTests.test_unresolved_fixtures_are_never_dropped_and_never_given_a_50_50 failing at pinned 2026-10-20T12:00:00+00:00 with ''every unresolved fixture is included' not found'.",
+      "note": "The stored JSON's single failure entry is trimmed (the original message embedded ~14 KB of rendered HTML with no extra diagnostic content); the assertion text is intact and the reproduce command is recorded in the file."
+    },
+    "post_fix": [
+      {"file": "data/research/905fa4cf/replay-0450-postfix.json", "frozen_instant": "2026-10-20T04:50:59+00:00", "result": "740 tests, 0 failures, OK"},
+      {"file": "data/research/905fa4cf/replay-0756.json", "frozen_instant": "2026-10-20T07:56:14+00:00", "result": "740 tests, 0 failures, OK"}
+    ]
+  },
+  "fix": {
+    "file": "tests/test_build.py",
+    "change": "GlanceIndexTests.match() gains an optional `base` instant (default: previous wall-clock behaviour, used by tests whose assertions hold in both glance branches); the failing test now builds all fixture times from a fixed synthetic base 2026-10-20T12:00Z and calls glance(..., now=base). Every original assertion is unchanged: both unresolved rows present, zero '50.0%' occurrences, '2</strong> explicitly unresolved', hidden-path footer sentence.",
+    "scope_note": "test_build.py has an append-only claim from concurrent session arena-8926d9c4 (E-1 glance lock-state tests). This surgical repair of a completed session's (arena-7831412c) test does not touch any E-1 append target; the owner was notified in COORDINATION.md before the edit, per protocol, because an armed window bomb freezes the entire publisher.",
+    "tests": [".venv/bin/python -m unittest tests.test_build: 15 OK", ".venv/bin/python -m unittest tests.test_freshness_determinism: 9 OK (153 s)", "frozen-clock replays at both failure instants: OK"]
+  },
+  "cadence_audit": {
+    "source": "Official runs list for workflow 'Refresh and deploy CS2 dashboard' on branch main via the GitHub API (gh run list), 2026-10-18T01:52Z through 2026-10-21T08:00Z.",
+    "gaps_over_5_hours": [
+      {"gap_hours": 5.18, "from": "2026-10-18T07:26Z", "to": "2026-10-18T12:37Z", "within_bound": true},
+      {"gap_hours": 7.50, "from": "2026-10-19T08:05Z", "to": "2026-10-19T15:35Z", "within_bound": true},
+      {"gap_hours": 12.26, "from": "2026-10-20T01:17Z", "to": "2026-10-20T13:33Z", "within_bound": false, "explained_by": "this dossier"}
+    ],
+    "all_other_gaps_hours": "0.12-4.61",
+    "scheduled_slots": "00:17,04:17,08:17,12:17,16:17,20:17 UTC (primary) + 02:47,06:47,10:47,14:47,18:47,22:47 UTC (catch-up), per .github/workflows/pages.yml",
+    "note": "GitHub also drops/delays scheduled slots under load (e.g. no 08:17Z or 10:47Z run was delivered on 2026-10-20); the catch-up slots plus the repaired regression gate are the mitigation."
+  },
+  "verification": {
+    "suite_at_fix_tree": ".venv/bin/python -m unittest discover -s tests (740 tests) — post-fix frozen replays at both failure instants OK; see Integration record in COORDINATION.md for the final full-suite number on the integrated tree.",
+    "official_run_metadata": [
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39371739014",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39389855311",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39352634388",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39431428827",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39524645584",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314"
+    ]
+  },
+  "irregularities": [
+    "2026-10-20 publication gap of 12.26 h exceeded the 8 h bound; root cause was a wall-clock-dependent test assumption, now fixed.",
+    "pages.yml published no FAIL/ERROR annotation on regression failure (only raw 'exit code 1'), while the four synthetic SourceError annotations always present misdirected initial reads toward a source outage. Diagnosability wrapper added.",
+    "The failing test lived in a completed session's file with an append-only claim by a concurrent session; protocol-compliant cross-scope repair is documented in COORDINATION.md."
+  ]
+}
