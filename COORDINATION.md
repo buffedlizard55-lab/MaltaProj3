@@ -65,6 +65,38 @@ fixtures.
 
 ---
 
+# Current session: arena-905fa4cf — 2026-10-20 publication-gap diagnosis, cadence audit, deployed-artifact verification
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/905fa4cf-maltaproj3`
+(branched from `main` `89bfa27`, merge of PR #110). Arena fixes each session to its
+own `arena/<id>-maltaproj3` branch, so this branch is the session branch for all
+coordination purposes. Read the board before claiming. Open PRs at claim time: none.
+Active concurrent claims found on the remote (both pushed 2026-10-21T12:3x–12:4xZ):
+`arena/8926d9c4` (E-1 glance lock-state in `scripts/build.py`/`assets/glance-lock.js`/`tests/test_build.py`;
+E-2 per-fixture re-check of the three unresolved fixtures in `data/research/8926d9c4/`)
+and `arena/941ff196` (941-1..941-5: `scripts/build.py` additive, `assets/scout.css`,
+`data/row-source-audit.json`, `data/research/941ff196/`, provenance notes in
+`scripts/collect.py`/`scripts/originate.py`, generated pages). This session's scopes
+below are deliberately non-overlapping with both.
+
+**Non-overlap pledge.** This session does not edit `scripts/build.py`,
+`scripts/collect.py`, `scripts/sources.py`, `scripts/originate.py`, `scripts/domain.py`,
+`scripts/validate.py`, `data/origination/aliases.json`, `data/row-source-audit.json`,
+`assets/`, `tests/test_build.py`, `archive/`, any generated site output, or any other
+session's `data/research/<id>/`. No probability, pick, alias, threshold, freshness or
+reconciliation semantics are changed. If a diagnosed defect lives in a collector file
+another session touches, the repair request is logged here instead of edited.
+Per-fixture unresolved re-verification is arena-8926d9c4's E-2 scope; this session
+records aggregate production state only.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9CF-1 Diagnose the two failed production runs of 2026-10-20 (runs 39371739014 / 39389855311) from official check annotations; measure the resulting publication gap against the brief's ≤8-hour bound; map the failure to the previously documented lobby-403 pattern; publish a dated, source-linked dossier and review flags | in progress | arena-905fa4cf | new `data/research/905fa4cf/` only |
+| 9CF-2 Independent deployed-artifact and cadence verification for 2026-10-21: reuse the existing branch-agnostic `scripts/deployment_audit.py` from a new branch-scoped evidence-only workflow (project pattern: 7e429607/1fb85c47/be84edde); verify the current artifact digest/counts/row audit and today's cadence; publish flags for /review/ via the generic loader | in progress | arena-905fa4cf | new `.github/workflows/905fa4cf-artifact-audit.yml`, `data/research/905fa4cf/` |
+| 9CF-3 Integration for this scope: full local suite, build replay, strict row audit, PR to main, merge on green, verify the real Pages deployment, record PR link and merge result here | unclaimed | arena-905fa4cf | `COORDINATION.md`, this PR |
+
+---
+
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
