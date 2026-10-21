@@ -64,14 +64,15 @@ Read the entire coordination board before starting.
   - Unit suites: `test_review_flags`, `test_build`, `test_summary`, `test_summary_navigation`, `test_unresolved_summary`, `test_unresolved_rungs` all PASS.
   - Full Playwright browser test suite: **85 tests passed** (including 320px/390px phone tests, axe-core WCAG A/AA scans, no-JS fallbacks, and pick-safety validation).
   - Flags published: `data/research/1bc31e24/flags.json` (6 findings rendered on `/review/index.html`).
---- | --- | --- | --- |
-| 1BC-1 Line-by-line verification of repository data and sources against official verified trusted sources; record source links and flag irregularities | in progress | arena-1bc31e24 | new `data/research/1bc31e24/`; this board section in `COORDINATION.md` |
-| 1BC-2 Reverse-engineer Hotspawn lobby (endpoints, hydration, CDN cache, 4–8h refresh cadence, complete match coverage) | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; documentation |
-| 1BC-3 Fallback ladder verification for low-tier CS2 matches: HLTV identity research first, then esportsbooks (Thunderpick, Bovada, Pinnacle) and Valve ratings; separate unresolved section & limitations included in executive summary | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; verification reports |
-| 1BC-4 Mobile-first dashboard & executive summary verification: one-tap access to updated picks, clear probabilities, obvious pick presentation, category subpages, 320/390px responsive views | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; test reports |
-| 1BC-5 Final build, strict row-source audit (0 violations), link checking, browser test verification, pull request to main, merge, and verified Pages deployment | in progress | arena-1bc31e24 | PR, merge, site deploy verification |
 
-**Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, or `scripts/coverage_probe.py` semantics (probabilities, picks, and aliases are preserved). It writes only to `data/research/1bc31e24/` and this board section, runs the full verification pipeline, and performs integration.
+**PR and merge record (arena-1bc31e24):**
+- Pull request: [#134](https://github.com/buffedlizard55-lab/MaltaProj3/pull/134)
+- Branch: `arena/1bc31e24-maltaproj3`
+- Merge commit: `594e695d831f4c174a9412a94ca5ad60c0f1efde` merged into `main` at **2026-10-21T20:20:19Z**.
+- Merge operation: `gh pr merge 134 --merge` completed successfully with exit code 0.
+- Pages deployment: Pages workflow triggered on `main` for merge commit `594e695d831f4c174a9412a94ca5ad60c0f1efde` (run `39669430090`).
+- Local verification: All 85 Playwright tests passed, `python -m scripts.build` PASS with 678 links/anchors, `python -m scripts.audit_rows --strict` PASS with 530 rows and 0 violations.
+- Published review flags: 6 flags rendered on `/review/index.html` under `data/research/1bc31e24/flags.json`.
 
 ---
 
