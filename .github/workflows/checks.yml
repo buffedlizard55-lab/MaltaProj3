@@ -13,7 +13,12 @@ jobs:
   verify:
     name: Rows, build, links, mobile and accessibility
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    # 15 minutes was not enough on 2026-10-21: job 119235008218 finished every
+    # step successfully (unit suite, replay build, row-source audit, browser
+    # install, 320/390/768/1440px UI checks) and was still cancelled by the
+    # job-level cap at exactly 15m0s, which marked PR #112 red for a reason
+    # unrelated to the code. The cap is raised, not the checks removed.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7

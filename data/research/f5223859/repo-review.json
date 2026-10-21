@@ -1,0 +1,160 @@
+{
+  "session": "arena-f5223859",
+  "branch": "arena/f5223859-maltaproj3",
+  "review_clock_utc": "2026-10-21T13:08Z",
+  "scope": "Line-by-line review of the Hotspawn CS2 inventory collector (scripts/collect.py, scripts/sources.py), the multi-rung pick-origination ladder (scripts/originate.py, scripts/pinnacle_lines.py, scripts/hltv_ranking.py, scripts/form_model.py, data/origination/aliases.json), the mobile executive summary and unresolved-picks dashboard views (scripts/build.py, scripts/build_origination.py), and the 4-8 hour scheduled GitHub Pages publisher (.github/workflows/pages.yml). Every finding links its official or first-party evidence.",
+  "method": "Each item was checked line by line against repository source files, the 2026-10-21 scheduled production workflow run (#39565977314, check-run 119108230359), and this session's live runner audit (#39605051244, check-run 119238973323) on 2026-10-21T13:06-13:07Z. Items with unverified identity equivalence or provider-side gaps are marked 'needs review' or 'platform limitation' rather than silently guessed.",
+  "items": [
+    {
+      "id": "f52-01",
+      "area": "Hotspawn inventory & 4-8h refresh cadence",
+      "status": "verified",
+      "finding": "The production workflow (.github/workflows/pages.yml) runs on two offset 4-hour cron schedules ('17 */4 * * *' and '47 2-22/4 * * *') and reconciles three official Hotspawn surfaces (the /lobby page, /cs2-pickems page, and the public Cloudways fixture API). On 2026-10-21, scheduled runs 39524645584, 39545919841 and 39565977314 and session live run 39605051244 all succeeded with complete cross-checks.",
+      "handling": "Verified against official GitHub Actions run records and check-run annotations. Hotspawn community pick percentages are explicitly excluded from every probability calculation (policy.hotspawn_votes_used = false).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "Primary 4-hour schedule ('17 */4 * * *') plus catch-up slot ('47 2-22/4 * * *') keeps refreshes inside the 4-8 hour target window."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+          "detail": "Scheduled run 39565977314 (2026-10-21T08:12:23Z) recorded 91 Hotspawn CS2 records (29 upcoming, 62 archived) with crosscheck=complete across lobby and cs2."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations",
+          "detail": "Session live audit run 39605051244 (2026-10-21T13:06:18Z) recorded 81 Hotspawn CS2 records (19 active non-past fixtures) with crosscheck=complete."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Official Hotspawn lobby source used for fixture inventory reconciliation only."
+        }
+      ]
+    },
+    {
+      "id": "f52-02",
+      "area": "complete-picks origination ladder",
+      "status": "verified",
+      "finding": "Fixtures that the featured exact-name collector leaves blank or model-only are evaluated through the audited origination ladder in scripts/originate.py: (1) Polymarket & Kalshi series order books, (2) Thunderpick, Bovada & Pinnacle prematch series moneylines, (3) median consensus across independent money sources, (4) hash-checked EGamersWorld bookmaker average, (5) Valve official regional standings Glicko model (with 5/5 or 4/5 HLTV lineup disambiguation) and bo3.gg results-based MAP model, (6) HLTV official weekly world-ranking 400-scale model, and (7) wide-book indicative guidance.",
+      "handling": "Verified in session live run 39605051244 (2026-10-21T13:06Z): Pinnacle period-0 moneyline resolved fixture 1082831 (59.5% / 40.5%, fair decimal 1.682 / 2.467); Valve official standings with a 4-of-5 HLTV lineup proof resolved fixture 1082792 HOTU vs The Huns (94.1% / 5.9%); and the HLTV world-ranking model resolved fixture 1082836 DAMAJUANA vs Hacha (2.0 vs 2.0 points -> 50.0% / 50.0% equal estimate, published as 'No directional edge').",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+          "detail": "Implements the ordered resolution ladder and preserves featured money lines while upgrading model-only or blank rows when verified evidence exists."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations",
+          "detail": "Live annotations from run 39605051244 confirming Fallback 1082831 (Pinnacle), Fallback 1082792 (Valve + HLTV 4/5 disambiguation) and Fallback 1082836 (HLTV world ranking)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV match page used for the 4-of-5 roster core disambiguation of The Huns (standing 122 in Valve's 2026-10-05 global table)."
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "detail": "HLTV official weekly world ranking page supplying the 2.0-point rows for DAMAJUANA (#233) and Hacha (#229) on fixture 1082836."
+        }
+      ]
+    },
+    {
+      "id": "f52-03",
+      "area": "unresolved fixture 1082762 (Bovada prefix lead)",
+      "status": "needs review",
+      "finding": "Hotspawn fixture 1082762 (ex-CYBERSHOKE vs BlinkDagger, CIS LAN Championship #9, 2026-10-21T15:00:00Z) is unresolved in the strict exact-name ladder because neither team is ranked by Valve or HLTV, while Bovada's CS2 coupon lists 'CYBERSHOKE vs blinkdagger' at the identical start time with prematch decimal odds 1.125 / 5.750 (83.6% / 16.4% no-vig).",
+      "handling": "The production coverage probe (check-run 119108230359) surfaced this lead as 'Bovada [CYBERSHOKE, blinkdagger] -> [ex-CYBERSHOKE, BlinkDagger] (not applied)'. Because Bovada elides the 'ex-' organization prefix and does not publish a five-player roster on its coupon, any alias join rests on same-competition/same-opponent/same-start-time triangulation and is flagged here for manual review.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+          "detail": "Hotspawn fixture 1082762 scheduling ex-CYBERSHOKE vs BlinkDagger in CIS LAN Championship #9 at 2026-10-21T15:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "detail": "HLTV match 2399839 listing ex-CYBERSHOKE vs BlinkDagger in WINLINE MPKBK CIS LAN Season 9 with BlinkDagger unranked on both HLTV and Valve VRS."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+          "detail": "Bovada coupon event 32524607 listing CYBERSHOKE vs blinkdagger at 2026-10-21T15:00:00Z with Moneyline decimal odds 1.125 / 5.750."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+          "detail": "Official check-run annotation recording 'alias lead 1082762: Bovada [CYBERSHOKE, blinkdagger] -> [ex-CYBERSHOKE, BlinkDagger] (not applied)'."
+        }
+      ]
+    },
+    {
+      "id": "f52-04",
+      "area": "unresolved fixtures 1082763 & 1082837",
+      "status": "verified",
+      "finding": "Two active fixtures on 2026-10-21 have no verified two-sided price and lack a rating row for one side across every checked source: UPGRADE vs flacons (1082763, CIS LAN Championship #9) and Zetta vs LOS NINOS (1082837, CCT South America 2026 Series #7).",
+      "handling": "In 1082763, UPGRADE is rated (#74 HLTV / #86 VRS, 1185 Valve points) while flacons has no Valve row, no HLTV ranking entry, no bo3.gg match history, and only rejected 1.80/1.80 placeholder odds on EGamersWorld. In 1082837, Zetta is rated (#241 HLTV / #366 VRS, 473 Valve points) while LOS NINOS has no Valve row, no HLTV ranking entry, and no listed price on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle. Both remain intentionally blank in the unresolved section with their full research trails.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+          "detail": "Hotspawn fixture 1082763: UPGRADE vs flacons in CIS LAN Championship #9."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+          "detail": "HLTV match 2399840 confirming the UPGRADE vs flacons fixture identity and BO3 format without bookmaker match-winner prices."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+          "detail": "Hotspawn fixture 1082837: Zetta vs LOS NINOS in CCT South America 2026 Series #7."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official Valve 2026-10-05 standings contain UPGRADE and Zetta, but neither flacons nor LOS NINOS."
+        }
+      ]
+    },
+    {
+      "id": "f52-05",
+      "area": "executive summary & mobile usability",
+      "status": "verified",
+      "finding": "The landing page (index.html, built by scripts/build.py summary()) provides above-the-fold links to the complete researched picks table (origination/#picks), the featured picks table (picks/), the unresolved-picks section (#unresolved), and a phone-first 'Picks at a glance' list with responsive 320px/390px cards and a persistent bottom mobile navigation bar.",
+      "handling": "Verified locally via scripts.build, scripts.audit_rows --strict (0 violations across all table rows and cards), and check_links (all internal links, anchors and mobile landmarks verified).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "summary() renders the hero links, phone-first 'Picks at a glance' table, and the separate #unresolved section with per-fixture limitations and official links."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/validate.py",
+          "detail": "check_links() enforces viewport meta, skip-link, mobile-nav landmarks and zero broken internal anchors across every generated page."
+        }
+      ]
+    },
+    {
+      "id": "f52-06",
+      "area": "executive summary source-label specificity",
+      "status": "needs review",
+      "finding": "In scripts/build.py glance(), the compact source link label for any research-model row is hardcoded to 'Valve' ('Valve' if a['method'] == 'model'), even when the underlying model quote came from the HLTV world-ranking rung (source_url https://www.hltv.org/ranking/teams) or the bo3.gg results-based form model.",
+      "handling": "Logged in COORDINATION.md for the session owning scripts/build.py so scopes remain non-overlapping. The href itself already points to the exact source_url (e.g. https://www.hltv.org/ranking/teams), and the full origination and picks tables display the specific provider label ('HLTV world ranking' or 'Own results-based model').",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "In glance() and matches_table(), method == 'model' uses 'Valve' as the short anchor text while linking a['source_url']."
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "detail": "Official HLTV ranking URL linked by HLTV world-ranking model rows."
+        }
+      ]
+    },
+    {
+      "id": "f52-07",
+      "area": "third-party sportsbook access & Pages mode",
+      "status": "platform limitation",
+      "finding": "From GitHub Actions runners on 2026-10-21, GG.BET and Stake return HTTP 403, Rivalry returns HTTP 530, 1xBet returns HTTP 203 without uncovered low-tier fixtures, and GitHub Pages remains in legacy build mode because the integration token receives HTTP 403 on PUT /repos/.../pages.",
+      "handling": "Blocked bookmakers are recorded as dated access limitations in the coverage probe and never treated as proof that no betting market exists. In .github/workflows/pages.yml, scripts/publication.py waits for any legacy branch build to complete before deploying the verified artifact last, ensuring the live dashboard serves the verified build.",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+          "detail": "Production run 39565977314 annotations recording book probe statuses (Pinnacle 200, Bovada 200, GG.BET 403, Rivalry 530, 1xBet 203) and Legacy Pages mode retention."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/publication.py",
+          "detail": "Orders platform publishers and records the Pages configuration state without failing the deployment."
+        }
+      ]
+    }
+  ]
+}

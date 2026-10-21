@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "session": "arena-f5223859",
+  "branch": "arena/f5223859-maltaproj3",
+  "observed_at": "2026-10-21T13:07:11Z",
+  "purpose": "Independent verification of the 2026-10-21 Hotspawn CS2 inventory, 4-8 hour scheduled refresh cadence, complete-picks fallback resolutions, and source-by-source limitations for the three fixtures that remain unresolved.",
+  "production_cadence": {
+    "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+    "primary_cron": "17 */4 * * *",
+    "catchup_cron": "47 2-22/4 * * *",
+    "recent_scheduled_runs": [
+      {
+        "run_id": 39565977314,
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+        "check_run_annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+        "completed_at": "2026-10-21T08:14:54Z",
+        "conclusion": "success",
+        "inventory_observed_at": "2026-10-21T08:12:23Z",
+        "counts": {
+          "inventory": 91,
+          "upcoming": 29,
+          "archived": 62,
+          "unknown_schedule": 0,
+          "featured_picks": 19,
+          "featured_unresolved": 10
+        },
+        "complete_picks_counts": {
+          "active": 29,
+          "resolved": 26,
+          "unresolved": 3,
+          "with_pick": 25,
+          "consensus": 2,
+          "market": 13,
+          "bookmaker": 4,
+          "reference": 0,
+          "model": 7,
+          "guidance": 0,
+          "alias_joined": 2
+        },
+        "row_source_audit": {
+          "rows": 599,
+          "ok": 585,
+          "flagged": 5,
+          "navigation": 9,
+          "violation": 0
+        }
+      },
+      {
+        "run_id": 39545919841,
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39545919841",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 39524645584,
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39524645584",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "session_live_audit": {
+    "run_id": 39605051244,
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39605051244",
+    "check_run_id": 119238973323,
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119238973323/annotations",
+    "inventory_observed_at": "2026-10-21T13:06:18Z",
+    "hotspawn_inventory": {
+      "records": 81,
+      "crosscheck": "complete",
+      "verified_pages": ["lobby", "cs2"],
+      "unavailable": []
+    },
+    "origination_counts": {
+      "active": 19,
+      "resolved": 16,
+      "unresolved": 3,
+      "with_pick": 15,
+      "consensus": 2,
+      "market": 9,
+      "bookmaker": 1,
+      "reference": 0,
+      "model": 4,
+      "guidance": 0,
+      "alias_joined": 1
+    },
+    "fallback_resolutions_verified": [
+      {
+        "fixture_id": "1082831",
+        "method": "bookmaker",
+        "provider": "Pinnacle",
+        "league": "CS2 - Circuit X Curitiba",
+        "event_id": "1638868489",
+        "observed_at": "2026-10-21T13:06:36Z",
+        "odds": [1.5882, 2.33],
+        "probabilities": [0.59466081, 0.40533919],
+        "fair_decimal": [1.682, 2.467],
+        "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/294867/markets/straight"
+      },
+      {
+        "fixture_id": "1082792",
+        "teams": ["HOTU", "The Huns"],
+        "method": "model",
+        "provider": "Valve official standings",
+        "snapshot_date": "2026-10-05",
+        "observed_at": "2026-10-21T13:06:41Z",
+        "probabilities": [0.94052062, 0.05947938],
+        "fair_decimal": [1.063, 16.813],
+        "lineup_disambiguation": {
+          "team": "The Huns",
+          "standing": 122,
+          "overlap": 4,
+          "roster_change": true,
+          "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+        },
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "fixture_id": "1082836",
+        "teams": ["DAMAJUANA", "Hacha"],
+        "method": "model",
+        "provider": "HLTV world ranking",
+        "snapshot_date": "2026-10-21",
+        "observed_at": "2026-10-21T13:06:37Z",
+        "inputs": [
+          {"name": "DAMAJUANA", "points": 2.0, "rank": 233},
+          {"name": "Hacha", "points": 2.0, "rank": 229}
+        ],
+        "probabilities": [0.5, 0.5],
+        "fair_decimal": [2.0, 2.0],
+        "note": "Both teams carry 2.0 HLTV world-ranking points on the 2026-10-21 publication, producing an exact 50.0% / 50.0% model tie; published as 'No directional edge' rather than an arbitrary coin-flip pick.",
+        "source_url": "https://www.hltv.org/ranking/teams"
+      }
+    ],
+    "unresolved_fixtures": [
+      {
+        "fixture_id": "1082762",
+        "teams": ["ex-CYBERSHOKE", "BlinkDagger"],
+        "competition": "CIS LAN Championship #9",
+        "starts_at": "2026-10-21T15:00:00Z",
+        "hotspawn_url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+        "hltv_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+        "bovada_lead": {
+          "annotation_source": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+          "event_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+          "provider_names": ["CYBERSHOKE", "blinkdagger"],
+          "odds": [1.125, 5.75],
+          "no_vig_probabilities": [0.83636364, 0.16363636],
+          "limitation": "Bovada lists the first team under the organization name 'CYBERSHOKE' without the 'ex-' prefix used by Hotspawn and HLTV, and publishes no five-player roster. Without a reviewed competition-scoped alias entry in data/origination/aliases.json, the strict exact-name resolver leaves the fixture unresolved and records the Bovada lead for review."
+        },
+        "other_sources_checked": [
+          "HLTV match page (2399839): BlinkDagger is unranked on both HLTV and Valve VRS; no bookmaker match-winner odds rendered.",
+          "Valve official global standings (2026-10-05): no rating row for ex-CYBERSHOKE or BlinkDagger.",
+          "HLTV world ranking (2026-10-21): neither team appears in the published ranking table.",
+          "Polymarket / Kalshi / Thunderpick / Pinnacle: no compliant two-sided prematch series book under the canonical names."
+        ]
+      },
+      {
+        "fixture_id": "1082763",
+        "teams": ["UPGRADE", "flacons"],
+        "competition": "CIS LAN Championship #9",
+        "starts_at": "2026-10-21T15:00:00Z",
+        "hotspawn_url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+        "hltv_url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+        "limitations": [
+          "Polymarket, Kalshi, Thunderpick, Bovada and Pinnacle publish no prematch match-winner line for UPGRADE vs flacons.",
+          "EGamersWorld prints identical 1.80 / 1.80 placeholder prices and five 'noName' lineup placeholders for flacons, which the reference rung rejects fail-closed.",
+          "Valve official standings (2026-10-05) and HLTV world ranking (2026-10-21) rate UPGRADE (#74 HLTV / #86 VRS) but have no entry at all for flacons.",
+          "bo3.gg lists no team record or finished series history for flacons, so the results-based model cannot fit an anchored rating."
+        ]
+      },
+      {
+        "fixture_id": "1082837",
+        "teams": ["Zetta", "LOS NINOS"],
+        "competition": "CCT South America 2026 Series #7",
+        "starts_at": "2026-10-21T22:00:00Z",
+        "hotspawn_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+        "limitations": [
+          "Polymarket, Kalshi, Thunderpick, Bovada and Pinnacle publish no prematch match-winner line for Zetta vs LOS NINOS at observation time.",
+          "Valve official standings (2026-10-05) and HLTV world ranking (2026-10-21) list Zetta (#241 HLTV / #366 VRS, 473 Valve points) but have no entry for LOS NINOS.",
+          "bo3.gg lists no sufficient anchored finished series sample (minimum 8 series across 3 rated opponents in 120 days) for LOS NINOS, so the results-based model fails closed."
+        ]
+      }
+    ]
+  }
+}

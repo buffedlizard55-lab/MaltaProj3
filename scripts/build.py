@@ -373,6 +373,36 @@ def contrarian_review(data, prefix):
     return out
 
 
+def exec_banner(data, prefix):
+    """Executive-summary banner that answers 'where are the updated picks?'.
+
+    The brief requires the executive summary to contain internal links to the
+    updated picks list and to be obvious on a phone. This banner is the first
+    content block after the page heading; it contains only links and counts,
+    never a probability or a pick, and every href is an internal site link
+    that was verified by the link audit.
+    """
+    complete = data.get('complete_picks') or {}
+    cc = complete.get('counts') or {}
+    active = cc.get('active', data['counts'].get('upcoming', 0))
+    with_pick = cc.get('with_pick', 0)
+    unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
+    generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
+    return (
+        f'<section class="exec-banner" aria-label="Where to find the updated picks">'
+        f'<p class="exec-banner-label">Executive summary — start here</p>'
+        f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
+        f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times.</p>'
+        f'<div class="exec-banner-actions">'
+        f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'</div>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
+        f'</section>'
+    )
+
+
 def start_here(data, prefix):
     """A phone-first jump bar directly under the page title.
 
@@ -385,8 +415,8 @@ def start_here(data, prefix):
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
     items = [
-        (prefix + 'origination/#picks', f'All match picks ({with_pick if with_pick is not None else active})', 'target',
-         f'{active} active Hotspawn CS2 fixtures, both probabilities each.'),
+        (prefix + 'origination/#picks', 'All match picks', 'target',
+         'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Final day · Day 5', 'clock',
@@ -403,9 +433,20 @@ def start_here(data, prefix):
                 f'<span>{e(detail)}</span></a></li>')
     out += '</ul>'
     if with_pick is not None:
+        resolved = cc.get('resolved', active - unresolved)
+        without_direction = max(0, resolved - with_pick)
+        pick_word = 'pick' if with_pick == 1 else 'picks'
+        counts = [f'{with_pick} directional {pick_word} from {active} active fixtures']
+        if without_direction:
+            estimate_word = 'estimate' if without_direction == 1 else 'estimates'
+            verb = 'has' if without_direction == 1 else 'have'
+            counts.append(f'{without_direction} resolved {estimate_word} {verb} no directional pick')
+        if unresolved:
+            fixture_word = 'fixture' if unresolved == 1 else 'fixtures'
+            counts.append(f'{unresolved} unresolved {fixture_word}')
         out += (f'<p class="tiny muted" style="padding:10px 2px 0">'
-                f'<strong>{with_pick}</strong> of {active} active fixtures currently carry a directional pick; '
-                f'the remaining {unresolved} are listed, never filled with a guess.</p>')
+                + '; '.join(e(part) for part in counts) +
+                '. Missing estimates stay blank; open the complete list for every match and its research trail.</p>')
     return out + '</nav>'
 
 
@@ -683,17 +724,35 @@ def summary(data, prefix, now=None):
     resolved = cc['resolved'] if cc else c['upcoming'] - c['unresolved']
     money = (cc['market'] + cc['bookmaker'] + cc['consensus'] + cc.get('reference', 0)) if cc else (c['market'] + c['bookmaker'] + c.get('reference', 0))
     models = cc['model'] if cc else c['model']
+    guidance = cc.get('guidance', 0) if cc else 0
     unresolved = cc['unresolved'] if cc else c['unresolved']
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out += exec_banner(data, prefix)
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
     out += unresolved_register(data, prefix)
     if complete:
-        coverage_label = 'Picks for every match' if data['coverage_complete'] else 'Picks in the retained snapshot'
+        if not data['coverage_complete']:
+            coverage_label = 'Picks in the retained snapshot'
+        elif cc['active'] == 0:
+            coverage_label = 'No active matches in this snapshot'
+        elif cc['unresolved'] == 0 and cc['resolved'] == cc['active'] and cc['with_pick'] == cc['active']:
+            coverage_label = 'Directional picks for every active match'
+        elif cc['unresolved'] == 0 and cc['resolved'] == cc['active']:
+            coverage_label = 'Win probabilities for every active match'
+        elif cc['unresolved'] > 0:
+            coverage_label = 'Pick coverage &amp; unresolved matches'
+        else:
+            coverage_label = 'Pick coverage needs reconciliation'
         no_direction = cc['resolved'] - cc['with_pick']
-        direction_note = f' {no_direction} equal estimate(s) have no directional pick.' if no_direction else ''
+        if no_direction == 1:
+            direction_note = ' 1 resolved estimate has no directional pick.'
+        elif no_direction > 1:
+            direction_note = f' {no_direction} resolved estimates have no directional pick.'
+        else:
+            direction_note = ''
         blanks = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
         blank_line = ''
         if blanks:
@@ -706,9 +765,10 @@ def summary(data, prefix, now=None):
             blank_line = ('<p class="tiny"><strong>No pick yet (' + str(len(blanks)) + '):</strong> '
                           + ' · '.join(items) + more + '. Every blank carries its source trail and the exact reason; '
                           'an unavailable source is never treated as proof that no market exists.</p>')
+        guidance_note = f', {guidance} wide-book guidance' if guidance else ''
         out += (f'<section class="limitations-callout" id="picks-status" aria-label="Complete pick coverage">'
                 f'<h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2>'
-                f'<p>{cc["resolved"]} with probabilities ({money} external-line, {models} research-model); '
+                f'<p>{cc["resolved"]} with probabilities ({money} external-line, {models} research-model{guidance_note}); '
                 f'{cc["unresolved"]} unresolved in the complete researched list.{direction_note} '
                 f'Estimate snapshot: {local_time(complete["generated_at"])}.</p>'
                 + blank_line +
@@ -717,7 +777,7 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="{prefix}twc-picks/#day-five-picks">Day 5 final-day picks →</a> '
                 f'<a class="internal-link" href="{prefix}review/">Review flags →</a> '
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
@@ -873,6 +933,28 @@ def coverage(data, prefix, now=None):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
     out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += ('<section class="content-section" id="hotspawn-integration"><div class="section-heading"><div>'
+            '<p class="eyebrow">Reverse-engineered, read-only</p><h2>How the Hotspawn list is read</h2></div>'
+            '<a class="internal-link" href="' + prefix + 'data/evidence/hotspawn-context.json">Reconciliation record ↓</a></div>'
+            '<div class="resolution-steps" style="padding-top:0">'
+            '<article class="resolution-step"><span>A</span><div><h2>Authoritative fixture array</h2>'
+            '<p>The same public scheduled-fixture API that feeds Hotspawn\u2019s own client is the inventory of record. '
+            'Every CS2 record in it is kept \u2014 upcoming, past-start and unknown-schedule alike \u2014 so newly listed matches appear on the next successful refresh.</p>'
+            + external('https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1', 'Original fixture API') + '</div></article>'
+            '<article class="resolution-step"><span>B</span><div><h2>Two rendered pages cross-check it</h2>'
+            '<p>Both public lobby pages embed the fixture list in an Angular hydration block (<code>ng-state</code>). The collector reads that block from each page and requires the same unpaginated ID set as the API. '
+            'A readable page that disagrees fails the refresh closed; when no page can be read the API array is published with an explicit \u201cunavailable\u201d cross-check marker instead of a reconciliation claim. '
+            'A cache-busting query string requests a fresh server render because the CDN can serve stale HTML.</p>'
+            + external(LOBBY, 'Official lobby') + ' ' + external('https://play.hotspawn.com/cs2-pickems', 'Official CS2 lobby') + '</div></article>'
+            '<article class="resolution-step"><span>C</span><div><h2>Fail-closed contract</h2>'
+            '<p>Duplicate IDs, an empty array or a changed schema invalidates the refresh \u2014 it is never accepted as an empty or partial feed. '
+            'Picks lock 5 minutes before each fixture\u2019s scheduled start per Hotspawn\u2019s own rules page; per-fixture lock timestamps take precedence on this dashboard.</p>'
+            + external('https://play.hotspawn.com/how-it-works', 'Hotspawn lock rules for manual review') + '</div></article>'
+            '<article class="resolution-step"><span>D</span><div><h2>4\u20138 hour freshness bound</h2>'
+            '<p>Primary refresh slots run every four hours with catch-up slots 2.5 hours later, so one dropped run still leaves data inside the eight-hour bound. '
+            'After eight hours without a successful observation the site warns against treating the snapshot as current, and original timestamps are never restamped.</p>'
+            f'<a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow \u2192</a></div></article>'
+            '</div></section>')
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">First-party checks</p><h2>Source health</h2></div><a class="internal-link" href="' + prefix + 'data/sources.json">Request manifest ↓</a></div><div class="table-scroll"><table class="simple-table source-table"><caption class="sr-only">Latest source attempts, outcomes and limitations</caption><thead><tr><th>Original source</th><th>Status / observed</th><th>What was actually confirmed</th></tr></thead><tbody>'
     for s in data['sources']:
         out += '<tr><th scope="row">' + external(s['url'], s['name']) + '</th><td>' + badge('Available' if s['status'] == 'ok' else 'Limited / unavailable', 'green' if s['status'] == 'ok' else 'amber') + '<small>' + local_time(s['observed_at']) + '</small></td><td>' + e(s['detail']) + (f'<small>{s["records"]} structured records</small>' if s['records'] is not None else '') + '</td></tr>'
@@ -955,11 +1037,14 @@ def shell(data, key, body, prefix, now=None):
     # from a phone without hunting. Counts are the same canonical counts the
     # summary shows; the strip adds no probability and no fixture.
     _cc = (data.get('complete_picks') or {}).get('counts') or {}
-    _active = _cc.get('active') or data['counts'].get('upcoming') or 0
+    # Some rendered views are built from a minimal fixture that has no counts
+    # block at all (the freshness tests render one); never index it directly.
+    _counts = data.get('counts') or {}
+    _active = _cc.get('active') or _counts.get('upcoming') or 0
     _with_pick = _cc.get('with_pick')
     if _with_pick is None:
-        _with_pick = max(0, _active - (_cc.get('unresolved', data['counts'].get('unresolved') or 0)))
-    _unresolved = _cc.get('unresolved', data['counts'].get('unresolved') or 0)
+        _with_pick = max(0, _active - (_cc.get('unresolved', _counts.get('unresolved') or 0)))
+    _unresolved = _cc.get('unresolved', _counts.get('unresolved') or 0)
     mobile_status = (f'<nav class="mobile-status" aria-label="Picks and unresolved shortcuts">'
                      f'<a class="mobile-status-picks" href="{prefix}origination/#picks">'
                      f'<strong>{e(_with_pick)}</strong><span>picks ready'
