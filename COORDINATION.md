@@ -3536,7 +3536,7 @@ rule change.
 | 941-2 Mobile executive summary: prominent internal links to updated picks, phone-first readability pass | **done** | arena-941ff196 | `scripts/build.py` (additive `exec_banner`), `assets/scout.css` (additive), `tests/test_941ff196.py` |
 | 941-3 Hotspawn reverse-engineering documentation and 4-8h refresh provenance: full inventory reconciliation and external betting-line analysis | **done** | arena-941ff196 | `scripts/build.py` (additive `#hotspawn-integration`), `tests/test_941ff196.py` |
 | 941-4 HLTV → esportsbooks ladder verification for low-tier unresolved fallback and separate Unresolved picks & limitations section | **done** | arena-941ff196 | `data/research/941ff196/audit.json`, `scripts/build.py` (guidance display fix) |
-| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | in progress | arena-941ff196 | this board section, `site/` (artifact) |
+| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | **done** | arena-941ff196 | this board section, `site/` (artifact) |
 
 ### 941-1/941-4 Audit result — 2026-10-21 (evidence: `data/research/941ff196/audit.json`)
 
@@ -3587,5 +3587,26 @@ rule change.
   freshness determinism 9/9, build + strict row audit + link audit green.
   Root `index.html` etc. confirmed stale legacy (still TWC Day 3); deploys
   build gitignored `site/` in CI, so root copies intentionally untouched.
+
+### 941-5 PR, merge and deployment — 2026-10-21 (all verified)
+
+- **PR:** [PR #113](https://github.com/buffedlizard55-lab/MaltaProj3/pull/113)
+  (`arena/941ff196-maltaproj3` → `main`). Checks: `Validate dashboard` pass
+  (8m56s: full unittest, replay/build, strict row audit, 85 browser checks,
+  pick-safety) and `Origination source audit` pass.
+- **Merge:** `c336cf79e165fb02b18db01416e9b4a2d7f9cd60` at 13:25:29Z. Verified
+  an ancestor of `main`; `tests/test_941ff196.py` and
+  `data/research/941ff196/audit.json` present on `main`.
+- **Deploy:** push run
+  [39607875831](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39607875831)
+  `success` (collection, origination research, replay/build, `deploy-pages`,
+  `verify_live` all green). Concurrent sessions merged #115/#117/#112/#114
+  right after; latest production run 39609596824 also `success`.
+- **Live verification (fetched 21 Oct ~13:55Z):** executive summary shows the
+  new banner ("Updated picks — all matches 13 of 17 with a pick",
+  "Unresolved & limitations 3 without a line") with inventory 13:48Z,
+  81 records reconciled; coverage page shows `#hotspawn-integration`
+  (fixture API, hydration cross-check, fail-closed contract, 4–8h bound).
+  No broken site; no irregularities blocking. Session complete.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
