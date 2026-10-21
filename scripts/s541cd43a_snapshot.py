@@ -39,7 +39,7 @@ from pathlib import Path
 UTC = timezone.utc
 OUT_DIR = Path('data/research/541cd43a')
 SNAPSHOT_FILES = ('data/latest.json', 'data/sources.json', 'data/origination.json')
-EVIDENCE_FILES = ('data/evidence/live-bo3-bindings.json',)
+EVIDENCE_FILES = ('data/origination/evidence/live-bo3-bindings.json',)
 
 
 def iso(value: datetime | None = None) -> str:
@@ -184,7 +184,10 @@ def main() -> int:
 
     latest = load(root / 'data/latest.json') or {}
     origination = load(root / 'data/origination.json') or {}
-    bindings = load(root / 'data/evidence/live-bo3-bindings.json') or {}
+    # The origination ladder keeps its evidence under data/origination/evidence/;
+    # data/evidence/ is the collection-side directory and holds no binding file.
+    bindings = (load(root / 'data/origination/evidence/live-bo3-bindings.json')
+                or load(root / 'data/evidence/live-bo3-bindings.json') or {})
 
     active = [m for m in origination.get('matches') or [] if m.get('availability') != 'past']
     rows = []
