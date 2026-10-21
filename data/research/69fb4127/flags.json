@@ -3,14 +3,18 @@
     "id": "69fb4127-hotspawn-validation-annotations",
     "severity": "review",
     "match_ids": [],
-    "title": "Successful validation included source-access error annotations",
-    "detail": "The branch validation run 39602172050 completed successfully, including the full Python suite, replay/build, strict source-row audit, phone/desktop/no-JavaScript and WCAG A/AA browser checks. Its annotations endpoint also reports four failure-level Hotspawn errors (HTTP 403 twice and lobby/API disagreement twice). A separate same-branch read-only live audit completed successfully at 12:47Z with the Hotspawn lobby and CS2 page cross-check and 19 current non-past fixtures. The annotation context is not available, so this audit records the discrepancy without attributing those errors to production or dismissing them.",
+    "title": "Successful refreshes emitted failure-level source annotations",
+    "detail": "Two successful workflow runs included failure-level Hotspawn annotations even though their complete jobs and verify_live steps passed. Branch validation run 39602172050 reported HTTP 403 and lobby/API disagreement annotations. The later production Pages run 39618159014 also reported HTTP 403 and lobby/API disagreement annotations, while its inventory annotation reported a complete lobby/CS2 cross-check and its site deployment succeeded. At 2026-10-21T15:01:17Z the production snapshot reported 73 total records (9 upcoming, 64 archived), complete coverage, 9 active complete-pick rows, 9 with picks/probabilities, and 0 unresolved in that ladder; the separate featured stage reported 6 picks and 3 unresolved. Because individual annotation context and the Pages artifact are not readable in this workspace, this flag does not interpret the source errors as a failed collection or dismiss them as harmless. Check the linked run annotations and the live row evidence. No value is inferred.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050",
       "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602171886",
       "https://play.hotspawn.com/lobby",
-      "https://play.hotspawn.com/cs2-pickems"
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39618159014",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119291280436/annotations",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
     ]
   }
 ]

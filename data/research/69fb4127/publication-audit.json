@@ -214,6 +214,48 @@
       "deployment_status_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7227828559/statuses",
       "verify_live": "success"
     },
-    "current_status_note": "The above successful deployment verifies PR #114. A subsequent main commit from PR #119 triggered run 39612934455. GitHub API rate limiting prevented this session from checking that later run\u2019s final state; no failure is asserted. Its result is outside PR #114 deployment verification."
+    "current_status_note": "A later main production run 39612934455 completed successfully after the earlier API rate-limit interval. The most recent verified publication in this audit is run 39618159014 on 2026-10-21; it deployed successfully and verify_live passed. Its source annotation discrepancy is now included in the dated review flag."
+  },
+  "latest_verified_publication": {
+    "run_id": 39618159014,
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39618159014",
+    "head_sha": "3b6580469e460afcaaaafc009a1a525998ff1eb7",
+    "conclusion": "success",
+    "completed_at": "2026-10-21T15:03:43Z",
+    "pages_deployment_id": 7229093064,
+    "deployment_status_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7229093064/statuses",
+    "verify_live": "success",
+    "inventory_observed_at": "2026-10-21T15:01:17Z",
+    "inventory": {
+      "records": 73,
+      "upcoming": 9,
+      "archived": 64,
+      "unknown_schedule": 0,
+      "coverage_complete": true
+    },
+    "featured_stage": {
+      "picks": 6,
+      "unresolved": 3
+    },
+    "complete_picks": {
+      "active": 9,
+      "resolved": 9,
+      "with_pick": 9,
+      "unresolved": 0,
+      "consensus": 1,
+      "market": 4,
+      "model": 3,
+      "guidance": 1,
+      "alias_joined": 2
+    },
+    "row_source_audit": {
+      "rows": 505,
+      "official_linked": 491,
+      "flagged": 5,
+      "navigation": 9,
+      "violations": 0
+    },
+    "annotation_note": "The same successful production run carries failure-level HTTP 403 and lobby/API disagreement annotations; they are explicitly published as a review discrepancy, not asserted as a collection failure.",
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119291280436/annotations"
   }
 }
