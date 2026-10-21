@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "session": "arena-1bc31e24",
+  "checked_at": "2026-10-21T20:14:19.970627+00:00",
+  "title": "Hotspawn Lobby Reverse Engineering & Automated 4-8h Cadence",
+  "endpoints": {
+    "fixture_api": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "auth": "None (public JSON endpoint used by Hotspawn Angular frontend)",
+      "evidence": "data/evidence/hotspawn-fixtures.json (80 fixtures observed 2026-10-15T08:36:04Z)",
+      "contract": "JSON array of fixtures containing id, participants, scheduled_start_time, lock_time, competition_name, tier, offered_points. Fails closed if empty, duplicate IDs, or schema mismatch.",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    },
+    "lobby_hydration": {
+      "url": "https://play.hotspawn.com/lobby",
+      "method": "GET (SSR HTML)",
+      "how": "Extract embedded <script id=\"ng-state\"> JSON containing hydrated /api/v1/fixtures payload and permalink maps.",
+      "evidence": "data/evidence/hotspawn-context.json",
+      "source_url": "https://play.hotspawn.com/lobby"
+    },
+    "cs2_lobby": {
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "method": "GET",
+      "how": "SSR HTML filtered to CS2 pickems. Cross-referenced against fixture API; must match active fixtures.",
+      "evidence": "data/evidence/hotspawn-context.json",
+      "source_url": "https://play.hotspawn.com/cs2-pickems"
+    },
+    "week_prizes": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget",
+      "note": "Weekly prize widget with tier point allocations and Steam voucher payouts.",
+      "evidence": "data/research/1112299f/lobby-probe.json",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/week-prizes/widget"
+    },
+    "rules": {
+      "url": "https://play.hotspawn.com/how-it-works",
+      "note": "Scoring rules and lock windows (published 5 min; fixture data specifies lock_offset_sec=360).",
+      "evidence": "data/evidence/hotspawn-rules.json",
+      "source_url": "https://play.hotspawn.com/how-it-works"
+    }
+  },
+  "cache_invalidation_and_freshness": {
+    "observation": "Lobby HTML responses are cached at CDN layer with Age up to 5500s. The JSON API is live and uncached.",
+    "mitigation": "Collector appends cache-busting timestamp parameter (?cb=<epoch>) to ensure fresh SSR payload.",
+    "refresh_cadence": "Automated GitHub Actions cron running every 4 hours (17 */4 * * *) plus 2.5h catch-up (47 2-22/4 * * *).",
+    "stale_detection": "Snapshots older than 8 hours trigger a prominent stale-data warning banner, preserving transparency."
+  },
+  "match_coverage": {
+    "total_records": 80,
+    "upcoming_active": 17,
+    "archived_past": 63,
+    "coverage_completeness": "Every CS2 match in Hotspawn inventory is captured, verified, and mapped."
+  },
+  "unbiased_origination_principle": "Hotspawn crowd % picked values are NEVER used as match probability indicators. All probabilities are originated independently from prediction markets, sportsbooks, and Valve ratings."
+}
