@@ -1,6 +1,6 @@
 {
   "session": "arena-541cd43a",
-  "generated_at": "2026-10-21T13:17:25Z",
+  "generated_at": "2026-10-21T13:28:06Z",
   "policy": "Read-only identity/coverage discovery. No probability, pick, price or alias is written.",
   "fixtures": [
     {
@@ -16,7 +16,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-CYBERSHOKE",
-              "observed_at": "2026-10-21T13:17:25Z",
+              "observed_at": "2026-10-21T13:28:06Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 213,
@@ -28,7 +28,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=ex-CYBERSHOKE",
-              "observed_at": "2026-10-21T13:17:25Z",
+              "observed_at": "2026-10-21T13:28:06Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -101,7 +101,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=ex-CYBERSHOKE",
-              "observed_at": "2026-10-21T13:17:25Z",
+              "observed_at": "2026-10-21T13:28:06Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -176,7 +176,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BlinkDagger",
-              "observed_at": "2026-10-21T13:17:31Z",
+              "observed_at": "2026-10-21T13:28:12Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 823,
@@ -195,7 +195,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=BlinkDagger",
-              "observed_at": "2026-10-21T13:17:31Z",
+              "observed_at": "2026-10-21T13:28:12Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -268,7 +268,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=BlinkDagger",
-              "observed_at": "2026-10-21T13:17:31Z",
+              "observed_at": "2026-10-21T13:28:12Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -343,7 +343,7 @@
       "bo3_tournament": {
         "request": {
           "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CIS%20LAN%20Championship%20%239",
-          "observed_at": "2026-10-21T13:17:37Z",
+          "observed_at": "2026-10-21T13:28:19Z",
           "http_status": 200,
           "content_type": "application/json; charset=utf-8",
           "bytes": 10625,
@@ -418,7 +418,7 @@
         "ex-CYBERSHOKE": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=ex-CYBERSHOKE",
-            "observed_at": "2026-10-21T13:17:25Z",
+            "observed_at": "2026-10-21T13:28:06Z",
             "http_status": 429,
             "error": "HTTP 429"
           },
@@ -427,7 +427,7 @@
         "BlinkDagger": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=BlinkDagger",
-            "observed_at": "2026-10-21T13:17:31Z",
+            "observed_at": "2026-10-21T13:28:14Z",
             "http_status": 429,
             "error": "HTTP 429"
           },
@@ -448,7 +448,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UPGRADE",
-              "observed_at": "2026-10-21T13:17:37Z",
+              "observed_at": "2026-10-21T13:28:19Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 1488,
@@ -467,7 +467,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=UPGRADE",
-              "observed_at": "2026-10-21T13:17:37Z",
+              "observed_at": "2026-10-21T13:28:19Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -540,7 +540,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=UPGRADE",
-              "observed_at": "2026-10-21T13:17:37Z",
+              "observed_at": "2026-10-21T13:28:19Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -615,7 +615,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=flacons",
-              "observed_at": "2026-10-21T13:17:42Z",
+              "observed_at": "2026-10-21T13:28:25Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 207,
@@ -627,7 +627,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=flacons",
-              "observed_at": "2026-10-21T13:17:43Z",
+              "observed_at": "2026-10-21T13:28:25Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -700,7 +700,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=flacons",
-              "observed_at": "2026-10-21T13:17:43Z",
+              "observed_at": "2026-10-21T13:28:25Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -775,7 +775,7 @@
       "bo3_tournament": {
         "request": {
           "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CIS%20LAN%20Championship%20%239",
-          "observed_at": "2026-10-21T13:17:48Z",
+          "observed_at": "2026-10-21T13:28:31Z",
           "http_status": 200,
           "content_type": "application/json; charset=utf-8",
           "bytes": 10625,
@@ -850,7 +850,7 @@
         "UPGRADE": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=UPGRADE",
-            "observed_at": "2026-10-21T13:17:37Z",
+            "observed_at": "2026-10-21T13:28:20Z",
             "http_status": 429,
             "error": "HTTP 429"
           },
@@ -859,7 +859,7 @@
         "flacons": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=flacons",
-            "observed_at": "2026-10-21T13:17:43Z",
+            "observed_at": "2026-10-21T13:28:26Z",
             "http_status": 429,
             "error": "HTTP 429"
           },
@@ -880,7 +880,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Zetta",
-              "observed_at": "2026-10-21T13:17:48Z",
+              "observed_at": "2026-10-21T13:28:31Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 1492,
@@ -899,7 +899,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=Zetta",
-              "observed_at": "2026-10-21T13:17:49Z",
+              "observed_at": "2026-10-21T13:28:31Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -972,7 +972,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=Zetta",
-              "observed_at": "2026-10-21T13:17:49Z",
+              "observed_at": "2026-10-21T13:28:31Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -1047,7 +1047,7 @@
           "exact": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=LOS%20NINOS",
-              "observed_at": "2026-10-21T13:17:54Z",
+              "observed_at": "2026-10-21T13:28:37Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 818,
@@ -1066,7 +1066,7 @@
           "contains": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=LOS%20NINOS",
-              "observed_at": "2026-10-21T13:17:54Z",
+              "observed_at": "2026-10-21T13:28:37Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -1139,7 +1139,7 @@
           "search": {
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=LOS%20NINOS",
-              "observed_at": "2026-10-21T13:17:55Z",
+              "observed_at": "2026-10-21T13:28:38Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 19690,
@@ -1214,7 +1214,7 @@
       "bo3_tournament": {
         "request": {
           "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CCT%20South%20America%202026%20Series%20%237",
-          "observed_at": "2026-10-21T13:18:00Z",
+          "observed_at": "2026-10-21T13:28:43Z",
           "http_status": 200,
           "content_type": "application/json; charset=utf-8",
           "bytes": 10625,
@@ -1289,7 +1289,7 @@
         "Zetta": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=Zetta",
-            "observed_at": "2026-10-21T13:17:49Z",
+            "observed_at": "2026-10-21T13:28:32Z",
             "http_status": 429,
             "error": "HTTP 429"
           },
@@ -1298,7 +1298,7 @@
         "LOS NINOS": {
           "request": {
             "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=LOS%20NINOS",
-            "observed_at": "2026-10-21T13:17:55Z",
+            "observed_at": "2026-10-21T13:28:38Z",
             "http_status": 429,
             "error": "HTTP 429"
           },

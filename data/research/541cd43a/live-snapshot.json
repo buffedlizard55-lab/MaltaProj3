@@ -1,10 +1,10 @@
 {
   "session": "arena-541cd43a",
-  "generated_at": "2026-10-21T13:16:38Z",
+  "generated_at": "2026-10-21T13:27:11Z",
   "purpose": "Dated live snapshot for the picks-for-every-match coverage work. Values are copied from the pipeline outputs of the same run; this file originates no probability or pick.",
   "inventory": {
-    "observed_at": "2026-10-21T13:15:52Z",
-    "generated_at": "2026-10-21T13:16:03Z",
+    "observed_at": "2026-10-21T13:26:09Z",
+    "generated_at": "2026-10-21T13:26:20Z",
     "coverage_complete": true,
     "run_status": "partial-picks",
     "counts": {
@@ -25,7 +25,7 @@
     "graph_edges": 4615,
     "graph_pages": 47,
     "graph_rows_seen": 4700,
-    "graph_cutoff": "2026-06-23T13:16:20Z",
+    "graph_cutoff": "2026-06-23T13:26:38Z",
     "rows_without_winner": 0,
     "missing_winner_samples": [],
     "graph_error": null,
@@ -34,17 +34,60 @@
     "fit_anchors": 269,
     "fit_error": null
   },
+  "network_gate_diagnostic": {
+    "evidence": "data/origination/evidence/live-bo3-graph.json",
+    "generated_at": "2026-10-21T13:26:21Z",
+    "graph_matches": 4605,
+    "graph_teams": 611,
+    "anchors": 269,
+    "gates": {
+      "min_graph_matches": 300,
+      "min_anchors": 10,
+      "min_team_matches": 6,
+      "max_sd_diff_points": 300.0
+    },
+    "note": "Diagnostic only: the fitted rating of each side of a blank fixture and what the gate would have published. Never rendered as a pick or probability.",
+    "fixtures": [
+      {
+        "id": "1082762",
+        "teams": [
+          "ex-CYBERSHOKE",
+          "BlinkDagger"
+        ],
+        "binding": null,
+        "sides": []
+      },
+      {
+        "id": "1082763",
+        "teams": [
+          "UPGRADE",
+          "flacons"
+        ],
+        "binding": null,
+        "sides": []
+      },
+      {
+        "id": "1082837",
+        "teams": [
+          "Zetta",
+          "LOS NINOS"
+        ],
+        "binding": null,
+        "sides": []
+      }
+    ]
+  },
   "origination": {
-    "generated_at": "2026-10-21T13:16:04Z",
+    "generated_at": "2026-10-21T13:26:21Z",
     "live_collection": true,
     "counts": {
       "active": 19,
       "resolved": 16,
       "unresolved": 3,
       "with_pick": 15,
-      "consensus": 2,
+      "consensus": 1,
       "market": 9,
-      "bookmaker": 1,
+      "bookmaker": 2,
       "reference": 0,
       "model": 4,
       "network": 0,
@@ -75,7 +118,7 @@
         "role": "Identity discovery only; selected original event and both order books are re-fetched.",
         "supplemental_identities": 0,
         "retained_identities_replayed": 0,
-        "discovered_identities": 71,
+        "discovered_identities": 74,
         "directory_is_exhaustive": false,
         "tagged_discovery_available": false,
         "prices_used": false,
@@ -98,13 +141,13 @@
       "method": "market",
       "label": "Market-implied estimate",
       "probabilities": [
-        0.475,
-        0.525
+        0.465,
+        0.535
       ],
       "pick": "Bebop",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-phanto-bbp-2026-10-21",
-      "observed_at": "2026-10-21T13:15:56Z",
+      "observed_at": "2026-10-21T13:26:12Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -128,16 +171,16 @@
       "starts_at": "2026-10-21T13:45:00Z",
       "availability": "open",
       "featured_method": "model",
-      "method": "consensus",
-      "label": "Originated consensus line (median of independent money sources)",
+      "method": "bookmaker",
+      "label": "Originated esportsbook line (Bovada, no-vig)",
       "probabilities": [
-        0.80203687,
-        0.19796313
+        0.80281686,
+        0.19718314
       ],
       "pick": "Falcons Force",
-      "source": "Bovada + Pinnacle",
+      "source": "Bovada",
       "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe-challengers/privateer-falcons-force-202610210945",
-      "observed_at": "2026-10-21T13:16:09Z",
+      "observed_at": "2026-10-21T13:26:25Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -146,10 +189,6 @@
           {
             "stage": "Esportsbook line (Bovada original prices)",
             "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe-challengers/privateer-falcons-force-202610210945"
-          },
-          {
-            "stage": "Esportsbook line (Pinnacle original prices)",
-            "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
           },
           {
             "stage": "Research model cross-check (Valve official ratings)",
@@ -175,6 +214,11 @@
             "stage": "Esportsbook line (Thunderpick original prices)",
             "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
             "source_url": "https://thunderpick.io/esports/counter-strike"
+          },
+          {
+            "stage": "Esportsbook line (Pinnacle original prices)",
+            "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+            "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
           },
           {
             "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -203,7 +247,7 @@
       "pick": "BET-M",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-btf-33-2026-10-21",
-      "observed_at": "2026-10-21T13:16:08Z",
+      "observed_at": "2026-10-21T13:26:24Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -268,13 +312,13 @@
       "method": "market",
       "label": "Market-implied estimate",
       "probabilities": [
-        0.525,
-        0.475
+        0.505,
+        0.495
       ],
       "pick": "G2 Ares",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-g2a-ill4-2026-10-21",
-      "observed_at": "2026-10-21T13:15:56Z",
+      "observed_at": "2026-10-21T13:26:13Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -301,13 +345,13 @@
       "method": "market",
       "label": "Market-implied estimate",
       "probabilities": [
-        0.445,
-        0.555
+        0.455,
+        0.545
       ],
       "pick": "Spirit Academy",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-lavked-tsa-2026-10-21",
-      "observed_at": "2026-10-21T13:15:57Z",
+      "observed_at": "2026-10-21T13:26:13Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -340,7 +384,7 @@
       "pick": "Fluxo",
       "source": "Bovada + Pinnacle",
       "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/circuit-x-curitiba/fluxo-galorys-202610211000",
-      "observed_at": "2026-10-21T13:16:09Z",
+      "observed_at": "2026-10-21T13:26:25Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -400,13 +444,13 @@
       "method": "bookmaker",
       "label": "Originated esportsbook line (Pinnacle, no-vig)",
       "probabilities": [
-        0.59466081,
-        0.40533919
+        0.58230914,
+        0.41769086
       ],
       "pick": "paiN",
       "source": "Pinnacle",
       "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-      "observed_at": "2026-10-21T13:16:11Z",
+      "observed_at": "2026-10-21T13:26:26Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -485,7 +529,7 @@
       "pick": "Sangal",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-sng2-brute-2026-10-21",
-      "observed_at": "2026-10-21T13:15:57Z",
+      "observed_at": "2026-10-21T13:26:14Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -674,13 +718,13 @@
       "method": "market",
       "label": "Market-implied estimate",
       "probabilities": [
-        0.605,
-        0.395
+        0.67,
+        0.33
       ],
       "pick": "JOGA DE TERNO",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-jdt-mar1-2026-10-21",
-      "observed_at": "2026-10-21T13:15:58Z",
+      "observed_at": "2026-10-21T13:26:14Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -713,7 +757,7 @@
       "pick": "Metizport",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-g1-mzp-2026-10-21",
-      "observed_at": "2026-10-21T13:15:59Z",
+      "observed_at": "2026-10-21T13:26:15Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -746,7 +790,7 @@
       "pick": null,
       "source": "HLTV world ranking",
       "source_url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-21T13:16:12Z",
+      "observed_at": "2026-10-21T13:26:27Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -906,7 +950,7 @@
       "pick": "Banda chuya",
       "source": "Valve official standings",
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-21T13:16:03Z",
+      "observed_at": "2026-10-21T13:26:19Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -950,7 +994,7 @@
       "pick": "Imperial",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
-      "observed_at": "2026-10-21T13:15:59Z",
+      "observed_at": "2026-10-21T13:26:16Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -983,7 +1027,7 @@
       "pick": "BESTIA",
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
-      "observed_at": "2026-10-21T13:16:00Z",
+      "observed_at": "2026-10-21T13:26:16Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -1016,7 +1060,7 @@
       "pick": "HOTU",
       "source": "Valve official standings",
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-21T13:16:14Z",
+      "observed_at": "2026-10-21T13:26:29Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
@@ -1084,7 +1128,7 @@
       "pick": "1WIN",
       "source": "Valve official standings",
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-21T13:16:03Z",
+      "observed_at": "2026-10-21T13:26:19Z",
       "low_confidence": null,
       "n_series": null,
       "bo3_binding": null,
