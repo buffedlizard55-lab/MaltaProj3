@@ -1,0 +1,98 @@
+{
+  "session": "arena-32bed9e3",
+  "task": "32B-1",
+  "observed_window_utc": "2026-10-21T19:35Z/2026-10-21T19:55Z",
+  "scope": "Dated independent research for every featured-unresolved Hotspawn CS2 fixture in the live snapshot, HLTV first then public esportsbook/prediction-market lines. Evidence only: no pick value in the canonical feeds was created or changed by this session.",
+  "live_site_snapshot": {
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "inventory_checked": "21 Oct 2026, 18:02 Europe/Malta",
+    "stated_counts": "8 active Hotspawn CS2 fixtures, 8 with a directional pick in the complete-picks ladder, 0 ladder-unresolved; featured view separately lists 3 fixtures with no verified featured line",
+    "executive_summary_mobile_links_verified": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/methodology/"
+    ],
+    "note": "The summary carries tap-first pick cards (team, %, Hotspawn + source + full-detail links) and a separate 'Unresolved picks & limitations' register. The same fixture can appear as a ladder pick AND in the featured-unresolved register; the two views must not be added together."
+  },
+  "refresh_verification": {
+    "workflow": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+    "schedule": "cron '17 */4 * * *' plus catch-up '47 2-22/4 * * *' (target 4h, bound 8h)",
+    "latest_scheduled_run_checked": {
+      "run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39627571045",
+      "annotations": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119318597226/annotations",
+      "inventory_observed_at": "2026-10-21T15:52:28Z",
+      "counts": {"inventory": 71, "upcoming": 9, "archived": 62, "unknown_schedule": 0, "featured": {"market": 4, "bookmaker": 0, "model": 2, "unresolved": 3, "picks": 6}, "complete_ladder": {"active": 9, "resolved": 9, "unresolved": 0, "with_pick": 9, "consensus": 1, "market": 4, "model": 3, "guidance": 1, "alias_joined": 2}, "row_source_audit": {"rows": 501, "ok": 487, "flagged": 5, "navigation": 9, "violation": 0}},
+      "crosscheck": "complete against lobby and CS2 pages (71 records)"
+    },
+    "lobby_recheck_2026-10-21T19-45Z": {
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "finding": "Lobby now lists fixtures beyond the 15:52Z snapshot (e.g. Vitalem Aerem vs Rare Atom 1081870, benched gods vs TitanFlow 1081597, UNiTY vs Apogee Betclic 1082882, four DFRAG Invitational fixtures). This is normal Hotspawn churn inside the 4-hour cadence, not a collection failure; they enter coverage at the next scheduled refresh. Hotspawn 'x% picked' participation figures were observed but are never used as probability inputs."
+    }
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": "1082836",
+      "fixture": "Damajuana vs Hacha",
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+      "hltv_first": {
+        "url": "https://www.hltv.org/matches/2399864/damajuana-vs-hacha-cct-2026-south-america-series-7",
+        "finding": "Exact fixture confirmed: DAMAJUANA (HLTV team 13697) vs Hacha (13722), Best of 3 (Online), Swiss round 5 (2-2 teams). At observation the series was LIVE with the veto completed (Ancient, Inferno, Nuke). HLTV's betting table exposed no numeric bookmaker prices, only a Stake promotion row."
+      },
+      "esportsbooks_then": {
+        "polymarket": {
+          "url": "https://polymarket.com/esports/cs2/cct-south-america/cs2-damaju-hachae-2026-10-21",
+          "finding": "Real series market exists ('Damajuana vs Hacha Esports (BO3) - CCT South America Series 7 Group Stage', scheduled Oct 21 2026 3:00 PM ET, resolution source HLTV). At observation it was in-play on Map 1, so its live prices are NOT a prematch line and were not used here."
+        }
+      },
+      "site_state": "Featured view: no verified featured line. Complete ladder: locked pick Hacha 58.9% (researched rung, Polymarket-linked) recorded before lock.",
+      "limitation": "Prematch window has closed; no new prematch probability can be originated for this fixture now. Only the pre-lock recorded estimate stands, with its original timestamp."
+    },
+    {
+      "hotspawn_id": "1082837",
+      "fixture": "Zetta vs LOS NINOS",
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "hltv_first": {
+        "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+        "finding": "Exact fixture confirmed: Zetta (HLTV team 13833, HLTV rank #241 shown) vs LOS NINOS (team 14092), Best of 3 (Online), Swiss round 5, starting ~2h32m after observation. HLTV 'Pick a winner' fan vote (Zetta 77.8% / LOS NINOS 22.2% at observation) is a fan poll and is NEVER a probability input under project policy. HLTV's betting table exposed no numeric prices."
+      },
+      "esportsbooks_then": {
+        "kalshi": {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
+          "finding": "IRREGULARITY: this market is 'Los Ninos vs Alianza Lima Esports' (ticker ...LNALE), not Zetta vs LOS NINOS. Alianza Lima Esports is a distinct CCT SA S7 participant (played Damajuana on 14 Oct and SUKEBAN on 15 Oct), not a verified alias of Zetta. Prices at observation (LN Yes 66c / No 45c) describe a different named opponent."
+        },
+        "polymarket": {
+          "url": "https://polymarket.com/esports/cs2/cct-south-america",
+          "finding": "Polymarket's CCT South America list at observation had exactly two events: Damajuana vs Hacha Esports and 'Alianza Lima Esports vs Los Ninos (BO3)' (cs2-ale1-ln-2026-10-21, 6:00 PM ET). No Zetta vs LOS NINOS market was listed. Polymarket names HLTV as its resolution source, and HLTV lists Zetta as the opponent, so the prediction-market opponent name is unverified against HLTV."
+        }
+      },
+      "site_state": "Featured view: no verified featured line (correct). Complete ladder: pick 'LOS NINOS 51.0%' linked to the Kalshi LN-vs-ALE wide book.",
+      "limitation": "The ladder value is joined to a market whose named opponent (Alianza Lima Esports) does not match the Hotspawn/HLTV fixture (Zetta). Until both team identities and the start time are verified against HLTV, this value must be treated as UNVERIFIED. This dossier does not substitute a replacement number; per policy an unsupported value stays blank and flagged. See flags.json id 32bed9e3-zetta-los-ninos-opponent-mismatch."
+    },
+    {
+      "hotspawn_id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026 (HLTV: GLuck Moscow Cyber Games 2026)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_first": {
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "finding": "Exact fixture confirmed: HOTU (HLTV team 11581; HLTV #38, VRS #34 shown) vs The Huns (team 12510), Best of 3 (LAN), Semi-final, 31 Oct 2026 (~9d13h after observation). HLTV fan vote (HOTU 78.6%) is not an input. HLTV's betting table exposed no numeric prices this far before the match."
+      },
+      "esportsbooks_then": {
+        "finding": "No two-sided first-party prematch price was verified from the public pages checked (HLTV betting table; prediction-market CS2 listings). Books commonly open tier-B LAN semi-finals closer to start; absence at T-9 days is not proof no market will exist."
+      },
+      "site_state": "Featured view: unresolved, blocker 'ambiguous rating'. Complete ladder: modelled pick HOTU 94.1% (Valve-rating research model rung).",
+      "limitation": "Model-only estimate with no market cross-check available yet, and the featured rung reports rating ambiguity. Treat 94.1% as a high-uncertainty research estimate, re-check near lock when books open. See flags.json id 32bed9e3-hotu-model-only-no-market-crosscheck."
+    }
+  ],
+  "method_notes": [
+    "Order followed the request: HLTV first for fixture identity/format/rankings, then esportsbooks/prediction markets for two-sided prices.",
+    "Hotspawn participation percentages and HLTV fan votes were recorded only to document that they were NOT used.",
+    "In-play prices (Damajuana vs Hacha after start) are never relabelled as prematch lines.",
+    "A market must match BOTH team names and the start time; a one-team/time match (Kalshi LN vs ALE) is not a valid join.",
+    "Sandbox direct network access to HLTV/Hotspawn/Polymarket APIs is blocked; pages were read through the research fetcher and GitHub's official run annotations. Original API payloads therefore could not be hashed in this session - a stated limitation, not a silent gap."
+  ]
+}
