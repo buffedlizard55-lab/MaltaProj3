@@ -57,6 +57,30 @@ is current; no implementation scope from those rows is entered.
 - **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103, #105 and #107, their merges, the latest recorded publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
 
 **Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+# Current session: arena-b8a142d2 — truthful executive-summary pick coverage
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch
+`arena/b8a142d2-maltaproj3`, based on `main` at `89bfa277`. I read this board
+before claiming. There are no open PRs at claim time. The current production
+workflow is scheduled every four hours with offset catch-up slots; latest
+successful run [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314)
+reports a complete 91-record Hotspawn inventory, 29 active fixtures, 26
+resolved, 25 with a directional pick and three unresolved. The aggregate
+resolved/pick counts differ by one; I will not infer the identity or details of
+the no-direction row without its source record. The generated artifact is not
+readable from this runner because GitHub redirects its download to an
+unavailable blob host; I will not claim to have independently checked those
+per-fixture rows.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B8-1 Fix executive-summary wording that calls inventory coverage “Picks for every match” despite unresolved/even rows; make the top-of-page pick shortcut describe both probability and unresolved coverage accurately; add regression tests using the verified coverage states | in progress | arena-b8a142d2 | `scripts/build.py` (`start_here` and complete-pick coverage label only), `tests/test_summary_navigation.py` (additive regressions), new `data/research/b8a142d2/summary-coverage-audit.json`, this board section |
+
+**Non-overlap pledge.** No edits to collection, pricing/origination, probabilities,
+match records, aliases, inventory sources or other sessions’ evidence. The fix
+is presentation-only. A 50/50 supported estimate remains “no direction”; a
+missing estimate remains blank and in the unresolved register.
+
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
 Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
