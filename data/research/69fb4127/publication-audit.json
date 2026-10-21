@@ -114,57 +114,26 @@
     "result": "pass",
     "details": [
       "80 checked-in source rows reconciled and published picks/probabilities replayed from saved original evidence.",
-      "After adding the three dated Flagged for Review entries: 495 generated-site source rows, 481 officially linked, 5 explicitly flagged unverified, 9 navigation rows, 0 rows without a source or flag.",
+      "After publishing only the unique validation-annotation finding: 494 generated-site source rows, 480 officially linked, 5 explicitly flagged unverified, 9 navigation rows, and 0 rows without a source or flag.",
       "669 internal links/assets/anchors and project-subpath/mobile landmarks checked.",
-      "Eight Pages views and compatible legacy routes built; new audit flags render on the local Flagged for Review page."
+      "Eight Pages views and compatible legacy routes built; the unique audit flag renders on the local Flagged for Review page."
     ],
     "scope_note": "The checked-in fixture snapshot is dated 2026-10-15; it is not treated as today's production snapshot.",
     "full_suite_note": "The initial direct local full-suite attempt exceeded a 10-minute tool limit, and a second verbose attempt was stopped at 180 seconds while a nested pinned-clock determinism test re-ran the suite. The GitHub Actions validation run above completed the same full suite successfully, then completed build, source-row, mobile and accessibility checks.",
-    "review_flags_tests": ".venv/bin/python -m unittest tests.test_review_flags -v \u2014 4 passed."
+    "review_flags_tests": ".venv/bin/python -m unittest tests.test_review_flags -v \u2014 4 passed.",
+    "row_source_audit": {
+      "rows": 494,
+      "officially_linked": 480,
+      "explicitly_flagged_unverified": 5,
+      "navigation": 9,
+      "violations": 0
+    }
   },
   "irregularities_for_review": [
     {
-      "id": "69fb-production-artifact-individual-rows-not-readable",
-      "status": "unverified",
-      "finding": "GitHub Actions exposes the latest Pages artifact metadata and aggregate check annotations, but downloading its 15,126,310-byte github-pages artifact returned EOF because the signed download redirects to a blob-storage host unavailable from this workspace. Full run logs had the same restriction. I could not independently read the latest deployed HTML or identify the three production unresolved match names; no names or probabilities are guessed.",
-      "evidence": [
-        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
-        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314/artifacts",
-        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
-      ]
-    },
-    {
-      "id": "69fb-next-scheduled-refresh-not-yet-listed",
-      "status": "monitor",
-      "finding": "At 12:47Z the latest scheduled production run was the 08:00Z run; the next scheduled run was not yet visible in the Actions run list. Published inventory was still within the requested 4\u20138 hour age bound. Continue monitoring the schedule; do not claim a missed refresh unless the bound is exceeded.",
-      "evidence": [
-        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
-        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314"
-      ]
-    },
-    {
-      "id": "69fb-three-production-fixtures-unresolved",
-      "status": "needs-row-level-review",
-      "finding": "The current production annotations show three active complete-ladder fixtures unresolved. The artifact and logs were not readable here, so names and exact source-by-source blockers cannot be confirmed in this independent audit. The build's existing policy leaves these values blank rather than inferring them; consult the live Unresolved picks & limitations / Flagged for Review pages for row-level details.",
-      "evidence": [
-        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
-        "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
-        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations"
-      ]
-    },
-    {
-      "id": "69fb-local-fixture-snapshot-is-not-current",
-      "status": "disclosed",
-      "finding": "The source snapshot checked into this branch is dated 2026-10-15. The generated site/build checks pass against it, but its counts are not evidence of the current live match slate. Production freshness is instead confirmed from the scheduled run annotations.",
-      "evidence": [
-        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
-        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/data/latest.json"
-      ]
-    },
-    {
       "id": "69fb-validation-expected-or-transient-source-annotations",
       "status": "review-context",
-      "finding": "The branch validation workflow completed successfully, but its annotations endpoint reports four failure-level Hotspawn errors (HTTP 403 twice and lobby/API disagreement twice). Because the annotation context is unavailable and the independent fresh source audit completed successfully, this audit does not treat them as a failed published refresh; retain them for review.",
+      "finding": "The branch validation workflow completed successfully, but its annotations endpoint reports four failure-level Hotspawn errors (HTTP 403 twice and lobby/API disagreement twice). The current production artifact and schedule limitation are already documented on the review page by session arena-fb04c12f. Because annotation context is unavailable and the independent fresh source audit completed successfully, this unique validation-run discrepancy is recorded without attribution.",
       "evidence": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39602172050",
         "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
@@ -186,5 +155,14 @@
     ],
     "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119229140305/annotations",
     "annotation_irregularity": "Four failure-level annotations mention Hotspawn HTTP 403 or lobby/API disagreement even though the complete validation job passed. A separate live read-only source/origination audit on the same branch completed successfully at 12:45Z with full Hotspawn lobby/CS2 cross-check. The annotation source context was not available, so these are recorded rather than interpreted as a production failure."
+  },
+  "coordination": {
+    "overlap_discovered_after_claim": "Session arena-fb04c12f completed and merged PR #111 during this audit, covering the same current production run, aggregate coverage, scheduled cadence, and inaccessible Pages artifact limitation.",
+    "fb04c12f_sources": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/111",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fb04c12f/current-release-audit.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fb04c12f/flags.json"
+    ],
+    "nonduplicate_contribution": "Retain this report as a corroboration plus the separate 12:45Z read-only source/origination refresh (81 total records; 19 non-past fixtures; 16 dated estimates; 3 unresolved), successful branch CI results, and the four failure-level validation annotations. The duplicate artifact-access and schedule findings were removed from this session\u2019s flags; the FB04 review flag already publishes those issues."
   }
 }
