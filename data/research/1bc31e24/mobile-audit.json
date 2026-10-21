@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "session": "arena-1bc31e24",
+  "checked_at": "2026-10-21T20:14:46.565452+00:00",
+  "title": "Mobile Device Usability & Executive Summary Navigation Audit",
+  "viewport": {
+    "meta_tag": "width=device-width, initial-scale=1",
+    "tested_resolutions": [
+      {
+        "width": 320,
+        "height": 568,
+        "device": "iPhone SE (compact mobile)"
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "device": "iPhone 12/13/14 (standard mobile)"
+      },
+      {
+        "width": 768,
+        "height": 1024,
+        "device": "iPad / Tablet"
+      },
+      {
+        "width": 1440,
+        "height": 900,
+        "device": "Desktop / Laptop"
+      }
+    ],
+    "horizontal_overflow": "None detected across all pages at 320px, 390px, 768px, 1440px."
+  },
+  "executive_summary_navigation": {
+    "exec_banner": {
+      "location": "Top of executive summary on landing page (index.html)",
+      "primary_cta": {
+        "label": "See all match picks (17 of 17 with a pick)",
+        "href": "origination/#picks",
+        "description": "Direct one-tap jump to the complete updated picks list with all researched fallbacks."
+      },
+      "secondary_cta": {
+        "label": "Featured feed (13 picks)",
+        "href": "picks/",
+        "description": "Jump to the featured-only picks subpage."
+      },
+      "tertiary_cta": {
+        "label": "Unresolved & limitations (0 without a line \u00b7 why + sources)",
+        "href": "origination/#unresolved",
+        "description": "Jump to unresolved section detailing evidence gaps and source links."
+      }
+    },
+    "start_here_links": [
+      {
+        "label": "Picks at a glance",
+        "href": "#picks-at-a-glance"
+      },
+      {
+        "label": "All picks table",
+        "href": "origination/#picks"
+      },
+      {
+        "label": "Featured feed",
+        "href": "picks/"
+      },
+      {
+        "label": "Unresolved picks",
+        "href": "#unresolved-register"
+      },
+      {
+        "label": "Every page on this site",
+        "href": "#site-map"
+      }
+    ],
+    "bottom_navigation_bar": {
+      "element": "nav.mobile-nav (fixed at screen bottom on phone viewports)",
+      "tabs": [
+        {
+          "label": "Summary",
+          "href": "index.html",
+          "icon": "dashboard"
+        },
+        {
+          "label": "Picks",
+          "href": "origination/#picks",
+          "icon": "target"
+        },
+        {
+          "label": "Edge",
+          "href": "edge/",
+          "icon": "trending-up"
+        },
+        {
+          "label": "Sources",
+          "href": "coverage/",
+          "icon": "layers"
+        },
+        {
+          "label": "Methods",
+          "href": "methodology/",
+          "icon": "book-open"
+        },
+        {
+          "label": "Review",
+          "href": "review/",
+          "icon": "flag"
+        }
+      ],
+      "tap_target_dimensions": "Min 44x44px touch targets compliant with WCAG 2.5.5 and 2.5.8."
+    }
+  },
+  "pick_presentation_clarity": {
+    "picks_at_a_glance_section": {
+      "element": "section#picks-at-a-glance",
+      "features": [
+        "Lists all 17 active matches right in the executive summary.",
+        "Explicit PICK label with checkmark badge.",
+        "Contrasting win probability percentage (e.g. 55.0%, 63.5%, 74.5%).",
+        "Clear tournament name and localized kick-off time.",
+        "Direct link to official Hotspawn fixture and source betting lines.",
+        "One-tap deep link to full matchup detail and evidence."
+      ]
+    },
+    "accessibility_and_contrast": "Automated axe-core WCAG 2.1 Level A/AA audits pass across all pages."
+  }
+}

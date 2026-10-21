@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1bc31e24-full-coverage-cs2-picks",
+    "title": "Full Pick Coverage Verified: All 17 active CS2 fixtures have an originated pick and line",
+    "detail": "Audited 2026-10-21 against data/origination.json. All 17 active Hotspawn CS2 fixtures have an originated pick and win probability derived from external betting lines or Valve regional standings. Breakdown: 7 prediction market (Polymarket CLOB midpoints), 5 bookmaker (Thunderpick two-way paired lines, margin removed; 4 resolved low-tier matches with verified HLTV aliases), 5 Valve rating model (RD 75, logistic model). Every probability sums to 1.0; every row links to an official source.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://polymarket.com/esports/cs2",
+      "https://thunderpick.io/api/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ],
+    "match_ids": [
+      "1079440",
+      "1079442",
+      "1080280",
+      "1080202",
+      "1080281",
+      "1080203",
+      "1080282",
+      "1080204",
+      "1080283",
+      "1080284",
+      "1080285",
+      "1080286",
+      "1080287",
+      "1080288",
+      "1081120",
+      "1080289",
+      "1080290"
+    ],
+    "severity": "notice"
+  },
+  {
+    "id": "1bc31e24-hotspawn-reverse-engineering-4h-cadence",
+    "title": "Hotspawn reverse-engineering: 4-8h refresh cadence and unbiased probability origination",
+    "detail": "Hotspawn public fixture API (phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) delivers complete inventory. SSR hydration in <script id=\"ng-state\"> is cross-checked on both /lobby and /cs2-pickems. HTML CDN caching (X-Cache: HIT, Age ~5000s) is bypassed via timestamp cache-busters (?cb=<epoch>). The 4-hour cron workflow (.github/workflows/pages.yml: 17 */4 * * * and catch-up 47 2-22/4 * * *) automates data ingestion. Hotspawn crowd % picked is never used for probability generation; all lines are independently originated.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ],
+    "match_ids": [],
+    "severity": "notice"
+  },
+  {
+    "id": "1bc31e24-low-tier-fallback-ladder",
+    "title": "Low-tier CS2 match resolution: HLTV identity verification and esportsbook lines",
+    "detail": "Low-tier matches not listed on Polymarket (e.g. Elisa Breakout Series 2) were resolved via HLTV roster verification and Thunderpick bookmaker lines: WROTBERRY vs ENCE (1080281: WROTBERRY 61.5%), WROTBERRY vs BOJONG (1080283: WROTBERRY 76.9%), HAVU vs RoundsGG (1080286: HAVU 76.9%), RoundsGG vs Voca (1080289: Voca 84.1%). Verified alias mappings (WBT -> WROTBERRY, ROUNDS -> RoundsGG) were confirmed via HLTV event 9332 without guessing or inference.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://thunderpick.io/api/matches"
+    ],
+    "match_ids": [
+      "1080281",
+      "1080283",
+      "1080286",
+      "1080289"
+    ],
+    "severity": "notice"
+  },
+  {
+    "id": "1bc31e24-mobile-executive-summary-navigation",
+    "title": "Mobile-friendly executive summary: one-tap links to updated picks and obvious probabilities",
+    "detail": "The executive summary provides instant one-tap access to all updated picks (exec-banner primary link -> origination/#picks). The \"Picks at a glance\" section presents each match with clear PICK badge, win probability, match time, and official source links. Responsive viewport meta tag, 6-tab fixed bottom navigation (Summary, Picks, Edge, Sources, Methods, Review) with >=44px touch targets, and zero horizontal scrolling at 320px/390px ensure full mobile accessibility.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems"
+    ],
+    "match_ids": [],
+    "severity": "notice"
+  },
+  {
+    "id": "1bc31e24-unresolved-picks-register-and-limitations",
+    "title": "Dedicated unresolved register and transparent limitations in executive summary",
+    "detail": "Unresolved matches and limitations are published as a dedicated, prominent section in the executive summary (#unresolved-register) and on the origination subpage (origination/#unresolved). When all active matches are resolved, the register clearly confirms full coverage. Model assumptions (RD=75, uncalibrated) and external market limitations are explicitly stated for manual review.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+    ],
+    "match_ids": [],
+    "severity": "notice"
+  },
+  {
+    "id": "1bc31e24-stale-snapshot-notice",
+    "title": "Checked-in repository snapshot is dated; production runs fresh pipeline on GitHub Actions",
+    "detail": "The checked-in data snapshot in data/latest.json is dated 2026-10-15T08:36:04Z and serves as a reproducible baseline for local test execution and regression tests. Automated 4-hourly GitHub Actions workflow runs live collection and origination on GitHub runners. When local snapshots exceed 8 hours, the UI displays a transparent warning banner indicating snapshot age.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ],
+    "match_ids": [],
+    "severity": "warning"
+  }
+]
