@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "session": "arena-6e92015a",
- "generated_at": "2026-10-21T20:49:58Z",
+ "generated_at": "2026-10-21T21:15:09Z",
  "policy": "Read-only GET/POST probes. Every response is saved and hashed. No probability, pick or alias is written here. A blocked endpoint is not evidence that no market exists. HLTV fan votes and Hotspawn \"% picked\" are never inputs.",
  "live_release": {
   "index_html": {
@@ -47,7 +47,7 @@
  "blank_sources": {
   "deployed_generated_at": "2026-10-15T09:31:24Z",
   "deployed_blank_ids": [],
-  "fresh_generated_at": "2026-10-21T20:49:16Z",
+  "fresh_generated_at": "2026-10-21T21:14:33Z",
   "fresh_blank_ids": [
    "1082860"
   ],
@@ -56,7 +56,7 @@
   ]
  },
  "fresh_ladder": {
-  "generated_at": "2026-10-21T20:49:16Z",
+  "generated_at": "2026-10-21T21:14:33Z",
   "counts": {
    "active": 13,
    "resolved": 12,
@@ -89,7 +89,7 @@
   }
  ],
  "hltv_world_ranking": {
-  "bytes": 1123876,
+  "bytes": 1115880,
   "note": "raw page saved and hashed; ranking rows are parsed by scripts/hltv_ranking.py in the pipeline"
  },
  "lines": {
@@ -112,14 +112,14 @@
    }
   },
   "bovada": {
-   "bytes": 42739,
+   "bytes": 42742,
    "fixture_mentions": {
     "1082860": false
    }
   },
   "pinnacle": {
-   "matchup_rows": 242,
-   "cs2_rows": 175,
+   "matchup_rows": 227,
+   "cs2_rows": 160,
    "cs2_leagues": [
     "CS2 - Circuit X Curitiba",
     "CS2 - DACH CS Masters",
@@ -262,7 +262,7 @@
   "1xbet-linefeed": {
    "http_status": 203,
    "status": "ok",
-   "bytes": 2596,
+   "bytes": 2599,
    "error": null,
    "fixture_mentions": {
     "1082860": false
@@ -287,10 +287,10 @@
    }
   },
   "betonline": {
-   "http_status": null,
+   "http_status": 520,
    "status": "error",
-   "bytes": null,
-   "error": "ReadTimeout: HTTPSConnectionPool(host='api.betonline.ag', port=443): Read timed out. (read timeout=45)",
+   "bytes": 544205,
+   "error": "HTTP 520",
    "fixture_mentions": {
     "1082860": false
    }
