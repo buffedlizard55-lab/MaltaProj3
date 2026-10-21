@@ -452,7 +452,7 @@ def glance(data, prefix, now=None):
                  + '</div>'
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
-    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every future fixture and every unresolved fixture is included. '
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every future fixture and every unresolved fixture is included, and only past resolved rows are capped. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '

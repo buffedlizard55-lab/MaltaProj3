@@ -1,0 +1,86 @@
+[
+ {
+  "id": "75de2710-bovada-single-source-alias",
+  "severity": "warning",
+  "match_ids": [
+   "1082762"
+  ],
+  "title": "ex-CYBERSHOKE–BlinkDagger priced from one bookmaker through a scoped name join",
+  "detail": "Bovada lists this fixture as 'CYBERSHOKE vs blinkdagger'; Hotspawn and HLTV call the same side 'ex-CYBERSHOKE'. The join is allowed only because the alias registry carries an explicit CIS LAN Championship #9 scope with a must_not_match list for the academy/junior names, and because the competition, opponent, fixture slot and 15:00Z start agree across the Hotspawn, HLTV and Bovada records. Bovada's coupon confirms two teams and a start time but publishes no player roster, so the identity rests on the fixture, not on a lineup proof. The accepted moneyline is 1.125 for CYBERSHOKE and 5.750 for blinkdagger; after proportional margin removal (1/1.125 + 1/5.750 = 1.062802, a 6.28% overround) the published estimate is 83.636% / 16.364%, pick CYBERSHOKE. This is a single independent source, not a multi-source consensus, so it is badged with that limitation wherever it appears. The fresh ladder run at 13:02:27Z resolved the fixture by method 'bookmaker' with the alias recorded as 'CYBERSHOKE -> ex-CYBERSHOKE'.",
+  "source_urls": [
+   "https://www.bovada.lv/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+   "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+   "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+   "https://www.hltv.org/team/14106/ex-cybershoke",
+   "https://www.hltv.org/team/9998/blinkdagger",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination/aliases.json",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082762"
+  ]
+ },
+ {
+  "id": "75de2710-blank-1082763",
+  "severity": "warning",
+  "match_ids": [
+   "1082763"
+  ],
+  "title": "UPGRADE–flacons stays blank: the only ranked side has no counterpart",
+  "detail": "UPGRADE carries an HLTV world rank of #74 and a Valve regional standing of #86 (Europe #62), but flacons has no HLTV world-ranking row, no Valve rating row, no published roster and no recorded result in October 2026. The HLTV-ranking rung requires both teams on the same dated publication, and the Valve rung requires a rating row for each side, so neither can produce a number without inventing one. Every probed money source returned no compliant two-sided line for this fixture: Polymarket and Kalshi have no matching market, Thunderpick, Bovada and Pinnacle return no alias-verified line, EGamersWorld answers HTTP 403, and bo3.gg reports zero upcoming matches for the only mapped team id (UPGRADE 25212; flacons has no exact team row). The pick stays blank rather than defaulting to 50/50.",
+  "source_urls": [
+   "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+   "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+   "https://www.hltv.org/team/13989/upgrade",
+   "https://www.hltv.org/team/13932/flacons",
+   "https://www.hltv.org/ranking/teams",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082763"
+  ]
+ },
+ {
+  "id": "75de2710-blank-1082837",
+  "severity": "warning",
+  "match_ids": [
+   "1082837"
+  ],
+  "title": "Zetta–LOS NINOS stays blank: one ranked side is not enough for a rating rung",
+  "detail": "Zetta carries an HLTV world rank of #241 and a Valve regional standing of #366 (Americas #81); LOS NINOS has no HLTV world-ranking row, no Valve rating row and no published roster, although it does have three recorded results in October 2026. The HLTV-ranking rung is only usable when both teams appear on the same dated publication, and the Valve rung needs a rating row for each side, so no rung can produce a number. No compliant two-sided price was found on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle, and EGamersWorld answers HTTP 403; bo3.gg reports zero upcoming matches for both mapped team ids (23468 and 25500). The row is published as unresolved rather than given a fabricated 50/50.",
+  "source_urls": [
+   "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+   "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+   "https://www.hltv.org/team/13833/zetta",
+   "https://www.hltv.org/team/14092/los-ninos",
+   "https://www.hltv.org/ranking/teams",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082837"
+  ]
+ },
+ {
+  "id": "75de2710-provider-outage-coverage",
+  "severity": "notice",
+  "match_ids": [
+   "1082762",
+   "1082763",
+   "1082837"
+  ],
+  "title": "Several bookmaker endpoints were unreachable or refused the probe; an outage is not proof of no market",
+  "detail": "The 13:02:40Z probe recorded these HTTP outcomes while checking the three blank fixtures: 1xBet 203 (a JavaScript challenge page, no price), gg.bet 403 for both the page and the API, Rivalry 530, Cloudbet 404, Stake 403, Unibet 503, Oddspedia 410, Betway 404, and no response at all from sportsbet.io, BetOnline and Pinnacle. bo3.gg answers normally but reports zero upcoming matches for every mapped team id (BlinkDagger 246, UPGRADE 25212, Zetta 23468, LOS NINOS 25500; ex-CYBERSHOKE and flacons have no exact team row). These are platform limitations, not evidence that no market exists: the next scheduled refresh retries every source, and a line that appears later will replace the blank.",
+  "source_urls": [
+   "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+   "https://api.rivalry.com/sports/public/v1/matches?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+   "https://www.cloudbet.com/api/v1/sports/events?sport=counter-strike-2",
+   "https://stake.com/api/sports/esports/counter-strike",
+   "https://www.unibet.com/betting/api/api/sports/esports",
+   "https://oddspedia.com/esports/counter-strike",
+   "https://egamersworld.com/counterstrike/matches",
+   "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=20&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25212&with=teams,tournament"
+  ]
+ },
+ {
+  "id": "75de2710-summary-index-cap",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "The phone-first summary index used to cap future picks; it now lists every future fixture",
+  "detail": "The executive-summary 'Picks at a glance' block rendered at most ten future fixtures plus every unresolved fixture and six past rows. With 29 active fixtures on the 08:12:39Z release that produced 13 rows, so some future picks were reachable only from the complete list. The cap was a presentation choice, not a data loss, but it worked against the brief's requirement that picks be obvious on a phone. Fixed in this session: every future fixture now renders, only past resolved rows stay capped at six, and the footer states whether anything is hidden. The unresolved block is unchanged and still lists every blank.",
+  "source_urls": [
+   "https://buffedlizard55-lab.github.io/MaltaProj3/",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/commit/2f95eab16c1f432b2baced54bf0895fc86941256"
+  ]
+ }
+]
