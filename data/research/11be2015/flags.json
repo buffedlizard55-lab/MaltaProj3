@@ -88,5 +88,21 @@
     "supersedes": [
       "32bed9e3-zetta-los-ninos-opponent-mismatch"
     ]
+  },
+  {
+    "id": "11be2015-two-researched-glance-rows-cite-the-bo3-index",
+    "severity": "warning",
+    "match_ids": [
+      "1081597",
+      "1082858"
+    ],
+    "title": "Two researched rows on the phone summary link the bo3.gg index, not a fixture page",
+    "detail": "On the live 2026-10-21T23:04Z build, benched gods vs TitanFlow (1081597, 'TitanFlow 77.8% Researched') and Ground Zero vs Off Chops (1082858, 'Off Chops 55.5% Researched') both show the source chip 'bo3.gg results' pointing at https://bo3.gg/matches — the site index, not a match or series record for that fixture. Every other row points at a specific Hotspawn, Valve, Polymarket or HLTV URL. The pick itself is a researched model/line estimate, and the full evidence trail is on the fixture's origination card, but a reader following the summary chip lands on a search page and cannot verify the input directly. Change request for the origination owner: carry the per-fixture bo3.gg match URL (or the exact provider URL that backed the estimate) into the summary chip, or label the chip 'form model (index)' so it is not read as a fixture source. Also note the direction moved between refreshes for 1081597 (benched gods 50.4% at 22:08Z, TitanFlow 77.8% at 23:04Z) after the researched line replaced the ranking estimate; the later row states its own method on the origination card, and no value here should be read as a stable line.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://bo3.gg/matches",
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
+    ]
   }
 ]
