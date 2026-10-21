@@ -1,3 +1,20 @@
+# Current session: arena-1bc31e24-maltaproj3 — verified full-coverage CS2 picks, low-tier fallback ladder, reverse-engineering & mobile executive summary
+
+Claimed **2026-10-21T20:15Z** on the fixed Arena branch `arena/1bc31e24-maltaproj3`, branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (PR #131 merged).
+Read the entire coordination board before starting.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 1BC-1 Line-by-line verification of repository data and sources against official verified trusted sources; record source links and flag irregularities | in progress | arena-1bc31e24 | new `data/research/1bc31e24/`; this board section in `COORDINATION.md` |
+| 1BC-2 Reverse-engineer Hotspawn lobby (endpoints, hydration, CDN cache, 4–8h refresh cadence, complete match coverage) | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; documentation |
+| 1BC-3 Fallback ladder verification for low-tier CS2 matches: HLTV identity research first, then esportsbooks (Thunderpick, Bovada, Pinnacle) and Valve ratings; separate unresolved section & limitations included in executive summary | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; verification reports |
+| 1BC-4 Mobile-first dashboard & executive summary verification: one-tap access to updated picks, clear probabilities, obvious pick presentation, category subpages, 320/390px responsive views | in progress | arena-1bc31e24 | `data/research/1bc31e24/`; test reports |
+| 1BC-5 Final build, strict row-source audit (0 violations), link checking, browser test verification, pull request to main, merge, and verified Pages deployment | in progress | arena-1bc31e24 | PR, merge, site deploy verification |
+
+**Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, or `scripts/coverage_probe.py` semantics (probabilities, picks, and aliases are preserved). It writes only to `data/research/1bc31e24/` and this board section, runs the full verification pipeline, and performs integration.
+
+---
+
 # Current session: arena-32bed9e3 — full-coverage pick research for featured-unresolved fixtures
 
 Claimed **2026-10-21T19:40Z** on the Arena-fixed branch `arena/32bed9e3-maltaproj3`,
