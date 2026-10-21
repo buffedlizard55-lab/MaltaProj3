@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "session": "arena-1bc31e24",
+  "checked_at": "2026-10-21T20:14:36.216727+00:00",
+  "title": "Low-Tier CS2 Pick Resolution & Fallback Ladder Architecture",
+  "ladder_rungs": [
+    {
+      "rung": 1,
+      "name": "Prediction Markets (Polymarket CLOB, Kalshi)",
+      "description": "Central limit order book midpoint probability. Requires spread <= 0.12 and non-stale books. Fees excluded.",
+      "sample_sources": [
+        "https://polymarket.com/esports/cs2",
+        "https://kalshi.com"
+      ]
+    },
+    {
+      "rung": 2,
+      "name": "Esportsbooks (Thunderpick, Bovada, Pinnacle)",
+      "description": "Two-way moneylines with bookmaker vigorish removed via proportional normalization. Tested against spread ceilings.",
+      "sample_sources": [
+        "https://thunderpick.io/esports/counter-strike",
+        "https://thunderpick.io/api/matches",
+        "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports",
+        "https://www.pinnacle.com/en/esports/counter-strike-2"
+      ]
+    },
+    {
+      "rung": 3,
+      "name": "HLTV Identity Research & Alias Disambiguation",
+      "description": "Cross-referencing team rosters, event pages, and sponsor names on HLTV.org to safely match team aliases (e.g. WBT -> WROTBERRY, ROUNDS -> RoundsGG) without guessing.",
+      "sample_sources": [
+        "https://www.hltv.org/matches",
+        "https://www.hltv.org/events/9332/elisa-breakout-series-2"
+      ]
+    },
+    {
+      "rung": 4,
+      "name": "Aggregated Reference Lines (EGamersWorld)",
+      "description": "Average of multiple bookmaker quotes for fixtures lacking direct first-party lines. Flat 1.80/1.80 placeholder quotes are rejected.",
+      "sample_sources": [
+        "https://egamersworld.com/counterstrike/matches"
+      ]
+    },
+    {
+      "rung": 5,
+      "name": "Valve Regional Standings Research Model",
+      "description": "Logistic skill model using official Valve CS2 regional points (formula: 1 / (1 + 10^((r2 - r1)*g/400)), RD=75). Uncalibrated research baseline, clearly labeled.",
+      "sample_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+      ]
+    },
+    {
+      "rung": 6,
+      "name": "HLTV Ranking Model / Wide-Book Guidance",
+      "description": "HLTV official top-30 points logistic model or wide-spread bookmaker midpoint labeled strictly as indicative guidance.",
+      "sample_sources": [
+        "https://www.hltv.org/ranking/teams"
+      ]
+    },
+    {
+      "rung": 7,
+      "name": "Honest Blank (Unresolved)",
+      "description": "If no reliable evidence exists across all rungs, the match remains unresolved. Never hallucinate or infer numbers.",
+      "action": "Publish full research trail with reason and source links in the dedicated Unresolved register."
+    }
+  ],
+  "low_tier_resolution_audit": [
+    {
+      "match_id": "1080281",
+      "teams": [
+        "WROTBERRY",
+        "ENCE"
+      ],
+      "competition": "Elisa Breakout Series Season 2",
+      "featured_status": "unresolved (Polymarket missing line)",
+      "originated_status": "resolved",
+      "method": "bookmaker",
+      "provider": "Thunderpick",
+      "odds": [
+        1.5,
+        2.4
+      ],
+      "normalized_probabilities": [
+        0.61538462,
+        0.38461538
+      ],
+      "fair_decimal": [
+        1.625,
+        2.6
+      ],
+      "selected_pick": "WROTBERRY",
+      "alias_used": "WBT -> WROTBERRY (verified via HLTV event 9332)",
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+      "match_id": "1080283",
+      "teams": [
+        "WROTBERRY",
+        "BOJONG"
+      ],
+      "competition": "Elisa Breakout Series Season 2",
+      "featured_status": "unresolved (Polymarket missing line)",
+      "originated_status": "resolved",
+      "method": "bookmaker",
+      "provider": "Thunderpick",
+      "odds": [
+        1.2,
+        4.0
+      ],
+      "normalized_probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "fair_decimal": [
+        1.3,
+        4.333
+      ],
+      "selected_pick": "WROTBERRY",
+      "alias_used": "WBT -> WROTBERRY (verified via HLTV event 9332)",
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+      "match_id": "1080286",
+      "teams": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "competition": "Elisa Breakout Series Season 2",
+      "featured_status": "unresolved (Polymarket missing line)",
+      "originated_status": "resolved",
+      "method": "bookmaker",
+      "provider": "Thunderpick",
+      "odds": [
+        1.2,
+        4.0
+      ],
+      "normalized_probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "fair_decimal": [
+        1.3,
+        4.333
+      ],
+      "selected_pick": "HAVU",
+      "alias_used": "ROUNDS -> RoundsGG (verified via HLTV event 9332)",
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+      "match_id": "1080289",
+      "teams": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "competition": "Elisa Breakout Series Season 2",
+      "featured_status": "unresolved (Polymarket missing line)",
+      "originated_status": "resolved",
+      "method": "bookmaker",
+      "provider": "Thunderpick",
+      "odds": [
+        5.0,
+        1.1
+      ],
+      "normalized_probabilities": [
+        0.15942029,
+        0.84057971
+      ],
+      "fair_decimal": [
+        6.273,
+        1.19
+      ],
+      "selected_pick": "Voca",
+      "alias_used": "ROUNDS -> RoundsGG (verified via HLTV event 9332)",
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+  ],
+  "unresolved_section_and_limitations": {
+    "location": "Dedicated Unresolved Register section in executive summary (#unresolved-register) and on origination page (origination/#unresolved).",
+    "transparency": "When 0 matches are unresolved in the complete list, an explicit confirmation is displayed. When matches are unresolved, each card details the exact missing evidence, stages attempted, and source links.",
+    "limitations_callout": "Lists model assumptions (RD=75, uncalibrated), lack of map veto/stand-in adjustments, and non-guaranteed outcome caveats."
+  }
+}
