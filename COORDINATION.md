@@ -3569,4 +3569,23 @@ rule change.
   `exec-banner` stacking to one column under 700px. No probability, pick or
   alias semantics changed; `collect.py`/`originate.py` untouched.
 
+### 941-5 CI failure analysis + fix — 2026-10-21 (PR #113)
+
+- First pushed commit `f5ef7bf` failed the `Validate dashboard` browser step
+  (run 39602947450): 4 dashboard-spec failures reproduced locally via the
+  npm-packaged Chromium (`npx playwright test`, no CDN download needed).
+- Causes, both in the new `exec_banner`: (1) axe `link-in-text-block`
+  (serious) on the two meta links — fixed by underlining them, matching the
+  repo's existing `.muted a,.prose p a` pattern; (2) the phone fold budget
+  (`#picks-at-a-glance` y < 1500px) exceeded — measured 1710px @320px and
+  1541px @390px. Fixed by compacting the banner (shorter copy, tighter
+  spacing, description hidden on phones, meta line hidden ≤375px where the
+  snapshot-line above already carries freshness): now 1423px @320px and
+  1364px @390px.
+- After fix `6ad67da`: local `dashboard.spec` 37/37, all other browser specs
+  48/48 (85 total), `pick-safety-browser.mjs` 106/106, new unit tests 8/8,
+  freshness determinism 9/9, build + strict row audit + link audit green.
+  Root `index.html` etc. confirmed stale legacy (still TWC Day 3); deploys
+  build gitignored `site/` in CI, so root copies intentionally untouched.
+
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
