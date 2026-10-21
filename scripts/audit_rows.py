@@ -56,6 +56,11 @@ OFFICIAL = [
     # primary publisher of the figure this site quotes.
     ('egamersworld.com', None),
     # bo3.gg: first-party match results and team series history read directly by
+    # scripts/originate.py and scripts/form_model.py, and the primary publisher of
+    # the finished-series results the own-line network model fits on (session
+    # 541cd43a). Model rows link the exact team or match page; it is never used
+    # as a price source.
+    # bo3.gg: first-party match results and team series history read directly by
     # scripts/originate.py and scripts/form_model.py.
     ('bo3.gg', None),
     # Valve's own regional standings repository and model code.

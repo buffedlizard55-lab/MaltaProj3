@@ -1,0 +1,66 @@
+[
+  {
+    "id": "541cd43a-hltv-blocks-runner",
+    "severity": "notice",
+    "match_ids": [
+      "1082762",
+      "1082763",
+      "1082837"
+    ],
+    "title": "HLTV answers Cloudflare 403 to the automated runner, so it can inform identity but cannot price a match",
+    "detail": "The brief asks to try HLTV first for fixtures the featured method cannot price. Every HLTV match page requested from GitHub Actions in the dated sweep returned HTTP 403 (Cloudflare challenge), including the CIS LAN Season 9 match page linked from the unresolved register. HLTV is therefore used for identity verification and for the published weekly world ranking only; no HLTV price or fan vote is ever an input, and a 403 is a source-access limitation, not evidence that no market exists. The same pages are readable in a normal browser, so a human can check them directly.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams"
+    ]
+  },
+  {
+    "id": "541cd43a-esportsbook-surfaces-block-automation",
+    "severity": "notice",
+    "match_ids": [
+      "1082762",
+      "1082763",
+      "1082837"
+    ],
+    "title": "Most esportsbook and odds-aggregator surfaces refuse an automated request from the runner",
+    "detail": "The dated read-only sweep asked seventeen esportsbook and betting-line surfaces for their public CS2 pages. Three answered HTTP 200 (Bovada, Betano, Polymarket) and fourteen refused with 403, 404, 429, 203 or a shell page (GG.bet, Pinnacle, Thunderpick, Unibet, Betsson, Oddspedia, Escorenews, EGamersWorld, 1xBet, Betway, Kalshi rate limit). No returned page listed any player in a blank fixture, so nothing was captured as a price. The register publishes the per-surface status next to each unresolved fixture; an unavailable source is never treated as proof that a market does not exist.",
+    "source_urls": [
+      "https://gg.bet/en/esports/counter-strike",
+      "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://egamersworld.com/counterstrike/matches"
+    ]
+  },
+  {
+    "id": "541cd43a-own-network-model-gates",
+    "severity": "warning",
+    "match_ids": [
+      "1082837"
+    ],
+    "title": "Own network model: an explicitly uncalibrated last-resort line, priced only when the results graph clears every gate",
+    "detail": "To price fixtures where both sides lack an official rating and no book publishes a price, this session added a Bradley–Terry fit over bo3.gg finished series, expressed on Valve's 400-point logistic scale through teams that do hold official points. It is a research model, never odds. It fails closed on: fewer than 300 finished series in the graph, fewer than 10 anchored teams, fewer than 6 finished series for either side in the 120-day window, or a rating-difference one-sigma interval wider than 300 points. In the 2026-10-21T13:32Z run the graph held 4,605 usable series and 269 anchored teams. Zetta vs LOS NINOS still publishes nothing, and the diagnostic recorded why: Zetta (bo3.gg id 23468) is anchored on a Valve row and has 5 finished series in the window (needs 6), while LOS NINOS (id 25500) has no finished series in the window at all, so the fit holds no rating for it. Lowering the six-series threshold would therefore not price this fixture, so the threshold was left unchanged; the missing side, not the gate, is the blocker. The model publishes its ratings, sample sizes, standard error, interval and evidence hash on every row it does price, and the publisher replays the arithmetic before deploying.",
+    "source_urls": [
+      "https://bo3.gg/matches",
+      "https://bo3.gg/teams/23468",
+      "https://bo3.gg/teams/25500",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "541cd43a-team-name-identity-bridge",
+    "severity": "warning",
+    "match_ids": [
+      "1082837",
+      "1082763"
+    ],
+    "title": "When bo3.gg does not list a fixture, team identity comes from an exact unique name lookup, not from a start-time binding",
+    "detail": "The original bo3.gg bridge requires one upcoming match with the same start time and a matching team name. Low-tier fixtures are often not listed, so the own network model accepts a weaker bridge: each side must match exactly one bo3.gg team by normalised name, otherwise the fixture stays unbindable. Rows that use it publish the bridge in their evidence. On 2026-10-21 the bridge bound Zetta (23468), LOS NINOS (25500), UPGRADE (25212) and BlinkDagger (246) by exact name, but bound neither side of the two CIS LAN fixtures: bo3.gg does hold exactly one team named CYBERSHOKE (id 7429) yet Hotspawn publishes the roster as 'ex-CYBERSHOKE', and an 'ex-' marker is not part of the bo3.gg name, so an exact match cannot be claimed from the name alone; 'flacons' returns count 0 in both spellings. Identity is not the only gap: bo3.gg publishes no fixture between 7429 and 246 (BlinkDagger's single recorded match is a cancelled 2026-02-12 game), and no 2026-10-21 fixture for UPGRADE, so those two sides have neither a results edge nor a bookmaker mirror on the reachable sources.",
+    "source_urls": [
+      "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=CYBERSHOKE",
+      "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=flacons",
+      "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=3&sort=-start_date&filter[matches.team_ids][overlap]=246&with=teams,tournament",
+      "https://bo3.gg/teams/25500"
+    ]
+  }
+]

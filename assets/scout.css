@@ -240,6 +240,25 @@
   .mobile-nav>a{flex:0 0 auto;min-width:76px;min-height:46px;padding:4px 10px;font-size:11px;line-height:1.25;gap:4px}
   .mobile-nav .icon{width:20px;height:20px}
 }
-@media (max-width:375px){
+/* Session 541cd43a — phone status strip: the two questions a phone visitor asks
+   ("where are the picks?" / "what is missing?") answered in one tap from any page. */
+.mobile-status{display:none}
+@media(max-width:700px){
+  .mobile-status{display:flex;gap:9px;margin:0 0 14px}
+  .mobile-status>a{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:10px;min-height:52px;
+    padding:10px 12px;border-radius:11px;border:1px solid var(--border);background:var(--white);
+    text-decoration:none!important;color:var(--ink);box-shadow:var(--shadow)}
+  .mobile-status strong{font-size:21px;line-height:1;font-weight:700;flex:0 0 auto}
+  .mobile-status span{font-size:10px;line-height:1.4;color:#4a5e6c;letter-spacing:.1px;min-width:0}
+  .mobile-status .ms-dim{color:#5b6675}
+  .mobile-status-picks{border-color:#f0cfb7!important;background:#fff6ef!important}
+  .mobile-status-picks strong{color:var(--orange-dark)}
+  .mobile-status-blank strong{color:var(--amber)}
+}
+@media(max-width:375px){
   .mobile-nav>a{min-width:70px;font-size:10.5px;padding:4px 8px}
+  .mobile-status{gap:7px}
+  .mobile-status>a{padding:9px 10px;gap:8px;min-height:50px}
+  .mobile-status strong{font-size:19px}
+  .mobile-status span{font-size:9px}
 }
