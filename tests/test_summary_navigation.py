@@ -58,8 +58,47 @@ class SummaryNavigation(unittest.TestCase):
         counts['with_pick'] = counts['resolved'] - 1
         text = self.render().select_one('[aria-label="Complete pick coverage"]').get_text(' ', strip=True)
         self.assertIn(f'{counts["resolved"]} with probabilities', text)
-        self.assertIn('1 equal estimate(s) have no directional pick', text)
+        self.assertIn('1 resolved estimate has no directional pick', text)
         self.assertIn(f'{counts["unresolved"]} unresolved', text)
+
+    def test_unresolved_and_no_direction_rows_are_not_called_picks_for_every_match(self):
+        self.data['coverage_complete'] = True
+        counts = self.data['complete_picks']['counts']
+        counts.update(active=4, resolved=3, unresolved=1, with_pick=2)
+        soup = self.render()
+        status = soup.select_one('[aria-label="Complete pick coverage"]')
+        self.assertIn('Pick coverage & unresolved matches', status.get_text(' ', strip=True))
+        self.assertNotIn('Picks for every match', status.get_text(' ', strip=True))
+        self.assertIn('2 directional picks from 4 active fixtures', soup.select_one('.start-here').get_text(' ', strip=True))
+        self.assertIn('1 resolved estimate has no directional pick', soup.select_one('.start-here').get_text(' ', strip=True))
+        self.assertIn('1 unresolved fixture', soup.select_one('.start-here').get_text(' ', strip=True))
+        self.assertIn('Both team win probabilities where sourced', soup.select_one('.start-here').get_text(' ', strip=True))
+
+    def test_all_resolved_but_even_estimate_is_probability_coverage_not_full_directional_coverage(self):
+        self.data['coverage_complete'] = True
+        counts = self.data['complete_picks']['counts']
+        counts.update(active=4, resolved=4, unresolved=0, with_pick=3)
+        status = self.render().select_one('[aria-label="Complete pick coverage"]')
+        self.assertIn('Win probabilities for every active match', status.get_text(' ', strip=True))
+        self.assertNotIn('Directional picks for every active match', status.get_text(' ', strip=True))
+
+    def test_full_directional_coverage_and_retained_snapshot_have_precise_headings(self):
+        counts = self.data['complete_picks']['counts']
+        counts.update(active=4, resolved=4, unresolved=0, with_pick=4)
+        self.data['coverage_complete'] = True
+        status = self.render().select_one('[aria-label="Complete pick coverage"]')
+        self.assertIn('Directional picks for every active match', status.get_text(' ', strip=True))
+
+        self.data['coverage_complete'] = False
+        status = self.render().select_one('[aria-label="Complete pick coverage"]')
+        self.assertIn('Picks in the retained snapshot', status.get_text(' ', strip=True))
+        self.assertNotIn('Directional picks for every active match', status.get_text(' ', strip=True))
+
+        self.data['coverage_complete'] = True
+        counts.update(active=4, resolved=3, unresolved=0, with_pick=3)
+        status = self.render().select_one('[aria-label="Complete pick coverage"]')
+        self.assertIn('Pick coverage needs reconciliation', status.get_text(' ', strip=True))
+        self.assertNotIn('for every active match', status.get_text(' ', strip=True))
 
     def test_summary_indexes_no_pick_fixtures_with_reason_and_link(self):
         complete = self.data['complete_picks']

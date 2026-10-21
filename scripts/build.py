@@ -350,7 +350,7 @@ def start_here(data, prefix):
     with_pick = cc.get('with_pick')
     items = [
         (prefix + 'origination/#picks', 'All match picks', 'target',
-         f'{active} active Hotspawn CS2 fixtures, both probabilities each.'),
+         'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Final day · Day 5', 'clock',
@@ -367,9 +367,20 @@ def start_here(data, prefix):
                 f'<span>{e(detail)}</span></a></li>')
     out += '</ul>'
     if with_pick is not None:
+        resolved = cc.get('resolved', active - unresolved)
+        without_direction = max(0, resolved - with_pick)
+        pick_word = 'pick' if with_pick == 1 else 'picks'
+        counts = [f'{with_pick} directional {pick_word} from {active} active fixtures']
+        if without_direction:
+            estimate_word = 'estimate' if without_direction == 1 else 'estimates'
+            verb = 'has' if without_direction == 1 else 'have'
+            counts.append(f'{without_direction} resolved {estimate_word} {verb} no directional pick')
+        if unresolved:
+            fixture_word = 'fixture' if unresolved == 1 else 'fixtures'
+            counts.append(f'{unresolved} unresolved {fixture_word}')
         out += (f'<p class="tiny muted" style="padding:10px 2px 0">'
-                f'<strong>{with_pick}</strong> of {active} active fixtures currently carry a directional pick; '
-                f'the remaining {unresolved} are listed, never filled with a guess.</p>')
+                + '; '.join(e(part) for part in counts) +
+                '. Missing estimates stay blank; open the complete list for every match and its research trail.</p>')
     return out + '</nav>'
 
 
@@ -576,9 +587,25 @@ def summary(data, prefix, now=None):
     out += glance(data, prefix, now=now)
     out += unresolved_register(data, prefix)
     if complete:
-        coverage_label = 'Picks for every match' if data['coverage_complete'] else 'Picks in the retained snapshot'
+        if not data['coverage_complete']:
+            coverage_label = 'Picks in the retained snapshot'
+        elif cc['active'] == 0:
+            coverage_label = 'No active matches in this snapshot'
+        elif cc['unresolved'] == 0 and cc['resolved'] == cc['active'] and cc['with_pick'] == cc['active']:
+            coverage_label = 'Directional picks for every active match'
+        elif cc['unresolved'] == 0 and cc['resolved'] == cc['active']:
+            coverage_label = 'Win probabilities for every active match'
+        elif cc['unresolved'] > 0:
+            coverage_label = 'Pick coverage &amp; unresolved matches'
+        else:
+            coverage_label = 'Pick coverage needs reconciliation'
         no_direction = cc['resolved'] - cc['with_pick']
-        direction_note = f' {no_direction} equal estimate(s) have no directional pick.' if no_direction else ''
+        if no_direction == 1:
+            direction_note = ' 1 resolved estimate has no directional pick.'
+        elif no_direction > 1:
+            direction_note = f' {no_direction} resolved estimates have no directional pick.'
+        else:
+            direction_note = ''
         blanks = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
         blank_line = ''
         if blanks:
