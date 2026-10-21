@@ -1,9 +1,9 @@
 # Live probe (arena-75de2710)
 
-Generated 2026-10-21T13:02:40Z. Read-only; every response saved under `data/research/75de2710/evidence/`.
+Generated 2026-10-21T13:47:13Z. Read-only; every response saved under `data/research/75de2710/evidence/`.
 
-- Deployed counts: `{"active": 29, "resolved": 26, "unresolved": 3, "with_pick": 25, "consensus": 2, "market": 13, "bookmaker": 4, "reference": 0, "model": 7, "guidance": 0, "alias_joined": 2}`
-- Deployed generated_at: `2026-10-21T08:12:39Z`
+- Deployed counts: `{"active": 19, "resolved": 16, "unresolved": 3, "with_pick": 15, "consensus": 1, "market": 9, "bookmaker": 2, "reference": 0, "model": 4, "guidance": 0, "alias_joined": 1}`
+- Deployed generated_at: `2026-10-21T13:37:46Z`
 - Hotspawn API records: 81
 - Blank fixtures: 3
 - Stale-warning hidden on live page: True
@@ -18,7 +18,7 @@ Generated 2026-10-21T13:02:40Z. Read-only; every response saved under `data/rese
 
 - pinnacle: HTTP None (None bytes)
 - thunderpick: HTTP 200 (None bytes)
-- bovada: HTTP 200 (62215 bytes)
+- bovada: HTTP 200 (57905 bytes)
 - kalshi: HTTP 200 (None bytes)
 - polymarket: HTTP 200 (None bytes)
 - 1xbet: HTTP 203 (2599 bytes)
@@ -29,10 +29,10 @@ Generated 2026-10-21T13:02:40Z. Read-only; every response saved under `data/rese
 - cloudbet-api: HTTP 404 (212 bytes)
 - sportsbetio-api: HTTP None (None bytes)
 - betonline-api: HTTP None (None bytes)
-- oddspedia-cs2: HTTP 410 (341186 bytes)
+- oddspedia-cs2: HTTP 410 (341190 bytes)
 - oddspedia-api: HTTP 400 (None bytes)
 - egamersworld: HTTP 403 (5672 bytes)
-- bo3gg-api-matches: HTTP 200 (119411 bytes)
+- bo3gg-api-matches: HTTP 200 (117055 bytes)
 - stake-api: HTTP 403 (5680 bytes)
 - betway-api: HTTP 404 (9 bytes)
 - unibet-api: HTTP 503 (190 bytes)
@@ -43,8 +43,8 @@ Generated 2026-10-21T13:02:40Z. Read-only; every response saved under `data/rese
 - 1082762: ex-CYBERSHOKE — HLTV world rank `-`, VRS `-`, no roster: True, no rank: True, results in Oct 2026: 0
 - 1082762: BlinkDagger — HLTV world rank `-`, VRS `-`, no roster: True, no rank: True, results in Oct 2026: 0
 - 1082763: flacons — HLTV world rank `-`, VRS `-`, no roster: True, no rank: True, results in Oct 2026: 0
-- 1082763: UPGRADE — HLTV world rank `#74`, VRS `#86`, no roster: False, no rank: False, results in Oct 2026: 7
-- 1082837: Zetta — HLTV world rank `#241`, VRS `#366`, no roster: False, no rank: False, results in Oct 2026: 3
+- 1082763: UPGRADE — HLTV world rank `#74`, VRS `#85`, no roster: False, no rank: False, results in Oct 2026: 7
+- 1082837: Zetta — HLTV world rank `#241`, VRS `#365`, no roster: False, no rank: False, results in Oct 2026: 3
 - 1082837: LOS NINOS — HLTV world rank `-`, VRS `-`, no roster: True, no rank: True, results in Oct 2026: 3
 
 ## Fixture-level bookmaker rows
