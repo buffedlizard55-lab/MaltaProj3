@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "session": "arena-802f6a59",
+  "title": "What the named sources actually publish for the three fixtures that still have no pick",
+  "observed_at": "2026-10-21T12:41:00Z",
+  "scope": "Read-only source research. No probability, no pick and no alias is derived here.",
+  "fixtures": [
+    {
+      "fixture_id": "1082762",
+      "teams": ["ex-CYBERSHOKE", "BlinkDagger"],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T17:00:00Z",
+      "findings": [
+        {
+          "source": "HLTV match page",
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "observed_at": "2026-10-21T12:41:00Z",
+          "published": "ex-CYBERSHOKE shown as 'HLTV: Unranked' and 'VRS: #78'; BlinkDagger shown as 'HLTV: Unranked' and 'VRS: Unranked'. HLTV analytics adds 'Core lineup has only played 0 matches together' and 'Core lineup has not played any maps the past 30 days' for BlinkDagger.",
+          "usable_as_a_line": false,
+          "why": "No decimal match-winner price is published. The page's Betting block rendered a Stake promocode card only. A rank for one side is not a two-sided probability and the other side has no rating at all."
+        },
+        {
+          "source": "HLTV analytics page",
+          "url": "https://www.hltv.org/betting/analytics/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "observed_at": "2026-10-21T12:44:00Z",
+          "published": "Pros/cons text and 'Handicap data, past 3 months' history (for example a 1.23 'Oddset' entry against the 2-0 win rate).",
+          "usable_as_a_line": false,
+          "why": "Handicap history is not a match-winner market and is not a current price for this fixture."
+        },
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/ex-cybershoke-vs-blinkdagger-5sOoK5oHU4",
+          "observed_at": "2026-10-21T12:39:00Z",
+          "published": "Identical 1.80 / 1.80 prices on both sides and no bookmaker-average sentence (the same placeholder pattern the reference rung already rejects).",
+          "usable_as_a_line": false,
+          "why": "Identical prices on both outcomes are a documented site placeholder; the reviewed reference rung rejects them fail-closed."
+        },
+        {
+          "source": "Bovada CS2 board",
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+          "observed_at": "2026-10-21T12:46:00Z",
+          "published": "A 'Counter-Strike 2 - CIS LAN Championship' market section was live, but the fixtures it listed were Team Ace vs Evo Elite (plus DraculaN, Private Club, CCT Europe Series 12, United 21, Nodwin Clutch Series and Stake Ranked Qualifiers). Neither CIS LAN Group C fixture in this report appeared.",
+          "usable_as_a_line": false,
+          "why": "No listing for this fixture, therefore no price to join."
+        },
+        {
+          "source": "Polymarket CS2 directory (search-index excerpt)",
+          "url": "https://polymarket.com/esports/cs2",
+          "observed_at": "2026-10-21T12:45:00Z",
+          "published": "A 'CYBERSHOKE Esports vs BlinkDagger (BO3)' market appears in the index with about $10 of volume and a 1.16x / 5.00x quote.",
+          "usable_as_a_line": false,
+          "why": "Retrieved as a search-index excerpt, not as a directly observed order book with two-sided bids and asks; the fixture is exactly the thin, low-volume case the published ladder rejects. Not used."
+        }
+      ],
+      "conclusion": "Unresolved stands. One side is unranked by both HLTV and Valve, has no recorded maps in 30 days, and no reachable two-sided match-winner price was observed. Any percentage here would be invented."
+    },
+    {
+      "fixture_id": "1082763",
+      "teams": ["UPGRADE", "flacons"],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T17:00:00Z",
+      "findings": [
+        {
+          "source": "EGamersWorld match page (direct fetch)",
+          "url": "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/upgrade-vs-flacons-7Y3AgyjdHd",
+          "observed_at": "2026-10-21T12:52:00Z",
+          "published": "Identical 1.80 / 1.80 prices on both sides. The flacons lineup block lists five 'noName' placeholders, so no roster is published for that side.",
+          "usable_as_a_line": false,
+          "why": "Identical prices are the rejected placeholder pattern, and an unpublished roster cannot support an identity join."
+        },
+        {
+          "source": "Valve official regional standings (Europe), 2026-10-05",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_europe_2026_10_05.md",
+          "observed_at": "2026-10-21T12:38:00Z",
+          "published": "UPGRADE appears with 1185 points and a complete five-player roster. 'flacons' does not appear anywhere in the global, Europe, Americas or Asia tables for that publication.",
+          "usable_as_a_line": false,
+          "why": "A rating for one side only cannot produce a paired probability."
+        },
+        {
+          "source": "HLTV match listing",
+          "url": "https://www.hltv.org/matches",
+          "observed_at": "2026-10-21T12:42:00Z",
+          "published": "Fixture listed as WINLINE MPKBK CIS LAN Season 9, bo3, 17:00.",
+          "usable_as_a_line": false,
+          "why": "Identity and format only; HLTV publishes no decimal price for this fixture."
+        }
+      ],
+      "conclusion": "Unresolved stands. The opponent is absent from every official rating table and no two-sided price was observed."
+    },
+    {
+      "fixture_id": "1082837",
+      "teams": ["Zetta", "LOS NINOS"],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T00:00:00Z",
+      "findings": [
+        {
+          "source": "Valve official regional standings (Americas), 2026-10-05",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md",
+          "observed_at": "2026-10-21T12:38:00Z",
+          "published": "Zetta appears with 473 points and a complete five-player roster. LOS NINOS does not appear in the Americas, Europe, Asia or global tables for that publication.",
+          "usable_as_a_line": false,
+          "why": "One rated side and one unrated side cannot produce a paired probability from official ratings."
+        },
+        {
+          "source": "Bovada CS2 board",
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+          "observed_at": "2026-10-21T12:46:00Z",
+          "published": "No CCT South America Series 7 market for this fixture was present on the board at observation time.",
+          "usable_as_a_line": false,
+          "why": "No listing, therefore no price."
+        }
+      ],
+      "conclusion": "Unresolved stands in this snapshot. This fixture starts at 00:00Z on 22 October, so a later four-hourly refresh may still find a listed price; nothing is filled in ahead of that."
+    }
+  ],
+  "method_checked_first": [
+    "HLTV (match page, analytics page, match listing) - identity and ranks only, no match-winner prices",
+    "Esportsbooks (Bovada board, EGamersWorld published prices) - no compliant two-sided price",
+    "Aggregated reference (EGamersWorld bookmaker average) - placeholder prices rejected by the existing rule",
+    "Official ratings (Valve global + regional tables) - one side unranked in every case"
+  ],
+  "conclusion": "All three fixtures remain blank. The project rule is that a blank is published with its blocker rather than filled with a guess; that rule is upheld here and the blockers are recorded above with links."
+}
