@@ -1,0 +1,1349 @@
+{
+ "schema_version": 1,
+ "session": "arena-75de2710",
+ "generated_at": "2026-10-21T12:54:27Z",
+ "policy": "Read-only GET/POST probes. Every response is saved and hashed. No probability, pick or alias is written here. A blocked endpoint is not evidence that no market exists.",
+ "live_release": {
+  "index_html": {
+   "bytes": 155328,
+   "sha256": "6a30b3e4217ef99365bff903b5cd428e8cac8e1b6e6d1f6dd6de97c8cd686a9b"
+  },
+  "stale_warning_tag": "id=\"stale-warning\" class=\"stale-warning\" role=\"status\" hidden>",
+  "stale_warning_hidden": true,
+  "mobile_nav": true,
+  "viewport": true,
+  "coverage_html": {
+   "bytes": 70960,
+   "sha256": "1b73e23d18399ec8c4bbb23d9ba073cada0731cb286473bb36263bc07cb7ca2a"
+  },
+  "origination_html": {
+   "bytes": 192988,
+   "sha256": "a8aefacbd4f9e79c8484fb0d0fcb833a1bab1fe2f74b48942f6ad0369b4c0902"
+  },
+  "latest.json": {
+   "bytes": 265025,
+   "sha256": "d44db6a36ea2515a12578cd429b905a7c45aa32f1e3dfb3932ef9f24261ac6a0",
+   "parsed": true
+  },
+  "origination.json": {
+   "bytes": 196743,
+   "sha256": "f082662898d6e0e42eae91bf57b25f8fbeb546683670fd9a7c8174680f4604c4",
+   "parsed": true
+  },
+  "counts": {
+   "active": 29,
+   "resolved": 26,
+   "unresolved": 3,
+   "with_pick": 25,
+   "consensus": 2,
+   "market": 13,
+   "bookmaker": 4,
+   "reference": 0,
+   "model": 7,
+   "guidance": 0,
+   "alias_joined": 2
+  },
+  "generated_at": "2026-10-21T08:12:39Z",
+  "live_collection": true,
+  "row-source-audit.json": {
+   "bytes": 2685,
+   "sha256": "4d7cd99b848df53a5a3da34cc52f318ac3fde4d87d84736a8d039d36990d9488",
+   "parsed": true
+  },
+  "sources.json": {
+   "bytes": 32677,
+   "sha256": "0610b3dbc51562edb6e66bd2122152515036ed1ba7d926667a20ea6889920471",
+   "parsed": true
+  }
+ },
+ "inventory": {
+  "api_status": "ok",
+  "api_http_status": 200,
+  "api_records": 81,
+  "deployed_active_ids": [
+   "1079186",
+   "1079187",
+   "1079647",
+   "1079648",
+   "1081140",
+   "1081141",
+   "1081577",
+   "1081578",
+   "1081579",
+   "1081583",
+   "1081584",
+   "1081600",
+   "1081868",
+   "1082176",
+   "1082177",
+   "1082178",
+   "1082684",
+   "1082688",
+   "1082689",
+   "1082762",
+   "1082763",
+   "1082792",
+   "1082793",
+   "1082796",
+   "1082831",
+   "1082834",
+   "1082835",
+   "1082836",
+   "1082837"
+  ],
+  "missing_from_deployed": [
+   "1051301",
+   "1051339",
+   "1051340",
+   "1051341",
+   "1051342",
+   "1051343",
+   "1051344",
+   "1051789",
+   "1051790",
+   "1051800",
+   "1051801",
+   "1051803",
+   "1051804",
+   "1052180",
+   "1052181",
+   "1052183",
+   "1052184",
+   "1052185",
+   "1052186",
+   "1052187",
+   "1052357",
+   "1052599",
+   "1052686",
+   "1052695",
+   "1052696",
+   "1052697",
+   "1052698",
+   "1052699",
+   "1052700",
+   "1052701",
+   "1052702",
+   "1052746",
+   "1052747",
+   "1052748",
+   "1052749",
+   "1052750",
+   "1052751",
+   "1053068",
+   "1053069",
+   "1053070",
+   "1053071",
+   "1053072",
+   "1053073",
+   "1053146",
+   "1053313",
+   "1053431",
+   "1053432",
+   "1053433",
+   "1053434",
+   "1053435",
+   "1053436",
+   "1053439",
+   "1053441",
+   "1053442",
+   "1053469",
+   "1053470",
+   "1053471",
+   "1053679",
+   "1055478",
+   "1079621",
+   "1081105",
+   "1081865"
+  ],
+  "stale_in_deployed": [
+   "1079186",
+   "1079647",
+   "1081140",
+   "1081577",
+   "1081578",
+   "1081579",
+   "1081868",
+   "1082176",
+   "1082796",
+   "1082834"
+  ]
+ },
+ "blank_fixtures": [
+  {
+   "id": "1082762",
+   "teams": [
+    "ex-CYBERSHOKE",
+    "BlinkDagger"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-21T15:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9"
+  },
+  {
+   "id": "1082763",
+   "teams": [
+    "UPGRADE",
+    "flacons"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-21T15:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9"
+  },
+  {
+   "id": "1082837",
+   "teams": [
+    "Zetta",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-21T22:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7"
+  }
+ ],
+ "hltv": {
+  "1082762": {
+   "match": {
+    "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+    "bytes": 310851,
+    "best_of": "3",
+    "finished": false,
+    "rank_mentions": [],
+    "fan_vote_percentages": [
+     "74.6",
+     "25.4",
+     "72.5",
+     "69.2"
+    ],
+    "odds_terms": {
+     "betting odds": 0,
+     "decimal odds": 0,
+     "bookmaker": 0,
+     "coefficient": 0
+    },
+    "team_links": [
+     "https://www.hltv.org/team/14106/ex-cybershoke",
+     "https://www.hltv.org/team/9998/blinkdagger"
+    ]
+   },
+   "team_pages": [
+    {
+     "url": "https://www.hltv.org/team/14106/ex-cybershoke",
+     "bytes": 218451,
+     "name": null,
+     "world_rank": null,
+     "no_roster": true,
+     "no_rank": true,
+     "recent_results_2026": 0
+    },
+    {
+     "url": "https://www.hltv.org/team/9998/blinkdagger",
+     "bytes": 227545,
+     "name": null,
+     "world_rank": null,
+     "no_roster": true,
+     "no_rank": true,
+     "recent_results_2026": 0
+    }
+   ],
+   "ranking_details": [
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14106",
+     "bytes": 5734,
+     "points": null,
+     "has_rank_block": false
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/9998",
+     "bytes": 5731,
+     "points": null,
+     "has_rank_block": false
+    }
+   ],
+   "roster": null
+  },
+  "1082763": {
+   "match": {
+    "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+    "bytes": 359246,
+    "best_of": "3",
+    "finished": false,
+    "rank_mentions": [],
+    "fan_vote_percentages": [
+     "75.6",
+     "24.4",
+     "73.5",
+     "62.9"
+    ],
+    "odds_terms": {
+     "betting odds": 0,
+     "decimal odds": 0,
+     "bookmaker": 0,
+     "coefficient": 0
+    },
+    "team_links": [
+     "https://www.hltv.org/team/13932/flacons",
+     "https://www.hltv.org/team/13989/upgrade"
+    ]
+   },
+   "team_pages": [
+    {
+     "url": "https://www.hltv.org/team/13932/flacons",
+     "bytes": 225942,
+     "name": null,
+     "world_rank": null,
+     "no_roster": true,
+     "no_rank": true,
+     "recent_results_2026": 0
+    },
+    {
+     "url": "https://www.hltv.org/team/13989/upgrade",
+     "bytes": 680828,
+     "name": null,
+     "world_rank": null,
+     "no_roster": false,
+     "no_rank": false,
+     "recent_results_2026": 7
+    }
+   ],
+   "ranking_details": [
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13932",
+     "bytes": 5734,
+     "points": null,
+     "has_rank_block": false
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13989",
+     "bytes": 5734,
+     "points": null,
+     "has_rank_block": false
+    }
+   ],
+   "roster": null
+  },
+  "1082837": {
+   "match": {
+    "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+    "bytes": 319701,
+    "best_of": "3",
+    "finished": false,
+    "rank_mentions": [],
+    "fan_vote_percentages": [
+     "80.0",
+     "20.0",
+     "66.0",
+     "73.3"
+    ],
+    "odds_terms": {
+     "betting odds": 0,
+     "decimal odds": 0,
+     "bookmaker": 0,
+     "coefficient": 0
+    },
+    "team_links": [
+     "https://www.hltv.org/team/13833/zetta",
+     "https://www.hltv.org/team/14092/los-ninos"
+    ]
+   },
+   "team_pages": [
+    {
+     "url": "https://www.hltv.org/team/13833/zetta",
+     "bytes": 1086795,
+     "name": null,
+     "world_rank": null,
+     "no_roster": false,
+     "no_rank": false,
+     "recent_results_2026": 3
+    },
+    {
+     "url": "https://www.hltv.org/team/14092/los-ninos",
+     "bytes": 223440,
+     "name": null,
+     "world_rank": null,
+     "no_roster": true,
+     "no_rank": true,
+     "recent_results_2026": 3
+    }
+   ],
+   "ranking_details": [
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13833",
+     "bytes": 5734,
+     "points": null,
+     "has_rank_block": false
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14092",
+     "bytes": 5734,
+     "points": null,
+     "has_rank_block": false
+    }
+   ],
+   "roster": null
+  }
+ },
+ "ranking_pages": {
+  "world": {
+   "bytes": 1130188,
+   "teams": 253
+  },
+  "regions": {
+   "Europe": {
+    "bytes": 785473,
+    "teams": 158,
+    "has_blank_team": true
+   },
+   "South America": {
+    "bytes": 309937,
+    "teams": 31,
+    "has_blank_team": true
+   },
+   "North America": {
+    "bytes": 286507,
+    "teams": 25,
+    "has_blank_team": false
+   },
+   "Asia": {
+    "bytes": 282157,
+    "teams": 23,
+    "has_blank_team": false
+   },
+   "Oceania": {
+    "bytes": 230035,
+    "teams": 11,
+    "has_blank_team": false
+   }
+  }
+ },
+ "providers": {
+  "pinnacle": {
+   "matchups_status": 200,
+   "matchup_rows": 283,
+   "cs2_leagues": [
+    "CS2 - CCT Europe Challengers",
+    "CS2 - CCT European Series 12",
+    "CS2 - Circuit X Curitiba",
+    "CS2 - DACH CS Masters",
+    "CS2 - DraculaN",
+    "CS2 - ESL Challenger League Europe",
+    "CS2 - Private Club",
+    "CS2 - STK Ranked Qualifier",
+    "Dota 2 - EPL Masters",
+    "Dota 2 - P Universe",
+    "League of Legends - EMEA Masters",
+    "League of Legends - World Championship",
+    "Mobile Legends - MPL Philippines",
+    "Rainbow Six - Asia Pacific League - Asia",
+    "Rainbow Six - Challenger League",
+    "Valorant - Champions Tour: Game Changers Championship"
+   ],
+   "blank_fixture_hits": {}
+  },
+  "thunderpick": {
+   "status": 200,
+   "rows": 3,
+   "blank_fixture_hits": {}
+  },
+  "bovada": {
+   "status": 200,
+   "bytes": 69753,
+   "mentions": {
+    "1082762": true,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "kalshi": {
+   "status": 200,
+   "events": 55,
+   "tickers": [
+    "KXCS2GAME-26OCT191400BLUENT",
+    "KXCS2GAME-26OCT210500NEXCW",
+    "KXCS2GAME-26OCT210500SNGBRUTE",
+    "KXCS2GAME-26OCT210630CTR9INEA",
+    "KXCS2GAME-26OCT210700EFBMB",
+    "KXCS2GAME-26OCT210700FIREJUS",
+    "KXCS2GAME-26OCT210700HAVUINN",
+    "KXCS2GAME-26OCT210700HEROSIN",
+    "KXCS2GAME-26OCT210700JJHFAZE",
+    "KXCS2GAME-26OCT210700NCTEP",
+    "KXCS2GAME-26OCT210700NXSBCG",
+    "KXCS2GAME-26OCT210700PGFAL",
+    "KXCS2GAME-26OCT210700PHACBBP",
+    "KXCS2GAME-26OCT210740EVOEACES",
+    "KXCS2GAME-26OCT210800AIMAPOGEE",
+    "KXCS2GAME-26OCT210800FNCPRIV",
+    "KXCS2GAME-26OCT210800MZPG1",
+    "KXCS2GAME-26OCT2109004MMEL",
+    "KXCS2GAME-26OCT210900DMG1",
+    "KXCS2GAME-26OCT210900KAMVEX",
+    "KXCS2GAME-26OCT210900KSMLPH",
+    "KXCS2GAME-26OCT210900LKSKR",
+    "KXCS2GAME-26OCT210900MAYNOI",
+    "KXCS2GAME-26OCT210900SPIWBTA",
+    "KXCS2GAME-26OCT210900SSINSMOR",
+    "KXCS2GAME-26OCT211000GLSFLU",
+    "KXCS2GAME-26OCT211000ILLG2A",
+    "KXCS2GAME-26OCT211000LARGAPAIN",
+    "KXCS2GAME-26OCT211000TSALAV",
+    "KXCS2GAME-26OCT211000TTGXI",
+    "KXCS2GAME-26OCT211000UNKBTF",
+    "KXCS2GAME-26OCT211100BLICS",
+    "KXCS2GAME-26OCT211100PRVBIG",
+    "KXCS2GAME-26OCT211100TFUPG",
+    "KXCS2GAME-26OCT211200MARJDT",
+    "KXCS2GAME-26OCT211200MENR4G",
+    "KXCS2GAME-26OCT211300ACESTLR",
+    "KXCS2GAME-26OCT211300AGRDNK",
+    "KXCS2GAME-26OCT211300SSINSWAL",
+    "KXCS2GAME-26OCT211300TCFDON"
+   ]
+  },
+  "polymarket": {
+   "status": 200,
+   "events": 100,
+   "mentions": {
+    "1082762": 0,
+    "1082763": 0,
+    "1082837": 0
+   }
+  },
+  "1xbet": {
+   "linefeed_status": 203,
+   "linefeed_bytes": 2600,
+   "linefeed_events": null,
+   "page_status": 203,
+   "page_bytes": 2600,
+   "page_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "ggbet-page": {
+   "status": 403,
+   "bytes": 126,
+   "error": "HTTP 403",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "ggbet-api": {
+   "status": 403,
+   "bytes": 126,
+   "error": "HTTP 403",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "rivalry-api": {
+   "status": 530,
+   "bytes": 777,
+   "error": "HTTP 530",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "rivalry-matches": {
+   "status": 530,
+   "bytes": 777,
+   "error": "HTTP 530",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "cloudbet-api": {
+   "status": 404,
+   "bytes": 212,
+   "error": "HTTP 404",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "sportsbetio-api": {
+   "status": null,
+   "bytes": null,
+   "error": "ConnectionError: HTTPSConnectionPool(host='api.sportsbet.io', port=443): Max retries exceeded with url: /v1/sports/esports (Caused by NameResolutionError(\"HTTPSConnection(host='api.sportsbet.io', port=443): Failed to resolve 'api.sportsbet.io' ([Errno -2] Name or service not known)\"))",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "betonline-api": {
+   "status": null,
+   "bytes": null,
+   "error": "ReadTimeout: HTTPSConnectionPool(host='api.betonline.ag', port=443): Read timed out. (read timeout=45)",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "oddspedia-cs2": {
+   "status": 410,
+   "bytes": 341186,
+   "error": "HTTP 410",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "oddspedia-api": {
+   "status": 400,
+   "bytes": 0,
+   "error": "HTTP 400",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "egamersworld": {
+   "status": 403,
+   "bytes": 5672,
+   "error": "HTTP 403",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "bo3gg-api-matches": {
+   "status": 200,
+   "bytes": 124468,
+   "error": null,
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "stake-api": {
+   "status": 403,
+   "bytes": 5680,
+   "error": "HTTP 403",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "betway-api": {
+   "status": 404,
+   "bytes": 9,
+   "error": "HTTP 404",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  },
+  "unibet-api": {
+   "status": 503,
+   "bytes": 190,
+   "error": "HTTP 503",
+   "blank_fixture_mentions": {
+    "1082762": false,
+    "1082763": false,
+    "1082837": false
+   }
+  }
+ },
+ "request_manifest": [
+  {
+   "id": "live-index-html",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:27Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 155328,
+   "sha256": "6a30b3e4217ef99365bff903b5cd428e8cac8e1b6e6d1f6dd6de97c8cd686a9b",
+   "evidence": "data/research/75de2710/evidence/live-index-html.gz"
+  },
+  {
+   "id": "live-coverage-html",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:27Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 70960,
+   "sha256": "1b73e23d18399ec8c4bbb23d9ba073cada0731cb286473bb36263bc07cb7ca2a",
+   "evidence": "data/research/75de2710/evidence/live-coverage-html.gz"
+  },
+  {
+   "id": "live-origination-html",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:27Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 192988,
+   "sha256": "a8aefacbd4f9e79c8484fb0d0fcb833a1bab1fe2f74b48942f6ad0369b4c0902",
+   "evidence": "data/research/75de2710/evidence/live-origination-html.gz"
+  },
+  {
+   "id": "live-latest.json",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:27Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 265025,
+   "sha256": "d44db6a36ea2515a12578cd429b905a7c45aa32f1e3dfb3932ef9f24261ac6a0",
+   "evidence": "data/research/75de2710/evidence/live-latest-json.gz"
+  },
+  {
+   "id": "live-origination.json",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:27Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 196743,
+   "sha256": "f082662898d6e0e42eae91bf57b25f8fbeb546683670fd9a7c8174680f4604c4",
+   "evidence": "data/research/75de2710/evidence/live-origination-json.gz"
+  },
+  {
+   "id": "live-row-source-audit.json",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:28Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 2685,
+   "sha256": "4d7cd99b848df53a5a3da34cc52f318ac3fde4d87d84736a8d039d36990d9488",
+   "evidence": "data/research/75de2710/evidence/live-row-source-audit-json.gz"
+  },
+  {
+   "id": "live-sources.json",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:28Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 32677,
+   "sha256": "0610b3dbc51562edb6e66bd2122152515036ed1ba7d926667a20ea6889920471",
+   "evidence": "data/research/75de2710/evidence/live-sources-json.gz"
+  },
+  {
+   "id": "live-origination-copy",
+   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:28Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 196743,
+   "sha256": "f082662898d6e0e42eae91bf57b25f8fbeb546683670fd9a7c8174680f4604c4"
+  },
+  {
+   "id": "hotspawn-fixtures",
+   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:28Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 64643,
+   "sha256": "642f284f973f2d33a2d308a8d47c2995895ac7a3e271673529ee5b55623928f9",
+   "evidence": "data/research/75de2710/evidence/hotspawn-fixtures.gz"
+  },
+  {
+   "id": "hltv-match-1082762",
+   "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:28Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 310906,
+   "sha256": "0752af451d9e1b26d4462344791acaa238f8e3742d63283647ae87d7ac724a3b",
+   "evidence": "data/research/75de2710/evidence/hltv-match-1082762.gz"
+  },
+  {
+   "id": "hltv-team-1082762-0",
+   "url": "https://www.hltv.org/team/14106/ex-cybershoke",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:29Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/14106/ex-cybershoke",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 218481,
+   "sha256": "de7b96866699913c4639fcb92270384ff18d17bbf42ba12371432df05f69ca3a",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082762-0.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082762-0",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14106",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:29Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14106",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5734,
+   "sha256": "b73aa34759e50c435f68a6059cb9ea45f08fc872a5d2d74f7e9d2ba5f58614e8",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082762-0.gz"
+  },
+  {
+   "id": "hltv-team-1082762-1",
+   "url": "https://www.hltv.org/team/9998/blinkdagger",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:29Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/9998/blinkdagger",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 227575,
+   "sha256": "32d49c21138c076b1364d7f11df183e673554eb877b4b21191c74d6ac90fa36b",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082762-1.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082762-1",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/9998",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:29Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/9998",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5731,
+   "sha256": "373909c9769bde6b18ad26ec811da7ca19cf00ef655aab67540e5fe34cc69cae",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082762-1.gz"
+  },
+  {
+   "id": "hltv-match-1082763",
+   "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:30Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 359324,
+   "sha256": "cdba1241a8e620de294661cf1cda8d5cf25819f3796501528e24346df88eab2a",
+   "evidence": "data/research/75de2710/evidence/hltv-match-1082763.gz"
+  },
+  {
+   "id": "hltv-team-1082763-0",
+   "url": "https://www.hltv.org/team/13932/flacons",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:30Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/13932/flacons",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 225972,
+   "sha256": "00fb34ddcc3f79f8590946ba230f92b1292529e6c9a11b9e31142884b28a3aeb",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082763-0.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082763-0",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13932",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:31Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13932",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5734,
+   "sha256": "cb53ed70a9bae326e79ffd18b47dfeabab71003ea909c6f5f6809dc17fbdbe62",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082763-0.gz"
+  },
+  {
+   "id": "hltv-team-1082763-1",
+   "url": "https://www.hltv.org/team/13989/upgrade",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:31Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/13989/upgrade",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 680858,
+   "sha256": "81bd85cea8e90e7b9940376b86a02590eddebeb4991703e9139bb91707142a52",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082763-1.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082763-1",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13989",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:31Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13989",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5734,
+   "sha256": "5be2733b3b5dbade6f0871e3e964f5e6d604daa177c8d783bacf2977ac6953f8",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082763-1.gz"
+  },
+  {
+   "id": "hltv-match-1082837",
+   "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:31Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 319750,
+   "sha256": "caae587421b44cb9c4d79aa66023d1175c984bba78ba9b4c228647fad109117a",
+   "evidence": "data/research/75de2710/evidence/hltv-match-1082837.gz"
+  },
+  {
+   "id": "hltv-team-1082837-0",
+   "url": "https://www.hltv.org/team/13833/zetta",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:32Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/13833/zetta",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 1088130,
+   "sha256": "65095230ec43c3a1ecf7c673fa162efd9674f6d1af2042b3ec5ff30b940b04f9",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082837-0.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082837-0",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13833",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:32Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/13833",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5734,
+   "sha256": "2992fef6ac2af0bd34f938503d1ac23b62036069c2f043ac5eda2f28439a6c66",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082837-0.gz"
+  },
+  {
+   "id": "hltv-team-1082837-1",
+   "url": "https://www.hltv.org/team/14092/los-ninos",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:32Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/team/14092/los-ninos",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 223482,
+   "sha256": "b955c8d86c114af6dee2538bfc5bf7e8eea8d0c26a7c09efac634025806b0535",
+   "evidence": "data/research/75de2710/evidence/hltv-team-1082837-1.gz"
+  },
+  {
+   "id": "hltv-ranking-details-1082837-1",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14092",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:32Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/details/14092",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5734,
+   "sha256": "4d6303f45d03dd3efb25d9570399a573903aeb871a5bd4f8dadda0b222510d65",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-details-1082837-1.gz"
+  },
+  {
+   "id": "hltv-ranking-world",
+   "url": "https://www.hltv.org/ranking/teams",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:33Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 1130763,
+   "sha256": "da55ba1aad3dfede25e26d18327f59e57933fa2b2cd65c0d1013774cee3b7c05",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-world.gz"
+  },
+  {
+   "id": "hltv-ranking-Europe",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Europe",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:33Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Europe",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 785936,
+   "sha256": "45bf581402651adba0e1d8a5b9433fa4280260e838ec0810e9b70478707d3ff6",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-europe.gz"
+  },
+  {
+   "id": "hltv-ranking-South America",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/country/South%20America",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:33Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/country/South%20America",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 310054,
+   "sha256": "651d0234d07fdcab3b885ba633607ad696cdfab37c3ae0eaba1240e2bda2124b",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-south-america.gz"
+  },
+  {
+   "id": "hltv-ranking-North America",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/country/North%20America",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:34Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/country/North%20America",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 286560,
+   "sha256": "8bef620c013d2fa5b0210430ab7ce28669844e38dcdef60c70028e8b981eb01e",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-north-america.gz"
+  },
+  {
+   "id": "hltv-ranking-Asia",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Asia",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:34Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Asia",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 282198,
+   "sha256": "2e00f545bd43467192cb2497215cf24d13ef8a765e10eb47be315a1b2a25527d",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-asia.gz"
+  },
+  {
+   "id": "hltv-ranking-Oceania",
+   "url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Oceania",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:34Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.hltv.org/ranking/teams/2026/october/19/country/Oceania",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 230068,
+   "sha256": "92a139bfbc637cc75fe02aadeae0c2041ace0a053d9fab3d4778ee2ae415b98f",
+   "evidence": "data/research/75de2710/evidence/hltv-ranking-oceania.gz"
+  },
+  {
+   "id": "pinnacle-matchups",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:35Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+   "content_type": "application/json",
+   "bytes": 891743,
+   "sha256": "0cd872cee0858397042ff915806a40be154b5b195c580b0a89c56fe515e9f37f",
+   "evidence": "data/research/75de2710/evidence/pinnacle-matchups.gz"
+  },
+  {
+   "id": "pinnacle-leagues",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:35Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+   "content_type": "application/json",
+   "bytes": 8961,
+   "sha256": "74e9809f8d9da89548f6e758a30659e99fd56eb3eb3f36a0d2b63a63ff512327",
+   "evidence": "data/research/75de2710/evidence/pinnacle-leagues.gz"
+  },
+  {
+   "id": "thunderpick",
+   "url": "https://thunderpick.io/api/matches",
+   "method": "POST",
+   "observed_at": "2026-10-21T12:54:35Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://thunderpick.io/api/matches",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 228976,
+   "sha256": "4ae272c498879d98da5a6621cbb3083b0dd00d5e5b90d659132e733cef69d1d1",
+   "evidence": "data/research/75de2710/evidence/thunderpick.gz"
+  },
+  {
+   "id": "bovada",
+   "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:35Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+   "content_type": "application/json",
+   "bytes": 69753,
+   "sha256": "289583eb7a5c5a40228bfb163b4586accc87290d146b42a752c5f09825d6502e",
+   "evidence": "data/research/75de2710/evidence/bovada.gz"
+  },
+  {
+   "id": "kalshi-events",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&series_ticker=KXCS2GAME",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:36Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&series_ticker=KXCS2GAME",
+   "content_type": "application/json",
+   "bytes": 32123,
+   "sha256": "c6ba129b9782fd75ea1ed90f9a5d9c29bb8f1f40a30d1bf830bf426b881318ed",
+   "evidence": "data/research/75de2710/evidence/kalshi-events.gz"
+  },
+  {
+   "id": "polymarket-events",
+   "url": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag=esports",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:36Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag=esports",
+   "content_type": "application/json",
+   "bytes": 4897114,
+   "sha256": "36f04f04e6d3f1c47c0ff36a3ae353dc7de5f661bef3f3ba98379f154c28fdaa",
+   "evidence": "data/research/75de2710/evidence/polymarket-events.gz"
+  },
+  {
+   "id": "1xbet-linefeed",
+   "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=71&count=500&mode=4&getEmpty=true",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:37Z",
+   "http_status": 203,
+   "status": "ok",
+   "final_url": "https://1xbet.com/en/block?sports=71&count=500&mode=4&getEmpty=true",
+   "content_type": "text/html;charset=utf-8",
+   "bytes": 2600,
+   "sha256": "bdaaa6be42688d79f8e33fb2c8f1aff2f50ca4cac76d904aeb033974531708d2",
+   "evidence": "data/research/75de2710/evidence/1xbet-linefeed.gz"
+  },
+  {
+   "id": "1xbet-page",
+   "url": "https://1xbet.com/en/line/Esports",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:38Z",
+   "http_status": 203,
+   "status": "ok",
+   "final_url": "https://1xbet.com/en/block",
+   "content_type": "text/html;charset=utf-8",
+   "bytes": 2600,
+   "sha256": "bf013bc0e59ba17327ab66d6cc13f61b3acdf1a13f1c165202f21284e09c9e41",
+   "evidence": "data/research/75de2710/evidence/1xbet-page.gz"
+  },
+  {
+   "id": "ggbet-page",
+   "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:38Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+   "content_type": "text/plain",
+   "bytes": 126,
+   "sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/ggbet-page.gz"
+  },
+  {
+   "id": "ggbet-api",
+   "url": "https://gg.bet/api/v1/line/esports/counter-strike",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:38Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://gg.bet/api/v1/line/esports/counter-strike",
+   "content_type": "text/plain",
+   "bytes": 126,
+   "sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/ggbet-api.gz"
+  },
+  {
+   "id": "rivalry-api",
+   "url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:38Z",
+   "http_status": 530,
+   "status": "error",
+   "final_url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 777,
+   "sha256": "f66d8fa75e1a496771e5364628833ca34e13454f19f4826a8929261a5404a4e6",
+   "error": "HTTP 530",
+   "evidence": "data/research/75de2710/evidence/rivalry-api.gz"
+  },
+  {
+   "id": "rivalry-matches",
+   "url": "https://api.rivalry.com/sports/public/v1/matches?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:39Z",
+   "http_status": 530,
+   "status": "error",
+   "final_url": "https://api.rivalry.com/sports/public/v1/matches?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 777,
+   "sha256": "ff084a5ec31a9bcc7b7a387619ec26e18700a946db6141d07f44279fd39ef9be",
+   "error": "HTTP 530",
+   "evidence": "data/research/75de2710/evidence/rivalry-matches.gz"
+  },
+  {
+   "id": "cloudbet-api",
+   "url": "https://www.cloudbet.com/api/v1/sports/events?sport=counter-strike-2",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:39Z",
+   "http_status": 404,
+   "status": "error",
+   "final_url": "https://www.cloudbet.com/api/v1/sports/events?sport=counter-strike-2",
+   "content_type": "application/xml; charset=UTF-8",
+   "bytes": 212,
+   "sha256": "58ce5e5974b9ee5e7fc9f6eaa1faf18725ec762dc5d3a396eb12e97bf64b2485",
+   "error": "HTTP 404",
+   "evidence": "data/research/75de2710/evidence/cloudbet-api.gz"
+  },
+  {
+   "id": "sportsbetio-api",
+   "url": "https://api.sportsbet.io/v1/sports/esports",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:39Z",
+   "http_status": null,
+   "status": "error",
+   "error": "ConnectionError: HTTPSConnectionPool(host='api.sportsbet.io', port=443): Max retries exceeded with url: /v1/sports/esports (Caused by NameResolutionError(\"HTTPSConnection(host='api.sportsbet.io', port=443): Failed to resolve 'api.sportsbet.io' ([Errno -2] Name or service not known)\"))"
+  },
+  {
+   "id": "betonline-api",
+   "url": "https://api.betonline.ag/v1/sports/esports",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:54:39Z",
+   "http_status": null,
+   "status": "error",
+   "error": "ReadTimeout: HTTPSConnectionPool(host='api.betonline.ag', port=443): Read timed out. (read timeout=45)"
+  },
+  {
+   "id": "oddspedia-cs2",
+   "url": "https://oddspedia.com/esports/counter-strike",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:24Z",
+   "http_status": 410,
+   "status": "error",
+   "final_url": "https://oddspedia.com/esports/counter-strike",
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 341186,
+   "sha256": "f1a7fa38f117bcbd355e7407a0a11ccdc5ebc697d821ddce346a76fd1717fee3",
+   "error": "HTTP 410",
+   "evidence": "data/research/75de2710/evidence/oddspedia-cs2.gz"
+  },
+  {
+   "id": "oddspedia-api",
+   "url": "https://oddspedia.com/api/v1/getMatchList?sport=counter-strike&limit=100",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:25Z",
+   "http_status": 400,
+   "status": "error",
+   "final_url": "https://oddspedia.com/api/v1/getMatchList?sport=counter-strike&limit=100",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "error": "HTTP 400"
+  },
+  {
+   "id": "egamersworld",
+   "url": "https://egamersworld.com/counterstrike/matches",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:25Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://egamersworld.com/counterstrike/matches",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5672,
+   "sha256": "f73122e712fb2e9b8cc605ef215a9416fefce6e14de142b67407c6571b1a6b28",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/egamersworld.gz"
+  },
+  {
+   "id": "bo3gg-api-matches",
+   "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=50&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:25Z",
+   "http_status": 200,
+   "status": "ok",
+   "final_url": "https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=0&page%5Blimit%5D=50&sort=start_date&filter%5Bmatches.status%5D%5Bin%5D=upcoming&filter%5Bmatches.discipline_id%5D%5Beq%5D=1&with=teams,tournament",
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 124468,
+   "sha256": "fd54963fc2755dacf6e86c7b003bc4968a76ed237c7d22a10bbb0b81f33ff7d5",
+   "evidence": "data/research/75de2710/evidence/bo3gg-api-matches.gz"
+  },
+  {
+   "id": "stake-api",
+   "url": "https://stake.com/api/sports/esports/counter-strike",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:26Z",
+   "http_status": 403,
+   "status": "error",
+   "final_url": "https://stake.com/api/sports/esports/counter-strike",
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5680,
+   "sha256": "a0ff4784e63f0c219afbd48de6363c6fe64d943c1c8857cbdd3483593b41dcc3",
+   "error": "HTTP 403",
+   "evidence": "data/research/75de2710/evidence/stake-api.gz"
+  },
+  {
+   "id": "betway-api",
+   "url": "https://sports.betway.com/api/v1/esports/counter-strike",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:26Z",
+   "http_status": 404,
+   "status": "error",
+   "final_url": "https://sports.betway.com/api/v1/esports/counter-strike",
+   "content_type": "text/plain",
+   "bytes": 9,
+   "sha256": "e3ebaa16dd9d9b9fc107c42183fb6cf9d22927e1af03dbbdfa0ccc38e4e4ac31",
+   "error": "HTTP 404",
+   "evidence": "data/research/75de2710/evidence/betway-api.gz"
+  },
+  {
+   "id": "unibet-api",
+   "url": "https://www.unibet.com/betting/api/api/sports/esports",
+   "method": "GET",
+   "observed_at": "2026-10-21T12:55:26Z",
+   "http_status": 503,
+   "status": "error",
+   "final_url": "https://www.unibet.com/betting/api/api/sports/esports",
+   "content_type": "text/html",
+   "bytes": 190,
+   "sha256": "b429e25e7813a9e2b90dcec11d9cb5287751246128dd6c76a7349774829c5554",
+   "error": "HTTP 503",
+   "evidence": "data/research/75de2710/evidence/unibet-api.gz"
+  }
+ ]
+}
