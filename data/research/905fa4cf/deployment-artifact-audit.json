@@ -4,279 +4,32 @@
   "site_root": ".",
   "status": "pass",
   "snapshot": {
-    "generated_at": "2026-10-21T13:49:06Z",
-    "inventory_observed_at": "2026-10-21T13:48:56Z",
-    "analysis_as_of": "2026-10-21T13:48:56Z",
+    "generated_at": "2026-10-21T14:15:47Z",
+    "inventory_observed_at": "2026-10-21T14:15:34Z",
+    "analysis_as_of": "2026-10-21T14:15:34Z",
     "coverage_complete": true,
     "run_status": "partial-picks",
     "counts": {
-      "inventory": 81,
-      "upcoming": 17,
-      "archived": 64,
+      "inventory": 78,
+      "upcoming": 12,
+      "archived": 66,
       "unknown_schedule": 0,
-      "market": 7,
+      "market": 5,
       "bookmaker": 0,
-      "model": 4,
-      "unresolved": 6,
-      "picks": 11,
+      "model": 2,
+      "unresolved": 5,
+      "picks": 7,
       "no_edge": 0
     }
   },
   "counts": {
-    "inventory_records": 81,
-    "non_archived_records": 17,
-    "complete_picks_rows": 17,
-    "unresolved_complete_picks": 3,
+    "inventory_records": 78,
+    "non_archived_records": 12,
+    "complete_picks_rows": 12,
+    "unresolved_complete_picks": 0,
     "row_source_violations": 0
   },
-  "unresolved": [
-    {
-      "id": "1082762",
-      "teams": [
-        "ex-CYBERSHOKE",
-        "BlinkDagger"
-      ],
-      "competition": "CIS LAN Championship #9",
-      "starts_at": "2026-10-21T15:00:00Z",
-      "locks_at": "2026-10-21T14:54:00Z",
-      "hotspawn_source_url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
-      "research": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-          "source_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "ex-CYBERSHOKE: no Valve rating row found (including registry aliases)",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "unresolved",
-          "detail": "No bo3.gg fixture binding (results model needs an observed series history)",
-          "source_url": "https://bo3.gg/matches"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "ex-CYBERSHOKE: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762"
-        }
-      ],
-      "limitations": [
-        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
-      ]
-    },
-    {
-      "id": "1082763",
-      "teams": [
-        "UPGRADE",
-        "flacons"
-      ],
-      "competition": "CIS LAN Championship #9",
-      "starts_at": "2026-10-21T15:00:00Z",
-      "locks_at": "2026-10-21T14:54:00Z",
-      "hotspawn_source_url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
-      "research": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-          "source_url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "flacons: no Valve rating row found (including registry aliases)",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "unresolved",
-          "detail": "No bo3.gg fixture binding (results model needs an observed series history)",
-          "source_url": "https://bo3.gg/matches"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "flacons: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763"
-        }
-      ],
-      "limitations": [
-        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
-      ]
-    },
-    {
-      "id": "1082837",
-      "teams": [
-        "Zetta",
-        "LOS NINOS"
-      ],
-      "competition": "CCT South America 2026 Series #7",
-      "starts_at": "2026-10-21T22:00:00Z",
-      "locks_at": "2026-10-21T21:54:00Z",
-      "hotspawn_source_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
-      "research": [
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-          "source_url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7"
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
-          "source_url": "https://polymarket.com/esports/cs2"
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
-          "source_url": "https://thunderpick.io/esports/counter-strike"
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
-          "source_url": "https://www.bovada.lv/sports"
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
-          "source_url": "https://egamersworld.com/counterstrike/matches"
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "detail": "LOS NINOS: no Valve rating row found (including registry aliases)",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "unresolved",
-          "detail": "No bo3.gg fixture binding (results model needs an observed series history)",
-          "source_url": "https://bo3.gg/matches"
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "unresolved",
-          "detail": "LOS NINOS: no HLTV world-ranking entry found (including registry aliases)",
-          "source_url": "https://www.hltv.org/ranking/teams"
-        },
-        {
-          "stage": "Origination result",
-          "status": "unresolved",
-          "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.",
-          "source_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837"
-        }
-      ],
-      "limitations": [
-        "No verified inputs; probabilities intentionally left blank (no default 50/50)."
-      ]
-    }
-  ],
+  "unresolved": [],
   "checks": [
     {
       "id": "github-artifact-digest",
@@ -291,17 +44,17 @@
     {
       "id": "inventory-array",
       "status": "pass",
-      "detail": "Published inventory contains 81 records."
+      "detail": "Published inventory contains 78 records."
     },
     {
       "id": "inventory-identities",
       "status": "pass",
-      "detail": "81 unique inventory IDs were found."
+      "detail": "78 unique inventory IDs were found."
     },
     {
       "id": "inventory-count",
       "status": "pass",
-      "detail": "Published inventory count agrees with 81 records."
+      "detail": "Published inventory count agrees with 78 records."
     },
     {
       "id": "inventory-source-links",
@@ -311,12 +64,12 @@
     {
       "id": "complete-picks-array",
       "status": "pass",
-      "detail": "Complete-picks JSON contains 17 rows."
+      "detail": "Complete-picks JSON contains 12 rows."
     },
     {
       "id": "complete-picks-coverage",
       "status": "pass",
-      "detail": "Complete-picks IDs exactly cover 17 non-archived inventory records."
+      "detail": "Complete-picks IDs exactly cover 12 non-archived inventory records."
     },
     {
       "id": "probability-bases",
@@ -346,7 +99,7 @@
     {
       "id": "complete-picks-html-coverage",
       "status": "pass",
-      "detail": "Complete-picks HTML has one card for every 17 non-archived inventory record."
+      "detail": "Complete-picks HTML has one card for every 12 non-archived inventory record."
     },
     {
       "id": "row-source-manifest-parity",
@@ -363,29 +116,29 @@
   "provenance": {
     "repository": "buffedlizard55-lab/MaltaProj3",
     "workflow_run": {
-      "id": 39609596824,
+      "id": 39612934455,
       "name": "Refresh and deploy CS2 dashboard",
       "event": "push",
       "head_branch": "main",
-      "head_sha": "3b57d6a60c9288af17ca3e7347c95f53f6abbd05",
-      "created_at": "2026-10-21T13:37:19Z",
-      "updated_at": "2026-10-21T13:50:27Z",
+      "head_sha": "586af666a4fec9ed4dcefa0961d60fa8709b47db",
+      "created_at": "2026-10-21T14:00:08Z",
+      "updated_at": "2026-10-21T14:17:38Z",
       "conclusion": "success",
-      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609596824"
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39612934455"
     },
     "artifact": {
-      "id": 12350915769,
+      "id": 12351489477,
       "name": "github-pages",
-      "size_in_bytes": 14951559,
-      "digest": "sha256:387bba86beaedd1d2a5bad009224322e2d6508faf01531e8d952cb756c9ba31f",
-      "created_at": "2026-10-21T13:50:15Z",
-      "updated_at": "2026-10-21T13:50:15Z",
-      "expires_at": "2026-10-22T13:50:14Z",
+      "size_in_bytes": 17139100,
+      "digest": "sha256:7ac05bd34a0d241ca164d08bd50cc3a611a98b74ea811dae8d44998a5f9d1224",
+      "created_at": "2026-10-21T14:17:24Z",
+      "updated_at": "2026-10-21T14:17:24Z",
+      "expires_at": "2026-10-22T14:17:22Z",
       "expired": false,
-      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12350915769",
-      "downloaded_sha256": "sha256:387bba86beaedd1d2a5bad009224322e2d6508faf01531e8d952cb756c9ba31f",
+      "api_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/actions/artifacts/12351489477",
+      "downloaded_sha256": "sha256:7ac05bd34a0d241ca164d08bd50cc3a611a98b74ea811dae8d44998a5f9d1224",
       "digest_matches_github_api": true
     }
   },
-  "audited_at": "2026-10-21T13:56:41Z"
+  "audited_at": "2026-10-21T14:18:37Z"
 }
