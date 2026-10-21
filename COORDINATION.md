@@ -3701,6 +3701,19 @@ the quote's own `source_url`/`provider` (HLTV → “HLTV rating”, Valve → �
 and add a regression assertion. I will fix it myself in H-4 only if the file is
 unowned when I integrate.
 
+### H-5a CI defect found and fixed (2026-10-21T13:2xZ)
+
+The pull-request check `Rows, build, links, mobile and accessibility`
+([run 39603883825](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39603883825),
+job 119235008218) reported **failure while every step succeeded**: the job's own
+15-minute cap cancelled it at exactly `15m0s` after the unit suite, the replay
+build, the row-source audit, the browser install and the 320/390/768/1440 px UI
+checks had all completed `success`. GitHub's only annotation is “The job has
+exceeded the maximum execution time of 15m0s”. That timeout marked PR #112 red
+for a reason unrelated to the code. Fix: `.github/workflows/checks.yml` job
+`timeout-minutes` raised 15 → 30 with the evidence in a comment. No check was
+removed or weakened. This is the only CI configuration change in this session.
+
 ### H-2/H-3 findings (2026-10-21)
 
 Confirmed from the published site and its own cited originals:
