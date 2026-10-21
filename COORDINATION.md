@@ -3510,3 +3510,37 @@ series (Morningstar). They stay blank with that exact reason on the new
 unresolved register; no value was inferred.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+---
+
+# Session arena-541cd43a — a pick for every Hotspawn CS2 fixture (own-line coverage), phone-first paths to them, and a visible unresolved register
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/541cd43a-maltaproj3`,
+branched from `main` at `89bfa27` (merge of PR #110). No open pull request and no
+in-progress claim was found when this section was written; the rows above are read
+as historical records and no scope from them is entered.
+
+**Environment fact that shapes this session.** The coding sandbox has **no egress
+to any host except github.com / api.github.com / pypi** (verified: TLS handshake to
+`www.hltv.org`, `play.hotspawn.com` and `bo3.gg` fails with
+`SSL_ERROR_SYSCALL`; `gh` and `api.github.com` answer 200). GitHub Actions runners
+do have egress, so all live collection and provider research runs there, exactly
+as the earlier sessions did. The live Pages artifact and job logs are served from
+`*.blob.core.windows.net` / `results-receiver.actions.githubusercontent.com`,
+which this sandbox cannot reach, so the live site is read through its public URL
+only.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 541-1 Dated live snapshot on the runner (inventory, origination ladder, bo3 result bindings) committed as evidence, plus a provider probe of HLTV and esportsbook/line sources for every fixture the ladder leaves blank | **in progress** | arena-541cd43a | new `scripts/541cd43a_snapshot.py`, new `scripts/541cd43a_probe.py`, new `.github/workflows/541cd43a-snapshot.yml`, `data/research/541cd43a/` |
+| 541-2 Own-line coverage: a network Bradley–Terry rating fitted to observed bo3.gg series results and anchored on Valve official points, so fixtures where **both** sides lack an official row can still receive an originated, uncertainty-labelled probability | **unclaimed → claimed** | arena-541cd43a | new `scripts/network_model.py`, `scripts/originate.py` (additive rung only), new `tests/test_network_model.py` |
+| 541-3 Executive summary that links to the picks and the unresolved register above the fold, and a phone-first navigation bar that reaches both from any page | **claimed** | arena-541cd43a | `scripts/build.py`, `scripts/build_origination.py`, `assets/scout.css`, new `tests/test_mobile_picks_nav.py` |
+| 541-4 Full suite, strict row-source audit, PR, merge, real Pages deployment verified and recorded here | **claimed** | arena-541cd43a | this board section |
+
+**Non-overlap pledge.** This session does not edit `README.md`, `scripts/collect.py`,
+`scripts/sources.py`, `scripts/domain.py`, `scripts/pinnacle_lines.py`,
+`scripts/build_final_day.py`, `scripts/build_twc.py`, `scripts/build_edge.py`,
+`scripts/review_register.py`, `data/origination/aliases.json`, `docs/` or any file
+under `data/research/<other-session>/`. `scripts/originate.py` and `scripts/build.py`
+are entered additively only; no existing freshness, expiry, probability, alias or
+pick semantics are changed.
