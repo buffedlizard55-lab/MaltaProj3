@@ -2,7 +2,10 @@
   {
     "id": "11be2015-egamersworld-symmetric-placeholder-prices",
     "severity": "warning",
-    "match_ids": ["1081597", "1082860"],
+    "match_ids": [
+      "1081597",
+      "1082860"
+    ],
     "title": "EGamersWorld shows the same 1.8 price on both sides of the two pick-less fixtures — it is a placeholder, not a market",
     "detail": "Read directly on 2026-10-21T20:37Z: https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn prints 1.8 for benched gods and 1.8 for TitanFlow, and https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3 prints 1.8 for FlyQuest and 1.8 for Staqued. A two-way book cannot price a ranked side against an unranked qualifier at even money, and no bookmaker is named on the widget. These prices are NOT used as inputs by this project and must not be read as a market-implied probability. They are published here only to document why the aggregated-reference rung keeps declining this fixture.",
     "source_urls": [
@@ -13,20 +16,21 @@
     ]
   },
   {
-    "id": "11be2015-two-active-fixtures-still-have-no-verified-pick",
+    "id": "11be2015-two-low-tier-picks-are-researched-estimates-not-money-lines",
     "severity": "warning",
-    "match_ids": ["1081597", "1082860"],
-    "title": "Two of 13 active fixtures still have no pick, with named blockers and sources actually tried",
-    "detail": "Snapshot 2026-10-21T20:08Z / pipeline run 2026-10-21T20:15Z. (1) benched gods vs TitanFlow (CCT Europe 2026 Challengers #8, 22 Oct 11:00Z): HLTV publishes no world-ranking row for TitanFlow; Valve's official standings hold several rosters named benched gods; TitanFlow has only 3 dated bo3.gg series inside 120 days against the model's 8-series minimum; no Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle series-winner line was found. (2) FlyQuest vs Staqued (DFRAG Invitational 2026, 27 Oct 03:00Z): HLTV match 2399890 confirms the fixture and BO3, but Staqued has no HLTV ranking, no Valve standings row and 1 dated bo3.gg series, and no compliant two-sided price was found on the same five providers. Both rows stay blank: an unavailable source is not proof that no market exists, and a default 50/50 is never substituted. A third fixture, Ground Zero vs Off Chops (1082858), has probabilities (0.5/0.5) but no side because both teams carry identical published HLTV points (5.0) at ranks 142 and 143.",
+    "match_ids": [
+      "1081597",
+      "1082860"
+    ],
+    "title": "benched gods vs TitanFlow and FlyQuest vs Staqued now carry researched estimates, not bookmaker lines",
+    "detail": "Both fixtures have a published directional pick as of the 2026-10-21T21:40Z build: benched gods 50.4% over TitanFlow (1081597) and FlyQuest 52.3% over Staqued (1082860). Both come from the HLTV world-ranking research rung: neither side has a money line and TitanFlow/Staqued have no HLTV ranking, so the estimate rests on partial ranking inputs and is labelled 'Researched'. This replaces the earlier 11be2015 finding that both fixtures had no pick at all, which was true of the 20:08Z snapshot but is no longer current. The picks are usable as a called side for pick'em purposes; they are not a claim that a bookmaker priced the match, and they must not be quoted as market-implied probabilities. EGamersWorld remains excluded for these two fixtures (see the symmetric 1.8/1.8 finding).",
     "source_urls": [
       "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
       "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
-      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
       "https://www.hltv.org/ranking/teams",
-      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "https://polymarket.com/esports/cs2",
-      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
-      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3"
     ]
   },
   {
@@ -44,13 +48,45 @@
   {
     "id": "11be2015-every-active-fixture-now-listed-on-the-phone-summary",
     "severity": "notice",
-    "match_ids": ["1082793"],
+    "match_ids": [
+      "1082793"
+    ],
     "title": "Executive summary listed 12 of 13 active fixtures; the ten-row cap is removed",
     "detail": "scripts/build.py glance() capped upcoming resolved rows at ten. In the 2026-10-21T20:08Z snapshot that hid an active fixture, 5star vs 1WIN (1082793, Moscow Cyber Games 2026, 31 Oct 13:00Z, 1WIN 82.2% Valve model), from the phone-first 'Picks at a glance' index even though it had a published pick. The cap is removed so every active fixture is listed; the footer now says 'All 13 active fixtures are listed'. An even estimate (Ground Zero vs Off Chops, 1082858) also gains a direct 'Why' link to the unresolved register. Rebuilt from the live snapshot: 13 glance rows, 0 row-source violations, 674 internal links verified.",
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance",
       "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "11be2015-published-rows-equal-hotspawns-own-scheduled-feed",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "First-hand check: the 13 published fixtures are exactly the 13 future-start fixtures in Hotspawn's own feed",
+    "detail": "Read directly from https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 at 2026-10-21T21:46Z, all eight response chunks parsed. Filtering status=scheduled with a start time still in the future leaves exactly 13 fixtures, and those 13 match the published page one-for-one: no fixture on the feed is missing from the site and the site lists no fixture the feed does not. The same payload also retains records whose start has already passed while still reporting 'scheduled' (for example 1081865 at 2026-10-21T03:00Z and 1079621 at 2026-10-14T08:00Z); those are excluded from the upcoming count by start time rather than deleted, which is why the site shows 13 and not the raw feed size. Record-level evidence: data/research/11be2015/live-coverage-verification-2026-10-21.json.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/11be2015/live-coverage-verification-2026-10-21.json"
+    ]
+  },
+  {
+    "id": "11be2015-wrong-opponent-flag-for-1082837-is-superseded",
+    "severity": "notice",
+    "match_ids": [
+      "1082837"
+    ],
+    "title": "Zetta vs LOS NINOS: the 'wrong opponent' blocker is resolved by a five-player roster match",
+    "detail": "Session arena-32bed9e3 flagged Polymarket cs2-ale1-ln-2026-10-21 and Kalshi KXCS2GAME-26OCT211800LNALE as a different match because the market title says 'Alianza Lima Esports' while Hotspawn/HLTV say 'Zetta'. Re-checked first-hand on 2026-10-21T21:46Z: HLTV match 2399865 prints Zetta's five as Notjuanjo, zockie, BabyRage, Antuanette and Slayerhz, which is the same five-player roster the Alianza Lima Esports registry row is built on; both markets name the same CCT South America Series 7 opponent (Los Niños / LOS NINOS) and the same 22:00Z start. The join is upheld and 1082837 is not a wrong-opponent case. It should no longer be read as a publishing blocker; the roster evidence is what carries it, not the organisation name. Residual risk kept on the record: if Alianza Lima Esports ever fields a different five in this competition, competition scope alone would stop being proof. Session arena-093e722e's separate warning is NOT withdrawn by this finding: it records that some mid-event Alianza Lima lineups list 1ayala instead of Antuanette, and that Strafe still lists both names as competitors. That substitution caveat remains open; what is settled is the fixture join (same match), not the standing of every roster source.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://gamma-api.polymarket.com/markets/6001634",
+      "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT211800LNALE",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ],
+    "supersedes": [
+      "32bed9e3-zetta-los-ninos-opponent-mismatch"
     ]
   }
 ]

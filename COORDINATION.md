@@ -4498,3 +4498,41 @@ labelled low-confidence output, not a measured probability; that decision belong
 - **Pull request:** https://github.com/buffedlizard55-lab/MaltaProj3/pull/135 (base `main`).
   Temporary branch-only workflows `.github/workflows/11be2015-live.yml` and
   `11be2015-pages-probe.yml` are removed in this branch before the merge.
+
+### 11B-4 (arena-11be2015, resumed on `main` @ f86c6ea)
+
+**Claim (file scope, non-overlapping):** `.github/workflows/11be2015-verify.yml` (temporary, deleted before
+merge), `scripts/build.py` → only `glance()` and the extracted `flags_table()` findings renderer,
+`assets/scout.css` (one rule for a superseded finding row), `tests/test_build.py`,
+`data/research/11be2015/**`, and this section. No change to `originate.py`, `hltv_ranking.py`, `collect.py`,
+`pages.yml`, `data/origination/aliases.json`, `data/latest.json` or any other session's research directory.
+
+**Why this pass exists:** three findings on the public review page contradicted each other on the same
+fixture (`32bed9e3-zetta-los-ninos-opponent-mismatch` warning vs `f4eb8ae3-zetta-alias-verified-5of5-roster`
+notice), and a phone reader had no way to see which one is current. Two session flags also still say
+"no verified pick" for fixtures that now carry a researched estimate.
+
+**Changes**
+1. `scripts/build.py`: the findings register is now `flags_table()`. A flag may declare
+   `"supersedes": ["<earlier-flag-id>"]`; the earlier row then renders as *Superseded* with a link to the
+   resolving finding instead of an equal-weight "Needs review" badge. Two unit tests pin both directions.
+2. `data/research/11be2015/flags.json`: 6 findings. The stale "no pick at all" finding is replaced by
+   the accurate statement that 1081597 and 1082860 now carry **researched** estimates, not bookmaker lines.
+   New: first-hand inventory reconciliation, and the 1082837 identity resolution (below).
+3. `data/research/11be2015/live-coverage-verification-2026-10-21.json`: record-level evidence for the two
+   first-hand checks, with the exact URLs and the numbers read from them.
+
+**First-hand results (read outside the runner, 2026-10-21T21:46Z)**
+- Inventory: Hotspawn's own scheduled-fixtures endpoint, all 8 response chunks parsed. Filtering
+  `status=scheduled` with a future start leaves **13** fixtures and they match the published rows 1:1 —
+  nothing listed is missing, nothing extra is published. The same payload still holds past-start records
+  marked "scheduled" (1081865 at 03:00Z, 1079621 at 2026-10-14), which are excluded by start time rather
+  than deleted.
+- 1082837 Zetta vs LOS NINOS: HLTV 2399865 prints Zetta's five as Notjuanjo, zockie, BabyRage, Antuanette,
+  Slayerhz — the roster the Alianza Lima Esports alias is built on; Polymarket market 6001634
+  (`0.265/0.735`) and Kalshi `KXCS2GAME-26OCT211800LNALE` (Los Ninos 0.77 bid / 0.79 ask) name the same
+  CCT SA Series 7 opponent and the same 22:00Z start. The join is upheld; the 32bed9e3 blocker is
+  superseded. The 093e722e caveat (mid-event `1ayala` lineups, Strafe listing both names) is **not**
+  withdrawn — it stays open as a substitution caveat.
+- Direction sanity check: both markets make LOS NINOS the favourite while HLTV's community vote on the
+  same page reads 76.9% Zetta. The row follows the money, which is the published policy.
