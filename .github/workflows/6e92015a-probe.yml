@@ -37,6 +37,8 @@ jobs:
         run: |
           python -m scripts.collect
           python -m scripts.originate --live
+          mkdir -p data/research/6e92015a
+          cp data/origination.json data/research/6e92015a/fresh-origination.json
           python - <<'PY'
           import json
           from pathlib import Path

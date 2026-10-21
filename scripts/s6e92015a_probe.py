@@ -172,31 +172,56 @@ def main() -> int:
             live['live_collection'] = data.get('live_collection')
     report['live_release'] = live
 
-    # 2. Fresh ladder blanks from this run's collect + originate (the workflow
-    #    runs those steps before this probe and leaves data/origination.json).
+    # 2. Blank fixtures, HLTV-first. Two sources, both recorded:
+    #    (a) the DEPLOYED origination.json (what the live site shows the user),
+    #    which was fetched in step 1; (b) the fresh ladder this run just
+    #    collected (the workflow saves a copy under this session's research
+    #    directory BEFORE restoring the tracked data files, so the restore can
+    #    never hide the fresh blanks). The per-fixture probing below runs for
+    #    the union of both blank sets.
     fresh = {}
-    fresh_path = ROOT / 'data' / 'origination.json'
-    if fresh_path.exists():
+    fresh_copy = OUT / 'fresh-origination.json'
+    if fresh_copy.exists():
         try:
-            fresh = json.loads(fresh_path.read_text())
+            fresh = json.loads(fresh_copy.read_text())
         except ValueError:
             fresh = {}
-    blanks = []
-    for m in fresh.get('matches') or []:
-        if m.get('origination') is not None:
-            continue
-        if m.get('availability') not in {'open', 'locked', 'unknown_lock'}:
-            continue
-        trail = m.get('research') or []
-        hltv_url = next((r.get('source_url') for r in trail
-                         if str(r.get('source_url', '')).startswith('https://www.hltv.org/matches/')), None)
-        blanks.append({'id': str(m.get('id')), 'teams': [t.get('name') for t in m.get('teams') or []],
-                       'competition': m.get('competition'), 'starts_at': m.get('starts_at'),
-                       'source_url': m.get('source_url'), 'hltv_url': hltv_url,
-                       'trail': trail})
+    deployed = json.loads(gzip.decompress(
+        (EVIDENCE / 'live-origination-json.gz').read_bytes())) if (
+        EVIDENCE / 'live-origination-json.gz').exists() else {}
+
+    def blanks_of(row: dict) -> list:
+        out = []
+        for m in row.get('matches') or []:
+            if m.get('origination') is not None:
+                continue
+            if m.get('availability') not in {'open', 'locked', 'unknown_lock'}:
+                continue
+            trail = m.get('research') or []
+            hltv_url = next((r.get('source_url') for r in trail
+                             if str(r.get('source_url', '')).startswith('https://www.hltv.org/matches/')), None)
+            out.append({'id': str(m.get('id')), 'teams': [t.get('name') for t in m.get('teams') or []],
+                        'competition': m.get('competition'), 'starts_at': m.get('starts_at'),
+                        'source_url': m.get('source_url'), 'hltv_url': hltv_url,
+                        'trail': trail})
+        return out
+
+    deployed_blanks = blanks_of(deployed)
+    fresh_blanks = blanks_of(fresh)
+    by_id = {b['id']: b for b in deployed_blanks}
+    for b in fresh_blanks:
+        by_id.setdefault(b['id'], b)
+    blanks = [by_id[k] for k in sorted(by_id)]
+    report['blank_sources'] = {
+        'deployed_generated_at': deployed.get('generated_at'),
+        'deployed_blank_ids': [b['id'] for b in deployed_blanks],
+        'fresh_generated_at': fresh.get('generated_at'),
+        'fresh_blank_ids': [b['id'] for b in fresh_blanks],
+        'probed_ids': [b['id'] for b in blanks],
+    }
     report['fresh_ladder'] = {'generated_at': fresh.get('generated_at'),
                               'counts': fresh.get('counts'),
-                              'blank_ids': [b['id'] for b in blanks]}
+                              'blank_ids': [b['id'] for b in fresh_blanks]}
     report['blank_fixtures'] = [{k: b[k] for k in ('id', 'teams', 'competition', 'starts_at',
                                                    'source_url', 'hltv_url')}
                                 for b in blanks]
