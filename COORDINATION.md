@@ -27,6 +27,25 @@ styles or the production workflow.
 
 ---
 
+# Current session: arena-69fb4127 — independent publication, refresh, source-row and mobile build audit
+
+Claimed **2026-10-21T12:40Z** on the fixed Arena branch `arena/69fb4127-maltaproj3`,
+branched from `main` at `89bfa277bad9874a439b3e54117d8e31a5354cf9`. Read this
+board before starting; `gh pr list --state open` returned no open PRs. Existing
+claims on the board remain intact. This audit avoids their implementation scopes.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 69FB-1 Independently verify the currently published refresh cadence, production run, full inventory / pick / unresolved aggregates, official row-source audit, local replay/build, and record any limitations without altering shared pick/data logic | in progress | arena-69fb4127 | new `data/research/69fb4127/` only; this session's section in `COORDINATION.md` |
+
+**Non-overlap pledge:** do not edit `scripts/originate.py`, `scripts/coverage_probe.py`,
+`scripts/sources.py`, `data/latest.json`, `data/origination.json`, `scripts/build.py`,
+`assets/origination.css`, or any other claimed implementation scope. Existing live
+snapshots are verified from GitHub Actions evidence, not inferred from stale local
+fixtures.
+
+---
+
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
