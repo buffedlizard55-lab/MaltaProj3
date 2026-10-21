@@ -2,6 +2,32 @@
   "session": "arena-f9d0a5a2",
   "generated_at": "2026-10-21T13:15:00Z",
   "purpose": "Line-by-line repository audit and first-party verification of Polymarket tag discovery, low-tier CS2 match resolution, model source-badge attribution, and strict row-source compliance.",
+  "verified_live_origination_run": {
+    "workflow_run_id": 39609059112,
+    "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059112",
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119252803800/annotations",
+    "validate_run_id": 39609059043,
+    "validate_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059043",
+    "observed_at": "2026-10-21T13:34:03Z",
+    "hotspawn_inventory": {
+      "records": 81,
+      "crosscheck": "complete",
+      "verified_pages": ["lobby", "cs2"]
+    },
+    "origination_counts": {
+      "active": 19,
+      "resolved": 19,
+      "unresolved": 0,
+      "with_pick": 19,
+      "consensus": 5,
+      "market": 9,
+      "bookmaker": 1,
+      "reference": 0,
+      "model": 3,
+      "guidance": 1,
+      "alias_joined": 6
+    }
+  },
   "root_causes_fixed": [
     {
       "id": "polymarket-tag-slug-counter-strike-2",
