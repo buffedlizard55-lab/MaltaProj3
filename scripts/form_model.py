@@ -43,7 +43,9 @@ GRID = range(300, 2601, 5)
 
 def key(value: str) -> str:
     import re
-    return re.sub(r'[^a-z0-9]+', '', (value or '').casefold())
+    import unicodedata
+    folded = ''.join(ch for ch in unicodedata.normalize('NFKD', value or '') if not unicodedata.combining(ch))
+    return re.sub(r'[^a-z0-9]+', '', folded.casefold())
 
 
 def _g(rd: float) -> float:

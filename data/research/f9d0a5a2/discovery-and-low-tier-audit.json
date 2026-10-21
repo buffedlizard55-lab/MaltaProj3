@@ -1,0 +1,116 @@
+{
+  "session": "arena-f9d0a5a2",
+  "generated_at": "2026-10-21T13:15:00Z",
+  "purpose": "Line-by-line repository audit and first-party verification of Polymarket tag discovery, low-tier CS2 match resolution, model source-badge attribution, and strict row-source compliance.",
+  "verified_live_origination_run": {
+    "workflow_run_id": 39609059112,
+    "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059112",
+    "annotations_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119252803800/annotations",
+    "validate_run_id": 39609059043,
+    "validate_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059043",
+    "observed_at": "2026-10-21T13:34:03Z",
+    "hotspawn_inventory": {
+      "records": 81,
+      "crosscheck": "complete",
+      "verified_pages": ["lobby", "cs2"]
+    },
+    "origination_counts": {
+      "active": 19,
+      "resolved": 19,
+      "unresolved": 0,
+      "with_pick": 19,
+      "consensus": 5,
+      "market": 9,
+      "bookmaker": 1,
+      "reference": 0,
+      "model": 3,
+      "guidance": 1,
+      "alias_joined": 6
+    }
+  },
+  "root_causes_fixed": [
+    {
+      "id": "polymarket-tag-slug-counter-strike-2",
+      "files": ["scripts/sources.py", "scripts/originate.py"],
+      "finding": "Gamma API tag_slug=cs2 (id 100677) returns only season-long futures; active CS2 match moneylines use tag_slug=counter-strike-2 (id 100780) without slug 'cs2' in event.tags.",
+      "official_sources": [
+        "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=5&offset=0",
+        "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=5&offset=0"
+      ]
+    },
+    {
+      "id": "form-model-nfkd-and-alias-binding",
+      "files": ["scripts/form_model.py", "scripts/originate.py"],
+      "finding": "form_model.key() dropped combining diacritics instead of NFKD-folding them, breaking joins for teams such as Grêmio, QUINTESSÊNCIA, and Los Niños; collect_bo3_results() also skipped scoped aliases.",
+      "official_sources": [
+        "https://bo3.gg/matches/quintessencia-vs-los-ninos-20-10-2026",
+        "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026"
+      ]
+    },
+    {
+      "id": "model-source-badge-and-bo3-official-host",
+      "files": ["scripts/build.py", "scripts/audit_rows.py"],
+      "finding": "matches_table() and glance() labeled all method=='model' links as 'Valve' even when backed by HLTV world ranking or bo3.gg series results, and audit_rows.py lacked bo3.gg in OFFICIAL.",
+      "official_sources": [
+        "https://www.hltv.org/ranking/teams",
+        "https://bo3.gg"
+      ]
+    }
+  ],
+  "live_low_tier_fixture_verification": [
+    {
+      "hotspawn_id": "1082762",
+      "match": "ex-CYBERSHOKE vs BlinkDagger",
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "verified_sources": [
+        "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+        "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+        "https://gamma-api.polymarket.com/events?slug=cs2-cs1-bli4-2026-10-21",
+        "https://clob.polymarket.com/book?token_id=81278662041211722476677196782311802687789398615866007524998260975667079007815",
+        "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100"
+      ],
+      "resolution_status": "Resolved by first-party money consensus (Polymarket CLOB 0.81/0.83 + Bovada 1.125/5.750); EGamersWorld 1.80/1.80 placeholder rejected."
+    },
+    {
+      "hotspawn_id": "1082763",
+      "match": "UPGRADE vs flacons",
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "verified_sources": [
+        "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+        "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+        "https://gamma-api.polymarket.com/events?slug=cs2-upgrad-tf4-2026-10-21",
+        "https://clob.polymarket.com/book?token_id=66289152524776549106551553844196712744297578329848341818372249456516715755000"
+      ],
+      "resolution_status": "Resolved by first-party Polymarket Match Winner CLOB book (0.95/0.96, 0.01 spread); EGamersWorld 1.80/1.80 placeholder rejected."
+    },
+    {
+      "hotspawn_id": "1082836",
+      "match": "Damajuana vs Hacha",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T19:00:00Z",
+      "verified_sources": [
+        "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+        "https://gamma-api.polymarket.com/events?slug=cs2-damaju-hachae-2026-10-21",
+        "https://clob.polymarket.com/book?token_id=46226725911872730469713231223684348884827595024273007946197150754546162417916",
+        "https://bo3.gg/matches/damajuana-vs-hacha-esports-21-10-2026"
+      ],
+      "resolution_status": "Upgraded from 50.0%/50.0% non-directional HLTV model tie to directional money consensus (Polymarket + Bovada)."
+    },
+    {
+      "hotspawn_id": "1082837",
+      "match": "Zetta vs LOS NINOS",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T22:00:00Z",
+      "verified_sources": [
+        "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+        "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+        "https://clob.polymarket.com/book?token_id=63142317075924332286067599881392444963525427435571053356490812095677986050781",
+        "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026"
+      ],
+      "resolution_status": "Resolved via verified 5/5 Alianza Lima Esports -> Zetta and Los Niños -> LOS NINOS identity joins plus Polymarket Match Winner CLOB book (explicitly badged wide-book guidance when spread exceeds 0.15)."
+    }
+  ]
+}
