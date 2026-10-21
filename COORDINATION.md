@@ -4532,3 +4532,10 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+**11B-5 addendum.** The provenance flag and the #142 record above landed in
+https://github.com/buffedlizard55-lab/MaltaProj3/pull/145, merged as `d599724`, deploy run
+**39693986836 success**. Live re-read at `2026-10-21T23:42Z` ("22 Oct 2026, 01:42 Europe/Malta"):
+12 active fixtures, 12 with a directional pick, 0 unresolved, footer "All 12 active fixtures are
+listed". Full suite on the merged tree: `python -m unittest discover -s tests` green (audit 550 rows,
+536 official-linked, 5 flagged, 0 without a source; 691 internal links).
