@@ -284,6 +284,12 @@ Checks run on the final tree before the PR: `.venv/bin/python -m unittest discov
 pinned-clock failure found in my first new test and fixed by pinning explicit instants; rerun green), `scripts.build` (80 source rows reconciled,
 496 rows / 0 violations in the row-source audit, 670 internal links, mobile landmarks checked).
 
+**CI finding on PR #118, fixed on the branch.** The first PR run of "Validate dashboard" failed at the Playwright step: axe
+`color-contrast` on the summary page at 390px and 1440px (36 nodes, 4.08–4.27:1). Cause: my `.glance-row.is-closed{opacity:.86}` rule
+dimmed the text. Fix: the opacity is replaced with a light background and border (`assets/scout.css`). Local rerun after a fresh
+`scripts.build` (the first rerun still served the old CSS from `site/`): `npx playwright test` **85 passed**;
+`node tests/pick-safety-browser.mjs` **PASS (106 assertions)**; `scripts.audit_rows --strict` exit 0; `tests.test_build` OK.
+
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
 Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
