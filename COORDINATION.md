@@ -4539,3 +4539,30 @@ notice), and a phone reader had no way to see which one is current. Two session 
   withdrawn — it stays open as a substitution caveat.
 - Direction sanity check: both markets make LOS NINOS the favourite while HLTV's community vote on the
   same page reads 76.9% Zetta. The row follows the money, which is the published policy.
+
+### 11B-4 merge and deployment record (2026-10-21T23:15Z)
+
+- **Pull request:** https://github.com/buffedlizard55-lab/MaltaProj3/pull/142 — merged, no approval requested
+  (per the brief), merge commit `772702c`.
+- **Checks on the pull request:** `Rows, build, links, mobile and accessibility` **pass**,
+  `originate` **pass**. One failure was fixed before merge: the new superseded row used `#68797f` on
+  `#fbfcfc`, measured **4.41:1**, under the 4.5:1 floor the axe route checks enforce — now `#576b79` on
+  white (**5.55:1**).
+- **Deployment:** `Refresh and deploy CS2 dashboard` run **39688056951** for `772702c` — **success**;
+  `pages build and deployment` for the same commit also succeeded.
+- **Live re-read (cache-busted `?cb=11b4`):** snapshot `2026-10-21T23:04Z` ("22 Oct 2026, 01:04 Europe/Malta").
+  The executive summary lists **12 active fixtures, 12 with a directional pick, 0 explicitly unresolved**,
+  footer "All 12 active fixtures are listed" — the ten-row cap that hid a fixture is gone in production too.
+  Zetta vs LOS NINOS had started (22:00Z) and is no longer in the upcoming set, which is why the count is
+  12 and not 13.
+- **Residual finding raised by this re-read and published as a flag** (not fixed here, it belongs to the
+  origination owner): the 1081597 and 1082858 summary chips point at `https://bo3.gg/matches` (the index)
+  rather than a fixture record, and 1081597 changed direction between the 22:08Z and 23:04Z refreshes when a
+  researched line replaced the ranking estimate. Both rows state their own method on the origination card;
+  neither figure should be read as a stable line.
+
+**Correction of an earlier claim in this section.** 11B-2 concluded that the deployed site was frozen at the
+15 October snapshot and that Pages legacy mode was the cause. That was wrong: the reader had served a cached
+copy, and the same URL with a cache-busting query returned current data. The deployment path
+(`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
+`pages.yml`) was working throughout. No freshness fix was needed and none was added.
