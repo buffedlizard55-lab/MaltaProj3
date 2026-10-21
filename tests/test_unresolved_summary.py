@@ -85,6 +85,23 @@ class UnresolvedRegisterTests(unittest.TestCase):
         self.assertNotIn('Pick', BeautifulSoup(html, 'html.parser').select_one('h3').get_text())
         self.assertNotRegex(html, r'\b\d{1,3}\.\d%')
 
+    def test_an_even_estimate_is_named_instead_of_silently_dropped(self):
+        even = blank_match(3)
+        even['origination'] = {'method': 'model', 'probabilities': [0.5, 0.5],
+                               'label': 'Research model estimate (HLTV world ranking)',
+                               'source': 'HLTV world ranking',
+                               'source_url': 'https://www.hltv.org/ranking/teams',
+                               'observed_at': '2026-10-19T04:00:00Z'}
+        even['pick_index'] = None
+        data = dataset([blank_match(1)])
+        data['complete_picks']['matches'] = [blank_match(1), even]
+        data['complete_picks']['counts'].update({'active': 2, 'resolved': 1, 'unresolved': 1})
+        html = unresolved_register(data, './')
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('Even estimate · no side', text)
+        self.assertIn('no side is supportable', text)
+        self.assertEqual(len(BeautifulSoup(html, 'html.parser').select('.unresolved-summary-card')), 2)
+
     def test_no_unresolved_rows_states_the_dated_observation(self):
         data = dataset([])
         html = unresolved_register(data, './')

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "093e722e-zetta-alianza-identity-ambiguity",
+    "severity": "warning",
+    "match_ids": ["1082837"],
+    "title": "Zetta vs LOS NINOS (1082837): pick depends on a roster-backed but contested Alianza Lima Esports alias",
+    "detail": "HLTV 2399865 and Hotspawn list Zetta vs LOS NINOS (CCT South America Series 7, 2026-10-21T22:00Z). The market behind the ladder pick names Alianza Lima Esports vs Los Ninos (Kalshi KXCS2GAME-26OCT211800LNALE; Polymarket cs2-ale1-ln-2026-10-21). bo3.gg shows Alianza Lima Esports fielding the identical five players as HLTV's Zetta (zockie, Slayerhz, NotJuanjo, BabyRage, Antuanette) in this event, supporting the reviewed competition-scoped alias; however Strafe lists both names as separate event competitors and some mid-event Alianza Lima lineups show 1ayala instead of Antuanette. Identity is therefore alias-dependent, not certain: treat the LOS NINOS 51.0% value as UNVERIFIED until an official org/roster source settles the naming. No replacement number is offered. The both-teams-plus-start-time join itself is now locked by regression tests (tests/test_093e722e_join_guard.py): a one-team join can never produce this pick again.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
+      "https://bo3.gg/matches/damajuana-vs-alianza-lima-esports-14-10-2026",
+      "https://www.strafe.com/event/2026-cct-south-america-series-7-75c83e/"
+    ]
+  },
+  {
+    "id": "093e722e-hotu-model-only-recheck",
+    "severity": "notice",
+    "match_ids": ["1082792"],
+    "title": "HOTU vs The Huns (1082792): model-only estimate; no esportsbook line exists yet at T-9 days",
+    "detail": "HLTV 2399437 confirms the GLuck Moscow Cyber Games 2026 BO3 LAN semi-final on 31 Oct. At 2026-10-21T20:20Z no two-sided prematch price was verified on Polymarket, Kalshi or public esportsbook pages (EGamersWorld lists the fixture with no odds; its team '1.8' figure is a site rating, not a price, and was not used). The published percentage is an originated Valve-rating model estimate with no market cross-check. The 4-hourly production refresh re-checks automatically and a verified book supersedes the model when books open.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/team/12510/the-huns",
+      "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK"
+    ]
+  },
+  {
+    "id": "093e722e-new-lobby-fixtures-pending-first-refresh",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "New low-tier lobby fixtures (incl. DFRAG Invitational) cannot have verified lines until teams/markets exist",
+    "detail": "Fixtures entering the Hotspawn lobby after the 16:02Z snapshot (production run 39628269521: 71 records, 8 upcoming, complete ladder 8/8 directional) are picked up by the next scheduled 4-hour refresh and run through the full ladder: HLTV identity, Polymarket/Kalshi both-teams joins, esportsbook pairs, consensus, then originated Valve/HLTV-ranking/bo3-form models, then guidance-only wide books. DFRAG Invitational 2026 (B-Tier LAN, Brisbane, 26 Oct-1 Nov) still lists teams as TBA on Liquipedia, so no compliant market line can exist yet; such fixtures stay blank in the Unresolved & limitations section (linked from the mobile executive summary) rather than receiving an invented percentage. There is no default 50/50 anywhere in the pipeline.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://liquipedia.net/counterstrike/DFRAG/Invitational/2026",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+    ]
+  }
+]

@@ -150,11 +150,27 @@ class HltvRankingModelTest(unittest.TestCase):
         self.assertEqual(quote['provider'], 'HLTV world ranking')
         self.assertEqual(quote['family'], 'model')
 
-    def test_missing_team_stays_unresolved(self):
+    def test_one_unranked_team_uses_published_floor(self):
+        # Session dbaf7692: a ranked team against an unranked team is the low-tier
+        # case the brief asks to cover. HLTV publishes no points for the unranked
+        # side, so the model uses the floor of 0.0 and labels the assumption.
         rows = [r for r in self._rows() if r['name'] == 'Fire Flux']
+        quote, detail = hltv_ranking.estimate(fixture(), rows, {'aliases': []}, NOW, meta=self._meta())
+        self.assertIsNotNone(quote, detail)
+        self.assertEqual(quote['unranked_floor'], ['ex-6666'])
+        self.assertTrue(quote['low_confidence'])
+        self.assertEqual(quote['inputs'][1]['points'], 0.0)
+        self.assertTrue(quote['inputs'][1]['unranked'])
+        self.assertAlmostEqual(quote['probabilities'][0],
+                               1 / (1 + 10 ** ((0.0 - 412.0) / 400)), places=6)
+        self.assertIn('floor of 0.0', detail)
+
+    def test_both_teams_unranked_stay_unresolved(self):
+        rows = [{'name': 'Some Other Team', 'points': 90.0, 'rank': 200,
+                 'source_url': 'https://www.hltv.org/ranking/', 'snapshot_date': '2026-10-19'}]
         quote, reason = hltv_ranking.estimate(fixture(), rows, {'aliases': []}, NOW, meta=self._meta())
         self.assertIsNone(quote)
-        self.assertIn('no HLTV world-ranking entry', reason)
+        self.assertIn('Neither team', reason)
 
     def test_stale_publication_rejected(self):
         quote, reason = hltv_ranking.estimate(fixture(), self._rows(), {'aliases': []}, NOW,
@@ -239,6 +255,24 @@ class WideBookGuidanceTest(unittest.TestCase):
         self.assertEqual(result['origination']['method'], 'model')
         self.assertEqual(result['origination']['source'], 'HLTV world ranking')
         self.assertTrue(any('HLTV world ranking' in r['stage'] for r in result['research']))
+
+    def test_one_ranked_team_still_produces_a_labelled_pick(self):
+        # The low-tier case: one side is on HLTV's published ranking, the other
+        # is unranked. The estimate must appear as an explicit unranked-floor
+        # model with its own limitation, never as a market line.
+        day = NOW.date().isoformat()
+        rank_rows = [{'name': 'Fire Flux', 'points': 412.0, 'rank': 30,
+                      'source_url': 'https://www.hltv.org/ranking/', 'snapshot_date': day}]
+        meta = {'source_url': 'https://www.hltv.org/ranking/', 'snapshot_date': day,
+                'observed_at': '2026-10-19T11:00:00Z',
+                'evidence_file': 'data/origination/evidence/live-hltv-ranking.json'}
+        result = resolve_match(fixture(), [], [], None, None, {'aliases': []}, NOW,
+                               hltv_rank=rank_rows, hltv_meta=meta)
+        o = result['origination']
+        self.assertEqual(o['method'], 'model')
+        self.assertIn('unranked floor', o['label'])
+        self.assertEqual(result['pick_index'], 0)
+        self.assertTrue(any('Unranked floor' in x for x in result['limitations']))
 
     def test_guidance_labels_and_limitations(self):
         row = wide_market_row()

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "dbaf7692-legacy-pages-overwrite",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The public site served a 15 October snapshot after a push-triggered legacy Pages build overwrote the current artifact",
+    "detail": "Observed 2026-10-21T20:02Z-20:04Z. GitHub Pages for this repository is configured with build_type=legacy, source main:/, and the configuration API answers HTTP 403 ('Resource not accessible by integration') to this workflow's token, so the mode cannot be changed from CI. A push to main starts the platform's 'pages build and deployment' job, which publishes the checked-in branch root. That root still contains generated HTML from 2026-10-15 plus data/latest.json generated_at 2026-10-15T08:36:13Z; the deployed artifact for the same commit was still queued. Deployment evidence: legacy deployment 7235981775 succeeded at 20:01:34Z for a506382c, while the workflow deployment 7235963529 for the same SHA completed at 20:00:43Z. The served /data/latest.json reported generated_at 2026-10-15T08:36:13Z with 80 records / 17 upcoming, i.e. six-day-old matches and picks. Mitigation added in .github/workflows/pages.yml: after the normal deploy and verification, the job waits 75 seconds, re-runs scripts.verify_live against the public URL, and republishes the verified artifact if the legacy build replaced it. This does not change the repository setting; it keeps the current snapshot published. No probability, match record or pick was altered.",
+    "source_urls": [
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7235981775/statuses",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7235963529/statuses",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "dbaf7692-hltv-match-pages-403",
+    "severity": "warning",
+    "match_ids": [
+      "1081597",
+      "1082858",
+      "1082860"
+    ],
+    "title": "HLTV match pages and the HLTV match listing returned HTTP 403 to the CI runner; HLTV ranking pages stayed available",
+    "detail": "The session probe (scripts/dbaf7692_research.py, run 39667511469) requested https://www.hltv.org/matches and the three exact match pages recorded for these fixtures. The listing returned HTTP 403 and both match pages returned HTTP 403 with 6059-6096-byte bodies (SHA-256 recorded in data/research/dbaf7692/hltv-odds-probe.json). HLTV's official world-ranking capture used by the model was available in the same run, so the ranking rung still resolves. Consequence: HLTV cannot currently be used by the pipeline as a live odds source for low-tier fixtures, and no HLTV-sourced price is claimed for any row. A separate manual read of the HLTV betting-analytics page for FlyQuest vs Staqued (2399890) exposed only score-handicap prices (for example eOddset 1.23 on a 2-0) and the 'Pick a winner' fan vote (88.9%/11.1%), which this project never uses as a probability input; no two-sided prematch moneyline was present in the returned markup. Access controls are not bypassed.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39667511469"
+    ]
+  },
+  {
+    "id": "dbaf7692-benched-gods-titanflow-no-verified-line",
+    "severity": "warning",
+    "match_ids": [
+      "1081597"
+    ],
+    "title": "benched gods vs TitanFlow (1081597): no market price exists, so the pick is a labelled HLTV unranked-floor model estimate",
+    "detail": "Hotspawn lists the fixture for CCT Europe 2026 Challengers #8 at 2026-10-22T11:00Z (lobby and fixture API). No two-sided first-party price was verified: Polymarket, Kalshi, Thunderpick, Bovada and Pinnacle returned no fixture market and the coverage probe found no provider lead. EGamersWorld's match page publishes '1.8' and '1.8' — identical prices on both sides, which the reviewed aggregated-reference contract rejects as a site placeholder — plus EGamersWorld's own ratings of 694 and 1408, which are not used. HLTV match pages answered HTTP 403 to the runner this session, so the fixture's HLTV identity could not be re-verified, and HLTV's benched gods team page showed no upcoming matches at 2026-10-21T20:30Z. Under the extended HLTV world-ranking rung, benched gods is ranked (HLTV #204 on the 19 October 2026 publication; VRS #161) while TitanFlow has no published row, so the fixture now carries a LOW-CONFIDENCE, uncalibrated 'HLTV world ranking · unranked floor' model estimate for benched gods rather than a blank or a market pick. The floor of 0.0 points for TitanFlow is a stated assumption, not a measured rating. Start-time evidence also disagrees (Hotspawn 11:00Z, EGamersWorld 13:00 on 22.10.26, an HLTV search snapshot showing a 24 October bo3); times were not silently reconciled. What would improve it: a two-sided prematch series price, or a verified HLTV fixture identity and a published ranking for TitanFlow.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://www.hltv.org/team/13599/benched-gods",
+      "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "https://play.hotspawn.com/lobby"
+    ]
+  },
+  {
+    "id": "dbaf7692-unranked-floor-model",
+    "severity": "notice",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "FlyQuest vs Staqued (1082860): HLTV world-ranking estimate now covers one-ranked-vs-unranked fixtures with an explicit floor",
+    "detail": "FlyQuest appears on HLTV's published world ranking (HLTV #61, VRS #54 on the match page read 2026-10-21); Staqued has no HLTV ranking row, no Valve rating row and only one anchored series in the last 120 days. Session dbaf7692 extended the HLTV world-ranking research rung: when exactly one side has a published row, the unranked side is given HLTV's floor of 0.0 points and the estimate is labelled 'unranked floor' with a low-confidence limitation. Both teams unranked still returns unresolved; ambiguity still fails closed. This is a stated modelling assumption, not a measured rating or a betting line, and it never overrides a money or Valve estimate. The same rule will apply to any future fixture with one ranked and one unranked team. Verified score-handicap and fan-vote figures on the HLTV analytics page were not used.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860"
+    ]
+  },
+  {
+    "id": "dbaf7692-even-estimate-no-side",
+    "severity": "notice",
+    "match_ids": [
+      "1082858"
+    ],
+    "title": "Ground Zero vs Off Chops (1082858): both sides carry identical published ranking points, so the estimate has no side",
+    "detail": "HLTV publishes 5.0 points for both Ground Zero (rank 143) and Off Chops, so the 400-scale transform returns exactly 50.0%/50.0%. No first-party market or esportsbook price was verified for this DFRAG Invitational fixture and the coverage probe found no provider lead. The row keeps its probability pair but has no directional pick; it is now listed in the executive summary's unresolved register under 'Even estimate - no side' instead of being silently omitted from the pick-less list. An invented side is not offered.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858"
+    ]
+  },
+  {
+    "id": "dbaf7692-zetta-los-ninos-join-still-wrong",
+    "severity": "warning",
+    "match_ids": [
+      "1082837"
+    ],
+    "title": "Zetta vs LOS NINOS (1082837) still publishes a market-backed pick whose market names a different opponent",
+    "detail": "Re-checked 2026-10-21T20:10Z. HLTV match 2399865 is 'Zetta vs LOS NINOS', CCT 2026 South America Series 7, Best of 3, Swiss round 5, 18:00 on 21 October. Polymarket's CCT South America page lists 'Alianza Lima Esports vs Los Ninos' (cs2-ale1-ln-2026-10-21) at 6:00 PM and has no Zetta market; the Kalshi market previously joined to this fixture is titled 'Los Ninos vs Alianza Lima Esports'. Alianza Lima Esports is a separate participant, not a verified alias of Zetta. The 2026-10-21T20:04Z live origination snapshot nevertheless carries method 'consensus' with a directional pick for this fixture. Treat that pick as UNVERIFIED and do not use it for the leaderboard. The earlier flag 32bed9e3-zetta-los-ninos-opponent-mismatch remains the canonical record; this entry is the same-session re-verification against the current Polymarket listing, not a new claim. The collector-side fix (require both team names and the start time before any join) is still outstanding and is requested again in COORDINATION.md.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://polymarket.com/esports/cs2/cct-south-america",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837"
+    ]
+  }
+]

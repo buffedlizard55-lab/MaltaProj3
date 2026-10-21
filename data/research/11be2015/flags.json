@@ -1,0 +1,56 @@
+[
+  {
+    "id": "11be2015-egamersworld-symmetric-placeholder-prices",
+    "severity": "warning",
+    "match_ids": ["1081597", "1082860"],
+    "title": "EGamersWorld shows the same 1.8 price on both sides of the two pick-less fixtures — it is a placeholder, not a market",
+    "detail": "Read directly on 2026-10-21T20:37Z: https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn prints 1.8 for benched gods and 1.8 for TitanFlow, and https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3 prints 1.8 for FlyQuest and 1.8 for Staqued. A two-way book cannot price a ranked side against an unranked qualifier at even money, and no bookmaker is named on the widget. These prices are NOT used as inputs by this project and must not be read as a market-implied probability. They are published here only to document why the aggregated-reference rung keeps declining this fixture.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860"
+    ]
+  },
+  {
+    "id": "11be2015-two-active-fixtures-still-have-no-verified-pick",
+    "severity": "warning",
+    "match_ids": ["1081597", "1082860"],
+    "title": "Two of 13 active fixtures still have no pick, with named blockers and sources actually tried",
+    "detail": "Snapshot 2026-10-21T20:08Z / pipeline run 2026-10-21T20:15Z. (1) benched gods vs TitanFlow (CCT Europe 2026 Challengers #8, 22 Oct 11:00Z): HLTV publishes no world-ranking row for TitanFlow; Valve's official standings hold several rosters named benched gods; TitanFlow has only 3 dated bo3.gg series inside 120 days against the model's 8-series minimum; no Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle series-winner line was found. (2) FlyQuest vs Staqued (DFRAG Invitational 2026, 27 Oct 03:00Z): HLTV match 2399890 confirms the fixture and BO3, but Staqued has no HLTV ranking, no Valve standings row and 1 dated bo3.gg series, and no compliant two-sided price was found on the same five providers. Both rows stay blank: an unavailable source is not proof that no market exists, and a default 50/50 is never substituted. A third fixture, Ground Zero vs Off Chops (1082858), has probabilities (0.5/0.5) but no side because both teams carry identical published HLTV points (5.0) at ranks 142 and 143.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+    ]
+  },
+  {
+    "id": "11be2015-reader-cache-looked-like-a-stale-deployment",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "A cached read of the live site looked like the 15 Oct snapshot; the cache-busted read shows the current 21 Oct 20:08Z snapshot",
+    "detail": "On 2026-10-21 the assistant's page reader returned https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json as generated_at 2026-10-15T08:36:13Z, which initially read as a stale deployment. Re-reading the same URL with a unique query string (?cb=7f3a91) returned generated_at 2026-10-21T20:08:24Z with inventory 76 / upcoming 13, exactly matching the production run's annotation for run 39666468012. The deployed site is current; the first read was a reader cache artifact. Recorded so that a later session does not 're-fix' a freshness problem that does not exist, and so that any future stale-site claim is cache-busted first. Unrelated, real limitation kept for the record: the repository's Pages site is a legacy build from the main branch root (HTTP 403 on any attempt to switch the build type), which is why scripts.publication has to publish the verified artifact itself.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=7f3a91",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "11be2015-every-active-fixture-now-listed-on-the-phone-summary",
+    "severity": "notice",
+    "match_ids": ["1082793"],
+    "title": "Executive summary listed 12 of 13 active fixtures; the ten-row cap is removed",
+    "detail": "scripts/build.py glance() capped upcoming resolved rows at ten. In the 2026-10-21T20:08Z snapshot that hid an active fixture, 5star vs 1WIN (1082793, Moscow Cyber Games 2026, 31 Oct 13:00Z, 1WIN 82.2% Valve model), from the phone-first 'Picks at a glance' index even though it had a published pick. The cap is removed so every active fixture is listed; the footer now says 'All 13 active fixtures are listed'. An even estimate (Ground Zero vs Off Chops, 1082858) also gains a direct 'Why' link to the unresolved register. Rebuilt from the live snapshot: 13 glance rows, 0 row-source violations, 674 internal links verified.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance",
+      "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  }
+]
