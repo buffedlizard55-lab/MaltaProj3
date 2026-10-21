@@ -1,10 +1,10 @@
 # Live probe (arena-75de2710)
 
-Generated 2026-10-21T13:52:21Z. Read-only; every response saved under `data/research/75de2710/evidence/`.
+Generated 2026-10-21T14:00:24Z. Read-only; every response saved under `data/research/75de2710/evidence/`.
 
 - Deployed counts: `{"active": 17, "resolved": 14, "unresolved": 3, "with_pick": 13, "consensus": 1, "market": 8, "bookmaker": 1, "reference": 0, "model": 4, "guidance": 0, "alias_joined": 1}`
 - Deployed generated_at: `2026-10-21T13:49:07Z`
-- Hotspawn API records: 80
+- Hotspawn API records: 79
 - Blank fixtures: 3
 - Stale-warning hidden on live page: True
 
@@ -21,18 +21,18 @@ Generated 2026-10-21T13:52:21Z. Read-only; every response saved under `data/rese
 - bovada: HTTP 200 (57905 bytes)
 - kalshi: HTTP 200 (None bytes)
 - polymarket: HTTP 200 (None bytes)
-- 1xbet: HTTP 203 (2599 bytes)
+- 1xbet: HTTP 203 (2600 bytes)
 - ggbet-page: HTTP 403 (126 bytes)
 - ggbet-api: HTTP 403 (126 bytes)
-- rivalry-api: HTTP 530 (777 bytes)
-- rivalry-matches: HTTP 530 (777 bytes)
+- rivalry-api: HTTP 502 (884 bytes)
+- rivalry-matches: HTTP 502 (884 bytes)
 - cloudbet-api: HTTP 404 (212 bytes)
 - sportsbetio-api: HTTP None (None bytes)
 - betonline-api: HTTP None (None bytes)
-- oddspedia-cs2: HTTP 410 (341187 bytes)
+- oddspedia-cs2: HTTP 410 (341186 bytes)
 - oddspedia-api: HTTP 400 (None bytes)
 - egamersworld: HTTP 403 (5672 bytes)
-- bo3gg-api-matches: HTTP 200 (116675 bytes)
+- bo3gg-api-matches: HTTP 200 (107535 bytes)
 - stake-api: HTTP 403 (5680 bytes)
 - betway-api: HTTP 404 (9 bytes)
 - unibet-api: HTTP 503 (190 bytes)

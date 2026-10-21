@@ -1,28 +1,101 @@
 {
- "generated_at": "2026-10-21T13:52:08Z",
+ "generated_at": "2026-10-21T14:00:06Z",
  "counts": {
   "active": 17,
-  "resolved": 15,
-  "unresolved": 2,
-  "with_pick": 14,
-  "consensus": 1,
-  "market": 8,
-  "bookmaker": 2,
+  "resolved": 14,
+  "unresolved": 3,
+  "with_pick": 13,
+  "consensus": 0,
+  "market": 5,
+  "bookmaker": 1,
   "reference": 0,
-  "model": 4,
+  "model": 8,
   "guidance": 0,
-  "alias_joined": 2
+  "alias_joined": 1
  },
  "unresolved_ids": [
+  "1082831",
   "1082763",
   "1082837"
  ],
  "watched_ids": [
   "1082762",
   "1082763",
+  "1082831",
   "1082837"
  ],
  "rows": [
+  {
+   "id": "1082831",
+   "teams": [
+    "paiN",
+    "BARCA"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-21T14:00:00Z",
+   "method": null,
+   "probabilities": null,
+   "selection": null,
+   "aliases": [],
+   "limitations": null,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked",
+     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved",
+     "detail": "Pinnacle event 1638868489: Bookmaker observation is not prematch"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved",
+     "detail": "BARCA: no Valve rating row found (including registry aliases)"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved",
+     "detail": "No bo3.gg fixture binding (results model needs an observed series history)"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "unresolved",
+     "detail": "BARCA: no HLTV world-ranking entry found (including registry aliases)"
+    },
+    {
+     "stage": "Origination result",
+     "status": "unresolved",
+     "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
+    }
+   ]
+  },
   {
    "id": "1082762",
    "teams": [
