@@ -285,8 +285,8 @@ Not verified in this session: the rendered mobile layout and the stale banner's 
 
 ### E-3 — integration (in progress)
 
-Checks run on this branch before the PR: `.venv/bin/python -m unittest discover -s tests` (all modules green after the
-fixed-clock test correction; pinned-clock suite passed separately), `scripts.build` (80 source rows reconciled,
+Checks run on the final tree before the PR: `.venv/bin/python -m unittest discover -s tests` — **743 tests OK** (one
+pinned-clock failure found in my first new test and fixed by pinning explicit instants; rerun green), `scripts.build` (80 source rows reconciled,
 496 rows / 0 violations in the row-source audit, 670 internal links, mobile landmarks checked).
 
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
