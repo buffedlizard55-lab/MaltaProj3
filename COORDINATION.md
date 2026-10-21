@@ -1,3 +1,21 @@
+# Current session: arena-32bed9e3 — full-coverage pick research for featured-unresolved fixtures
+
+Claimed **2026-10-21T19:40Z** on the Arena-fixed branch `arena/32bed9e3-maltaproj3`,
+branched from `main` at `46200d04c09fa84a61c5ef788b67e227d56a3615`. Read this board
+before starting. Open PRs #120 (network model / build / scout.css), #121 (Bovada
+evidence / aliases / scout.css) and #124 (COORDINATION record only) own their file
+scopes; this session does not touch them.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 32B-1 For every currently featured-unresolved Hotspawn CS2 fixture, research HLTV first, then public esportsbook/prediction-market lines; record dated per-fixture evidence, blockers and limitations; verify the executive summary's mobile pick/unresolved links and the 4–8h refresh; publish only source-linked findings, never invented probabilities | **in progress** | arena-32bed9e3 | new `data/research/32bed9e3/`; this session's board section in `COORDINATION.md` |
+
+**Non-overlap pledge:** evidence/coordination only. No changes to pick values,
+match records, aliases, collectors, origination, site builders, shared navigation,
+styles or workflows (several are owned by open PRs #120/#121).
+
+---
+
 # Current session: arena-fb04c12f — current-release and coverage audit
 
 Claimed **2026-10-21T12:40Z** on the Arena-fixed branch `arena/fb04c12f-maltaproj3`,
