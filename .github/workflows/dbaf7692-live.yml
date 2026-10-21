@@ -62,6 +62,31 @@ jobs:
               print(f"- origination counts: `{json.dumps(r['counts'])}`")
               print(f"- unresolved ids: `{r.get('unresolved_ids')}`")
           PY
+      - name: Publish a machine-readable notice of this snapshot
+        if: always()
+        run: |
+          python - <<'PY2'
+          import json, pathlib
+          latest = json.loads(pathlib.Path('data/latest.json').read_text()) if pathlib.Path('data/latest.json').exists() else {}
+          orig = json.loads(pathlib.Path('data/origination.json').read_text()) if pathlib.Path('data/origination.json').exists() else {}
+          rows = {str(m['id']): m for m in orig.get('matches', [])}
+          pickless = []
+          for m in latest.get('matches', []):
+              if m.get('availability') == 'past':
+                  continue
+              r = rows.get(str(m['id'])) or {}
+              if (r.get('origination') or {}).get('method') and r.get('pick_index') is not None:
+                  continue
+              pickless.append({'id': m['id'], 'teams': [t.get('name') for t in m.get('teams', [])],
+                               'method': (r.get('origination') or {}).get('method'),
+                               'label': (r.get('origination') or {}).get('label')})
+          payload = {'inventory_observed_at': latest.get('inventory_observed_at'),
+                     'counts': latest.get('counts'), 'origination_counts': orig.get('counts'),
+                     'unresolved_ids': orig.get('unresolved_ids'), 'pickless': pickless}
+          text = json.dumps(payload, ensure_ascii=False).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::notice title=Session snapshot::' + text)
+          PY2
+
       - name: Publish snapshot data back to this branch
         run: |
           mkdir -p data/research/dbaf7692/live-2026-10-21
