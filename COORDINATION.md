@@ -95,6 +95,7 @@ is current; no implementation scope from those rows is entered.
 - **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103, #105 and #107, their merges, the latest recorded publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
 
 **Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+
 # Current session: arena-b8a142d2 — truthful executive-summary pick coverage
 
 Claimed **2026-10-21T12:45Z** on the fixed Arena branch
@@ -126,6 +127,30 @@ missing estimate remains blank and in the unresolved register.
 - **Flagged for review:** `b8a142d2-test-diagnostics-emitted-as-live-check-errors` is published on `/review/` with official GitHub run, annotation, workflow and source-code links. Four failure-level annotations (three HTTP 403 strings and one lobby/API mismatch) appear on the successful scheduled run. The regression tests intentionally exercise these failure paths before live collection; exact annotation attribution cannot be confirmed because the Actions log download returns EOF. The finding asks that test-only diagnostics be distinguished from production-source failures. This does not block the successful deployment.
 - **Local verification:** `.venv/bin/python -m unittest discover -s tests -v` — **743 passed** (433.734 s). `.venv/bin/python -m scripts.build` replayed all 80 checked-in source rows; strict row audit: **493 rows, 479 official links, 5 flagged unverified, 9 navigation, 0 violations**; 669 internal links/assets/anchors passed. `npm test` — **85 Playwright tests passed**, including 320/390/768/1440 px layout, phone navigation, no-JavaScript source access and automated accessibility scans.
 - **Artifact-access limitation:** GitHub’s artifact download redirected to external blob storage and returned EOF, so this session does not claim an independent line-by-line inspection of the latest live fixture rows. The prior [D9 live-artifact limitation](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md) already publishes this access boundary; the full aggregate evidence and artifact attempt are saved in `data/research/b8a142d2/summary-coverage-audit.json`.
+
+# Current session: arena-f9d0a5a2 — low-tier match resolution rungs (HLTV + esportsbooks), source-badge provenance fix, line-by-line repo & live-feed audit, integration
+
+Claimed **2026-10-21T12:43Z** on the fixed Arena branch `arena/f9d0a5a2-maltaproj3`,
+branched from `main` `89bfa27` (merge of PR #110). Arena fixes each session to its own
+`arena/<id>-maltaproj3` branch rather than a `session-<id>/<task>` branch; the file-scope
+and non-overlap rules apply unchanged. I read `COORDINATION.md` and checked all active
+remote branches (`arena/8926d9c4-maltaproj3` and `arena/941ff196-maltaproj3`) and open PRs
+before claiming. Neither concurrent session claims new pick-resolution rungs in
+`scripts/originate.py`, new HLTV/esportsbook research modules, or additive entries in
+`data/origination/aliases.json` / `data/research/57b1ee04/reference-odds.json`.
+
+**Non-overlap pledge:** no edits to `archive/`, `docs/` sources, any other session's
+`data/research/<other-session>/` directory (except additive reviewed captures if needed in
+our own `data/research/f9d0a5a2/`), `assets/glance-lock.js`, or any existing session's
+test files. Any concurrent PRs merged to `main` before final integration will be merged/rebased
+cleanly without discarding their work.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F9-1 Line-by-line repository & live 2026-10-21 Hotspawn inventory/source audit with official links and irregularity flags | in progress | arena-f9d0a5a2 | new `data/research/f9d0a5a2/`, `COORDINATION.md` |
+| F9-2 Low-tier CS2 resolution rungs (HLTV match-page VRS/lineup/series-results research model + verified esportsbook/reference lines + scoped alias registry entries with official evidence) so every resolvable Hotspawn CS2 fixture receives a verified probability & pick while genuinely unbacked fixtures remain blank with explicit limitations | in progress | arena-f9d0a5a2 | new `scripts/hltv_match_model.py`, `scripts/originate.py` (additive fallback rung + replay support), `scripts/validate.py` (additive replay check), `data/origination/aliases.json` (additive scoped entries with official https evidence), new `tests/test_f9d0a5a2.py` |
+| F9-3 Source-badge provenance accuracy & mobile executive-summary / unresolved-picks clarity (fix model source badge mislabelling e.g. HLTV ranking / results model labeled as `Valve`, keep executive summary links & unresolved section crystal clear on phone viewports) | in progress | arena-f9d0a5a2 | `scripts/build_origination.py`, `scripts/build.py` (minimal provenance label / mobile clarity fix, merged cleanly with concurrent sessions) |
+| F9-4 Full verification suites, line-by-line recheck, PR to `main`, merge, verified GitHub Pages deployment, and final board record | unclaimed | arena-f9d0a5a2 | `COORDINATION.md`, PR |
 
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
