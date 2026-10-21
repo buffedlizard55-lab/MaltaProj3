@@ -169,6 +169,7 @@ def main() -> int:
             'counts': latest.get('counts'),
             'source': (latest.get('sources') or [{}])[0].get('url'),
         },
+        'network_model': origination.get('network_collection'),
         'origination': {
             'generated_at': origination.get('generated_at'),
             'live_collection': origination.get('live_collection'),
@@ -198,6 +199,19 @@ def main() -> int:
     if not args.skip_build:
         build = run_build(root)
         build['verified_at'] = iso()
+        audit_path = root / 'site' / 'data' / 'row-source-audit.json'
+        if audit_path.exists():
+            try:
+                audit = json.loads(audit_path.read_text())
+                build['row_source_audit_detail'] = {
+                    'totals': audit.get('totals'),
+                    'violations': [dict(v, page=page.get('page'))
+                                   for page in audit.get('pages') or []
+                                   for v in page.get('violations') or []],
+                }
+                (out_dir / 'row-source-audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+            except ValueError:
+                build['row_source_audit_detail'] = {'error': 'audit file was not JSON'}
     (out_dir / 'build.json').write_text(json.dumps(
         {'generated_at': iso(), 'copies': copies, 'build': build}, ensure_ascii=False, indent=2) + '\n')
 

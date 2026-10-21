@@ -464,7 +464,7 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
             'samples': sum(len(v['samples']) for v in cache.values())}
 
 
-def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 40,
+def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 100,
                       max_age_days: int = network_model.WINDOW_DAYS) -> dict:
     """Fetch the finished-series graph the own network model fits on.
 
@@ -2075,6 +2075,17 @@ def run(output: Path, *, live: bool = False) -> dict:
         'collection': ({key: live_payload.get(key) for key in
                         ('bo3_results', 'bo3_results_error', 'valve', 'valve_error', 'vrs_mirror_error',
                          'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
+        'network_collection': (None if not live_payload else {
+            'graph_edges': len((live_payload.get('bo3_graph') or {}).get('edges') or []),
+            'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),
+            'graph_rows_seen': (live_payload.get('bo3_graph') or {}).get('rows'),
+            'graph_cutoff': (live_payload.get('bo3_graph') or {}).get('cutoff'),
+            'graph_error': live_payload.get('bo3_graph_error'),
+            'fit_matches': (network_document or {}).get('graph_matches'),
+            'fit_teams': (network_document or {}).get('graph_teams'),
+            'fit_anchors': len((network_document or {}).get('anchors') or {}),
+            'fit_error': network_error,
+        }),
         'research_discovery': (live_payload or {}).get('polymarket_discovery'),
         'counts': counts,
         'policy': {
