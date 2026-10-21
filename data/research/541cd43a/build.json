@@ -1,26 +1,33 @@
 {
-  "generated_at": "2026-10-21T13:27:54Z",
+  "generated_at": "2026-10-21T13:33:14Z",
   "copies": [
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/latest.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/latest.json.gz",
-      "bytes": 209098,
-      "compressed_bytes": 16550,
-      "sha256_of_original": "df26dea022d2326778aecbd7309924970f58d4d33d7e16a447745749e0537df1"
+      "bytes": 209064,
+      "compressed_bytes": 16538,
+      "sha256_of_original": "a2f46244d6f98153f7ebb7eb75fe0fe52562d760087fe6fd40d1bd6065ef05df"
     },
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/sources.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/sources.json.gz",
-      "bytes": 23567,
-      "compressed_bytes": 4093,
-      "sha256_of_original": "c623c625f9963b03bee6548dbc19857c17f39b9dcab221410ff21dac0838687e"
+      "bytes": 23536,
+      "compressed_bytes": 4098,
+      "sha256_of_original": "9189bf9126cdbb45bb3b67be5fba590daa049aa8b45a6330d34887cbd1111607"
     },
     {
       "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/origination.json",
       "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/origination.json.gz",
-      "bytes": 146362,
-      "compressed_bytes": 19225,
-      "sha256_of_original": "170516c1295a06bf90e2299dde1db21726b4d5200142ac4a8dcb8117b7ef63e9"
+      "bytes": 146360,
+      "compressed_bytes": 19223,
+      "sha256_of_original": "9cac1791aba061df469c22dd5bdd23e4e917c20463a705f2e834d70a781e0b97"
+    },
+    {
+      "source": "/home/runner/work/MaltaProj3/MaltaProj3/data/origination/evidence/live-bo3-bindings.json",
+      "target": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/541cd43a/live/live-bo3-bindings.json.gz",
+      "bytes": 41789,
+      "compressed_bytes": 3611,
+      "sha256_of_original": "e924cf653617b6857d8f52bd153270f155b39e90d41523416ca6a7a455f2e82b"
     }
   ],
   "build": {
@@ -28,7 +35,7 @@
     "exit_code": 0,
     "row_source_audit": "Row-source audit: 555 rows, 541 with an official link, 5 flagged unverified, 9 site-map, 0 without a source",
     "tail": "PASS: 81 source rows reconciled; every published probability and pick replayed from first-party evidence.\nRow-source audit: 555 rows, 541 with an official link, 5 flagged unverified, 9 site-map, 0 without a source\nPASS: 725 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.\nBuilt 8 current Pages views, compatible old URLs and explicitly archived session views in site",
-    "verified_at": "2026-10-21T13:27:54Z",
+    "verified_at": "2026-10-21T13:33:14Z",
     "row_source_audit_detail": {
       "totals": {
         "rows": 555,
