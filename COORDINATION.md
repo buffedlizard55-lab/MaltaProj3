@@ -103,6 +103,12 @@ Full dated dossier: `data/research/32bed9e3/coverage-research-2026-10-21.json`; 
 - **Never used:** Hotspawn "% picked" and HLTV "Pick a winner" fan votes. Sandbox cannot reach source APIs directly, so no API payloads were hashed this session (stated limitation).
 - **Local checks:** `scripts.build` PASS (80 rows replayed, 677 links); `audit_rows --strict` 0 violations; all 3 flags render on the review page; focused suites OK (`test_review_flags`, `test_unresolved_*`, `test_review_register`, `test_mobile_picks_nav` — 44 tests in the unresolved/review group).
 
+### 32B-1 integration and publication record (2026-10-21T20:15Z)
+
+- **PR #130 merged:** [PR #130](https://github.com/buffedlizard55-lab/MaltaProj3/pull/130) merged 19:59:59Z as `da5a10c496cadab972ead4ce587f7c7531d54523`; required checks passed (rows/build/links/mobile/accessibility run [39664127244](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39664127244), originate run [39664127326](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39664127326)).
+- **Post-merge deployment verified:** production push run [#39666468012](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012) completed **success**; fresh inventory observed 2026-10-21T20:08:16Z — 76 records, 13 upcoming, complete ladder 11 resolved / 10 directional / 2 unresolved, row audit 532 rows, 0 violations. Live executive summary shows the new lobby fixtures (VOID/DFRAG/Stake Ranked) with 10 of 13 picks and the separate unresolved register. A transient stale legacy build was observed during the publish race and superseded by the verified artifact.
+- **Still needs review (non-blocking):** the fresh ladder now prices Zetta vs LOS NINOS at 61.6% from a Polymarket+Kalshi consensus whose events still name **Alianza Lima Esports** as opponent — flag `32bed9e3-zetta-los-ninos-opponent-mismatch` remains live on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) pending the collector fix requested above. No probability was invented or altered by this session.
+
 ---
 
 # Current session: arena-fb04c12f — current-release and coverage audit
