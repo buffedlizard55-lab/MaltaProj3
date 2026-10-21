@@ -4243,3 +4243,94 @@ Read the entire board before starting. Existing feature claims (941ff196, 802f6a
 
 **Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/coverage_probe.py` semantics (probabilities, picks, aliases unchanged). It writes only to `data/research/0582cbe9/` and this board section, plus minimal additive UI copy/CSS that preserves all existing behavior. If a file is owned by another session, the request is logged here instead of editing.
 
+---
+
+---
+
+# Session arena-541cd43a — a pick for every Hotspawn CS2 fixture (own-line coverage), phone-first paths to them, and a visible unresolved register
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/541cd43a-maltaproj3`,
+branched from `main` at `89bfa27` (merge of PR #110). No open pull request and no
+in-progress claim was found when this section was written; the rows above are read
+as historical records and no scope from them is entered.
+
+**Environment fact that shapes this session.** The coding sandbox has **no egress
+to any host except github.com / api.github.com / pypi** (verified: TLS handshake to
+`www.hltv.org`, `play.hotspawn.com` and `bo3.gg` fails with
+`SSL_ERROR_SYSCALL`; `gh` and `api.github.com` answer 200). GitHub Actions runners
+do have egress, so all live collection and provider research runs there, exactly
+as the earlier sessions did. The live Pages artifact and job logs are served from
+`*.blob.core.windows.net` / `results-receiver.actions.githubusercontent.com`,
+which this sandbox cannot reach, so the live site is read through its public URL
+only.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 541-1 Dated live snapshot on the runner (inventory, origination ladder, bo3 result bindings) committed as evidence, plus a provider probe of HLTV and esportsbook/line sources for every fixture the ladder leaves blank | **done** | arena-541cd43a | new `scripts/s541cd43a_snapshot.py`, new `scripts/s541cd43a_probe.py`, new `scripts/s541cd43a_probe2.py`, new `.github/workflows/541cd43a-snapshot.yml`, `data/research/541cd43a/` |
+| 541-2 Own-line coverage: a network Bradley–Terry rating fitted to observed bo3.gg series results and anchored on Valve official points, so fixtures where **both** sides lack an official row can still receive an originated, uncertainty-labelled probability | **done** | arena-541cd43a | new `scripts/network_model.py`, `scripts/originate.py` (additive rung only), new `tests/test_network_model.py`, new `tests/test_network_replay.py` |
+| 541-3 Executive summary that links to the picks and the unresolved register above the fold, and a phone-first navigation bar that reaches both from any page | **done** | arena-541cd43a | `scripts/build.py`, `scripts/build_origination.py`, `assets/scout.css`, new `tests/test_mobile_picks_nav.py`, new `tests/test_source_probe.py` |
+| 541-4 Full suite, strict row-source audit, PR, merge, real Pages deployment verified and recorded here | **needs review** | arena-541cd43a | this board section |
+
+**Non-overlap pledge.** This session does not edit `README.md`, `scripts/collect.py`,
+`scripts/sources.py`, `scripts/domain.py`, `scripts/pinnacle_lines.py`,
+`scripts/build_final_day.py`, `scripts/build_twc.py`, `scripts/build_edge.py`,
+`scripts/review_register.py`, `data/origination/aliases.json`, `docs/` or any file
+under `data/research/<other-session>/`. `scripts/originate.py` and `scripts/build.py`
+are entered additively only; no existing freshness, expiry, probability, alias or
+pick semantics are changed.
+
+### 541 results (2026-10-21)
+
+**What landed on the branch.** `scripts/network_model.py` fits a Bradley–Terry rating over
+bo3.gg's finished-series graph and expresses it on Valve's 400-point logistic scale through
+teams that hold official points; `scripts/originate.py` grew only an additive rung for it
+plus the graph collection and an exact-name bo3.gg identity fallback; `scripts/build.py`
+and `scripts/build_origination.py` replay the network arithmetic, publish the graph
+evidence link, render the source-probe block and the mobile status strip; `scripts/audit_rows.py`
+adds bo3.gg to the primary-source allowlist (the publisher of the results, never a price);
+`.github/workflows/541cd43a-snapshot.yml` runs the dated snapshot on the session branch and
+never deploys. New tests: `tests/test_network_model.py` (11), `tests/test_network_replay.py` (3),
+`tests/test_mobile_picks_nav.py` (6), `tests/test_source_probe.py` (6).
+
+**Dated evidence from the runner** (each run commits its own report under
+`data/research/541cd43a/`):
+
+* run `39606241463` — 4,700 bo3.gg rows read over 47 pages, 4,615 usable edges, 4,605 fitted
+  series, 269 anchored teams, **0** rows discarded for a missing winner. The earlier suspicion
+  that finished rows publish no winner is disproved; the graph is simply smaller than the raw
+  row count because of the 120-day window and duplicate/unparsed rows.
+* run `39607777784` — build exit 0, row-source audit `551 rows, 537 with an official link,
+  5 flagged unverified, 9 site-map, 0 without a source`, `violations: []`.
+* run `39608698826` — the gate diagnostic now reads the real binding file
+  (`data/origination/evidence/live-bo3-bindings.json`): **Zetta** binds exactly (bo3.gg 23468),
+  is Valve-anchored, has 5 finished series in the window and a fitted SE of 58.0 points;
+  **LOS NINOS** (25500) is not in the fitted graph at all because it has no finished series in
+  the window.
+
+**Gate decision, made from that evidence.** `MIN_TEAM_MATCHES` stays at 6. Lowering it would not
+price Zetta vs LOS NINOS, because the missing side has no rating to lower the threshold for; the
+gate is not what blocks that fixture. The decision and the measurements are published in the
+review register as `541cd43a-own-network-model-gates`.
+
+**Manual research done for the three blanks** (recorded in
+`data/research/541cd43a/external-research-2026-10-21.json`, with the exact query URLs and the
+answers the sources returned): bo3.gg holds exactly one team named `CYBERSHOKE` (id 7429), but
+Hotspawn publishes the roster as `ex-CYBERSHOKE` and an `ex-` marker is not part of the bo3.gg
+name; `flacons` returns count 0 in both spellings; bo3.gg lists no fixture between 7429 and
+BlinkDagger (246) — BlinkDagger's single recorded match is a cancelled 2026-02-12 game — and no
+2026-10-21 fixture for UPGRADE (25212). Neither CIS LAN fixture therefore has a results edge, a
+bookmaker mirror or a rating row on any source reachable from the sandbox or the runner. HLTV
+publishes the lineups and marks both sides unranked; the EGamersWorld listing chunk reviewed at
+13:50Z held no odds for the three rows. All three stay blank with those exact reasons.
+
+**Coverage in the dated snapshot** (19 active Hotspawn CS2 fixtures): 15 with a directional pick
+(9 market, 2 bookmaker, 1 consensus, 3 ranking/Valve model), 1 model estimate at 0.50/0.50 with no
+directional edge (Damajuana vs Hacha), and 3 explicitly unresolved. Nothing was inferred to close
+a gap; every unresolved row carries a 10–11-rung trail and the new review-register flags
+`541cd43a-hltv-blocks-runner`, `541cd43a-esportsbook-surfaces-block-automation`,
+`541cd43a-own-network-model-gates` and `541cd43a-team-name-identity-bridge`.
+
+**Recorded, not adopted.** bo3.gg match objects carry a `bet_updates` object mirroring Thunderpick
+prices for some fixtures (observed: PRIVATE vs UPGRADE 2026-10-16, 1.65 / 2.10). It is a
+third-party mirror, so adopting it needs its own capture, allowlist entry and replay test; it is
+logged as a follow-up in the research file rather than converted into a probability here.
