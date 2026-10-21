@@ -3847,3 +3847,34 @@ Polymarket CS2 board listed both CIS LAN fixtures as thin, low-volume markets
 with implausible price pairs (1.04x/20.00x on UPGRADE–flacons). No compliant
 two-sided match-winner price and no published rating exist for the unrated side,
 so the rows stay blank under the project's own rules.
+### H-5 integration record — arena-802f6a59 (2026-10-21T13:37Z)
+
+- **PR #112 merged** at 2026-10-21T13:37:10Z as **`c17744d`**
+  (https://github.com/buffedlizard55-lab/MaltaProj3/pull/112), after a rebase
+  that kept both sides of the board conflict verbatim (the 941ff196 / f5223859 /
+  fb04c12f records above are untouched).
+- **Checks:** `Validate dashboard` — pass (7m41s, run 39608015226); `originate` —
+  pass (1m46s). The earlier 15-minute cancellation is fixed in
+  `.github/workflows/checks.yml` (cap 15 → 30) with the evidence in a comment.
+- **Deployment:** the push run for my merge commit (39609583316) was superseded
+  by concurrency and cancelled; the next push run for `main` at `3b57d6a`
+  (https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609596824),
+  which contains my merge, completed **success**, including the workflow's own
+  `verify_live` step on the deployed artefact. GitHub Pages build
+  [39609595887](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609595887)
+  is `success` for the same commit.
+- **Delivered:** `data/research/802f6a59/unresolved-source-research.json` (HLTV
+  first, then EGamersWorld, Bovada and Valve's official global/Europe/Americas
+  tables, each with a URL and observation time) and three findings
+  (`802f6a59-three-blanks-have-no-verifiable-input`,
+  `802f6a59-summary-source-label-misattributes-hltv-model`,
+  `802f6a59-egamersworld-placeholder-prices-on-blank-fixtures`) rendered on
+  Flagged for Review. No pick, probability, alias, collector or pricing file was
+  modified.
+- **Still open for review:** H-4, the summary's source label. The owning session
+  (8926d9c4) has the requested fix and the exact change in the flag text; this
+  session deliberately did not edit `scripts/build.py`'s `glance()`.
+- **Remaining limitation:** three fixtures still have no pick. They stay blank,
+  published with their blockers, because no reachable source publishes a
+  compliant two-sided price and one side is unranked everywhere. That is the
+  project's documented rule, not a gap in coverage.
