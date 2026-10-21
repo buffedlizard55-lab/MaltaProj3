@@ -409,11 +409,12 @@ def glance(data, prefix, now=None):
     # the summary must never omit the name of a match that has no estimate.
     blank_rows = [m for m in active if not basis(m)[0] and upcoming(m)]
     past_blank_rows = [m for m in active if not basis(m)[0] and not upcoming(m)]
-    # Bounded index: upcoming picks first, then every unresolved fixture, then
-    # recent resolved rows for context. Nothing is re-priced or re-ordered by
-    # opinion; the complete list always shows every row.
+    # Every future fixture is listed: a phone reader must never have to tap
+    # through to discover that a match exists. Only resolved rows whose start
+    # has already passed are capped (they are context, not actionable picks).
+    # Nothing is re-priced or re-ordered by opinion.
     shown, seen = [], set()
-    for group, limit in ((open_rows, 10), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
+    for group, limit in ((open_rows, None), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
         for m in (group if limit is None else group[:limit]):
             if m['id'] not in seen:
                 shown.append(m)
@@ -451,7 +452,7 @@ def glance(data, prefix, now=None):
                  + '</div>'
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
-    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every future fixture and every unresolved fixture is included. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
@@ -482,7 +483,10 @@ def _brief_blank_reason(match: dict) -> str:
     if 'multiple valve rosters' in lowered:
         return 'ambiguous rating'
     if 'no valve rating row' in lowered or 'complete five-player' in lowered:
-        return 'no rating'
+        # At least one side has no published rating row. Saying "no rating"
+        # would wrongly suggest neither team is rated (UPGRADE is HLTV #74 yet
+        # the row read "no rating" while its opponent was the unrated side).
+        return 'one team unranked'
     if 'no alias-verified' in lowered:
         return 'no external line'
     return 'no verified line'

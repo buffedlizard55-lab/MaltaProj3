@@ -236,7 +236,10 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('TeamA101', html)
         self.assertEqual(html.count('50.0%'), 0)
         self.assertIn('2</strong> explicitly unresolved', html)
-        self.assertIn('every unresolved fixture is included', html)
+        # Session arena-75de2710: future resolved rows are never capped on the
+        # phone-first index, so all 14 active fixtures now fit on the summary.
+        self.assertIn('All 14 active fixtures are listed', html)
+        self.assertEqual(html.count('glance-row'), 14)
 
     def test_a_researched_fallback_is_labelled_and_uses_its_own_probability(self):
         m = self.match(7, 0.5, True, resolved=False)

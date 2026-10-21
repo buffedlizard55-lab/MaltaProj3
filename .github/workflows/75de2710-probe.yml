@@ -42,20 +42,33 @@ jobs:
           from pathlib import Path
           row = json.loads(Path('data/origination.json').read_text())
           blanks = [m for m in row['matches'] if m.get('origination') is None]
+          # The previous published probe names every fixture the deployed site
+          # left blank. Keep this run's row for each of them even if the fresh
+          # ladder filled one, so the before/after change is auditable and the
+          # still-blank reasons stay visible.
+          prior = Path('data/research/75de2710/probe.json')
+          watch = set()
+          if prior.exists():
+              watch = {b['id'] for b in json.loads(prior.read_text()).get('blank_fixtures') or []}
+          watch |= {m['id'] for m in blanks}
           Path('data/research/75de2710/ladder.json').write_text(json.dumps({
               'generated_at': row['generated_at'],
               'counts': row['counts'],
               'unresolved_ids': [m['id'] for m in blanks],
+              'watched_ids': sorted(watch),
               'rows': [{'id': m['id'], 'teams': [t['name'] for t in m['teams']],
                         'competition': m['competition'], 'starts_at': m['starts_at'],
                         'method': (m.get('origination') or {}).get('method'),
                         'probabilities': (m.get('origination') or {}).get('probabilities'),
+                        'selection': m.get('pick_index'),
                         'aliases': [a['alias'] + ' -> ' + a['canonical'] for a in m.get('aliases_used') or []],
-                        'trail': [{'stage': r.get('stage'), 'status': r.get('status')}
+                        'limitations': (m.get('origination') or {}).get('limitations'),
+                        'trail': [{'stage': r.get('stage'), 'status': r.get('status'),
+                                   'detail': str(r.get('detail') or '')[:300]}
                                   for r in m.get('research') or []]}
-                       for m in (blanks or row['matches'])],
+                       for m in row['matches'] if m['id'] in watch],
           }, indent=1) + '\n')
-          print('ladder blanks:', len(blanks))
+          print('ladder blanks:', len(blanks), 'watched:', len(watch))
           PY
       - name: Restore tracked data so only this session's reports are committed
         run: |
