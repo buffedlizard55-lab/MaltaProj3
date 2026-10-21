@@ -564,6 +564,279 @@
         }
       ],
       "review_note": "Added by session c03ef201 (2026-10-19): same-event/same-slot/shared-opponent triangulation, matching the reviewed 'Betclic Apogee Esports' -> 'Apogee Betclic' display-name precedent. Published on the Flagged for Review page for manual confirmation; the join is competition-scoped and cannot match any other event."
+    },
+    {
+      "alias": "CYBERSHOKE",
+      "canonical": "ex-CYBERSHOKE",
+      "kind": "display-name variant (organization prefix elided)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "CIS LAN Championship #9 (WINLINE MPKBK CIS LAN Season 9): Hotspawn fixture 1082762 'ex-CYBERSHOKE vs BlinkDagger' at 2026-10-21T15:00:00Z; HLTV match 2399839 'ex-CYBERSHOKE vs BlinkDagger'; Bovada prematch coupon lists 'CYBERSHOKE vs blinkdagger' at 2026-10-21T15:00:00Z.",
+      "must_not_match": [
+        "CYBERSHOKE Academy",
+        "ex-CYBERSHOKE Academy",
+        "CYBERSHOKE Junior"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+          "source": "Hotspawn match page (fixture 1082762)",
+          "detail": "Hotspawn schedules 'ex-CYBERSHOKE vs BlinkDagger' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z (lock 14:54Z)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-CYBERSHOKE' vs 'BlinkDagger' in WINLINE MPKBK CIS LAN Season 9, Best of 3, at 2026-10-21T15:00:00Z."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+          "source": "Bovada esportsbook event",
+          "detail": "Bovada prematch CS2 coupon lists 'CYBERSHOKE vs blinkdagger' at startTime 1792594800000 ms (2026-10-21T15:00:00Z) in CIS LAN Championship with two-way Moneyline odds."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): Bovada omits the 'ex-' prefix on the former CYBERSHOKE lineup in CIS LAN Championship #9; strictly scoped to this tournament."
+    },
+    {
+      "alias": "CYBERSHOKE Esports",
+      "canonical": "ex-CYBERSHOKE",
+      "kind": "display-name variant (organization suffix and prefix difference)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "Polymarket Gamma event cs2-cs1-bli4-2026-10-21 lists 'CYBERSHOKE Esports vs BlinkDagger' (BO3, CIS LAN Championship Group C) at 2026-10-21T15:00:00Z resolving on HLTV match 2399839.",
+      "must_not_match": [
+        "CYBERSHOKE Academy",
+        "ex-CYBERSHOKE Academy",
+        "CYBERSHOKE Junior"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-cs1-bli4-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-cs1-bli4-2026-10-21 ('Counter-Strike: CYBERSHOKE Esports vs BlinkDagger (BO3) - CIS LAN Championship Group C', market 5971981) starts at 2026-10-21 15:00:00+00 and resolves from HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-CYBERSHOKE vs BlinkDagger' at 2026-10-21T15:00:00Z in WINLINE MPKBK CIS LAN Season 9 Group C."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+          "source": "Hotspawn match page (fixture 1082762)",
+          "detail": "Hotspawn schedules 'ex-CYBERSHOKE vs BlinkDagger' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): same Group C BO3 slot, shared opponent BlinkDagger, exact 15:00Z UTC start, and explicit HLTV resolution clause on Polymarket market 5971981."
+    },
+    {
+      "alias": "Team flacons",
+      "canonical": "flacons",
+      "kind": "display-name variant ('Team' prefix)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "Polymarket Gamma event cs2-upgrad-tf4-2026-10-21 lists 'UPGRADE vs Team flacons' (BO3, CIS LAN Championship Group C) at 2026-10-21T15:00:00Z vs Hotspawn/HLTV 'UPGRADE vs flacons'.",
+      "must_not_match": [
+        "Team Falcons",
+        "Falcons",
+        "Falcons Force"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-upgrad-tf4-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-upgrad-tf4-2026-10-21 ('Counter-Strike: UPGRADE vs Team flacons (BO3) - CIS LAN Championship Group C', market 5971986) starts at 2026-10-21 15:00:00+00 against UPGRADE."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'UPGRADE vs flacons' in WINLINE MPKBK CIS LAN Season 9 Group C at 2026-10-21T15:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+          "source": "Hotspawn match page (fixture 1082763)",
+          "detail": "Hotspawn schedules 'UPGRADE vs flacons' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): 'flacons' (CIS LAN mix, distinct from Team Falcons — explicitly excluded via must_not_match) carries a 'Team' prefix on Polymarket market 5971986."
+    },
+    {
+      "alias": "Hacha Esports",
+      "canonical": "Hacha",
+      "kind": "display-name variant ('Esports' suffix)",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Polymarket cs2-damaju-hachae-2026-10-21 and Bovada list 'Hacha Esports' against Damajuana at 2026-10-21T19:00:00Z in CCT South America Series 7 Group Stage.",
+      "must_not_match": [
+        "Hacha Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-damaju-hachae-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-damaju-hachae-2026-10-21 ('Counter-Strike: Damajuana vs Hacha Esports (BO3) - CCT South America Series 7 Group Stage', market 6001630) starts at 2026-10-21 19:00:00+00."
+        },
+        {
+          "url": "https://bo3.gg/matches/damajuana-vs-hacha-esports-21-10-2026",
+          "source": "bo3.gg match record",
+          "detail": "bo3.gg match 132582 maps slug 'hacha-esports' directly to team name 'Hacha' (id 9764) vs DAMAJUANA at 2026-10-21T19:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+          "source": "Hotspawn match page (fixture 1082836)",
+          "detail": "Hotspawn schedules 'Damajuana vs Hacha' in CCT South America 2026 Series #7 at 2026-10-21T19:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): bo3.gg match 132582 explicitly links slug 'hacha-esports' to display name 'Hacha' in CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Damajuanaa",
+      "canonical": "Damajuana",
+      "kind": "display-name spelling variant",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Bovada prematch CS2 board spells 'Damajuana' as 'Damajuanaa' against Hacha Esports at startTime 1792609200000 ms (2026-10-21T19:00:00Z).",
+      "must_not_match": [
+        "Damajuana Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+          "source": "Bovada esportsbook board",
+          "detail": "Bovada lists 'Damajuanaa vs Hacha Esports' at startTime 1792609200000 ms (2026-10-21T19:00:00Z), matching Hotspawn fixture 1082836."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+          "source": "Hotspawn match page (fixture 1082836)",
+          "detail": "Hotspawn lists 'Damajuana vs Hacha' at 2026-10-21T19:00:00Z in CCT South America 2026 Series #7."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): single duplicated trailing character on Bovada's listing for the same 19:00Z fixture against Hacha Esports; scoped strictly to CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Alianza Lima Esports",
+      "canonical": "Zetta",
+      "kind": "roster-acquisition organization name",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Peruvian organization Alianza Lima Esports signed the 5-player Zetta lineup (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) during CCT South America 2026 Series #7: Hotspawn/HLTV/Valve still display 'Zetta', while bo3.gg and Polymarket display 'Alianza Lima Esports' for Round 5 at 2026-10-21T22:00:00Z.",
+      "must_not_match": [
+        "Alianza Lima Academy",
+        "Zetta Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-ale1-ln-2026-10-21 ('Counter-Strike: Alianza Lima Esports vs Los Niños (BO3) - CCT South America Series 7 Group Stage', market 6001634) starts at 2026-10-21 22:00:00+00 and resolves from HLTV."
+        },
+        {
+          "url": "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026",
+          "source": "bo3.gg match record",
+          "detail": "bo3.gg match 132583 lists 'Alianza Lima Esports vs Los Niños' in CCT South America 2026 Series 7 Group Stage Round 5 at 2026-10-21T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399865 lists the identical Round 5 BO3 against LOS NINOS at 2026-10-21T22:00:00Z under 'Zetta' (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette — 5/5 Valve VRS Americas roster match)."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/match/0U32SId-H/zetta-vs-los-ninos-Wi0PWrNpb",
+          "source": "EGamersWorld match roster record",
+          "detail": "Lists all five players (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) on the Zetta side against LOS NINOS at 2026-10-21T22:00:00Z in CCT Season 3 South America Series 7."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): 5/5 roster match (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) + identical CCT SA Series #7 Round 5 22:00Z slot against Los Niños across HLTV, Valve VRS, bo3.gg and Polymarket."
+    },
+    {
+      "alias": "Los Niños",
+      "canonical": "LOS NINOS",
+      "kind": "diacritic spelling variant",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Polymarket cs2-ale1-ln-2026-10-21 and bo3.gg match 132583 print 'Los Niños' (with tilde ñ) whereas Hotspawn 1082837 and HLTV 2399865 print ASCII 'LOS NINOS'.",
+      "must_not_match": [
+        "Los Ninos Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-ale1-ln-2026-10-21 lists outcome 'Los Niños' in Round 5 of CCT South America Series 7 Group Stage at 2026-10-21 22:00:00+00."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399865 lists 'LOS NINOS' at 2026-10-21T22:00:00Z in CCT 2026 South America Series 7."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+          "source": "Hotspawn match page (fixture 1082837)",
+          "detail": "Hotspawn schedules 'Zetta vs LOS NINOS' at 2026-10-21T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): NFKD diacritic join ('ñ' -> 'n') between Polymarket/bo3.gg 'Los Niños' and Hotspawn/HLTV 'LOS NINOS' in CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "largadosypelados",
+      "canonical": "BARCA",
+      "kind": "pre-signing lineup name",
+      "applies_to": [
+        "Circuit X Curitiba #4"
+      ],
+      "competition_note": "Polymarket cs2-pain-ldp-2026-10-21 and Bovada list pre-signing Brazilian mix 'largadosypelados' / 'Largadosypelados' against paiN Gaming at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4, whereas Hotspawn 1082831, HLTV 2399832 and Pinnacle list their new name 'BARCA'.",
+      "must_not_match": [
+        "BARCA Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-pain-ldp-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Polymarket lists 'paiN Gaming vs largadosypelados' in Circuit X Curitiba Season 4 at 2026-10-21T14:00:00Z resolving on HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399832/pain-vs-barca-circuit-x-curitiba-season-4",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'paiN vs BARCA' in Circuit X Curitiba Season 4 at 2026-10-21T14:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/pain-vs-barca-circuit-x-curitiba-4-1082831",
+          "source": "Hotspawn match page (fixture 1082831)",
+          "detail": "Hotspawn schedules 'paiN vs BARCA' in Circuit X Curitiba #4 at 2026-10-21T14:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): same Circuit X Curitiba #4 14:00Z match slot against paiN across Hotspawn/HLTV/Pinnacle ('BARCA') and Polymarket/Bovada ('largadosypelados')."
+    },
+    {
+      "alias": "paiN Gaming",
+      "canonical": "paiN",
+      "kind": "display-name variant ('Gaming' suffix)",
+      "applies_to": [
+        "Circuit X Curitiba #4"
+      ],
+      "competition_note": "Polymarket cs2-pain-ldp-2026-10-21 and Bovada append 'Gaming' ('paiN Gaming') against largadosypelados/BARCA at 2026-10-21T14:00:00Z in Circuit X Curitiba #4.",
+      "must_not_match": [
+        "paiN Academy",
+        "paiN Gaming Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-pain-ldp-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Polymarket lists 'paiN Gaming vs largadosypelados' at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399832/pain-vs-barca-circuit-x-curitiba-season-4",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'paiN vs BARCA' at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): standard organization suffix variant scoped strictly to Circuit X Curitiba #4."
     }
   ]
 }

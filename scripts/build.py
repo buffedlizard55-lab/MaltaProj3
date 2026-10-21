@@ -229,7 +229,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else 'Valve' if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            out += external(a['source_url'], 'Market' if method == 'market' else model_source_label(a) if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -237,13 +237,24 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
     return out
 
 
+def model_source_label(analysis: dict) -> str:
+    url = str((analysis or {}).get('source_url') or '')
+    source = str((analysis or {}).get('source') or '')
+    if 'hltv.org' in url or 'HLTV' in source:
+        return 'HLTV ranking'
+    if 'bo3.gg' in url or 'results-based' in source.lower():
+        return 'bo3.gg results'
+    return 'Valve'
+
+
 def selected_fallback(m, fallbacks):
-    """One displayed probability basis: preserve money lines, upgrade only models."""
+    """One displayed probability basis: preserve money lines, upgrade only models or non-directional ties."""
     row = fallbacks.get(str(m['id']))
     if not row or not row.get('origination'):
         return None
     a = m.get('analysis')
-    if a is None or (a.get('method') == 'model' and row.get('upgraded_from_featured_model')
+    if a is None or ((a.get('method') == 'model' or (m.get('pick_index') is None and row.get('pick_index') is not None))
+                     and row.get('upgraded_from_featured_model')
                      and row['origination']['method'] in {'market', 'bookmaker', 'consensus', 'reference'}):
         return row
     return None
@@ -464,7 +475,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else 'Valve' if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])

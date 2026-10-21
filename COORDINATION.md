@@ -95,6 +95,7 @@ is current; no implementation scope from those rows is entered.
 - **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103, #105 and #107, their merges, the latest recorded publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
 
 **Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+
 # Current session: arena-b8a142d2 — truthful executive-summary pick coverage
 
 Claimed **2026-10-21T12:45Z** on the fixed Arena branch
@@ -126,6 +127,46 @@ missing estimate remains blank and in the unresolved register.
 - **Flagged for review:** `b8a142d2-test-diagnostics-emitted-as-live-check-errors` is published on `/review/` with official GitHub run, annotation, workflow and source-code links. Four failure-level annotations (three HTTP 403 strings and one lobby/API mismatch) appear on the successful scheduled run. The regression tests intentionally exercise these failure paths before live collection; exact annotation attribution cannot be confirmed because the Actions log download returns EOF. The finding asks that test-only diagnostics be distinguished from production-source failures. This does not block the successful deployment.
 - **Local verification:** `.venv/bin/python -m unittest discover -s tests -v` — **743 passed** (433.734 s). `.venv/bin/python -m scripts.build` replayed all 80 checked-in source rows; strict row audit: **493 rows, 479 official links, 5 flagged unverified, 9 navigation, 0 violations**; 669 internal links/assets/anchors passed. `npm test` — **85 Playwright tests passed**, including 320/390/768/1440 px layout, phone navigation, no-JavaScript source access and automated accessibility scans.
 - **Artifact-access limitation:** GitHub’s artifact download redirected to external blob storage and returned EOF, so this session does not claim an independent line-by-line inspection of the latest live fixture rows. The prior [D9 live-artifact limitation](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md) already publishes this access boundary; the full aggregate evidence and artifact attempt are saved in `data/research/b8a142d2/summary-coverage-audit.json`.
+
+# Current session: arena-f9d0a5a2 — low-tier match resolution rungs (HLTV + esportsbooks), source-badge provenance fix, line-by-line repo & live-feed audit, integration
+
+Claimed **2026-10-21T12:43Z** on the fixed Arena branch `arena/f9d0a5a2-maltaproj3`,
+branched from `main` `89bfa27` (merge of PR #110). Arena fixes each session to its own
+`arena/<id>-maltaproj3` branch rather than a `session-<id>/<task>` branch; the file-scope
+and non-overlap rules apply unchanged. I read `COORDINATION.md` and checked all active
+remote branches (`arena/8926d9c4-maltaproj3` and `arena/941ff196-maltaproj3`) and open PRs
+before claiming. Neither concurrent session claims new pick-resolution rungs in
+`scripts/originate.py`, new HLTV/esportsbook research modules, or additive entries in
+`data/origination/aliases.json` / `data/research/57b1ee04/reference-odds.json`.
+
+**Non-overlap pledge:** no edits to `archive/`, `docs/` sources, any other session's
+`data/research/<other-session>/` directory (except additive reviewed captures if needed in
+our own `data/research/f9d0a5a2/`), `assets/glance-lock.js`, or any existing session's
+test files. Any concurrent PRs merged to `main` before final integration will be merged/rebased
+cleanly without discarding their work.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F9-1 Line-by-line repository & live 2026-10-21 Hotspawn inventory/source audit with official links and irregularity flags | **done** | arena-f9d0a5a2 | `data/research/f9d0a5a2/`, `COORDINATION.md` |
+| F9-2 Root-cause Polymarket `tag_slug=counter-strike-2` discovery fix (`scripts/sources.py`, `scripts/originate.py`), NFKD diacritic & alias-aware `bo3.gg` results binding (`scripts/form_model.py`, `scripts/originate.py`), `bo3.gg` official host entry (`scripts/audit_rows.py`), and scoped first-party alias joins (`data/origination/aliases.json`) resolving all active low-tier CS2 fixtures | **done** | arena-f9d0a5a2 | `scripts/sources.py`, `scripts/originate.py`, `scripts/form_model.py`, `scripts/audit_rows.py`, `data/origination/aliases.json`, `tests/test_f9d0a5a2.py` |
+| F9-3 Source-badge provenance accuracy (`model_source_label` for HLTV ranking & `bo3.gg` results models instead of hardcoded `Valve` in `matches_table` / `glance`, plus directional tie upgrade parity in `selected_fallback`) | **done** | arena-f9d0a5a2 | `scripts/build.py` (`model_source_label`, `matches_table`, `selected_fallback`, `glance`) |
+| F9-4 Full verification suites, line-by-line recheck, PR to `main`, merge, verified GitHub Pages deployment, and final board record | **in progress** | arena-f9d0a5a2 | `COORDINATION.md`, PR |
+
+### F9-1..F9-3 live verification result before merge (2026-10-21T13:44Z)
+
+- **Root causes fixed:**
+  1. `scripts/sources.py` (`gamma_games`, `poly_index`) queried `gamma-api.polymarket.com/events?tag_slug=cs2`, which on Polymarket Gamma API returns only two season-long outright markets and drops 100% of active CS2 match moneylines (all tagged under `tag_slug=counter-strike-2`, tag id `100780`). Updated `poly_index()` to paginate `tag_slug=counter-strike-2`, accepted both `'counter-strike-2'` and legacy `'cs2'` in `gamma_games()`, and added standalone tagged discovery + single-fetch `seen_event_ids` deduplication in `scripts/originate.py::live_collect()`.
+  2. Added Unicode `NFKD` combining-mark folding in `scripts/form_model.py::key()` (`Grêmio -> gremio`, `QUINTESSÊNCIA -> quintessencia`, `Los Niños -> losninos`), scoped-alias binding in `scripts/originate.py::collect_bo3_results()`, and `('bo3.gg', None)` in `scripts/audit_rows.py::OFFICIAL`.
+  3. Replaced hardcoded `'Valve'` model link labels in `scripts/build.py` (`matches_table` & `glance`) with `model_source_label()` (`HLTV ranking`, `bo3.gg results`, `Valve`) and aligned `selected_fallback()` with `validate_origination()` for directional money upgrades of featured 50/50 ties.
+  4. Added nine strictly competition-scoped, multi-source official-evidence-backed entries in `data/origination/aliases.json` (`CYBERSHOKE -> ex-CYBERSHOKE`, `CYBERSHOKE Esports -> ex-CYBERSHOKE`, `Team flacons -> flacons`, `Hacha Esports -> Hacha`, `Damajuanaa -> Damajuana`, `Alianza Lima Esports -> Zetta`, `Los Niños -> LOS NINOS`, `largadosypelados -> BARCA`, `paiN Gaming -> paiN`), each with `must_not_match` guards and `review_note` disclosures.
+- **Verified live GitHub Actions runs on `01971b5`:**
+  - Live `Origination source audit` run [#39609059112](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059112) ([annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119252803800/annotations)): **`active: 19, resolved: 19, unresolved: 0, with_pick: 19` (`100%` of active Hotspawn CS2 matches resolved with sourced probabilities and directional picks!)** — `consensus: 5, market: 9, bookmaker: 1, model: 3, guidance: 1, alias_joined: 6`, complete 81-record three-way Hotspawn reconciliation (`lobby + cs2 + API`), `First-party source-integrity audit` `19/19` supported & usable (`explicitly_unresolved: 0`):
+    - `1082762` (`ex-CYBERSHOKE vs BlinkDagger`): 3-source money consensus `Polymarket + Kalshi + Bovada` (`82.0% / 18.0%`, pick `ex-CYBERSHOKE`).
+    - `1082763` (`UPGRADE vs flacons`): 2-source money consensus `Polymarket + Kalshi` (`95.3% / 4.7%`, pick `UPGRADE`).
+    - `1082836` (`Damajuana vs Hacha`): upgraded from `50/50` tie to 4-source money consensus `Polymarket + Kalshi + Thunderpick + Bovada` (`41.6% / 58.4%`, pick `Hacha`).
+    - `1082831` (`paiN vs BARCA`): 5-source money consensus `Polymarket + Kalshi + Thunderpick + Bovada + Pinnacle` (`61.5% / 38.5%`, pick `paiN`).
+    - `1082837` (`Zetta vs LOS NINOS`): amber-badged wide-book guidance from Kalshi `KXCS2GAME-26OCT211800LNALE` (`48.1% / 51.9%`, bid/ask `0.29–0.70 / 0.33–0.74`, spread `0.41`, lean `LOS NINOS`).
+  - Full `Validate dashboard` run [#39609059043](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059043): `success` across all Python unit suites, full site build & link check, `--strict` row-source audit (`0 violations`), 85 Playwright mobile/desktop/no-JS/WCAG A/AA tests, and 106 pick-safety browser assertions.
 
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 

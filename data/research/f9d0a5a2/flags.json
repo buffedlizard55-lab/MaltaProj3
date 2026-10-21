@@ -1,0 +1,40 @@
+[
+  {
+    "id": "f9d0a5a2-polymarket-gamma-tag-slug-defect",
+    "severity": "warning",
+    "match_ids": ["1082762", "1082763", "1082831", "1082836", "1082837", "1079187"],
+    "title": "Polymarket Gamma CS2 series markets carry tag_slug=counter-strike-2 rather than tag_slug=cs2 (repaired)",
+    "detail": "Line-by-line review of scripts/sources.py (lines 252 and 278) against live Gamma API responses on 2026-10-21 showed that gamma-api.polymarket.com/events?tag_slug=cs2 returns only two season-long outright markets and zero active match moneylines, whereas all active CS2 series markets carry tag id 100780 (slug 'counter-strike-2') without tag slug 'cs2'. As a result, poly_index() and gamma_games() dropped every non-directory low-tier Polymarket match event before exact or alias matching. Fixed in scripts/sources.py and scripts/originate.py so both tag slugs ('counter-strike-2' and legacy 'cs2') discover and replay identically.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=5&offset=0",
+      "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=5&offset=0",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/sources.py"
+    ]
+  },
+  {
+    "id": "f9d0a5a2-zetta-los-ninos-wide-clob-and-org-join",
+    "severity": "warning",
+    "match_ids": ["1082837"],
+    "title": "Zetta vs LOS NINOS (1082837): 5/5 org name change to Alianza Lima Esports and wide Polymarket order book",
+    "detail": "Hotspawn fixture 1082837 ('Zetta vs LOS NINOS', 2026-10-21T22:00:00Z, CCT South America 2026 Series #7) corresponds to HLTV match 2399865 (Zetta five-player roster Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette — 5/5 match with Valve Americas VRS #357 Zetta, 473 pts) and to Polymarket event cs2-ale1-ln-2026-10-21 / bo3.gg match 132583 ('Alianza Lima Esports vs Los Niños'). LOS NINOS has only five completed series on bo3.gg (below the 8-series minimum of scripts/form_model.py), and the live Polymarket Match Winner CLOB book (condition 0xc9860063e80733984457b6cf6829533c14c45089b3d413edc18dbf99c97a10a7) has a wide bid/ask spread above the 0.15 money-line ceiling, so when no tighter bookmaker/exchange line is posted at refresh time it resolves only on the amber-badged wide-book guidance rung with explicit spread disclosure.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+      "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "f9d0a5a2-form-model-diacritics-and-row-audit-bo3-host",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Diacritic stripping in scripts/form_model.py and bo3.gg host allowlist in scripts/audit_rows.py (repaired)",
+    "detail": "Line-by-line code review identified three latent defects: (1) form_model.key() stripped accented Latin letters without Unicode NFKD decomposition, turning 'Grêmio' into 'grmio' instead of 'gremio' and 'Los Niños' into 'losnios' instead of 'losninos'; (2) collect_bo3_results() matched upcoming bo3.gg fixtures only on unaliased names; (3) scripts/audit_rows.py omitted bo3.gg from OFFICIAL even though build.py renders bo3.gg series links inside model evidence tables, and build.py labeled HLTV-ranking and bo3.gg-results model links as 'Valve'. Repaired across scripts/form_model.py, scripts/originate.py, scripts/audit_rows.py and scripts/build.py.",
+    "source_urls": [
+      "https://bo3.gg",
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/form_model.py"
+    ]
+  }
+]
