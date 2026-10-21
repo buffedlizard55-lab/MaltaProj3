@@ -28,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import median
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 import requests
 
@@ -424,6 +424,41 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
                     cache[team_id], ensure_ascii=False, indent=2) + '\n')
             record['results'][form_model.key(team.get('name') or '')] = cache[team_id]['samples']
         bindings[str(match['id'])] = record
+    # Identity fallback for the own network model (session 541cd43a): bo3.gg does
+    # not list every low-tier fixture, but it does list most teams. An exact
+    # normalised team-name lookup that returns exactly one team is recorded as a
+    # name bridge; anything ambiguous or missing is left unbindable, so the model
+    # stays blank instead of pricing the wrong roster.
+    for match in matches:
+        if str(match['id']) in bindings or match.get('availability') == 'past':
+            continue
+        if match.get('analysis') is not None and match['analysis'].get('method') != 'model':
+            continue
+        sides, bridge_ok = [], True
+        for team in match.get('teams') or []:
+            name = team.get('name') or ''
+            if not name:
+                bridge_ok = False
+                break
+            query = ('/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]='
+                     + quote(name, safe=''))
+            try:
+                body, _ = client.get_json(BO3_API + query, 'live-bo3-team-' + str(team.get('id')),
+                                          headers=BO3_HEADERS, save=False)
+            except RuntimeError as exc:
+                bridge_ok = False
+                break
+            rows = [r for r in body.get('results') or []
+                    if name_key(r.get('name') or '') == name_key(name)]
+            if len(rows) != 1 or not rows[0].get('id'):
+                bridge_ok = False
+                break
+            sides.append({'name': rows[0].get('name'), 'team_id': rows[0].get('id')})
+        if bridge_ok and len(sides) == 2:
+            bindings[str(match['id'])] = {
+                'bo3_id': None, 'source_url': 'https://bo3.gg/teams/' + str(sides[0]['team_id']),
+                'observed_at': observed, 'bridge': 'exact_team_name_lookup', 'sides': sides,
+                'results': {}}
     form_model.save_bindings(evidence_dir, {'observed_at': observed, 'matches': bindings})
     return {'fixtures_bound': len(bindings), 'teams_saved': len(cache),
             'samples': sum(len(v['samples']) for v in cache.values())}

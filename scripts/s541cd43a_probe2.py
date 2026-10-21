@@ -96,7 +96,7 @@ def main() -> int:
         for team in fixture['teams']:
             row['bo3_team'][team] = {label: bo3_query(template, team)
                                      for label, template in BO3_TEAM_FILTERS}
-            hits = [r for label in row['bo3_team'][team].values() for r in r['results']]
+            hits = [hit for probe in row['bo3_team'][team].values() for hit in probe['results']]
             ids = sorted({h['id'] for h in hits if h.get('id')})
             if len(ids) == 1:
                 team_id = ids[0]

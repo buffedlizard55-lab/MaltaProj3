@@ -54,7 +54,10 @@ jobs:
       - name: Probe HLTV, bo3.gg and esportsbook surfaces for every blank fixture
         run: python -m scripts.s541cd43a_probe || echo "::warning::provider probe failed; snapshot still committed"
       - name: Discover team identity and coverage for every blank fixture
-        run: python -m scripts.s541cd43a_probe2 || echo "::warning::identity probe failed; snapshot still committed"
+        run: |
+          mkdir -p data/research/541cd43a
+          python -m scripts.s541cd43a_probe2 2> data/research/541cd43a/identity-probe.err \
+            || echo "::warning::identity probe failed; its traceback is committed as identity-probe.err"
       - name: Restore every tracked runtime file so only the report is committed
         run: |
           git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true

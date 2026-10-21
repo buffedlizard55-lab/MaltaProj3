@@ -244,9 +244,12 @@ def section_method(data):
     for step in p['ladder']:
         out.append(f'<li>{e(step)}</li>')
     out.append('</ol>')
-    out.append('<h3>Model note</h3><p>When a research model is used, win probability comes from the published Valve standings points with the '
-               'formula in Valve\'s own <a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js">model/fit.js</a> '
-               f'(fixed rating deviation {e(p.get("rd_assumption", 75))}). It is labeled on every row and never overrides market or esportsbook prices.</p>')
+    out.append('<h3>Model note</h3><p>When a research model is used, the win probability is a 400-point logistic transform, '
+               'the scale in Valve\'s own <a class="src" href="https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js">model/fit.js</a> '
+               f'(fixed rating deviation {e(p.get("rd_assumption", 75))}). The inputs differ by rung and are named on every row: '
+               'official Valve standings points; a results-based fit for one unrated side; our own Bradley–Terry network fit over '
+               'bo3.gg finished series anchored on Valve points (session 541cd43a); or HLTV\'s published weekly world-ranking points. '
+               'Each model row publishes its own inputs, sample size and uncertainty, and no model ever overrides a market or esportsbook price.</p>')
     out.append(f'<p class="tiny">Start-time join tolerance: ±{int(p["start_tolerance_sec"] / 60)} min; any disagreement beyond 60 seconds is published as a flag, never silently corrected. '
                f'Thin-market threshold: spread &gt; {e(p["thin_spread"])}; rejection ceiling: spread &gt; {e(p["max_accepted_spread"])}.</p></section>')
     return ''.join(out)

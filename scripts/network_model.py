@@ -104,10 +104,16 @@ def usable_edges(edges: list[dict], now: datetime) -> list[dict]:
         if day is None or day < cutoff or day > now + timedelta(days=1):
             continue
         a, b, winner = edge.get('a'), edge.get('b'), edge.get('winner')
-        if not a or not b or a == b or winner not in (a, b):
+        # Team ids are opaque: never treat 0/"" as "missing" (that silently
+        # dropped a whole component in the first synthetic fit).
+        if a is None or b is None or a == '' or b == '' or a == b or winner not in (a, b):
             continue
-        if edge.get('parsed') not in (None, 'done'):
-            continue
+        # The winner field is authoritative for a finished series; bo3.gg's
+        # parsed_status often still reads 'waiting' for a completed match whose
+        # scoreboard is not parsed yet. Requiring 'done' silently dropped most
+        # recent results, so the rule is: a published winner is enough, and the
+        # status is carried into the evidence for review.
+
         age = (now - day).total_seconds() / 86400
         out.append({'id': edge.get('id'), 'date': day.date().isoformat(), 'a': a, 'b': b,
                     'winner': winner, 'url': edge.get('url'),
@@ -200,7 +206,7 @@ def build(edges: list[dict], ratings_rows: list[dict], now: datetime,
     teams: dict[int, str] = {}
     for edge in clean:
         for side in ('a', 'b'):
-            if edge.get(side) and edge.get(side + '_name'):
+            if edge.get(side) is not None and edge.get(side + '_name'):
                 teams[int(edge[side])] = edge[side + '_name']
     anchors, notes = anchor_rows(teams, ratings_rows, registry)
     fitted = fit(clean, anchors)
@@ -325,6 +331,7 @@ def estimate_fixture(match: dict, binding: dict | None, document: dict | None,
         'graph_anchors': len(document.get('anchors') or {}),
         'low_confidence': low_confidence,
         'source_url': 'https://bo3.gg/matches',
+        'identity_bridge': (binding or {}).get('bridge'),
         'evidence_file': EVIDENCE_REFERENCE,
         'evidence_sha256': document.get('evidence_sha256'),
         'observed_at': document.get('generated_at'),
