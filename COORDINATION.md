@@ -4197,3 +4197,41 @@ Read the entire board before starting. Existing feature claims (941ff196, 802f6a
 
 **Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/coverage_probe.py` semantics (probabilities, picks, aliases unchanged). It writes only to `data/research/0582cbe9/` and this board section, plus minimal additive UI copy/CSS that preserves all existing behavior. If a file is owned by another session, the request is logged here instead of editing.
 
+
+---
+
+# Current session: arena-f4eb8ae3 — independent pick-source research, executive-summary/mobile verification, final integration
+
+Claimed **2026-10-21T20:15Z** on the Arena-fixed branch `arena/f4eb8ae3-maltaproj3`,
+branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (merge of PR #131).
+Read the whole board before starting. **Active concurrent claims at claim time:**
+`arena/dbaf7692-maltaproj3` (commits through 20:10:11Z: pick-less-fixture origination —
+`scripts/originate.py`, `scripts/build.py`, `scripts/hltv_ranking.py`,
+`tests/test_unresolved_rungs.py`, `tests/test_unresolved_summary.py`,
+`.github/workflows/pages.yml`, `data/latest.json`, `data/origination.json`,
+`data/sources.json`, `data/origination/evidence/`, `data/research/dbaf7692/`) and
+`arena/091e0e2e-maltaproj3` (claim 20:08:55Z: independent live coverage and source
+audit — `COORDINATION.md` section). Open but **stale >60 min with no commits**
+(takeover rule applies): PR #120 `arena/541cd43a` (last commit 14:35Z),
+PR #121 `arena/75de2710` (last commit 14:01Z), PR #124 `arena/b8a142d2`
+(last commit 14:18Z).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F4-1 Independent second-read research for **every currently pick-less Hotspawn CS2 fixture**: HLTV first, then public esportsbooks / betting lines (Pinnacle, GG.Bet, Thunderpick, Bovada, Kalshi, Polymarket, 1xBet, Betway, Cloudbet, aggregators). Record dated per-fixture evidence with official links. Goal: find any compliant two-sided prematch line that would let a pick be originated; never invent a probability | **done** — dossier `data/research/f4eb8ae3/pick-source-research-2026-10-21.json` (20:12–20:25Z window); Zetta↔Alianza Lima identity **verified** 5/5 roster chain (answers 32bed9e3 + 093e722e); 1081597 blank re-confirmed rung by rung (no TitanFlow Valve row anywhere, 3<8 anchored series, 1.8/1.8 EGW placeholder); 1082858 even 50/50 no side; 1082860 FlyQuest direction verified, Staqued unrated; no first-party price exists for any of the five model-only/blank fixtures | arena-f4eb8ae3 | new `data/research/f4eb8ae3/` only |
+| F4-2 Executive-summary + mobile contract verification on the built site (links to the updated picks list, separate unresolved-picks & limitations section, 320/390 px readability); fix only in unowned files, log requests for owned ones | **done** — contract pinned by new `tests/test_f4eb8ae3.py` (9 tests: exec-banner/start-here/glance links, `#unresolved-register` with limitations, viewport + mobile-nav Picks link, no "% picked"/fan-vote inputs); Playwright 85/85 green at 320/390/768/1440; no build.py/scout.css edits needed (941ff196/0582cbe9 ownership respected) | arena-f4eb8ae3 | new `tests/test_f4eb8ae3.py`, `data/research/f4eb8ae3/` |
+| F4-3 Final integration: PR #138 (this session's scope) then combined-tree re-verification after concurrent PRs #135/#136/#137 land; stale PRs #120/#121 (>6h no commits — takeover rule) evaluated and either rebased green or closed superseded with handoff notes; full suites + strict row audit + link check; merge; confirm the real GitHub Pages deployment (including the legacy-pages overwrite mitigation); record PR links and merge results here | in progress | arena-f4eb8ae3 | this board section, PRs |
+
+**Non-overlap pledge:** this session does not edit `scripts/originate.py`,
+`scripts/collect.py`, `scripts/build.py`, `scripts/build_origination.py`,
+`scripts/hltv_ranking.py`, `scripts/sources.py`, `scripts/domain.py`,
+`scripts/validate.py`, `.github/workflows/pages.yml`, `data/latest.json`,
+`data/origination.json`, `data/sources.json`, `data/origination/aliases.json`,
+`data/origination/evidence/`, `assets/scout.css`, `tests/test_unresolved_rungs.py`,
+`tests/test_unresolved_summary.py`, any other session's `data/research/<id>/`,
+or `archive/`, while those owners are active. If a fix requires an owned file,
+the request is logged here instead. Research findings are evidence only until
+the owning session (or F4-3 integration, with a logged handoff) applies them.
+The stale-PR takeover rule will be exercised at F4-3 with the handoff noted.
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
