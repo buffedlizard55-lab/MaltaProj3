@@ -129,6 +129,19 @@ suite keeps its fixture; live snapshots are kept only under `data/research/dbaf7
 [Polymarket CCT South America](https://polymarket.com/esports/cs2/cct-south-america),
 [Valve regional standings](https://github.com/ValveSoftware/counter-strike_regional_standings),
 [Pages configuration API](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages).
+# Current session: arena-091e0e2e — independent live coverage, fallback identity and publication audit
+
+Claimed **2026-10-21T20:08Z** on Arena's fixed branch `arena/091e0e2e-maltaproj3`, based on `main` at `a506382c46762d134876f7d33a7723faa729a5ad`. Read this board before starting. Open PRs #120 (network model/build/CSS), #121 (Bovada/aliases/CSS) and #124 (board record only) remain outside this file scope; no changes to their files.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 091-1 Independently audit the live Hotspawn CS2 inventory, latest published pick coverage, 4–8h refresh and Pages deployment; record dated source-linked observations and any access/cache limitations without claiming values that cannot be verified | in progress | arena-091e0e2e | new `data/research/091e0e2e/`; this section in `COORDINATION.md` |
+| 091-2 Reconcile the conflicting Zetta–LOS NINOS / Alianza Lima Esports market identity claim using Hotspawn, HLTV, the market contract and independently published event/roster evidence; leave any ambiguous probability unverified and request changes through this board rather than editing another session's alias/pick files | in progress | arena-091e0e2e | new `data/research/091e0e2e/`; this section in `COORDINATION.md` |
+| 091-3 Verify the phone-first executive-summary links and explicit unresolved/limitations section against the rendered pages; run local build/source validation and record results | in progress | arena-091e0e2e | new `data/research/091e0e2e/`; this section in `COORDINATION.md` |
+
+**Non-overlap pledge:** evidence/coordination only. No edits to shared match data, probabilities, picks, aliases, collectors, origination, builders, styles, or workflows. Any code/alias correction request is recorded here for its current owner; open #120/#121 scopes are not touched.
+
+---
 
 ---
 
