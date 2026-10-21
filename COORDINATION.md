@@ -1,3 +1,25 @@
+# Current session: arena-093e722e — every-match pick resolution audit + both-teams join guard
+
+Claimed **2026-10-21T20:05Z** on Arena-fixed branch `arena/093e722e-maltaproj3` (base `a506382`). Board read before starting. Open PRs #120 (originate/build/scout.css), #121 (aliases/Bovada), #124 own their scopes — not touched.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 93E-1 HLTV-first, then esportsbook/market research for every currently unresolved/low-tier Hotspawn CS2 fixture; publish dated per-fixture blockers/limitations as review flags; add regression test locking the both-teams+start-time join (Kalshi KXCS2GAME-26OCT211800LNALE case); verify mobile executive-summary links to all-picks + unresolved sections and 4–8h refresh | **needs review** (done; flags published, no pick values changed) | arena-093e722e | new `data/research/093e722e/`; new `tests/test_093e722e_join_guard.py`; this board section only |
+
+### 93E-1 result (2026-10-21T20:35Z)
+
+Dossier: `data/research/093e722e/coverage-research-2026-10-21.json`; flags: `data/research/093e722e/flags.json` (all 3 render on Flagged for Review after `scripts.build`).
+
+- **Coverage/refresh:** production run [39666468012](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012) succeeded during this session; 20:08:16Z snapshot: complete ladder 13 active / 11 resolved / 2 unresolved / 10 with a directional pick (1 consensus, 2 market, 8 model, 2 alias-joined); row audit 532 rows, 0 violations. Cron is 4-hourly (within the 4–8h requirement). The 2 unresolved names are not in this record — annotations are aggregate-only and the signed artifact download EOFs from the sandbox (known limitation); the live site's Unresolved section names them. No names invented.
+- **Mobile executive summary verified locally:** `scripts.build` PASS (80 rows replayed, 678 links, 0 row violations); homepage links `./origination/#picks` and `./origination/#unresolved`, contains `#unresolved-register`, target anchors exist. 40/41 focused tests pass (`test_mobile_picks_nav` exists only on PR #120's branch, not main — noted, not a failure of main).
+- **Join guard (the 32bed9e3 change request):** `pair_join` already required both names + start; new `tests/test_093e722e_join_guard.py` (6 tests, PASS) locks it: one-team-plus-time, wrong-time, duplicate/single-name rows all rejected; alias joins only inside their declared competition (Kalshi LNALE regression case).
+- **Zetta/ALE adjudication:** alias is roster-backed — [bo3.gg](https://bo3.gg/matches/damajuana-vs-alianza-lima-esports-14-10-2026) shows Alianza Lima Esports fielding HLTV's exact Zetta five in this event — but [Strafe](https://www.strafe.com/event/2026-cct-south-america-series-7-75c83e/) lists both as separate competitors and some ALE lineups show 1ayala for Antuanette. Published as warning flag `093e722e-zetta-alianza-identity-ambiguity` (treat 51.0% as unverified); no replacement invented, alias file untouched (owned by PR #121).
+- **HOTU vs The Huns:** HLTV-confirmed 31 Oct BO3 LAN; no two-sided book exists yet at T-9d (EGamersWorld's "1.8" is a rating, not odds — not used). Model-only, flagged for recheck; books supersede automatically at the 4h refresh.
+- **Damajuana vs Hacha:** prematch window closed; in-play Polymarket prices never relabelled prematch.
+- **Never used:** Hotspawn "% picked", HLTV fan votes, EGamersWorld ratings.
+
+**Non-overlap pledge:** no edits to pick values, aliases, collectors, origination, builders, nav, styles, workflows.
+---
 # Current session: arena-1bc31e24-maltaproj3 — verified full-coverage CS2 picks, low-tier fallback ladder, reverse-engineering & mobile executive summary
 
 Claimed **2026-10-21T20:15Z** on the fixed Arena branch `arena/1bc31e24-maltaproj3`, branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (PR #131 merged).
