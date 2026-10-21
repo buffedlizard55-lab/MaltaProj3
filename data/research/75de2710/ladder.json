@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T12:59:28Z",
+ "generated_at": "2026-10-21T13:02:27Z",
  "counts": {
   "active": 19,
   "resolved": 17,
@@ -17,7 +17,88 @@
   "1082763",
   "1082837"
  ],
+ "watched_ids": [
+  "1082762",
+  "1082763",
+  "1082837"
+ ],
  "rows": [
+  {
+   "id": "1082762",
+   "teams": [
+    "ex-CYBERSHOKE",
+    "BlinkDagger"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-21T15:00:00Z",
+   "method": "bookmaker",
+   "probabilities": [
+    0.83636364,
+    0.16363636
+   ],
+   "selection": 0,
+   "aliases": [
+    "CYBERSHOKE -> ex-CYBERSHOKE"
+   ],
+   "limitations": null,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked",
+     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+    },
+    {
+     "stage": "Identity join (verified alias registry)",
+     "status": "resolved",
+     "detail": "CYBERSHOKE \u2192 ex-CYBERSHOKE. Competition-scoped registry entries with official evidence links; this supersedes any earlier \"equivalence not verified\" observation for these names in this competition only."
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "resolved",
+     "detail": "Verified paired prematch decimal prices; margin removed by proportional normalization. Joined via verified alias registry."
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved",
+     "detail": "ex-CYBERSHOKE: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved",
+     "detail": "No bo3.gg fixture binding (results model needs an observed series history)"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "unresolved",
+     "detail": "ex-CYBERSHOKE: no HLTV world-ranking entry found (including registry aliases)"
+    }
+   ]
+  },
   {
    "id": "1082763",
    "teams": [
@@ -28,51 +109,64 @@
    "starts_at": "2026-10-21T15:00:00Z",
    "method": null,
    "probabilities": null,
+   "selection": null,
    "aliases": [],
+   "limitations": null,
    "trail": [
     {
      "stage": "HLTV research",
-     "status": "checked"
+     "status": "checked",
+     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
     },
     {
      "stage": "Betting market (Polymarket series winner)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Thunderpick original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Bovada original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
     },
     {
      "stage": "Research model cross-check (Valve official ratings)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "flacons: no Valve rating row found (including registry aliases)"
     },
     {
      "stage": "Results model (own, bo3.gg series results)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No bo3.gg fixture binding (results model needs an observed series history)"
     },
     {
      "stage": "Research model cross-check (HLTV world ranking)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "flacons: no HLTV world-ranking entry found (including registry aliases)"
     },
     {
      "stage": "Origination result",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
     }
    ]
   },
@@ -86,51 +180,64 @@
    "starts_at": "2026-10-21T22:00:00Z",
    "method": null,
    "probabilities": null,
+   "selection": null,
    "aliases": [],
+   "limitations": null,
    "trail": [
     {
      "stage": "HLTV research",
-     "status": "checked"
+     "status": "checked",
+     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
     },
     {
      "stage": "Betting market (Polymarket series winner)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Thunderpick original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Bovada original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
     },
     {
      "stage": "Research model cross-check (Valve official ratings)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "LOS NINOS: no Valve rating row found (including registry aliases)"
     },
     {
      "stage": "Results model (own, bo3.gg series results)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No bo3.gg fixture binding (results model needs an observed series history)"
     },
     {
      "stage": "Research model cross-check (HLTV world ranking)",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "LOS NINOS: no HLTV world-ranking entry found (including registry aliases)"
     },
     {
      "stage": "Origination result",
-     "status": "unresolved"
+     "status": "unresolved",
+     "detail": "No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank."
     }
    ]
   }
