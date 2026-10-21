@@ -164,5 +164,56 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fb04c12f/flags.json"
     ],
     "nonduplicate_contribution": "Retain this report as a corroboration plus the separate 12:45Z read-only source/origination refresh (81 total records; 19 non-past fixtures; 16 dated estimates; 3 unresolved), successful branch CI results, and the four failure-level validation annotations. The duplicate artifact-access and schedule findings were removed from this session\u2019s flags; the FB04 review flag already publishes those issues."
+  },
+  "post_merge": {
+    "pull_request": {
+      "number": 114,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/114",
+      "merged_at": "2026-10-21T13:37:16Z",
+      "merge_commit": "3b57d6a60c9288af17ca3e7347c95f53f6abbd05",
+      "checks": "all successful: validation (Python, build, strict source rows, mobile/no-JS/WCAG and stale-pick safety) plus origination source audit"
+    },
+    "push_publication": {
+      "run_id": 39609596824,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609596824",
+      "conclusion": "success",
+      "completed_at": "2026-10-21T13:50:27Z",
+      "verify_live": "success",
+      "pages_deployment_id": 7227610772,
+      "deployment_status_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7227610772/statuses"
+    },
+    "scheduled_post_merge_refresh": {
+      "run_id": 39611202243,
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39611202243",
+      "conclusion": "success",
+      "completed_at": "2026-10-21T14:05:18Z",
+      "inventory_observed_at": "2026-10-21T14:03:04Z",
+      "inventory": {
+        "records": 79,
+        "upcoming": 12,
+        "archived": 67,
+        "coverage_complete": true,
+        "crosscheck": "complete"
+      },
+      "complete_picks": {
+        "active": 12,
+        "resolved": 9,
+        "with_directional_pick": 8,
+        "unresolved": 3,
+        "market": 5,
+        "model": 4
+      },
+      "source_row_audit": {
+        "rows": 524,
+        "official_linked": 510,
+        "flagged": 5,
+        "navigation": 9,
+        "violations": 0
+      },
+      "pages_deployment_id": 7227828559,
+      "deployment_status_url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7227828559/statuses",
+      "verify_live": "success"
+    },
+    "current_status_note": "The above successful deployment verifies PR #114. A subsequent main commit from PR #119 triggered run 39612934455. GitHub API rate limiting prevented this session from checking that later run\u2019s final state; no failure is asserted. Its result is outside PR #114 deployment verification."
   }
 }
