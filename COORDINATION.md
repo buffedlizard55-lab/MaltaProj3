@@ -8,11 +8,23 @@ scopes; this session does not touch them.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 32B-1 For every currently featured-unresolved Hotspawn CS2 fixture, research HLTV first, then public esportsbook/prediction-market lines; record dated per-fixture evidence, blockers and limitations; verify the executive summary's mobile pick/unresolved links and the 4–8h refresh; publish only source-linked findings, never invented probabilities | **in progress** | arena-32bed9e3 | new `data/research/32bed9e3/`; this session's board section in `COORDINATION.md` |
+| 32B-1 For every currently featured-unresolved Hotspawn CS2 fixture, research HLTV first, then public esportsbook/prediction-market lines; record dated per-fixture evidence, blockers and limitations; verify the executive summary's mobile pick/unresolved links and the 4–8h refresh; publish only source-linked findings, never invented probabilities | **needs review** (research done; one wrong-opponent join published as a flag, collector fix requested below) | arena-32bed9e3 | new `data/research/32bed9e3/`; this session's board section in `COORDINATION.md` |
 
 **Non-overlap pledge:** evidence/coordination only. No changes to pick values,
 match records, aliases, collectors, origination, site builders, shared navigation,
 styles or workflows (several are owned by open PRs #120/#121).
+
+### 32B-1 result — HLTV-first research for all 3 featured-unresolved fixtures (2026-10-21T19:55Z)
+
+Full dated dossier: `data/research/32bed9e3/coverage-research-2026-10-21.json`; published flags: `data/research/32bed9e3/flags.json`.
+
+- **Inventory/refresh verified:** latest scheduled production run [#39627571045](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39627571045) annotations report inventory observed 15:52:28Z — 71 records, 9 upcoming, cross-check complete; featured 6 picks/3 unresolved; complete ladder 9/9 directional (1 consensus, 4 market, 3 model, 1 guidance); row audit 501 rows, 0 violations. Cron is 4-hourly plus catch-up in [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml). Executive-summary mobile shortcuts to [all picks](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks), [featured feed](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) and [unresolved & limitations](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved) verified on the live page.
+- **Damajuana vs Hacha (1082836):** [HLTV 2399864](https://www.hltv.org/matches/2399864/damajuana-vs-hacha-cct-2026-south-america-series-7) confirms BO3 Swiss R5; series was LIVE at research time. [Polymarket event](https://polymarket.com/esports/cs2/cct-south-america/cs2-damaju-hachae-2026-10-21) is real but in-play prices are not a prematch line. Limitation: prematch window closed; only the pre-lock ladder estimate (Hacha 58.9%) stands.
+- **⚠ Zetta vs LOS NINOS (1082837) — wrong-opponent join:** [HLTV 2399865](https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7) and [Hotspawn](https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837) list Zetta as opponent, but the ladder pick "LOS NINOS 51.0%" links [Kalshi KXCS2GAME-26OCT211800LNALE](https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale) = "Los Ninos vs Alianza Lima Esports", and [Polymarket's CCT SA list](https://polymarket.com/esports/cs2/cct-south-america) likewise has ALE vs LN, no Zetta market. ALE is a distinct participant, not a Zetta alias. Published as flag `32bed9e3-zetta-los-ninos-opponent-mismatch` (treat 51.0% as unverified; no replacement invented). **Change request to collector/origination owners (incl. open PRs #120/#121): reject any market join unless BOTH team names (or verified aliases) and start time match the HLTV/Hotspawn fixture; add a regression test with this ticker.**
+- **HOTU vs The Huns (1082792):** [HLTV 2399437](https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026) confirms BO3 LAN semi-final, 31 Oct; no two-sided price verified yet at T-9d. Ladder 94.1% is model-only with featured "ambiguous rating" — flagged `32bed9e3-hotu-model-only-no-market-crosscheck`.
+- **Lobby churn:** at 19:45Z Hotspawn listed 1081870/1081597/1082882 + DFRAG fixtures beyond the snapshot — normal within the 4h cadence; flagged as notice `32bed9e3-lobby-churn-within-refresh-cadence`.
+- **Never used:** Hotspawn "% picked" and HLTV "Pick a winner" fan votes. Sandbox cannot reach source APIs directly, so no API payloads were hashed this session (stated limitation).
+- **Local checks:** `scripts.build` PASS (80 rows replayed, 677 links); `audit_rows --strict` 0 violations; all 3 flags render on the review page; focused suites OK (`test_review_flags`, `test_unresolved_*`, `test_review_register`, `test_mobile_picks_nav` — 44 tests in the unresolved/review group).
 
 ---
 

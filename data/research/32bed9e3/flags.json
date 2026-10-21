@@ -1,0 +1,40 @@
+[
+  {
+    "id": "32bed9e3-zetta-los-ninos-opponent-mismatch",
+    "severity": "warning",
+    "match_ids": ["1082837"],
+    "title": "Zetta vs LOS NINOS (1082837): ladder pick is joined to a market naming a different opponent",
+    "detail": "Independent research 2026-10-21T19:45Z: HLTV match 2399865 and Hotspawn fixture 1082837 both list Zetta vs LOS NINOS (CCT 2026 South America Series 7, BO3). The Kalshi market linked as the source of the complete-ladder pick 'LOS NINOS 51.0%' is titled 'Los Ninos vs Alianza Lima Esports' (ticker KXCS2GAME-26OCT211800LNALE), and Polymarket's CCT South America list likewise shows 'Alianza Lima Esports vs Los Ninos' (cs2-ale1-ln-2026-10-21) with no Zetta market. Alianza Lima Esports is a separate tournament participant (vs Damajuana 14 Oct, vs SUKEBAN 15 Oct), not a verified alias of Zetta. A one-team-plus-time join is not a verified fixture match: treat the 51.0% value as UNVERIFIED until both team identities and start time are re-verified against HLTV. No replacement number is offered; per policy an unsupported pick stays blank. Change request to the collector/origination owners is logged in COORDINATION.md (session arena-32bed9e3).",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
+      "https://polymarket.com/esports/cs2/cct-south-america",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082837"
+    ]
+  },
+  {
+    "id": "32bed9e3-hotu-model-only-no-market-crosscheck",
+    "severity": "notice",
+    "match_ids": ["1082792"],
+    "title": "HOTU vs The Huns (1082792): model-only estimate, no verified market line yet",
+    "detail": "HLTV match 2399437 confirms HOTU vs The Huns, GLuck Moscow Cyber Games 2026 semi-final, BO3 LAN, 31 Oct 2026 (HOTU shown HLTV #38 / VRS #34). At 2026-10-21T19:45Z no two-sided first-party prematch price was verified on the public pages checked, and the featured rung reports an ambiguous rating. The complete ladder's HOTU 94.1% is therefore a Valve-rating research-model estimate with no market cross-check; treat it as high-uncertainty and re-check when books open closer to lock. HLTV fan-vote percentages were not used.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792"
+    ]
+  },
+  {
+    "id": "32bed9e3-lobby-churn-within-refresh-cadence",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Hotspawn listed new fixtures after the 15:52Z snapshot; they enter at the next 4-hour refresh",
+    "detail": "At 2026-10-21T19:45Z the Hotspawn CS2 lobby listed fixtures not in the site's 15:52Z complete inventory (71 records, 9 upcoming, cross-check complete): Vitalem Aerem vs Rare Atom (1081870), benched gods vs TitanFlow (1081597), UNiTY vs Apogee Betclic (1082882) and four DFRAG Invitational fixtures. This is normal lobby churn inside the scheduled 4-hour refresh cadence (8-hour bound), not a collection failure. Until the next verified snapshot, those fixtures correctly have no picks rather than invented ones.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39627571045",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/"
+    ]
+  }
+]
