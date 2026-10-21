@@ -1,0 +1,91 @@
+# Session arena-75de2710 — read-only live release audit and unresolved-pick probe.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV or bookmakers; the GitHub
+# runner does. This workflow never deploys and never rewrites a published
+# dataset. It audits the deployed Pages release, reconciles the live Hotspawn
+# inventory against it, probes HLTV (match, team and ranking pages) and the
+# esportsbook endpoints for every fixture the published ladder left blank, and
+# commits only the dated report and hashed originals.
+#
+# The guarded push trigger skips the workflow's own report commit, so a report
+# push can never re-trigger the probe in a loop.
+name: 75de2710 live audit and unresolved-pick probe (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/75de2710-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: s75de2710-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(75de2710)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run the live ladder (collect + originate) and record the blank list
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          row = json.loads(Path('data/origination.json').read_text())
+          blanks = [m for m in row['matches'] if m.get('origination') is None]
+          # The previous published probe names every fixture the deployed site
+          # left blank. Keep this run's row for each of them even if the fresh
+          # ladder filled one, so the before/after change is auditable and the
+          # still-blank reasons stay visible.
+          prior = Path('data/research/75de2710/probe.json')
+          watch = set()
+          if prior.exists():
+              watch = {b['id'] for b in json.loads(prior.read_text()).get('blank_fixtures') or []}
+          watch |= {m['id'] for m in blanks}
+          Path('data/research/75de2710/ladder.json').write_text(json.dumps({
+              'generated_at': row['generated_at'],
+              'counts': row['counts'],
+              'unresolved_ids': [m['id'] for m in blanks],
+              'watched_ids': sorted(watch),
+              'rows': [{'id': m['id'], 'teams': [t['name'] for t in m['teams']],
+                        'competition': m['competition'], 'starts_at': m['starts_at'],
+                        'method': (m.get('origination') or {}).get('method'),
+                        'probabilities': (m.get('origination') or {}).get('probabilities'),
+                        'selection': m.get('pick_index'),
+                        'aliases': [a['alias'] + ' -> ' + a['canonical'] for a in m.get('aliases_used') or []],
+                        'limitations': (m.get('origination') or {}).get('limitations'),
+                        'trail': [{'stage': r.get('stage'), 'status': r.get('status'),
+                                   'detail': str(r.get('detail') or '')[:300]}
+                                  for r in m.get('research') or []]}
+                       for m in row['matches'] if m['id'] in watch],
+          }, indent=1) + '\n')
+          print('ladder blanks:', len(blanks), 'watched:', len(watch))
+          PY
+      - name: Restore tracked data so only this session's reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination/evidence data/research/twc-current >/dev/null 2>&1 || true
+          git status --porcelain | head -40
+      - name: Run the read-only probe
+        run: python -m scripts.s75de2710_probe --live
+      - name: Commit the dated report and hashed originals
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/75de2710/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(75de2710): live release audit and unresolved-pick source probe'
+          git pull --rebase origin arena/75de2710-maltaproj3
+          git push origin arena/75de2710-maltaproj3

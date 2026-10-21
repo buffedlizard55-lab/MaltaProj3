@@ -132,6 +132,52 @@ Full dated dossier: `data/research/32bed9e3/coverage-research-2026-10-21.json`; 
 - **Local checks:** `scripts.build` PASS (80 rows replayed, 677 links); `audit_rows --strict` 0 violations; all 3 flags render on the review page; focused suites OK (`test_review_flags`, `test_unresolved_*`, `test_review_register`, `test_mobile_picks_nav` — 44 tests in the unresolved/review group).
 
 ---
+---
+
+# Current session: arena-75de2710 — picks for every match, mobile executive summary, verified release audit
+
+Claimed **2026-10-21T10:08Z** on the fixed Arena branch `arena/75de2710-maltaproj3`,
+branched from `main` at `89bfa27` (merge of PR #110). This board was read before
+claiming; it then showed no other implementation claim. While this session ran,
+`main` advanced through PRs #111, #113, #115 and #116 and other sessions opened
+PRs #112, #114, #117 and #118. This section was merged with `main` at `0d0ddbe`
+before opening its own PR; the only conflicting hunk was the `start_here` entry
+copy in `scripts/build.py`, resolved by keeping session b8a142d2's truthful
+"All match picks" wording (PR #115) and dropping this session's extra
+"Picks on this page" card, which pushed the glance block past the 1500 px
+phone-fold budget asserted by `tests/browser/dashboard.spec.mjs`.
+
+**Scope and one deviation, disclosed.** This session edits its own probe workflow,
+`scripts/s75de2710_probe.py`, `data/research/75de2710/`, the executive summary's
+glance renderer, and tests for those. It also adds **one** evidence-linked entry
+to `data/origination/aliases.json` (`CYBERSHOKE -> ex-CYBERSHOKE`, CIS LAN
+Championship #9 only) and the matching regression test, because that join is the
+only reason a published blank can be priced from a real source. No other
+session's tree, no pricing rule, threshold or existing probability was changed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S-75.1 Board claim and session setup | **done** | arena-75de2710 | `COORDINATION.md` |
+| S-75.2 Runner-side live ground truth: deployed Pages release, live Hotspawn inventory reconciliation, and a source probe of every published blank fixture (HLTV match/team/ranking pages first, then esportsbooks and betting lines) with saved, hashed originals | **done** — workflow `.github/workflows/75de2710-probe.yml`, `scripts/s75de2710_probe.py`; runs 39603349543, 39603992992 and 39604399356 succeeded; reports and gzip originals under `data/research/75de2710/` | arena-75de2710 | new `.github/workflows/75de2710-probe.yml`, new `scripts/s75de2710_probe.py`, new `data/research/75de2710/` |
+| S-75.3 Resolve every fixture the ladder leaves blank, using only verified sources; where no compliant source exists, publish the exact blocker (with the official link) in the executive summary's unresolved section | **done for this snapshot** — 1082762 resolves as `bookmaker` from Bovada 1.125/5.750 via the scoped alias; 1082763 and 1082837 stay blank with their exact blockers (HLTV ranking needs both teams on one publication; flacons and LOS NINOS have no row) | arena-75de2710 | `data/origination/aliases.json` (one additive entry), `tests/test_unresolved_rungs.py`, `scripts/build.py` (blocker label) |
+| S-75.4 Phone-first executive summary: an unmistakable "where the picks are" link block above the fold, per-row pick/percentage clarity, and 320/390 px verification | **done** — every future fixture now renders in "Picks at a glance" (previously only 13 of 29 on the live release; only past resolved rows stay capped at six), each row shows both probabilities, and 320/390 px checks report no horizontal overflow. Also fixed the live source-label defect reported by session 802f6a59: an HLTV-ranking quote is now labelled **HLTV**, not "Valve", on both the summary index and the match table | arena-75de2710 | `scripts/build.py` (glance/start_here/matches table renderers), `assets/scout.css`, `tests/test_build.py`, `tests/test_unresolved_summary.py` |
+| S-75.5 Line-by-line repository review with source links; every irregularity published on Flagged for Review | **done** — five source-linked flags in `data/research/75de2710/flags.json` (Bovada single-source alias join, the two honest blanks, provider-outage coverage, the summary cap that was fixed); all five render on `review/` | arena-75de2710 | new `data/research/75de2710/flags.json` |
+| S-75.6 Full suites green, PR to `main`, merge, real Pages deployment verified, record | **in progress** — [PR #121](https://github.com/buffedlizard55-lab/MaltaProj3/pull/121) opened against `main`; merge and Pages verification recorded below | arena-75de2710 | `COORDINATION.md`, [PR #121](https://github.com/buffedlizard55-lab/MaltaProj3/pull/121) |
+
+Principles re-asserted: Hotspawn participation percentages and HLTV fan votes are
+never inputs; no probability without an official source link and observation
+time; a blocked provider is not evidence that no market exists; a blank stays
+blank with its exact blocker published; and every row of the site carries an
+official source link or an explicit unverified marker.
+
+### S-75.2 / S-75.3 result — the three published blanks, resolved or explained (2026-10-21T13:20Z)
+
+- **1082762 ex-CYBERSHOKE vs BlinkDagger — resolved, not modelled.** Bovada's public coupon lists the fixture as `CYBERSHOKE vs blinkdagger` at `2026-10-21T15:00:00Z` with a two-way moneyline `1.125` / `5.750` (market `2W-12`). After proportional margin removal the estimate is **83.636% / 16.364%**, pick ex-CYBERSHOKE. The join is legal only through a new registry entry scoped to `CIS LAN Championship #9` with a `must_not_match` list, backed by Hotspawn, HLTV match 2399839 and the Bovada event page; Bovada publishes no roster, which is why the entry carries a review note. This is a single independent source, so the row keeps a "single source, not a consensus" limitation.
+- **1082763 UPGRADE vs flacons — stays blank.** UPGRADE is HLTV #74 / VRS #86 (Europe #62). flacons has no HLTV world-ranking row, no Valve row, no roster and no October 2026 result. The HLTV rung requires both teams on the same dated publication, so it cannot produce a number; no money source returned a compliant two-sided line.
+- **1082837 Zetta vs LOS NINOS — stays blank.** Zetta is HLTV #241 / VRS #366 (Americas #81); LOS NINOS has no HLTV or Valve row and no roster. Same rung rule, same refusal to default to 50/50.
+- **Fresh ladder replay (13:02:27Z):** 19 active, 17 resolved, **2 unresolved** — the three watched fixtures recorded in `ladder.json`, with 1082762 now `bookmaker` and the other two still blank and fully trailed. The live release at 08:12:39Z still shows the pre-alias state (29 active / 26 resolved / 3 unresolved) until the next scheduled deploy.
+- **Verification before merge:** 757 Python tests, 85 Playwright checks at 320/390/768/1440 px, `scripts.build` (509 rows, 676 internal links) and `scripts.audit_rows --strict` (0 violations) all pass; the 320 px glance block stays inside the 1500 px fold budget enforced by `tests/browser/dashboard.spec.mjs`.
+- **Dead ends recorded, not guessed:** 1xBet returns a JS challenge (HTTP 203), gg.bet 403, Rivalry 530, Cloudbet 404, Stake 403, Unibet 503, Oddspedia 410, Betway 404, and sportsbet.io / BetOnline / Pinnacle did not answer; bo3.gg returns zero upcoming matches for every mapped team id. None of these is treated as proof that no market exists.
 
 # Current session: arena-fb04c12f — current-release and coverage audit
 

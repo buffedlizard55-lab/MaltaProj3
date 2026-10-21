@@ -389,6 +389,7 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    updated = (complete or {}).get('generated_at') or data.get('generated_at')
     items = [
         (prefix + 'origination/#picks', 'All match picks', 'target',
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
@@ -396,13 +397,15 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Final day · Day 5', 'clock',
          'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
-        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', f'Unresolved ({unresolved})', 'flag',
+         'A separate section: every blank pick, its blocker and the sources actually tried.'),
+        (prefix + 'origination/#unresolved', 'Full research trails', 'book',
+         'Provider-by-provider evidence behind every blank and every pick.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
-           '<p class="start-here-label">Start here · where the picks are</p><ul>')
+           '<p class="start-here-label">Start here · where the updated picks are</p>'
+           f'<p class="start-here-updated">List updated <time datetime="{e(str(updated or ""))}">{local_time(updated)}</time>'
+           ' · refreshes every 4 hours; each row keeps its own source and observation time.</p><ul>')
     for href, title, sym, detail in items:
         out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
                 f'<span>{e(detail)}</span></a></li>')
@@ -456,11 +459,12 @@ def glance(data, prefix, now=None):
     # the summary must never omit the name of a match that has no estimate.
     blank_rows = [m for m in active if not basis(m)[0] and upcoming(m)]
     past_blank_rows = [m for m in active if not basis(m)[0] and not upcoming(m)]
-    # Bounded index: upcoming picks first, then every unresolved fixture, then
-    # recent resolved rows for context. Nothing is re-priced or re-ordered by
-    # opinion; the complete list always shows every row.
+    # Every future fixture is listed: a phone reader must never have to tap
+    # through to discover that a match exists. Only resolved rows whose start
+    # has already passed are capped (they are context, not actionable picks).
+    # Nothing is re-priced or re-ordered by opinion.
     shown, seen = [], set()
-    for group, limit in ((open_rows, 10), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
+    for group, limit in ((open_rows, None), (blank_rows + past_blank_rows, None), (resolved_rest, 6)):
         for m in (group if limit is None else group[:limit]):
             if m['id'] not in seen:
                 shown.append(m)
@@ -500,10 +504,14 @@ def glance(data, prefix, now=None):
                            f' data-glance-closed="{"true" if closed else "false"}"')
         rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}"{closed_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
-                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
+                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span>'
+                 + (f'<span class="glance-probs"><span>{e(names[0])} <b>{a["probabilities"][0] * 100:.1f}%</b></span>'
+                    f'<span>{e(names[1])} <b>{a["probabilities"][1] * 100:.1f}%</b></span></span>'
+                    if a else '<span class="glance-probs"><span class="unverified">No verified win probability — never defaulted to 50/50</span></span>')
+                 + '</div>'
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
-    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every future fixture and every unresolved fixture is included, and only past resolved rows are capped. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
@@ -514,7 +522,9 @@ def glance(data, prefix, now=None):
             f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
             f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
             f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
-            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            'Both teams’ win probabilities are shown on every row. A missing estimate is never filled with a default 50/50. '
+            'Green sources are external money lines; purple are research models or researched fallbacks. '
+            f'<span class="glance-updated">Updated {local_time((data.get("complete_picks") or {}).get("generated_at") or data.get("generated_at"))}.</span></p>'
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
@@ -532,7 +542,10 @@ def _brief_blank_reason(match: dict) -> str:
     if 'multiple valve rosters' in lowered:
         return 'ambiguous rating'
     if 'no valve rating row' in lowered or 'complete five-player' in lowered:
-        return 'no rating'
+        # At least one side has no published rating row. Saying "no rating"
+        # would wrongly suggest neither team is rated (UPGRADE is HLTV #74 yet
+        # the row read "no rating" while its opponent was the unrated side).
+        return 'one team unranked'
     if 'no alias-verified' in lowered:
         return 'no external line'
     return 'no verified line'
