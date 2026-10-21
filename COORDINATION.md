@@ -1,3 +1,43 @@
+# Current session: arena-2e5f6104 — HLTV-first + esportsbook research for the two currently unresolved picks; live-site & mobile verification
+
+Claimed **2026-10-21T20:15Z** on the Arena-fixed branch `arena/2e5f6104-maltaproj3`,
+branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (merge of PR #131).
+Read the whole board before starting. Concurrent active sessions at claim time:
+**arena/dbaf7692** (owns `scripts/originate.py`, `scripts/build.py`,
+`scripts/hltv_ranking.py`, `tests/test_unresolved_*`, `data/research/dbaf7692/` —
+"originate the low-tier unranked case and publish every pick-less fixture") and
+**arena/091e0e2e** (evidence-only audit, owns `data/research/091e0e2e/` + its board
+section). Open PRs #120 (network model / build / scout.css), #121 (Bovada evidence /
+aliases / scout.css) and #124 (board record only) own their file scopes. This session
+touches none of those files.
+
+Ground truth at claim time (runner-captured live snapshot, observed
+2026-10-21T20:04:36Z, recorded by arena/dbaf7692's session runner in
+`data/research/dbaf7692/live-2026-10-21/origination.json` on their branch):
+**13 active Hotspawn CS2 fixtures, 11 resolved, 2 unresolved** —
+`1081597` benched gods vs TitanFlow (CCT Europe 2026 Challengers #8, starts
+2026-10-22T11:00Z, locks 10:54Z) and `1082860` FlyQuest vs Staqued (DFRAG
+Invitational 2026, starts 2026-10-27T03:00Z, locks 02:54Z). Latest main production
+run [#39666468012](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39666468012)
+completed **success** 20:10:27Z; scheduled run
+[#39667890897](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39667890897)
+in progress at claim time.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 2E-1 Board claim and session setup | **done** (this commit) | arena-2e5f6104 | `COORDINATION.md` |
+| 2E-2 Independent HLTV-first research for the two unresolved fixtures (1081597, 1082860), then esportsbook / prediction-market / aggregated lines; dated per-source evidence with URLs and observation times; what would guide a pick and the exact limitations; never an invented probability | in progress | arena-2e5f6104 | new `data/research/2e5f6104/` only |
+| 2E-3 Verify the live executive summary's mobile pick/unresolved links, the separate unresolved-picks & limitations section, and the 4–8h refresh cadence against the deployed site and `pages.yml`; record dated observations | unclaimed → in progress | arena-2e5f6104 | new `data/research/2e5f6104/` only |
+| 2E-4 Local verification (build replay, strict row-source audit, focused tests), PR to `main`, merge on green, real Pages deployment verified, record here | unclaimed | arena-2e5f6104 | `data/research/2e5f6104/`, this board section, PR |
+
+**Non-overlap pledge:** evidence/coordination only. No edits to pick values, match
+records, probabilities, aliases, collectors, origination, site builders, shared
+navigation, styles, workflows, or any other session's `data/research/<id>/`. Any
+code/alias change this research motivates is requested through this board for the
+owning session (currently arena/dbaf7692 and open PRs #120/#121), not applied here.
+
+---
+
 # Current session: arena-32bed9e3 — full-coverage pick research for featured-unresolved fixtures
 
 Claimed **2026-10-21T19:40Z** on the Arena-fixed branch `arena/32bed9e3-maltaproj3`,
