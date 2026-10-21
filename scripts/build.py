@@ -944,6 +944,30 @@ def methodology(data, prefix):
     return out
 
 
+def flags_table(flags):
+    """Render the source-linked findings register, including supersede links."""
+    out = '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
+    # A later session can settle an earlier finding. Keeping both rows without a
+    # link leaves the review page arguing with itself, so a resolving flag names
+    # the findings it supersedes and those rows say so in place.
+    resolving = {}
+    for f in flags:
+        for target in f.get('supersedes') or []:
+            resolving.setdefault(str(target), f['id'])
+    for f in flags:
+        resolver = resolving.get(f['id'])
+        if resolver:
+            label = badge('Superseded', 'purple') + f'<small>Answered by <a href="#flag-{e(resolver)}">a later finding</a></small>'
+        else:
+            label = badge('Notice' if f['severity'] == 'notice' else 'Needs review', 'purple' if f['severity'] == 'notice' else 'amber') + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '')
+        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
+        for url in dict.fromkeys(f['source_urls']):
+            label = 'Hotspawn' if 'hotspawn' in url or 'cloudwaysapps' in url else 'Valve' if 'ValveSoftware' in url else 'Polymarket' if 'polymarket' in url else 'HLTV' if 'hltv.org' in url else urlparse_host(url)
+            out += external(url, label)
+        out += '</div></td></tr>'
+    return out + '</tbody></table></div></section>'
+
+
 def review(data, prefix):
     out = heading('Transparent by design', 'Flagged for Review', 'Unresolved matches, blocked sources and inconsistent official fields are published here. They do not block publication; they do block unsupported claims.')
     out += f'<div class="limitations-callout"><strong>Additional identity research and fallback picks</strong><p>Exact-name rejections below are retained for audit. <a style="text-decoration:underline" href="{prefix}origination/#picks">See newly researched fallback picks</a> and <a style="text-decoration:underline" href="{prefix}origination/#aliases">the source-linked alias review registry</a>. These associations do not independently confirm current rosters; Valve estimates remain uncalibrated.</p></div>'
@@ -954,14 +978,7 @@ def review(data, prefix):
         from scripts.review_register import render_all as session_register
         out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
-    out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
-    for f in data['flags']:
-        out += f'<tr id="flag-{e(f["id"])}"><th scope="row">{badge("Notice" if f["severity"] == "notice" else "Needs review", "purple" if f["severity"] == "notice" else "amber")}<strong>{e(f["title"])}</strong>' + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '') + f'</th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
-        for i, url in enumerate(dict.fromkeys(f['source_urls'])):
-            label = 'Hotspawn' if 'hotspawn' in url or 'cloudwaysapps' in url else 'Valve' if 'ValveSoftware' in url else 'Polymarket' if 'polymarket' in url else 'HLTV' if 'hltv.org' in url else urlparse_host(url)
-            out += external(url, label)
-        out += '</div></td></tr>'
-    return out + '</tbody></table></div></section>'
+    out += flags_table(data['flags'])
 
 
 def urlparse_host(url):

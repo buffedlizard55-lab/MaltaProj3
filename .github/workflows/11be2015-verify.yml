@@ -1,0 +1,75 @@
+name: Session 11B verification (branch only)
+# Temporary. Runs the production collection/origination/build path on this branch, then
+# prints the facts this session needs to verify: the full inventory against the published
+# rows, every pick, the glance behaviour and the supersede rendering. Deleted before merge.
+on:
+  push:
+    branches: [arena/11be2015-maltaproj3]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: session-11be2015-verify
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh Hotspawn records and external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Originate picks for the full inventory
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Build the linked pages
+        run: python -c "from pathlib import Path; from scripts.build import build; build(Path('data'), Path('site'))"
+      - name: Report coverage, picks and the supersede rendering
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          latest = json.loads(Path('data/latest.json').read_text())
+          orig = json.loads(Path('data/origination.json').read_text())
+          print('SNAPSHOT', latest['generated_at'], 'inventory', latest['inventory_observed_at'])
+          print('COUNTS', json.dumps(latest['counts']))
+          matches = {str(m['id']): m for m in orig.get('matches', [])}
+          print('\nID       | START (Z)            | TEAMS                                 | PICK      | PROB  | METHOD')
+          missing = []
+          for mid, m in matches.items():
+              o = m.get('origination') or {}
+              teams = ' vs '.join(t['name'] for t in m['teams'])
+              probs = o.get('probabilities')
+              pick = m.get('teams')[m['pick_index']]['name'] if m.get('pick_index') is not None else '—'
+              even = bool(probs) and abs(probs[0] - probs[1]) < 1e-9
+              if not o:
+                  missing.append((mid, teams))
+              print(f"{mid} | {m['starts_at']} | {teams[:37]:37} | {pick[:9]:9} | "
+                    f"{(str(round(max(probs)*100,1))+'%') if probs else '—':5} | {o.get('method','NONE')}"
+                    f"{' (even, no side)' if even else ''}")
+          print('\nFIXTURES', len(matches), 'WITH_ORIGINATION', sum(1 for m in matches.values() if m.get('origination')))
+          print('UNRESOLVED', missing)
+
+          html = Path('site/index.html').read_text()
+          rows = len(re.findall(r'class="glance-row', html))
+          print('\nGLANCE_ROWS', rows)
+          print('ALL_LISTED', 'active fixtures are listed' in html)
+
+          review = Path('site/review/index.html').read_text()
+          superseded = 'class="superseded-flag"' in review
+          linked = 'href="#flag-11be2015-wrong-opponent-flag-for-1082837-is-superseded"' in review
+          print('SUPERSEDE_RENDERED', superseded, 'LINKED', linked)
+          print('OLD_FLAG_PRESENT', 'flag-32bed9e3-zetta-los-ninos-opponent-mismatch' in review)
+          print('NEW_FLAGS', [f for f in ('11be2015-published-rows', '11be2015-two-low-tier') if f in review])
+          if missing:
+              raise SystemExit('a fixture has no origination and is not an even no-side row')
+          PY

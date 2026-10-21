@@ -231,6 +231,32 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('href="https://www.hotspawn.com/matches/x-1"', html)
         self.assertIn('href="https://polymarket.com/event/cs2-x"', html)
 
+    def test_a_later_finding_can_mark_an_earlier_flag_superseded(self):
+        # The review page used to show an old blocker and the finding that settled
+        # it as two equal-weight rows, so a phone reader could not tell which one
+        # was current. A resolving flag names what it supersedes.
+        from scripts.build import flags_table
+        old = {'id': 'older-claim', 'severity': 'warning', 'title': 'Older claim',
+               'detail': 'The join is unverified.', 'match_ids': ['1082837'],
+               'source_urls': ['https://www.hltv.org/matches/2399865/x']}
+        new = {'id': 'newer-proof', 'severity': 'notice', 'title': 'Newer proof',
+               'detail': 'The join is verified by a five-player roster match.',
+               'match_ids': ['1082837'], 'source_urls': ['https://www.hltv.org/matches/2399865/x'],
+               'supersedes': ['older-claim']}
+        html = flags_table([old, new])
+        self.assertIn('id="flag-older-claim"', html)
+        self.assertIn('class="superseded-flag"', html)
+        self.assertIn('Superseded', html)
+        self.assertIn('href="#flag-newer-proof"', html)
+        self.assertNotIn('Needs review', html)
+
+    def test_a_flag_without_a_resolver_keeps_its_review_badge(self):
+        from scripts.build import flags_table
+        html = flags_table([{'id': 'open', 'severity': 'warning', 'title': 'Open',
+                             'detail': 'Still open.', 'match_ids': [], 'source_urls': []}])
+        self.assertIn('Needs review', html)
+        self.assertNotIn('Superseded', html)
+
     def test_every_active_fixture_is_listed_and_never_given_a_50_50(self):
         # Explicit synthetic instant, never the wall clock: twelve resolved
         # matches start 2-13 h after `base` and two unresolved rows are added.

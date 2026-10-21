@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "session": "arena-11be2015",
+  "observed_at": "2026-10-21T21:46:42Z",
+  "title": "Independent first-hand check: Hotspawn's scheduled CS2 feed vs the published 13 rows, and the Zetta/LOS NINOS identity chain",
+  "why": "Every earlier verification in this project replayed a GitHub Actions artifact. This file records a check made directly against the public source endpoints from outside the runner, so the full-coverage claim and the most contested identity join are confirmed first-hand rather than inferred.",
+  "sources": [
+    {
+      "name": "Hotspawn public scheduled-fixtures endpoint",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "how_read": "Response is one JSON array served in 8 reader chunks; every chunk was read and each record parsed (id, competition_name, status, scheduled_start_time, lock_time, participants).",
+      "role": "Authoritative inventory for the lobby: same array the pick'em lobby client renders."
+    },
+    {
+      "name": "HLTV match page 2399865",
+      "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "role": "Fixture identity, start time, format and the five-player lineup of the side Hotspawn calls 'Zetta'."
+    },
+    {
+      "name": "Polymarket Gamma market 6001634",
+      "url": "https://gamma-api.polymarket.com/markets/6001634",
+      "role": "Outcome labels, live prices and the market's own resolution rules for cs2-ale1-ln-2026-10-21."
+    },
+    {
+      "name": "Kalshi event KXCS2GAME-26OCT211800LNALE",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT211800LNALE",
+      "role": "Second, independent two-sided market on the same fixture, with its own rules text."
+    }
+  ],
+  "inventory": {
+    "now": "2026-10-21T21:46:42Z",
+    "rule": "status == 'scheduled' AND scheduled_start_time > now",
+    "future_fixture_count": 13,
+    "published_row_count": 13,
+    "missing_from_site": [],
+    "extra_on_site": [],
+    "verdict": "At 2026-10-21T21:46Z the published page and Hotspawn's own feed contain the same 13 fixtures. No listed match is missing from the site and the site lists nothing Hotspawn does not.",
+    "fixtures": [
+      {"id": "1082837", "teams": ["Zetta", "LOS NINOS"], "competition": "CCT South America 2026 Series #7", "starts_at": "2026-10-21T22:00:00Z", "locks_at": "2026-10-21T21:54:00Z"},
+      {"id": "1081870", "teams": ["Vitalem Aerem", "Rare Atom"], "competition": "VOID Autumn Cup 2026", "starts_at": "2026-10-22T05:00:00Z", "locks_at": "2026-10-22T04:54:00Z"},
+      {"id": "1081597", "teams": ["benched gods", "TitanFlow"], "competition": "CCT Europe 2026 Challengers #8", "starts_at": "2026-10-22T11:00:00Z", "locks_at": "2026-10-22T10:54:00Z"},
+      {"id": "1081600", "teams": ["Donstu", "Banda chuya"], "competition": "CCT Europe 2026 Challengers #8", "starts_at": "2026-10-22T13:45:00Z", "locks_at": "2026-10-22T13:39:00Z"},
+      {"id": "1082882", "teams": ["UNiTY", "Apogee Betclic"], "competition": "Stake Ranked Episode 6: Closed Qualifier", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
+      {"id": "1082688", "teams": ["Imperial", "Turma do Pagode"], "competition": "Circuit X Curitiba #4", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
+      {"id": "1082689", "teams": ["BESTIA", "ShindeN"], "competition": "Circuit X Curitiba #4", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
+      {"id": "1082858", "teams": ["Ground Zero", "Off Chops"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-26T03:00:00Z", "locks_at": "2026-10-26T02:54:00Z"},
+      {"id": "1082859", "teams": ["NEXVOID", "Alter Ego"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-26T03:00:00Z", "locks_at": "2026-10-26T02:54:00Z"},
+      {"id": "1082860", "teams": ["FlyQuest", "Staqued"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-27T03:00:00Z", "locks_at": "2026-10-27T02:54:00Z"},
+      {"id": "1082861", "teams": ["Rooster", "Abyssal"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-27T03:00:00Z", "locks_at": "2026-10-27T02:54:00Z"},
+      {"id": "1082792", "teams": ["HOTU", "The Huns"], "competition": "Moscow Cyber Games 2026", "starts_at": "2026-10-31T09:00:00Z", "locks_at": "2026-10-31T08:54:00Z"},
+      {"id": "1082793", "teams": ["5star", "1WIN"], "competition": "Moscow Cyber Games 2026", "starts_at": "2026-10-31T13:00:00Z", "locks_at": "2026-10-31T12:54:00Z"}
+    ],
+    "feed_anomaly_noted": {
+      "detail": "The same payload keeps records whose start time has already passed while still reporting status 'scheduled'. Directly observed examples in the response read for this check: 1081865 Morningstar vs Alter Ego (scheduled_start_time 1792551600000 = 2026-10-21T03:00:00Z) and 1079621 Gothic vs Lavked (1791964800000 = 2026-10-14T08:00:00Z).",
+      "handling": "These are not published as upcoming fixtures. The published page counts only fixtures whose start is still in the future, which is why the site shows 13 and not the larger raw feed size. This is a source-side data quirk, retained rather than 'cleaned'."
+    }
+  },
+  "identity_check_1082837": {
+    "question": "Is Polymarket's 'Alianza Lima Esports vs Los Niños' / Kalshi's 'Los Ninos vs. Alianza Lima Esports' the same match as Hotspawn's 'Zetta vs LOS NINOS'? An earlier session (arena-32bed9e3) published this join as a wrong-opponent blocker.",
+    "evidence": [
+      {
+        "source": "HLTV match page 2399865",
+        "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+        "detail": "Zetta (HLTV team 13833, Peru) vs LOS NINOS (team 14092), CCT 2026 South America Series 7, Swiss round 5 (2-2), best of 3, start 22:00Z on 21 Oct 2026. Zetta lineup printed on the page: Notjuanjo, zockie, BabyRage, Antuanette, Slayerhz. LOS NINOS lineup: PremiuM, protado, Reix, aNgelo, space. Zetta ranked #241 by HLTV and #368 by VRS; LOS NINOS unranked."
+      },
+      {
+        "source": "Polymarket Gamma market 6001634",
+        "url": "https://gamma-api.polymarket.com/markets/6001634",
+        "detail": "'Counter-Strike: Alianza Lima Esports vs Los Niños (BO3) - CCT South America Series 7 Group Stage', gameStartTime 2026-10-21 22:00:00+00, outcomes [Alianza Lima Esports, Los Niños], outcomePrices [0.265, 0.735], bestBid 0.25 / bestAsk 0.28, updatedAt 2026-10-21T21:44:57Z."
+      },
+      {
+        "source": "Kalshi event KXCS2GAME-26OCT211800LNALE",
+        "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT211800LNALE",
+        "detail": "Title 'Los Ninos vs. Alianza Lima Esports', rules: 'If Los Ninos wins the CCT South America Series 7 2026: Los Ninos vs. Alianza Lima Esports CS2 match originally scheduled for Oct 21, 2026 at 6:00 PM EDT'. Market 'Los Ninos wins': yes_bid 0.77 / yes_ask 0.79. Market 'Alianza Lima Esports wins': yes_bid 0.21 / yes_ask 0.25."
+      },
+      {
+        "source": "Valve regional standings 2026-10-05 (roster rows)",
+        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "detail": "The five HLTV-listed Zetta players are the same five players the project's alias registry cites for the Alianza Lima Esports roster row; the registry entry requires an exact 5/5 roster match before the name join is allowed."
+      }
+    ],
+    "finding": "Upheld. Two independent providers (Polymarket, Kalshi) name the same competition, the same opponent (Los Niños / LOS NINOS) and the same 22:00Z slot as HLTV's Zetta vs LOS NINOS, and HLTV prints the exact five-player lineup the alias registry matched. The first side differs only by organisation name: the Peruvian Zetta roster competes under the Alianza Lima Esports name on those two books.",
+    "correction": "The arena-32bed9e3 wrong-opponent flag is superseded by this evidence. It was raised when the market title alone ('Alianza Lima Esports') was compared with the fixture title ('Zetta'), without the roster check. It should no longer be read as an open blocker on 1082837.",
+    "residual_risk": "The join depends on the 5/5 roster evidence above. If Alianza Lima Esports ever fields a different five in this competition, the registry's competition scope alone would no longer be sufficient proof and the join must be re-checked."
+  },
+  "market_direction_note": {
+    "detail": "Both money markets price LOS NINOS as the favourite (Polymarket 0.735, Kalshi 0.77 bid / 0.79 ask at 21:44Z), while HLTV's community vote on the same page reads 76.9% Zetta. The published row follows the money (LOS NINOS 72.4% at the 21:40Z build) and does not use community votes.",
+    "why_it_matters": "This fixture is the clearest current example of the project's rule that community '% picked' is never a probability input: the crowd and the books disagree by roughly 50 points, and the site publishes the book-derived number."
+  },
+  "pick_status": {
+    "directional_picks": 12,
+    "no_side": [
+      {
+        "id": "1082858",
+        "teams": ["Ground Zero", "Off Chops"],
+        "reason": "Even 50/50 estimate: both sides sit on HLTV 5.0 points at ranks 143 and 142, so no side is supportable and none is invented. The row states 'Even estimate, no side' and links the unresolved register."
+      }
+    ],
+    "blank_or_missing": []
+  },
+  "freshness_check": {
+    "deployed_snapshot": "2026-10-21T21:40Z (page header 'Inventory checked 21 Oct 2026, 23:40 Europe/Malta')",
+    "deploy_run": "39677887177 Refresh and deploy CS2 dashboard — success on main 3a6cc94",
+    "reader_artifact": "The markdown reader used for this check prints elements that carry the HTML hidden attribute, so '#stale-warning' and '#new-snapshot' appear as text even when the build marks them hidden. Their presence in a reader dump is not evidence of a visible stale banner; a snapshot 6 minutes old is inside the 8-hour window."
+  }
+}
