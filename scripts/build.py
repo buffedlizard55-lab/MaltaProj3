@@ -978,7 +978,7 @@ def review(data, prefix):
         from scripts.review_register import render_all as session_register
         out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
-    out += flags_table(data['flags'])
+    return out + flags_table(data['flags'])
 
 
 def urlparse_host(url):
