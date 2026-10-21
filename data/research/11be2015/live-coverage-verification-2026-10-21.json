@@ -36,19 +36,136 @@
     "extra_on_site": [],
     "verdict": "At 2026-10-21T21:46Z the published page and Hotspawn's own feed contain the same 13 fixtures. No listed match is missing from the site and the site lists nothing Hotspawn does not.",
     "fixtures": [
-      {"id": "1082837", "teams": ["Zetta", "LOS NINOS"], "competition": "CCT South America 2026 Series #7", "starts_at": "2026-10-21T22:00:00Z", "locks_at": "2026-10-21T21:54:00Z"},
-      {"id": "1081870", "teams": ["Vitalem Aerem", "Rare Atom"], "competition": "VOID Autumn Cup 2026", "starts_at": "2026-10-22T05:00:00Z", "locks_at": "2026-10-22T04:54:00Z"},
-      {"id": "1081597", "teams": ["benched gods", "TitanFlow"], "competition": "CCT Europe 2026 Challengers #8", "starts_at": "2026-10-22T11:00:00Z", "locks_at": "2026-10-22T10:54:00Z"},
-      {"id": "1081600", "teams": ["Donstu", "Banda chuya"], "competition": "CCT Europe 2026 Challengers #8", "starts_at": "2026-10-22T13:45:00Z", "locks_at": "2026-10-22T13:39:00Z"},
-      {"id": "1082882", "teams": ["UNiTY", "Apogee Betclic"], "competition": "Stake Ranked Episode 6: Closed Qualifier", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
-      {"id": "1082688", "teams": ["Imperial", "Turma do Pagode"], "competition": "Circuit X Curitiba #4", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
-      {"id": "1082689", "teams": ["BESTIA", "ShindeN"], "competition": "Circuit X Curitiba #4", "starts_at": "2026-10-22T14:00:00Z", "locks_at": "2026-10-22T13:54:00Z"},
-      {"id": "1082858", "teams": ["Ground Zero", "Off Chops"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-26T03:00:00Z", "locks_at": "2026-10-26T02:54:00Z"},
-      {"id": "1082859", "teams": ["NEXVOID", "Alter Ego"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-26T03:00:00Z", "locks_at": "2026-10-26T02:54:00Z"},
-      {"id": "1082860", "teams": ["FlyQuest", "Staqued"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-27T03:00:00Z", "locks_at": "2026-10-27T02:54:00Z"},
-      {"id": "1082861", "teams": ["Rooster", "Abyssal"], "competition": "DFRAG Invitational 2026", "starts_at": "2026-10-27T03:00:00Z", "locks_at": "2026-10-27T02:54:00Z"},
-      {"id": "1082792", "teams": ["HOTU", "The Huns"], "competition": "Moscow Cyber Games 2026", "starts_at": "2026-10-31T09:00:00Z", "locks_at": "2026-10-31T08:54:00Z"},
-      {"id": "1082793", "teams": ["5star", "1WIN"], "competition": "Moscow Cyber Games 2026", "starts_at": "2026-10-31T13:00:00Z", "locks_at": "2026-10-31T12:54:00Z"}
+      {
+        "id": "1082837",
+        "teams": [
+          "Zetta",
+          "LOS NINOS"
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "starts_at": "2026-10-21T22:00:00Z",
+        "locks_at": "2026-10-21T21:54:00Z"
+      },
+      {
+        "id": "1081870",
+        "teams": [
+          "Vitalem Aerem",
+          "Rare Atom"
+        ],
+        "competition": "VOID Autumn Cup 2026",
+        "starts_at": "2026-10-22T05:00:00Z",
+        "locks_at": "2026-10-22T04:54:00Z"
+      },
+      {
+        "id": "1081597",
+        "teams": [
+          "benched gods",
+          "TitanFlow"
+        ],
+        "competition": "CCT Europe 2026 Challengers #8",
+        "starts_at": "2026-10-22T11:00:00Z",
+        "locks_at": "2026-10-22T10:54:00Z"
+      },
+      {
+        "id": "1081600",
+        "teams": [
+          "Donstu",
+          "Banda chuya"
+        ],
+        "competition": "CCT Europe 2026 Challengers #8",
+        "starts_at": "2026-10-22T13:45:00Z",
+        "locks_at": "2026-10-22T13:39:00Z"
+      },
+      {
+        "id": "1082882",
+        "teams": [
+          "UNiTY",
+          "Apogee Betclic"
+        ],
+        "competition": "Stake Ranked Episode 6: Closed Qualifier",
+        "starts_at": "2026-10-22T14:00:00Z",
+        "locks_at": "2026-10-22T13:54:00Z"
+      },
+      {
+        "id": "1082688",
+        "teams": [
+          "Imperial",
+          "Turma do Pagode"
+        ],
+        "competition": "Circuit X Curitiba #4",
+        "starts_at": "2026-10-22T14:00:00Z",
+        "locks_at": "2026-10-22T13:54:00Z"
+      },
+      {
+        "id": "1082689",
+        "teams": [
+          "BESTIA",
+          "ShindeN"
+        ],
+        "competition": "Circuit X Curitiba #4",
+        "starts_at": "2026-10-22T14:00:00Z",
+        "locks_at": "2026-10-22T13:54:00Z"
+      },
+      {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "starts_at": "2026-10-26T03:00:00Z",
+        "locks_at": "2026-10-26T02:54:00Z"
+      },
+      {
+        "id": "1082859",
+        "teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "starts_at": "2026-10-26T03:00:00Z",
+        "locks_at": "2026-10-26T02:54:00Z"
+      },
+      {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "starts_at": "2026-10-27T03:00:00Z",
+        "locks_at": "2026-10-27T02:54:00Z"
+      },
+      {
+        "id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "starts_at": "2026-10-27T03:00:00Z",
+        "locks_at": "2026-10-27T02:54:00Z"
+      },
+      {
+        "id": "1082792",
+        "teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "starts_at": "2026-10-31T09:00:00Z",
+        "locks_at": "2026-10-31T08:54:00Z"
+      },
+      {
+        "id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "starts_at": "2026-10-31T13:00:00Z",
+        "locks_at": "2026-10-31T12:54:00Z"
+      }
     ],
     "feed_anomaly_noted": {
       "detail": "The same payload keeps records whose start time has already passed while still reporting status 'scheduled'. Directly observed examples in the response read for this check: 1081865 Morningstar vs Alter Ego (scheduled_start_time 1792551600000 = 2026-10-21T03:00:00Z) and 1079621 Gothic vs Lavked (1791964800000 = 2026-10-14T08:00:00Z).",
@@ -92,7 +209,10 @@
     "no_side": [
       {
         "id": "1082858",
-        "teams": ["Ground Zero", "Off Chops"],
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
         "reason": "Even 50/50 estimate: both sides sit on HLTV 5.0 points at ranks 143 and 142, so no side is supportable and none is invented. The row states 'Even estimate, no side' and links the unresolved register."
       }
     ],
@@ -102,5 +222,41 @@
     "deployed_snapshot": "2026-10-21T21:40Z (page header 'Inventory checked 21 Oct 2026, 23:40 Europe/Malta')",
     "deploy_run": "39677887177 Refresh and deploy CS2 dashboard — success on main 3a6cc94",
     "reader_artifact": "The markdown reader used for this check prints elements that carry the HTML hidden attribute, so '#stale-warning' and '#new-snapshot' appear as text even when the build marks them hidden. Their presence in a reader dump is not evidence of a visible stale banner; a snapshot 6 minutes old is inside the 8-hour window."
+  },
+  "pipeline_replay_2026-10-21T2208Z": {
+    "what": "The same commit was run through the production path in GitHub Actions (collect -> originate --live -> build) to prove the page renders correctly from freshly collected data, not only from a retained snapshot.",
+    "run": "Session 11B verification (branch only), run 39684267648, success.",
+    "machine_written_report": "data/research/11be2015/verify-last-run.txt (written by the run itself)",
+    "snapshot": {
+      "generated_at": "2026-10-21T22:08:40Z",
+      "inventory_observed_at": "2026-10-21T22:08:32Z"
+    },
+    "counts": {
+      "inventory": 75,
+      "upcoming": 12,
+      "archived": 63,
+      "market": 2,
+      "bookmaker": 0,
+      "model": 5,
+      "unresolved": 5,
+      "picks": 7,
+      "no_edge": 0
+    },
+    "upcoming_rows": 12,
+    "directional_picks": 11,
+    "even_no_side": 1,
+    "note": "1082837 Zetta vs LOS NINOS is no longer in the upcoming set in this run: its 22:00Z start had passed, so it moved to the archived/past-start handling rather than being republished as current.",
+    "glance": {
+      "rows_rendered": 12,
+      "footer_says_all_listed": true
+    },
+    "review_page": {
+      "supersede_rendered": true,
+      "linked_to_resolving_flag": true,
+      "new_flags_present": [
+        "11be2015-published-rows-equal-hotspawns-own-scheduled-feed",
+        "11be2015-two-low-tier-picks-are-researched-estimates-not-money-lines"
+      ]
+    }
   }
 }
