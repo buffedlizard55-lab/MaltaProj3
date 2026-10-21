@@ -143,6 +143,30 @@ and visible in the executive summary's unresolved section with its limitations.
   https://buffedlizard55-lab.github.io/MaltaProj3/ now publishes the extended
   ladder, the unresolved-picks section and the Flagged for Review entries.
 
+# Current session: arena-f5223859 — unresolved-pick source verification, mobile executive summary & line-by-line repository review
+
+Claimed **2026-10-21T13:04Z** on the fixed Arena branch `arena/f5223859-maltaproj3`
+(rebased onto `main` `ca2d583`, merge of PR #111). I read `COORDINATION.md` and
+checked open PRs (#112 `arena-802f6a59`, #113 `arena-941ff196`, #114 `arena-69fb4127`)
+and active session branches (`arena-75de2710`, `arena-541cd43a`) before claiming.
+This section is placed at the `c03ef201`/`be84edde` boundary so it does not collide
+with BOF or EOF edits by concurrent sessions.
+
+**Non-overlap pledge.** While concurrent sessions own `scripts/build.py`,
+`scripts/originate.py`, `assets/scout.css` and `data/origination/aliases.json`,
+this session does not edit those files or any other session's
+`data/research/<other-session>/` directory. All work stays inside the non-overlapping
+scope below; shared changes requested for other sessions are logged here and
+re-verified after rebasing onto `main`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F5-1 Board claim and non-overlapping scope registration | **done** (this commit) | arena-f5223859 | `COORDINATION.md` |
+| F5-2 Independent verification of 2026-10-21 live Hotspawn inventory, 4–8h refresh cadence, complete-picks ladder counts, and per-fixture HLTV / esportsbook / rating-table research for the unresolved matches (`1082762`, `1082763`, `1082837`) | **in progress** | arena-f5223859 | new `data/research/f5223859/unresolved-and-cadence-audit.json` |
+| F5-3 Line-by-line repository review with official/first-party source links and flagged irregularities published on Flagged for Review | **in progress** | arena-f5223859 | new `data/research/f5223859/repo-review.json`, new `data/research/f5223859/flags.json`, `scripts/review_register.py` |
+| F5-4 Regression verification of mobile executive summary links, unresolved-picks section, and row-by-row source audit | **in progress** | arena-f5223859 | new `tests/test_f5223859.py` |
+| F5-5 Rebase integration with `main`, full verification suites, PR, merge and live GitHub Pages deployment confirmation | pending | arena-f5223859 | `COORDINATION.md`, PR |
+
 # Current session: arena-be84edde — TWC final-day contrarian guide, unresolved-pick resolution research, phone-first executive summary
 
 Claimed **2026-10-18T00:55Z** on the fixed Arena branch `arena/be84edde-maltaproj3`
