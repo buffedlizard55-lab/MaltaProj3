@@ -1,7 +1,8 @@
 {
   "session": "arena-f9d0a5a2",
   "generated_at": "2026-10-21T13:15:00Z",
-  "purpose": "Line-by-line repository audit and first-party verification of Polymarket tag discovery, low-tier CS2 match resolution, model source-badge attribution, and strict row-source compliance.",
+  "updated_at": "2026-10-21T14:20:00Z",
+  "purpose": "Line-by-line repository audit and first-party verification of Polymarket tag discovery, low-tier CS2 match resolution, model source-badge attribution, strict row-source compliance, and live GitHub Pages deployment.",
   "verified_live_origination_run": {
     "workflow_run_id": 39609059112,
     "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39609059112",
@@ -27,6 +28,43 @@
       "guidance": 1,
       "alias_joined": 6
     }
+  },
+  "verified_production_deployment": {
+    "pr_number": 119,
+    "pr_url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/119",
+    "merge_commit": "586af666a4fec9ed4dcefa0961d60fa8709b47db",
+    "workflow_run_id": 39612934455,
+    "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39612934455",
+    "check_run_id": 119270271260,
+    "deployment_id": 7228224801,
+    "deployment_status": "SUCCESS",
+    "deployed_at": "2026-10-21T14:17:38Z",
+    "inventory_observed_at": "2026-10-21T14:15:34Z",
+    "public_complete_picks_counts": {
+      "active": 12,
+      "resolved": 12,
+      "unresolved": 0,
+      "with_pick": 12,
+      "consensus": 3,
+      "market": 5,
+      "bookmaker": 0,
+      "reference": 0,
+      "model": 3,
+      "guidance": 1,
+      "alias_joined": 4
+    },
+    "row_source_audit": {
+      "rows": 521,
+      "ok": 507,
+      "flagged": 5,
+      "navigation": 9,
+      "violation": 0
+    },
+    "public_urls_verified": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/"
+    ]
   },
   "root_causes_fixed": [
     {
@@ -70,7 +108,7 @@
         "https://clob.polymarket.com/book?token_id=81278662041211722476677196782311802687789398615866007524998260975667079007815",
         "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100"
       ],
-      "resolution_status": "Resolved by first-party money consensus (Polymarket CLOB 0.81/0.83 + Bovada 1.125/5.750); EGamersWorld 1.80/1.80 placeholder rejected."
+      "resolution_status": "Resolved by first-party money consensus (Polymarket CLOB + Kalshi + Bovada -> 83.6% / 16.4% at 14:16Z); EGamersWorld 1.80/1.80 placeholder rejected."
     },
     {
       "hotspawn_id": "1082763",
@@ -83,7 +121,7 @@
         "https://gamma-api.polymarket.com/events?slug=cs2-upgrad-tf4-2026-10-21",
         "https://clob.polymarket.com/book?token_id=66289152524776549106551553844196712744297578329848341818372249456516715755000"
       ],
-      "resolution_status": "Resolved by first-party Polymarket Match Winner CLOB book (0.95/0.96, 0.01 spread); EGamersWorld 1.80/1.80 placeholder rejected."
+      "resolution_status": "Resolved by first-party money consensus (Polymarket + Kalshi -> 95.3% / 4.7%); EGamersWorld 1.80/1.80 placeholder rejected."
     },
     {
       "hotspawn_id": "1082836",
@@ -96,7 +134,7 @@
         "https://clob.polymarket.com/book?token_id=46226725911872730469713231223684348884827595024273007946197150754546162417916",
         "https://bo3.gg/matches/damajuana-vs-hacha-esports-21-10-2026"
       ],
-      "resolution_status": "Upgraded from 50.0%/50.0% non-directional HLTV model tie to directional money consensus (Polymarket + Bovada)."
+      "resolution_status": "Upgraded from 50.0%/50.0% non-directional HLTV model tie to 4-source money consensus (Polymarket + Kalshi + Thunderpick + Bovada -> 41.6% / 58.4%, pick Hacha)."
     },
     {
       "hotspawn_id": "1082837",
@@ -110,7 +148,7 @@
         "https://clob.polymarket.com/book?token_id=63142317075924332286067599881392444963525427435571053356490812095677986050781",
         "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026"
       ],
-      "resolution_status": "Resolved via verified 5/5 Alianza Lima Esports -> Zetta and Los Niños -> LOS NINOS identity joins plus Polymarket Match Winner CLOB book (explicitly badged wide-book guidance when spread exceeds 0.15)."
+      "resolution_status": "Resolved via verified 5/5 Alianza Lima Esports -> Zetta and Los Niños -> LOS NINOS identity joins on narrower Kalshi wide-book guidance midpoint (48.8% / 51.2%, lean LOS NINOS at 14:16Z)."
     }
   ]
 }
