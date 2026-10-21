@@ -84,8 +84,14 @@ class SourceProbeBlock(unittest.TestCase):
 
     def test_blocker_text_comes_from_the_published_trail(self):
         text = self.render().get_text(' ', strip=True)
-        self.assertIn('no rating', text)
+        # Integration repair (arena-6e92015a): main's _brief_blank_reason was
+        # deliberately refined from 'no rating' to 'one team unranked' because
+        # the old phrase wrongly suggested neither team was rated when only one
+        # side lacked a row (UPGRADE is HLTV #74). The trail detail still names
+        # the exact missing input, so the blocker remains trail-derived.
+        self.assertIn('one team unranked', text)
         self.assertIn('no Valve rating row found', text)
+        self.assertNotIn('>no rating<', text)
 
     def test_missing_values_stay_blank_not_invented(self):
         data = dataset()
