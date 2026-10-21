@@ -290,6 +290,8 @@ dimmed the text. Fix: the opacity is replaced with a light background and border
 `scripts.build` (the first rerun still served the old CSS from `site/`): `npx playwright test` **85 passed**;
 `node tests/pick-safety-browser.mjs` **PASS (106 assertions)**; `scripts.audit_rows --strict` exit 0; `tests.test_build` OK.
 
+**Re-verified after `main` moved to `586af66`** (PRs #112, #114, #115, #117, #119 merged in the meantime; this branch rebased onto it, `COORDINATION.md` conflict resolved by keeping both sections): `python -m unittest discover -s tests` **764 tests OK**; `scripts.build` exit 0 (677 internal links); `scripts.audit_rows --strict` exit 0; `npx playwright test` **85 passed**; `node tests/pick-safety-browser.mjs` **PASS (106)**.
+
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
 Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
