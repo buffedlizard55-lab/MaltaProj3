@@ -3539,3 +3539,82 @@ series (Morningstar). They stay blank with that exact reason on the new
 unresolved register; no value was inferred.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+---
+
+# Session arena-941ff196 — Hotspawn full-coverage audit, mobile executive summary and unresolved research
+
+Claimed **2026-10-21T12:34Z** on the fixed Arena branch `arena/941ff196-maltaproj3`
+(branched from `main` `89bfa27`, merge of PR #110). Read all completed records
+above before claiming; no open task on this branch overlaps the scopes below.
+Arena fixes sessions to `arena/<id>-maltaproj3`, so this branch is the session
+branch for all coordination purposes.
+
+**Non-overlap pledge.** This session does not edit `archive/`,
+`data/research/<other-session>/` sources, or the semantics of
+`data/origination/aliases.json` beyond additive scoped entries with official
+evidence. `scripts/collect.py` and `scripts/originate.py` are entered only to
+improve provenance notes and source health text; no probability, pick or alias
+semantics are changed. `scripts/build.py` is entered additively (executive
+summary links, mobile callouts, unresolved section) with no freshness or expiry
+rule change.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 941-1 Audit current site vs. Hotspawn brief; verify every table row carries an official source link and flag hallucinations | **done** | arena-941ff196 | `COORDINATION.md`, `data/research/941ff196/` |
+| 941-2 Mobile executive summary: prominent internal links to updated picks, phone-first readability pass | **done** | arena-941ff196 | `scripts/build.py` (additive `exec_banner`), `assets/scout.css` (additive), `tests/test_941ff196.py` |
+| 941-3 Hotspawn reverse-engineering documentation and 4-8h refresh provenance: full inventory reconciliation and external betting-line analysis | **done** | arena-941ff196 | `scripts/build.py` (additive `#hotspawn-integration`), `tests/test_941ff196.py` |
+| 941-4 HLTV → esportsbooks ladder verification for low-tier unresolved fallback and separate Unresolved picks & limitations section | **done** | arena-941ff196 | `data/research/941ff196/audit.json`, `scripts/build.py` (guidance display fix) |
+| 941-5 Final verification: rebuild, strict row-source audit, internal link check, PR to main, Pages deployment | in progress | arena-941ff196 | this board section, `site/` (artifact) |
+
+### 941-1/941-4 Audit result — 2026-10-21 (evidence: `data/research/941ff196/audit.json`)
+
+- **Inventory:** checked-in snapshot `2026-10-15T08:36:04Z`, 80 Hotspawn CS2 records
+  (17 upcoming, 63 past-start, 0 unknown schedule), `coverage_complete: true`.
+  Reconciled across fixture API + lobby + CS2 lobby hydration; evidence in
+  `data/evidence/hotspawn-fixtures.json` (80 rows) and `hotspawn-context.json`.
+- **Featured method:** 13/17 picks (7 market, 1 bookmaker, 5 Valve model),
+  4 unresolved. **Complete researched list:** 17/17 with a pick (7 market,
+  5 bookmaker, 5 model, 4 alias-joined) — every featured gap closed by a
+  reviewed alias-joined Thunderpick paired-price line (WBT→WROTBERRY ×2,
+  HAVU Gaming→HAVU, ROUNDS→RoundsGG), all with official HLTV/Liquipedia
+  evidence in `data/origination/aliases.json`. No value inferred; every
+  probability sums to 1.0 and every row links Hotspawn + its analysis source.
+- **Row-source audit (strict):** 492 rows, 478 official-linked, 5 flagged
+  unverified (final-day page, explicit), 9 site-map, **0 violations**.
+  Internal link/asset/anchor check: 675 verified, exit 0.
+- **Unresolved sections:** executive summary (`#unresolved-register`,
+  `#unresolved`), complete list (`origination/#unresolved`), featured feed
+  (`picks/#unresolved`) and review page (`review/#unresolved`) all present
+  and interlinked; the checked-in snapshot has 0 complete-list blanks, and
+  the empty state says so explicitly instead of hiding the section.
+- **Refresh provenance:** `.github/workflows/pages.yml` schedules `17 */4 * * *`
+  + catch-up `47 2-22/4 * * *`; 8-hour stale bound enforced in `scripts/domain.py`
+  and rendered as a visible warning. The 6-day age of the checked-in fallback
+  snapshot is by design (live refresh runs on the GitHub runner); the site
+  labels it stale rather than current. Observed, not flagged.
+- **Mobile:** viewport meta, bottom `mobile-nav` (Summary/Picks/Edge/Sources/
+  Methods/Review), 700px/375px breakpoints, 44px+ tap targets, and the new
+  `exec-banner` stacking to one column under 700px. No probability, pick or
+  alias semantics changed; `collect.py`/`originate.py` untouched.
+
+### 941-5 CI failure analysis + fix — 2026-10-21 (PR #113)
+
+- First pushed commit `f5ef7bf` failed the `Validate dashboard` browser step
+  (run 39602947450): 4 dashboard-spec failures reproduced locally via the
+  npm-packaged Chromium (`npx playwright test`, no CDN download needed).
+- Causes, both in the new `exec_banner`: (1) axe `link-in-text-block`
+  (serious) on the two meta links — fixed by underlining them, matching the
+  repo's existing `.muted a,.prose p a` pattern; (2) the phone fold budget
+  (`#picks-at-a-glance` y < 1500px) exceeded — measured 1710px @320px and
+  1541px @390px. Fixed by compacting the banner (shorter copy, tighter
+  spacing, description hidden on phones, meta line hidden ≤375px where the
+  snapshot-line above already carries freshness): now 1423px @320px and
+  1364px @390px.
+- After fix `6ad67da`: local `dashboard.spec` 37/37, all other browser specs
+  48/48 (85 total), `pick-safety-browser.mjs` 106/106, new unit tests 8/8,
+  freshness determinism 9/9, build + strict row audit + link audit green.
+  Root `index.html` etc. confirmed stale legacy (still TWC Day 3); deploys
+  build gitignored `site/` in CI, so root copies intentionally untouched.
+
+Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
