@@ -264,6 +264,47 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('70.0%', html)
         self.assertNotIn('50.0%', html)
 
+    def fixed_match(self, i, start, probability=0.62):
+        # Explicit instants (never the wall clock): the glance rows must not expire with time.
+        from datetime import timedelta
+        m = self.match(i, probability, True)
+        m['starts_at'] = start.strftime('%Y-%m-%dT%H:%M:%SZ')
+        m['locks_at'] = (start - timedelta(minutes=6)).strftime('%Y-%m-%dT%H:%M:%SZ')
+        return m
+
+    def test_a_started_fixture_is_labelled_locked_at_build_time_not_pick(self):
+        # Built after a fixture started: the summary must never keep advertising "Pick".
+        from datetime import datetime, timedelta, timezone
+        fixed_now = datetime(2026, 10, 21, 12, 0, tzinfo=timezone.utc)
+        started = self.fixed_match(3, fixed_now - timedelta(hours=3))
+        html = glance({'matches': [started], 'fallbacks': {}}, '', now=fixed_now)
+        self.assertIn('data-glance-closed="true"', html)
+        self.assertIn('is-closed', html)
+        self.assertIn('>Locked</span>', html)
+        self.assertNotIn('>Pick</span>', html)
+        self.assertIn('62.0%', html)  # the estimate and its label stay visible, never dropped
+        self.assertIn('href="https://www.hotspawn.com/matches/x-3"', html)
+
+    def test_an_open_fixture_keeps_pick_label_and_lock_attributes_for_the_browser(self):
+        from datetime import datetime, timedelta, timezone
+        fixed_now = datetime(2026, 10, 21, 12, 0, tzinfo=timezone.utc)
+        open_match = self.fixed_match(4, fixed_now + timedelta(hours=2))
+        html = glance({'matches': [open_match], 'fallbacks': {}}, '', now=fixed_now)
+        self.assertIn('data-glance-closed="false"', html)
+        self.assertIn('data-glance-locks="', html)
+        self.assertIn('data-glance-starts="', html)
+        self.assertIn('data-glance-pick', html)
+        self.assertIn('>Pick</span>', html)
+        self.assertNotIn('>Locked</span>', html)
+
+    def test_browser_lock_script_can_only_close_a_pick_never_reopen_or_rewrite_it(self):
+        js = Path('assets/glance-lock.js').read_text(encoding='utf-8')
+        self.assertIn("label.textContent = 'Locked';", js)
+        self.assertIn("data-glance-closed", js)
+        self.assertIn("'true'", js)
+        for forbidden in ("label.textContent = 'Pick'", 'innerHTML', 'href', 'fetch(', 'XMLHttpRequest'):
+            self.assertNotIn(forbidden, js, forbidden)
+
     def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
         self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
 

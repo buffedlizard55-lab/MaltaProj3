@@ -479,8 +479,12 @@ def glance(data, prefix, now=None):
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
-            closed = lock is not None and lock <= now
-            choice = (f'<span class="glance-pick-label">{"Locked" if closed else "Pick"}</span>'
+            start = timestamp(m.get('starts_at'))
+            # A started fixture is closed even if its lock time was not stored; the
+            # browser repeats this check (assets/glance-lock.js) so a page built before
+            # the lock or start passed never keeps advertising "Pick".
+            closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
                       + ('<span class="badge purple">Researched</span>' if researched else ''))
         elif a:
@@ -489,7 +493,12 @@ def glance(data, prefix, now=None):
         else:
             choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
-        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}">'
+        closed_attr = ''
+        if a and pick is not None:
+            closed_attr = (f' data-glance-starts="{e(m.get("starts_at") or "")}"'
+                           f' data-glance-locks="{e(m.get("locks_at") or "")}"'
+                           f' data-glance-closed="{"true" if closed else "false"}"')
+        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}"{closed_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
                  f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
                  f'<div class="glance-choice">{choice}</div>'
@@ -945,6 +954,8 @@ def shell(data, key, body, prefix, now=None):
         from scripts.pick_safety import body_attributes
         safety_attrs = body_attributes(inventory, data['coverage_complete'])
         extra_css += f'<script src="{prefix}assets/pick-safety.js" defer></script>'
+    if key == 'summary':
+        extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
 <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>

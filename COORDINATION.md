@@ -68,6 +68,26 @@ fixtures.
 
 # Current session: arena-905fa4cf — 2026-10-20 publication-gap diagnosis, cadence audit, deployed-artifact verification
 
+# Current session: arena-8926d9c4 — executive-summary lock state, unresolved-pick re-verification, integration
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/8926d9c4-maltaproj3`, branched from
+`main` `89bfa27` (PR #110 merged). Arena fixes each session to its own `arena/<id>-maltaproj3`
+branch, so the `session-<id>/<task>` naming in the brief is not used; the file-scope rules are unchanged.
+I read this board before starting. Open PRs at claim time: none. In-progress rows in older sections are
+historical (their PRs are merged). No other session holds an open claim, so this session also performs
+the integration step for its own changes.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | **done** (see result below) | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
+| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) | **superseded — deferred to the owners** of the same work, open PRs #112 (`arena-802f6a59`) and #116 (`arena-f5223859`); this session's unique observations are logged as requests below. No file of this record is merged | arena-8926d9c4 | none (own draft removed before merge) |
+| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress (PR and deployment record below) | arena-8926d9c4 | `COORDINATION.md`, this PR |
+
+Non-overlap: no edits to `data/origination/aliases.json`, the pipeline ladder in `scripts/originate.py`,
+any other session's `data/research/<id>/`, or `archive/`.
+
+# Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
+
 Claimed **2026-10-21T12:45Z** on the fixed Arena branch `arena/905fa4cf-maltaproj3`
 (branched from `main` `89bfa27`, merge of PR #110). Arena fixes each session to its
 own `arena/<id>-maltaproj3` branch, so this branch is the session branch for all
@@ -227,6 +247,50 @@ cleanly without discarding their work.
   - **Live `Public complete-picks counts` (`2026-10-21T14:15:34Z`, after the 7 `13:45Z`/`14:00Z` matches started):** **`{"active": 12, "resolved": 12, "unresolved": 0, "with_pick": 12, "consensus": 3, "market": 5, "bookmaker": 0, "reference": 0, "model": 3, "guidance": 1, "alias_joined": 4}`** — **100.0% of active upcoming Hotspawn CS2 matches resolved with sourced probabilities and directional picks (`0` unresolved)**, directly verified on live [`/`](https://buffedlizard55-lab.github.io/MaltaProj3/), [`/origination/`](https://buffedlizard55-lab.github.io/MaltaProj3/origination/), and [`/review/`](https://buffedlizard55-lab.github.io/MaltaProj3/review/).
   - **Live `Row-source audit`:** **`{"rows": 521, "ok": 507, "flagged": 5, "navigation": 9, "violation": 0}`** (`0` violations across every table on the deployed site).
 - **Cross-scope note logged for `scripts/build.py` owners (not edited directly to avoid conflicting with open PRs `#118` / `#120`):** Live inspection of `https://buffedlizard55-lab.github.io/MaltaProj3/` shows the top Executive Summary card and `Picks at a glance` accurately reporting `12 of 12 with a pick · 0 without a line`, whereas home-page `<section id="unresolved">` immediately below reads featured-only `latest.json` (`5 of 12 active Hotspawn CS2 fixtures have no verified pick in this snapshot`) instead of excluding rows resolved by `origination.json` (which `/origination/#unresolved` already does). Flagged with official links in `data/research/f9d0a5a2/flags.json` (`f9d0a5a2-home-unresolved-featured-vs-complete-scope`) for the active `scripts/build.py` owner.
+
+### E-1 / E-2 result — arena-8926d9c4 (2026-10-21T13:00Z)
+
+**E-1 done — lock state in the executive summary.** Before this change, the "Picks at a glance" rows were
+labelled at build time only, so a fixture whose lock or start passed after the last four-hourly build still
+read "Pick 50.8%". Now `glance()` labels a started or locked row "Locked" at build time, carries
+`data-glance-starts` / `data-glance-locks` / `data-glance-closed` on each pick row, and `assets/glance-lock.js`
+(loaded on the summary only) relabels a row to "Locked" in the viewer's clock. The script can only close a pick,
+never reopen one, and changes no value, probability or link. Checks: `tests/test_build.py` (18 tests, incl. two
+explicit-clock regression tests), `tests/test_freshness_determinism.py` (9 tests, pinned-clock suite), and a
+jsdom run of the shipped `glance-lock.js` against past-lock, open, closed and unresolved rows (labels and links
+behave as specified). Source for the behaviour: the summary's own rows and `scripts/build.py` `glance()`.
+
+**E-2 deferred — same work already open.** While this session was working, PRs #112 (`arena-802f6a59`, "Verify the three
+remaining blank picks…") and #116 (`arena-f5223859`, "Audit unresolved Hotspawn CS2 fixtures…") opened on the same three
+fixtures. To avoid a duplicate record and conflicting Flagged-for-Review entries, my draft `data/research/8926d9c4/` was removed before
+merge. Both open PRs reach the same outcome for the three blanks: no compliant pick, with a published limitation. PR #116 also reports
+a Bovada listing for fixture 1082762 that it treats as an unaccepted lead.
+
+**Requests for the E-2 owners (logged, not edited here):**
+
+- To `arena-802f6a59` and `arena-f5223859`: the saved HLTV world-ranking publication dated 2026-10-19
+  (`data/research/c03ef201/evidence/hltv-ranking-0.html.gz`, 245 ranked positions) lists **UPGRADE at #64 (14 points)**, while the HLTV
+  team overview for UPGRADE (<https://www.hltv.org/team/13989/upgrade>, read on 21 Oct 2026) says "currently ranked #74". Please reconcile or flag.
+- To the same owners: the HLTV match page for ex-CYBERSHOKE (<https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9>)
+  shows "HLTV: Unranked" and "VRS: #78", but the HLTV team page (<https://www.hltv.org/team/14106/ex-cybershoke>) shows Valve and world rank "-".
+  In Valve's 2026-10-05 standings, #78 is Lazer Cats; CYBERSHOKE appears at 61 (Alkaren, alpha, Mokuj1n, nota, yiksrezo) and 171
+  (alpha, bl1x1, fluffy, glowiing, Mokuj1n). Please add this to the identity-ambiguity flag if it is not already there.
+- To `arena-802f6a59`: its flag "Executive summary labels an HLTV-ranking research pick as 'Valve'" touches `scripts/build.py`
+  summary text. This session edits only `glance()` and the summary `<script>` include in `shell()`; please keep the two changes separate.
+
+### E-3 — integration (in progress)
+
+Checks run on the final tree before the PR: `.venv/bin/python -m unittest discover -s tests` — **743 tests OK** (one
+pinned-clock failure found in my first new test and fixed by pinning explicit instants; rerun green), `scripts.build` (80 source rows reconciled,
+496 rows / 0 violations in the row-source audit, 670 internal links, mobile landmarks checked).
+
+**CI finding on PR #118, fixed on the branch.** The first PR run of "Validate dashboard" failed at the Playwright step: axe
+`color-contrast` on the summary page at 390px and 1440px (36 nodes, 4.08–4.27:1). Cause: my `.glance-row.is-closed{opacity:.86}` rule
+dimmed the text. Fix: the opacity is replaced with a light background and border (`assets/scout.css`). Local rerun after a fresh
+`scripts.build` (the first rerun still served the old CSS from `site/`): `npx playwright test` **85 passed**;
+`node tests/pick-safety-browser.mjs` **PASS (106 assertions)**; `scripts.audit_rows --strict` exit 0; `tests.test_build` OK.
+
+**Re-verified after `main` moved to `586af66`** (PRs #112, #114, #115, #117, #119 merged in the meantime; this branch rebased onto it, `COORDINATION.md` conflict resolved by keeping both sections): `python -m unittest discover -s tests` **764 tests OK**; `scripts.build` exit 0 (677 internal links); `scripts.audit_rows --strict` exit 0; `npx playwright test` **85 passed**; `node tests/pick-safety-browser.mjs` **PASS (106)**.
 
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
