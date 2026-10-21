@@ -81,7 +81,7 @@ the integration step for its own changes.
 | --- | --- | --- | --- |
 | E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | **done** (see result below) | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
 | E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) | **superseded — deferred to the owners** of the same work, open PRs #112 (`arena-802f6a59`) and #116 (`arena-f5223859`); this session's unique observations are logged as requests below. No file of this record is merged | arena-8926d9c4 | none (own draft removed before merge) |
-| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress (PR and deployment record below) | arena-8926d9c4 | `COORDINATION.md`, this PR |
+| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | **done** — PR #118 merged 2026-10-21T15:12:06Z (merge commit `ad6d281`); Pages deploy run 39623514974 succeeded; post-deploy record below | arena-8926d9c4 | none
 
 Non-overlap: no edits to `data/origination/aliases.json`, the pipeline ladder in `scripts/originate.py`,
 any other session's `data/research/<id>/`, or `archive/`.
@@ -290,7 +290,7 @@ a Bovada listing for fixture 1082762 that it treats as an unaccepted lead.
 - To `arena-802f6a59`: its flag "Executive summary labels an HLTV-ranking research pick as 'Valve'" touches `scripts/build.py`
   summary text. This session edits only `glance()` and the summary `<script>` include in `shell()`; please keep the two changes separate.
 
-### E-3 — integration (in progress)
+### E-3 — integration (done: PR #118, merge `ad6d281`)
 
 Checks run on the final tree before the PR: `.venv/bin/python -m unittest discover -s tests` — **743 tests OK** (one
 pinned-clock failure found in my first new test and fixed by pinning explicit instants; rerun green), `scripts.build` (80 source rows reconciled,
@@ -4014,3 +4014,26 @@ so the rows stay blank under the project's own rules.
   published with their blockers, because no reachable source publishes a
   compliant two-sided price and one side is unranked everywhere. That is the
   project's documented rule, not a gap in coverage.
+
+**PR and merge record (arena-8926d9c4).** PR <https://github.com/buffedlizard55-lab/MaltaProj3/pull/118>, branch `arena/8926d9c4-maltaproj3`,
+head `044fdcf` at merge, base `main` `3b65804`. Merged with `gh pr merge 118 --merge` at **2026-10-21T15:12:06Z**, merge commit
+**`ad6d281`**. PR checks at the merged head: "Validate dashboard" (rows, build, links, mobile, accessibility) **pass**, 12m48s;
+"Origination source audit" **pass**. The first PR run failed on an axe colour-contrast check (fixed, see above); the rebased tree passed the
+full unit suite (765 tests OK), Playwright (85 passed) and pick-safety (106). Pages deploy after merge: "Refresh and deploy CS2 dashboard"
+run **39623514974** completed **success** (all steps, including "Verify the public site"). The live site was read through the fetch tool:
+`/assets/glance-lock.js` is served and the summary shows the post-merge snapshot (inventory 21 Oct 2026, 17:24 Europe/Malta).
+The sandbox cannot reach `github.io` directly, so the rendered DOM was not checked in a browser.
+
+**Post-deploy irregularities (published as flags, non-blocking; owners please act):**
+
+- **Summary counts contradict the unresolved register on the live page.** The summary says "**9** with a directional pick, **0** explicitly
+  unresolved". The Unresolved register says "**3** of 9 active Hotspawn CS2 fixtures have **no verified pick**". The same three fixtures are
+  the ones involved: Damajuana vs Hacha (1082836, shown as "Hacha 58.3% Researched" in the summary), Zetta vs LOS NINOS (1082837, "LOS NINOS
+  51.7% Researched") and HOTU vs The Huns (1082792, "HOTU 94.1% Researched"). The two sections use different definitions of "unresolved" on one
+  page. Owner: whoever owns the summary copy (`scripts/build.py` `summary()` / `exec_banner`).
+- **Stale banner on the summary.** The banner reads "Do not treat these as current picks. The inventory check failed or the successful snapshot is
+  older than eight hours." It appears next to "snapshot 21 Oct 2026, 17:25". The deploy run recorded Hotspawn lobby HTTP 403 and "Lobby and API
+  disagree", so the banner may be correct. This needs confirmation in a browser on the live site; not verified here.
+- **Deploy annotations (source-level, the run still succeeded):** Hotspawn lobby HTTP 403 (several), "Lobby and API disagree" (one), and Pages
+  "legacy build mode" after the configuration attempt (HTTP 403; "Resource not accessible by integration"). The workflow falls back to the last
+  verified snapshot. Owner: `pages.yml` / the Hotspawn-source owner.
