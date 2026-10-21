@@ -36,5 +36,17 @@
       "https://www.hltv.org/ranking/teams",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/form_model.py"
     ]
+  },
+  {
+    "id": "f9d0a5a2-home-unresolved-featured-vs-complete-scope",
+    "severity": "warning",
+    "match_ids": ["1082762", "1082763", "1082836", "1082837", "1082792"],
+    "title": "Post-deploy audit: Executive Summary home #unresolved register lists featured-only rejections after fallback resolution",
+    "detail": "Direct verification of production Pages deployment 7228224801 (run 39612934455 on commit 586af66, observed 2026-10-21T14:15:34Z) confirmed 12 of 12 active upcoming Hotspawn CS2 matches resolved with directional picks and 0 unresolved on /origination/#unresolved (3 consensus, 5 market, 3 model, 1 wide-book guidance; 521 audited rows, 0 violations). However, on the home Executive Summary page (/), the top hero and 'Picks at a glance' report '12 of 12 with a pick' and '0 explicitly unresolved' while the 'Unresolved picks & limitations' section directly beneath still reads featured-only latest.json ('5 of 12 active Hotspawn CS2 fixtures have no verified pick in this snapshot'). Flagged for the active scripts/build.py owner so home #unresolved matches /origination/#unresolved while retaining featured-only rejections on /review/#unresolved.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39612934455"
+    ]
   }
 ]
