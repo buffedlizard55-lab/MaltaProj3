@@ -1,0 +1,69 @@
+[
+  {
+    "id": "6e92015a-blank-1082860",
+    "severity": "warning",
+    "match_ids": ["1082860"],
+    "title": "FlyQuest–Staqued (DFRAG Invitational) stays blank: identity confirmed, but no compliant price or rating input exists yet",
+    "detail": "Hotspawn fixture 1082860 (FlyQuest vs Staqued, DFRAG Invitational 2026, starts 2026-10-27T03:00:00Z) remains unresolved after a full ladder replay at 2026-10-21T20:49:16Z and a dedicated runner-side probe at 20:49:58Z. Identity is NOT the blocker: HLTV match 2399890 (captured and hashed on the runner, 326,841 bytes) confirms the exact teams, the event and a Best-of-3 format. Every pricing rung was checked and none could fire: Polymarket's gamma API listed 407 active CS2 events with zero mentioning this fixture; Kalshi listed 41 events with no match-winner market; Thunderpick, Bovada (42,739-byte coupon) and Pinnacle (175 CS2 matchup rows) had no line for these teams; EGamersWorld lists the fixture but its rendered page shows identical 1.8/1.8 prices, which scripts/reference_odds.py rejects as placeholders by policy. The model rungs are blocked by Staqued's record: no Valve rating row, no HLTV world-ranking entry (the team has an HLTV page, team 13997, but no ranking row), only 1 anchored bo3.gg series in the last 120 days (results model needs 8) and only 2 finished series in the network-model window (needs 6). FlyQuest is rated (HLTV team 12774) but every model rung requires both sides. Limitation: this is a LAN group opener six days out; books and exchanges typically post such lines closer to the start, and Pinnacle's CS2 league board rotates (a 'CCT Europe Challengers' league seen at 14:00Z was gone by 20:37Z). The fixture is re-checked on every 4-hourly run; if a compliant two-sided price appears it will supersede this blank.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "https://www.hltv.org/team/12774/flyquest",
+      "https://www.hltv.org/team/13997/staqued",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
+      "https://bo3.gg/teams/25258",
+      "https://github.com/dfrag-tv/vrs-event-announcements/blob/main/dmg-cs2-ruleset-invitational-lan-2026.md"
+    ]
+  },
+  {
+    "id": "6e92015a-network-1081597-low-confidence",
+    "severity": "warning",
+    "match_ids": ["1081597"],
+    "title": "benched gods–TitanFlow (CCT Europe Challengers #8) is now priced by the network model, published with a low-confidence badge and a wide interval",
+    "detail": "Hotspawn fixture 1081597 (benched gods vs TitanFlow, CCT Europe 2026 Challengers #8, starts 2026-10-22T11:00:00Z) was unresolved in the deployed 2026-10-21T20:20:40Z release. After this session merged the Bradley–Terry network rung (PR #120, originally built by session 541cd43a), the fresh ladder replay at 2026-10-21T20:49:16Z resolves it: TitanFlow 78.3% / benched gods 21.7% (network-bt-1, pick TitanFlow). It is flagged because the estimate is low-confidence by the model's own gates: neither side carries a Valve anchor (both fitted from results only), TitanFlow enters with just 9 finished series (standard error 155.5 points) against benched gods' 60 (SE 62.4), the rating SD difference is 167.6 points, and the quoted 95% interval spans 3.9%–65.5% for the underdog side — the point pick is firm but the magnitude is not. The identity bridge is start-time plus team name on bo3.gg (benched gods id 22240, TitanFlow id 25277), and the evidence file (live-bo3-graph.json, 4,650 graph matches, 269 anchors) is hash-checked at data/origination/evidence/. A first-party bookmaker or exchange price found before the lock would supersede the model estimate; Pinnacle carried a 'CCT Europe Challengers' league on its board at 14:00Z that was gone by 20:37Z, so match-day re-checks matter for this fixture.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://bo3.gg/teams/22240",
+      "https://bo3.gg/teams/25277",
+      "https://bo3.gg/matches"
+    ]
+  },
+  {
+    "id": "6e92015a-egw-capture-limits",
+    "severity": "notice",
+    "match_ids": ["1082860"],
+    "title": "EGamersWorld evidence has three capture limits: a JavaScript-shell match list, a Cloudflare challenge on the runner, and identical placeholder prices",
+    "detail": "EGW's /counterstrike/matches page is a JavaScript shell (5,672 bytes) whose HTML contains no match links, so the probe cannot discover fixture URLs from it. This session added data/research/6e92015a/egw-urls.json, a manual, dated registry of reviewed match-page URLs keyed by Hotspawn fixture id (same reviewed-capture evidence class as scripts/reference_odds.py); the probe now fetches, hashes and saves those pages directly. Two further limits are recorded honestly: (1) the runner-side fetch of the FlyQuest–Staqued match page returned a Cloudflare 'Just a moment…' interstitial (5,856 bytes, captured as evidence/egw-match-1082860.gz) rather than the rendered page, and (2) the rendered page, when viewed manually, shows identical 1.8/1.8 prices, which the reference rung rejects as placeholders by policy — EGW's own average-odds sentence never appeared in any raw capture. Separately, bo3.gg match records expose a bet_updates block; this is noted in the probe output as a potential future reference rung only — bo3.gg is an aggregator, not a first-party book, and using it would need a reviewed policy decision plus a hash-checked capture. None of these limits silently becomes a price.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/matches",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3"
+    ]
+  },
+  {
+    "id": "6e92015a-live-fallback-release",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The live site was serving the 2026-10-15 tracked-fallback release at probe time (collection failure upstream of this session)",
+    "detail": "At the 20:49:58Z probe the deployed GitHub Pages release was the 2026-10-15T09:31:24Z tracked-fallback snapshot (live_collection false; 17 active fixtures, all resolved, 0 unresolved) with the stale-warning banner visible — an upstream collection failure in a production run between the 20:20:40Z live release (13 active, 11 resolved, 2 unresolved, captured and hashed as evidence in the first probe run) and this probe. Consequence: the two fixtures this session researched (1081597, 1082860) were not on the live unresolved list at probe time; their status comes from the fresh ladder replay committed alongside this flag (data/research/6e92015a/fresh-origination.json, 13 active, 12 resolved, 1 unresolved). The fallback is the designed safe behaviour (no fabricated data), and the next successful 4-hourly production run — which will also carry the network rung and this session's phone-strip repairs — is expected to restore live collection. If it does not, the collection failure itself becomes the next flag.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/"
+    ]
+  },
+  {
+    "id": "6e92015a-takeover-integration",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "PR #120 and PR #121 were taken over under the 60-minute board rule and merged; two real defects in the phone status strip were repaired before merge",
+    "detail": "Both source branches had been stale for well over an hour with conflicting baselines, so this session took them over per the coordination protocol, logged the takeovers on the board, and merged their work: PR #120's Bradley–Terry network rung (wired into originate.py's trail and build_origination.py's replay via scripts/network_model.py, plus the mobile status strip) and PR #121's phone-summary full-coverage fix (per-team probabilities on glance rows, uncapped future rows) plus the Bovada evidence dossier. Integration repairs made by this session, verified before merge: (1) the status strip's dimmed labels failed WCAG A/AA contrast (3.43:1) — recoloured to 5.4:1; (2) the strip pushed the picks-at-a-glance section to 1,559px at 320px width, past the 1,500px above-the-fold contract — the strip and the jump bar were compacted on phones only, restoring 1,469px; (3) one #121 regression test was adapted to main's label text with the rationale documented in the test. Full verification on the merged tree: 795 Python tests, 85 Playwright browser checks at 320/390/768/1440px, scripts.build (542 rows, 695 internal links) and scripts.audit_rows --strict (0 violations). The network rung's first live effect — resolving 1081597 — is flagged separately above.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/120",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/121",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/methodology/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/"
+    ]
+  }
+]
