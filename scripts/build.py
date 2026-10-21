@@ -356,13 +356,13 @@ def exec_banner(data, prefix):
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here</p>'
         f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
-        f'<p>This executive summary links every updated list. Picks themselves live on their own pages with full probabilities, evidence and lock times. All links below are internal to this site and were verified at build time.</p>'
+        f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times.</p>'
         f'<div class="exec-banner-actions">'
-        f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both probabilities each</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Market &amp; model audit · searchable</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a compliant line · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory checked {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · auto-refresh every 4h (<a href="{prefix}coverage/">coverage &amp; refresh status →</a>). <a href="{prefix}methodology/">How we build the list →</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
         f'</section>'
     )
 

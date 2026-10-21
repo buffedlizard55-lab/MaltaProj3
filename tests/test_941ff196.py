@@ -45,7 +45,7 @@ class ExecBannerTests(unittest.TestCase):
         cc = data['complete_picks']['counts']
         text = BeautifulSoup(exec_banner(data, './'), 'html.parser').get_text(' ')
         self.assertIn(f"{cc['with_pick']} of {cc['active']} with a pick", text)
-        self.assertIn(f"{cc['unresolved']} without a compliant line", text)
+        self.assertIn(f"{cc['unresolved']} without a line", text)
 
     def test_banner_renders_without_complete_picks(self):
         # A retained snapshot without origination data must not crash the summary.

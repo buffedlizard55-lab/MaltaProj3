@@ -43,11 +43,25 @@
 .exec-banner-actions a .sub{display:block;font-size:9px;font-weight:500;color:inherit;opacity:.85;margin-top:2px}
 .exec-banner-actions a:hover{filter:brightness(1.03)}
 .exec-banner-meta{font-size:10px;color:#7a8a98;margin-top:10px;line-height:1.7}
+.exec-banner-meta a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:700px){
-  .exec-banner{padding:16px 14px;margin:0 0 20px}
-  .exec-banner h3{font-size:16px}
-  .exec-banner-actions{grid-template-columns:1fr;gap:9px}
-  .exec-banner-actions a{min-height:50px}
+  .exec-banner{padding:12px;margin:0 0 16px}
+  .exec-banner-label{margin-bottom:6px}
+  .exec-banner h3{font-size:15px;margin-bottom:8px}
+  .exec-banner-desc{display:none}
+  .exec-banner-actions{grid-template-columns:1fr;gap:8px}
+  .exec-banner-actions a{min-height:44px;padding:8px 12px;font-size:11px}
+  .exec-banner-actions a .label{gap:1px}
+  .exec-banner-actions a .sub{margin-top:0}
+  .exec-banner-meta{font-size:9px;margin-top:8px}
+}
+/* Very small phones: the freshness line duplicates the snapshot-line above,
+   so it is hidden to keep the picks index above the fold (320px budget). */
+@media(max-width:375px){
+  .exec-banner{padding:10px}
+  .exec-banner h3{font-size:14px;margin-bottom:6px}
+  .exec-banner-actions{gap:6px}
+  .exec-banner-meta{display:none}
 }
 .fair-line{font-size:10px;font-weight:450;color:#576b79;white-space:nowrap}
 .identity-note{padding-left:10px;border-left:3px solid #c78736;font-size:12px;line-height:1.8}
