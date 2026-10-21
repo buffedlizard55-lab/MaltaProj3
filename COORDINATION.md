@@ -64,9 +64,15 @@ suite keeps its fixture; live snapshots are kept only under `data/research/dbaf7
   - **FlyQuest vs Staqued (1082860)** — FlyQuest is HLTV #61 / VRS #54, Staqued is
     unranked, unrated and has one anchored series: the new unranked-floor rung gives a
     labelled, low-confidence directional estimate instead of a blank.
-  - **Zetta vs LOS NINOS (1082837)** — re-verified that the published market-backed pick
-    still joins a market naming Alianza Lima Esports; flagged again, and the collector
-    fix is requested below.
+  - **Zetta vs LOS NINOS (1082837)** — I first read the Polymarket/Kalshi market
+    "Alianza Lima Esports vs Los Ninos" as a wrong-opponent join. Checked again before
+    merging: `data/origination/aliases.json` carries a reviewed, competition-scoped
+    alias `Alianza Lima Esports -> Zetta` for CCT South America 2026 Series #7 with
+    **5/5 identical roster evidence** (Slayerhz, zockie, NotJuanjo, BabyRage,
+    Antuanette) between HLTV 2399865 and bo3.gg, and the `pair_join` guard rejects
+    one-team-plus-time matches. My flag was withdrawn, no pick was changed, and the
+    residual roster ambiguity stays with the existing
+    `093e722e-zetta-alianza-identity-ambiguity` flag.
 - **Source access finding:** HLTV match pages and the HLTV match listing answer **HTTP
   403** to GitHub runners (both pages hashed in `hltv-odds-probe.json`), while the HLTV
   ranking pages work. HLTV's betting-analytics page exposes score-handicap prices and a
@@ -74,7 +80,9 @@ suite keeps its fixture; live snapshots are kept only under `data/research/dbaf7
   no HLTV-sourced price is claimed.
 - **Published flags** (`data/research/dbaf7692/flags.json`, rendered on Flagged for
   Review): legacy Pages overwrite, HLTV 403, benched-gods no-line, unranked-floor
-  notice, even-estimate notice, Zetta join re-verification.
+  notice and even-estimate notice. A sixth draft flag alleging a wrong Zetta join was
+  **withdrawn before merge** once the reviewed roster-acquisition alias and the
+  `pair_join` join guard were verified.
 - **Verification:** local `.venv/bin/python -m scripts.build` — 80 source rows replayed,
   row-source audit **530 rows / 516 official-linked / 5 flagged / 9 site-map / 0 without
   a source**, 678 internal links/assets/anchors, mobile landmarks PASS. Unit suites
@@ -82,10 +90,34 @@ suite keeps its fixture; live snapshots are kept only under `data/research/dbaf7
   `test_summary_navigation`, `test_origination*` pass. Branch validation runs
   ([39668169013](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39668169013))
   exercise the phone widths and accessibility suite.
-- **Change request (not this session's scope):** the collector must reject any market
-  join where both team names (or registry-verified aliases) and the start time do not
-  match the HLTV/Hotspawn fixture; add a regression test with the Kalshi
-  `KXCS2GAME-26OCT211800LNALE` ticker. Until then, treat any 1082837 pick as unverified.
+- **Withdrawn change request:** the both-teams-and-start-time join guard I asked for
+  already exists (`pair_join`) and is locked by `tests/test_093e722e_join_guard.py`
+  (one shared team plus matching time, wrong time, and duplicate/single-name rows are
+  all rejected). No collector change is requested from this session.
+
+### DB-1 merge and public verification — 2026-10-21T21:45Z
+
+- Merged as **PR [#137](https://github.com/buffedlizard55-lab/MaltaProj3/pull/137)**,
+  merge commit `3ac466d5`, after rebasing onto `main` (`f9b0ded`) and re-resolving the
+  board conflict.
+- The merge-triggered publisher
+  ([run 39676977002](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39676977002))
+  finished **success**: row-source audit 552 rows / 538 official-linked / 5 flagged /
+  **0 without a source**, and the post-deploy legacy-overwrite guard passed without
+  needing the republish step.
+- Public verification at 21:30Z: `data/latest.json` served
+  `generated_at 2026-10-21T21:24:34Z` (five hours after the previously served 15
+  October snapshot), and the executive summary reads **13 active fixtures, 12 with a
+  directional pick, 0 explicitly unresolved, 1 even estimate without a side**.
+  - benched gods vs TitanFlow — **Pick benched gods 50.4%**, "Researched", HLTV
+    ranking link, low-confidence unranked-floor limitation. This was one of the two
+    blanks.
+  - FlyQuest vs Staqued — **Pick FlyQuest 52.3%**, "Researched", HLTV ranking.
+  - Ground Zero vs Off Chops — **No edge · Even · no side**, listed in the separate
+    register with every source it tried and the reason no side is supportable.
+- The stale "do not treat these as current picks" banner text remains in the HTML but
+  is the hidden freshness element (the page header reads "Source snapshot available"
+  for the 21:24Z snapshot).
 
 **Sources:** [Hotspawn lobby](https://play.hotspawn.com/lobby),
 [Hotspawn fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1),
