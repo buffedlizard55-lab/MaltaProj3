@@ -1,0 +1,129 @@
+{
+  "session": "arena-8926d9c4",
+  "task": "E-2 independent re-check of fixtures without a pick",
+  "observed_on": "2026-10-21",
+  "method": "Each fixture still without a compliant pick was re-checked against the rules the pipeline applies (scripts/originate.py ladder: Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld aggregate, Valve official standings, HLTV world ranking, own results model). Nothing here changes a published value. Original HLTV/Valve/Hotspawn pages were read through the fetch tool or are saved in-repo; saved evidence paths are given where they exist.",
+  "fixtures": [
+    {
+      "fixture_id": "1082762",
+      "label": "ex-CYBERSHOKE vs BlinkDagger (CIS LAN Championship #9)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+      "result": "No compliant pick. Remains unresolved.",
+      "checks": [
+        {
+          "check": "HLTV team page, ex-CYBERSHOKE (team 14106)",
+          "finding": "Valve ranking and world ranking shown as '-'; roster: 'no active players in their lineup'; 'Recent results: Couldn't find any recent results'; 'has not played any matches yet'.",
+          "source_url": "https://www.hltv.org/team/14106/ex-cybershoke",
+          "observed": "2026-10-21"
+        },
+        {
+          "check": "HLTV team page, BlinkDagger (team 9998)",
+          "finding": "Valve and world ranking shown as '-'; roster: 'does not currently have a roster'; the newest listed result is dated 2020 (outside the 120-day window).",
+          "source_url": "https://www.hltv.org/team/9998/blinkdagger",
+          "observed": "2026-10-21"
+        },
+        {
+          "check": "HLTV match page, lineup box",
+          "finding": "Shows ex-CYBERSHOKE 'HLTV: Unranked' and 'VRS: #78'. #78 in the 2026-10-05 Valve file is Lazer Cats, not CYBERSHOKE. This conflicts with the team page's '-'.",
+          "source_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "observed": "2026-10-21"
+        },
+        {
+          "check": "HLTV betting widget",
+          "finding": "Shows a '74.6% / 25.4%' split labelled 'Pick a winner'. This is a community vote, not a bookmaker line, so it is not used (same rule as Hotspawn '% picked').",
+          "source_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "observed": "2026-10-21"
+        },
+        {
+          "check": "Valve official standings 2026-10-05 (latest published; live/2026 directory listed via GitHub API)",
+          "finding": "'CYBERSHOKE' appears twice as a complete five-player row: standing 61 (Alkaren, alpha, Mokuj1n, nota, yiksrezo) and standing 171 (alpha, bl1x1, fluffy, glowiing, Mokuj1n). 'BlinkDagger' is absent.",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "observed": "2026-10-21",
+          "repo_evidence": "data/evidence/valve-ratings.json"
+        },
+        {
+          "check": "Saved HLTV world-ranking publication (2026-10-19)",
+          "finding": "CYBERSHOKE appears at #91 (9 points). BlinkDagger does not appear among the 245 ranked positions, so the world-ranking rung cannot price this pair.",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "observed": "2026-10-19",
+          "repo_evidence": "data/research/c03ef201/evidence/hltv-ranking-0.html.gz"
+        }
+      ],
+      "why_blank": "Identity is ambiguous in Valve data (two complete CYBERSHOKE rosters, neither confirmed by a current HLTV lineup). BlinkDagger has no Valve row and no world ranking. Its HLTV history is outside the 120-day window, so the own results model has no input. No bookmaker line was found.",
+      "hltv_url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9"
+    },
+    {
+      "fixture_id": "1082763",
+      "label": "UPGRADE vs flacons (CIS LAN Championship #9)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+      "result": "No compliant pick. Remains unresolved.",
+      "checks": [
+        {
+          "check": "HLTV team page, UPGRADE (team 13989)",
+          "finding": "States 'UPGRADE is currently ranked #74 in our world ranking'; main lineup: synyx, SquEzxc, pleynnn, tw1sterzaza, DAN9ARMATURA; win rate 51.9% in the last 3 months.",
+          "source_url": "https://www.hltv.org/team/13989/upgrade",
+          "observed": "2026-10-21",
+          "note": "Conflicts with the saved 2026-10-19 ranking page, which lists UPGRADE at #64."
+        },
+        {
+          "check": "Saved HLTV world-ranking publication (2026-10-19)",
+          "finding": "UPGRADE at #64 (14 points). flacons does not appear among the 245 ranked positions.",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "observed": "2026-10-19",
+          "repo_evidence": "data/research/c03ef201/evidence/hltv-ranking-0.html.gz"
+        },
+        {
+          "check": "Valve official standings 2026-10-05",
+          "finding": "UPGRADE is a complete row at standing 67 (1185 points: DAN9ARMATURA, dezl3bio, pleynnn, SquEzxc, tw1sterzaza). flacons is absent.",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "observed": "2026-10-21",
+          "repo_evidence": "data/evidence/valve-ratings.json"
+        },
+        {
+          "check": "Third-party match preview (not used as an input)",
+          "finding": "stavka.tv preview states flacons has few official matches in the last three months and no wins on several maps. Not a pricing source; noted only to explain why a results model cannot be fitted.",
+          "source_url": "https://stavka.tv/matches/csgo/21-10-2026-upgrade-team-flacons",
+          "observed": "2026-10-21"
+        }
+      ],
+      "why_blank": "One side (flacons) has neither a Valve row nor an HLTV world ranking, so the rating rungs need both sides and fail. Its recent official series history is too thin for the results model's 8-series floor. No bookmaker line was found.",
+      "hltv_url": "https://www.hltv.org/events/9426/winline-mpkbk-cis-lan-season-9"
+    },
+    {
+      "fixture_id": "1082837",
+      "label": "Zetta vs LOS NINOS (CCT South America 2026 Series #7)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "result": "No compliant pick. Remains unresolved.",
+      "checks": [
+        {
+          "check": "Valve official standings 2026-10-05",
+          "finding": "Zetta is a complete row at standing 357 (473 points: Antuanette, BabyRage, Notjuanjo, Slayerhz, zockie). LOS NINOS is absent.",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "observed": "2026-10-21",
+          "repo_evidence": "data/evidence/valve-ratings.json"
+        },
+        {
+          "check": "Saved HLTV world-ranking publication (2026-10-19)",
+          "finding": "Zetta at #235 (1 point). LOS NINOS does not appear among the 245 ranked positions.",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "observed": "2026-10-19",
+          "repo_evidence": "data/research/c03ef201/evidence/hltv-ranking-0.html.gz"
+        },
+        {
+          "check": "HLTV event page, CCT 2026 South America Series 7",
+          "finding": "Event runs 13–25 Oct 2026. Search-snippet excerpt lists Zetta series on 14, 15, 17 and 19 Oct (four series in this event). The full team history was not read, so the 120-day series count is not confirmed here.",
+          "source_url": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+          "observed": "2026-10-21"
+        }
+      ],
+      "why_blank": "LOS NINOS has no Valve row and no HLTV world ranking, so the rating rungs cannot be fitted for this pair. Zetta's visible official series history in this event is well short of the results model's 8-series floor. No bookmaker line was found for this fixture.",
+      "hltv_url": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7"
+    }
+  ],
+  "reference_to_rules": "scripts/originate.py and scripts/form_model.py: a rating rung needs both teams; the results model needs at least 8 finished series against at least 3 rated opponents in 120 days.",
+  "limits_of_this_check": [
+    "The sandbox cannot reach the production hosts directly; HLTV pages were read through the fetch tool, and Valve data from the in-repo copy.",
+    "The fixture rows themselves were not re-read from the Hotspawn API in this session (the feed is large); the fixture IDs and names come from the live site's published rows.",
+    "No browser was available, so the rendered mobile layout was not re-tested in this session."
+  ]
+}

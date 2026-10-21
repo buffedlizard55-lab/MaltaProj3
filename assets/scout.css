@@ -92,6 +92,8 @@
 .glance-choice>strong{font-size:15px;color:#2e5260}
 .glance-pick-label{font-size:9px;letter-spacing:.8px;text-transform:uppercase;font-weight:650;color:#1f6b46;background:#e7f4ec;border-radius:4px;padding:3px 6px}
 .glance-pick-label.unresolved-text{color:#8a5a12;background:#fdf1dc}
+.glance-pick-label.is-closed{color:#4f5b66;background:#e9edf1}
+.glance-row.is-closed{opacity:.86}
 .glance-prob{font-weight:650;color:var(--orange-dark)}
 .glance-links{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .glance-links .source-link{font-size:10px}

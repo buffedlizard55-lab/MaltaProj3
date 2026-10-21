@@ -1,0 +1,60 @@
+[
+  {
+    "id": "8926d9c4-hltv-upgrade-rank-conflict",
+    "severity": "warning",
+    "match_ids": [
+      "1082763"
+    ],
+    "title": "UPGRADE's HLTV world rank differs between the saved 19 Oct ranking page (#64) and the HLTV team page (#74)",
+    "detail": "The saved HLTV world-ranking publication dated 2026-10-19 lists UPGRADE at #64 with 14 points. The HLTV team page for UPGRADE (fetched 21 Oct 2026) states 'currently ranked #74'. A third-party preview cites #74 as well. The rank is not used for the UPGRADE vs flacons pick, because flacons is unranked, but the conflict is unexplained and is flagged for manual review.",
+    "source_urls": [
+      "https://www.hltv.org/team/13989/upgrade",
+      "https://www.hltv.org/ranking/teams",
+      "https://stavka.tv/matches/csgo/21-10-2026-upgrade-team-flacons"
+    ]
+  },
+  {
+    "id": "8926d9c4-hltv-cybershoke-labels-conflict",
+    "severity": "warning",
+    "match_ids": [
+      "1082762"
+    ],
+    "title": "ex-CYBERSHOKE shows conflicting Valve/HLTV rank labels on HLTV",
+    "detail": "The HLTV match page lineup box shows ex-CYBERSHOKE as 'HLTV: Unranked' and 'VRS: #78'. The HLTV team page shows Valve ranking '-' and world ranking '-'. In the 2026-10-05 Valve standings, #78 is Lazer Cats, and CYBERSHOKE appears at 61 and 171. The labels cannot be reconciled from the sources available, so no Valve or HLTV rank is used for this team.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+      "https://www.hltv.org/team/14106/ex-cybershoke",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "8926d9c4-valve-cybershoke-duplicate-names",
+    "severity": "warning",
+    "match_ids": [
+      "1082762"
+    ],
+    "title": "Valve 2026-10-05 standings list two complete five-player rows named 'CYBERSHOKE'",
+    "detail": "Standing 61 (1201 points) and standing 171 (786 points) both carry the name CYBERSHOKE with different five-player rosters. The rosters overlap only on alpha and Mokuj1n. HLTV lists 'ex-CYBERSHOKE' with no active roster. The identity rule correctly fails closed.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/team/14106/ex-cybershoke"
+    ]
+  },
+  {
+    "id": "8926d9c4-unranked-and-inactive-opponents",
+    "severity": "notice",
+    "match_ids": [
+      "1082762",
+      "1082763",
+      "1082837"
+    ],
+    "title": "Three fixtures stay unresolved: one side in each has no rating and too little official history",
+    "detail": "BlinkDagger (no Valve row, no HLTV world ranking, last HLTV result listed in 2020); flacons (no Valve row, not in the HLTV world ranking, few recent official series); LOS NINOS (no Valve row, not in the HLTV world ranking). No bookmaker, exchange or aggregated line was found for these three fixtures in the sources checked. Blanks stay blank; no 50/50 is substituted. Details and original links are in data/research/8926d9c4/unresolved-recheck.json.",
+    "source_urls": [
+      "https://www.hltv.org/team/9998/blinkdagger",
+      "https://www.hltv.org/team/13989/upgrade",
+      "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  }
+]

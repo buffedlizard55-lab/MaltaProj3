@@ -79,9 +79,9 @@ the integration step for its own changes.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | in progress | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
-| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) against HLTV, Valve official standings and the Hotspawn fixture feed; record the outcome and every irregularity, with source links, without changing any value | in progress | arena-8926d9c4 | new `data/research/8926d9c4/` only |
-| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress | arena-8926d9c4 | `COORDINATION.md`, this PR |
+| E-1 Executive-summary lock state: the "Picks at a glance" rows show "Pick" for fixtures whose lock or start has already passed until the next four-hourly rebuild. Relabel started/locked rows at build time and in the browser; keep the estimate visible, never dropped | **done** (see result below) | arena-8926d9c4 | `scripts/build.py` (`glance()` only), new `assets/glance-lock.js`, `tests/test_build.py` (append), `COORDINATION.md` |
+| E-2 Independent re-check of the three fixtures still without a pick (ex-CYBERSHOKE–BlinkDagger 1082762, UPGRADE–flacons 1082763, Zetta–LOS NINOS 1082837) against HLTV, Valve official standings and the Hotspawn fixture feed; record the outcome and every irregularity, with source links, without changing any value | **done**, irregularities published on Flagged for Review (non-blocking) | arena-8926d9c4 | new `data/research/8926d9c4/` only |
+| E-3 Full test suite, row-source audit, PR to `main`, merge, verified GitHub Pages deployment; record PR link and merge result here | in progress (PR and deployment record below) | arena-8926d9c4 | `COORDINATION.md`, this PR |
 
 Non-overlap: no edits to `data/origination/aliases.json`, the pipeline ladder in `scripts/originate.py`,
 any other session's `data/research/<id>/`, or `archive/`.
@@ -247,6 +247,47 @@ cleanly without discarding their work.
   - **Live `Public complete-picks counts` (`2026-10-21T14:15:34Z`, after the 7 `13:45Z`/`14:00Z` matches started):** **`{"active": 12, "resolved": 12, "unresolved": 0, "with_pick": 12, "consensus": 3, "market": 5, "bookmaker": 0, "reference": 0, "model": 3, "guidance": 1, "alias_joined": 4}`** — **100.0% of active upcoming Hotspawn CS2 matches resolved with sourced probabilities and directional picks (`0` unresolved)**, directly verified on live [`/`](https://buffedlizard55-lab.github.io/MaltaProj3/), [`/origination/`](https://buffedlizard55-lab.github.io/MaltaProj3/origination/), and [`/review/`](https://buffedlizard55-lab.github.io/MaltaProj3/review/).
   - **Live `Row-source audit`:** **`{"rows": 521, "ok": 507, "flagged": 5, "navigation": 9, "violation": 0}`** (`0` violations across every table on the deployed site).
 - **Cross-scope note logged for `scripts/build.py` owners (not edited directly to avoid conflicting with open PRs `#118` / `#120`):** Live inspection of `https://buffedlizard55-lab.github.io/MaltaProj3/` shows the top Executive Summary card and `Picks at a glance` accurately reporting `12 of 12 with a pick · 0 without a line`, whereas home-page `<section id="unresolved">` immediately below reads featured-only `latest.json` (`5 of 12 active Hotspawn CS2 fixtures have no verified pick in this snapshot`) instead of excluding rows resolved by `origination.json` (which `/origination/#unresolved` already does). Flagged with official links in `data/research/f9d0a5a2/flags.json` (`f9d0a5a2-home-unresolved-featured-vs-complete-scope`) for the active `scripts/build.py` owner.
+
+### E-1 / E-2 result — arena-8926d9c4 (2026-10-21T13:00Z)
+
+**E-1 done — lock state in the executive summary.** Before this change, the "Picks at a glance" rows were
+labelled at build time only, so a fixture whose lock or start passed after the last four-hourly build still
+read "Pick 50.8%". Now `glance()` labels a started or locked row "Locked" at build time, carries
+`data-glance-starts` / `data-glance-locks` / `data-glance-closed` on each pick row, and `assets/glance-lock.js`
+(loaded on the summary only) relabels a row to "Locked" in the viewer's clock. The script can only close a pick,
+never reopen one, and changes no value, probability or link. Checks: `tests/test_build.py` (18 tests, incl. two
+explicit-clock regression tests), `tests/test_freshness_determinism.py` (9 tests, pinned-clock suite), and a
+jsdom run of the shipped `glance-lock.js` against past-lock, open, closed and unresolved rows (labels and links
+behave as specified). Source for the behaviour: the summary's own rows and `scripts/build.py` `glance()`.
+
+**E-2 done — re-check of the three fixtures without a pick.** Record: `data/research/8926d9c4/unresolved-recheck.json`
+(sources, observation dates, repo evidence paths), flags in `data/research/8926d9c4/flags.json`, published on Flagged for Review.
+Outcome: **no compliant pick for any of the three**, and the rules explain why:
+
+- ex-CYBERSHOKE vs BlinkDagger (1082762): BlinkDagger has no Valve row and no HLTV world rank, and its newest listed HLTV result is from 2020; ex-CYBERSHOKE has two complete Valve rows (61 and 171) and no active HLTV roster. Source: <https://www.hltv.org/team/9998/blinkdagger>, <https://www.hltv.org/team/14106/ex-cybershoke>, <https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md>.
+- UPGRADE vs flacons (1082763): flacons has no Valve row and no HLTV world rank in the saved 19 Oct publication; UPGRADE is rated, so the pair cannot be priced by any rung. Source: <https://www.hltv.org/team/13989/upgrade>, saved <code>data/research/c03ef201/evidence/hltv-ranking-0.html.gz</code>.
+- Zetta vs LOS NINOS (1082837): LOS NINOS has no Valve row and no HLTV world rank; Zetta's visible official series history in the event is short of the results model's 8-series floor. Source: <https://www.hltv.org/events/9452/cct-2026-south-america-series-7>.
+
+No bookmaker, exchange or aggregated line was found for these three fixtures. HLTV's "Pick a winner" split on the
+ex-CYBERSHOKE match page is a community vote and is not used, consistent with the rule against Hotspawn "% picked".
+I did not lower the 8-series or rating-rung thresholds to force a pick.
+
+**Irregularities (published, non-blocking, on Flagged for Review):** `8926d9c4-hltv-upgrade-rank-conflict`
+(UPGRADE #64 in the saved 19 Oct ranking vs #74 on its HLTV team page), `8926d9c4-hltv-cybershoke-labels-conflict`
+(HLTV match page "VRS #78" vs team page "-"; #78 is Lazer Cats in Valve's file), `8926d9c4-valve-cybershoke-duplicate-names`
+(two complete Valve rows named CYBERSHOKE), `8926d9c4-unranked-and-inactive-opponents` (the three blanks).
+
+**Verification performed:** Hotspawn fixture feed reachable and returning the scheduled-fixture JSON (fixture rows were not
+re-read in full in this session); Valve 2026-10-05 standings checked by name against the saved `valve-ratings.json`
+(the repo's source of truth, which matches Valve's latest published file per the GitHub API directory listing);
+saved HLTV ranking publication parsed (245 ranked positions, 19 Oct 2026); HLTV team and match pages read through the fetch tool.
+Not verified in this session: the rendered mobile layout and the stale banner's on-screen state (no browser available).
+
+### E-3 — integration (in progress)
+
+Checks run on this branch before the PR: `.venv/bin/python -m unittest discover -s tests` (all modules green after the
+fixed-clock test correction; pinned-clock suite passed separately), `scripts.build` (80 source rows reconciled,
+496 rows / 0 violations in the row-source audit, 670 internal links, mobile landmarks checked).
 
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
