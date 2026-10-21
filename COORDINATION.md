@@ -4085,3 +4085,25 @@ Read the entire board before starting. Existing feature claims (941ff196, 802f6a
 
 **Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/coverage_probe.py` semantics (probabilities, picks, aliases unchanged). It writes only to `data/research/0582cbe9/` and this board section, plus minimal additive UI copy/CSS that preserves all existing behavior. If a file is owned by another session, the request is logged here instead of editing.
 
+
+---
+
+# Current session: arena-ebc2ee53 — current-release publication & coverage audit
+
+Claimed **2026-10-21T20:08Z** on the Arena-fixed branch `arena/ebc2ee53-maltaproj3`,
+whose base is `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (merge of PR #131).
+I read the complete coordination board before claiming. Existing source research
+and the summary/mobile implementation are preserved. This task is a separate
+read-only audit of what the public Pages endpoint actually serves while the
+legacy Pages builder and the scheduled artifact publisher run; it does not
+re-verify another session's per-fixture research or change shared match data.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| EB-1 Reconcile the current Hotspawn CS2 lobby, latest official production-run annotations, and the public Pages JSON/HTML; verify source freshness, actual publication ordering and the 4–8h target; record timestamped evidence and any reproducible mismatch without inventing rows or picks | **in progress** | arena-ebc2ee53 | new `data/research/ebc2ee53/`; this board section only |
+
+**Non-overlap pledge:** evidence/report only. No changes to `data/latest.json`,
+`data/origination.json`, aliases, collectors, pick generation, shared navigation,
+builders, CSS, or workflows. If the public stale/fresh mismatch requires a
+change to an owned file or an unavailable Pages setting, log the exact request
+and source evidence here instead of editing another session's scope.
