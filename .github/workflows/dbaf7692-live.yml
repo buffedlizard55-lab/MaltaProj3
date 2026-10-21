@@ -103,5 +103,6 @@ jobs:
             exit 0
           fi
           git commit -m "chore(session): live source snapshot [data-snapshot]"
-          git pull --rebase origin arena/dbaf7692-maltaproj3
+          git fetch origin arena/dbaf7692-maltaproj3
+          git -c rebase.autoStash=true pull --rebase origin arena/dbaf7692-maltaproj3
           git push origin HEAD:arena/dbaf7692-maltaproj3
