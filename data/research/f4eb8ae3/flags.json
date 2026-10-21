@@ -1,0 +1,74 @@
+[
+  {
+    "id": "f4eb8ae3-zetta-alias-verified-5of5-roster",
+    "severity": "notice",
+    "match_ids": ["1082837"],
+    "title": "Zetta vs LOS NINOS (1082837): the Alianza Lima Esports market join is a verified 5/5 roster identity, not a wrong-opponent join",
+    "detail": "Independent second read 2026-10-21T20:12-20:20Z, answering flag 32bed9e3-zetta-los-ninos-opponent-mismatch line by line. HLTV match 2399865 lists Zetta (NotJuanjo, zockie, BabyRage, Antuanette, Slayerhz) vs LOS NINOS (PremiuM, protado, Reix, aNgelo, space) at 2026-10-21T22:00:00Z, CCT 2026 South America Series 7 Swiss round 5, Bo3. bo3.gg match 132583 lists the identical slot as Alianza Lima Esports vs Los Niños with the SAME five starters on each side (zockie, Slayerhz, NotJuanjo, BabyRage, Antuanette for Alianza Lima Esports). Polymarket's event cs2-ale1-ln-2026-10-21 states it resolves from HLTV. Valve's official Americas standings row 357 (snapshot 2026-10-05, blob SHA 2aa2805394fbc68f36a5752a5b16026f2ab2fed5) lists team Zetta with the identical five players. One roster, one slot, one series: the market pair naming Alianza Lima Esports IS fixture 1082837, and the originated consensus (Polymarket + Kalshi, LOS NINOS 61.3% observed 20:05:06-07Z) is a legitimate match-level estimate. The earlier wrong-opponent flag is retained as the audit trail; treat its 'unverified' reading as answered by this roster chain. The scoped alias entries (Alianza Lima Esports→Zetta, Los Niños→LOS NINOS, CCT South America 2026 Series #7 only) remain the only join path.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026",
+      "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md",
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837"
+    ]
+  },
+  {
+    "id": "f4eb8ae3-benched-gods-titanflow-no-compliant-input",
+    "severity": "warning",
+    "match_ids": ["1081597"],
+    "title": "benched gods vs TitanFlow (1081597): independent full-ladder re-check confirms the blank — no compliant input exists in any monitored source",
+    "detail": "Re-checked 2026-10-21T20:15-20:22Z after the brief's HLTV-then-esportsbooks instruction. HLTV lists the fixture (CCT 2026 Challengers Europe Series 8, Lower Bracket Round 3 #1, Bo3, 22 Oct 11:00Z) but publishes no quoted odds — only a Stake promotional block; the 'Pick a winner' fan vote is never used. No Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, 1xBet, Betway, GG.Bet or Cloudbet two-sided prematch series price was found; EGamersWorld alone lists the match with an identical 1.8/1.8 pair on both sides, the documented site placeholder the aggregated-reference contract rejects. Official Valve standings (2026-10-05, blob SHA 2aa2805394fbc68f36a5752a5b16026f2ab2fed5) contain two complete five-player benched gods rows — standing 157 (811 pts; facer, K014NZ, norescue, Wign, yoyoS2) and standing 329 (516 pts; BloodyK, f1chper, K014NZ, MisterHy, Wign) — and NO TitanFlow row in the global, Europe, Americas or Asia snapshots, so the Valve rung fails on the missing side and stays ambiguous on the other. The own results model refuses TitanFlow (3 anchored series in 120 days, minimum 8). Neither team has an HLTV world-ranking row. What would resolve it: any first-party two-sided prematch price, or an official Valve five-player TitanFlow row plus a fixture-bound HLTV lineup selecting one benched gods row. Until then the row stays blank in the picks list and is published in the executive summary's unresolved register with these links. No value is invented.",
+    "source_urls": [
+      "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://bo3.gg/matches"
+    ]
+  },
+  {
+    "id": "f4eb8ae3-ground-zero-off-chops-even-estimate",
+    "severity": "notice",
+    "match_ids": ["1082858"],
+    "title": "Ground Zero vs Off Chops (1082858): only a 50/50 even estimate can be sourced — the pick cell stays empty by design",
+    "detail": "Re-checked 2026-10-21T20:20-20:24Z. HLTV match 2399888 confirms the fixture (DFRAG Invitational 2026, Group A opening match, Bo3 LAN, 26 Oct 03:00Z) but quotes no odds. Both sides publish exactly 5.0 HLTV world-ranking points (Ground Zero #143, Off Chops #142-143), so the researched model output is exactly 50.0/50.0 — an even estimate with no side, which the executive summary lists under 'Even estimate - no side' rather than silently picking one. Official Valve standings (2026-10-05) give Ground Zero one unique row (standing 136, 878 pts; apocdud, hazr, Omichella, sliimey, vision) and no Off Chops row at all, so the Valve rung fails closed; the own results model has 5 anchored series for Off Chops (minimum 8). Dated form context, NOT a compliant input: Off Chops beat Ground Zero 2-1 on 16 Oct 2026 (DFRAG Logitech G Pro Series). No side is offered until a two-sided price or 3+ additional anchored Off Chops series appear; the four-hourly refresh applies either automatically.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399547/nexvoid-vs-off-chops-dfrag-logitech-g-pro-series-2026",
+      "https://liquipedia.net/counterstrike/DFRAG/Invitational/2026",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
+    ]
+  },
+  {
+    "id": "f4eb8ae3-flyquest-staqued-floor-model-source-check",
+    "severity": "notice",
+    "match_ids": ["1082860"],
+    "title": "FlyQuest vs Staqued (1082860): FlyQuest direction verified on every rating input; Staqued has no published rating anywhere, so the estimate stays low-confidence floor-model research",
+    "detail": "Re-checked 2026-10-21T20:18-20:24Z. HLTV match 2399890 confirms the fixture (DFRAG Invitational 2026, Group B opening match, Bo3 LAN, 27 Oct 03:00Z): FlyQuest HLTV #61 / VRS #54 with lineup jks, INS, Vexite and others; Staqued HLTV Unranked / VRS Unranked. Official Valve standings (2026-10-05, blob SHA 2aa2805394fbc68f36a5752a5b16026f2ab2fed5) give FlyQuest one unique five-player row (standing 86, 1093 pts; aliStair, INS, jks, nettik, Vexite) and no Staqued row in any regional or global snapshot. The own results model refuses Staqued (1 anchored series, minimum 8). No Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle two-sided prematch price exists at T-6d; the four-hourly refresh will prefer one if it appears before the lock. The researched fallback therefore rests on session dbaf7692's explicitly labelled HLTV unranked-floor rung (unranked side given HLTV's floor of 0.0 published points — a stated assumption, not a measured rating). Direction: FlyQuest. Confidence: low. HLTV's 88.9/11.1 fan vote was observed and excluded, as required.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://polymarket.com/esports/cs2"
+    ]
+  },
+  {
+    "id": "f4eb8ae3-lowtier-no-first-party-prices-survey",
+    "severity": "warning",
+    "match_ids": ["1081597", "1082858", "1082860", "1082792", "1082793"],
+    "title": "Low-tier CS2 coverage survey (21 Oct 2026): monitored first-party books and exchanges price none of the currently model-only or blank fixtures",
+    "detail": "The brief asks for picks on every Hotspawn CS2 fixture from HLTV first, then esportsbooks and esports betting lines. Survey run 2026-10-21T20:12-20:25Z over the five fixtures that currently lack a first-party money line: Polymarket lists zero active CS2 markets for 5star and 1WIN at observation time and no market for benched gods, TitanFlow, Ground Zero, Off Chops or Staqued; Kalshi, Thunderpick, Bovada and Pinnacle carry none of these series (pipeline trail re-verified); EGamersWorld aggregates the CCT Challengers fixture with a 1.8/1.8 placeholder only; HLTV match pages for the DFRAG fixtures quote no odds. Consequence, stated as the project's documented limitation rather than a gap in effort: picks for these fixtures can only be research-model estimates (Valve ratings, own results fit, or the labelled HLTV unranked floor) or, where even those fail (benched gods vs TitanFlow) or produce no side (Ground Zero vs Off Chops), an explicit blank in the executive summary's unresolved register. Models are never presented as betting odds, and no probability is inferred from Hotspawn participation percentages, HLTV fan votes, third-party model percentages (bo3.gg 'Score predict') or predicted VRS point swings. The four-hourly collector re-checks every source automatically; any compliant price that appears before a lock is preferred over these research rungs without manual input.",
+    "source_urls": [
+      "https://polymarket.com/esports/cs2",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://www.hltv.org/matches"
+    ]
+  }
+]
