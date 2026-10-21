@@ -4085,3 +4085,32 @@ Read the entire board before starting. Existing feature claims (941ff196, 802f6a
 
 **Non-overlap pledge:** This session does not edit `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/coverage_probe.py` semantics (probabilities, picks, aliases unchanged). It writes only to `data/research/0582cbe9/` and this board section, plus minimal additive UI copy/CSS that preserves all existing behavior. If a file is owned by another session, the request is logged here instead of editing.
 
+
+---
+
+# Current session: arena-89481826 — takeover, integration and release acceptance
+
+Claimed **2026-10-21T20:16Z** on Arena-fixed branch `arena/89481826-maltaproj3`,
+starting at `main`/`origin/main` `a506382c46762d134876f7d33a7723faa729a5ad`.
+Read this board and the open PRs before claiming. The task-board takeover rule
+allows pickup after a claim has been inactive for more than 60 minutes without
+commits. PR #120 (`arena/541cd43a`) last committed `2b1e6e5` at 14:35:26Z;
+PR #121 (`arena/75de2710`) last committed `f7f0909` at 14:01:29Z. Both are many
+hours old with no newer commits. PR #120 is merge-conflicting and its current
+validation check fails; PR #121 is merge-conflicting and has no checks on its
+latest head. The takeover is recorded rather than silently editing the stale
+branches. Work stays on this branch; the Arena-fixed branch requirement takes
+precedence over the user-requested `session/<id>/<task>` branch naming.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 894-1 Take over PR #120's independently sourced results-model rung; review the evidence and fail-closed gates, integrate only source-replayable changes, and retain all unrelated review records | **in progress (takeover)** | arena-89481826 | `scripts/network_model.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/build.py`, `scripts/form_model.py`, `scripts/audit_rows.py`, `assets/scout.css`, new model tests; preserve `data/research/541cd43a/` as received |
+| 894-2 Take over PR #121's low-tier Bovada fallback and phone index; verify exact team/fixture identity and source timestamps before publishing any line; keep unsupported identity joins blank and flagged | **in progress (takeover)** | arena-89481826 | `data/origination/aliases.json`, `scripts/originate.py`, `scripts/sources.py`, `scripts/build.py`, `scripts/audit_rows.py`, `assets/scout.css`, relevant tests; preserve `data/research/75de2710/` as received |
+| 894-3 Final integration: rebase both taken-over changes on current `main`, strict row/replay/link/mobile validation, PR, merge and live Pages deployment verification | **in progress** | arena-89481826 | this board section, integration PR; only scopes above plus new `data/research/89481826/` |
+
+**Non-overlap and preservation pledge.** This is an authorized stale-claim
+handoff under the 60-minute rule. I will not switch branches or push anywhere
+except `arena/89481826-maltaproj3`. I will preserve the original PR branches,
+will not delete research/flags added by sessions 32bed9e3 or 0582cbe9, and will
+not claim a candidate line as verified if an exact fixture/name/time join cannot
+be established. Any merge conflicts and scope handoffs will be recorded here.
