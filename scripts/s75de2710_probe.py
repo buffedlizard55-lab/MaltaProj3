@@ -229,12 +229,15 @@ def main() -> int:
                               'team_links': sorted(set(re.findall(r'https://www\.hltv\.org/team/\d+/[a-z0-9-]+', html)))}
             for i, team_url in enumerate(entry['match']['team_links'][:2]):
                 team_html = text_body(fetch(f"hltv-team-{b['id']}-{i}", team_url, manifest)[0])
-                m = re.search(r'# ([^<]+)</h1>', team_html)
-                rank = re.search(r'World ranking</strong>\s*([^<]*)', team_html)
+                m = re.search(r'profile-team-name[^>]*>([^<]*)', team_html)
+                stats = re.sub(r'<[^>]+>', ' ', team_html)
+                vrs = re.search(r'Valve ranking\s*VRS\s*(#[0-9]+|-)', stats)
+                world = re.search(r'World ranking\s*(#[0-9]+|-)', stats)
                 entry['team_pages'].append({
                     'url': team_url, 'bytes': len(team_html),
                     'name': m.group(1).strip() if m else None,
-                    'world_rank': rank.group(1).strip() if rank else None,
+                    'vrs_rank': vrs.group(1) if vrs else None,
+                    'world_rank': world.group(1) if world else None,
                     'no_roster': 'does not currently have a roster' in team_html,
                     'no_rank': "doesn't have a world rank" in team_html,
                     'recent_results_2026': len(re.findall(r'\b(?:0[1-9]|[12]\d|3[01])/10/2026\b', team_html)),
@@ -341,6 +344,82 @@ def main() -> int:
                                                        for b in blanks}}
     report['providers'] = providers
 
+    # 6b. Structured fixture-level search, so a match is never reported missing
+    #     on a substring test alone.
+    bovada_rows = json_body(bv_body) or []
+    bovada_hits = {}
+    for group in (bovada_rows if isinstance(bovada_rows, list) else []):
+        for ev in (group.get('events') or []) if isinstance(group, dict) else []:
+            desc = str(ev.get('description') or '')
+            for b in blanks:
+                if not all(key(t) in key(desc) for t in b['teams']) and not all(
+                        key(t.rsplit(' ', 1)[-1]) in key(desc) for t in b['teams']):
+                    continue
+                markets = []
+                for g in ev.get('displayGroups') or []:
+                    if str(g.get('description')) != 'Game Lines':
+                        continue
+                    for m in g.get('markets') or []:
+                        if str(m.get('description')) != 'Moneyline':
+                            continue
+                        markets.append({'status': m.get('status'),
+                                        'period': (m.get('period') or {}).get('description'),
+                                        'outcomes': [{'name': o.get('description'), 'decimal': (o.get('price') or {}).get('decimal'),
+                                                      'status': o.get('status')} for o in m.get('outcomes') or []]})
+                bovada_hits.setdefault(b['id'], []).append({
+                    'description': desc, 'link': ev.get('link'), 'status': ev.get('status'),
+                    'start_ms': ev.get('startTime'), 'markets': markets})
+    providers['bovada']['fixture_rows'] = bovada_hits
+
+    bo3 = {}
+    for b in blanks:
+        row = {'teams': {}, 'matches': [], 'error': None}
+        team_ids = []
+        for i, name in enumerate(b['teams']):
+            q = ('/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]='
+                 + requests.utils.quote(name, safe=''))
+            body, entry = fetch(f"bo3-team-{b['id']}-{i}", 'https://api.bo3.gg/api/v1' + q, manifest)
+            rows = (json_body(body) or {}).get('results') or []
+            exact = [r for r in rows if key(r.get('name')) == key(name)]
+            row['teams'][name] = {'status': entry.get('http_status'), 'matches': len(rows),
+                                  'exact': [{'id': r.get('id'), 'name': r.get('name'), 'rank': r.get('rank')}
+                                            for r in exact]}
+            team_ids += [r.get('id') for r in exact]
+        for team_id in team_ids[:2]:
+            q = ('/matches?page[offset]=0&page[limit]=20&sort=start_date'
+                 '&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1'
+                 f'&filter[matches.team_ids][overlap]={team_id}&with=teams,tournament')
+            body, entry = fetch(f"bo3-matches-{b['id']}-{team_id}", 'https://api.bo3.gg/api/v1' + q, manifest)
+            for m in (json_body(body) or {}).get('results') or []:
+                row['matches'].append({'id': m.get('id'), 'slug': m.get('slug'),
+                                       'start': m.get('start_date'), 'tournament': (m.get('tournament') or {}).get('name'),
+                                       'team1': (m.get('team1') or {}).get('name'),
+                                       'team2': (m.get('team2') or {}).get('name'),
+                                       'bet_provider': ((m.get('bet_updates') or {}).get('provider')),
+                                       'bet_coeffs': [(((m.get('bet_updates') or {}).get('team_1') or {}).get('coeff')),
+                                                      (((m.get('bet_updates') or {}).get('team_2') or {}).get('coeff'))],
+                                       'bet_link': (m.get('bet_updates') or {}).get('path')})
+        bo3[b['id']] = row
+    providers['bo3gg_fixture_probe'] = bo3
+
+    kalshi_all = []
+    cursor = None
+    for page in range(4):
+        url = KALSHI + (f'&cursor={cursor}' if cursor else '')
+        body, entry = fetch(f'kalshi-events-{page}', url, manifest)
+        payload = json_body(body) or {}
+        kalshi_all += payload.get('events') or []
+        cursor = payload.get('cursor')
+        if not cursor:
+            break
+    kalshi_hits = {}
+    for b in blanks:
+        tokens = [key(t) for t in b['teams'] if key(t)]
+        kalshi_hits[b['id']] = [e.get('event_ticker') for e in kalshi_all
+                                if any(tok in key(json.dumps(e)) for tok in tokens)]
+    providers['kalshi']['fixture_hits'] = kalshi_hits
+    providers['kalshi']['events_total'] = len(kalshi_all)
+
     # 7. Save.
     report['request_manifest'] = manifest
     (OUT / 'probe.json').write_text(json.dumps(report, indent=1, ensure_ascii=False) + '\n')
@@ -362,9 +441,18 @@ def main() -> int:
     lines += ['', '## HLTV team facts', '']
     for fid, entry in hltv_pages.items():
         for team in entry['team_pages']:
-            lines.append(f"- {fid}: {team['name']} — world rank `{team['world_rank']}`, "
-                         f"no roster: {team['no_roster']}, no rank: {team['no_rank']}, "
-                         f"results in Oct 2026: {team['recent_results_2026']}")
+            lines.append(f"- {fid}: {team['name']} — HLTV world rank `{team['world_rank']}`, "
+                         f"VRS `{team['vrs_rank']}`, no roster: {team['no_roster']}, "
+                         f"no rank: {team['no_rank']}, results in Oct 2026: {team['recent_results_2026']}")
+    lines += ['', '## Fixture-level bookmaker rows', '']
+    for fid, rows in (providers.get('bovada', {}).get('fixture_rows') or {}).items():
+        for row in rows:
+            lines.append(f"- Bovada {fid}: {row['description']} status {row['status']} "
+                         f"start {row['start_ms']} markets {json.dumps(row['markets'])[:300]}")
+    for fid, row in (providers.get('bo3gg_fixture_probe') or {}).items():
+        lines.append(f"- bo3.gg {fid}: {json.dumps(row['teams'])[:200]}")
+        for m in row['matches'][:4]:
+            lines.append(f"    - {m['start']} {m['team1']} vs {m['team2']} coeffs {m['bet_coeffs']}")
     (OUT / 'probe.md').write_text('\n'.join(lines) + '\n')
     print('\n'.join(lines))
     return 0

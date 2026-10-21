@@ -348,20 +348,25 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    updated = (complete or {}).get('generated_at') or data.get('generated_at')
     items = [
-        (prefix + 'origination/#picks', 'All match picks', 'target',
-         f'{active} active Hotspawn CS2 fixtures, both probabilities each.'),
+        (prefix + 'origination/#picks', 'Updated picks list', 'target',
+         f'All {active} active Hotspawn CS2 fixtures with both win probabilities, the pick and lock time.'),
+        ('#picks-at-a-glance', 'Picks on this page', 'layers',
+         'The same picks, one compact row each, directly below — no page load.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Final day · Day 5', 'clock',
          'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
-        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', f'Unresolved ({unresolved})', 'flag',
+         'A separate section: every blank pick, its blocker and the sources actually tried.'),
+        (prefix + 'origination/#unresolved', 'Full research trails', 'book',
+         'Provider-by-provider evidence behind every blank and every pick.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
-           '<p class="start-here-label">Start here · where the picks are</p><ul>')
+           '<p class="start-here-label">Start here · where the updated picks are</p>'
+           f'<p class="start-here-updated">List updated <time datetime="{e(str(updated or ""))}">{local_time(updated)}</time>'
+           ' · refreshes every 4 hours; each row keeps its own source and observation time.</p><ul>')
     for href, title, sym, detail in items:
         out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
                 f'<span>{e(detail)}</span></a></li>')
@@ -439,7 +444,11 @@ def glance(data, prefix, now=None):
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
         rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}">'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
-                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
+                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span>'
+                 + (f'<span class="glance-probs"><span>{e(names[0])} <b>{a["probabilities"][0] * 100:.1f}%</b></span>'
+                    f'<span>{e(names[1])} <b>{a["probabilities"][1] * 100:.1f}%</b></span></span>'
+                    if a else '<span class="glance-probs"><span class="unverified">No verified win probability — never defaulted to 50/50</span></span>')
+                 + '</div>'
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
     note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
@@ -453,7 +462,9 @@ def glance(data, prefix, now=None):
             f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
             f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
             f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
-            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            'Both teams’ win probabilities are shown on every row. A missing estimate is never filled with a default 50/50. '
+            'Green sources are external money lines; purple are research models or researched fallbacks. '
+            f'<span class="glance-updated">Updated {local_time((data.get("complete_picks") or {}).get("generated_at") or data.get("generated_at"))}.</span></p>'
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
 
 

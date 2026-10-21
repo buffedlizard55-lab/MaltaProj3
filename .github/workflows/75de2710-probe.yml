@@ -31,6 +31,40 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Run the live ladder (collect + originate) and record the blank list
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          row = json.loads(Path('data/origination.json').read_text())
+          blanks = [m for m in row['matches'] if m.get('origination') is None]
+          Path('data/research/75de2710/ladder.json').write_text(json.dumps({
+              'generated_at': row['generated_at'],
+              'counts': row['counts'],
+              'unresolved_ids': [m['id'] for m in blanks],
+              'rows': [{'id': m['id'], 'teams': [t['name'] for t in m['teams']],
+                        'competition': m['competition'], 'starts_at': m['starts_at'],
+                        'method': (m.get('origination') or {}).get('method'),
+                        'probabilities': (m.get('origination') or {}).get('probabilities'),
+                        'aliases': [a['alias'] + ' -> ' + a['canonical'] for a in m.get('aliases_used') or []],
+                        'trail': [{'stage': r.get('stage'), 'status': r.get('status')}
+                                  for r in m.get('research') or []]}
+                       for m in (blanks or row['matches'])],
+          }, indent=1) + '\n')
+          print('ladder blanks:', len(blanks))
+          PY
+      - name: Restore tracked data so only this session's reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination/evidence data/research/twc-current >/dev/null 2>&1 || true
+          git status --porcelain | head -40
       - name: Run the read-only probe
         run: python -m scripts.s75de2710_probe --live
       - name: Commit the dated report and hashed originals
