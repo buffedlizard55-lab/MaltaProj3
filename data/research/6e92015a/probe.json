@@ -1,15 +1,15 @@
 {
  "schema_version": 1,
  "session": "arena-6e92015a",
- "generated_at": "2026-10-21T21:15:09Z",
+ "generated_at": "2026-10-21T21:35:35Z",
  "policy": "Read-only GET/POST probes. Every response is saved and hashed. No probability, pick or alias is written here. A blocked endpoint is not evidence that no market exists. HLTV fan votes and Hotspawn \"% picked\" are never inputs.",
  "live_release": {
   "index_html": {
-   "bytes": 77589,
-   "sha256": "6559dede30a362e26c39358a6b57759feaa433b00f6fcfd324f8ef32fb48e51f"
+   "bytes": 119101,
+   "sha256": "8027ffc581ec0df8fa78f36987ed17eefe79aee164996cbfeb67e7a9a08c3540"
   },
-  "stale_warning_tag": "id=\"stale-warning\" class=\"stale-warning\" role=\"status\" >",
-  "stale_warning_hidden": false,
+  "stale_warning_tag": "id=\"stale-warning\" class=\"stale-warning\" role=\"status\" hidden>",
+  "stale_warning_hidden": true,
   "mobile_nav": true,
   "viewport": true,
   "skip_link": true,
@@ -17,209 +17,99 @@
   "summary_links_unresolved": true,
   "summary_links_featured": true,
   "origination_html": {
-   "bytes": 87315,
-   "sha256": "c5988b158a241da38ede0425800b145097227f81e1ba4a11f0ea5c492534d0b5"
+   "bytes": 136821,
+   "sha256": "4c15de5a28564e4c117fda07a5569d84971d7f5f209d5aae2104eb0c2fe826d7"
   },
   "origination.json": {
-   "bytes": 88452,
-   "sha256": "661ac8ff3a202e6ffc6dc2da8d57d94c91653ff71dfa790b1448422bf02ff5b2",
+   "bytes": 156727,
+   "sha256": "6ae560008731e89c0bb79a57f8a27c7cf7a35cad07c475858513e04af2bc94be",
    "parsed": true
   },
-  "counts": {
-   "active": 17,
-   "resolved": 17,
-   "unresolved": 0,
-   "with_pick": 17,
-   "consensus": 0,
-   "market": 7,
-   "bookmaker": 5,
-   "model": 5,
-   "alias_joined": 4
-  },
-  "generated_at": "2026-10-15T09:31:24Z",
-  "live_collection": false,
-  "latest.json": {
-   "bytes": 201016,
-   "sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
-   "parsed": true
-  }
- },
- "blank_sources": {
-  "deployed_generated_at": "2026-10-15T09:31:24Z",
-  "deployed_blank_ids": [],
-  "fresh_generated_at": "2026-10-21T21:14:33Z",
-  "fresh_blank_ids": [
-   "1082860"
-  ],
-  "probed_ids": [
-   "1082860"
-  ]
- },
- "fresh_ladder": {
-  "generated_at": "2026-10-21T21:14:33Z",
   "counts": {
    "active": 13,
-   "resolved": 12,
-   "unresolved": 1,
+   "resolved": 13,
+   "unresolved": 0,
    "with_pick": 12,
    "consensus": 1,
    "market": 2,
    "bookmaker": 0,
    "reference": 0,
-   "model": 9,
+   "model": 10,
+   "guidance": 0,
+   "alias_joined": 2
+  },
+  "generated_at": "2026-10-21T21:24:47Z",
+  "live_collection": true,
+  "latest.json": {
+   "bytes": 186439,
+   "sha256": "109b5fbbed913e49df95093988cfc3ed5d4a76aeeec81f61d3df2e0c00045840",
+   "parsed": true
+  }
+ },
+ "blank_sources": {
+  "deployed_generated_at": "2026-10-21T21:24:47Z",
+  "deployed_blank_ids": [],
+  "fresh_generated_at": "2026-10-21T21:34:51Z",
+  "fresh_blank_ids": [],
+  "probed_ids": []
+ },
+ "fresh_ladder": {
+  "generated_at": "2026-10-21T21:34:51Z",
+  "counts": {
+   "active": 13,
+   "resolved": 13,
+   "unresolved": 0,
+   "with_pick": 13,
+   "consensus": 1,
+   "market": 2,
+   "bookmaker": 0,
+   "reference": 0,
+   "model": 10,
    "network": 2,
    "guidance": 0,
    "alias_joined": 2
   },
-  "blank_ids": [
-   "1082860"
-  ]
+  "blank_ids": []
  },
- "blank_fixtures": [
-  {
-   "id": "1082860",
-   "teams": [
-    "FlyQuest",
-    "Staqued"
-   ],
-   "competition": "DFRAG Invitational 2026",
-   "starts_at": "2026-10-27T03:00:00Z",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-   "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
-  }
- ],
+ "blank_fixtures": [],
  "hltv_world_ranking": {
-  "bytes": 1115880,
+  "bytes": 1110144,
   "note": "raw page saved and hashed; ranking rows are parsed by scripts/hltv_ranking.py in the pipeline"
  },
  "lines": {
   "polymarket": {
    "events_seen": 407,
-   "fixture_mentions": {
-    "1082860": []
-   }
+   "fixture_mentions": {}
   },
   "kalshi": {
-   "events": 41,
-   "fixture_mentions": {
-    "1082860": []
-   }
+   "events": 46,
+   "fixture_mentions": {}
   },
   "thunderpick": {
    "status_rows": 3,
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "bovada": {
    "bytes": 42742,
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "pinnacle": {
-   "matchup_rows": 227,
-   "cs2_rows": 160,
+   "matchup_rows": 226,
+   "cs2_rows": 159,
    "cs2_leagues": [
     "CS2 - Circuit X Curitiba",
-    "CS2 - DACH CS Masters",
     "CS2 - DraculaN",
     "CS2 - NODWIN Clutch Series",
     "CS2 - PGL Masters Bucharest"
    ],
-   "fixture_hits": {
-    "1082860": []
-   }
+   "fixture_hits": {}
   },
   "egamersworld": {
    "bytes": 5672,
-   "fixture_pages": {
-    "1082860": {
-     "list_hit": true,
-     "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
-     "url_source": "reviewed capture",
-     "bytes": 5856,
-     "top_odds": [],
-     "average_odds_sentence": false,
-     "identical_placeholder_prices": false
-    }
-   }
+   "fixture_pages": {}
   },
   "bo3gg": {
-   "fixtures": {
-    "1082860": {
-     "teams": [
-      {
-       "name": "FlyQuest",
-       "results": 1,
-       "exact": 1,
-       "id": 10398,
-       "rank": 86
-      },
-      {
-       "name": "Staqued",
-       "results": 1,
-       "exact": 1,
-       "id": 25258,
-       "rank": null
-      }
-     ],
-     "upcoming": [
-      {
-       "id": 47415,
-       "slug": "flyquest-vs-rkon-10-04-2024",
-       "start": "2024-04-10T09:00:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "id": 47420,
-       "slug": "rkon-vs-flyquest-10-04-2024",
-       "start": "2024-04-10T10:00:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "id": 49537,
-       "slug": "flyquest-vs-vantage-15-05-2024",
-       "start": "2024-05-15T09:00:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "id": 49543,
-       "slug": "vantage-vs-flyquest-15-05-2024",
-       "start": "2024-05-15T10:00:00.000+00:00",
-       "bet_updates": false
-      }
-     ],
-     "total_series": 20,
-     "finished_recent": [
-      {
-       "slug": "flyquest-vs-heroic-03-05-2024",
-       "start": "2024-05-03T11:30:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "slug": "flyquest-vs-pera-04-05-2024",
-       "start": "2024-05-04T11:30:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "slug": "flyquest-vs-nip-05-05-2024",
-       "start": "2024-05-05T11:30:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "slug": "betboom-vs-flyquest-07-05-2024",
-       "start": "2024-05-07T14:15:00.000+00:00",
-       "bet_updates": false
-      },
-      {
-       "slug": "flyquest-vs-liquid-08-05-2024",
-       "start": "2024-05-08T14:15:00.000+00:00",
-       "bet_updates": false
-      }
-     ]
-    }
-   }
+   "fixtures": {}
   }
  },
  "book_sweep": {
@@ -228,99 +118,77 @@
    "status": "error",
    "bytes": 126,
    "error": "HTTP 403",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "ggbet-api": {
    "http_status": 403,
    "status": "error",
    "bytes": 126,
    "error": "HTTP 403",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "rivalry-matches": {
    "http_status": 502,
    "status": "error",
    "bytes": 884,
    "error": "HTTP 502",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "stake": {
    "http_status": 403,
    "status": "error",
    "bytes": 5647,
    "error": "HTTP 403",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "1xbet-linefeed": {
    "http_status": 203,
    "status": "ok",
    "bytes": 2599,
    "error": null,
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "cloudbet": {
    "http_status": 404,
    "status": "error",
    "bytes": 212,
    "error": "HTTP 404",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "sportsbetio": {
    "http_status": null,
    "status": "error",
    "bytes": null,
    "error": "ConnectionError: HTTPSConnectionPool(host='api.sportsbet.io', port=443): Max retries exceeded with url: /v1/sports/esports (Caused by NameResolutionError(\"HTTPSConnection(host='api.sportsbet.io', port=443): Failed to resolve 'api.sportsbet.io' ([Errno -2] Name or service not known)\"))",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "betonline": {
-   "http_status": 520,
+   "http_status": null,
    "status": "error",
-   "bytes": 544205,
-   "error": "HTTP 520",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "bytes": null,
+   "error": "ReadTimeout: HTTPSConnectionPool(host='api.betonline.ag', port=443): Read timed out. (read timeout=45)",
+   "fixture_mentions": {}
   },
   "oddspedia": {
    "http_status": 400,
    "status": "error",
    "bytes": 0,
    "error": "HTTP 400",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "betway": {
    "http_status": 404,
    "status": "error",
    "bytes": 9,
    "error": "HTTP 404",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   },
   "unibet": {
    "http_status": 503,
    "status": "error",
    "bytes": 190,
    "error": "HTTP 503",
-   "fixture_mentions": {
-    "1082860": false
-   }
+   "fixture_mentions": {}
   }
  },
  "inventory": {
@@ -343,35 +211,5 @@
    "1082882"
   ]
  },
- "resolution_options": {
-  "1082860": [
-   {
-    "rung": "Polymarket/Kalshi series-winner books",
-    "could_price": false,
-    "evidence_required": "unique exact-identity (or registry alias) active prematch series-winner event with a two-sided book <= 0.12 spread"
-   },
-   {
-    "rung": "Pinnacle guest board",
-    "could_price": false,
-    "evidence_required": "exact participant names on a CS2 league matchup with a live straight moneyline"
-   },
-   {
-    "rung": "EGamersWorld published bookmaker average (reference)",
-    "could_price": false,
-    "note": "identical 1.8/1.8 prices are rejected as placeholders by scripts/reference_odds.py",
-    "evidence_required": "fresh hash-checked average-odds sentence with non-identical paired decimals"
-   },
-   {
-    "rung": "bo3.gg bet_updates block",
-    "could_price": false,
-    "note": "not currently a pipeline rung; recorded as a potential future reference rung",
-    "evidence_required": "a reviewed policy decision plus a hash-checked capture; bo3.gg is an aggregator, not a first-party book"
-   },
-   {
-    "rung": "Valve/HLTV ranking + bo3.gg results models",
-    "could_price": false,
-    "evidence_required": "both teams uniquely rated (Valve five-player rows, HLTV ranking rows) or >= 8 anchored bo3.gg series per side; recorded blockers stand"
-   }
-  ]
- }
+ "resolution_options": {}
 }
