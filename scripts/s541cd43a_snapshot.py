@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import math
 import os
 import re
 import subprocess
@@ -93,6 +94,59 @@ def bo3_sample_detail(match_id: str, bindings: dict) -> dict | None:
             } for name, samples in results.items()
         },
     }
+
+
+def network_gate_diagnostic(root: Path, origination: dict, bindings: dict) -> dict:
+    """Report what the network gate blocked, and what it would have published.
+
+    Diagnostic only. Nothing here is published as a pick or probability on the
+    site: it exists so the gate thresholds in ``network_model`` can be set from
+    the observed sample sizes and uncertainty instead of a guess.
+    """
+    from scripts import network_model
+
+    document = load(root / 'data/origination/evidence/' / network_model.EVIDENCE_NAME) or {}
+    ratings = document.get('ratings') or {}
+    gates = document.get('gates') or {}
+    fixtures = []
+    for match in origination.get('matches') or []:
+        if match.get('availability') == 'past':
+            continue
+        if (match.get('origination') or {}).get('method'):
+            continue
+        binding = (bindings.get('matches') or {}).get(str(match.get('id'))) or {}
+        sides = []
+        for side in binding.get('sides') or []:
+            team_id = str(side.get('team_id'))
+            row = ratings.get(team_id) or {}
+            sides.append({'name': side.get('name'), 'team_id': side.get('team_id'),
+                          'in_graph': team_id in ratings, 'series': row.get('series'),
+                          'points': row.get('points'), 'se': row.get('se'),
+                          'anchored': row.get('anchored')})
+        entry = {'id': match.get('id'), 'teams': team_names(match),
+                 'binding': binding.get('bridge'), 'sides': sides}
+        if len(sides) == 2 and all(s['in_graph'] and s.get('se') for s in sides):
+            sd = math.sqrt(sides[0]['se'] ** 2 + sides[1]['se'] ** 2)
+            entry['would_sd_diff'] = round(sd, 1)
+            entry['would_interval'] = [
+                round(network_model.win_probability(sides[0]['points'] - sd, sides[1]['points'] + sd), 3),
+                round(network_model.win_probability(sides[0]['points'] + sd, sides[1]['points'] - sd), 3)]
+            thin = min(s['series'] or 0 for s in sides)
+            if thin < gates.get('min_team_matches', 0):
+                entry['would_be_blocked_by'] = ('min_team_matches', thin)
+            elif sd > gates.get('max_sd_diff_points', float('inf')):
+                entry['would_be_blocked_by'] = ('max_sd_diff_points', entry['would_sd_diff'])
+            else:
+                entry['would_be_blocked_by'] = None
+        fixtures.append(entry)
+    return {'evidence': 'data/origination/evidence/' + network_model.EVIDENCE_NAME,
+            'generated_at': document.get('generated_at'),
+            'graph_matches': document.get('graph_matches'),
+            'graph_teams': len(ratings), 'anchors': len(document.get('anchors') or {}),
+            'gates': gates,
+            'note': ('Diagnostic only: the fitted rating of each side of a blank fixture and what the gate '
+                     'would have published. Never rendered as a pick or probability.'),
+            'fixtures': fixtures}
 
 
 def compress(source: Path, target: Path) -> dict | None:
@@ -170,6 +224,7 @@ def main() -> int:
             'source': (latest.get('sources') or [{}])[0].get('url'),
         },
         'network_model': origination.get('network_collection'),
+        'network_gate_diagnostic': network_gate_diagnostic(root, origination, bindings),
         'origination': {
             'generated_at': origination.get('generated_at'),
             'live_collection': origination.get('live_collection'),
