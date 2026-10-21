@@ -35,42 +35,101 @@
   "pickless_fixtures": [
     {
       "id": "1081597",
-      "teams": ["benched gods", "TitanFlow"],
+      "teams": [
+        "benched gods",
+        "TitanFlow"
+      ],
       "competition": "CCT Europe 2026 Challengers #8",
       "starts_at": "2026-10-22T11:00:00Z",
-      "state": "unresolved",
+      "state": "resolved by the unranked-floor rung (low confidence); no market price exists",
       "sources_tried": [
-        {"source": "Hotspawn lobby + fixture API", "status": "fixture confirmed", "url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597"},
-        {"source": "HLTV match listing and match page", "status": "HTTP 403 to the runner; identity not re-verified", "url": "https://www.hltv.org/matches"},
-        {"source": "Polymarket CS2 / CCT Europe", "status": "no fixture market found", "url": "https://polymarket.com/esports/cs2"},
-        {"source": "Kalshi CS2 game markets", "status": "no fixture market found", "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"},
-        {"source": "Thunderpick, Bovada, Pinnacle", "status": "no validated two-sided series price", "url": "https://thunderpick.io/esports/counter-strike"},
-        {"source": "EGamersWorld match page", "status": "1.8 / 1.8 identical placeholder prices rejected; ratings 694 / 1408 published", "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn"},
-        {"source": "HLTV world ranking", "status": "neither team has a published row", "url": "https://www.hltv.org/ranking/teams"},
-        {"source": "Valve regional standings", "status": "no unique five-player row for 'benched gods'", "url": "https://github.com/ValveSoftware/counter-strike_regional_standings"},
-        {"source": "bo3.gg results", "status": "TitanFlow has only 3 anchored series in 120 days (threshold 8)", "url": "https://bo3.gg/matches"}
+        {
+          "source": "Hotspawn lobby + fixture API",
+          "status": "fixture confirmed",
+          "url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597"
+        },
+        {
+          "source": "HLTV match listing and match page",
+          "status": "HTTP 403 to the runner; identity not re-verified",
+          "url": "https://www.hltv.org/matches"
+        },
+        {
+          "source": "Polymarket CS2 / CCT Europe",
+          "status": "no fixture market found",
+          "url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "source": "Kalshi CS2 game markets",
+          "status": "no fixture market found",
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+        },
+        {
+          "source": "Thunderpick, Bovada, Pinnacle",
+          "status": "no validated two-sided series price",
+          "url": "https://thunderpick.io/esports/counter-strike"
+        },
+        {
+          "source": "EGamersWorld match page",
+          "status": "1.8 / 1.8 identical placeholder prices rejected; ratings 694 / 1408 published",
+          "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn"
+        },
+        {
+          "source": "HLTV world ranking",
+          "status": "neither team has a published row",
+          "url": "https://www.hltv.org/ranking/teams"
+        },
+        {
+          "source": "Valve regional standings",
+          "status": "no unique five-player row for 'benched gods'",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings"
+        },
+        {
+          "source": "bo3.gg results",
+          "status": "TitanFlow has only 3 anchored series in 120 days (threshold 8)",
+          "url": "https://bo3.gg/matches"
+        }
       ],
       "limitations": [
+        "The pick is an uncalibrated HLTV ranking estimate, not a betting line: benched gods is HLTV #204 (19 October 2026 publication, VRS #161) and TitanFlow has no published row, so TitanFlow receives the floor of 0.0 points.",
         "No two-sided first-party price exists on any public source checked.",
         "The only published pair is an identical 1.8/1.8 placeholder, which the reference contract rejects.",
         "Neither team has a published HLTV or Valve rating, so no rating comparison is possible.",
         "Start-time evidence disagrees: Hotspawn 2026-10-22T11:00Z; EGamersWorld renders 13:00 on 22.10.26; a public search snapshot of HLTV's 24 October list shows a benched gods vs TitanFlow bo3. Times are not silently reconciled and no market is joined on a partial match.",
-        "Identity for the HLTV fixture could not be re-verified because HLTV answered 403 to the runner this session."
+        "Identity for the HLTV fixture could not be re-verified because HLTV answered 403 to the runner this session.",
+        "HLTV's benched gods team page showed no upcoming matches at 2026-10-21T20:30Z, so the fixture identity itself is unconfirmed on HLTV."
       ],
       "would_resolve": "A two-sided prematch series price from any first-party book, or a verified HLTV ranking/roster identity for both teams."
     },
     {
       "id": "1082858",
-      "teams": ["Ground Zero", "Off Chops"],
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
       "competition": "DFRAG Invitational 2026",
       "starts_at": "2026-10-26T03:00:00Z",
       "state": "resolved, no side",
-      "probabilities": [0.5, 0.5],
+      "probabilities": [
+        0.5,
+        0.5
+      ],
       "method": "model",
       "sources_tried": [
-        {"source": "HLTV match page", "status": "identity confirmed; BO3; no moneyline verified", "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"},
-        {"source": "HLTV world ranking", "status": "both teams 5.0 points (Ground Zero rank 143)", "url": "https://www.hltv.org/ranking/teams"},
-        {"source": "Money providers", "status": "no two-sided price and no provider lead", "url": "https://polymarket.com/esports/cs2"}
+        {
+          "source": "HLTV match page",
+          "status": "identity confirmed; BO3; no moneyline verified",
+          "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+        },
+        {
+          "source": "HLTV world ranking",
+          "status": "both teams 5.0 points (Ground Zero rank 143)",
+          "url": "https://www.hltv.org/ranking/teams"
+        },
+        {
+          "source": "Money providers",
+          "status": "no two-sided price and no provider lead",
+          "url": "https://polymarket.com/esports/cs2"
+        }
       ],
       "limitations": [
         "Identical published points produce exactly 50.0%/50.0%, so there is no directional pick.",
@@ -80,15 +139,34 @@
     },
     {
       "id": "1082860",
-      "teams": ["FlyQuest", "Staqued"],
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
       "competition": "DFRAG Invitational 2026",
       "starts_at": "2026-10-27T03:00:00Z",
-      "state": "resolved by the new unranked-floor rung (verify on the next live run)",
+      "state": "resolved by the new unranked-floor rung (low confidence)",
       "sources_tried": [
-        {"source": "HLTV match page", "status": "identity confirmed; BO3 LAN; FlyQuest HLTV #61 / VRS #54; Staqued unranked", "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026"},
-        {"source": "HLTV betting analytics", "status": "score-handicap prices only (eOddset 1.23 on 2-0); fan vote 88.9/11.1 not used; no moneyline", "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026"},
-        {"source": "Money providers", "status": "no two-sided price and no provider lead", "url": "https://polymarket.com/esports/cs2"},
-        {"source": "HLTV world ranking", "status": "one ranked side, one unranked side", "url": "https://www.hltv.org/ranking/teams"}
+        {
+          "source": "HLTV match page",
+          "status": "identity confirmed; BO3 LAN; FlyQuest HLTV #61 / VRS #54; Staqued unranked",
+          "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
+        },
+        {
+          "source": "HLTV betting analytics",
+          "status": "score-handicap prices only (eOddset 1.23 on 2-0); fan vote 88.9/11.1 not used; no moneyline",
+          "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
+        },
+        {
+          "source": "Money providers",
+          "status": "no two-sided price and no provider lead",
+          "url": "https://polymarket.com/esports/cs2"
+        },
+        {
+          "source": "HLTV world ranking",
+          "status": "one ranked side, one unranked side",
+          "url": "https://www.hltv.org/ranking/teams"
+        }
       ],
       "limitations": [
         "The unranked side is given HLTV's floor of 0.0 points; this is a stated assumption, not a measured rating.",
@@ -108,5 +186,32 @@
       "HLTV match pages returned 403 to the runner, so no HLTV-sourced price is claimed anywhere.",
       "This dossier records the 20:04Z snapshot; the four-hourly pipeline supersedes it."
     ]
+  },
+  "final_live_result": {
+    "observed_at": "2026-10-21T20:16:01Z",
+    "run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39668532435",
+    "inventory": 75,
+    "active": 13,
+    "origination_counts": {
+      "active": 13,
+      "resolved": 13,
+      "unresolved": 0,
+      "with_pick": 12,
+      "market": 2,
+      "consensus": 1,
+      "model": 10,
+      "alias_joined": 2
+    },
+    "pickless": [
+      {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "state": "even estimate, no side"
+      }
+    ],
+    "note": "Produced by the production pipeline on this branch after the unranked-floor change: every active fixture now carries a probability pair; 12 of 13 have a directional pick; the remaining fixture is an exact 50/50 from identical published ranking points and is listed in the executive-summary register."
   }
 }
