@@ -113,6 +113,23 @@ def evidence(m, prefix, fallback=None):
                 body += '</ul></details>'
             body += (f'<div class="evidence-links">{external(a.get("source_url"), "bo3.gg fixture")}'
                      f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
+        elif a['method'] == 'model' and a.get('family') == 'network':
+            body += (f'<p class="notice-inline"><strong>Own network estimate.</strong> Neither side has a '
+                     'complete official rating row and no money line prices this fixture, so both ratings come '
+                     f"from a Bradley–Terry fit over {e(a.get('graph_matches'))} finished bo3.gg series anchored on "
+                     f"Valve's official points for {e(a.get('graph_anchors'))} teams. Research model, not a bookmaker price.</p>"
+                     '<div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption>'
+                     '<thead><tr><th>Team</th><th>Fitted points (SE)</th><th>Series</th><th>Source</th></tr></thead><tbody>')
+            for r in a['inputs']:
+                body += (f'<tr><th scope="row">{e(r["name"])}</th><td>{e(r["points"])} '
+                         f'{("± " + str(e(r.get("se")))) if r.get("se") is not None else ""}</td>'
+                         f'<td>{e(r.get("series"))}</td><td>{external(r["source_url"], "bo3.gg team")}</td></tr>')
+            body += '</tbody></table></div>'
+            body += (f'<p class="tiny">Rating-difference SD {e(a.get("rating_sd_diff"))} points · one-sigma '
+                     f'probability interval {a["interval"][0]:.3f}–{a["interval"][1]:.3f} · graph size '
+                     f'{e(a.get("graph_matches"))} series · {e(a.get("graph_anchors"))} anchored teams.</p>')
+            body += (f'<div class="evidence-links">{external("https://bo3.gg/matches", "bo3.gg results")}'
+                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
             for r in a['inputs']:
@@ -391,6 +408,7 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    updated = (complete or {}).get('generated_at') or data.get('generated_at')
     items = [
         (prefix + 'origination/#picks', 'All match picks', 'target',
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
@@ -398,13 +416,15 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Final day · Day 5', 'clock',
          'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
-        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', f'Unresolved ({unresolved})', 'flag',
+         'A separate section: every blank pick, its blocker and the sources actually tried.'),
+        (prefix + 'origination/#unresolved', 'Full research trails', 'book',
+         'Provider-by-provider evidence behind every blank and every pick.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
-           '<p class="start-here-label">Start here · where the picks are</p><ul>')
+           '<p class="start-here-label">Start here · where the updated picks are</p>'
+           f'<p class="start-here-updated">List updated <time datetime="{e(str(updated or ""))}">{local_time(updated)}</time>'
+           ' · refreshes every 4 hours; each row keeps its own source and observation time.</p><ul>')
     for href, title, sym, detail in items:
         out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
                 f'<span>{e(detail)}</span></a></li>')
@@ -506,10 +526,14 @@ def glance(data, prefix, now=None):
                            f' data-glance-closed="{"true" if closed else "false"}"')
         rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}"{closed_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
-                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
+                 f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span>'
+                 + (f'<span class="glance-probs"><span>{e(names[0])} <b>{a["probabilities"][0] * 100:.1f}%</b></span>'
+                    f'<span>{e(names[1])} <b>{a["probabilities"][1] * 100:.1f}%</b></span></span>'
+                    if a else '<span class="glance-probs"><span class="unverified">No verified win probability — never defaulted to 50/50</span></span>')
+                 + '</div>'
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
-    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
+    note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every future fixture and every unresolved fixture is included, and only past resolved rows are capped. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
@@ -520,7 +544,9 @@ def glance(data, prefix, now=None):
             f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
             f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
             f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
-            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            'Both teams’ win probabilities are shown on every row. A missing estimate is never filled with a default 50/50. '
+            'Green sources are external money lines; purple are research models or researched fallbacks. '
+            f'<span class="glance-updated">Updated {local_time((data.get("complete_picks") or {}).get("generated_at") or data.get("generated_at"))}.</span></p>'
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
@@ -538,10 +564,87 @@ def _brief_blank_reason(match: dict) -> str:
     if 'multiple valve rosters' in lowered:
         return 'ambiguous rating'
     if 'no valve rating row' in lowered or 'complete five-player' in lowered:
-        return 'no rating'
+        # At least one side has no published rating row. Saying "no rating"
+        # would wrongly suggest neither team is rated (UPGRADE is HLTV #74 yet
+        # the row read "no rating" while its opponent was the unrated side).
+        return 'one team unranked'
     if 'no alias-verified' in lowered:
         return 'no external line'
     return 'no verified line'
+
+
+def source_probe_block(data, prefix):
+    """What each source class actually answered for the blank fixtures.
+
+    The brief asked for the *limitations* of generating picks on the unresolved
+    rows, not only their names. This block republishes the dated, read-only
+    probe: which esportsbook/aggregator surfaces answered, what HLTV returned
+    from the runner, and whether bo3.gg could identify each side at all. It
+    never converts a status code into a probability.
+    """
+    probe = data.get('_source_probe') or {}
+    fixtures = probe.get('blank_fixtures') or []
+    providers = probe.get('providers') or []
+    if not fixtures and not providers:
+        return ''
+    status_of = lambda entry: (entry.get('request') or {}).get('http_status')
+    reachable = [p for p in providers if status_of(p) == 200]
+    refused = [p for p in providers if status_of(p) != 200]
+    blank_by_id = {str(m.get('id')): m for m in
+                   (data.get('complete_picks') or {}).get('matches') or [] if m.get('origination') is None}
+    rows = ''
+    for fixture in fixtures:
+        teams = fixture.get('teams') or []
+        hltv_codes = sorted({status_of(h) for h in (fixture.get('hltv') or []) if status_of(h)})
+        hltv_url = next((h.get('request', {}).get('url') for h in (fixture.get('hltv') or [])
+                         if str(h.get('request', {}).get('url', '')).startswith('https://www.hltv.org/matches/')), None)
+        lookups = (fixture.get('bo3') or {}).get('team_lookup') or []
+        found = [l for l in lookups if l.get('id')]
+        bo3_cell = ('<br>'.join(
+            f'{"✓" if l.get("id") else "✕"} {e(l.get("name"))}'
+            + (f' <span class="tiny muted">bo3 id {e(l.get("id"))}</span>' if l.get('id') else
+               ' <span class="tiny muted">not listed</span>') for l in lookups) or blank())
+        bet = (fixture.get('bo3') or {}).get('bet')
+        bet_cell = ('bookmaker price published' if bet else
+                    'no bookmaker price block' if (fixture.get('bo3') or {}).get('bound') else
+                    'fixture not listed on bo3.gg')
+        blank_row = blank_by_id.get(str(fixture.get('hotspawn_id'))) or {}
+        blocker = _brief_blank_reason(blank_row) if blank_row else ''
+        detail = next((r.get('detail') for r in (blank_row.get('research') or [])
+                       if r.get('status') == 'unresolved' and r.get('stage') != 'Origination result'), '')
+        links = (external(fixture.get('hotspawn_source_url'), 'Hotspawn')
+                 + (external(hltv_url, 'HLTV') if hltv_url else '')
+                 + ''.join(external(f'https://bo3.gg/teams/{l["id"]}', 'bo3.gg') for l in found[:2]))
+        rows += (f'<tr><th scope="row">{e(" vs ".join(teams))}'
+                 f'<small>{e(fixture.get("competition") or "Unverified tournament")}</small></th>'
+                 f'<td>{" / ".join(str(c) for c in hltv_codes) if hltv_codes else "no verified HLTV match URL"}</td>'
+                 f'<td>{bo3_cell}</td><td>{e(bet_cell)}</td>'
+                 f'<td>{e(blocker) if blocker else blank()}'
+                 + (f'<small class="tiny muted">{e(str(detail)[:220])}</small>' if detail else '')
+                 + f'<div class="row-source-links">{links}</div></td></tr>')
+    provider_line = ' '.join(
+        f'<span class="tried-chip {"resolved" if status_of(p) == 200 else "unresolved"}">'
+        f'{e(p.get("label"))} · {e(status_of(p) if status_of(p) is not None else "no response")}</span>'
+        for p in providers[:18])
+    observed = probe.get('generated_at')
+    return ('<div class="source-probe" id="source-probe">'
+            '<h3>Why these picks are missing · sources tried</h3>'
+            f'<p class="section-intro">Read-only sweep on {local_time(observed)}: '
+            f'<strong>{len(reachable)}</strong> of <strong>{len(providers)}</strong> esportsbook/aggregator '
+            f'surfaces answered HTTP 200 and <strong>{len(refused)}</strong> refused an automated request '
+            '(403/404/429/5xx/203). HLTV match pages are listed with the status the runner received; '
+            'HLTV and several books block unattended access, which is a source limitation, not evidence '
+            'that no market exists. bo3.gg answered for its results graph. '
+            f'This sweep covers the {len(fixtures)} fixture(s) blank at that moment; every refresh retries '
+            'every source, so a later market or model can close a row.</p>'
+            '<div class="table-scroll"><table class="simple-table source-probe-table">'
+            '<caption class="sr-only">Per-fixture source availability behind each blank pick</caption>'
+            '<thead><tr><th scope="col">Fixture</th><th scope="col">HLTV</th>'
+            '<th scope="col">bo3.gg identity</th><th scope="col">Published price</th>'
+            '<th scope="col">Blocker</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+            f'<p class="tiny muted probe-chips">{provider_line}</p>'
+            f'<p class="tiny">Evidence file: <a href="{prefix}data/research/541cd43a/provider-probe.json">'
+            'dated source probe ↓</a></p></div>')
 
 
 def unresolved_register(data, prefix):
@@ -554,6 +657,11 @@ def unresolved_register(data, prefix):
     into a default 50/50.
     """
     complete = data.get('complete_picks') or {}
+    # The featured-only fallback exists for a site built without the complete
+    # researched list. It must NOT run when that list exists (session 541cd43a);
+    # main's later refinement (session 0582cbe9, PR #131) keeps an existing but
+    # empty complete list authoritative too, so a fully-resolved snapshot can
+    # never show featured-method rejections as "unresolved" (f9d0a5a2 flag).
     if complete.get('matches') is not None:
         rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
         # A resolved-but-even estimate has a probability pair but no side. It is a
@@ -647,6 +755,7 @@ def unresolved_register(data, prefix):
                        f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">Full trail {icon("arrow")}</a></p>'
                        '</li>')
         out.append('</ul>')
+    out.append(source_probe_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -978,6 +1087,26 @@ def shell(data, key, body, prefix, now=None):
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
     mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    # Phone-first status strip: two one-tap destinations, present on every page.
+    # Session 541cd43a — the brief asks to be able to reach an updated picks list
+    # from a phone without hunting. Counts are the same canonical counts the
+    # summary shows; the strip adds no probability and no fixture.
+    _cc = (data.get('complete_picks') or {}).get('counts') or {}
+    # Some rendered views are built from a minimal fixture that has no counts
+    # block at all (the freshness tests render one); never index it directly.
+    _counts = data.get('counts') or {}
+    _active = _cc.get('active') or _counts.get('upcoming') or 0
+    _with_pick = _cc.get('with_pick')
+    if _with_pick is None:
+        _with_pick = max(0, _active - (_cc.get('unresolved', _counts.get('unresolved') or 0)))
+    _unresolved = _cc.get('unresolved', _counts.get('unresolved') or 0)
+    mobile_status = (f'<nav class="mobile-status" aria-label="Picks and unresolved shortcuts">'
+                     f'<a class="mobile-status-picks" href="{prefix}origination/#picks">'
+                     f'<strong>{e(_with_pick)}</strong><span>picks ready'
+                     f'<span class="ms-dim"> of {e(_active)}</span></span></a>'
+                     f'<a class="mobile-status-blank" href="{prefix}origination/#unresolved">'
+                     f'<strong>{e(_unresolved)}</strong><span>unresolved<span class="ms-dim"> · why</span></span></a>'
+                     '</nav>')
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, now or datetime.now(timezone.utc))
     freshness = 'Snapshot needs attention' if stale else 'Source snapshot available'
@@ -1002,7 +1131,7 @@ def shell(data, key, body, prefix, now=None):
 <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar"><a class="brand" href="{prefix}index.html" aria-label="Spawn Scout home"><span class="brand-mark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h9v9H5zM17 4h7v7h-7zM5 16h7v8H5z"/><path d="m16 17 8-4v11h-8z"/></svg></span><span>spawn<span class="brand-light">scout</span><small>CS2 MATCH INTELLIGENCE</small></span></a><p class="nav-label">YOUR DASHBOARD</p><nav aria-label="Main navigation">{nav}</nav><div class="sidebar-bottom"><div class="sidebar-note"><span class="status-dot"></span><strong>Independent analysis</strong><p>Hotspawn tells us who plays.<br>External sources inform the pick.</p></div>{external(LOBBY, 'Open Hotspawn lobby', 'sidebar-external')}<a class="sidebar-repo" href="{REPO}">Open-source &amp; auditable {icon('external')}</a></div></aside>
 <div class="workspace"><header class="topbar"><div class="mobile-brand"><a href="{prefix}index.html">spawn<strong>scout</strong><span>CS2</span></a></div><div class="desktop-crumb">Workspace <span>/</span> <strong>{e(title)}</strong></div><div class="topbar-tools"><span class="refresh-pill">{icon('clock')} Checks every 4h</span><label class="timezone-control"><span class="sr-only">Display timezone</span><select id="timezone"><option value="Europe/Malta">Malta time</option><option value="UTC">UTC</option><option value="local">Device time</option></select></label></div></header>
-<main id="main" tabindex="-1"><div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
+<main id="main" tabindex="-1">{mobile_status}<div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
 
 
 def picks_csv(data):
@@ -1033,6 +1162,15 @@ def build(source: Path, output: Path, now=None):
         # Preserve featured money lines; show researched values for blanks or
         # explicitly verified money-backed replacements of the lowest-rung model.
         data['fallbacks'] = {str(r['id']): r for r in data['complete_picks'].get('matches') or [] if r.get('origination')}
+    # Session 541cd43a: the dated, read-only source sweep behind the unresolved
+    # register (HLTV, bo3.gg, esportsbook surfaces). Rendering it is the only use;
+    # no value in it ever becomes a probability.
+    probe_path = source / 'research/541cd43a/provider-probe.json'
+    if probe_path.exists():
+        try:
+            data['_source_probe'] = json.loads(probe_path.read_text())
+        except ValueError:
+            data['_source_probe'] = None
     if (source / 'research/day-one-audit.json').exists():
         data['day_one_audit'] = json.loads((source / 'research/day-one-audit.json').read_text())
     # Session findings share the dated, source-linked review schema. Discover all

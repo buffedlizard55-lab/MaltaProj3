@@ -69,7 +69,10 @@ class UnresolvedRegisterTests(unittest.TestCase):
         self.assertIn('Team A1', text)
         self.assertIn('Team B2', text)
         self.assertIn('No verified pick', text)
-        self.assertIn('no rating', text)
+        # Session arena-75de2710: the label names the actual gap. The fixture
+        # has one rated and one unrated side, so "no rating" implied a blanket
+        # absence that the trail does not support.
+        self.assertIn('one team unranked', text)
         first = cards[0]
         self.assertIn('https://www.hotspawn.com/matches/team-a-vs-team-b-9001', str(first))
         self.assertIn('https://www.hltv.org/matches/', str(first))

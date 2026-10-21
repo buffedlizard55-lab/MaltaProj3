@@ -126,6 +126,17 @@
   .glance-links .source-link{font-size:9px;min-height:26px}
 }
 
+/* Both teams' win probabilities on every glance row (phone-first requirement). */
+.glance-probs{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:10.5px;line-height:1.6;color:#33454f;margin-top:3px}
+.glance-probs b{font-weight:650;color:var(--navy);font-variant-numeric:tabular-nums}
+.glance-probs .unverified{color:#8a5a12}
+.glance-updated{display:block;margin-top:5px;font-size:10px;color:#576b79}
+.start-here-updated{margin:-4px 0 13px;font-size:10px;line-height:1.7;color:#576b79}
+@media(max-width:700px){
+  .glance-probs{font-size:11px;gap:1px 10px}
+  .glance-probs b{font-size:11.5px}
+}
+
 /* Glance: one match line, one pick line, one source line. */
 .glance-row{gap:4px;padding:11px 14px}
 .glance-match>strong{font-size:14.5px}
@@ -242,4 +253,29 @@
 }
 @media (max-width:375px){
   .mobile-nav>a{min-width:70px;font-size:10.5px;padding:4px 8px}
+
+/* Session 541cd43a — phone status strip: the two questions a phone visitor asks
+   ("where are the picks?" / "what is missing?") answered in one tap from any page. */
+.mobile-status{display:none}
+@media(max-width:700px){
+  .mobile-status{display:flex;gap:7px;margin:0 0 10px}
+  .mobile-status>a{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px;
+    padding:7px 10px;border-radius:10px;border:1px solid var(--border);background:var(--white);
+    text-decoration:none!important;color:var(--ink);box-shadow:var(--shadow)}
+  .mobile-status strong{font-size:17px;line-height:1;font-weight:700;flex:0 0 auto}
+  .mobile-status span{font-size:10px;line-height:1.35;color:#4a5e6c;letter-spacing:.1px;min-width:0}
+  /* #546877 keeps the dimmed label >= 4.5:1 on white and on the #fff6ef picks tint (was #7b8d99, 3.43:1). */
+  .mobile-status .ms-dim{color:#546877}
+  .mobile-status-picks{border-color:#f0cfb7!important;background:#fff6ef!important}
+  .mobile-status-picks strong{color:var(--orange-dark)}
+  .mobile-status-blank strong{color:var(--amber)}
+}
+/* Phone compaction for the jump bar so the picks-at-a-glance section stays above
+   the 1500px fold contract at 320px once the status strip is in the layout. */
+@media(max-width:700px){
+  .start-here{padding:12px 14px;margin-bottom:14px}
+  .start-here-label{margin:0 0 8px}
+  .start-here-updated{margin:-2px 0 9px}
+  .start-here ul{gap:8px}
+  .start-here a{padding:9px 11px;gap:9px;min-height:0}
 }

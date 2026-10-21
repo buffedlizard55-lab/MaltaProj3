@@ -21,8 +21,8 @@ from tempfile import TemporaryDirectory
 
 from scripts import hltv_ranking, pinnacle_lines
 from scripts.domain import iso
-from scripts.originate import (MONEY_METHODS, load_registry, pinnacle_rows,
-                               resolve_match, wide_book_quote)
+from scripts.originate import (MONEY_METHODS, load_registry, pair_join, pinnacle_rows,
+                               resolve_match, selection, wide_book_quote)
 
 UTC = timezone.utc
 NOW = datetime(2026, 10, 19, 12, 0, 0, tzinfo=UTC)
@@ -311,6 +311,53 @@ class AliasRegistryTest(unittest.TestCase):
         self.assertEqual(canon, 'aurora yb')
 
 
+
+
+class BovadaDisplayNameJoinTest(unittest.TestCase):
+    """Session arena-75de2710: the one live Bovada line for a published blank.
+
+    Bovada's public coupon listed CIS LAN Championship #9 fixture 1082762 as
+    "CYBERSHOKE vs blinkdagger" at exactly 2026-10-21T15:00:00Z with a two-way
+    prematch Moneyline (decimal 1.125 / 5.750), while Hotspawn and HLTV name the
+    same side "ex-CYBERSHOKE". The reviewed registry now carries that scoped
+    display-name variant; this test pins the join, its scope and the resulting
+    no-vig estimate so the blank cannot silently regress to a default 50/50.
+    """
+
+    MATCH = {'id': '1082762', 'starts_at': '2026-10-21T15:00:00Z',
+             'competition': 'CIS LAN Championship #9',
+             'teams': [{'id': '1', 'name': 'ex-CYBERSHOKE'}, {'id': '2', 'name': 'BlinkDagger'}]}
+
+    def registry(self):
+        return load_registry(Path('data/origination/aliases.json'))
+
+    def test_the_scoped_alias_exists_with_official_evidence(self):
+        entry = next((a for a in self.registry()['aliases'] if a['alias'] == 'CYBERSHOKE'), None)
+        self.assertIsNotNone(entry, 'the reviewed CYBERSHOKE -> ex-CYBERSHOKE entry is required')
+        self.assertEqual(entry['canonical'], 'ex-CYBERSHOKE')
+        self.assertEqual(entry['applies_to'], ['CIS LAN Championship #9'])
+        self.assertTrue(entry.get('review_note'))
+        urls = [ev['url'] for ev in entry['evidence']]
+        self.assertTrue(any('hotspawn.com/matches/' in u for u in urls))
+        self.assertTrue(any('hltv.org/matches/' in u for u in urls))
+        self.assertTrue(any('bovada.lv/' in u for u in urls))
+        self.assertTrue(all(u.startswith('https://') for u in urls))
+
+    def test_the_bovada_pair_joins_this_fixture_and_nothing_else(self):
+        values, used, status = pair_join(['CYBERSHOKE', 'blinkdagger'], '2026-10-21T15:00:00Z',
+                                         self.MATCH, self.registry())
+        self.assertEqual(status, 'matched')
+        self.assertEqual([a['alias'] for a in used], ['CYBERSHOKE'])
+        other = dict(self.MATCH, competition='CCT Europe 2026 Series #11')
+        self.assertEqual(pair_join(['CYBERSHOKE', 'blinkdagger'], '2026-10-21T15:00:00Z',
+                                   other, self.registry())[2], 'names')
+        self.assertEqual(pair_join(['CYBERSHOKE', 'blinkdagger'], '2026-10-21T16:00:00Z',
+                                   self.MATCH, self.registry())[2], 'time')
+
+    def test_the_published_probability_is_the_no_vig_bovada_line(self):
+        from scripts.domain import no_vig
+        self.assertEqual([round(x, 6) for x in no_vig([1.125, 5.750])], [0.836364, 0.163636])
+        self.assertEqual(selection(no_vig([1.125, 5.750])), 0)
 
 
 class ReplayBoundaryTest(unittest.TestCase):
