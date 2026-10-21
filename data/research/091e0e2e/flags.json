@@ -1,0 +1,22 @@
+[
+  {
+    "id": "091e0e2e-zetta-alianza-contract-identity",
+    "severity": "warning",
+    "title": "1082837: independent identity review; latest 79.0% market line still uses Alianza name",
+    "detail": "Independent follow-up to the already-published 093e722e identity flag (2026-10-21). Hotspawn 1082837 and HLTV 2399865 identify the 22:00Z CCT South America Series 7 round-5 BO3 as Zetta vs LOS NINOS and publish the same five-player core; Valve VRS roster evidence supports continuity but does not itself announce an Alianza rebrand. Polymarket market 6001634 and Kalshi event KXCS2GAME-26OCT211800LNALE identify the same slot as Alianza Lima Esports vs Los Niños/Los Ninos. The latest successful 20:52:48Z public snapshot displays LOS NINOS at 79.0% from Polymarket quotes observed 20:53:11Z and Kalshi quotes observed 20:53:12Z (23.5%/76.5% and 18.4615%/81.5385%). Direct first-party checks at 20:57–20:58Z replayed the same Polymarket CLOB and active Kalshi event books. The earlier 20:20Z snapshot was 60.9%; the price movement does not prove team identity. The quote inputs and arithmetic are supportable, but no first-party Alianza/CCT statement confirming an acquisition or rebrand was found and Strafe lists both labels among event participants (secondary evidence). The audit does not endorse the alias-dependent estimate until the team/contract join is authoritatively adjudicated. No alias or pick was edited. See the linked dossier for exact source values, timestamps, evidence grades, and limitations.",
+    "match_ids": [
+      "1082837"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+      "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+      "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+      "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-ale1-ln-2026-10-21",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
+      "https://gamma-api.polymarket.com/markets/6001634",
+      "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT211800LNALE?with_nested_markets=true",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/091e0e2e/independent-audit.json"
+    ]
+  }
+]
