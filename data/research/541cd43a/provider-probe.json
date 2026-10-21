@@ -1,8 +1,8 @@
 {
   "session": "arena-541cd43a",
-  "generated_at": "2026-10-21T13:11:48Z",
+  "generated_at": "2026-10-21T13:17:15Z",
   "policy": "Read-only research. No probability, pick, price or alias is written here. Every value is the source response observed at the recorded time.",
-  "inventory_observed_at": "2026-10-21T13:10:11Z",
+  "inventory_observed_at": "2026-10-21T13:15:52Z",
   "origination_counts": {
     "active": 19,
     "resolved": 16,
@@ -31,7 +31,7 @@
         {
           "request": {
             "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
-            "observed_at": "2026-10-21T13:11:49Z",
+            "observed_at": "2026-10-21T13:17:16Z",
             "http_status": 403,
             "error": "HTTP 403"
           }
@@ -43,7 +43,7 @@
             "name": "ex-CYBERSHOKE",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-CYBERSHOKE",
-              "observed_at": "2026-10-21T13:11:49Z",
+              "observed_at": "2026-10-21T13:17:16Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 213,
@@ -56,7 +56,7 @@
             "name": "BlinkDagger",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BlinkDagger",
-              "observed_at": "2026-10-21T13:11:49Z",
+              "observed_at": "2026-10-21T13:17:16Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 823,
@@ -85,7 +85,7 @@
         {
           "request": {
             "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
-            "observed_at": "2026-10-21T13:11:50Z",
+            "observed_at": "2026-10-21T13:17:17Z",
             "http_status": 403,
             "error": "HTTP 403"
           }
@@ -97,7 +97,7 @@
             "name": "UPGRADE",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UPGRADE",
-              "observed_at": "2026-10-21T13:11:50Z",
+              "observed_at": "2026-10-21T13:17:17Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 1488,
@@ -113,7 +113,7 @@
             "name": "flacons",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=flacons",
-              "observed_at": "2026-10-21T13:11:50Z",
+              "observed_at": "2026-10-21T13:17:17Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 207,
@@ -139,7 +139,7 @@
         {
           "request": {
             "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
-            "observed_at": "2026-10-21T13:11:51Z",
+            "observed_at": "2026-10-21T13:17:17Z",
             "http_status": 403,
             "error": "HTTP 403"
           }
@@ -151,7 +151,7 @@
             "name": "Zetta",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Zetta",
-              "observed_at": "2026-10-21T13:11:51Z",
+              "observed_at": "2026-10-21T13:17:18Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 1492,
@@ -167,7 +167,7 @@
             "name": "LOS NINOS",
             "request": {
               "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=LOS%20NINOS",
-              "observed_at": "2026-10-21T13:11:51Z",
+              "observed_at": "2026-10-21T13:17:18Z",
               "http_status": 200,
               "content_type": "application/json; charset=utf-8",
               "bytes": 818,
@@ -187,11 +187,11 @@
   "bo3_graph_endpoint": {
     "request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=-start_date&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1&with=teams",
-      "observed_at": "2026-10-21T13:11:48Z",
+      "observed_at": "2026-10-21T13:17:15Z",
       "http_status": 200,
       "content_type": "application/json; charset=utf-8",
       "bytes": 241203,
-      "sha256": "ac8224de334f6cb4653f0563c3cbdfd833b56faed3c4305dfc305c9504fabfec"
+      "sha256": "aac1af4c64d755348c615e7a87853ed53d2720c7e122de12f75655a82648c520"
     },
     "rows": 100,
     "distinct_teams": 132,
@@ -244,7 +244,7 @@
       "label": "EGamersWorld CS2 matches",
       "request": {
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-21T13:11:52Z",
+        "observed_at": "2026-10-21T13:17:18Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -253,7 +253,7 @@
       "label": "EGamersWorld search",
       "request": {
         "url": "https://egamersworld.com/search?query=BlinkDagger",
-        "observed_at": "2026-10-21T13:11:52Z",
+        "observed_at": "2026-10-21T13:17:18Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -262,7 +262,7 @@
       "label": "Oddspedia CS2",
       "request": {
         "url": "https://oddspedia.com/csgo",
-        "observed_at": "2026-10-21T13:11:52Z",
+        "observed_at": "2026-10-21T13:17:18Z",
         "http_status": 404,
         "error": "HTTP 404"
       }
@@ -271,7 +271,7 @@
       "label": "Oddspedia search",
       "request": {
         "url": "https://oddspedia.com/search?q=BlinkDagger",
-        "observed_at": "2026-10-21T13:11:52Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 404,
         "error": "HTTP 404"
       }
@@ -280,7 +280,7 @@
       "label": "Escorenews CS2",
       "request": {
         "url": "https://escorenews.com/en/csgo",
-        "observed_at": "2026-10-21T13:11:53Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -289,7 +289,7 @@
       "label": "Escorenews search",
       "request": {
         "url": "https://escorenews.com/en/search?q=BlinkDagger",
-        "observed_at": "2026-10-21T13:11:53Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -298,11 +298,11 @@
       "label": "1xBet CS2 line",
       "request": {
         "url": "https://1xbet.com/Line/Counter-Strike-2",
-        "observed_at": "2026-10-21T13:11:53Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 203,
         "content_type": "text/html;charset=utf-8",
-        "bytes": 2620,
-        "sha256": "9cf994f3ffbeba65c4584efd3ac4a977f05c20ab5e7a91ac5f5c74d3f2760ef4"
+        "bytes": 2621,
+        "sha256": "bdabc7fc660860b12e42246eda48d2a1558bece26c85393d8f0a5aa77c1ac7c7"
       },
       "title": null,
       "teams_present": {
@@ -318,7 +318,7 @@
       "label": "GG.bet CS2",
       "request": {
         "url": "https://gg.bet/en/esports/counter-strike",
-        "observed_at": "2026-10-21T13:11:54Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -327,11 +327,11 @@
       "label": "Betano CS2",
       "request": {
         "url": "https://www.betano.com/sport/esports/counter-strike-2/",
-        "observed_at": "2026-10-21T13:11:54Z",
+        "observed_at": "2026-10-21T13:17:19Z",
         "http_status": 200,
         "content_type": "text/html; charset=utf-8",
         "bytes": 29842,
-        "sha256": "e7786a4dcf732b7cf0c73b757504a4dc68843920ae05f3f4141fdbc7232f6c6a"
+        "sha256": "94766c5dca6be737a03f4fa6b79e0830c1058a1297c192e8558bf42c9a601e00"
       },
       "title": "Online Betting - Great Odds and Live Betting | Betano",
       "teams_present": {
@@ -347,7 +347,7 @@
       "label": "Betway CS2",
       "request": {
         "url": "https://betway.com/en/sports/grp/esports/counter-strike",
-        "observed_at": "2026-10-21T13:11:54Z",
+        "observed_at": "2026-10-21T13:17:20Z",
         "http_status": 404,
         "error": "HTTP 404"
       }
@@ -356,7 +356,7 @@
       "label": "Unibet esports",
       "request": {
         "url": "https://www.unibet.com/betting/sports/filter/esports",
-        "observed_at": "2026-10-21T13:11:54Z",
+        "observed_at": "2026-10-21T13:17:20Z",
         "http_status": 503,
         "error": "HTTP 503"
       }
@@ -365,11 +365,11 @@
       "label": "Betsson esports",
       "request": {
         "url": "https://www.betsson.com/en/odds/esports",
-        "observed_at": "2026-10-21T13:11:55Z",
+        "observed_at": "2026-10-21T13:17:20Z",
         "http_status": 202,
         "content_type": "text/html; charset=UTF-8",
         "bytes": 2583,
-        "sha256": "9dbfdbe077d763fc0a443531c4ebefd717cbbc27949506b4d424a7553c05fb49"
+        "sha256": "1b29fda76f34198e20d894136ef30dd65820be4c8b97dff9af92f4c16994a1f6"
       },
       "title": "",
       "teams_present": {
@@ -385,7 +385,7 @@
       "label": "Thunderpick CS2",
       "request": {
         "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-21T13:11:55Z",
+        "observed_at": "2026-10-21T13:17:20Z",
         "http_status": 403,
         "error": "HTTP 403"
       }
@@ -394,7 +394,7 @@
       "label": "Pinnacle CS2",
       "request": {
         "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-        "observed_at": "2026-10-21T13:11:55Z",
+        "observed_at": "2026-10-21T13:17:20Z",
         "http_status": 404,
         "error": "HTTP 404"
       }
@@ -403,11 +403,11 @@
       "label": "Bovada CS2",
       "request": {
         "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
-        "observed_at": "2026-10-21T13:11:56Z",
+        "observed_at": "2026-10-21T13:17:21Z",
         "http_status": 200,
         "content_type": "text/html; charset=utf-8",
         "bytes": 1200000,
-        "sha256": "6e6988cf9ad8222efd5cdcf669f420b48476bca9d1fa568e0f7ae6572756a823"
+        "sha256": "fc8d32cca6c07853ceb56c6288789d6d388486bdbd009a1be91fb5aef4bfdcf2"
       },
       "title": "Counter Strike 2 Betting Odds | Bovada",
       "teams_present": {
@@ -423,7 +423,7 @@
       "label": "Kalshi CS2 series",
       "request": {
         "url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
-        "observed_at": "2026-10-21T13:11:59Z",
+        "observed_at": "2026-10-21T13:17:24Z",
         "http_status": 429,
         "error": "HTTP 429"
       }
@@ -432,11 +432,11 @@
       "label": "Polymarket CS2",
       "request": {
         "url": "https://polymarket.com/esports/cs2",
-        "observed_at": "2026-10-21T13:11:59Z",
+        "observed_at": "2026-10-21T13:17:24Z",
         "http_status": 200,
         "content_type": "text/html; charset=utf-8",
         "bytes": 1200000,
-        "sha256": "737525510adfd591efc9d4627716e36b798a2a2d46ad38b742374816a01be565"
+        "sha256": "ff5286aad1b6e9a732c40c59bc1f29c302e60d2ae5c9aa3790f0f1c82eee7639"
       },
       "title": "Counter-Strike 2 Odds &amp; Prediction Markets 2026 | Polymarket",
       "teams_present": {
