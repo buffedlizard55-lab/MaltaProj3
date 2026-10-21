@@ -348,22 +348,35 @@ def main() -> int:
                     'league': lg, 'rows': len(sdata) if isinstance(sdata, list) else None}
 
     # 4f. EGamersWorld list + per-fixture match page (published odds sentence).
+    #     The list page is a JS shell, so reviewed match URLs discovered on the
+    #     official site are loaded from data/research/6e92015a/egw-urls.json
+    #     (manual, dated, hash-checked capture - the same evidence class as
+    #     scripts/reference_odds.py). Both routes are recorded.
+    egw_url_map = {}
+    egw_urls_path = OUT / 'egw-urls.json'
+    if egw_urls_path.exists():
+        try:
+            egw_url_map = json.loads(egw_urls_path.read_text())
+        except ValueError:
+            egw_url_map = {}
     body, _ = fetch('egw-list', EGW_LIST, manifest, save=False)
     egw_html = text_body(body)
     lines['egamersworld'] = {'bytes': len(egw_html), 'fixture_pages': {}}
     egw_links = dict(re.findall(r'href="(https://egamersworld\.com/counterstrike/match/[^"#?]+)"[^>]*title="([^"]+)"', egw_html))
     for b in blanks:
         names = [key(n) for n in b['teams']]
-        page = None
-        for url, title in egw_links.items():
-            if all(n in key(title) for n in names):
-                page = url
-                break
-        rec = {'list_hit': bool(page), 'url': page}
+        page = egw_url_map.get(b['id'])
+        rec = {'list_hit': bool(page), 'url': page, 'url_source': 'reviewed capture' if page else None}
+        if not page:
+            for url, title in egw_links.items():
+                if all(n in key(title) for n in names):
+                    page = url
+                    rec = {'list_hit': True, 'url': page, 'url_source': 'matches list'}
+                    break
         if page:
             phtml = text_body(fetch(f"egw-match-{b['id']}", page, manifest)[0])
             rec['bytes'] = len(phtml)
-            rec['top_odds'] = re.findall(r'"1\.8"|>(\d\.\d{1,2})<', phtml)[:8]
+            rec['top_odds'] = re.findall(r'>(\d\.\d{1,2})<', phtml)[:8]
             # The reviewed reference rung needs EGW's own average-odds sentence;
             # record whether one exists at all (identical prices are placeholders).
             rec['average_odds_sentence'] = bool(re.search(r'average odds|odds from \d+ bookmaker', phtml, re.I))
