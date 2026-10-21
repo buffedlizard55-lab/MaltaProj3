@@ -1,0 +1,210 @@
+{
+ "schema_version": 1,
+ "session": "arena-6e92015a",
+ "generated_at": "2026-10-21T20:37:49Z",
+ "policy": "Read-only GET/POST probes. Every response is saved and hashed. No probability, pick or alias is written here. A blocked endpoint is not evidence that no market exists. HLTV fan votes and Hotspawn \"% picked\" are never inputs.",
+ "live_release": {
+  "index_html": {
+   "bytes": 136680,
+   "sha256": "c01540df0b7187ba4e5dbd44f52d281c73321e72803e2c8e7e2f88757c4a9f10"
+  },
+  "stale_warning_tag": "id=\"stale-warning\" class=\"stale-warning\" role=\"status\" hidden>",
+  "stale_warning_hidden": true,
+  "mobile_nav": true,
+  "viewport": true,
+  "skip_link": true,
+  "summary_links_picks": true,
+  "summary_links_unresolved": true,
+  "summary_links_featured": true,
+  "origination_html": {
+   "bytes": 142398,
+   "sha256": "3ac2b957510857b799f2a99b55ab35d1eb86920ad342501360b324d57b493481"
+  },
+  "origination.json": {
+   "bytes": 151858,
+   "sha256": "449db27dafcd683c404b026dc951298ec89e1480ff79b16fe6a5729e62517e52",
+   "parsed": true
+  },
+  "counts": {
+   "active": 13,
+   "resolved": 11,
+   "unresolved": 2,
+   "with_pick": 10,
+   "consensus": 1,
+   "market": 2,
+   "bookmaker": 0,
+   "reference": 0,
+   "model": 8,
+   "guidance": 0,
+   "alias_joined": 2
+  },
+  "generated_at": "2026-10-21T20:20:40Z",
+  "live_collection": true,
+  "latest.json": {
+   "bytes": 186400,
+   "sha256": "a629d3366ece1929c0b24340a68a028e47648dd922a7989b8ccc360430f99048",
+   "parsed": true
+  }
+ },
+ "fresh_ladder": {
+  "generated_at": "2026-10-15T09:31:24Z",
+  "counts": {
+   "active": 17,
+   "resolved": 17,
+   "unresolved": 0,
+   "with_pick": 17,
+   "consensus": 0,
+   "market": 7,
+   "bookmaker": 5,
+   "model": 5,
+   "alias_joined": 4
+  },
+  "blank_ids": []
+ },
+ "blank_fixtures": [],
+ "hltv_world_ranking": {
+  "bytes": 1123864,
+  "note": "raw page saved and hashed; ranking rows are parsed by scripts/hltv_ranking.py in the pipeline"
+ },
+ "lines": {
+  "polymarket": {
+   "events_seen": 406,
+   "fixture_mentions": {}
+  },
+  "kalshi": {
+   "events": 40,
+   "fixture_mentions": {}
+  },
+  "thunderpick": {
+   "status_rows": 3,
+   "fixture_mentions": {}
+  },
+  "bovada": {
+   "bytes": 42739,
+   "fixture_mentions": {}
+  },
+  "pinnacle": {
+   "matchup_rows": 242,
+   "cs2_rows": 175,
+   "cs2_leagues": [
+    "CS2 - Circuit X Curitiba",
+    "CS2 - DACH CS Masters",
+    "CS2 - DraculaN",
+    "CS2 - NODWIN Clutch Series",
+    "CS2 - PGL Masters Bucharest"
+   ],
+   "fixture_hits": {}
+  },
+  "egamersworld": {
+   "bytes": 5672,
+   "fixture_pages": {}
+  },
+  "bo3gg": {
+   "fixtures": {}
+  }
+ },
+ "book_sweep": {
+  "ggbet-next": {
+   "http_status": 403,
+   "status": "error",
+   "bytes": 126,
+   "error": "HTTP 403",
+   "fixture_mentions": {}
+  },
+  "ggbet-api": {
+   "http_status": 403,
+   "status": "error",
+   "bytes": 126,
+   "error": "HTTP 403",
+   "fixture_mentions": {}
+  },
+  "rivalry-matches": {
+   "http_status": 502,
+   "status": "error",
+   "bytes": 884,
+   "error": "HTTP 502",
+   "fixture_mentions": {}
+  },
+  "stake": {
+   "http_status": 403,
+   "status": "error",
+   "bytes": 5647,
+   "error": "HTTP 403",
+   "fixture_mentions": {}
+  },
+  "1xbet-linefeed": {
+   "http_status": 203,
+   "status": "ok",
+   "bytes": 2598,
+   "error": null,
+   "fixture_mentions": {}
+  },
+  "cloudbet": {
+   "http_status": 404,
+   "status": "error",
+   "bytes": 212,
+   "error": "HTTP 404",
+   "fixture_mentions": {}
+  },
+  "sportsbetio": {
+   "http_status": null,
+   "status": "error",
+   "bytes": null,
+   "error": "ConnectionError: HTTPSConnectionPool(host='api.sportsbet.io', port=443): Max retries exceeded with url: /v1/sports/esports (Caused by NameResolutionError(\"HTTPSConnection(host='api.sportsbet.io', port=443): Failed to resolve 'api.sportsbet.io' ([Errno -2] Name or service not known)\"))",
+   "fixture_mentions": {}
+  },
+  "betonline": {
+   "http_status": null,
+   "status": "error",
+   "bytes": null,
+   "error": "ReadTimeout: HTTPSConnectionPool(host='api.betonline.ag', port=443): Read timed out. (read timeout=45)",
+   "fixture_mentions": {}
+  },
+  "oddspedia": {
+   "http_status": 400,
+   "status": "error",
+   "bytes": 0,
+   "error": "HTTP 400",
+   "fixture_mentions": {}
+  },
+  "betway": {
+   "http_status": 404,
+   "status": "error",
+   "bytes": 9,
+   "error": "HTTP 404",
+   "fixture_mentions": {}
+  },
+  "unibet": {
+   "http_status": 503,
+   "status": "error",
+   "bytes": 190,
+   "error": "HTTP 503",
+   "fixture_mentions": {}
+  }
+ },
+ "inventory": {
+  "api_status": "ok",
+  "api_http_status": 200,
+  "api_records": 75,
+  "fresh_ladder_active_ids": [
+   "1079440",
+   "1079442",
+   "1080202",
+   "1080203",
+   "1080204",
+   "1080280",
+   "1080281",
+   "1080282",
+   "1080283",
+   "1080284",
+   "1080285",
+   "1080286",
+   "1080287",
+   "1080288",
+   "1080289",
+   "1080290",
+   "1081120"
+  ]
+ },
+ "resolution_options": {}
+}
