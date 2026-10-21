@@ -30,6 +30,10 @@
         {
           "step": "Valve's official Americas standings row 357 (2026-10-05 snapshot, blob SHA 2aa2805394fbc68f36a5752a5b16026f2ab2fed5) lists team \"Zetta\" with roster Antuanette, BabyRage, Notjuanjo, Slayerhz, zockie — the identical five players, closing the chain to the official ratings table.",
           "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md"
+        },
+        {
+          "step": "Answering the two open questions from session 093e722e's flag (Strafe participant list; 1ayala in place of Antuanette on 14-17 Oct lineups). Third-party match records for the same roster under the earlier display names \"Zetta Games\" (CCT South America Series 5, 31 Aug 2026) list zockie, Babyrage, Slayerhz, NotJuanjo with 1AYALA as the fifth — the same four-player core, one rotating fifth — so the October 14-17 1ayala lineups are a stand-in pattern on the same roster, not evidence of a different team. HLTV's Zetta team page lists zockie, Slayerhz, Notjuanjo, BabyRage, Antuanette as the main lineup (176 days together, 18 maps) with the next match 21 Oct vs LOS NINOS. A aggregator participant list that shows both \"Zetta\" and \"Alianza Lima Esports\" is a feed-merge artifact of the org rename; it does not create a second roster. Decisive tie-breaker: Polymarket's own market rules for cs2-ale1-ln-2026-10-21 state the market resolves from HLTV, whose record of the 22:00Z slot is Zetta vs LOS NINOS — so the traded prices are, by the market maker's own definition, prices for fixture 1082837.",
+          "url": "https://www.hltv.org/team/13833/zetta"
         }
       ],
       "handling": "The scoped alias \"Alianza Lima Esports\" → \"Zetta\" (CCT South America 2026 Series #7 only) and \"Los Niños\" → \"LOS NINOS\" (diacritic variant) are supported by this chain. The originated consensus (Polymarket 0.385/0.615 + Kalshi 0.389/0.611 observed 20:05:06-07Z, median LOS NINOS 61.3%) is a legitimate match-level join. Flag f4eb8ae3-zetta-alias-verified-5of5-roster supersedes the earlier wrong-opponent reading; the earlier flag is retained as the audit trail.",
