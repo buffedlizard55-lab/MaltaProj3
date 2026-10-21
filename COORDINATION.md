@@ -1,3 +1,22 @@
+# Current session: arena-fb04c12f — current-release and coverage audit
+
+Claimed **2026-10-21T12:40Z** on the Arena-fixed branch `arena/fb04c12f-maltaproj3`,
+whose base is the current `main` release `89bfa277bad9874a439b3e54117d8e31a5354cf9`.
+The coordination board was read before starting. Existing feature implementation
+and historical claims are complete; the only open item is the earlier audit's
+per-row live artifact limitation. I do not edit another session's implementation
+or canonical match data.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FB-1 Verify current production refresh/deployment, aggregate full-inventory and pick coverage, identify only evidence-supported irregularities, and run local build/source validation; record an auditable dated report without inventing inaccessible fixture rows | in progress | arena-fb04c12f | new `data/research/fb04c12f/`; this session's board section in `COORDINATION.md` |
+
+**Non-overlap pledge:** evidence/coordination only. No changes to pick values,
+match records, aliases, collectors, origination, site builders, shared navigation,
+styles or the production workflow.
+
+---
+
 # Current session: arena-d9ebc2c1 — independent live deployment, coverage and source-integrity audit
 
 Claimed **2026-10-19T04:05Z** on the fixed Arena branch `arena/d9ebc2c1-maltaproj3`,
