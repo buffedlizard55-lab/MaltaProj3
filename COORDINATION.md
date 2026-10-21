@@ -1,3 +1,32 @@
+# Current session: arena-6e92015a — full-coverage picks (current unresolved fixtures), stale-PR integration, executive-summary/mobile verification
+
+Claimed **2026-10-21T20:20Z** on the Arena-fixed branch `arena/6e92015a-maltaproj3`,
+branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad` (merge of PR #131).
+The board was read before starting. Open PRs #120 (`arena/541cd43a`: network model /
+build / originate / audit_rows / scout.css / tests), #121 (`arena/75de2710`: Bovada
+evidence / aliases / README / scout.css) and #124 (`arena/b8a142d2`: COORDINATION record
+only) were all last committed 13:47–14:35Z — more than 60 minutes stale with no commits,
+so under the board's takeover rule this session takes them over for integration. Their
+work will be preserved (merged, never discarded); the handoff is recorded per task below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 6E-1 Claim this session on the board and push immediately | **done** (this section) | arena-6e92015a | this session's board section in `COORDINATION.md` |
+| 6E-2 For every fixture the live complete-picks ladder leaves unresolved in the current production snapshot (2026-10-21T20:08Z: benched gods–TitanFlow 1081597, FlyQuest–Staqued 1082860), research HLTV first, then esportsbooks/esports betting lines; publish dated per-fixture evidence, blockers and limitations; never invent a probability | **in progress** | new `data/research/6e92015a/`; this session's board section |
+| 6E-3 Stale-PR takeover + integration: merge PR #124 (clean/green) via the merge button; merge the branches of PRs #121 and #120 into this session's branch, resolve conflicts without discarding either session's work, repair the failing `Rows, build, links, mobile and accessibility` checks of PR #120, and run the full local suites | **in progress** | take over: `scripts/` + `assets/scout.css` + `data/origination/aliases.json` + `README.md` + `tests/` scopes previously owned by PRs #120/#121; recorded as handoff |
+| 6E-4 Verify the live executive summary's mobile links to the updated picks lists and the separate unresolved-picks/limitations section (including complete-ladder scope on the home page), and that every active Hotspawn fixture appears in the phone-first glance index | **in progress** | verification only; edits only if a defect is found |
+| 6E-5 Line-by-line repository review with official source links; flag every irregularity; full local verification suites (Python unittest, scripts.build replay, audit_rows --strict, npm ci + Playwright where the sandbox allows) | **in progress** | `data/research/6e92015a/`, this session's board section |
+| 6E-6 Final integration: PR to `main`, merge on green, verify the real GitHub Pages deployment, record PR link + merge result here | **in progress** | this session's board section, PR |
+
+**Non-overlap pledge:** before the 6E-3 takeover, this session edited no file owned by
+PRs #120/#121/#124. After the takeover (stale >60 min, noted here and per task below),
+those scopes transfer to this session for integration only; no probability, alias,
+threshold or pick semantics are changed beyond what the taken-over branches already
+contain plus conflict/CI repairs. No edits to `archive/` or to any other session's
+`data/research/<id>/` directories.
+
+---
+
 # Current session: arena-32bed9e3 — full-coverage pick research for featured-unresolved fixtures
 
 Claimed **2026-10-21T19:40Z** on the Arena-fixed branch `arena/32bed9e3-maltaproj3`,
