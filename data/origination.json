@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T20:05:02Z",
+  "generated_at": "2026-10-21T20:07:39Z",
   "source_snapshot_at": "2026-10-21T20:04:36Z",
-  "source_generated_at": "2026-10-21T20:04:48Z",
+  "source_generated_at": "2026-10-21T20:07:23Z",
   "registry_updated_at": "2026-10-19T05:55:00Z",
   "live_collection": true,
   "collection": {
@@ -165,12 +165,12 @@
         "method": "consensus",
         "label": "Originated consensus line (median of independent money sources)",
         "probabilities": [
-          0.38694445,
-          0.61305555
+          0.39046954,
+          0.60953046
         ],
         "fair_decimal": [
-          2.584,
-          1.631
+          2.561,
+          1.641
         ],
         "quotes": [
           {
@@ -190,7 +190,7 @@
             ],
             "spread": 0.01,
             "thin": false,
-            "observed_at": "2026-10-21T20:05:06Z",
+            "observed_at": "2026-10-21T20:07:43Z",
             "source_url": "https://polymarket.com/event/cs2-ale1-ln-2026-10-21",
             "event_id": "1227336",
             "evidence_file": "data/origination/evidence/live-polymarket-observations.json",
@@ -201,20 +201,20 @@
             "provider": "Kalshi",
             "family": "market",
             "probabilities": [
-              0.38888889,
-              0.61111111
+              0.39593909,
+              0.60406091
             ],
             "bid": [
-              0.34,
-              0.56
+              0.35,
+              0.55
             ],
             "ask": [
               0.43,
-              0.65
+              0.64
             ],
             "spread": 0.09,
             "thin": false,
-            "observed_at": "2026-10-21T20:05:07Z",
+            "observed_at": "2026-10-21T20:07:44Z",
             "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct211800lnale",
             "event_id": "KXCS2GAME-26OCT211800LNALE",
             "evidence_file": "data/origination/evidence/live-kalshi-events.json",
@@ -223,7 +223,7 @@
         ],
         "source": "Polymarket + Kalshi",
         "source_url": "https://polymarket.com/event/cs2-ale1-ln-2026-10-21",
-        "observed_at": "2026-10-21T20:05:06Z",
+        "observed_at": "2026-10-21T20:07:43Z",
         "model_crosscheck": null
       },
       "pick_index": 1,
@@ -1079,7 +1079,7 @@
           }
         ],
         "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-        "observed_at": "2026-10-21T20:05:13Z",
+        "observed_at": "2026-10-21T20:07:51Z",
         "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
         "snapshot_date": "2026-10-05",
         "method": "model",
@@ -1217,7 +1217,7 @@
               }
             ],
             "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-            "observed_at": "2026-10-21T20:05:13Z",
+            "observed_at": "2026-10-21T20:07:51Z",
             "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
             "snapshot_date": "2026-10-05"
           }
@@ -1370,10 +1370,10 @@
         "snapshot_date": "2026-10-21",
         "source_url": "https://www.hltv.org/ranking/teams",
         "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-        "observed_at": "2026-10-21T20:05:10Z",
+        "observed_at": "2026-10-21T20:07:47Z",
         "points_scale": 400.0,
         "aliases_used": [],
-        "evaluation_at": "2026-10-21T20:05:02+00:00",
+        "evaluation_at": "2026-10-21T20:07:39+00:00",
         "method": "model",
         "label": "Research model estimate (HLTV world ranking)",
         "fair_decimal": [
@@ -1409,10 +1409,10 @@
             "snapshot_date": "2026-10-21",
             "source_url": "https://www.hltv.org/ranking/teams",
             "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-            "observed_at": "2026-10-21T20:05:10Z",
+            "observed_at": "2026-10-21T20:07:47Z",
             "points_scale": 400.0,
             "aliases_used": [],
-            "evaluation_at": "2026-10-21T20:05:02+00:00"
+            "evaluation_at": "2026-10-21T20:07:39+00:00"
           }
         ],
         "source": "HLTV world ranking",
@@ -1942,8 +1942,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-21T20:05:12Z",
-        "evaluation_at": "2026-10-21T20:05:02Z",
+        "observed_at": "2026-10-21T20:07:49Z",
+        "evaluation_at": "2026-10-21T20:07:39Z",
         "lineup_disambiguation": [
           {
             "team": "The Huns",
@@ -1958,7 +1958,7 @@
             "overlap": 4,
             "roster_change": true,
             "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-            "observed_at": "2026-10-21T20:05:04Z",
+            "observed_at": "2026-10-21T20:07:41Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
           }
         ],
@@ -2012,8 +2012,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-21T20:05:12Z",
-            "evaluation_at": "2026-10-21T20:05:02Z",
+            "observed_at": "2026-10-21T20:07:49Z",
+            "evaluation_at": "2026-10-21T20:07:39Z",
             "lineup_disambiguation": [
               {
                 "team": "The Huns",
@@ -2028,7 +2028,7 @@
                 "overlap": 4,
                 "roster_change": true,
                 "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-                "observed_at": "2026-10-21T20:05:04Z",
+                "observed_at": "2026-10-21T20:07:41Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
               }
             ]

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T20:04:48Z",
-  "last_attempted_at": "2026-10-21T20:04:36Z",
+  "generated_at": "2026-10-21T20:07:23Z",
+  "last_attempted_at": "2026-10-21T20:07:23Z",
   "analysis_as_of": "2026-10-21T20:04:36Z",
   "inventory_observed_at": "2026-10-21T20:04:36Z",
-  "coverage_complete": true,
+  "coverage_complete": false,
   "inventory_crosscheck": "complete",
-  "run_status": "partial-picks",
+  "run_status": "degraded",
   "refresh_interval_hours": 4,
   "stale_after_hours": 8,
   "counts": {
@@ -3716,89 +3716,12 @@
   ],
   "sources": [
     {
-      "status": "ok",
       "name": "Hotspawn match inventory",
       "url": "https://play.hotspawn.com/lobby",
-      "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "records": 76,
-      "visible_cards": 0,
-      "crosscheck": "complete",
-      "verified_pages": [
-        "lobby",
-        "cs2"
-      ],
-      "unavailable": [],
-      "detail": "All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.",
-      "evidence": "data/evidence/hotspawn-context.json"
-    },
-    {
-      "status": "ok",
-      "name": "Polymarket CS2",
-      "url": "https://polymarket.com/esports/cs2",
-      "observed_at": "2026-10-21T20:04:41Z",
-      "records": 435,
-      "discovery_complete": true,
-      "pages": 5,
-      "detail": "Public directory plus paginated official CS2-tag events used for discovery. Every selected fixture is rechecked against its original Gamma event and both order books; directory/outcome prices are never probability inputs."
-    },
-    {
-      "status": "ok",
-      "name": "HLTV fallback research",
-      "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-21T20:04:43Z",
-      "records": 65,
-      "detail": "Split-anchor match cards parsed and saved for replay. Exact fixture identities and independently published series formats only. Fan votes are not probabilities; no bookmaker line is accepted without original-source prices."
-    },
-    {
-      "status": "ok",
-      "name": "Thunderpick esportsbook",
-      "url": "https://thunderpick.io/esports/counter-strike",
-      "api_url": "https://thunderpick.io/api/matches",
-      "observed_at": "2026-10-21T20:04:45Z",
-      "records": 58,
-      "detail": "Only active prematch CS2 match-winner markets with exact team/time alignment and two decimal odds are eligible."
-    },
-    {
-      "name": "GG.BET esportsbook",
-      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "status": "unavailable",
-      "observed_at": "2026-10-21T20:04:45Z",
+      "observed_at": "2026-10-21T20:07:24Z",
       "records": null,
-      "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-    },
-    {
-      "status": "unavailable",
-      "name": "Pinnacle esportsbook",
-      "url": "https://www.pinnacle.com/en/esports-hub/cs2",
-      "observed_at": "2026-10-21T20:04:45Z",
-      "records": 0,
-      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-    },
-    {
-      "status": "unavailable",
-      "name": "Rivalry esportsbook",
-      "url": "https://www.rivalry.com/esports/counter-strike-betting",
-      "observed_at": "2026-10-21T20:04:46Z",
-      "records": 0,
-      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-    },
-    {
-      "name": "Stake esportsbook",
-      "url": "https://stake.com/sports/esports/counter-strike",
-      "status": "unavailable",
-      "observed_at": "2026-10-21T20:04:47Z",
-      "records": null,
-      "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-    },
-    {
-      "status": "ok",
-      "name": "Valve official rating fallback",
-      "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-21T20:04:47Z",
-      "records": 380,
-      "snapshot_date": "2026-10-05",
-      "detail": "Used only after primary markets, HLTV research and book checks fail to resolve a match. Duplicate team names, incomplete rosters or snapshots older than 35 days are rejected. Probabilities are labeled uncalibrated research estimates."
+      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     }
   ],
   "flags": [
@@ -4241,6 +4164,18 @@
       ],
       "match_ids": [],
       "severity": "notice"
+    },
+    {
+      "id": "inventory-failed",
+      "title": "Hotspawn refresh failed — current coverage unverified",
+      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.",
+      "source_urls": [
+        "https://play.hotspawn.com/lobby",
+        "https://play.hotspawn.com/cs2-pickems",
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+      ],
+      "match_ids": [],
+      "severity": "critical"
     }
   ],
   "requests": [
@@ -4614,6 +4549,19 @@
       "response_sha256": "9d4f42f9fffb0acb8ec2f3612b3b1c519e766dcd80689fc11e9d2e199893298f",
       "cache_age_sec": "6129",
       "cache_status": "HIT"
+    },
+    {
+      "id": "hotspawn-fixtures",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "observed_at": "2026-10-21T20:07:23Z",
+      "http_status": 403,
+      "status": "error",
+      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "content_type": "application/json",
+      "response_date": "Wed, 21 Oct 2026 20:07:24 GMT",
+      "response_sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
+      "error": "403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     }
   ],
   "evidence_files": [

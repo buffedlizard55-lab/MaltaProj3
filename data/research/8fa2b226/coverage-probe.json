@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-8fa2b226",
-  "generated_at": "2026-10-21T20:05:16Z",
+  "generated_at": "2026-10-21T20:07:54Z",
   "mode": "live",
   "environment": "github-actions-runner",
   "source_snapshot_at": "2026-10-21T20:04:36Z",
@@ -224,7 +224,7 @@
     {
       "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:16Z",
+      "observed_at": "2026-10-21T20:07:54Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 403,
@@ -239,7 +239,7 @@
     {
       "url": "https://www.pinnacle.com/en/esports-hub/cs2",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:16Z",
+      "observed_at": "2026-10-21T20:07:54Z",
       "status": "reachable",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 200,
@@ -255,14 +255,14 @@
     {
       "url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:17Z",
+      "observed_at": "2026-10-21T20:07:55Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 530,
       "final_url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
       "content_type": "application/json; charset=utf-8",
       "bytes": 777,
-      "sha256": "919d787e53500fcd9d19b21b554008f104b07c425ec024a5a2a2978b01deabc2",
+      "sha256": "a9a13cdcc5d0313266d13688845b8a4fe3086fab1a0c69825e8c1ebf3ae55a55",
       "looks_like_a_fixture_list": false,
       "name": "Rivalry esportsbook",
       "why_checked": "Documented public sports API path rather than the marketing page the collector tries."
@@ -270,7 +270,7 @@
     {
       "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:18Z",
+      "observed_at": "2026-10-21T20:07:56Z",
       "status": "reachable",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 200,
@@ -285,14 +285,14 @@
     {
       "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=71&count=25&mode=4&getEmpty=true",
       "method": "GET",
-      "observed_at": "2026-10-21T20:05:19Z",
+      "observed_at": "2026-10-21T20:07:57Z",
       "status": "refused",
       "role": "reachability check only — this script never turns a page into a probability",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block?sports=71&count=25&mode=4&getEmpty=true",
       "content_type": "text/html;charset=utf-8",
-      "bytes": 2604,
-      "sha256": "090965b430833109a27bc737a6017575f2caa5d91a662d73cdbb87aade942673",
+      "bytes": 2605,
+      "sha256": "4d293b0be1f1171f9552e1c7e487f690493b58a878d593f80d08348874520150",
       "looks_like_a_fixture_list": true,
       "name": "1xBet line feed",
       "why_checked": "Lists deep-tier CS2 series, but the operator geo-fences restricted countries."

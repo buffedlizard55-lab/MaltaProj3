@@ -369,5 +369,18 @@
     "response_sha256": "9d4f42f9fffb0acb8ec2f3612b3b1c519e766dcd80689fc11e9d2e199893298f",
     "cache_age_sec": "6129",
     "cache_status": "HIT"
+  },
+  {
+    "id": "hotspawn-fixtures",
+    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "method": "GET",
+    "observed_at": "2026-10-21T20:07:23Z",
+    "http_status": 403,
+    "status": "error",
+    "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "content_type": "application/json",
+    "response_date": "Wed, 21 Oct 2026 20:07:24 GMT",
+    "response_sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
+    "error": "403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
   }
 ]
