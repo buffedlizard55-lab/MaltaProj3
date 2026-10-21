@@ -1,0 +1,1310 @@
+{
+  "session": "arena-541cd43a",
+  "generated_at": "2026-10-21T13:02:57Z",
+  "policy": "Read-only identity/coverage discovery. No probability, pick, price or alias is written.",
+  "fixtures": [
+    {
+      "hotspawn_id": "1082762",
+      "teams": [
+        "ex-CYBERSHOKE",
+        "BlinkDagger"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "bo3_team": {
+        "ex-CYBERSHOKE": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-CYBERSHOKE",
+              "observed_at": "2026-10-21T13:02:57Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 213,
+              "sha256": "6eb92cde87ed045255a51d8309f6fbc75ae177e5ba8b889a6f1f2e8b86262980"
+            },
+            "rows": 0,
+            "results": []
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=ex-CYBERSHOKE",
+              "observed_at": "2026-10-21T13:02:57Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=ex-CYBERSHOKE",
+              "observed_at": "2026-10-21T13:02:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        },
+        "BlinkDagger": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BlinkDagger",
+              "observed_at": "2026-10-21T13:02:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 823,
+              "sha256": "314c13c4cf7b1a6e44786dba9c39928485763f6b1ec29d99aea4127a0927844e"
+            },
+            "rows": 1,
+            "results": [
+              {
+                "id": 246,
+                "name": "BlinkDagger",
+                "slug": "blinkdagger",
+                "rank": null
+              }
+            ]
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=BlinkDagger",
+              "observed_at": "2026-10-21T13:02:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=BlinkDagger",
+              "observed_at": "2026-10-21T13:02:58Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        }
+      },
+      "bo3_tournament": {
+        "request": {
+          "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CIS%20LAN%20Championship%20%239",
+          "observed_at": "2026-10-21T13:02:59Z",
+          "http_status": 200,
+          "content_type": "application/json; charset=utf-8",
+          "bytes": 10625,
+          "sha256": "2cf54e86b59332c47b31d4f0ca485c863e3181817c66ae5c4915315f151a4812"
+        },
+        "rows": 10,
+        "results": [
+          {
+            "id": 8,
+            "name": "ESL Impact League Cash Cup: North America 3 Summer 2022",
+            "slug": "esl-impact-league-cash-cup-north-america-3-summer-2022",
+            "rank": null
+          },
+          {
+            "id": 9,
+            "name": "BLAST Premier Finals Fall 2020",
+            "slug": "blast-premier-finals-fall-2020",
+            "rank": null
+          },
+          {
+            "id": 10,
+            "name": "IEM Global Challenge XV 2020",
+            "slug": "iem-global-challenge-xv-2020",
+            "rank": null
+          },
+          {
+            "id": 11,
+            "name": "ESL One Cologne Online: Europe 2020",
+            "slug": "esl-one-cologne-online-europe-2020",
+            "rank": null
+          },
+          {
+            "id": 12,
+            "name": "ESL One Cologne Online: North America 2020",
+            "slug": "esl-one-cologne-online-north-america-2020",
+            "rank": null
+          },
+          {
+            "id": 13,
+            "name": "ESL Pro League Europe season 12 2020",
+            "slug": "esl-pro-league-europe-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 14,
+            "name": "ESL Pro League North America season 12 2020",
+            "slug": "esl-pro-league-north-america-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 16,
+            "name": "BLAST Premier European Finals Spring 2020",
+            "slug": "blast-premier-european-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 17,
+            "name": "BLAST Premier American Finals Spring 2020",
+            "slug": "blast-premier-american-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 18,
+            "name": "BLAST Premier Regular Season Fall 2020",
+            "slug": "blast-premier-regular-season-fall-2020",
+            "rank": null
+          }
+        ]
+      },
+      "bo3_results": {},
+      "liquipedia": {
+        "ex-CYBERSHOKE": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=ex-CYBERSHOKE",
+            "observed_at": "2026-10-21T13:02:58Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        },
+        "BlinkDagger": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=BlinkDagger",
+            "observed_at": "2026-10-21T13:02:59Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        }
+      }
+    },
+    {
+      "hotspawn_id": "1082763",
+      "teams": [
+        "UPGRADE",
+        "flacons"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "bo3_team": {
+        "UPGRADE": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UPGRADE",
+              "observed_at": "2026-10-21T13:02:59Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 1488,
+              "sha256": "3f7f1fb1b7acbfb81cc809648ca0ec2b64359a13f3c9b80c0d481be5eb41f46f"
+            },
+            "rows": 1,
+            "results": [
+              {
+                "id": 25212,
+                "name": "UPGRADE",
+                "slug": "upgrade",
+                "rank": 67
+              }
+            ]
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=UPGRADE",
+              "observed_at": "2026-10-21T13:02:59Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=UPGRADE",
+              "observed_at": "2026-10-21T13:02:59Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        },
+        "flacons": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=flacons",
+              "observed_at": "2026-10-21T13:03:00Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 207,
+              "sha256": "1a4ab92e8d7bd9a96516168641c5481c1aee7c0eb080d58bd07b306b1a2acd2b"
+            },
+            "rows": 0,
+            "results": []
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=flacons",
+              "observed_at": "2026-10-21T13:03:00Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=flacons",
+              "observed_at": "2026-10-21T13:03:00Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        }
+      },
+      "bo3_tournament": {
+        "request": {
+          "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CIS%20LAN%20Championship%20%239",
+          "observed_at": "2026-10-21T13:03:01Z",
+          "http_status": 200,
+          "content_type": "application/json; charset=utf-8",
+          "bytes": 10625,
+          "sha256": "2cf54e86b59332c47b31d4f0ca485c863e3181817c66ae5c4915315f151a4812"
+        },
+        "rows": 10,
+        "results": [
+          {
+            "id": 8,
+            "name": "ESL Impact League Cash Cup: North America 3 Summer 2022",
+            "slug": "esl-impact-league-cash-cup-north-america-3-summer-2022",
+            "rank": null
+          },
+          {
+            "id": 9,
+            "name": "BLAST Premier Finals Fall 2020",
+            "slug": "blast-premier-finals-fall-2020",
+            "rank": null
+          },
+          {
+            "id": 10,
+            "name": "IEM Global Challenge XV 2020",
+            "slug": "iem-global-challenge-xv-2020",
+            "rank": null
+          },
+          {
+            "id": 11,
+            "name": "ESL One Cologne Online: Europe 2020",
+            "slug": "esl-one-cologne-online-europe-2020",
+            "rank": null
+          },
+          {
+            "id": 12,
+            "name": "ESL One Cologne Online: North America 2020",
+            "slug": "esl-one-cologne-online-north-america-2020",
+            "rank": null
+          },
+          {
+            "id": 13,
+            "name": "ESL Pro League Europe season 12 2020",
+            "slug": "esl-pro-league-europe-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 14,
+            "name": "ESL Pro League North America season 12 2020",
+            "slug": "esl-pro-league-north-america-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 16,
+            "name": "BLAST Premier European Finals Spring 2020",
+            "slug": "blast-premier-european-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 17,
+            "name": "BLAST Premier American Finals Spring 2020",
+            "slug": "blast-premier-american-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 18,
+            "name": "BLAST Premier Regular Season Fall 2020",
+            "slug": "blast-premier-regular-season-fall-2020",
+            "rank": null
+          }
+        ]
+      },
+      "bo3_results": {},
+      "liquipedia": {
+        "UPGRADE": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=UPGRADE",
+            "observed_at": "2026-10-21T13:02:59Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        },
+        "flacons": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=flacons",
+            "observed_at": "2026-10-21T13:03:00Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        }
+      }
+    },
+    {
+      "hotspawn_id": "1082837",
+      "teams": [
+        "Zetta",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T22:00:00Z",
+      "bo3_team": {
+        "Zetta": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Zetta",
+              "observed_at": "2026-10-21T13:03:01Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 1492,
+              "sha256": "92363161f5143233fa2815873ae11aed1f2f754ca5c7d4fe17a546cb95643b83"
+            },
+            "rows": 1,
+            "results": [
+              {
+                "id": 23468,
+                "name": "Zetta",
+                "slug": "zetta-games-cs",
+                "rank": 357
+              }
+            ]
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=Zetta",
+              "observed_at": "2026-10-21T13:03:01Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=Zetta",
+              "observed_at": "2026-10-21T13:03:01Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        },
+        "LOS NINOS": {
+          "exact": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=LOS%20NINOS",
+              "observed_at": "2026-10-21T13:03:01Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 818,
+              "sha256": "ba2917b2e9866ca032679507be6804f773be4295adf6fe36650ad9546c90a37b"
+            },
+            "rows": 1,
+            "results": [
+              {
+                "id": 25500,
+                "name": "LOS NINOS",
+                "slug": "los-ninos-cs",
+                "rank": null
+              }
+            ]
+          },
+          "contains": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][contains]=LOS%20NINOS",
+              "observed_at": "2026-10-21T13:03:02Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          },
+          "search": {
+            "request": {
+              "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&search=LOS%20NINOS",
+              "observed_at": "2026-10-21T13:03:02Z",
+              "http_status": 200,
+              "content_type": "application/json; charset=utf-8",
+              "bytes": 19690,
+              "sha256": "0c48f01592e2393a8d3c7f80ac70881828b96d71c116c1daaf5e84befc73bb78"
+            },
+            "rows": 10,
+            "results": [
+              {
+                "id": 2,
+                "name": "mens",
+                "slug": "mens",
+                "rank": null
+              },
+              {
+                "id": 4,
+                "name": "Wolsung",
+                "slug": "wolsung",
+                "rank": null
+              },
+              {
+                "id": 5,
+                "name": "Orgles5",
+                "slug": "orgles5",
+                "rank": null
+              },
+              {
+                "id": 6,
+                "name": "Project5 Esport",
+                "slug": "project5",
+                "rank": null
+              },
+              {
+                "id": 7,
+                "name": "Madeeka",
+                "slug": "madeeka",
+                "rank": null
+              },
+              {
+                "id": 8,
+                "name": "NAVI Youth",
+                "slug": "navi-youth",
+                "rank": null
+              },
+              {
+                "id": 9,
+                "name": "London Esports",
+                "slug": "london",
+                "rank": null
+              },
+              {
+                "id": 10,
+                "name": "HONORIS",
+                "slug": "honoris",
+                "rank": null
+              },
+              {
+                "id": 11,
+                "name": "Control",
+                "slug": "control",
+                "rank": null
+              },
+              {
+                "id": 12,
+                "name": "Prodigy",
+                "slug": "prodigy",
+                "rank": null
+              }
+            ]
+          }
+        }
+      },
+      "bo3_tournament": {
+        "request": {
+          "url": "https://api.bo3.gg/api/v1/tournaments?page[offset]=0&page[limit]=10&filter[tournaments.name][contains]=CCT%20South%20America%202026%20Series%20%237",
+          "observed_at": "2026-10-21T13:03:02Z",
+          "http_status": 200,
+          "content_type": "application/json; charset=utf-8",
+          "bytes": 10625,
+          "sha256": "2cf54e86b59332c47b31d4f0ca485c863e3181817c66ae5c4915315f151a4812"
+        },
+        "rows": 10,
+        "results": [
+          {
+            "id": 8,
+            "name": "ESL Impact League Cash Cup: North America 3 Summer 2022",
+            "slug": "esl-impact-league-cash-cup-north-america-3-summer-2022",
+            "rank": null
+          },
+          {
+            "id": 9,
+            "name": "BLAST Premier Finals Fall 2020",
+            "slug": "blast-premier-finals-fall-2020",
+            "rank": null
+          },
+          {
+            "id": 10,
+            "name": "IEM Global Challenge XV 2020",
+            "slug": "iem-global-challenge-xv-2020",
+            "rank": null
+          },
+          {
+            "id": 11,
+            "name": "ESL One Cologne Online: Europe 2020",
+            "slug": "esl-one-cologne-online-europe-2020",
+            "rank": null
+          },
+          {
+            "id": 12,
+            "name": "ESL One Cologne Online: North America 2020",
+            "slug": "esl-one-cologne-online-north-america-2020",
+            "rank": null
+          },
+          {
+            "id": 13,
+            "name": "ESL Pro League Europe season 12 2020",
+            "slug": "esl-pro-league-europe-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 14,
+            "name": "ESL Pro League North America season 12 2020",
+            "slug": "esl-pro-league-north-america-season-12-2020",
+            "rank": null
+          },
+          {
+            "id": 16,
+            "name": "BLAST Premier European Finals Spring 2020",
+            "slug": "blast-premier-european-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 17,
+            "name": "BLAST Premier American Finals Spring 2020",
+            "slug": "blast-premier-american-finals-spring-2020",
+            "rank": null
+          },
+          {
+            "id": 18,
+            "name": "BLAST Premier Regular Season Fall 2020",
+            "slug": "blast-premier-regular-season-fall-2020",
+            "rank": null
+          }
+        ]
+      },
+      "bo3_results": {},
+      "liquipedia": {
+        "Zetta": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=Zetta",
+            "observed_at": "2026-10-21T13:03:01Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        },
+        "LOS NINOS": {
+          "request": {
+            "url": "https://liquipedia.net/counterstrike/api.php?action=query&list=search&format=json&srlimit=5&srsearch=LOS%20NINOS",
+            "observed_at": "2026-10-21T13:03:02Z",
+            "http_status": 406,
+            "error": "HTTP 406"
+          },
+          "hits": []
+        }
+      }
+    }
+  ]
+}
