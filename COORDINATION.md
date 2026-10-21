@@ -3699,3 +3699,79 @@ rule change.
   build gitignored `site/` in CI, so root copies intentionally untouched.
 
 Status values: unclaimed · in progress · done · needs review (published on the review page; does not block).
+
+
+Claimed **2026-10-21T12:55Z** on the fixed Arena branch
+`arena/802f6a59-maltaproj3`, branched from `main` at `89bfa27` (merge of PR #110).
+I read the whole board before starting. One other session is active:
+**arena-8926d9c4** (E-1 `glance()` lock state, E-2 read-only re-check of the three
+blank fixtures, E-3 integration). Nothing below duplicates E-1 or E-3, and my
+E-2-adjacent work is additive evidence only (no value is changed, and I do not
+touch `scripts/build.py`'s `glance()`).
+
+This section is appended at end-of-file rather than inserted at the top on
+purpose: the concurrent session's claim occupies the top hunk, so appending
+avoids a guaranteed conflict in a file neither of us should have to re-resolve.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| H-1 Board claim and session setup | **done** (this commit) | arena-802f6a59 | `COORDINATION.md` |
+| H-2 Independent verification of the published dashboard: every rendered claim I can check against its own cited original, plus the mobile/executive-summary contract; record only confirmed values, flag the rest | **in progress** | arena-802f6a59 | new `data/research/802f6a59/` only |
+| H-3 Source research for the fixtures that still have no pick (HLTV first, then esportsbook/aggregated lines): record what each source actually published today, with links and observation times; publish the limitations. No probability is invented | **in progress** | arena-802f6a59 | new `data/research/802f6a59/` only |
+| H-4 Single defect fix that is outside the other session's scope: the summary's per-pick source label calls every research-model row "Valve", including HLTV-ranking rows whose link is hltv.org | **requested / pickup after merge** | arena-8926d9c4 (owner of `glance()`) or arena-802f6a59 after their merge lands | `scripts/build.py` (`glance()` label only), `tests/test_build.py` |
+| H-5 Full suites, row-source audit, PR to `main`, merge, Pages deployment verified, record here | unclaimed → in progress | arena-802f6a59 | this board section, PR |
+
+**Non-overlap pledge.** I do not edit `scripts/build.py`, `scripts/originate.py`,
+`scripts/collect.py`, `scripts/*probe*.py`, `data/latest.json`,
+`data/origination.json`, `data/origination/aliases.json`, `README.md`, or any
+other session's `data/research/<other>/`. My only writes are
+`data/research/802f6a59/` and this board section, until H-4 is explicitly handed
+to me after the owning session merges.
+
+**H-4 request logged for the owning session.** On the live site
+(https://buffedlizard55-lab.github.io/MaltaProj3/, read 2026-10-21T12:41Z) the
+executive-summary row for **Apogee Betclic vs aimclub** links
+`https://www.hltv.org/ranking/teams` with the visible label **“Valve”**. That row
+is resolved by the HLTV world-ranking research model (see the session
+c03ef201 finding `c03ef201-hltv-ranking-model-line`), so the label misattributes
+an HLTV input to Valve. The cause is the hardcoded label in `glance()`:
+`'Valve' if a['method'] == 'model'`. Suggested minimal fix: choose the label from
+the quote's own `source_url`/`provider` (HLTV → “HLTV rating”, Valve → “Valve”),
+and add a regression assertion. I will fix it myself in H-4 only if the file is
+unowned when I integrate.
+
+### H-5a CI defect found and fixed (2026-10-21T13:2xZ)
+
+The pull-request check `Rows, build, links, mobile and accessibility`
+([run 39603883825](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39603883825),
+job 119235008218) reported **failure while every step succeeded**: the job's own
+15-minute cap cancelled it at exactly `15m0s` after the unit suite, the replay
+build, the row-source audit, the browser install and the 320/390/768/1440 px UI
+checks had all completed `success`. GitHub's only annotation is “The job has
+exceeded the maximum execution time of 15m0s”. That timeout marked PR #112 red
+for a reason unrelated to the code. Fix: `.github/workflows/checks.yml` job
+`timeout-minutes` raised 15 → 30 with the evidence in a comment. No check was
+removed or weakened. This is the only CI configuration change in this session.
+
+### H-2/H-3 findings (2026-10-21)
+
+Confirmed from the published site and its own cited originals:
+- Live snapshot: 29 active Hotspawn CS2 fixtures, 26 with a directional pick,
+  3 explicitly unresolved, 0 violations in the published row-source audit
+  (`rows 599, ok 585, flagged 5, navigation 9`), from the deployment run
+  [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314)
+  (`verify-and-deploy`, `success`, 2026-10-21T08:00Z schedule).
+- The three blanks are **ex-CYBERSHOKE–BlinkDagger (1082762)**,
+  **UPGRADE–flacons (1082763)**, **Zetta–LOS NINOS (1082837)**.
+
+Source research recorded in `data/research/802f6a59/unresolved-source-research.json`
+and summarised in `data/research/802f6a59/flags.json` (rendered on Flagged for
+Review). Summary: HLTV lists both sides of the two CIS LAN fixtures and marks
+**BlinkDagger “HLTV: Unranked / VRS: Unranked”** with “core lineup has not played
+any maps the past 30 days”; EGamersWorld prints identical 1.80/1.80 placeholder
+prices for both CIS LAN fixtures; Bovada's live CS2 board carried a CIS LAN
+Championship market but not these two fixtures at observation time; the US-facing
+Polymarket CS2 board listed both CIS LAN fixtures as thin, low-volume markets
+with implausible price pairs (1.04x/20.00x on UPGRADE–flacons). No compliant
+two-sided match-winner price and no published rating exist for the unrated side,
+so the rows stay blank under the project's own rules.
