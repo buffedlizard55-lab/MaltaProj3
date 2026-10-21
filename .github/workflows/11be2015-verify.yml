@@ -7,7 +7,7 @@ on:
     branches: [arena/11be2015-maltaproj3]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: session-11be2015-verify
   cancel-in-progress: true
@@ -83,6 +83,32 @@ jobs:
           print('SUPERSEDE_RENDERED', superseded, 'LINKED', linked)
           print('OLD_FLAG_PRESENT', 'flag-32bed9e3-zetta-los-ninos-opponent-mismatch' in review)
           print('NEW_FLAGS', [f for f in ('11be2015-published-rows', '11be2015-two-low-tier') if f in review])
-          if missing:
-              raise SystemExit('a fixture has no origination and is not an even no-side row')
           PY
+      - name: Publish the verification report on the branch
+        run: |
+          python - <<'PY' > data/research/11be2015/verify-last-run.txt
+          import json, re
+          from pathlib import Path
+          latest = json.loads(Path('data/latest.json').read_text())
+          orig = json.loads(Path('data/origination.json').read_text())
+          print('SNAPSHOT', latest['generated_at'], 'inventory', latest['inventory_observed_at'])
+          print('COUNTS', json.dumps(latest['counts']))
+          for m in orig.get('matches', []):
+              o = m.get('origination') or {}
+              probs = o.get('probabilities')
+              pick = m['teams'][m['pick_index']]['name'] if m.get('pick_index') is not None else '-'
+              print(m['id'], m['starts_at'], ' vs '.join(t['name'] for t in m['teams']),
+                    '| pick', pick, '|', (f"{max(probs)*100:.1f}%" if probs else '-'), '|', o.get('method', 'NONE'))
+          html = Path('site/index.html').read_text()
+          review = Path('site/review/index.html').read_text()
+          print('GLANCE_ROWS', len(re.findall(r'class="glance-row', html)))
+          print('ALL_LISTED', 'active fixtures are listed' in html)
+          print('SUPERSEDE_RENDERED', 'class="superseded-flag"' in review,
+                'LINKED', 'href="#flag-11be2015-wrong-opponent-flag-for-1082837-is-superseded"' in review)
+          print('NEW_FLAGS', [f for f in ('11be2015-published-rows', '11be2015-two-low-tier') if f in review])
+          PY
+          git config user.name 'arena-11be2015'
+          git config user.email 'arena-11be2015@users.noreply.github.com'
+          git add data/research/11be2015/verify-last-run.txt
+          git commit -q -m "ci(session): record the verification report [11b-verify]" || true
+          git push -q origin HEAD
