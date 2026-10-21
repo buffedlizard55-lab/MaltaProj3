@@ -1,0 +1,80 @@
+{
+  "session": "arena-541cd43a",
+  "observed_at": "2026-10-21T13:52:00Z",
+  "question": "Can the three CS2 fixtures the origination ladder leaves blank be priced from an external source that publishes this fixture?",
+  "method": "The coding sandbox has no direct TLS egress (curl to every non-GitHub host fails with SSL_ERROR_SYSCALL) but the page renderer used for manual review can read public URLs. Each query below was executed against the source's own public API or page and the answer is quoted, not paraphrased into a number.",
+  "fixtures": [
+    {
+      "id": "1082762",
+      "teams": [
+        "ex-CYBERSHOKE",
+        "BlinkDagger"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "queries": [
+        {
+          "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=CYBERSHOKE",
+          "answer": "total.count = 1; results[0] = {id: 7429, slug: 'cybershoke', name: 'CYBERSHOKE', rank: 61}"
+        },
+        {
+          "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=3&sort=-start_date&filter[matches.team_ids][overlap]=246&with=teams,tournament",
+          "answer": "total.count = 1; the only match recorded for BlinkDagger (id 246) is 'team-nemesis-cs-vs-blinkdagger-12-02-2026', status 'canceled', start 2026-02-12, winner_team_id null, bet_updates null"
+        }
+      ],
+      "conclusion": "bo3.gg holds a team named CYBERSHOKE (7429) and a team named BlinkDagger (246) but publishes no fixture between them, and BlinkDagger has no other recorded series in the API. The exact-name identity bridge cannot bind Hotspawn's 'ex-CYBERSHOKE' either, because 'ex-' is Hotspawn's roster marker and not a bo3.gg team name. No results edge, no bookmaker mirror and no rating row therefore exist on the reachable sources for this pairing; the pick stays blank with that reason instead of being inferred."
+    },
+    {
+      "id": "1082763",
+      "teams": [
+        "UPGRADE",
+        "flacons"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-21T15:00:00Z",
+      "queries": [
+        {
+          "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=flacons",
+          "answer": "total.count = 0; results = [] (the same query with 'Flacons' also returns count 0)"
+        },
+        {
+          "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=-start_date&filter[matches.team_ids][overlap]=25212&with=teams,tournament",
+          "answer": "total.count = 15 for UPGRADE (id 25212, rank 67); the most recent entry is 2026-10-18 14:15 UTC vs Lavked. No 2026-10-21 CIS LAN Championship #9 entry is listed."
+        }
+      ],
+      "conclusion": "bo3.gg has no team record named flacons and no scheduled fixture for UPGRADE on 21 October, so neither side of this match can be bound to a results edge or to the Thunderpick mirror that bo3.gg carries for some matches. The fixture stays blank with that reason."
+    },
+    {
+      "id": "1082837",
+      "teams": [
+        "Zetta",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-21T22:00:00Z",
+      "queries": [
+        {
+          "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=Zetta",
+          "answer": "exact-name bridge already recorded this team in the run that produced this snapshot; the own network fit publishes 5 finished series inside the 120-day window (the gate needs 6)"
+        }
+      ],
+      "conclusion": "Both sides bind, so this is not an identity failure: the own network model refuses the quote because the thinner side has only five finished series in the window. The gate decision is recorded in data/research/541cd43a/flags.json (id 541cd43a-own-network-model-gates) and in COORDINATION.md."
+    }
+  ],
+  "sources_reviewed_without_a_price": [
+    {
+      "source": "HLTV match page",
+      "url": "https://www.hltv.org/matches/2399839/cis-lan-season-9",
+      "finding": "The page publishes both lineups (ex-CYBERSHOKE: bl1x1, Mokuj1n, nota, yiksrezo, shoke; BlinkDagger: Aunkere, airscape, OverDrive, D9D9VOLODYA, h0sster, HLTV team id 9998) and marks both sides HLTV/VRS unranked; it publishes no betting line and no world-ranking row for either side."
+    },
+    {
+      "source": "EGamersWorld match listing",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "finding": "Reachable from the renderer and publishes decimal odds per listed match. The listing chunk reviewed at 13:50Z contained only in-progress and imminent featured matches; none of the three blank fixtures appeared in it, and this session did not run a full-site search, so no price was taken from it and none is claimed to be absent from it."
+    }
+  ],
+  "opportunity_recorded_not_adopted": {
+    "finding": "bo3.gg's match objects carry a 'bet_updates' object for some fixtures (provider 'thunderpick', team_1/team_2 'coeff', markets_count). Example observed: PRIVATE vs UPGRADE, 2026-10-16, coeff 1.65 / 2.10, path 'https://thunderpick.io/match/2833463'.",
+    "why_not_adopted_today": "It is a third-party mirror of a bookmaker's price, not the bookmaker's own published line, and it must be replayed from an evidence file at build time. Adopting it needs its own capture, allowlist entry and replay test, so it is logged here as a follow-up rather than converted into a probability in this session."
+  }
+}
