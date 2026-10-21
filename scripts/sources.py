@@ -249,7 +249,7 @@ def gamma_games(events: list, evidence: str) -> list:
     for event in events:
         if not isinstance(event, dict) or not str(event.get('slug', '')).startswith('cs2-'):
             continue
-        if not any(t.get('slug') == 'cs2' for t in event.get('tags', []) if isinstance(t, dict)):
+        if not any(t.get('slug') in {'cs2', 'counter-strike-2'} for t in event.get('tags', []) if isinstance(t, dict)):
             continue
         for market in event.get('markets', []):
             names = array(market.get('outcomes'))
@@ -280,7 +280,7 @@ def poly_index(client: Client, label_base: int = 0):
     # official CS2 tag rather than equating visible cards with all markets.
     seen, pages, complete = set(), 0, False
     for offset in range(0, 2000, 100):
-        url = 'https://gamma-api.polymarket.com/events?' + urlencode({'tag_slug': 'cs2', 'active': 'true', 'closed': 'false', 'limit': 100, 'offset': offset})
+        url = 'https://gamma-api.polymarket.com/events?' + urlencode({'tag_slug': 'counter-strike-2', 'active': 'true', 'closed': 'false', 'limit': 100, 'offset': offset})
         try:
             events, req = client.json(url, f'polymarket-discovery-{label_base + offset}')
             if not isinstance(events, list) or any(not isinstance(e, dict) or not e.get('id') for e in events):

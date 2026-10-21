@@ -370,14 +370,21 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
                 wanted.append(team)
         if not wanted:
             continue
-        names = {name_key(t.get('name') or '') for t in match.get('teams') or []}
+        alias_names = {}
+        for entry in scoped_aliases(registry, match.get('competition')):
+            alias_names.setdefault(form_model.key(entry['canonical']), set()).add(form_model.key(entry['alias']))
+        names = set()
+        for t in match.get('teams') or []:
+            raw_key = form_model.key(t.get('name') or '')
+            names.add(raw_key)
+            names.update(alias_names.get(raw_key, ()))
         candidates = []
         for row in rows:
             other = timestamp(row.get('start_date'))
             if other is None or abs((other - start).total_seconds()) > 5400:
                 continue
-            sides = {name_key((row.get('team1') or {}).get('name') or ''),
-                     name_key((row.get('team2') or {}).get('name') or '')}
+            sides = {form_model.key((row.get('team1') or {}).get('name') or ''),
+                     form_model.key((row.get('team2') or {}).get('name') or '')}
             if sides & names:
                 candidates.append(row)
         if len(candidates) != 1:
@@ -392,7 +399,9 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
             team_id = team.get('id')
             if not team_id:
                 continue
-            if known is not None and name_key(team.get('name') or '') in known:
+            canonical_side, _ = resolve_name(team.get('name') or '', registry, match.get('competition'))
+            if known is not None and (name_key(team.get('name') or '') in known
+                                      or name_key(canonical_side or '') in known):
                 continue
             if team_id not in cache:
                 query = ('/matches?page[offset]=0&page[limit]=40&sort=-start_date'
@@ -415,6 +424,8 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
                 (evidence_dir / f'live-bo3-results-{team_id}.json').write_text(json.dumps(
                     cache[team_id], ensure_ascii=False, indent=2) + '\n')
             record['results'][form_model.key(team.get('name') or '')] = cache[team_id]['samples']
+            if canonical_side:
+                record['results'][form_model.key(canonical_side)] = cache[team_id]['samples']
         bindings[str(match['id'])] = record
     form_model.save_bindings(evidence_dir, {'observed_at': observed, 'matches': bindings})
     return {'fixtures_bound': len(bindings), 'teams_saved': len(cache),
@@ -469,14 +480,43 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['polymarket_index_error'] = str(exc)
     games, out['polymarket_discovery'] = supplement_polymarket_discovery(
         games, evidence_dir.parent.parent, datetime.now(UTC))
+    if not out['polymarket_discovery'].get('tagged_discovery_available'):
+        from scripts.sources import gamma_games
+        tagged_pages = 0
+        while tagged_pages < 20:
+            query = urlencode({
+                'tag_slug': 'counter-strike-2', 'active': 'true', 'closed': 'false',
+                'limit': 100, 'offset': tagged_pages * 100,
+            })
+            try:
+                page_events, _ = client.get_json(
+                    f'https://gamma-api.polymarket.com/events?{query}',
+                    f'live-polymarket-discovery-{tagged_pages * 100}',
+                )
+            except RuntimeError:
+                break
+            if not isinstance(page_events, list) or not page_events:
+                break
+            games.extend(gamma_games(
+                page_events,
+                f'data/origination/evidence/live-polymarket-discovery-{tagged_pages * 100}.json',
+            ))
+            tagged_pages += 1
+            if len(page_events) < 100:
+                break
     client.save('live-discovery-audit', out['polymarket_discovery'])
     events = []
     books = []
+    seen_event_ids = set()
     for game in games:
+        event_key = str(game.get('id') or '')
+        if not event_key or event_key in seen_event_ids:
+            continue
         names = [game.get('homeName', ''), game.get('awayName', '')]
         joined = [m for m in active if pair_join(names, game.get('startTime'), m, registry)[2] == 'matched']
         if len(joined) != 1:
             continue
+        seen_event_ids.add(event_key)
         fixture = joined[0]
         try:
             event, event_request = client.get_json(POLY_EVENTS + str(game['id']), 'live-polymarket-event-' + str(game['id']))

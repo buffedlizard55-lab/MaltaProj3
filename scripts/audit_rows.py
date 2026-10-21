@@ -55,6 +55,9 @@ OFFICIAL = [
     # average (scripts/reference_odds.py). A third-party aggregation, but the
     # primary publisher of the figure this site quotes.
     ('egamersworld.com', None),
+    # bo3.gg: first-party match results and team series history read directly by
+    # scripts/originate.py and scripts/form_model.py.
+    ('bo3.gg', None),
     # Valve's own regional standings repository and model code.
     ('github.com', '/ValveSoftware/'), ('raw.githubusercontent.com', '/ValveSoftware/'),
     ('api.github.com', '/repos/ValveSoftware/'),
