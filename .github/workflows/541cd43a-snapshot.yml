@@ -11,6 +11,12 @@
 name: 541cd43a live snapshot and unresolved-fixture probe (never deploys)
 on:
   workflow_dispatch:
+  # A push trigger scoped to this file only: it starts the first snapshot when
+  # the workflow itself lands on the session branch, and the report commit the
+  # job makes (data/research/541cd43a/ only) can never re-trigger it.
+  push:
+    branches: ['arena/541cd43a-maltaproj3']
+    paths: ['.github/workflows/541cd43a-snapshot.yml']
 permissions:
   contents: write
 concurrency:
