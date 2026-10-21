@@ -1712,12 +1712,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                                    'selected historical Valve row; the one-player change is not quantified.')
     elif hltv_model:
         chosen = dict(hltv_model)
-        chosen.update({'method': 'model', 'label': 'Research model estimate (HLTV world ranking)',
+        floor = hltv_model.get('unranked_floor') or []
+        chosen.update({'method': 'model',
+                       'label': ('Research model estimate (HLTV world ranking · unranked floor)'
+                                 if floor else 'Research model estimate (HLTV world ranking)'),
                        'fair_decimal': [round(1 / p, 3) for p in hltv_model['probabilities']],
                        'quotes': [hltv_model], 'source': 'HLTV world ranking',
                        'model_crosscheck': model})
         limitations.append('Research model, not observed betting odds. Uncalibrated HLTV ranking transform; '
                            'current lineups, stand-ins, form and map veto unverified.')
+        if floor:
+            limitations.append(
+                f'Unranked floor: {", ".join(floor)} has no HLTV world-ranking row, so the model gives that '
+                'side HLTV\'s floor of 0.0 published points. That is a stated assumption, not a measured '
+                'rating — the estimate is low confidence and only says the ranked side is the stronger side '
+                'on the published ranking. No market, esportsbook or Valve rating input resolved this fixture.')
     elif guidance_quote:
         chosen = dict(guidance_quote)
         trail.append({'stage': 'Wide-book guidance fallback', 'status': 'resolved',

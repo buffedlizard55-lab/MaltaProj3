@@ -214,3 +214,25 @@ jobs:
         uses: actions/deploy-pages@v5
       - name: Verify the public site, its complete data and category pages
         run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
+      # The repository's Pages site is still configured in the platform's legacy
+      # build mode (the configuration API answers HTTP 403 to this workflow's
+      # token). A push-triggered legacy build publishes the checked-in branch root
+      # and can land AFTER this workflow's artifact deployment, temporarily
+      # replacing current picks with the older checked-in pages. Observed on
+      # 2026-10-21: the deployment at 20:01:21Z served the 15 October root pages
+      # while this workflow's deployment for the same commit was still queued.
+      # Re-read the public snapshot once the window has passed; if the platform
+      # overwrote it, publish the verified artifact again and re-verify.
+      - name: Re-read the public snapshot after the legacy-publisher window
+        id: guard
+        continue-on-error: true
+        run: |
+          sleep 75
+          python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
+      - name: Republish the verified artifact if a legacy build overwrote it
+        id: republish
+        if: steps.guard.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+      - name: Verify the republished site
+        if: steps.guard.outcome == 'failure'
+        run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'

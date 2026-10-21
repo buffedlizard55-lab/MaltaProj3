@@ -150,6 +150,7 @@ def estimate(match: dict, rows: list, registry: dict, now: datetime, *, meta: di
     for entry in pool:
         reverse.setdefault(name_key(entry['canonical']), []).append(name_key(entry['alias']))
     inputs = []
+    missing = []
     for team in match['teams']:
         team_key = name_key(team['name'])
         candidates = [team_key] + reverse.get(team_key, [])
@@ -160,12 +161,31 @@ def estimate(match: dict, rows: list, registry: dict, now: datetime, *, meta: di
                 matched_as = candidate
                 break
         if not found:
-            return None, f'{team["name"]}: no HLTV world-ranking entry found (including registry aliases)'
+            missing.append(team['name'])
+            # Placeholder keeps the fixture's own team order; replaced below only
+            # when exactly one side is unranked (both-unranked returns early).
+            inputs.append(None)
+            continue
         if len(found) != 1:
             return None, f'{team["name"]}: multiple HLTV ranking rows share this name; ambiguous'
         row = dict(found[0])
         row['matched_as'] = matched_as
         inputs.append(row)
+    if len(missing) == 2:
+        return None, ('Neither team has an HLTV world-ranking entry (including registry aliases); '
+                      'no published points exist to compare')
+    if missing:
+        # One team is ranked and the other is not. HLTV publishes no points for
+        # an unranked team, so the estimate uses the published floor of 0.0 for
+        # that side and says so. This is a stated modelling assumption, not a
+        # measured rating: it can only ever make the ranked team the favourite,
+        # and it is published with an explicit low-confidence limitation.
+        for index, team in enumerate(match['teams']):
+            if team['name'] in missing:
+                inputs[index] = {'name': team['name'], 'points': 0.0, 'rank': None,
+                                 'matched_as': None, 'unranked': True,
+                                 'source_url': meta.get('source_url') or RANKING_URL,
+                                 'snapshot_date': meta.get('snapshot_date')}
     pa = 1 / (1 + 10 ** ((inputs[1]['points'] - inputs[0]['points']) / POINTS_SCALE))
     probs = normalize_pair(pa, 1 - pa)
     alias_used = []
@@ -181,15 +201,25 @@ def estimate(match: dict, rows: list, registry: dict, now: datetime, *, meta: di
         'provider': 'HLTV world ranking', 'family': 'model', 'probabilities': probs,
         'inputs': [{'name': r['name'], 'points': r['points'], 'rank': r.get('rank'),
                     'matched_as': r.get('matched_as'),
+                    'unranked': bool(r.get('unranked')),
                     'snapshot_date': r.get('snapshot_date') or meta.get('snapshot_date'),
                     'source_url': r.get('source_url') or meta['source_url']} for r in inputs],
         'snapshot_date': meta.get('snapshot_date'), 'source_url': meta['source_url'],
         'evidence_file': meta.get('evidence_file'), 'observed_at': meta.get('observed_at'),
         'points_scale': POINTS_SCALE,
         'aliases_used': alias_used,
+        'unranked_floor': [r['name'] for r in inputs if r.get('unranked')],
+        'low_confidence': bool(missing),
         'evaluation_at': now.replace(microsecond=0).isoformat(),
     }
-    detail = ('Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model '
-              '(400-scale logistic transform of the published HLTV points). Team-level ranking '
-              'only: lineups, stand-ins, form and map veto are not confirmed.')
+    if missing:
+        detail = ('Alias-aware exact-name HLTV world-ranking row for the ranked side; the unranked side '
+                  f'({", ".join(missing)}) is given HLTV\'s floor of 0.0 published points because HLTV '
+                  'publishes no ranking row for it. Uncalibrated research model (400-scale logistic '
+                  'transform); low confidence, team-level only — lineups, stand-ins, form and map veto '
+                  'are not confirmed.')
+    else:
+        detail = ('Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model '
+                  '(400-scale logistic transform of the published HLTV points). Team-level ranking '
+                  'only: lineups, stand-ins, form and map veto are not confirmed.')
     return quote, detail

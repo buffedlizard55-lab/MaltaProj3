@@ -152,8 +152,10 @@ def evidence(m, prefix, fallback=None):
             input_label = 'HLTV ranking input' if o.get('source') == 'HLTV world ranking' else 'Valve rating input'
             roster_note = (f', roster {e(", ".join(r.get("roster") or []))}' if r.get('roster') else '')
             rank_note = (f', rank {e(r.get("rank"))}' if r.get('rank') is not None else '')
+            unranked_note = (' <strong>unranked</strong> — HLTV publishes no row, so the model uses its floor of 0.0 points'
+                             if r.get('unranked') else '')
             body += (f'<p class="tiny">{input_label}: <strong>{e(r["name"])}</strong> {e(r["points"])} points'
-                     f'{rank_note}, snapshot {e(r.get("snapshot_date") or "unverified")}{roster_note}. '
+                     f'{rank_note}, snapshot {e(r.get("snapshot_date") or "unverified")}{roster_note}.{unranked_note} '
                      + (external(r.get('source_url') or o.get('source_url'), 'Source record') if (r.get('source_url') or o.get('source_url')) else '<span class="unverified">source link unverified</span>') + '</p>')
         aliases = fallback.get('aliases_used') or []
         if aliases:
@@ -550,16 +552,23 @@ def unresolved_register(data, prefix):
     complete = data.get('complete_picks') or {}
     if complete.get('matches') is not None:
         rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
+        # A resolved-but-even estimate has a probability pair but no side. It is a
+        # pick-less fixture too, so it belongs in this register: the brief asks for
+        # every match to show either a pick or an explicit limitation.
+        no_side = [m for m in (complete.get('matches') or [])
+                   if m.get('origination') is not None and m.get('pick_index') is None]
     else:
         rows = [m for m in data.get('matches') or []
                 if m.get('availability') in {'open', 'locked', 'unknown_lock'} and not m.get('analysis')]
+        no_side = []
+    total_pickless = len(rows) + len(no_side)
     active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
     out = ['<section class="content-section unresolved-register" id="unresolved-register" '
            'aria-labelledby="unresolved-register-title">'
            '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
            '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
            f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
-    if not rows:
+    if not total_pickless:
         closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
         extra = ''
         if closed:
@@ -580,12 +589,20 @@ def unresolved_register(data, prefix):
                    'This is a dated observation: the inventory refreshes every four hours and new '
                    'fixtures can appear before a market opens.</div>' + extra)
     else:
-        out.append(f'<p class="section-intro"><strong>{len(rows)}</strong> of {active} active Hotspawn CS2 '
-                   'fixtures have <strong>no verified pick</strong> in this snapshot. Each card shows the '
-                   'blocker and the sources actually tried. A blank stays blank; an unavailable source is never '
-                   'treated as proof that no market exists.</p>')
+        parts = []
+        if rows:
+            noun = 'fixture' if len(rows) == 1 else 'fixtures'
+            parts.append(f'<strong>{len(rows)}</strong> {noun} with <strong>no verified pick</strong>')
+        if no_side:
+            noun = 'estimate' if len(no_side) == 1 else 'estimates'
+            parts.append(f'<strong>{len(no_side)}</strong> {noun} with probabilities but <strong>no side</strong>')
+        out.append('<p class="section-intro">' + ' and '.join(parts) + f', out of {active} active Hotspawn CS2 '
+                   'fixtures in this snapshot. Each card names the blocker and links the sources actually '
+                   'tried. A blank stays blank; an unavailable source is never treated as proof that no '
+                   'market exists, and an even estimate is never given an invented side.</p>')
         out.append('<ul class="unresolved-summary-list">')
-        for m in rows:
+        for m in rows + no_side:
+            even = m.get('origination') is not None
             names = [t.get('name') or 'Unverified team' for t in m.get('teams') or []]
             trail = [r for r in m.get('research') or [] if r.get('stage') != 'Origination result']
             tried = []
@@ -610,12 +627,17 @@ def unresolved_register(data, prefix):
                 if len(used) >= 4:
                     break
             tried_html = ''.join(tried) or '<span class="tried-chip unresolved">No source returned a usable pair</span>'
-            out.append(f'<li class="unresolved-summary-card" id="unresolved-summary-{e(m.get("id"))}">'
+            badge_text = 'Even estimate · no side' if even else 'No verified pick'
+            if even:
+                reason = 'Equal estimate: no side is supportable at these prices'
+            else:
+                reason = _brief_blank_reason(m)
+            out.append(f'<li class="unresolved-summary-card{" is-even" if even else ""}" id="unresolved-summary-{e(m.get("id"))}">'
                        f'<div class="unresolved-summary-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
-                       f'<span class="badge amber">No verified pick</span></div>'
+                       f'<span class="badge {"neutral" if even else "amber"}">{e(badge_text)}</span></div>'
                        f'<h3>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</h3>'
                        f'<p class="unresolved-when">{local_time(m.get("starts_at"))} · '
-                       f'<strong>{e(_brief_blank_reason(m))}</strong></p>'
+                       f'<strong>{e(reason)}</strong></p>'
                        f'<div class="unresolved-tried">{tried_html}</div>'
                        f'<p class="unresolved-links">{source_links}'
                        f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">Full trail {icon("arrow")}</a></p>'

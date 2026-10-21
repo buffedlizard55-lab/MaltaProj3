@@ -1,24 +1,23 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T20:07:23Z",
-  "last_attempted_at": "2026-10-21T20:07:23Z",
-  "analysis_as_of": "2026-10-21T20:04:36Z",
-  "inventory_observed_at": "2026-10-21T20:04:36Z",
-  "coverage_complete": false,
-  "inventory_crosscheck": "complete",
-  "run_status": "degraded",
+  "generated_at": "2026-10-15T08:36:13Z",
+  "last_attempted_at": "2026-10-15T08:36:03Z",
+  "analysis_as_of": "2026-10-15T08:36:03Z",
+  "inventory_observed_at": "2026-10-15T08:36:04Z",
+  "coverage_complete": true,
+  "run_status": "partial-picks",
   "refresh_interval_hours": 4,
   "stale_after_hours": 8,
   "counts": {
-    "inventory": 76,
-    "upcoming": 13,
+    "inventory": 80,
+    "upcoming": 17,
     "archived": 63,
     "unknown_schedule": 0,
-    "market": 2,
-    "bookmaker": 0,
+    "market": 7,
+    "bookmaker": 1,
     "model": 5,
-    "unresolved": 6,
-    "picks": 7,
+    "unresolved": 4,
+    "picks": 13,
     "no_edge": 0
   },
   "matches": [
@@ -45,7 +44,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -81,7 +80,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -117,7 +116,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -153,7 +152,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -189,7 +188,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -225,7 +224,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -261,7 +260,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -297,7 +296,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -333,7 +332,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -369,7 +368,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -405,7 +404,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -441,7 +440,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -477,7 +476,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -513,7 +512,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -549,7 +548,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -585,7 +584,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -621,7 +620,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -657,7 +656,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -693,7 +692,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -729,7 +728,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -765,7 +764,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -801,7 +800,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -837,7 +836,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -873,7 +872,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -909,7 +908,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -945,7 +944,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -981,7 +980,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1017,7 +1016,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1053,7 +1052,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1089,7 +1088,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1125,7 +1124,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1161,7 +1160,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1197,7 +1196,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1233,7 +1232,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1269,7 +1268,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1305,7 +1304,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1341,7 +1340,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1377,7 +1376,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1413,7 +1412,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1449,7 +1448,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1485,7 +1484,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1521,7 +1520,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1557,7 +1556,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1593,7 +1592,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1629,7 +1628,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1665,7 +1664,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1701,7 +1700,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1737,7 +1736,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1773,7 +1772,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1809,7 +1808,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1845,7 +1844,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1881,7 +1880,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1917,7 +1916,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1953,7 +1952,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1989,7 +1988,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2025,7 +2024,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2061,7 +2060,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2097,7 +2096,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2133,7 +2132,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2169,7 +2168,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2205,7 +2204,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2219,21 +2218,21 @@
       ]
     },
     {
-      "id": "1081865",
+      "id": "1080279",
       "teams": [
         {
-          "id": "244112",
-          "name": "Morningstar"
+          "id": "250181",
+          "name": "WROTBERRY"
         },
         {
-          "id": "11144",
-          "name": "Alter Ego"
+          "id": "257163",
+          "name": "EAC"
         }
       ],
-      "competition": "VOID Autumn Cup 2026",
-      "competition_id": "36412",
-      "starts_at": "2026-10-21T03:00:00Z",
-      "locks_at": "2026-10-21T02:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T08:00:00Z",
+      "locks_at": "2026-10-15T07:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
@@ -2241,7 +2240,43 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/wrotberry-vs-eac-elisa-breakout-series-2-1080279",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": null,
+      "pick_index": null,
+      "research": [],
+      "limitations": [
+        "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080201",
+      "teams": [
+        {
+          "id": "32416",
+          "name": "Aurora"
+        },
+        {
+          "id": "367",
+          "name": "Ninjas in Pyjamas"
+        }
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "competition_id": "35859",
+      "starts_at": "2026-10-15T08:30:00Z",
+      "locks_at": "2026-10-15T08:24:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "s",
+      "lock_offset_sec": 360,
+      "availability": "past",
+      "observed_at": "2026-10-15T08:36:04Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2255,303 +2290,69 @@
       ]
     },
     {
-      "id": "1081591",
+      "id": "1079440",
       "teams": [
         {
-          "id": "41017",
-          "name": "Eternal Fire"
+          "id": "6941",
+          "name": "MIBR"
         },
         {
           "id": "177219",
           "name": "BC.Game"
         }
       ],
-      "competition": "DraculaN Season 7",
-      "competition_id": "35437",
-      "starts_at": "2026-10-21T17:00:00Z",
-      "locks_at": "2026-10-21T16:54:00Z",
+      "competition": "Stake Pulse Beat III",
+      "competition_id": "36197",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
       "tier": "b",
       "lock_offset_sec": 360,
-      "availability": "past",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": null,
-      "pick_index": null,
-      "research": [],
-      "limitations": [
-        "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1082837",
-      "teams": [
-        {
-          "id": "263029",
-          "name": "Zetta"
-        },
-        {
-          "id": "265396",
-          "name": "LOS NINOS"
-        }
-      ],
-      "competition": "CCT South America 2026 Series #7",
-      "competition_id": "35821",
-      "starts_at": "2026-10-21T22:00:00Z",
-      "locks_at": "2026-10-21T21:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "c",
-      "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082837",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": null,
-      "pick_index": null,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/esports/cs2",
-          "status": "unresolved",
-          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
-        },
-        {
-          "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Original esportsbook lines",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
-          "status": "unresolved",
-          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
-        },
-        {
-          "stage": "GG.BET esportsbook",
-          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-        },
-        {
-          "stage": "Pinnacle esportsbook",
-          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Rivalry esportsbook",
-          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Stake esportsbook",
-          "source_url": "https://stake.com/sports/esports/counter-strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
-          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-        },
-        {
-          "stage": "Valve research model",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
-          "status": "unresolved",
-          "detail": "LOS NINOS: no exact-name Valve rating found"
-        }
-      ],
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "LOS NINOS: no exact-name Valve rating found"
-      ]
-    },
-    {
-      "id": "1081870",
-      "teams": [
-        {
-          "id": "262966",
-          "name": "Vitalem Aerem"
-        },
-        {
-          "id": "59131",
-          "name": "Rare Atom"
-        }
-      ],
-      "competition": "VOID Autumn Cup 2026",
-      "competition_id": "36412",
-      "starts_at": "2026-10-22T05:00:00Z",
-      "locks_at": "2026-10-22T04:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "c",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/vitalem-aerem-vs-rare-atom-void-autumn-cup-2026-1081870",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081870",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/mibr-vs-bc-game-stake-pulse-beat-iii-1079440",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079440",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": {
-        "method": "model",
-        "label": "Valve-rating research estimate",
+        "method": "bookmaker",
+        "label": "No-vig bookmaker estimate",
         "probabilities": [
-          0.26192226,
-          0.73807774
+          0.54959786,
+          0.45040214
         ],
         "fair_decimal": [
-          3.818,
-          1.355
+          1.82,
+          2.22
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
-        "source": "Valve official standings",
-        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "inputs": [
+        "observed_at": "2026-10-15T08:36:11Z",
+        "source": "Thunderpick",
+        "source_url": "https://thunderpick.io/api/matches",
+        "quotes": [
           {
-            "standing": 204,
-            "points": 721,
-            "name": "Vitalem Aerem",
-            "roster": [
-              "B1NGO",
-              "BZA",
-              "lan",
-              "rain",
-              "Roninbaby"
+            "provider": "Thunderpick",
+            "family": "thunderpick",
+            "odds": [
+              1.68,
+              2.05
             ],
-            "snapshot_date": "2026-10-05",
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0204--vitalem_aerem--b1ngo-bza-lan-rain-roninbaby.md"
-          },
-          {
-            "standing": 133,
-            "points": 906,
-            "name": "Rare Atom",
-            "roster": [
-              "3gl",
-              "ChildKing",
-              "kaze",
-              "L1haNg",
-              "Summer"
+            "probabilities": [
+              0.54959786,
+              0.45040214
             ],
-            "snapshot_date": "2026-10-05",
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0133--rare_atom--3gl-childking-kaze-l1hang-summer.md"
+            "observed_at": "2026-10-15T08:36:11Z",
+            "source_url": "https://thunderpick.io/api/matches",
+            "event_id": "2767837"
           }
         ],
-        "rd_assumption": 75,
-        "g": 0.9728209910486895,
-        "snapshot_date": "2026-10-05",
-        "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
         "limitations": [
-          "Research model, not observed betting odds or a verified true win probability.",
-          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+          "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
         ]
       },
-      "pick_index": 1,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
-          "status": "unresolved",
-          "detail": "Crossed or wider-than-12-cent order book"
-        },
-        {
-          "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399585/vitalem-aerem-vs-rare-atom-macemedia-void-autumn-cup-2026",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Original esportsbook lines",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
-          "status": "unresolved",
-          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
-        },
-        {
-          "stage": "GG.BET esportsbook",
-          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-        },
-        {
-          "stage": "Pinnacle esportsbook",
-          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Rivalry esportsbook",
-          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Stake esportsbook",
-          "source_url": "https://stake.com/sports/esports/counter-strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
-          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-        },
-        {
-          "stage": "Valve research model",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "status": "resolved",
-          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
-        }
-      ],
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1081597",
-      "teams": [
-        {
-          "id": "244042",
-          "name": "benched gods"
-        },
-        {
-          "id": "263800",
-          "name": "TitanFlow"
-        }
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "competition_id": "35827",
-      "starts_at": "2026-10-22T11:00:00Z",
-      "locks_at": "2026-10-22T10:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "c",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081597",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": null,
-      "pick_index": null,
+      "pick_index": 0,
       "research": [
         {
           "stage": "Primary: Polymarket",
@@ -2561,72 +2362,121 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches",
+          "source_url": "https://www.hltv.org/matches/2399136/mibr-vs-bcgame-stake-pulse-beat-iii",
           "status": "checked",
-          "detail": "No unique structured HLTV identity confirmed."
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
         {
           "stage": "Original esportsbook lines",
           "source_url": "https://thunderpick.io/esports/counter-strike",
-          "status": "unresolved",
-          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
-        },
-        {
-          "stage": "GG.BET esportsbook",
-          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-        },
-        {
-          "stage": "Pinnacle esportsbook",
-          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Rivalry esportsbook",
-          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Stake esportsbook",
-          "source_url": "https://stake.com/sports/esports/counter-strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
-          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-        },
-        {
-          "stage": "Valve research model",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
-          "status": "unresolved",
-          "detail": "benched gods: multiple Valve rosters share this name; identity is unresolved"
+          "status": "resolved",
+          "detail": "Verified paired prematch series prices; proportional margin removal."
         }
       ],
       "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "benched gods: multiple Valve rosters share this name; identity is unresolved"
+        "Hotspawn best-of format is unverified; left blank."
       ]
     },
     {
-      "id": "1081600",
+      "id": "1079442",
       "teams": [
         {
-          "id": "251634",
-          "name": "Donstu"
+          "id": "347",
+          "name": "Heroic"
         },
         {
-          "id": "253221",
-          "name": "Banda chuya"
+          "id": "8968",
+          "name": "Envy"
         }
       ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "competition_id": "35827",
-      "starts_at": "2026-10-22T13:45:00Z",
-      "locks_at": "2026-10-22T13:39:00Z",
+      "competition": "Stake Pulse Beat III",
+      "competition_id": "36197",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "b",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/heroic-vs-envy-stake-pulse-beat-iii-1079442",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079442",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.635,
+          0.365
+        ],
+        "fair_decimal": [
+          1.575,
+          2.74
+        ],
+        "observed_at": "2026-10-15T08:36:05Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+        "source_api": "https://gamma-api.polymarket.com/events/1140039",
+        "market_id": "5347756",
+        "event_id": "1140039",
+        "source_outcomes": [
+          "Heroic",
+          "Envy"
+        ],
+        "quotes": [
+          {
+            "bid": 0.63,
+            "ask": 0.64,
+            "spread": 0.01,
+            "midpoint": 0.635,
+            "timestamp": "2026-10-15T08:35:59Z"
+          },
+          {
+            "bid": 0.36,
+            "ask": 0.37,
+            "spread": 0.01,
+            "midpoint": 0.365,
+            "timestamp": "2026-10-15T08:35:59Z"
+          }
+        ],
+        "volume": 153319.55531599995,
+        "liquidity": 54306.4652,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 0,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080280",
+      "teams": [
+        {
+          "id": "6365",
+          "name": "ENCE"
+        },
+        {
+          "id": "254087",
+          "name": "BOJONG"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "locks_at": "2026-10-15T09:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
@@ -2634,55 +2484,139 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/donstu-vs-banda-chuya-cct-europe-2026-challengers-8-1081600",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081600",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/ence-vs-bojong-elisa-breakout-series-2-1080280",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080280",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.745,
+          0.255
+        ],
+        "fair_decimal": [
+          1.342,
+          3.922
+        ],
+        "observed_at": "2026-10-15T08:36:06Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+        "source_api": "https://gamma-api.polymarket.com/events/1173312",
+        "market_id": "5583518",
+        "event_id": "1173312",
+        "source_outcomes": [
+          "ENCE",
+          "BOJONG"
+        ],
+        "quotes": [
+          {
+            "bid": 0.74,
+            "ask": 0.75,
+            "spread": 0.01,
+            "midpoint": 0.745,
+            "timestamp": "2026-10-15T08:36:06Z"
+          },
+          {
+            "bid": 0.25,
+            "ask": 0.26,
+            "spread": 0.01,
+            "midpoint": 0.255,
+            "timestamp": "2026-10-15T08:36:06Z"
+          }
+        ],
+        "volume": 203.46685900000006,
+        "liquidity": 11486.4585,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 0,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080202",
+      "teams": [
+        {
+          "id": "11496",
+          "name": "9z"
+        },
+        {
+          "id": "12257",
+          "name": "Falcons"
+        }
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "competition_id": "35859",
+      "starts_at": "2026-10-15T11:00:00Z",
+      "locks_at": "2026-10-15T10:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "s",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": {
         "method": "model",
         "label": "Valve-rating research estimate",
         "probabilities": [
-          0.4045841,
-          0.5954159
+          0.15709516,
+          0.84290484
         ],
         "fair_decimal": [
-          2.472,
-          1.679
+          6.366,
+          1.186
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-15T08:36:13Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
           {
-            "standing": 197,
-            "points": 732,
-            "name": "DONSTU",
+            "standing": 17,
+            "points": 1543,
+            "name": "9z",
             "roster": [
-              "Due1yant",
-              "gleb86rus",
-              "LAKSHERi",
-              "NeoLife",
-              "phorate"
+              "dgt",
+              "HUASOPEEK",
+              "luchov",
+              "max",
+              "meyern"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0197--donstu--due1yant-gleb86rus-laksheri-neolife-phorate.md"
+            "detail_path": "details/2026_10_05/0017--9z--dgt-huasopeek-luchov-max-meyern.md"
           },
           {
-            "standing": 165,
-            "points": 801,
-            "name": "Banda Chuya",
+            "standing": 6,
+            "points": 1843,
+            "name": "Falcons",
             "roster": [
-              "AdrieN",
-              "ezox",
-              "maaryy",
-              "Showk",
-              "tomiko"
+              "karrigan",
+              "kyousuke",
+              "m0NESY",
+              "NiKo",
+              "TeSeS"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0165--banda_chuya--adrien-ezox-maaryy-showk-tomiko.md"
+            "detail_path": "details/2026_10_05/0006--falcons--karrigan-kyousuke-m0nesy-niko-teses.md"
           }
         ],
         "rd_assumption": 75,
@@ -2705,7 +2639,7 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399697/donstu-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+          "source_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
           "status": "checked",
           "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
@@ -2719,28 +2653,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2755,21 +2689,21 @@
       ]
     },
     {
-      "id": "1082688",
+      "id": "1080281",
       "teams": [
         {
-          "id": "5406",
-          "name": "Imperial"
+          "id": "250181",
+          "name": "WROTBERRY"
         },
         {
-          "id": "9584",
-          "name": "Turma do Pagode"
+          "id": "6365",
+          "name": "ENCE"
         }
       ],
-      "competition": "Circuit X Curitiba #4",
-      "competition_id": "36500",
-      "starts_at": "2026-10-22T14:00:00Z",
-      "locks_at": "2026-10-22T13:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T12:00:00Z",
+      "locks_at": "2026-10-15T11:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
@@ -2777,177 +2711,9 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/imperial-vs-turma-do-pagode-circuit-x-curitiba-4-1082688",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082688",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": {
-        "method": "market",
-        "label": "Market-implied estimate",
-        "probabilities": [
-          0.77,
-          0.23
-        ],
-        "fair_decimal": [
-          1.299,
-          4.348
-        ],
-        "observed_at": "2026-10-21T20:04:42Z",
-        "source": "Polymarket",
-        "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
-        "source_api": "https://gamma-api.polymarket.com/events/1224236",
-        "market_id": "5972064",
-        "event_id": "1224236",
-        "source_outcomes": [
-          "Imperial",
-          "Turma do Pagode"
-        ],
-        "quotes": [
-          {
-            "bid": 0.76,
-            "ask": 0.78,
-            "spread": 0.02,
-            "midpoint": 0.77,
-            "timestamp": "2026-10-21T20:04:12Z"
-          },
-          {
-            "bid": 0.22,
-            "ask": 0.24,
-            "spread": 0.02,
-            "midpoint": 0.22999999999999998,
-            "timestamp": "2026-10-21T20:04:12Z"
-          }
-        ],
-        "volume": 493.36281599999995,
-        "liquidity": 7959.9976,
-        "limitations": [
-          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-        ]
-      },
-      "pick_index": 0,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
-          "status": "resolved",
-          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
-        }
-      ],
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1082689",
-      "teams": [
-        {
-          "id": "76903",
-          "name": "BESTIA"
-        },
-        {
-          "id": "189960",
-          "name": "ShindeN"
-        }
-      ],
-      "competition": "Circuit X Curitiba #4",
-      "competition_id": "36500",
-      "starts_at": "2026-10-22T14:00:00Z",
-      "locks_at": "2026-10-22T13:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "c",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/bestia-vs-shinden-circuit-x-curitiba-4-1082689",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082689",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": {
-        "method": "market",
-        "label": "Market-implied estimate",
-        "probabilities": [
-          0.525,
-          0.475
-        ],
-        "fair_decimal": [
-          1.905,
-          2.105
-        ],
-        "observed_at": "2026-10-21T20:04:43Z",
-        "source": "Polymarket",
-        "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
-        "source_api": "https://gamma-api.polymarket.com/events/1224237",
-        "market_id": "5972071",
-        "event_id": "1224237",
-        "source_outcomes": [
-          "BESTIA",
-          "ShindeN"
-        ],
-        "quotes": [
-          {
-            "bid": 0.52,
-            "ask": 0.53,
-            "spread": 0.01,
-            "midpoint": 0.525,
-            "timestamp": "2026-10-21T19:59:48Z"
-          },
-          {
-            "bid": 0.47,
-            "ask": 0.48,
-            "spread": 0.01,
-            "midpoint": 0.475,
-            "timestamp": "2026-10-21T19:59:48Z"
-          }
-        ],
-        "volume": 4441.427751,
-        "liquidity": 11086.5454,
-        "limitations": [
-          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-        ]
-      },
-      "pick_index": 0,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
-          "status": "resolved",
-          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
-        }
-      ],
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1082882",
-      "teams": [
-        {
-          "id": "85382",
-          "name": "UNiTY"
-        },
-        {
-          "id": "180765",
-          "name": "Apogee Betclic"
-        }
-      ],
-      "competition": "Stake Ranked Episode 6: Closed Qualifier",
-      "competition_id": "36309",
-      "starts_at": "2026-10-22T14:00:00Z",
-      "locks_at": "2026-10-22T13:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "b",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082882",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/wrotberry-vs-ence-elisa-breakout-series-2-1080281",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080281",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": null,
@@ -2967,9 +2733,9 @@
         },
         {
           "stage": "HLTV identity review",
-          "source_url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source_url": "https://www.hltv.org/matches/2399420/wbt-vs-ence-elisa-breakout-series-2",
           "status": "unresolved",
-          "detail": "HLTV lists UNiTY vs Betclic at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+          "detail": "HLTV lists WBT vs ENCE at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
         },
         {
           "stage": "Original esportsbook lines",
@@ -2981,72 +2747,127 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
           "stage": "Valve research model",
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
           "status": "unresolved",
-          "detail": "Apogee Betclic: no exact-name Valve rating found"
+          "detail": "WROTBERRY: no exact-name Valve rating found"
         }
       ],
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
-        "Apogee Betclic: no exact-name Valve rating found"
+        "WROTBERRY: no exact-name Valve rating found"
       ]
     },
     {
-      "id": "1082858",
+      "id": "1080203",
       "teams": [
         {
-          "id": "546",
-          "name": "Ground Zero"
+          "id": "131734",
+          "name": "PARIVISION"
         },
         {
-          "id": "265361",
-          "name": "Off Chops"
+          "id": "115660",
+          "name": "BetBoom"
         }
       ],
-      "competition": "DFRAG Invitational 2026",
-      "competition_id": "35889",
-      "starts_at": "2026-10-26T03:00:00Z",
-      "locks_at": "2026-10-26T02:54:00Z",
+      "competition": "Thunderpick World Championship 2026",
+      "competition_id": "35859",
+      "starts_at": "2026-10-15T13:30:00Z",
+      "locks_at": "2026-10-15T13:24:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "s",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082858",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082858",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": null,
-      "pick_index": null,
+      "analysis": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "probabilities": [
+          0.26192226,
+          0.73807774
+        ],
+        "fair_decimal": [
+          3.818,
+          1.355
+        ],
+        "observed_at": "2026-10-15T08:36:13Z",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "inputs": [
+          {
+            "standing": 36,
+            "points": 1411,
+            "name": "PARIVISION",
+            "roster": [
+              "FL1T",
+              "Jame",
+              "slaxejezzz",
+              "xiELO",
+              "zweih"
+            ],
+            "snapshot_date": "2026-10-05",
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+            "detail_path": "details/2026_10_05/0036--parivision--fl1t-jame-slaxejezzz-xielo-zweih.md"
+          },
+          {
+            "standing": 11,
+            "points": 1596,
+            "name": "BETBOOM",
+            "roster": [
+              "Boombl4",
+              "d1Ledez",
+              "Magnojez",
+              "S1ren",
+              "zorte"
+            ],
+            "snapshot_date": "2026-10-05",
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+            "detail_path": "details/2026_10_05/0011--betboom--boombl4-d1ledez-magnojez-s1ren-zorte.md"
+          }
+        ],
+        "rd_assumption": 75,
+        "g": 0.9728209910486895,
+        "snapshot_date": "2026-10-05",
+        "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "pick_index": 1,
       "research": [
         {
           "stage": "Primary: Polymarket",
@@ -3056,7 +2877,7 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "source_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
           "status": "checked",
           "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
@@ -3070,114 +2891,113 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
           "stage": "Valve research model",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
-          "status": "unresolved",
-          "detail": "Off Chops: no exact-name Valve rating found"
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "status": "resolved",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
         }
       ],
       "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Off Chops: no exact-name Valve rating found"
+        "Hotspawn best-of format is unverified; left blank."
       ]
     },
     {
-      "id": "1082859",
+      "id": "1080282",
       "teams": [
         {
-          "id": "249811",
-          "name": "NEXVOID"
+          "id": "257163",
+          "name": "EAC"
         },
         {
-          "id": "11144",
-          "name": "Alter Ego"
+          "id": "254087",
+          "name": "BOJONG"
         }
       ],
-      "competition": "DFRAG Invitational 2026",
-      "competition_id": "35889",
-      "starts_at": "2026-10-26T03:00:00Z",
-      "locks_at": "2026-10-26T02:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T14:00:00Z",
+      "locks_at": "2026-10-15T13:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082859",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082859",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080282",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": {
         "method": "model",
         "label": "Valve-rating research estimate",
         "probabilities": [
-          0.72821824,
-          0.27178176
+          0.96095469,
+          0.03904531
         ],
         "fair_decimal": [
-          1.373,
-          3.679
+          1.041,
+          25.611
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-15T08:36:13Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
           {
-            "standing": 113,
-            "points": 995,
-            "name": "NEXVOID",
+            "standing": 103,
+            "points": 1035,
+            "name": "EAC",
             "roster": [
-              "AccuracyTG",
-              "erkaSt",
-              "MiQ",
-              "xerolte",
-              "Zesta"
+              "anber",
+              "bekker",
+              "Fessor",
+              "n1Xen",
+              "sSen"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0113--nexvoid--accuracytg-erkast-miq-xerolte-zesta.md"
+            "detail_path": "details/2026_10_05/0103--eac--anber-bekker-fessor-n1xen-ssen.md"
           },
           {
-            "standing": 155,
-            "points": 819,
-            "name": "Alter Ego",
+            "standing": 363,
+            "points": 463,
+            "name": "BOJONG",
             "roster": [
-              "adeX",
-              "BnTeT",
-              "Gratisfaction",
-              "laxiee",
-              "PokemoN"
+              "ArtwOo",
+              "BlNGB0NG",
+              "jkzin",
+              "stunt",
+              "Villeboe"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0155--alter_ego--adex-bntet-gratisfaction-laxiee-pokemon.md"
+            "detail_path": "details/2026_10_05/0363--bojong--artwoo-blngb0ng-jkzin-stunt-villeboe.md"
           }
         ],
         "rd_assumption": 75,
@@ -3200,9 +3020,9 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+          "source_url": "https://www.hltv.org/matches/2399421/eac-vs-bojong-elisa-breakout-series-2",
           "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO1; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
         {
           "stage": "Original esportsbook lines",
@@ -3214,28 +3034,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -3250,31 +3070,115 @@
       ]
     },
     {
-      "id": "1082860",
+      "id": "1080204",
       "teams": [
         {
-          "id": "161153",
-          "name": "FlyQuest"
+          "id": "130389",
+          "name": "Legacy"
         },
         {
-          "id": "263291",
-          "name": "Staqued"
+          "id": "5817",
+          "name": "FURIA"
         }
       ],
-      "competition": "DFRAG Invitational 2026",
-      "competition_id": "35889",
-      "starts_at": "2026-10-27T03:00:00Z",
-      "locks_at": "2026-10-27T02:54:00Z",
+      "competition": "Thunderpick World Championship 2026",
+      "competition_id": "35859",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "locks_at": "2026-10-15T15:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "s",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080204",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080204",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.435,
+          0.565
+        ],
+        "fair_decimal": [
+          2.299,
+          1.77
+        ],
+        "observed_at": "2026-10-15T08:36:06Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+        "source_api": "https://gamma-api.polymarket.com/events/1190748",
+        "market_id": "5709734",
+        "event_id": "1190748",
+        "source_outcomes": [
+          "Legacy",
+          "FURIA"
+        ],
+        "quotes": [
+          {
+            "bid": 0.43,
+            "ask": 0.44,
+            "spread": 0.01,
+            "midpoint": 0.435,
+            "timestamp": "2026-10-15T08:35:38Z"
+          },
+          {
+            "bid": 0.56,
+            "ask": 0.57,
+            "spread": 0.01,
+            "midpoint": 0.565,
+            "timestamp": "2026-10-15T08:35:38Z"
+          }
+        ],
+        "volume": 61369.66168700003,
+        "liquidity": 227764.2828,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 1,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080283",
+      "teams": [
+        {
+          "id": "250181",
+          "name": "WROTBERRY"
+        },
+        {
+          "id": "254087",
+          "name": "BOJONG"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "locks_at": "2026-10-15T15:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/wrotberry-vs-bojong-elisa-breakout-series-2-1080283",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080283",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": null,
@@ -3288,9 +3192,15 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "source_url": "https://www.hltv.org/matches",
           "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "source_url": "https://www.hltv.org/matches/2399422/wbt-vs-bojong-elisa-breakout-series-2",
+          "status": "unresolved",
+          "detail": "HLTV lists WBT vs BOJONG at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
         },
         {
           "stage": "Original esportsbook lines",
@@ -3302,114 +3212,114 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
           "stage": "Valve research model",
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
           "status": "unresolved",
-          "detail": "Staqued: no exact-name Valve rating found"
+          "detail": "WROTBERRY: no exact-name Valve rating found"
         }
       ],
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
-        "Staqued: no exact-name Valve rating found"
+        "WROTBERRY: no exact-name Valve rating found"
       ]
     },
     {
-      "id": "1082861",
+      "id": "1080284",
       "teams": [
         {
-          "id": "10725",
-          "name": "Rooster"
+          "id": "257163",
+          "name": "EAC"
         },
         {
-          "id": "250382",
-          "name": "Abyssal"
+          "id": "6365",
+          "name": "ENCE"
         }
       ],
-      "competition": "DFRAG Invitational 2026",
-      "competition_id": "35889",
-      "starts_at": "2026-10-27T03:00:00Z",
-      "locks_at": "2026-10-27T02:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-15T18:00:00Z",
+      "locks_at": "2026-10-15T17:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082861",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082861",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080284",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": {
         "method": "model",
         "label": "Valve-rating research estimate",
         "probabilities": [
-          0.47761494,
-          0.52238506
+          0.51399636,
+          0.48600364
         ],
         "fair_decimal": [
-          2.094,
-          1.914
+          1.946,
+          2.058
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-15T08:36:13Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
           {
-            "standing": 205,
-            "points": 718,
-            "name": "Rooster",
+            "standing": 103,
+            "points": 1035,
+            "name": "EAC",
             "roster": [
-              "ADK",
-              "chelleos",
-              "damyo",
-              "rekonz",
-              "SkulL"
+              "anber",
+              "bekker",
+              "Fessor",
+              "n1Xen",
+              "sSen"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0205--rooster--adk-chelleos-damyo-rekonz-skull.md"
+            "detail_path": "details/2026_10_05/0103--eac--anber-bekker-fessor-n1xen-ssen.md"
           },
           {
-            "standing": 195,
-            "points": 734,
-            "name": "Abyssal",
+            "standing": 105,
+            "points": 1025,
+            "name": "ENCE",
             "roster": [
-              "blood",
-              "dangeR",
-              "foggers",
-              "gump",
-              "vinhy"
+              "HENU",
+              "joeski",
+              "millert",
+              "Schwarz",
+              "teme"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0195--abyssal--blood-danger-foggers-gump-vinhy.md"
+            "detail_path": "details/2026_10_05/0105--ence--henu-joeski-millert-schwarz-teme.md"
           }
         ],
         "rd_assumption": 75,
@@ -3422,7 +3332,7 @@
           "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
         ]
       },
-      "pick_index": 1,
+      "pick_index": 0,
       "research": [
         {
           "stage": "Primary: Polymarket",
@@ -3432,9 +3342,9 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "source_url": "https://www.hltv.org/matches/2399423/eac-vs-ence-elisa-breakout-series-2",
           "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO1; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
         {
           "stage": "Original esportsbook lines",
@@ -3446,28 +3356,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -3482,31 +3392,115 @@
       ]
     },
     {
-      "id": "1082792",
+      "id": "1080285",
       "teams": [
         {
-          "id": "60239",
-          "name": "HOTU"
+          "id": "236352",
+          "name": "Voca"
         },
         {
-          "id": "134722",
-          "name": "The Huns"
+          "id": "206695",
+          "name": "Phantom"
         }
       ],
-      "competition": "Moscow Cyber Games 2026",
-      "competition_id": "35873",
-      "starts_at": "2026-10-31T09:00:00Z",
-      "locks_at": "2026-10-31T08:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T08:00:00Z",
+      "locks_at": "2026-10-16T07:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082792",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080285",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.445,
+          0.555
+        ],
+        "fair_decimal": [
+          2.247,
+          1.802
+        ],
+        "observed_at": "2026-10-15T08:36:07Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+        "source_api": "https://gamma-api.polymarket.com/events/1173317",
+        "market_id": "5583525",
+        "event_id": "1173317",
+        "source_outcomes": [
+          "Voca",
+          "Phantom"
+        ],
+        "quotes": [
+          {
+            "bid": 0.44,
+            "ask": 0.45,
+            "spread": 0.01,
+            "midpoint": 0.445,
+            "timestamp": "2026-10-15T08:34:20Z"
+          },
+          {
+            "bid": 0.55,
+            "ask": 0.56,
+            "spread": 0.01,
+            "midpoint": 0.555,
+            "timestamp": "2026-10-15T08:34:20Z"
+          }
+        ],
+        "volume": 90.17777899999999,
+        "liquidity": 5029.3376,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 1,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080286",
+      "teams": [
+        {
+          "id": "533",
+          "name": "HAVU"
+        },
+        {
+          "id": "128939",
+          "name": "RoundsGG"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T10:00:00Z",
+      "locks_at": "2026-10-16T09:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080286",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": null,
@@ -3514,15 +3508,21 @@
       "research": [
         {
           "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/esports/cs2",
+          "source_url": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
           "status": "unresolved",
-          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+          "detail": "Crossed or wider-than-12-cent order book"
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "source_url": "https://www.hltv.org/matches",
           "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "source_url": "https://www.hltv.org/matches/2399425/havu-vs-rounds-elisa-breakout-series-2",
+          "status": "unresolved",
+          "detail": "HLTV lists HAVU vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
         },
         {
           "stage": "Original esportsbook lines",
@@ -3534,114 +3534,282 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
           "stage": "Valve research model",
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
           "status": "unresolved",
-          "detail": "The Huns: multiple Valve rosters share this name; identity is unresolved"
+          "detail": "RoundsGG: no exact-name Valve rating found"
         }
       ],
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
-        "The Huns: multiple Valve rosters share this name; identity is unresolved"
+        "RoundsGG: no exact-name Valve rating found"
       ]
     },
     {
-      "id": "1082793",
+      "id": "1080287",
       "teams": [
         {
-          "id": "252197",
-          "name": "5star"
+          "id": "236352",
+          "name": "Voca"
         },
         {
-          "id": "16458",
-          "name": "1WIN"
+          "id": "533",
+          "name": "HAVU"
         }
       ],
-      "competition": "Moscow Cyber Games 2026",
-      "competition_id": "35873",
-      "starts_at": "2026-10-31T13:00:00Z",
-      "locks_at": "2026-10-31T12:54:00Z",
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T12:00:00Z",
+      "locks_at": "2026-10-16T11:54:00Z",
       "source_status": "scheduled",
       "source_end_at": null,
       "best_of": null,
       "series_format": null,
-      "tier": "b",
+      "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-21T20:04:36Z",
-      "source_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082793",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/voca-vs-havu-elisa-breakout-series-2-1080287",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080287",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.655,
+          0.345
+        ],
+        "fair_decimal": [
+          1.527,
+          2.899
+        ],
+        "observed_at": "2026-10-15T08:36:08Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+        "source_api": "https://gamma-api.polymarket.com/events/1173319",
+        "market_id": "5583528",
+        "event_id": "1173319",
+        "source_outcomes": [
+          "Voca",
+          "HAVU"
+        ],
+        "quotes": [
+          {
+            "bid": 0.62,
+            "ask": 0.69,
+            "spread": 0.07,
+            "midpoint": 0.655,
+            "timestamp": "2026-10-15T08:34:55Z"
+          },
+          {
+            "bid": 0.31,
+            "ask": 0.38,
+            "spread": 0.07,
+            "midpoint": 0.345,
+            "timestamp": "2026-10-15T08:34:55Z"
+          }
+        ],
+        "volume": 25.0,
+        "liquidity": 7127.7787,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 0,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080288",
+      "teams": [
+        {
+          "id": "206695",
+          "name": "Phantom"
+        },
+        {
+          "id": "128939",
+          "name": "RoundsGG"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/phantom-vs-roundsgg-elisa-breakout-series-2-1080288",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080288",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.92,
+          0.08
+        ],
+        "fair_decimal": [
+          1.087,
+          12.5
+        ],
+        "observed_at": "2026-10-15T08:36:09Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+        "source_api": "https://gamma-api.polymarket.com/events/1173321",
+        "market_id": "5583532",
+        "event_id": "1173321",
+        "source_outcomes": [
+          "Phantom",
+          "RoundsGG"
+        ],
+        "quotes": [
+          {
+            "bid": 0.89,
+            "ask": 0.95,
+            "spread": 0.06,
+            "midpoint": 0.9199999999999999,
+            "timestamp": "2026-10-15T08:35:30Z"
+          },
+          {
+            "bid": 0.05,
+            "ask": 0.11,
+            "spread": 0.06,
+            "midpoint": 0.08,
+            "timestamp": "2026-10-15T08:35:30Z"
+          }
+        ],
+        "volume": null,
+        "liquidity": 4277.1015,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 0,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1081120",
+      "teams": [
+        {
+          "id": "261602",
+          "name": "mellren"
+        },
+        {
+          "id": "261821",
+          "name": "Privateer"
+        }
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "competition_id": "34938",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "locks_at": "2026-10-16T13:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081120",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
       "analysis": {
         "method": "model",
         "label": "Valve-rating research estimate",
         "probabilities": [
-          0.17816902,
-          0.82183098
+          0.85989312,
+          0.14010688
         ],
         "fair_decimal": [
-          5.613,
-          1.217
+          1.163,
+          7.137
         ],
-        "observed_at": "2026-10-21T20:04:47Z",
+        "observed_at": "2026-10-15T08:36:13Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
           {
-            "standing": 80,
-            "points": 1110,
-            "name": "5star",
+            "standing": 125,
+            "points": 932,
+            "name": "mellren",
             "roster": [
-              "ariucle",
-              "clouden",
-              "hoolig4n",
-              "NEUZ",
-              "rate"
+              "lollipop21k",
+              "Maksilvl",
+              "mdl",
+              "menddel",
+              "shootic"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0080--5star--ariucle-clouden-hoolig4n-neuz-rate.md"
+            "detail_path": "details/2026_10_05/0125--mellren--lollipop21k-maksilvl-mdl-menddel-shootic.md"
           },
           {
-            "standing": 38,
-            "points": 1383,
-            "name": "1win",
+            "standing": 271,
+            "points": 608,
+            "name": "Privateer",
             "roster": [
-              "ArtFr0st",
-              "Ax1Le",
-              "BELCHONOKK",
-              "fame",
-              "nafany"
+              "Ariant0",
+              "Frazehh",
+              "JAUSTERE",
+              "M1n1maL",
+              "Prime"
             ],
             "snapshot_date": "2026-10-05",
             "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0038--1win--artfr0st-ax1le-belchonokk-fame-nafany.md"
+            "detail_path": "details/2026_10_05/0271--privateer--ariant0-frazehh-jaustere-m1n1mal-prime.md"
           }
         ],
         "rd_assumption": 75,
@@ -3654,7 +3822,7 @@
           "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
         ]
       },
-      "pick_index": 1,
+      "pick_index": 0,
       "research": [
         {
           "stage": "Primary: Polymarket",
@@ -3664,7 +3832,7 @@
         },
         {
           "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "source_url": "https://www.hltv.org/matches/2399471/mellren-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
           "status": "checked",
           "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
         },
@@ -3678,28 +3846,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:45Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:46Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-21T20:04:47Z",
+          "observed_at": "2026-10-15T08:36:12Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -3707,6 +3875,185 @@
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
           "status": "resolved",
           "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "id": "1080289",
+      "teams": [
+        {
+          "id": "128939",
+          "name": "RoundsGG"
+        },
+        {
+          "id": "236352",
+          "name": "Voca"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T16:00:00Z",
+      "locks_at": "2026-10-16T15:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080289",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": null,
+      "pick_index": null,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
+          "status": "unresolved",
+          "detail": "Crossed or wider-than-12-cent order book"
+        },
+        {
+          "stage": "HLTV research",
+          "source_url": "https://www.hltv.org/matches",
+          "status": "checked",
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "source_url": "https://www.hltv.org/matches/2399428/voca-vs-rounds-elisa-breakout-series-2",
+          "status": "unresolved",
+          "detail": "HLTV lists Voca vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "status": "unresolved",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "status": "unavailable",
+          "observed_at": "2026-10-15T08:36:12Z",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "status": "unavailable",
+          "observed_at": "2026-10-15T08:36:12Z",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "status": "unavailable",
+          "observed_at": "2026-10-15T08:36:12Z",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "status": "unavailable",
+          "observed_at": "2026-10-15T08:36:12Z",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+          "status": "unresolved",
+          "detail": "RoundsGG: no exact-name Valve rating found"
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "RoundsGG: no exact-name Valve rating found"
+      ]
+    },
+    {
+      "id": "1080290",
+      "teams": [
+        {
+          "id": "206695",
+          "name": "Phantom"
+        },
+        {
+          "id": "533",
+          "name": "HAVU"
+        }
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "competition_id": "36292",
+      "starts_at": "2026-10-16T18:00:00Z",
+      "locks_at": "2026-10-16T17:54:00Z",
+      "source_status": "scheduled",
+      "source_end_at": null,
+      "best_of": null,
+      "series_format": null,
+      "tier": "c",
+      "lock_offset_sec": 360,
+      "availability": "open",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "source_url": "https://www.hotspawn.com/matches/phantom-vs-havu-elisa-breakout-series-2-1080290",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080290",
+      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "evidence": "data/evidence/hotspawn-fixtures.json",
+      "analysis": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.705,
+          0.295
+        ],
+        "fair_decimal": [
+          1.418,
+          3.39
+        ],
+        "observed_at": "2026-10-15T08:36:10Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+        "source_api": "https://gamma-api.polymarket.com/events/1173323",
+        "market_id": "5583535",
+        "event_id": "1173323",
+        "source_outcomes": [
+          "Phantom",
+          "HAVU"
+        ],
+        "quotes": [
+          {
+            "bid": 0.67,
+            "ask": 0.74,
+            "spread": 0.07,
+            "midpoint": 0.7050000000000001,
+            "timestamp": "2026-10-15T08:34:44Z"
+          },
+          {
+            "bid": 0.26,
+            "ask": 0.33,
+            "spread": 0.07,
+            "midpoint": 0.29500000000000004,
+            "timestamp": "2026-10-15T08:34:44Z"
+          }
+        ],
+        "volume": null,
+        "liquidity": 6730.9319,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ]
+      },
+      "pick_index": 0,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+          "status": "resolved",
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
         }
       ],
       "limitations": [
@@ -3716,12 +4063,83 @@
   ],
   "sources": [
     {
+      "status": "ok",
       "name": "Hotspawn match inventory",
       "url": "https://play.hotspawn.com/lobby",
+      "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "records": 80,
+      "visible_cards": 0,
+      "detail": "All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.",
+      "evidence": "data/evidence/hotspawn-context.json"
+    },
+    {
+      "status": "ok",
+      "name": "Polymarket CS2",
+      "url": "https://polymarket.com/esports/cs2",
+      "observed_at": "2026-10-15T08:36:05Z",
+      "records": 93,
+      "discovery_complete": true,
+      "pages": 1,
+      "detail": "Public directory plus paginated official CS2-tag events used for discovery. Every selected fixture is rechecked against its original Gamma event and both order books; directory/outcome prices are never probability inputs."
+    },
+    {
+      "status": "ok",
+      "name": "HLTV fallback research",
+      "url": "https://www.hltv.org/matches",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "records": 52,
+      "detail": "Split-anchor match cards parsed and saved for replay. Exact fixture identities and independently published series formats only. Fan votes are not probabilities; no bookmaker line is accepted without original-source prices."
+    },
+    {
+      "status": "ok",
+      "name": "Thunderpick esportsbook",
+      "url": "https://thunderpick.io/esports/counter-strike",
+      "api_url": "https://thunderpick.io/api/matches",
+      "observed_at": "2026-10-15T08:36:11Z",
+      "records": 69,
+      "detail": "Only active prematch CS2 match-winner markets with exact team/time alignment and two decimal odds are eligible."
+    },
+    {
+      "name": "GG.BET esportsbook",
+      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "status": "unavailable",
-      "observed_at": "2026-10-21T20:07:24Z",
+      "observed_at": "2026-10-15T08:36:12Z",
       "records": null,
-      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+      "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+    },
+    {
+      "status": "unavailable",
+      "name": "Pinnacle esportsbook",
+      "url": "https://www.pinnacle.com/en/esports-hub/cs2",
+      "observed_at": "2026-10-15T08:36:12Z",
+      "records": 0,
+      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+    },
+    {
+      "status": "unavailable",
+      "name": "Rivalry esportsbook",
+      "url": "https://www.rivalry.com/esports/counter-strike-betting",
+      "observed_at": "2026-10-15T08:36:12Z",
+      "records": 0,
+      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+    },
+    {
+      "name": "Stake esportsbook",
+      "url": "https://stake.com/sports/esports/counter-strike",
+      "status": "unavailable",
+      "observed_at": "2026-10-15T08:36:12Z",
+      "records": null,
+      "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+    },
+    {
+      "status": "ok",
+      "name": "Valve official rating fallback",
+      "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-15T08:36:13Z",
+      "records": 380,
+      "snapshot_date": "2026-10-05",
+      "detail": "Used only after primary markets, HLTV research and book checks fail to resolve a match. Duplicate team names, incomplete rosters or snapshots older than 35 days are rejected. Probabilities are labeled uncalibrated research estimates."
     }
   ],
   "flags": [
@@ -3795,15 +4213,15 @@
         "1055478",
         "1081105",
         "1079621",
-        "1081865",
-        "1081591"
+        "1080279",
+        "1080201"
       ],
       "severity": "warning"
     },
     {
       "id": "missing-format",
       "title": "Hotspawn series format is unverified",
-      "detail": "76 fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.",
+      "detail": "80 fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.",
       "source_urls": [
         "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
       ],
@@ -3869,28 +4287,32 @@
         "1055478",
         "1081105",
         "1079621",
-        "1081865",
-        "1081591",
-        "1082837",
-        "1081870",
-        "1081597",
-        "1081600",
-        "1082688",
-        "1082689",
-        "1082882",
-        "1082858",
-        "1082859",
-        "1082860",
-        "1082861",
-        "1082792",
-        "1082793"
+        "1080279",
+        "1080201",
+        "1079440",
+        "1079442",
+        "1080280",
+        "1080202",
+        "1080281",
+        "1080203",
+        "1080282",
+        "1080204",
+        "1080283",
+        "1080284",
+        "1080285",
+        "1080286",
+        "1080287",
+        "1080288",
+        "1081120",
+        "1080289",
+        "1080290"
       ],
       "severity": "warning"
     },
     {
       "id": "lock-policy",
       "title": "Published lock rule differs from fixture data",
-      "detail": "Help page says 5 minutes before start; 76 fixture lock offsets differ. Explicit per-fixture lock timestamps take precedence on this dashboard. Submit in Hotspawn before its countdown expires.",
+      "detail": "Help page says 5 minutes before start; 80 fixture lock offsets differ. Explicit per-fixture lock timestamps take precedence on this dashboard. Submit in Hotspawn before its countdown expires.",
       "source_urls": [
         "https://play.hotspawn.com/how-it-works",
         "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
@@ -3957,21 +4379,25 @@
         "1055478",
         "1081105",
         "1079621",
-        "1081865",
-        "1081591",
-        "1082837",
-        "1081870",
-        "1081597",
-        "1081600",
-        "1082688",
-        "1082689",
-        "1082882",
-        "1082858",
-        "1082859",
-        "1082860",
-        "1082861",
-        "1082792",
-        "1082793"
+        "1080279",
+        "1080201",
+        "1079440",
+        "1079442",
+        "1080280",
+        "1080202",
+        "1080281",
+        "1080203",
+        "1080282",
+        "1080204",
+        "1080283",
+        "1080284",
+        "1080285",
+        "1080286",
+        "1080287",
+        "1080288",
+        "1081120",
+        "1080289",
+        "1080290"
       ],
       "severity": "warning"
     },
@@ -4024,42 +4450,23 @@
         "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
       ],
       "match_ids": [
-        "1081870",
-        "1081600",
-        "1082859",
-        "1082861",
-        "1082793"
+        "1080202",
+        "1080203",
+        "1080282",
+        "1080284",
+        "1081120"
       ],
       "severity": "notice"
     },
     {
-      "id": "unresolved-1082837",
-      "title": "Unresolved: Zetta vs LOS NINOS",
-      "detail": "Hotspawn best-of format is unverified; left blank.; LOS NINOS: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; LOS NINOS: no exact-name Valve rating found",
+      "id": "unresolved-1080281",
+      "title": "Unresolved: WROTBERRY vs ENCE",
+      "detail": "Hotspawn best-of format is unverified; left blank.; WROTBERRY: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; No unique structured HLTV identity confirmed.; HLTV lists WBT vs ENCE at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; WROTBERRY: no exact-name Valve rating found",
       "source_urls": [
-        "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings"
-      ],
-      "match_ids": [
-        "1082837"
-      ],
-      "severity": "warning"
-    },
-    {
-      "id": "unresolved-1081597",
-      "title": "Unresolved: benched gods vs TitanFlow",
-      "detail": "Hotspawn best-of format is unverified; left blank.; benched gods: multiple Valve rosters share this name; identity is unresolved; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; No unique structured HLTV identity confirmed.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; benched gods: multiple Valve rosters share this name; identity is unresolved",
-      "source_urls": [
-        "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+        "https://www.hotspawn.com/matches/wrotberry-vs-ence-elisa-breakout-series-2-1080281",
         "https://polymarket.com/esports/cs2",
         "https://www.hltv.org/matches",
+        "https://www.hltv.org/matches/2399420/wbt-vs-ence-elisa-breakout-series-2",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -4068,19 +4475,19 @@
         "https://github.com/ValveSoftware/counter-strike_regional_standings"
       ],
       "match_ids": [
-        "1081597"
+        "1080281"
       ],
       "severity": "warning"
     },
     {
-      "id": "unresolved-1082882",
-      "title": "Unresolved: UNiTY vs Apogee Betclic",
-      "detail": "Hotspawn best-of format is unverified; left blank.; Apogee Betclic: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; No unique structured HLTV identity confirmed.; HLTV lists UNiTY vs Betclic at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; Apogee Betclic: no exact-name Valve rating found",
+      "id": "unresolved-1080283",
+      "title": "Unresolved: WROTBERRY vs BOJONG",
+      "detail": "Hotspawn best-of format is unverified; left blank.; WROTBERRY: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; No unique structured HLTV identity confirmed.; HLTV lists WBT vs BOJONG at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; WROTBERRY: no exact-name Valve rating found",
       "source_urls": [
-        "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+        "https://www.hotspawn.com/matches/wrotberry-vs-bojong-elisa-breakout-series-2-1080283",
         "https://polymarket.com/esports/cs2",
         "https://www.hltv.org/matches",
-        "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+        "https://www.hltv.org/matches/2399422/wbt-vs-bojong-elisa-breakout-series-2",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -4089,18 +4496,19 @@
         "https://github.com/ValveSoftware/counter-strike_regional_standings"
       ],
       "match_ids": [
-        "1082882"
+        "1080283"
       ],
       "severity": "warning"
     },
     {
-      "id": "unresolved-1082858",
-      "title": "Unresolved: Ground Zero vs Off Chops",
-      "detail": "Hotspawn best-of format is unverified; left blank.; Off Chops: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; Off Chops: no exact-name Valve rating found",
+      "id": "unresolved-1080286",
+      "title": "Unresolved: HAVU vs RoundsGG",
+      "detail": "Hotspawn best-of format is unverified; left blank.; RoundsGG: no exact-name Valve rating found; Crossed or wider-than-12-cent order book; No unique structured HLTV identity confirmed.; HLTV lists HAVU vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; RoundsGG: no exact-name Valve rating found",
       "source_urls": [
-        "https://play.hotspawn.com/cs2-pickems#fixture-1082858",
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
+        "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
+        "https://www.hltv.org/matches",
+        "https://www.hltv.org/matches/2399425/havu-vs-rounds-elisa-breakout-series-2",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -4109,18 +4517,19 @@
         "https://github.com/ValveSoftware/counter-strike_regional_standings"
       ],
       "match_ids": [
-        "1082858"
+        "1080286"
       ],
       "severity": "warning"
     },
     {
-      "id": "unresolved-1082860",
-      "title": "Unresolved: FlyQuest vs Staqued",
-      "detail": "Hotspawn best-of format is unverified; left blank.; Staqued: no exact-name Valve rating found; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; Staqued: no exact-name Valve rating found",
+      "id": "unresolved-1080289",
+      "title": "Unresolved: RoundsGG vs Voca",
+      "detail": "Hotspawn best-of format is unverified; left blank.; RoundsGG: no exact-name Valve rating found; Crossed or wider-than-12-cent order book; No unique structured HLTV identity confirmed.; HLTV lists Voca vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; RoundsGG: no exact-name Valve rating found",
       "source_urls": [
-        "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+        "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+        "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
+        "https://www.hltv.org/matches",
+        "https://www.hltv.org/matches/2399428/voca-vs-rounds-elisa-breakout-series-2",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -4129,27 +4538,7 @@
         "https://github.com/ValveSoftware/counter-strike_regional_standings"
       ],
       "match_ids": [
-        "1082860"
-      ],
-      "severity": "warning"
-    },
-    {
-      "id": "unresolved-1082792",
-      "title": "Unresolved: HOTU vs The Huns",
-      "detail": "Hotspawn best-of format is unverified; left blank.; The Huns: multiple Valve rosters share this name; identity is unresolved; No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.; Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.; No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.; ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike; Redirected to a generic landing page; no match-level betting lines verified.; Redirected to a generic landing page; no match-level betting lines verified.; stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike; The Huns: multiple Valve rosters share this name; identity is unresolved",
-      "source_urls": [
-        "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings"
-      ],
-      "match_ids": [
-        "1082792"
+        "1080289"
       ],
       "severity": "warning"
     },
@@ -4164,287 +4553,440 @@
       ],
       "match_ids": [],
       "severity": "notice"
-    },
-    {
-      "id": "inventory-failed",
-      "title": "Hotspawn refresh failed — current coverage unverified",
-      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.",
-      "source_urls": [
-        "https://play.hotspawn.com/lobby",
-        "https://play.hotspawn.com/cs2-pickems",
-        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
-      ],
-      "match_ids": [],
-      "severity": "critical"
     }
   ],
   "requests": [
     {
+      "id": "hotspawn-lobby",
+      "url": "https://play.hotspawn.com/lobby",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:03Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/lobby",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 15 Oct 2026 08:36:03 GMT",
+      "response_sha256": "5f597c1fea89e036d35cf7bf80ed67b2cb6c9ff74c7d7db1115ef72882b3c9cd"
+    },
+    {
+      "id": "hotspawn-cs2",
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:04Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/cs2-pickems",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 15 Oct 2026 08:36:04 GMT",
+      "response_sha256": "6aa7a4e164a36e362bf0fbf818e4601f6e3f39fe15711cf0a55390535d66f1c4"
+    },
+    {
       "id": "hotspawn-fixtures",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:36Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:37 GMT",
-      "response_sha256": "4cc4ccc440003540bcac9c7c26824972f716d99761bb6484aee9d24337c96b57",
+      "response_date": "Thu, 15 Oct 2026 08:36:04 GMT",
+      "response_sha256": "9e94059a6d9901b70d3402e83dcdd994f568f711650c9fec57c55b08a2672104",
       "evidence": "data/evidence/hotspawn-fixtures.json"
-    },
-    {
-      "id": "hotspawn-lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792613077",
-      "method": "GET",
-      "observed_at": "2026-10-21T20:04:37Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://play.hotspawn.com/lobby?cb=1792613077",
-      "content_type": "text/html;charset=UTF-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:38 GMT",
-      "response_sha256": "cb0a68501af26daff2b7ba9c806fd60e5731bf223f318fa90a2f2f75c5b01bac",
-      "cache_age_sec": "0",
-      "cache_status": "MISS"
-    },
-    {
-      "id": "hotspawn-cs2",
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792613078",
-      "method": "GET",
-      "observed_at": "2026-10-21T20:04:38Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792613078",
-      "content_type": "text/html;charset=UTF-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:39 GMT",
-      "response_sha256": "461151aafe13e7029cb8585e3c1c2deefa2dc72b31b4aee3d3ec961258c9d86f",
-      "cache_age_sec": "0",
-      "cache_status": "MISS"
     },
     {
       "id": "polymarket-directory",
       "url": "https://polymarket.com/esports/cs2",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:39Z",
+      "observed_at": "2026-10-15T08:36:04Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://polymarket.com/esports/cs2",
       "content_type": "text/html; charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:39 GMT",
-      "response_sha256": "b7f6e03c4cc4a903f44e0c0b9fbd65ef759ca3e96c9e48030661f8a6bcca48f0",
-      "cache_age_sec": "51"
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "e5af3818b60bc9aa0f8cdf63074d02f7aeca1fe8b216707f76a6a97ab352472b"
     },
     {
       "id": "polymarket-discovery-0",
-      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:40Z",
+      "observed_at": "2026-10-15T08:36:05Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
+      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:39 GMT",
-      "response_sha256": "4c39b13df7c299140ee4f3e17beab9a5dd26a9a3d60b88330242c969dc9273f5",
-      "cache_age_sec": "1",
-      "cache_status": "Hit from cloudfront",
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "0a488dbf9921a459f08db97c16e61b246142b97dffcf99e03907bd897960b2c8",
       "evidence": "data/evidence/polymarket-discovery-0.json"
     },
     {
-      "id": "polymarket-discovery-100",
-      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
+      "id": "polymarket-event-1140039",
+      "url": "https://gamma-api.polymarket.com/events/1140039",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:40Z",
+      "observed_at": "2026-10-15T08:36:05Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
+      "final_url": "https://gamma-api.polymarket.com/events/1140039",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:40 GMT",
-      "response_sha256": "e8e61711fa6f2d3856886c20ebdd01a973c5f4a2f099691ec559080ee2fd4fce",
-      "cache_status": "Miss from cloudfront",
-      "evidence": "data/evidence/polymarket-discovery-100.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "ae480b447df59968e9c96e26c326ffce03949d2a67b3c3c14bfdea2c78062188",
+      "evidence": "data/evidence/polymarket-event-1140039.json"
     },
     {
-      "id": "polymarket-discovery-200",
-      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
+      "id": "polymarket-book-1140039-0",
+      "url": "https://clob.polymarket.com/book?token_id=103905534307647460293319821807493808531472497490248098883066684875994023161020",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:40Z",
+      "observed_at": "2026-10-15T08:36:05Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
+      "final_url": "https://clob.polymarket.com/book?token_id=103905534307647460293319821807493808531472497490248098883066684875994023161020",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:41 GMT",
-      "response_sha256": "b7bbfe8b5c7543123ebae9023416c76e8ebbdbf1f1684e7c004c42413878ad6b",
-      "cache_status": "Miss from cloudfront",
-      "evidence": "data/evidence/polymarket-discovery-200.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "3fbe1e170719e952c19fa2ebffc3f5ff658ddec17a3b40af7d29767565c67d96",
+      "evidence": "data/evidence/polymarket-book-1140039-0.json"
     },
     {
-      "id": "polymarket-discovery-300",
-      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
+      "id": "polymarket-book-1140039-1",
+      "url": "https://clob.polymarket.com/book?token_id=14061223702709892170099519780789547814555070695196584709427969592766303459347",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:41Z",
+      "observed_at": "2026-10-15T08:36:05Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
+      "final_url": "https://clob.polymarket.com/book?token_id=14061223702709892170099519780789547814555070695196584709427969592766303459347",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:41 GMT",
-      "response_sha256": "1e097ab09fab0f0beb722f6390ea75e80a761c57ff511397aac9ec7c0f95babb",
-      "cache_status": "Miss from cloudfront",
-      "evidence": "data/evidence/polymarket-discovery-300.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "79cc9e013d96b24e0cdf1066e01b84674881f452fd34302ee9d16ff03aeb10dc",
+      "evidence": "data/evidence/polymarket-book-1140039-1.json"
     },
     {
-      "id": "polymarket-discovery-400",
-      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
+      "id": "polymarket-event-1173312",
+      "url": "https://gamma-api.polymarket.com/events/1173312",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:41Z",
+      "observed_at": "2026-10-15T08:36:05Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
+      "final_url": "https://gamma-api.polymarket.com/events/1173312",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:41 GMT",
-      "response_sha256": "c45655a97707aff460a63d5b531c3ac677d4e52e057a96172711af21009b6de0",
-      "cache_status": "Miss from cloudfront",
-      "evidence": "data/evidence/polymarket-discovery-400.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:05 GMT",
+      "response_sha256": "4c93d5da322488d88a137b52b718b1bf03d92e158b6f3aa89e55a001614dca4b",
+      "evidence": "data/evidence/polymarket-event-1173312.json"
     },
     {
-      "id": "polymarket-event-1231330",
-      "url": "https://gamma-api.polymarket.com/events/1231330",
+      "id": "polymarket-book-1173312-0",
+      "url": "https://clob.polymarket.com/book?token_id=35326975513886240383761641906597112841622861533166547840542466627762399660534",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:41Z",
+      "observed_at": "2026-10-15T08:36:06Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events/1231330",
+      "final_url": "https://clob.polymarket.com/book?token_id=35326975513886240383761641906597112841622861533166547840542466627762399660534",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:00:49 GMT",
-      "response_sha256": "ba094893d6928773121532aeb8bd7be8295df70159bc067846862a2d762e5158",
-      "cache_age_sec": "232",
-      "cache_status": "Hit from cloudfront",
-      "evidence": "data/evidence/polymarket-event-1231330.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:06 GMT",
+      "response_sha256": "b8f73b953d0a361393329d3d5a1f0f8230893ef3ea0606c5aadc2c067518aa52",
+      "evidence": "data/evidence/polymarket-book-1173312-0.json"
     },
     {
-      "id": "polymarket-book-1231330-0",
-      "url": "https://clob.polymarket.com/book?token_id=111712836263636480206356578660124307638834033589794177237163897829540892094831",
+      "id": "polymarket-book-1173312-1",
+      "url": "https://clob.polymarket.com/book?token_id=64404146366209783977298967830130330183700895196855861250022358519929612053763",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:42Z",
+      "observed_at": "2026-10-15T08:36:06Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=111712836263636480206356578660124307638834033589794177237163897829540892094831",
+      "final_url": "https://clob.polymarket.com/book?token_id=64404146366209783977298967830130330183700895196855861250022358519929612053763",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:42 GMT",
-      "response_sha256": "7f065efef55db94728af1d7188061e9c65521e5abe57de7c93d8d460e09d8eee",
-      "evidence": "data/evidence/polymarket-book-1231330-0.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:06 GMT",
+      "response_sha256": "e277f98c3420b3e75774ad9e3b99b598b7e471a943067f9019d093d80e9c8f79",
+      "evidence": "data/evidence/polymarket-book-1173312-1.json"
     },
     {
-      "id": "polymarket-book-1231330-1",
-      "url": "https://clob.polymarket.com/book?token_id=66003780067779869538161220285668960257217736151563231603795067293111631426121",
+      "id": "polymarket-event-1190748",
+      "url": "https://gamma-api.polymarket.com/events/1190748",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:42Z",
+      "observed_at": "2026-10-15T08:36:06Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=66003780067779869538161220285668960257217736151563231603795067293111631426121",
+      "final_url": "https://gamma-api.polymarket.com/events/1190748",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:42 GMT",
-      "response_sha256": "4e1d0a50d8662317899c06118d4567c8b218937ef5b859abf11dc97e2987f1ce",
-      "evidence": "data/evidence/polymarket-book-1231330-1.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:06 GMT",
+      "response_sha256": "bdf3bd8836acc91bfa92b073c0af7d8345300d4bb2b19209c3a39d36c78b3b27",
+      "evidence": "data/evidence/polymarket-event-1190748.json"
     },
     {
-      "id": "polymarket-event-1224236",
-      "url": "https://gamma-api.polymarket.com/events/1224236",
+      "id": "polymarket-book-1190748-0",
+      "url": "https://clob.polymarket.com/book?token_id=104033719924346752532083749781260306692003581700979106198713183641239015608702",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:42Z",
+      "observed_at": "2026-10-15T08:36:06Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events/1224236",
+      "final_url": "https://clob.polymarket.com/book?token_id=104033719924346752532083749781260306692003581700979106198713183641239015608702",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:00:49 GMT",
-      "response_sha256": "c4c0426b8e71f848870cac9cc3c2b400e4cf25e2d5190bc42eed61af9a3c0d7f",
-      "cache_age_sec": "233",
-      "cache_status": "Hit from cloudfront",
-      "evidence": "data/evidence/polymarket-event-1224236.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:06 GMT",
+      "response_sha256": "6695490eafa846ee8de09a36e6de872e842c2b467f059934d016162062607c5a",
+      "evidence": "data/evidence/polymarket-book-1190748-0.json"
     },
     {
-      "id": "polymarket-book-1224236-0",
-      "url": "https://clob.polymarket.com/book?token_id=35722919487678041524180338655685704943826443730886577537285685402555430616394",
+      "id": "polymarket-book-1190748-1",
+      "url": "https://clob.polymarket.com/book?token_id=3785484851138337761295073416656634570224212062694688312018268304741476415572",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:42Z",
+      "observed_at": "2026-10-15T08:36:06Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=35722919487678041524180338655685704943826443730886577537285685402555430616394",
+      "final_url": "https://clob.polymarket.com/book?token_id=3785484851138337761295073416656634570224212062694688312018268304741476415572",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:42 GMT",
-      "response_sha256": "e852d90c6c1ec3c98a2fc6878f7f44c7e571cbaed95db9a8ebc96af6cd09bc03",
-      "evidence": "data/evidence/polymarket-book-1224236-0.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:07 GMT",
+      "response_sha256": "8b5b44b3dd02612c7f062ef4b582217375d830630178473f6b86b65af394732f",
+      "evidence": "data/evidence/polymarket-book-1190748-1.json"
     },
     {
-      "id": "polymarket-book-1224236-1",
-      "url": "https://clob.polymarket.com/book?token_id=47661797454327124236101572116562988697443736992531049606315228215674577406168",
+      "id": "polymarket-event-1173317",
+      "url": "https://gamma-api.polymarket.com/events/1173317",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:42Z",
+      "observed_at": "2026-10-15T08:36:07Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=47661797454327124236101572116562988697443736992531049606315228215674577406168",
+      "final_url": "https://gamma-api.polymarket.com/events/1173317",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:43 GMT",
-      "response_sha256": "6977c441b48a50e3740b7cdadc1df9ec06865083f8102b84058bf017aa056fe8",
-      "evidence": "data/evidence/polymarket-book-1224236-1.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:07 GMT",
+      "response_sha256": "67d874b4c9dcccccc5f651a5938252b5c3a5e8eedea67091fed8c58456f8e989",
+      "evidence": "data/evidence/polymarket-event-1173317.json"
     },
     {
-      "id": "polymarket-event-1224237",
-      "url": "https://gamma-api.polymarket.com/events/1224237",
+      "id": "polymarket-book-1173317-0",
+      "url": "https://clob.polymarket.com/book?token_id=18665325101458095105301682407302632096082338142130472457822698813019037453000",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:43Z",
+      "observed_at": "2026-10-15T08:36:07Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events/1224237",
+      "final_url": "https://clob.polymarket.com/book?token_id=18665325101458095105301682407302632096082338142130472457822698813019037453000",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:00:50 GMT",
-      "response_sha256": "61c776ee28407b77b5e2cc683519e6e955310312324a43562ae168a3ffcf4ca3",
-      "cache_age_sec": "233",
-      "cache_status": "Hit from cloudfront",
-      "evidence": "data/evidence/polymarket-event-1224237.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:07 GMT",
+      "response_sha256": "0f4766e69643948dd77c872e098f2670c0282eb032597c47f3ef59ad06e87502",
+      "evidence": "data/evidence/polymarket-book-1173317-0.json"
     },
     {
-      "id": "polymarket-book-1224237-0",
-      "url": "https://clob.polymarket.com/book?token_id=35219436109546058981281720140519046553463727383771952043083282661737597552050",
+      "id": "polymarket-book-1173317-1",
+      "url": "https://clob.polymarket.com/book?token_id=18608000145020742370985331182846207247318384612391142576122780119712572562100",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:43Z",
+      "observed_at": "2026-10-15T08:36:07Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=35219436109546058981281720140519046553463727383771952043083282661737597552050",
+      "final_url": "https://clob.polymarket.com/book?token_id=18608000145020742370985331182846207247318384612391142576122780119712572562100",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:43 GMT",
-      "response_sha256": "966d1084b462d100ee6973d9008ae9740c443e60819b7f7a090718557ea46083",
-      "evidence": "data/evidence/polymarket-book-1224237-0.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:07 GMT",
+      "response_sha256": "fc293f60e0dce42027fda0c033a95cf05dbdc55399fa06e2ee1d963f6abec3b7",
+      "evidence": "data/evidence/polymarket-book-1173317-1.json"
     },
     {
-      "id": "polymarket-book-1224237-1",
-      "url": "https://clob.polymarket.com/book?token_id=33381716874834409383971302162180890667287314025917890600934131518586254413917",
+      "id": "polymarket-event-1173318",
+      "url": "https://gamma-api.polymarket.com/events/1173318",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:43Z",
+      "observed_at": "2026-10-15T08:36:07Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=33381716874834409383971302162180890667287314025917890600934131518586254413917",
+      "final_url": "https://gamma-api.polymarket.com/events/1173318",
       "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:04:43 GMT",
-      "response_sha256": "4866083d2e66aa3c6841b8da9c4c5efe44fc4bf60e4b3677b3fb4bbbcf813ce6",
-      "evidence": "data/evidence/polymarket-book-1224237-1.json"
+      "response_date": "Thu, 15 Oct 2026 08:36:07 GMT",
+      "response_sha256": "4019ccc04ef98ffe7b6b96782e2ef969db0d336ddac9945ce6909f27c433adf2",
+      "evidence": "data/evidence/polymarket-event-1173318.json"
+    },
+    {
+      "id": "polymarket-book-1173318-0",
+      "url": "https://clob.polymarket.com/book?token_id=63453906443024961526958408151208265917980105395465005590193118983403546249782",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:07Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=63453906443024961526958408151208265917980105395465005590193118983403546249782",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:08 GMT",
+      "response_sha256": "dd775bb5f5afa7a1b39a44ea35932e5251cf0b5f22d9be6bb31bd9c4793ed32f",
+      "evidence": "data/evidence/polymarket-book-1173318-0.json"
+    },
+    {
+      "id": "polymarket-book-1173318-1",
+      "url": "https://clob.polymarket.com/book?token_id=55481503903010451348996490783535716255813950806659769611108829673318537650474",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=55481503903010451348996490783535716255813950806659769611108829673318537650474",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:08 GMT",
+      "response_sha256": "52f2a4c1a75ea57abf0aec6b7b3a282a683cf773a9885742c02541c61c3f683b",
+      "evidence": "data/evidence/polymarket-book-1173318-1.json"
+    },
+    {
+      "id": "polymarket-event-1173319",
+      "url": "https://gamma-api.polymarket.com/events/1173319",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://gamma-api.polymarket.com/events/1173319",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:08 GMT",
+      "response_sha256": "223759380d6d04efc2b5278c17a0f927480e195bd4ae0192896e4e843600cc1e",
+      "evidence": "data/evidence/polymarket-event-1173319.json"
+    },
+    {
+      "id": "polymarket-book-1173319-0",
+      "url": "https://clob.polymarket.com/book?token_id=24940631824606248598992697202571922995935098347648135272311885799970166436870",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=24940631824606248598992697202571922995935098347648135272311885799970166436870",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:08 GMT",
+      "response_sha256": "1aecc0291a732752087d0d92a38ab067d9d00d27ff670456759a60cafdb06590",
+      "evidence": "data/evidence/polymarket-book-1173319-0.json"
+    },
+    {
+      "id": "polymarket-book-1173319-1",
+      "url": "https://clob.polymarket.com/book?token_id=97573000593764771756602753369292182246712643010089828223809514001036292873872",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=97573000593764771756602753369292182246712643010089828223809514001036292873872",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:08 GMT",
+      "response_sha256": "aefd170f2414186679d25fb7a6e40cb072442f4b75e47dce15103119092a7a58",
+      "evidence": "data/evidence/polymarket-book-1173319-1.json"
+    },
+    {
+      "id": "polymarket-event-1173321",
+      "url": "https://gamma-api.polymarket.com/events/1173321",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://gamma-api.polymarket.com/events/1173321",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:09 GMT",
+      "response_sha256": "49cd41d271a4cc926683ef8f40a9b82588b988a28a86bf324ef46526cea16475",
+      "evidence": "data/evidence/polymarket-event-1173321.json"
+    },
+    {
+      "id": "polymarket-book-1173321-0",
+      "url": "https://clob.polymarket.com/book?token_id=108055073810311077271649970844779014953662968969126267035877566245890288686266",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=108055073810311077271649970844779014953662968969126267035877566245890288686266",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:09 GMT",
+      "response_sha256": "e9920ff17d5feba4b9d3d7ba3fdbe5358396f5bc84f6f3822b59061143ab7fb4",
+      "evidence": "data/evidence/polymarket-book-1173321-0.json"
+    },
+    {
+      "id": "polymarket-book-1173321-1",
+      "url": "https://clob.polymarket.com/book?token_id=34666453715295442090890776694288607957019697902234641552956899780919206675672",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=34666453715295442090890776694288607957019697902234641552956899780919206675672",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:09 GMT",
+      "response_sha256": "6cfe25ca40c1ae72b00f116045d2fb4c9ab926ee54003b38a121f0111acb6335",
+      "evidence": "data/evidence/polymarket-book-1173321-1.json"
+    },
+    {
+      "id": "polymarket-event-1173322",
+      "url": "https://gamma-api.polymarket.com/events/1173322",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://gamma-api.polymarket.com/events/1173322",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:09 GMT",
+      "response_sha256": "7ba098032699387e29033ca85d7e4867ee1cb9d8c25fbe7a48fc4d5da543c1bd",
+      "evidence": "data/evidence/polymarket-event-1173322.json"
+    },
+    {
+      "id": "polymarket-book-1173322-0",
+      "url": "https://clob.polymarket.com/book?token_id=97766850953875395559927473718604879838692830727370919100383710716032555108616",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=97766850953875395559927473718604879838692830727370919100383710716032555108616",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:09 GMT",
+      "response_sha256": "ca5bd61d0a10da905885b584b1074444fba62f98d658375f5b951a50066e56ff",
+      "evidence": "data/evidence/polymarket-book-1173322-0.json"
+    },
+    {
+      "id": "polymarket-book-1173322-1",
+      "url": "https://clob.polymarket.com/book?token_id=8162269632885307893279723774663943502696293629306015383658300102180781871028",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:09Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=8162269632885307893279723774663943502696293629306015383658300102180781871028",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:10 GMT",
+      "response_sha256": "55ebea5c07fd9d1dfebe5bfcdd914fcb50892ac6ebb90b494efa3b53c402781f",
+      "evidence": "data/evidence/polymarket-book-1173322-1.json"
+    },
+    {
+      "id": "polymarket-event-1173323",
+      "url": "https://gamma-api.polymarket.com/events/1173323",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://gamma-api.polymarket.com/events/1173323",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:10 GMT",
+      "response_sha256": "b5271d9db6ce4dd3bc618b91451b116bed576159b8e4f121dc7a61759b2789c2",
+      "evidence": "data/evidence/polymarket-event-1173323.json"
+    },
+    {
+      "id": "polymarket-book-1173323-0",
+      "url": "https://clob.polymarket.com/book?token_id=115324378096646264609194975831771452006812605390916733093909185141958269386655",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=115324378096646264609194975831771452006812605390916733093909185141958269386655",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:10 GMT",
+      "response_sha256": "bfa555fe8812123d34079ebe49ea2872e45b2d32ab73122bb0054f05be4f5a9e",
+      "evidence": "data/evidence/polymarket-book-1173323-0.json"
+    },
+    {
+      "id": "polymarket-book-1173323-1",
+      "url": "https://clob.polymarket.com/book?token_id=15855557931976156833682845989472379904445041528532993222859970019746639206587",
+      "method": "GET",
+      "observed_at": "2026-10-15T08:36:10Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://clob.polymarket.com/book?token_id=15855557931976156833682845989472379904445041528532993222859970019746639206587",
+      "content_type": "application/json",
+      "response_date": "Thu, 15 Oct 2026 08:36:10 GMT",
+      "response_sha256": "310fd5b3479561d4352fa46bb56c404746fce19b6bc759941462c945c451ff9f",
+      "evidence": "data/evidence/polymarket-book-1173323-1.json"
     },
     {
       "id": "hltv-matches",
       "url": "https://www.hltv.org/matches",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:43Z",
+      "observed_at": "2026-10-15T08:36:10Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.hltv.org/matches",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:44 GMT",
-      "response_sha256": "920c8081f2799cd67ce05b655bb6224217a371f5531adca6e8ffce816fff417f",
+      "response_date": "Thu, 15 Oct 2026 08:36:10 GMT",
+      "response_sha256": "c3c5b97f7e5b48dd0fa50e6db80ab58d9adc1c25cab9e62f9d4a762f993e3c15",
       "evidence": "data/evidence/hltv-page.json"
     },
     {
       "id": "thunderpick-matches",
       "url": "https://thunderpick.io/api/matches",
       "method": "POST",
-      "observed_at": "2026-10-21T20:04:45Z",
+      "observed_at": "2026-10-15T08:36:11Z",
       "http_status": 200,
       "status": "ok",
       "request_body": {
@@ -4454,20 +4996,20 @@
       },
       "final_url": "https://thunderpick.io/api/matches",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:45 GMT",
-      "response_sha256": "ace24ad4edb6830ad3fb5118e1496092305137cad526bd55f218e19d13e7e9a7",
+      "response_date": "Thu, 15 Oct 2026 08:36:11 GMT",
+      "response_sha256": "7df8b59bf20b5bf2f34c598133ce0c580ed1dc54034c56ef1e606cfc215ceca4",
       "evidence": "data/evidence/thunderpick-matches.json"
     },
     {
       "id": "ggbet-cs2",
       "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:45Z",
+      "observed_at": "2026-10-15T08:36:11Z",
       "http_status": 403,
       "status": "error",
       "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "content_type": "text/plain",
-      "response_date": "Wed, 21 Oct 2026 20:04:45 GMT",
+      "response_date": "Thu, 15 Oct 2026 08:36:12 GMT",
       "response_sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
       "error": "403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
     },
@@ -4475,51 +5017,49 @@
       "id": "pinnacle-cs2",
       "url": "https://www.pinnacle.com/en/esports-hub/cs2",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:45Z",
+      "observed_at": "2026-10-15T08:36:12Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.pinnacle.com/en/",
       "content_type": "text/html",
-      "response_date": "Wed, 21 Oct 2026 20:04:46 GMT",
-      "response_sha256": "3f7de2cdd588e8d6261ec78ff287ca3a195933d4e5c0f2dbe665a07ba7f7db19",
-      "cache_age_sec": "122"
+      "response_date": "Thu, 15 Oct 2026 08:36:12 GMT",
+      "response_sha256": "3f7de2cdd588e8d6261ec78ff287ca3a195933d4e5c0f2dbe665a07ba7f7db19"
     },
     {
       "id": "rivalry-cs2",
       "url": "https://www.rivalry.com/esports/counter-strike-betting",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:46Z",
+      "observed_at": "2026-10-15T08:36:12Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.rivalry.com/",
       "content_type": "text/html;charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:46 GMT",
-      "response_sha256": "1b5bebc4bf91bf9d49b00b3c22cb144d4d28e7576c23883969f55f566023c8b6",
-      "cache_age_sec": "63427"
+      "response_date": "Thu, 15 Oct 2026 08:36:12 GMT",
+      "response_sha256": "d87c00f08fd8ea918d480b2828481a895c1a781988b86b9fba32d5fe143678c7"
     },
     {
       "id": "stake-cs2",
       "url": "https://stake.com/sports/esports/counter-strike",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:46Z",
+      "observed_at": "2026-10-15T08:36:12Z",
       "http_status": 403,
       "status": "error",
       "final_url": "https://stake.com/sports/esports/counter-strike",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:47 GMT",
-      "response_sha256": "e0271193b7e7f228e084eee740c91021f99df29f82ce7d1afac2b77d3cc48a5f",
+      "response_date": "Thu, 15 Oct 2026 08:36:12 GMT",
+      "response_sha256": "ed25802b8cb88c61ac1bc12ee185ec90ea93231d6800c74e9cc8179a3cb747fa",
       "error": "403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
     },
     {
       "id": "valve-directory",
       "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:47Z",
+      "observed_at": "2026-10-15T08:36:12Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:47 GMT",
+      "response_date": "Thu, 15 Oct 2026 08:36:13 GMT",
       "response_sha256": "a0c70433d2727db5d568fa6267b7000a2c15e92a4aa8820cabf07ae84338ee23",
       "evidence": "data/evidence/valve-directory.json"
     },
@@ -4527,12 +5067,12 @@
       "id": "valve-standings-response",
       "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:47Z",
+      "observed_at": "2026-10-15T08:36:13Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:47 GMT",
+      "response_date": "Thu, 15 Oct 2026 08:36:13 GMT",
       "response_sha256": "06fc3fed312af7d49273a1f7aca9eb7760736d24565ee5945811932251bf5020",
       "evidence": "data/evidence/valve-standings-response.json"
     },
@@ -4540,28 +5080,13 @@
       "id": "hotspawn-rules",
       "url": "https://play.hotspawn.com/how-it-works",
       "method": "GET",
-      "observed_at": "2026-10-21T20:04:47Z",
+      "observed_at": "2026-10-15T08:36:13Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://play.hotspawn.com/how-it-works",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Wed, 21 Oct 2026 20:04:48 GMT",
-      "response_sha256": "9d4f42f9fffb0acb8ec2f3612b3b1c519e766dcd80689fc11e9d2e199893298f",
-      "cache_age_sec": "6129",
-      "cache_status": "HIT"
-    },
-    {
-      "id": "hotspawn-fixtures",
-      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "method": "GET",
-      "observed_at": "2026-10-21T20:07:23Z",
-      "http_status": 403,
-      "status": "error",
-      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "content_type": "application/json",
-      "response_date": "Wed, 21 Oct 2026 20:07:24 GMT",
-      "response_sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
-      "error": "403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+      "response_date": "Thu, 15 Oct 2026 08:36:13 GMT",
+      "response_sha256": "ada305da90ab8610f9df16e4ed3c0bfd1886e903dc77dc92ec9b10c8e1a57c88"
     }
   ],
   "evidence_files": [
@@ -4570,20 +5095,34 @@
     "data/evidence/hotspawn-context.json",
     "data/evidence/hotspawn-fixtures.json",
     "data/evidence/hotspawn-rules.json",
-    "data/evidence/polymarket-book-1224236-0.json",
-    "data/evidence/polymarket-book-1224236-1.json",
-    "data/evidence/polymarket-book-1224237-0.json",
-    "data/evidence/polymarket-book-1224237-1.json",
-    "data/evidence/polymarket-book-1231330-0.json",
-    "data/evidence/polymarket-book-1231330-1.json",
+    "data/evidence/polymarket-book-1140039-0.json",
+    "data/evidence/polymarket-book-1140039-1.json",
+    "data/evidence/polymarket-book-1173312-0.json",
+    "data/evidence/polymarket-book-1173312-1.json",
+    "data/evidence/polymarket-book-1173317-0.json",
+    "data/evidence/polymarket-book-1173317-1.json",
+    "data/evidence/polymarket-book-1173318-0.json",
+    "data/evidence/polymarket-book-1173318-1.json",
+    "data/evidence/polymarket-book-1173319-0.json",
+    "data/evidence/polymarket-book-1173319-1.json",
+    "data/evidence/polymarket-book-1173321-0.json",
+    "data/evidence/polymarket-book-1173321-1.json",
+    "data/evidence/polymarket-book-1173322-0.json",
+    "data/evidence/polymarket-book-1173322-1.json",
+    "data/evidence/polymarket-book-1173323-0.json",
+    "data/evidence/polymarket-book-1173323-1.json",
+    "data/evidence/polymarket-book-1190748-0.json",
+    "data/evidence/polymarket-book-1190748-1.json",
     "data/evidence/polymarket-discovery-0.json",
-    "data/evidence/polymarket-discovery-100.json",
-    "data/evidence/polymarket-discovery-200.json",
-    "data/evidence/polymarket-discovery-300.json",
-    "data/evidence/polymarket-discovery-400.json",
-    "data/evidence/polymarket-event-1224236.json",
-    "data/evidence/polymarket-event-1224237.json",
-    "data/evidence/polymarket-event-1231330.json",
+    "data/evidence/polymarket-event-1140039.json",
+    "data/evidence/polymarket-event-1173312.json",
+    "data/evidence/polymarket-event-1173317.json",
+    "data/evidence/polymarket-event-1173318.json",
+    "data/evidence/polymarket-event-1173319.json",
+    "data/evidence/polymarket-event-1173321.json",
+    "data/evidence/polymarket-event-1173322.json",
+    "data/evidence/polymarket-event-1173323.json",
+    "data/evidence/polymarket-event-1190748.json",
     "data/evidence/polymarket-index.json",
     "data/evidence/thunderpick-matches.json",
     "data/evidence/valve-directory.json",
