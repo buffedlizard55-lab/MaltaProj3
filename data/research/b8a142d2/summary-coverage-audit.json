@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "session": "arena-b8a142d2",
+  "observed_at": "2026-10-21T12:46:28Z",
+  "scope": "Independent audit of the latest official scheduled publication and summary coverage wording. Aggregate annotations only; no individual match values are reproduced.",
+  "sources": {
+    "workflow_run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314",
+    "check_annotations_api": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations",
+    "production_workflow": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/.github/workflows/pages.yml",
+    "collector": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/scripts/collect.py",
+    "regression_tests": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/tests/test_domain.py"
+  },
+  "production_run": {
+    "id": 39565977314,
+    "name": "Refresh and deploy CS2 dashboard",
+    "event": "schedule",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-21T08:00:01Z",
+    "updated_at": "2026-10-21T08:14:55Z",
+    "head_sha": "89bfa277bad9874a439b3e54117d8e31a5354cf9",
+    "job_conclusion": "success",
+    "relevant_steps": [
+      {
+        "number": 5,
+        "name": "Regression tests (repository fixtures, before any cache restore)",
+        "conclusion": "success"
+      },
+      {
+        "number": 9,
+        "name": "Refresh all Hotspawn CS2 records and supported external lines",
+        "conclusion": "success"
+      },
+      {
+        "number": 10,
+        "name": "Research only unresolved fixture picks using first-party lines",
+        "conclusion": "success"
+      },
+      {
+        "number": 14,
+        "name": "Reconcile every row, replay every probability and build linked pages",
+        "conclusion": "success"
+      },
+      {
+        "number": 20,
+        "name": "Run actions/deploy-pages@v5",
+        "conclusion": "success"
+      },
+      {
+        "number": 21,
+        "name": "Verify the public site, its complete data and category pages",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "official_annotations": {
+    "hotspawn_inventory": {
+      "records": 91,
+      "crosscheck": "complete",
+      "verified_pages": [
+        "lobby",
+        "cs2"
+      ],
+      "unavailable": []
+    },
+    "publication_snapshot": {
+      "inventory_observed_at": "2026-10-21T08:12:23Z",
+      "coverage_complete": true,
+      "counts": {
+        "inventory": 91,
+        "upcoming": 29,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "market": 12,
+        "bookmaker": 1,
+        "model": 6,
+        "unresolved": 10,
+        "picks": 19,
+        "no_edge": 0
+      },
+      "pages_mode": "legacy"
+    },
+    "complete_picks": {
+      "active": 29,
+      "resolved": 26,
+      "unresolved": 3,
+      "with_pick": 25,
+      "consensus": 2,
+      "market": 13,
+      "bookmaker": 4,
+      "reference": 0,
+      "model": 7,
+      "guidance": 0,
+      "alias_joined": 2
+    },
+    "row_source_audit": {
+      "rows": 599,
+      "ok": 585,
+      "flagged": 5,
+      "navigation": 9,
+      "violation": 0
+    },
+    "failure_level_diagnostics": [
+      {
+        "line": 786,
+        "title": "Hotspawn inventory refresh failed",
+        "message": "SourceError: HTTP 403"
+      },
+      {
+        "line": 784,
+        "title": "Hotspawn inventory refresh failed",
+        "message": "SourceError: HTTP 403"
+      },
+      {
+        "line": 782,
+        "title": "Hotspawn inventory refresh failed",
+        "message": "SourceError: Lobby and API disagree"
+      },
+      {
+        "line": 780,
+        "title": "Hotspawn inventory refresh failed",
+        "message": "SourceError: HTTP 403"
+      }
+    ]
+  },
+  "artifact_access": {
+    "status": "unavailable from this runner",
+    "attempt": "GitHub Actions artifact download redirected to external artifact blob storage and returned EOF.",
+    "effect": "No per-fixture artifact rows were independently inspected; this report uses only public GitHub run metadata and check annotations.",
+    "related_existing_flag": "d9ebc2c1-live-pages-artifact-not-independently-readable"
+  },
+  "summary_copy_finding": {
+    "status": "fixed in this branch",
+    "finding": "The executive-summary heading previously treated complete inventory reconciliation as proof that every active match had a directional pick. The production annotations report separate resolved, with-pick, and unresolved counts, so inventory coverage and pick coverage must be described separately.",
+    "changes": [
+      "Only claim directional picks for every active match when every active fixture has a directional pick.",
+      "Use probability-coverage wording when all fixtures are resolved but at least one has no directional side.",
+      "Use pick-coverage-and-unresolved wording whenever any active fixture is unresolved.",
+      "Keep retained-snapshot wording when current inventory reconciliation is incomplete.",
+      "Show sourced-probability and unresolved caveats in the phone-first shortcut and separate resolved-no-direction from unresolved counts."
+    ],
+    "probabilities_or_pick_values_changed": false
+  },
+  "production_schedule": {
+    "cron_utc": [
+      "17 */4 * * *",
+      "47 2-22/4 * * *"
+    ],
+    "source_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/89bfa277bad9874a439b3e54117d8e31a5354cf9/.github/workflows/pages.yml",
+    "caveat": "GitHub scheduled runs are best-effort and may be delayed or dropped; the workflow itself documents this limitation."
+  },
+  "local_validation": {
+    "python_unittest": "PASS — 743 tests in 433.734 seconds",
+    "site_build": "PASS — 80 checked-in source rows replayed from saved first-party evidence; 8 current Pages views built",
+    "strict_row_source_audit": {
+      "rows": 493,
+      "official_linked": 479,
+      "flagged_unverified": 5,
+      "navigation": 9,
+      "violations": 0
+    },
+    "internal_links_assets_anchors": "PASS — 669 checked",
+    "playwright": "PASS — 85 tests, including 320/390/768/1440px, phone navigation, no-JavaScript routes and automated accessibility scans",
+    "review_flag_id": "b8a142d2-test-diagnostics-emitted-as-live-check-errors"
+  }
+}

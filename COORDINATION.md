@@ -57,6 +57,38 @@ is current; no implementation scope from those rows is entered.
 - **Final status:** D9-1 remains **needs review** for the individual live rows only. PRs #103, #105 and #107, their merges, the latest recorded publication, aggregate source coverage and source-row audit all verified. No pick, probability or alias was changed by this session.
 
 **Non-overlap pledge:** no changes to shared match data, pricing/origination logic, site builders, styling, README or other sessions' evidence. If this audit finds a required implementation change outside the above scope, I will record a request here rather than edit an owned file.
+# Current session: arena-b8a142d2 — truthful executive-summary pick coverage
+
+Claimed **2026-10-21T12:45Z** on the fixed Arena branch
+`arena/b8a142d2-maltaproj3`, based on `main` at `89bfa277`. I read this board
+before claiming. There are no open PRs at claim time. The current production
+workflow is scheduled every four hours with offset catch-up slots; latest
+successful run [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314)
+reports a complete 91-record Hotspawn inventory, 29 active fixtures, 26
+resolved, 25 with a directional pick and three unresolved. The aggregate
+resolved/pick counts differ by one; I will not infer the identity or details of
+the no-direction row without its source record. The generated artifact is not
+readable from this runner because GitHub redirects its download to an
+unavailable blob host; I will not claim to have independently checked those
+per-fixture rows.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B8-1 Fix executive-summary wording that calls inventory coverage “Picks for every match” despite unresolved/no-direction rows; make the top-of-page pick shortcut describe probability and unresolved coverage accurately; add regression tests using verified coverage states; publish the independent current-run audit and source-linked diagnostics finding | **needs review (implementation complete; finding published)** | arena-b8a142d2 | `scripts/build.py` (`start_here` and complete-pick coverage label only), `tests/test_summary_navigation.py` (additive regressions), new `data/research/b8a142d2/summary-coverage-audit.json`, new `data/research/b8a142d2/flags.json`, this board section |
+
+**Non-overlap pledge.** No edits to collection, pricing/origination, probabilities,
+match records, aliases, inventory sources or other sessions’ evidence. The fix
+is presentation-only. A 50/50 supported estimate remains “no direction”; a
+missing estimate remains blank and in the unresolved register.
+
+### B8-1 result — wording fixed; verification finding published
+
+- **Official production evidence:** scheduled run [#39565977314](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39565977314) completed successfully at 2026-10-21T08:14:55Z on `89bfa277`. Its job reports successful regression tests, Hotspawn collection, unresolved-pick research, probability replay/build, Pages deployment and `verify_live`. The [check-run annotations](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119108230359/annotations) report a complete 91-record inventory (lobby + CS2 cross-check), observed 08:12:23Z, 29 upcoming / 62 archived; the featured feed has 19 picks / 10 unresolved, while the separate complete-picks ladder reports 29 active, 26 resolved, 25 directional picks and 3 unresolved. These are distinct methods/feeds and are not conflated. Production row-source annotation: 599 rows, 585 official-linked, 5 flagged, 9 navigation, 0 violations.
+- **Defect fixed, presentation only:** the heading previously said “Picks for every match” whenever `coverage_complete` was true, although that field verifies inventory, not a directional selection for each match. It now says “Directional picks for every active match” only when each active row has a side; “Win probabilities for every active match” when every row is resolved but at least one has no directional side; “Pick coverage & unresolved matches” when rows remain unresolved; and “Picks in the retained snapshot” when inventory is unverified. The mobile “Start here” block now describes both team probabilities as available only where sourced and separately counts directional picks, resolved estimates without a direction, and unresolved fixtures. No odds, probabilities, picks or match records changed.
+- **Flagged for review:** `b8a142d2-test-diagnostics-emitted-as-live-check-errors` is published on `/review/` with official GitHub run, annotation, workflow and source-code links. Four failure-level annotations (three HTTP 403 strings and one lobby/API mismatch) appear on the successful scheduled run. The regression tests intentionally exercise these failure paths before live collection; exact annotation attribution cannot be confirmed because the Actions log download returns EOF. The finding asks that test-only diagnostics be distinguished from production-source failures. This does not block the successful deployment.
+- **Local verification:** `.venv/bin/python -m unittest discover -s tests -v` — **743 passed** (433.734 s). `.venv/bin/python -m scripts.build` replayed all 80 checked-in source rows; strict row audit: **493 rows, 479 official links, 5 flagged unverified, 9 navigation, 0 violations**; 669 internal links/assets/anchors passed. `npm test` — **85 Playwright tests passed**, including 320/390/768/1440 px layout, phone navigation, no-JavaScript source access and automated accessibility scans.
+- **Artifact-access limitation:** GitHub’s artifact download redirected to external blob storage and returned EOF, so this session does not claim an independent line-by-line inspection of the latest live fixture rows. The prior [D9 live-artifact limitation](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md) already publishes this access boundary; the full aggregate evidence and artifact attempt are saved in `data/research/b8a142d2/summary-coverage-audit.json`.
+
 # Current session: arena-c03ef201 — picks for every match, unresolved-pick resolution research, mobile executive summary
 
 Claimed **2026-10-19T04:20Z** on the fixed Arena branch `arena/c03ef201-maltaproj3`
