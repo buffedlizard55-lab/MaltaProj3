@@ -63,6 +63,31 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
 
 **Historical 15 October advisory—not current picks.** Day 3 (16 Oct, both bo3 deciders): **Aurora vs 9z** (14:00 UTC per Polymarket's Gamma record; provider prices Aurora 0.69 / 9z 0.31 at 22:23Z, thin) and **Legacy vs BETBOOM** (17:00 UTC; market created 22:25Z with zero trades, so **no probability is published**). Guidance: primary Aurora with **9z as the single designated contrarian flip** for leaderboard climbers (head-to-head 2-0 two days ago + map off Falcons, against Aurora's Day 2 reset and ~2:1 market price); Legacy is a labeled low-confidence *form lean only* in the unpriced decider. Rest is symmetric — all four teams played Day 2 — and no new roster change was verified for Day 3. The current [Day 4 guide](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/#day-four-picks) and complete-picks snapshot are authoritative; this older advisory is retained as dated history, not reissued after the results.
 
+## 21 October session arena-dbaf7692: a pick or an explicit limitation for every match
+
+- **One ranked team is now enough.** The HLTV world-ranking rung used to refuse any
+  fixture where one side had no published row — the normal CCT/DFRAG low-tier case. It
+  now gives the unranked side HLTV's floor of 0.0 points, labels the estimate
+  **HLTV world ranking · unranked floor**, and publishes a low-confidence limitation.
+  Both sides unranked still stays blank, ambiguous names still fail closed, and the rung
+  never overrides a money or Valve estimate.
+- **The executive summary lists every pick-less fixture**, including an even estimate
+  that has probabilities but no side ("Even estimate · no side"). A blank never shows a
+  probability and never gets a default 50/50. Each card links the sources actually tried
+  and the full research trail.
+- **Research-first evidence for the current gaps** is in
+  [`data/research/dbaf7692/coverage-dossier.json`](data/research/dbaf7692/coverage-dossier.json):
+  HLTV first, then Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle and EGamersWorld,
+  with the exact blocker per fixture. HLTV match pages currently answer HTTP 403 to
+  GitHub runners, so HLTV is never used as a live odds source and no HLTV-sourced price
+  is claimed. HLTV's "Pick a winner" fan vote and Hotspawn's "% picked" remain excluded.
+- **Pending public snapshot fix:** the repository's Pages site is still in the platform's
+  legacy build mode (the configuration API returns HTTP 403 to the workflow token), so a
+  push-triggered legacy build can briefly republish the checked-in 15 October pages after
+  the current artifact deploys. The workflow now re-verifies the public snapshot 75
+  seconds later and republishes the verified artifact if that happened. The setting
+  itself still needs a repository owner with Pages admin.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.

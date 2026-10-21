@@ -1,3 +1,105 @@
+# Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
+
+Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
+branched from `main` at `a506382c46762d134876f7d33a7723faa729a5ad`. The board was read
+before starting; no other session held an open claim at that time. This session also
+performs its own integration and merge.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| DB-1 Every active Hotspawn CS2 fixture must show a pick or an explicit, source-linked unresolved entry; research the pick-less ones on HLTV first and then esportsbooks; publish the limitations in the executive summary; verify the mobile pick path and the 4–8 h refresh; fix what blocks a current public snapshot | **done** (see results and the six published flags) | arena-dbaf7692 | `scripts/hltv_ranking.py`, `scripts/originate.py`, `scripts/build.py` (unranked floor, unresolved register, methodology copy), `tests/test_unresolved_rungs.py`, `tests/test_unresolved_summary.py`, `.github/workflows/pages.yml` (post-deploy guard), session-only capture tooling (removed before merge; the captured evidence stays in `data/research/dbaf7692/`), new `data/research/dbaf7692/`, this section |
+
+**Non-overlap pledge:** no change to the alias registry, collectors, other sessions'
+`data/research/<id>/`, `archive/`, or pick values that already had a sourced basis.
+The checked-in `data/` fixture pair is restored to `main`'s version so the regression
+suite keeps its fixture; live snapshots are kept only under `data/research/dbaf7692/`.
+
+### DB-1 result — 2026-10-21T20:28Z
+
+- **Root cause of "we don't have picks": the public site was six days old.** GitHub
+  Pages is configured `build_type=legacy` (source `main:/`), and the configuration API
+  answers HTTP 403 to the workflow token. A push starts the platform's legacy build,
+  which publishes the **checked-in branch root** — generated HTML from 15 October plus
+  `data/latest.json` with `generated_at 2026-10-15T08:36:13Z` — and it can land after
+  the workflow's artifact deployment for the same commit. Observed: legacy deployment
+  `7235981775` succeeded 20:01:34Z for `a506382c` while workflow deployment
+  `7235963529` for the same SHA completed 20:00:43Z; the served
+  [data/latest.json](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json)
+  still reported 15 October with 80 records / 17 upcoming. **Mitigation shipped** in
+  [pages.yml](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml):
+  after deploy and verification the job waits 75 s, re-runs `scripts.verify_live`
+  against the public URL, and republishes the verified artifact if the legacy build
+  replaced it. The repository setting itself still needs an owner with Pages admin.
+- **Live snapshot used for this work:** production pipeline run on this branch
+  ([39667118155](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39667118155))
+  collected at **2026-10-21T20:04:36Z**: 76 source records, 13 active, 63 archived;
+  complete-ladder 11 resolved / 2 unresolved. After the unranked-floor change the same
+  pipeline produced (run [39668532435](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39668532435),
+  inventory 20:16:01Z, 75 records): **13 active, 13 with probabilities, 12 directional
+  picks, 0 unresolved, 1 even estimate without a side** (Ground Zero vs Off Chops). The rendered
+  [lobby](https://play.hotspawn.com/lobby) reported 78 fixtures "this week" at 20:02Z.
+  Snapshot copies are in `data/research/dbaf7692/live-2026-10-21/`.
+- **Picks for the low-tier gap:** the HLTV world-ranking rung previously refused any
+  fixture where one side had no published row, which is the normal CCT/DFRAG case. It
+  now uses HLTV's floor of 0.0 points for the unranked side, labels the estimate
+  `HLTV world ranking · unranked floor`, and publishes a low-confidence limitation;
+  both-sides-unranked still stays unresolved and ambiguity still fails closed. Test
+  coverage added in `tests/test_unresolved_rungs.py`; methodology copy updated.
+- **Unresolved register now covers every pick-less row,** including even estimates that
+  have probabilities but no side ("Even estimate · no side"). Blank cards still never
+  show a probability and never a default 50/50.
+- **Per-fixture research (HLTV first, then books), recorded in
+  `data/research/dbaf7692/coverage-dossier.json`:**
+  - **benched gods vs TitanFlow (1081597)** — no two-sided price anywhere checked;
+    EGamersWorld publishes an identical 1.8/1.8 pair (rejected as a placeholder) and
+    its own ratings 694/1408 (not used); HLTV match pages returned HTTP 403 to the
+    runner and HLTV's benched gods team page showed no upcoming matches, so fixture
+    identity was not re-verified; start-time evidence disagrees (Hotspawn 11:00Z,
+    EGamersWorld 13:00, an HLTV search snapshot 24 October). benched gods is HLTV
+    **#204** (19 October publication, VRS #161) and TitanFlow is unranked, so the new
+    rung publishes a labelled, low-confidence unranked-floor estimate — not a market
+    pick — with every blocker listed.
+  - **Ground Zero vs Off Chops (1082858)** — both carry 5.0 published HLTV points, so
+    the estimate is exactly 50/50 and has no side; now listed in the register.
+  - **FlyQuest vs Staqued (1082860)** — FlyQuest is HLTV #61 / VRS #54, Staqued is
+    unranked, unrated and has one anchored series: the new unranked-floor rung gives a
+    labelled, low-confidence directional estimate instead of a blank.
+  - **Zetta vs LOS NINOS (1082837)** — re-verified that the published market-backed pick
+    still joins a market naming Alianza Lima Esports; flagged again, and the collector
+    fix is requested below.
+- **Source access finding:** HLTV match pages and the HLTV match listing answer **HTTP
+  403** to GitHub runners (both pages hashed in `hltv-odds-probe.json`), while the HLTV
+  ranking pages work. HLTV's betting-analytics page exposes score-handicap prices and a
+  fan vote, not a two-sided prematch moneyline, so HLTV is **not** used as an odds source and
+  no HLTV-sourced price is claimed.
+- **Published flags** (`data/research/dbaf7692/flags.json`, rendered on Flagged for
+  Review): legacy Pages overwrite, HLTV 403, benched-gods no-line, unranked-floor
+  notice, even-estimate notice, Zetta join re-verification.
+- **Verification:** local `.venv/bin/python -m scripts.build` — 80 source rows replayed,
+  row-source audit **530 rows / 516 official-linked / 5 flagged / 9 site-map / 0 without
+  a source**, 678 internal links/assets/anchors, mobile landmarks PASS. Unit suites
+  `test_unresolved_rungs`, `test_unresolved_summary`, `test_build`,
+  `test_summary_navigation`, `test_origination*` pass. Branch validation runs
+  ([39668169013](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39668169013))
+  exercise the phone widths and accessibility suite.
+- **Change request (not this session's scope):** the collector must reject any market
+  join where both team names (or registry-verified aliases) and the start time do not
+  match the HLTV/Hotspawn fixture; add a regression test with the Kalshi
+  `KXCS2GAME-26OCT211800LNALE` ticker. Until then, treat any 1082837 pick as unverified.
+
+**Sources:** [Hotspawn lobby](https://play.hotspawn.com/lobby),
+[Hotspawn fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1),
+[HLTV 2399865 Zetta–LOS NINOS](https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7),
+[HLTV 2399890 FlyQuest–Staqued](https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026),
+[HLTV 2399888 Ground Zero–Off Chops](https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026),
+[HLTV world ranking](https://www.hltv.org/ranking/teams),
+[EGamersWorld benched gods–TitanFlow](https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn),
+[Polymarket CCT South America](https://polymarket.com/esports/cs2/cct-south-america),
+[Valve regional standings](https://github.com/ValveSoftware/counter-strike_regional_standings),
+[Pages configuration API](https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages).
+
+---
+
 # Current session: arena-093e722e — every-match pick resolution audit + both-teams join guard
 
 Claimed **2026-10-21T20:05Z** on Arena-fixed branch `arena/093e722e-maltaproj3` (base `a506382`). Board read before starting. Open PRs #120 (originate/build/scout.css), #121 (aliases/Bovada), #124 own their scopes — not touched.
