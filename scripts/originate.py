@@ -1782,6 +1782,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     # the narrowest observed wide-book midpoint as guidance-only output.
     guidance_candidates.sort(key=lambda item: item[0])
     guidance_spread, guidance_quote = (guidance_candidates[0] if guidance_candidates else (None, None))
+
+    # Session bd4f77c6: an exact 50/50 is a probability pair but not a pick.
+    # Before this guard, a degenerate Valve row (two teams with equal published
+    # points) stopped the ladder at `elif model:` and the fixture was published
+    # as "Even · no side" even when a lower rung — the HLTV world ranking or the
+    # bo3.gg network — separated the two sides. The brief asks for a pick on
+    # every match, so a tied rung must not outrank a discriminating one. If
+    # every rung ties, nothing is invented: the even estimate is still published
+    # and the fixture stays in the separate no-side register.
+    def _tied(quote) -> bool:
+        return bool(quote) and selection(quote.get('probabilities') or []) is None
+
+    skip_model = _tied(model) and any(q and not _tied(q) for q in (network_quote, hltv_model, guidance_quote))
+    skip_network = _tied(network_quote) and any(q and not _tied(q) for q in (hltv_model, guidance_quote))
+    skip_hltv = _tied(hltv_model) and any(q and not _tied(q) for q in (guidance_quote,))
     if families:
         probs_list = [q['probabilities'] for q in families.values()]
         p0 = median(pr[0] for pr in probs_list)
@@ -1813,7 +1828,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                        'model_crosscheck': model})
         limitations.append('Aggregated third-party bookmaker average, not a first-party bookmaker quote. '
                            'Dated observation; confirm the price before relying on it.')
-    elif model:
+    elif model and not skip_model:
         chosen = dict(model)
         results_model = model.get('family') == 'form'
         chosen.update({'method': 'model',
@@ -1840,7 +1855,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if proof.get('overlap', 5) < 5:
                 limitations.append(f"{proof['team']}: the current HLTV lineup shares four of five players with the "
                                    'selected historical Valve row; the one-player change is not quantified.')
-    elif network_quote:
+    elif network_quote and not skip_network:
         # Session 541cd43a: our own line from observed results, used only after
         # every money line, the aggregated reference and both official-rating
         # models have failed. It is a labelled research model, never odds.
@@ -1862,7 +1877,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if network_quote.get('low_confidence'):
             limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
                                'finished series. Treat the direction as indicative only.')
-    elif hltv_model:
+    elif hltv_model and not skip_hltv:
         chosen = dict(hltv_model)
         floor = hltv_model.get('unranked_floor') or []
         chosen.update({'method': 'model',
@@ -1975,6 +1990,15 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
         return dict(result, upgraded_from_featured_model=True)
     if featured_pick is None and method in MONEY_METHODS and result.get('pick_index') is not None:
         return dict(result, upgraded_from_featured_model=True)
+    if (featured_pick is None and featured.get('method') == 'model'
+            and method == 'model' and result.get('pick_index') is not None):
+        # Session bd4f77c6: a featured *model* tie ("Even · no side") is not a
+        # pick. When the researched ladder separates the sides on a labelled
+        # lower rung — the HLTV world ranking or the bo3.gg network — publish
+        # that estimate instead of keeping a non-discriminating 50/50. A
+        # featured money line with no side is still only replaced by another
+        # money line, so an even market price is never overwritten by a model.
+        return dict(result, upgraded_from_featured_tie=True)
     return keep_featured()
 
 

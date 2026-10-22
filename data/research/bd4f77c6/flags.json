@@ -2,7 +2,11 @@
   {
     "id": "bd4f77c6-network-model-published-as-valve",
     "severity": "warning",
-    "match_ids": ["1081597", "1082858", "1082882"],
+    "match_ids": [
+      "1081597",
+      "1082858",
+      "1082882"
+    ],
     "title": "A network-model pick was published under the label 'Research model estimate (Valve official ratings)'",
     "detail": "Found by reading the live site on 2026-10-22T01:1xZ. scripts/originate.py assigned the own-line network quote to the variable `model` before the selection ladder. The ladder tests `elif model:` before `elif network_quote:`, so every network-resolved fixture carried the Valve label and the generic Valve limitation, and the lowest rung could also overwrite a resolved Valve or results model. Example: benched gods vs TitanFlow (1081597) showed 'Research model estimate (Valve official ratings)' while its own research trail recorded the Valve rung as unresolved ('multiple Valve rosters share this name') and the bo3.gg network rung as the resolver. Fix in this branch: the network quote is no longer assigned to `model`; it reaches the ladder only through `network_quote`, so it publishes 'Own network estimate (bo3.gg results graph)' with its own inputs, sample size, interval and low-confidence note. Regression tests: tests/test_bd4f77c6_provenance.py.",
     "source_urls": [
@@ -14,7 +18,11 @@
   {
     "id": "bd4f77c6-executive-summary-hardcoded-thunderpick",
     "severity": "warning",
-    "match_ids": ["1081597", "1082858", "1082882"],
+    "match_ids": [
+      "1081597",
+      "1082858",
+      "1082882"
+    ],
     "title": "The executive summary credited a 'verified Thunderpick paired-price book' to every featured-blank fixture",
     "detail": "scripts/build.py unresolved_register() printed the same sentence for every fixture the featured method left blank: '... each now carries an alias-aware researched line - HLTV event identity first, then a verified Thunderpick paired-price book (margin removed)'. That was false for the network-model and Valve-model rows, which have no Thunderpick price at all. The sentence is now generated from the snapshot: it lists the rung label actually published on each card (for example 'Own network estimate (bo3.gg results graph)') with counts, and states that no provider is credited for a price it did not publish. Pinned by tests/test_bd4f77c6_provenance.py::test_summary_names_only_the_rung_that_was_used.",
     "source_urls": [
@@ -25,7 +33,9 @@
   {
     "id": "bd4f77c6-polymarket-market-missed-by-name-join",
     "severity": "warning",
-    "match_ids": ["1082882"],
+    "match_ids": [
+      "1082882"
+    ],
     "title": "A live Polymarket market for UNiTY vs Apogee Betclic was missed because two display names were not registered",
     "detail": "At 2026-10-22T01:45Z Polymarket listed 'UNiTY esports vs Betclic Apogee Esports' in Stake Ranked Episode 6: Closed Qualifier Playoffs, moneyline unity 41c / bca 61c, scheduled 10:00 AM ET = 14:00Z. Hotspawn fixture 1082882 starts at 14:00Z with the same teams (Hotspawn titles it 'UNiTY vs Apogee Betclic' but its own opponent card reads 'Betclic Apogee Esports'). The published 61.4% came from a research model, not this market, because neither 'Betclic Apogee Esports' nor 'UNiTY esports' was registered for this competition. Added two competition-scoped entries to data/origination/aliases.json with Hotspawn, HLTV (match 2399784) and Polymarket evidence. The alias rows still need a human confirmation that the trailing 'esports' spelling is acceptable; the join is scoped to this event and cannot affect any other competition.",
     "source_urls": [
@@ -38,7 +48,11 @@
   {
     "id": "bd4f77c6-egamersworld-symmetric-18-placeholder",
     "severity": "notice",
-    "match_ids": ["1081597", "1082858", "1082882"],
+    "match_ids": [
+      "1081597",
+      "1082858",
+      "1082882"
+    ],
     "title": "EGamersWorld prints an identical 1.80 price on both sides of these fixtures",
     "detail": "Read first-hand on 2026-10-22T01:35-01:50Z: benched gods vs TitanFlow, Ground Zero vs Off Chops and UNiTY vs Betclic all render '1.8' for each side on EGamersWorld. Identical two-sided prices are the known placeholder pattern and are correctly rejected by the reviewed aggregated-reference contract. EGamersWorld's own ratings (for example 694 vs 1408 for benched gods/TitanFlow) are not used as probabilities. Recorded so nobody mistakes these prints for a market.",
     "source_urls": [
@@ -50,7 +64,9 @@
   {
     "id": "bd4f77c6-model-pick-direction-low-confidence",
     "severity": "notice",
-    "match_ids": ["1081597"],
+    "match_ids": [
+      "1081597"
+    ],
     "title": "benched gods vs TitanFlow: the only published number is a nine-series network fit and it disagrees with the crowd",
     "detail": "No bookmaker or exchange price exists for this fixture (Polymarket CCT Europe directory, Kalshi, Thunderpick, EGamersWorld placeholder all checked). The site publishes TitanFlow 77.8% from its own Bradley-Terry fit over 4,659 bo3.gg series with a thin nine-series sample for that side, flagged low confidence. Hotspawn's community split is 95% benched gods / 5% TitanFlow; that split is never an input and is recorded here only so a reader is not surprised by the disagreement. Official signals are mixed: benched gods is HLTV #204 while EGamersWorld rates TitanFlow far higher (1408 vs 694), and TitanFlow lost 0-2 to DONSTU on 20 Oct. Treat the direction as indicative, not as a market view.",
     "source_urls": [
@@ -58,6 +74,24 @@
       "https://www.hltv.org/matches/2399690/titanflow-vs-donstu-cct-2026-challengers-europe-series-8",
       "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
       "https://play.hotspawn.com/lobby"
+    ]
+  },
+  {
+    "id": "bd4f77c6-polymarket-wide-book-vs-valve-model",
+    "severity": "notice",
+    "match_ids": [
+      "1079650",
+      "1079651",
+      "1079652"
+    ],
+    "title": "Polymarket shows indicative prices for three CCT Europe fixtures, but its order books are far too wide to use as probabilities",
+    "detail": "Read first-hand on 2026-10-22T01:40Z. Polymarket's CCT Europe page showed GenOne 35c / Spirit Academy 65c, Butterfly 52c / Lavked 49c and Acend 51c / ex-6666 50c for the three CCT Europe Series #11 playoff fixtures that the site publishes at 10:00, 13:00 and 16:00 Malta. The Gamma API for the GenOne moneyline (event 1232200, market 6028795) reported bestBid 0.05 and bestAsk 0.64, a 0.59 spread, and the Map 1 market reported 0.03/0.97; both are far above the 0.15 acceptance ceiling, so the site rejects them and publishes its Valve-rating research model instead. The disagreement is material and is recorded rather than hidden: our model has GenOne 75.8% while the indicative market price has Spirit Academy 65%. The Polymarket figure is a displayed price on an essentially empty book, not an executable two-sided quote; the site's 75.8% is an uncalibrated research model, not a market view. Neither is presented as validated. A future refresh that finds a real two-sided book will replace the model row through the normal ladder.",
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-g1-tsa-2026-10-22",
+      "https://gamma-api.polymarket.com/events?slug=cs2-g1-tsa-2026-10-22",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-btf-lavked-2026-10-22",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-66661-2026-10-22",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079650"
     ]
   }
 ]

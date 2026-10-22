@@ -140,6 +140,72 @@ class NetworkProvenanceTest(unittest.TestCase):
         self.assertAlmostEqual(chosen['probabilities'][0], 0.455)
 
 
+def quote(probabilities, *, family='valve', provider='Valve official standings', **extra) -> dict:
+    """The shape the Valve, HLTV-ranking and network rungs publish."""
+    row = {
+        'provider': provider,
+        'family': family,
+        'probabilities': list(probabilities),
+        'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+        'observed_at': NOW.isoformat(),
+        'snapshot_date': '2026-10-05',
+    }
+    row.update(extra)
+    return row
+
+
+class TiedRungTest(unittest.TestCase):
+    """An exact 50/50 is a probability pair, not a pick.
+
+    Live defect (fixture 1079654, 22 Oct): the featured Valve model returned
+    0.5/0.5, the ladder stopped there, and the row was published as "Even · no
+    side" although HLTV ranks the two teams #67 and #70. The brief asks for a
+    pick on every match, so a tied rung must yield to a rung that separates the
+    sides; if every rung ties, the even probabilities stay and the fixture stays
+    in the separate no-side register.
+    """
+
+    def _resolve(self, match):
+        return originate.resolve_match(match, [], [], [], None, {'aliases': []}, NOW)
+
+    def _patched(self, valve, hltv):
+        return (mock.patch.object(originate, 'model_estimate', return_value=(dict(valve), 'valve row')),
+                mock.patch.object(originate.hltv_ranking, 'estimate', return_value=(dict(hltv), 'ranking row')))
+
+    def test_an_even_valve_model_yields_to_a_directional_hltv_ranking(self):
+        valve = quote([0.5, 0.5])
+        hltv = quote([0.56, 0.44], family='hltv', provider='HLTV world ranking')
+        valve_patch, hltv_patch = self._patched(valve, hltv)
+        with valve_patch, hltv_patch:
+            result = self._resolve(fixture())
+        chosen = result['origination']
+        self.assertEqual(chosen['label'], 'Research model estimate (HLTV world ranking)')
+        self.assertAlmostEqual(chosen['probabilities'][0], 0.56)
+        self.assertEqual(result['pick_index'], 0, 'a separating rung must produce a side')
+
+    def test_a_featured_model_tie_is_replaced_by_the_directional_rung(self):
+        # The live fixture kept the featured even estimate because only money
+        # upgrades were allowed; a labelled model with a side is better than no pick.
+        featured = dict(quote([0.5, 0.5]), method='model')
+        hltv = quote([0.56, 0.44], family='hltv', provider='HLTV world ranking')
+        valve_patch, hltv_patch = self._patched(featured, hltv)
+        with valve_patch, hltv_patch:
+            result = self._resolve(fixture(analysis=dict(featured), pick_index=None))
+        self.assertTrue(result.get('upgraded_from_featured_tie'))
+        self.assertEqual(result['origination']['label'], 'Research model estimate (HLTV world ranking)')
+        self.assertEqual(result['pick_index'], 0)
+
+    def test_all_tied_rungs_keep_the_even_probabilities_and_no_side(self):
+        valve = quote([0.5, 0.5])
+        hltv = quote([0.5, 0.5], family='hltv', provider='HLTV world ranking')
+        valve_patch, hltv_patch = self._patched(valve, hltv)
+        with valve_patch, hltv_patch:
+            result = self._resolve(fixture())
+        self.assertIsNotNone(result['origination'], 'the estimate must still be published')
+        self.assertEqual(result['origination']['probabilities'], [0.5, 0.5])
+        self.assertIsNone(result['pick_index'], 'no side may be invented from a tie')
+
+
 class SummaryProvenanceTest(unittest.TestCase):
     def _complete(self) -> dict:
         return {
