@@ -121,8 +121,11 @@ test('phone briefing shortcuts and picks section expose unresolved limitations',
   await page.goto('/');
   const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
   await shortcuts.getByRole('link', { name: 'Unresolved & limitations' }).click();
-  await expect(page).toHaveURL(/#unresolved$/);
-  await expect(page.locator('#unresolved h2')).toHaveText('Unresolved picks & limitations');
+  // arena-3a5448de: one canonical register on the summary; the old duplicate
+  // #unresolved H2 is now the featured-method audit trail below it.
+  await expect(page).toHaveURL(/#unresolved-register$/);
+  await expect(page.locator('#unresolved-register h2')).toHaveText('Unresolved picks & limitations');
+  await expect(page.locator('#unresolved h2')).toHaveText('Featured-method gaps, before research fallback');
   await page.goto('/picks/');
   await page.getByRole('link', { name: /Jump to unresolved picks/ }).click();
   await expect(page.locator('#unresolved h2')).toBeVisible();
