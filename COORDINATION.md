@@ -101,6 +101,190 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
   access control was bypassed and a refusal is never treated as proof that no market exists.
 
 
+### 3C-1 result — live inventory vs the published snapshot, verified line by line (2026-10-22T08:25Z)
+
+Runner capture at **07:36Z** (`scripts/3cf793ef_research.py`, raw JSON kept in
+`data/research/3cf793ef/live/`) against the live scheduled-fixture API, cross-read with the
+rendered [lobby](https://play.hotspawn.com/lobby) and the live
+[`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json):
+
+| Measure | Live API 07:36Z | Published snapshot 05:36:57Z |
+| --- | --- | --- |
+| Records | **107** (0 duplicate ids) | inventory 96 (63 past-start + 33 future) |
+| Start in the future | **46** | 33 |
+| `best_of` published | 0 | 0 (correctly blank) |
+| Community "% picked" published | 83 records | excluded from every calculation |
+| Active fixtures with both probabilities | — | **33 of 33**, 0 blank, 0 without a source URL |
+
+* **Not a ladder failure, a timing gap.** 14 fixtures were added by Hotspawn between the 05:36Z
+  snapshot and the 07:36Z read (FaZe–BC.Game, SinnerS–Eternal Fire, the eight CCT South America 7
+  playoff pairings and four CIS LAN Championship 9 pairings). They are absent from the published
+  site only until the next scheduled refresh, which is inside the documented 4-hour interval.
+* **One drift item, harmless:** fixture `1081597` is published but no longer returned by the API —
+  its 10:54Z lock had passed. No team, competition or start-time mismatch was found in any of the
+  33 published rows.
+* **Source links spot-checked by hand:** the Polymarket event links resolve (the short
+  `polymarket.com/event/cs2-…` URL redirects to the canonical
+  `/esports/cs2/<league>/cs2-…` page, e.g. FORZE Reload vs Just Players showing 66¢ / 35¢) and the
+  Hotspawn match page for Bushido Wildcats vs ex-6666 shows the same teams, event and 08:00 start
+  as the API.
+
+### 3C-2 result — outside prices and own lines for the fixtures without a featured pick
+
+Full tables, formulas and URLs: [`data/research/3cf793ef/README.md`](data/research/3cf793ef/README.md).
+
+* **Esportsbook line found (bo3.gg match centre, relaying a named partner book, read 07:40Z):**
+  eight live fixtures, including two of the 14 uncovered ones —
+  FaZe–BC.Game **1.77 / 1.94** (no-vig 52.3% FaZe) and SinnerS–Eternal Fire **1.83 / 1.90**
+  (no-vig 50.9% SinnerS). Saved with URLs, decimal pairs, margins and observation time in
+  `data/research/3cf793ef/outside-lines-2026-10-22T0740Z.json`.
+* **Own lines originated for 9 of the 14:** every pair where both teams carry a complete
+  five-player row in Valve's official 2026-10-05 global standings, recomputed with the documented
+  fixed-RD-75 Glicko expectation. Five fixtures have no public basis at all (Projeto do KinGui /
+  Martians / LOS NINOS / RED Canids Academy / Hacha / Envy are absent from the Valve snapshot, and
+  CCT South America 7 plus CIS LAN 9 carry no book price anywhere reachable) — those stay
+  research-only or unresolved with an explicit per-fixture limitation.
+* **The two bases disagree on a side, which is the reason this research matters.**
+  `1081603` SinnerS–Eternal Fire: the book makes **SinnerS** the marginal favourite (50.9%), the
+  Valve ratings make **Eternal Fire** a clear favourite (59.7%). A model-only fallback would have
+  published the opposite pick from the book. `1081599` FaZe–BC.Game agrees on the side but not the
+  confidence (52.3% vs 71.5%). Where a money line exists it must win over a research model.
+
+### 3C-3 result — independent recomputation of every Valve-sourced row
+
+`scripts/3cf793ef_valve_check.py` takes Valve's own markdown as an input file (archived byte-for-byte
+in `data/research/3cf793ef/valve-standings-2026-10-05.md`), applies only complete five-player rows and
+recomputes `p = 1/(1+10^(g·Δpoints/400))` with `RD = 75`.
+
+**14 of 14 published Valve-sourced probabilities reproduce, 0 mismatches, ±0.002**
+(`data/research/3cf793ef/valve-verification.json`), in three ways:
+
+* **10 straight from the summary table** — BakS–Azuolas 73.37%, Donstu–Banda chuya 40.46%,
+  ex-RUSTEC–Saint Sinners 80.75%, Nemesis–WW 91.83%, 5star–1WIN 17.82%, …
+* **3 from a duplicate-name candidate pair** — `Lynn Vision`, `HOTU` and `BRUTE` each have two
+  complete five-player rows on the 2026-10-05 snapshot, and exactly one candidate pair reproduces
+  the published value.
+* **1 from Valve's per-roster detail markdown** — `ex-Zero Tenacity vs ex-RUSTEC` is rounded to 1066
+  on both sides in the summary; the published row used `1065.6` / `1066.4` from the linked detail
+  files, which are now archived in `data/research/3cf793ef/details/` and whose **Git blob SHAs match
+  the `detail_sha` recorded in the published row** (`076d8f1d…`, `658080b7…`). Recomputed: 49.89%,
+  identical to the published value.
+
+### 3C-4 (in progress) — main repair: the review-flags test could not pass with the reconciled snapshot
+
+`main` is red for **every** PR, and it is not this session's data. `build.write_reconciled_snapshot`
+(published from another session) deliberately adds three keys to the *published* copy of
+`data/latest.json` — `featured_method_counts`, `complete_coverage_counts`, `counts_note` — so the
+download no longer says "10 unresolved" while every page renders the researched list. The older test
+`tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json` still
+demanded that the published copy be **byte-identical** to the source file, so it fails on
+`main` itself: the source file is unchanged, the published copy is 17 KB larger by design.
+Evidence: run `39752154397` step 7, `FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json`.
+
+The test was corrected (not weakened) to assert what the reconciliation promises: the source
+directory's file stays byte-identical, the published copy gains **exactly** those three keys, and
+every other key — counts, matches, order and all — is identical to the canonical file, with the
+`counts_note` prefix checked. `python -m unittest tests.test_review_flags` is green again.
+
+### 3C-3b — one rule, two implementations (new)
+
+`scripts/domain.py:valve_analysis` fails closed when two complete five-player rows share a name.
+`scripts/originate.py:model_estimate` instead resolves that case with a fresh **HLTV lineup proof**
+(exactly one row sharing all five players, or exactly one sharing four of five) and publishes the
+proof as `lineup_disambiguation` with the HLTV match URL and observation time. Three of the fourteen
+published rows exist only because the originating path is the lenient one, so the two helpers are not
+interchangeable: moving the ladder to the `domain` helper would blank `1081871`, `1079657` and
+`1082792`, and if HLTV is unreachable the `originate` path blanks them too. Recommendation for the
+owners of `methodology/`: state the two-step rule (Valve points + HLTV lineup proof) explicitly, or
+align the helpers. Manual check of one proof: `hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11`
+read at 08:42Z lists BRUTE vs BAKS, CCT Europe 11, Bo3, 23 Oct, with the same five-player core the
+published row claims. The community vote on that page (80% / 20%) is a vote, not a price, and is not
+an input anywhere.
+
+### 3C-3 flags — irregularities found (corrected 2026-10-22T09:20Z)
+
+**Correction to this session's first reading.** The first version of this section claimed that
+`1082770` and `1081148` "render the Model badge and count toward the research-model figure".
+That was wrong, and it is recorded here rather than quietly deleted. It came from reading the raw
+`data/latest.json` (`analysis.method = model`) instead of the **rendered** page. Re-read on the live
+site at 09:10Z, the executive summary's *Picks at a glance* is right:
+
+* row 20, **UPGRADE vs Virtus.pro** — "Pick **Virtus.pro** 60.6% · UPGRADE 39.4%", evidence link
+  **Bookmaker → bovada.lv/…/upgrade-virtus-pro-202610221630**, i.e. the Bovada + Pinnacle consensus;
+* row 24, **Inner Circle Academy vs Spirit Academy** — "Pick **Spirit Academy** 51.4% · Inner Circle
+  Academy 48.6%", evidence link **Bookmaker → bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026**,
+  i.e. the relayed Thunderpick line.
+
+Both agree with `/origination/` and with the registry, so the money line does override the featured
+model wherever the ladder found one. Two smaller, real issues remain:
+
+1. **The published audit snapshot does not reproduce the rendered rows.** `data/latest.json` served
+   by the site still carries `analysis.method = "model"` for `1082770` (33.31% UPGRADE / 66.69%
+   Virtus.pro) and `1081148` (61.42% Inner Circle Academy / 38.58% Spirit Academy, i.e. the *opposite*
+   side from the page), and it contains no `fallbacks` map — the upgrade is attached only in the build
+   output. Anyone reviewing "the full public snapshot" therefore sees different numbers, and one
+   different pick, than the page they are reviewing. Either publish the upgraded record in the
+   snapshot or state on the page that the snapshot holds featured-only estimates. **Request to the
+   owners of `scripts/originate.py` / `scripts/build.py`.**
+3. **The HLTV-ranking rung compresses low-tier gaps into a coin flip** (`1081149` FORZE Reload
+   vs LFO 10 = 51.0%, `1082860` FlyQuest vs an unranked Staqued = 52.3%). HLTV's published
+   *points* are bunched at the bottom of the table — rank 80 has 11.0, rank 167 has 4.0, the floor
+   is 0.0 — so a 400-scale logistic on them cannot express a large skill gap. The picks are
+   directionally right; the percentages are close to uninformative and should not be read as edge.
+   Request to the owners of `scripts/hltv_ranking.py` / `methodology/`: price off rank position, or
+   display an explicit wide-uncertainty band and stop this rung from claiming a confident number.
+2. **Badge wording on an upgraded row.** Those rows render the purple **Researched** badge although
+   their own evidence link says **Bookmaker**. Cosmetic, but it is the one place where the badge and
+   the linked source still disagree.
+
+### Coordination note (2026-10-22T08:25Z)
+
+Five sessions are working the same request on separate fixed branches: `ee27e097` and `a56f3474`
+claimed at 07:29Z, `75aa5b56` opened PR **#163** at 08:0xZ, and this one claimed 07:35Z. Both
+earlier claims cover `scripts/build.py`, `scripts/originate.py` and `assets/scout.css`; this session
+therefore took only the read-only verification scope above and **changed no shared code**, so the
+owner sessions can merge without a conflict from here. When the first of them lands, the remaining
+sessions should verify the combined result rather than re-implement the same page.
+
+# Current session: arena-3cf793ef — independent live verification, HLTV/esportsbook line research for the pick-less gap, and final integration verification
+
+Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/3cf793ef-maltaproj3`, from `main` at
+`285a0d9a0bd0f6dd64cddab8e890007ced9baef3` (merge of PR #162). The board and every open remote branch
+were read first. Two sessions were **live at claim time** (both claimed 07:29Z, one minute before this
+one): `arena/ee27e097` (EE-1..EE-4) and `arena/a56f3474` (A56-1..A56-4), and both hold
+`scripts/build.py`, `scripts/originate.py` and `assets/scout.css`. This session therefore deliberately
+claims **none** of those files and does not start any task either of them has claimed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3C-1 Independently read the **live** Hotspawn CS2 inventory and every active pick row from the public site and the lobby, then verify the published snapshot line by line (inventory count, both probabilities, pick side, source link per row, timestamp freshness) | **done** — see 3C-1/3C-4 results | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-2 Research, with dated saved evidence, a **real two-sided price or a documented HLTV/ratings basis** for every fixture the featured ladder leaves model-only or blank: HLTV first, then esportsbooks/aggregators. Record the exact blocker per fixture where nothing can be sourced; never invent a price | **done** — see 3C-2 result | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-3 Flag every irregularity found during the repo and site review (stale checked-in snapshot, unverified values, label drift, missing source links) on the Flagged for Review page through the existing register machinery — **requested** from the owner of `scripts/build.py` rather than edited here while a live claim exists | **done** — see 3C-3 result and 3C-3 flags | arena-3cf793ef | request logged in this section |
+| 3C-4 After the two live sessions publish, verify the combined `main` state line by line, confirm the build/link/mobile checks, open the PR from this fixed branch, merge on green and confirm the Pages deployment; record the PR link and merge result here | **in progress** — PR **#165** open; `originate` green, the browser job queued behind a 30-run Actions backlog | arena-3cf793ef | `COORDINATION.md`, `README.md` only if a published claim is wrong, `data/research/3cf793ef/**` |
+
+**One shared file was briefly touched, and it is logged here rather than hidden.** `assets/scout.css`
+was in `75aa5b56`'s scope and under `a56f3474`'s pledge, but `main` itself could not pass the phone
+check: the exec banner and the five-link `nav.start-here` stacked to 664 px at 320 px, putting
+`#picks-at-a-glance` at y=1505 against a 1500 px budget, so every open PR failed
+`tests/browser/dashboard.spec.mjs:235` and run `39744249774` could not even be re-run ("its workflow
+file may be broken"). This session added one additive media rule at the end of the file to clear the
+blocker (measured: nav 519 px, glance y=1352 at 320 px; full browser suite 85/85). **Session
+`df80ab9f` then landed its own repair on `main`** (closing a swallowed `@media(max-width:375px)`
+brace plus a compaction block) and aligned the phone nav to the merged 6-slot version, so this
+session's rule was **dropped during the merge of `origin/main` at 09:5xZ**, exactly as the note asked.
+Nothing of this session's CSS survives; the phone budget is now `df80ab9f`'s fix, re-verified here
+against the merged tree (37/37 dashboard tests, including the 320 px and 390 px fold assertions).
+it is a no-op for every other page.
+
+**Non-overlap pledge.** While the `ee27e097` and `a56f3474` claims are live this session edits **no**
+`scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/hltv_ranking.py`,
+`scripts/network_model.py`, `scripts/reference_odds.py`, `scripts/sources.py`, `assets/*.css`,
+`assets/*.js`, `data/latest.json`, `data/origination.json`, `data/origination/**`,
+`data/origination/aliases.json`, `.github/workflows/pages.yml`, any `data/research/<other id>/`, or
+`archive/`. Any needed change in those files is written here as a request. Read-only probe scripts are
+namespaced `scripts/3cf793ef_*.py`; tests are namespaced `tests/test_3cf793ef_*.py`. No hand-authored
+probability, pick or match record is ever written into a canonical feed.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
