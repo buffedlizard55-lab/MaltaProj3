@@ -1,9 +1,26 @@
 {
   "session": "arena-8877b140",
-  "verified_at": "2026-10-22T08:10:19Z",
+  "verified_at": "2026-10-22T08:18:24Z",
   "read_only": true,
   "official_host_policy_size": 24,
   "checks": [
+    {
+      "check": "hotspawn-inventory-reconciliation",
+      "ok": true,
+      "detail": {
+        "records": 80,
+        "unique_records": 80,
+        "sets_equal": {
+          "api": true,
+          "feed": true,
+          "lobby": true,
+          "cs2": true
+        },
+        "only_in_feed": [],
+        "missing_from_feed": [],
+        "observed_at": "2026-10-15T08:36:04Z"
+      }
+    },
     {
       "check": "every-active-fixture-originated",
       "ok": true,
@@ -147,8 +164,8 @@
     }
   ],
   "totals": {
-    "checks": 11,
-    "passed": 11,
+    "checks": 12,
+    "passed": 12,
     "violations": 0
   },
   "all_passed": true

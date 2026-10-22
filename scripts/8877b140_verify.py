@@ -164,6 +164,40 @@ def iter_external_urls(value):
             yield from iter_external_urls(child)
 
 
+def verify_inventory_reconciliation(data_dir: Path) -> list[dict]:
+    """The Hotspawn API, both rendered lobbies and the published feed agree.
+
+    Uses only saved first-party evidence: the fixture API array
+    (data/evidence/hotspawn-fixtures.json), the lobby hydration context
+    (hotspawn-context.json) and data/latest.json. Duplicate ids, missing ids
+    or a three-way mismatch fail closed, mirroring the collector's own rule.
+    """
+    fixtures_path = data_dir / 'evidence' / 'hotspawn-fixtures.json'
+    context_path = data_dir / 'evidence' / 'hotspawn-context.json'
+    latest_path = data_dir / 'latest.json'
+    missing = [p.name for p in (fixtures_path, context_path, latest_path) if not p.exists()]
+    if missing:
+        return [_result('hotspawn-inventory-reconciliation', False,
+                        {'missing_evidence': missing})]
+    fixtures = json.loads(fixtures_path.read_text())
+    context = json.loads(context_path.read_text())
+    latest = json.loads(latest_path.read_text())
+    api_ids = [str(x.get('id')) for x in fixtures]
+    feed_ids = [str(m.get('id')) for m in latest['matches']]
+    lobby_ids = [str(x) for x in context.get('lobby_ids', [])]
+    cs2_ids = [str(x) for x in context.get('cs2_ids', [])]
+    sets = {'api': set(api_ids), 'feed': set(feed_ids),
+            'lobby': set(lobby_ids), 'cs2': set(cs2_ids)}
+    no_duplicates = len(api_ids) == len(sets['api']) and len(feed_ids) == len(sets['feed'])
+    all_equal = all(s == sets['api'] for s in sets.values())
+    detail = {'records': len(api_ids), 'unique_records': len(sets['api']),
+              'sets_equal': {k: sets[k] == sets['api'] for k in sets},
+              'only_in_feed': sorted(sets['feed'] - sets['api'])[:10],
+              'missing_from_feed': sorted(sets['api'] - sets['feed'])[:10],
+              'observed_at': context.get('observed_at')}
+    return [_result('hotspawn-inventory-reconciliation', no_duplicates and all_equal, detail)]
+
+
 def verify_source_link_policy(data_dir: Path) -> list[dict]:
     """Every external URL in the canonical feeds is https and allow-listed.
 
@@ -346,6 +380,7 @@ def verify_mobile_css(repo_root: Path) -> list[dict]:
 
 def run(repo_root: Path, data_dir: Path, site_dir: Path | None) -> dict:
     checks = []
+    checks += verify_inventory_reconciliation(data_dir)
     checks += verify_origination_contract(data_dir)
     checks += verify_source_link_policy(data_dir)
     if site_dir is not None:

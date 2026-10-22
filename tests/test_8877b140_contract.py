@@ -55,6 +55,15 @@ class Contract8877Tests(unittest.TestCase):
         failed = [c['check'] for c in self.dossier['checks'] if not c['ok']]
         self.assertEqual(failed, [], json.dumps(failed, indent=1))
 
+    # --- inventory reconciliation ------------------------------------------
+    def test_hotspawn_api_lobbies_and_feed_reconcile_with_unique_ids(self):
+        results = {c['check']: c for c in verify.verify_inventory_reconciliation(self.data_dir)}
+        check = results['hotspawn-inventory-reconciliation']
+        self.assertTrue(check['ok'], check['detail'])
+        detail = check['detail']
+        self.assertEqual(detail['records'], detail['unique_records'])
+        self.assertTrue(all(detail['sets_equal'].values()))
+
     # --- coverage contract -------------------------------------------------
     def test_every_active_fixture_is_originated_once(self):
         check = self.by_name['every-active-fixture-originated']

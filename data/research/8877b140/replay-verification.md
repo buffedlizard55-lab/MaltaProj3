@@ -20,10 +20,11 @@ reachable from here, so:
   (`generated_at 2026-10-15T08:36:13Z`, 80 inventory records, 17 active) and
   its saved evidence, the same inputs `scripts.build` replays in CI.
 
-## Results (11/11 checks PASS)
+## Results (12/12 checks PASS)
 
 | Check | Result | Evidence |
 | --- | --- | --- |
+| Hotspawn inventory reconciliation | PASS | fixture API array = lobby hydration ids = CS2 lobby ids = published feed: 80 unique ids in all four, no duplicates or drift (`data/evidence/hotspawn-fixtures.json`, `hotspawn-context.json`) |
 | Every active fixture originated exactly once | PASS | 17 active Hotspawn fixtures → 17 origination rows, no missing/duplicate ids |
 | Published counts recompute from rows | PASS | active/with_pick/unresolved all match `origination.counts` |
 | Row arithmetic and sources | PASS | probabilities sum to 1 (tol 1e-6), strictly inside (0,1); `fair_decimal` is the rounded reciprocal; `pick_index` always points at the larger probability; even estimates carry no side; every source/quote URL is https; research-model rows always publish a limitation |
