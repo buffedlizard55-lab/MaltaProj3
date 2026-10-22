@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T09:28:49Z",
+  "observed_at": "2026-10-22T09:56:52Z",
   "label": "fresh-snapshot",
   "command": [
     "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
@@ -14,11 +14,11 @@
   ],
   "returncode": 1,
   "error": null,
-  "wall_seconds": 676.5,
+  "wall_seconds": 582.3,
   "snapshot": {
     "data_dir": "data",
     "latest.json": {
-      "generated_at": "2026-10-22T09:15:53Z",
+      "generated_at": "2026-10-22T09:45:12Z",
       "counts": {
         "inventory": 104,
         "upcoming": 43,
@@ -34,7 +34,7 @@
       "live_collection": null
     },
     "origination.json": {
-      "generated_at": "2026-10-22T09:16:05Z",
+      "generated_at": "2026-10-22T09:45:21Z",
       "counts": {
         "active": 43,
         "resolved": 43,
@@ -54,8 +54,8 @@
     },
     "evidence_files": 92
   },
-  "ran": 929,
-  "seconds": 675.894,
+  "ran": 945,
+  "seconds": 581.192,
   "ok": false,
   "summary": "failures=15, errors=19",
   "failed": [
@@ -231,9 +231,9 @@
     }
   ],
   "tail": [
-    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 667, in validate_origination",
-    "    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'",
-    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 715, in validate_origination",
+    "    assert m['pick_index'] == expected_pick_for(o), 'Fallback pick differs from its probabilities'",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
     "AssertionError: Fallback pick differs from its probabilities",
     "",
     "======================================================================",
@@ -245,15 +245,15 @@
     "                              ^^^^^^^^^^^^^^^^^^^^^^^^^",
     "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build.py\", line 1811, in build",
     "    build_originated(source, output)",
-    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 687, in build",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 735, in build",
     "    validate_origination(data, source)",
-    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 667, in validate_origination",
-    "    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'",
-    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 715, in validate_origination",
+    "    assert m['pick_index'] == expected_pick_for(o), 'Fallback pick differs from its probabilities'",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
     "AssertionError: Fallback pick differs from its probabilities",
     "",
     "----------------------------------------------------------------------",
-    "Ran 929 tests in 675.894s",
+    "Ran 945 tests in 581.192s",
     "",
     "FAILED (failures=15, errors=19)"
   ]

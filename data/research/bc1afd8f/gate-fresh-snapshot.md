@@ -1,11 +1,11 @@
 # arena-bc1afd8f — regression gate measurement: `fresh-snapshot`
 
-Observed **2026-10-22T09:28:49Z**. Command: `/opt/hostedtoolcache/Python/3.12.15/x64/bin/python -m unittest discover -s tests -v`
+Observed **2026-10-22T09:56:52Z**. Command: `/opt/hostedtoolcache/Python/3.12.15/x64/bin/python -m unittest discover -s tests -v`
 
-- snapshot `data/latest.json`: `2026-10-22T09:15:53Z`
-- snapshot `data/origination.json`: `2026-10-22T09:16:05Z` (live collection: `True`)
+- snapshot `data/latest.json`: `2026-10-22T09:45:12Z`
+- snapshot `data/origination.json`: `2026-10-22T09:45:21Z` (live collection: `True`)
 - `data/evidence/` files present: 92
-- tests run: **929** in 675.894s · exit code `1`
+- tests run: **945** in 581.192s · exit code `1`
 - result: **FAIL** (failures=15, errors=19)
 
 ## 34 failing test(s) in 18 module(s)
@@ -52,9 +52,9 @@ Modules: `test_75aa5b56`, `test_8fa2b226`, `test_b1022dc2_coverage_and_mobile`, 
 ## Last lines of the run
 
 ```
-  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 667, in validate_origination
-    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 715, in validate_origination
+    assert m['pick_index'] == expected_pick_for(o), 'Fallback pick differs from its probabilities'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Fallback pick differs from its probabilities
 
 ======================================================================
@@ -66,15 +66,15 @@ Traceback (most recent call last):
                               ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build.py", line 1811, in build
     build_originated(source, output)
-  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 687, in build
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 735, in build
     validate_origination(data, source)
-  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 667, in validate_origination
-    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py", line 715, in validate_origination
+    assert m['pick_index'] == expected_pick_for(o), 'Fallback pick differs from its probabilities'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Fallback pick differs from its probabilities
 
 ----------------------------------------------------------------------
-Ran 929 tests in 675.894s
+Ran 945 tests in 581.192s
 
 FAILED (failures=15, errors=19)
 ```

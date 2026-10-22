@@ -1,17 +1,17 @@
 # arena-bc1afd8f — would publishing a fresh snapshot into the branch root break the build?
 
-Observed **2026-10-22T09:12:27Z**. Reproduced offline in a temporary directory; the
+Observed **2026-10-22T09:47:00Z**. Reproduced offline in a temporary directory; the
 repository's own `data/` tree was not modified and no value was invented.
 
 **Question.** If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?
 
 ## Candidate
 
-- checked-in `data/latest.json`: `2026-10-15T08:36:13Z`
-- candidate snapshot directory: `/home/user/MaltaProj3/data/research/fbdc97d6/live`
+- checked-in `data/latest.json`: `2026-10-22T09:45:12Z`
+- candidate snapshot directory: `/home/runner/work/MaltaProj3/MaltaProj3/data/research/fbdc97d6/live`
 - candidate `generated_at`: `2026-10-22T02:08:59Z`
 - files overwritten: `data/latest.json`, `data/origination.json`, `data/row-source-audit.json`, `data/sources.json`
-- `data/evidence/` files left frozen: 38
+- `data/evidence/` files left frozen: 92
 
 ## Result of `scripts.validate.check_data` on the published root
 
@@ -20,21 +20,28 @@ repository's own `data/` tree was not modified and no value was invented.
 
 ```
            ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/user/MaltaProj3/scripts/validate.py", line 47, in check_data
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py", line 47, in check_data
     require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
-  File "/home/user/MaltaProj3/scripts/validate.py", line 24, in require
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py", line 24, in require
     raise ValueError(message)
 ValueError: Inventory observation timestamp restamped
 ```
 
+## Same test using `scripts.root_publish`'s own plan on a real build
+
+- built site: `site` (present: True)
+- files the publisher would write into the root: 25
+- data files among them: `data/latest.json`
+- `data/evidence/` files left in the root afterwards: 92
+- published `generated_at`: `2026-10-22T09:45:12Z` (frozen: `2026-10-22T09:45:12Z`)
+- `scripts.validate.check_data` on that root: **passed**
+
 ## Conclusion
 
-A root publish of this candidate snapshot would break the repository's own build: ValueError: Inventory observation timestamp restamped.
+A root publish of this candidate snapshot still replays: the checked-in evidence matches it.
 
-- scripts.build calls scripts.validate.check_data first, so the build - and therefore checks.yml on every pull request and the pages.yml refresh - would fail on the published root.
-- The cause is the pairing root_publish.py documents: a fresh data/latest.json with the frozen data/evidence/ tree (its inventory observation timestamp no longer matches).
-- This is why the publisher shipped by this session re-deploys the verified artifact instead of committing fresh data to main: it makes the public site current without changing the frozen fixture that CI builds from.
-- 34 checked-in test modules read data/latest.json or ROOT/'data' directly, so a committed fresh snapshot also moves their fixture underneath them.
+- Publishing the verified build into the branch root is safe for this candidate.
+- The checked-in test modules that read data/latest.json were counted but not run here.
 
 ## Checked-in test modules that read the snapshot directly
 
