@@ -5515,6 +5515,13 @@ Claimed 2026-10-22T09:10Z on Arena-fixed branch `arena/e4f4c6bb-maltaproj3` at `
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| E4F-1 Correct the review-flags integration assertion to match the documented contract: source `latest.json` remains byte-identical, while generated output includes the intentional featured-vs-researched count reconciliation; rerun focused/full verification and record results | in progress | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
+| E4F-1 Correct the review-flags integration assertion to match the documented contract: source `latest.json` remains byte-identical, while generated output includes the intentional featured-vs-researched count reconciliation; rerun focused/full verification and record results | **done** | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
 
 **Non-overlap pledge:** No edits to data, picks, source evidence, site rendering, collection/origination logic, workflows, or another session's files. The assertion failed because it expected the generated copy to remain byte-identical even though `scripts/build.py:write_reconciled_snapshot()` intentionally adds `featured_method_counts`, `complete_coverage_counts`, and `counts_note`; the source copy itself must remain unchanged. This claim adds no new odds, picks, or research facts.
+
+### E4F-1 completion — 2026-10-22T09:14Z
+
+- Updated `test_render_only_findings_do_not_rewrite_the_canonical_json`: it continues to require the source `latest.json` to remain byte-identical, verifies generated `counts` are unchanged, and asserts the generated copy carries the expected featured/researched count reconciliation. This aligns the regression test with `scripts/build.py:write_reconciled_snapshot()`; no runtime logic or pick data changed.
+- Verification: focused `tests.test_review_flags` **4/4 passed**; full Python suite **928/928 passed**; `.venv/bin/python -m scripts.build --data data --output /tmp/e4f4c6bb-site` **PASS** (80 source rows replayed; 787 internal links/assets/anchors); strict row audit **624 rows, 605 sourced, 9 flagged-unverified, 10 site-map, 0 violations**; `npm test` **85/85 passed**, including mobile sizes 320/390/768/1440 px and automated accessibility scans.
+- Initial browser-test attempt was not a product failure: Playwright expected the ignored build output directory `site/` which was absent in the fresh checkout. Built the site into that directory and reran successfully. One `collect` test emitted expected HTTP 403/fixture-disagreement warnings, confirming fail-closed retention behavior; the saved snapshot was not refreshed from inaccessible live sources.
+- No irregularities in the changed assertion beyond the stale expectation. PR/release details will be recorded after integration.
