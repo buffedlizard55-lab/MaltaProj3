@@ -79,25 +79,29 @@
       "id": "VD-04",
       "area": "publishing / freshness",
       "severity": "high",
-      "status": "fixed",
-      "finding": "A push to main publishes six-day-old picks for roughly ten minutes. GitHub Pages for this repository is configured build_type=legacy with source main:/, so every push to main starts the platform's own 'pages build and deployment' job, which publishes the checked-in branch root — data/latest.json generated 2026-10-15T08:36:13Z with 80 records and 17 upcoming — in well under a minute. The production workflow that publishes the current snapshot takes about ten minutes. Observed directly: PR #146 merged at 01:21:14Z; at 01:30:26Z the public /data/latest.json still reported the 15 October snapshot and its 17 upcoming fixtures, and it was unchanged at 01:40Z while the production run was still in progress. A reader opening the site in that window sees matches from 15 October and none of today's picks, which is exactly the 'we do not have picks' symptom.",
-      "handling": "Fixed in this session without touching the platform setting: .github/workflows/pages.yml gains a first job, 'republish-last-verified', that downloads the previous successful run's already-verified github-pages artifact and deploys it immediately, so the site keeps serving the newest verified snapshot while the fresh one is collected. The existing publisher job runs afterwards unconditionally (needs + if: always()), so a failure in the new job cannot stop the fresh snapshot. The underlying legacy build mode remains an owner-only repository setting and is still reported by the existing post-deploy guard.",
+      "status": "platform limitation",
+      "finding": "The public site keeps reverting to the checked-in 15 October snapshot, because Pages is configured build_type=legacy with source main:/ and every push to main republishes the repository root. The checked-in root carries data/latest.json generated_at 2026-10-15T08:36:13Z (80 records, 17 upcoming), so for the ten-plus minutes the production workflow needs to collect, replay and build, the public site shows six-day-old matches and none of today's picks — and every new merge restarts that window, so while several sessions are merging the stale copy is what a reader usually gets. Observed repeatedly on 2026-10-22: at 01:30:26Z (eleven minutes after PR #146 merged), again after PR #150, and again at 04:25Z after the runs for d55ed87 and cd9a595 had been queued for more than half an hour, even though the workflow itself had deployed successfully (run 39717765225, both jobs success, 03:36Z). Two deployments of the same commit do conflict — the fixes that resolved that are described under handling — but fixing the deployment no longer stops the legacy build from overwriting the result.",
+      "handling": "Three separate things were established and are recorded here rather than smoothed over. (1) The fast-republish job added in PR #150 deployed the same previous artifact first and made the fresh deployment fail at 'Run actions/deploy-pages@v5' in runs 39710589149, 39713153422, 39714834456 and 39715837365; deleting the duplicate artifact (PR #157) was not enough, and giving the interim artifact its own name was the change that worked — run 39717765225 for ea1534f completed with both jobs successful. (2) That still does not keep the site current, because the legacy build overwrites the deployed artifact on every push; the workflow's post-deploy guard detects that and redeploys, but a burst of merges keeps winning the race. (3) The only durable fix is a repository setting: Settings → Pages → Source: GitHub Actions (build_type=workflow), which needs an owner with Pages admin — the workflow token receives HTTP 403 from the Pages configuration API. Until that is changed, a reader who sees old matches should reload after the run finishes; the footer timestamp says which snapshot is being served.",
       "evidence": [
         {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
-          "detail": "The 01:30:26Z audit run (retained verbatim as the audit's latest report in this folder) recorded generated_at 2026-10-15T08:36:13Z, 80 records and 17 upcoming from the public site, eleven minutes after the merge."
-        },
-        {
           "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
-          "detail": "The repository's Pages configuration: build_type 'legacy', source branch main, path '/'. Changing it needs repository administration, which this workflow token does not have (HTTP 403)."
+          "detail": "Pages configuration served by the API: build_type 'legacy', source branch main, path '/'. This is the setting an owner must change; the workflow token gets HTTP 403."
         },
         {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
-          "detail": "The new republish-last-verified job and the publisher's needs/always() wiring."
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+          "detail": "The public snapshot read at 04:25Z still reported generated_at 2026-10-15T08:36:13Z with 80 records and 17 upcoming, after the 03:36Z workflow run had deployed successfully."
         },
         {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
-          "detail": "The checked-in root snapshot the legacy build publishes: generated_at 2026-10-15T08:36:13Z."
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39717765225",
+          "detail": "The run that proved the deployment fix: republish-last-verified and verify-and-deploy both completed successfully with the interim artifact name."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39710589149",
+          "detail": "First reproduction of the same-SHA deployment conflict: fast deploy success at 02:31:58Z, fresh deploy failure at 02:49:37Z."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "detail": "Dated audit evidence for the 01:30:26Z observation of the 15 October snapshot on the public site."
         }
       ]
     },
