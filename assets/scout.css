@@ -391,6 +391,7 @@
   .ladder-list li{font-size:11.5px;line-height:1.9}
 }
 
+
 /* Session df80ab9f — restore phone above-the-fold budget (< 1500px at 320px/390px)
    after PRs #163 + #174 while preserving >= 44px touch targets. */
 @media(max-width:700px){
@@ -414,6 +415,7 @@
   .start-here span{font-size:10px;line-height:1.34}
 }
 
+
 /* Session arena-ca4d2a02 — keep 9-item desktop .sidebar within 844px fixed
    height so .sidebar-repo never overflows onto light --bg (#f4f7f8) under
    Ubuntu font metrics (fixes axe color-contrast 2.23:1 at 1440x844 in CI). */
@@ -429,4 +431,25 @@
   .sidebar-note{padding:10px 12px;margin-bottom:12px}
 }
 
-
+/* Session f60683a4 — current picks are the first tap on a phone.
+   The in-page glance jump is full-width and orange; the remaining four
+   destinations sit in a two-column grid so the pick index stays above
+   the fold instead of sitting under a five-card archive stack. */
+.start-here a.picks-here{background:#fff6ef;border-color:#f0cfb7}
+.start-here a.picks-here strong{color:var(--orange-dark)}
+@media(max-width:700px){
+  /* Keep df80ab9f's 9/11 padding so #picks-at-a-glance stays under 1500px.
+     Hide the banner's repeated copy. Two-column the jump bar with min-width:0
+     so 320px does not overflow (grid items default to min-width:auto). */
+  .exec-banner-label,.exec-banner-desc,.exec-banner-meta{display:none}
+  .exec-banner-actions a .sub{display:none}
+  .exec-banner h3{font-size:15px;margin:0 0 6px}
+  .start-here-label{display:none}
+  .start-here ul{grid-template-columns:1fr 1fr;gap:5px}
+  .start-here li{min-width:0}
+  .start-here a{min-width:0;overflow:hidden}
+  .start-here a span{display:none}
+  .start-here a strong{overflow-wrap:anywhere}
+  .start-here li:first-child{grid-column:1/-1}
+  .start-here .tiny{display:none}
+}
