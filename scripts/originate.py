@@ -1825,6 +1825,60 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
+def ranked_tie_break(quote: dict | None) -> tuple[int, dict] | None:
+    """Give an exactly even *research model* a side from the provider's own order.
+
+    Session 4c972a51. Some low-tier fixtures have no market and no bookmaker, so
+    the last rung is a research model built from published ranking points. When
+    both sides carry exactly the same published points the model's estimate is
+    exactly 50/50 and ``selection`` returns no side — the pick'em game still needs
+    a team, and the brief asks for a pick on every listed match.
+
+    This tie-break is deliberately narrow:
+
+    * it applies only to a ``family='model'`` quote, never to a money line;
+    * it applies only when the two probabilities are exactly equal;
+    * both inputs must carry a positive published rank (``rank`` for HLTV,
+      ``standing`` for Valve) and the ranks must differ;
+    * it changes **no probability** — the published estimate stays 50/50 — and
+      the row records which rule produced the direction.
+
+    Anything else returns ``None`` and the fixture keeps its honest blank side.
+    """
+    if not isinstance(quote, dict) or quote.get('family') != 'model':
+        return None
+    probs = quote.get('probabilities') or []
+    if len(probs) != 2 or abs(float(probs[0]) - float(probs[1])) >= 1e-8:
+        return None
+    inputs = quote.get('inputs') or []
+    if len(inputs) != 2:
+        return None
+    ranks = []
+    for row in inputs:
+        rank = row.get('rank', row.get('standing')) if isinstance(row, dict) else None
+        if isinstance(rank, bool) or not isinstance(rank, int) or rank <= 0:
+            return None
+        ranks.append(rank)
+    if ranks[0] == ranks[1]:
+        return None
+    winner = 0 if ranks[0] < ranks[1] else 1
+    source = quote.get('provider') or 'Research model'
+    record = {
+        'rule': 'published-rank tie-break',
+        'ranks': ranks,
+        'winner': winner,
+        'source': source,
+        'source_url': quote.get('source_url'),
+        'detail': (f'{source} publishes exactly equal points for both teams '
+                   f'({", ".join(str(r) for r in ranks)} are the published positions), so the '
+                   'model estimate is exactly 50.0% each and carries no probability edge. '
+                   f'The direction is set by {source}\'s own published order: {inputs[winner].get("name")} '
+                   f'is ranked {ranks[winner]} against {ranks[1 - winner]}. This decides the pick only; '
+                   'it does not change either probability, and it is not a betting line.'),
+    }
+    return winner, record
+
+
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
                     reference: list | None = None, hltv_rank: list | None = None,
                     hltv_meta: dict | None = None, relay: list | None = None) -> dict:
@@ -2244,6 +2298,18 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     if time_flags:
         limitations.append('Provider start-time disagreement: ' + '; '.join(sorted(set(time_flags))) + '. Times are never silently overwritten.')
     pick = selection(chosen['probabilities']) if chosen else None
+    if pick is None and chosen:
+        # Session 4c972a51: an exactly even research estimate still gets a side
+        # when the provider publishes an order for the two teams. The estimate
+        # and its fair line are untouched; only the direction is decided.
+        tie = ranked_tie_break(chosen)
+        if tie:
+            pick, tie_record = tie
+            chosen['tie_break'] = tie_record
+            limitations.append(tie_record['detail'])
+            trail.append({'stage': 'Tie-break (published ranking order)', 'status': 'resolved',
+                          'source_url': tie_record.get('source_url') or POLY_INDEX,
+                          'detail': tie_record['detail']})
     deduped = []
     seen = set()
     for a in aliases:

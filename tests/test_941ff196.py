@@ -35,10 +35,14 @@ class ExecBannerTests(unittest.TestCase):
         section = soup.select_one('section.exec-banner')
         self.assertIsNotNone(section)
         hrefs = [a['href'] for a in section.select('.exec-banner-actions a')]
-        self.assertEqual(hrefs, ['./origination/#picks', './picks/', './origination/#unresolved'])
+        # Session 4c972a51 gives the unresolved register its own page, so the
+        # third action now points there; the full research trails stay linked
+        # from the banner meta line and the register itself.
+        self.assertEqual(hrefs, ['./origination/#picks', './picks/', './unresolved/'])
         for href in hrefs:
             self.assertTrue(href.startswith('./'), href)
             self.assertNotIn('http', href)
+        self.assertIn('./origination/#unresolved', [a['href'] for a in section.select('a')])
 
     def test_banner_counts_match_complete_picks_snapshot(self):
         data = with_complete(inventory())

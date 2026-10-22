@@ -95,7 +95,10 @@ def diagnose(data_dir: Path, out_dir: Path) -> dict:
             'method': _method(analysis) or _method(featured),
             'label': (analysis or {}).get('label') or (featured or {}).get('label'),
             'probabilities': probs,
-            'pick': (analysis or {}).get('pick') or (featured or {}).get('pick'),
+            'pick_index': record.get('pick_index'),
+            'pick': ([t.get('name') for t in match.get('teams') or []][record['pick_index']]
+                     if record.get('pick_index') in (0, 1) else None),
+            'tie_break': (analysis or {}).get('tie_break'),
             'source': (analysis or {}).get('source'),
             'source_url_used': (analysis or {}).get('source_url'),
             'model': (analysis or {}).get('model') or (analysis or {}).get('model_crosscheck'),

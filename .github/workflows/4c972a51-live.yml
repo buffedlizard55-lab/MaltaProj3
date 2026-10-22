@@ -5,6 +5,7 @@ name: 4c972a51 live diagnostics (session-only)
 # probe are produced here and committed back to the session branch. It edits no
 # published file: everything it writes lives under data/research/4c972a51/.
 # It is deleted before the pull request is merged.
+# run: 2 (after wiring the published-rank tie-break into scripts/originate.py)
 on:
   workflow_dispatch:
   push:
