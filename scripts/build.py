@@ -474,22 +474,31 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    # Session f60683a4: the first jump on a phone must be the picks on this
+    # page. The Day-5 TWC archive (18 Oct) stays on the site map; putting a
+    # four-day-old review in this bar buried the current card.
     items = [
+        (prefix + '#picks-at-a-glance', 'Picks on this page', 'target',
+         'Every active fixture with both win probabilities and the obvious pick.',
+         'picks-here'),
         (prefix + 'origination/#picks', 'All match picks', 'target',
-         'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
+         'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.',
+         ''),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
-         'One plan pick per open fixture and the underdogs worth a play.'),
-        (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
-         'Historical Thunderpick final-day review and result record.'),
+         'One plan pick per open fixture and the underdogs worth a play.',
+         ''),
         (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
+         'Fixtures with no compliant external price, and the reason for each.',
+         ''),
         (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
-         'This page lists every pick without a line, its blocker and the sources actually tried.'),
+         'This page lists every pick without a line, its blocker and the sources actually tried.',
+         ''),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
-    for href, title, sym, detail in items:
-        out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
+    for href, title, sym, detail, extra in items:
+        klass = f' class="{e(extra)}"' if extra else ''
+        out += (f'<li><a href="{e(href)}"{klass}>{icon(sym)}<strong>{e(title)}</strong>'
                 f'<span>{e(detail)}</span></a></li>')
     out += '</ul>'
     if with_pick is not None:
@@ -1319,9 +1328,13 @@ def summary(data, prefix, now=None):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
-    out += exec_banner(data, prefix)
+    # Session f60683a4: the glance index itself has to sit above the fold on a
+    # phone (Playwright 320/390). The jump bar leads; the banner of extra
+    # destinations follows the picks so #picks-at-a-glance is not buried
+    # under three stacked 44px action rows.
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
+    out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix)
     if complete:
         if not data['coverage_complete']:

@@ -71,6 +71,12 @@ class ReviewFlagsIntegration(unittest.TestCase):
             'complete_coverage_counts', 'counts_note',
         })
 
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        canonical = json.loads(self.original)
+        self.assertEqual(published['generated_at'], canonical['generated_at'])
+        self.assertEqual(published['flags'][0], self.baseline_flag)
+        published_ids = {finding['id'] for finding in published.get('flags') or []}
+        self.assertNotIn(self.synthetic['id'], published_ids)
 
 
 if __name__ == '__main__':

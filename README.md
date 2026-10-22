@@ -124,6 +124,26 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   Row-source audit on that live snapshot: 334 rows, 326 with an official link, 8 site-map rows,
   **0 without a source**.
 
+## 22 October session arena-f60683a4: current picks first on a phone, and sourced limitations for the model-only card
+
+- **The phone jump bar now starts with the picks on this page.** `start_here()` used to list a
+  18 October Day-5 archive as a current destination, which on a 390 px screen pushed *Picks at a
+  glance* below five navigation cards. The first jump is now `#picks-at-a-glance`; the complete
+  list, leaderboard plan, unresolved trails and the no-betting-line register follow; the Day-5
+  archive stays on the site map. Phone CSS puts that picks jump full-width and the other four
+  destinations in a two-column grid (`assets/scout.css`, `tests/test_f60683a4.py`).
+- **Every active Hotspawn CS2 fixture in the 2026-10-22T05:37Z snapshot already had a sourced
+  pick (33/33, 0 blank).** Eighteen of those are research models, not betting lines. HLTV match
+  pages still do not publish a two-sided prematch book this project can replay (the BAKS vs
+  Azuolas betting module was casino advertising plus a fan vote, which stays excluded). Dated
+  research: [`data/research/f60683a4/low-tier-line-research.json`](data/research/f60683a4/low-tier-line-research.json).
+- **Two featured-blank fixtures had a Polymarket series listing at 07:32Z that the 05:37Z
+  snapshot did not use as a money line** (Nemesis vs WW, Gamma event 1232386, start 11:30 UTC
+  matching Hotspawn; Butterfly vs Lavked, event 1232201, previously rejected as a wide/crossed
+  book). Directory cents are recorded as directory displays, not originated probabilities, and
+  are flagged on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/)
+  so the next four-hour live collect can retry the books. No snapshot row was hand-edited.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.

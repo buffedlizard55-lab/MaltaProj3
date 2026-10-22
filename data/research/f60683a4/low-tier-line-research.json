@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "session": "arena-f60683a4",
+  "observed_at": "2026-10-22T07:32:00Z",
+  "method": "Read the live GitHub Pages snapshot first (HTML executive summary plus /data/latest.json and /data/origination.json). For every active fixture the featured exact-name method left without a betting line, check HLTV match pages first, then Polymarket Gamma/directory pages, then previously documented esportsbook surfaces. Directory-displayed prices are recorded as directory displays, never copied into a snapshot. HLTV fan votes and Hotspawn picked_percent are never used as probabilities.",
+  "live_snapshot": {
+    "pages_html_inventory_display": "22 Oct 2026, 07:36 Europe/Malta",
+    "latest_generated_at": "2026-10-22T05:36:57Z",
+    "origination_generated_at": "2026-10-22T05:37:07Z",
+    "inventory_observed_at": "2026-10-22T05:36:38Z",
+    "inventory_crosscheck": "complete",
+    "counts_featured": {
+      "inventory": 96,
+      "upcoming": 33,
+      "market": 10,
+      "bookmaker": 1,
+      "model": 12,
+      "unresolved": 10,
+      "picks": 23
+    },
+    "counts_complete": {
+      "active": 33,
+      "resolved": 33,
+      "unresolved": 0,
+      "with_pick": 33,
+      "market": 10,
+      "bookmaker": 2,
+      "reference": 1,
+      "model": 18,
+      "network": 2,
+      "relay": 1,
+      "consensus": 2
+    },
+    "sources": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+    ]
+  },
+  "featured_unresolved_in_snapshot": [
+    {
+      "id": "1081597",
+      "fixture": "benched gods vs TitanFlow",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "published": "Own network estimate (bo3.gg results graph); TitanFlow 78.1%",
+      "hltv": "HLTV match listing exists for CCT Challengers Europe Series 8; no two-sided prematch price on the HLTV match page (betting module is casino advertising plus a fan vote, which this project never uses).",
+      "money": "No alias-verified Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle line in the 05:37Z snapshot. Directory research at 07:32Z did not surface a unique series moneyline for this pair.",
+      "sources": [
+        "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+        "https://www.hltv.org/matches",
+        "https://bo3.gg/matches"
+      ]
+    },
+    {
+      "id": "1082882",
+      "fixture": "UNiTY vs Apogee Betclic",
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "published": "Median of independent money sources (Polymarket + Thunderpick + Bovada); Apogee Betclic 58.2%",
+      "note": "Featured exact-name missed this; the alias-aware ladder already closed it with a money line. Not a remaining blank.",
+      "sources": [
+        "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+        "https://polymarket.com/event/cs2-unity-bca-2026-10-22"
+      ]
+    },
+    {
+      "id": "1081146",
+      "fixture": "6yuBoJlbl vs ex-6666",
+      "competition": "CCT Europe 2026 Series #12",
+      "published": "Valve-rating research estimate; 6yuBoJlbl 62.6%",
+      "money": "No unique exact-name series moneyline confirmed at 07:32Z.",
+      "sources": [
+        "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1082769",
+      "fixture": "K27 vs NEXORA",
+      "competition": "CIS LAN Championship #9",
+      "published": "Aggregated bookmaker average (EGamersWorld); K27 88.8%",
+      "polymarket_directory_2026_10_22T07_32Z": {
+        "event": "https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nexora-k271-2026-10-22",
+        "display": "NEXORA 11¢ / K27 90¢",
+        "volume_label": "$0 vol",
+        "note": "Directory display only. Not a validated CLOB book. Not written into any snapshot. The published 88.8/11.2 EGamersWorld average is in the same direction."
+      },
+      "sources": [
+        "https://www.hotspawn.com/matches/nexora-vs-k27-cis-lan-championship-9-1082769",
+        "https://polymarket.com/esports/cs2/cis-lan-championship",
+        "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT"
+      ]
+    },
+    {
+      "id": "1081871",
+      "fixture": "Lynn Vision vs Chinggis Warriors",
+      "competition": "VOID Autumn Cup 2026",
+      "published": "Valve-rating research estimate; Lynn Vision 64.4%",
+      "money": "No unique series moneyline confirmed at 07:32Z on Polymarket CIS/VOID listings reviewed here.",
+      "sources": [
+        "https://www.hotspawn.com/matches/lynn-vision-vs-chinggis-warriors-void-autumn-cup-2026-1081871",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1081149",
+      "fixture": "FORZE Reload vs LFO 10",
+      "competition": "CCT Europe 2026 Series #12",
+      "published": "HLTV world-ranking research model; FORZE Reload 51.0%",
+      "money": "No unique series moneyline confirmed at 07:32Z.",
+      "sources": [
+        "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+        "https://www.hltv.org/ranking/teams"
+      ]
+    },
+    {
+      "id": "1079657",
+      "fixture": "BakS vs BRUTE",
+      "competition": "CCT Europe 2026 Series #11",
+      "published": "Valve-rating research estimate; BRUTE 59.9%",
+      "money": "No unique series moneyline confirmed at 07:32Z.",
+      "sources": [
+        "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1082858",
+      "fixture": "Ground Zero vs Off Chops",
+      "competition": "DFRAG Invitational 2026",
+      "published": "Own network estimate (bo3.gg results graph); Off Chops 55.5%",
+      "money": "No unique series moneyline confirmed at 07:32Z (start 26 Oct).",
+      "sources": [
+        "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+        "https://bo3.gg/matches"
+      ]
+    },
+    {
+      "id": "1082860",
+      "fixture": "FlyQuest vs Staqued",
+      "competition": "DFRAG Invitational 2026",
+      "published": "HLTV world-ranking research model (unranked floor on Staqued); FlyQuest 52.3%",
+      "money": "No unique series moneyline confirmed at 07:32Z (start 27 Oct).",
+      "sources": [
+        "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+        "https://www.hltv.org/ranking/teams"
+      ]
+    },
+    {
+      "id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026",
+      "published": "Valve-rating research estimate; HOTU 94.1%",
+      "money": "No unique series moneyline confirmed at 07:32Z (start 31 Oct).",
+      "sources": [
+        "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    }
+  ],
+  "additional_model_only_research": [
+    {
+      "id": "1081143",
+      "fixture": "BakS vs Azuolas",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_hotspawn_display": "22 Oct 2026, 10:00 Europe/Malta",
+      "published": "Valve-rating research estimate; BakS 73.4%",
+      "hltv_match": {
+        "url": "https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12",
+        "teams": "BAKS vs Azuolas",
+        "event": "CCT 2026 Europe Series 12",
+        "format": "Best of 3 (Online), Swiss round 2 (0-1 record)",
+        "countdown_when_read": "28m : 18s remaining at read time",
+        "betting_module": "Stake casino advertising. No two-sided bookmaker decimal pair was present in the betting table.",
+        "fan_vote_observed": "BAKS 84.0% / Azuolas 16.0% — HLTV community vote, excluded by project policy, not a probability input."
+      },
+      "egamersworld": {
+        "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-azuolas-szW-cgP2U",
+        "note": "Page shows a 1.8 coefficient next to BakS eSports. Previous sessions treated the symmetric 1.8 display as a placeholder, not a two-sided book. Not used as a pick."
+      },
+      "polymarket": "No unique BakS vs Azuolas series moneyline was present on the CCT Europe directory page read at 07:32Z.",
+      "sources": [
+        "https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12",
+        "https://www.hltv.org/team/11699/baks",
+        "https://www.hltv.org/team/13991/azuolas",
+        "https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-azuolas-szW-cgP2U",
+        "https://www.hotspawn.com/matches/baks-vs-azuolas-cct-europe-2026-series-12-1081143"
+      ]
+    },
+    {
+      "id": "1079651",
+      "fixture": "Butterfly vs Lavked",
+      "competition": "CCT Europe 2026 Series #11",
+      "published": "Valve-rating research estimate; Butterfly 77.4%. Featured method found the Polymarket event and rejected it as a crossed or wider-than-12-cent order book.",
+      "polymarket": {
+        "event_page": "https://polymarket.com/esports/cs2/cct-europe/cs2-btf-lavked-2026-10-22",
+        "gamma": "https://gamma-api.polymarket.com/events?slug=cs2-btf-lavked-2026-10-22",
+        "event_id": "1232201",
+        "gameStartTime": "2026-10-22 11:00:00+00",
+        "volume": 38,
+        "directory_display_2026_10_22T07_32Z": "Butterfly 43¢ (02.33x) / Lavked 57¢ (01.75x)",
+        "note": "Directory display only. Opposite side from the published Valve pick (Butterfly 77.4%). Not a validated CLOB midpoint. Not written into any snapshot. The next four-hour refresh must re-read the books; if they are two-sided and inside the fallback 0.15 ceiling the money rung outranks Valve."
+      },
+      "hltv": "https://www.hltv.org/matches/2399328/butterfly-vs-lavked-cct-2026-europe-series-11",
+      "sources": [
+        "https://polymarket.com/esports/cs2/cct-europe",
+        "https://polymarket.com/esports/cs2/cct-europe/cs2-btf-lavked-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-btf-lavked-2026-10-22",
+        "https://www.hltv.org/matches/2399328/butterfly-vs-lavked-cct-2026-europe-series-11",
+        "https://www.hotspawn.com/matches/butterfly-vs-lavked-cct-europe-2026-series-11-1079651"
+      ]
+    },
+    {
+      "id": "1082767",
+      "fixture": "Nemesis vs WW",
+      "competition": "CIS LAN Championship #9",
+      "published": "Valve-rating research estimate; Nemesis 91.8%",
+      "polymarket": {
+        "event_page": "https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nem-ww-2026-10-22",
+        "gamma": "https://gamma-api.polymarket.com/events?slug=cs2-nem-ww-2026-10-22",
+        "event_id": "1232386",
+        "title": "Counter-Strike: Team Nemesis vs WW Team (BO3) - CIS LAN Championship Playoffs",
+        "gameStartTime": "2026-10-22 11:30:00+00",
+        "eventStartTime": "2026-10-22T11:30:00Z",
+        "hotspawn_start_display": "22 Oct 2026, 13:30 Europe/Malta (= 11:30 UTC)",
+        "start_join": "gameStartTime equals the Hotspawn start inside the 60-second window",
+        "aliases_already_in_registry": [
+          "Team Nemesis -> Nemesis (CIS LAN Championship #9)",
+          "WW Team -> WW (CIS LAN Championship #9)"
+        ],
+        "volume": 11812.569395,
+        "liquidity": 21350.5593,
+        "directory_display_2026_10_22T07_32Z": "Team Nemesis 82¢ (01.22x) / WW Team 18¢ (05.56x)",
+        "note": "The 05:37Z snapshot still priced this fixture from Valve (91.8%). Directory display is not a validated CLOB midpoint and is not written into any snapshot. Aliases and start time already match, so the next live origination run should retry the money rung rather than keep the model if the series moneyline book is two-sided and inside the spread ceiling."
+      },
+      "other_books_observed_as_journalism_not_inputs": [
+        {
+          "url": "https://kushvsporte.ru/event/6993379-team-nemesis-ww",
+          "display": "П1 1.43 / П2 2.66",
+          "note": "Third-party tip site, not a first-party bookmaker API. Not used."
+        },
+        {
+          "url": "https://vprognoze.ru/topforecast/8203093-team-nemesis-ww-team-2026-10-22.html",
+          "display": "1.30 / 3.20",
+          "note": "Third-party tip site. Not used."
+        }
+      ],
+      "sources": [
+        "https://polymarket.com/esports/cs2/cis-lan-championship",
+        "https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nem-ww-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-nem-ww-2026-10-22",
+        "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+        "https://www.hltv.org/matches/2399844/nemesis-vs-ww-winline-mpkbk-cis-lan-season-9"
+      ]
+    }
+  ],
+  "limitations": [
+    "HLTV match pages do not publish a two-sided prematch bookmaker pair that this project can replay. The betting module observed on BAKS vs Azuolas was Stake casino advertising plus a fan vote. Fan votes stay excluded.",
+    "GG.BET, BetBoom, 1xBet, Marathonbet and EGamersWorld HTML continue to challenge or 403 automated runners (dated sweep in data/research/fbdc97d6/). Those blocks are unchanged.",
+    "Polymarket directory cents are the public listing, not the CLOB bid/ask midpoint the ladder requires. They are recorded here so a reader can check the claim that a market exists; they are not originated probabilities.",
+    "This session does not edit scripts/originate.py or data/origination.json. Closing a featured blank with a newly observed money line is the four-hour publisher's job on the next successful live collect.",
+    "The sandbox used to write this file has no direct egress to Hotspawn or bookmakers; live readings were taken with the page-fetch tool against the public Pages snapshot, HLTV, Polymarket and the Polymarket Gamma API."
+  ]
+}

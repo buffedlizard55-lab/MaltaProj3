@@ -14,6 +14,85 @@ Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing la
 - **Irregularity caught & fixed:** first probe run substring-matched team "WW" inside unrelated words/URLs, claiming it was "found" on HLTV/GG pages. Probe now uses word-boundary matching and skips names <3 chars; second run shows no such claims. First-run JSON was superseded by the corrected 07:39Z run in the same files.
 - **S3016-2 phone findability:** Picks at a glance now has a **"Find a pick" search** (team/tournament, live count, empty-state, sticky on ≤700px, 48px input) — `glance()` adds `data-search` per row, `assets/scout.js` filters rendered rows only, no-JS keeps all rows visible. **Wording defect fixed:** exec banner said "0 without a line · 18 model-only" (contradictory); now "N without a pick · M model-only (no betting line)". Executive-summary internal links (updated picks / featured feed / unresolved & limitations / coverage / methodology) all verified by the build link audit.
 - **Verification so far:** targeted suites 104 tests OK (`test_3016b0c6_mobile_glance`, `test_build`, `test_summary*`, `test_mobile_picks_nav`, `test_unresolved_*`, glance/label suites); local full build from checked-in data: **PASS replay, row-source audit 604 rows / 0 without a source, 734 internal links OK**, new block + finder rendered and research MD/JSON copied into the site. Full local `unittest discover` timed out at 600s in the sandbox (network-bound suites) — full suite is therefore taken from CI `Validate dashboard` on the PR head, not claimed locally.
+
+# Current session: arena-f60683a4 — picks for every listed match, low-tier line research, phone-first executive summary
+
+Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/f60683a4-maltaproj3`, branched
+from `main` at `285a0d9` (merge of PR #162). The board was read first. Prior sessions at
+the top of this file (`fbdc97d6`, `15fc6bca`, `b1022dc2`, `416d93ee`, `c1fa150f`,
+`a34bc06b`) are merged. Open PRs #154/#149/#139/#120 are idle well past 60 minutes and
+are treated as stale; this session does not edit those branches. No live claim overlaps
+the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F60-1 Research HLTV first, then Polymarket/esportsbooks, for every live fixture the featured method left without a betting line; publish a dated source-linked register and flags; do not invent prices | **done** — see F60-1 result | arena-f60683a4 | new `data/research/f60683a4/`, this section |
+| F60-2 Phone-first executive summary: first start-here jump is the in-page picks list; compact the jump bar on a phone so the pick index is reachable without scrolling past a four-day-old archive | **done** — see F60-2 result | arena-f60683a4 | `scripts/build.py` (`start_here()` only), `assets/scout.css` (start-here phone rules), `tests/test_f60683a4.py` (new), `tests/test_final_day.py` (start-here hrefs only) |
+| F60-3 Rebuild, row-source audit, targeted tests, PR to main, merge, confirm Pages | **in progress** | arena-f60683a4 | this section, PR |
+
+**Non-overlap pledge:** no change to `scripts/originate.py`, `scripts/collect.py`,
+`scripts/domain.py`, `scripts/sources.py`, `data/origination/aliases.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`,
+or any other session's `data/research/<id>/`. Pick values are not rewritten from
+this session's research: live prices found for featured-blank fixtures are
+published as flags for the next four-hour refresh, never typed into a snapshot.
+
+
+### F60-1 result — low-tier line research (2026-10-22T07:45Z)
+
+Live Pages snapshot `generated_at 2026-10-22T05:36:57Z` / origination `2026-10-22T05:37:07Z`:
+**33 active Hotspawn CS2 fixtures, 33 with a directional pick, 0 unresolved**.
+Featured exact-name left **10** without a pick; the research ladder closed all 10
+(15 money lines + 18 models in the complete list). HLTV first, then books:
+
+- **HLTV is not a price feed.** Match 2399493 BAKS vs Azuolas (Hotspawn 1081143)
+  showed Stake casino ads in the betting module and a fan vote (84/16) which stays
+  excluded. No two-sided bookmaker pair was present.
+- **Nemesis vs WW (1082767)** has Polymarket Gamma event 1232386,
+  `gameStartTime 2026-10-22T11:30:00Z` matching Hotspawn, volume 11812, aliases
+  already in the registry. The 05:37Z snapshot still used Valve 91.8%. Directory
+  displayed 82¢/18¢ — **not** originated, flagged for the next live collect.
+- **Butterfly vs Lavked (1079651)** featured-found Polymarket and rejected it as
+  wide/crossed; Valve published Butterfly 77.4%. At 07:32Z the directory displayed
+  43¢/57¢ (opposite side). Flagged; not written into any snapshot.
+- **K27 vs NEXORA (1082769)** already has an EGamersWorld average (K27 88.8%);
+  Polymarket listed the same direction at $0 volume.
+
+Evidence: `data/research/f60683a4/low-tier-line-research.json` and
+`data/research/f60683a4/flags.json` (rendered on Flagged for Review). No pick
+value in `data/origination.json` / `data/latest.json` was edited.
+
+### F60-2 result — phone-first pick jump (2026-10-22T07:45Z)
+
+`scripts/build.py::start_here()` now leads with **Picks on this page**
+(`#picks-at-a-glance`). The 18 Oct Day-5 archive left the jump bar and remains
+on the site map. Phone CSS (`assets/scout.css`) makes that first jump full-width
+and the other four destinations a two-column 44 px grid so the pick index is
+reachable without scrolling past a five-card stack. Locked by
+`tests/test_f60683a4.py` and `tests/test_final_day.py::StartHereNavigation`.
+
+### Merge-conflict log (2026-10-22T08:05Z)
+
+`git pull --rebase origin main` (main at `2fb99b0`, PRs #163/#166/#167) conflicted on
+`COORDINATION.md` (both commits) and `assets/scout.css` (second commit).
+`scripts/build.py` auto-merged. Nothing from the other sessions was discarded:
+
+- **COORDINATION.md:** this session's claim (07:32Z) stays first; `arena-756eaeea`
+  (07:33Z, merged as PR #167) follows; F60-1/F60-2 results sit after this session's
+  pledge.
+- **assets/scout.css:** kept session `75aa5b56`'s phone readability block (PR #163/#166)
+  and appended this session's `.picks-here` / two-column start-here rules after it.
+
+### F60-3 note — live origination replay (2026-10-22T08:45Z)
+
+PR #164 originate failed after merging `origin/main` (`1cab862`, PRs #174/#176):
+`scripts/build_origination.py` asserted `pick_index == selection(probabilities)`,
+but session 4c972a51's already-merged ranked tie-break labels a 50/50 research
+estimate (Isurus vs Hacha in the 08:41Z live run) without changing either
+probability, so `selection` is `None` while `pick_index` is `0`. The assertion
+now accepts that documented `tie_break.winner`. `scripts/originate.py` was not
+edited.
+
 # Current session: arena-ca4d2a02 — independent line-by-line Hotspawn CS2 audit, HLTV-first low-tier pick research, Flagged-for-Review records & phone findability verification
 
 Claimed **2026-10-22T07:37Z** on Arena's fixed branch `arena/ca4d2a02-maltaproj3` (rebased onto `main` `16de272`). All concurrent session claims in `COORDINATION.md` and active remote branches were checked first; zero files claimed by any active session are modified by this PR.
@@ -5559,8 +5638,14 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
    rather than being retried silently.
 
 
-### S3016 integration follow-up — main advanced through 8f053e7 (2026-10-22)
-Merged latest `origin/main` after fetching before push; it includes PRs #185/#186 and the `df80ab9f` phone-fold + repo-verification work. Conflict resolutions preserved both session board entries; kept S3016's no-line evidence loader/block and find-a-pick search, kept main's six-slot Unresolved phone-nav test, and kept `replay_pick_index()` (same rank-tie rule as main's `44651b0` fix, plus exact-record regression tests). Main's later `write_reconciled_snapshot` now writes `data/reconciled-counts.json` and leaves `data/latest.json` byte-identical, superseding the temporary 1cab862 integration assertion recorded above; `tests/test_review_flags.py` now asserts the current sidecar contract. Preferred main's latest mobile fold compaction over S3016's temporary title-only two-column override; the summary retains link details and the mobile finder. Added two source-linked `flags.json` findings for the runner access limits and 1081146's second-hand Thunderpick lead. The dated lead block now checks the current complete-picks snapshot: if a later refresh has selected an external price it labels the old observation superseded and links the current card; when building an older retained snapshot it uses the official Hotspawn fixture URL rather than emitting a dead internal anchor. A lead row links both bo3.gg and the bookmaker event. After the merge conflict resolution, local targeted tests passed (**32** across finder/research, exact tie replay, review flags, banner, and prior tie suite); all Playwright specs passed (**85/85**, including 320/390 mobile, no-JS and accessibility); local build passed with **637 audited rows / 0 source violations / 791 internal links**, and rendered the dated lead plus both review flags. **CI is green on the integrated head `fddf060`:** `Validate dashboard` run [39768974367](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39768974367) succeeded through the full Python suite, source replay/build, strict row-source/link audit, desktop/mobile/no-JS/WCAG browser checks and pick-safety test; its source-access 403 annotations are captured limitations, not check failures. `Origination source audit` run [39768974387](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39768974387) succeeded on live inventory observed `2026-10-22T11:13:44Z`: 102 records, 40 canonical non-past fixtures, 40 audited estimates, 40 currently usable lines, 0 explicitly unresolved, and complete lobby/API cross-check. The same check on the final PR head succeeded in [39771376912](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771376912), observed `2026-10-22T11:32:58Z`: 101 records, 39 active / 39 audited / 39 usable / 0 unresolved, complete lobby/API cross-check. Final-head `Validate dashboard` also passed in [39771384693](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771384693), including unit suite, build/link/row-source, browser WCAG and pick-safety checks; read its HTTP 403/challenge source annotations as reachability limitations, not silent passes for individual sources. The final clarification in `flags.json` is therefore covered on head `add3484`. A later `origin/main` advance to `8f053e7` (PRs #175 and #187, including the completed `ca4d2a02` repo/low-tier audit and desktop sidebar contrast fix) required one more merge. As instructed, `git pull --rebase` was attempted before push; it conflicted replaying the shared `COORDINATION.md`, so the rebase was aborted without discarding work and `origin/main` was merged instead. Both board logs were kept; the CSS conflict keeps CA4's append-only desktop sidebar fix. **Live supersession verified:** the public executive summary and originated-picks page show a snapshot generated at `2026-10-22T10:39:55Z`; fixture 1081146 now uses a direct Polymarket market, 51.5% 6yuBoJlbl / 48.5% ex-6666 (event `cs2-6yuboj-66661-2026-10-22`). The 07:39Z bo3.gg/Thunderpick 1.72/2.00 block is therefore only a historical lead, not the current source and not combined with the Polymarket price. `flags.json` and the summary lead card now say this explicitly; the current match card is authoritative. S3016-1/2 research/UI are done; S3016-3 still awaits PR checks, merge, and deployment confirmation.
+### S3016 integration follow-up — main advanced through 873aeed (2026-10-22)
+
+- **Merged latest main after fetch** (`8f053e7` plus `873aeed`, including PR #164 / session `f60683a4`). Reconciled shared-file changes rather than dropping either side: preserved the 3016b0c6 no-line research block and team/tournament filter; kept F606's highlighted **Picks on this page** jump and compact two-column phone nav; retained the CA4 desktop sidebar contrast/overflow fix; kept the current six-slot Unresolved phone navigation test. `COORDINATION.md` keeps both sessions' claims and logs.
+- **Review JSON contract:** current `scripts.build.write_reconciled_snapshot` writes `data/reconciled-counts.json`; `data/latest.json` remains byte-identical to the collector feed. `tests/test_review_flags.py` now asserts that sidecar, unchanged canonical copy, and that render-only session flags never leak into it.
+- **Source evidence & current status:** the read-only HLTV-first/no-line runner sweep stays dated at 07:39Z. Its 6yuBoJlbl–ex-6666 bo3.gg/Thunderpick quote (1.72/2.00) is a historical lead only. The published Origination card at snapshot `2026-10-22T10:39:55Z` shows a later Polymarket line (51.5% / 48.5%, event `cs2-6yuboj-66661-2026-10-22`); the executive summary dynamically marks the dated lead superseded if the current complete-picks feed has a money-backed estimate, and the review flag links both observations. It never averages the relay with Polymarket.
+- **Local verification after integrating F606:** targeted suite **59 passed** (`test_3016b0c6_*`, tie-break, review flags, banner, F606 and final-day); all browser specs **85/85** at mobile/desktop/no-JS/WCAG; local full build **641 audited rows, 0 source violations, 791 internal links**. Earlier final-head CI on `add3484` is green: `Validate dashboard` [39771384693](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771384693), `Origination source audit` [39771376912](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771376912). That live audit saw 39 active fixtures / 39 audited / 39 usable / 0 unresolved at `11:32:58Z`; a prior run on the same day saw 40 / 40 / 40 / 0 at `11:13:44Z` (fixture inventory changes between runs).
+- **Next gate:** latest base integration (`873aeed`) is not yet checked on the PR head. The new `Validate dashboard` and `Origination source audit` runs must pass before merging PR #178. The current PR also needs its post-merge Pages run and public-site verification recorded here; S3016-1/2 are done, S3016-3 remains in progress.
+
 ### 96F-4 result — publication verified end to end (2026-10-22T11:05Z)
 
 - **PRs:** [#176](https://github.com/buffedlizard55-lab/MaltaProj3/pull/176) → `1cab862`,
