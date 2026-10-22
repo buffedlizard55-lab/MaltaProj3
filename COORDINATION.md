@@ -5515,7 +5515,7 @@ Claimed 2026-10-22T09:10Z on Arena-fixed branch `arena/e4f4c6bb-maltaproj3` at `
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| E4F-1 Correct the review-flags integration assertion to match the documented contract: source and generated `latest.json` remain byte-identical, while generated output includes a separate featured-vs-researched reconciliation sidecar; rerun focused/full verification and record results | in progress — local checks green; waiting on CI | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
+| E4F-1 Correct the review-flags integration assertion to match the documented contract: source and generated `latest.json` remain byte-identical, while generated output includes a separate featured-vs-researched reconciliation sidecar; rerun focused/full verification and record results | **needs review** — Python/build/source audit green; Actions browser step exits 1 with logs inaccessible, so PR remains open and unmerged | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
 
 **Non-overlap pledge:** No edits to data, picks, source evidence, site rendering, collection/origination logic, workflows, or another session's files. This session corrects one regression assertion to match the latest `scripts/build.py:write_reconciled_snapshot()` contract: the canonical `latest.json` remains byte-identical in the generated site; featured-vs-researched counts are written to `data/reconciled-counts.json`. This adds no odds, picks, or research facts.
 
@@ -5531,3 +5531,9 @@ Claimed 2026-10-22T09:10Z on Arena-fixed branch `arena/e4f4c6bb-maltaproj3` at `
 - Corrected the test after reviewing the latest parent source: `scripts/build.py:write_reconciled_snapshot()` now writes `data/reconciled-counts.json` and deliberately preserves `data/latest.json` byte-for-byte in both the source and built output. The test now verifies both invariants and checks all featured/researched counts against their canonical files.
 - Reverification: focused `tests.test_review_flags` **4/4 passed**; full Python suite **930/930 passed**. The earlier PR run's unit-test error was this outdated assertion; the project code was operating as designed.
 - New CI run required for the corrected test is pending after push. Do not merge before all checks pass. No application pages/data or source values changed.
+
+### E4F-1 current integration state — 2026-10-22
+
+- Corrected the test contract; **930/930 Python tests**, 4/4 focused review-flags tests, the current static build, strict 628-row source audit (0 violations), and Playwright 85/85 with two workers all pass locally.
+- Fresh PR check [39761621831](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39761621831) passed unit, build, row-source audit and browser-install steps, but the GitHub `Phone, desktop, no-JS, staleness and WCAG A/AA checks` step exited 1. The exact failing browser assertion is not exposed in annotations; signed log retrieval returned EOF. Local Playwright (85/85, 1 and 2 workers) did not reproduce it. `gh run rerun --failed` was rejected with “workflow file may be broken.”
+- **No merge was performed.** PR #182 remains open pending a green GitHub browser check; no production pages, data, picks or odds are changed by this test-only PR. Existing dashboard features are already in `main`; this outstanding review item is limited to the regression-test correction.
