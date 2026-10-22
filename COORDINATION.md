@@ -1,3 +1,26 @@
+# Current session: arena-5fbf5cd5 — phone-first executive summary, a separate unresolved-picks page, live pick coverage and source verification
+
+Claimed **2026-10-22T02:00Z** on the fixed Arena branch `arena/5fbf5cd5-maltaproj3`,
+branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4` (PR #145). The whole
+board was read before starting. No other session held an open claim on the files below at
+that time; sessions 15fc6bca, fbdc97d6, 3bad13ea and 7e8bed83 were running probes in their
+own `data/research/<id>/` directories only, which this session does not touch.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 5FB-1 Phone-first executive summary: one compact "where the picks are" block instead of the two stacked link lists, picks above the fold, one unresolved register instead of two competing sections, archived tournament material collapsed behind a labelled block | in progress | arena-5fbf5cd5 | `scripts/build.py` (`exec_banner`, `start_here`, `summary`, `unresolved_register`, `where_everything_lives`), `assets/scout.css`, `tests/test_summary*.py`, `tests/browser/summary_navigation.spec.mjs` |
+| 5FB-2 Separate top-level **Unresolved picks** page (`/unresolved/`) with the source-by-source ladder, per-fixture limitations and the reason each blank stayed blank; linked from the executive summary, the main navigation and the mobile bar | in progress | arena-5fbf5cd5 | `scripts/build.py` (`PAGES`, `unresolved()`), `tests/` |
+| 5FB-3 Live 4–8 h coverage proof: run the production collectors on the runner, archive the snapshot and evidence under `data/research/5fbf5cd5/`, confirm every active Hotspawn CS2 fixture carries a pick or an explicit, source-linked reason | in progress | arena-5fbf5cd5 | new `data/research/5fbf5cd5/`, `.github/workflows/5fbf5cd5-live.yml` (session-only, removed before merge) |
+| 5FB-4 Line-by-line repository and source review; publish only confirmed findings with links, flag irregularities on `Flagged for Review` | in progress | arena-5fbf5cd5 | new `data/research/5fbf5cd5/flags.json`, this board section |
+| 5FB-5 Integration: full unit + browser suites, row-source audit, link check, PR to `main`, merge, verify the public deployment and record the result here | in progress | arena-5fbf5cd5 | PR, merge, deployment verification, this section |
+
+**Non-overlap pledge:** this session does not change any probability, pick, alias or
+collector contract. `scripts/collect.py`, `scripts/originate.py`, `data/origination/aliases.json`,
+`data/latest.json` and `data/origination.json` are read-only here; the live snapshot is
+archived under this session's research directory instead of being committed over them.
+The only shared-rendering edits are the executive summary and navigation in `scripts/build.py`
+plus the new page, listed above.
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
