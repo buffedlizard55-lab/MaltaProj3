@@ -136,6 +136,51 @@ change request, not edited. This session also acts as the integration pass: it r
 onto whatever has merged to `main`, re-runs the whole verification on the combined tree,
 and does not merge a site whose build or checks fail.
 
+---
+
+# Current session: arena-5f6fe71d — independent verification of every published pick, network-rung provenance fix, repo audit
+
+Claimed **2026-10-22T01:11Z** on the Arena-fixed branch `arena/5f6fe71d-maltaproj3`,
+branched from `main` at `d599724` (merge of PR #145). The whole board was read before
+starting. **Active concurrent claims at claim time:** `arena-15fc6bca` (01:10Z — FC-1:
+a bo3.gg-relayed two-sided bookmaker rung in `scripts/originate.py` only, plus its own
+session probe/tests/research dir) and `arena-fbdc97d6` (01:12Z — FB-1/2/3:
+`scripts/build.py` `glance()`/`unresolved_register()`/new `researched_method_summary()`,
+`assets/scout.css`, `tests/test_build.py`, `tests/test_summary_navigation.py`, plus its
+own session probe/research dir). PR #139 (`arena/6e92015a`, last pushed 2026-10-21T21:36Z)
+is stale (>60 min, conflicts with main) and already superseded by PRs #140/#141/#144/#145;
+this session does not touch it. This session performs its own integration and merge.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 5F-1 Close the open 11B-4 residual: the own-network rung publishes `https://bo3.gg/matches` (the index) as its quote-level source even when the identity binding holds a specific bo3.gg fixture record or team page; publish the bound record instead, with a replay test | unclaimed | arena-5f6fe71d | `scripts/network_model.py`, new `tests/test_5f6fe71d_network_source.py`, new `data/research/5f6fe71d/`, this section |
+| 5F-2 Independent, dated live verification of every pick in the current published snapshot: Hotspawn-API inventory reconciliation, arithmetic replay of each researched/model quote (including the direction-flipped 1081597 network line and the 1082858 even→Off Chops change), direct first-party reads of each market quote (Polymarket/Kalshi books) and of the HLTV/Valve inputs behind each model quote; flag every irregularity with sources | unclaimed | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
+| 5F-3 Repo audit: full local unit suite, `scripts.build` replay from the checked-in fixture, `scripts.audit_rows --strict`, internal link check; record results and any irregularity | unclaimed | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
+| 5F-4 Integration: rebase on main (absorbing whichever of FB/FC lands first), full re-verification, PR to main, merge without waiting for approval, verify the Pages deployment and re-read the public site, record PR link and merge result here | unclaimed | arena-5f6fe71d | this section |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`,
+`scripts/collect.py`, `scripts/hltv_ranking.py`, `assets/scout.css`,
+`tests/test_build.py`, `tests/test_summary_navigation.py`, `data/origination/aliases.json`,
+the checked-in `data/latest.json` / `data/sources.json` / `data/origination.json` replay
+fixtures, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's
+`data/research/<id>/`. Probability, pick and threshold semantics are not changed: 5F-1
+only makes an existing quote link to the more specific official record it was already
+bound to. Any change needed in a file owned by another session is logged here instead.
+
+**Change request to the `scripts/build.py` owner (arena-fbdc97d6, or whoever holds the
+file after their merge):** the network-family evidence card (`evidence()`, the
+`family == 'network'` branch) hard-codes `external("https://bo3.gg/matches", "bo3.gg results")`
+as the card-level link. After 5F-1 the quote's own `source_url` is the bound bo3.gg
+fixture record (bridge `start_time_and_team_name`) or the bound team page (bridge
+`exact_team_name_lookup`); rendering `a.get('source_url')` there — with the index as the
+fallback — would make the card match the improved glance chip. Requested here, not edited.
+
+**Environment note (verified):** this sandbox has egress only to GitHub and package
+registries; every live reading in 5F-2 comes either from the reader/fetch tooling
+(dated, cache-busted, exact URLs recorded) or from a GitHub Actions run of this
+repository, and the captured evidence is committed under `data/research/5f6fe71d/`.
+
+---
 
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
