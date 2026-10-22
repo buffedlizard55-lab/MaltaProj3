@@ -43,7 +43,11 @@ jobs:
         run: |
           python -m scripts.build
           python -m scripts.audit_rows --site site --strict
-          cp -r site/index.html site/origination/index.html data/research/15fc6bca/ 2>/dev/null || true
+          # Captured pages are stored as .txt: the build audits every .html file
+          # under data/ as a page, and a copied page would fail its own link check.
+          mkdir -p data/research/15fc6bca/pages
+          cp site/index.html data/research/15fc6bca/pages/summary.html.txt 2>/dev/null || true
+          cp site/origination/index.html data/research/15fc6bca/pages/origination.html.txt 2>/dev/null || true
       - name: Record per-fixture coverage and bo3.gg relay state
         run: python -m scripts.15fc6bca_probe
       - name: Restore every tracked data file so only the report is committed
