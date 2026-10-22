@@ -1458,35 +1458,38 @@ def picks(data, prefix, now=None):
     return out
 
 
-def write_reconciled_snapshot(snapshot_path, data):
-    """Add the featured-vs-researched reconciliation to the published JSON.
+def write_reconciled_snapshot(snapshot_path, data, out_path=None):
+    """Publish featured-vs-researched count reconciliation without mutating latest.json.
 
-    ``counts.*`` describes the featured exact-name method alone. Every page on
-    the site renders the researched list. Before this block the downloaded JSON
-    said "10 unresolved" while the page said "0", and both statements were true
-    of different lists — a contradiction a reader cannot resolve. The raw
-    counters are preserved unchanged and the second list is published beside
-    them, with a note that says which is which.
+    ``counts.*`` describes the featured exact-name method alone, while ``data/latest.json``
+    must remain byte-for-byte identical to the canonical collector artifact attested by
+    SHA-256 and ``tests/test_review_flags.py``. Writing ``data/reconciled-counts.json``
+    publishes both count dictionaries side by side without rewriting ``latest.json``.
     """
     if not snapshot_path.exists() or not data.get('complete_picks'):
         return
     snapshot = json.loads(snapshot_path.read_text())
     cc = data['complete_picks'].get('counts') or {}
     featured = snapshot.get('counts') or {}
-    snapshot['featured_method_counts'] = {
-        k: featured.get(k) for k in
-        ('upcoming', 'market', 'bookmaker', 'consensus', 'model', 'unresolved', 'picks')}
-    snapshot['complete_coverage_counts'] = {
-        k: (cc.get(k) or 0) for k in
-        ('active', 'resolved', 'with_pick', 'market', 'bookmaker', 'consensus',
-         'reference', 'model', 'guidance', 'unresolved')}
-    snapshot['counts_note'] = (
-        'counts.* and featured_method_counts describe the featured exact-name method only. '
-        'complete_coverage_counts describe the researched list every page renders: one row per '
-        'active Hotspawn fixture, with a market, bookmaker, consensus or reference price where one '
-        'was found and a labelled research-model estimate where none was. A fixture is unresolved '
-        'only when neither list can produce a number.')
-    snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=1) + '\n')
+    reconciled = {
+        'generated_at': snapshot.get('generated_at'),
+        'inventory_observed_at': snapshot.get('inventory_observed_at'),
+        'featured_method_counts': {
+            k: featured.get(k) for k in
+            ('upcoming', 'market', 'bookmaker', 'consensus', 'model', 'unresolved', 'picks')},
+        'complete_coverage_counts': {
+            k: (cc.get(k) or 0) for k in
+            ('active', 'resolved', 'with_pick', 'market', 'bookmaker', 'consensus',
+             'reference', 'model', 'guidance', 'unresolved')},
+        'counts_note': (
+            'counts.* and featured_method_counts describe the featured exact-name method only. '
+            'complete_coverage_counts describe the researched list every page renders: one row per '
+            'active Hotspawn fixture, with a market, bookmaker, consensus or reference price where one '
+            'was found and a labelled research-model estimate where none was. A fixture is unresolved '
+            'only when neither list can produce a number.'),
+    }
+    target = out_path if out_path is not None else snapshot_path.parent / 'reconciled-counts.json'
+    target.write_text(json.dumps(reconciled, ensure_ascii=False, indent=2) + '\n')
 
 
 def _reconciled(data):
