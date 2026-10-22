@@ -82,6 +82,10 @@ def _median_of(rows):
     return [statistics.median([r[0] for r in rows]), statistics.median([r[1] for r in rows])]
 
 
+def method_eq_model(origination: dict) -> bool:
+    return origination.get('method') == 'model'
+
+
 def _key(name) -> str:
     return ' '.join(str(name or '').split()).lower()
 
@@ -181,9 +185,17 @@ def audit_row(row: dict, evidence_dir: Path, now: datetime):
         checks.append('probabilities sum to 1')
 
     pick = row.get('pick_index')
+    tie = origination.get('tie_break') or {}
     if abs(probs[0] - probs[1]) <= 0.0005:
-        if pick is not None:
-            problems.append(f'{label}: even estimate still publishes a side')
+        if pick is None:
+            pass
+        elif not (method_eq_model(origination) and tie.get('winner') == pick
+                  and tie.get('rule') and _https(tie.get('source_url'))):
+            problems.append(f'{label}: even estimate publishes a side without a documented '
+                            f'published-rank tie-break')
+        else:
+            checks.append(f'even estimate; side set by the published-rank tie-break '
+                          f'({tie.get("rule")}) and no probability changed')
     elif pick is None:
         problems.append(f'{label}: directional estimate publishes no pick')
     elif pick not in (0, 1) or probs[pick] != max(probs):

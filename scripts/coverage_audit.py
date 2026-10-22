@@ -35,6 +35,11 @@ KNOWN_METHODS = {'market', 'bookmaker', 'consensus', 'reference', 'model', 'guid
 SUM_TOLERANCE = 0.002
 
 
+def _is_rule(tie: dict) -> bool:
+    """A tie-break record must name its rule and link an https source."""
+    return bool(tie.get('rule')) and _https(tie.get('source_url'))
+
+
 def _https(value) -> bool:
     return isinstance(value, str) and value.startswith('https://')
 
@@ -92,11 +97,22 @@ def audit_complete_picks(payload: dict) -> list[str]:
                 url = item.get('source_url')
                 if url is not None and not _https(url):
                     problems.append(f'{label}: evidence link is not https: {url!r}')
+            tie = origination.get('tie_break') or {}
             if probs[0] == probs[1]:
-                if pick is not None:
-                    problems.append(f'{label}: exactly even estimate must not name a pick')
+                # An exactly even estimate carries no probability edge, so it may
+                # name a side only through the documented published-rank
+                # tie-break (session 4c972a51), which changes no probability and
+                # records the rule, the ranks, its winner and an https source.
+                if pick is None:
+                    pass
+                elif not (origination.get('method') == 'model'
+                          and tie.get('winner') == pick and _is_rule(tie)):
+                    problems.append(f'{label}: exactly even estimate names a pick without a '
+                                    f'documented tie-break')
             elif pick != (0 if probs[0] > probs[1] else 1):
                 problems.append(f'{label}: pick_index {pick!r} is not the higher-probability team')
+            if tie and pick is not None and tie.get('winner') not in (None, pick):
+                problems.append(f'{label}: published tie-break winner disagrees with pick_index')
             if pick is not None:
                 with_pick += 1
         else:

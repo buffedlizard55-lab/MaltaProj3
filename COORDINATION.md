@@ -157,6 +157,28 @@ push can briefly republish week-old pages through the platform's legacy Pages bu
 (emoji-only icons on the complete-picks hero). The register is wired into `scripts/review_register.py`
 with one line and renders on Flagged for Review.
 
+### E5-3 — integration defect found in the live pipeline, fixed (2026-10-22T09:05Z)
+
+While verifying this session's own PR, the `originate` check failed on live data:
+`AssertionError: Fallback pick differs from its probabilities`
+([run 39748652200](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39748652200)).
+Cause: the published-rank tie-break merged in PR #176 legitimately gives an exactly 50/50 research
+model a side (fixture 1082926 Isurus vs Hacha, HLTV 215 vs 229 with equal points), but three
+validators still enforced the old rule that an exactly even estimate must not name a pick — one of
+them an `assert` inside `scripts/build_origination.py`, so the **publisher's own build aborts** on
+the first live snapshot containing such a fixture and the site falls back to the last verified
+snapshot.
+
+Fixed narrowly on this branch: `scripts/build_origination.py` and `scripts/coverage_audit.py` (and
+this session's audit) now accept a side on an exactly even estimate **only** when the row publishes
+`method == "model"`, a `tie_break` record with a named rule and an https source, and a winner equal
+to the published pick; every other case still fails. No probability is touched, and the tie-break
+already publishes its own explanation in the row's limitations and research trail. Pinned by
+`tests/test_e5cc3d49.py::TieBreakTests` (4 tests) and recorded as **E5-07 fixed** on Flagged for
+Review. Files touched outside this session's original scope: `scripts/build_origination.py` and
+`scripts/coverage_audit.py` — both unowned at edit time (their owners merged and stopped; no active
+claim named them), and the change is the minimum needed to stop the publisher aborting.
+
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
 `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`,

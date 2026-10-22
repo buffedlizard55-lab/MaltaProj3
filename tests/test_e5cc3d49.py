@@ -7,6 +7,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from scripts import coverage_audit
 from scripts import e5cc3d49_audit as audit
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -41,11 +42,14 @@ def fixture(match_id='1', method='market', probs=(0.6, 0.4), quotes=None, **extr
 
 def payload(rows):
     latest = {'matches': [{'id': r['id'], 'availability': r['availability']} for r in rows]}
-    counts = {}
+    counts = {'active': len(rows)}
     for r in rows:
         method = (r.get('origination') or {}).get('method')
         key = 'unresolved' if method is None else method
         counts[key] = counts.get(key, 0) + 1
+    resolved = sum(1 for r in rows if r.get('origination'))
+    counts.update({'resolved': resolved, 'unresolved': len(rows) - resolved,
+                   'with_pick': sum(1 for r in rows if r.get('pick_index') is not None)})
     return latest, {'matches': rows, 'counts': counts}
 
 
@@ -213,6 +217,58 @@ class RowContractTests(unittest.TestCase):
         latest['matches'].append({'id': '2', 'availability': 'open'})
         report = audit.audit_payload(latest, orig, None, Path('/nonexistent'), now=NOW)
         self.assertTrue(any('have no pick row' in v for v in report['violations']))
+
+
+class TieBreakTests(unittest.TestCase):
+    """An exactly even estimate may name a side only through the published-rank tie-break."""
+
+    def even_row(self, tie=None):
+        row = fixture(method='model', probs=(0.5, 0.5), quotes=[
+            {'provider': 'HLTV world ranking', 'family': 'model', 'probabilities': [0.5, 0.5],
+             'source_url': 'https://www.hltv.org/ranking/teams'}])
+        row['pick_index'] = 0
+        row['origination']['family'] = 'model'
+        row['origination']['source_url'] = 'https://www.hltv.org/ranking/teams'
+        if tie is not None:
+            row['origination']['tie_break'] = tie
+        return row
+
+    def test_documented_tie_break_is_accepted_by_both_audits(self):
+        tie = {'rule': 'published-rank tie-break', 'winner': 0, 'ranks': [215, 229],
+               'source_url': 'https://www.hltv.org/ranking/teams', 'detail': 'published order'}
+        row = self.even_row(tie)
+        report = run([row])
+        self.assertEqual(report['violations'], [])
+        latest, orig = payload([row])
+        self.assertEqual(coverage_audit.audit_complete_picks({**orig, 'policy': {
+            'hotspawn_votes_used': False, 'fan_votes_used': False}}), [])
+
+    def test_even_pick_without_a_tie_break_is_rejected(self):
+        row = self.even_row(None)
+        report = run([row])
+        self.assertTrue(any('without a documented published-rank tie-break' in v
+                            for v in report['violations']))
+        latest, orig = payload([row])
+        self.assertTrue(any('without a documented tie-break' in v
+                            for v in coverage_audit.audit_complete_picks(
+                                {**orig, 'policy': {'hotspawn_votes_used': False,
+                                                    'fan_votes_used': False}})))
+
+    def test_tie_break_without_a_source_is_rejected(self):
+        tie = {'rule': 'published-rank tie-break', 'winner': 0}
+        row = self.even_row(tie)
+        report = run([row])
+        self.assertTrue(any('without a documented published-rank tie-break' in v
+                            for v in report['violations']))
+
+    def test_tie_break_winner_must_match_the_published_pick(self):
+        tie = {'rule': 'published-rank tie-break', 'winner': 1,
+               'source_url': 'https://www.hltv.org/ranking/teams'}
+        row = self.even_row(tie)
+        latest, orig = payload([row])
+        problems = coverage_audit.audit_complete_picks({**orig, 'policy': {
+            'hotspawn_votes_used': False, 'fan_votes_used': False}})
+        self.assertTrue(any('tie-break winner disagrees' in v for v in problems))
 
 
 class CheckedInSnapshotTests(unittest.TestCase):
