@@ -39,6 +39,11 @@ from scripts.domain import (MAX_PRICE_AGE_HOURS, identity_matches, is_fresh, nam
 
 UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
+CAPTURE_PATHS = (
+    EVIDENCE_PATH,
+    Path('research/b30bf88b/reference-odds.json'),
+    Path('research/a34bc06b/reference-odds.json'),
+)
 PROVIDER = 'EGamersWorld (published bookmaker average)'
 FAMILY = 'reference'
 MIN_ODDS, MAX_ODDS = 1.01, 100.0
@@ -46,20 +51,35 @@ REQUIRED = ('fixture_id', 'teams', 'starts_at', 'odds', 'source_url', 'observed_
             'excerpt', 'excerpt_sha256', 'provider_teams')
 
 
-def load(source: Path) -> dict:
-    """Read the reviewed capture; a missing or malformed file is inert, never fatal."""
-    path = Path(source) / EVIDENCE_PATH
+def _read_capture(path: Path) -> dict | None:
     if not path.exists():
-        return {'entries': [], 'rejected': [], 'path': str(path), 'missing': True}
+        return None
     try:
         data = json.loads(path.read_text(encoding='utf-8'))
     except (ValueError, OSError):
-        return {'entries': [], 'rejected': [], 'path': str(path), 'missing': True}
-    if not isinstance(data, dict):
-        return {'entries': [], 'rejected': [], 'path': str(path), 'missing': True}
-    return {'entries': [e for e in data.get('entries') or [] if isinstance(e, dict)],
-            'rejected': [e for e in data.get('rejected') or [] if isinstance(e, dict)],
-            'path': str(path), 'missing': False, 'observed_at': data.get('observed_at')}
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def load(source: Path) -> dict:
+    """Read all reviewed captures; missing or malformed files are inert, never fatal."""
+    root = Path(source)
+    entries, rejected, loaded, latest_observed = [], [], [], None
+    for rel in CAPTURE_PATHS:
+        path = root / rel
+        data = _read_capture(path)
+        if data is None:
+            continue
+        loaded.append(str(path))
+        entries.extend(e for e in data.get('entries') or [] if isinstance(e, dict))
+        rejected.extend(e for e in data.get('rejected') or [] if isinstance(e, dict))
+        obs = data.get('observed_at') or data.get('captured_at')
+        if obs and (latest_observed is None or str(obs) > str(latest_observed)):
+            latest_observed = obs
+    if not loaded:
+        return {'entries': [], 'rejected': [], 'path': str(root / EVIDENCE_PATH), 'missing': True}
+    return {'entries': entries, 'rejected': rejected, 'path': loaded[0], 'paths': loaded,
+            'missing': False, 'observed_at': latest_observed}
 
 
 def problems(entry: dict) -> list[str]:

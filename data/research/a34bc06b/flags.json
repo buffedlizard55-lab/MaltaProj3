@@ -1,0 +1,114 @@
+[
+  {
+    "id": "a34bc06b-valve-integer-tie-1079654",
+    "severity": "notice",
+    "title": "Valve summary rounding tie on 1079654 (ex-Zero Tenacity vs ex-RUSTEC) resolved via official per-roster detail files",
+    "detail": "Valve's summary markdown standings_global_2026_10_05.md prints integer-rounded 1066 points for both #92 ex-RUSTEC and #93 ex-Zero Tenacity, leaving 50.0%/50.0% without a side. Valve's linked official per-roster detail files in the same commit publish Git-SHA1-verified unrounded Final Rank Values: #92 ex-RUSTEC = 1066.4 vs #93 ex-Zero Tenacity = 1065.6 (49.9% vs 50.1%, fair lines 2.004 / 1.996). Flagged for transparency because the 0.8-point VRS margin is near-coinflip and HLTV's weekly ranking reverses the order (#67 ex-Zero Tenacity vs #70 ex-RUSTEC).",
+    "match_ids": [
+      "1079654"
+    ],
+    "affected_ids": [
+      "1079654"
+    ],
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654"
+    ],
+    "sources": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654"
+    ]
+  },
+  {
+    "id": "a34bc06b-kalshi-bovada-clock-skew-1082882-1082769",
+    "severity": "warning",
+    "title": "Provider start-time disagreements held out on 1082882 (UNiTY vs Apogee Betclic) and 1082769 (K27 vs NEXORA)",
+    "detail": "On fixture 1082882 (HLTV 2399784 and Hotspawn start 2026-10-22T14:00:00Z), Polymarket (1231280), Thunderpick (2865424), and Bovada (32573371) agree on 14:00:00Z and produce the multi-source money line, while Kalshi contract KXCS2GAME-26OCT221230APOGEEUNITY lists 16:30:00Z and stays excluded under the ±60s rule. On fixture 1082769 (HLTV 2399846 and Hotspawn start 2026-10-22T17:30:00Z), Bovada (32593732) and Kalshi (KXCS2GAME-26OCT221200NEXK27) list 16:00:00Z and stay excluded; the fixture uses the hash-verified EGamersWorld bookmaker average at the matching 17:30:00Z start.",
+    "match_ids": [
+      "1082882",
+      "1082769"
+    ],
+    "affected_ids": [
+      "1082882",
+      "1082769"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+      "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
+      "https://www.hltv.org/matches/2399846/nexora-vs-k27-winline-mpkbk-cis-lan-season-9",
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT"
+    ],
+    "sources": [
+      "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+      "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
+      "https://www.hltv.org/matches/2399846/nexora-vs-k27-winline-mpkbk-cis-lan-season-9",
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT"
+    ]
+  },
+  {
+    "id": "a34bc06b-egamersworld-placeholder-rejections",
+    "severity": "notice",
+    "title": "Four EGamersWorld match pages print default 1.8 / 1.8 placeholders and are explicitly rejected",
+    "detail": "Audited individual EGamersWorld match pages for 1079654 (ex-Zero Tenacity vs ex-RUSTEC), 1081596 (Falcons Force vs Phantom Academy), 1082882 (UNiTY vs Apogee Betclic), and 1081148 (Inner Circle Academy vs Spirit Academy). All four match pages display identical 1.8 / 1.8 banner odds and no published bookmaker-average sentence, even where the listing index showed non-equal numbers (1.58/2.15 on 1081596, 1.86/1.8 on 1081148). Recorded under rejected in data/research/a34bc06b/reference-odds.json so no placeholder ever enters consensus.",
+    "match_ids": [
+      "1079654",
+      "1081596",
+      "1082882",
+      "1081148"
+    ],
+    "affected_ids": [
+      "1079654",
+      "1081596",
+      "1082882",
+      "1081148"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/ED_x8iT5Nl/ex-zero-tenacity-vs-ex-rustec-YieSsHTBr",
+      "https://egamersworld.com/counterstrike/match/z1J5uZ9tNl/falcons-force-vs-phantom-academy-sC2w9SZz4",
+      "https://egamersworld.com/counterstrike/match/O93y1f-tNl/unity-esports-vs-betclic-BiOPNVq-F",
+      "https://egamersworld.com/counterstrike/match/w_6O0cYtNl/inner-circle-academy-vs-spirit-academy-qIxpg8-CUg"
+    ],
+    "sources": [
+      "https://egamersworld.com/counterstrike/match/ED_x8iT5Nl/ex-zero-tenacity-vs-ex-rustec-YieSsHTBr",
+      "https://egamersworld.com/counterstrike/match/z1J5uZ9tNl/falcons-force-vs-phantom-academy-sC2w9SZz4",
+      "https://egamersworld.com/counterstrike/match/O93y1f-tNl/unity-esports-vs-betclic-BiOPNVq-F",
+      "https://egamersworld.com/counterstrike/match/w_6O0cYtNl/inner-circle-academy-vs-spirit-academy-qIxpg8-CUg"
+    ]
+  },
+  {
+    "id": "a34bc06b-network-model-provenance-label",
+    "severity": "notice",
+    "title": "Network-model provenance label corrected on /origination/ and logged for scripts/originate.py",
+    "detail": "Four academy/low-tier fixtures (1081596, 1081148, 1082210, 1082861) are estimated by scripts/network_model.py over finished bo3.gg CS2 series (family='network'), yet scripts/originate.py set o['label'] to 'Research model estimate (Valve official ratings)'. Fixed rendering in scripts/build_origination.py to print 'Own network estimate (bo3.gg finished-series graph)' and logged the exact two-line follow-up in COORDINATION.md for the active scripts/originate.py owners.",
+    "match_ids": [
+      "1081596",
+      "1081148",
+      "1082210",
+      "1082861"
+    ],
+    "affected_ids": [
+      "1081596",
+      "1081148",
+      "1082210",
+      "1082861"
+    ],
+    "source_urls": [
+      "https://bo3.gg/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+      "https://github.com/buffedlizard55-lab/MaltaProj3"
+    ],
+    "sources": [
+      "https://bo3.gg/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+      "https://github.com/buffedlizard55-lab/MaltaProj3"
+    ]
+  }
+]

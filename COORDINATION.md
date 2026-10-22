@@ -4706,6 +4706,8 @@ copy, and the same URL with a cache-busting query returned current data. The dep
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
 
+---
+
 # Current session: arena-c1fa150f — both-team probabilities on the phone summary, a separate "no betting line" register, and an independent re-verification of the live inventory
 
 Claimed **2026-10-22T01:15Z** on the Arena-fixed branch `arena/c1fa150f-maltaproj3`,
@@ -4809,3 +4811,39 @@ snapshot with no model-only rows.
 - Mobile layout was verified through the rendered HTML/CSS and the repository's
   existing phone-width tests, not a screenshot: this sandbox has no browser and no
   Playwright download path. The CI browser/axe job is the visual check.
+
+---
+
+# Current session: arena-a34bc06b — 35/35 pick resolution, first-party alias unlocks, Valve detail tie-resolution, and scannable mobile origination table
+
+Claimed **2026-10-22T01:21Z** on branch `arena/a34bc06b-maltaproj3`, branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4`. Read `COORDINATION.md` and checked all active concurrent branches (`7e8bed83`, `3bad13ea`, `fbdc97d6`, `15fc6bca`, `416d93ee`, `13bdd12a`, `5f6fe71d`, `5fbf5cd5`, `b1022dc2`, `bd4f77c6`, `c1fa150f`, `e544ca54`) before claiming scope so file ownership has **zero overlap** with any active claim.
+
+**Live findings verified from first-party sources on 2026-10-22T01:06–01:20Z:**
+1. **`1079654` (`ex-Zero Tenacity` vs `ex-RUSTEC`, `CCT Europe 2026 Series #11`, `2026-10-23T08:00:00Z`) — the sole pick-less active fixture (`with_pick: 34/35`):**
+   - `standings_global_2026_10_05.md` rounds both rosters to `1066`, yielding `50.0% / 50.0%` (`pick_index = null`).
+   - Valve’s official repository (`ValveSoftware/counter-strike_regional_standings`, `live/2026/details/2026_10_05/`) publishes the unrounded Git-blob-verified values linked directly from each row’s `detail_path`: `#92 ex-RUSTEC` = **`Final Rank Value: 1066.4`** vs `#93 ex-Zero Tenacity` = **`Final Rank Value: 1065.6`** (`49.9%` vs `50.1%`, picking `ex-RUSTEC` with zero synthetic tie-breaking).
+2. **Unmatched live first-party money lines caused strictly by missing competition-scoped entries in `data/origination/aliases.json`:**
+   - `1082882` (`UNiTY` vs `Apogee Betclic`, `Stake Ranked Episode 6: Closed Qualifier`, `2026-10-22T14:00:00Z`): currently uncalibrated model (`39.8% / 60.2%`) despite live **Polymarket** (`1231280`, `UNiTY esports` vs `Betclic Apogee Esports`), **Thunderpick** (`2865424`, `Team UNiTY` vs `Apogee Esports`, `2.35 / 1.52`), and **Bovada** (`32573371`, `Unity Esports` vs `Betclic Apogee`, `2.400 / 1.540541`).
+   - Additional live multi-book consensus unlocks in `NODWIN Clutch Series #13` (`Just_Players`, `JPlay`), `1win Private Club Season 2` (`TheMongolz`, `MongolZ`), `DraculaN Season 7` (`FaZe Clan`, `BC.Game Esports`), `Stake Ranked Episode 6: Closed Qualifier` (`Sangal Esports`), `PGL Masters Bucharest 2026` (`DENDELE CS`, `FURIA Esports`, `Team AURORA`, `Aurora Gaming`, `Team Liquid`, `Team Spirit`, `BB Team`, `BetBoom Team`, `Nemiga Gaming`, `9Z Globant`, `9z Team`, `G2 Esports`, `FUT`), plus `6666 -> ex-6666` in `NODWIN Clutch Series #13` and `CCT Europe 2026 Series #12`.
+3. **Fresh SHA-256 hash-verified aggregated bookmaker references (`data/research/a34bc06b/reference-odds.json` via `scripts/reference_odds.py`):**
+   - `1079188` (`Bushido Wildcats` vs `ex-6666`, `2026-10-22T08:00:00Z`): published bookmaker average `2.26 / 1.55` (`40.6% / 59.4% -> ex-6666`, correcting the uncalibrated `51.5%` `Bushido Wildcats` network lean) and `1082769` (`K27` vs `NEXORA`, `2026-10-22T17:30:00Z`): `1.021 / 8.1` (`88.8% / 11.2% -> K27`), while explicitly rejecting and documenting placeholder `1.8 / 1.8` match pages (`1079654`, `1081596`, `1082882`, `1081148`).
+4. **Live `/origination/` display bugs & phone table UX (`scripts/build_origination.py`, `assets/origination.css`):**
+   - Live `/origination/` printed `"All 35 active Hotspawn CS2 fixtures have a researched pick"` right beneath `"34 with a sourced lean"`, and labeled `family == 'network'` rows as `"Research model estimate (Valve official ratings)"`. Fixing both in `scripts/build_origination.py` and adding a compact, mobile-responsive **All Active Picks Overview Table** with filter pills, both teams' probabilities, pick badges, fair decimal odds, source basis, and verified official links above the full evidence cards.
+   - **Cross-session request logged for `scripts/originate.py` owners (`15fc6bca`, `3bad13ea`, `13bdd12a`, `bd4f77c6`):** in `scripts/originate.py` lines 1809 & 1836, set `'label': 'Own network estimate (bo3.gg results graph)' if model.get('family') == 'network' else 'Research model estimate (Valve official ratings)'` so raw `data/origination.json` matches the rendered label.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A34B-1 Competition-scoped first-party alias unlocks across Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, and Valve standings | done | arena-a34bc06b | `data/origination/aliases.json` |
+| A34B-2 Official Git-blob-verified Valve `Final Rank Value` tie resolution (`1066.4` vs `1065.6` on `1079654`) & session reference-odds loader (`1079188`, `1082769`, rejected placeholders) | done | arena-a34bc06b | `scripts/sources.py`, `scripts/collect.py`, `scripts/domain.py`, `scripts/validate.py`, `scripts/reference_odds.py`, `data/research/a34bc06b/reference-odds.json`, `tests/test_domain.py`, `tests/test_reference_odds.py` |
+| A34B-3 `/origination/` provenance & equal-estimate bug fixes + mobile-first All Active Picks table + line-by-line review flags & audit dossier | done | arena-a34bc06b | `scripts/build_origination.py`, `assets/origination.css`, `data/research/a34bc06b/`, `tests/test_a34bc06b_origination_and_audit.py` |
+| A34B-4 Full local & live CI verification (`checks.yml`, `origination.yml`), clean rebase, PR merge to `main`, and live GitHub Pages deployment audit | done | arena-a34bc06b | `COORDINATION.md`, PR [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) & Pages deployment verification |
+
+**Strict non-overlap pledge:** zero edits to `scripts/build.py`, `assets/scout.css`, `scripts/originate.py`, `scripts/network_model.py`, `scripts/coverage_audit.py`, `scripts/verify_live.py`, `scripts/review_register.py`, `README.md`, or any other session’s `data/research/*` directory.
+
+### A34B-4 verification & PR record (2026-10-22T01:55Z)
+
+- **Pull request:** [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) on `arena/a34bc06b-maltaproj3` -> `main`.
+- **CI checks verified green before merge:**
+  - `Rows, build, links, mobile and accessibility`: **pass** (run [`39708762858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762858) — full unittest suite, site + origination build, strict row-source audit `0` violations, internal link audit, Chromium mobile viewport & axe-core WCAG AA contrast audit).
+  - `originate`: **pass** (run [`39708762878`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762878)).
+  - Full 2026-10-22 35-fixture replay audit (`data/research/a34bc06b/verification-audit.json`): **`35 / 35` (`100.0%`) active Hotspawn CS2 matches resolved with directional picks**, `0` unresolved, `81 / 81` origination rows verified with `0` violations, `coverage_audit` `0` violations.
