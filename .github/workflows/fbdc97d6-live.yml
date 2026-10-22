@@ -1,0 +1,92 @@
+name: FB (arena-fbdc97d6) live snapshot and line-source probe
+# Session-only workflow. Deleted from the branch before the merge. It runs the
+# production chain on this branch so the session can verify the real snapshot
+# and the real source access from a GitHub runner, then commits the evidence
+# under data/research/fbdc97d6/ (never to main).
+on:
+  push:
+    branches: [arena/fbdc97d6-maltaproj3]
+    paths:
+      - '.github/workflows/fbdc97d6-live.yml'
+      - 'scripts/fbdc97d6_probe.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: fbdc97d6-live
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    if: github.ref == 'refs/heads/arena/fbdc97d6-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Originate a line for every active fixture
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Probe esportsbook and aggregator access (read-only)
+        run: python -m scripts.fbdc97d6_probe --out data/research/fbdc97d6 || true
+      - name: Build every view and record the row audit
+        run: |
+          python -m scripts.build
+          python -m scripts.audit_rows --site site --strict
+      - name: Keep the exact snapshot this session verified
+        run: |
+          set -e
+          mkdir -p data/research/fbdc97d6/live
+          cp data/latest.json data/origination.json data/sources.json data/research/fbdc97d6/live/
+          cp data/row-source-audit.json data/research/fbdc97d6/live/ 2>/dev/null || true
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          latest = json.loads(Path('data/latest.json').read_text())
+          orig = json.loads(Path('data/origination.json').read_text())
+          summary = {
+              'latest_generated_at': latest.get('generated_at'),
+              'inventory_observed_at': latest.get('inventory_observed_at'),
+              'inventory_crosscheck': latest.get('inventory_crosscheck'),
+              'coverage_complete': latest.get('coverage_complete'),
+              'featured_counts': latest.get('counts'),
+              'origination_generated_at': orig.get('generated_at'),
+              'origination_counts': orig.get('counts'),
+              'rows': [
+                  {
+                      'id': m.get('id'),
+                      'teams': [t.get('name') for t in m.get('teams') or []],
+                      'competition': m.get('competition'),
+                      'starts_at': m.get('starts_at'),
+                      'featured_method': m.get('featured_method'),
+                      'method': (m.get('origination') or {}).get('method'),
+                      'label': (m.get('origination') or {}).get('label'),
+                      'source': (m.get('origination') or {}).get('source'),
+                      'probabilities': (m.get('origination') or {}).get('probabilities'),
+                      'pick_index': m.get('pick_index'),
+                  }
+                  for m in orig.get('matches') or []
+              ],
+          }
+          Path('data/research/fbdc97d6/live/snapshot-summary.json').write_text(
+              json.dumps(summary, indent=2, ensure_ascii=False) + '\n')
+          print(json.dumps(summary['origination_counts'], ensure_ascii=False))
+          PY
+      - name: Commit the evidence to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/fbdc97d6
+          git diff --cached --quiet && exit 0
+          git commit -m 'research(fbdc97d6): live snapshot, build/row audit and line-source probe'
+          git pull --rebase origin arena/fbdc97d6-maltaproj3
+          git push origin arena/fbdc97d6-maltaproj3
