@@ -1,3 +1,26 @@
+
+# Current session: arena-f60683a4 — picks for every listed match, low-tier line research, phone-first executive summary
+
+Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/f60683a4-maltaproj3`, branched
+from `main` at `285a0d9` (merge of PR #162). The board was read first. Prior sessions at
+the top of this file (`fbdc97d6`, `15fc6bca`, `b1022dc2`, `416d93ee`, `c1fa150f`,
+`a34bc06b`) are merged. Open PRs #154/#149/#139/#120 are idle well past 60 minutes and
+are treated as stale; this session does not edit those branches. No live claim overlaps
+the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F60-1 Research HLTV first, then Polymarket/esportsbooks, for every live fixture the featured method left without a betting line; publish a dated source-linked register and flags; do not invent prices | **in progress** | arena-f60683a4 | new `data/research/f60683a4/`, this section |
+| F60-2 Phone-first executive summary: first start-here jump is the in-page picks list; compact the jump bar on a phone so the pick index is reachable without scrolling past a four-day-old archive | **in progress** | arena-f60683a4 | `scripts/build.py` (`start_here()` only), `assets/scout.css` (start-here phone rules), `tests/test_f60683a4.py` (new), `tests/test_final_day.py` (start-here hrefs only) |
+| F60-3 Rebuild, row-source audit, targeted tests, PR to main, merge, confirm Pages | unclaimed → in progress | arena-f60683a4 | this section, PR |
+
+**Non-overlap pledge:** no change to `scripts/originate.py`, `scripts/collect.py`,
+`scripts/domain.py`, `scripts/sources.py`, `data/origination/aliases.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`,
+or any other session's `data/research/<id>/`. Pick values are not rewritten from
+this session's research: live prices found for featured-blank fixtures are
+published as flags for the next four-hour refresh, never typed into a snapshot.
+
 # Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
 Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at
 `285a0d9` (merge of PR #162). The board was read first. No other session holds a live claim on
