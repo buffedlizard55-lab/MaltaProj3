@@ -1,6 +1,9 @@
 name: bd4f77c6 live verification (session-only, removed before merge)
 on:
   workflow_dispatch:
+  push:
+    branches: [arena/bd4f77c6-maltaproj3]
+    paths: ['.github/workflows/bd4f77c6-live.yml']
 permissions:
   contents: write
 concurrency:
