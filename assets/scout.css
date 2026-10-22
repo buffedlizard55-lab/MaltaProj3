@@ -326,3 +326,9 @@
    rule the accessibility suite enforces: it inherits the banner link styling
    and is underlined like every other in-text link on the page. */
 .exec-banner-desc .exec-banner-jump{color:#7a3a14;text-decoration:underline;text-underline-offset:3px;font-weight:650}
+/* Session 13bdd12a — the tie-break attempt list inside an "Even" register card.
+   Rendered as chips so a reader can see each documented rung and its outcome
+   without opening the full trail. */
+.unresolved-attempts{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:8px 0 0}
+.unresolved-attempts .tried-chip{font-size:9px}
+@media(max-width:700px){.unresolved-attempts .tried-chip{font-size:9.5px}}

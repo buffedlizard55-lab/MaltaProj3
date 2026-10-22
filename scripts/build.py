@@ -789,8 +789,21 @@ def unresolved_register(data, prefix):
                 if len(used) >= 4:
                     break
             tried_html = ''.join(tried) or '<span class="tried-chip unresolved">No source returned a usable pair</span>'
+            attempts = m.get('tie_break_attempts') or []
+            if attempts:
+                # Session arena-13bdd12a: for an exactly level estimate the row
+                # publishes the documented tie-break rungs that were checked and
+                # the reason each one could not supply a direction.
+                tried_html += '<p class="unresolved-attempts"><span class="tiny muted">Tie-break rungs checked:</span> ' + ''.join(
+                    f'<span class="tried-chip {e(a.get("status") or "unknown")}" title="{e(a.get("detail") or "")}">'
+                    f'{e(a.get("rung") or "Rung")} · {e(a.get("status") or "unknown")}</span>' for a in attempts) + '</p>'
             badge_text = 'Even estimate · no side' if even else 'No verified pick'
-            if even:
+            if even and (m.get('tie_break_attempts') or []):
+                separated = sum(1 for a in m['tie_break_attempts'] if a.get('status') == 'separated')
+                reason = ('Equal estimate: the official ratings are level and the documented tie-break rungs '
+                          + ('did not separate the teams' if not separated else 'were not needed') +
+                          ' — no side is invented')
+            elif even:
                 reason = 'Equal estimate: no side is supportable at these prices'
             else:
                 reason = _brief_blank_reason(m)

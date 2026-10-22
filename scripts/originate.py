@@ -1932,22 +1932,41 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     # labelled "Tie-break estimate" and keeps the level primary estimate in
     # `tie_break_of` for audit. If no sourced rung separates the teams, the
     # fixture stays explicitly even instead of receiving an invented side.
+    tie_break_attempts = None
     if chosen and chosen.get('method') == 'model' and selection(chosen['probabilities']) is None:
         candidates = []
-        for source_label, candidate in (
-                ('HLTV world ranking', hltv_model),
-                ('Own network model (bo3.gg results graph)', network_quote),
-                ('Own results-based model (bo3.gg series results)', match.get('_form'))):
+        attempts = []
+        for source_label, candidate, why in (
+                ('HLTV world ranking', hltv_model, hltv_model_detail),
+                ('Own network model (bo3.gg results graph)', network_quote, match.get('_network_reason')),
+                ('Own results-based model (bo3.gg series results)', match.get('_form'), match.get('_form_reason'))):
             if not candidate:
+                # Every failed rung is recorded with the reason its own model
+                # reported, so a reader can see what was actually checked.
+                attempts.append({'rung': source_label, 'status': 'unavailable',
+                                 'detail': str(why or 'No estimate was produced for this fixture in this run.')[:400]})
                 continue
             probs = candidate.get('probabilities') or []
-            if len(probs) != 2 or abs(probs[0] - probs[1]) < TIE_BREAK_MIN_GAP:
+            if len(probs) != 2:
+                attempts.append({'rung': source_label, 'status': 'invalid',
+                                 'detail': 'The estimate did not publish a two-sided probability pair.'})
+                continue
+            if abs(probs[0] - probs[1]) < TIE_BREAK_MIN_GAP:
+                attempts.append({'rung': source_label, 'status': 'level',
+                                 'detail': f'{probs[0] * 100:.1f}% / {probs[1] * 100:.1f}% — does not '
+                                           f'separate the teams by {TIE_BREAK_MIN_GAP * 100:.0f} percentage point.'})
                 continue
             same_source = (str(candidate.get('source_url') or '') == str(chosen.get('source_url') or '')
                            and str(candidate.get('provider') or '') == str(chosen.get('source') or ''))
             if same_source:
+                attempts.append({'rung': source_label, 'status': 'same source',
+                                 'detail': 'This is the same publication the level primary estimate already used.'})
                 continue
+            attempts.append({'rung': source_label, 'status': 'separated',
+                             'detail': f'{probs[0] * 100:.1f}% / {probs[1] * 100:.1f}% — the first rung in the '
+                                       'published order that separates the teams.'})
             candidates.append((source_label, candidate))
+        tie_break_attempts = attempts
         if candidates:
             source_label, candidate = candidates[0]
             primary = {
@@ -1984,6 +2003,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                 f'({candidate["probabilities"][0] * 100:.1f}% / {candidate["probabilities"][1] * 100:.1f}%). '
                 'This is a low-confidence research lean taken from dated inputs, not an observed money line; '
                 'the even primary estimate is retained on the row for audit.')
+            chosen['tie_break_attempts'] = attempts
+        else:
+            # Nothing sourced separated the teams. Publish the attempt itself:
+            # the fixture stays Even, but the row records every rung that was
+            # checked and why each one could not supply a direction.
+            summary_attempts = '; '.join(f"{a['rung']}: {a['status']} ({a['detail']})" for a in attempts)
+            trail.append({'stage': 'Tie-break research', 'status': 'unresolved',
+                          'source_url': HLTV_RANKING_URL,
+                          'detail': ('The official ratings behind the primary estimate are exactly level, so no side '
+                                     'follows from them. The published tie-break rungs were checked and none supplied a '
+                                     'direction: ' + (summary_attempts or 'no candidate estimate was produced.') +
+                                     ' The fixture therefore stays Even rather than receiving an invented pick.')})
+            limitations.append('Even estimate: the official ratings are exactly level and no independent sourced rung '
+                               'separated the teams this run (' + '; '.join(f"{a['rung']} — {a['status']}"
+                                                                             for a in attempts) + ').')
     if reference_quote and (chosen or {}).get('method') != 'reference':
         # The capture exists but a first-party line won; say so instead of
         # presenting an unused fallback as a resolved source.
@@ -2064,7 +2098,20 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     if (featured_pick is None and result.get('pick_index') is not None
             and (result.get('origination') or {}).get('tie_break_of')):
         return dict(result, upgraded_from_featured_model=True)
-    return keep_featured()
+    kept = keep_featured()
+    attempts = (result.get('origination') or {}).get('tie_break_attempts')
+    if featured_pick is None and attempts:
+        # The featured level estimate stays exactly as published. The record of
+        # which documented rungs were checked, and why none supplied a
+        # direction, is attached to it so the unresolved register and the
+        # flagged-findings page can show the attempt instead of a bare blank.
+        kept['tie_break_attempts'] = attempts
+        extra = next((r for r in result.get('research') or [] if r.get('stage') == 'Tie-break research'), None)
+        if extra:
+            kept['research'] = list(kept.get('research') or []) + [extra]
+        kept['limitations'] = list(kept.get('limitations') or []) + [
+            note for note in result.get('limitations') or [] if note.startswith('Even estimate:')]
+    return kept
 
 
 def run(output: Path, *, live: bool = False) -> dict:
