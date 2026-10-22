@@ -23,10 +23,16 @@ export default class AnnotationsReporter {
 
   onTestEnd(test, result) {
     if (result.status !== 'failed' && result.status !== 'timedOut' && result.status !== 'interrupted') return;
-    const error = result.error?.message || result.errors?.[0]?.message || 'no error message';
+    const raw = result.error?.message || result.errors?.[0]?.message || 'no error message';
+    // Playwright colours its diffs for a terminal; annotations are plain text.
+    const error = raw.replace(/\u001b\[[0-9;]*m/g, '');
     this.failures.push({
       title: `${result.status}: ${test.title}`.slice(0, 250),
-      message: error.split('\n').map(line => line.trim()).filter(Boolean)[0] || 'no error message',
+      // The first line alone ("Error: expect(received).toEqual(expected)") does
+      // not say which rule or which element failed, so keep the first few lines
+      // of the assertion diff, flattened into one annotation line.
+      message: (error.split('\n').map(line => line.trim()).filter(Boolean).slice(0, 30).join(' | ')
+        || 'no error message').slice(0, 2500),
       location: `${test.location.file}:${test.location.line}`,
     });
   }
