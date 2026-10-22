@@ -1,6 +1,6 @@
 # Esportsbook / line-source probe — arena-fbdc97d6
 
-Observed 2026-10-22T01:29:14+00:00. Read-only. A page appearing here is not a price.
+Observed 2026-10-22T02:10:06+00:00. Read-only. A page appearing here is not a price.
 
 | Source | HTTP | Teams of the open fixtures found | Challenge markers | Title |
 | --- | --- | --- | --- | --- |

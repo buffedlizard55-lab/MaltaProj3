@@ -1,6 +1,6 @@
 # bo3.gg published bookmaker block — arena-fbdc97d6
 
-Observed 2026-10-22T01:29:14+00:00. Read-only; coefficients are not converted to a pick.
+Observed 2026-10-22T02:10:06+00:00. Read-only; coefficients are not converted to a pick.
 
 5 of 35 active fixtures carried a two-sided block.
 
