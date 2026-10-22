@@ -1,0 +1,125 @@
+{
+ "session": "arena-e5cc3d49",
+ "branch": "arena/e5cc3d49-maltaproj3",
+ "review_clock_utc": "2026-10-22T08:30Z",
+ "scope": "Independent line-by-line verification of the published Hotspawn CS2 picks: the live inventory and every published probability, the executive summary's in-site pick links, the unresolved/limitations sections, and the phone layout of the six current pages.",
+ "method": "The Arena sandbox has no egress to Hotspawn, HLTV, Polymarket, Kalshi or any esportsbook, so the live inventory and every live line were read on a GitHub runner with the publisher's own collector (session-only workflow .github/workflows/e5cc3d49-live.yml, deleted before merge). scripts/e5cc3d49_audit.py then re-derived every number it could from that row's own primary observation with no network access: Polymarket midpoints from the saved CLOB order books, esportsbook prices from the quoted decimal odds (1/o normalised), consensus rows from the per-provider median, and Valve-model rows from the published official points on the documented fixed-RD-75 Glicko scaling. Rows whose fit inputs are not in the published payload are named as not independently recomputable rather than marked verified. The built site was then checked for the executive summary's pick links, the complete-list anchors, the glance index (every active fixture and its published pick) and phone layout at 390 px. No probability, pick, alias or page was changed by this session.",
+ "items": [
+  {
+   "id": "E5-01",
+   "area": "pick coverage",
+   "severity": "high",
+   "status": "verified",
+   "finding": "Every active Hotspawn CS2 fixture in the live inventory carries a published directional pick: 46 of 46 rows resolved, 0 unresolved, and the published method counts match the rows exactly (16 market, 8 bookmaker, 2 consensus, 20 model). No active fixture is missing from the complete list, and no row refers to a fixture outside the current inventory.",
+   "handling": "Reconciled by scripts/e5cc3d49_audit.py against the live snapshot it read; the audit fails if any active fixture lacks a row, if any row is not in the inventory, or if the published counts disagree with the rows. The unresolved register therefore has no rows in this snapshot, and the executive summary states that explicitly.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+     "detail": "Live complete list: every active fixture with both teams' probabilities, the pick and its evidence links."
+    },
+    {
+     "url": "https://www.hotspawn.com/matches/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13-1079188",
+     "detail": "Example official Hotspawn fixture page behind an audited row; every row links the fixture id it was harvested from."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/e5cc3d49_audit.py",
+     "detail": "The read-only audit that produced this register (coverage, counts, argmax, https-source and freshness checks)."
+    }
+   ]
+  },
+  {
+   "id": "E5-02",
+   "area": "probability arithmetic",
+   "severity": "high",
+   "status": "verified",
+   "finding": "29 of the 46 published numbers were re-derived exactly from the primary observation quoted beside them: 16 Polymarket rows from the bid/ask the row publishes (and, where the collector saved the CLOB books, from those books' best bid and best ask), 8 esportsbook rows from their quoted decimal odds, 2 consensus rows from the median of their independent providers, and 3 Valve-model rows from the official published points. No row reproduced to a different value.",
+   "handling": "Recomputation is arithmetic on the saved originals, with a 0.003 tolerance for the published rounding; a row that does not reproduce is reported as a violation, not smoothed. The remaining 17 model rows (Bradley–Terry network, HLTV-ranking and results-form fits) are published as not independently recomputable because their graph inputs are not part of the public payload; they are listed by fixture id and source in the audit report.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+     "detail": "The public payload this audit read: per-row method, probabilities, quotes, odds and official inputs."
+    },
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official Valve standings used both by the publisher's model rows and by this audit's re-derivation of them."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
+     "detail": "Example first-party market page: the moneyline shows g1 43c / tsa 58c, so a published 47.5/52.5 at 07:36Z is a point-in-time midpoint, not a claim about the current price."
+    }
+   ]
+  },
+  {
+   "id": "E5-03",
+   "area": "audit method",
+   "severity": "medium",
+   "status": "fixed",
+   "finding": "The first version of this audit paired each published quote with the saved order book of the same position. That is wrong whenever Polymarket's outcome order differs from Hotspawn's team order (for example Polymarket lists 'Phantom Academy vs Falcons Force' while Hotspawn lists 'Falcons Force vs Phantom Academy'), because the collector reorders the quotes to the Hotspawn order. It produced four false 'does not reproduce' findings on fixtures 1081596 and 1082769.",
+   "handling": "The audit now maps each team to its own book through the published source_outcomes and makes no book-level claim when the names cannot be mapped. Re-run on the live snapshot: zero violations. The row itself was confirmed independently: Polymarket's own page for the Falcons Force–Phantom Academy series reports Falcons Force at 60c and Phantom Academy at 41c, which matches the published 59.5% / 40.5% midpoint. Locked by tests/test_e5cc3d49.py (reversed-outcome-order case).",
+   "evidence": [
+    {
+     "url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+     "detail": "Polymarket's series moneyline for this fixture (Falcons Force 60c / Phantom Academy 41c) and its outcome order, which is the reverse of Hotspawn's."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_e5cc3d49.py",
+     "detail": "The regression test that pins name-based book pairing."
+    }
+   ]
+  },
+  {
+   "id": "E5-04",
+   "area": "publication",
+   "severity": "medium",
+   "status": "needs review",
+   "finding": "The repository's checked-in snapshot is still the 15 October collection (data/latest.json generated 2026-10-15T08:36:13Z, 80 records, 17 upcoming), while the live site serves the current runner snapshot. Because the platform still publishes this repository in legacy Pages build mode, every push to main briefly republishes those week-old root pages until the workflow's own artifact deploy lands.",
+   "handling": "Not changed by this session: the root files are owned by the publisher and other live sessions. The publisher mitigates it by republishing its previous verified artifact first, and pages.yml re-reads the public snapshot after deployment. The underlying fix is a one-time Pages configuration change to 'GitHub Actions' as the source, which the repository's token cannot make (the configuration API answers HTTP 403). Flagged so the owner can switch it.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+     "detail": "The checked-in snapshot: generated_at 2026-10-15T08:36:13Z with 80 records, against the live site's 22 October snapshot."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+     "detail": "The deployed snapshot served by the current artifact, which is what the executive summary renders."
+    }
+   ]
+  },
+  {
+   "id": "E5-05",
+   "area": "phone readability",
+   "severity": "medium",
+   "status": "needs review",
+   "finding": "All six current pages are free of horizontal overflow at both 390 px and 320 px, carry the mobile viewport meta and a six-item bottom bar, and the executive summary reaches its pick index at 1,457 px (first pick row 1,751 px, about two phone screens). The exception is the Flagged for Review page: 116,265 px tall at 390 px and 137,397 px at 320 px, of which 112,452 px is the single 'All findings' register, where every finding is a full card. A phone reader must scroll roughly 130-160 screens to reach the end.",
+   "handling": "Not changed here: the review page is built by scripts/build.py, which four other sessions were editing while this audit ran. Recommended fix, recorded for the owner: group the register by area behind a phone-first summary (counts per area plus a jump list) and keep the full cards inside per-area collapsible blocks, exactly as the dated earlier-session registers are already rendered. Raw measurements for /, /origination/, /picks/, /review/, /coverage/ and /methodology/ at both widths, including each tall section's height, are saved beside this register.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+     "detail": "The live register page this measurement describes."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e5cc3d49/live/mobile-check-local.txt",
+     "detail": "390 px and 320 px measurements produced by this session on a local build of this branch, with per-page overflow, page height, pick-index offset and every section taller than 900 px."
+    }
+   ]
+  },
+  {
+   "id": "E5-06",
+   "area": "accessibility",
+   "severity": "low",
+   "status": "needs review",
+   "finding": "The complete-picks hero uses emoji as its only iconography (clipboard, flag, compass, link, books, target, house). Where the device has no emoji font the link text renders with a tofu box, and the emoji is part of the accessible name rather than hidden decoration.",
+   "handling": "Not changed here: scripts/build_origination.py is outside this session's scope. Recommended fix: reuse the existing inline SVG icon set used by the sidebar and the executive summary, with aria-hidden on the icon. Every affected link still has a full text label, so nothing is unusable without the glyph.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+     "detail": "The hero whose quick links carry the emoji."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+     "detail": "Line 405 renders '📋 Updated picks list' as the primary quick link."
+    }
+   ]
+  }
+ ]
+}
