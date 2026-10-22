@@ -4590,3 +4590,5 @@ Claimed **2026-10-22T01:12Z** on the fixed Arena branch `arena/e544ca54-maltapro
 
 **Non-overlap pledge:** no edits to `data/latest.json`, `data/origination.json`, aliases, evidence inputs, pick/model semantics, collectors, workflows, CSS, navigation, or another session’s research directory. The only stale-PR takeover is the explicitly named `glance()` display hunk; all other changes are the unclaimed `coverage()` scope and an empty-state copy correction. The generated `coverage/index.html` and homepage are produced by the standard build, not hand-edited.
 
+
+**Scope clarification — presentation wording only (2026-10-22T01:14Z):** E544-2 also covers `_brief_blank_reason()` because its current “no rating” label can be read as saying both teams lack a rating when the research trail says only one side has no Valve row. I will change only that summary label to “one team unranked”; the source facts and model inputs remain untouched. A focused regression test will pin the wording.
