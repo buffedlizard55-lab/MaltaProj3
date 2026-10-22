@@ -1,0 +1,89 @@
+name: 13B live snapshot (session-only, never deploys)
+# Session arena-13bdd12a only. Captures one production-equivalent collection
+# run so the sandbox can inspect current Hotspawn fixtures, probabilities and
+# research trails. It never publishes a site, never touches data/latest.json in
+# the working tree, and is deleted before this session's integration merge.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 13bdd12a-live
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/13bdd12a-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh canonical inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Refetch first-party origination sources and resolve
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Save a compact, replayable snapshot under this session
+        run: |
+          python - <<'PY'
+          import json, shutil
+          from pathlib import Path
+          out = Path('data/research/13bdd12a/live')
+          out.mkdir(parents=True, exist_ok=True)
+          for name in ('latest.json', 'sources.json', 'origination.json'):
+              src = Path('data') / name
+              if src.exists():
+                  shutil.copy2(src, out / name)
+          latest = json.load(open('data/latest.json'))
+          orig = json.load(open('data/origination.json')) if Path('data/origination.json').exists() else {'matches': []}
+          by_id = {str(m.get('id')): m for m in orig.get('matches') or []}
+          rows = []
+          for m in latest.get('matches') or []:
+              if m.get('availability') not in ('open', 'locked', 'unknown_lock'):
+                  continue
+              o = by_id.get(str(m.get('id'))) or {}
+              trail = [{k: r.get(k) for k in ('stage', 'status', 'source_url', 'detail')}
+                       for r in (o.get('research') or [])]
+              rows.append({
+                  'id': str(m.get('id')),
+                  'teams': [t.get('name') for t in m.get('teams') or []],
+                  'competition': m.get('competition'),
+                  'starts_at': m.get('starts_at'),
+                  'locks_at': m.get('locks_at'),
+                  'featured_method': (m.get('analysis') or {}).get('method'),
+                  'featured_probabilities': (m.get('analysis') or {}).get('probabilities'),
+                  'origination': o.get('origination'),
+                  'pick_index': o.get('pick_index'),
+                  'limitations': o.get('limitations') or [],
+                  'research': trail,
+              })
+          summary = {
+              'observed_at': latest.get('generated_at'),
+              'inventory_observed_at': latest.get('inventory_observed_at'),
+              'counts': latest.get('counts'),
+              'origination_counts': orig.get('counts'),
+              'active': rows,
+          }
+          (out / 'active-fixtures.json').write_text(json.dumps(summary, indent=2, ensure_ascii=False) + '\n')
+          print(json.dumps({'active': len(rows), 'counts': latest.get('counts')}, indent=2))
+          PY
+      - name: Commit the snapshot to this session branch
+        run: |
+          # Drop the generated top-level files so the checked-in fixture pair is
+          # never overwritten by a live run (tests and the deploy build read it).
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git status --short
+          git config user.name 'arena-13bdd12a'
+          git config user.email 'arena-13bdd12a@users.noreply.github.com'
+          git add data/research/13bdd12a/live
+          git commit -m 'research(13bdd12a): session live snapshot' || echo 'no changes'
+          git pull --rebase --autostash origin arena/13bdd12a-maltaproj3
+          git push origin HEAD:arena/13bdd12a-maltaproj3
