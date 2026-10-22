@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T11:04:58Z",
+  "observed_at": "2026-10-22T11:27:12Z",
   "question": "If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?",
   "method": [
     "Materialised the data/ tree as it is committed at HEAD with `git archive HEAD data` into a temporary directory; the repository's own working tree was not modified. On a runner the working tree is NOT the checked-in fixture, because this workflow collects and originates live data before this step.",
@@ -19,11 +19,11 @@
     }
   },
   "working_tree_root": {
-    "data/latest.json": "2026-10-22T11:01:50Z",
-    "data/origination.json": "2026-10-22T11:02:01Z",
+    "data/latest.json": "2026-10-22T11:24:41Z",
+    "data/origination.json": "2026-10-22T11:24:54Z",
     "evidence": {
       "files": 83,
-      "bytes": 26467135
+      "bytes": 26561509
     },
     "differs_from_commit": true
   },
@@ -38,7 +38,7 @@
     "generated_at": "2026-10-22T02:08:59Z"
   },
   "simulation": {
-    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-e636b2o2/offline/root/published/data",
+    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-yhbpzqud/offline/root/published/data",
     "files_written": [
       {
         "path": "data/latest.json",
@@ -88,18 +88,18 @@
   "simulation_from_build": {
     "site": "site",
     "site_exists": true,
-    "root": "/tmp/bc1afd8f-root-risk-e636b2o2/build/root",
+    "root": "/tmp/bc1afd8f-root-risk-yhbpzqud/build/root",
     "root_provenance": "git HEAD (the committed data/ tree)",
     "site_evidence": {
       "files": 83,
-      "bytes": 26467135
+      "bytes": 26561509
     },
     "committed_evidence": {
       "files": 38,
       "bytes": 2981464
     },
     "committed_generated_at": "2026-10-15T08:36:13Z",
-    "site_generated_at": "2026-10-22T11:01:50Z",
+    "site_generated_at": "2026-10-22T11:24:41Z",
     "files_written": 32,
     "data_files_written": [
       "data/evidence/hotspawn-context.json",
@@ -111,9 +111,9 @@
     ],
     "evidence_after_publish": {
       "files": 38,
-      "bytes": 3008946
+      "bytes": 3006833
     },
-    "published_generated_at": "2026-10-22T11:01:50Z",
+    "published_generated_at": "2026-10-22T11:24:41Z",
     "check_data": "failed",
     "error_type": "ValueError",
     "error": "HLTV observation timestamp restamped",

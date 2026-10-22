@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T11:03:50Z",
+  "observed_at": "2026-10-22T11:25:55Z",
   "purpose": "Independent, dated check that every active Hotspawn CS2 fixture carries a pick, and HLTV-first / esportsbook research for the fixtures that carry no betting line. No probability, pick, alias or price is produced or altered by this report.",
   "snapshot": {
-    "latest_generated_at": "2026-10-22T11:01:50Z",
+    "latest_generated_at": "2026-10-22T11:24:41Z",
     "latest_missing": null,
     "latest_unreadable": null,
-    "inventory_observed_at": "2026-10-22T11:01:27Z",
-    "origination_generated_at": "2026-10-22T11:02:01Z",
+    "inventory_observed_at": "2026-10-22T11:24:20Z",
+    "origination_generated_at": "2026-10-22T11:24:54Z",
     "origination_live_collection": true,
-    "origination_source_snapshot_at": "2026-10-22T11:01:27Z",
+    "origination_source_snapshot_at": "2026-10-22T11:24:20Z",
     "inventory_crosscheck": "complete",
     "run_status": "partial-picks"
   },
   "counts": {
-    "inventory": 104,
+    "inventory": 102,
     "active": 40,
-    "archived_past_start": 64,
+    "archived_past_start": 62,
     "active_with_pick": 40,
     "active_money_line": 24,
     "active_model_only": 16,
@@ -2040,39 +2040,6 @@
       "active": false
     },
     {
-      "hotspawn_id": "1079189",
-      "basis": "featured-inventory",
-      "teams": [
-        "FORZE Reload",
-        "Just Players"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-22T11:00:00Z",
-      "locks_at": "2026-10-22T10:54:00Z",
-      "availability": "past",
-      "tier": "b",
-      "hotspawn_source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems",
-      "classification": "blank",
-      "pick_index": null,
-      "pick_team": null,
-      "probabilities": [],
-      "method": null,
-      "method_label": null,
-      "line_source": null,
-      "line_source_url": null,
-      "line_observed_at": null,
-      "money_providers": [],
-      "quote_providers": [],
-      "tie_break": null,
-      "limitations": [
-        "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
-        "Hotspawn best-of format is unverified; left blank."
-      ],
-      "research_trail": [],
-      "active": false
-    },
-    {
       "hotspawn_id": "1079651",
       "basis": "featured-inventory",
       "teams": [
@@ -2106,39 +2073,6 @@
       "active": false
     },
     {
-      "hotspawn_id": "1081596",
-      "basis": "featured-inventory",
-      "teams": [
-        "Falcons Force",
-        "Phantom Academy"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-22T11:00:00Z",
-      "locks_at": "2026-10-22T10:54:00Z",
-      "availability": "past",
-      "tier": "c",
-      "hotspawn_source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems",
-      "classification": "blank",
-      "pick_index": null,
-      "pick_team": null,
-      "probabilities": [],
-      "method": null,
-      "method_label": null,
-      "line_source": null,
-      "line_source_url": null,
-      "line_observed_at": null,
-      "money_providers": [],
-      "quote_providers": [],
-      "tie_break": null,
-      "limitations": [
-        "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
-        "Hotspawn best-of format is unverified; left blank."
-      ],
-      "research_trail": [],
-      "active": false
-    },
-    {
       "hotspawn_id": "1082767",
       "basis": "originated",
       "teams": [
@@ -2148,7 +2082,7 @@
       "competition": "CIS LAN Championship #9",
       "starts_at": "2026-10-22T11:30:00Z",
       "locks_at": "2026-10-22T11:24:00Z",
-      "availability": "open",
+      "availability": "locked",
       "tier": "c",
       "hotspawn_source_url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082767",
@@ -2163,7 +2097,7 @@
       "method_label": "Originated consensus line (median of independent money sources)",
       "line_source": "Polymarket + Bovada + Pinnacle",
       "line_source_url": "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
-      "line_observed_at": "2026-10-22T11:02:06Z",
+      "line_observed_at": "2026-10-22T11:24:58Z",
       "money_providers": [
         "Bovada",
         "Pinnacle",
@@ -2266,14 +2200,14 @@
       "pick_index": 0,
       "pick_team": "JiJieHao",
       "probabilities": [
-        0.63,
-        0.37
+        0.6281407,
+        0.3718593
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:33Z",
+      "line_observed_at": "2026-10-22T11:24:24Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2319,7 +2253,7 @@
       "method_label": "No-vig bookmaker estimate",
       "line_source": "Thunderpick",
       "line_source_url": "https://thunderpick.io/api/matches",
-      "line_observed_at": "2026-10-22T11:01:47Z",
+      "line_observed_at": "2026-10-22T11:24:38Z",
       "money_providers": [
         "Thunderpick"
       ],
@@ -2377,7 +2311,7 @@
       "method_label": "Research model estimate (HLTV world ranking · unranked floor)",
       "line_source": "HLTV world ranking",
       "line_source_url": "https://www.hltv.org/ranking/teams",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
         "HLTV world ranking"
@@ -2458,7 +2392,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -2494,7 +2428,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -2571,14 +2505,14 @@
       "pick_index": 0,
       "pick_team": "Acend",
       "probabilities": [
-        0.535,
-        0.465
+        0.525,
+        0.475
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:34Z",
+      "line_observed_at": "2026-10-22T11:24:25Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2624,7 +2558,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:34Z",
+      "line_observed_at": "2026-10-22T11:24:25Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2670,7 +2604,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:35Z",
+      "line_observed_at": "2026-10-22T11:24:26Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2716,7 +2650,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:35Z",
+      "line_observed_at": "2026-10-22T11:24:26Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2762,7 +2696,7 @@
       "method_label": "Originated consensus line (median of independent money sources)",
       "line_source": "Polymarket + Thunderpick + Bovada",
       "line_source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
-      "line_observed_at": "2026-10-22T11:02:05Z",
+      "line_observed_at": "2026-10-22T11:24:57Z",
       "money_providers": [
         "Bovada",
         "Polymarket",
@@ -2830,7 +2764,7 @@
           "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
           "status": "not needed",
           "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-          "detail": "A higher-ranked rung resolved this fixture, so the relayed price was not used. Two-sided prematch decimal prices 2.35 / 1.52 published by Thunderpick and relayed verbatim by bo3.gg (overround 8.34%); margin removed by proportional normalization. The number was read from the bo3.gg relay, not from the bookmaker's own page."
+          "detail": "A higher-ranked rung resolved this fixture, so the relayed price was not used. Two-sided prematch decimal prices 2.3 / 1.55 published by Thunderpick and relayed verbatim by bo3.gg (overround 7.99%); margin removed by proportional normalization. The number was read from the bo3.gg relay, not from the bookmaker's own page."
         },
         {
           "stage": "Bookmaker page named by bo3.gg (Thunderpick)",
@@ -2860,7 +2794,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -2896,7 +2830,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:36Z",
+      "line_observed_at": "2026-10-22T11:24:27Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -2942,7 +2876,7 @@
       "method_label": "Originated esportsbook line (Pinnacle, no-vig)",
       "line_source": "Pinnacle",
       "line_source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:08Z",
       "money_providers": [
         "Pinnacle"
       ],
@@ -3043,7 +2977,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:37Z",
+      "line_observed_at": "2026-10-22T11:24:28Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3089,7 +3023,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:37Z",
+      "line_observed_at": "2026-10-22T11:24:28Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3135,7 +3069,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:38Z",
+      "line_observed_at": "2026-10-22T11:24:29Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3181,7 +3115,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:38Z",
+      "line_observed_at": "2026-10-22T11:24:29Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3220,14 +3154,14 @@
       "pick_index": 1,
       "pick_team": "Yawara",
       "probabilities": [
-        0.16718877,
-        0.83281123
+        0.19279144,
+        0.80720856
       ],
       "method": "bookmaker",
       "method_label": "Originated esportsbook line (Pinnacle, no-vig)",
       "line_source": "Pinnacle",
       "line_source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:08Z",
       "money_providers": [
         "Pinnacle"
       ],
@@ -3321,14 +3255,14 @@
       "pick_index": 1,
       "pick_team": "Virtus.pro",
       "probabilities": [
-        0.305,
-        0.695
+        0.32,
+        0.68
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:39Z",
+      "line_observed_at": "2026-10-22T11:24:30Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3374,7 +3308,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -3458,7 +3392,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22",
-      "line_observed_at": "2026-10-22T11:01:40Z",
+      "line_observed_at": "2026-10-22T11:24:31Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3504,7 +3438,7 @@
       "method_label": "Originated esportsbook line (Bovada, no-vig)",
       "line_source": "Bovada",
       "line_source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/ex-zero-tenacity-ex-rustec-202610230400",
-      "line_observed_at": "2026-10-22T11:02:13Z",
+      "line_observed_at": "2026-10-22T11:25:05Z",
       "money_providers": [
         "Bovada"
       ],
@@ -3527,13 +3461,13 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-zerote-rustec-2026-10-23",
-          "detail": "Polymarket event 1232992: Order book spread 0.68 exceeds the 0.15 indicative ceiling (ex-Zero Tenacity bid/ask 0.19/0.87, ex-RUSTEC bid/ask 0.13/0.81); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1232992: Order book spread 0.67 exceeds the 0.15 indicative ceiling (ex-Zero Tenacity bid/ask 0.19/0.86, ex-RUSTEC bid/ask 0.14/0.81); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct230400exrexz",
-          "detail": "Kalshi event KXCS2GAME-26OCT230400EXREXZ: Order book spread 0.81 exceeds the 0.15 indicative ceiling (ex-RUSTEC bid/ask 0.12/0.79, ex-Zero Tenacity bid/ask 0.12/0.93); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT230400EXREXZ: Order book spread 0.79 exceeds the 0.15 indicative ceiling (ex-RUSTEC bid/ask 0.12/0.79, ex-Zero Tenacity bid/ask 0.12/0.91); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -3605,7 +3539,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -3682,14 +3616,14 @@
       "pick_index": 1,
       "pick_team": "Spirit Academy",
       "probabilities": [
-        0.455,
-        0.545
+        0.43,
+        0.57
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
-      "line_observed_at": "2026-10-22T11:01:41Z",
+      "line_observed_at": "2026-10-22T11:24:32Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -3735,7 +3669,7 @@
       "method_label": "No-vig bookmaker estimate",
       "line_source": "Thunderpick",
       "line_source_url": "https://thunderpick.io/api/matches",
-      "line_observed_at": "2026-10-22T11:01:47Z",
+      "line_observed_at": "2026-10-22T11:24:38Z",
       "money_providers": [
         "Thunderpick"
       ],
@@ -3793,7 +3727,7 @@
       "method_label": "Research model estimate (HLTV world ranking)",
       "line_source": "HLTV world ranking",
       "line_source_url": "https://www.hltv.org/ranking/teams",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
         "HLTV world ranking"
@@ -3867,7 +3801,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -3903,7 +3837,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -3987,7 +3921,7 @@
       "method_label": "Research model estimate (Valve official ratings)",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:02:20Z",
+      "line_observed_at": "2026-10-22T11:25:12Z",
       "money_providers": [],
       "quote_providers": [
         "Valve official standings"
@@ -4097,7 +4031,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -4174,21 +4108,21 @@
       "pick_index": 1,
       "pick_team": "RED Canids Academy",
       "probabilities": [
-        0.2104426189073444,
-        0.7895573810926556
+        0.49856089,
+        0.50143911
       ],
       "method": "model",
-      "method_label": "Own network estimate (bo3.gg results graph)",
-      "line_source": "Own network model (bo3.gg results graph)",
-      "line_source_url": "https://bo3.gg/matches",
-      "line_observed_at": "2026-10-22T11:02:01Z",
+      "method_label": "Research model estimate (HLTV world ranking)",
+      "line_source": "HLTV world ranking",
+      "line_source_url": "https://www.hltv.org/ranking/teams",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
-        "Own network model (bo3.gg results graph)"
+        "HLTV world ranking"
       ],
       "tie_break": null,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4652 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 130.2 points (probability interval 0.056-0.544). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified."
       ],
       "research_trail": [
         {
@@ -4253,9 +4187,9 @@
         },
         {
           "stage": "Own network model (bo3.gg results graph)",
-          "status": "resolved",
+          "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4652 bo3.gg finished series with 269 Valve-anchored teams; 21 series for the thinner side, rating-difference SD 130.2 points."
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -4291,7 +4225,7 @@
       "method_label": "Research model estimate (HLTV world ranking)",
       "line_source": "HLTV world ranking",
       "line_source_url": "https://www.hltv.org/ranking/teams",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
         "HLTV world ranking"
@@ -4372,7 +4306,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own network model: Hacha has only 5 finished series in the window (needs 6)"
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -4407,21 +4341,22 @@
       "pick_index": 1,
       "pick_team": "Off Chops",
       "probabilities": [
-        0.44481971954143495,
-        0.555180280458565
+        0.5,
+        0.5
       ],
       "method": "model",
-      "method_label": "Own network estimate (bo3.gg results graph)",
-      "line_source": "Own network model (bo3.gg results graph)",
-      "line_source_url": "https://bo3.gg/matches",
-      "line_observed_at": "2026-10-22T11:02:01Z",
+      "method_label": "Research model estimate (HLTV world ranking)",
+      "line_source": "HLTV world ranking",
+      "line_source_url": "https://www.hltv.org/ranking/teams",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
-        "Own network model (bo3.gg results graph)"
+        "HLTV world ranking"
       ],
       "tie_break": null,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4652 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.6 points (probability interval 0.117-0.829). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+        "HLTV world ranking publishes exactly equal points for both teams (143, 142 are the published positions), so the model estimate is exactly 50.0% each and carries no probability edge. The direction is set by HLTV world ranking's own published order: Off Chops is ranked 142 against 143. This decides the pick only; it does not change either probability, and it is not a betting line."
       ],
       "research_trail": [
         {
@@ -4486,15 +4421,21 @@
         },
         {
           "stage": "Own network model (bo3.gg results graph)",
-          "status": "resolved",
+          "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4652 bo3.gg finished series with 269 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.6 points."
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
           "status": "resolved",
           "source_url": "https://www.hltv.org/ranking/teams",
           "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        },
+        {
+          "stage": "Tie-break (published ranking order)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "HLTV world ranking publishes exactly equal points for both teams (143, 142 are the published positions), so the model estimate is exactly 50.0% each and carries no probability edge. The direction is set by HLTV world ranking's own published order: Off Chops is ranked 142 against 143. This decides the pick only; it does not change either probability, and it is not a betting line."
         }
       ],
       "active": true
@@ -4524,7 +4465,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -4608,7 +4549,7 @@
       "method_label": "Research model estimate (HLTV world ranking · unranked floor)",
       "line_source": "HLTV world ranking",
       "line_source_url": "https://www.hltv.org/ranking/teams",
-      "line_observed_at": "2026-10-22T11:02:18Z",
+      "line_observed_at": "2026-10-22T11:25:10Z",
       "money_providers": [],
       "quote_providers": [
         "HLTV world ranking"
@@ -4683,7 +4624,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "unresolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own network model: Staqued has only 2 finished series in the window (needs 6)"
+          "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -4719,7 +4660,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -4803,7 +4744,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
-      "line_observed_at": "2026-10-22T11:01:44Z",
+      "line_observed_at": "2026-10-22T11:24:35Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -4842,14 +4783,14 @@
       "pick_index": 1,
       "pick_team": "FaZe",
       "probabilities": [
-        0.33,
-        0.67
+        0.35,
+        0.65
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
-      "line_observed_at": "2026-10-22T11:01:45Z",
+      "line_observed_at": "2026-10-22T11:24:35Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -4895,7 +4836,7 @@
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
-      "line_observed_at": "2026-10-22T11:01:45Z",
+      "line_observed_at": "2026-10-22T11:24:36Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -4934,14 +4875,14 @@
       "pick_index": 1,
       "pick_team": "GamerLegion",
       "probabilities": [
-        0.455,
-        0.545
+        0.465,
+        0.535
       ],
       "method": "market",
       "method_label": "Market-implied estimate",
       "line_source": "Polymarket",
       "line_source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
-      "line_observed_at": "2026-10-22T11:01:46Z",
+      "line_observed_at": "2026-10-22T11:24:37Z",
       "money_providers": [
         "Polymarket"
       ],
@@ -4987,7 +4928,7 @@
       "method_label": "Research model estimate (Valve official ratings)",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:02:20Z",
+      "line_observed_at": "2026-10-22T11:25:12Z",
       "money_providers": [],
       "quote_providers": [
         "Valve official standings"
@@ -5092,7 +5033,7 @@
       "method_label": "Valve-rating research estimate",
       "line_source": "Valve official standings",
       "line_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "line_observed_at": "2026-10-22T11:01:49Z",
+      "line_observed_at": "2026-10-22T11:24:39Z",
       "money_providers": [],
       "quote_providers": [],
       "tie_break": null,
@@ -5159,11 +5100,11 @@
         "group": "hltv",
         "url": "https://www.hltv.org/matches",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 403,
         "final_url": "https://www.hltv.org/matches",
-        "bytes": 5669,
+        "bytes": 5690,
         "title": "Just a moment...",
         "challenge_markers": [
           "just a moment",
@@ -5177,7 +5118,7 @@
         "group": "hltv",
         "url": "https://www.hltv.org/ranking/teams",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 403,
         "final_url": "https://www.hltv.org/ranking/teams",
@@ -5195,11 +5136,11 @@
         "group": "hltv",
         "url": "https://www.hltv.org/results",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 403,
         "final_url": "https://www.hltv.org/results",
-        "bytes": 5669,
+        "bytes": 5690,
         "title": "Just a moment...",
         "challenge_markers": [
           "just a moment",
@@ -5213,11 +5154,11 @@
         "group": "aggregator",
         "url": "https://egamersworld.com/counterstrike/matches",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 403,
         "final_url": "https://egamersworld.com/counterstrike/matches",
-        "bytes": 6133,
+        "bytes": 6137,
         "title": "Attention Required! | Cloudflare",
         "challenge_markers": [
           "challenge-platform",
@@ -5231,11 +5172,11 @@
         "group": "aggregator",
         "url": "https://egamersworld.com/counterstrike/odds",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 403,
         "final_url": "https://egamersworld.com/counterstrike/odds",
-        "bytes": 6133,
+        "bytes": 6137,
         "title": "Attention Required! | Cloudflare",
         "challenge_markers": [
           "challenge-platform",
@@ -5249,7 +5190,7 @@
         "group": "aggregator",
         "url": "https://bo3.gg/matches",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": true,
         "status": 200,
         "final_url": "https://bo3.gg/matches",
@@ -5265,11 +5206,11 @@
         "group": "aggregator",
         "url": "https://www.oddspedia.com/esports/counter-strike-2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:41Z",
+        "observed_at": "2026-10-22T11:25:47Z",
         "ok": false,
         "status": 410,
         "final_url": "https://oddspedia.com/esports/counter-strike-2",
-        "bytes": 341189,
+        "bytes": 341204,
         "title": "The resource you have requested has been permanently deleted",
         "challenge_markers": [
           "challenge-platform",
@@ -5282,7 +5223,7 @@
         "group": "aggregator",
         "url": "https://www.oddsportal.com/esports/counter-strike/",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:42Z",
+        "observed_at": "2026-10-22T11:25:48Z",
         "ok": true,
         "status": 200,
         "final_url": "https://www.oddsportal.com/esports/counter-strike/",
@@ -5298,11 +5239,11 @@
         "group": "bookmaker",
         "url": "https://thunderpick.io/api/matches",
         "method": "POST",
-        "observed_at": "2026-10-22T11:03:43Z",
+        "observed_at": "2026-10-22T11:25:49Z",
         "ok": true,
         "status": 200,
         "final_url": "https://thunderpick.io/api/matches",
-        "bytes": 283717,
+        "bytes": 285746,
         "title": "",
         "challenge_markers": [],
         "challenge": false
@@ -5312,11 +5253,11 @@
         "group": "bookmaker",
         "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:44Z",
+        "observed_at": "2026-10-22T11:25:50Z",
         "ok": true,
         "status": 200,
         "final_url": "https://www.bovada.lv/sports/esports/counter-strike-2",
-        "bytes": 2497988,
+        "bytes": 2497985,
         "title": "Counter Strike 2 Betting Odds | Bovada",
         "challenge_markers": [
           "captcha"
@@ -5328,7 +5269,7 @@
         "group": "bookmaker",
         "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:45Z",
+        "observed_at": "2026-10-22T11:25:50Z",
         "ok": false,
         "status": 404,
         "final_url": "https://www.pinnacle.com/en/esports/counter-strike-2/",
@@ -5342,7 +5283,7 @@
         "group": "bookmaker",
         "url": "https://gg.bet/en/counter-strike",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:45Z",
+        "observed_at": "2026-10-22T11:25:51Z",
         "ok": false,
         "status": 403,
         "final_url": "https://gg.bet/en/counter-strike",
@@ -5356,7 +5297,7 @@
         "group": "bookmaker",
         "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:45Z",
+        "observed_at": "2026-10-22T11:25:51Z",
         "ok": false,
         "status": 404,
         "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
@@ -5370,11 +5311,11 @@
         "group": "bookmaker",
         "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:46Z",
+        "observed_at": "2026-10-22T11:25:51Z",
         "ok": false,
         "status": 404,
         "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-        "bytes": 257100,
+        "bytes": 256634,
         "title": "404 Not Found | DraftKings Sportsbook",
         "challenge_markers": [],
         "challenge": false
@@ -5384,11 +5325,11 @@
         "group": "exchange",
         "url": "https://polymarket.com/esports/cs2",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:46Z",
+        "observed_at": "2026-10-22T11:25:51Z",
         "ok": true,
         "status": 200,
         "final_url": "https://polymarket.com/esports/cs2",
-        "bytes": 3138393,
+        "bytes": 3144138,
         "title": "Counter-Strike 2 Odds &amp; Prediction Markets 2026 | Polymarket",
         "challenge_markers": [
           "challenge-platform"
@@ -5400,11 +5341,11 @@
         "group": "exchange",
         "url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
         "method": "GET",
-        "observed_at": "2026-10-22T11:03:46Z",
+        "observed_at": "2026-10-22T11:25:52Z",
         "ok": false,
         "status": 429,
         "final_url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
-        "bytes": 34232,
+        "bytes": 34217,
         "title": "Vercel Security Checkpoint",
         "challenge_markers": [],
         "challenge": false
@@ -5527,7 +5468,7 @@
             "stage": "Own network model (bo3.gg results graph)",
             "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",
@@ -5947,7 +5888,7 @@
             "stage": "Own network model (bo3.gg results graph)",
             "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",
@@ -6287,11 +6228,11 @@
         "classification": "model-only",
         "published_pick_team": "RED Canids Academy",
         "published_probabilities": [
-          0.2104426189073444,
-          0.7895573810926556
+          0.49856089,
+          0.50143911
         ],
-        "published_method_label": "Own network estimate (bo3.gg results graph)",
-        "published_source_url": "https://bo3.gg/matches",
+        "published_method_label": "Research model estimate (HLTV world ranking)",
+        "published_source_url": "https://www.hltv.org/ranking/teams",
         "names_matched_on": [
           {
             "surface": "Thunderpick match API",
@@ -6391,9 +6332,9 @@
           },
           {
             "stage": "Own network model (bo3.gg results graph)",
-            "status": "resolved",
+            "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own Bradley–Terry network fit over 4652 bo3.gg finished series with 269 Valve-anchored teams; 21 series for the thinner side, rating-difference SD 130.2 points."
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",
@@ -6521,7 +6462,7 @@
             "stage": "Own network model (bo3.gg results graph)",
             "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own network model: Hacha has only 5 finished series in the window (needs 6)"
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",
@@ -6549,11 +6490,11 @@
         "classification": "model-only",
         "published_pick_team": "Off Chops",
         "published_probabilities": [
-          0.44481971954143495,
-          0.555180280458565
+          0.5,
+          0.5
         ],
-        "published_method_label": "Own network estimate (bo3.gg results graph)",
-        "published_source_url": "https://bo3.gg/matches",
+        "published_method_label": "Research model estimate (HLTV world ranking)",
+        "published_source_url": "https://www.hltv.org/ranking/teams",
         "names_matched_on": [],
         "names_too_short_to_match": [],
         "surfaces_probed": [
@@ -6639,15 +6580,21 @@
           },
           {
             "stage": "Own network model (bo3.gg results graph)",
-            "status": "resolved",
+            "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own Bradley–Terry network fit over 4652 bo3.gg finished series with 269 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.6 points."
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",
             "status": "resolved",
             "source_url": "https://www.hltv.org/ranking/teams",
             "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+          },
+          {
+            "stage": "Tie-break (published ranking order)",
+            "status": "resolved",
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "detail": "HLTV world ranking publishes exactly equal points for both teams (143, 142 are the published positions), so the model estimate is exactly 50.0% each and carries no probability edge. The direction is set by HLTV world ranking's own published order: Off Chops is ranked 142 against 143. This decides the pick only; it does not change either probability, and it is not a betting line."
           }
         ],
         "hotspawn_source_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858"
@@ -6852,7 +6799,7 @@
             "stage": "Own network model (bo3.gg results graph)",
             "status": "unresolved",
             "source_url": "https://bo3.gg/matches",
-            "detail": "Own network model: Staqued has only 2 finished series in the window (needs 6)"
+            "detail": "Own network model: no results-graph evidence for this run (Results graph unavailable this run: RuntimeError: live-bo3-graph-3: 500 Server Error: Internal Server Error for url: https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=300&page%5Blimit%5D=100&sort=-start_date&filter%5Bmatches.status%5D%)"
           },
           {
             "stage": "Research model cross-check (HLTV world ranking)",

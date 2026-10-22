@@ -1,6 +1,6 @@
 # arena-bc1afd8f — phone-first static audit
 
-Observed **2026-10-22T11:05:00Z** against `/home/runner/work/MaltaProj3/MaltaProj3/site` (data `/home/runner/work/MaltaProj3/MaltaProj3/data`).
+Observed **2026-10-22T11:27:14Z** against `/home/runner/work/MaltaProj3/MaltaProj3/site` (data `/home/runner/work/MaltaProj3/MaltaProj3/data`).
 Static HTML/CSS contract only; the runtime 320/390/768/1440 px browser checks live in
 `checks.yml` and `tests/browser/`. No page was edited and no value recalculated.
 

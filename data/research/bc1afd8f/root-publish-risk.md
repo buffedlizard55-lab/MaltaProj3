@@ -1,6 +1,6 @@
 # arena-bc1afd8f — would publishing a fresh snapshot into the branch root break the build?
 
-Observed **2026-10-22T11:04:58Z**. Reproduced in a temporary directory; the
+Observed **2026-10-22T11:27:12Z**. Reproduced in a temporary directory; the
 repository's own `data/` tree was not modified and no value was invented.
 
 **Question.** If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?
@@ -11,7 +11,7 @@ repository's own `data/` tree was not modified and no value was invented.
 - committed `data/latest.json`: `2026-10-15T08:36:13Z`
 - committed `data/origination.json`: `2026-10-15T09:31:24Z`
 - committed `data/evidence/`: 38 files, 3.0 MB
-- working-tree `data/latest.json` at the time of this run: `2026-10-22T11:01:50Z` (83 evidence files) — **differs from the commit**, so the working tree was not used as the base
+- working-tree `data/latest.json` at the time of this run: `2026-10-22T11:24:41Z` (83 evidence files) — **differs from the commit**, so the working tree was not used as the base
 
 ## Simulation 1 — a saved live snapshot over the committed tree
 
@@ -35,12 +35,12 @@ ValueError: Inventory observation timestamp restamped
 
 - built site: `site` (present: True)
 - base root: git HEAD (the committed data/ tree)
-- site `data/latest.json`: `2026-10-22T11:01:50Z`
-- site `data/evidence/`: 83 files, 26.5 MB — this is what the change request asks the publisher to copy
+- site `data/latest.json`: `2026-10-22T11:24:41Z`
+- site `data/evidence/`: 83 files, 26.6 MB — this is what the change request asks the publisher to copy
 - files the publisher would write into the root: 32
 - data files among them: `data/evidence/hotspawn-context.json`, `data/evidence/hotspawn-fixtures.json`, `data/latest.json`, `data/origination.json`, `data/row-source-audit.json`, `data/sources.json`
 - `data/evidence/` in the root afterwards: 38 files, 3.0 MB (committed: 38)
-- published `generated_at`: `2026-10-22T11:01:50Z`
+- published `generated_at`: `2026-10-22T11:24:41Z`
 - `scripts.validate.check_data` on that root: **failed** — `ValueError: HLTV observation timestamp restamped`
 
 ```
