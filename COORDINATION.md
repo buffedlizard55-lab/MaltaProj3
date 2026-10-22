@@ -8,10 +8,10 @@ own `data/research/<id>/` directories only, which this session does not touch.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 5FB-1 Phone-first executive summary: one compact "where the picks are" block instead of the two stacked link lists, picks above the fold, one unresolved register instead of two competing sections, archived tournament material collapsed behind a labelled block | in progress | arena-5fbf5cd5 | `scripts/build.py` (`exec_banner`, `start_here`, `summary`, `unresolved_register`, `where_everything_lives`), `assets/scout.css`, `tests/test_summary*.py`, `tests/browser/summary_navigation.spec.mjs` |
-| 5FB-2 Separate top-level **Unresolved picks** page (`/unresolved/`) with the source-by-source ladder, per-fixture limitations and the reason each blank stayed blank; linked from the executive summary, the main navigation and the mobile bar | in progress | arena-5fbf5cd5 | `scripts/build.py` (`PAGES`, `unresolved()`), `tests/` |
-| 5FB-3 Live 4–8 h coverage proof: run the production collectors on the runner, archive the snapshot and evidence under `data/research/5fbf5cd5/`, confirm every active Hotspawn CS2 fixture carries a pick or an explicit, source-linked reason | in progress | arena-5fbf5cd5 | new `data/research/5fbf5cd5/`, `.github/workflows/5fbf5cd5-live.yml` (session-only, removed before merge) |
-| 5FB-4 Line-by-line repository and source review; publish only confirmed findings with links, flag irregularities on `Flagged for Review` | in progress | arena-5fbf5cd5 | new `data/research/5fbf5cd5/flags.json`, this board section |
+| 5FB-1 Phone-first executive summary: one compact "where the picks are" block instead of the two stacked link lists, picks above the fold, one unresolved register instead of two competing sections, archived tournament material collapsed behind a labelled block | **done** — `e3634ea`, `6eb0e9d`; 390 px render has no horizontal overflow, picks-linked banner above the fold | arena-5fbf5cd5 | `scripts/build.py` (`exec_banner`, `start_here`, `summary`, `unresolved_register`, `where_everything_lives`), `assets/scout.css`, `tests/test_summary*.py`, `tests/browser/summary_navigation.spec.mjs` |
+| 5FB-2 Separate top-level **Unresolved picks** page (`/unresolved/`) with the source-by-source ladder, per-fixture limitations and the reason each blank stayed blank; linked from the executive summary, the main navigation and the mobile bar | **done** — `e3634ea`, `6eb0e9d`; live snapshot renders 1 fixture without a pick and 25 research-model rows | arena-5fbf5cd5 | `scripts/build.py` (`PAGES`, `unresolved()`), `tests/` |
+| 5FB-3 Live 4–8 h coverage proof: run the production collectors on the runner, archive the snapshot and evidence under `data/research/5fbf5cd5/`, confirm every active Hotspawn CS2 fixture carries a pick or an explicit, source-linked reason | **done** — runs `39709449794` and `39711915027`; 35/35 active fixtures reconciled, 34 directional picks, 1 exact even estimate | arena-5fbf5cd5 | new `data/research/5fbf5cd5/`, `.github/workflows/5fbf5cd5-live.yml` (session-only, removed before merge) |
+| 5FB-4 Line-by-line repository and source review; publish only confirmed findings with links, flag irregularities on `Flagged for Review` | **done** — `5FB-2/5FB-4` commit, `docs:` commit, `4e59090`; six dated flags on `/review/`, one code fix in `scripts/originate.py` | arena-5fbf5cd5 | new `data/research/5fbf5cd5/flags.json`, this board section |
 | 5FB-5 Integration: full unit + browser suites, row-source audit, link check, PR to `main`, merge, verify the public deployment and record the result here | in progress | arena-5fbf5cd5 | PR, merge, deployment verification, this section |
 
 **Non-overlap pledge:** this session does not change any probability, pick, alias or
@@ -20,6 +20,17 @@ collector contract. `scripts/collect.py`, `scripts/originate.py`, `data/originat
 archived under this session's research directory instead of being committed over them.
 The only shared-rendering edits are the executive summary and navigation in `scripts/build.py`
 plus the new page, listed above.
+
+**Scope note (2026-10-22T02:45Z):** 5FB-4 found and fixed a real provenance defect in
+`scripts/originate.py` — a bo3.gg network-model row was published with the label
+“Valve official ratings”. Publishing that finding without the fix would have left the
+next refresh republishing a false attribution, so the label block was corrected
+(`network_model` branch, network-specific limitation, network low-confidence line) and
+pinned with tests in `tests/test_5fbf5cd5.py`. No probability, pick, alias or collector
+contract changed; the label and its published limitation are the only outputs affected.
+5FB-3's `scripts/originate.py` trigger path was also added to the session workflow so the
+runner re-ran the ladder and the three affected rows now carry the correct label
+(run `39711915027`).
 
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
