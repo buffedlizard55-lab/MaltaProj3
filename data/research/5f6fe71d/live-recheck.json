@@ -1,0 +1,1147 @@
+{
+ "schema_version": 1,
+ "session": "arena-5f6fe71d",
+ "generated_at": "2026-10-22T02:25:13Z",
+ "fresh_generated_at": "2026-10-22T02:22:57Z",
+ "published_generated_at": "2026-10-22T02:07:34Z",
+ "fresh_counts": {
+  "inventory": 97,
+  "upcoming": 35,
+  "archived": 62,
+  "unknown_schedule": 0,
+  "market": 7,
+  "bookmaker": 0,
+  "model": 16,
+  "unresolved": 12,
+  "picks": 22,
+  "no_edge": 1
+ },
+ "published_counts": {
+  "inventory": 97,
+  "upcoming": 35,
+  "archived": 62,
+  "unknown_schedule": 0,
+  "market": 8,
+  "bookmaker": 0,
+  "model": 15,
+  "unresolved": 12,
+  "picks": 22,
+  "no_edge": 1
+ },
+ "comparison": [
+  {
+   "id": "1079188",
+   "teams": [
+    "Bushido Wildcats",
+    "ex-6666"
+   ],
+   "starts_at": "2026-10-22T08:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.31,
+     0.69
+    ],
+    "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.355,
+     0.645
+    ],
+    "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
+   },
+   "changed": true
+  },
+  {
+   "id": "1079189",
+   "teams": [
+    "FORZE Reload",
+    "Just Players"
+   ],
+   "starts_at": "2026-10-22T11:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.665,
+     0.335
+    ],
+    "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.665,
+     0.335
+    ],
+    "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079650",
+   "teams": [
+    "GenOne",
+    "Spirit Academy"
+   ],
+   "starts_at": "2026-10-22T08:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.59,
+     0.41
+    ],
+    "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.7581203,
+     0.2418797
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": true
+  },
+  {
+   "id": "1079651",
+   "teams": [
+    "Butterfly",
+    "Lavked"
+   ],
+   "starts_at": "2026-10-22T11:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.77416873,
+     0.22583127
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.77416873,
+     0.22583127
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079652",
+   "teams": [
+    "Acend",
+    "ex-6666"
+   ],
+   "starts_at": "2026-10-22T14:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.82264949,
+     0.17735051
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.82264949,
+     0.17735051
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079653",
+   "teams": [
+    "Rune Eaters",
+    "FORZE Reload"
+   ],
+   "starts_at": "2026-10-22T17:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.51399636,
+     0.48600364
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.51399636,
+     0.48600364
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079654",
+   "teams": [
+    "ex-Zero Tenacity",
+    "ex-RUSTEC"
+   ],
+   "starts_at": "2026-10-23T08:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": null,
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": null,
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "starts_at": "2026-10-23T11:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.93003347,
+     0.06996653
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.93003347,
+     0.06996653
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "starts_at": "2026-10-23T17:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.40054361,
+     0.59945639
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.40054361,
+     0.59945639
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081143",
+   "teams": [
+    "BakS",
+    "Azuolas"
+   ],
+   "starts_at": "2026-10-22T08:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.73372436,
+     0.26627564
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.73372436,
+     0.26627564
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081145",
+   "teams": [
+    "Lavked",
+    "HAVU"
+   ],
+   "starts_at": "2026-10-22T14:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.39651661,
+     0.60348339
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.39651661,
+     0.60348339
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081146",
+   "teams": [
+    "6yuBoJlbl",
+    "ex-6666"
+   ],
+   "starts_at": "2026-10-22T17:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "form",
+    "source": "Own results-based model (bo3.gg series results)",
+    "pick_index": 0,
+    "probabilities": [
+     0.572758648799329,
+     0.42724135120067097
+    ],
+    "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "form",
+    "source": "Own results-based model (bo3.gg series results)",
+    "pick_index": 0,
+    "probabilities": [
+     0.572758648799329,
+     0.42724135120067097
+    ],
+    "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "starts_at": "2026-10-23T11:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.6141524,
+     0.3858476
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.48,
+     0.52
+    ],
+    "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23"
+   },
+   "changed": true
+  },
+  {
+   "id": "1081149",
+   "teams": [
+    "FORZE Reload",
+    "LFO 10"
+   ],
+   "starts_at": "2026-10-23T14:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 0,
+    "probabilities": [
+     0.51007245,
+     0.48992755
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 0,
+    "probabilities": [
+     0.51007245,
+     0.48992755
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "starts_at": "2026-10-23T17:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.80746193,
+     0.19253807
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.80746193,
+     0.19253807
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081596",
+   "teams": [
+    "Falcons Force",
+    "Phantom Academy"
+   ],
+   "starts_at": "2026-10-22T11:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.5321556,
+     0.4678444
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.5321556,
+     0.4678444
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081597",
+   "teams": [
+    "benched gods",
+    "TitanFlow"
+   ],
+   "starts_at": "2026-10-22T11:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 1,
+    "probabilities": [
+     0.22195093748712438,
+     0.7780490625128756
+    ],
+    "source_url": "https://bo3.gg/matches"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 1,
+    "probabilities": [
+     0.22026560719795535,
+     0.7797343928020446
+    ],
+    "source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026"
+   },
+   "changed": true
+  },
+  {
+   "id": "1081598",
+   "teams": [
+    "JiJieHao",
+    "Nexus"
+   ],
+   "starts_at": "2026-10-22T13:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.645,
+     0.355
+    ],
+    "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.605,
+     0.395
+    ],
+    "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
+   },
+   "changed": true
+  },
+  {
+   "id": "1081600",
+   "teams": [
+    "Donstu",
+    "Banda chuya"
+   ],
+   "starts_at": "2026-10-22T13:45:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.4045841,
+     0.5954159
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.4045841,
+     0.5954159
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081869",
+   "teams": [
+    "Morningstar",
+    "NEXVOID"
+   ],
+   "starts_at": "2026-10-22T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 1,
+    "probabilities": [
+     0.48417501,
+     0.51582499
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 1,
+    "probabilities": [
+     0.48417501,
+     0.51582499
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "changed": false
+  },
+  {
+   "id": "1081870",
+   "teams": [
+    "Vitalem Aerem",
+    "Rare Atom"
+   ],
+   "starts_at": "2026-10-22T05:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.3,
+     0.7
+    ],
+    "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.26,
+     0.74
+    ],
+    "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
+   },
+   "changed": true
+  },
+  {
+   "id": "1081871",
+   "teams": [
+    "Lynn Vision",
+    "Chinggis Warriors"
+   ],
+   "starts_at": "2026-10-23T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.64419091,
+     0.35580909
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.64419091,
+     0.35580909
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082180",
+   "teams": [
+    "Sangal",
+    "Metizport"
+   ],
+   "starts_at": "2026-10-22T16:30:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.54,
+     0.46
+    ],
+    "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.54,
+     0.46
+    ],
+    "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082688",
+   "teams": [
+    "Imperial",
+    "Turma do Pagode"
+   ],
+   "starts_at": "2026-10-22T14:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.775,
+     0.225
+    ],
+    "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 0,
+    "probabilities": [
+     0.775,
+     0.225
+    ],
+    "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082689",
+   "teams": [
+    "BESTIA",
+    "ShindeN"
+   ],
+   "starts_at": "2026-10-22T14:00:00Z",
+   "published": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.475,
+     0.525
+    ],
+    "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22"
+   },
+   "fresh": {
+    "method": "market",
+    "family": null,
+    "source": "Polymarket",
+    "pick_index": 1,
+    "probabilities": [
+     0.465,
+     0.535
+    ],
+    "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22"
+   },
+   "changed": true
+  },
+  {
+   "id": "1082767",
+   "teams": [
+    "Nemesis",
+    "WW"
+   ],
+   "starts_at": "2026-10-22T11:30:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.91827998,
+     0.08172002
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.91827998,
+     0.08172002
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082769",
+   "teams": [
+    "K27",
+    "NEXORA"
+   ],
+   "starts_at": "2026-10-22T17:30:00Z",
+   "published": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 0,
+    "probabilities": [
+     0.983895436934679,
+     0.016104563065321043
+    ],
+    "source_url": "https://bo3.gg/matches"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 0,
+    "probabilities": [
+     0.9838771843003609,
+     0.016122815699639137
+    ],
+    "source_url": "https://bo3.gg/teams/10718"
+   },
+   "changed": true
+  },
+  {
+   "id": "1082770",
+   "teams": [
+    "UPGRADE",
+    "Virtus.pro"
+   ],
+   "starts_at": "2026-10-22T20:30:00Z",
+   "published": {
+    "method": "consensus",
+    "family": null,
+    "source": "Bovada + Pinnacle",
+    "pick_index": 1,
+    "probabilities": [
+     0.39368826,
+     0.60631174
+    ],
+    "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630"
+   },
+   "fresh": {
+    "method": "consensus",
+    "family": null,
+    "source": "Bovada + Pinnacle",
+    "pick_index": 1,
+    "probabilities": [
+     0.39368826,
+     0.60631174
+    ],
+    "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "starts_at": "2026-10-31T09:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.94052062,
+     0.05947938
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.94052062,
+     0.05947938
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "starts_at": "2026-10-31T13:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.17816902,
+     0.82183098
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.17816902,
+     0.82183098
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "starts_at": "2026-10-26T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 1,
+    "probabilities": [
+     0.44524623649171446,
+     0.5547537635082855
+    ],
+    "source_url": "https://bo3.gg/matches"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "network",
+    "source": "Own network model (bo3.gg results graph)",
+    "pick_index": 1,
+    "probabilities": [
+     0.44524623649171446,
+     0.5547537635082855
+    ],
+    "source_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026"
+   },
+   "changed": true
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "starts_at": "2026-10-26T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.72821824,
+     0.27178176
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 0,
+    "probabilities": [
+     0.72821824,
+     0.27178176
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "starts_at": "2026-10-27T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 0,
+    "probabilities": [
+     0.52300959,
+     0.47699041
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "model",
+    "source": "HLTV world ranking",
+    "pick_index": 0,
+    "probabilities": [
+     0.52300959,
+     0.47699041
+    ],
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "starts_at": "2026-10-27T03:00:00Z",
+   "published": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.47761494,
+     0.52238506
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "fresh": {
+    "method": "model",
+    "family": null,
+    "source": "Valve official standings",
+    "pick_index": 1,
+    "probabilities": [
+     0.47761494,
+     0.52238506
+    ],
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "changed": false
+  },
+  {
+   "id": "1082882",
+   "teams": [
+    "UNiTY",
+    "Apogee Betclic"
+   ],
+   "starts_at": "2026-10-22T14:00:00Z",
+   "published": {
+    "method": "model",
+    "family": "form",
+    "source": "Own results-based model (bo3.gg series results)",
+    "pick_index": 1,
+    "probabilities": [
+     0.39773644745590364,
+     0.6022635525440964
+    ],
+    "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
+   },
+   "fresh": {
+    "method": "model",
+    "family": "form",
+    "source": "Own results-based model (bo3.gg series results)",
+    "pick_index": 1,
+    "probabilities": [
+     0.39773644745590364,
+     0.6022635525440964
+    ],
+    "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
+   },
+   "changed": false
+  }
+ ],
+ "changed_rows": 9,
+ "network_repair": [
+  {
+   "id": "1081597",
+   "bridge": "start_time_and_team_name",
+   "binding_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+   "quote_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+   "expected_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+   "repair_ok": true
+  },
+  {
+   "id": "1082769",
+   "bridge": "exact_team_name_lookup",
+   "binding_source_url": "https://bo3.gg/teams/10718",
+   "quote_source_url": "https://bo3.gg/teams/10718",
+   "expected_source_url": "https://bo3.gg/teams/10718",
+   "repair_ok": true
+  },
+  {
+   "id": "1082858",
+   "bridge": "start_time_and_team_name",
+   "binding_source_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+   "quote_source_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+   "expected_source_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+   "repair_ok": true
+  }
+ ],
+ "network_repair_ok": true,
+ "note": "A fresh run minutes after the published snapshot can legitimately differ: markets move, fixtures start, new fixtures appear. Differences are recorded with both timestamps; nothing here rewrites a published pick."
+}

@@ -69,12 +69,10 @@ PASS: 97 source rows reconciled; every published probability and pick replayed f
     "alias_joined": 2
   },
   "unresolved": [],
-  "generated_at": "2026-10-22T02:09:59Z"
+  "generated_at": "2026-10-22T02:22:57Z"
 }
 PASS: 97 source rows reconciled; every published probability and pick replayed from first-party evidence.
-Row-source audit: 692 rows, 676 with an official link, 7 flagged unverified, 9 site-map, 0 without a source
-PASS: 856 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.
+Row-source audit: 698 rows, 682 with an official link, 7 flagged unverified, 9 site-map, 0 without a source
+PASS: 881 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.
 Built 8 current Pages views, compatible old URLs and explicitly archived session views in site-live
-Traceback (most recent call last):
-  File "<stdin>", line 7, in <module>
-FileNotFoundError: [Errno 2] No such file or directory: 'published/data/latest.json'
+5F live recheck: fresh 2026-10-22T02:22:57Z vs published 2026-10-22T02:07:34Z; 9 changed active rows; network repair ok=True (3 network rows)
