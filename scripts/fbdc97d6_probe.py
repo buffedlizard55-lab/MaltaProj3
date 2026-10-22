@@ -97,11 +97,72 @@ def probe(name: str, url: str, teams: list[str]) -> dict:
     return record
 
 
+def bo3_bet_probe(out: Path) -> dict:
+    """Read bo3.gg's published bookmaker block for every active fixture.
+
+    Uses the same public API and the same unique fixture binding the collector
+    already uses. A block is recorded only when both sides carry a coefficient;
+    nothing is converted into a probability here.
+    """
+    from scripts import bo3_odds_probe as probe
+
+    origination = json.loads(Path('data/origination.json').read_text())
+    active = [m for m in origination.get('matches') or [] if m.get('availability') != 'past']
+    report = {'generated_at': datetime.now(UTC).isoformat(timespec='seconds'),
+              'source': 'https://api.bo3.gg/api/v1',
+              'policy': 'Read-only relay probe. Coefficients are copied, never converted into a pick.',
+              'fixtures': []}
+    for match in active:
+        row = {'hotspawn_id': match['id'], 'teams': [t['name'] for t in match['teams']],
+               'competition': match.get('competition'), 'starts_at': match.get('starts_at'),
+               'lookup': [], 'bound': None, 'bet': None}
+        ids = []
+        for team in match['teams']:
+            found = probe.team_id(team['name'])
+            row['lookup'].append({'name': team['name'], **found})
+            if found.get('id'):
+                ids.append(found)
+        if ids:
+            candidates = probe.upcoming(ids[0]['id'])
+            wanted = {probe.key(n) for n in row['teams']}
+            for candidate in candidates:
+                names = {probe.key((candidate.get('team1') or {}).get('name') or ''),
+                         probe.key((candidate.get('team2') or {}).get('name') or '')}
+                if wanted == names:
+                    row['bound'] = {'slug': candidate.get('slug'), 'start_date': candidate.get('start_date'),
+                                    'tournament': (candidate.get('tournament') or {}).get('name'),
+                                    'url': 'https://bo3.gg/matches/' + str(candidate.get('slug'))}
+                    row['bet'] = probe.bet_block(candidate)
+                    break
+        report['fixtures'].append(row)
+    (out / 'bo3-bet-probe.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
+    priced = [f for f in report['fixtures'] if f['bet']]
+    lines = ['# bo3.gg published bookmaker block — arena-fbdc97d6', '',
+             f"Observed {report['generated_at']}. Read-only; coefficients are not converted to a pick.", '',
+             f"{len(priced)} of {len(report['fixtures'])} active fixtures carried a two-sided block.", '',
+             '| Fixture | bo3.gg page | Provider | Side 1 | Side 2 |', '| --- | --- | --- | --- | --- |']
+    for f in report['fixtures']:
+        b = f['bet'] or {}
+        if not b:
+            continue
+        lines.append(f"| {' vs '.join(f['teams'])} | {f['bound']['url']} | {b.get('provider')} | "
+                     f"{(b.get('team_1') or {}).get('name')} {(b.get('team_1') or {}).get('coeff')} | "
+                     f"{(b.get('team_2') or {}).get('name')} {(b.get('team_2') or {}).get('coeff')} |")
+    (out / 'bo3-bet-probe.md').write_text('\n'.join(lines) + '\n')
+    return report
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--out', type=Path, default=Path('data/research/fbdc97d6'))
+    ap.add_argument('--bo3', action='store_true', help='probe bo3.gg published bookmaker blocks')
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
+    if args.bo3:
+        report = bo3_bet_probe(args.out)
+        priced = sum(1 for f in report['fixtures'] if f['bet'])
+        print(f"bo3 bet probe: {priced} of {len(report['fixtures'])} active fixtures priced")
+        return 0
     results = [probe(name, url, TEAMS) for name, url in PAGES]
     document = {
         'session': 'arena-fbdc97d6',

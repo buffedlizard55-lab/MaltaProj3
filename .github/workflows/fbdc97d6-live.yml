@@ -38,6 +38,8 @@ jobs:
         run: python -m scripts.originate --live
       - name: Probe esportsbook and aggregator access (read-only)
         run: python -m scripts.fbdc97d6_probe --out data/research/fbdc97d6 || true
+      - name: Probe bo3.gg published bookmaker blocks (read-only)
+        run: python -m scripts.fbdc97d6_probe --bo3 --out data/research/fbdc97d6 || true
       - name: Build every view and record the row audit
         run: |
           python -m scripts.build
