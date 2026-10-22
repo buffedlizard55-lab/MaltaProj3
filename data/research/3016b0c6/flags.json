@@ -20,13 +20,17 @@
   {
     "id": "3016b0c6-thunderpick-relay-lead-1081146",
     "severity": "notice",
-    "match_ids": ["1081146"],
-    "title": "bo3.gg relayed a two-sided Thunderpick quote for 6yuBoJlbl vs ex-6666; keep it as a lead until the first-party ladder replays it",
-    "detail": "At 2026-10-22T07:39:57Z, bo3.gg bound Hotspawn fixture 1081146 (CCT Europe 2026 Series #12, 17:00Z) at the same start time and displayed its named Thunderpick block: 6yuBoJlbl 1.72 / ex-6666 2.00 (Thunderpick event 2868959). This is second-hand relay evidence from bo3.gg, not a direct capture of the bookmaker's market and not yet a published line or pick. The scheduled collector already has a reviewed bo3.gg-relay rung; only its next successful first-party replay may replace the current research-model estimate. The dated report preserves the raw names, coefficients, event path and binding.",
+    "match_ids": [
+      "1081146"
+    ],
+    "title": "The 07:39Z bo3.gg/Thunderpick relay lead for fixture 1081146 was superseded by a later Polymarket market estimate",
+    "detail": "At 2026-10-22T07:39:57Z, bo3.gg bound Hotspawn fixture 1081146 (CCT Europe 2026 Series #12) at the exact start and displayed a named Thunderpick block: 6yuBoJlbl 1.72 / ex-6666 2.00 (event 2868959). This was second-hand relay evidence, not a direct capture. The later public Origination snapshot (generated 2026-10-22T10:39:55Z) lists a Polymarket estimate for this fixture at 51.5% / 48.5%, with the Polymarket event linked on the current card. That later line is the current published source; the earlier bo3.gg relay remains only a dated audit lead and is not combined with or shown as a second pick. The four-hour collector may use the higher-ranked direct quote; the current match card is authoritative.",
     "source_urls": [
       "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
       "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
       "https://thunderpick.io/match/2868959",
+      "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081146",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3016b0c6/line-source-research.json"
     ]
   }
