@@ -31,6 +31,21 @@ them was typed by hand, and none of them changes a probability, a pick, an alias
   failed or is smaller than 20 kB, and the markers actually found are published beside it.
 * The first live run's stable-named reports were overwritten by the workflow's own
   `git checkout -- data/` restore (run 39753692322); the restore now excludes this directory.
+* **This session's first tie-break fix was wrong and the runner says so.** `gate-fresh-snapshot.md`
+  from run 39757283508 (evidence commit `10d8224`) still ends in
+  `AssertionError: Fallback pick differs from its probabilities` at `build_origination.py:715` —
+  that run carried this branch's own `expected_pick_for()`, which looked for the tie-break record on
+  `origination.quotes[0]`. `scripts/originate.py` writes it onto the origination row itself, so the
+  replay never found it. Main's PR #179 replay reads the row's own `family`/`inputs`/`tie_break` and
+  is the version this branch now ships. Both passed the frozen fixture locally; only a live snapshot
+  separates them.
+* **`root-publish-risk.md` from run 39757283508 reported `check_data: passed` for the faithful
+  simulation, and that result was meaningless.** It used the runner's *working tree* as the base
+  root, which this workflow's own `scripts.collect` / `scripts.originate --live` steps had already
+  refreshed to `2026-10-22T09:45:12Z` with 92 evidence files — so it compared fresh data with fresh
+  evidence. Both simulations are now anchored on `git archive HEAD data`, the report publishes each
+  base tree's provenance, and the conclusion names the decisive simulation instead of preferring the
+  comfortable one.
 * `gate-fresh-snapshot.md` measures the suite against a snapshot collected **before** main's PR #179
   fix existed on this branch, so its 15 failures + 19 errors include the tie-break assertion that
   main has since fixed. The newest runner run reports both the build outcome and a fresh gate

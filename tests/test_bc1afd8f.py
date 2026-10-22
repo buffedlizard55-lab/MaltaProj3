@@ -453,7 +453,7 @@ class RootRiskTests(unittest.TestCase):
     def test_the_publisher_simulation_reports_a_missing_build_instead_of_guessing(self):
         with tempfile.TemporaryDirectory() as temporary:
             work = Path(temporary)
-            result = risk.simulate_from_build(ROOT, work / "no-site", work)
+            result = risk.simulate_from_build(work / "no-site", work / "root", provenance="test")
         self.assertEqual(result["check_data"], "not-run")
         self.assertIn("no built site", result["reason"])
 
@@ -464,9 +464,62 @@ class RootRiskTests(unittest.TestCase):
             (site / "data").mkdir(parents=True)
             (site / "index.html").write_text("<html>stub</html>")
             (site / "data" / "latest.json").write_text((ROOT / "data" / "latest.json").read_text())
-            result = risk.simulate_from_build(ROOT, site, work)
+            root, provenance = risk.committed_data_tree(ROOT, work)
+            result = risk.simulate_from_build(site, root, provenance=provenance)
         self.assertEqual(result["check_data"], "not-run")
         self.assertIn("refusing to publish a stub", result["refused"])
+
+    def test_the_simulation_is_anchored_on_the_commit_and_not_on_a_mutated_working_tree(self):
+        # On a runner this workflow has already collected a fresh snapshot into data/,
+        # so the working tree is not the fixture a root-sync commit would be applied to.
+        import subprocess
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root, provenance = risk.committed_data_tree(ROOT, Path(temporary))
+            committed = risk.evidence_stats(root / "data" / "evidence")
+            published_at = risk.generated_at(root / "data" / "latest.json")
+        listed = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-tree", "-r", "--name-only", "HEAD", "data/evidence"],
+            capture_output=True, text=True, check=True,
+        ).stdout.split()
+        self.assertIn("git HEAD", provenance)
+        self.assertEqual(committed["files"], len(listed))
+        self.assertEqual(
+            published_at,
+            json.loads(subprocess.run(["git", "-C", str(ROOT), "show", "HEAD:data/latest.json"],
+                                      capture_output=True, text=True, check=True).stdout)["generated_at"],
+        )
+
+    def test_a_control_build_does_not_get_to_decide_the_conclusion(self):
+        report = self.report(committed="2026-10-15T08:36:13Z", site="2026-10-15T08:36:13Z", build="passed")
+        conclusion, notes = risk.conclusion_for(report)
+        self.assertIn("would break the repository's own build", conclusion)
+        self.assertIn("simulation 1", notes[0])
+        self.assertIn("control", notes[0])
+
+    def test_a_build_that_is_fresher_than_the_commit_decides_the_conclusion(self):
+        report = self.report(committed="2026-10-15T08:36:13Z", site="2026-10-22T09:45:12Z", build="failed")
+        conclusion, notes = risk.conclusion_for(report)
+        self.assertIn("would break the repository's own build", conclusion)
+        self.assertIn("simulation 2", notes[0])
+        self.assertIn("Inventory observation timestamp restamped", conclusion)
+
+    def report(self, *, committed, site, build):
+        return {
+            "committed_root": {"data/latest.json": committed},
+            "simulation": {
+                "check_data": "failed",
+                "error_type": "ValueError",
+                "error": "Inventory observation timestamp restamped",
+            },
+            "simulation_from_build": {
+                "check_data": build,
+                "site_generated_at": site,
+                "error_type": "ValueError" if build == "failed" else None,
+                "error": "Inventory observation timestamp restamped" if build == "failed" else None,
+            },
+            "snapshot_reading_tests": {"count": 34},
+        }
 
     def test_the_offline_reproduction_runs_and_writes_both_reports(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -476,6 +529,9 @@ class RootRiskTests(unittest.TestCase):
             report = json.loads((out / "root-publish-risk.json").read_text())
             self.assertIn(report["simulation"]["check_data"], {"passed", "failed"})
             self.assertIn(report["simulation_from_build"]["check_data"], {"passed", "failed", "not-run"})
+            self.assertIn("git HEAD", report["committed_root"]["provenance"])
+            self.assertGreater(report["committed_root"]["evidence"]["files"], 0)
+            self.assertIn("Decisive measurement", report["notes"][0] if "break" in report["conclusion"] else report["notes"][0])
             self.assertTrue(report["conclusion"])
             self.assertIn("check_data", (out / "root-publish-risk.md").read_text())
 
