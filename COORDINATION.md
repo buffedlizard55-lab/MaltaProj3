@@ -10,9 +10,9 @@ the files below.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| F60-1 Research HLTV first, then Polymarket/esportsbooks, for every live fixture the featured method left without a betting line; publish a dated source-linked register and flags; do not invent prices | **in progress** | arena-f60683a4 | new `data/research/f60683a4/`, this section |
-| F60-2 Phone-first executive summary: first start-here jump is the in-page picks list; compact the jump bar on a phone so the pick index is reachable without scrolling past a four-day-old archive | **in progress** | arena-f60683a4 | `scripts/build.py` (`start_here()` only), `assets/scout.css` (start-here phone rules), `tests/test_f60683a4.py` (new), `tests/test_final_day.py` (start-here hrefs only) |
-| F60-3 Rebuild, row-source audit, targeted tests, PR to main, merge, confirm Pages | unclaimed → in progress | arena-f60683a4 | this section, PR |
+| F60-1 Research HLTV first, then Polymarket/esportsbooks, for every live fixture the featured method left without a betting line; publish a dated source-linked register and flags; do not invent prices | **done** — see F60-1 result | arena-f60683a4 | new `data/research/f60683a4/`, this section |
+| F60-2 Phone-first executive summary: first start-here jump is the in-page picks list; compact the jump bar on a phone so the pick index is reachable without scrolling past a four-day-old archive | **done** — see F60-2 result | arena-f60683a4 | `scripts/build.py` (`start_here()` only), `assets/scout.css` (start-here phone rules), `tests/test_f60683a4.py` (new), `tests/test_final_day.py` (start-here hrefs only) |
+| F60-3 Rebuild, row-source audit, targeted tests, PR to main, merge, confirm Pages | **in progress** | arena-f60683a4 | this section, PR |
 
 **Non-overlap pledge:** no change to `scripts/originate.py`, `scripts/collect.py`,
 `scripts/domain.py`, `scripts/sources.py`, `data/origination/aliases.json`,
@@ -20,6 +20,53 @@ the files below.
 or any other session's `data/research/<id>/`. Pick values are not rewritten from
 this session's research: live prices found for featured-blank fixtures are
 published as flags for the next four-hour refresh, never typed into a snapshot.
+
+
+### F60-1 result — low-tier line research (2026-10-22T07:45Z)
+
+Live Pages snapshot `generated_at 2026-10-22T05:36:57Z` / origination `2026-10-22T05:37:07Z`:
+**33 active Hotspawn CS2 fixtures, 33 with a directional pick, 0 unresolved**.
+Featured exact-name left **10** without a pick; the research ladder closed all 10
+(15 money lines + 18 models in the complete list). HLTV first, then books:
+
+- **HLTV is not a price feed.** Match 2399493 BAKS vs Azuolas (Hotspawn 1081143)
+  showed Stake casino ads in the betting module and a fan vote (84/16) which stays
+  excluded. No two-sided bookmaker pair was present.
+- **Nemesis vs WW (1082767)** has Polymarket Gamma event 1232386,
+  `gameStartTime 2026-10-22T11:30:00Z` matching Hotspawn, volume 11812, aliases
+  already in the registry. The 05:37Z snapshot still used Valve 91.8%. Directory
+  displayed 82¢/18¢ — **not** originated, flagged for the next live collect.
+- **Butterfly vs Lavked (1079651)** featured-found Polymarket and rejected it as
+  wide/crossed; Valve published Butterfly 77.4%. At 07:32Z the directory displayed
+  43¢/57¢ (opposite side). Flagged; not written into any snapshot.
+- **K27 vs NEXORA (1082769)** already has an EGamersWorld average (K27 88.8%);
+  Polymarket listed the same direction at $0 volume.
+
+Evidence: `data/research/f60683a4/low-tier-line-research.json` and
+`data/research/f60683a4/flags.json` (rendered on Flagged for Review). No pick
+value in `data/origination.json` / `data/latest.json` was edited.
+
+### F60-2 result — phone-first pick jump (2026-10-22T07:45Z)
+
+`scripts/build.py::start_here()` now leads with **Picks on this page**
+(`#picks-at-a-glance`). The 18 Oct Day-5 archive left the jump bar and remains
+on the site map. Phone CSS (`assets/scout.css`) makes that first jump full-width
+and the other four destinations a two-column 44 px grid so the pick index is
+reachable without scrolling past a five-card stack. Locked by
+`tests/test_f60683a4.py` and `tests/test_final_day.py::StartHereNavigation`.
+
+### Merge-conflict log (2026-10-22T08:05Z)
+
+`git pull --rebase origin main` (main at `2fb99b0`, PRs #163/#166/#167) conflicted on
+`COORDINATION.md` (both commits) and `assets/scout.css` (second commit).
+`scripts/build.py` auto-merged. Nothing from the other sessions was discarded:
+
+- **COORDINATION.md:** this session's claim (07:32Z) stays first; `arena-756eaeea`
+  (07:33Z, merged as PR #167) follows; F60-1/F60-2 results sit after this session's
+  pledge.
+- **assets/scout.css:** kept session `75aa5b56`'s phone readability block (PR #163/#166)
+  and appended this session's `.picks-here` / two-column start-here rules after it.
+
 
 # Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
 Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at

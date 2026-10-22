@@ -357,3 +357,20 @@
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
 }
+
+/* Session f60683a4 — current picks are the first tap on a phone.
+   The in-page glance jump is full-width and orange; the remaining four
+   destinations sit in a two-column grid so the pick index stays above
+   the fold instead of sitting under a five-card archive stack. */
+.start-here a.picks-here{background:#fff6ef;border-color:#f0cfb7}
+.start-here a.picks-here strong{color:var(--orange-dark)}
+@media(max-width:700px){
+  .start-here{padding:12px 14px;margin-bottom:14px}
+  .start-here-label{margin-bottom:8px}
+  .start-here ul{grid-template-columns:1fr 1fr;gap:8px}
+  .start-here a{min-height:44px;padding:10px 11px;gap:8px}
+  .start-here a span{display:none}
+  .start-here li:first-child{grid-column:1/-1}
+  .start-here a.picks-here{min-height:48px}
+  .start-here .tiny{padding:8px 2px 0!important}
+}
