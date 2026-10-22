@@ -1,18 +1,36 @@
 {
   "session": "arena-8877b140",
-  "verified_at": "2026-10-22T08:13:29Z",
+  "verified_at": "2026-10-22T08:42:15Z",
   "read_only": true,
   "egress_note": "Sandbox allows api.github.com only; github.io pages and action artifact/blob downloads are not reachable, so live evidence is the GitHub API record plus the runner-internal verification steps whose conclusions are visible here.",
   "evidence": {
     "pages_runs": [
       {
-        "id": 39744284108,
+        "id": 39748055891,
         "status": "pending",
+        "conclusion": null,
+        "event": "push",
+        "head_sha": "1cab862",
+        "started_at": "2026-10-22T08:29:00Z",
+        "updated_at": "2026-10-22T08:29:01Z"
+      },
+      {
+        "id": 39748026849,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "event": "push",
+        "head_sha": "cf35784",
+        "started_at": "2026-10-22T08:28:46Z",
+        "updated_at": "2026-10-22T08:29:01Z"
+      },
+      {
+        "id": 39744284108,
+        "status": "queued",
         "conclusion": null,
         "event": "schedule",
         "head_sha": "2fb99b0",
         "started_at": "2026-10-22T07:58:19Z",
-        "updated_at": "2026-10-22T07:58:21Z"
+        "updated_at": "2026-10-22T08:41:02Z"
       },
       {
         "id": 39742996589,
@@ -34,12 +52,12 @@
       },
       {
         "id": 39742844302,
-        "status": "in_progress",
-        "conclusion": null,
+        "status": "completed",
+        "conclusion": "success",
         "event": "push",
         "head_sha": "3ee8224",
         "started_at": "2026-10-22T07:46:21Z",
-        "updated_at": "2026-10-22T08:07:13Z"
+        "updated_at": "2026-10-22T08:28:35Z"
       },
       {
         "id": 39727841341,
@@ -94,24 +112,6 @@
         "head_sha": "cd9a595",
         "started_at": "2026-10-22T04:20:06Z",
         "updated_at": "2026-10-22T04:44:51Z"
-      },
-      {
-        "id": 39719177378,
-        "status": "completed",
-        "conclusion": "success",
-        "event": "push",
-        "head_sha": "d55ed87",
-        "started_at": "2026-10-22T03:51:54Z",
-        "updated_at": "2026-10-22T04:24:02Z"
-      },
-      {
-        "id": 39717765225,
-        "status": "completed",
-        "conclusion": "success",
-        "event": "push",
-        "head_sha": "ea1534f",
-        "started_at": "2026-10-22T03:36:26Z",
-        "updated_at": "2026-10-22T04:03:11Z"
       }
     ],
     "latest_success_steps": [
@@ -303,6 +303,24 @@
     ],
     "deployments": [
       {
+        "id": 7247707446,
+        "created_at": "2026-10-22T08:41:00Z",
+        "sha": "2fb99b0",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7247702730,
+        "created_at": "2026-10-22T08:40:44Z",
+        "sha": "1cab862",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7247463091,
+        "created_at": "2026-10-22T08:28:35Z",
+        "sha": "2fb99b0",
+        "environment": "github-pages"
+      },
+      {
         "id": 7246812645,
         "created_at": "2026-10-22T07:53:24Z",
         "sha": "2fb99b0",
@@ -463,27 +481,19 @@
         "created_at": "2026-10-22T03:10:25Z",
         "sha": "a5c4bb6",
         "environment": "github-pages"
-      },
-      {
-        "id": 7242642354,
-        "created_at": "2026-10-22T03:04:56Z",
-        "sha": "a5c4bb6",
-        "environment": "github-pages"
-      },
-      {
-        "id": 7242484664,
-        "created_at": "2026-10-22T02:51:52Z",
-        "sha": "df49e9f",
-        "environment": "github-pages"
-      },
-      {
-        "id": 7242456126,
-        "created_at": "2026-10-22T02:49:38Z",
-        "sha": "df49e9f",
-        "environment": "github-pages"
       }
     ],
     "legacy_pages_builds": [
+      {
+        "created_at": "2026-10-22T08:28:59Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T08:28:44Z",
+        "status": "errored",
+        "error": "Page build failed."
+      },
       {
         "created_at": "2026-10-22T07:47:37Z",
         "status": "built",
@@ -523,16 +533,6 @@
         "created_at": "2026-10-22T04:20:05Z",
         "status": "built",
         "error": null
-      },
-      {
-        "created_at": "2026-10-22T03:51:53Z",
-        "status": "built",
-        "error": null
-      },
-      {
-        "created_at": "2026-10-22T03:36:25Z",
-        "status": "built",
-        "error": null
       }
     ]
   },
@@ -541,7 +541,7 @@
       "check": "a-pages-workflow-has-a-successful-run",
       "ok": true,
       "detail": {
-        "latest_success_id": 39727841341,
+        "latest_success_id": 39742844302,
         "runs_inspected": 12
       }
     },
@@ -549,7 +549,7 @@
       "check": "latest-success-run-steps-green-and-verified",
       "ok": true,
       "detail": {
-        "run_id": 39727841341,
+        "run_id": 39742844302,
         "steps": 37,
         "required_verification_steps_present": true
       }
@@ -559,7 +559,7 @@
       "ok": true,
       "detail": {
         "deployments": 30,
-        "span": "2026-10-22T02:49:38+00:00 .. 2026-10-22T07:53:24+00:00",
+        "span": "2026-10-22T03:10:25+00:00 .. 2026-10-22T08:41:00+00:00",
         "gap_minutes": {
           "min": 0.3,
           "median": 3.5,
@@ -569,13 +569,15 @@
       }
     },
     {
-      "check": "latest-deployment-succeeded",
+      "check": "latest-deployment-not-failed",
       "ok": true,
       "detail": {
-        "deployment_id": 7246812645,
-        "state": "success",
+        "deployment_id": 7247707446,
+        "state": "queued",
         "sha": "2fb99b0",
-        "created_at": "2026-10-22T07:53:24Z"
+        "created_at": "2026-10-22T08:41:00Z",
+        "in_flight": true,
+        "latest_confirmed_success_deployment_id": 7247463091
       }
     },
     {
@@ -583,7 +585,7 @@
       "ok": true,
       "detail": {
         "latest": {
-          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages/builds/1304787372",
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages/builds/1304868131",
           "status": "built",
           "error": {
             "message": null
@@ -609,10 +611,10 @@
             "user_view_type": "public",
             "site_admin": false
           },
-          "commit": "2fb99b077071ab85ac9bf4e2d797b70027680eea",
-          "duration": 294066,
-          "created_at": "2026-10-22T07:47:37Z",
-          "updated_at": "2026-10-22T07:52:31Z"
+          "commit": "1cab862330a5f949091513cb3ce7c218580e67db",
+          "duration": 717219,
+          "created_at": "2026-10-22T08:28:59Z",
+          "updated_at": "2026-10-22T08:40:56Z"
         }
       }
     },

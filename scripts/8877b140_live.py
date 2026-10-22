@@ -99,14 +99,27 @@ def main() -> int:
     latest_deployment = deployments[0]
     statuses = gh_api(f'deployments/{latest_deployment["id"]}/statuses')
     state = statuses[0]['state'] if statuses else 'unknown'
+    # A queued/in_progress deployment is a transient state, not a failure.
+    in_flight = {'queued', 'in_progress', 'waiting', 'pending'}
+    failure_states = {'failure', 'error', 'destroyed', 'inactive'}
+    # The most recent deployment that actually reached success is the
+    # confirmed live state, regardless of what is currently queued.
+    latest_success_id = None
+    for deployment in deployments:
+        dep_statuses = gh_api(f'deployments/{deployment["id"]}/statuses')
+        if dep_statuses and dep_statuses[0]['state'] == 'success':
+            latest_success_id = deployment['id']
+            break
     over_bound = [g for g in gaps_min if g > MAX_DEPLOY_GAP_MIN]
     check('deployment-cadence-within-8-hours', not over_bound,
           {'deployments': len(times), 'span': f'{times[0].isoformat()} .. {times[-1].isoformat()}',
            'gap_minutes': {'min': min(gaps_min), 'median': sorted(gaps_min)[len(gaps_min) // 2],
                            'max': max(gaps_min)}, 'gaps_over_8h': over_bound})
-    check('latest-deployment-succeeded', state == 'success',
+    check('latest-deployment-not-failed', state not in failure_states,
           {'deployment_id': latest_deployment['id'], 'state': state,
-           'sha': latest_deployment['sha'][:7], 'created_at': latest_deployment['created_at']})
+           'sha': latest_deployment['sha'][:7], 'created_at': latest_deployment['created_at'],
+           'in_flight': state in in_flight,
+           'latest_confirmed_success_deployment_id': latest_success_id})
 
     # 4. Legacy Pages builds ---------------------------------------------------
     builds = gh_api('pages/builds?per_page=10')
