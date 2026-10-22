@@ -1356,6 +1356,190 @@
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22): game-tag suffix 'CS' omitted on HLTV/Pinnacle."
+    },
+    {
+      "alias": "Tropa do KinGui",
+      "canonical": "Projeto do KinGui",
+      "kind": "roster-rename",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Hotspawn fixture 1082919 lists 'Projeto do KinGui vs Martians' at 2026-10-22T13:00:00Z, while HLTV match 2399904, Polymarket event 1232953 (cs2-tdkg-mar1-2026-10-22), and bo3.gg list the identical five-man roster (cutzmeretz, leleo, t9rnay, delboNi,lash) as 'Tropa do KinGui vs Martians' at 2026-10-22T13:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399904)",
+          "detail": "HLTV match 2399904 lists 'Tropa do KinGui vs Martians' (BO3, CCT South America 2026 Series 7 Group Stage) at 2026-10-22T13:00:00Z with team IDs 13151 and 13230."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232953)",
+          "detail": "Polymarket event 1232953 ('Counter-Strike: Tropa do KinGui vs Martians (BO3) - CCT South America Group Stage') resolves on HLTV at 2026-10-22T13:00:00Z."
+        },
+        {
+          "url": "https://bo3.gg/matches/tropa-do-kingui-vs-martians-22-10-2026",
+          "source": "bo3.gg match page",
+          "detail": "bo3.gg lists 'Tropa do KinGui vs Martians' in CCT South America 2026 Series 7 at 2026-10-22T13:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Procyon Gaming",
+      "canonical": "Procyon",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Procyon Academy",
+        "Procyon Gaming Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082920, HLTV match 2399905, and Pinnacle matchup 1638943044 list 'MEIA NOITE vs Procyon' at 2026-10-22T16:00:00Z, while Polymarket event 1232955 lists 'MEIA NOITE vs Procyon Gaming' at 2026-10-22T16:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232955)",
+          "detail": "Polymarket event 1232955 lists outcomes ['MEIA NOITE', 'Procyon Gaming'] at 2026-10-22T16:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399905)",
+          "detail": "HLTV match 2399905 lists 'MEIA NOITE vs Procyon' (BO3, CCT South America 2026 Series 7) at 2026-10-22T16:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Gaming' on Polymarket."
+    },
+    {
+      "alias": "Yawara Esports",
+      "canonical": "Yawara",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Yawara Academy",
+        "Yawara Esports Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082921, HLTV match 2399906, and Pinnacle matchup 1638938930 list 'Yawara vs your end' at 2026-10-22T19:00:00Z, while Polymarket event 1232957 lists 'Yawara Esports vs your end' at 2026-10-22T19:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232957)",
+          "detail": "Polymarket event 1232957 lists outcomes ['Yawara Esports', 'your end'] at 2026-10-22T19:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399906)",
+          "detail": "HLTV match 2399906 lists 'Yawara vs your end' (BO3, CCT South America 2026 Series 7) at 2026-10-22T19:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Esports' on Polymarket."
+    },
+    {
+      "alias": "Low Cortisol",
+      "canonical": "Low Cortisol BR",
+      "kind": "region-tag",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Low Cortisol BR vs Grêmio' (HLTV disambiguating the Brazilian stack with 'BR'), while Polymarket event 1232958 and Pinnacle matchup 1638943045 list 'Low Cortisol' against 'Grêmio Esports' / 'Gremio' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232958)",
+          "detail": "Polymarket event 1232958 lists outcomes ['Low Cortisol', 'Grêmio Esports'] at 2026-10-22T22:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (league 235977, matchup 1638943045)",
+          "detail": "Pinnacle matchup 1638943045 lists 'Low Cortisol vs Gremio' at 2026-10-22T22:00:00Z in CS2 - CCT South America Series."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' (team IDs 14051 and 13912) at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT South America 2026 Series #7 so European 'Low Cortisol' never collides."
+    },
+    {
+      "alias": "Grêmio Esports",
+      "canonical": "Grêmio",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Grêmio Academy",
+        "Grêmio Esports Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Low Cortisol BR vs Grêmio' at 2026-10-22T22:00:00Z, while Polymarket event 1232958 lists 'Low Cortisol vs Grêmio Esports' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232958)",
+          "detail": "Polymarket event 1232958 lists outcomes ['Low Cortisol', 'Grêmio Esports'] at 2026-10-22T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' (team ID 13912) at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Esports' on Polymarket."
+    },
+    {
+      "alias": "Gremio",
+      "canonical": "Grêmio",
+      "kind": "diacritic-stripping",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Gremio Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Grêmio' (with circumflex), while Pinnacle Arcadia league 235977 matchup 1638943045 strips the diacritic to ASCII 'Gremio' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (league 235977, matchup 1638943045)",
+          "detail": "Pinnacle matchup 1638943045 lists 'Low Cortisol vs Gremio' at 2026-10-22T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): NFKC name_key preserves 'ê', so ASCII 'Gremio' requires an explicit scoped alias."
+    },
+    {
+      "alias": "Sökerorg",
+      "canonical": "LFO 10",
+      "kind": "translation-alias",
+      "applies_to": [
+        "CCT Europe 2026 Series #12"
+      ],
+      "competition_note": "Hotspawn fixture 1081149 and HLTV match 2399499 list 'FORZE Reload vs LFO 10' at 2026-10-23T14:00:00Z, while Polymarket event 1233762 (cs2-forzer-skr2-2026-10-23) lists the Swedish squad LFO 10 ('Looking For Org', HLTV team 14084: dottie, flaw, Sapec) under its Swedish translation 'Sökerorg' ('söker org').",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-forzer-skr2-2026-10-23",
+          "source": "Polymarket Gamma API (event 1233762)",
+          "detail": "Polymarket event 1233762 lists 'FORZE Reload vs Sökerorg' (BO3, CCT Europe Group Stage) at 2026-10-23T14:00:00Z resolving on HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-europe-2026-series-12",
+          "source": "HLTV.org match page (2399499)",
+          "detail": "HLTV match 2399499 lists 'FORZE Reload vs LFO 10' (BO3, CCT Europe 2026 Series 12) at 2026-10-23T14:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "source": "HLTV.org team profile (14084)",
+          "detail": "HLTV team 14084 'LFO 10' is a Swedish CS2 roster (#5 Sweden: dottie, flaw, Sapec); Swedish 'söker org' = English 'LFO' ('looking for org')."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT Europe 2026 Series #12."
     }
   ]
 }
