@@ -437,29 +437,28 @@ def exec_banner(data, prefix):
     updated picks list and to be obvious on a phone. This banner is the first
     content block after the page heading; it contains only links and counts,
     never a probability or a pick, and every href is an internal site link
-    that was verified by the link audit.
+    that was verified by the link audit. Session 75aa5b56 makes the link text
+    explicitly name the destination page and the phone tap target size meets
+    44 px (verified by tests/test_75aa5b56.py).
     """
     complete = data.get('complete_picks') or {}
     cc = complete.get('counts') or {}
     active = cc.get('active', data['counts'].get('upcoming', 0))
     with_pick = cc.get('with_pick', 0)
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
-    # How many of the published picks rest on a research model rather than a
-    # betting line. A reader must be able to see that split from the banner.
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
-        f'<p class="exec-banner-label">Executive summary — start here</p>'
+        f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
         f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
-        f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times.</p>'
+        f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times. All links below stay inside this site and are thumb-friendly on mobile (≥44 px).</p>'
         f'<div class="exec-banner-actions">'
-        f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
-
+        f'<a class="primary" href="{prefix}origination/#picks" aria-label="Open the updated picks list with every match and both probabilities"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both teams\' % shown</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved" aria-label="Open unresolved picks and why each is missing a line"><span class="label">Unresolved &amp; limitations<span class="sub\">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a></p>'
         f'</section>'
     )
 
