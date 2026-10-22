@@ -5501,3 +5501,88 @@ Claimed **2026-10-22T09:08Z** on Arena's fixed branch `arena/f2b91672-maltaproj3
 - **Verification & review flags (`F2B-3`):** Published `data/research/f2b91672/{flags.json,live-audit.json,live-audit.md}` (4 review flags autoloaded onto `/review/`), `scripts/f2b91672_live_audit.py`, and `tests/test_f2b91672.py`. `scripts.build` + `audit_rows --strict` (`628` rows, `0` violations) and Playwright (`85 passed` across `320px`/`390px`/`768px`/`1440px`) all green. Opened PR #185 and merging to `main`.
 
 
+### 96F-1/2 result — the branch root now carries the verified build (2026-10-22T09:20Z)
+
+- **PR [#176](https://github.com/buffedlizard55-lab/MaltaProj3/pull/176) merged** into `main` as
+  `1cab862` at 08:28:58Z (merge, no approval wait). It adds `scripts/root_publish.py` (copies the
+  verified build over the root), `contents: write`, and one appended workflow step that commits with
+  `[skip ci]` and retries the push three times. Guard rails: refuses a stub index (<50 kB), a
+  missing/unparseable snapshot, a snapshot older than 12 h, or a snapshot older than the one already
+  in the root; a re-run writes zero bytes.
+- **Superseded in part by session `f2b91672` (PR #185, `16de272`).** That session narrowed the copy
+  to rendered HTML views, `assets/` and `.nojekyll`, leaving git-tracked `data/*` untouched so
+  `validate.check_data` and the fixture-coupled tests keep matching their evidence, added
+  `--wait-legacy-sha`, and re-deploys and re-verifies after the legacy build of the root push. This
+  session's monotonic guard and concurrency change are kept. **Consequence recorded honestly:** the
+  branch root's `data/latest.json` therefore stays at its last committed snapshot while the rendered
+  pages carry the current numbers, until a session commits a matching data+evidence pair.
+- **PR [#183](https://github.com/buffedlizard55-lab/MaltaProj3/pull/183) merged** as `49dd327` at
+  09:14:26Z: `concurrency.group: pages-${{ github.event_name }}`. GitHub cancels a *pending* run as
+  soon as a newer run enters the same group, so every merge to `main` had been killing the pending
+  refresh — runs `39748026849` (08:28:46Z), `39748055891` (08:29:00Z), `39750182735` (08:45:50Z) and
+  `39751657137` (08:57:20Z) were all cancelled while pending, and the last successful publish before
+  this session was **05:41:14Z**. Scheduled and manual refreshes now own their group and cannot be
+  cancelled by a push.
+- **Tests:** `tests/test_96fbe295.py` (22 at that point) plus the full repository suite — **901
+  tests, OK** (`python -m unittest discover -s tests`, 826 s).
+
+### 96F-5 — cross-session contradiction found in the deployed run; audit fixed (2026-10-22T10:30Z)
+
+The first run to reach the verification step after the merge was
+[39753880261](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39753880261) (10:05Z
+snapshot). Its `deploy-pages` step **succeeded** — the public site is current — but
+`verify-and-deploy` failed at *Verify the public site* (job check-run `119749532581`):
+
+> `ValueError: Public complete-picks coverage audit failed: fixture 1082926: exactly even estimate
+> must not name a pick | snapshot 2026-10-22T10:04:59Z | counts {"inventory": 104, "upcoming": 43,
+> ... "picks": 33}`
+
+This is a real contradiction between two merged sessions, not a source-data problem:
+
+| Session | Rule it published |
+| --- | --- |
+| `4c972a51` (PR #174) | an exactly even **research** estimate still gets a side when the provider publishes an order for the two teams (`scripts/originate.py:ranked_tie_break`, record on `origination.tie_break`, probabilities unchanged) |
+| `7e8bed83` (`scripts/coverage_audit.py`) | **any** exactly even estimate that names a pick is a violation |
+
+So the pick that `4c972a51` deliberately created can never survive the publisher's own audit — the
+verification step fails, and the branch-root publish step (which runs after it) never executes.
+**Fix in this session:** `scripts/coverage_audit.py` now accepts an even pick only when the row
+carries the published-rank record that proves it — `rule == 'published-rank tie-break'`,
+`winner == pick_index`, two distinct positive integer `ranks`, an https `source_url` and a non-empty
+`detail`. Every other even pick is still a violation. Locked by seven tests in
+`tests/test_96fbe295.py::EvenEstimateAuditTests` built on the real `ranked_tie_break` output.
+`tests.test_coverage_audit tests.test_verify_live tests.test_96fbe295 tests.test_origination_upgrade
+tests.test_a34bc06b_origination_and_audit` → **88 tests, OK**.
+
+### 96F-3 result — live coverage verified against the deployed snapshot (2026-10-22T10:35Z)
+
+| Check | Observed on the public site | Source |
+| --- | --- | --- |
+| snapshot | `generated_at 2026-10-22T09:15:14Z`, `inventory_observed_at 09:14:49Z`, `coverage_complete: true` (was 15 Oct at 08:20Z) | `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` |
+| inventory | 104 records: 43 open, 61 archived; 18 market, 3 bookmaker, 12 model, 10 unresolved, 33 picks | same |
+| every row sourced | `totals {rows: 811, ok: 793, flagged: 9, navigation: 9, violation: 0}` | `https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json` |
+| picks on phones | executive summary says **43 active fixtures, 42 with a directional pick, 0 explicitly unresolved**, and every row shows both teams' percentages, the pick, the method and a source link (e.g. `FORZE Reload 64.5% / Just Players 35.5% · Market line`) | `https://buffedlizard55-lab.github.io/MaltaProj3/` |
+| ladder actually used | 25 external-line picks and 17 research-model picks; low-tier rows name HLTV ranking (`/ranking/teams`), Valve standings or Polymarket/Thunderpick/Pinnacle | the same page's rows |
+
+**Spot-check against the live Hotspawn lobby** (read at 08:20Z from
+`https://play.hotspawn.com/lobby`, 107 fixtures in the filter, `180 matches this week`): ten of the
+eleven fixtures visible in *Closing Soon* already carried a pick and both probabilities in the
+01:37Z snapshot; the eleventh, `1082919` (Projeto do KinGui vs Martians, 15:00Z), was added to
+Hotspawn after that snapshot and appears with a researched pick in the 09:15Z snapshot. **New
+fixtures appear between refreshes** — that is why the four-hour cadence, the inventory crosscheck
+and the `unresolved` register all matter; it is recorded here rather than hidden.
+
+### Limitations carried forward (not blockers)
+
+1. GitHub Pages remains `build_type: legacy`; the token cannot change it (403). The two publishers
+   now agree because the root is rebuilt from the same verified build, but the legacy builder still
+   runs on every push and is still the faster of the two.
+2. The first successful run after this session publishes the root; until then the site is current
+   only while the artifact deploy is the newest publisher. `data/latest.json` in the branch root
+   still reads 15 October until that step executes — it is the *checked-in* copy, not a value this
+   session invented.
+3. `data/research/` (19 MB) and the bulk `data/evidence/` attachments (3 MB) are not republished
+   every four hours; a row's saved-evidence link can lag its numbers during a legacy-build window.
+4. The 10:05Z deployment's verification failure is published here with its run and check-run ids
+   rather than being retried silently.
+
