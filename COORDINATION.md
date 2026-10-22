@@ -5269,4 +5269,24 @@ Claimed **2026-10-22T07:30Z** on Arena-fixed branch `arena/75aa5b56-maltaproj3`,
 - **Pages deploy:** `Refresh and deploy CS2 dashboard` run 39742844302 for `3ee8224` started 07:50Z (queued). Live site `https://buffedlizard55-lab.github.io/MaltaProj3/` will refresh inside 4-8h window; the stale-root guard (`republish-last-verified` with `github-pages-interim` artifact) restores the last verified snapshot in ~20s if a legacy build overwrites. Verified on checked-in snapshot: executive summary shows 17/17 picks with both probabilities, separate **Unresolved picks & limitations** register and **Picks without a betting line** with blockers + sources, all phone-friendly.
 - **Change log:** `scripts/build.py` exec-banner + `assets/scout.css` mobile overrides + `docs/SOURCE_RESEARCH.md` hotspawn docs + `data/research/75aa5b56/` + `tests/test_75aa5b56.py`. No pick/probability/alias values were hand-edited.
 
+---
 
+# Current session: arena-50976ff1 — independent live coverage and freshness audit
+
+Claimed **2026-10-22T07:37Z** on Arena's fixed branch `arena/50976ff1-maltaproj3` at
+`285a0d9` (PR #162 merge). `COORDINATION.md` was read first. The main branch already
+contains the mobile all-picks index, research fallback ladder, unresolved/limitations
+register, dated source sweep and four-hour publisher. This session claims only a
+non-overlapping independent production audit and its evidence; shared pick values,
+builders and navigation remain untouched unless a verified blocker is logged here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 5097-1 Compare the current Hotspawn CS2 listing with the newest published inventory; independently verify snapshot coverage, source timestamps, pick/unresolved counts and four-hour schedule; record dated evidence/flags; run local build and validation; request a fresh production refresh only if no refresh is in flight | **in progress** | arena-50976ff1 | new `data/research/50976ff1/`; this appended section of `COORDINATION.md` |
+
+**Non-overlap pledge:** no edits to shared match data, alias registry, collectors, origination,
+site builders, site navigation, workflows, or another session's research files. Existing
+open PR #154 is older than 60 minutes and conflicting; its alias joins and Valve detail
+rows are already present on `main`, as is the network-source label fix. I will verify the
+live tie fixture before deciding whether any unique change remains. No branch switch or
+other-branch push; this session remains on Arena's fixed branch.
