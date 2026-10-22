@@ -1,0 +1,155 @@
+{
+  "session": "arena-8877b140",
+  "verified_at": "2026-10-22T08:10:19Z",
+  "read_only": true,
+  "official_host_policy_size": 24,
+  "checks": [
+    {
+      "check": "every-active-fixture-originated",
+      "ok": true,
+      "detail": {
+        "active_fixtures": 17,
+        "origination_rows": 17,
+        "missing_ids": [],
+        "duplicate_ids": []
+      }
+    },
+    {
+      "check": "origination-counts-recompute",
+      "ok": true,
+      "detail": {
+        "published": {
+          "active": 17,
+          "resolved": 17,
+          "unresolved": 0,
+          "with_pick": 17,
+          "consensus": 0,
+          "market": 7,
+          "bookmaker": 5,
+          "model": 5,
+          "alias_joined": 4
+        },
+        "recomputed": {
+          "active": 17,
+          "with_pick": 17,
+          "unresolved": 0
+        },
+        "mismatches": {}
+      }
+    },
+    {
+      "check": "row-arithmetic-and-sources",
+      "ok": true,
+      "detail": {
+        "rows_checked": 17,
+        "violations": []
+      }
+    },
+    {
+      "check": "no-crowd-vote-inputs",
+      "ok": true,
+      "detail": {
+        "policy": {
+          "hotspawn_votes_used": false,
+          "fan_votes_used": false,
+          "start_tolerance_sec": 60,
+          "thin_spread": 0.12,
+          "max_accepted_spread": 0.12,
+          "ladder": [
+            "verified-alias Polymarket series-winner books",
+            "verified-alias esportsbook paired prices (no-vig)",
+            "median consensus across money families",
+            "Valve-rating research model fallback",
+            "blank + flagged"
+          ]
+        }
+      }
+    },
+    {
+      "check": "origination.json-link-policy",
+      "ok": true,
+      "detail": {
+        "external_urls": 68,
+        "insecure": [],
+        "non_allowlisted": [
+          "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+          "https://liquipedia.net/rocketleague/ROUNDS"
+        ]
+      }
+    },
+    {
+      "check": "latest.json-link-policy",
+      "ok": true,
+      "detail": {
+        "external_urls": 99,
+        "insecure": [],
+        "non_allowlisted": []
+      }
+    },
+    {
+      "check": "every-page-viewport-csp-https",
+      "ok": true,
+      "detail": {
+        "pages_checked": 10,
+        "problems": [],
+        "documented_csp_gaps": [
+          "origination/index.html"
+        ]
+      }
+    },
+    {
+      "check": "executive-summary-one-tap-pick-routes",
+      "ok": true,
+      "detail": {
+        "exec_banner": true,
+        "start_here_nav": true,
+        "mobile_status_strip": true
+      }
+    },
+    {
+      "check": "glance-covers-every-active-fixture",
+      "ok": true,
+      "detail": {
+        "active_fixtures": 17,
+        "glance_rows": 17,
+        "missing_from_glance": [],
+        "required_sections_present": true
+      }
+    },
+    {
+      "check": "internal-links-and-anchors-resolve",
+      "ok": true,
+      "detail": {
+        "broken": [],
+        "broken_count": 0
+      }
+    },
+    {
+      "check": "mobile-stylesheet-contract",
+      "ok": true,
+      "detail": {
+        "smallest_max_width_px": 375,
+        "all_max_width_px": [
+          375,
+          450,
+          620,
+          700,
+          850,
+          1000,
+          1200
+        ],
+        "sidebar_to_bottom_nav_swap": true,
+        "fixed_bottom_nav": true,
+        "largest_touch_min_height_px": 56,
+        "global_fixed_widths_px": [],
+        "flexible_primitives": true
+      }
+    }
+  ],
+  "totals": {
+    "checks": 11,
+    "passed": 11,
+    "violations": 0
+  },
+  "all_passed": true
+}

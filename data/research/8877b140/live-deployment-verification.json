@@ -1,0 +1,631 @@
+{
+  "session": "arena-8877b140",
+  "verified_at": "2026-10-22T08:13:29Z",
+  "read_only": true,
+  "egress_note": "Sandbox allows api.github.com only; github.io pages and action artifact/blob downloads are not reachable, so live evidence is the GitHub API record plus the runner-internal verification steps whose conclusions are visible here.",
+  "evidence": {
+    "pages_runs": [
+      {
+        "id": 39744284108,
+        "status": "pending",
+        "conclusion": null,
+        "event": "schedule",
+        "head_sha": "2fb99b0",
+        "started_at": "2026-10-22T07:58:19Z",
+        "updated_at": "2026-10-22T07:58:21Z"
+      },
+      {
+        "id": 39742996589,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "event": "push",
+        "head_sha": "2fb99b0",
+        "started_at": "2026-10-22T07:47:38Z",
+        "updated_at": "2026-10-22T07:58:21Z"
+      },
+      {
+        "id": 39742916817,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "event": "push",
+        "head_sha": "936df78",
+        "started_at": "2026-10-22T07:46:58Z",
+        "updated_at": "2026-10-22T07:47:40Z"
+      },
+      {
+        "id": 39742844302,
+        "status": "in_progress",
+        "conclusion": null,
+        "event": "push",
+        "head_sha": "3ee8224",
+        "started_at": "2026-10-22T07:46:21Z",
+        "updated_at": "2026-10-22T08:07:13Z"
+      },
+      {
+        "id": 39727841341,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "285a0d9",
+        "started_at": "2026-10-22T05:24:25Z",
+        "updated_at": "2026-10-22T05:41:15Z"
+      },
+      {
+        "id": 39725405230,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "f8b4df5",
+        "started_at": "2026-10-22T04:59:00Z",
+        "updated_at": "2026-10-22T05:26:56Z"
+      },
+      {
+        "id": 39725134363,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "event": "push",
+        "head_sha": "48b5c04",
+        "started_at": "2026-10-22T04:56:03Z",
+        "updated_at": "2026-10-22T04:59:02Z"
+      },
+      {
+        "id": 39724117019,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "event": "schedule",
+        "head_sha": "9c130b7",
+        "started_at": "2026-10-22T04:45:08Z",
+        "updated_at": "2026-10-22T04:56:04Z"
+      },
+      {
+        "id": 39723802783,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "9c130b7",
+        "started_at": "2026-10-22T04:41:46Z",
+        "updated_at": "2026-10-22T05:05:37Z"
+      },
+      {
+        "id": 39721791093,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "cd9a595",
+        "started_at": "2026-10-22T04:20:06Z",
+        "updated_at": "2026-10-22T04:44:51Z"
+      },
+      {
+        "id": 39719177378,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "d55ed87",
+        "started_at": "2026-10-22T03:51:54Z",
+        "updated_at": "2026-10-22T04:24:02Z"
+      },
+      {
+        "id": 39717765225,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "head_sha": "ea1534f",
+        "started_at": "2026-10-22T03:36:26Z",
+        "updated_at": "2026-10-22T04:03:11Z"
+      }
+    ],
+    "latest_success_steps": [
+      {
+        "job": "republish-last-verified",
+        "name": "Set up job",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Find the most recent successful publish",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Download that run's verified artifact",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Extract it and refuse anything that is not a full site",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Run actions/configure-pages@v6",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Run actions/upload-pages-artifact@v5",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Run actions/deploy-pages@v5",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Remove the republished artifact before the fresh publish",
+        "conclusion": "success"
+      },
+      {
+        "job": "republish-last-verified",
+        "name": "Complete job",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Set up job",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run actions/checkout@v7",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run actions/setup-python@v7",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run pip install -r requirements.txt",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Regression tests (repository fixtures, before any cache restore)",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Restore last successfully verified public snapshot",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Restore last successfully verified TWC source snapshot",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Preserve last-good snapshot pair for in-run fallback",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Refresh all Hotspawn CS2 records and supported external lines",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Research only unresolved fixture picks using first-party lines",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Document why every blank pick stayed blank (leads only, never prices)",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Record which line sources actually answered this refresh (read-only, non-fatal)",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Order platform publishers and record Pages configuration",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Reconcile every row, replay every probability and build linked pages",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Inspect source freshness for cache eligibility",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Preserve verified evidence for a future source outage",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Preserve verified TWC originals and line-movement history",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run actions/configure-pages@v6",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run actions/upload-pages-artifact@v5",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Run actions/deploy-pages@v5",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Verify the public site, its complete data and category pages",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Re-read the public snapshot after the legacy-publisher window",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Republish the verified artifact if a legacy build overwrote it",
+        "conclusion": "skipped"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Verify the republished site",
+        "conclusion": "skipped"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Post Run actions/setup-python@v7",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Post Run actions/checkout@v7",
+        "conclusion": "success"
+      },
+      {
+        "job": "verify-and-deploy",
+        "name": "Complete job",
+        "conclusion": "success"
+      }
+    ],
+    "deployments": [
+      {
+        "id": 7246812645,
+        "created_at": "2026-10-22T07:53:24Z",
+        "sha": "2fb99b0",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7246798439,
+        "created_at": "2026-10-22T07:52:36Z",
+        "sha": "3ee8224",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7246688672,
+        "created_at": "2026-10-22T07:46:22Z",
+        "sha": "3ee8224",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244548047,
+        "created_at": "2026-10-22T05:27:38Z",
+        "sha": "285a0d9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244533870,
+        "created_at": "2026-10-22T05:26:56Z",
+        "sha": "285a0d9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244505944,
+        "created_at": "2026-10-22T05:24:52Z",
+        "sha": "285a0d9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244241883,
+        "created_at": "2026-10-22T05:06:06Z",
+        "sha": "f8b4df5",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244235054,
+        "created_at": "2026-10-22T05:05:37Z",
+        "sha": "f8b4df5",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244153222,
+        "created_at": "2026-10-22T04:59:27Z",
+        "sha": "f8b4df5",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7244115985,
+        "created_at": "2026-10-22T04:56:27Z",
+        "sha": "48b5c04",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243970736,
+        "created_at": "2026-10-22T04:45:12Z",
+        "sha": "9c130b7",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243966086,
+        "created_at": "2026-10-22T04:44:51Z",
+        "sha": "9c130b7",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243932094,
+        "created_at": "2026-10-22T04:42:10Z",
+        "sha": "9c130b7",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243706721,
+        "created_at": "2026-10-22T04:24:27Z",
+        "sha": "cd9a595",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243701316,
+        "created_at": "2026-10-22T04:24:02Z",
+        "sha": "cd9a595",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243656305,
+        "created_at": "2026-10-22T04:20:29Z",
+        "sha": "cd9a595",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243425194,
+        "created_at": "2026-10-22T04:03:33Z",
+        "sha": "d55ed87",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243420788,
+        "created_at": "2026-10-22T04:03:11Z",
+        "sha": "d55ed87",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243284402,
+        "created_at": "2026-10-22T03:52:23Z",
+        "sha": "d55ed87",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243254240,
+        "created_at": "2026-10-22T03:50:00Z",
+        "sha": "ea1534f",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243248860,
+        "created_at": "2026-10-22T03:49:34Z",
+        "sha": "ea1534f",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7243086488,
+        "created_at": "2026-10-22T03:37:01Z",
+        "sha": "ea1534f",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242981708,
+        "created_at": "2026-10-22T03:30:10Z",
+        "sha": "fcaced9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242970353,
+        "created_at": "2026-10-22T03:29:24Z",
+        "sha": "fcaced9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242792139,
+        "created_at": "2026-10-22T03:16:00Z",
+        "sha": "fcaced9",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242715230,
+        "created_at": "2026-10-22T03:10:49Z",
+        "sha": "a5c4bb6",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242710107,
+        "created_at": "2026-10-22T03:10:25Z",
+        "sha": "a5c4bb6",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242642354,
+        "created_at": "2026-10-22T03:04:56Z",
+        "sha": "a5c4bb6",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242484664,
+        "created_at": "2026-10-22T02:51:52Z",
+        "sha": "df49e9f",
+        "environment": "github-pages"
+      },
+      {
+        "id": 7242456126,
+        "created_at": "2026-10-22T02:49:38Z",
+        "sha": "df49e9f",
+        "environment": "github-pages"
+      }
+    ],
+    "legacy_pages_builds": [
+      {
+        "created_at": "2026-10-22T07:47:37Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T07:46:57Z",
+        "status": "errored",
+        "error": "Page build failed."
+      },
+      {
+        "created_at": "2026-10-22T07:46:20Z",
+        "status": "errored",
+        "error": "Page build failed."
+      },
+      {
+        "created_at": "2026-10-22T05:24:24Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T04:58:59Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T04:56:01Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T04:41:45Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T04:20:05Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T03:51:53Z",
+        "status": "built",
+        "error": null
+      },
+      {
+        "created_at": "2026-10-22T03:36:25Z",
+        "status": "built",
+        "error": null
+      }
+    ]
+  },
+  "checks": [
+    {
+      "check": "a-pages-workflow-has-a-successful-run",
+      "ok": true,
+      "detail": {
+        "latest_success_id": 39727841341,
+        "runs_inspected": 12
+      }
+    },
+    {
+      "check": "latest-success-run-steps-green-and-verified",
+      "ok": true,
+      "detail": {
+        "run_id": 39727841341,
+        "steps": 37,
+        "required_verification_steps_present": true
+      }
+    },
+    {
+      "check": "deployment-cadence-within-8-hours",
+      "ok": true,
+      "detail": {
+        "deployments": 30,
+        "span": "2026-10-22T02:49:38+00:00 .. 2026-10-22T07:53:24+00:00",
+        "gap_minutes": {
+          "min": 0.3,
+          "median": 3.5,
+          "max": 138.7
+        },
+        "gaps_over_8h": []
+      }
+    },
+    {
+      "check": "latest-deployment-succeeded",
+      "ok": true,
+      "detail": {
+        "deployment_id": 7246812645,
+        "state": "success",
+        "sha": "2fb99b0",
+        "created_at": "2026-10-22T07:53:24Z"
+      }
+    },
+    {
+      "check": "latest-legacy-pages-build-not-broken",
+      "ok": true,
+      "detail": {
+        "latest": {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages/builds/1304787372",
+          "status": "built",
+          "error": {
+            "message": null
+          },
+          "pusher": {
+            "login": "buffedlizard55-lab",
+            "id": 309556078,
+            "node_id": "U_kgDOEnNzbg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/309556078?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/buffedlizard55-lab",
+            "html_url": "https://github.com/buffedlizard55-lab",
+            "followers_url": "https://api.github.com/users/buffedlizard55-lab/followers",
+            "following_url": "https://api.github.com/users/buffedlizard55-lab/following{/other_user}",
+            "gists_url": "https://api.github.com/users/buffedlizard55-lab/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/buffedlizard55-lab/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/buffedlizard55-lab/subscriptions",
+            "organizations_url": "https://api.github.com/users/buffedlizard55-lab/orgs",
+            "repos_url": "https://api.github.com/users/buffedlizard55-lab/repos",
+            "events_url": "https://api.github.com/users/buffedlizard55-lab/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/buffedlizard55-lab/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "commit": "2fb99b077071ab85ac9bf4e2d797b70027680eea",
+          "duration": 294066,
+          "created_at": "2026-10-22T07:47:37Z",
+          "updated_at": "2026-10-22T07:52:31Z"
+        }
+      }
+    },
+    {
+      "check": "publisher-declares-a-four-hour-schedule",
+      "ok": true,
+      "detail": {
+        "cron": [
+          "17 */4 * * *",
+          "47 2-22/4 * * *"
+        ],
+        "requirement": "refresh every 4-8 hours"
+      }
+    }
+  ]
+}

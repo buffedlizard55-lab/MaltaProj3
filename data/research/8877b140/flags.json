@@ -1,0 +1,30 @@
+[
+  {
+    "id": "8877b140-liquipedia-community-evidence-not-official-host",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Two Liquipedia community-wiki URLs appear in the alias evidence but are not on the official-source allow-list (no probability input)",
+    "detail": "Independent link-policy verification (session arena-8877b140, scripts/8877b140_verify.py) found two non-allow-listed external hosts in data/origination.json and the alias registry: https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4 (corroborating evidence for the WBT->WROTBERRY abbreviation alias) and https://liquipedia.net/rocketleague/ROUNDS (evidence for the ROUNDS->RoundsGG organization rename). Liquipedia is a community-edited wiki and is not in the audit_rows OFFICIAL host list, so neither URL can satisfy a row's official-source obligation. Review of the registry shows both joins also carry primary HLTV evidence (HLTV team 13683 and HLTV event 9332 same-slot listings), and no probability or pick is computed from either Liquipedia page. The ROUNDS citation is the Rocket League wiki rather than the Counter-Strike wiki; the registry already carries session c07e1b40's review_note stating the CS2 join rests on HLTV's same-event, same-slot listing and that liquipedia.net/counterstrike/ROUNDS does not exist. No value changes; flagged so the evidence gap is reviewable and so any new non-allow-listed host fails the contract test until it is either replaced by an official source or formally documented here.",
+    "source_urls": [
+      "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+      "https://liquipedia.net/rocketleague/ROUNDS",
+      "https://www.hltv.org/team/13683/wrotberry",
+      "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/audit_rows.py"
+    ]
+  },
+  {
+    "id": "8877b140-origination-page-missing-csp-meta",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The /origination/ page is the only current dashboard view without a Content-Security-Policy meta tag",
+    "detail": "Every page rendered by scripts/build.py and scripts/build_strategy.py ships the CSP meta (default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'). The complete-picks view rendered by scripts/build_origination.py (site/origination/index.html) includes the mobile viewport but no CSP meta. The page loads only same-origin stylesheets and scripts, so this is a defense-in-depth hardening gap rather than an observed exploit or a data/probability defect. Session arena-8877b140's scope excludes the shared renderers, so the fix is requested here rather than made: add the same CSP <meta> to the build_origination.py HTML shell. scripts/8877b140_verify.py records origination/index.html as a KNOWN_CSP_GAPS entry and will fail on any *new* page missing the CSP.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"
+    ]
+  }
+]
