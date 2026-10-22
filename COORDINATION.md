@@ -4980,11 +4980,15 @@ Claimed **2026-10-22T01:21Z** on branch `arena/a34bc06b-maltaproj3`, branched fr
 
 ### A34B-4 verification & PR record (2026-10-22T01:55Z)
 
-- **Pull request:** [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) on `arena/a34bc06b-maltaproj3` -> `main`.
+- **Pull request:** [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) merged cleanly into `main` as `df49e9fff5fd9e7988086c59df88c2748a232e25` at `2026-10-22T02:45:43Z`.
 - **CI checks verified green before merge:**
-  - `Rows, build, links, mobile and accessibility`: **pass** (run [`39708762858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762858) — full unittest suite, site + origination build, strict row-source audit `0` violations, internal link audit, Chromium mobile viewport & axe-core WCAG AA contrast audit).
-  - `originate`: **pass** (run [`39708762878`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762878)).
+  - `Rows, build, links, mobile and accessibility`: **pass** (runs [`39708762858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762858), [`39710705191`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39710705191), [`39710701346`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39710701346) — full unittest suite, site + origination build, strict row-source audit `0` violations, internal link audit, Chromium mobile viewport & axe-core WCAG AA contrast audit).
+  - `originate`: **pass** (runs [`39708762878`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762878), [`39710705128`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39710705128)).
   - Full 2026-10-22 35-fixture replay audit (`data/research/a34bc06b/verification-audit.json`): **`35 / 35` (`100.0%`) active Hotspawn CS2 matches resolved with directional picks**, `0` unresolved, `81 / 81` origination rows verified with `0` violations, `coverage_audit` `0` violations.
+- **Post-merge `pages.yml` live audit & cross-PR integration hotfix (`A34B-5`, 2026-10-22T03:16Z):**
+  - Monitored post-merge production run [`39713153422`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39713153422) end-to-end: all tests, live Hotspawn collection (`97` records, `market` upgraded from `7` to `9`), `--live` origination, fresh full replay build (`degraded=false`), and cache save succeeded, **then `actions/deploy-pages@v5` failed with `Multiple artifacts named "github-pages" were unexpectedly found for this workflow run. Artifact count is 2`** because `republish-last-verified` (added in PR #150) and `verify-and-deploy` both uploaded under default name `github-pages` within the same workflow run. Note that `permissions: actions: read` causes `gh api -X DELETE .../actions/artifacts/$ARTIFACT_ID` (`C1F-3` below) to receive `HTTP 403` and fall through its warning branch while both `github-pages` artifacts remain.
+  - Resolved cleanly with zero extra token permissions by setting `name: github-pages-interim` + `artifact_name: github-pages-interim` on `republish-last-verified` (retaining `C1F-3`’s cleanup step alongside it and preserving default `github-pages` on `verify-and-deploy` for future fast-republish downloads), AND hardened `scripts/build_origination.py` (`validate_origination`, `basis_meta`, `match_source_links`) + `tests/test_a34bc06b_origination_and_audit.py` for PR #152’s `family == 'relay'` quotes.
+
 ### C1F-3 — publisher fix after the deploy failure (2026-10-22T03:15Z)
 
 **Overlap disclosed:** `.github/workflows/pages.yml` was **not** in this session's original

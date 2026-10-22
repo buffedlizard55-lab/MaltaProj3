@@ -81,15 +81,18 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         if: steps.previous.outputs.skip == 'false'
         with:
+          name: github-pages-interim
           path: site
       - id: deployment
         if: steps.previous.outputs.skip == 'false'
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-interim
       # deploy-pages refuses to publish while a run holds two artifacts named
       # github-pages ("Artifact count is 2", observed on run 39713153422 for
-      # 2026-10-22T03:10Z). This job is finished with its artifact once the
-      # deployment step returns, so delete it and leave the fresh, fully
-      # validated upload below as the only candidate in the run.
+      # 2026-10-22T03:10Z). Using `github-pages-interim` isolates the interim
+      # artifact name without needing `actions: write`, and best-effort cleanup
+      # removes it after deployment returns.
       - name: Remove the republished artifact before the fresh publish
         if: always() && steps.previous.outputs.skip == 'false'
         env:
@@ -97,11 +100,11 @@ jobs:
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
         run: |
           if [ -z "$ARTIFACT_ID" ]; then
-            echo "::warning::No artifact id was reported; a duplicate github-pages artifact may block the fresh publish."
+            echo "::warning::No artifact id was reported; interim artifact uses distinct name github-pages-interim."
             exit 0
           fi
           gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID" \
-            || echo "::warning::Could not delete the republished artifact; the fresh publish may fail on a duplicate artifact name."
+            || echo "::warning::Could not delete interim artifact (actions: read); distinct artifact_name prevents collision."
   verify-and-deploy:
     needs: [republish-last-verified]
     # Runs even when the fast republish failed: a broken helper must never stop

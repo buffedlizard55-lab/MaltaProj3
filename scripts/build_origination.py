@@ -74,6 +74,8 @@ def match_source_links(m, o):
         quotes = [q for q in o.get('quotes', []) if isinstance(q, dict) and q.get('source_url')]
         for q in quotes:
             add(q['source_url'], q.get('provider', 'source'))
+            if q.get('book_url'):
+                add(q['book_url'], 'Bookmaker page')
         if not quotes:
             add(o.get('source_url'), o.get('source', 'Analysis source'))
         for inp in o.get('inputs') or []:
@@ -90,6 +92,8 @@ def basis_meta(o):
     kind = 'green' if money else 'purple'
     label = 'Money-backed line' if money else 'Research model'
     group = 'money' if money else 'model'
+    if o.get('family') == 'relay':
+        label = 'Relayed money line · bo3.gg bookmaker feed'
     if o['method'] == 'reference':
         label = 'Aggregated money line · third-party bookmaker average'
     if o['method'] == 'guidance':
@@ -605,6 +609,20 @@ def validate_origination(data, source):
             if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada', 'Pinnacle'}:
                 from scripts.pipeline_audit import replay_provider_quote
                 values.append(replay_provider_quote(q, raw, registry, source, timestamp(data['generated_at'])))
+            elif q.get('family') == 'relay':
+                from scripts.originate import bo3_relay_rows, relay_join, relayed_bookmaker_estimate
+                rows = [
+                    row for row in bo3_relay_rows(source / 'origination/evidence')
+                    if str(row.get('fixture_id')) == str(m['id'])
+                    and relay_join(row['names'], row['start'], raw, registry)[2] == 'matched'
+                ]
+                assert len(rows) == 1, 'Unique saved bo3.gg relay record missing for this fixture'
+                expected, reason = relayed_bookmaker_estimate(rows[0], raw, registry, now=timestamp(data['generated_at']))
+                assert expected is not None, 'Relayed bookmaker quote rejected on replay: ' + str(reason)
+                assert expected['probabilities'] == q['probabilities'], 'Relayed probabilities differ from saved capture'
+                assert expected['odds'] == q['odds'] and expected['event_id'] == q['event_id'], 'Relayed odds or event_id changed'
+                assert expected['observed_at'] == q['observed_at'], 'Relayed observation restamped'
+                values.append(q['probabilities'][0])
             elif q.get('family') == 'bookmaker':
                 raise AssertionError('Unsupported bookmaker replay provider; no generic odds-only fallback is permitted')
             elif q.get('family') == 'market':
