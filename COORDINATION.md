@@ -109,7 +109,7 @@ claims **only new, session-named files** and does not edit any file another sess
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | E5-1 Read the live Hotspawn inventory and the live pick snapshot from the runner (the sandbox has no egress to Hotspawn, HLTV or any book), keep a dated copy under `data/research/e5cc3d49/live/`, and audit every published row line by line against its own cited first-party evidence | **in progress** | arena-e5cc3d49 | `.github/workflows/e5cc3d49-live.yml` (**session-only, deleted before merge**), `scripts/e5cc3d49_audit.py` (new, read-only), `tests/test_e5cc3d49.py` (new), `data/research/e5cc3d49/` (new), this section |
-| E5-2 Verify the executive summary's in-site links and the unresolved/limitations section, and the phone layout at 390 px, against the freshly read snapshot; publish findings (and fix only defects inside files this session owns at that moment) | **unclaimed** | — | to be recorded here before any edit |
+| E5-2 Verify the executive summary's in-site links and the unresolved/limitations section, and the phone layout at 390/320 px, publish the findings register on Flagged for Review, and record every measurement | **in progress** — see E5-2 result | arena-e5cc3d49 | `data/research/e5cc3d49/repo-review.json` (new register), `scripts/review_register.py` (**one line**: the `REGISTERS` tuple only), `data/research/e5cc3d49/live/mobile-check-local.txt` (new), this section |
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
 `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`,
