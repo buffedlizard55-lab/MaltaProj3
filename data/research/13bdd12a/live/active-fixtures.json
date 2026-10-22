@@ -1,16 +1,16 @@
 {
-  "observed_at": "2026-10-22T01:32:58Z",
-  "inventory_observed_at": "2026-10-22T01:32:42Z",
+  "observed_at": "2026-10-22T01:41:19Z",
+  "inventory_observed_at": "2026-10-22T01:41:02Z",
   "counts": {
     "inventory": 97,
     "upcoming": 35,
     "archived": 62,
     "unknown_schedule": 0,
-    "market": 6,
+    "market": 7,
     "bookmaker": 0,
     "model": 16,
-    "unresolved": 13,
-    "picks": 21,
+    "unresolved": 12,
+    "picks": 22,
     "no_edge": 1
   },
   "origination_counts": {
@@ -19,11 +19,11 @@
     "unresolved": 0,
     "with_pick": 35,
     "consensus": 1,
-    "market": 6,
+    "market": 7,
     "bookmaker": 0,
     "reference": 0,
-    "model": 28,
-    "network": 5,
+    "model": 27,
+    "network": 4,
     "guidance": 0,
     "alias_joined": 2
   },
@@ -69,14 +69,14 @@
         "snapshot_date": "2026-10-22",
         "source_url": "https://www.hltv.org/ranking/teams",
         "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-        "observed_at": "2026-10-22T01:33:27Z",
+        "observed_at": "2026-10-22T01:41:48Z",
         "points_scale": 400.0,
         "aliases_used": [],
         "unranked_floor": [
           "Morningstar"
         ],
         "low_confidence": true,
-        "evaluation_at": "2026-10-22T01:33:12+00:00",
+        "evaluation_at": "2026-10-22T01:41:33+00:00",
         "method": "model",
         "label": "Research model estimate (HLTV world ranking · unranked floor)",
         "fair_decimal": [
@@ -114,14 +114,14 @@
             "snapshot_date": "2026-10-22",
             "source_url": "https://www.hltv.org/ranking/teams",
             "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-            "observed_at": "2026-10-22T01:33:27Z",
+            "observed_at": "2026-10-22T01:41:48Z",
             "points_scale": 400.0,
             "aliases_used": [],
             "unranked_floor": [
               "Morningstar"
             ],
             "low_confidence": true,
-            "evaluation_at": "2026-10-22T01:33:12+00:00"
+            "evaluation_at": "2026-10-22T01:41:33+00:00"
           }
         ],
         "source": "HLTV world ranking",
@@ -149,7 +149,7 @@
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor",
-          "detail": "Kalshi event KXCS2GAME-26OCT212300NEXMOR: Order book spread 0.34 exceeds the 0.15 indicative ceiling (NEXVOID bid/ask 0.50/0.84, Morningstar bid/ask 0.18/0.30); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT212300NEXMOR: Order book spread 0.25 exceeds the 0.15 indicative ceiling (NEXVOID bid/ask 0.59/0.84, Morningstar bid/ask 0.18/0.27); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -212,21 +212,21 @@
       "locks_at": "2026-10-22T04:54:00Z",
       "featured_method": "market",
       "featured_probabilities": [
-        0.285,
-        0.715
+        0.295,
+        0.705
       ],
       "origination": {
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.285,
-          0.715
+          0.295,
+          0.705
         ],
         "fair_decimal": [
-          3.509,
-          1.399
+          3.39,
+          1.418
         ],
-        "observed_at": "2026-10-22T01:32:46Z",
+        "observed_at": "2026-10-22T01:41:07Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1231330",
@@ -238,28 +238,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.25,
+            "bid": 0.27,
             "ask": 0.32,
-            "spread": 0.07,
-            "midpoint": 0.28500000000000003,
-            "timestamp": "2026-10-22T01:32:46Z",
+            "spread": 0.05,
+            "midpoint": 0.29500000000000004,
+            "timestamp": "2026-10-22T01:41:02Z",
             "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           },
           {
             "bid": 0.68,
-            "ask": 0.75,
-            "spread": 0.07,
-            "midpoint": 0.7150000000000001,
-            "timestamp": "2026-10-22T01:32:46Z",
+            "ask": 0.73,
+            "spread": 0.05,
+            "midpoint": 0.7050000000000001,
+            "timestamp": "2026-10-22T01:41:02Z",
             "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
-        "volume": 22.0,
-        "liquidity": 5289.9849,
+        "volume": 223.981429,
+        "liquidity": 5349.1349,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -287,184 +287,71 @@
       "competition": "NODWIN Clutch Series #13",
       "starts_at": "2026-10-22T08:00:00Z",
       "locks_at": "2026-10-22T07:54:00Z",
-      "featured_method": null,
-      "featured_probabilities": null,
+      "featured_method": "market",
+      "featured_probabilities": [
+        0.4,
+        0.6
+      ],
       "origination": {
-        "provider": "Own network model (bo3.gg results graph)",
-        "family": "network",
-        "method": "model",
-        "model_version": "network-bt-1",
+        "method": "market",
+        "label": "Market-implied estimate",
         "probabilities": [
-          0.5146747642001489,
-          0.4853252357998511
+          0.4,
+          0.6
         ],
-        "inputs": [
-          {
-            "name": "Bushido Wildcats",
-            "team_id": 20792,
-            "points": 950.3,
-            "se": 41.2,
-            "series": 80,
-            "anchored": true,
-            "anchor_points": 982.0,
-            "source": "Own network Bradley–Terry fit over bo3.gg finished series",
-            "source_url": "https://bo3.gg/teams/20792"
-          },
-          {
-            "name": "ex-6666",
-            "team_id": 25508,
-            "points": 940.1,
-            "se": 115.1,
-            "series": 10,
-            "anchored": false,
-            "anchor_points": null,
-            "source": "Own network Bradley–Terry fit over bo3.gg finished series",
-            "source_url": "https://bo3.gg/teams/25508"
-          }
-        ],
-        "rating_sd_diff": 122.3,
-        "interval": [
-          0.2061,
-          0.8125
-        ],
-        "n_series": 10,
-        "graph_matches": 4645,
-        "graph_anchors": 269,
-        "low_confidence": true,
-        "source_url": "https://bo3.gg/matches",
-        "identity_bridge": "start_time_and_team_name",
-        "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-        "observed_at": "2026-10-22T01:33:12Z",
-        "label": "Own network estimate (bo3.gg results graph)",
         "fair_decimal": [
-          1.943,
-          2.06
+          2.5,
+          1.667
+        ],
+        "observed_at": "2026-10-22T01:41:08Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
+        "source_api": "https://gamma-api.polymarket.com/events/1231331",
+        "market_id": "6024926",
+        "event_id": "1231331",
+        "source_outcomes": [
+          "Bushido Wildcats",
+          "ex-6666"
         ],
         "quotes": [
           {
-            "provider": "Own network model (bo3.gg results graph)",
-            "family": "network",
-            "method": "model",
-            "model_version": "network-bt-1",
-            "probabilities": [
-              0.5146747642001489,
-              0.4853252357998511
-            ],
-            "inputs": [
-              {
-                "name": "Bushido Wildcats",
-                "team_id": 20792,
-                "points": 950.3,
-                "se": 41.2,
-                "series": 80,
-                "anchored": true,
-                "anchor_points": 982.0,
-                "source": "Own network Bradley–Terry fit over bo3.gg finished series",
-                "source_url": "https://bo3.gg/teams/20792"
-              },
-              {
-                "name": "ex-6666",
-                "team_id": 25508,
-                "points": 940.1,
-                "se": 115.1,
-                "series": 10,
-                "anchored": false,
-                "anchor_points": null,
-                "source": "Own network Bradley–Terry fit over bo3.gg finished series",
-                "source_url": "https://bo3.gg/teams/25508"
-              }
-            ],
-            "rating_sd_diff": 122.3,
-            "interval": [
-              0.2061,
-              0.8125
-            ],
-            "n_series": 10,
-            "graph_matches": 4645,
-            "graph_anchors": 269,
-            "low_confidence": true,
-            "source_url": "https://bo3.gg/matches",
-            "identity_bridge": "start_time_and_team_name",
-            "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-            "observed_at": "2026-10-22T01:33:12Z"
+            "bid": 0.38,
+            "ask": 0.42,
+            "spread": 0.04,
+            "midpoint": 0.4,
+            "timestamp": "2026-10-22T01:41:06Z",
+            "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
+            "provider": "Polymarket",
+            "family": "market"
+          },
+          {
+            "bid": 0.58,
+            "ask": 0.62,
+            "spread": 0.04,
+            "midpoint": 0.6,
+            "timestamp": "2026-10-22T01:41:06Z",
+            "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
+            "provider": "Polymarket",
+            "family": "market"
           }
         ],
-        "source": "Own network model (bo3.gg results graph)",
+        "volume": null,
+        "liquidity": 2868.7536,
+        "limitations": [
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+        ],
         "model_crosscheck": null
       },
-      "pick_index": 0,
+      "pick_index": 1,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4645 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 122.3 points (probability interval 0.206-0.812). Current lineups, stand-ins and map vetoes are unverified.",
-        "Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Hotspawn best-of format is unverified; left blank."
       ],
       "research": [
         {
-          "stage": "HLTV research",
-          "status": "checked",
-          "source_url": "https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Betting market (Polymarket series winner)",
-          "status": "unresolved",
+          "stage": "Primary: Polymarket",
+          "status": "resolved",
           "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
-          "detail": "Polymarket event 1231331: Order book spread 0.67 exceeds the 0.15 indicative ceiling (Bushido Wildcats bid/ask 0.14/0.81, ex-6666 bid/ask 0.19/0.86); observation recorded, not used as a pick input."
-        },
-        {
-          "stage": "Exchange market (Kalshi CS2 match winner)",
-          "status": "unresolved",
-          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220400exbw",
-          "detail": "Kalshi event KXCS2GAME-26OCT220400EXBW: Order book spread 0.62 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.23/0.84, Bushido Wildcats bid/ask 0.15/0.77); observation recorded, not used as a pick input."
-        },
-        {
-          "stage": "Esportsbook line (Thunderpick original prices)",
-          "status": "unresolved",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
-          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
-        },
-        {
-          "stage": "Esportsbook line (Bovada original prices)",
-          "status": "unresolved",
-          "source_url": "https://www.bovada.lv/sports",
-          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
-        },
-        {
-          "stage": "Esportsbook line (Pinnacle original prices)",
-          "status": "unresolved",
-          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
-        },
-        {
-          "stage": "Aggregated bookmaker reference (EGamersWorld)",
-          "status": "unresolved",
-          "source_url": "https://egamersworld.com/counterstrike/matches",
-          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
-        },
-        {
-          "stage": "Research model cross-check (Valve official ratings)",
-          "status": "unresolved",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "detail": "ex-6666: no Valve rating row found (including registry aliases)"
-        },
-        {
-          "stage": "Results model (own, bo3.gg series results)",
-          "status": "resolved",
-          "source_url": "https://bo3.gg/matches/bushido-wildcats-cs-vs-ex-6666-22-10-2026",
-          "detail": "Own results-based fit from observed bo3.gg series results; 9 anchored series, posterior SD 119.0 points."
-        },
-        {
-          "stage": "Own network model (bo3.gg results graph)",
-          "status": "resolved",
-          "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4645 bo3.gg finished series with 269 Valve-anchored teams; 10 series for the thinner side, rating-difference SD 122.3 points."
-        },
-        {
-          "stage": "Research model cross-check (HLTV world ranking)",
-          "status": "resolved",
-          "source_url": "https://www.hltv.org/ranking/teams",
-          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
         }
       ]
     },
@@ -493,7 +380,7 @@
           1.319,
           4.134
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -620,7 +507,7 @@
           1.363,
           3.756
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -747,7 +634,7 @@
           1.504,
           2.985
         ],
-        "observed_at": "2026-10-22T01:32:48Z",
+        "observed_at": "2026-10-22T01:41:09Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1231332",
@@ -763,7 +650,7 @@
             "ask": 0.67,
             "spread": 0.01,
             "midpoint": 0.665,
-            "timestamp": "2026-10-22T01:32:43Z",
+            "timestamp": "2026-10-22T01:40:39Z",
             "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
@@ -773,14 +660,14 @@
             "ask": 0.34,
             "spread": 0.01,
             "midpoint": 0.335,
-            "timestamp": "2026-10-22T01:32:43Z",
+            "timestamp": "2026-10-22T01:40:39Z",
             "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 2483.634889,
-        "liquidity": 8382.8514,
+        "liquidity": 8453.0926,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -824,7 +711,7 @@
           1.292,
           4.428
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -951,7 +838,7 @@
           1.879,
           2.137
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1070,8 +957,8 @@
         "method": "model",
         "model_version": "network-bt-1",
         "probabilities": [
-          0.22095845260400493,
-          0.7790415473959951
+          0.22125586386980833,
+          0.7787441361301917
         ],
         "inputs": [
           {
@@ -1088,7 +975,7 @@
           {
             "name": "TitanFlow",
             "team_id": 25277,
-            "points": 996.8,
+            "points": 996.5,
             "se": 154.7,
             "series": 9,
             "anchored": false,
@@ -1100,20 +987,20 @@
         "rating_sd_diff": 166.9,
         "interval": [
           0.0399,
-          0.6595
+          0.6599
         ],
         "n_series": 9,
-        "graph_matches": 4645,
+        "graph_matches": 4646,
         "graph_anchors": 269,
         "low_confidence": true,
         "source_url": "https://bo3.gg/matches",
         "identity_bridge": "start_time_and_team_name",
         "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-        "observed_at": "2026-10-22T01:33:12Z",
+        "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+        "observed_at": "2026-10-22T01:41:33Z",
         "label": "Own network estimate (bo3.gg results graph)",
         "fair_decimal": [
-          4.526,
+          4.52,
           1.284
         ],
         "quotes": [
@@ -1123,8 +1010,8 @@
             "method": "model",
             "model_version": "network-bt-1",
             "probabilities": [
-              0.22095845260400493,
-              0.7790415473959951
+              0.22125586386980833,
+              0.7787441361301917
             ],
             "inputs": [
               {
@@ -1141,7 +1028,7 @@
               {
                 "name": "TitanFlow",
                 "team_id": 25277,
-                "points": 996.8,
+                "points": 996.5,
                 "se": 154.7,
                 "series": 9,
                 "anchored": false,
@@ -1153,17 +1040,17 @@
             "rating_sd_diff": 166.9,
             "interval": [
               0.0399,
-              0.6595
+              0.6599
             ],
             "n_series": 9,
-            "graph_matches": 4645,
+            "graph_matches": 4646,
             "graph_anchors": 269,
             "low_confidence": true,
             "source_url": "https://bo3.gg/matches",
             "identity_bridge": "start_time_and_team_name",
             "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-            "observed_at": "2026-10-22T01:33:12Z"
+            "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+            "observed_at": "2026-10-22T01:41:33Z"
           }
         ],
         "source": "Own network model (bo3.gg results graph)",
@@ -1171,7 +1058,7 @@
       },
       "pick_index": 1,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4645 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 166.9 points (probability interval 0.040-0.659). Current lineups, stand-ins and map vetoes are unverified.",
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4646 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 166.9 points (probability interval 0.040-0.660). Current lineups, stand-ins and map vetoes are unverified.",
         "Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
       ],
       "research": [
@@ -1233,7 +1120,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4645 bo3.gg finished series with 269 Valve-anchored teams; 9 series for the thinner side, rating-difference SD 166.9 points."
+          "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 9 series for the thinner side, rating-difference SD 166.9 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -1268,7 +1155,7 @@
           1.089,
           12.237
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1381,21 +1268,21 @@
       "locks_at": "2026-10-22T12:54:00Z",
       "featured_method": "market",
       "featured_probabilities": [
-        0.62,
-        0.38
+        0.64,
+        0.36
       ],
       "origination": {
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.62,
-          0.38
+          0.64,
+          0.36
         ],
         "fair_decimal": [
-          1.613,
-          2.632
+          1.562,
+          2.778
         ],
-        "observed_at": "2026-10-22T01:32:50Z",
+        "observed_at": "2026-10-22T01:41:11Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1232512",
@@ -1407,28 +1294,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.56,
-            "ask": 0.68,
-            "spread": 0.12,
-            "midpoint": 0.6200000000000001,
-            "timestamp": "2026-10-22T01:32:49Z",
+            "bid": 0.62,
+            "ask": 0.66,
+            "spread": 0.04,
+            "midpoint": 0.64,
+            "timestamp": "2026-10-22T01:41:06Z",
             "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           },
           {
-            "bid": 0.32,
-            "ask": 0.44,
-            "spread": 0.12,
-            "midpoint": 0.38,
-            "timestamp": "2026-10-22T01:32:49Z",
+            "bid": 0.34,
+            "ask": 0.38,
+            "spread": 0.04,
+            "midpoint": 0.36,
+            "timestamp": "2026-10-22T01:41:06Z",
             "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
-        "volume": null,
-        "liquidity": 1524.9793,
+        "volume": 351.408451,
+        "liquidity": 1432.9674,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -1472,7 +1359,7 @@
           2.472,
           1.679
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1641,8 +1528,8 @@
             ]
           }
         ],
-        "observed_at": "2026-10-22T01:33:29Z",
-        "evaluation_at": "2026-10-22T01:33:12Z",
+        "observed_at": "2026-10-22T01:41:49Z",
+        "evaluation_at": "2026-10-22T01:41:33Z",
         "method": "model",
         "label": "Research model estimate (Valve official ratings)",
         "fair_decimal": [
@@ -1706,8 +1593,8 @@
                 ]
               }
             ],
-            "observed_at": "2026-10-22T01:33:29Z",
-            "evaluation_at": "2026-10-22T01:33:12Z"
+            "observed_at": "2026-10-22T01:41:49Z",
+            "evaluation_at": "2026-10-22T01:41:33Z"
           }
         ],
         "source": "Valve official standings",
@@ -1734,13 +1621,13 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
-          "detail": "Polymarket event 1232202: Order book spread 0.87 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.08/0.95, ex-6666 bid/ask 0.05/0.92); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1232202: Order book spread 0.85 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.10/0.95, ex-6666 bid/ask 0.05/0.90); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221000exace",
-          "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.88 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.94, Acend bid/ask 0.09/0.94); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.84 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.90, Acend bid/ask 0.12/0.94); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -1805,7 +1692,7 @@
           2.522,
           1.657
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1932,7 +1819,7 @@
           1.29,
           4.444
         ],
-        "observed_at": "2026-10-22T01:32:52Z",
+        "observed_at": "2026-10-22T01:41:12Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1224236",
@@ -1948,7 +1835,7 @@
             "ask": 0.79,
             "spread": 0.03,
             "midpoint": 0.775,
-            "timestamp": "2026-10-22T01:32:05Z",
+            "timestamp": "2026-10-22T01:41:03Z",
             "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
@@ -1958,14 +1845,14 @@
             "ask": 0.24,
             "spread": 0.03,
             "midpoint": 0.22499999999999998,
-            "timestamp": "2026-10-22T01:32:05Z",
+            "timestamp": "2026-10-22T01:41:03Z",
             "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 606.362816,
-        "liquidity": 9225.8101,
+        "liquidity": 9049.5578,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -2009,7 +1896,7 @@
           2.105,
           1.905
         ],
-        "observed_at": "2026-10-22T01:32:52Z",
+        "observed_at": "2026-10-22T01:41:13Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1224237",
@@ -2025,7 +1912,7 @@
             "ask": 0.48,
             "spread": 0.01,
             "midpoint": 0.475,
-            "timestamp": "2026-10-22T01:32:03Z",
+            "timestamp": "2026-10-22T01:41:03Z",
             "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
@@ -2035,14 +1922,14 @@
             "ask": 0.53,
             "spread": 0.01,
             "midpoint": 0.525,
-            "timestamp": "2026-10-22T01:32:03Z",
+            "timestamp": "2026-10-22T01:41:03Z",
             "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 9606.088253999998,
-        "liquidity": 36774.2456,
+        "liquidity": 36756.7456,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -2200,7 +2087,7 @@
           }
         ],
         "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-        "observed_at": "2026-10-22T01:33:30Z",
+        "observed_at": "2026-10-22T01:41:51Z",
         "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
         "snapshot_date": "2026-10-05",
         "method": "model",
@@ -2338,7 +2225,7 @@
               }
             ],
             "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-            "observed_at": "2026-10-22T01:33:30Z",
+            "observed_at": "2026-10-22T01:41:51Z",
             "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
             "snapshot_date": "2026-10-05"
           }
@@ -2456,7 +2343,7 @@
           1.869,
           2.151
         ],
-        "observed_at": "2026-10-22T01:32:53Z",
+        "observed_at": "2026-10-22T01:41:14Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
         "source_api": "https://gamma-api.polymarket.com/events/1231735",
@@ -2472,7 +2359,7 @@
             "ask": 0.54,
             "spread": 0.01,
             "midpoint": 0.535,
-            "timestamp": "2026-10-22T01:32:53Z",
+            "timestamp": "2026-10-22T01:41:14Z",
             "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
@@ -2482,14 +2369,14 @@
             "ask": 0.47,
             "spread": 0.01,
             "midpoint": 0.46499999999999997,
-            "timestamp": "2026-10-22T01:32:53Z",
+            "timestamp": "2026-10-22T01:41:14Z",
             "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
-        "volume": 476.071154,
-        "liquidity": 7593.3263,
+        "volume": 476.07115400000004,
+        "liquidity": 8097.8785,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -2533,7 +2420,7 @@
           1.946,
           2.058
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -2753,7 +2640,7 @@
           }
         ],
         "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
-        "observed_at": "2026-10-22T01:33:30Z",
+        "observed_at": "2026-10-22T01:41:51Z",
         "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
         "snapshot_date": "2026-10-05",
         "method": "model",
@@ -2870,7 +2757,7 @@
               }
             ],
             "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
-            "observed_at": "2026-10-22T01:33:30Z",
+            "observed_at": "2026-10-22T01:41:51Z",
             "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
             "snapshot_date": "2026-10-05"
           }
@@ -2894,7 +2781,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
-          "detail": "Polymarket event 1232205: Order book spread 0.64 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.32/0.96, ex-6666 bid/ask 0.04/0.68); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1232205: Order book spread 0.62 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.32/0.94, ex-6666 bid/ask 0.06/0.68); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
@@ -3002,14 +2889,14 @@
           0.996
         ],
         "n_series": 18,
-        "graph_matches": 4645,
+        "graph_matches": 4646,
         "graph_anchors": 269,
         "low_confidence": false,
         "source_url": "https://bo3.gg/matches",
         "identity_bridge": "exact_team_name_lookup",
         "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-        "observed_at": "2026-10-22T01:33:12Z",
+        "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+        "observed_at": "2026-10-22T01:41:33Z",
         "label": "Own network estimate (bo3.gg results graph)",
         "fair_decimal": [
           1.016,
@@ -3055,14 +2942,14 @@
               0.996
             ],
             "n_series": 18,
-            "graph_matches": 4645,
+            "graph_matches": 4646,
             "graph_anchors": 269,
             "low_confidence": false,
             "source_url": "https://bo3.gg/matches",
             "identity_bridge": "exact_team_name_lookup",
             "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-            "observed_at": "2026-10-22T01:33:12Z"
+            "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+            "observed_at": "2026-10-22T01:41:33Z"
           }
         ],
         "source": "Own network model (bo3.gg results graph)",
@@ -3070,7 +2957,7 @@
       },
       "pick_index": 0,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4645 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 122.1 points (probability interval 0.937-0.996). Current lineups, stand-ins and map vetoes are unverified."
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4646 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 122.1 points (probability interval 0.937-0.996). Current lineups, stand-ins and map vetoes are unverified."
       ],
       "research": [
         {
@@ -3131,7 +3018,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4645 bo3.gg finished series with 269 Valve-anchored teams; 18 series for the thinner side, rating-difference SD 122.1 points."
+          "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 18 series for the thinner side, rating-difference SD 122.1 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -3178,7 +3065,7 @@
               2.4,
               1.540541
             ],
-            "observed_at": "2026-10-22T01:33:24Z",
+            "observed_at": "2026-10-22T01:41:45Z",
             "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630",
             "api_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
             "event_id": "32589585",
@@ -3197,7 +3084,7 @@
               2.35,
               1.5435
             ],
-            "observed_at": "2026-10-22T01:33:26Z",
+            "observed_at": "2026-10-22T01:41:47Z",
             "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
             "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/285253/markets/straight",
             "event_id": "1638942910",
@@ -3208,7 +3095,7 @@
         ],
         "source": "Bovada + Pinnacle",
         "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630",
-        "observed_at": "2026-10-22T01:33:24Z",
+        "observed_at": "2026-10-22T01:41:45Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -3252,8 +3139,8 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-22T01:33:29Z",
-          "evaluation_at": "2026-10-22T01:33:12Z"
+          "observed_at": "2026-10-22T01:41:49Z",
+          "evaluation_at": "2026-10-22T01:41:33Z"
         }
       },
       "pick_index": 1,
@@ -3371,8 +3258,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-22T01:33:29Z",
-        "evaluation_at": "2026-10-22T01:33:12Z",
+        "observed_at": "2026-10-22T01:41:49Z",
+        "evaluation_at": "2026-10-22T01:41:33Z",
         "lineup_disambiguation": [
           {
             "team": "Chinggis Warriors",
@@ -3387,7 +3274,7 @@
             "overlap": 4,
             "roster_change": true,
             "source_url": "https://www.hltv.org/matches/2399586/lynn-vision-vs-chinggis-warriors-macemedia-void-autumn-cup-2026",
-            "observed_at": "2026-10-22T01:33:14Z",
+            "observed_at": "2026-10-22T01:41:35Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1081871.json"
           }
         ],
@@ -3441,8 +3328,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-22T01:33:29Z",
-            "evaluation_at": "2026-10-22T01:33:12Z",
+            "observed_at": "2026-10-22T01:41:49Z",
+            "evaluation_at": "2026-10-22T01:41:33Z",
             "lineup_disambiguation": [
               {
                 "team": "Chinggis Warriors",
@@ -3457,7 +3344,7 @@
                 "overlap": 4,
                 "roster_change": true,
                 "source_url": "https://www.hltv.org/matches/2399586/lynn-vision-vs-chinggis-warriors-macemedia-void-autumn-cup-2026",
-                "observed_at": "2026-10-22T01:33:14Z",
+                "observed_at": "2026-10-22T01:41:35Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1081871.json"
               }
             ]
@@ -3488,13 +3375,13 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22",
-          "detail": "Polymarket event 1232241: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.08/0.96, Chinggis Warriors bid/ask 0.04/0.92); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1232241: Order book spread 0.89 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.07/0.96, Chinggis Warriors bid/ask 0.04/0.93); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct222300cwlvg",
-          "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.25 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.32, Lynn Vision bid/ask 0.69/0.92); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.24 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.30, Lynn Vision bid/ask 0.69/0.93); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -3554,14 +3441,14 @@
         "method": "model",
         "model_version": "network-bt-1",
         "probabilities": [
-          0.4873384894509743,
-          0.5126615105490258
+          0.4869070411393733,
+          0.5130929588606268
         ],
         "inputs": [
           {
             "name": "ex-Zero Tenacity",
             "team_id": 22185,
-            "points": 1106.9,
+            "points": 1106.8,
             "se": 44.7,
             "series": 54,
             "anchored": true,
@@ -3572,7 +3459,7 @@
           {
             "name": "ex-RUSTEC",
             "team_id": 24857,
-            "points": 1115.7,
+            "points": 1115.9,
             "se": 57.9,
             "series": 74,
             "anchored": false,
@@ -3583,22 +3470,22 @@
         ],
         "rating_sd_diff": 73.1,
         "interval": [
-          0.2905,
-          0.6881
+          0.2902,
+          0.6878
         ],
         "n_series": 54,
-        "graph_matches": 4645,
+        "graph_matches": 4646,
         "graph_anchors": 269,
         "low_confidence": true,
         "source_url": "https://bo3.gg/matches",
         "identity_bridge": "exact_team_name_lookup",
         "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-        "observed_at": "2026-10-22T01:33:12Z",
+        "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+        "observed_at": "2026-10-22T01:41:33Z",
         "label": "Tie-break estimate (Own network model (bo3.gg results graph))",
         "fair_decimal": [
-          2.052,
-          1.951
+          2.054,
+          1.949
         ],
         "quotes": [
           {
@@ -3607,14 +3494,14 @@
             "method": "model",
             "model_version": "network-bt-1",
             "probabilities": [
-              0.4873384894509743,
-              0.5126615105490258
+              0.4869070411393733,
+              0.5130929588606268
             ],
             "inputs": [
               {
                 "name": "ex-Zero Tenacity",
                 "team_id": 22185,
-                "points": 1106.9,
+                "points": 1106.8,
                 "se": 44.7,
                 "series": 54,
                 "anchored": true,
@@ -3625,7 +3512,7 @@
               {
                 "name": "ex-RUSTEC",
                 "team_id": 24857,
-                "points": 1115.7,
+                "points": 1115.9,
                 "se": 57.9,
                 "series": 74,
                 "anchored": false,
@@ -3636,18 +3523,18 @@
             ],
             "rating_sd_diff": 73.1,
             "interval": [
-              0.2905,
-              0.6881
+              0.2902,
+              0.6878
             ],
             "n_series": 54,
-            "graph_matches": 4645,
+            "graph_matches": 4646,
             "graph_anchors": 269,
             "low_confidence": true,
             "source_url": "https://bo3.gg/matches",
             "identity_bridge": "exact_team_name_lookup",
             "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-            "observed_at": "2026-10-22T01:33:12Z"
+            "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+            "observed_at": "2026-10-22T01:41:33Z"
           }
         ],
         "source": "Own network model (bo3.gg results graph)",
@@ -3660,8 +3547,25 @@
             0.5
           ],
           "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "observed_at": "2026-10-22T01:33:29Z"
-        }
+          "observed_at": "2026-10-22T01:41:49Z"
+        },
+        "tie_break_attempts": [
+          {
+            "rung": "HLTV world ranking",
+            "status": "level",
+            "detail": "50.0% / 50.0% — does not separate the teams by 1 percentage point."
+          },
+          {
+            "rung": "Own network model (bo3.gg results graph)",
+            "status": "separated",
+            "detail": "48.7% / 51.3% — the first rung in the published order that separates the teams."
+          },
+          {
+            "rung": "Own results-based model (bo3.gg series results)",
+            "status": "unavailable",
+            "detail": "Both teams already have published Valve rows; results model not needed"
+          }
+        ]
       },
       "pick_index": 1,
       "limitations": [
@@ -3756,7 +3660,7 @@
           1.075,
           14.293
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -3883,7 +3787,7 @@
           1.628,
           2.592
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -4026,12 +3930,12 @@
         "snapshot_date": "2026-10-22",
         "source_url": "https://www.hltv.org/ranking/teams",
         "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-        "observed_at": "2026-10-22T01:33:27Z",
+        "observed_at": "2026-10-22T01:41:48Z",
         "points_scale": 400.0,
         "aliases_used": [],
         "unranked_floor": [],
         "low_confidence": false,
-        "evaluation_at": "2026-10-22T01:33:12+00:00",
+        "evaluation_at": "2026-10-22T01:41:33+00:00",
         "method": "model",
         "label": "Research model estimate (HLTV world ranking)",
         "fair_decimal": [
@@ -4069,12 +3973,12 @@
             "snapshot_date": "2026-10-22",
             "source_url": "https://www.hltv.org/ranking/teams",
             "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-            "observed_at": "2026-10-22T01:33:27Z",
+            "observed_at": "2026-10-22T01:41:48Z",
             "points_scale": 400.0,
             "aliases_used": [],
             "unranked_floor": [],
             "low_confidence": false,
-            "evaluation_at": "2026-10-22T01:33:12+00:00"
+            "evaluation_at": "2026-10-22T01:41:33+00:00"
           }
         ],
         "source": "HLTV world ranking",
@@ -4207,8 +4111,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-22T01:33:29Z",
-        "evaluation_at": "2026-10-22T01:33:12Z",
+        "observed_at": "2026-10-22T01:41:49Z",
+        "evaluation_at": "2026-10-22T01:41:33Z",
         "lineup_disambiguation": [
           {
             "team": "BRUTE",
@@ -4223,7 +4127,7 @@
             "overlap": 5,
             "roster_change": false,
             "source_url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
-            "observed_at": "2026-10-22T01:33:15Z",
+            "observed_at": "2026-10-22T01:41:36Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1079657.json"
           }
         ],
@@ -4277,8 +4181,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-22T01:33:29Z",
-            "evaluation_at": "2026-10-22T01:33:12Z",
+            "observed_at": "2026-10-22T01:41:49Z",
+            "evaluation_at": "2026-10-22T01:41:33Z",
             "lineup_disambiguation": [
               {
                 "team": "BRUTE",
@@ -4293,7 +4197,7 @@
                 "overlap": 5,
                 "roster_change": false,
                 "source_url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
-                "observed_at": "2026-10-22T01:33:15Z",
+                "observed_at": "2026-10-22T01:41:36Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1079657.json"
               }
             ]
@@ -4394,7 +4298,7 @@
           1.238,
           5.194
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -4546,14 +4450,14 @@
           0.829
         ],
         "n_series": 6,
-        "graph_matches": 4645,
+        "graph_matches": 4646,
         "graph_anchors": 269,
         "low_confidence": true,
         "source_url": "https://bo3.gg/matches",
         "identity_bridge": "start_time_and_team_name",
         "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-        "observed_at": "2026-10-22T01:33:12Z",
+        "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+        "observed_at": "2026-10-22T01:41:33Z",
         "label": "Own network estimate (bo3.gg results graph)",
         "fair_decimal": [
           2.247,
@@ -4599,14 +4503,14 @@
               0.829
             ],
             "n_series": 6,
-            "graph_matches": 4645,
+            "graph_matches": 4646,
             "graph_anchors": 269,
             "low_confidence": true,
             "source_url": "https://bo3.gg/matches",
             "identity_bridge": "start_time_and_team_name",
             "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "3b4bcd77261e3b1c8277be734cc2494ee8847af4d8aa1089211a39d5fd504703",
-            "observed_at": "2026-10-22T01:33:12Z"
+            "evidence_sha256": "d69e8b056fa51c1143bf0ec45230f61a10b5b1a41ab7a95aed780a4d7be37356",
+            "observed_at": "2026-10-22T01:41:33Z"
           }
         ],
         "source": "Own network model (bo3.gg results graph)",
@@ -4614,7 +4518,7 @@
       },
       "pick_index": 1,
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4645 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.3 points (probability interval 0.117-0.829). Current lineups, stand-ins and map vetoes are unverified.",
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley-Terry fit over 4646 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.3 points (probability interval 0.117-0.829). Current lineups, stand-ins and map vetoes are unverified.",
         "Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
       ],
       "research": [
@@ -4676,7 +4580,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4645 bo3.gg finished series with 269 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.3 points."
+          "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.3 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -4711,7 +4615,7 @@
           1.373,
           3.679
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -4854,14 +4758,14 @@
         "snapshot_date": "2026-10-22",
         "source_url": "https://www.hltv.org/ranking/teams",
         "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-        "observed_at": "2026-10-22T01:33:27Z",
+        "observed_at": "2026-10-22T01:41:48Z",
         "points_scale": 400.0,
         "aliases_used": [],
         "unranked_floor": [
           "Staqued"
         ],
         "low_confidence": true,
-        "evaluation_at": "2026-10-22T01:33:12+00:00",
+        "evaluation_at": "2026-10-22T01:41:33+00:00",
         "method": "model",
         "label": "Research model estimate (HLTV world ranking · unranked floor)",
         "fair_decimal": [
@@ -4899,14 +4803,14 @@
             "snapshot_date": "2026-10-22",
             "source_url": "https://www.hltv.org/ranking/teams",
             "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
-            "observed_at": "2026-10-22T01:33:27Z",
+            "observed_at": "2026-10-22T01:41:48Z",
             "points_scale": 400.0,
             "aliases_used": [],
             "unranked_floor": [
               "Staqued"
             ],
             "low_confidence": true,
-            "evaluation_at": "2026-10-22T01:33:12+00:00"
+            "evaluation_at": "2026-10-22T01:41:33+00:00"
           }
         ],
         "source": "HLTV world ranking",
@@ -5011,7 +4915,7 @@
           2.094,
           1.914
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -5167,8 +5071,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-22T01:33:29Z",
-        "evaluation_at": "2026-10-22T01:33:12Z",
+        "observed_at": "2026-10-22T01:41:49Z",
+        "evaluation_at": "2026-10-22T01:41:33Z",
         "lineup_disambiguation": [
           {
             "team": "The Huns",
@@ -5183,7 +5087,7 @@
             "overlap": 4,
             "roster_change": true,
             "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-            "observed_at": "2026-10-22T01:33:16Z",
+            "observed_at": "2026-10-22T01:41:37Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
           }
         ],
@@ -5237,8 +5141,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-22T01:33:29Z",
-            "evaluation_at": "2026-10-22T01:33:12Z",
+            "observed_at": "2026-10-22T01:41:49Z",
+            "evaluation_at": "2026-10-22T01:41:33Z",
             "lineup_disambiguation": [
               {
                 "team": "The Huns",
@@ -5253,7 +5157,7 @@
                 "overlap": 4,
                 "roster_change": true,
                 "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-                "observed_at": "2026-10-22T01:33:16Z",
+                "observed_at": "2026-10-22T01:41:37Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
               }
             ]
@@ -5355,7 +5259,7 @@
           5.613,
           1.217
         ],
-        "observed_at": "2026-10-22T01:32:58Z",
+        "observed_at": "2026-10-22T01:41:18Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
