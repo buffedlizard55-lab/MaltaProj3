@@ -521,10 +521,16 @@ def glance(data, prefix, now=None):
             # browser repeats this check (assets/glance-lock.js) so a page built before
             # the lock or start passed never keeps advertising "Pick".
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            # The brief asks a phone reader to see the pick *and* each team's
+            # probability without opening anything. The chosen side stays the
+            # loud number; the other side is printed beneath it with its team
+            # name so neither probability is ambiguous.
+            other = 1 - pick
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
                       + ('<span class="badge purple">Tie-break</span>' if a.get('tie_break_of')
-                         else '<span class="badge purple">Researched</span>' if researched else ''))
+                         else '<span class="badge purple">Researched</span>' if researched else '')
+                      + f'<span class="glance-other">{e(names[other])} {a["probabilities"][other] * 100:.1f}%</span>')
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>'
@@ -551,9 +557,9 @@ def glance(data, prefix, now=None):
     return ('<section class="content-section" id="picks-at-a-glance"><div class="section-heading"><div>'
             '<p class="eyebrow">Every pick, one tap away</p><h2>Picks at a glance</h2></div>'
             f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
-            f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
-            f'<strong>{picks}</strong> with a directional pick, <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
-            'A missing estimate is never filled with a default 50/50. Green sources are external money lines; purple are research models or researched fallbacks.</p>'
+            f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures · '
+            f'<strong>{picks}</strong> with a directional pick · <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
+            'A missing estimate is never defaulted to 50/50. Green sources are money lines; purple are research models.</p>'
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
