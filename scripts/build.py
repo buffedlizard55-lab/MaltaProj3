@@ -841,12 +841,13 @@ def line_sources_block(data, prefix):
         status = s.get('http_status')
         kind = 'resolved' if status == 200 else 'unresolved'
         label = str(status) if status is not None else 'no response'
-        names = ', '.join(s.get('fixtures_listed') or [])
+        listed = s.get('fixtures_listed') or []
+        names = ', '.join(listed[:4]) + (f' +{len(listed) - 4} more' if len(listed) > 4 else '')
         rows += (f'<li class="line-source-row"><span class="tried-chip {kind}">{e(label)}</span>'
                  f'<a class="source-link" href="{e(s.get("url"))}" target="_blank" rel="noopener noreferrer">'
                  f'{e(s.get("name"))}{icon("external")}</a>'
                  f'<span class="line-source-note">{e(s.get("note") or "")}'
-                 + (f' <span class="tiny muted">Listed here: {e(names)}</span>' if names else '')
+                 + (f' <span class="tiny muted">Mentioned on the page: {e(names)}</span>' if names else '')
                  + '</span></li>')
     return ('<div class="line-sources" id="line-sources">'
             '<h3>Line sources checked — dated sweep</h3>'

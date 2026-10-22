@@ -12,7 +12,7 @@ claims only the files below and does not edit PR #139.
 | --- | --- | --- | --- |
 | FB-1 Publish the *actual* research method beside every fixture whose featured method was blank (the executive-summary text claimed all five came from one Thunderpick book), and show **both** teams' probabilities in the phone pick index | **done** — see FB-1 result | arena-fbdc97d6 | `scripts/build.py` (`glance()`, `unresolved_register()`, new `researched_method()`, `line_sources_block()`, review-page ordering), `assets/scout.css`, `tests/test_build.py`, this section |
 | FB-2 Research reachable low-tier line sources from the runner (HLTV first, then esportsbooks/aggregators), save dated evidence, and add a reviewed source only if it returns a real two-sided price for today's fixtures | **done** — see FB-2 result | arena-fbdc97d6 | `scripts/fbdc97d6_probe.py` (kept, read-only), `.github/workflows/fbdc97d6-live.yml` (**session-only, removed before merge**), `scripts/originate.py` (`model_label()`, `network_limitation()` and the label call site only — label fix, no pricing change), `.github/workflows/pages.yml` (one non-fatal sweep step), new `data/research/fbdc97d6/` |
-| FB-3 Verify the live inventory/pick coverage line by line, rebuild from the live snapshot, run the phone/desktop suites, publish flags, open and merge a PR, then confirm the Pages deployment | pending | arena-fbdc97d6 | `data/research/fbdc97d6/`, this section |
+| FB-3 Verify the live inventory/pick coverage line by line, rebuild from the live snapshot, run the phone/desktop suites, publish flags, open and merge a PR, then confirm the Pages deployment | **done** — see FB-3 result | arena-fbdc97d6 | `data/research/fbdc97d6/`, this section |
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
 `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`,
@@ -97,7 +97,27 @@ Nothing from the other session was discarded:
   (555 official links, 7 flagged, 9 site-map, **0 without a source**) and 714 internal links, and the
   published "Thunderpick paired-price book" sentence is gone from the rendered summary (0 occurrences).
 
-### FB-3 result — verification, merge and publication
+### FB-3 result — verification, merge and publication (2026-10-22T03:25Z)
+
+- **Local verification on the post-merge tree** (`origin/main` @ `4ec225d` merged in as `6f3ae7a`):
+  `.venv/bin/python -m unittest discover -s tests` → **837 tests, OK**; `npm test` → **85 Playwright
+  checks at 320/390/768/1440 px, 85 passed**; `python -m scripts.build` → 80 source rows replayed,
+  row-source audit **571 rows / 555 official-linked / 7 flagged / 9 site-map / 0 without a source**,
+  714 internal links, mobile landmarks PASS; `python -m scripts.audit_rows --site site --strict` →
+  **0 violations**. Phone screenshots at 390 px show the picks index, the unresolved register with the
+  dated source sweep and the review page with no horizontal overflow (`scrollWidth - clientWidth = 0`).
+- **Live snapshot verified line by line** from the production chain on this branch
+  (run [39704309375](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39704309375), then
+  the 02:08Z refresh): `inventory_crosscheck: complete` (lobby and CS2 lobby both agreed with the API),
+  97 inventory records, 62 past starts, **35 active, 35 with probabilities, 34 with a directional pick,
+  0 without a line, 1 exact even estimate without a side**; methods after the label fix: 8 market,
+  1 consensus, 3 network, 2 results-based, 14 Valve, 2 HLTV-unranked-floor, 1 HLTV, 4 Valve-labelled
+  model rows on non-network rungs. Evidence: `data/research/fbdc97d6/live/snapshot-summary.json`.
+- **Flags published** (`data/research/fbdc97d6/flags.json` → Flagged for Review): the hard-coded
+  Thunderpick provenance sentence (notice, fixed), the HLTV/EGamersWorld/GG.BET/BetBoom/1xBet/
+  Marathonbet runner blocks (warning), the bo3.gg relay that adds no coverage (notice), the exact even
+  tie with no side (notice), the two unranked-floor estimates (warning) and the review-page ordering
+  change (notice).
 
 ### FB-0 starting state (observed 2026-10-22T01:05Z)
 
