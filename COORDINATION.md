@@ -1,3 +1,41 @@
+# Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
+
+Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
+from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
+live claim: the last two sessions (`11be2015`, `f4eb8ae3`) are merged, and PR **#139**
+(`arena/6e92015a`, head last pushed 2026-10-21T21:36Z) has been idle for more than 60 minutes and
+its branch conflicts with `main`. Per the 60-minute rule it is treated as stale and is **not**
+merged here; its work is already superseded on `main` by PRs #140/#141/#144/#145. This session
+claims only the files below and does not edit PR #139.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FB-1 Publish the *actual* research method beside every fixture whose featured method was blank (the executive-summary text currently claims all five came from one Thunderpick book), and show **both** teams' probabilities in the phone pick index | in progress | arena-fbdc97d6 | `scripts/build.py` (only `glance()`, `unresolved_register()`, new `researched_method_summary()`), `assets/scout.css` (glance probability pair), `tests/test_build.py`, `tests/test_summary_navigation.py`, this section |
+| FB-2 Research reachable low-tier line sources from the runner (HLTV first, then esportsbooks/aggregators), save dated evidence, and add a reviewed source only if it returns a real two-sided price for today's fixtures | in progress | arena-fbdc97d6 | new `scripts/fbdc97d6_probe.py` and `.github/workflows/fbdc97d6-live.yml` (**both session-only, deleted before merge**), new `data/research/fbdc97d6/` |
+| FB-3 Verify the live inventory/pick coverage line by line, rebuild from the live snapshot, run the phone/desktop suites, publish flags, open and merge a PR, then confirm the Pages deployment | pending | arena-fbdc97d6 | `data/research/fbdc97d6/`, this section |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`,
+or any other session's `data/research/<id>/`. Any needed change in those files is requested here
+instead of made. The two temporary session files listed under FB-2 are removed before the merge.
+
+### FB-0 starting state (observed 2026-10-22T01:05Z)
+
+- The public snapshot served `generated_at 2026-10-21T23:42:26Z` with **12 active fixtures, 12
+  with a directional pick, 0 unresolved** in the complete-picks ladder; the same snapshot's
+  featured-only counts were 2 market, 5 model, 5 unresolved.
+- The rendered [Hotspawn lobby](https://play.hotspawn.com/lobby) listed the same 12 open fixtures
+  (+ the 23:00Z Vitalem Aerem–Rare Atom match that was still open at 01:05Z), so inventory and
+  pick coverage agree at that instant. Lobby times render in the reader's local zone; the API
+  remains the inventory authority.
+- **Defect found in the published copy:** the executive-summary "Unresolved picks & limitations"
+  section says the five featured blanks "each now carr[y] an alias-aware researched line — HLTV
+  event identity first, then a verified Thunderpick paired-price book (margin removed)". That is
+  not what the published data says: the five were resolved by Kalshi, the Valve rating model, the
+  bo3.gg results network and the HLTV world ranking. The sentence is hard-coded in
+  `scripts/build.py` and must be derived from each row instead. This is the FB-1 fix.
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
