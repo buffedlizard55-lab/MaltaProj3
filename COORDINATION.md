@@ -4597,3 +4597,60 @@ The published 23:42Z snapshot has 12 active fixtures: 7 with a pick, 5 unresolve
 
 The ladder is honest but its **sample-size gates** are what produce most of the blanks, not a lack of
 research. Any change here must therefore publish the uncertainty, not lower a threshold silently.
+
+### 13B-1 completion record — 2026-10-22T02:05Z
+
+**Status: done (integration pending in this same session).**
+
+**What was found.** The branch's first live capture (run 39704152604, observed
+`2026-10-22T01:13:56Z`) resolved all 35 active fixtures but left one without a direction:
+`1079654 ex-Zero Tenacity vs ex-RUSTEC` carried 50.0% / 50.0% because Valve prints both teams at
+1066 points (stands 93 and 92 on the 5 October snapshot). HLTV #67 vs #70 exists but publishes no
+price. The same capture exposed a real mislabel: the own-network rung (bo3.gg Bradley–Terry) was
+rendering as "Research model estimate (Valve official ratings)" because one variable was reused for
+the results fit and the network fit.
+
+**What changed.**
+
+1. `scripts/originate.py` — documented tie-break rung after an exactly level primary estimate
+   (HLTV world ranking → own network fit → own results fit; `TIE_BREAK_MIN_GAP = 0.01`; never
+   applied to a money line; level pair retained in `tie_break_of`). Every attempted rung and its
+   outcome is stored as `tie_break_attempts`, and when nothing separates the teams the row keeps the
+   level pair and publishes the attempts instead of an invented side. Labels are now family-driven,
+   which fixes the network mislabel.
+2. `scripts/build_origination.py` — replay audit for tie-break rows (level pair preserved, row
+   marked, dated `Tie-break research` row present) and the underlying rung still replayed.
+3. `scripts/build.py` — tie-break badge and caption in the glance index and the full table, the
+   "why some matches have no betting line" evidence block inside the unresolved register, the
+   EGamersWorld clock-offset bullet, both teams' probabilities printed in each phone pick card, and
+   a compact phone executive summary.
+4. `assets/scout.css` — phone layout: the first fixture card now completes on a 390×844 screen above
+   the fixed bar, and all six bottom-bar destinations fit without a horizontal scroll.
+5. `tests/test_13bdd12a_tiebreak.py` — 11 regression tests (direction taken, Even kept, attempts
+   published, money never tie-broken, caption/badge/label strings).
+6. `data/research/13bdd12a/limits-evidence.json` — now seven dated first-hand observations, including
+   the EGamersWorld −4:00 clock (three fixtures read at the same time).
+7. `data/research/13bdd12a/repo-review.json` — this session's eight-item review register, published on
+   the Flagged for Review page (`scripts/review_register.py` REGISTERS).
+
+**Verified on the live capture.** Run 39706880845 (observed `2026-10-22T01:41:19Z`): 35 active,
+35 resolved, **35 with a pick, 0 unresolved**; `1079654` now reads `ex-RUSTEC 51.3%` with the
+**Tie-break** badge, its attempts recorded as HLTV `level` (50.0/50.0) → network `separated`
+(48.7/51.3) and the results fit `unavailable`. Run 39706580602 (01:26Z) and 39705675963 (01:26Z)
+also green. Counts: market 7, consensus 1, model 27 (network 4, HLTV ranking 3, results 2, Valve 18).
+
+**Verification.** `python -m unittest discover -s tests` green on the final tree; Playwright
+85/85 green (desktop, 320/360/390 phone, axe WCAG A/AA); `python -m scripts.build` → 80 source rows
+reconciled, 563 rows / 549 with an official link / 5 flagged unverified / 9 site-map / **0 without a
+source**, 710 internal links/assets/anchors PASS, 8 Pages views.
+
+**Irregularities published, not resolved.** (a) The session's own snapshot workflow could re-commit
+a stale collection; it now asserts a <10-minute-old snapshot or fails. (b) HLTV's match page prints
+04:00 for a fixture Hotspawn schedules at 08:00Z — the same −4:00 offset as EGamersWorld, but HLTV
+prints no timezone, so it is flagged `needs review` rather than normalized. (c) EGamersWorld lists
+only one named player for TitanFlow (four `noName` placeholders), so that fixture's network lean is
+published low-confidence with no lineup claim.
+
+**Cleanup before merge.** `.github/workflows/13bdd12a-live.yml` and `.github/13bdd12a-trigger` are
+session-only and are deleted in the integration commit; the live captures stay under
+`data/research/13bdd12a/live/` as dated evidence.
