@@ -5515,16 +5515,16 @@ Claimed 2026-10-22T09:10Z on Arena-fixed branch `arena/e4f4c6bb-maltaproj3` at `
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| E4F-1 Correct the review-flags integration assertion to match the documented contract: source and generated `latest.json` remain byte-identical, while generated output includes a separate featured-vs-researched reconciliation sidecar; rerun focused/full verification and record results | in progress — test updated; rerun full suite and CI | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
+| E4F-1 Correct the review-flags integration assertion to match the documented contract: source and generated `latest.json` remain byte-identical, while generated output includes a separate featured-vs-researched reconciliation sidecar; rerun focused/full verification and record results | in progress — local checks green; waiting on CI | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
 
 **Non-overlap pledge:** No edits to data, picks, source evidence, site rendering, collection/origination logic, workflows, or another session's files. This session corrects one regression assertion to match the latest `scripts/build.py:write_reconciled_snapshot()` contract: the canonical `latest.json` remains byte-identical in the generated site; featured-vs-researched counts are written to `data/reconciled-counts.json`. This adds no odds, picks, or research facts.
 
 ### E4F-1 verification history — 2026-10-22
 
 - The first revised assertion incorrectly expected the count sidecar fields to be embedded in `latest.json`. The latest main commit (PR #179) had already moved them to `reconciled-counts.json` specifically to preserve the collector artifact byte-for-byte. CI run [39755769483](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39755769483) confirmed the mismatch with `KeyError: 'featured_method_counts'` in `test_render_only_findings_do_not_rewrite_the_canonical_json` (other reported HTTP 403 / lobby-disagreement annotations are expected fail-closed collector behavior). The test now asserts byte identity of source and generated `latest.json`, and validates both sidecar counters against the canonical featured and researched inputs.
-- Focused local `tests.test_review_flags`: **4/4 passed** before and after the sidecar correction. Prior local full suite was **928/928** before the sidecar assertion was strengthened; full suite rerun is in progress.
+- Focused local `tests.test_review_flags`: **4/4 passed**. The full Python suite after the sidecar correction: **930/930 passed**.
 - Local build: `.venv/bin/python -m scripts.build --data data --output /tmp/e4f4c6bb-site` **PASS** (80 source rows replayed; 787 internal links/assets/anchors); strict row audit **624 rows, 605 sourced, 9 flagged-unverified, 10 site-map, 0 violations**. `npm test` **85/85 passed** at both 1 and 2 workers, including 320/390/768/1440px layouts and automated accessibility checks.
-- GitHub API rate limit was reached while checking run state; no PR merge was attempted. Current PR #182 remains open and must not merge until the updated full suite/checks are confirmed green. Earlier note about a browser-only failure was corrected: the actual failing annotation was the stale `latest.json` assertion.
+- GitHub API rate limit was reached while checking run state; no PR merge was attempted. PR #182 remains open until fresh checks on the corrected sidecar assertion are confirmed green. Earlier note about a browser-only failure was corrected: the actual failing annotation was the stale `latest.json` assertion.
 
 ### E4F-1 sidecar correction — 2026-10-22T10:00Z
 
