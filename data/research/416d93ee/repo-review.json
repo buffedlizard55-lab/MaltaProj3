@@ -1,0 +1,163 @@
+{
+  "session": "arena-416d93ee",
+  "branch": "arena/416d93ee-maltaproj3",
+  "review_clock_utc": "2026-10-22T01:17Z-01:45Z",
+  "scope": "Independent, read-only verification of what the published site shows: that every CS2 fixture Hotspawn's own scheduled-fixture API lists is published with the same teams and start time, that every published probability is reproducible from the inputs its own row publishes, that each row's method label names the evidence it actually used, and that the executive summary and picks list are reachable and readable on a phone. No probability, pick, alias or fixture in this register is an input to any published number; the audit script that produced it (scripts/416d93ee_audit.py) writes only to its own research directory and never edits data/.",
+  "method": "Each item was reproduced on GitHub's ubuntu-24.04 runner against the public site https://buffedlizard55-lab.github.io/MaltaProj3 and against Hotspawn's own endpoints on 2026-10-22 (audit runs 39704201122, 39704447077, 39704878057, 39705656352). The arithmetic replay is re-implemented inside the audit script rather than imported from scripts/originate.py, so a bug in the publisher cannot validate itself; every request records its HTTP status and response SHA-256, and the full machine-readable report plus the captured source pages are committed under data/research/416d93ee/. Phone layout was checked with the repository's Playwright suite (85 checks at 320/390/768/1440 px, axe WCAG A/AA) and with a 390x844 screenshot of the executive summary. Nothing below is inferred from an unavailable source: a failed read is reported as a failed read.",
+  "items": [
+    {
+      "id": "VD-01",
+      "area": "inventory coverage",
+      "severity": "high",
+      "status": "verified",
+      "finding": "Every CS2 fixture Hotspawn currently lists is published, with the same teams and the same start time. Audit at 2026-10-22T01:17:08Z: the scheduled-fixture API returned 97 records, of which 35 have a future start and 62 are past-start records still marked 'scheduled'; the published snapshot carried exactly those 35 open fixtures, with 0 missing from the site, 0 published but absent from the API, every team pair identical, every start within 60 seconds, and every competition name identical. The rendered CS2 lobby's own counter ('All tiers (97)') equals the API's 97 records and the published inventory count of 97.",
+      "handling": "No change needed. Coverage is complete for that snapshot; the audit re-runs on every refresh, so a future gap is reported rather than assumed away.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Hotspawn's own scheduled-fixture endpoint: 97 records, 35 future starts (the 62 past-start records are excluded by start time, not deleted)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "Published complete-picks file: 35 active fixtures, all 35 carrying a probability pair."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Rendered CS2 lobby counter reads 'All tiers (97)', matching the API record count and the published inventory count."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "detail": "The audit's own report: 'missing from the published site: 0', 'teams match: True; starts within 60 s: True; competitions match: True'."
+        }
+      ]
+    },
+    {
+      "id": "VD-02",
+      "area": "probability arithmetic",
+      "severity": "high",
+      "status": "verified",
+      "finding": "Every published probability is reproducible from the inputs the same row publishes. Audit at 2026-10-22T01:17:08Z replayed all 35 rows: 33 matched the published percentages exactly; the two rows that did not (UNiTY vs Apogee Betclic 1082882 and 6yuBoJlbl vs ex-6666 1081146) were traced to an error in this audit, not in the site — the own results-based rung fits each side's rating deviation as 150 + 300/sqrt(n) and uses the larger of the two (scripts/form_model.py:149-157), which the audit had replaced with a flat RD of 75. With the correct formula the 2026-10-22T01:30:26Z run replayed 17 of 17 available rows exactly (0 mismatches, 0 not replayable). No row publishes a probability pair whose two legs fail to sum to 1, no published pick contradicts the published percentages, and no published fair line is inconsistent with 1/p.",
+      "handling": "No change to any published number. The audit's own formula was corrected and is pinned in scripts/416d93ee_audit.py so the replay stays independent of the code it checks.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.json",
+          "detail": "Machine-readable replay: per-row published vs recomputed probabilities, basis, and the largest absolute deviation."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/form_model.py",
+          "detail": "The results-based rung's own published rule: rating deviation 150 + 300/sqrt(n), capped at 400, and the larger of the two deviations."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "The rows replayed, including every order-book bid/ask, decimal odds and rating point used as input."
+        }
+      ]
+    },
+    {
+      "id": "VD-03",
+      "area": "method labelling",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": "Four published rows price the fixture with our own bo3.gg Bradley-Terry network fit but label it 'Research model estimate (Valve official ratings)' — 1079188 Bushido Wildcats vs ex-6666, 1081597 benched gods vs TitanFlow, 1082769 K27 vs NEXORA and 1082858 Ground Zero vs Off Chops. In each of those rows the same JSON object says family='network', provider='Own network model (bo3.gg results graph)' and source='Own network model (bo3.gg results graph)' while the label names Valve. The cause is visible in scripts/originate.py: in the branch that runs only when the Valve cross-check found no row, the network fit is assigned to the same variable as the Valve model (model = dict(match['_network'])), so the later 'elif model:' branch catches it and writes the Valve label. A reader comparing the card with the research trail can conclude the number came from Valve's official rating table when it did not. The numbers themselves are unaffected and the trail still names the network fit on the same card.",
+      "handling": "Not fixed here: scripts/originate.py is claimed by session arena-15fc6bca (claimed 2026-10-22T01:10Z), so this is logged as a change request on the coordination board instead of edited. Suggested fix: keep the family on the model dict and select the label from model['family'] ('Own network estimate (bo3.gg results graph)' for 'network', the results-based label for 'form'), with a regression test asserting every published label names the same evidence as its provider.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "The four rows carrying label 'Research model estimate (Valve official ratings)' with provider 'Own network model (bo3.gg results graph)'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+          "detail": "The label assignment in the 'elif model:' branch, and the earlier 'model = dict(match[\"_network\"])' assignment that reaches it."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+          "detail": "The published cards for 1079188, 1081597, 1082769 and 1082858, each showing the label next to a bo3.gg network research trail."
+        }
+      ]
+    },
+    {
+      "id": "VD-04",
+      "area": "publishing / freshness",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "A push to main publishes six-day-old picks for roughly ten minutes. GitHub Pages for this repository is configured build_type=legacy with source main:/, so every push to main starts the platform's own 'pages build and deployment' job, which publishes the checked-in branch root — data/latest.json generated 2026-10-15T08:36:13Z with 80 records and 17 upcoming — in well under a minute. The production workflow that publishes the current snapshot takes about ten minutes. Observed directly: PR #146 merged at 01:21:14Z; at 01:30:26Z the public /data/latest.json still reported the 15 October snapshot and its 17 upcoming fixtures, and it was unchanged at 01:40Z while the production run was still in progress. A reader opening the site in that window sees matches from 15 October and none of today's picks, which is exactly the 'we do not have picks' symptom.",
+      "handling": "Fixed in this session without touching the platform setting: .github/workflows/pages.yml gains a first job, 'republish-last-verified', that downloads the previous successful run's already-verified github-pages artifact and deploys it immediately, so the site keeps serving the newest verified snapshot while the fresh one is collected. The existing publisher job runs afterwards unconditionally (needs + if: always()), so a failure in the new job cannot stop the fresh snapshot. The underlying legacy build mode remains an owner-only repository setting and is still reported by the existing post-deploy guard.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "detail": "The 01:30:26Z audit recorded generated_at 2026-10-15T08:36:13Z, 80 records and 17 upcoming from the public site, eleven minutes after the merge."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+          "detail": "The repository's Pages configuration: build_type 'legacy', source branch main, path '/'. Changing it needs repository administration, which this workflow token does not have (HTTP 403)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "The new republish-last-verified job and the publisher's needs/always() wiring."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+          "detail": "The checked-in root snapshot the legacy build publishes: generated_at 2026-10-15T08:36:13Z."
+        }
+      ]
+    },
+    {
+      "id": "VD-05",
+      "area": "phone findability",
+      "severity": "medium",
+      "status": "verified",
+      "finding": "The picks are reachable in one tap from the executive summary on a phone. At 390x844 the first screen shows the two headline counters, the 'Executive summary — start here' card and its first action, 'Updated picks — all matches' (34 of 35 with a pick), which links to ./origination/#picks; the same page carries a second link to the unresolved register and the summary's own 'Picks at a glance' list. The page declares width=device-width, has five navigation landmarks plus a skip link, 138 internal links, and /origination/ renders 35 pick rows. The repository's Playwright suite passes 85 checks covering 320/390/768/1440 px with no horizontal overflow, one-tap phone navigation, no-JavaScript content and axe WCAG A/AA at phone and desktop widths.",
+      "handling": "No change needed for findability. The stale-window defect in VD-04 is what made the phone experience worse than the layout: for ten minutes after a merge the page served 15 October fixtures.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Executive summary: 'Updated picks — all matches' and 'Unresolved & limitations' as the first two actions, plus the picks-at-a-glance list."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+          "detail": "The complete list the summary links to: both teams' percentages, the pick, lock time and source links for every active fixture."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "detail": "Audit's phone section: viewport meta true, 5 nav landmarks, pick-index link './origination/#picks', 35 rows on the picks page."
+        }
+      ]
+    },
+    {
+      "id": "VD-06",
+      "area": "build integrity",
+      "severity": "low",
+      "status": "fixed",
+      "finding": "Raw source pages saved under data/research/<session>/ broke the site build. The build copies data/ verbatim into the published artifact and validates every .html file it finds, so a captured HLTV ranking page stored as data/research/<session>/hltv-ranking.html was audited as one of our own pages and failed the build with 'no main landmark'. This was introduced by this session's own capture step and would have failed the publisher on merge.",
+      "handling": "Fixed in this session: captured pages are stored as .html.txt, and the three files already committed were renamed. The full build then passed with 555 audited rows / 0 without a source and 707 internal links checked.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/092fe3b",
+          "detail": "The fix: evidence suffix .html.txt for captured HTML, plus the renames of the three captured pages."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "The build step that copies data/ into the artifact and validates every .html page in it."
+        }
+      ]
+    },
+    {
+      "id": "VD-07",
+      "area": "unresolved register",
+      "severity": "low",
+      "status": "verified",
+      "finding": "One active fixture carries probabilities but no directional pick — ex-Zero Tenacity vs ex-RUSTEC (1079654), where both sides publish the same 1066 Valve points and the estimate is exactly even. That is the documented policy (an even estimate is never given an invented side) and the fixture is published in the summary's 'Unresolved picks & limitations' register with its blocker and the sources it tried, so a reader is not left with a blank row and no explanation.",
+      "handling": "No change needed; the audit keeps checking that every side-less row is listed in the register.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved",
+          "detail": "The summary register row for ex-Zero Tenacity vs ex-RUSTEC: 'Equal estimate: no side is supportable at these prices', with Polymarket, HLTV, esportsbook and Valve links."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "Fixture 1079654: identical 1066-point inputs, probabilities 0.5/0.5, pick_index null."
+        }
+      ]
+    }
+  ]
+}
