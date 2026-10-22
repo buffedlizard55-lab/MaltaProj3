@@ -1,0 +1,93 @@
+name: 3bad13ea live coverage snapshot
+# Session-only capture workflow (arena-3bad13ea). Removed before the merge.
+# It runs the production collect -> originate chain once on this branch and
+# commits the resulting snapshot JSON under data/research/3bad13ea/ so the
+# session can inspect what the live feed actually contains. It never deploys
+# and never touches data/latest.json on main.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/3bad13ea-maltaproj3']
+    paths:
+      - '.github/workflows/3bad13ea-live.yml'
+permissions:
+  contents: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the canonical Hotspawn inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Originate picks for every fixture the featured method left blank
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Document why every remaining blank stayed blank
+        continue-on-error: true
+        run: python -m scripts.coverage_probe --live --out data/coverage-probe.json
+      - name: Replay every row and build all views
+        continue-on-error: true
+        run: python -m scripts.build
+      - name: Row-source audit (non-fatal here; the PR check is strict)
+        continue-on-error: true
+        run: python -m scripts.audit_rows --site site --strict
+      - name: Record the session snapshot
+        run: |
+          python - <<'PY'
+          import json, shutil, datetime
+          from pathlib import Path
+          out = Path('data/research/3bad13ea/live')
+          out.mkdir(parents=True, exist_ok=True)
+          for name in ('latest.json', 'sources.json', 'origination.json',
+                       'coverage-probe.json', 'row-source-audit.json'):
+              src = Path('data') / name
+              if src.exists():
+                  shutil.copy2(src, out / name)
+          latest = json.loads(Path('data/latest.json').read_text())
+          orig = json.loads(Path('data/origination.json').read_text()) if Path('data/origination.json').exists() else {}
+          lines = ['# Live snapshot captured by the session workflow', '',
+                   f"- captured_at: {datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
+                   f"- inventory_observed_at: {latest.get('inventory_observed_at')}",
+                   f"- counts: `{json.dumps(latest.get('counts'))}`",
+                   f"- origination_counts: `{json.dumps(orig.get('counts'))}`", '',
+                   '| id | fixture | start (UTC) | availability | featured method | originated pick | probabilities |',
+                   '| --- | --- | --- | --- | --- | --- | --- |']
+          recs = {r['id']: r for r in orig.get('matches', [])}
+          for m in latest.get('matches', []):
+              if m.get('availability') == 'past':
+                  continue
+              r = recs.get(m['id'], {})
+              o = (r.get('origination') or {})
+              names = ' vs '.join(t.get('name') or '' for t in m['teams'])
+              probs = o.get('probabilities')
+              pick = r.get('pick_index')
+              pick_name = m['teams'][pick]['name'] if isinstance(pick, int) else ''
+              lines.append('| {} | {} | {} | {} | {} | {} | {} |'.format(
+                  m['id'], names, m.get('starts_at'), m.get('availability'),
+                  (m.get('analysis') or {}).get('method') or '-',
+                  f'{pick_name} {probs[pick]*100:.1f}%' if probs and isinstance(pick, int) else (o.get('label') or 'unresolved'),
+                  f'{probs[0]:.3f} / {probs[1]:.3f}' if probs else '-'))
+          (out / 'snapshot-summary.md').write_text('\n'.join(lines) + '\n')
+          print('\n'.join(lines))
+          PY
+      - name: Commit the snapshot to this session branch only
+        run: |
+          git config user.name 'arena-3bad13ea'
+          git config user.email 'arena-3bad13ea@users.noreply.github.com'
+          git add data/research/3bad13ea
+          if git diff --cached --quiet; then
+            echo 'nothing new to commit'
+          else
+            git commit -m '3bad13ea: capture live coverage snapshot for review'
+            git pull --rebase origin arena/3bad13ea-maltaproj3
+            git push origin HEAD:arena/3bad13ea-maltaproj3
+          fi

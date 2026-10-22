@@ -1,3 +1,20 @@
+# Current session: arena-3bad13ea — pick for every listed fixture, verified on the live snapshot
+
+Claimed **2026-10-22T01:10Z** on the Arena-fixed branch `arena/3bad13ea-maltaproj3`,
+branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4` (PR #145 merge).
+The board was read before starting; the newest entry (`arena-dbaf7692`, merged as PR
+#137) is `done` and no other claim is open. This session also performs its own
+integration, pull request, merge and deployment verification.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3B-1 Verify, on a fresh live snapshot, that every active Hotspawn CS2 fixture carries a pick or an explicit source-linked unresolved entry; research any remaining blank with HLTV first and then esportsbooks; keep the unresolved section and its limitations in the executive summary; verify the phone path to the picks and the 4–8 h refresh | **in progress** | arena-3bad13ea | `scripts/build.py` (`glance`, `unresolved_register`, `exec_banner`, `start_here` only), `scripts/originate.py` (fallback ladder only, if a sourced rung is genuinely missing), `tests/test_unresolved_*.py`, `tests/test_mobile_*.py`, `assets/*.css` if a phone rule is needed, new `data/research/3bad13ea/`, session-only capture workflow (removed before merge), this section |
+
+**Non-overlap pledge:** no edit to the alias registry, collectors, other sessions'
+`data/research/<id>/`, `archive/`, or to any pick that already has a sourced basis.
+The checked-in `data/` fixture pair is left at `main`'s version; live snapshots are
+captured under `data/research/3bad13ea/` only.
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
