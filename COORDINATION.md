@@ -1,3 +1,20 @@
+# Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
+Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at
+`285a0d9` (merge of PR #162). The board was read first. No other session holds a live claim on
+this branch; every prior session (`fbdc97d6`, `a34bc06b`, `c1fa150f`, and earlier) has merged and
+stopped. This session makes no code or data changes — it verifies the existing pipeline line by
+line, confirms picks for every active match, and deploys to GitHub Pages.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| V-1 Verify the site builds from `data/latest.json` + `data/origination.json` with 0 rows lacking a source and 0 broken internal links | **done** | arena-756eaeea | `scripts/build.py`, `scripts/audit_rows.py`, local build at `/tmp/test-site` |
+| V-2 Run the full unittest suite and confirm every test passes | **done** | arena-756eaeea | `tests/` |
+| V-3 Confirm picks for every active Hotspawn CS2 match (17/17 via featured method + researched fallbacks; every row carries an official source link) | **done** | arena-756eaeea | `data/latest.json`, `data/origination.json`, `data/row-source-audit.json` |
+| V-4 Confirm the executive summary links to the updated picks list, shows both teams' probabilities on every phone row, and has a separate unresolved-picks section with limitations | **done** | arena-756eaeea | `scripts/build.py` (`exec_banner`, `start_here`, `glance`, `unresolved_register`), `assets/scout.css` |
+| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **in progress** | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any needed change in those files is requested here instead of made.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
