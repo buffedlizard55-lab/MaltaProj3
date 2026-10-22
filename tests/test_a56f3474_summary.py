@@ -58,7 +58,7 @@ class ExecutiveBannerTests(unittest.TestCase):
 class ResearchedMethodBadgeTests(unittest.TestCase):
     def test_researched_bookmaker_keeps_money_method_visible(self):
         html = basis_badge({'method': 'bookmaker'}, researched=True)
-        self.assertIn('>Bookmaker</span>', html)
+        self.assertIn('>Bookmaker · Researched</span>', html)
         self.assertNotIn('>Researched</span>', html)
 
     def test_every_recognised_money_method_survives_researched_fallback(self):
@@ -71,7 +71,7 @@ class ResearchedMethodBadgeTests(unittest.TestCase):
         }
         for method, label in expected.items():
             with self.subTest(method=method):
-                self.assertIn(f'>{label}</span>', basis_badge({'method': method}, researched=True))
+                self.assertIn(f'>{label} · Researched</span>', basis_badge({'method': method}, researched=True))
 
     def test_research_model_remains_explicitly_researched(self):
         self.assertIn('>Researched</span>', basis_badge({'method': 'model'}, researched=True))

@@ -284,6 +284,8 @@ def basis_badge(analysis, researched=False):
     # would incorrectly make a money-backed row look like a model estimate.
     if method in METHOD_BADGES:
         label, tone = METHOD_BADGES[method]
+        if researched:
+            label += ' · Researched'
     elif researched:
         label, tone = 'Researched', 'purple'
     else:
