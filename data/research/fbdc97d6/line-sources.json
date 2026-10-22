@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "session": "arena-fbdc97d6",
+  "observed_at": "2026-10-22T01:29:14+00:00",
+  "environment": "github-actions-runner (ubuntu-24.04)",
+  "policy": "Read-only reachability record. A page listed here is NOT a price. Only a two-sided, first-party prematch series line or a published official rating may produce a number, and the ladder in scripts/originate.py decides which one is used.",
+  "sources": [
+    {
+      "name": "HLTV match listing",
+      "url": "https://www.hltv.org/matches",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://www.hltv.org/matches",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "note": "Cloudflare challenge to the runner. HLTV identity pages were readable from a normal reader on 2026-10-22 (ranking and match pages verified by hand), so HLTV guides identity and ranking but cannot supply an automated prematch price."
+    },
+    {
+      "name": "HLTV known match page",
+      "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "fixtures_listed": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "note": "Same 403 challenge. Readable by hand; not an odds source at all (HLTV publishes a fan vote and analytics, not a two-sided prematch line)."
+    },
+    {
+      "name": "HLTV world ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://www.hltv.org/ranking/teams",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "note": "Ranking page also 403 to the runner, yet the collector still obtains the dated ranking through a saved official page; the ranking rung is unaffected."
+    },
+    {
+      "name": "EGamersWorld CS2 matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://egamersworld.com/counterstrike/matches",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "note": "Cloudflare 403 to the runner. The reviewed bookmaker-average capture is the only EGamersWorld input and is hash-checked separately."
+    },
+    {
+      "name": "EGamersWorld known match",
+      "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "note": "Cloudflare 403 to the runner (the 2026-10-21 reading was made by hand)."
+    },
+    {
+      "name": "bo3.gg matches",
+      "url": "https://bo3.gg/matches",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://bo3.gg/matches",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "captcha"
+      ],
+      "note": "HTTP 200. bo3.gg publishes a Thunderpick two-sided block for some fixtures; see the separate relay probe."
+    },
+    {
+      "name": "bo3.gg known match",
+      "url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "captcha"
+      ],
+      "note": "HTTP 200. Team form, lineups and map statistics readable."
+    },
+    {
+      "name": "Oddspedia CS2",
+      "url": "https://www.oddspedia.com/esports/counter-strike-2",
+      "http_status": 410,
+      "error": null,
+      "detail_url": "https://oddspedia.com/esports/counter-strike-2",
+      "fixtures_listed": [
+        "UNiTY"
+      ],
+      "challenge_markers": [
+        "challenge-platform",
+        "captcha"
+      ],
+      "note": "HTTP 410: the page has been permanently deleted, so it is not a usable source."
+    },
+    {
+      "name": "Oddspedia match list API",
+      "url": "https://oddspedia.com/api/v1/getMatchList?sport=counter-strike-2",
+      "http_status": 400,
+      "error": null,
+      "detail_url": "https://oddspedia.com/api/v1/getMatchList?sport=counter-strike-2",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 400 on the unauthenticated query; no odds returned."
+    },
+    {
+      "name": "OddsPortal CS2",
+      "url": "https://www.oddsportal.com/esports/counter-strike/",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://www.oddsportal.com/esports/counter-strike/",
+      "fixtures_listed": [
+        "UNiTY"
+      ],
+      "challenge_markers": [
+        "captcha"
+      ],
+      "note": "HTTP 200 page, but prices are rendered client-side and no two-sided prematch CS2 series price could be extracted from the HTML."
+    },
+    {
+      "name": "Polymarket CS2",
+      "url": "https://polymarket.com/esports/cs2",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://polymarket.com/esports/cs2",
+      "fixtures_listed": [
+        "1WIN",
+        "BESTIA",
+        "Banda chuya",
+        "Donstu",
+        "HOTU",
+        "Imperial",
+        "Rare Atom",
+        "ShindeN",
+        "TitanFlow",
+        "Turma do Pagode",
+        "UNiTY",
+        "Vitalem Aerem"
+      ],
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "note": "HTTP 200; the primary featured source (official CLOB order books are read through the Gamma/CLOB APIs)."
+    },
+    {
+      "name": "Kalshi CS2 game series",
+      "url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
+      "http_status": 429,
+      "error": null,
+      "detail_url": "https://kalshi.com/markets/kxcs2game/counter-strike-2-game",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 429 Vercel checkpoint on the HTML page. The official Kalshi API used by the collector answered, so the exchange rung is unaffected by the HTML block."
+    },
+    {
+      "name": "Thunderpick CS",
+      "url": "https://thunderpick.io/esports/counter-strike",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://thunderpick.io/esports/counter-strike",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 200; first-party esportsbook, read through the official POST /api/matches query."
+    },
+    {
+      "name": "Bovada CS2",
+      "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+      "fixtures_listed": [
+        "BESTIA",
+        "Imperial",
+        "ShindeN",
+        "Turma do Pagode",
+        "UNiTY"
+      ],
+      "challenge_markers": [
+        "captcha"
+      ],
+      "note": "HTTP 200; first-party esportsbook. Team names appear on the landing page, but the prematch series prices are read through the collector's structured request."
+    },
+    {
+      "name": "Pinnacle CS2",
+      "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "http_status": 404,
+      "error": null,
+      "detail_url": "https://www.pinnacle.com/en/esports/counter-strike-2/",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 404 on this path (and a generic redirect on the alternate path); no match-level line verified."
+    },
+    {
+      "name": "GG.BET CS",
+      "url": "https://gg.bet/en/counter-strike",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://gg.bet/en/counter-strike",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 403 to the runner."
+    },
+    {
+      "name": "BetBoom CS2",
+      "url": "https://betboom.ru/sport/cs2",
+      "http_status": 401,
+      "error": null,
+      "detail_url": "https://betboom.ru/sport/cs2",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "captcha"
+      ],
+      "note": "HTTP 401 (geo/login gate)."
+    },
+    {
+      "name": "1xBet CS2",
+      "url": "https://1xbet.com/en/line/counter-strike-2",
+      "http_status": 203,
+      "error": null,
+      "detail_url": "https://1xbet.com/en/block",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "note": "HTTP 203 with a challenge page; not usable."
+    },
+    {
+      "name": "Marathonbet CS2",
+      "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "http_status": 403,
+      "error": null,
+      "detail_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "fixtures_listed": [],
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "note": "Cloudflare 403 to the runner."
+    },
+    {
+      "name": "Betway CS2",
+      "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
+      "http_status": 404,
+      "error": null,
+      "detail_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "HTTP 404 on this path."
+    },
+    {
+      "name": "DraftKings CS2",
+      "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "http_status": 200,
+      "error": null,
+      "detail_url": "https://sportsbook.draftkings.com/sports/esports",
+      "fixtures_listed": [
+        "HOTU",
+        "UNiTY"
+      ],
+      "challenge_markers": [],
+      "note": "HTTP 200 and the landing page names some of today's teams, but no per-fixture market discovery was verified here; recorded as a lead, not a price."
+    },
+    {
+      "name": "Luckbox CS2",
+      "url": "https://luckbox.com/esports/csgo",
+      "http_status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))",
+      "detail_url": null,
+      "fixtures_listed": [],
+      "challenge_markers": [],
+      "note": "Connection error from the runner; not usable."
+    }
+  ],
+  "conclusion": "Of the sources reachable from the runner, only Polymarket, Kalshi (API), Thunderpick, Bovada, bo3.gg and OddsPortal/DraftKings landing pages answered; HLTV, EGamersWorld, GG.BET, BetBoom, 1xBet and Marathonbet block unattended access. No new independent two-sided price source was found that closes a fixture the existing ladder leaves open."
+}

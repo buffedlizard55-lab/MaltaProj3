@@ -294,6 +294,41 @@ def model_source_label(analysis: dict) -> str:
     return 'Valve'
 
 
+def researched_method(match: dict) -> tuple[str, str, str]:
+    """Short, data-derived provenance for one researched (featured-blank) row.
+
+    Returns ``(what produced the number, source name, source URL)``. It reads
+    only the published origination record; it never re-prices anything and
+    never claims a provider that the row does not name.
+    """
+    o = match.get('origination') or {}
+    method = str(o.get('method') or '')
+    label = str(o.get('label') or '')
+    source = str(o.get('source') or '')
+    url = str(o.get('source_url') or '')
+    if method == 'market':
+        return 'a prediction-market line', source or 'Prediction market', url
+    if method == 'bookmaker':
+        return 'an esportsbook line', source or 'Esportsbook', url
+    if method == 'consensus':
+        return 'a median of independent money sources', source or 'Independent sources', url
+    if method == 'reference':
+        return 'an aggregated bookmaker average', source or 'Aggregated bookmaker', url
+    if method == 'guidance':
+        return 'a wide-book guidance quote (no pick)', source or 'Esportsbook', url
+    if method == 'model':
+        lowered = f'{source} {label}'.lower()
+        if 'hltv' in lowered:
+            return 'the HLTV world-ranking model', source or 'HLTV world ranking', url
+        if 'network' in lowered:
+            return 'the bo3.gg results network model', source or 'bo3.gg series results', url
+        if 'bo3' in lowered or 'results-based' in lowered:
+            return 'the bo3.gg results model', source or 'bo3.gg series results', url
+        if 'valve' in lowered:
+            return 'the Valve rating model', source or 'Valve official standings', url
+    return label or method or 'a researched estimate', source or 'Research source', url
+
+
 def selected_fallback(m, fallbacks):
     """One displayed probability basis: preserve money lines, upgrade only models or non-directional ties."""
     row = fallbacks.get(str(m['id']))
@@ -422,6 +457,7 @@ def exec_banner(data, prefix):
         f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
+
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
         f'</section>'
@@ -444,12 +480,12 @@ def start_here(data, prefix):
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
-        (prefix + 'final-day/', 'Final day · Day 5', 'clock',
-         'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
+        (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
+         'Historical Thunderpick final-day review and result record.'),
         (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
          'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
+         'This page lists every pick without a line, its blocker and the sources actually tried.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -546,6 +582,7 @@ def glance(data, prefix, now=None):
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[other])} {a["probabilities"][other] * 100:.1f}%</span>'
                       + basis_badge(a, researched))
+
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>'
@@ -799,6 +836,47 @@ def no_line_register(data, prefix):
             '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul></div>')
 
 
+def line_sources_block(data, prefix):
+    """Dated record of which line sources answered, for every reader.
+
+    Session fbdc97d6 captured a read-only sweep of the esportsbook and
+    aggregator surfaces from the GitHub runner. The brief asks for the
+    *limitations* of generating a pick and for the sources to be reviewable,
+    so the sweep is published with its status codes. It adds no probability and
+    no pick; a 200 here is not a price.
+    """
+    record = data.get('_line_sources') or {}
+    sources = record.get('sources') or []
+    if not sources:
+        return ''
+    reachable = [s for s in sources if s.get('http_status') == 200]
+    blocked = [s for s in sources if s.get('http_status') != 200]
+    rows = ''
+    for s in sources:
+        status = s.get('http_status')
+        kind = 'resolved' if status == 200 else 'unresolved'
+        label = str(status) if status is not None else 'no response'
+        listed = s.get('fixtures_listed') or []
+        names = ', '.join(listed[:4]) + (f' +{len(listed) - 4} more' if len(listed) > 4 else '')
+        rows += (f'<li class="line-source-row"><span class="tried-chip {kind}">{e(label)}</span>'
+                 f'<a class="source-link" href="{e(s.get("url"))}" target="_blank" rel="noopener noreferrer">'
+                 f'{e(s.get("name"))}{icon("external")}</a>'
+                 f'<span class="line-source-note">{e(s.get("note") or "")}'
+                 + (f' <span class="tiny muted">Mentioned on the page: {e(names)}</span>' if names else '')
+                 + '</span></li>')
+    return ('<div class="line-sources" id="line-sources">'
+            '<h3>Line sources checked — dated sweep</h3>'
+            f'<p class="tiny">Read-only sweep recorded from {e(record.get("environment") or "an automated runner")} at '
+            f'{local_time(record.get("observed_at"))} and re-run by the four-hour pipeline when it can: '
+            f'<strong>{len(reachable)}</strong> of '
+            f'<strong>{len(sources)}</strong> surfaces answered HTTP 200 and <strong>{len(blocked)}</strong> '
+            'refused, deleted or timed out. A reachable page is never a price by itself — only a two-sided '
+            'first-party line or a published official rating may produce a number. '
+            f'<a class="internal-link" href="{prefix}data/research/fbdc97d6/line-sources.json">Full record (JSON) ↓</a></p>'
+            f'<ul class="line-source-list">{rows}</ul></div>')
+
+
+
 def unresolved_register(data, prefix):
     """A separate, phone-first register of every fixture without a pick.
 
@@ -835,17 +913,38 @@ def unresolved_register(data, prefix):
         closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
         extra = ''
         if closed:
-            names = []
-            for m in closed[:6]:
+            # Session fbdc97d6: this sentence used to claim every featured blank
+            # had been resolved by one "verified Thunderpick paired-price book".
+            # The published data says otherwise (Kalshi, Valve ratings, the
+            # bo3.gg results network, the HLTV ranking), so the provenance is
+            # now read from each row instead of being hard-coded.
+            counts = {}
+            items = []
+            for m in closed:
                 n = [t.get('name') or 'Unverified' for t in m.get('teams') or []]
-                names.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">{e(n[0])} vs {e(n[1])}</a>')
-            detail = ' · '.join(names)
-            more = f' <span class="tiny muted">+{len(closed) - len(names)} more</span>' if len(closed) > len(names) else ''
+                label, source, url = researched_method(m)
+                counts[label] = counts.get(label, 0) + 1
+                link = (f'<a class="source-link" href="{e(url)}" target="_blank" rel="noopener noreferrer">'
+                        f'{e(source)}{icon("external")}</a>' if url else '')
+                items.append(f'<li><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
+                             f'{e(n[0])} vs {e(n[1])}</a> <span class="method-note">· {e(label)}</span> {link}</li>')
+            summary = ', '.join(f'{count} from {label}' for label, count in sorted(counts.items(), key=lambda x: (-x[1], x[0])))
+            money_methods = {'market', 'bookmaker', 'consensus', 'reference'}
+            kinds = {(m.get('origination') or {}).get('method') in money_methods for m in closed}
+            if kinds == {True}:
+                nature = ('These are external money lines — one provider each unless a row says it is a median of '
+                          'independent sources — never a multi-book consensus.')
+            elif kinds == {False}:
+                nature = ('These are labelled research estimates, not bookmaker lines: no reachable book priced these '
+                          'fixtures at the observation time.')
+            else:
+                nature = ('These are a mix of external money lines and labelled research estimates; each row states '
+                          'which one it is.')
             extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
-                     f'{len(closed)} fixture(s) blank ({detail}{more}); each now carries an alias-aware researched line '
-                     '— HLTV event identity first, then a verified Thunderpick paired-price book (margin removed) — '
-                     'with the alias evidence and fair lines on its origination card. No line is invented; see the '
-                     f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> for the source links.</p>')
+                     f'<strong>{len(closed)}</strong> fixture(s) without a pick. Each now carries a researched estimate '
+                     f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. {nature} '
+                     'Every figure keeps its own source and limitation on the origination card. No line is invented.</p>'
+                     '<ul class="researched-methods">' + ''.join(items) + '</ul>')
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '
@@ -908,6 +1007,7 @@ def unresolved_register(data, prefix):
         out.append('</ul>')
     out.append(no_line_register(data, prefix))
     out.append(source_probe_block(data, prefix))
+    out.append(line_sources_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -1232,14 +1332,25 @@ def flags_table(flags):
 def review(data, prefix):
     out = heading('Transparent by design', 'Flagged for Review', 'Unresolved matches, blocked sources and inconsistent official fields are published here. They do not block publication; they do block unsupported claims.')
     out += f'<div class="limitations-callout"><strong>Additional identity research and fallback picks</strong><p>Exact-name rejections below are retained for audit. <a style="text-decoration:underline" href="{prefix}origination/#picks">See newly researched fallback picks</a> and <a style="text-decoration:underline" href="{prefix}origination/#aliases">the source-linked alias review registry</a>. These associations do not independently confirm current rosters; Valve estimates remain uncalibrated.</p></div>'
-    out += review_note(prefix, data.get('day_one_audit'))
+    # Session fbdc97d6: the current, source-linked findings used to render at the
+    # very bottom of this page, after many screens of dated registers from
+    # earlier sessions. A phone reader had to scroll past all of it to see the
+    # live warnings. Current findings come first; the dated history is retained
+    # verbatim inside one collapsed block below.
+    out += flags_table(data['flags'])
+    history = review_note(prefix, data.get('day_one_audit'))
     if data.get('repo_audit'):
-        out += audit_register(data['repo_audit'], prefix)
+        history += audit_register(data['repo_audit'], prefix)
     if data.get('session_reviews'):
         from scripts.review_register import render_all as session_register
-        out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
+        history += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
+    if history:
+        out += ('<details class="archive-register" id="dated-registers"><summary>'
+                'Dated registers from earlier sessions · retained for audit, not current findings</summary>'
+                f'<p class="tiny muted">Everything below is an earlier session’s dated record. It is kept unchanged '
+                'for provenance; the findings at the top of this page are the current ones.</p>' + history + '</details>')
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
-    return out + flags_table(data['flags'])
+    return out
 
 
 def urlparse_host(url):
@@ -1334,6 +1445,12 @@ def build(source: Path, output: Path, now=None):
     # Session 541cd43a: the dated, read-only source sweep behind the unresolved
     # register (HLTV, bo3.gg, esportsbook surfaces). Rendering it is the only use;
     # no value in it ever becomes a probability.
+    line_sources_path = source / 'research/fbdc97d6/line-sources.json'
+    if line_sources_path.exists():
+        try:
+            data['_line_sources'] = json.loads(line_sources_path.read_text())
+        except ValueError:
+            data['_line_sources'] = None
     probe_path = source / 'research/541cd43a/provider-probe.json'
     if probe_path.exists():
         try:

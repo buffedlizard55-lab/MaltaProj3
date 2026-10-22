@@ -88,6 +88,42 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   seconds later and republishes the verified artifact if that happened. The setting
   itself still needs a repository owner with Pages admin.
 
+## 22 October session arena-fbdc97d6: provenance you can check, and both probabilities on a phone
+
+- **The executive summary now names the real source behind every researched pick.** The
+  "Unresolved picks & limitations" copy used to print one hard-coded sentence saying every
+  featured blank had been priced by "a verified Thunderpick paired-price book". Checked against the
+  published rows it was wrong: across the 21–22 October snapshots the researched rows were priced by
+  the Kalshi exchange, the Valve official ratings, the bo3.gg results models and the HLTV world
+  ranking, and never by one bookmaker. The sentence is now generated per row by
+  `scripts/build.py::researched_method` and shows the source with a link for each fixture, so the
+  text cannot drift from the data again (`tests/test_build.py::ResearchProvenanceTests`).
+- **A bo3.gg network row is no longer labelled "Valve official ratings".** Four fixtures in the
+  22 October 01:20Z snapshot were priced by the bo3.gg network fit while their label named Valve.
+  `scripts/originate.py` now labels each research-model row by the rung that produced it
+  (`model_label`, `network_limitation`) and the network limitation is the one that is published
+  (`tests/test_fbdc97d6_labels.py`).
+- **Both published probabilities are visible in the phone index.** Each row of *Picks at a glance*
+  shows the pick with its percentage and the opponent's published percentage beside it, without
+  recalculating anything (`glance()`, `assets/scout.css`).
+- **Current findings come first on Flagged for Review.** The live findings register now opens the
+  page; the dated registers from earlier sessions are kept verbatim inside one collapsed block
+  labelled "not current findings".
+- **A dated line-source sweep is published under the unresolved register.** 22 esportsbook,
+  exchange and aggregator surfaces were probed read-only from the GitHub runner on
+  `2026-10-22T01:29Z`: 7 answered HTTP 200, 15 refused, were deleted or timed out. HLTV, EGamersWorld,
+  GG.BET, BetBoom, 1xBet and Marathonbet block the automated runner (an HLTV match page and the
+  ranking page were read by hand on the same day, so HLTV remains a verification source, never an
+  odds feed). Oddspedia's CS2 page answers HTTP 410. bo3.gg does publish a named Thunderpick block
+  with both coefficients, but on that sweep it existed only for the five fixtures that already had a
+  first-party line, so it closes no blank and is **not** wired into the pricing ladder — it is
+  documented as an independent cross-check.
+- **Coverage in the 2026-10-22T02:08Z snapshot:** 97 inventory records, 62 past starts, **35 active
+  fixtures, 35 with probabilities, 34 with a directional pick, 0 without a line, 1 exact 50/50
+  estimate published with no side** (ex-Zero Tenacity vs ex-RUSTEC, identical official points).
+  Row-source audit on that live snapshot: 334 rows, 326 with an official link, 8 site-map rows,
+  **0 without a source**.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.

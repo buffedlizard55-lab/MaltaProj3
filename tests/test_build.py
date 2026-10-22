@@ -350,3 +350,131 @@ class GlanceIndexTests(unittest.TestCase):
     def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
         self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
 
+
+
+class ResearchProvenanceTests(unittest.TestCase):
+    """Session fbdc97d6: name the real source behind every researched row."""
+
+    def fixture(self, fid, teams, method, label, source, url, pick=0):
+        return {
+            'id': fid,
+            'teams': [{'name': n} for n in teams],
+            'competition': 'Test Cup',
+            'starts_at': '2026-10-22T10:00:00Z',
+            'source_url': f'https://www.hotspawn.com/matches/x-{fid}',
+            'featured_method': None,
+            'pick_index': pick,
+            'research': [],
+            'origination': {
+                'method': method, 'label': label, 'source': source, 'source_url': url,
+                'probabilities': [0.4, 0.6], 'observed_at': '2026-10-22T01:00:00Z',
+                'fair_decimal': [2.5, 1.667], 'quotes': [],
+            },
+        }
+
+    def test_summary_names_each_rows_actual_source_not_a_hardcoded_provider(self):
+        from scripts.build import unresolved_register
+        rows = [
+            self.fixture(1, ['Alpha', 'Beta'], 'market', 'Originated market line (Kalshi)',
+                         'Kalshi', 'https://kalshi.com/markets/kxcs2game/x'),
+            self.fixture(2, ['Gamma', 'Delta'], 'model', 'Valve-rating research estimate',
+                         'Valve official standings',
+                         'https://github.com/ValveSoftware/counter-strike_regional_standings'),
+        ]
+        data = {'matches': [], 'flags': [], 'complete_picks': {
+            'matches': rows, 'counts': {'active': 2}, 'generated_at': '2026-10-22T01:00:00Z'}}
+        html = unresolved_register(data, '')
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('1 from a prediction-market line', text)
+        self.assertIn('1 from the Valve rating model', text)
+        self.assertNotIn('Thunderpick', text)
+        self.assertIn('Alpha vs Beta', text)
+        self.assertIn('Gamma vs Delta', text)
+        # Each row must keep a clickable link to the source it actually used.
+        self.assertIn('https://kalshi.com/markets/kxcs2game/x', html)
+        self.assertIn('counter-strike_regional_standings', html)
+
+    def test_researched_method_reads_the_row_and_never_invents_a_provider(self):
+        from scripts.build import researched_method
+        label, source, url = researched_method(self.fixture(
+            3, ['Eps', 'Zeta'], 'model', 'Own results-based estimate (bo3.gg series results)',
+            'Own results-based model (bo3.gg series results)', 'https://bo3.gg/matches'))
+        self.assertIn('bo3.gg results model', label)
+        self.assertEqual(url, 'https://bo3.gg/matches')
+        label, _, _ = researched_method(self.fixture(
+            5, ['Iota', 'Kappa'], 'model', 'Own network estimate (bo3.gg results graph)',
+            'Own network model (bo3.gg results graph)', 'https://bo3.gg/matches'))
+        self.assertIn('bo3.gg results network', label)
+        label, _, _ = researched_method(self.fixture(
+            4, ['Eta', 'Theta'], 'model', 'Research model estimate (HLTV world ranking)',
+            'HLTV world ranking', 'https://www.hltv.org/ranking/teams'))
+        self.assertIn('HLTV world-ranking', label)
+
+    def test_phone_index_shows_both_published_probabilities(self):
+        from datetime import datetime, timezone
+        base = datetime(2026, 10, 22, 1, 0, tzinfo=timezone.utc)
+        m = {
+            'id': '9', 'teams': [{'id': 'a', 'name': 'Alpha'}, {'id': 'b', 'name': 'Beta'}],
+            'competition': 'Test Cup', 'starts_at': '2026-10-22T10:00:00Z',
+            'locks_at': '2026-10-22T09:54:00Z', 'observed_at': '2026-10-22T01:00:00Z',
+            'availability': 'open', 'source_url': 'https://www.hotspawn.com/matches/x-9',
+            'analysis': {'method': 'model', 'probabilities': [0.32, 0.68], 'source': 'Valve official standings',
+                         'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                         'observed_at': '2026-10-22T01:00:00Z'},
+            'pick_index': 1, 'research': [], 'limitations': [],
+        }
+        html = glance({'matches': [m], 'fallbacks': {}}, '', now=base)
+        soup = BeautifulSoup(html, 'html.parser')
+        row = soup.select_one('.glance-row')
+        choice = row.select_one('.glance-choice').get_text(' ', strip=True)
+        self.assertIn('Beta', choice)
+        self.assertIn('68.0%', choice)
+        self.assertIn('Alpha 32.0%', choice)
+        # The pick is still the first, bolded team and is labelled as such.
+        self.assertIn('Pick', choice)
+
+
+class ReviewFindabilityTests(unittest.TestCase):
+    """Session fbdc97d6: the live findings must come before the dated history."""
+
+    def test_current_findings_render_before_the_collapsed_dated_registers(self):
+        from scripts.build import review
+        data = json.loads(Path('data/latest.json').read_text())
+        data.setdefault('flags', [])
+        html = review(data, '')
+        self.assertLess(html.index('All findings'), html.index('id="dated-registers"'))
+        self.assertIn('<details class="archive-register" id="dated-registers">', html)
+        self.assertIn('retained for audit, not current findings', html)
+        # The live unresolved section still follows the registers and the page
+        # still ends on the section boundary the link checker expects.
+        self.assertLess(html.index('id="dated-registers"'), html.index('id="unresolved"'))
+        self.assertTrue(html.endswith('</section>'))
+
+
+class ResearchedNatureTests(unittest.TestCase):
+    def _data(self, methods):
+        rows = []
+        for i, method in enumerate(methods):
+            rows.append({'id': str(i), 'teams': [{'name': f'A{i}'}, {'name': f'B{i}'}],
+                         'starts_at': '2026-10-22T10:00:00Z',
+                         'source_url': f'https://www.hotspawn.com/matches/x-{i}',
+                         'featured_method': None, 'pick_index': 0, 'research': [],
+                         'origination': {'method': method,
+                                         'label': 'Originated market line (Kalshi)' if method == 'market'
+                                                  else 'Valve-rating research estimate',
+                                         'source': 'Kalshi' if method == 'market' else 'Valve official standings',
+                                         'source_url': 'https://kalshi.com/markets/kxcs2game/x',
+                                         'probabilities': [0.4, 0.6], 'observed_at': '2026-10-22T01:00:00Z'}})
+        return {'matches': [], 'flags': [], 'complete_picks': {
+            'matches': rows, 'counts': {'active': len(rows)}, 'generated_at': '2026-10-22T01:00:00Z'}}
+
+    def test_the_closing_sentence_matches_the_rows_it_describes(self):
+        from bs4 import BeautifulSoup
+        from scripts.build import unresolved_register
+        money = BeautifulSoup(unresolved_register(self._data(['market']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('external money lines', money)
+        self.assertNotIn('not bookmaker lines', money)
+        model = BeautifulSoup(unresolved_register(self._data(['model']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('not bookmaker lines', model)
+        mixed = BeautifulSoup(unresolved_register(self._data(['market', 'model']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('a mix of external money lines', mixed)

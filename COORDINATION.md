@@ -1,22 +1,152 @@
-# Current session: arena-15fc6bca — a pick for every listed fixture, phone-first executive summary
+# Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
+Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
+from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
+live claim: the last two sessions (`11be2015`, `f4eb8ae3`) are merged, and PR **#139**
+(`arena/6e92015a`, head last pushed 2026-10-21T21:36Z) has been idle for more than 60 minutes and
+its branch conflicts with `main`. Per the 60-minute rule it is treated as stale and is **not**
+merged here; its work is already superseded on `main` by PRs #140/#141/#144/#145. This session
+claims only the files below and does not edit PR #139.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FB-1 Publish the *actual* research method beside every fixture whose featured method was blank (the executive-summary text claimed all five came from one Thunderpick book), and show **both** teams' probabilities in the phone pick index | **done** — see FB-1 result | arena-fbdc97d6 | `scripts/build.py` (`glance()`, `unresolved_register()`, new `researched_method()`, `line_sources_block()`, review-page ordering), `assets/scout.css`, `tests/test_build.py`, this section |
+| FB-2 Research reachable low-tier line sources from the runner (HLTV first, then esportsbooks/aggregators), save dated evidence, and add a reviewed source only if it returns a real two-sided price for today's fixtures | **done** — see FB-2 result | arena-fbdc97d6 | `scripts/fbdc97d6_probe.py` (kept, read-only), `.github/workflows/fbdc97d6-live.yml` (**session-only, removed before merge**), `scripts/originate.py` (`model_label()`, `network_limitation()` and the label call site only — label fix, no pricing change), `.github/workflows/pages.yml` (one non-fatal sweep step), new `data/research/fbdc97d6/` |
+| FB-3 Verify the live inventory/pick coverage line by line, rebuild from the live snapshot, run the phone/desktop suites, publish flags, open and merge a PR, then confirm the Pages deployment | **done** — see FB-3 result | arena-fbdc97d6 | `data/research/fbdc97d6/`, this section |
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`,
+or any other session's `data/research/<id>/`. Any needed change in those files is requested here
+instead of made. The branch-scoped workflow `fbdc97d6-live.yml` is removed before the merge; the read-only probe script
+stays in the tree, as `scripts/bo3_odds_probe.py` did. `scripts/originate.py` and
+`.github/workflows/pages.yml` were unowned at claim time (every earlier owner had merged and stopped), so
+this session made the two minimal changes noted above and logged them here rather than requesting them.
+### FB-1 result — every researched pick now names its real source (2026-10-22T02:20Z)
+- **Defect found and fixed.** The executive-summary register printed a hard-coded sentence saying the
+  fixtures the featured method left blank "each now carr[y] an alias-aware researched line — HLTV event
+  identity first, then a verified Thunderpick paired-price book (margin removed)". Read against the
+  rendered 2026-10-21T23:42Z build, the Vitalem Aerem–Rare Atom card was priced by Kalshi and the
+  benched gods–TitanFlow card by the bo3.gg results network; neither used Thunderpick. `glance()` and
+  `unresolved_register()` now call a new `researched_method()` that derives the source label, name and
+  link from each row's own `origination` record, and the closing sentence adapts to whether the rows are
+  money lines, research models or a mix. Locked by `tests/test_build.py::ResearchProvenanceTests` and
+  `ResearchedNatureTests`.
+- **Second label defect fixed in `scripts/originate.py`.** The network rung is assigned to the `model`
+  variable, so rows priced by the Bradley–Terry network fit were published as "Research model estimate
+  (Valve official ratings)" — a source the row never used. Four fixtures in the 01:20Z snapshot carried
+  that label. New `model_label()`/`network_limitation()` label each model row by the rung that produced
+  it; the 02:08Z snapshot shows three network rows correctly labelled. Locked by
+  `tests/test_fbdc97d6_labels.py`.
+- **Phone findability.** Each *Picks at a glance* row now shows the pick with its percentage **and** the
+  opponent's published percentage (`glance()`, `.glance-other` in `assets/scout.css`); nothing is
+  recalculated. The jump bar renamed two ambiguous entries ("Featured-method audit", "Day-5 archive")
+  and the review page now renders the current findings register **first**, with every earlier session's
+  dated register kept verbatim inside one collapsed "not current findings" block.
+### FB-2 result — line-source research (HLTV first, then esportsbooks)
+Runner-observed, read-only, `2026-10-22T01:29Z` (`data/research/fbdc97d6/esportsbook-probe.json`,
+`line-sources.json`, `bo3-bet-probe.json`; rendered under the unresolved register):
+| Surface | Result from the runner |
+| --- | --- |
+| HLTV match listing, match page, world ranking | **HTTP 403** Cloudflare challenge |
+| EGamersWorld CS2 list and match page | **HTTP 403** |
+| GG.BET / BetBoom / 1xBet / Marathonbet | 403 / 401 / 203 + challenge / 403 |
+| Oddspedia CS2 | **HTTP 410** (page permanently deleted) |
+| OddsPortal, DraftKings, Bovada, Thunderpick, Polymarket | HTTP 200 (landing pages only; no per-fixture price extracted by the sweep) |
+| Kalshi HTML | HTTP 429 (Vercel checkpoint); the official Kalshi API the collector uses answers |
+| Pinnacle / Betway | 404 on the probed paths |
+| Luckbox | connection error |
+| bo3.gg | HTTP 200; named `thunderpick` block with both coefficients for **5 of 35** active fixtures |
+- **HLTV is readable by a person, not by the runner.** The FlyQuest–Staqued match page and the world
+  ranking page were both read successfully by hand on 2026-10-22 (HLTV #61 / VRS #54 for FlyQuest,
+  DFRAG Invitational 2026, 23:00 26 Oct in the reader's zone). HLTV therefore stays an identity and
+  ranking source; it publishes no two-sided prematch price.
+- **bo3.gg's relay closes no blank.** The five priced fixtures (FORZE Reload–Just Players 1.40/2.70,
+  JiJieHao–Nexus 1.44/2.55, Imperial–Turma do Pagode 1.22/3.80, BESTIA–ShindeN 1.82/1.88,
+  Sangal–Metizport 1.75/1.95) all already carried a first-party Polymarket or Thunderpick line, so the
+  relay is documented as a cross-check and **not** wired into the ladder. Wiring a relayed price of a
+  provider already in the ladder would add no coverage and would risk double-counting.
+- **The sweep is now part of the four-hour publisher** (`pages.yml`, non-fatal, 10 s per request) so the
+  published limitations carry a current date without manual input. `scripts/fbdc97d6_probe.py` is kept
+  (like the earlier `scripts/bo3_odds_probe.py`); only the branch-scoped workflow below is removed.
+### Second merge (2026-10-22T04:20Z)
 
+`main` moved again while PR #153's checks ran (`a5c4bb6` PR #152, `a44bba5` Pages artifact fix, `fcaced9`
+PR #157), so the merge was repeated. Conflicts: **`COORDINATION.md` only**; `scripts/build.py`,
+`scripts/originate.py`, `assets/scout.css` and `.github/workflows/pages.yml` auto-merged. Both sides of the
+board were kept (this session's claim + results first, then `15fc6bca` and `c1fa150f`). Re-verified on the
+re-merged tree: 61 targeted tests OK, `scripts.build` replays 80 source rows with a **604-row audit
+(586 official links, 9 flagged, 9 site-map, 0 without a source)** and 732 internal links.
+
+### Merge-conflict log (2026-10-22T02:40Z)
+`git pull --rebase origin main` conflicted on `COORDINATION.md` only at the first commit; every later
+commit still had to replay `scripts/build.py` and `assets/scout.css`, so the rebase was aborted and
+`origin/main` was **merged** instead (`4ec225d`, PRs #146/#147/#148 landed while this session ran).
+Nothing from the other session was discarded:
+- **`scripts/build.py`, banner:** took **main's** version (it now reports the model-only count in the
+  sub-label), dropping this session's wording tweak of the same two links.
+- **`scripts/build.py`, `glance()`:** took **main's** version. Session `c1fa150f` implemented the same
+  both-teams-probability row independently (`basis_badge()`), so this session's duplicate `.glance-other`
+  markup and CSS were removed rather than stacked on top of theirs.
+- **`scripts/build.py`, register area:** kept **both** — main's new `no_line_register()` (picks without a
+  betting line) and this session's `line_sources_block()` (dated source sweep).
+- **`COORDINATION.md`:** kept both sections, this session's claim first, main's newest sessions after it.
+- `assets/scout.css`: main's `.glance-other` rules kept; only `.researched-methods` and `.line-sources`
+  from this session were added.
+- After the merge: 108 targeted tests pass, `scripts.build` replays 80 source rows with a 571-row audit
+  (555 official links, 7 flagged, 9 site-map, **0 without a source**) and 714 internal links, and the
+  published "Thunderpick paired-price book" sentence is gone from the rendered summary (0 occurrences).
+### FB-3 result — verification, merge and publication (2026-10-22T03:25Z)
+- **Local verification on the post-merge tree** (`origin/main` @ `4ec225d` merged in as `6f3ae7a`):
+  `.venv/bin/python -m unittest discover -s tests` → **837 tests, OK**; `npm test` → **85 Playwright
+  checks at 320/390/768/1440 px, 85 passed**; `python -m scripts.build` → 80 source rows replayed,
+  row-source audit **571 rows / 555 official-linked / 7 flagged / 9 site-map / 0 without a source**,
+  714 internal links, mobile landmarks PASS; `python -m scripts.audit_rows --site site --strict` →
+  **0 violations**. Phone screenshots at 390 px show the picks index, the unresolved register with the
+  dated source sweep and the review page with no horizontal overflow (`scrollWidth - clientWidth = 0`).
+- **Live snapshot verified line by line** from the production chain on this branch
+  (run [39704309375](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39704309375), then
+  the 02:08Z refresh): `inventory_crosscheck: complete` (lobby and CS2 lobby both agreed with the API),
+  97 inventory records, 62 past starts, **35 active, 35 with probabilities, 34 with a directional pick,
+  0 without a line, 1 exact even estimate without a side**. Method split in that snapshot: 9 external
+  money lines (8 Polymarket/Kalshi market rows + 1 consensus), 18 Valve-rating rows (14 "Valve-rating
+  research estimate" + 4 "Research model estimate (Valve official ratings)", all sourced to the Valve
+  official standings), 3 network, 2 results-based, 3 HLTV world-ranking (2 of them unranked-floor) and
+  1 exact even tie. The three network rows now say so instead of naming Valve. Evidence:
+  `data/research/fbdc97d6/live/snapshot-summary.json`.
+- **Pull request:** [#153](https://github.com/buffedlizard55-lab/MaltaProj3/pull/153). Checks:
+  `Rows, build, links, mobile and accessibility` **pass**, `originate` **pass**.
+- **Flags published** (`data/research/fbdc97d6/flags.json` → Flagged for Review): the hard-coded
+  Thunderpick provenance sentence (notice, fixed), the HLTV/EGamersWorld/GG.BET/BetBoom/1xBet/
+  Marathonbet runner blocks (warning), the bo3.gg relay that adds no coverage (notice), the exact even
+  tie with no side (notice), the two unranked-floor estimates (warning) and the review-page ordering
+  change (notice).
+### FB-0 starting state (observed 2026-10-22T01:05Z)
+- The public snapshot served `generated_at 2026-10-21T23:42:26Z` with **12 active fixtures, 12
+  with a directional pick, 0 unresolved** in the complete-picks ladder; the same snapshot's
+  featured-only counts were 2 market, 5 model, 5 unresolved.
+- The rendered [Hotspawn lobby](https://play.hotspawn.com/lobby) listed the same 12 open fixtures
+  (+ the 23:00Z Vitalem Aerem–Rare Atom match that was still open at 01:05Z), so inventory and
+  pick coverage agree at that instant. Lobby times render in the reader's local zone; the API
+  remains the inventory authority.
+- **Defect found in the published copy:** the executive-summary "Unresolved picks & limitations"
+  section says the five featured blanks "each now carr[y] an alias-aware researched line — HLTV
+  event identity first, then a verified Thunderpick paired-price book (margin removed)". That is
+  not what the published data says: the five were resolved by Kalshi, the Valve rating model, the
+  bo3.gg results network and the HLTV world ranking. The sentence is hard-coded in
+  `scripts/build.py` and must be derived from each row instead. This is the FB-1 fix.
+# Current session: arena-15fc6bca — a pick for every listed fixture, phone-first executive summary
 Claimed **2026-10-22T01:10Z** on the Arena-fixed branch `arena/15fc6bca-maltaproj3`,
 branched from `main` at `d599724` (merge of PR #145). The board was read first; the
 most recent sections (dbaf7692 / 11be2015 / 093e722e) are all marked done and merged,
 so no open claim overlaps this scope. This session performs its own integration and
 merge.
-
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | FC-1 Publish a money-backed line wherever an esportsbook actually lists a low-tier fixture: add a bo3.gg-relayed two-sided bookmaker quote as a reviewed money rung in the origination ladder, with strict join, de-vig and an explicit "relayed, not first-party" label; verify coverage from the runner; keep the unresolved register honest | **in progress** | arena-15fc6bca | `scripts/originate.py` (new relayed-bookmaker rung only), session-only probe tooling `scripts/15fc6bca_probe.py` + `.github/workflows/15fc6bca-probe.yml` (both deleted before merge — captured evidence stays in `data/research/15fc6bca/`), `tests/test_15fc6bca_*.py`, new `data/research/15fc6bca/`, this section |
-
 **Overlap resolved with `arena-fbdc97d6` (claimed 01:12Z, after my 01:05Z claim).** Their
 FB-1 holds `scripts/build.py` (`glance()`, `unresolved_register()`, `researched_method_summary()`)
 and `assets/scout.css`; they also run their own low-tier line-source probe under FB-2. I
 **withdraw my claim on those two files** and keep `scripts/originate.py`, which their board
 explicitly pledges not to touch. Consequences, written here rather than edited into their
 files:
-
 - The research-ladder changes below change *which method* resolves a fixture, so the
   hard-coded "each now carries an alias-aware researched line … verified Thunderpick
   paired-price book" sentence they are removing must stay removed; the replacement must be
@@ -27,9 +157,7 @@ files:
   question (does the ladder's own bo3.gg listing carry a two-sided bookmaker quote, and
   does the ladder use it). No duplicate capture is written outside my own research
   directory.
-
 ### FC-1 progress — 2026-10-22T01:35Z (live ground truth + relayed-bookmaker rung)
-
 **Ground truth from the runner** (`data/research/15fc6bca/coverage-probe.{json,md}`, run
 [39703913069](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39703913069),
 snapshot `2026-10-22T01:08:40Z`): the ladder resolved **35 of 35** open fixtures and gave
@@ -41,12 +169,10 @@ what closes them. Runner egress recorded in the same file: HLTV match pages **40
 EGamersWorld **403**, Thunderpick API `GET` **403**; HLTV ranking, bo3.gg, Pinnacle guest
 board, Bovada, Kalshi and Polymarket all answered 200. This is why HLTV can inform identity
 and ranking but never supplies a price.
-
 **What the brief still asks for and the ladder did not do:** the 27 model rows are *our own
 lines*, but bo3.gg was already publishing a two-sided bookmaker quote (`bet_updates`) for 6 of
 those fixtures — including UNiTY vs Apogee Betclic (thunderpick 2.35 / 1.52, both sides
 active) — and the ladder ignored it. FC-1 adds that as a money rung in `scripts/originate.py`:
-
 - join on **both** team names (exact or the reviewed registry) plus a start time inside a
   published **900 s** relay tolerance, and the collector stores the Hotspawn fixture id it
   proved, which the ladder re-checks;
@@ -60,38 +186,30 @@ active) — and the ladder ignored it. FC-1 adds that as a money rung in `script
   when a higher rung wins. `counts['relay']` is published separately so it cannot be read as a
   first-party bookmaker observation.
 - 21 unit tests in `tests/test_15fc6bca_relay.py`; the whole suite (`827 tests`) passes.
-
 **Request to `arena-fbdc97d6` (owner of `scripts/build.py`), logged rather than edited.** Their
 `researched_method()` classifies `method='bookmaker'` as *"an esportsbook line"* and prints the
 row's own `source`. A relayed row publishes `source = "<bookmaker> (relayed by bo3.gg)"`, so the
 label is already truthful but does not say *relayed*. If they want it exact, add before the
 generic `bookmaker` branch:
-
 ```python
 if method == 'bookmaker' and 'relayed by bo3.gg' in source.lower():
     return 'a bookmaker line relayed by bo3.gg', source, url
 ```
-
 No other change is needed on their side: the row's `probabilities`, `pick_index`, `label`,
 `source_url` and `limitations` are all published in the same shape as every other money row.
-
 **Second request to `arena-fbdc97d6` (same file, same reason).** `glance()`'s intro currently
 reads *"N with a directional pick, M explicitly unresolved"*, where `M` counts only rows whose
 `origination` is `None`. A resolved-but-side-less row (ex-Zero Tenacity vs ex-RUSTEC in the
 2026-10-22T01:37Z snapshot, exactly 1,066 Valve points each) is therefore invisible in that
 sentence while the register further down lists it. Suggested wording, using the `no_side` list
 `glance()` already has no access to but `unresolved_register()` builds:
-
 ```python
 even = cc.get('resolved', 0) - cc.get('with_pick', 0)
 sentence = f'{picks} with a directional pick, {even} resolved estimate(s) with no side, {unresolved} explicitly unresolved'
 ```
-
 This is a wording fix only — no probability, no pick and no row changes. Logged here instead of
 edited, and applied by this session after their merge if it is still absent then.
-
 ### FC-1 result — 2026-10-22T02:10Z
-
 **Live verification of the new rung** (run
 [39706263743](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39706263743), snapshot
 `2026-10-22T01:37:13Z`, copied to `data/research/15fc6bca/live/`): 35 open fixtures, ladder
@@ -104,13 +222,11 @@ input and now prices from Thunderpick 2.35 / 1.52 relayed by bo3.gg (overround 8
 60.72%), with the alias `Betclic → Apogee Betclic` (competition-scoped, HLTV evidence), the
 bo3.gg page and the Thunderpick match page both linked. This project's own results model
 independently fitted 39.8% / 60.2% for the same fixture, which is corroboration, not an input.
-
 **Build and audit on the merged tree** (main at `4ec225d`): `python -m scripts.build` → 80 source
 rows replayed, row-source audit **569 rows / 553 official-linked / 7 flagged / 9 site-map /
 0 without a source**, 708 internal links/assets/anchors, mobile landmarks PASS. Full suite
 **841 tests OK** (22 of them new in `tests/test_15fc6bca_relay.py`). All five findings in
 `data/research/15fc6bca/flags.json` render on Flagged for Review, each with its sources.
-
 **Scope note — `scripts/originate.py` edited by `arena-fbdc97d6` at 01:54Z** although both their
 board and mine pledge that file to this session. The change is small, correct and kept: it
 labels a `family='network'` model row `Own network estimate (bo3.gg results graph)` instead of
@@ -118,17 +234,14 @@ labels a `family='network'` model row `Own network estimate (bo3.gg results grap
 branches meet, this session's relay block sits earlier in the same decision chain (above
 `elif model:`) and their edit stays inside `elif model:`, so the merge keeps both without a
 semantic conflict. Recorded here per the conflict rule rather than reverted.
-
 **Verification still open when this note was written:** the deployed artifact after merge (the
 publisher's own `scripts.verify_live` plus the row-source audit) and the phone check run by
 `checks.yml` on the pull request.
-
 **Non-overlap pledge:** no change to `data/origination/aliases.json` (reviewed registry),
 `scripts/collect.py`, `scripts/domain.py`, `data/latest.json` / `data/sources.json` /
 `data/origination.json` (the checked-in replay fixtures), `data/research/<other-session>/`,
 or `archive/`. Pick values that already have a sourced basis are never overwritten: the new
 rungs only run where every existing rung produced nothing.
-
 **Environment note (verified, not assumed):** this coding sandbox has **no egress** to
 Hotspawn, HLTV, bo3.gg, Polymarket or any bookmaker (`curl` returns `000` for
 `play.hotspawn.com`, `www.hltv.org`, `pinnacle.com`, `api.polymarket.com`); GitHub hosts
@@ -188,7 +301,6 @@ Claimed **2026-10-22** on Arena-fixed branch `arena/7e8bed83-maltaproj3` from `m
 ---
 
 # Current session: arena-416d93ee — independent line-by-line verification of the live picks, phone check, final integration
-
 Claimed **2026-10-22T01:03Z** on Arena's fixed branch `arena/416d93ee-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. Two sessions were
 already live at that moment and **both are respected here**: `arena-fbdc97d6` (claimed 01:12Z,
@@ -196,13 +308,10 @@ holds `scripts/build.py` → `glance()`, `unresolved_register()`, `researched_me
 `assets/scout.css`, `tests/test_build.py`, `tests/test_summary_navigation.py`) and
 `arena-15fc6bca` (claimed 01:10Z, holds `scripts/originate.py`). This session takes neither
 file and edits neither script while those claims are live.
-
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | VD-1 Independently verify, line by line and from first-party sources, that (a) every CS2 fixture Hotspawn lists is published, (b) every published pick's stated percentage is reproducible from the source its row cites, and (c) the executive summary's in-site pick links and phone layout work — then publish the findings register, rebase onto the merged `main`, open the pull request, merge it and verify the live deployment | in progress | arena-416d93ee | new `data/research/416d93ee/**`, one session-only verification workflow `.github/workflows/416d93ee-verify.yml` (deleted before merge; the captured evidence stays in `data/research/416d93ee/`), this section |
-
 ### VD-1 result — independent verification of the published picks (2026-10-22T01:17Z-01:50Z)
-
 Read-only. The audit (`scripts/416d93ee_audit.py`) writes only to
 `data/research/416d93ee/`; it never edits `data/`, and its arithmetic is re-implemented
 inside the audit so a bug in the publisher cannot validate itself. Machine-readable report:
@@ -210,7 +319,6 @@ inside the audit so a bug in the publisher cannot validate itself. Machine-reada
 response SHA-256); readable report: `verification.md`. Findings are published as the
 **VD-01…VD-07** register in `data/research/416d93ee/repo-review.json`, rendered on
 [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/).
-
 - **VD-01 coverage — PASS.** Audit 01:17:08Z: Hotspawn's scheduled-fixture API returned
   **97 records**, of which **35 have a future start** and 62 are past-start records still
   marked `scheduled`. The published snapshot carried exactly those 35, with **0 missing**,
@@ -256,14 +364,11 @@ response SHA-256); readable report: `verification.md`. Findings are published as
 - **VD-07 unresolved register — PASS.** One active fixture (1079654 ex-Zero Tenacity vs
   ex-RUSTEC) publishes an exactly even estimate with no side, by policy, and appears in the
   summary's unresolved register with its blocker and sources.
-
 **Change requests logged, not made:** CR-1 above (`scripts/originate.py`, owner
 `arena-15fc6bca`). No request to `arena-fbdc97d6`: their FB-1 replaces the hard-coded
 "each now carries an alias-aware researched line … Thunderpick paired-price book" sentence,
 which this audit independently confirmed is wrong for today's rows (the five featured blanks
 were resolved by Kalshi, the Valve model, the bo3.gg results network and the HLTV ranking).
-
-
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`,
 `scripts/hltv_ranking.py`, `scripts/collect.py`, `assets/scout.css`, `data/origination/aliases.json`,
 `data/origination/aliases.json`, `data/latest.json` / `data/sources.json` /
@@ -273,7 +378,6 @@ Any defect that can only be fixed in a file another session holds is written her
 change request, not edited. This session also acts as the integration pass: it rebases
 onto whatever has merged to `main`, re-runs the whole verification on the combined tree,
 and does not merge a site whose build or checks fail.
-
 
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
