@@ -4617,3 +4617,21 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+# Current session: arena-c1fa150f — both-team probabilities on the phone summary, a separate "no betting line" register, and an independent re-verification of the live inventory
+
+Claimed **2026-10-22T01:15Z** on the Arena-fixed branch `arena/c1fa150f-maltaproj3`,
+branched from `main` at `d599724`. The board was read before starting. Open claims by
+other sessions live on *their* branches (`fbdc97d6`, `15fc6bca`, `3bad13ea`, `7e8bed83`
+had no claim merged to `main` at claim time); none of them lists a file in the scope
+below, so this claim is non-overlapping.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C1F-1 Show **both** teams' win probabilities on the phone executive summary, label every row's basis (market line vs model), and publish a separate **"picks without a betting line"** register with the limitation behind each one — inside the executive summary, as the brief asks | **in progress** | arena-c1fa150f | `scripts/build.py` (`glance()`, `exec_banner()`, `unresolved_register()` and one new renderer only), `assets/scout.css` (append-only rules), new `tests/test_c1fa150f_glance.py`, new `data/research/c1fa150f/`, this section |
+| C1F-2 Independently re-verify the live Hotspawn CS2 inventory against the published rows and record the dated evidence | **in progress** | arena-c1fa150f | `data/research/c1fa150f/` only |
+
+**Non-overlap pledge:** no change to `scripts/originate.py`, `scripts/collect.py`,
+`scripts/hltv_ranking.py`, `data/origination*`, `data/latest.json`, the alias registry,
+`archive/`, `docs/` or any other session's `data/research/<id>/`. No pick, probability or
+alias value is changed; this session renders only what the pipeline already published.
