@@ -1563,14 +1563,18 @@ def relayed_bookmaker_estimate(row: dict, match: dict, registry: dict, *, now: d
     except (ValueError, KeyError, TypeError) as exc:
         return None, str(exc)
     implied = [1 / float(o) for o in odds]
-    quote = {'provider': f"{row['provider']} (relayed by bo3.gg)", 'family': RELAY_FAMILY,
+    # bo3.gg prints provider keys in lower case ("thunderpick"); a provider that
+    # already uses its own capitalisation ("GG.BET") is left exactly as printed.
+    provider = str(row['provider']).strip()
+    display = provider.title() if provider.islower() else provider
+    quote = {'provider': f'{display} (relayed by bo3.gg)', 'family': RELAY_FAMILY,
              'probabilities': aligned, 'odds': odds,
              'overround': round(sum(implied) - 1, 6),
              'observed_at': row['observed_at'], 'source_url': row['source_url'],
              'book_url': row.get('book_url'), 'event_id': row.get('event_id'),
              'start_delta_sec': row.get('start_delta_sec'),
              'evidence_file': row.get('evidence_file')}
-    detail = (f"Two-sided prematch decimal prices {odds[0]} / {odds[1]} published by {row['provider']} and "
+    detail = (f"Two-sided prematch decimal prices {odds[0]} / {odds[1]} published by {display} and "
               f"relayed verbatim by bo3.gg (overround {quote['overround'] * 100:.2f}%); margin removed by "
               "proportional normalization. The number was read from the bo3.gg relay, not from the bookmaker's "
               'own page.')

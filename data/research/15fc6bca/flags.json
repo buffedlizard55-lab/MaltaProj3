@@ -1,0 +1,62 @@
+[
+ {
+  "id": "15fc6bca-relayed-bookmaker-rung",
+  "severity": "notice",
+  "match_ids": ["1082882"],
+  "title": "One fixture is priced from a bookmaker quote relayed by bo3.gg, not from the bookmaker's own feed",
+  "detail": "UNiTY vs Apogee Betclic (Stake Ranked Episode 6: Closed Qualifier, 2026-10-22T14:00Z, Hotspawn fixture 1082882) had no Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, aggregated-reference, Valve or HLTV-ranking input. bo3.gg publishes, on its own match object, a two-sided Thunderpick quote of 2.35 / 1.52 with both sides active; after proportional margin removal (overround 8.34%) that is 39.28% UNiTY / 60.72% Apogee Betclic. The published row names Thunderpick as the provider, states that the number was read from the bo3.gg relay, and links both the bo3.gg page the coefficients were read from and the Thunderpick match page bo3.gg links to. It is a second-hand copy: this project did not read Thunderpick's own page, so the price must be re-checked with the bookmaker before being relied on. Relay prices are never folded into a first-party consensus and never outrank a first-party quote.",
+  "source_urls": [
+   "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+   "https://thunderpick.io/match/2865424",
+   "https://api.bo3.gg/api/v1"
+  ]
+ },
+ {
+  "id": "15fc6bca-hltv-egamersworld-403-from-runner",
+  "severity": "warning",
+  "match_ids": [],
+  "title": "HLTV match pages and EGamersWorld answer HTTP 403 to this project's runner, so neither can be a price source",
+  "detail": "Read from the GitHub runner on 2026-10-22T01:10Z and again at 01:39Z: https://www.hltv.org/matches returned HTTP 403 (Cloudflare), https://egamersworld.com/counterstrike/matches returned HTTP 403, and a plain GET of https://thunderpick.io/api/matches returned HTTP 403 (the project's Thunderpick collector uses the site's own POST contract instead). In the same run https://www.hltv.org/ranking/teams answered 200 with 1,068,133 bytes, so HLTV's official weekly ranking remains usable as an identity and research-model input. Consequence, published here so it is not mistaken for 'no market exists': HLTV and EGamersWorld cannot supply a price from this environment, and the absence of a quote from them is an access limitation, not evidence about the match. The status of every source, with byte counts and response hashes, is committed in data/research/15fc6bca/coverage-probe.json.",
+  "source_urls": [
+   "https://www.hltv.org/matches",
+   "https://www.hltv.org/ranking/teams",
+   "https://egamersworld.com/counterstrike/matches",
+   "https://thunderpick.io/api/matches"
+  ]
+ },
+ {
+  "id": "15fc6bca-even-published-points-no-side",
+  "severity": "warning",
+  "match_ids": ["1079654"],
+  "title": "ex-Zero Tenacity vs ex-RUSTEC is exactly even in Valve's published standings, so the model publishes 50.0% / 50.0% and no side",
+  "detail": "Valve's official global standings snapshot of 2026-10-05 gives both sides 1,066.0 points (ranks 93 and 92). The published Valve transform is therefore exactly 0.5 / 0.5 and no directional pick can be supported without inventing separation. No external price exists for this fixture: no Polymarket or Kalshi market, no first-party esportsbook quote and no bo3.gg relayed quote. The row appears in the separate 'Unresolved picks & limitations' register as an even estimate with the reason named, rather than being given a fabricated side or a default 50/50 stated as a pick.",
+  "source_urls": [
+   "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "https://www.hltv.org/matches",
+   "https://bo3.gg/matches"
+  ]
+ },
+ {
+  "id": "15fc6bca-inventory-grew-12-to-35",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "Hotspawn's open-fixture inventory grew from 12 to 35 inside ninety minutes, so every pick list is a dated observation",
+  "detail": "The public site was serving a snapshot observed 2026-10-21T23:42Z with 12 open CS2 fixtures. A fresh collection at 2026-10-22T01:08Z returned 97 source records with 35 future starts, and the next run at 01:37Z again returned 35 (inventory 97). Nothing was added by hand: this is Hotspawn publishing more of next week's schedule. The executive summary and the picks list therefore carry the observation timestamp of the snapshot they were built from, the four-hourly refresh re-checks the inventory, and any page older than eight hours is marked stale rather than silently kept. A reader comparing a printed count with the live lobby should expect the count to move.",
+  "source_urls": [
+   "https://play.hotspawn.com/lobby",
+   "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+  ]
+ },
+ {
+  "id": "15fc6bca-model-majority-coverage",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "Most open fixtures are still our own research lines, not market prices: 27 of 35 in the 01:37Z snapshot",
+  "detail": "Every open fixture carries a probability, but the source mix matters. In the 2026-10-22T01:37Z snapshot the ladder resolved 35 of 35 fixtures: 6 from prediction markets, 1 from the relayed-bookmaker rung, 1 from a median consensus across independent money sources and 27 from research models (Valve official standings, the HLTV world ranking, and this project's own results-based and network models over bo3.gg finished series). The 13 fixtures the featured exact-name stack could not price are exactly the low-tier ones the brief asks about; they are now priced, but their numbers are uncalibrated model output, labelled as such on each row, not betting odds. Market prices only exist for fixtures a bookmaker actually lists, and bo3.gg published a bookmaker quote for 6 of the 35 at that time.",
+  "source_urls": [
+   "https://bo3.gg/matches",
+   "https://www.hltv.org/ranking/teams",
+   "https://github.com/ValveSoftware/counter-strike_regional_standings"
+  ]
+ }
+]

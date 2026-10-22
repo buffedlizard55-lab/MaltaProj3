@@ -99,6 +99,7 @@ class RelayedQuoteTest(unittest.TestCase):
         self.assertIsNotNone(quote)
         self.assertEqual(quote['family'], 'relay')
         self.assertIn('relayed by bo3.gg', quote['provider'])
+        self.assertTrue(quote['provider'].startswith('Thunderpick'))
         self.assertAlmostEqual(sum(quote['probabilities']), 1.0, places=9)
         # 1.22 / 3.80 => Imperial is the favourite after the margin is removed.
         self.assertGreater(quote['probabilities'][0], quote['probabilities'][1])
