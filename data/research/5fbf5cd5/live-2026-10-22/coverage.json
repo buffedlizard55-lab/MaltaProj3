@@ -1,6 +1,6 @@
 {
  "session": "arena-5fbf5cd5",
- "generated_at": "2026-10-22T02:07:08Z",
+ "generated_at": "2026-10-22T02:33:44Z",
  "mode": "live",
  "policy": "Read-only observations. No probability, pick or alias is written by this probe. A blocked source is never evidence that no market exists.",
  "inventory": {
@@ -42,15 +42,15 @@
    "1082882"
   ],
   "published_count": 35,
-  "snapshot_generated_at": "2026-10-22T02:06:09Z",
+  "snapshot_generated_at": "2026-10-22T02:32:41Z",
   "request": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "status": 200,
-   "observed_at": "2026-10-22T02:07:08Z",
+   "observed_at": "2026-10-22T02:33:44Z",
    "bytes": 77262,
    "sha256": "1304a82e59d925e5d57d4c43a5079fe31167bc2774ebb86390e3e8104a329534",
    "content_type": "application/json; charset=utf-8",
-   "elapsed_ms": 772
+   "elapsed_ms": 500
   },
   "result": "ok",
   "api_records": 97,
@@ -98,9 +98,9 @@
  "fixtures_total": 35,
  "model_only_ids": [
   "1081869",
+  "1079650",
   "1081143",
   "1079651",
-  "1081596",
   "1081597",
   "1082767",
   "1081600",
@@ -113,7 +113,6 @@
   "1081871",
   "1079654",
   "1079655",
-  "1081148",
   "1081149",
   "1079657",
   "1081150",
@@ -156,7 +155,7 @@
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved",
-     "detail": "Kalshi event KXCS2GAME-26OCT212300NEXMOR: Order book spread 0.26 exceeds the 0.15 indicative ceiling (NEXVOID bid/ask 0.61/0.84, Morningstar bid/ask 0.13/0.39); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT212300NEXMOR: Order book spread 0.16 exceeds the 0.15 indicative ceiling (NEXVOID bid/ask 0.73/0.86, Morningstar bid/ask 0.11/0.27); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
     },
     {
@@ -212,11 +211,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:10Z",
+     "observed_at": "2026-10-22T02:33:45Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "d38a38f1c954af463f9fb987971ed69c57a85dfbe9b544ad3d2b2d784c41972b",
-     "elapsed_ms": 47
+     "sha256": "b0951f17c0cb442f8ab5744057992e55a4ccd8b0fbdaf9508d8fc46aa9951ebc",
+     "elapsed_ms": 210
     },
     "team_searches": [
      {
@@ -224,11 +223,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Morningstar",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:09Z",
-       "bytes": 124494,
-       "sha256": "e17931b1824796aaa4737adcb096764b562f6eae5140bf6cf961fda907dbfb44",
+       "observed_at": "2026-10-22T02:33:44Z",
+       "bytes": 132379,
+       "sha256": "c7404382cd64df234261fa253b22631586a063a249f6fe5f51629c6a47a7ce5f",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 402
+       "elapsed_ms": 259
       }
      },
      {
@@ -236,11 +235,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=NEXVOID",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:09Z",
-       "bytes": 128497,
-       "sha256": "0e222e01b4f894719ed0adf7ed0c44afb79c7f54c83b559f5451026ad3b7f91f",
+       "observed_at": "2026-10-22T02:33:45Z",
+       "bytes": 134503,
+       "sha256": "b068367fca5639b122d7fbc86181d5f0d89eb0b975cd08cf8808f0d8c999110f",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 623
+       "elapsed_ms": 238
       }
      }
     ],
@@ -251,11 +250,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Morningstar",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:10Z",
+      "observed_at": "2026-10-22T02:33:45Z",
       "bytes": 2938,
       "sha256": "4a3769238dcc4333246f6d0bf53a9ca8a5bd422b39d150066a6be5fa6ba1ab91",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 251
+      "elapsed_ms": 145
      },
      "exact": [
       {
@@ -267,11 +266,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22125&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:10Z",
+      "observed_at": "2026-10-22T02:33:45Z",
       "bytes": 2441,
       "sha256": "6b140e06f272ab4b6fe0a75381830d7000181a160f8894fa51a1f9893a55bfbe",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 399
+      "elapsed_ms": 172
      },
      "bound_matches": [
       {
@@ -287,11 +286,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=NEXVOID",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:11Z",
+      "observed_at": "2026-10-22T02:33:45Z",
       "bytes": 2924,
       "sha256": "13fd36617b7b006fdbafafb0ed32e24dcef8661f7703a3f1d07804943624a62b",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 586
+      "elapsed_ms": 149
      },
      "exact": [
       {
@@ -303,11 +302,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22560&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:11Z",
+      "observed_at": "2026-10-22T02:33:45Z",
       "bytes": 4561,
       "sha256": "ca5ee6fac9980f89fe8772cf893db7c337ec07b65d6a8a2c2bd64790155fbc2c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 254
+      "elapsed_ms": 230
      },
      "bound_matches": [
       {
@@ -324,11 +323,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:11Z",
+     "observed_at": "2026-10-22T02:33:45Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "304529dba78927508cf2302c77761f1e7fc65ad5959b2186328ca6f779e81ed2",
-     "elapsed_ms": 111
+     "sha256": "4432ba922141e6f8e350445c5821beeb5f8c081da6d52831b97a670f42f4f5cd",
+     "elapsed_ms": 60
     },
     "pairs_seen": []
    }
@@ -343,8 +342,8 @@
    "starts_at": "2026-10-22T05:00:00Z",
    "method": "market",
    "probabilities": [
-    0.3,
-    0.7
+    0.295,
+    0.705
    ],
    "pick": "Rare Atom",
    "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
@@ -360,11 +359,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:12Z",
+     "observed_at": "2026-10-22T02:33:46Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "3172f195818a5ef07ee827b0cfd26e4cafe8a276b360e1788d34da5c78bd7773",
-     "elapsed_ms": 74
+     "sha256": "082f2b443fc5921ac578bf5b48b6103de39a1f0631c726848f2bdcefc8c8ebe3",
+     "elapsed_ms": 26
     },
     "team_searches": [
      {
@@ -372,11 +371,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Vitalem%20Aerem",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:11Z",
-       "bytes": 123784,
-       "sha256": "f091ba8688d90cd207fed8706cc43280f045975faf337c138ed8e89b881737e8",
+       "observed_at": "2026-10-22T02:33:46Z",
+       "bytes": 131652,
+       "sha256": "f5b83cfcef4711a93c597066d8f72d2faa32387dceb715da0f9561960aa3d938",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 364
+       "elapsed_ms": 491
       }
      },
      {
@@ -384,11 +383,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Rare%20Atom",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:12Z",
-       "bytes": 136441,
-       "sha256": "3e30d8fb1db1673e13e8f8b8d76a8154ff8b96eec52c74fef5cfa9cf62610701",
+       "observed_at": "2026-10-22T02:33:46Z",
+       "bytes": 143290,
+       "sha256": "bf0f3813e3eb81d65f25a1875cf44469c006101762e95a6ea1ce5ea90c3761c6",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 520
+       "elapsed_ms": 380
       }
      }
     ],
@@ -399,11 +398,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Vitalem%20Aerem",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:12Z",
+      "observed_at": "2026-10-22T02:33:47Z",
       "bytes": 2946,
       "sha256": "8fa288c533451e167e9b7fdba2d66bf53dd646b66329832a7492054e974e76c0",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 223
+      "elapsed_ms": 164
      },
      "exact": [
       {
@@ -415,11 +414,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=24068&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:13Z",
+      "observed_at": "2026-10-22T02:33:47Z",
       "bytes": 2535,
       "sha256": "3db0e5519328e7f8af4a50922cc960b08385d7d131585beaa4e04887a25b79d8",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 375
+      "elapsed_ms": 167
      },
      "bound_matches": [
       {
@@ -435,11 +434,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Rare%20Atom",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:13Z",
+      "observed_at": "2026-10-22T02:33:47Z",
       "bytes": 4793,
       "sha256": "d24d212a87d84197d95bd65f654a08a0a1c7db208cc563fd620a30e8586f792f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 242
+      "elapsed_ms": 151
      },
      "exact": [
       {
@@ -451,11 +450,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=2506&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:13Z",
+      "observed_at": "2026-10-22T02:33:47Z",
       "bytes": 2534,
       "sha256": "3276f59eed38e7bd9deeec279ad8961e44e483adb1092c348dc50b4a90e1a7a7",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 277
+      "elapsed_ms": 480
      },
      "bound_matches": [
       {
@@ -472,11 +471,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:13Z",
+     "observed_at": "2026-10-22T02:33:47Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b63195c8720eb9c10a4dd83e4f7e4b8d9f5911e0decd348146cd35d3ab1fc95f",
-     "elapsed_ms": 69
+     "sha256": "92403c120376fe9e4a21cfee66beee6bfbf07265ecf214edda745af5ef24f380",
+     "elapsed_ms": 28
     },
     "pairs_seen": []
    }
@@ -491,8 +490,8 @@
    "starts_at": "2026-10-22T08:00:00Z",
    "method": "market",
    "probabilities": [
-    0.31,
-    0.69
+    0.355,
+    0.645
    ],
    "pick": "ex-6666",
    "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
@@ -508,11 +507,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:15Z",
+     "observed_at": "2026-10-22T02:33:48Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "9294f4795cc5b015fb9468e5f8f046fcba6484a3163663d5696634bb8761a982",
-     "elapsed_ms": 267
+     "sha256": "556fac5ff44e21c69d6faf0ac257599232e1a8a3eff9dcef392acaaf60b5ef59",
+     "elapsed_ms": 142
     },
     "team_searches": [
      {
@@ -520,11 +519,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Bushido%20Wildcats",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:14Z",
-       "bytes": 125696,
-       "sha256": "e524729a72378883d207409bdf4e50f001f5179815f9ba5ed5d23a94b08a9180",
+       "observed_at": "2026-10-22T02:33:48Z",
+       "bytes": 132143,
+       "sha256": "43c1be6893c09701a568e6caa9690a036e1f6c9fcefa02e874f844902c75ca60",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 532
+       "elapsed_ms": 486
       }
      },
      {
@@ -532,11 +531,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-6666",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:14Z",
-       "bytes": 124131,
-       "sha256": "a2755b44be1c0550f743dd37f37df44939b4f12af6afcb167bfc79a197e81e01",
+       "observed_at": "2026-10-22T02:33:48Z",
+       "bytes": 130597,
+       "sha256": "2e6293bec1a27f8bd35e6ba56b470ae663a8214263cf4058204eff233716d424",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 535
+       "elapsed_ms": 403
       }
      }
     ],
@@ -547,11 +546,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Bushido%20Wildcats",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:15Z",
+      "observed_at": "2026-10-22T02:33:49Z",
       "bytes": 2956,
       "sha256": "2864674d90b215d99da84f47dc527b8ae1cc9822b85e77a5cdf3a74ffc87c5fb",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 248
+      "elapsed_ms": 178
      },
      "exact": [
       {
@@ -563,11 +562,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=20792&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:16Z",
+      "observed_at": "2026-10-22T02:33:49Z",
       "bytes": 2382,
       "sha256": "ecf8291d22808c177d6da61c313826a28c6a1256b5fc1ae15e5148e9dd54097e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 874
+      "elapsed_ms": 154
      },
      "bound_matches": [
       {
@@ -583,11 +582,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-6666",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:16Z",
+      "observed_at": "2026-10-22T02:33:49Z",
       "bytes": 809,
       "sha256": "1f59625b0007fb4f80cd8791fb7779f416a878a2391983557d75e8b883bec7c4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 239
+      "elapsed_ms": 156
      },
      "exact": [
       {
@@ -599,11 +598,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25508&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:16Z",
+      "observed_at": "2026-10-22T02:33:49Z",
       "bytes": 6529,
       "sha256": "40c9963cd23cf64743dacfef380de206ad0e13c453cd0b5fd0e4d4d6e39dcf48",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 341
+      "elapsed_ms": 178
      },
      "bound_matches": [
       {
@@ -620,11 +619,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:16Z",
+     "observed_at": "2026-10-22T02:33:49Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "6b7399f6052006c847b22884c8ef9909be8d6ca0823ddc52f58f07c8eae5c79c",
-     "elapsed_ms": 62
+     "sha256": "2a49e8d9b73547bf09784bf34cdfba64de050e52312f0c8a2f54905f0fe92b88",
+     "elapsed_ms": 38
     },
     "pairs_seen": []
    }
@@ -637,30 +636,72 @@
    ],
    "competition": "CCT Europe 2026 Series #11",
    "starts_at": "2026-10-22T08:00:00Z",
-   "method": "market",
+   "method": "model",
    "probabilities": [
-    0.59,
-    0.41
+    0.7581203,
+    0.2418797
    ],
    "pick": "GenOne",
-   "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
    "trail": [
     {
      "stage": "Primary: Polymarket",
-     "status": "resolved",
-     "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes.",
+     "status": "unresolved",
+     "detail": "Crossed or wider-than-12-cent order book",
      "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked",
+     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
+     "source_url": "https://www.hltv.org/matches/2399327/genone-vs-spirit-academy-cct-2026-europe-series-11"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable",
+     "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+     "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable",
+     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
+     "source_url": "https://www.pinnacle.com/en/esports-hub/cs2"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable",
+     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
+     "source_url": "https://www.rivalry.com/esports/counter-strike-betting"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable",
+     "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike",
+     "source_url": "https://stake.com/sports/esports/counter-strike"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved",
+     "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
     }
    ],
    "hltv": {
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:17Z",
+     "observed_at": "2026-10-22T02:33:50Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f549d4f90e53393dad257709d1dba1814b5ae105836e583d4f54419b93a66e2f",
-     "elapsed_ms": 70
+     "sha256": "57a7e102527676046737320d88ca8f81a17fe5a9abfe1f9b534106468f983f01",
+     "elapsed_ms": 20
     },
     "team_searches": [
      {
@@ -668,11 +709,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=GenOne",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:17Z",
-       "bytes": 136936,
-       "sha256": "2fc86effacbaa90416941acabf464ae1b711819a5fbf29ec47d330b1f5fd4310",
+       "observed_at": "2026-10-22T02:33:50Z",
+       "bytes": 143081,
+       "sha256": "23b32a2914eef89d0e632034b11409096518315563430497e1b0bd2a1693d798",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 361
+       "elapsed_ms": 401
       }
      },
      {
@@ -680,11 +721,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Spirit%20Academy",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:17Z",
-       "bytes": 137926,
-       "sha256": "4326ae947096c425d85e1893f248a2468390617ac936b53b458cd113e2fc8b66",
+       "observed_at": "2026-10-22T02:33:50Z",
+       "bytes": 144373,
+       "sha256": "426f928d5c4f0efc543eeb69008bb520d7b07733177cee91e78983451099df5b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 348
+       "elapsed_ms": 238
       }
      }
     ],
@@ -695,11 +736,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=GenOne",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:17Z",
+      "observed_at": "2026-10-22T02:33:50Z",
       "bytes": 4761,
       "sha256": "62b96669ec250e31599cdc142bbba0cff246a63db43949a7f36179b56ca40ab5",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 229
+      "elapsed_ms": 217
      },
      "exact": [
       {
@@ -711,11 +752,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=1406&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:18Z",
+      "observed_at": "2026-10-22T02:33:50Z",
       "bytes": 2620,
       "sha256": "843c6640fb202c66ab3298afc853074da9282a5cda6c6f6fadf03c7f38a238bd",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 319
+      "elapsed_ms": 159
      },
      "bound_matches": [
       {
@@ -731,11 +772,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Spirit%20Academy",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:18Z",
+      "observed_at": "2026-10-22T02:33:50Z",
       "bytes": 4799,
       "sha256": "1b94b2fc95a96df42e7e34568da76b2b29766247de5e43325f87f486cce5fe5c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 504
+      "elapsed_ms": 136
      },
      "exact": [
       {
@@ -747,11 +788,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=1309&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:18Z",
-      "bytes": 4917,
-      "sha256": "b3c4a44771aca4cb0eff73d132f0ac3faaff901ca5e85d81efccfe62e9a77d16",
+      "observed_at": "2026-10-22T02:33:51Z",
+      "bytes": 6948,
+      "sha256": "39f0fcb87482a4129fcbf436ae90c512381d5f7dfbc632f557fee160b3da2c9c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 229
+      "elapsed_ms": 378
      },
      "bound_matches": [
       {
@@ -768,11 +809,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:18Z",
+     "observed_at": "2026-10-22T02:33:51Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "afeafdebfd76398e6a5be129802ca35e7c5a8af9400be5237252ded7dbd0472a",
-     "elapsed_ms": 42
+     "sha256": "2c770e9335eb0251eb94eea7d291852c5970887d91a7fed47561303d1fba31b0",
+     "elapsed_ms": 39
     },
     "pairs_seen": []
    }
@@ -846,11 +887,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:20Z",
+     "observed_at": "2026-10-22T02:33:52Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "81affbe918e4ca7a6669c030f08aa2412c5bcc83a6d1eb5f9ecb803bb51e364a",
-     "elapsed_ms": 53
+     "sha256": "58e72b3949130eb4f9415be8f91621ca00f1fdcbd86dd07ff91f29da125aa438",
+     "elapsed_ms": 23
     },
     "team_searches": [
      {
@@ -858,11 +899,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=BakS",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:19Z",
-       "bytes": 126004,
-       "sha256": "b954b5aa2b4649db9df160c38af709c70a0a8f221cd4cef6b8395a5c5bf48f89",
+       "observed_at": "2026-10-22T02:33:51Z",
+       "bytes": 131838,
+       "sha256": "2886eeb098239694475eaf3d8f06de47d12cb72437b0f49413ab92aee2cdf74c",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 490
+       "elapsed_ms": 468
       }
      },
      {
@@ -870,11 +911,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Azuolas",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:19Z",
-       "bytes": 123880,
-       "sha256": "e58747294724865d1efe76f0b6fbebce30c4abf5a6aa7d3a834891b4559517ca",
+       "observed_at": "2026-10-22T02:33:52Z",
+       "bytes": 130325,
+       "sha256": "fdb579e1253223786dbfd617425939a2f1e3d4910cc9e980bdcf90fd8d90653b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 500
+       "elapsed_ms": 548
       }
      }
     ],
@@ -885,11 +926,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BakS",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:20Z",
+      "observed_at": "2026-10-22T02:33:52Z",
       "bytes": 204,
       "sha256": "5b3526ef7b3c48ff699078fc2678ba46ab9c5d4bbcf44d3f96a9b791c00f0756",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 329
+      "elapsed_ms": 134
      },
      "exact": []
     },
@@ -897,11 +938,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Azuolas",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:20Z",
+      "observed_at": "2026-10-22T02:33:52Z",
       "bytes": 2914,
       "sha256": "f7f4916d2414171e7c241067b6991cffc8273225aeccc5d4bb08c39065c11370",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 471
+      "elapsed_ms": 233
      },
      "exact": [
       {
@@ -913,11 +954,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25247&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:21Z",
+      "observed_at": "2026-10-22T02:33:52Z",
       "bytes": 2450,
       "sha256": "1733e9c197851037aea4763252940da12b1ade2988f8c294f22a01a6d43d0cad",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 425
+      "elapsed_ms": 192
      },
      "bound_matches": [
       {
@@ -934,11 +975,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:21Z",
+     "observed_at": "2026-10-22T02:33:52Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "3c528180540b9538fc87472fa727a19a59cf6189aa1fb23efd63a8b5374577cf",
-     "elapsed_ms": 62
+     "sha256": "284458a6f4b81439dd832bbfe7cf9f533de21582d164dac08824df873644f2b9",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -970,11 +1011,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:22Z",
+     "observed_at": "2026-10-22T02:33:53Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b5e64b0a96883763bad3541af0c53111f5e01a8d27119f372593e17b6f2ac6ed",
-     "elapsed_ms": 39
+     "sha256": "e7ff810d3e80242e790c11e3f496849c7dd3c76d6a2b3895e5837d4cf9b5598b",
+     "elapsed_ms": 17
     },
     "team_searches": [
      {
@@ -982,11 +1023,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=FORZE%20Reload",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:21Z",
-       "bytes": 127115,
-       "sha256": "0395896c8dc033c67e9ad34a9ad6b44f734da46166218b7a25a9c01e5f305ae0",
+       "observed_at": "2026-10-22T02:33:53Z",
+       "bytes": 133393,
+       "sha256": "8ac0dc2f25b1f2a8fe85b768ca7927874d9a197649a263be1907e3d842b294ad",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 383
+       "elapsed_ms": 239
       }
      },
      {
@@ -994,11 +1035,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Just%20Players",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:22Z",
-       "bytes": 138168,
-       "sha256": "19dbab728a05e92c18fcdb6578984f73b4323925a839ab676f9154f0bb164e94",
+       "observed_at": "2026-10-22T02:33:53Z",
+       "bytes": 144634,
+       "sha256": "31e8c45f8317e2b250e88e8edfb944e73c4d212c0c502b307806b3d81b9c9ed6",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 1087
+       "elapsed_ms": 361
       }
      }
     ],
@@ -1009,11 +1050,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=FORZE%20Reload",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:23Z",
+      "observed_at": "2026-10-22T02:33:53Z",
       "bytes": 2960,
       "sha256": "94b608a363fb4ce528542cd28c7030f3724b8aab874863bc50451bfd5b45c3de",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 252
+      "elapsed_ms": 335
      },
      "exact": [
       {
@@ -1025,11 +1066,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=10703&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:23Z",
+      "observed_at": "2026-10-22T02:33:53Z",
       "bytes": 7094,
       "sha256": "56650f3ac495f8d0083a34ece356350588e0872d71577774427c92d42a4dbf00",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 281
+      "elapsed_ms": 218
      },
      "bound_matches": [
       {
@@ -1048,11 +1089,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Just%20Players",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:23Z",
+      "observed_at": "2026-10-22T02:33:54Z",
       "bytes": 2936,
       "sha256": "030b74875b3b3bd8ead3a3760a93e8a62fc28a29c4717f9a586573561eeb4e40",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 229
+      "elapsed_ms": 191
      },
      "exact": [
       {
@@ -1064,11 +1105,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=23107&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:23Z",
+      "observed_at": "2026-10-22T02:33:54Z",
       "bytes": 2820,
       "sha256": "88e957408fafc362849a9d0bcf65dcd19adc2c0125296562ac28c1328f964f37",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 255
+      "elapsed_ms": 170
      },
      "bound_matches": [
       {
@@ -1088,11 +1129,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:23Z",
+     "observed_at": "2026-10-22T02:33:54Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f5ab620c027510cb8eee53146171c8065a2927c69721b7d82c54cea589c52fed",
-     "elapsed_ms": 59
+     "sha256": "fe0fdd5a00f1328d943deeee86e6f7248a610721fc06be0ac4e529c5e4ca84e0",
+     "elapsed_ms": 37
     },
     "pairs_seen": []
    }
@@ -1166,11 +1207,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:25Z",
+     "observed_at": "2026-10-22T02:33:55Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "ae7c69b96c72bcf4e66b1254847651169423f452c097ea3cbcddb35195fc5aad",
-     "elapsed_ms": 40
+     "sha256": "a169a943f5649df007ec468f98fac9f774204f6c392d7c3e91db0ad769b3df6d",
+     "elapsed_ms": 17
     },
     "team_searches": [
      {
@@ -1178,11 +1219,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Butterfly",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:24Z",
-       "bytes": 127405,
-       "sha256": "955b6620bb7331f2fb6075b5f10ad589a6f8732aa2ece5a4f2e223893024fd35",
+       "observed_at": "2026-10-22T02:33:54Z",
+       "bytes": 133861,
+       "sha256": "868d87aa72ae6d786f4ff9b8a46c55160909abd802d58efcd17c2a7c694a2d3b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 681
+       "elapsed_ms": 382
       }
      },
      {
@@ -1190,11 +1231,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Lavked",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:24Z",
-       "bytes": 123420,
-       "sha256": "f11872679ebde18f1d8af75a3e041eb1fab422b59d381345314325939b96647b",
+       "observed_at": "2026-10-22T02:33:55Z",
+       "bytes": 129878,
+       "sha256": "c92d2cfd0cda603fde4fbebbca0107231af14429ef336bf560f9513ad6cb4aa3",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 397
+       "elapsed_ms": 246
       }
      }
     ],
@@ -1205,11 +1246,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Butterfly",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:25Z",
+      "observed_at": "2026-10-22T02:33:55Z",
       "bytes": 2925,
       "sha256": "f825c742bb4379c33e6c4652d8d4d8dbc08d70325a542c1831463fdfee8c43bc",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 256
+      "elapsed_ms": 173
      },
      "exact": [
       {
@@ -1221,11 +1262,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=24855&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:25Z",
+      "observed_at": "2026-10-22T02:33:55Z",
       "bytes": 2354,
       "sha256": "e8ee2f47bfaeefccea45848fe7bfb498537d44f20bcbee8edc018666652e3661",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 380
+      "elapsed_ms": 240
      },
      "bound_matches": [
       {
@@ -1241,11 +1282,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Lavked",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:25Z",
+      "observed_at": "2026-10-22T02:33:55Z",
       "bytes": 805,
       "sha256": "618a26b485e27992f27d6b47153c404d9e4c4357356113603973181e261a5d9f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 238
+      "elapsed_ms": 341
      },
      "exact": [
       {
@@ -1257,11 +1298,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=23078&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:26Z",
+      "observed_at": "2026-10-22T02:33:55Z",
       "bytes": 4405,
       "sha256": "4de949fe64ba43ff4ebedd9bdb2814e95790ca4b89a9b146b2d9e1729db2fa96",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 257
+      "elapsed_ms": 191
      },
      "bound_matches": [
       {
@@ -1278,11 +1319,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:26Z",
+     "observed_at": "2026-10-22T02:33:56Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b1a2cec62699551065e8089db5bda030b0b603d19d2ed59262b69b9c7b30083e",
-     "elapsed_ms": 55
+     "sha256": "50931ea12840669e824d0e247c259676acd238af80dc392d20ce2b7a0749e2d2",
+     "elapsed_ms": 21
     },
     "pairs_seen": []
    }
@@ -1295,20 +1336,14 @@
    ],
    "competition": "CCT Europe 2026 Challengers #8",
    "starts_at": "2026-10-22T11:00:00Z",
-   "method": "model",
+   "method": "market",
    "probabilities": [
-    0.5321556,
-    0.4678444
+    0.59,
+    0.41
    ],
    "pick": "Falcons Force",
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
    "trail": [
-    {
-     "stage": "Primary: Polymarket",
-     "status": "unresolved",
-     "detail": "Crossed or wider-than-12-cent order book",
-     "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22"
-    },
     {
      "stage": "HLTV research",
      "status": "checked",
@@ -1316,51 +1351,63 @@
      "source_url": "https://www.hltv.org/matches/2399695/falcons-force-vs-phantom-academy-cct-2026-challengers-europe-series-8"
     },
     {
-     "stage": "Original esportsbook lines",
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "resolved",
+     "detail": "Verified paired order-book midpoints.",
+     "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved",
-     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "detail": "Kalshi event KXCS2GAME-26OCT220700FALPHAC: Order book spread 0.44 exceeds the 0.15 indicative ceiling (Falcons Force bid/ask 0.44/0.88, Phantom Academy bid/ask 0.08/0.51); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220700falphac"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
      "source_url": "https://thunderpick.io/esports/counter-strike"
     },
     {
-     "stage": "GG.BET esportsbook",
-     "status": "unavailable",
-     "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-     "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
     },
     {
-     "stage": "Pinnacle esportsbook",
-     "status": "unavailable",
-     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
-     "source_url": "https://www.pinnacle.com/en/esports-hub/cs2"
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
     },
     {
-     "stage": "Rivalry esportsbook",
-     "status": "unavailable",
-     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
-     "source_url": "https://www.rivalry.com/esports/counter-strike-betting"
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
     },
     {
-     "stage": "Stake esportsbook",
-     "status": "unavailable",
-     "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike",
-     "source_url": "https://stake.com/sports/esports/counter-strike"
-    },
-    {
-     "stage": "Valve research model",
+     "stage": "Research model cross-check (Valve official ratings)",
      "status": "resolved",
-     "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists.",
      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unle",
+     "source_url": "https://www.hltv.org/ranking/teams"
     }
    ],
    "hltv": {
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:27Z",
+     "observed_at": "2026-10-22T02:33:56Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "75d2c61ec9de727047623ce5f67bffd7f4ccdfd237fcef0cea00b825d07cce79",
-     "elapsed_ms": 191
+     "sha256": "556a454443bc133fbf7d78fa23b5d04536681e25d7a1d69c9e396749c885ddf0",
+     "elapsed_ms": 17
     },
     "team_searches": [
      {
@@ -1368,11 +1415,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Falcons%20Force",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:26Z",
-       "bytes": 136650,
-       "sha256": "1f948ef9189cf1bdc2b526e725c77c606370795fed0d15b644a9cfd1912f2555",
+       "observed_at": "2026-10-22T02:33:56Z",
+       "bytes": 143095,
+       "sha256": "db9e87e9cff9d067c4faf66cfd3afe1427138c92624c55515f6d67cb14b91450",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 509
+       "elapsed_ms": 252
       }
      },
      {
@@ -1380,11 +1427,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Phantom%20Academy",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:27Z",
-       "bytes": 127091,
-       "sha256": "2237d20101373c34901eb63db246826419c92145759727e16a79696263bb8b35",
+       "observed_at": "2026-10-22T02:33:56Z",
+       "bytes": 133810,
+       "sha256": "0534c823bb59ee7d54a4ad74526056416b2e3873f60340874b7aa0552917a3ab",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 325
+       "elapsed_ms": 377
       }
      }
     ],
@@ -1395,11 +1442,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Falcons%20Force",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:27Z",
+      "observed_at": "2026-10-22T02:33:56Z",
       "bytes": 2951,
       "sha256": "e1a993b47ba591e05059bbdcfda6f7daca3cad547e1fed5e3d697759363adf0b",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 214
+      "elapsed_ms": 144
      },
      "exact": [
       {
@@ -1411,11 +1458,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=21012&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:27Z",
+      "observed_at": "2026-10-22T02:33:56Z",
       "bytes": 4934,
       "sha256": "fb237de5fc084f13cee53a978ac7f4c1f60b03be7ee89771f33a3c5ad1456958",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 245
+      "elapsed_ms": 148
      },
      "bound_matches": [
       {
@@ -1431,11 +1478,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Phantom%20Academy",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:27Z",
+      "observed_at": "2026-10-22T02:33:57Z",
       "bytes": 2963,
       "sha256": "d0cadbe483dac106400a9adfb5d4bf1532e53df9bde0f7da111867cd4da91eac",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 239
+      "elapsed_ms": 126
      },
      "exact": [
       {
@@ -1447,11 +1494,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22009&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:28Z",
+      "observed_at": "2026-10-22T02:33:57Z",
       "bytes": 5036,
       "sha256": "ef1cc5fd171182e66feb4cf592e73a17c35b2a8854452435fcc2d43302059187",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 266
+      "elapsed_ms": 198
      },
      "bound_matches": [
       {
@@ -1468,11 +1515,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:28Z",
+     "observed_at": "2026-10-22T02:33:57Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "80c36ca954c8e3516458bb7270dfd27f407cdb26352a9f230a67d1dd8c51805c",
-     "elapsed_ms": 44
+     "sha256": "179fef438b191167b61ff0c785812fc3f9cc335c51d2470a952196508c5e1fec",
+     "elapsed_ms": 28
     },
     "pairs_seen": []
    }
@@ -1487,8 +1534,8 @@
    "starts_at": "2026-10-22T11:00:00Z",
    "method": "model",
    "probabilities": [
-    0.2203644895995899,
-    0.7796355104004101
+    0.21977167281780216,
+    0.7802283271821978
    ],
    "pick": "TitanFlow",
    "source_url": "https://bo3.gg/matches",
@@ -1550,7 +1597,7 @@
     {
      "stage": "Own network model (bo3.gg results graph)",
      "status": "resolved",
-     "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 9 series for the thinner side, rating-difference SD 166.9 points.",
+     "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 9 series for the thinner side, rating-difference SD 166.8 points.",
      "source_url": "https://bo3.gg/matches"
     },
     {
@@ -1564,11 +1611,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:29Z",
+     "observed_at": "2026-10-22T02:33:58Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f5b860763ac267b591aa38b8b9f6549ad1e533144ba7e086b4fbdb3b6cc38742",
-     "elapsed_ms": 42
+     "sha256": "6f3034ff0189df8331216af1df259a19777c0728cecb14dc28da14a49a56db9e",
+     "elapsed_ms": 23
     },
     "team_searches": [
      {
@@ -1576,11 +1623,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=benched%20gods",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:28Z",
-       "bytes": 127457,
-       "sha256": "666cd99becf6fa1d130fa5082f2c11f641a36db18ec45b701449c6ff9f673d46",
+       "observed_at": "2026-10-22T02:33:57Z",
+       "bytes": 133913,
+       "sha256": "1f9a51ebc733490c612134c54327e9148f0a8557e26cccb8d45374bb97344512",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 313
+       "elapsed_ms": 389
       }
      },
      {
@@ -1588,11 +1635,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=TitanFlow",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:29Z",
-       "bytes": 123438,
-       "sha256": "c8b1e74f02db4d2dc21dbab51c169799e56fd36d0883c0544bc4423c00440db5",
+       "observed_at": "2026-10-22T02:33:58Z",
+       "bytes": 129722,
+       "sha256": "c724fdfcefec1580640451b55d586b230615f2fda3f4c2b115b8b41869f97555",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 503
+       "elapsed_ms": 356
       }
      }
     ],
@@ -1603,11 +1650,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=benched%20gods",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:29Z",
+      "observed_at": "2026-10-22T02:33:58Z",
       "bytes": 2937,
       "sha256": "19fae261dc89dd9c5199a952dbe801449420e91f039b718a02027cf1c1c0037d",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 236
+      "elapsed_ms": 144
      },
      "exact": [
       {
@@ -1619,11 +1666,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22240&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:29Z",
+      "observed_at": "2026-10-22T02:33:58Z",
       "bytes": 2382,
       "sha256": "179aa9dfc1c678c4ab6140f429b037794a8a68337d1d586691b97cd6fa35ce63",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 230
+      "elapsed_ms": 169
      },
      "bound_matches": [
       {
@@ -1639,11 +1686,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=TitanFlow",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:29Z",
+      "observed_at": "2026-10-22T02:33:58Z",
       "bytes": 815,
       "sha256": "056bb0ed16d255fc440e1da15c9ff24012978128ad71d1d42219eca07e62bf15",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 235
+      "elapsed_ms": 144
      },
      "exact": [
       {
@@ -1655,11 +1702,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25277&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:30Z",
+      "observed_at": "2026-10-22T02:33:58Z",
       "bytes": 2382,
       "sha256": "e63fddf249625032c83149a781996fd603fe3970f5443553098887ea4a2b3283",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 256
+      "elapsed_ms": 155
      },
      "bound_matches": [
       {
@@ -1676,11 +1723,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:30Z",
+     "observed_at": "2026-10-22T02:33:58Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "bbc0264448ee994ea3436d2a2414741d3e050e6836ef8368a2662b8732493c4d",
-     "elapsed_ms": 51
+     "sha256": "135458afbd0dbd61c7aecdbbaf714c3a0ca83338fb93f4d2c9093a88a192aa04",
+     "elapsed_ms": 23
     },
     "pairs_seen": []
    }
@@ -1754,11 +1801,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:30Z",
+     "observed_at": "2026-10-22T02:34:00Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "45d9702c3ae4260a6c58673d23d191b4eefeee3a7778e023ad82229ffdce5811",
-     "elapsed_ms": 52
+     "sha256": "584058c285515966d192575dea34c609579ab342eba0122a7fcf9972812346db",
+     "elapsed_ms": 20
     },
     "team_searches": [
      {
@@ -1766,11 +1813,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Nemesis",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:30Z",
-       "bytes": 139986,
-       "sha256": "d910cc44cc58900db6cc827a88085737ccf8d4ed4d5e0b1d7cf6895f17ca2215",
+       "observed_at": "2026-10-22T02:33:59Z",
+       "bytes": 146278,
+       "sha256": "b4b0411aaddf80cbf03d6a597192aac4fc741e43a44d698a297f588ac53454cc",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 339
+       "elapsed_ms": 581
       }
      },
      {
@@ -1778,11 +1825,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=WW",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:30Z",
-       "bytes": 139806,
-       "sha256": "f9df6fc9184b6d98eebf8ed48cd2a2a1bb63b3f9ae4dbb3f5649b21b93773df4",
+       "observed_at": "2026-10-22T02:34:00Z",
+       "bytes": 146151,
+       "sha256": "c99b6091cb30b31bb4ff3a7544bfa6881bdd929cabf99e086148b94d8b1e09fe",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 374
+       "elapsed_ms": 823
       }
      }
     ],
@@ -1793,11 +1840,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Nemesis",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:31Z",
+      "observed_at": "2026-10-22T02:34:00Z",
       "bytes": 5140,
       "sha256": "5fa6770b0f6e4d4177adf366344249eb7ad6776fc264cd21490bd2e4894547d8",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 225
+      "elapsed_ms": 141
      },
      "exact": [
       {
@@ -1809,11 +1856,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=21388&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:31Z",
+      "observed_at": "2026-10-22T02:34:00Z",
       "bytes": 4916,
       "sha256": "4a27d9ca101565b9759b0496e3aabfd8ffebbc6c5ade32ac54b4b1bf6857665b",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 320
+      "elapsed_ms": 155
      },
      "bound_matches": []
     },
@@ -1821,11 +1868,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=WW",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:31Z",
+      "observed_at": "2026-10-22T02:34:00Z",
       "bytes": 2908,
       "sha256": "971e5d3a3d74e663f28e2790cfd8388731f0542fa7509d58cbd88ee9443f5129",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 240
+      "elapsed_ms": 160
      },
      "exact": [
       {
@@ -1837,11 +1884,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=16748&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:31Z",
+      "observed_at": "2026-10-22T02:34:00Z",
       "bytes": 292,
       "sha256": "c42b78481294969edadd10fb492cf85569473eaae875dd2888ff8776e88ed20c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 230
+      "elapsed_ms": 198
      },
      "bound_matches": []
     }
@@ -1850,11 +1897,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:31Z",
+     "observed_at": "2026-10-22T02:34:00Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "03ce595d3c78eba8c16bf85574417623189fa1e165f4b5cea1aeaca2b15daf6d",
-     "elapsed_ms": 55
+     "sha256": "6c69833ea14aaed915b741a4eca1ba6a3d9b3d3bf0473f0581fe1e5a31a5f1fc",
+     "elapsed_ms": 19
     },
     "pairs_seen": []
    }
@@ -1869,8 +1916,8 @@
    "starts_at": "2026-10-22T13:00:00Z",
    "method": "market",
    "probabilities": [
-    0.645,
-    0.355
+    0.635,
+    0.365
    ],
    "pick": "JiJieHao",
    "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
@@ -1886,11 +1933,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:32Z",
+     "observed_at": "2026-10-22T02:34:02Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "3fafa88cf02e37fb728d2f3a5e2d574ca7ad5cf40d501d99f3d5a610c9d5cc85",
-     "elapsed_ms": 40
+     "sha256": "66a744f4ac3ed2582d1c5669cde8d7c99faae7b0837f5b1ace60ebeffaa29ef9",
+     "elapsed_ms": 28
     },
     "team_searches": [
      {
@@ -1898,11 +1945,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=JiJieHao",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:32Z",
-       "bytes": 137132,
-       "sha256": "8547d876588a7e43fb6dc86263610f7ebebfc0a73087abc6637d9f23e410d3ca",
+       "observed_at": "2026-10-22T02:34:01Z",
+       "bytes": 143588,
+       "sha256": "c6284fc9489e8f88e79cc06c7eba32b35687d2526e0e1b7638ac55e34450349b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 538
+       "elapsed_ms": 784
       }
      },
      {
@@ -1910,11 +1957,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Nexus",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:32Z",
-       "bytes": 142243,
-       "sha256": "05f633c67e119de7117e410988ab80b10c98cb88b7e8154e1aa59775fd8f0a8d",
+       "observed_at": "2026-10-22T02:34:02Z",
+       "bytes": 148717,
+       "sha256": "d2911945127b4b160d2cb3ea088ad78fecd9b826056e572d69e764685d29074f",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 378
+       "elapsed_ms": 419
       }
      }
     ],
@@ -1925,11 +1972,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=JiJieHao",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:33Z",
+      "observed_at": "2026-10-22T02:34:02Z",
       "bytes": 5113,
       "sha256": "f786c5463f34e97e3bac821e38735d453fe23740cc603ed0d49f1d3141e9d8eb",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 217
+      "elapsed_ms": 134
      },
      "exact": [
       {
@@ -1941,11 +1988,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=3869&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:33Z",
+      "observed_at": "2026-10-22T02:34:02Z",
       "bytes": 4304,
       "sha256": "a6bad755ffc393f2a853cd7737ba537ae8ce3443a59a8b261691ce326ba0b546",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 261
+      "elapsed_ms": 159
      },
      "bound_matches": [
       {
@@ -1964,11 +2011,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Nexus",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:33Z",
+      "observed_at": "2026-10-22T02:34:02Z",
       "bytes": 5095,
       "sha256": "fdbf779bdb6b6a0a96445ed18e94f547f2633d78fbe08d1b06e0a100dde4e76c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 241
+      "elapsed_ms": 160
      },
      "exact": [
       {
@@ -1980,11 +2027,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=326&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:33Z",
+      "observed_at": "2026-10-22T02:34:02Z",
       "bytes": 4303,
       "sha256": "dd665f391cdc95f51017505549ba44667192a4d368afb488fd20a2e486cc8d91",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 268
+      "elapsed_ms": 211
      },
      "bound_matches": [
       {
@@ -2004,11 +2051,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:33Z",
+     "observed_at": "2026-10-22T02:34:02Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "c062c5934c6a4016aea49de6881d41eec26f8c6393272b4a2bbd2efc702e0931",
-     "elapsed_ms": 55
+     "sha256": "70665ddb39c02ccc39f8c90cb8a27e47d34c2d7c7760f51518c4d008c502ffd8",
+     "elapsed_ms": 34
     },
     "pairs_seen": []
    }
@@ -2082,11 +2129,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:34Z",
+     "observed_at": "2026-10-22T02:34:03Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f6d83f13efdf4b79e9fd424adf5d5734525236d5462dac312d9ed7141b82b75b",
-     "elapsed_ms": 73
+     "sha256": "794e8bf4cab4664b4e3f357c98c40deadaade4939c01daed9deebbacb4708d99",
+     "elapsed_ms": 21
     },
     "team_searches": [
      {
@@ -2094,11 +2141,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Donstu",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:34Z",
-       "bytes": 123705,
-       "sha256": "e508a4c3666a8cb609972eadeb38aff880c4255a337719d3069fdcf3f78f00af",
+       "observed_at": "2026-10-22T02:34:03Z",
+       "bytes": 130179,
+       "sha256": "b58a2074e2ffb55667054a779d76655a569bff658f7f59b805ecefdb0f3b1559",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 349
+       "elapsed_ms": 373
       }
      },
      {
@@ -2106,11 +2153,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Banda%20chuya",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:34Z",
-       "bytes": 123444,
-       "sha256": "c5c1e3973aa060e17084de305c78489496cfa22430db6478cecd54c74db96bf4",
+       "observed_at": "2026-10-22T02:34:03Z",
+       "bytes": 129899,
+       "sha256": "63e788d8d99b1815375f52b6e8c8011e6e9ccee85d956213b39ff31a77171e3c",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 475
+       "elapsed_ms": 251
       }
      }
     ],
@@ -2121,11 +2168,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Donstu",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:35Z",
+      "observed_at": "2026-10-22T02:34:03Z",
       "bytes": 206,
       "sha256": "0181aa4562da41443389b3b8cb867eab8ea000ba045cc921f04fe982afd6d175",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 347
+      "elapsed_ms": 142
      },
      "exact": []
     },
@@ -2133,11 +2180,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Banda%20chuya",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:35Z",
+      "observed_at": "2026-10-22T02:34:03Z",
       "bytes": 211,
       "sha256": "52d58733ac50ff7a0ca60ef2bdb6aba50a5881db8c3b756a04691041a2e59cb4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 257
+      "elapsed_ms": 142
      },
      "exact": []
     }
@@ -2146,11 +2193,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:35Z",
+     "observed_at": "2026-10-22T02:34:03Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "33d7db6aab9b230cb7df3f6954d4e226c5f7d8c3e5e83ca2abf5143289ee3660",
-     "elapsed_ms": 75
+     "sha256": "67aaa24ac70ea0b965d68574dca7dba0d60ad7d4e8a38345f1d1e54ca85e8ade",
+     "elapsed_ms": 22
     },
     "pairs_seen": []
    }
@@ -2186,13 +2233,13 @@
     {
      "stage": "Betting market (Polymarket series winner)",
      "status": "unresolved",
-     "detail": "Polymarket event 1232202: Order book spread 0.79 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.16/0.95, ex-6666 bid/ask 0.05/0.84); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232202: Order book spread 0.80 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.15/0.95, ex-6666 bid/ask 0.05/0.85); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved",
-     "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.83 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.82, Acend bid/ask 0.12/0.95); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.79 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.82, Acend bid/ask 0.16/0.95); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221000exace"
     },
     {
@@ -2236,11 +2283,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:36Z",
+     "observed_at": "2026-10-22T02:34:04Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "edc8146b95db7975488ed4a0490fe8e9d1d8108cb5002934c1218c1e4db2a0f2",
-     "elapsed_ms": 51
+     "sha256": "01349a55ce6d94e86be9b16ecf71df86c790e4a10bec76349d054980c113edd9",
+     "elapsed_ms": 24
     },
     "team_searches": [
      {
@@ -2248,11 +2295,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Acend",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:36Z",
-       "bytes": 136768,
-       "sha256": "e35d552cd8cb6c1e1c74735318b65b066c4d897c9bceccba2a872ccdab255d82",
+       "observed_at": "2026-10-22T02:34:03Z",
+       "bytes": 143544,
+       "sha256": "27381584b5e6de86db633094dab2f09c4c2e59867ac9a8af179a9fceb76fbe86",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 587
+       "elapsed_ms": 240
       }
      },
      {
@@ -2260,11 +2307,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-6666",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:36Z",
-       "bytes": 124131,
-       "sha256": "1f2e1854acdd89966a71ec940c94646fe920ba3d756b9f3ec5a094c53479cdfa",
+       "observed_at": "2026-10-22T02:34:04Z",
+       "bytes": 130589,
+       "sha256": "24722543a8cec9e7d2365390aae14f02527401b03586a453f86fd8f69c7533b1",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 265
+       "elapsed_ms": 380
       }
      }
     ],
@@ -2275,11 +2322,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Acend",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:36Z",
+      "observed_at": "2026-10-22T02:34:04Z",
       "bytes": 5130,
       "sha256": "6443c2d72f95c09b3a09b884f1078339af3656bec81ad57cde4743040454fbd8",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 225
+      "elapsed_ms": 144
      },
      "exact": [
       {
@@ -2291,11 +2338,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=21980&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:36Z",
+      "observed_at": "2026-10-22T02:34:04Z",
       "bytes": 2448,
       "sha256": "40c783957437e54b03fcbe2800ef7917524c746a33993ed7d17afa665390269d",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 264
+      "elapsed_ms": 200
      },
      "bound_matches": [
       {
@@ -2311,11 +2358,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-6666",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:37Z",
+      "observed_at": "2026-10-22T02:34:04Z",
       "bytes": 809,
       "sha256": "1f59625b0007fb4f80cd8791fb7779f416a878a2391983557d75e8b883bec7c4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 484
+      "elapsed_ms": 155
      },
      "exact": [
       {
@@ -2327,11 +2374,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25508&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:37Z",
+      "observed_at": "2026-10-22T02:34:05Z",
       "bytes": 6529,
       "sha256": "40c9963cd23cf64743dacfef380de206ad0e13c453cd0b5fd0e4d4d6e39dcf48",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 304
+      "elapsed_ms": 177
      },
      "bound_matches": [
       {
@@ -2348,11 +2395,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:37Z",
+     "observed_at": "2026-10-22T02:34:05Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "d44fc1f5fa8429efeed65bfd4d690bdd8f1fb17fbcea54bbb64622131bbe5476",
-     "elapsed_ms": 68
+     "sha256": "56f9f7642caf0e7cd30cf93440b2f38892f1089235748e5d0a725bb9e99fcf27",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -2426,11 +2473,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:39Z",
+     "observed_at": "2026-10-22T02:34:05Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "c0f2389e9cdd783e7db211bb96370e0194b81881ab926b47ce8d38b5542eadd0",
-     "elapsed_ms": 49
+     "sha256": "375b58396a2e26c42c2298bcd8565c246246cf84d86db87622063f8dd9d1a64f",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -2438,11 +2485,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Lavked",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:38Z",
-       "bytes": 123420,
-       "sha256": "7addec439c0c7f2fc281b8a35ab8e5f6a437c041ec670610cee062e995a7e547",
+       "observed_at": "2026-10-22T02:34:05Z",
+       "bytes": 129878,
+       "sha256": "427e8b99489d5eec1db342ecd9ddf071403ab8c1a418bbe277e1fbb6840005ff",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 779
+       "elapsed_ms": 155
       }
      },
      {
@@ -2450,11 +2497,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=HAVU",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:39Z",
-       "bytes": 136671,
-       "sha256": "1b3783b4f7a7bdf46c936b9ccd9b011caaaaf4ec4a22591117ad51c7a8d8d5ea",
+       "observed_at": "2026-10-22T02:34:05Z",
+       "bytes": 143469,
+       "sha256": "c8458c2e4c02c9f972bdd6cddeaa0e3609a944bcd9fea7f4a6050e34419e5ac3",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 614
+       "elapsed_ms": 250
       }
      }
     ],
@@ -2465,11 +2512,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Lavked",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:39Z",
+      "observed_at": "2026-10-22T02:34:05Z",
       "bytes": 805,
       "sha256": "618a26b485e27992f27d6b47153c404d9e4c4357356113603973181e261a5d9f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 213
+      "elapsed_ms": 114
      },
      "exact": [
       {
@@ -2481,11 +2528,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=23078&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:39Z",
+      "observed_at": "2026-10-22T02:34:05Z",
       "bytes": 4405,
       "sha256": "4de949fe64ba43ff4ebedd9bdb2814e95790ca4b89a9b146b2d9e1729db2fa96",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 190
+      "elapsed_ms": 170
      },
      "bound_matches": [
       {
@@ -2501,11 +2548,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=HAVU",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:39Z",
+      "observed_at": "2026-10-22T02:34:05Z",
       "bytes": 2900,
       "sha256": "67db5cc9affe778111812f6f8347ab2f683925fcb8f37796156f1354aa60b627",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 221
+      "elapsed_ms": 150
      },
      "exact": [
       {
@@ -2517,11 +2564,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=627&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:40Z",
+      "observed_at": "2026-10-22T02:34:06Z",
       "bytes": 2340,
       "sha256": "7228fc816962807d9556f2625d7b5a94b7848d38889f88fc64807badc7cf325f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 234
+      "elapsed_ms": 237
      },
      "bound_matches": [
       {
@@ -2538,11 +2585,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:40Z",
+     "observed_at": "2026-10-22T02:34:06Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "cf8bf79a6ee1dae3d32bfa7f1f4e208b8d184cdfc52027c06cf0eef8d1ad63ba",
-     "elapsed_ms": 61
+     "sha256": "95956fa104f1f99b2290b1cbf859b2f2937563223d3f613876903aade205871b",
+     "elapsed_ms": 34
     },
     "pairs_seen": []
    }
@@ -2574,11 +2621,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:41Z",
+     "observed_at": "2026-10-22T02:34:07Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "665c8e1b6ff86ee7e9b1bad3faa1ac7c0085abb04cbb3f2d4476206e60890452",
-     "elapsed_ms": 54
+     "sha256": "10b1b26b2d355f798567b324ff5ad21a2dafd6696418ccbdc63672a4bee70c74",
+     "elapsed_ms": 24
     },
     "team_searches": [
      {
@@ -2586,11 +2633,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Imperial",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:40Z",
-       "bytes": 138893,
-       "sha256": "4f844c478d2d0239620673e8caaff887ff6ae7761ccf4afc36160944f9eb4474",
+       "observed_at": "2026-10-22T02:34:06Z",
+       "bytes": 145679,
+       "sha256": "619f22b717d81f353dae1b4f420019b5dcc8520b2eec884ebc97e2c2b508ae6f",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 789
+       "elapsed_ms": 575
       }
      },
      {
@@ -2598,11 +2645,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Turma%20do%20Pagode",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:41Z",
-       "bytes": 125793,
-       "sha256": "85fbb9dfefe7d6a5e77143733dfe786952987dc18c4b0fb4223e64f1885aae5a",
+       "observed_at": "2026-10-22T02:34:07Z",
+       "bytes": 132243,
+       "sha256": "4572ba06b3f8f9a16eeb870a61f2d75bc7e7337867d63847013660f2da7791e2",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 337
+       "elapsed_ms": 555
       }
      }
     ],
@@ -2613,11 +2660,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Imperial",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:41Z",
+      "observed_at": "2026-10-22T02:34:07Z",
       "bytes": 5112,
       "sha256": "675aa69b371d37c6f1b93d47e7084022cf93510c80511d7551a5cef0dd34323a",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 229
+      "elapsed_ms": 149
      },
      "exact": [
       {
@@ -2629,11 +2676,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=1430&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:41Z",
+      "observed_at": "2026-10-22T02:34:07Z",
       "bytes": 2895,
       "sha256": "a87ced41f5c7acaadcb98354c79aac9c789aa11eb32fbca40a424e1864f06990",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 243
+      "elapsed_ms": 163
      },
      "bound_matches": [
       {
@@ -2652,11 +2699,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Turma%20do%20Pagode",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:42Z",
+      "observed_at": "2026-10-22T02:34:07Z",
       "bytes": 2932,
       "sha256": "fa32dd471cb6d080dcce1b2a58067c628fe8af50e18ebb37c5f9f778a651e7dc",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 228
+      "elapsed_ms": 182
      },
      "exact": [
       {
@@ -2668,11 +2715,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=4122&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:42Z",
+      "observed_at": "2026-10-22T02:34:08Z",
       "bytes": 2895,
       "sha256": "9b55e62dbe112881ec7266cc520df78567d4108b94a451fee01bb1f8427389e7",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 255
+      "elapsed_ms": 205
      },
      "bound_matches": [
       {
@@ -2692,11 +2739,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:42Z",
+     "observed_at": "2026-10-22T02:34:08Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "0b84970d8aadf31d1e141671fb9e34187c58d02ea68ca4e74be80d711faee258",
-     "elapsed_ms": 54
+     "sha256": "f65d7e16cba9996091e2a2d3187d06f987615c8f8fc1ba7f198ac251ae7e4b0d",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -2711,8 +2758,8 @@
    "starts_at": "2026-10-22T14:00:00Z",
    "method": "market",
    "probabilities": [
-    0.475,
-    0.525
+    0.465,
+    0.535
    ],
    "pick": "ShindeN",
    "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
@@ -2728,11 +2775,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:43Z",
+     "observed_at": "2026-10-22T02:34:08Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "86d8de1ea905579176ca3d985fbe33d71eeeb04cb75b9cea081b8b6f127f75dc",
-     "elapsed_ms": 54
+     "sha256": "497eca5c7491a3a9cc2e2c811f7aec9f2e5c86358674b464380a7f7d14841b40",
+     "elapsed_ms": 24
     },
     "team_searches": [
      {
@@ -2740,11 +2787,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=BESTIA",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:42Z",
-       "bytes": 137225,
-       "sha256": "14c35f5f9fd27b754c2f8d6e5790fea755201da0e323f7de9b7378ae4986b206",
+       "observed_at": "2026-10-22T02:34:08Z",
+       "bytes": 143515,
+       "sha256": "10206fb0a37f01266781a9b9d76f595d4186dfcc739fcbf23ff7bf75735b4e7a",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 563
+       "elapsed_ms": 462
       }
      },
      {
@@ -2752,11 +2799,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ShindeN",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:43Z",
-       "bytes": 136436,
-       "sha256": "43aa48622feb73811901b490bc4078bc985c58522f2810034ad09e140625980f",
+       "observed_at": "2026-10-22T02:34:08Z",
+       "bytes": 142868,
+       "sha256": "a79b6a7a709aeb6050a02344609416db5f3bee2ebd020ed61852671ac3f60407",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 489
+       "elapsed_ms": 246
       }
      }
     ],
@@ -2767,11 +2814,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BESTIA",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:43Z",
+      "observed_at": "2026-10-22T02:34:09Z",
       "bytes": 5120,
       "sha256": "b8d6751c890bf16ad94edc9a4c4290801be9b3fa00f43a3367b315c4b7d97b5d",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 334
+      "elapsed_ms": 697
      },
      "exact": [
       {
@@ -2783,11 +2830,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=5701&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:44Z",
+      "observed_at": "2026-10-22T02:34:09Z",
       "bytes": 2952,
-      "sha256": "eaa77c463172906b36f3e758f329c9c1644727e590f61e962d1a9dff698e67e8",
+      "sha256": "b53e495acfd52e12fcc211dbdb479e80d15150978c4897f6f1bc862cfec40230",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 402
+      "elapsed_ms": 445
      },
      "bound_matches": [
       {
@@ -2796,8 +2843,8 @@
        "start_date": "2026-10-22T14:00:00.000+00:00",
        "relayed_provider": "thunderpick",
        "relayed_coefficients": {
-        "team_1": 1.82,
-        "team_2": 1.88
+        "team_1": 1.92,
+        "team_2": 1.78
        }
       }
      ]
@@ -2806,11 +2853,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ShindeN",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:44Z",
+      "observed_at": "2026-10-22T02:34:10Z",
       "bytes": 5152,
       "sha256": "81490010678d85d966d698178ca9b51465dc49bceb30973c0cd06a7fc0e45214",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 304
+      "elapsed_ms": 570
      },
      "exact": [
       {
@@ -2822,11 +2869,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=11174&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:44Z",
+      "observed_at": "2026-10-22T02:34:10Z",
       "bytes": 2953,
-      "sha256": "19368b7f7c0512b8a4feb296497b3034bda636f65a75fe35e2a346d3b59c641e",
+      "sha256": "daffc330a169cef31c4daa8be2c79dd93504900ea0992030820c8563d3c7f12e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 288
+      "elapsed_ms": 160
      },
      "bound_matches": [
       {
@@ -2835,8 +2882,8 @@
        "start_date": "2026-10-22T14:00:00.000+00:00",
        "relayed_provider": "thunderpick",
        "relayed_coefficients": {
-        "team_1": 1.82,
-        "team_2": 1.88
+        "team_1": 1.92,
+        "team_2": 1.78
        }
       }
      ]
@@ -2846,11 +2893,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:44Z",
+     "observed_at": "2026-10-22T02:34:10Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f02998204f64c943932cf04561fd52b407c0e2d32207d7d2c1299fa24a937f3d",
-     "elapsed_ms": 63
+     "sha256": "51e0641a374a5fb271467cdf9b46821045d06332210cba09d4617914df8ebdbd",
+     "elapsed_ms": 19
     },
     "pairs_seen": []
    }
@@ -2954,11 +3001,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:45Z",
+     "observed_at": "2026-10-22T02:34:11Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "81e353c9c35b6e46d7642a4fdf6e5d325c007c7abe7a9defba773f25532cae2e",
-     "elapsed_ms": 39
+     "sha256": "00c2577e2f07d20ebec3ef1ee49081d24d16ae514c13619858757a17724669b1",
+     "elapsed_ms": 16
     },
     "team_searches": [
      {
@@ -2966,11 +3013,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=UNiTY",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:45Z",
-       "bytes": 144238,
-       "sha256": "d8275ea654b4083c30e0e3808609a47f945806fc92a41f5caaebc4f3393dea49",
+       "observed_at": "2026-10-22T02:34:10Z",
+       "bytes": 150702,
+       "sha256": "e7086e2de21fd087405ab382b7b3ca634bb08b7c27da47c244f7256b92dd9e02",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 708
+       "elapsed_ms": 228
       }
      },
      {
@@ -2978,11 +3025,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Apogee%20Betclic",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:45Z",
-       "bytes": 128381,
-       "sha256": "bee795ec755cb9b85285577b28f120fc35889b6e9139ae8133eac03841312362",
+       "observed_at": "2026-10-22T02:34:11Z",
+       "bytes": 134671,
+       "sha256": "8fb0f94f6d3b305afe7e1e6f2b21b1df1e6712299ef177671edb0d4abba1245b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 351
+       "elapsed_ms": 241
       }
      }
     ],
@@ -2993,11 +3040,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UNiTY",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:46Z",
+      "observed_at": "2026-10-22T02:34:11Z",
       "bytes": 2935,
       "sha256": "b0486588e7fc2a9db4366d93c820e67af23a10e8753b34b1bc329090626fffed",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 315
+      "elapsed_ms": 218
      },
      "exact": [
       {
@@ -3009,11 +3056,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=3829&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:46Z",
+      "observed_at": "2026-10-22T02:34:12Z",
       "bytes": 6710,
       "sha256": "53068a9097737a67b713da1f63e47b72a3f0f89056a330fe9da0aa7583b0b838",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 237
+      "elapsed_ms": 762
      },
      "bound_matches": []
     },
@@ -3021,11 +3068,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Apogee%20Betclic",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:46Z",
+      "observed_at": "2026-10-22T02:34:12Z",
       "bytes": 214,
       "sha256": "f2b3ae0e412f1aae742df6a246b31f6bb90429a4d2e3892618a046c7fc86c1c3",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 228
+      "elapsed_ms": 245
      },
      "exact": []
     }
@@ -3034,11 +3081,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:46Z",
+     "observed_at": "2026-10-22T02:34:12Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "a8e441d0d959f82df83be29e3597d8ef2a0c4d175f59fc2aa34b174dbbad0c3f",
-     "elapsed_ms": 37
+     "sha256": "69876c834c8288758a8723ba89b4ad00f2330360de579e5f8c01ee71082fb819",
+     "elapsed_ms": 21
     },
     "pairs_seen": []
    }
@@ -3070,11 +3117,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:48Z",
+     "observed_at": "2026-10-22T02:34:13Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "e3b5c64731866f68368a6faad16c26aa1059e2ff504d9d84a5ae7ce7f7c62195",
-     "elapsed_ms": 186
+     "sha256": "831a21292e2452c32710d80c9d5425d70b4939caff7acd75da5c4917eeeacb17",
+     "elapsed_ms": 25
     },
     "team_searches": [
      {
@@ -3082,11 +3129,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Sangal",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:47Z",
-       "bytes": 137272,
-       "sha256": "6c03e503fc1cf481f2ae74d50ec95766991f87ee554f64cde4685359af2b04d4",
+       "observed_at": "2026-10-22T02:34:12Z",
+       "bytes": 143534,
+       "sha256": "a2181bac49da67bfa479071593d79524aab019a1b6ea2824e618d7d31eb93133",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 367
+       "elapsed_ms": 555
       }
      },
      {
@@ -3094,11 +3141,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Metizport",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:47Z",
-       "bytes": 136814,
-       "sha256": "48b62af4ad828abbf87db0fba1da372047bc783b98ab96c6bd4ed05c64e1bf6a",
+       "observed_at": "2026-10-22T02:34:13Z",
+       "bytes": 143483,
+       "sha256": "1bbad6ff0ed481950650400654f8061fca8dc8ce62b9900aa04ed7f544583c10",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 728
+       "elapsed_ms": 247
       }
      }
     ],
@@ -3109,11 +3156,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Sangal",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:48Z",
+      "observed_at": "2026-10-22T02:34:13Z",
       "bytes": 4726,
       "sha256": "e632b2d0a551b5679dd4862abaa040327f196be2f022686c79e564c74586492e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 268
+      "elapsed_ms": 177
      },
      "exact": [
       {
@@ -3125,11 +3172,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=36&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:48Z",
+      "observed_at": "2026-10-22T02:34:16Z",
       "bytes": 4844,
       "sha256": "c048de3e445f4262422624de23f1a5107a61aa510358534460584d350a0d70e6",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 325
+      "elapsed_ms": 2891
      },
      "bound_matches": [
       {
@@ -3148,11 +3195,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Metizport",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:48Z",
+      "observed_at": "2026-10-22T02:34:17Z",
       "bytes": 5125,
       "sha256": "50f524acdaee065425ca162c8b465f467c34410279c71c43e93b4020708c2ef0",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 246
+      "elapsed_ms": 1209
      },
      "exact": [
       {
@@ -3164,11 +3211,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=1578&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:49Z",
+      "observed_at": "2026-10-22T02:34:17Z",
       "bytes": 4846,
       "sha256": "71308b2d945a66573ed6debe682c3678fff6c859babc9f1e36e9155c1c72c2c2",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 282
+      "elapsed_ms": 145
      },
      "bound_matches": [
       {
@@ -3188,11 +3235,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:49Z",
+     "observed_at": "2026-10-22T02:34:17Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f1fd4df0dfb1a2e24214e9486e68166264e2d087f1686bfd4c8be6e26bbee154",
-     "elapsed_ms": 66
+     "sha256": "8758999625ce08c533d9da57ed38cb5af0cae9ce3933379e1c7db886b5b994e1",
+     "elapsed_ms": 30
     },
     "pairs_seen": []
    }
@@ -3266,11 +3313,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:50Z",
+     "observed_at": "2026-10-22T02:34:18Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "250de3eaa54e9f33bee6d9de98a19a583b1bb122fd54f062aeadd0d77ed7bd8f",
-     "elapsed_ms": 200
+     "sha256": "47931c5e7047efd287bbfc150fd3f4150a93802a95a562473d0f88cfb15102ac",
+     "elapsed_ms": 46
     },
     "team_searches": [
      {
@@ -3278,11 +3325,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Rune%20Eaters",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:49Z",
-       "bytes": 125213,
-       "sha256": "ffba80a27ffb1f75c334f90063fa4bdb65645750eb85a322082e7c36328adc23",
+       "observed_at": "2026-10-22T02:34:18Z",
+       "bytes": 131665,
+       "sha256": "930814ce6b179cad16529798fe46db3d7114e1abc151e08377dff716df6bca1b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 345
+       "elapsed_ms": 379
       }
      },
      {
@@ -3290,11 +3337,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=FORZE%20Reload",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:50Z",
-       "bytes": 127550,
-       "sha256": "78916a7e1b6c21d1d5d89ecb891245818eeacf4db51540b337f93feccec64dee",
+       "observed_at": "2026-10-22T02:34:18Z",
+       "bytes": 134010,
+       "sha256": "791a6c1fb6b5935f6c40fae5a9bedc30de3e6d15634d9d665c75b89aace78791",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 477
+       "elapsed_ms": 391
       }
      }
     ],
@@ -3305,11 +3352,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Rune%20Eaters",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:50Z",
+      "observed_at": "2026-10-22T02:34:18Z",
       "bytes": 2926,
       "sha256": "018b55fb244a0ef3a7f02be0d405082dfe287f413973c3879145a80667eb96b0",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 272
+      "elapsed_ms": 148
      },
      "exact": [
       {
@@ -3321,11 +3368,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=5702&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:50Z",
+      "observed_at": "2026-10-22T02:34:18Z",
       "bytes": 2476,
       "sha256": "6ffa482836932c9d7a4899602bce8e27d350533ec223d8b9786472cded1a2c19",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 280
+      "elapsed_ms": 166
      },
      "bound_matches": [
       {
@@ -3341,11 +3388,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=FORZE%20Reload",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:51Z",
+      "observed_at": "2026-10-22T02:34:19Z",
       "bytes": 2960,
       "sha256": "94b608a363fb4ce528542cd28c7030f3724b8aab874863bc50451bfd5b45c3de",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 262
+      "elapsed_ms": 193
      },
      "exact": [
       {
@@ -3357,11 +3404,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=10703&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:51Z",
+      "observed_at": "2026-10-22T02:34:19Z",
       "bytes": 7094,
       "sha256": "56650f3ac495f8d0083a34ece356350588e0872d71577774427c92d42a4dbf00",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 271
+      "elapsed_ms": 179
      },
      "bound_matches": [
       {
@@ -3378,11 +3425,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:51Z",
+     "observed_at": "2026-10-22T02:34:19Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "3f4f7cc766f29d7e65ccfbcc302b42dff15422e77ec45ceb0ff8e25b4cfece4e",
-     "elapsed_ms": 44
+     "sha256": "e0bd5c47163da401a4c5822765b0b3c5886bd4a5a53766e4715245a604c8a0de",
+     "elapsed_ms": 16
     },
     "pairs_seen": []
    }
@@ -3412,13 +3459,13 @@
     {
      "stage": "Betting market (Polymarket series winner)",
      "status": "unresolved",
-     "detail": "Polymarket event 1232205: Order book spread 0.60 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.34/0.94, ex-6666 bid/ask 0.06/0.66); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232205: Order book spread 0.57 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.37/0.94, ex-6666 bid/ask 0.06/0.63); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved",
-     "detail": "Kalshi event KXCS2GAME-26OCT221300EXYUB: Order book spread 0.58 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.63, 6yuBoJlbl bid/ask 0.37/0.88); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT221300EXYUB: Order book spread 0.55 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.60, 6yuBoJlbl bid/ask 0.37/0.88); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221300exyub"
     },
     {
@@ -3474,11 +3521,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:52Z",
+     "observed_at": "2026-10-22T02:34:20Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "fa15482032f8803d309570081b81b84a3394ef42ee8840bea7180ecb098096e5",
-     "elapsed_ms": 62
+     "sha256": "6d40be5f7b53ef12b3254d7940b223f3e5de9ab199d057a56c9ca77514a402b2",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -3486,11 +3533,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=6yuBoJlbl",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:51Z",
-       "bytes": 123534,
-       "sha256": "1f3bd8ce57b9ab75643c8a5d4fed5b4a4a55702f5638a2f3be3ae36c89d052cb",
+       "observed_at": "2026-10-22T02:34:19Z",
+       "bytes": 129810,
+       "sha256": "c3d314fa7e9bdabd46243d9167378862fded0abef4b77339a46048d0e211d1e7",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 327
+       "elapsed_ms": 676
       }
      },
      {
@@ -3498,11 +3545,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-6666",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:52Z",
-       "bytes": 124139,
-       "sha256": "16f7b9926ae68f77b2a675ad03d9b7112039a5710c95514620f20e200dd090fe",
+       "observed_at": "2026-10-22T02:34:20Z",
+       "bytes": 130415,
+       "sha256": "aa6eabfa9afc539493194e08833ac4047f0516e36757728e6816c181f28d8f9c",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 772
+       "elapsed_ms": 248
       }
      }
     ],
@@ -3513,11 +3560,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=6yuBoJlbl",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:52Z",
+      "observed_at": "2026-10-22T02:34:20Z",
       "bytes": 814,
       "sha256": "e61130817c8ee967360953be3d350d4fad013ca378db048b9bbf774e032d3f55",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 237
+      "elapsed_ms": 164
      },
      "exact": [
       {
@@ -3529,11 +3576,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25420&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:53Z",
+      "observed_at": "2026-10-22T02:34:20Z",
       "bytes": 2281,
       "sha256": "aeda66a5096eb241fe0b36d2caa64b67e81330feaeb1183711e722f0f1ac0ee5",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 284
+      "elapsed_ms": 163
      },
      "bound_matches": [
       {
@@ -3549,11 +3596,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-6666",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:53Z",
+      "observed_at": "2026-10-22T02:34:20Z",
       "bytes": 809,
       "sha256": "1f59625b0007fb4f80cd8791fb7779f416a878a2391983557d75e8b883bec7c4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 190
+      "elapsed_ms": 123
      },
      "exact": [
       {
@@ -3565,11 +3612,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25508&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:53Z",
+      "observed_at": "2026-10-22T02:34:20Z",
       "bytes": 6529,
       "sha256": "40c9963cd23cf64743dacfef380de206ad0e13c453cd0b5fd0e4d4d6e39dcf48",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 202
+      "elapsed_ms": 132
      },
      "bound_matches": [
       {
@@ -3586,11 +3633,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:53Z",
+     "observed_at": "2026-10-22T02:34:20Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "2c9394b58f3b95594a1722e14bb2ad665d391f5202bee29d91713daf315f54dc",
-     "elapsed_ms": 67
+     "sha256": "6c31cdd9e19534809689cb4255632a8cf7b384124e5cf975d1fcdd819bd2cbb9",
+     "elapsed_ms": 18
     },
     "pairs_seen": []
    }
@@ -3605,8 +3652,8 @@
    "starts_at": "2026-10-22T17:30:00Z",
    "method": "model",
    "probabilities": [
-    0.9838771843003609,
-    0.016122815699639137
+    0.9838863131596313,
+    0.016113686840368735
    ],
    "pick": "K27",
    "source_url": "https://bo3.gg/matches",
@@ -3668,7 +3715,7 @@
     {
      "stage": "Own network model (bo3.gg results graph)",
      "status": "resolved",
-     "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 18 series for the thinner side, rating-difference SD 122.1 points.",
+     "detail": "Own Bradley–Terry network fit over 4646 bo3.gg finished series with 269 Valve-anchored teams; 18 series for the thinner side, rating-difference SD 122.2 points.",
      "source_url": "https://bo3.gg/matches"
     },
     {
@@ -3682,11 +3729,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:54Z",
+     "observed_at": "2026-10-22T02:34:21Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "c923eff11571f67b7a06652166ff715df7192b58b977a90693bcbf0b23fa035f",
-     "elapsed_ms": 51
+     "sha256": "33cac6abbdf607db71017dc618ea995aad1fbe29a980fa5b735fd1326a1bc895",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -3694,11 +3741,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=K27",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:54Z",
-       "bytes": 136851,
-       "sha256": "e2f9f54839ae09b987ab4c31a1fe1fd6d3633b662b079a9b036fa40ecd34ddcf",
+       "observed_at": "2026-10-22T02:34:21Z",
+       "bytes": 143141,
+       "sha256": "10b7aa48ccb6f824877d87031af14c9b6a2a8ed04e5864f851fad58cf877464b",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 674
+       "elapsed_ms": 442
       }
      },
      {
@@ -3706,11 +3753,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=NEXORA",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:54Z",
-       "bytes": 123428,
-       "sha256": "d116daba30268edec78bce1eaee69614329a2f211dbac8739a25f71d4c9ff8ea",
+       "observed_at": "2026-10-22T02:34:21Z",
+       "bytes": 129704,
+       "sha256": "e73396ce569444c4f60f8910c1bab1eb4c231eb60d3d49281820ab7131555185",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 516
+       "elapsed_ms": 220
       }
      }
     ],
@@ -3721,11 +3768,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=K27",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:54Z",
+      "observed_at": "2026-10-22T02:34:21Z",
       "bytes": 5120,
       "sha256": "d81fa66fde42268dc4724b8361f4d76c6280171fa2dbd112581ee68bbe24fa91",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 222
+      "elapsed_ms": 136
      },
      "exact": [
       {
@@ -3737,11 +3784,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=10718&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:55Z",
+      "observed_at": "2026-10-22T02:34:21Z",
       "bytes": 4797,
       "sha256": "aafa098d2060268aaceddee8b9011ee4f17117eb3b8722dac7e6afd306b9c0ee",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 334
+      "elapsed_ms": 353
      },
      "bound_matches": []
     },
@@ -3749,11 +3796,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=NEXORA",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:55Z",
+      "observed_at": "2026-10-22T02:34:22Z",
       "bytes": 2924,
       "sha256": "84fc615a3787215776a965337e529afc964c7ee428608d04be5da9bb462a0c6d",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 236
+      "elapsed_ms": 137
      },
      "exact": [
       {
@@ -3765,11 +3812,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=24638&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:55Z",
+      "observed_at": "2026-10-22T02:34:22Z",
       "bytes": 292,
       "sha256": "7bf8acc10ce6c9a4f7dfb7eec6155441e59a53e9e102eec91882f6e6e12deb7c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 240
+      "elapsed_ms": 140
      },
      "bound_matches": []
     }
@@ -3778,11 +3825,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:55Z",
+     "observed_at": "2026-10-22T02:34:22Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "fddc6e60cb76580f41af107a1648b29af64de657fba4f919651f7eae421ca56c",
-     "elapsed_ms": 44
+     "sha256": "99cf9f8b87d67a0aa1d7363f96a283cb76c883175b86cf8d410086d3fa438701",
+     "elapsed_ms": 22
     },
     "pairs_seen": []
    }
@@ -3862,11 +3909,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:57Z",
+     "observed_at": "2026-10-22T02:34:23Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "46be55b99144f563e1a8a80698268d742c1366ecd16bbe184be4207a07567282",
-     "elapsed_ms": 266
+     "sha256": "f27c6f5651c7deeacea9d26792ffaf39a48507a4acd593fb379cbfa09ee22e84",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -3874,11 +3921,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=UPGRADE",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:56Z",
-       "bytes": 137593,
-       "sha256": "60a0036f7c02afb9882f36d8220691f89beec0a856c5b0cf136146b603ff25fb",
+       "observed_at": "2026-10-22T02:34:22Z",
+       "bytes": 144044,
+       "sha256": "b18b14af14b3fc978b139b4558c8d6b6aa11b81ce5741e7bd7b88ce2311e61c6",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 480
+       "elapsed_ms": 696
       }
      },
      {
@@ -3886,11 +3933,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Virtus.pro",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:57Z",
-       "bytes": 140099,
-       "sha256": "34656708b4ff2a9a8a585c8179eaa3617df2763167e584f2089a9a82b18181db",
+       "observed_at": "2026-10-22T02:34:23Z",
+       "bytes": 146705,
+       "sha256": "cb053b6655f4662b7bc6b2e5dc7752959329593d8e4b96233b80406674ac5185",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 780
+       "elapsed_ms": 545
       }
      }
     ],
@@ -3901,11 +3948,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=UPGRADE",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:57Z",
+      "observed_at": "2026-10-22T02:34:23Z",
       "bytes": 1488,
       "sha256": "3f7f1fb1b7acbfb81cc809648ca0ec2b64359a13f3c9b80c0d481be5eb41f46f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 262
+      "elapsed_ms": 146
      },
      "exact": [
       {
@@ -3917,11 +3964,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25212&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:57Z",
+      "observed_at": "2026-10-22T02:34:23Z",
       "bytes": 292,
       "sha256": "ee19f032dc7286a1f5d0cedf800d318f99472ca7f0a70533a331fcbef2b5a83b",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 251
+      "elapsed_ms": 144
      },
      "bound_matches": []
     },
@@ -3929,11 +3976,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Virtus.pro",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:58Z",
+      "observed_at": "2026-10-22T02:34:23Z",
       "bytes": 5086,
       "sha256": "2cfeea736f0b5c8c4a12366b618bc046d62361e11a717da62ff62dde20285419",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 232
+      "elapsed_ms": 130
      },
      "exact": [
       {
@@ -3945,11 +3992,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=720&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:07:58Z",
+      "observed_at": "2026-10-22T02:34:24Z",
       "bytes": 290,
       "sha256": "e6c687da64ba2a0fe9e3fb5a9ad7f86de5ea9b0c441d0e3a446b49acdadf9c85",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 252
+      "elapsed_ms": 188
      },
      "bound_matches": []
     }
@@ -3958,11 +4005,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:58Z",
+     "observed_at": "2026-10-22T02:34:24Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f863371624d930a2dcc18faafbd2db2f30c0fb14cd11b97734d7ca76f6b74090",
-     "elapsed_ms": 59
+     "sha256": "3cb194343c3d1904f5d9a09f283cfc46ed93aede4ff5509ab4b311fa8af4242b",
+     "elapsed_ms": 20
     },
     "pairs_seen": []
    }
@@ -3998,13 +4045,13 @@
     {
      "stage": "Betting market (Polymarket series winner)",
      "status": "unresolved",
-     "detail": "Polymarket event 1232241: Order book spread 0.89 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.07/0.96, Chinggis Warriors bid/ask 0.04/0.93); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232241: Order book spread 0.90 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.06/0.96, Chinggis Warriors bid/ask 0.04/0.94); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved",
-     "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.24 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.30, Lynn Vision bid/ask 0.69/0.93); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.24 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.08/0.30, Lynn Vision bid/ask 0.69/0.93); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct222300cwlvg"
     },
     {
@@ -4048,11 +4095,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:07:59Z",
+     "observed_at": "2026-10-22T02:34:24Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "91a2fdd7ca58be6ba52af544d38c73dbbfcc3a23da90df82625f7b369455e322",
-     "elapsed_ms": 49
+     "sha256": "fa7a4050ee0912fc42e48cc3548852e9547628755dee637cdd0a6110e6e44daf",
+     "elapsed_ms": 21
     },
     "team_searches": [
      {
@@ -4060,11 +4107,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Lynn%20Vision",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:59Z",
-       "bytes": 136674,
-       "sha256": "d20618a68ec5dab8b3e6ab70c9b81a599c97ca9e8dc632c68f80b3c3456fc6a4",
+       "observed_at": "2026-10-22T02:34:24Z",
+       "bytes": 143115,
+       "sha256": "e9781018a66bb37b6bb4341dd05b4231b5a5f455d013b1bf1a1bd015b528c8b8",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 779
+       "elapsed_ms": 252
       }
      },
      {
@@ -4072,11 +4119,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Chinggis%20Warriors",
        "status": 200,
-       "observed_at": "2026-10-22T02:07:59Z",
-       "bytes": 136934,
-       "sha256": "78b9ac032ec101c0380249f21d2cf0011081a054d10e416cbfe4c12876c68d56",
+       "observed_at": "2026-10-22T02:34:24Z",
+       "bytes": 143399,
+       "sha256": "64d28d2455ad81fd897c3376a3d4a3e902a0e2c0dd6afd7ad5669f8295e62e1e",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 507
+       "elapsed_ms": 376
       }
      }
     ],
@@ -4087,11 +4134,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Lynn%20Vision",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:00Z",
+      "observed_at": "2026-10-22T02:34:24Z",
       "bytes": 5123,
       "sha256": "0055fd4f52732172194ea774c4b863e2c5ea5837e81638531a939f104e74b54a",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 246
+      "elapsed_ms": 172
      },
      "exact": [
       {
@@ -4103,11 +4150,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=476&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:00Z",
+      "observed_at": "2026-10-22T02:34:25Z",
       "bytes": 2548,
       "sha256": "f8b62c220ff89cce865028c39ff9d765e903c6ba9dce1a1c7c341a3774fdda6f",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 264
+      "elapsed_ms": 208
      },
      "bound_matches": [
       {
@@ -4123,11 +4170,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Chinggis%20Warriors",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:00Z",
+      "observed_at": "2026-10-22T02:34:25Z",
       "bytes": 2943,
       "sha256": "dd1279777138c59e96f46d694b621525b36f768b07fe5a6e9afbdbf7c76f8820",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 257
+      "elapsed_ms": 296
      },
      "exact": [
       {
@@ -4139,11 +4186,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=9974&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:00Z",
+      "observed_at": "2026-10-22T02:34:25Z",
       "bytes": 2549,
       "sha256": "fd59fc78186c937cee414a96b6034ecc30b0e583e065467da6522002dc9c6319",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 268
+      "elapsed_ms": 210
      },
      "bound_matches": [
       {
@@ -4160,11 +4207,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:00Z",
+     "observed_at": "2026-10-22T02:34:25Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b5585488c98a679108d5f0f2248225aa56249b76297ffb81b62c2910181fc37b",
-     "elapsed_ms": 42
+     "sha256": "ea8b8790f8a74bfe48b164c78c0a6faf5560a038de7040b1c39f6badb4abbd97",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -4188,8 +4235,8 @@
     {
      "stage": "Primary: Polymarket",
      "status": "unresolved",
-     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
-     "source_url": "https://polymarket.com/esports/cs2"
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-zerote-rustec-2026-10-23"
     },
     {
      "stage": "HLTV research",
@@ -4238,11 +4285,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:01Z",
+     "observed_at": "2026-10-22T02:34:26Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "3b65c9212c25f97f6171122367ad9e63e00e8cd9e51d354339e69a97e959ffdf",
-     "elapsed_ms": 41
+     "sha256": "297312333c2767d2d489c58c77d5bced3972521107e0879e29940f886ed06d00",
+     "elapsed_ms": 21
     },
     "team_searches": [
      {
@@ -4250,11 +4297,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-Zero%20Tenacity",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:01Z",
-       "bytes": 134490,
-       "sha256": "a91fe0fcb995ce1a80e5d06e157bf766580bb94ee5020334e840209025f6441f",
+       "observed_at": "2026-10-22T02:34:26Z",
+       "bytes": 140940,
+       "sha256": "0c7264dd3460b3564ab8ebe51218acee6390543496513e8b99e1c807af3da23c",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 336
+       "elapsed_ms": 374
       }
      },
      {
@@ -4262,11 +4309,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-RUSTEC",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:01Z",
-       "bytes": 125049,
-       "sha256": "246b1d4a059dd71f3189e0a97799ded8748abac5762395a803ecd453a9c8c247",
+       "observed_at": "2026-10-22T02:34:26Z",
+       "bytes": 131489,
+       "sha256": "7a8aeaff87bf26e4f04a628d5ebfec55ca48d685df93796f79c2826a82b5421e",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 345
+       "elapsed_ms": 389
       }
      }
     ],
@@ -4277,11 +4324,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-Zero%20Tenacity",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:01Z",
+      "observed_at": "2026-10-22T02:34:26Z",
       "bytes": 835,
       "sha256": "f342fd46196c3e5354d4e97e602a825e3f6b505fb91d2303eff1dafbe39e48cb",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 223
+      "elapsed_ms": 169
      },
      "exact": [
       {
@@ -4293,11 +4340,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22185&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:02Z",
+      "observed_at": "2026-10-22T02:34:26Z",
       "bytes": 2297,
       "sha256": "8e2893447b86b4c3bf16d830b967bd2a7e0880eb46cf2c506ea286fbba3f2fca",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 237
+      "elapsed_ms": 162
      },
      "bound_matches": [
       {
@@ -4313,11 +4360,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-RUSTEC",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:02Z",
+      "observed_at": "2026-10-22T02:34:26Z",
       "bytes": 814,
       "sha256": "6f00c3b33cbbd4260734508b97470dd93da9ef24bdd4bf584c44e0022b466f42",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 263
+      "elapsed_ms": 137
      },
      "exact": [
       {
@@ -4329,11 +4376,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=24857&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:02Z",
+      "observed_at": "2026-10-22T02:34:27Z",
       "bytes": 4303,
       "sha256": "30099ec9639403a6c76d3e0f610929d6ef0c178ad4e90e2e6c4c2ed074228e16",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 245
+      "elapsed_ms": 182
      },
      "bound_matches": [
       {
@@ -4350,11 +4397,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:02Z",
+     "observed_at": "2026-10-22T02:34:27Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "7358ed376c201728c18c13bb6993f93bb645591eafddc4c51a311b2702103716",
-     "elapsed_ms": 40
+     "sha256": "472fc105fe1d3cf8f4fc8035798c442c934aa7fb97f6c8544feed70793054e89",
+     "elapsed_ms": 22
     },
     "pairs_seen": []
    }
@@ -4428,11 +4475,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:03Z",
+     "observed_at": "2026-10-22T02:34:27Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "cc2319d1a2d10b6dbf33be723b5a961c8c1a6effae8f32f57c48dbec7c804a0d",
-     "elapsed_ms": 187
+     "sha256": "34eaadcd368fdd592ba042836d5d1fa5733341e128f327bfb89e5e07636c1ffa",
+     "elapsed_ms": 20
     },
     "team_searches": [
      {
@@ -4440,11 +4487,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Nuclear%20TigeRES",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:02Z",
-       "bytes": 137295,
-       "sha256": "87e102f590cdfb3b5511c2fccd83c931c1d105692f4f35277a0ccd1dcd6d672c",
+       "observed_at": "2026-10-22T02:34:27Z",
+       "bytes": 143749,
+       "sha256": "b43f0c8c9cb186089a3a6b1ae279d0129f0b67d98d8bfa431a5eb3f2884079bf",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 349
+       "elapsed_ms": 249
       }
      },
      {
@@ -4452,11 +4499,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ILLYRIANS",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:03Z",
-       "bytes": 125236,
-       "sha256": "16790dcb8a73bc4b3e155bf7478272695f6bf7cc3894766759deb87bb88599f7",
+       "observed_at": "2026-10-22T02:34:27Z",
+       "bytes": 131675,
+       "sha256": "6904bbf7fd4dac03f8ad3ffdd7f5bf082b5a5e8efc5d4c7ea41038f8ea3b6204",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 344
+       "elapsed_ms": 239
       }
      }
     ],
@@ -4467,11 +4514,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Nuclear%20TigeRES",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:03Z",
+      "observed_at": "2026-10-22T02:34:27Z",
       "bytes": 5159,
       "sha256": "e7728f4993e6bd76d02537ebbbd88ac81f0b41bfa7eac72d52a82d63700ca2de",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 238
+      "elapsed_ms": 129
      },
      "exact": [
       {
@@ -4483,11 +4530,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=18539&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:03Z",
+      "observed_at": "2026-10-22T02:34:27Z",
       "bytes": 2556,
       "sha256": "190a13f14ae76766c1109fcbd88b25b3e3e167eec1b2aaefe67e2f582abaa7b4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 226
+      "elapsed_ms": 150
      },
      "bound_matches": [
       {
@@ -4503,11 +4550,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ILLYRIANS",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:04Z",
+      "observed_at": "2026-10-22T02:34:28Z",
       "bytes": 209,
       "sha256": "cbe72204be1fdf8670cb8095f24f52ed9123dcadeddea49bbf0d3aa895abcc45",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 233
+      "elapsed_ms": 153
      },
      "exact": []
     }
@@ -4516,11 +4563,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:04Z",
+     "observed_at": "2026-10-22T02:34:28Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "d31ce3e6baee7cdfa2f88596a3deb6d6d04137bee83055623ef5c8f6c1b07236",
-     "elapsed_ms": 37
+     "sha256": "efbb36e3928502ba9303ea1e7931101e52cfe5a0c8bdd620f462beb0f73b6666",
+     "elapsed_ms": 20
     },
     "pairs_seen": []
    }
@@ -4533,72 +4580,30 @@
    ],
    "competition": "CCT Europe 2026 Series #12",
    "starts_at": "2026-10-23T11:00:00Z",
-   "method": "model",
+   "method": "market",
    "probabilities": [
-    0.6141524,
-    0.3858476
+    0.47,
+    0.53
    ],
-   "pick": "Inner Circle Academy",
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "pick": "Spirit Academy",
+   "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
    "trail": [
     {
      "stage": "Primary: Polymarket",
-     "status": "unresolved",
-     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
-     "source_url": "https://polymarket.com/esports/cs2"
-    },
-    {
-     "stage": "HLTV research",
-     "status": "checked",
-     "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage.",
-     "source_url": "https://www.hltv.org/matches/2399498/inner-circle-academy-vs-spirit-academy-cct-2026-europe-series-12"
-    },
-    {
-     "stage": "Original esportsbook lines",
-     "status": "unresolved",
-     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
-     "source_url": "https://thunderpick.io/esports/counter-strike"
-    },
-    {
-     "stage": "GG.BET esportsbook",
-     "status": "unavailable",
-     "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-     "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-    },
-    {
-     "stage": "Pinnacle esportsbook",
-     "status": "unavailable",
-     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
-     "source_url": "https://www.pinnacle.com/en/esports-hub/cs2"
-    },
-    {
-     "stage": "Rivalry esportsbook",
-     "status": "unavailable",
-     "detail": "Redirected to a generic landing page; no match-level betting lines verified.",
-     "source_url": "https://www.rivalry.com/esports/counter-strike-betting"
-    },
-    {
-     "stage": "Stake esportsbook",
-     "status": "unavailable",
-     "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike",
-     "source_url": "https://stake.com/sports/esports/counter-strike"
-    },
-    {
-     "stage": "Valve research model",
      "status": "resolved",
-     "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.",
-     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+     "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes.",
+     "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23"
     }
    ],
    "hltv": {
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:05Z",
+     "observed_at": "2026-10-22T02:34:28Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "50d29659c9711e07ea18b6e2bcdfac8cc17e46fa08ac5d43517da88eb5c9aed1",
-     "elapsed_ms": 63
+     "sha256": "45a08a763ff493e8909286a5bdd286979a1a1c49b8dfa1e222422aa31d3cd4e2",
+     "elapsed_ms": 23
     },
     "team_searches": [
      {
@@ -4606,11 +4611,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Inner%20Circle%20Academy",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:04Z",
-       "bytes": 130975,
-       "sha256": "7ea57e737101d31e2e95dc0d04a5f99102ecd9ae18fc0e2b303239bce3065b99",
+       "observed_at": "2026-10-22T02:34:28Z",
+       "bytes": 137426,
+       "sha256": "518dab9dcf317c60658f9ed8cf12352b4da720577e281b990e94651277a1cc69",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 491
+       "elapsed_ms": 546
       }
      },
      {
@@ -4618,11 +4623,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Spirit%20Academy",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:04Z",
-       "bytes": 137926,
-       "sha256": "ee9b882e1f2abf943ec87fc4a89e617f2c20f68378bb047baff74cff7b724e01",
+       "observed_at": "2026-10-22T02:34:28Z",
+       "bytes": 144374,
+       "sha256": "68ff200c93dfa6dc427432ebe88770a93bd36855779cfe195338c197b98081ce",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 268
+       "elapsed_ms": 245
       }
      }
     ],
@@ -4633,11 +4638,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Inner%20Circle%20Academy",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:05Z",
+      "observed_at": "2026-10-22T02:34:29Z",
       "bytes": 2960,
       "sha256": "7f5c7a22627880c2b706556273c3c580269d507065edc0b86f8c5ad0526a74ff",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 508
+      "elapsed_ms": 138
      },
      "exact": [
       {
@@ -4649,19 +4654,22 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22737&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:05Z",
-      "bytes": 2588,
-      "sha256": "31b0a3a6c2c8e2c86bc37a15a84fba3112d668b73cfac0157af849a8eedc2e0a",
+      "observed_at": "2026-10-22T02:34:29Z",
+      "bytes": 4619,
+      "sha256": "63cc533abaa62e9b2e7bd218d583131882f5465f2dbcc4837b2e002f67fd5ceb",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 237
+      "elapsed_ms": 146
      },
      "bound_matches": [
       {
        "slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
        "url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
        "start_date": "2026-10-23T11:00:00.000+00:00",
-       "relayed_provider": null,
-       "relayed_coefficients": null
+       "relayed_provider": "thunderpick",
+       "relayed_coefficients": {
+        "team_1": 1.9,
+        "team_2": 1.8
+       }
       }
      ]
     },
@@ -4669,11 +4677,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Spirit%20Academy",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:06Z",
+      "observed_at": "2026-10-22T02:34:29Z",
       "bytes": 4799,
       "sha256": "1b94b2fc95a96df42e7e34568da76b2b29766247de5e43325f87f486cce5fe5c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 248
+      "elapsed_ms": 131
      },
      "exact": [
       {
@@ -4685,19 +4693,22 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=1309&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:06Z",
-      "bytes": 4917,
-      "sha256": "b3c4a44771aca4cb0eff73d132f0ac3faaff901ca5e85d81efccfe62e9a77d16",
+      "observed_at": "2026-10-22T02:34:29Z",
+      "bytes": 6948,
+      "sha256": "39f0fcb87482a4129fcbf436ae90c512381d5f7dfbc632f557fee160b3da2c9c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 240
+      "elapsed_ms": 204
      },
      "bound_matches": [
       {
        "slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
        "url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
        "start_date": "2026-10-23T11:00:00.000+00:00",
-       "relayed_provider": null,
-       "relayed_coefficients": null
+       "relayed_provider": "thunderpick",
+       "relayed_coefficients": {
+        "team_1": 1.9,
+        "team_2": 1.8
+       }
       }
      ]
     }
@@ -4706,11 +4717,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:06Z",
+     "observed_at": "2026-10-22T02:34:29Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "6ac7bfd2d52edb82bad7a3410f8049641bdfc2c451d4e70b0b301048c3a72e02",
-     "elapsed_ms": 51
+     "sha256": "468527788f7644d9669bf6bd1dd4af03f078d28f8d48d87f2d0e3fe90a16d583",
+     "elapsed_ms": 20
     },
     "pairs_seen": []
    }
@@ -4802,11 +4813,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:07Z",
+     "observed_at": "2026-10-22T02:34:29Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "c4a0df887c796371a58024f2d1580025a5b81edeb36a792ea548c8666aa16750",
-     "elapsed_ms": 38
+     "sha256": "a3fc8321c7bda03074510a67a114f15ddfd75ce145f5d6e1153f77c04a231590",
+     "elapsed_ms": 15
     },
     "team_searches": [
      {
@@ -4814,11 +4825,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=FORZE%20Reload",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:06Z",
-       "bytes": 127103,
-       "sha256": "1d55ec49f555f60bc1e367f0d3d6d177b747ed7aa24bab203d9a317356ee34f2",
+       "observed_at": "2026-10-22T02:34:29Z",
+       "bytes": 134010,
+       "sha256": "5b1c86881bcc3e7f03d8fbb39839fe04107462362fe54852868e67a3f3d7d64c",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 350
+       "elapsed_ms": 168
       }
      },
      {
@@ -4826,11 +4837,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=LFO%2010",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:07Z",
-       "bytes": 125118,
-       "sha256": "5cb6e910b7ed7c028bb68c5dcebfa74f3f7a1951d68b2052ec94f7b60f7170ad",
+       "observed_at": "2026-10-22T02:34:29Z",
+       "bytes": 131572,
+       "sha256": "f7b58bb9166f820982880ba17765195d1293f479579245fa37fdc29af63d9a49",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 455
+       "elapsed_ms": 239
       }
      }
     ],
@@ -4841,11 +4852,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=FORZE%20Reload",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:07Z",
+      "observed_at": "2026-10-22T02:34:30Z",
       "bytes": 2960,
       "sha256": "94b608a363fb4ce528542cd28c7030f3724b8aab874863bc50451bfd5b45c3de",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 194
+      "elapsed_ms": 108
      },
      "exact": [
       {
@@ -4857,11 +4868,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=10703&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:07Z",
+      "observed_at": "2026-10-22T02:34:30Z",
       "bytes": 7094,
       "sha256": "56650f3ac495f8d0083a34ece356350588e0872d71577774427c92d42a4dbf00",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 249
+      "elapsed_ms": 150
      },
      "bound_matches": []
     },
@@ -4869,11 +4880,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=LFO%2010",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:07Z",
+      "observed_at": "2026-10-22T02:34:30Z",
       "bytes": 206,
       "sha256": "deaa9617976dc9fe46d9827323d03058564024605dc329cc66ae0e61f16f7cd1",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 228
+      "elapsed_ms": 141
      },
      "exact": []
     }
@@ -4882,11 +4893,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:07Z",
+     "observed_at": "2026-10-22T02:34:30Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b74a843a777b7bbe64701d752dbb3444305df95e24488c9aed4e767e521c7e72",
-     "elapsed_ms": 38
+     "sha256": "ad1a85bac17dd6ba58aaba6daf6277ff5ff1d5ec6a82d3b492c81eb2a56a3543",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -4972,11 +4983,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:09Z",
+     "observed_at": "2026-10-22T02:34:31Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "6e38be135872d7d5b0686a2ef6f5a275f65e838aaebe95f0cfe6671303b99247",
-     "elapsed_ms": 64
+     "sha256": "c85de2642b5fa321f498762c8c3b38cdf0bc2b32df8739faedd271319214c8f3",
+     "elapsed_ms": 27
     },
     "team_searches": [
      {
@@ -4984,11 +4995,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=BakS",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:08Z",
-       "bytes": 126004,
-       "sha256": "5fb8a5ab21819ef238d0eb9fbd2e845c3728d47901d666b53389c4cd1c0db146",
+       "observed_at": "2026-10-22T02:34:30Z",
+       "bytes": 131990,
+       "sha256": "e6e78525f7a15e9c9e4f121c35eddac39ddd8470ddca6a88309e54bc0f72798e",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 273
+       "elapsed_ms": 235
       }
      },
      {
@@ -4996,11 +5007,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=BRUTE",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:09Z",
-       "bytes": 136972,
-       "sha256": "f49f733b996c34b173a508ca8bf54f08b6a56d1a7aa27ec1f7f41500d0b3fa15",
+       "observed_at": "2026-10-22T02:34:31Z",
+       "bytes": 142791,
+       "sha256": "695969e5e6632e0b617b7f2e9b00a34d00e3195a69cba2ba3261e35cc6526ced",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 856
+       "elapsed_ms": 465
       }
      }
     ],
@@ -5011,11 +5022,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BakS",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:09Z",
+      "observed_at": "2026-10-22T02:34:31Z",
       "bytes": 204,
       "sha256": "5b3526ef7b3c48ff699078fc2678ba46ab9c5d4bbcf44d3f96a9b791c00f0756",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 278
+      "elapsed_ms": 115
      },
      "exact": []
     },
@@ -5023,11 +5034,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=BRUTE",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:09Z",
+      "observed_at": "2026-10-22T02:34:31Z",
       "bytes": 2926,
       "sha256": "2b9aaa7d49fa1f729b7082480313aba1364e8b4c9d40cbb6f8cbf2d57cead790",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 240
+      "elapsed_ms": 145
      },
      "exact": [
       {
@@ -5039,11 +5050,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=370&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:09Z",
+      "observed_at": "2026-10-22T02:34:31Z",
       "bytes": 2428,
       "sha256": "c3c5ae79ba8d97c27de46476eaae8970e57837480bc5437f3974c93b4fd973d0",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 264
+      "elapsed_ms": 146
      },
      "bound_matches": [
       {
@@ -5060,11 +5071,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:09Z",
+     "observed_at": "2026-10-22T02:34:31Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "ad68c8f7de6e02381af3b05727de4b33ddf87f84de8244d6fdde770838264eec",
-     "elapsed_ms": 59
+     "sha256": "96040aa9f8e1871ee7898ef7d1ee28e122fd5ab7cd2fb528dec910004d45636b",
+     "elapsed_ms": 22
     },
     "pairs_seen": []
    }
@@ -5138,11 +5149,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:10Z",
+     "observed_at": "2026-10-22T02:34:32Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "7c861bc1167bb228a2ed43d96718a4fecde40934941602b1750d003435e24084",
-     "elapsed_ms": 56
+     "sha256": "ee4eaa1f015f8cb6495d3136f5026288084e02db9dd8467a37137d4a6079f64a",
+     "elapsed_ms": 26
     },
     "team_searches": [
      {
@@ -5150,11 +5161,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=ex-RUSTEC",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:10Z",
-       "bytes": 125035,
-       "sha256": "7fb281ab1310dfa443fd289ee14fb18466cd050c9c0eddf5bbe84ee8b7c2c752",
+       "observed_at": "2026-10-22T02:34:31Z",
+       "bytes": 131500,
+       "sha256": "612deb6a7ac099f87b43dbfeecfd8d523a13018c496032453824bb0a191c243d",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 353
+       "elapsed_ms": 262
       }
      },
      {
@@ -5162,11 +5173,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Saint%20Sinners",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:10Z",
-       "bytes": 123478,
-       "sha256": "cb5c927e575bed22ed93ca51a0bfa121b8173ded9c43965c263ad9e907c84004",
+       "observed_at": "2026-10-22T02:34:32Z",
+       "bytes": 129920,
+       "sha256": "4d2b63b6796eeb18cb93c19d12c985af248076215250d8549053864702ca566d",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 491
+       "elapsed_ms": 385
       }
      }
     ],
@@ -5177,11 +5188,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=ex-RUSTEC",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:11Z",
+      "observed_at": "2026-10-22T02:34:32Z",
       "bytes": 814,
       "sha256": "6f00c3b33cbbd4260734508b97470dd93da9ef24bdd4bf584c44e0022b466f42",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 220
+      "elapsed_ms": 196
      },
      "exact": [
       {
@@ -5193,11 +5204,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=24857&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:11Z",
+      "observed_at": "2026-10-22T02:34:32Z",
       "bytes": 4303,
       "sha256": "30099ec9639403a6c76d3e0f610929d6ef0c178ad4e90e2e6c4c2ed074228e16",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 266
+      "elapsed_ms": 124
      },
      "bound_matches": [
       {
@@ -5213,11 +5224,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Saint%20Sinners",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:11Z",
+      "observed_at": "2026-10-22T02:34:32Z",
       "bytes": 829,
       "sha256": "c888e623e4bd54e268d2194fc6aec29790fc839a0867da96340c5fe551261ee4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 254
+      "elapsed_ms": 132
      },
      "exact": [
       {
@@ -5229,11 +5240,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25223&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:11Z",
+      "observed_at": "2026-10-22T02:34:32Z",
       "bytes": 4335,
       "sha256": "cffae003daa95492c97b8c5c9ad81f63ce6532022e2bdb7734712ec5ba97e70e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 239
+      "elapsed_ms": 177
      },
      "bound_matches": [
       {
@@ -5250,11 +5261,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:11Z",
+     "observed_at": "2026-10-22T02:34:32Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "6f9df19ceb607662208075cb5e50be0e226df63ab83c40f6ffe8c2e1507f6578",
-     "elapsed_ms": 40
+     "sha256": "596db5fcc57a0611806f5c959cde401f42a2df7e85c1df3bd6cb6ae8e953e349",
+     "elapsed_ms": 13
     },
     "pairs_seen": []
    }
@@ -5346,11 +5357,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:12Z",
+     "observed_at": "2026-10-22T02:34:33Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "0a4f6f386a0eb2e17f07c54f55aa33fb1afcdc89f6dad5bd74ceba2bcf2a763c",
-     "elapsed_ms": 45
+     "sha256": "99a21f93b92c5edaf5c7d119dd5017de7f982c7f131aae08626bebfbbfc6b1c3",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -5358,11 +5369,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Ground%20Zero",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:12Z",
-       "bytes": 137728,
-       "sha256": "6f6bc670671e8fd4e74b60f7ff28e2812a1e9bcd6d9aa9bb3a811709e65f60ea",
+       "observed_at": "2026-10-22T02:34:33Z",
+       "bytes": 144179,
+       "sha256": "78e87048d7111e40c3eb78355c2cfe0ee505a9b4f2a166d724fbbde19320afed",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 336
+       "elapsed_ms": 242
       }
      },
      {
@@ -5370,11 +5381,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Off%20Chops",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:12Z",
-       "bytes": 127639,
-       "sha256": "6e416b0a30d9ed941500900bc7e9dfe15dab779b6a26356768e8868291e9ec8d",
+       "observed_at": "2026-10-22T02:34:33Z",
+       "bytes": 134082,
+       "sha256": "cb84994d3f884aea6a2e6c10b167aa79141fa31a79ff00bec2787218b884ec55",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 507
+       "elapsed_ms": 350
       }
      }
     ],
@@ -5385,11 +5396,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Ground%20Zero",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:12Z",
+      "observed_at": "2026-10-22T02:34:33Z",
       "bytes": 2920,
       "sha256": "7934e19a11130b42413a445a4783393af82d08ba65c4a0fb46a05620eef904d4",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 257
+      "elapsed_ms": 181
      },
      "exact": [
       {
@@ -5401,11 +5412,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=584&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:13Z",
+      "observed_at": "2026-10-22T02:34:34Z",
       "bytes": 2419,
       "sha256": "dc77d609615032998aa39f76474e1b4c1ff5633d0e7fe39a4cdf6b82689c605e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 260
+      "elapsed_ms": 386
      },
      "bound_matches": [
       {
@@ -5421,11 +5432,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Off%20Chops",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:13Z",
+      "observed_at": "2026-10-22T02:34:34Z",
       "bytes": 2932,
       "sha256": "ce83bc76be1d104c014a2ae5157483b221e0aef4e0d8fbafc1d0cf394fe5879e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 230
+      "elapsed_ms": 166
      },
      "exact": [
       {
@@ -5437,11 +5448,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25492&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:13Z",
+      "observed_at": "2026-10-22T02:34:34Z",
       "bytes": 2421,
       "sha256": "603e0f219d98c523f5c11b929ed508d0104d4df7a7634aab42ce360e3e329c39",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 287
+      "elapsed_ms": 178
      },
      "bound_matches": [
       {
@@ -5458,11 +5469,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:13Z",
+     "observed_at": "2026-10-22T02:34:34Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "d405993bc725e82d9d5fbb00a8debca3ebe4674607f17279882f3d66c7fd6e5c",
-     "elapsed_ms": 37
+     "sha256": "a43dc9abe6999a906d4485171d694a8492fbc6a220d87250b3bb718a16dcf39b",
+     "elapsed_ms": 17
     },
     "pairs_seen": []
    }
@@ -5536,11 +5547,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:14Z",
+     "observed_at": "2026-10-22T02:34:35Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "ba7f7a2195a3a5fb47c8a256bb076e18eceb4494570900c383bb779af6474648",
-     "elapsed_ms": 192
+     "sha256": "3a53c60b038005bbcefa8b4a9cdfd0bd4b7725b341c46a96d99545cf7d8b5f9c",
+     "elapsed_ms": 22
     },
     "team_searches": [
      {
@@ -5548,11 +5559,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=NEXVOID",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:14Z",
-       "bytes": 128041,
-       "sha256": "7a7d9a2f149a24bfc6733c4a15574d2eabf33477ef94ba92a3a43c78c65e1fa5",
+       "observed_at": "2026-10-22T02:34:35Z",
+       "bytes": 134923,
+       "sha256": "c9d4bbdac2b48356e4fcf057cb513ef1788fe56c0b87bc5513bc38247dd078bd",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 336
+       "elapsed_ms": 682
       }
      },
      {
@@ -5560,11 +5571,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Alter%20Ego",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:14Z",
-       "bytes": 136838,
-       "sha256": "c8e744a39804313a1c458883e294d0979cf85a9e6459777146675996b3be4a9b",
+       "observed_at": "2026-10-22T02:34:35Z",
+       "bytes": 143316,
+       "sha256": "c3b60813eb17008dba29dff2c00565e3ae84991df91f4d8d76b8ab642e3521a3",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 325
+       "elapsed_ms": 560
       }
      }
     ],
@@ -5575,11 +5586,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=NEXVOID",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:14Z",
+      "observed_at": "2026-10-22T02:34:35Z",
       "bytes": 2924,
       "sha256": "13fd36617b7b006fdbafafb0ed32e24dcef8661f7703a3f1d07804943624a62b",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 217
+      "elapsed_ms": 168
      },
      "exact": [
       {
@@ -5591,11 +5602,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22560&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:15Z",
+      "observed_at": "2026-10-22T02:34:36Z",
       "bytes": 4561,
       "sha256": "ca5ee6fac9980f89fe8772cf893db7c337ec07b65d6a8a2c2bd64790155fbc2c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 230
+      "elapsed_ms": 153
      },
      "bound_matches": [
       {
@@ -5611,11 +5622,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Alter%20Ego",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:15Z",
+      "observed_at": "2026-10-22T02:34:36Z",
       "bytes": 2936,
       "sha256": "f041b07cce39ae5f03ba4348d0cbcb397d60364e363920cb6604b8c72efba13a",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 288
+      "elapsed_ms": 161
      },
      "exact": [
       {
@@ -5627,11 +5638,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=4170&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:15Z",
+      "observed_at": "2026-10-22T02:34:36Z",
       "bytes": 2410,
       "sha256": "b7c535d2f3c15e6c38a491d2f3d42595d5b7d25ce6ef9ca0e16166e98bdfae86",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 304
+      "elapsed_ms": 161
      },
      "bound_matches": [
       {
@@ -5648,11 +5659,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:15Z",
+     "observed_at": "2026-10-22T02:34:36Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "b216394552d9ae22d69e351111448953624199ee6a1b9eac7fb02322fe813451",
-     "elapsed_ms": 44
+     "sha256": "6bfe3a4de20cb625c3b4c8c79a5bc56bb8caf7b961bca933e2b48d11f83d4a79",
+     "elapsed_ms": 22
     },
     "pairs_seen": []
    }
@@ -5744,11 +5755,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:16Z",
+     "observed_at": "2026-10-22T02:34:36Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "f82d7141214e7233870237600c1d4b6e06a743cd60cc06a2933df9f25b315ebc",
-     "elapsed_ms": 48
+     "sha256": "a09a1c6c3bfe575a38bac4f2c428404e5effbba766e5bf213decf7189ca05348",
+     "elapsed_ms": 18
     },
     "team_searches": [
      {
@@ -5756,11 +5767,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=FlyQuest",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:16Z",
-       "bytes": 136908,
-       "sha256": "41575cbbaf3e8ab3e6ebaeb6330e156cd48c34feb6c7178b3f481ea5e06242ed",
+       "observed_at": "2026-10-22T02:34:36Z",
+       "bytes": 143415,
+       "sha256": "b2ca72ab41fcacc5b3a8026e86cdef3aaf7bcda26088d1c08703cb3db92fc008",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 571
+       "elapsed_ms": 232
       }
      },
      {
@@ -5768,11 +5779,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Staqued",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:16Z",
-       "bytes": 123508,
-       "sha256": "cc5beab9de6baeccb04e188e9e9a39c5425d247547891d21061197f974b47aa0",
+       "observed_at": "2026-10-22T02:34:36Z",
+       "bytes": 129987,
+       "sha256": "f6743fb9b7d019e365390c1eac9477683ed6aa1f6be95a55fc6fe4135408c205",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 312
+       "elapsed_ms": 228
       }
      }
     ],
@@ -5783,11 +5794,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=FlyQuest",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:16Z",
+      "observed_at": "2026-10-22T02:34:37Z",
       "bytes": 5152,
       "sha256": "6f2ec23038976f90ebe0195428d142a3bf82444977b9a4369a65289c0b56e34e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 233
+      "elapsed_ms": 182
      },
      "exact": [
       {
@@ -5799,11 +5810,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=10398&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:17Z",
+      "observed_at": "2026-10-22T02:34:37Z",
       "bytes": 2504,
       "sha256": "b2d8e98c58dccda375534430901810068ed6d3dd48d7f5a9ff29e45a0d9f3c60",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 240
+      "elapsed_ms": 160
      },
      "bound_matches": [
       {
@@ -5819,11 +5830,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Staqued",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:17Z",
+      "observed_at": "2026-10-22T02:34:37Z",
       "bytes": 1490,
       "sha256": "b474f75f37718e160da67f7d6f1732ae3d5e0537da3157af7229d362908be2cc",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 233
+      "elapsed_ms": 165
      },
      "exact": [
       {
@@ -5835,11 +5846,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25258&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:17Z",
+      "observed_at": "2026-10-22T02:34:37Z",
       "bytes": 2504,
       "sha256": "cbcdbc8311037c30b4de25a6dbae0ddacc9b8769f31c8b0af36b35831b22b06e",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 280
+      "elapsed_ms": 154
      },
      "bound_matches": [
       {
@@ -5856,11 +5867,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:17Z",
+     "observed_at": "2026-10-22T02:34:37Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "712bb89c59c4e9d205e56db6615c9cbf69cd5fa2fb8c1783ef314ee83725c123",
-     "elapsed_ms": 58
+     "sha256": "c24cbaa5efcd5660927419e803f608723ef47570d322ebbd1f9c083a73b114e5",
+     "elapsed_ms": 16
     },
     "pairs_seen": []
    }
@@ -5934,11 +5945,11 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:18Z",
+     "observed_at": "2026-10-22T02:34:38Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "dbc54524cc5337095e5e62b611d11f3285ab042ac47a87661d99a9ff29eff4d8",
-     "elapsed_ms": 54
+     "sha256": "c0006f9b48dbea70e5fc7b62344f2367f42cfef733066423eac288860907f967",
+     "elapsed_ms": 21
     },
     "team_searches": [
      {
@@ -5946,11 +5957,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Rooster",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:18Z",
-       "bytes": 136952,
-       "sha256": "808427dc523268ed7cc9dc2c8138eed8ed1c17d5f8d589f8ea6049dd0eeecfec",
+       "observed_at": "2026-10-22T02:34:37Z",
+       "bytes": 143453,
+       "sha256": "4875d963ab58f63482fcd3cd6126ccee78ce73a31c30e780f56d6816592a3bad",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 558
+       "elapsed_ms": 353
       }
      },
      {
@@ -5958,11 +5969,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=Abyssal",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:18Z",
-       "bytes": 125456,
-       "sha256": "9c314bed2726f17ff2d331d5f5bbdd891309db7cb6819efb8c654de428b955d0",
+       "observed_at": "2026-10-22T02:34:38Z",
+       "bytes": 131921,
+       "sha256": "b5ff7d7039a3d03ce9a12b7e5124a35bb877d804db69955f91df417f9f8a6e77",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 329
+       "elapsed_ms": 408
       }
      }
     ],
@@ -5973,11 +5984,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Rooster",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:18Z",
+      "observed_at": "2026-10-22T02:34:38Z",
       "bytes": 2569,
       "sha256": "cd4b2941437a45693c1fc368ad637a4f7bfcc14d99d9bfbc72738e0afef51076",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 222
+      "elapsed_ms": 153
      },
      "exact": [
       {
@@ -5989,11 +6000,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=151&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:19Z",
+      "observed_at": "2026-10-22T02:34:38Z",
       "bytes": 2394,
       "sha256": "8acb376607669408bc254a9f396ee99897a6938c1b622f2a4b005c0b9ebeb125",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 243
+      "elapsed_ms": 280
      },
      "bound_matches": [
       {
@@ -6009,11 +6020,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=Abyssal",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:19Z",
+      "observed_at": "2026-10-22T02:34:38Z",
       "bytes": 2926,
       "sha256": "f719c289e05ae4cb0b1c71c3828610ab017a07ea654860b1abaf582ba2d8f04c",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 239
+      "elapsed_ms": 164
      },
      "exact": [
       {
@@ -6025,11 +6036,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=22732&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:19Z",
+      "observed_at": "2026-10-22T02:34:39Z",
       "bytes": 2396,
       "sha256": "a56aa830502b67be453d7b47792e395ae364227046e96d69e0ea92af945d7105",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 368
+      "elapsed_ms": 384
      },
      "bound_matches": [
       {
@@ -6046,11 +6057,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:19Z",
+     "observed_at": "2026-10-22T02:34:39Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "8ef585aeb432bc7e0e317cea417d72829e2bf9d9d5c00eda39e585f64ddef384",
-     "elapsed_ms": 72
+     "sha256": "b6e4a91fa4fa2ae0d7fde190ecd9c407e66af651e26063cba155af78c3b4b6f7",
+     "elapsed_ms": 21
     },
     "pairs_seen": []
    }
@@ -6136,23 +6147,23 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:20Z",
+     "observed_at": "2026-10-22T02:34:39Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "57bf4983d336c5f7f4b5780f0dec27aa31b2f5b5e71dc7917a20b27f480c0acb",
-     "elapsed_ms": 39
+     "sha256": "240c53fa5953e39a474fffe117dc4506bb636514409cc7e82184dc33b38c67ba",
+     "elapsed_ms": 24
     },
     "team_searches": [
      {
       "url": "https://www.hltv.org/search?query=HOTU",
       "response": {
        "url": "https://www.hltv.org/search?query=HOTU",
-       "status": 403,
-       "observed_at": "2026-10-22T02:08:19Z",
-       "error": "HTTP 403",
-       "bytes": 4096,
-       "sha256": "59e1bf00a519bb2f3ac6293996fdc4f5446581da82ea255b58aaa6dda2ee86ba",
-       "elapsed_ms": 69
+       "status": 200,
+       "observed_at": "2026-10-22T02:34:39Z",
+       "bytes": 143652,
+       "sha256": "e6cab15562f8840157e0e84f72edff5bccdae9b1ea12c44308676ee1f661a2d2",
+       "content_type": "text/html; charset=UTF-8",
+       "elapsed_ms": 240
       }
      },
      {
@@ -6160,11 +6171,11 @@
       "response": {
        "url": "https://www.hltv.org/search?query=The%20Huns",
        "status": 200,
-       "observed_at": "2026-10-22T02:08:20Z",
-       "bytes": 137378,
-       "sha256": "e9bd10c9ef9209f456b8915d810a3d16a683ea8ed4de4c6aabf68882b8260f15",
+       "observed_at": "2026-10-22T02:34:39Z",
+       "bytes": 143857,
+       "sha256": "2bbdaafa22a44a6495f94be27d64818d42d7714ced553da7bb41ca76b243dab2",
        "content_type": "text/html; charset=UTF-8",
-       "elapsed_ms": 493
+       "elapsed_ms": 254
       }
      }
     ],
@@ -6175,11 +6186,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=HOTU",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:20Z",
+      "observed_at": "2026-10-22T02:34:39Z",
       "bytes": 4766,
       "sha256": "114fad14fafb708cb15ac473e62970d1ff8c75a3462ac0f52f578dbb8b74c143",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 229
+      "elapsed_ms": 142
      },
      "exact": [
       {
@@ -6191,11 +6202,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=2720&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:20Z",
+      "observed_at": "2026-10-22T02:34:40Z",
       "bytes": 4817,
       "sha256": "2cb9eab8c6705446739e0945b243c9da895ac8486e345c05930673e11bdd50eb",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 318
+      "elapsed_ms": 191
      },
      "bound_matches": []
     },
@@ -6203,11 +6214,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=The%20Huns",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:21Z",
+      "observed_at": "2026-10-22T02:34:40Z",
       "bytes": 5115,
       "sha256": "0110ac95f460b5b20f0ca45d5426475c30c45d249ef46fac0a7d76377edb4c81",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 384
+      "elapsed_ms": 199
      },
      "exact": [
       {
@@ -6219,11 +6230,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=9127&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:21Z",
+      "observed_at": "2026-10-22T02:34:40Z",
       "bytes": 291,
       "sha256": "b1e05ac7e63eeecbc33c2a3700812940e48dc6eee5a242c2b5c1abb1764bccdc",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 261
+      "elapsed_ms": 169
      },
      "bound_matches": []
     }
@@ -6232,11 +6243,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:21Z",
+     "observed_at": "2026-10-22T02:34:40Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "bcd943491b5cd680638e9bd6d1d25c012e17fabeb7eb08639dc2b6ca7737e124",
-     "elapsed_ms": 40
+     "sha256": "b4241556497a07b47b9f000bfb039077c1d9840893f081a1a9963cefcf0c8077",
+     "elapsed_ms": 26
     },
     "pairs_seen": []
    }
@@ -6310,35 +6321,35 @@
     "listing": {
      "url": "https://www.hltv.org/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:21Z",
+     "observed_at": "2026-10-22T02:34:41Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "d14ac62383f00319338976d64effbc77c29f387c11fedeefa9ec6ffda7a55d79",
-     "elapsed_ms": 46
+     "sha256": "248cda8c908c8bd3b1f40610a790f0a50b90f68bd2c518b866af6aaabc47e7eb",
+     "elapsed_ms": 23
     },
     "team_searches": [
      {
       "url": "https://www.hltv.org/search?query=5star",
       "response": {
        "url": "https://www.hltv.org/search?query=5star",
-       "status": 403,
-       "observed_at": "2026-10-22T02:08:21Z",
-       "error": "HTTP 403",
-       "bytes": 4096,
-       "sha256": "a078fda7d09105d853c79871dbc03cea2f4ca710469c5a6599002a0fa231b721",
-       "elapsed_ms": 42
+       "status": 200,
+       "observed_at": "2026-10-22T02:34:40Z",
+       "bytes": 141116,
+       "sha256": "6dbf20ef9ac2053a2e2e92a9dead5d599dfc2316eb74c62eaf71d2f018621014",
+       "content_type": "text/html; charset=UTF-8",
+       "elapsed_ms": 240
       }
      },
      {
       "url": "https://www.hltv.org/search?query=1WIN",
       "response": {
        "url": "https://www.hltv.org/search?query=1WIN",
-       "status": 403,
-       "observed_at": "2026-10-22T02:08:21Z",
-       "error": "HTTP 403",
-       "bytes": 4096,
-       "sha256": "f8253aa46f7cc24cacaa51f4fe1a7079a3774623c662db95b201bc62b4106527",
-       "elapsed_ms": 37
+       "status": 200,
+       "observed_at": "2026-10-22T02:34:41Z",
+       "bytes": 146936,
+       "sha256": "5b44ad26cf9840afcfa0f5436bc47a9e3a7272e9568d2d5f4a4d6a8f1ee414a2",
+       "content_type": "text/html; charset=UTF-8",
+       "elapsed_ms": 566
       }
      }
     ],
@@ -6349,11 +6360,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=5star",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:22Z",
+      "observed_at": "2026-10-22T02:34:41Z",
       "bytes": 2928,
       "sha256": "85520a49a97d83cc5f638a6e136aa438bd48b1994d3fd29272ddf04c99dcaef2",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 239
+      "elapsed_ms": 161
      },
      "exact": [
       {
@@ -6365,11 +6376,11 @@
      "matches_request": {
       "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=10&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=23051&with=teams,tournament",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:22Z",
+      "observed_at": "2026-10-22T02:34:41Z",
       "bytes": 292,
       "sha256": "d26541e0af6b270d267cd607f50d61011351b6bebaa6fe57f5b2f51596792ec2",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 233
+      "elapsed_ms": 136
      },
      "bound_matches": []
     },
@@ -6377,11 +6388,11 @@
      "request": {
       "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=5&filter[teams.name][eq]=1WIN",
       "status": 200,
-      "observed_at": "2026-10-22T02:08:22Z",
+      "observed_at": "2026-10-22T02:34:41Z",
       "bytes": 204,
       "sha256": "ed441f7f326d795fda2c916cd4b5d075695c770acf1d66791e796987d93a5ed1",
       "content_type": "application/json; charset=utf-8",
-      "elapsed_ms": 272
+      "elapsed_ms": 134
      },
      "exact": []
     }
@@ -6390,11 +6401,11 @@
     "index": {
      "url": "https://egamersworld.com/counterstrike/matches",
      "status": 403,
-     "observed_at": "2026-10-22T02:08:22Z",
+     "observed_at": "2026-10-22T02:34:41Z",
      "error": "HTTP 403",
      "bytes": 4096,
-     "sha256": "2c72f3136abd2d022227ea4de8f5288df6b1e70256eca2d92979f21a7017cafd",
-     "elapsed_ms": 72
+     "sha256": "34082e926c33d70c3bcc7885acde2b863b5552d97e224ab8ffd34a61aaaf43d7",
+     "elapsed_ms": 18
     },
     "pairs_seen": []
    }
