@@ -266,6 +266,39 @@ def model_source_label(analysis: dict) -> str:
     return 'Valve'
 
 
+def researched_method(match: dict) -> tuple[str, str, str]:
+    """Short, data-derived provenance for one researched (featured-blank) row.
+
+    Returns ``(what produced the number, source name, source URL)``. It reads
+    only the published origination record; it never re-prices anything and
+    never claims a provider that the row does not name.
+    """
+    o = match.get('origination') or {}
+    method = str(o.get('method') or '')
+    label = str(o.get('label') or '')
+    source = str(o.get('source') or '')
+    url = str(o.get('source_url') or '')
+    if method == 'market':
+        return 'a prediction-market line', source or 'Prediction market', url
+    if method == 'bookmaker':
+        return 'an esportsbook line', source or 'Esportsbook', url
+    if method == 'consensus':
+        return 'a median of independent money sources', source or 'Independent sources', url
+    if method == 'reference':
+        return 'an aggregated bookmaker average', source or 'Aggregated bookmaker', url
+    if method == 'guidance':
+        return 'a wide-book guidance quote (no pick)', source or 'Esportsbook', url
+    if method == 'model':
+        lowered = f'{source} {label}'.lower()
+        if 'hltv' in lowered:
+            return 'the HLTV world-ranking model', source or 'HLTV world ranking', url
+        if 'bo3' in lowered or 'results-based' in lowered or 'network' in lowered:
+            return 'the bo3.gg results network model', source or 'bo3.gg series results', url
+        if 'valve' in lowered:
+            return 'the Valve rating model', source or 'Valve official standings', url
+    return label or method or 'a researched estimate', source or 'Research source', url
+
+
 def selected_fallback(m, fallbacks):
     """One displayed probability basis: preserve money lines, upgrade only models or non-directional ties."""
     row = fallbacks.get(str(m['id']))
@@ -506,8 +539,13 @@ def glance(data, prefix, now=None):
             # browser repeats this check (assets/glance-lock.js) so a page built before
             # the lock or start passed never keeps advertising "Pick".
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            other = 1 - pick
+            # Session fbdc97d6: the brief asks for both teams' win probabilities to
+            # be obvious on a phone. The pick stays first and bold; the opponent's
+            # published probability is shown beside it, never recalculated.
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
+                      f'<span class="glance-other">{e(names[other])} {a["probabilities"][other] * 100:.1f}%</span>'
                       + ('<span class="badge purple">Researched</span>' if researched else ''))
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
@@ -671,17 +709,28 @@ def unresolved_register(data, prefix):
         closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
         extra = ''
         if closed:
-            names = []
-            for m in closed[:6]:
+            # Session fbdc97d6: this sentence used to claim every featured blank
+            # had been resolved by one "verified Thunderpick paired-price book".
+            # The published data says otherwise (Kalshi, Valve ratings, the
+            # bo3.gg results network, the HLTV ranking), so the provenance is
+            # now read from each row instead of being hard-coded.
+            counts = {}
+            items = []
+            for m in closed:
                 n = [t.get('name') or 'Unverified' for t in m.get('teams') or []]
-                names.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">{e(n[0])} vs {e(n[1])}</a>')
-            detail = ' · '.join(names)
-            more = f' <span class="tiny muted">+{len(closed) - len(names)} more</span>' if len(closed) > len(names) else ''
+                label, source, url = researched_method(m)
+                counts[label] = counts.get(label, 0) + 1
+                link = (f'<a class="source-link" href="{e(url)}" target="_blank" rel="noopener noreferrer">'
+                        f'{e(source)}{icon("external")}</a>' if url else '')
+                items.append(f'<li><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
+                             f'{e(n[0])} vs {e(n[1])}</a> <span class="method-note">· {e(label)}</span> {link}</li>')
+            summary = ', '.join(f'{count} from {label}' for label, count in sorted(counts.items(), key=lambda x: (-x[1], x[0])))
             extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
-                     f'{len(closed)} fixture(s) blank ({detail}{more}); each now carries an alias-aware researched line '
-                     '— HLTV event identity first, then a verified Thunderpick paired-price book (margin removed) — '
-                     'with the alias evidence and fair lines on its origination card. No line is invented; see the '
-                     f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> for the source links.</p>')
+                     f'<strong>{len(closed)}</strong> fixture(s) without a pick. Each now carries a researched estimate '
+                     f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. '
+                     'These are labelled research estimates, not a single bookmaker consensus; every figure keeps its '
+                     'own source and limitation on the origination card. No line is invented.</p>'
+                     '<ul class="researched-methods">' + ''.join(items) + '</ul>')
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '

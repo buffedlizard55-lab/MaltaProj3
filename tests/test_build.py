@@ -350,3 +350,81 @@ class GlanceIndexTests(unittest.TestCase):
     def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
         self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
 
+
+
+class ResearchProvenanceTests(unittest.TestCase):
+    """Session fbdc97d6: name the real source behind every researched row."""
+
+    def fixture(self, fid, teams, method, label, source, url, pick=0):
+        return {
+            'id': fid,
+            'teams': [{'name': n} for n in teams],
+            'competition': 'Test Cup',
+            'starts_at': '2026-10-22T10:00:00Z',
+            'source_url': f'https://www.hotspawn.com/matches/x-{fid}',
+            'featured_method': None,
+            'pick_index': pick,
+            'research': [],
+            'origination': {
+                'method': method, 'label': label, 'source': source, 'source_url': url,
+                'probabilities': [0.4, 0.6], 'observed_at': '2026-10-22T01:00:00Z',
+                'fair_decimal': [2.5, 1.667], 'quotes': [],
+            },
+        }
+
+    def test_summary_names_each_rows_actual_source_not_a_hardcoded_provider(self):
+        from scripts.build import unresolved_register
+        rows = [
+            self.fixture(1, ['Alpha', 'Beta'], 'market', 'Originated market line (Kalshi)',
+                         'Kalshi', 'https://kalshi.com/markets/kxcs2game/x'),
+            self.fixture(2, ['Gamma', 'Delta'], 'model', 'Valve-rating research estimate',
+                         'Valve official standings',
+                         'https://github.com/ValveSoftware/counter-strike_regional_standings'),
+        ]
+        data = {'matches': [], 'flags': [], 'complete_picks': {
+            'matches': rows, 'counts': {'active': 2}, 'generated_at': '2026-10-22T01:00:00Z'}}
+        html = unresolved_register(data, '')
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('1 from a prediction-market line', text)
+        self.assertIn('1 from the Valve rating model', text)
+        self.assertNotIn('Thunderpick', text)
+        self.assertIn('Alpha vs Beta', text)
+        self.assertIn('Gamma vs Delta', text)
+        # Each row must keep a clickable link to the source it actually used.
+        self.assertIn('https://kalshi.com/markets/kxcs2game/x', html)
+        self.assertIn('counter-strike_regional_standings', html)
+
+    def test_researched_method_reads_the_row_and_never_invents_a_provider(self):
+        from scripts.build import researched_method
+        label, source, url = researched_method(self.fixture(
+            3, ['Eps', 'Zeta'], 'model', 'Own results-based estimate (bo3.gg series results)',
+            'Own results-based model (bo3.gg series results)', 'https://bo3.gg/matches'))
+        self.assertIn('bo3.gg results network', label)
+        self.assertEqual(url, 'https://bo3.gg/matches')
+        label, _, _ = researched_method(self.fixture(
+            4, ['Eta', 'Theta'], 'model', 'Research model estimate (HLTV world ranking)',
+            'HLTV world ranking', 'https://www.hltv.org/ranking/teams'))
+        self.assertIn('HLTV world-ranking', label)
+
+    def test_phone_index_shows_both_published_probabilities(self):
+        from datetime import datetime, timezone
+        base = datetime(2026, 10, 22, 1, 0, tzinfo=timezone.utc)
+        m = {
+            'id': '9', 'teams': [{'id': 'a', 'name': 'Alpha'}, {'id': 'b', 'name': 'Beta'}],
+            'competition': 'Test Cup', 'starts_at': '2026-10-22T10:00:00Z',
+            'locks_at': '2026-10-22T09:54:00Z', 'observed_at': '2026-10-22T01:00:00Z',
+            'availability': 'open', 'source_url': 'https://www.hotspawn.com/matches/x-9',
+            'analysis': {'method': 'model', 'probabilities': [0.32, 0.68], 'source': 'Valve official standings',
+                         'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                         'observed_at': '2026-10-22T01:00:00Z'},
+            'pick_index': 1, 'research': [], 'limitations': [],
+        }
+        html = glance({'matches': [m], 'fallbacks': {}}, '', now=base)
+        soup = BeautifulSoup(html, 'html.parser')
+        row = soup.select_one('.glance-row')
+        choice = row.select_one('.glance-choice').get_text(' ', strip=True)
+        self.assertIn('Beta', choice)
+        self.assertIn('68.0%', choice)
+        self.assertIn('Alpha 32.0%', choice)
+        # The pick is still the first, bolded team and is labelled as such.
+        self.assertIn('Pick', choice)

@@ -88,5 +88,5 @@ jobs:
           git add data/research/fbdc97d6
           git diff --cached --quiet && exit 0
           git commit -m 'research(fbdc97d6): live snapshot, build/row audit and line-source probe'
-          git pull --rebase origin arena/fbdc97d6-maltaproj3
+          git pull --rebase --autostash origin arena/fbdc97d6-maltaproj3
           git push origin arena/fbdc97d6-maltaproj3
