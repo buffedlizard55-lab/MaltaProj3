@@ -1,0 +1,4411 @@
+{
+ "schema": 1,
+ "session": "arena-15fc6bca",
+ "generated_at": "2026-10-22T01:10:06.264321Z",
+ "snapshot": {
+  "generated_at": "2026-10-22T01:08:40Z",
+  "inventory_observed_at": "2026-10-22T01:08:21Z",
+  "counts": {
+   "inventory": 97,
+   "upcoming": 35,
+   "archived": 62,
+   "unknown_schedule": 0,
+   "market": 5,
+   "bookmaker": 1,
+   "model": 16,
+   "unresolved": 13,
+   "picks": 21,
+   "no_edge": 1
+  },
+  "origination_counts": {
+   "active": 35,
+   "resolved": 35,
+   "unresolved": 0,
+   "with_pick": 34,
+   "consensus": 1,
+   "market": 6,
+   "bookmaker": 1,
+   "reference": 0,
+   "model": 27,
+   "network": 4,
+   "guidance": 0,
+   "alias_joined": 2
+  }
+ },
+ "policy": "Read-only ground truth. No probability, pick or alias is written by this probe.",
+ "bo3_requests": [
+  {
+   "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
+   "http_status": 200,
+   "fetched_at": "2026-10-22T01:09:55.586804Z",
+   "bytes": 218798,
+   "sha256": "f3332a7c0e0d726cd7fd9df2aa3aa0f2607c932f04b79981dd4780ebefc1ed5a",
+   "error": null
+  },
+  {
+   "url": "https://api.bo3.gg/api/v1/matches?page[offset]=100&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
+   "http_status": 200,
+   "fetched_at": "2026-10-22T01:09:56.055122Z",
+   "bytes": 215267,
+   "sha256": "933fcaa64931404cba32d2b8b1c52c906bff1f77115b324c0fe64e4394219684",
+   "error": null
+  },
+  {
+   "url": "https://api.bo3.gg/api/v1/matches?page[offset]=200&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
+   "http_status": 200,
+   "fetched_at": "2026-10-22T01:09:56.417619Z",
+   "bytes": 213417,
+   "sha256": "d7b4582027ffb08df66612bbb9da73a5d005174318fbbe78a6baeb06a31437f2",
+   "error": null
+  },
+  {
+   "url": "https://api.bo3.gg/api/v1/matches?page[offset]=300&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
+   "http_status": 200,
+   "fetched_at": "2026-10-22T01:09:57.076506Z",
+   "bytes": 36996,
+   "sha256": "6d7d1c60be84586d4c6bac0985ef2f566e82e5adec0b0a8f06ce74be33f181b3",
+   "error": null
+  }
+ ],
+ "bo3_upcoming_rows": 318,
+ "sources": [
+  {
+   "label": "Hotspawn lobby",
+   "url": "https://play.hotspawn.com/lobby",
+   "http_status": 200,
+   "bytes": 256749,
+   "sha256": "894e9f08834a09e9faa7724044960037c4f7d5ac9a42d999f511d2503ec617ef",
+   "error": null,
+   "fetched_at": "2026-10-22T01:09:57.427657Z"
+  },
+  {
+   "label": "Hotspawn fixtures API",
+   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+   "http_status": 200,
+   "bytes": 77256,
+   "sha256": "1c4830fd400aaf9813b22ef4b3b3343ed6144c886b003ee2917e63c28e7f0fe7",
+   "error": null,
+   "fetched_at": "2026-10-22T01:09:58.996219Z"
+  },
+  {
+   "label": "HLTV matches",
+   "url": "https://www.hltv.org/matches",
+   "http_status": 403,
+   "bytes": null,
+   "sha256": null,
+   "error": "HTTPError: HTTP Error 403: Forbidden",
+   "fetched_at": "2026-10-22T01:10:00.187193Z"
+  },
+  {
+   "label": "HLTV world ranking",
+   "url": "https://www.hltv.org/ranking/teams",
+   "http_status": 200,
+   "bytes": 1068133,
+   "sha256": "7a8aaa9b8691d7612a3c459b767d5ac21530b3e2a695e3524bfcdcf41f01d071",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:00.641894Z"
+  },
+  {
+   "label": "bo3.gg API upcoming",
+   "url": "https://api.bo3.gg/api/v1/matches?page[limit]=5&filter[matches.discipline_id][eq]=1",
+   "http_status": 200,
+   "bytes": 4695,
+   "sha256": "e582168130e9de030dfd8d32c44db666a6eb6952e5bb5fd3ac8cb5462a914fa1",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:01.553533Z"
+  },
+  {
+   "label": "EGamersWorld matches",
+   "url": "https://egamersworld.com/counterstrike/matches",
+   "http_status": 403,
+   "bytes": null,
+   "sha256": null,
+   "error": "HTTPError: HTTP Error 403: Forbidden",
+   "fetched_at": "2026-10-22T01:10:02.154537Z"
+  },
+  {
+   "label": "Thunderpick matches API",
+   "url": "https://thunderpick.io/api/matches",
+   "http_status": 403,
+   "bytes": null,
+   "sha256": null,
+   "error": "HTTPError: HTTP Error 403: Forbidden",
+   "fetched_at": "2026-10-22T01:10:02.656932Z"
+  },
+  {
+   "label": "Bovada CS2 coupon",
+   "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+   "http_status": 200,
+   "bytes": 254992,
+   "sha256": "4d452362da8e04c25c40214d6bd58bd78ed4f9396455533469a8e73b22ec9954",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:03.095405Z"
+  },
+  {
+   "label": "Pinnacle guest CS2",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/19/matchups",
+   "http_status": 200,
+   "bytes": 1233113,
+   "sha256": "15914d99ff2c50065ab0acee65290d807596f649b92cd6ba636df827f825d31a",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:04.389939Z"
+  },
+  {
+   "label": "Kalshi KXCS2GAME",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=5",
+   "http_status": 200,
+   "bytes": 2932,
+   "sha256": "822ac6752488fca480cd88ae103cf74025f85636220fc12960b42887483d7408",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:04.938078Z"
+  },
+  {
+   "label": "Polymarket CS2 events",
+   "url": "https://gamma-api.polymarket.com/events?series_id=10310&closed=false&limit=5",
+   "http_status": 200,
+   "bytes": 230637,
+   "sha256": "d576f064aa973f6f11a50b00a8705f9395984eb06b7c6d67480e00893ec46cc0",
+   "error": null,
+   "fetched_at": "2026-10-22T01:10:05.470751Z"
+  }
+ ],
+ "fixtures": [
+  {
+   "hotspawn_id": "1081869",
+   "teams": [
+    "Morningstar",
+    "NEXVOID"
+   ],
+   "team_ids": [
+    "244112",
+    "249811"
+   ],
+   "competition": "VOID Autumn Cup 2026",
+   "starts_at": "2026-10-22T03:00:00Z",
+   "locks_at": "2026-10-22T02:54:00Z",
+   "tier": "c",
+   "featured": null,
+   "originated": {
+    "method": "market",
+    "label": "Originated market line (Kalshi)",
+    "probabilities": [
+     0.20792079,
+     0.79207921
+    ],
+    "source": "Kalshi",
+    "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "Morningstar: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "Morningstar: no published Valve rating; only 2 anchored series in the last 120 days (needs 8)",
+     "source_url": "https://bo3.gg/matches"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "detail": "Own network model: Morningstar has only 2 finished series in the window (needs 6)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Single independent source; not a multi-source consensus.",
+    "Margin removed where applicable. Estimate is not a guaranteed outcome."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "morningstar-vs-nexvoid-22-10-2026",
+      "start": "2026-10-22T03:00:00.000+00:00",
+      "teams": [
+       "NEXVOID",
+       "Morningstar"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "morningstar-vs-nexvoid-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T03:00:00.000+00:00",
+     "tournament": "VOID Autumn Cup 2026",
+     "team1": {
+      "id": 22560,
+      "name": "NEXVOID",
+      "rank": 113
+     },
+     "team2": {
+      "id": 22125,
+      "name": "Morningstar",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/morningstar-vs-nexvoid-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081870",
+   "teams": [
+    "Vitalem Aerem",
+    "Rare Atom"
+   ],
+   "team_ids": [
+    "262966",
+    "59131"
+   ],
+   "competition": "VOID Autumn Cup 2026",
+   "starts_at": "2026-10-22T05:00:00Z",
+   "locks_at": "2026-10-22T04:54:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "market",
+    "probabilities": [
+     0.355,
+     0.645
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "market",
+    "label": "Market-implied estimate",
+    "probabilities": [
+     0.355,
+     0.645
+    ],
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "vitalem-aerem-vs-rare-atom-22-10-2026",
+      "start": "2026-10-22T05:00:00.000+00:00",
+      "teams": [
+       "Rare Atom",
+       "Vitalem Aerem"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "vitalem-aerem-vs-rare-atom-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T05:00:00.000+00:00",
+     "tournament": "VOID Autumn Cup 2026",
+     "team1": {
+      "id": 2506,
+      "name": "Rare Atom",
+      "rank": 132
+     },
+     "team2": {
+      "id": 24068,
+      "name": "Vitalem Aerem",
+      "rank": 204
+     },
+     "source_url": "https://bo3.gg/matches/vitalem-aerem-vs-rare-atom-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079188",
+   "teams": [
+    "Bushido Wildcats",
+    "ex-6666"
+   ],
+   "team_ids": [
+    "219682",
+    "265446"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-22T08:00:00Z",
+   "locks_at": "2026-10-22T07:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.5146747642001489,
+     0.4853252357998511
+    ],
+    "source": "Own network model (bo3.gg results graph)",
+    "source_url": "https://bo3.gg/matches"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "Polymarket event 1231331: Order book spread 0.67 exceeds the 0.15 indicative ceiling (Bushido Wildcats bid/ask 0.14/0.81, ex-6666 bid/ask 0.19/0.86); observation recorded, not used as a pick input.",
+     "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "Kalshi event KXCS2GAME-26OCT220400EXBW: Order book spread 0.62 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.23/0.84, Bushido Wildcats bid/ask 0.15/0.77); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220400exbw"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "ex-6666: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+      "start": "2026-10-22T08:00:00.000+00:00",
+      "teams": [
+       "Bushido Wildcats",
+       "ex-6666"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T08:00:00.000+00:00",
+     "tournament": "NODWIN Clutch Series 13",
+     "team1": {
+      "id": 20792,
+      "name": "Bushido Wildcats",
+      "rank": 114
+     },
+     "team2": {
+      "id": 25508,
+      "name": "ex-6666",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079650",
+   "teams": [
+    "GenOne",
+    "Spirit Academy"
+   ],
+   "team_ids": [
+    "29155",
+    "32869"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-22T08:00:00Z",
+   "locks_at": "2026-10-22T07:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.7581203,
+     0.2418797
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.7581203,
+     0.2418797
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "genone-vs-spirit-academy-22-10-2026",
+      "start": "2026-10-22T08:00:00.000+00:00",
+      "teams": [
+       "GenOne",
+       "Spirit Academy"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "genone-vs-spirit-academy-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T08:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 1406,
+      "name": "GenOne",
+      "rank": 66
+     },
+     "team2": {
+      "id": 1309,
+      "name": "Spirit Academy",
+      "rank": 115
+     },
+     "source_url": "https://bo3.gg/matches/genone-vs-spirit-academy-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081143",
+   "teams": [
+    "BakS",
+    "Azuolas"
+   ],
+   "team_ids": [
+    "66740",
+    "263246"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-22T08:00:00Z",
+   "locks_at": "2026-10-22T07:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.73372436,
+     0.26627564
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.73372436,
+     0.26627564
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "baks-esports-vs-azuolas-22-10-2026",
+      "start": "2026-10-22T08:00:00.000+00:00",
+      "teams": [
+       "BAKS",
+       "Azuolas"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "baks-esports-vs-azuolas-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T08:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 2924,
+      "name": "BAKS",
+      "rank": 100
+     },
+     "team2": {
+      "id": 25247,
+      "name": "Azuolas",
+      "rank": 140
+     },
+     "source_url": "https://bo3.gg/matches/baks-esports-vs-azuolas-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079189",
+   "teams": [
+    "FORZE Reload",
+    "Just Players"
+   ],
+   "team_ids": [
+    "172275",
+    "253241"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-22T11:00:00Z",
+   "locks_at": "2026-10-22T10:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "market",
+    "probabilities": [
+     0.655,
+     0.345
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "market",
+    "label": "Market-implied estimate",
+    "probabilities": [
+     0.655,
+     0.345
+    ],
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "forze-reload-vs-just-players-22-10-2026",
+      "start": "2026-10-22T11:00:00.000+00:00",
+      "teams": [
+       "FORZE Reload",
+       "Just Players"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "forze-reload-vs-just-players-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T11:00:00.000+00:00",
+     "tournament": "NODWIN Clutch Series 13",
+     "team1": {
+      "id": 10703,
+      "name": "FORZE Reload",
+      "rank": 84
+     },
+     "team2": {
+      "id": 23107,
+      "name": "Just Players",
+      "rank": 118
+     },
+     "source_url": "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2866205",
+      "updated_at": null,
+      "team1": {
+       "team_id": 10703,
+       "name": "FORZE Reload",
+       "coeff": 1.28,
+       "active": true
+      },
+      "team2": {
+       "team_id": 23107,
+       "name": "Just Players",
+       "coeff": 3.3,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079651",
+   "teams": [
+    "Butterfly",
+    "Lavked"
+   ],
+   "team_ids": [
+    "242538",
+    "252785"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-22T11:00:00Z",
+   "locks_at": "2026-10-22T10:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.77416873,
+     0.22583127
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.77416873,
+     0.22583127
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-btf-lavked-2026-10-22"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "butterfly-vs-lavked-22-10-2026",
+      "start": "2026-10-22T11:00:00.000+00:00",
+      "teams": [
+       "Butterfly",
+       "Lavked"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "butterfly-vs-lavked-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T11:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 24855,
+      "name": "Butterfly",
+      "rank": 88
+     },
+     "team2": {
+      "id": 23078,
+      "name": "Lavked",
+      "rank": 143
+     },
+     "source_url": "https://bo3.gg/matches/butterfly-vs-lavked-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081596",
+   "teams": [
+    "Falcons Force",
+    "Phantom Academy"
+   ],
+   "team_ids": [
+    "242574",
+    "249840"
+   ],
+   "competition": "CCT Europe 2026 Challengers #8",
+   "starts_at": "2026-10-22T11:00:00Z",
+   "locks_at": "2026-10-22T10:54:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.5321556,
+     0.4678444
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.5321556,
+     0.4678444
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "phantom-academy-vs-falcons-force-22-10-2026",
+      "start": "2026-10-22T11:00:00.000+00:00",
+      "teams": [
+       "Phantom Academy",
+       "Falcons Force"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "phantom-academy-vs-falcons-force-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T11:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Challengers 8",
+     "team1": {
+      "id": 22009,
+      "name": "Phantom Academy",
+      "rank": 173
+     },
+     "team2": {
+      "id": 21012,
+      "name": "Falcons Force",
+      "rank": 161
+     },
+     "source_url": "https://bo3.gg/matches/phantom-academy-vs-falcons-force-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081597",
+   "teams": [
+    "benched gods",
+    "TitanFlow"
+   ],
+   "team_ids": [
+    "244042",
+    "263800"
+   ],
+   "competition": "CCT Europe 2026 Challengers #8",
+   "starts_at": "2026-10-22T11:00:00Z",
+   "locks_at": "2026-10-22T10:54:00Z",
+   "tier": "c",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.2206613278377196,
+     0.7793386721622804
+    ],
+    "source": "Own network model (bo3.gg results graph)",
+    "source_url": "https://bo3.gg/matches"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "benched gods: multiple Valve rosters share this name; no unique exact-five-player HLTV proof",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "TitanFlow: no published Valve rating; only 3 anchored series in the last 120 days (needs 8)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "benched-gods-vs-titanflow-22-10-2026",
+      "start": "2026-10-22T11:00:00.000+00:00",
+      "teams": [
+       "benched gods",
+       "TitanFlow"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "benched-gods-vs-titanflow-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T11:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Challengers 8",
+     "team1": {
+      "id": 22240,
+      "name": "benched gods",
+      "rank": 157
+     },
+     "team2": {
+      "id": 25277,
+      "name": "TitanFlow",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082767",
+   "teams": [
+    "Nemesis",
+    "WW"
+   ],
+   "team_ids": [
+    "232951",
+    "186074"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-22T11:30:00Z",
+   "locks_at": "2026-10-22T11:24:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.91827998,
+     0.08172002
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.91827998,
+     0.08172002
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 0,
+    "ambiguous": false,
+    "closest": [],
+    "relay": null
+   }
+  },
+  {
+   "hotspawn_id": "1081598",
+   "teams": [
+    "JiJieHao",
+    "Nexus"
+   ],
+   "team_ids": [
+    "13076",
+    "373"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-22T13:00:00Z",
+   "locks_at": "2026-10-22T12:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "bookmaker",
+    "probabilities": [
+     0.63909774,
+     0.36090226
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "bookmaker",
+    "label": "No-vig bookmaker estimate",
+    "probabilities": [
+     0.63909774,
+     0.36090226
+    ],
+    "source": "Thunderpick",
+    "source_url": "https://thunderpick.io/api/matches"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "jijiehao-vs-nexus-22-10-2026",
+      "start": "2026-10-22T13:00:00.000+00:00",
+      "teams": [
+       "JiJieHao",
+       "Nexus"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "jijiehao-vs-nexus-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T13:00:00.000+00:00",
+     "tournament": "DraculaN Season 7",
+     "team1": {
+      "id": 3869,
+      "name": "JiJieHao",
+      "rank": 30
+     },
+     "team2": {
+      "id": 326,
+      "name": "Nexus",
+      "rank": 111
+     },
+     "source_url": "https://bo3.gg/matches/jijiehao-vs-nexus-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2867450",
+      "updated_at": null,
+      "team1": {
+       "team_id": 3869,
+       "name": "JiJieHao",
+       "coeff": 1.44,
+       "active": true
+      },
+      "team2": {
+       "team_id": 326,
+       "name": "Nexus",
+       "coeff": 2.55,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081600",
+   "teams": [
+    "Donstu",
+    "Banda chuya"
+   ],
+   "team_ids": [
+    "251634",
+    "253221"
+   ],
+   "competition": "CCT Europe 2026 Challengers #8",
+   "starts_at": "2026-10-22T13:45:00Z",
+   "locks_at": "2026-10-22T13:39:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.4045841,
+     0.5954159
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.4045841,
+     0.5954159
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "donstu-esports-vs-los-kogutos-22-10-2026",
+      "start": "2026-10-22T13:45:00.000+00:00",
+      "teams": [
+       "DONSTU",
+       "los kogutos"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "donstu-esports-vs-los-kogutos-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T13:45:00.000+00:00",
+     "tournament": "CCT Europe 2026 Challengers 8",
+     "team1": {
+      "id": 18843,
+      "name": "DONSTU",
+      "rank": 197
+     },
+     "team2": {
+      "id": 1093,
+      "name": "los kogutos",
+      "rank": 276
+     },
+     "source_url": "https://bo3.gg/matches/donstu-esports-vs-los-kogutos-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079652",
+   "teams": [
+    "Acend",
+    "ex-6666"
+   ],
+   "team_ids": [
+    "239293",
+    "265446"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-22T14:00:00Z",
+   "locks_at": "2026-10-22T13:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.82264949,
+     0.17735051
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Identity join (verified alias registry)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "Polymarket event 1232202: Order book spread 0.90 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.05/0.95, ex-6666 bid/ask 0.05/0.95); observation recorded, not used as a pick input.",
+     "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.88 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.94, Acend bid/ask 0.06/0.94); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221000exace"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "acend-cs2-vs-ex-6666-22-10-2026",
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "teams": [
+       "Acend",
+       "ex-6666"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "acend-cs2-vs-ex-6666-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T14:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 21980,
+      "name": "Acend",
+      "rank": 63
+     },
+     "team2": {
+      "id": 25508,
+      "name": "ex-6666",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/acend-cs2-vs-ex-6666-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081145",
+   "teams": [
+    "Lavked",
+    "HAVU"
+   ],
+   "team_ids": [
+    "252785",
+    "533"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-22T14:00:00Z",
+   "locks_at": "2026-10-22T13:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.39651661,
+     0.60348339
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.39651661,
+     0.60348339
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "lavked-vs-havu-22-10-2026",
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "teams": [
+       "Lavked",
+       "HAVU"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "lavked-vs-havu-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T14:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 23078,
+      "name": "Lavked",
+      "rank": 143
+     },
+     "team2": {
+      "id": 627,
+      "name": "HAVU",
+      "rank": 124
+     },
+     "source_url": "https://bo3.gg/matches/lavked-vs-havu-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082688",
+   "teams": [
+    "Imperial",
+    "Turma do Pagode"
+   ],
+   "team_ids": [
+    "5406",
+    "9584"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-22T14:00:00Z",
+   "locks_at": "2026-10-22T13:54:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "market",
+    "probabilities": [
+     0.775,
+     0.225
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "market",
+    "label": "Market-implied estimate",
+    "probabilities": [
+     0.775,
+     0.225
+    ],
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "imperial-vs-turma-do-pagode-22-10-2026",
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "teams": [
+       "Imperial",
+       "Turma do Pagode"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "imperial-vs-turma-do-pagode-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T14:00:00.000+00:00",
+     "tournament": "Circuit X Curitiba 4",
+     "team1": {
+      "id": 1430,
+      "name": "Imperial",
+      "rank": 52
+     },
+     "team2": {
+      "id": 4122,
+      "name": "Turma do Pagode",
+      "rank": 98
+     },
+     "source_url": "https://bo3.gg/matches/imperial-vs-turma-do-pagode-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2859701",
+      "updated_at": null,
+      "team1": {
+       "team_id": 1430,
+       "name": "Imperial",
+       "coeff": 1.22,
+       "active": true
+      },
+      "team2": {
+       "team_id": 4122,
+       "name": "Turma do Pagode",
+       "coeff": 3.8,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082689",
+   "teams": [
+    "BESTIA",
+    "ShindeN"
+   ],
+   "team_ids": [
+    "76903",
+    "189960"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-22T14:00:00Z",
+   "locks_at": "2026-10-22T13:54:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "market",
+    "probabilities": [
+     0.475,
+     0.525
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "market",
+    "label": "Market-implied estimate",
+    "probabilities": [
+     0.475,
+     0.525
+    ],
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "bestia-vs-shinden-22-10-2026",
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "teams": [
+       "BESTIA",
+       "ShindeN"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "bestia-vs-shinden-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T14:00:00.000+00:00",
+     "tournament": "Circuit X Curitiba 4",
+     "team1": {
+      "id": 5701,
+      "name": "BESTIA",
+      "rank": 65
+     },
+     "team2": {
+      "id": 11174,
+      "name": "ShindeN",
+      "rank": 74
+     },
+     "source_url": "https://bo3.gg/matches/bestia-vs-shinden-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2859702",
+      "updated_at": null,
+      "team1": {
+       "team_id": 5701,
+       "name": "BESTIA",
+       "coeff": 1.82,
+       "active": true
+      },
+      "team2": {
+       "team_id": 11174,
+       "name": "ShindeN",
+       "coeff": 1.88,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082882",
+   "teams": [
+    "UNiTY",
+    "Apogee Betclic"
+   ],
+   "team_ids": [
+    "85382",
+    "180765"
+   ],
+   "competition": "Stake Ranked Episode 6: Closed Qualifier",
+   "starts_at": "2026-10-22T14:00:00Z",
+   "locks_at": "2026-10-22T13:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Own results-based estimate (bo3.gg series results)",
+    "probabilities": [
+     0.39773644745590364,
+     0.6022635525440964
+    ],
+    "source": "Own results-based model (bo3.gg series results)",
+    "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "HLTV identity review",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Identity join (verified alias registry)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "HLTV identity review",
+     "detail": "HLTV lists UNiTY vs Betclic at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join.",
+     "source_url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "Apogee Betclic: multiple Valve rosters share this name; no unique exact-five-player HLTV proof",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Own uncalibrated results model, not observed betting odds: a single rating was fitted to 18 finished series against officially rated opponents (posterior SD 94.6 points, one-sigma interval 0.213-0.617). The sample is small, opponent strength is taken from a dated official snapshot and current lineups, stand-ins and map vetoes are unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "unity-vs-betclic-apogee-esports-22-10-2026",
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "teams": [
+       "UNiTY",
+       "Betclic"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "unity-vs-betclic-apogee-esports-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T14:00:00.000+00:00",
+     "tournament": "Stake Ranked Episode 6: Closed Qualifier",
+     "team1": {
+      "id": 3829,
+      "name": "UNiTY",
+      "rank": 69
+     },
+     "team2": {
+      "id": 11101,
+      "name": "Betclic",
+      "rank": 45
+     },
+     "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2865424",
+      "updated_at": null,
+      "team1": {
+       "team_id": 3829,
+       "name": "UNiTY",
+       "coeff": 2.35,
+       "active": true
+      },
+      "team2": {
+       "team_id": 11101,
+       "name": "Betclic",
+       "coeff": 1.52,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082180",
+   "teams": [
+    "Sangal",
+    "Metizport"
+   ],
+   "team_ids": [
+    "13697",
+    "54660"
+   ],
+   "competition": "Stake Ranked Episode 6: Closed Qualifier",
+   "starts_at": "2026-10-22T16:30:00Z",
+   "locks_at": "2026-10-22T16:24:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "market",
+    "probabilities": [
+     0.535,
+     0.465
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "market",
+    "label": "Market-implied estimate",
+    "probabilities": [
+     0.535,
+     0.465
+    ],
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "sangal-vs-metizport-22-10-2026",
+      "start": "2026-10-22T16:30:00.000+00:00",
+      "teams": [
+       "Sangal",
+       "Metizport"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "sangal-vs-metizport-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T16:30:00.000+00:00",
+     "tournament": "Stake Ranked Episode 6: Closed Qualifier",
+     "team1": {
+      "id": 36,
+      "name": "Sangal",
+      "rank": 40
+     },
+     "team2": {
+      "id": 1578,
+      "name": "Metizport",
+      "rank": 53
+     },
+     "source_url": "https://bo3.gg/matches/sangal-vs-metizport-22-10-2026",
+     "quote": {
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2866602",
+      "updated_at": null,
+      "team1": {
+       "team_id": 36,
+       "name": "Sangal",
+       "coeff": 1.75,
+       "active": true
+      },
+      "team2": {
+       "team_id": 1578,
+       "name": "Metizport",
+       "coeff": 1.95,
+       "active": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079653",
+   "teams": [
+    "Rune Eaters",
+    "FORZE Reload"
+   ],
+   "team_ids": [
+    "79760",
+    "172275"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-22T17:00:00Z",
+   "locks_at": "2026-10-22T16:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.51399636,
+     0.48600364
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.51399636,
+     0.48600364
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "Crossed or wider-than-12-cent order book",
+     "source_url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "rune-eaters-esports-vs-forze-reload-22-10-2026",
+      "start": "2026-10-22T17:00:00.000+00:00",
+      "teams": [
+       "Rune Eaters",
+       "FORZE Reload"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "rune-eaters-esports-vs-forze-reload-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T17:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 5702,
+      "name": "Rune Eaters",
+      "rank": 81
+     },
+     "team2": {
+      "id": 10703,
+      "name": "FORZE Reload",
+      "rank": 84
+     },
+     "source_url": "https://bo3.gg/matches/rune-eaters-esports-vs-forze-reload-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081146",
+   "teams": [
+    "6yuBoJlbl",
+    "ex-6666"
+   ],
+   "team_ids": [
+    "264928",
+    "265446"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-22T17:00:00Z",
+   "locks_at": "2026-10-22T16:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Own results-based estimate (bo3.gg series results)",
+    "probabilities": [
+     0.572758648799329,
+     0.42724135120067097
+    ],
+    "source": "Own results-based model (bo3.gg series results)",
+    "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "Polymarket event 1232205: Order book spread 0.89 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.05/0.94, ex-6666 bid/ask 0.06/0.95); observation recorded, not used as a pick input.",
+     "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "Kalshi event KXCS2GAME-26OCT221300EXYUB: Order book spread 0.83 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.88, 6yuBoJlbl bid/ask 0.06/0.88); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221300exyub"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "ex-6666: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "detail": "Own network model: 6yuBoJlbl has only 3 finished series in the window (needs 6)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Own uncalibrated results model, not observed betting odds: a single rating was fitted to 9 finished series against officially rated opponents (posterior SD 119.0 points, one-sigma interval 0.314-0.797). The sample is small, opponent strength is taken from a dated official snapshot and current lineups, stand-ins and map vetoes are unverified.",
+    "Low confidence: the one-sigma interval or the sample size is wide. Treat the direction as indicative only."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "6yubojlbl-vs-ex-6666-22-10-2026",
+      "start": "2026-10-22T17:00:00.000+00:00",
+      "teams": [
+       "6yuBoJlbl",
+       "ex-6666"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "6yubojlbl-vs-ex-6666-22-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-22T17:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 25420,
+      "name": "6yuBoJlbl",
+      "rank": 110
+     },
+     "team2": {
+      "id": 25508,
+      "name": "ex-6666",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082769",
+   "teams": [
+    "K27",
+    "NEXORA"
+   ],
+   "team_ids": [
+    "179115",
+    "263491"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-22T17:30:00Z",
+   "locks_at": "2026-10-22T17:24:00Z",
+   "tier": "c",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.9838863131596313,
+     0.016113686840368735
+    ],
+    "source": "Own network model (bo3.gg results graph)",
+    "source_url": "https://bo3.gg/matches"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "NEXORA: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "NEXORA: no published Valve rating, and bo3.gg lists no finished series saved for this fixture",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 0,
+    "ambiguous": false,
+    "closest": [],
+    "relay": null
+   }
+  },
+  {
+   "hotspawn_id": "1082770",
+   "teams": [
+    "UPGRADE",
+    "Virtus.pro"
+   ],
+   "team_ids": [
+    "263113",
+    "131"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-22T20:30:00Z",
+   "locks_at": "2026-10-22T20:24:00Z",
+   "tier": "c",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.33305477,
+     0.66694523
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "consensus",
+    "label": "Originated consensus line (median of independent money sources)",
+    "probabilities": [
+     0.39368826,
+     0.60631174
+    ],
+    "source": "Bovada + Pinnacle",
+    "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    }
+   ],
+   "limitations": [
+    "Margin removed where applicable. Estimate is not a guaranteed outcome."
+   ],
+   "bo3": {
+    "candidates": 0,
+    "ambiguous": false,
+    "closest": [],
+    "relay": null
+   }
+  },
+  {
+   "hotspawn_id": "1081871",
+   "teams": [
+    "Lynn Vision",
+    "Chinggis Warriors"
+   ],
+   "team_ids": [
+    "7887",
+    "146827"
+   ],
+   "competition": "VOID Autumn Cup 2026",
+   "starts_at": "2026-10-23T03:00:00Z",
+   "locks_at": "2026-10-23T02:54:00Z",
+   "tier": "c",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.64419091,
+     0.35580909
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "HLTV four-of-five roster identity",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "Polymarket event 1232241: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.07/0.95, Chinggis Warriors bid/ask 0.05/0.93); observation recorded, not used as a pick input.",
+     "source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.86 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.93, Lynn Vision bid/ask 0.08/0.92); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct222300cwlvg"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+    "Chinggis Warriors: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "lynn-vision-vs-chinggis-warriors-23-10-2026",
+      "start": "2026-10-23T03:00:00.000+00:00",
+      "teams": [
+       "Lynn Vision",
+       "Chinggis Warriors"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "lynn-vision-vs-chinggis-warriors-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T03:00:00.000+00:00",
+     "tournament": "VOID Autumn Cup 2026",
+     "team1": {
+      "id": 476,
+      "name": "Lynn Vision",
+      "rank": 64
+     },
+     "team2": {
+      "id": 9974,
+      "name": "Chinggis Warriors",
+      "rank": 87
+     },
+     "source_url": "https://bo3.gg/matches/lynn-vision-vs-chinggis-warriors-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079654",
+   "teams": [
+    "ex-Zero Tenacity",
+    "ex-RUSTEC"
+   ],
+   "team_ids": [
+    "241774",
+    "261629"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T08:00:00Z",
+   "locks_at": "2026-10-23T07:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "pick_index": null
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.5,
+     0.5
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": null,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+      "start": "2026-10-23T08:00:00.000+00:00",
+      "teams": [
+       "ex-Zero Tenacity",
+       "ex-RUSTEC"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T08:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 22185,
+      "name": "ex-Zero Tenacity",
+      "rank": 93
+     },
+     "team2": {
+      "id": 24857,
+      "name": "ex-RUSTEC",
+      "rank": 92
+     },
+     "source_url": "https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "team_ids": [
+    "192865",
+    "64509"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "locks_at": "2026-10-23T10:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.93003347,
+     0.06996653
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.93003347,
+     0.06996653
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+      "start": "2026-10-23T11:00:00.000+00:00",
+      "teams": [
+       "Nuclear TigeRES",
+       "Illyrians"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T11:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 18539,
+      "name": "Nuclear TigeRES",
+      "rank": 46
+     },
+     "team2": {
+      "id": 3022,
+      "name": "Illyrians",
+      "rank": 141
+     },
+     "source_url": "https://bo3.gg/matches/nuclear-tigeres-vs-illyrians-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "team_ids": [
+    "250180",
+    "32869"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "locks_at": "2026-10-23T10:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.6141524,
+     0.3858476
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.6141524,
+     0.3858476
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
+      "start": "2026-10-23T11:00:00.000+00:00",
+      "teams": [
+       "Inner Circle Academy",
+       "Spirit Academy"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T11:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 22737,
+      "name": "Inner Circle Academy",
+      "rank": 94
+     },
+     "team2": {
+      "id": 1309,
+      "name": "Spirit Academy",
+      "rank": 115
+     },
+     "source_url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081149",
+   "teams": [
+    "FORZE Reload",
+    "LFO 10"
+   ],
+   "team_ids": [
+    "172275",
+    "265039"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T14:00:00Z",
+   "locks_at": "2026-10-23T13:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (HLTV world ranking)",
+    "probabilities": [
+     0.51007245,
+     0.48992755
+    ],
+    "source": "HLTV world ranking",
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "LFO 10: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "LFO 10: no published Valve rating, and bo3.gg lists no finished series saved for this fixture",
+     "source_url": "https://bo3.gg/matches"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "detail": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "forze-reload-vs-sokerorg-23-10-2026",
+      "start": "2026-10-23T14:00:00.000+00:00",
+      "teams": [
+       "FORZE Reload",
+       "Sökerorg"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "forze-reload-vs-sokerorg-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T14:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 10703,
+      "name": "FORZE Reload",
+      "rank": 84
+     },
+     "team2": {
+      "id": 25400,
+      "name": "Sökerorg",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/forze-reload-vs-sokerorg-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "team_ids": [
+    "66740",
+    "6046"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "locks_at": "2026-10-23T16:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.40054361,
+     0.59945639
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "HLTV exact-five-player identity",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "brute-vs-baks-esports-23-10-2026",
+      "start": "2026-10-23T17:00:00.000+00:00",
+      "teams": [
+       "BRUTE",
+       "BAKS"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "brute-vs-baks-esports-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T17:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 11",
+     "team1": {
+      "id": 370,
+      "name": "BRUTE",
+      "rank": 75
+     },
+     "team2": {
+      "id": 2924,
+      "name": "BAKS",
+      "rank": 100
+     },
+     "source_url": "https://bo3.gg/matches/brute-vs-baks-esports-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "team_ids": [
+    "261629",
+    "263130"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "locks_at": "2026-10-23T16:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.80746193,
+     0.19253807
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.80746193,
+     0.19253807
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "ex-rustec-vs-saint-sinners-23-10-2026",
+      "start": "2026-10-23T17:00:00.000+00:00",
+      "teams": [
+       "ex-RUSTEC",
+       "Saint Sinners"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "ex-rustec-vs-saint-sinners-23-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-23T17:00:00.000+00:00",
+     "tournament": "CCT Europe 2026 Series 12",
+     "team1": {
+      "id": 24857,
+      "name": "ex-RUSTEC",
+      "rank": 92
+     },
+     "team2": {
+      "id": 25223,
+      "name": "Saint Sinners",
+      "rank": 158
+     },
+     "source_url": "https://bo3.gg/matches/ex-rustec-vs-saint-sinners-23-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "team_ids": [
+    "546",
+    "265361"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "locks_at": "2026-10-26T02:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.445104055181629,
+     0.554895944818371
+    ],
+    "source": "Own network model (bo3.gg results graph)",
+    "source_url": "https://bo3.gg/matches"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "Off Chops: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "Off Chops: no published Valve rating; only 5 anchored series in the last 120 days (needs 8)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "ground-zero-vs-off-chops-26-10-2026",
+      "start": "2026-10-26T03:00:00.000+00:00",
+      "teams": [
+       "Ground Zero",
+       "Off Chops"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "ground-zero-vs-off-chops-26-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-26T03:00:00.000+00:00",
+     "tournament": "DFRAG Invitational 2026",
+     "team1": {
+      "id": 584,
+      "name": "Ground Zero",
+      "rank": 136
+     },
+     "team2": {
+      "id": 25492,
+      "name": "Off Chops",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "team_ids": [
+    "249811",
+    "11144"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "locks_at": "2026-10-26T02:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.72821824,
+     0.27178176
+    ],
+    "pick_index": 0
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.72821824,
+     0.27178176
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "nexvoid-vs-alter-ego-26-10-2026",
+      "start": "2026-10-26T03:00:00.000+00:00",
+      "teams": [
+       "NEXVOID",
+       "Alter Ego"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "nexvoid-vs-alter-ego-26-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-26T03:00:00.000+00:00",
+     "tournament": "DFRAG Invitational 2026",
+     "team1": {
+      "id": 22560,
+      "name": "NEXVOID",
+      "rank": 113
+     },
+     "team2": {
+      "id": 4170,
+      "name": "Alter Ego",
+      "rank": 155
+     },
+     "source_url": "https://bo3.gg/matches/nexvoid-vs-alter-ego-26-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "team_ids": [
+    "161153",
+    "263291"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "locks_at": "2026-10-27T02:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (HLTV world ranking · unranked floor)",
+    "probabilities": [
+     0.52300959,
+     0.47699041
+    ],
+    "source": "HLTV world ranking",
+    "source_url": "https://www.hltv.org/ranking/teams"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "detail": "Staqued: no Valve rating row found (including registry aliases)",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "stage": "Results model (own, bo3.gg series results)",
+     "detail": "Staqued: no published Valve rating; only 1 anchored series in the last 120 days (needs 8)",
+     "source_url": "https://bo3.gg/matches"
+    },
+    {
+     "stage": "Own network model (bo3.gg results graph)",
+     "detail": "Own network model: Staqued has only 2 finished series in the window (needs 6)",
+     "source_url": "https://bo3.gg/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+    "Unranked floor: Staqued has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "flyquest-vs-staqued-27-10-2026",
+      "start": "2026-10-27T03:00:00.000+00:00",
+      "teams": [
+       "FlyQuest",
+       "Staqued"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "flyquest-vs-staqued-27-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-27T03:00:00.000+00:00",
+     "tournament": "DFRAG Invitational 2026",
+     "team1": {
+      "id": 10398,
+      "name": "FlyQuest",
+      "rank": 86
+     },
+     "team2": {
+      "id": 25258,
+      "name": "Staqued",
+      "rank": null
+     },
+     "source_url": "https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "team_ids": [
+    "10725",
+    "250382"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "locks_at": "2026-10-27T02:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.47761494,
+     0.52238506
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.47761494,
+     0.52238506
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 1,
+    "ambiguous": false,
+    "closest": [
+     {
+      "slug": "rooster-vs-abyssal-27-10-2026",
+      "start": "2026-10-27T03:00:00.000+00:00",
+      "teams": [
+       "Rooster",
+       "Abyssal"
+      ],
+      "delta_min": 0.0
+     }
+    ],
+    "relay": {
+     "match_slug": "rooster-vs-abyssal-27-10-2026",
+     "bo_type": 3,
+     "start_date": "2026-10-27T03:00:00.000+00:00",
+     "tournament": "DFRAG Invitational 2026",
+     "team1": {
+      "id": 151,
+      "name": "Rooster",
+      "rank": 205
+     },
+     "team2": {
+      "id": 22732,
+      "name": "Abyssal",
+      "rank": 195
+     },
+     "source_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+     "quote": null
+    }
+   }
+  },
+  {
+   "hotspawn_id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "team_ids": [
+    "60239",
+    "134722"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "locks_at": "2026-10-31T08:54:00Z",
+   "tier": "b",
+   "featured": null,
+   "originated": {
+    "method": "model",
+    "label": "Research model estimate (Valve official ratings)",
+    "probabilities": [
+     0.94052062,
+     0.05947938
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 0,
+   "trail": [
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "HLTV four-of-five roster identity",
+     "status": "checked"
+    },
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Betting market (Polymarket series winner)",
+     "detail": "No alias-verified Polymarket match-winner line found for these teams and start time.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "No alias-verified Kalshi match-winner line found for these teams and start time.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game"
+    },
+    {
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line (Bovada original prices)",
+     "detail": "No alias-verified Bovada match-winner line found for these teams and start time.",
+     "source_url": "https://www.bovada.lv/sports"
+    },
+    {
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "detail": "No reviewed aggregated-bookmaker capture matches this fixture.",
+     "source_url": "https://egamersworld.com/counterstrike/matches"
+    }
+   ],
+   "limitations": [
+    "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+    "The Huns: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+   ],
+   "bo3": {
+    "candidates": 0,
+    "ambiguous": false,
+    "closest": [],
+    "relay": null
+   }
+  },
+  {
+   "hotspawn_id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "team_ids": [
+    "252197",
+    "16458"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "locks_at": "2026-10-31T12:54:00Z",
+   "tier": "b",
+   "featured": {
+    "method": "model",
+    "probabilities": [
+     0.17816902,
+     0.82183098
+    ],
+    "pick_index": 1
+   },
+   "originated": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.17816902,
+     0.82183098
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   "pick_index": 1,
+   "trail": [
+    {
+     "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
+     "status": "resolved"
+    }
+   ],
+   "unresolved_details": [
+    {
+     "stage": "Primary: Polymarket",
+     "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased.",
+     "source_url": "https://polymarket.com/esports/cs2"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists.",
+     "source_url": "https://thunderpick.io/esports/counter-strike"
+    }
+   ],
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ],
+   "bo3": {
+    "candidates": 0,
+    "ambiguous": false,
+    "closest": [],
+    "relay": null
+   }
+  }
+ ]
+}
