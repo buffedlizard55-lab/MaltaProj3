@@ -1,3 +1,27 @@
+# Current session: arena-ee27e097 — external betting lines for the model-only fixtures, an explicit unresolved/limitations page, phone-first findability
+
+Claimed **2026-10-22T07:52Z** on Arena's fixed branch `arena/ee27e097-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162). The board was read first. No other session holds a live
+claim: PRs **#154** (`arena/bd4f77c6`, last commit 02:40Z), **#149** (`arena/38f43834`, 01:52Z),
+**#139** (`arena/6e92015a`, 2026-10-21T21:14Z) and **#120** (`arena/541cd43a`, 2026-10-21T13:47Z)
+are all more than 60 minutes old with no commits and all report `CONFLICTING` against `main`; per
+the 60-minute rule they are treated as stale and are **not** merged or edited here. Work already
+on `main` supersedes them.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| EE-1 Verify the deployed snapshot line by line (inventory, pick coverage, both probabilities, unresolved/no-line registers) and record the exact gaps | in progress | arena-ee27e097 | `data/research/ee27e097/`, this section |
+| EE-2 Research real two-sided betting lines for the fixtures that currently carry only a research model: HLTV identity first, then reachable esportsbooks/aggregators (EGamersWorld, bo3.gg relay, bookmaker APIs). Wire a new rung only if it returns a genuine two-sided price reproducible from saved evidence; otherwise publish a dated per-fixture limitation | unclaimed→in progress | arena-ee27e097 | new `scripts/ee27e097_*.py`, `scripts/originate.py` (new rung + label only), branch-scoped `.github/workflows/ee27e097-*.yml` (**removed before merge**), `data/research/ee27e097/` |
+| EE-3 Give the unresolved picks and their limitations a dedicated phone-first page, link it from the executive summary above the fold, and re-verify the mobile layout at 390 px | unclaimed | arena-ee27e097 | `scripts/build.py` (new page renderer + exec-summary links), `assets/scout.css`, `tests/test_ee27e097_*.py`, `data/research/ee27e097/` |
+| EE-4 Rebuild from live evidence, run the full unit/browser suites, open and merge a PR into `main`, confirm the Pages deployment, publish the PR link and merge result here | unclaimed | arena-ee27e097 | `COORDINATION.md`, `README.md`, `data/research/ee27e097/` |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/hltv_ranking.py`,
+`scripts/network_model.py`, `scripts/reference_odds.py`, `data/origination/aliases.json`,
+`data/latest.json`, `data/origination.json`, `data/origination/evidence/`, `archive/`, `docs/`, or
+any other session's `data/research/<id>/`. Any needed change there is requested in this section
+instead of made. The branch-scoped probe workflows are removed before the merge; read-only probe
+scripts stay in the tree, as earlier sessions' `*_probe.py` scripts did.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
