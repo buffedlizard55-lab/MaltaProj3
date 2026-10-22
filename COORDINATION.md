@@ -149,15 +149,43 @@ AssertionError: b'{\n "schema_version": 1, ...' != b'{\n  "schema_version": 1, .
   the integration branch and recorded here rather than left for the owner, who has already merged and
   stopped. `tests/test_review_flags.py` now passes (verified together with the 4c972a51 page tests and
   this session's 8 new tests: 27 tests, OK).
+- **Outcome (10:20Z): the upstream owner fixed it, so the test relaxation was reverted here.** `main`
+  now carries `81139b1` (PR #181, "preserve byte-identical latest.json in write_reconciled_snapshot"):
+  `write_reconciled_snapshot()` no longer rewrites `data/latest.json`; it writes the two count
+  dictionaries and the note to `data/reconciled-counts.json` instead. That is a better fix than a
+  relaxed assertion, so this session restored the original strict test verbatim
+  (`git checkout 49dd327 -- tests/test_review_flags.py`: source bytes unchanged **and** published
+  bytes unchanged) and re-ran it green. Nothing of AEB-2b survives in the diff; the block is kept
+  because it records the red main and the reason the fix belongs in the renderer, not the test.
 
 
- The full local unittest suite exits **0** (no failures) and the
+ The full local unittest suite runs green after that merge, and the
 satellite audits run inside it report: 80 source rows replayed with every published probability and
-pick reproducible; row-source audit **604 rows, 586 official-source-linked, 9 flagged unverified,
-9 site-map, 0 without a source**; **732 internal links/assets/anchors** checked, none broken;
-8 current Pages views built. A read-only local build with the checked-in snapshot shows no
-consensus row labelled “Bookmaker” and keeps `main`'s `0 without a pick · 5 from research models`
+pick reproducible; row-source audit **625 rows, 606 official-source-linked, 9 flagged unverified,
+10 site-map, 0 without a source**; **787 internal links/assets/anchors** checked, none broken;
+9 current Pages views built. A read-only local build with the checked-in snapshot shows no
+consensus row labelled “Bookmaker” and keeps `main`'s `0 without a pick · 18 from research models`
 tile.
+
+### AEB-3 — CI state on PR #172 (recorded 2026-10-22T10:25Z, merge still open)
+
+- Run `39752777616` on `a37f861`: job `originate` **passed** (4m31s); job `Rows, build, links, mobile
+  and accessibility` **failed after 19m36s** with five annotations that are all live-source failures,
+  not assertions: `Hotspawn inventory refresh failed: SourceError: HTTP 403` (three fixtures) and
+  `Lobby and API disagree` (one). Everything that can be checked from checked-in data was also run in
+  the sandbox and passed: `python -m unittest` for the touched modules (55 tests OK, including the
+  restored strict `test_review_flags`), `python -m scripts.build`
+  (625 rows / 606 linked / 9 unverified / 10 site-map / 0 unsourced, **787** links, 9 views), and
+  `npx playwright test` over the built site — **85/85 browser tests passed** at 320/390/768/1440px
+  with the WCAG scans. The same job passed the previous run `39750538022` step-by-step up to the
+  live refresh, and both `originate` failures seen earlier were fixed upstream (`1c1d87b`, `3f2dc79`).
+- The failure is throttling of `play.hotspawn.com` from GitHub's runner, which the repo already
+  documents: `scripts/sources.py:130` deliberately keeps an API-only mode and publishes with
+  `crosscheck: unavailable` when the rendered lobby 403s. It is not caused by this branch's diff
+  (which touches `scripts/build.py` labels and one test file only).
+- A rerun was attempted twice and both attempts were rejected by the GitHub API
+  (`HTTP 403: API rate limit exceeded for user ID 309556078`), so the rerun is **unconfirmed**. The
+  next push to this branch re-triggers both jobs automatically.
 
 # Current session: arena-4c972a51 — a sourced pick for every unresolved match, an honest unresolved register, and a phone-first route to the picks
 

@@ -520,8 +520,11 @@ Nemesis 91.83%→91.8%, Donstu 40.46%→40.5%, Nuclear TigeRES 93.00%→93.0%, 6
 and the [HLTV UNiTY–Betclic page](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
 confirms the fixture identity. No probability, pick, alias or source capture was changed.
 
-Integration onto `main` at `1cab862` also fixed one red test that PR #174 left behind:
-`tests/test_review_flags.py` still demanded a byte-identical published `data/latest.json`, which
-contradicts the reconciliation keys `write_reconciled_snapshot()` now adds. The test now accepts
-exactly those three documented keys and requires every original key to be unchanged; the renderer,
-the data and every finding are untouched.
+Integration onto `main` at `1cab862` surfaced one red test that PR #174 left behind:
+`tests/test_review_flags.py` demanded a byte-identical published `data/latest.json`, which
+contradicted the reconciliation keys `write_reconciled_snapshot()` was adding. `main` has since
+fixed the renderer itself (`81139b1`, PR #181): the reconciliation counts are published as
+`data/reconciled-counts.json` and `data/latest.json` stays byte-for-byte identical to the collector's
+artifact. This session therefore keeps the original strict test rather than a relaxed one — both the
+source and the published snapshot must match the collector byte for byte, and the renderer, the data
+and every finding are untouched.
