@@ -102,9 +102,16 @@ def probe_page(name: str, url: str, teams: list[str], timeout: int = 20) -> dict
         rec.update(status=None, error=f'{type(exc).__name__}: {exc}'[:250])
         return rec
     body = r.text or ''
+    # Word-boundary match, and never substring-match names shorter than 3
+    # chars: "WW" (a real target team) appears inside unrelated words/URLs and
+    # produced false "team found" hits in the first run (flagged in
+    # COORDINATION.md). A listing claim needs a standalone name.
+    def listed(t: str) -> bool:
+        return len(t) >= 3 and re.search(r'(?<![a-z0-9])' + re.escape(t.lower()) + r'(?![a-z0-9])',
+                                         body.lower()) is not None
     rec.update(status=r.status_code, final_url=r.url, bytes=len(body),
                challenge_markers=[m for m in CHALLENGE if m in body.lower()][:4],
-               teams_found=sorted({t for t in teams if t and t.lower() in body.lower()}))
+               teams_found=sorted({t for t in teams if t and listed(t)}))
     return rec
 
 
