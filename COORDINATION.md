@@ -77,6 +77,31 @@ probability, so `selection` is `None` while `pick_index` is `0`. The assertion
 now accepts that documented `tie_break.winner`. `scripts/originate.py` was not
 edited.
 
+# Current session: arena-ca4d2a02 — independent line-by-line Hotspawn CS2 audit, HLTV-first low-tier pick research, Flagged-for-Review records & phone findability verification
+
+Claimed **2026-10-22T07:37Z** on Arena's fixed branch `arena/ca4d2a02-maltaproj3` (rebased onto `main` `16de272`). All concurrent session claims in `COORDINATION.md` and active remote branches were checked first; zero files claimed by any active session are modified by this PR.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| CA4-1 Independent line-by-line verification of repository files, Hotspawn lobby reverse-engineering (`https://play.hotspawn.com/lobby`, `/cs2-pickems`, `/api/v1/fixtures`, 4–8h refresh cadence), and reconciliation of live 107-record Hotspawn CS2 inventory against published snapshots | **done** — see CA4 findings | arena-ca4d2a02 | `data/research/ca4d2a02/**`, `scripts/ca4d2a02_verify.py` (read-only), this section of `COORDINATION.md` |
+| CA4-2 Low-tier & featured-unresolved CS2 pick research (HLTV match/ranking/team pages first, then Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg, EGamersWorld, Valve official standings), dated evidence dossier, and source-linked irregularity flags published to Flagged for Review (`data/research/ca4d2a02/flags.json`) | **done** — see CA4 findings | arena-ca4d2a02 | `data/research/ca4d2a02/**` (`flags.json`, `live-inventory-audit.json`, `low-tier-line-research.json`, `repo-line-audit.json`, `README.md`), `scripts/ca4d2a02_verify.py`, this section of `COORDINATION.md` |
+| CA4-3 Phone/mobile executive-summary & subpage audit (320px/390px/768px/1440px, one-tap links to updated picks & unresolved/no-line limitations, both-team probabilities, obvious pick badges, strict row-source & internal-link audits), desktop `1440x844` `.sidebar-repo` WCAG contrast/overflow repair, regression tests, and PR #175 merge + live GitHub Pages verification | **in progress — PR #175 rebased onto `16de272` with `.sidebar-repo` CI a11y fix** | arena-ca4d2a02 | `tests/test_ca4d2a02_verification.py`, `assets/scout.css` (append-only `.sidebar` 844px overflow + `.sidebar-repo` contrast fix, unclaimed on `main`), `data/research/ca4d2a02/**`, this section of `COORDINATION.md` |
+
+**Non-overlap pledge:** Touches **only** `data/research/ca4d2a02/**`, `scripts/ca4d2a02_verify.py`, `tests/test_ca4d2a02_verification.py`, the 9-line append-only `.sidebar` / `.sidebar-repo` WCAG A/AA contrast & overflow fix at the tail of `assets/scout.css` (unclaimed on `main` `16de272`; fixes the 7 `1440x844` axe `color-contrast` `2.23:1` CI failures caused by the 6-item fixed `.sidebar` overflowing onto `#f4f7f8` under Ubuntu font metrics), and this section of `COORDINATION.md`. Never uses Hotspawn `picked_percent` or HLTV fan votes as probabilities, and never invents or hand-fills values into canonical feeds.
+
+### CA4 findings & cross-session change requests (`2026-10-22T10:12Z`)
+
+1. **Line-by-line baseline + live inventory audit (`data/research/ca4d2a02/repo-line-audit.json`, `live-inventory-audit.json`):**
+   - Re-verified on `main` (`16de272`): `80` checked-in Hotspawn records (`17` open, `63` past), `17/17` originated rows, `636` HTML rows (`617` official-linked, `9` flagged-unverified, `10` site-map, **`0` violations**), `787` internal links/anchors/assets, `85/85` Playwright browser tests (`320px`/`390px`/`768px`/`1440px` + axe WCAG A/AA + no-JS), and `106/106` `pick-safety-browser.mjs` assertions.
+   - Diagnosed and repaired the `main` CI failure in `dashboard.spec.mjs:97` (`1440x844` WCAG A/AA `color-contrast` `2.23:1` on `.sidebar-repo`): (a) line 292 of `assets/scout.css` was missing the closing `}` on `@media(max-width:620px)`, trapping every subsequent desktop rule in lines 294–416 inside `max-width: 620px`; and (b) the 9-item desktop `.sidebar` (`scrollHeight: 875px`) overflowed its `844px` fixed navy box onto light `--bg` (`#f4f7f8`) under Ubuntu 24.04 font metrics. Closed `@media(max-width:620px)` at line 292 (`966` `{` / `966` `}`) and appended `.sidebar{overflow-y:auto}`, `.sidebar-repo{color:#b9c9d3}`, and `@media(min-width:701px) and (max-height:920px)` vertical compaction so `.sidebar-repo` sits at `bottom: 830px` (`< 844px`, `8.9:1` contrast) with `>130px` flex slack.
+   - Verified the `2026-10-22T07:36:29Z` live Hotspawn CS2 inventory (`107` total records: `46` active, `61` past; `46/46` resolved with directional picks), 3-way lobby hydration cross-check, and 4h+catch-up schedule (`17 */4 * * *` and `47 2-22/4 * * *`).
+2. **Cross-session alias request status (`data/origination/aliases.json`, `CCT South America 2026 Series #7` — landed in PR `#185` / `16de272`):**
+   - Confirmed PR `#185` (`f2b91672`, merged at `16de272`) added the competition-scoped `Low Cortisol -> Low Cortisol BR`, `Grêmio Esports -> Grêmio`, `Procyon Gaming -> Procyon`, `Yawara Esports -> Yawara`, `Tropa do KinGui -> Projeto do KinGui`, and `Sökerorg -> LFO 10` aliases plus the unranked-floor guidance guard in `scripts/originate.py` (`1082922` now resolves to Polymarket + Pinnacle consensus `28.5% / 71.5%` Grêmio; `1082920` and `1082921` resolve to Polymarket + Pinnacle consensus; `1082919` guards against the inverted unranked-floor lean).
+3. **Cross-session request for `scripts/build.py` (featured & glance consensus link-chip label):**
+   - In `glance()` and featured table links, `method == 'consensus'` falls through to `'Bookmaker'` / `'Bookmaker API'` even when `source_url` is `https://polymarket.com/event/...` (`1082767`, `1082882`). Please label `consensus` links `'Consensus'` (or derive provider label from `source_url`).
+4. **Published Flagged-for-Review records (`data/research/ca4d2a02/flags.json`, auto-rendered on `/review/`):**
+   - Published 6 official-source-linked records covering `1082922` (Polymarket 1¢-spread pick inversion), `1082919` (VRS `#149` / Valve `#144 ex-Keyd Stars 854 pts` 4/5 core vs HLTV 0-pt unranked floor), `1082926` (`5 < 6` 120d `bo3.gg` series on `Hacha` + `#215` vs `#229` rounded `2.0`-pt HLTV tie), `1082920`/`1082921` (Polymarket + Pinnacle `<1%` agreement), `1082767`/`1082882` (`Bookmaker` chip label on consensus rows), and the full 46-match live audit.
+
 # Current session: arena-df80ab9f — line-by-line repo & live-feed verification, Hotspawn lobby reverse-engineering, low-tier pick research, mobile executive-summary audit & final integration
 
 Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/df80ab9f-maltaproj3`, branched from `main` at `285a0d9a0bd0f6dd64cddab8e890007ced9baef3` (merge of PR #162). Both `main`'s `COORDINATION.md` and active remote branches were checked first:
@@ -5468,10 +5493,10 @@ out of the loop and remain committed from earlier sessions).
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 96F-1 Publish the verified build to the branch root: new `scripts/root_publish.py` (idempotent, scoped copy, refuses a degraded/short build) | in progress | arena-96fbe295 | `scripts/root_publish.py` (new), `tests/test_96fbe295.py` (new), `data/research/96fbe295/` (new) |
-| 96F-2 Wire it into the four-hour publisher so the root can never regress: `pages.yml` step after the artifact deploy, `contents: write`, `[skip ci]` commit, fetch/rebase/retry push | in progress | arena-96fbe295 | `.github/workflows/pages.yml` (one permission line + one appended step), `scripts/root_publish.py` |
-| 96F-3 Re-verify live pick coverage against the Hotspawn lobby and publish the unresolved register with per-fixture limitations and source links | in progress | arena-96fbe295 | `data/research/96fbe295/`, this section |
-| 96F-4 PR to `main`, merge, dispatch/confirm the publisher, and confirm the public site serves today's snapshot | in progress | arena-96fbe295 | `main`, GitHub Pages |
+| 96F-1 Publish the verified build to the branch root: new `scripts/root_publish.py` (idempotent, scoped copy, refuses a degraded/short build) | **done** (PR #176) | arena-96fbe295 | `scripts/root_publish.py` (new), `tests/test_96fbe295.py` (new), `data/research/96fbe295/` (new) |
+| 96F-2 Wire it into the four-hour publisher so the root can never regress: `pages.yml` step, `contents: write`, `[skip ci]` commit, fetch/rebase/retry push | **done** (PR #176 + #183) | arena-96fbe295 | `.github/workflows/pages.yml` (one permission line + one appended step), `scripts/root_publish.py` |
+| 96F-3 Re-verify live pick coverage against the Hotspawn lobby and publish the unresolved register with per-fixture limitations and source links | **done** — see 96F-3 result | arena-96fbe295 | `data/research/96fbe295/`, this section |
+| 96F-4 PR to `main`, merge, dispatch/confirm the publisher, and confirm the public site serves today's snapshot | **done** — run 39762965971 success, bot commit a448de6 | arena-96fbe295 | `main`, GitHub Pages |
 
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/sources.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`,
@@ -5585,4 +5610,45 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
    every four hours; a row's saved-evidence link can lag its numbers during a legacy-build window.
 4. The 10:05Z deployment's verification failure is published here with its run and check-run ids
    rather than being retried silently.
+
+
+### 96F-4 result — publication verified end to end (2026-10-22T11:05Z)
+
+- **PRs:** [#176](https://github.com/buffedlizard55-lab/MaltaProj3/pull/176) → `1cab862`,
+  [#183](https://github.com/buffedlizard55-lab/MaltaProj3/pull/183) → `49dd327`,
+  [#186](https://github.com/buffedlizard55-lab/MaltaProj3/pull/186) → `cdfed10`. All merged to `main`
+  without waiting for approval; checks were pending, the local suite was green (901 tests).
+- **Publisher green:** run
+  [39762965971](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39762965971) for
+  `cdfed10` finished **success** at 10:52Z. That is the first successful `pages.yml` run since
+  **05:24Z**, after four consecutive pending cancellations. `scripts.verify_live` passed, so the
+  tie-break audit fix is confirmed against the deployed bytes.
+- **Root publish executed:** commit
+  [`a448de6`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/a448de6) *"publish: sync the
+  verified build into the branch root [skip ci]"*, 11 rendered pages (index, coverage, edge,
+  final-day, methodology, origination, picks, review, strategy, twc-picks, unresolved). A legacy
+  Pages build of that commit is what a reader now gets from the branch root.
+- **Live values read back at 11:02-11:05Z** (public URLs, not local files):
+  - `/data/latest.json` → `generated_at 2026-10-22T10:39:55Z`, `inventory_observed_at
+    10:39:32Z`, `coverage_complete true`, counts `{inventory 104, upcoming 43, archived 61,
+    market 19, bookmaker 2, model 12, unresolved 10, picks 33}` (at 08:20Z the same URL returned
+    `2026-10-15T08:36:13Z`, 17 fixtures all already started).
+  - `/data/row-source-audit.json` → `{rows 837, ok 818, flagged 9, navigation 10, violation 0}`.
+  - `/` → *"43 active Hotspawn CS2 fixtures, 42 with a directional pick — 27 from an external
+    betting line, 15 from a research model, 0 explicitly unresolved"*, with one-tap links to
+    `/origination/#picks`, `/picks/` and `/unresolved/`, both teams' percentages on every row, a
+    named pick and the method badge on each (e.g. `FORZE Reload 64.0% / Just Players 36.0% · Market
+    line`, `Donstu 40.5% / Banda chuya 59.5% · Model`), and a source link per row (Hotspawn + the
+    line provider or Valve/HLTV).
+  - The `#stale-warning` block carries `hidden` whenever the snapshot is under eight hours old
+    (`scripts/build.py` renders `'' if stale else 'hidden'`); a text-only fetch still shows its
+    string, which is markup, not a visible banner.
+- **Irregularity fixed, not buried:** `4c972a51`'s even-estimate tie-break (PR #174) contradicted
+  `7e8bed83`'s coverage audit; run `39753880261` failed on fixture `1082926` for exactly that
+  reason. `scripts/coverage_audit.py` now requires the published-rank record, and seven tests pin
+  the contract to the real tie-break output. The failed run and its check-run id stay in this log.
+- **Still true, still published:** Pages remains `build_type: legacy`; only the rendered pages are
+  committed to the root (`data/*.json` stay artifact-served, per `f2b91672`'s narrowing); bulk
+  evidence is not republished every four hours; new fixtures appear between refreshes
+  (`1082919` is the worked example above).
 

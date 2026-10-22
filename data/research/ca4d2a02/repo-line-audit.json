@@ -1,0 +1,59 @@
+{
+  "session_id": "arena-ca4d2a02",
+  "status": "pass",
+  "canonical": {
+    "latest_rows_checked": 80,
+    "open_fixtures_checked": 17,
+    "origination_rows_checked": 17,
+    "alias_entries_checked": 52,
+    "policy": {
+      "hotspawn_votes_used": false,
+      "fan_votes_used": false,
+      "start_tolerance_sec": 60,
+      "thin_spread": 0.12,
+      "max_accepted_spread": 0.12,
+      "ladder": [
+        "verified-alias Polymarket series-winner books",
+        "verified-alias esportsbook paired prices (no-vig)",
+        "median consensus across money families",
+        "Valve-rating research model fallback",
+        "blank + flagged"
+      ]
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "site": {
+    "row_audit_counts": {
+      "rows": 634,
+      "ok": 615,
+      "flagged": 9,
+      "navigation": 10,
+      "violation": 0
+    },
+    "glance_rows_checked": 17,
+    "expected_flags_verified": 6,
+    "errors": [],
+    "warnings": [
+      "build.glance labels consensus rows with polymarket.com source_url as \"Bookmaker\" (logged for active build.py owner in COORDINATION.md and flagged on /review/)"
+    ]
+  },
+  "refresh_and_hotspawn": {
+    "cron_schedules": [
+      "17 */4 * * *",
+      "47 2-22/4 * * *"
+    ],
+    "max_scheduled_gap_hours": 4.0,
+    "catchup_offset_hours": 2.5,
+    "hotspawn_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "hotspawn_lobby": "https://play.hotspawn.com/lobby",
+    "hotspawn_cs2_lobby": "https://play.hotspawn.com/cs2-pickems",
+    "errors": []
+  },
+  "total_errors": 0,
+  "total_warnings": 1,
+  "errors": [],
+  "warnings": [
+    "build.glance labels consensus rows with polymarket.com source_url as \"Bookmaker\" (logged for active build.py owner in COORDINATION.md and flagged on /review/)"
+  ]
+}
