@@ -1,0 +1,69 @@
+[
+  {
+    "id": "bc1afd8f-legacy-root-has-no-pick-index",
+    "severity": "warning",
+    "title": "The branch root the legacy Pages builder republishes has no executive-summary banner, no phone pick index and no unresolved page",
+    "detail": "Measured 2026-10-22T09:12Z with `python -m scripts.bc1afd8f_mobile_audit --root .` on the checked-in root: 8 of the 19 current-view checks fail. The root index.html has no `section.exec-banner`, carries zero `.glance-row` entries for the 17 active fixtures in `data/latest.json`, has no `unresolved/` directory at all, and keeps an orphan `twc-final/index.html` whose two tables are not inside any wrapper that declares `overflow-x:auto` (so they can stretch a 320 px phone page). `GET https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages` answers `{\"status\":\"building\",\"build_type\":\"legacy\",\"source\":{\"branch\":\"main\",\"path\":\"/\"}}` and `git show origin/main:data/latest.json` reads `generated_at 2026-10-15T08:36:13Z` with `counts.unresolved = 4`, so whenever that legacy build lands last a phone reader gets a week-old page with no pick index and no route to the unresolved register. The same audit run over a fresh build of the same code passes 20/20 (`data/research/bc1afd8f/mobile-audit-fresh-build.md`), so the gap is publication, not the renderer. `.github/workflows/pages-artifact-guard.yml` (this session) closes it from the side the repository controls: it re-deploys the newest verified artifact whenever the public site is not serving it, in a concurrency group that pushes to main cannot starve, and it commits nothing.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-published-root.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-fresh-build.md"
+    ]
+  },
+  {
+    "id": "bc1afd8f-refresh-runs-cancelled-by-merge-storm",
+    "severity": "warning",
+    "title": "Five consecutive four-hour refresh runs were cancelled before their jobs started, and the scheduled 07:58Z slot was still queued 43 minutes later",
+    "detail": "Read from the Actions API on 2026-10-22, not inferred. `pages.yml` keeps its whole refresh in one concurrency group (`pages`, `cancel-in-progress: false`); GitHub cancels a *pending* run in a group as soon as a newer run for that group is created. Run 39742916817 (PR #166 merge) was created 07:46:58Z and cancelled 07:47:40Z; 39742996589 (PR #167) created 07:47:38Z, cancelled 07:58:21Z; scheduled run 39744284108 created 07:58:19Z was still `queued` at 08:41:02Z; 39748026849 (PR #174) created 08:28:46Z, cancelled 08:29:01Z; 39748055891 (PR #176 - the very commit that added the root-sync step) created 08:29:00Z, cancelled 08:45:52Z when run 39750182735 arrived. With a dozen session PRs merging, the four-hour refresh the brief asks for can be starved indefinitely, and the root-sync step merged in PR #176 had never executed at all. The guard workflow added by this session runs in its own concurrency group (`verified-artifact-guard`), re-deploys the newest verified snapshot after every push to main and every two hours, and dispatches `pages.yml` when the newest verified snapshot is older than the brief's eight-hour bound.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39748055891",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39744284108",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "bc1afd8f-root-publish-would-break-the-build",
+    "severity": "warning",
+    "title": "Committing a fresh snapshot into the branch root would break the build that every pull-request check and every refresh runs",
+    "detail": "Reproduced offline, without touching the repository, by `python -m scripts.bc1afd8f_root_risk` (evidence: `data/research/bc1afd8f/root-publish-risk.md`). `scripts/root_publish.py` copies a freshly verified `data/latest.json` (plus `origination.json`, `sources.json`, `row-source-audit.json`) into the branch root but deliberately leaves `data/evidence/` frozen, because committing ~22 MB every four hours is not acceptable. The resulting tree does not replay: `scripts.build` calls `scripts.validate.check_data` first, which requires `data['inventory_observed_at'] == context['observed_at']` from `data/evidence/hotspawn-context.json`, and fails with `ValueError: Inventory observation timestamp restamped` when the newest saved live snapshot (2026-10-22T02:08:59Z) is paired with the frozen 15 October evidence. `checks.yml` runs that build on every pull request and `pages.yml` runs it before deploying, so one successful root publish would turn every PR red and freeze the refresh pipeline itself. 33 checked-in test modules also read `data/latest.json` or `ROOT/'data'` directly as their fixture. Change request for the integration session (no file another session owns was edited here): either freeze the fixture the suite builds from, or drop the root-sync step from `pages.yml` and keep the artifact publisher authoritative - which is what `.github/workflows/pages-artifact-guard.yml` now guarantees.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/validate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/root-publish-risk.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/checks.yml"
+    ]
+  },
+  {
+    "id": "bc1afd8f-preexisting-red-check",
+    "severity": "notice",
+    "title": "A pre-existing red check on main: the published snapshot is reconciled, so a byte-parity test fails for every session",
+    "detail": "`tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json` asserts that `site/data/latest.json` is byte-identical to `data/latest.json`. `scripts.build.write_reconciled_snapshot()` (merged in PR #174) now republishes that file with `indent=1` plus `featured_method_counts`, `complete_coverage_counts` and `counts_note`, so the assertion cannot hold; the canonical source file itself is still untouched, which is the part that matters. Observed failing in run 39750731773 (this session's claim commit, i.e. main's own code), run 39749574716 (PR #178) and run 39749347079 (PR #171) through the check-run annotations API. PRs #164, #168, #171 and #173 already touch that test file, so this session deliberately did not edit it; it is recorded here so the red check is not mistaken for a regression introduced by this branch.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39750731773",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_review_flags.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "bc1afd8f-even-tie-break-stopped-the-build",
+    "severity": "warning",
+    "title": "Today's live snapshot could not be built at all: the published tie-break for an exactly even research estimate was rejected by the complete-picks validator",
+    "detail": "Measured on the runner from a live collection at 2026-10-22T09:15:53Z (104 inventory records, 43 active fixtures, every one of them carrying a pick). Fixture 1082926 (Isurus vs Hacha, CCT South America 2026 Series #7, starts 2026-10-23T22:00Z) has no reachable two-sided price - Polymarket event 1233768 was rejected because its order-book spread of 0.82 exceeds the 0.15 ceiling - so the last rung is the HLTV world-ranking research model, which publishes exactly equal points for both teams (published positions 215 and 229) and therefore exactly 0.500/0.500. PR #174's `ranked_tie_break()` gives such a row a *direction* from HLTV's own published order and records the rule on the quote, but `scripts/build_origination.validate_origination()` asserted `m['pick_index'] == selection(o['probabilities'])`, and `selection()` returns no side for an exactly even estimate. The whole build therefore died with `AssertionError: Fallback pick differs from its probabilities` (929 tests run against that fresh snapshot, 34 failing: `data/research/bc1afd8f/gate-fresh-snapshot.md`). Because `scripts.build()` renders the complete-picks page through that validator, any refresh whose ladder ends on an exactly even ranking model publishes nothing at all and `pages.yml` falls back to the last verified snapshot - the site silently stops updating while every check looks green. Fixed in this session by replaying the published record instead of trusting it: new `expected_pick_for()` accepts a direction only for a `method='model'` row, only when exactly one quote carries a `published-rank tie-break` record with two different positive published positions, and only when the direction is the one those positions imply. An exactly even row without that record still has no side, an estimate that is not exactly even keeps its own favourite, and a money line may never use the tie-break. No probability, price or alias was changed. Pinned by 9 tests in `tests/test_bc1afd8f.py`; the 253 tests in the ten checked-in modules that exercise `build_origination` still pass unchanged on the frozen fixture.",
+    "match_ids": [
+      "1082926"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/gate-fresh-snapshot.md"
+    ]
+  }
+]

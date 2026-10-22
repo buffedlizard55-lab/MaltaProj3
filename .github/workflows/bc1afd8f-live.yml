@@ -58,7 +58,31 @@ jobs:
         run: python -m scripts.bc1afd8f_root_risk
       - name: Build the fresh site
         id: build
-        run: python -m scripts.build || echo "::warning::the fresh tree did not build; the mobile audit reports on the last build"
+        continue-on-error: true
+        run: python -m scripts.build
+      - name: Record whether the fresh snapshot actually built, and which pages exist
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          from datetime import datetime, timezone
+          site = pathlib.Path('site')
+          pages = sorted(str(p.relative_to(site)) for p in site.rglob('index.html')) if site.is_dir() else []
+          report = {
+              'observed_at': datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+              'build_outcome': '${{ steps.build.outcome }}',
+              'site_dir_exists': site.is_dir(),
+              'pages_written': pages,
+              'complete_picks_page_written': 'origination/index.html' in pages,
+              'note': ('A failed build here means the four-hour publisher would fall back to the last '
+                       'verified snapshot instead of serving this one. The reason is in the build step log '
+                       'and, when it is a validator assertion, in gate-fresh-snapshot.md as well.'),
+          }
+          out = pathlib.Path('data/research/bc1afd8f')
+          out.mkdir(parents=True, exist_ok=True)
+          (out / 'build-outcome.json').write_text(json.dumps(report, indent=2) + '\n')
+          print(json.dumps(report, indent=2))
+          PY
       - name: Static phone-first audit of the fresh build
         continue-on-error: true
         run: python -m scripts.bc1afd8f_mobile_audit --site site --data data --json-only
@@ -66,7 +90,12 @@ jobs:
         run: python -m scripts.bc1afd8f_gate --label fresh-snapshot --timeout 1500
       - name: Restore every tracked data file so only this session's reports are committed
         run: |
-          git checkout -- data/ 2>/dev/null || true
+          # The exclude pathspec matters: this session's own reports are tracked
+          # files, and a plain `git checkout -- data/` restored the previous
+          # commit's copies over the fresh ones (observed on run 39753692322, where
+          # live-coverage.json kept the offline 09:12Z report while the runner's
+          # 09:17Z report survived only under its timestamped name).
+          git checkout -- data/ ':!data/research/bc1afd8f/' 2>/dev/null || true
           git clean -fdq data/evidence data/origination data/research/twc-current site 2>/dev/null || true
       - name: Commit the dated reports to this session branch
         run: |

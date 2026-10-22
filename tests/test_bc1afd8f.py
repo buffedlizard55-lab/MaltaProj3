@@ -15,6 +15,7 @@ from scripts import bc1afd8f_gate as gate
 from scripts import bc1afd8f_mobile_audit as mobile
 from scripts import bc1afd8f_probe as probe
 from scripts import bc1afd8f_root_risk as risk
+from scripts.build_origination import expected_pick_for
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -108,6 +109,136 @@ class FixtureRowTests(unittest.TestCase):
         self.assertEqual(counts["active_model_only"], 1)
         self.assertEqual(counts["active_blank"], 1)
         self.assertEqual(counts["active_without_betting_line"], 2)
+
+
+class FakeResponse:
+    def __init__(self, status=200, text="", url="https://example.test/"):
+        self.status_code = status
+        self.ok = 200 <= status < 400
+        self.text = text
+        self.content = text.encode()
+        self.url = url
+
+
+class FakeSession:
+    def __init__(self, responses):
+        self.responses = responses
+        self.calls = []
+
+    def get(self, url, **kwargs):
+        self.calls.append(("GET", url, kwargs))
+        return self.responses[url]
+
+    def post(self, url, **kwargs):
+        self.calls.append(("POST", url, kwargs))
+        return self.responses[url]
+
+
+class SurfaceProbeTests(unittest.TestCase):
+    def test_a_challenge_word_inside_a_large_successful_page_is_not_a_challenge(self):
+        body = "<html><title>Bovada</title>" + ("x" * 40000) + "captcha" + "</html>"
+        record = probe.fetch(FakeSession({"https://x.test/": FakeResponse(200, body)}), "https://x.test/")
+        self.assertEqual(record["challenge_markers"], ["captcha"])
+        self.assertFalse(record["challenge"])
+        self.assertEqual(record["bytes"], len(body.encode()))
+
+    def test_a_small_blocked_page_is_recorded_as_a_challenge(self):
+        record = probe.fetch(FakeSession({"https://x.test/": FakeResponse(403, "<html>Just a moment...</html>")}), "https://x.test/")
+        self.assertTrue(record["challenge"])
+        self.assertEqual(record["status"], 403)
+
+    def test_an_unreachable_host_is_evidence_not_a_crash(self):
+        class Boom:
+            def get(self, *args, **kwargs):
+                raise OSError("egress blocked")
+
+        record = probe.fetch(Boom(), "https://www.hltv.org/matches")
+        self.assertFalse(record["ok"])
+        self.assertIsNone(record.get("status"))
+        self.assertIn("egress blocked", record["error"])
+
+    def test_a_post_surface_sends_its_documented_body(self):
+        session = FakeSession({"https://thunderpick.io/api/matches": FakeResponse(200, "{}")})
+        probe.fetch(session, "https://thunderpick.io/api/matches", method="POST", payload={"gameIds": [6]})
+        self.assertEqual(session.calls[0][0], "POST")
+        self.assertEqual(session.calls[0][2]["json"], {"gameIds": [6]})
+
+
+class ModelRowClassificationTests(unittest.TestCase):
+    """A research-model row carries quote records too; they are not a betting line."""
+
+    def test_an_hltv_ranking_row_with_quotes_is_still_model_only(self):
+        row = {
+            "pick_index": 0,
+            "origination": {
+                "method": "model",
+                "probabilities": [0.5, 0.5],
+                "quotes": [{"provider": "HLTV world ranking", "family": "model"}],
+            },
+        }
+        self.assertEqual(probe.classify(row), "model-only")
+
+    def test_the_row_records_its_own_tie_break_and_no_money_provider(self):
+        tie = {"rule": "published-rank tie-break", "ranks": [215, 229], "winner": 0, "source": "HLTV world ranking"}
+        originated = originated_row(method="model", probabilities=(0.5, 0.5), quotes=[{"provider": "HLTV world ranking", "family": "model", "tie_break": tie}])
+        row = probe.fixture_row(inventory_match(), originated)
+        self.assertEqual(row["classification"], "model-only")
+        self.assertEqual(row["money_providers"], [])
+        self.assertEqual(row["quote_providers"], ["HLTV world ranking"])
+        self.assertEqual(row["tie_break"], tie)
+
+
+class EvenTieBreakValidationTests(unittest.TestCase):
+    """`scripts.build_origination.expected_pick_for` must replay the published tie-break.
+
+    Without it the live 2026-10-22T09:15:53Z snapshot could not be built at all:
+    fixture 1082926 is exactly 0.500/0.500 with the direction taken from HLTV's
+    published positions, and the validator stopped the build with
+    'Fallback pick differs from its probabilities'.
+    """
+
+    def even_row(self, ranks=(215, 229), winner=0, method="model", rule="published-rank tie-break", ties=1):
+        quote = {"provider": "HLTV world ranking", "family": "model", "probabilities": [0.5, 0.5]}
+        if ties:
+            for _ in range(ties):
+                quote = dict(quote)
+                quote["tie_break"] = {"rule": rule, "ranks": list(ranks), "winner": winner, "source": "HLTV world ranking"}
+        return {"method": method, "probabilities": [0.5, 0.5], "quotes": [quote]}
+
+    def test_a_published_rank_tie_break_gives_the_even_row_its_documented_side(self):
+        self.assertEqual(expected_pick_for(self.even_row()), 0)
+        self.assertEqual(expected_pick_for(self.even_row(ranks=(229, 215), winner=1)), 1)
+
+    def test_an_even_row_without_a_record_still_has_no_side(self):
+        self.assertIsNone(expected_pick_for(self.even_row(ties=0)))
+
+    def test_a_real_favourite_is_never_overridden_by_a_tie_break(self):
+        row = self.even_row()
+        row["probabilities"] = [0.62, 0.38]
+        self.assertEqual(expected_pick_for(row), 0)
+
+    def test_a_money_line_may_not_use_the_tie_break(self):
+        with self.assertRaises(AssertionError):
+            expected_pick_for(self.even_row(method="bookmaker"))
+
+    def test_a_direction_that_contradicts_the_cited_order_is_refused(self):
+        with self.assertRaises(AssertionError):
+            expected_pick_for(self.even_row(ranks=(215, 229), winner=1))
+
+    def test_equal_or_missing_published_positions_decide_nothing(self):
+        for ranks in ((215, 215), (0, 229), ("215", 229), (215,)):
+            with self.subTest(ranks=ranks), self.assertRaises(AssertionError):
+                expected_pick_for(self.even_row(ranks=ranks, winner=0))
+
+    def test_an_unknown_rule_is_refused(self):
+        with self.assertRaises(AssertionError):
+            expected_pick_for(self.even_row(rule="coin flip"))
+
+    def test_more_than_one_tie_break_record_is_refused(self):
+        row = self.even_row()
+        row["quotes"].append(dict(row["quotes"][0]))
+        with self.assertRaises(AssertionError):
+            expected_pick_for(row)
 
 
 class NameMatchingTests(unittest.TestCase):

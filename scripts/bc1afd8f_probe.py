@@ -99,6 +99,10 @@ POST_BODIES = {
     "https://thunderpick.io/api/matches": {"gameIds": [6]},
 }
 
+#: A response larger than this that merely mentions a challenge word is treated as
+#: a real page: bookmaker bundles routinely contain "captcha" in their own scripts.
+CHALLENGE_SIZE_CEILING = 20_000
+
 CHALLENGE_MARKERS = (
     "just a moment",
     "cf-chl",
@@ -138,16 +142,20 @@ def team_names(row: dict) -> list[str]:
 
 
 def classify(row: dict) -> str:
-    """``money-line`` / ``model-only`` / ``blank`` from the row's own fields."""
+    """``money-line`` / ``model-only`` / ``blank`` from the row's own fields.
+
+    Only the row's *method* decides whether a betting line produced the number.
+    A research-model row also carries a quote record (its own model inputs), so
+    "has quotes" must never be read as "has a price" - that mistake labelled the
+    HLTV-ranking row for fixture 1082926 a money line in this module's first run.
+    """
     origination = row.get("origination") or {}
     method = origination.get("method")
     pick = row.get("pick_index")
     probabilities = origination.get("probabilities") or []
     if pick is None or len(probabilities) != 2:
         return "blank"
-    if method in MONEY_METHODS or origination.get("quotes"):
-        return "money-line"
-    return "model-only"
+    return "money-line" if method in MONEY_METHODS else "model-only"
 
 
 def fixture_row(match: dict, originated: dict | None = None) -> dict:
@@ -187,6 +195,17 @@ def fixture_row(match: dict, originated: dict | None = None) -> dict:
         "line_observed_at": basis.get("observed_at"),
         "money_providers": sorted(
             {str((quote or {}).get("provider") or "") for quote in (basis.get("quotes") or []) if quote}
+        ) if basis.get("method") in MONEY_METHODS else [],
+        "quote_providers": sorted(
+            {str((quote or {}).get("provider") or "") for quote in (basis.get("quotes") or []) if quote}
+        ),
+        "tie_break": next(
+            (
+                quote.get("tie_break")
+                for quote in (basis.get("quotes") or [])
+                if isinstance(quote, dict) and isinstance(quote.get("tie_break"), dict)
+            ),
+            None,
         ),
         "limitations": list(originated.get("limitations") or match.get("limitations") or []),
         "research_trail": [
@@ -258,15 +277,21 @@ def fetch(session, url: str, *, method: str = "GET", payload: dict | None = None
         return record
     body = response.text or ""
     lowered = body.lower()
+    size = len(getattr(response, "content", b"") or b"")
+    markers = [marker for marker in CHALLENGE_MARKERS if marker in lowered]
+    title_match = re.search(r"<title[^>]*>(.*?)</title>", body, re.I | re.S)
     record.update(
         {
             "ok": bool(response.ok),
             "status": response.status_code,
             "final_url": str(getattr(response, "url", url)),
-            "bytes": len(getattr(response, "content", b"") or b""),
-            "title": (re.search(r"<title[^>]*>(.*?)</title>", body, re.I | re.S).group(1).strip()[:160]
-                      if re.search(r"<title[^>]*>(.*?)</title>", body, re.I | re.S) else ""),
-            "challenge": any(marker in lowered for marker in CHALLENGE_MARKERS),
+            "bytes": size,
+            "title": title_match.group(1).strip()[:160] if title_match else "",
+            # A word like "captcha" also appears inside ordinary bundled JavaScript,
+            # so a marker alone is not proof of a challenge page. It only counts when
+            # the response also failed, or is small enough to be an interstitial.
+            "challenge_markers": markers,
+            "challenge": bool(markers) and (not response.ok or size < CHALLENGE_SIZE_CEILING),
         }
     )
     record["__body__"] = body
@@ -455,7 +480,7 @@ def render_markdown(report: dict) -> str:
             else:
                 result = f"HTTP {status}"
                 if surface.get("challenge"):
-                    result += " (challenge page)"
+                    result += " (challenge page: " + ", ".join(surface.get("challenge_markers") or []) + ")"
                 result += f", {surface.get('bytes')} bytes"
             lines.append(f"| [{surface['name']}]({surface['url']}) | {surface['group']} | {result} |")
     research = report["line_source_research"]["fixtures_without_a_betting_line"]
