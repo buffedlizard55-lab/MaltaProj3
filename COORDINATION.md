@@ -4985,3 +4985,25 @@ Claimed **2026-10-22T01:21Z** on branch `arena/a34bc06b-maltaproj3`, branched fr
   - `Rows, build, links, mobile and accessibility`: **pass** (run [`39708762858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762858) — full unittest suite, site + origination build, strict row-source audit `0` violations, internal link audit, Chromium mobile viewport & axe-core WCAG AA contrast audit).
   - `originate`: **pass** (run [`39708762878`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762878)).
   - Full 2026-10-22 35-fixture replay audit (`data/research/a34bc06b/verification-audit.json`): **`35 / 35` (`100.0%`) active Hotspawn CS2 matches resolved with directional picks**, `0` unresolved, `81 / 81` origination rows verified with `0` violations, `coverage_audit` `0` violations.
+### C1F-3 — publisher fix after the deploy failure (2026-10-22T03:15Z)
+
+**Overlap disclosed:** `.github/workflows/pages.yml` was **not** in this session's original
+claim. No other session holds an open claim on it (`git log -- .github/workflows/pages.yml`
+shows `983392f`, already merged), and the production deploy was failing, so this session
+made one targeted change there and records it here.
+
+- **Observed failure:** run
+  [39713153422](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39713153422) for
+  `df49e9ff` — build, replay, artifact upload and the fast republish all passed, then
+  `actions/deploy-pages@v5` failed with *"Multiple artifacts named `github-pages` were
+  unexpectedly found for this workflow run. Artifact count is 2."*
+- **Cause:** `983392f` added `republish-last-verified`, which uploads a `github-pages`
+  artifact; `verify-and-deploy` (`needs:` that job) uploads its own. Both artifacts exist in
+  the same run by the time the fresh deploy runs, and `deploy-pages` refuses to choose.
+- **Fix:** the republish job now records its upload id (`id: upload`) and deletes that
+  artifact after its own deployment (`if: always()`), leaving the fresh, fully validated
+  upload as the only candidate. The step warns instead of failing when no id is reported or
+  the delete is refused, so a helper problem can never block the fresh publish.
+- **Verified:** workflow YAML parses (`yaml.safe_load`), job and step order unchanged,
+  republish still deploys first so the site never goes backwards. The merge that carries
+  this fix is itself the deployment test; its run is recorded below.
