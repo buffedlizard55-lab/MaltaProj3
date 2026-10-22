@@ -1,0 +1,28 @@
+name: 3cf793ef independent verification
+# Branch-scoped, read-only probe for session arena-3cf793ef. Removed before the
+# merge; the captured evidence stays in data/research/3cf793ef/.
+on:
+  push:
+    branches: ['arena/3cf793ef-maltaproj3']
+    paths: ['scripts/3cf793ef_research.py', '.github/workflows/3cf793ef-research.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Read live Hotspawn inventory and the live published snapshot
+        run: python -m scripts.3cf793ef_research --out data/research/3cf793ef/live
+      - uses: actions/upload-artifact@v6
+        with:
+          name: 3cf793ef-live-verification
+          path: data/research/3cf793ef/live/
+          retention-days: 7
