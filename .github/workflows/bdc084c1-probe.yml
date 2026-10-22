@@ -49,17 +49,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
-      - name: Build the site from the fresh snapshot
-        run: python -m scripts.build --data data --output site
       - name: Probe coverage and basis
-        run: |
-          python scripts/bdc084c1_probe.py \
-            --snapshot data/latest.json \
-            --origination data/origination.json \
-            --evidence data/evidence \
-            --site site \
-            --output data/research/bdc084c1/probe-report.json \
-            --markdown data/research/bdc084c1/probe-report.md
+        run: python -m scripts.bdc084c1_probe --data data --report data/research/bdc084c1
       - name: Summarise
         if: always()
         run: cat data/research/bdc084c1/probe-report.md >> "$GITHUB_STEP_SUMMARY"
