@@ -147,6 +147,7 @@ def replay_row(record: dict) -> dict:
     label = origination.get('label') or ''
     quotes = origination.get('quotes') or []
     result = {'id': record.get('id'), 'label': label, 'method': method,
+              'family': origination.get('family'), 'provider': origination.get('provider'),
               'published': published, 'recomputed': None, 'status': 'not_replayable', 'detail': ''}
     if not published or len(published) != 2:
         result['detail'] = 'row publishes no probability pair'
@@ -175,6 +176,13 @@ def replay_row(record: dict) -> dict:
             median = first_legs[middle] if len(first_legs) % 2 else (first_legs[middle - 1] + first_legs[middle]) / 2
             recomputed = normalise(median, 1 - median)
             basis = f'median of {len(pairs)} independent money families'
+        elif method == 'model' and str(origination.get('provider') or '').startswith('Own'):
+            inputs = origination.get('inputs') or []
+            if len(inputs) != 2:
+                result['detail'] = 'own-model row does not publish two rating inputs'
+                return result
+            recomputed = ranking_expectation(float(inputs[0]['points']), float(inputs[1]['points']))
+            basis = f"own {origination.get('family')} rating on the 400-point logistic"
         elif method == 'model' and 'Valve' in label:
             inputs = origination.get('inputs') or []
             if len(inputs) != 2:
@@ -237,20 +245,31 @@ def replay_row(record: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def valve_points(markdown: str) -> dict[str, float]:
-    """Parse Valve's published global standings markdown into {name: points}."""
+    """Parse Valve's published global standings markdown into {name: points}.
+
+    The published column order is ``Standing | Points | Team Name | Roster``;
+    the header row is read rather than assumed, so a column reorder produces an
+    empty table (an honest read failure) instead of a wrong number.
+    """
+    columns = None
     table: dict[str, float] = {}
     for line in markdown.splitlines():
-        if not line.strip().startswith('|'):
+        stripped = line.strip()
+        if not stripped.startswith('|'):
             continue
-        cells = [c.strip() for c in line.strip().strip('|').split('|')]
-        if len(cells) < 4:
+        cells = [c.strip() for c in stripped.strip('|').split('|')]
+        if columns is None:
+            lowered = [c.casefold() for c in cells]
+            if any('points' in c for c in lowered) and any('team' in c for c in lowered):
+                columns = (next(i for i, c in enumerate(lowered) if 'points' in c),
+                           next(i for i, c in enumerate(lowered) if 'team' in c))
             continue
-        name = cells[1].replace('**', '').strip()
-        for cell in cells[2:]:
-            match = re.fullmatch(r'\**(\d+(?:\.\d+)?)\**', cell)
-            if match:
-                table[name.casefold()] = float(match.group(1))
-                break
+        if len(cells) <= max(columns):
+            continue
+        name = cells[columns[1]].replace('**', '').strip()
+        match = re.fullmatch(r'\**([\d.]+)\**', cells[columns[0]])
+        if name and match:
+            table[name.casefold()] = float(match.group(1))
     return table
 
 
@@ -441,6 +460,43 @@ def main() -> int:
                 report['arithmetic']['fair_line_mismatches'].append(
                     {'id': record['id'], 'published': fair, 'expected': want})
 
+    # -- 2b. does the published label name the evidence actually used? --------
+    label_issues = []
+    for record in records:
+        origination_row = record.get('origination') or {}
+        if not origination_row:
+            continue
+        family = (origination_row.get('family') or '').casefold()
+        provider = origination_row.get('provider') or ''
+        label = origination_row.get('label') or ''
+        actual = ('network' if family == 'network' or provider.startswith('Own network')
+                  else 'results' if family == 'form' or provider.startswith('Own results')
+                  else 'hltv' if 'HLTV' in provider or 'HLTV' in label
+                  else 'valve' if family in ('model', '') and ('Valve' in provider or 'Valve' in label)
+                  else None)
+        if actual == 'network' and 'network' not in label.casefold():
+            label_issues.append({'id': record['id'], 'label': label, 'provider': provider,
+                                 'family': origination_row.get('family'),
+                                 'expected': 'an own-network label',
+                                 'detail': 'the row is priced from our own bo3.gg Bradley-Terry fit but the label names another method'})
+        elif actual == 'results' and 'results-based' not in label.casefold():
+            label_issues.append({'id': record['id'], 'label': label, 'provider': provider,
+                                 'family': origination_row.get('family'),
+                                 'expected': 'an own results-based label',
+                                 'detail': 'the row is priced from our own results fit but the label names another method'})
+        elif actual == 'valve' and 'Valve' not in label:
+            label_issues.append({'id': record['id'], 'label': label, 'provider': provider,
+                                 'family': origination_row.get('family'),
+                                 'expected': 'a Valve-rating label',
+                                 'detail': 'the row is priced from Valve rating rows but the label names another method'})
+        elif actual == 'hltv' and 'HLTV' not in label:
+            label_issues.append({'id': record['id'], 'label': label, 'provider': provider,
+                                 'family': origination_row.get('family'),
+                                 'expected': 'an HLTV-ranking label',
+                                 'detail': 'the row is priced from the HLTV ranking but the label names another method'})
+    report['label_consistency'] = {'checked': sum(1 for r in records if r.get('origination')),
+                                   'issues': label_issues}
+
     # -- 3. official-input spot-check ---------------------------------------
     model_rows = [r for r in records if (r.get('origination') or {}).get('method') == 'model']
     snapshots = sorted({(r['origination'].get('snapshot_date') or '') for r in model_rows if 'Valve' in (r['origination'].get('label') or '')})
@@ -479,7 +535,7 @@ def main() -> int:
         report['official_inputs']['checks'].append(entry)
 
     # -- 4. Hotspawn inventory ----------------------------------------------
-    api_read = reader.get(FIXTURES_API + f'&cb={int(now.timestamp())}', 'hotspawn-fixtures', keep=True)
+    api_read = reader.get(FIXTURES_API, 'hotspawn-fixtures', keep=True)
     api_rows = json.loads(api_read['text']) if api_read.get('ok') and api_read['text'].strip().startswith('[') else []
     lobby_read = reader.get(f'{LOBBY}?cb={int(now.timestamp())}', 'hotspawn-lobby', keep=True)
     cs2_read = reader.get(f'{CS2_LOBBY}?cb={int(now.timestamp())}', 'hotspawn-cs2-lobby', keep=True)
@@ -490,6 +546,17 @@ def main() -> int:
         'cs2_lobby_http': cs2_read.get('http_status'),
         'lobby': lobby_counts(lobby_read.get('text', '')),
         'cs2_lobby': lobby_counts(cs2_read.get('text', '')),
+    }
+    lobby_total = (report['hotspawn'].get('cs2_lobby') or {}).get('all_tiers_count')
+    report['hotspawn']['coverage_counts'] = {
+        'lobby_cs2_all_tiers': lobby_total,
+        'lobby_this_week': (report['hotspawn'].get('cs2_lobby') or {}).get('matches_this_week'),
+        'api_records': len(api_rows),
+        'published_inventory': (latest or {}).get('counts', {}).get('inventory'),
+        'published_upcoming': (latest or {}).get('counts', {}).get('upcoming'),
+        'lobby_equals_api': lobby_total == len(api_rows) if lobby_total is not None and api_rows else None,
+        'lobby_equals_published_inventory': (lobby_total == (latest or {}).get('counts', {}).get('inventory')
+                                             if lobby_total is not None and latest else None),
     }
     if api_rows:
         report['hotspawn']['inventory_compare'] = inventory_compare(active, api_rows, now)
@@ -514,6 +581,8 @@ def main() -> int:
                      and not report['arithmetic']['not_replayable']))
     verdicts.append(('published_pick_is_the_published_argmax',
                      not report['arithmetic']['pick_mismatches']))
+    verdicts.append(('every_published_label_names_the_evidence_it_uses',
+                     not report['label_consistency']['issues']))
     if 'inventory_compare' in report['hotspawn']:
         compare = report['hotspawn']['inventory_compare']
         verdicts.append(('every_future_dated_hotspawn_fixture_is_published',
@@ -566,6 +635,12 @@ def render_markdown(report: dict) -> str:
     lines.append('')
     hotspawn = report.get('hotspawn') or {}
     compare = hotspawn.get('inventory_compare')
+    labels = report.get('label_consistency') or {}
+    lines += ['## Method labels', '',
+              f"- rows checked: **{labels.get('checked')}**; labels naming a different method than the inputs: **{len(labels.get('issues') or [])}**", '']
+    for issue in labels.get('issues') or []:
+        lines.append(f"  - `{issue['id']}` label “{issue['label']}” but inputs are `{issue['provider']}` (family {issue['family']}) — expected {issue['expected']}")
+    lines.append('')
     lines += ['## Hotspawn inventory parity', '']
     if compare:
         lines += [f"- API records: **{compare['api_records']}** (future starts: **{compare['api_future']}**, "
@@ -576,7 +651,8 @@ def render_markdown(report: dict) -> str:
                   f"- teams match: **{compare['all_teams_match']}**; starts within 60 s: **{compare['all_starts_within_60s']}**; "
                   f"competitions match: **{compare['all_competitions_match']}**", '']
     lines += [f"- rendered lobby counts: `{json.dumps(hotspawn.get('lobby'), sort_keys=True)}`",
-              f"- rendered CS2 lobby counts: `{json.dumps(hotspawn.get('cs2_lobby'), sort_keys=True)}`", '']
+              f"- rendered CS2 lobby counts: `{json.dumps(hotspawn.get('cs2_lobby'), sort_keys=True)}`",
+              f"- coverage counts: `{json.dumps(hotspawn.get('coverage_counts'), sort_keys=True)}`", '']
     official = report.get('official_inputs') or {}
     lines += ['## Official model inputs', '',
               f"- Valve snapshots read: {official.get('valve_snapshots_read')}",
