@@ -5149,3 +5149,25 @@ passed (`{"rows": 750, "ok": 732, "flagged": 9, "navigation": 9, "violation": 0}
   root is gone. The two banner strings that still appear in extracted page text
   (`#stale-warning`, `#new-snapshot`) are `hidden` in the delivered HTML — they are the client
   side freshness guards, not a claim that the snapshot is stale.
+
+### C1F-4 addendum — the publisher is stable, and this is the state to inherit (2026-10-22T04:50Z)
+
+Three consecutive pushes to `main` published successfully, so the duplicate-artifact
+regression is closed and not just masked:
+
+| Run | Commit | Result |
+| --- | --- | --- |
+| [39717765225](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39717765225) | `ea1534f` (PR #158) | success 04:03Z |
+| [39719177378](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39719177378) | `d55ed87` (PR #153) | success 04:24Z |
+| [39721791093](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39721791093) | `cd9a595` (PR #159) | success 04:46Z |
+
+Live state read at 04:48Z from `buffedlizard55-lab.github.io/MaltaProj3/data/latest.json`:
+`generated_at 2026-10-22T04:39:29Z`, `coverage_complete: true`,
+`{inventory 96, upcoming 34, archived 62, market 12, bookmaker 1, model 11, unresolved 10, picks 24}`;
+the deploying run's own complete-picks audit reported
+`{"active": 34, "resolved": 34, "unresolved": 0, "with_pick": 34}` and
+`{"rows": 754, "ok": 736, "flagged": 9, "navigation": 9, "violation": 0}`.
+
+So the published site is inside its four-hour bound, every active fixture carries a sourced pick,
+and the older root pages are gone. **Do not reintroduce an artifact cleanup that depends on
+`actions: write`** — the interim upload is already isolated by name (`github-pages-interim`).
