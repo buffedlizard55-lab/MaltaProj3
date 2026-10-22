@@ -55,7 +55,53 @@ jobs:
       - name: Install browser for independent UI verification
         run: npx playwright install --with-deps chromium
       - name: Phone, desktop, no-JS, staleness and WCAG A/AA checks
-        run: npm test
+        # The run log lives on a storage host that restricted environments
+        # cannot reach, so a bare "exit code 1" named no failing test. Every
+        # failed browser test is now also published as a check annotation,
+        # which is readable through the public Actions API.
+        run: |
+          set +e
+          npm test 2>&1 | tee playwright-output.log
+          status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ]; then
+            python - <<'PY'
+          import json
+          from pathlib import Path
+
+          def escape(text, limit=1200):
+              return str(text).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')[:limit]
+
+          report = Path('test-results/results.json')
+          printed = 0
+          if report.exists():
+              try:
+                  document = json.loads(report.read_text())
+              except ValueError:
+                  document = {}
+
+              def walk(suites):
+                  global printed
+                  for suite in suites:
+                      for spec in suite.get('specs') or []:
+                          if spec.get('ok') is False:
+                              for test in spec.get('tests') or []:
+                                  for result in test.get('results') or []:
+                                      for error in result.get('errors') or []:
+                                          message = error.get('message') or error.get('value') or ''
+                                          print('::error title=Browser test failed::' + escape(
+                                              suite.get('file', '?') + ' :: ' + (spec.get('title') or '?') +
+                                              ' :: ' + message[:800]))
+                                          printed += 1
+                      walk(suite.get('suites') or [])
+              walk(document.get('suites') or [])
+          if not printed:
+              tail = Path('playwright-output.log')
+              if tail.exists():
+                  lines = [l for l in tail.read_text(errors='replace').splitlines() if '✘' in l or 'Error' in l][-8:]
+                  print('::error title=Browser tests failed without a parsed report::' + escape(' | '.join(lines)))
+          PY
+          fi
+          exit "$status"
       - name: Upload browser test report (readable when the step fails)
         if: always()
         uses: actions/upload-artifact@v6
