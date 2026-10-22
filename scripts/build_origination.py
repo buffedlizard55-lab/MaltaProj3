@@ -124,6 +124,15 @@ def pick_row(m, safety=None, now=None):
     if m.get('aliases_used'):
         used = ', '.join(f"{a['alias']} → {a['canonical']}" for a in m['aliases_used'])
         out.append(f'<p class="alias-note">Verified alias join: {e(used)}</p>')
+    if m.get('upgraded_from_featured_tie'):
+        # Session bd4f77c6: the featured model had no side at all, so this row
+        # would otherwise have been published as "Even · no side".
+        fp = m.get('featured_probabilities') or []
+        featured_text = f" ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%)" if len(fp) == 2 else ''
+        out.append('<p class="alias-note">The featured Valve-model estimate was an exact 50/50'
+                   + e(featured_text) + ' with no side. The researched ladder separated the sides on a '
+                   'labelled lower rung — HLTV world ranking or the own bo3.gg network — and that estimate '
+                   'is published instead, with its own inputs and uncertainty.</p>')
     if m.get('upgraded_from_featured_model') and m.get('featured_probabilities'):
         fp = m['featured_probabilities']
         if m.get('featured_method') == 'model':
@@ -360,14 +369,27 @@ def validate_origination(data, source):
                 raw['analysis'].get('method') == 'model'
                 or (raw.get('pick_index') is None and m.get('pick_index') is not None)
             )
-            if not upgraded:
+            # Session bd4f77c6: a featured *model* estimate that returns an exact
+            # 50/50 has no side, so it is not a pick. When the researched ladder
+            # separates the sides on a labelled lower rung (HLTV world ranking or
+            # the own bo3.gg network), that row is published and marked here.
+            # It is still replayed by the model branch below, so the replacement
+            # cannot be forged: the published probabilities must re-derive from
+            # the saved ranking/rating evidence.
+            tie_upgrade = (bool(o) and o.get('method') == 'model'
+                           and raw['analysis'].get('method') == 'model'
+                           and raw.get('pick_index') is None and m.get('pick_index') is not None
+                           and m.get('upgraded_from_featured_tie') is True)
+            if not upgraded and not tie_upgrade:
                 assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
                 assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
                 continue
             # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
-            # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.
-            # Either must be marked and is replayed from its saved first-party responses below.
-            assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
+            # *model* estimate, a directional money-backed line resolves a featured 50/50 tie, or a
+            # discriminating research rung resolves a featured even model estimate. All must be marked
+            # and are replayed from their saved first-party responses below.
+            if upgraded:
+                assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
         if not o:
             assert m['pick_index'] is None
             continue

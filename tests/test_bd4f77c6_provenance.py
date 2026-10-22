@@ -280,5 +280,77 @@ class SummaryProvenanceTest(unittest.TestCase):
         self.assertEqual(build.no_line_register(data, ''), '')
 
 
+class TieUpgradeValidationTest(unittest.TestCase):
+    """The replay validator must accept a marked tie upgrade and only that."""
+
+    def _payloads(self):
+        import math
+        from scripts import form_model
+        points = (1015.0, 950.0)
+        rd = min(400.0, 150.0 + 300.0 / math.sqrt(9))
+        probability = form_model.win_probability(points[0], points[1], rd)
+        facts = {
+            'id': '1079654',
+            'teams': [{'id': '1', 'name': 'ex-Zero Tenacity'}, {'id': '2', 'name': 'ex-RUSTEC'}],
+            'competition': 'CCT Europe 2026 Series #11',
+            'starts_at': '2026-10-23T08:00:00Z',
+            'locks_at': '2026-10-23T07:54:00Z',
+            'availability': 'open',
+            'tier': 'c',
+            'source_url': 'https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-1079654',
+            'lobby_url': 'https://play.hotspawn.com/cs2-pickems#fixture-1079654',
+        }
+        raw = dict(facts, analysis={'method': 'model', 'probabilities': [0.5, 0.5],
+                                    'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                                    'observed_at': '2026-10-22T01:00:00Z'}, pick_index=None)
+        current = {
+            'method': 'model',
+            'family': 'form',
+            'label': 'Own results-based estimate (bo3.gg series results)',
+            'probabilities': [probability, 1 - probability],
+            'fair_decimal': [round(1 / probability, 3), round(1 / (1 - probability), 3)],
+            'source': 'Own results-based model (bo3.gg series results)',
+            'source_url': 'https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-22-10-2026',
+            'observed_at': '2026-10-22T01:00:00Z',
+            'inputs': [
+                {'name': 'ex-Zero Tenacity', 'points': points[0],
+                 'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'roster': []},
+                {'name': 'ex-RUSTEC', 'points': points[1],
+                 'source_url': 'https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-22-10-2026',
+                 'fitted': {'n': 9, 'posterior_sd': 119.0, 'prior_center': 871}},
+            ],
+            'rating_sd': rd,
+            'interval': [0.31, 0.79],
+            'n_series': 9,
+            'samples': [{'date': '2026-10-20', 'opponent': 'mellren', 'won': True, 'bo': 3,
+                         'source_url': 'https://bo3.gg/matches/ex-rustec-vs-mellren-20-10-2026'}],
+            'quotes': [],
+        }
+        row = dict(facts, pick_index=0 if probability >= 0.5 else 1, origination=current,
+                   research=[], limitations=[], featured_method='model',
+                   featured_probabilities=[0.5, 0.5], featured_pick_index=None,
+                   upgraded_from_featured_tie=True)
+        latest = {'inventory_observed_at': '2026-10-22T01:00:00Z', 'matches': [raw]}
+        complete = {'source_snapshot_at': '2026-10-22T01:00:00Z',
+                    'generated_at': '2026-10-22T01:05:00Z', 'matches': [row]}
+        return latest, complete
+
+    def test_marked_tie_upgrade_passes_and_unmarked_or_tampered_rows_fail(self):
+        import json, shutil, tempfile
+        from pathlib import Path
+        from scripts import build_origination
+        latest, complete = self._payloads()
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp)
+            (source / 'origination').mkdir()
+            (source / 'origination' / 'aliases.json').write_text(
+                Path('data/origination/aliases.json').read_text())
+            (source / 'latest.json').write_text(json.dumps(latest))
+            build_origination.validate_origination(complete, source)
+            del complete['matches'][0]['upgraded_from_featured_tie']
+            with self.assertRaises(AssertionError):
+                build_origination.validate_origination(complete, source)
+
+
 if __name__ == '__main__':
     unittest.main()
