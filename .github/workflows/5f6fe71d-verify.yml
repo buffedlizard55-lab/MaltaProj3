@@ -17,7 +17,9 @@ permissions:
   actions: read
 concurrency:
   group: 5f-verify
-  cancel-in-progress: false
+  # A newer push supersedes an in-flight verification: both would hit the same
+  # first-party sources, and only the newest head matters for the PR.
+  cancel-in-progress: true
 jobs:
   verify-published:
     runs-on: ubuntu-24.04
@@ -53,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set +e
-          python -m scripts.verify_5f6fe71d --published published --out data/research/5f6fe71d 2>&1 | tee verify-5f.log
+          python -m scripts.verify_5f6fe71d --published published --out data/research/5f6fe71d --run-id "${{ steps.lastrun.outputs.run_id }}" 2>&1 | tee verify-5f.log
           status=${PIPESTATUS[0]}
           python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json

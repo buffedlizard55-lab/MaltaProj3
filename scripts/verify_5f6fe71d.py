@@ -609,6 +609,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--published', type=Path, default=Path('published'))
     parser.add_argument('--out', type=Path, default=Path('data/research/5f6fe71d'))
+    parser.add_argument('--run-id', default=None,
+                        help='GitHub Actions run id the published artifact came from (traceability only)')
     args = parser.parse_args()
     now = datetime.now(UTC)
     published_data = args.published / 'data'
@@ -619,6 +621,9 @@ def main() -> int:
     rec = Recorder(args.out / 'evidence')
 
     report = {'schema_version': 1, 'session': 'arena-5f6fe71d', 'generated_at': iso(now),
+              'artifact_run_id': args.run_id,
+              'artifact_run_url': (f'https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/{args.run_id}'
+                                   if args.run_id else None),
               'published_generated_at': latest.get('generated_at'),
               'published_inventory_observed_at': latest.get('inventory_observed_at'),
               'origination_generated_at': (origination or {}).get('generated_at'),
