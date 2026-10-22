@@ -19,7 +19,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scripts.build import PAGES, shell, summary, unresolved_page
+from scripts.build import PAGES, shell, source_link_label, summary, unresolved_page
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -114,6 +114,28 @@ class PhoneStatusStripCountsBothGaps(unittest.TestCase):
         soup = BeautifulSoup(shell(data, 'summary', '<p id="page-body">body</p>', './'), 'html.parser')
         blank = soup.select_one('nav.mobile-status a.mobile-status-blank')
         self.assertIn('0 no line', blank.get_text(' ', strip=True))
+
+
+class SourceLinkLabelsStayTruthful(unittest.TestCase):
+    """A consensus is not a bookmaker quote, and a relay says that it is relayed."""
+
+    def test_every_money_method_gets_its_own_label(self):
+        from scripts.build import source_link_label as label
+        self.assertEqual(label({'method': 'market'}), 'Market')
+        self.assertEqual(label({'method': 'consensus'}), 'Median of sources')
+        self.assertEqual(label({'method': 'reference'}), 'Aggregated odds')
+        self.assertEqual(label({'method': 'guidance'}), 'Wide book')
+        self.assertEqual(label({'method': 'bookmaker'}), 'Bookmaker')
+        self.assertEqual(label({'method': 'relay'}), 'Relayed bookmaker')
+
+    def test_model_labels_keep_their_published_source(self):
+        from scripts.build import source_link_label as label
+        self.assertEqual(label({'method': 'model', 'source_url': 'https://www.hltv.org/ranking/teams'}),
+                         'HLTV ranking')
+        self.assertEqual(label({'method': 'model', 'source_url': 'https://bo3.gg/matches'}), 'bo3.gg results')
+        self.assertEqual(label({'method': 'model',
+                                'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings'}),
+                         'Valve')
 
 
 class NavigationReachesTheRegister(unittest.TestCase):

@@ -249,7 +249,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else model_source_label(a) if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            out += external(a['source_url'], source_link_label(a))
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -293,6 +293,33 @@ def model_source_label(analysis: dict) -> str:
     if 'bo3.gg' in url or 'results-based' in source.lower():
         return 'bo3.gg results'
     return 'Valve'
+
+
+def source_link_label(a: dict) -> str:
+    """Short, accurate label for the link to a row's own source.
+
+    Session ee27e097: the phone index and the table both used to fall through to
+    the word "Bookmaker" for every method that was not a market, reference,
+    guidance or model. A *consensus* row (the median of several independent
+    providers) is not a bookmaker quote, and a relayed quote should say it is
+    relayed. The label is derived from the published method only.
+    """
+    method = (a or {}).get('method')
+    if method == 'market':
+        return 'Market'
+    if method == 'model':
+        return model_source_label(a or {})
+    if method == 'reference':
+        return 'Aggregated odds'
+    if method == 'guidance':
+        return 'Wide book'
+    if method == 'consensus':
+        return 'Median of sources'
+    if method == 'relay':
+        return 'Relayed bookmaker'
+    if method == 'bookmaker':
+        return 'Bookmaker'
+    return 'Source'
 
 
 def researched_method(match: dict) -> tuple[str, str, str]:
@@ -565,7 +592,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], source_link_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
