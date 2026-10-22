@@ -456,7 +456,7 @@ def exec_banner(data, prefix):
         f'<div class="exec-banner-actions">'
         f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} model-only (no betting line) · why + sources</span></span><span aria-hidden="true">→</span></a>'
 
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
@@ -595,7 +595,8 @@ def glance(data, prefix, now=None):
             closed_attr = (f' data-glance-starts="{e(m.get("starts_at") or "")}"'
                            f' data-glance-locks="{e(m.get("locks_at") or "")}"'
                            f' data-glance-closed="{"true" if closed else "false"}"')
-        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}"{closed_attr}>'
+        search_text = ' '.join([names[0], names[1], m['competition'] or '']).lower()
+        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}" data-search="{e(search_text)}"{closed_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
                  f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
                  f'<div class="glance-choice">{choice}</div>'
@@ -623,7 +624,17 @@ def glance(data, prefix, now=None):
             'Every row shows both teams\' win probability, the pick, and what produced the number. '
             'A missing estimate is never filled with a default 50/50; model-only rows are listed with their limitations under '
             f'{no_line_link}.</p>'
-            '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
+            # Phone findability (session 3016b0c6): type a team/tournament and
+            # only matching glance rows stay visible. Progressive enhancement
+            # only — with no JavaScript every row stays visible; it never
+            # re-prices or recalculates anything.
+            '<div class="glance-finder"><label for="glance-search">Find a pick — type a team or tournament</label>'
+            '<input id="glance-search" type="search" inputmode="search" autocomplete="off" '
+            'placeholder="e.g. Spirit Academy" aria-controls="glance-list">'
+            '<p class="glance-count" id="glance-count" role="status"></p>'
+            '<p class="glance-empty" id="glance-empty" hidden>No match in this snapshot uses that name. '
+            'Clear the search to see every pick, or open the complete list.</p></div>'
+            '<ol class="glance-list" id="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
 def _brief_blank_reason(match: dict) -> str:

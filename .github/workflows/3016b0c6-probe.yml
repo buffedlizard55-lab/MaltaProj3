@@ -1,0 +1,33 @@
+name: 3016b0c6 line-source probe (session-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/3016b0c6-maltaproj3]
+    paths: [scripts/3016b0c6_probe.py, .github/workflows/3016b0c6-probe.yml]
+permissions:
+  contents: write
+concurrency:
+  group: 3016b0c6-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/3016b0c6-maltaproj3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q requests
+      - name: Probe HLTV first, then esportsbooks, for fixtures without a betting line
+        run: python -m scripts.3016b0c6_probe --out data/research/3016b0c6
+      - name: Commit dated evidence back to the session branch
+        run: |
+          git config user.name "arena-3016b0c6 probe"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/research/3016b0c6
+          if git diff --cached --quiet; then echo "no evidence change"; exit 0; fi
+          git commit -m "3016b0c6: dated line-source research evidence (runner probe)"
+          git push origin arena/3016b0c6-maltaproj3

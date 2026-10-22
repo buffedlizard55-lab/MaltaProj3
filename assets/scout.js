@@ -175,6 +175,31 @@ setInterval(checkForUpdate, 5 * 60000);
 document.addEventListener('visibilitychange', () => { liveStatus(); checkForUpdate(); });
 checkForUpdate();
 
+// Executive-summary "find a pick" filter (session 3016b0c6): type a team or
+// tournament name on the phone summary and only matching glance rows stay
+// visible. Progressive enhancement — without this script every row is shown.
+// It only hides rendered rows; it never recalculates a probability or pick.
+(() => {
+  const input = document.querySelector('#glance-search');
+  const list = document.querySelector('#glance-list');
+  if (!input || !list) return;
+  const glance_rows = Array.from(list.querySelectorAll('.glance-row'));
+  const count = document.querySelector('#glance-count');
+  const empty = document.querySelector('#glance-empty');
+  function applyGlanceFilter() {
+    const term = input.value.trim().normalize('NFKC').toLowerCase();
+    let visible = 0;
+    glance_rows.forEach(row => {
+      row.hidden = Boolean(term) && !(row.dataset.search || '').includes(term);
+      if (!row.hidden) visible += 1;
+    });
+    if (count) count.textContent = term ? `${visible} of ${glance_rows.length} picks shown` : '';
+    if (empty) empty.hidden = visible !== 0;
+  }
+  input.addEventListener('input', applyGlanceFilter);
+  applyGlanceFilter();
+})();
+
 // Keep the active destination visible in the horizontally scrolling phone bar.
 (() => {
   const nav = document.querySelector('.mobile-nav');
