@@ -1,3 +1,93 @@
+### 3C-1 result — live inventory vs the published snapshot, verified line by line (2026-10-22T08:25Z)
+
+Runner capture at **07:36Z** (`scripts/3cf793ef_research.py`, raw JSON kept in
+`data/research/3cf793ef/live/`) against the live scheduled-fixture API, cross-read with the
+rendered [lobby](https://play.hotspawn.com/lobby) and the live
+[`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json):
+
+| Measure | Live API 07:36Z | Published snapshot 05:36:57Z |
+| --- | --- | --- |
+| Records | **107** (0 duplicate ids) | inventory 96 (63 past-start + 33 future) |
+| Start in the future | **46** | 33 |
+| `best_of` published | 0 | 0 (correctly blank) |
+| Community "% picked" published | 83 records | excluded from every calculation |
+| Active fixtures with both probabilities | — | **33 of 33**, 0 blank, 0 without a source URL |
+
+* **Not a ladder failure, a timing gap.** 14 fixtures were added by Hotspawn between the 05:36Z
+  snapshot and the 07:36Z read (FaZe–BC.Game, SinnerS–Eternal Fire, the eight CCT South America 7
+  playoff pairings and four CIS LAN Championship 9 pairings). They are absent from the published
+  site only until the next scheduled refresh, which is inside the documented 4-hour interval.
+* **One drift item, harmless:** fixture `1081597` is published but no longer returned by the API —
+  its 10:54Z lock had passed. No team, competition or start-time mismatch was found in any of the
+  33 published rows.
+* **Source links spot-checked by hand:** the Polymarket event links resolve (the short
+  `polymarket.com/event/cs2-…` URL redirects to the canonical
+  `/esports/cs2/<league>/cs2-…` page, e.g. FORZE Reload vs Just Players showing 66¢ / 35¢) and the
+  Hotspawn match page for Bushido Wildcats vs ex-6666 shows the same teams, event and 08:00 start
+  as the API.
+
+### 3C-2 result — outside prices and own lines for the fixtures without a featured pick
+
+Full tables, formulas and URLs: [`data/research/3cf793ef/README.md`](data/research/3cf793ef/README.md).
+
+* **Esportsbook line found (bo3.gg match centre, relaying a named partner book, read 07:40Z):**
+  eight live fixtures, including two of the 14 uncovered ones —
+  FaZe–BC.Game **1.77 / 1.94** (no-vig 52.3% FaZe) and SinnerS–Eternal Fire **1.83 / 1.90**
+  (no-vig 50.9% SinnerS). Saved with URLs, decimal pairs, margins and observation time in
+  `data/research/3cf793ef/outside-lines-2026-10-22T0740Z.json`.
+* **Own lines originated for 9 of the 14:** every pair where both teams carry a complete
+  five-player row in Valve's official 2026-10-05 global standings, recomputed with the documented
+  fixed-RD-75 Glicko expectation. Five fixtures have no public basis at all (Projeto do KinGui /
+  Martians / LOS NINOS / RED Canids Academy / Hacha / Envy are absent from the Valve snapshot, and
+  CCT South America 7 plus CIS LAN 9 carry no book price anywhere reachable) — those stay
+  research-only or unresolved with an explicit per-fixture limitation.
+* **The two bases disagree on a side, which is the reason this research matters.**
+  `1081603` SinnerS–Eternal Fire: the book makes **SinnerS** the marginal favourite (50.9%), the
+  Valve ratings make **Eternal Fire** a clear favourite (59.7%). A model-only fallback would have
+  published the opposite pick from the book. `1081599` FaZe–BC.Game agrees on the side but not the
+  confidence (52.3% vs 71.5%). Where a money line exists it must win over a research model.
+
+### 3C-3 result — independent recomputation of every Valve-sourced row
+
+`scripts/3cf793ef_valve_check.py` re-downloads the same official markdown each row links to,
+applies the documented completeness rule (only complete five-player rows; duplicates fail closed —
+`Banda Chuya` and `ex-RUSTEC` each appear twice with different rosters) and recomputes
+`p = 1/(1+10^(g·Δpoints/400))` with `RD = 75`.
+
+**14 of 14 published Valve-sourced probabilities reproduce within ±0.002**
+(`data/research/3cf793ef/valve-verification.json`): BakS–Azuolas 73.37%, Donstu–Banda chuya 40.46%,
+ex-RUSTEC–Saint Sinners 80.75%, Nemesis–WW 91.83%, HOTU–The Huns 94.05%, 5star–1WIN 17.82% and the
+rest. The rung is not inventing numbers.
+
+### 3C-3 flags — irregularities found (not edited by this session)
+
+1. **Two rows say `model` while their own record names a money source.** `1082770` UPGRADE vs
+   Virtus.pro (`label: "Originated consensus line (median of independent money sources)"`,
+   `source: "Bovada + Pinnacle"`) and `1081148` Inner Circle Academy vs Spirit Academy
+   (`label: "Esportsbook line relayed by bo3.gg (Thunderpick, no-vig)"`) both carry
+   `featured_method: "model"`. They therefore render the **Model** badge and count toward
+   "from a research model" instead of "from an external betting line". The probabilities are not
+   wrong; the provenance label is. **Request to the owners of `scripts/originate.py`** (sessions
+   `ee27e097`, `a56f3474`, `75aa5b56`): set the method from the rung that produced the quote
+   (`consensus` / `relay`) instead of `model` for those two rows, and add a regression test. This
+   session did not edit the file while those claims are live.
+2. **CIS LAN Championship 9 does not exist on bo3.gg** ("There are currently no matches related to
+   CIS LAN Championship 9") and the CCT South America 7 playoff rows carry no price, so five of the
+   latest fixtures can never have a money line. Their limitation text should name that per fixture
+   rather than in one generic sentence.
+3. HLTV currently answers the GitHub runners with HTTP 403, so it is an identity/ranking source
+   only. This session read HLTV ranking pages through the agent page reader; no HLTV figure was
+   converted into a price, and no HLTV crowd vote was used.
+
+### Coordination note (2026-10-22T08:25Z)
+
+Five sessions are working the same request on separate fixed branches: `ee27e097` and `a56f3474`
+claimed at 07:29Z, `75aa5b56` opened PR **#163** at 08:0xZ, and this one claimed 07:35Z. Both
+earlier claims cover `scripts/build.py`, `scripts/originate.py` and `assets/scout.css`; this session
+therefore took only the read-only verification scope above and **changed no shared code**, so the
+owner sessions can merge without a conflict from here. When the first of them lands, the remaining
+sessions should verify the combined result rather than re-implement the same page.
+
 # Current session: arena-3cf793ef — independent live verification, HLTV/esportsbook line research for the pick-less gap, and final integration verification
 
 Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/3cf793ef-maltaproj3`, from `main` at
@@ -9,8 +99,8 @@ claims **none** of those files and does not start any task either of them has cl
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 3C-1 Independently read the **live** Hotspawn CS2 inventory and every active pick row from the public site and the lobby, then verify the published snapshot line by line (inventory count, both probabilities, pick side, source link per row, timestamp freshness) | in progress | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
-| 3C-2 Research, with dated saved evidence, a **real two-sided price or a documented HLTV/ratings basis** for every fixture the featured ladder leaves model-only or blank: HLTV first (ranking, match page, H2H), then esportsbooks/aggregators. Record the exact blocker per fixture where nothing can be sourced; never invent a price | in progress | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-1 Independently read the **live** Hotspawn CS2 inventory and every active pick row from the public site and the lobby, then verify the published snapshot line by line (inventory count, both probabilities, pick side, source link per row, timestamp freshness) | **done** — see 3C-1/3C-4 results | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-2 Research, with dated saved evidence, a **real two-sided price or a documented HLTV/ratings basis** for every fixture the featured ladder leaves model-only or blank: HLTV first, then esportsbooks/aggregators. Record the exact blocker per fixture where nothing can be sourced; never invent a price | **done** — see 3C-2 result | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
 | 3C-3 Flag every irregularity found during the repo and site review (stale checked-in snapshot, unverified values, label drift, missing source links) on the Flagged for Review page through the existing register machinery — **requested** from the owner of `scripts/build.py` rather than edited here while a live claim exists | in progress | arena-3cf793ef | request logged in this section |
 | 3C-4 After the two live sessions publish, verify the combined `main` state line by line, confirm the build/link/mobile checks, open the PR from this fixed branch, merge on green and confirm the Pages deployment; record the PR link and merge result here | unclaimed | arena-3cf793ef | `COORDINATION.md`, `README.md` only if a published claim is wrong, `data/research/3cf793ef/**` |
 
