@@ -1,10 +1,10 @@
 {
-  "captured_at": "2026-10-22T01:39:58Z",
+  "captured_at": "2026-10-22T01:50:00Z",
   "network_evidence": true,
   "hltv_ranking_meta": {
     "source_url": "https://www.hltv.org/ranking/teams",
     "snapshot_date": "2026-10-22",
-    "observed_at": "2026-10-22T01:39:03Z",
+    "observed_at": "2026-10-22T01:48:05Z",
     "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
     "publication_pages": 1
   },
@@ -12,17 +12,256 @@
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "snapshot_date": "2026-10-05",
     "evidence_file": "data/evidence/valve-ratings.json",
-    "observed_at": "2026-10-15T08:36:13Z",
+    "observed_at": "2026-10-22T01:47:33Z",
     "git_blob_sha": "2aa2805394fbc68f36a5752a5b16026f2ab2fed5"
   },
   "fixtures": [
     {
-      "id": "1079440",
-      "fixture": "MIBR vs BC.Game",
-      "starts_at": "2026-10-15T10:00:00Z",
+      "id": "1081869",
+      "fixture": "Morningstar vs NEXVOID",
+      "starts_at": "2026-10-22T03:00:00Z",
       "featured_probabilities": [
-        0.54959786,
-        0.45040214
+        0.48417501,
+        0.51582499
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: Morningstar has only 2 finished series in the window (needs 6)"
+      },
+      "form": {
+        "available": false,
+        "reason": "Morningstar: no published Valve rating; only 2 anchored series in the last 120 days (needs 8)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.48417501,
+          0.51582499
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Morningstar",
+            "points": 0.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "NEXVOID",
+            "points": 11.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081870",
+      "fixture": "Vitalem Aerem vs Rare Atom",
+      "starts_at": "2026-10-22T05:00:00Z",
+      "featured_probabilities": [
+        0.305,
+        0.695
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+      },
+      "form": {
+        "available": false,
+        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49568276,
+          0.50431724
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Vitalem Aerem",
+            "points": 3.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Rare Atom",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1079188",
+      "fixture": "Bushido Wildcats vs ex-6666",
+      "starts_at": "2026-10-22T08:00:00Z",
+      "featured_probabilities": [
+        0.38,
+        0.62
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.5113670549738498,
+          0.4886329450261502
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Bushido Wildcats",
+            "points": 947.7,
+            "series": 81,
+            "anchored": true
+          },
+          {
+            "name": "ex-6666",
+            "points": 939.8,
+            "series": 10,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": true,
+        "probabilities": [
+          0.5360132631540488,
+          0.46398673684595115
+        ],
+        "source_url": "https://bo3.gg/matches/bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Bushido Wildcats",
+            "points": 982,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "ex-6666",
+            "points": 950,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49280492,
+          0.50719508
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Bushido Wildcats",
+            "points": 7.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "ex-6666",
+            "points": 12.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1079650",
+      "fixture": "GenOne vs Spirit Academy",
+      "starts_at": "2026-10-22T08:00:00Z",
+      "featured_probabilities": [
+        0.7581203,
+        0.2418797
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.6836918396457838,
+          0.31630816035421616
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "GenOne",
+            "points": 1147.5,
+            "series": 57,
+            "anchored": true
+          },
+          {
+            "name": "Spirit Academy",
+            "points": 1013.6,
+            "series": 38,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50143911,
+          0.49856089
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "GenOne",
+            "points": 9.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Spirit Academy",
+            "points": 8.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081143",
+      "fixture": "BakS vs Azuolas",
+      "starts_at": "2026-10-22T08:00:00Z",
+      "featured_probabilities": [
+        0.73372436,
+        0.26627564
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
@@ -37,21 +276,21 @@
       "hltv_ranking": {
         "available": true,
         "probabilities": [
-          0.70697529,
-          0.29302471
+          0.50863384,
+          0.49136616
         ],
         "source_url": "https://www.hltv.org/ranking/teams",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "MIBR",
-            "points": 176.0,
+            "name": "BAKS",
+            "points": 9.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "BC.Game",
-            "points": 23.0,
+            "name": "Azuolas",
+            "points": 3.0,
             "series": null,
             "anchored": null
           }
@@ -61,14 +300,622 @@
       }
     },
     {
-      "id": "1079442",
-      "fixture": "Heroic vs Envy",
-      "starts_at": "2026-10-15T10:00:00Z",
+      "id": "1079189",
+      "fixture": "FORZE Reload vs Just Players",
+      "starts_at": "2026-10-22T11:00:00Z",
       "featured_probabilities": [
-        0.635,
-        0.365
+        0.665,
+        0.335
       ],
       "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.6024338686390925,
+          0.39756613136090746
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "FORZE Reload",
+            "points": 1106.9,
+            "series": 22,
+            "anchored": true
+          },
+          {
+            "name": "Just Players",
+            "points": 1034.7,
+            "series": 66,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": true,
+        "probabilities": [
+          0.6129416466534438,
+          0.38705835334655625
+        ],
+        "source_url": "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "FORZE Reload",
+            "points": 1100,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Just Players",
+            "points": 1005,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50575621,
+          0.49424379
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "FORZE Reload",
+            "points": 11.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Just Players",
+            "points": 7.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1079651",
+      "fixture": "Butterfly vs Lavked",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "featured_probabilities": [
+        0.77416873,
+        0.22583127
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.7450585712963697,
+          0.25494142870363035
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Butterfly",
+            "points": 1077.4,
+            "series": 36,
+            "anchored": true
+          },
+          {
+            "name": "Lavked",
+            "points": 891.1,
+            "series": 50,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.5028782,
+          0.4971218
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Butterfly",
+            "points": 7.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Lavked",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081596",
+      "fixture": "Falcons Force vs Phantom Academy",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "featured_probabilities": [
+        0.5321556,
+        0.4678444
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.5602919691743893,
+          0.4397080308256107
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Falcons Force",
+            "points": 821.5,
+            "series": 49,
+            "anchored": true
+          },
+          {
+            "name": "Phantom Academy",
+            "points": 779.4,
+            "series": 48,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50143911,
+          0.49856089
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Falcons Force",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Phantom Academy",
+            "points": 4.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081597",
+      "fixture": "benched gods vs TitanFlow",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "featured_probabilities": [
+        0.2205623499204933,
+        0.7794376500795067
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.2205623499204933,
+          0.7794376500795067
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "benched gods",
+            "points": 777.9,
+            "series": 59,
+            "anchored": false
+          },
+          {
+            "name": "TitanFlow",
+            "points": 997.2,
+            "series": 9,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "TitanFlow: no published Valve rating; only 3 anchored series in the last 120 days (needs 8)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50431724,
+          0.49568276
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "benched gods",
+            "points": 3.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "TitanFlow",
+            "points": 0.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082767",
+      "fixture": "Nemesis vs WW",
+      "starts_at": "2026-10-22T11:30:00Z",
+      "featured_probabilities": [
+        0.91827998,
+        0.08172002
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.9221428994096369,
+          0.0778571005903631
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Nemesis",
+            "points": 1431.2,
+            "series": 28,
+            "anchored": true
+          },
+          {
+            "name": "WW",
+            "points": 1001.8,
+            "series": 10,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.53877809,
+          0.46122191
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Nemesis",
+            "points": 32.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "WW",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081598",
+      "fixture": "JiJieHao vs Nexus",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "featured_probabilities": [
+        0.645,
+        0.355
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+      },
+      "form": {
+        "available": false,
+        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.54306649,
+          0.45693351
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "JiJieHao",
+            "points": 35.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Nexus",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081600",
+      "fixture": "Donstu vs Banda chuya",
+      "starts_at": "2026-10-22T13:45:00Z",
+      "featured_probabilities": [
+        0.4045841,
+        0.5954159
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+      },
+      "form": {
+        "available": false,
+        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50575621,
+          0.49424379
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "DONSTU",
+            "points": 4.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Banda chuya",
+            "points": 0.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1079652",
+      "fixture": "Acend vs ex-6666",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured_probabilities": [
+        0.82264949,
+        0.17735051
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.8032732909884523,
+          0.19672670901154765
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Acend",
+            "points": 1184.2,
+            "series": 24,
+            "anchored": true
+          },
+          {
+            "name": "ex-6666",
+            "points": 939.8,
+            "series": 10,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49136616,
+          0.50863384
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Acend",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "ex-6666",
+            "points": 12.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081145",
+      "fixture": "Lavked vs HAVU",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured_probabilities": [
+        0.39651661,
+        0.60348339
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.43164102906365415,
+          0.5683589709363459
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Lavked",
+            "points": 891.1,
+            "series": 50,
+            "anchored": true
+          },
+          {
+            "name": "HAVU",
+            "points": 938.9,
+            "series": 37,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49568276,
+          0.50431724
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Lavked",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "HAVU",
+            "points": 8.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082688",
+      "fixture": "Imperial vs Turma do Pagode",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured_probabilities": [
+        0.775,
+        0.225
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+      },
+      "form": {
+        "available": false,
+        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.52157333,
+          0.47842667
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Imperial",
+            "points": 23.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Turma do Pagode",
+            "points": 8.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082689",
+      "fixture": "BESTIA vs ShindeN",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured_probabilities": [
+        0.475,
+        0.525
+      ],
+      "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
         "available": false,
@@ -88,14 +935,14 @@
         "low_confidence": false,
         "inputs": [
           {
-            "name": "HEROIC",
-            "points": 83.0,
+            "name": "BESTIA",
+            "points": 12.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "Envy",
-            "points": 94.0,
+            "name": "ShindeN",
+            "points": 23.0,
             "series": null,
             "anchored": null
           }
@@ -105,295 +952,12 @@
       }
     },
     {
-      "id": "1080280",
-      "fixture": "ENCE vs BOJONG",
-      "starts_at": "2026-10-15T10:00:00Z",
+      "id": "1082882",
+      "fixture": "UNiTY vs Apogee Betclic",
+      "starts_at": "2026-10-22T14:00:00Z",
       "featured_probabilities": [
-        0.745,
-        0.255
-      ],
-      "originated_pick_index": 0,
-      "exact_tie": false,
-      "network": {
-        "available": false,
-        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
-      },
-      "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.50719508,
-          0.49280492
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "ENCE",
-            "points": 7.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "BOJONG",
-            "points": 2.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080202",
-      "fixture": "9z vs Falcons",
-      "starts_at": "2026-10-15T11:00:00Z",
-      "featured_probabilities": [
-        0.15709516,
-        0.84290484
-      ],
-      "originated_pick_index": 1,
-      "exact_tie": false,
-      "network": {
-        "available": true,
-        "probabilities": [
-          0.1650642607868711,
-          0.8349357392131289
-        ],
-        "source_url": "https://bo3.gg/matches",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "9z",
-            "points": 1537.0,
-            "series": 24,
-            "anchored": true
-          },
-          {
-            "name": "Falcons",
-            "points": 1818.6,
-            "series": 19,
-            "anchored": true
-          }
-        ],
-        "graph_matches": 4646,
-        "graph_anchors": 269
-      },
-      "form": {
-        "available": false,
-        "reason": "Both teams already have published Valve rows; results model not needed"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.10405895,
-          0.89594105
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "9z",
-            "points": 155.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "Falcons",
-            "points": 529.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080281",
-      "fixture": "WROTBERRY vs ENCE",
-      "starts_at": "2026-10-15T12:00:00Z",
-      "featured_probabilities": [
-        0.72821824,
-        0.27178176
-      ],
-      "originated_pick_index": 0,
-      "exact_tie": false,
-      "network": {
-        "available": false,
-        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
-      },
-      "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.5028782,
-          0.4971218
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "WBT",
-            "points": 9.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "ENCE",
-            "points": 7.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080203",
-      "fixture": "PARIVISION vs BetBoom",
-      "starts_at": "2026-10-15T13:30:00Z",
-      "featured_probabilities": [
-        0.26192226,
-        0.73807774
-      ],
-      "originated_pick_index": 1,
-      "exact_tie": false,
-      "network": {
-        "available": true,
-        "probabilities": [
-          0.30790449476990345,
-          0.6920955052300966
-        ],
-        "source_url": "https://bo3.gg/matches",
-        "low_confidence": true,
-        "inputs": [
-          {
-            "name": "PARIVISION",
-            "points": 1470.7,
-            "series": 24,
-            "anchored": true
-          },
-          {
-            "name": "BetBoom",
-            "points": 1611.4,
-            "series": 19,
-            "anchored": true
-          }
-        ],
-        "graph_matches": 4646,
-        "graph_anchors": 269
-      },
-      "form": {
-        "available": false,
-        "reason": "Both teams already have published Valve rows; results model not needed"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.33900091,
-          0.66099909
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "PARIVISION",
-            "points": 168.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "BETBOOM",
-            "points": 284.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080282",
-      "fixture": "EAC vs BOJONG",
-      "starts_at": "2026-10-15T14:00:00Z",
-      "featured_probabilities": [
-        0.96095469,
-        0.03904531
-      ],
-      "originated_pick_index": 0,
-      "exact_tie": false,
-      "network": {
-        "available": true,
-        "probabilities": [
-          0.9542227432607937,
-          0.045777256739206296
-        ],
-        "source_url": "https://bo3.gg/matches",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "EAC",
-            "points": 1020.1,
-            "series": 49,
-            "anchored": true
-          },
-          {
-            "name": "BOJONG",
-            "points": 492.5,
-            "series": 23,
-            "anchored": true
-          }
-        ],
-        "graph_matches": 4646,
-        "graph_anchors": 269
-      },
-      "form": {
-        "available": false,
-        "reason": "Both teams already have published Valve rows; results model not needed"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.50719508,
-          0.49280492
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "EAC",
-            "points": 7.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "BOJONG",
-            "points": 2.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080204",
-      "fixture": "Legacy vs FURIA",
-      "starts_at": "2026-10-15T16:00:00Z",
-      "featured_probabilities": [
-        0.435,
-        0.565
+        0.39773644745590364,
+        0.6022635525440964
       ],
       "originated_pick_index": 1,
       "exact_tie": false,
@@ -402,27 +966,48 @@
         "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+        "available": true,
+        "probabilities": [
+          0.39773644745590364,
+          0.6022635525440964
+        ],
+        "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "UNiTY",
+            "points": 1167,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Apogee Betclic",
+            "points": 1255,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
       },
       "hltv_ranking": {
         "available": true,
         "probabilities": [
-          0.11124535,
-          0.88875465
+          0.49136616,
+          0.50863384
         ],
         "source_url": "https://www.hltv.org/ranking/teams",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "Legacy",
-            "points": 341.0,
+            "name": "UNiTY",
+            "points": 10.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "FURIA",
-            "points": 702.0,
+            "name": "Betclic",
+            "points": 16.0,
             "series": null,
             "anchored": null
           }
@@ -432,12 +1017,12 @@
       }
     },
     {
-      "id": "1080283",
-      "fixture": "WROTBERRY vs BOJONG",
-      "starts_at": "2026-10-15T16:00:00Z",
+      "id": "1082180",
+      "fixture": "Sangal vs Metizport",
+      "starts_at": "2026-10-22T16:30:00Z",
       "featured_probabilities": [
-        0.98421533,
-        0.01578467
+        0.535,
+        0.465
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
@@ -452,21 +1037,21 @@
       "hltv_ranking": {
         "available": true,
         "probabilities": [
-          0.51007245,
-          0.48992755
+          0.53448394,
+          0.46551606
         ],
         "source_url": "https://www.hltv.org/ranking/teams",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "WBT",
-            "points": 9.0,
+            "name": "Sangal",
+            "points": 40.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "BOJONG",
-            "points": 2.0,
+            "name": "Metizport",
+            "points": 16.0,
             "series": null,
             "anchored": null
           }
@@ -476,9 +1061,9 @@
       }
     },
     {
-      "id": "1080284",
-      "fixture": "EAC vs ENCE",
-      "starts_at": "2026-10-15T18:00:00Z",
+      "id": "1079653",
+      "fixture": "Rune Eaters vs FORZE Reload",
+      "starts_at": "2026-10-22T17:00:00Z",
       "featured_probabilities": [
         0.51399636,
         0.48600364
@@ -488,23 +1073,369 @@
       "network": {
         "available": true,
         "probabilities": [
-          0.5454937960379233,
-          0.45450620396207675
+          0.45607657287118825,
+          0.5439234271288118
         ],
         "source_url": "https://bo3.gg/matches",
         "low_confidence": true,
         "inputs": [
           {
-            "name": "EAC",
-            "points": 1020.1,
-            "series": 49,
+            "name": "Rune Eaters",
+            "points": 1076.3,
+            "series": 23,
             "anchored": true
           },
           {
-            "name": "ENCE",
-            "points": 988.4,
-            "series": 47,
+            "name": "FORZE Reload",
+            "points": 1106.9,
+            "series": 22,
             "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49280492,
+          0.50719508
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Rune Eaters",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "FORZE Reload",
+            "points": 11.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081146",
+      "fixture": "6yuBoJlbl vs ex-6666",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "featured_probabilities": [
+        0.572758648799329,
+        0.42724135120067097
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: 6yuBoJlbl has only 3 finished series in the window (needs 6)"
+      },
+      "form": {
+        "available": true,
+        "probabilities": [
+          0.572758648799329,
+          0.42724135120067097
+        ],
+        "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "6yuBoJlbl",
+            "points": 1015,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "ex-6666",
+            "points": 950,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.48848911,
+          0.51151089
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "6yuBoJlbl",
+            "points": 4.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "ex-6666",
+            "points": 12.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082769",
+      "fixture": "K27 vs NEXORA",
+      "starts_at": "2026-10-22T17:30:00Z",
+      "featured_probabilities": [
+        0.9838771843003609,
+        0.016122815699639137
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.9838771843003609,
+          0.016122815699639137
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "K27",
+            "points": 1429.2,
+            "series": 38,
+            "anchored": true
+          },
+          {
+            "name": "NEXORA",
+            "points": 715.0,
+            "series": 18,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "NEXORA: no published Valve rating, and bo3.gg lists no finished series saved for this fixture"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.54592192,
+          0.45407808
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "K27",
+            "points": 32.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "NEXORA",
+            "points": 0.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082770",
+      "fixture": "UPGRADE vs Virtus.pro",
+      "starts_at": "2026-10-22T20:30:00Z",
+      "featured_probabilities": [
+        0.39368826,
+        0.60631174
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.2482217172069854,
+          0.7517782827930146
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "UPGRADE",
+            "points": 1133.3,
+            "series": 15,
+            "anchored": true
+          },
+          {
+            "name": "Virtus.pro",
+            "points": 1325.8,
+            "series": 20,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.48992755,
+          0.51007245
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "UPGRADE",
+            "points": 12.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Virtus.pro",
+            "points": 19.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081871",
+      "fixture": "Lynn Vision vs Chinggis Warriors",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "featured_probabilities": [
+        0.64419091,
+        0.35580909
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.7217723715906914,
+          0.2782276284093086
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Lynn Vision",
+            "points": 1197.2,
+            "series": 24,
+            "anchored": true
+          },
+          {
+            "name": "Chinggis Warriors",
+            "points": 1031.6,
+            "series": 24,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": true,
+        "probabilities": [
+          0.7342982058295149,
+          0.2657017941704851
+        ],
+        "source_url": "https://bo3.gg/matches/lynn-vision-vs-chinggis-warriors-23-10-2026",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Lynn Vision",
+            "points": 1190,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Chinggis Warriors",
+            "points": 975,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.53734732,
+          0.46265268
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Lynn Vision",
+            "points": 41.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Chinggis Warriors",
+            "points": 15.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1079654",
+      "fixture": "ex-Zero Tenacity vs ex-RUSTEC",
+      "starts_at": "2026-10-23T08:00:00Z",
+      "featured_probabilities": [
+        0.4939560085380321,
+        0.5060439914619679
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.4939560085380321,
+          0.5060439914619679
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "ex-Zero Tenacity",
+            "points": 1107.1,
+            "series": 54,
+            "anchored": true
+          },
+          {
+            "name": "ex-RUSTEC",
+            "points": 1111.3,
+            "series": 75,
+            "anchored": false
           }
         ],
         "graph_matches": 4646,
@@ -524,14 +1455,14 @@
         "low_confidence": false,
         "inputs": [
           {
-            "name": "EAC",
-            "points": 7.0,
+            "name": "ex-Zero Tenacity",
+            "points": 13.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "ENCE",
-            "points": 7.0,
+            "name": "ex-RUSTEC",
+            "points": 13.0,
             "series": null,
             "anchored": null
           }
@@ -541,14 +1472,14 @@
       }
     },
     {
-      "id": "1080285",
-      "fixture": "Voca vs Phantom",
-      "starts_at": "2026-10-16T08:00:00Z",
+      "id": "1079655",
+      "fixture": "Nuclear TigeRES vs ILLYRIANS",
+      "starts_at": "2026-10-23T11:00:00Z",
       "featured_probabilities": [
-        0.445,
-        0.555
+        0.93003347,
+        0.06996653
       ],
-      "originated_pick_index": 1,
+      "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
         "available": false,
@@ -557,6 +1488,71 @@
       "form": {
         "available": false,
         "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.53018468,
+          0.46981532
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Nuclear TigeRES",
+            "points": 27.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Illyrians",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1081148",
+      "fixture": "Inner Circle Academy vs Spirit Academy",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "featured_probabilities": [
+        0.6141524,
+        0.3858476
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.5073389628767127,
+          0.49266103712328735
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Inner Circle Academy",
+            "points": 1018.7,
+            "series": 66,
+            "anchored": true
+          },
+          {
+            "name": "Spirit Academy",
+            "points": 1013.6,
+            "series": 38,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
       },
       "hltv_ranking": {
         "available": true,
@@ -568,14 +1564,14 @@
         "low_confidence": false,
         "inputs": [
           {
-            "name": "Voca",
-            "points": 15.0,
+            "name": "Inner Circle Academy",
+            "points": 10.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "Phantom",
-            "points": 13.0,
+            "name": "Spirit Academy",
+            "points": 8.0,
             "series": null,
             "anchored": null
           }
@@ -585,12 +1581,12 @@
       }
     },
     {
-      "id": "1080286",
-      "fixture": "HAVU vs RoundsGG",
-      "starts_at": "2026-10-16T10:00:00Z",
+      "id": "1081149",
+      "fixture": "FORZE Reload vs LFO 10",
+      "starts_at": "2026-10-23T14:00:00Z",
       "featured_probabilities": [
-        0.89829326,
-        0.10170674
+        0.51007245,
+        0.48992755
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
@@ -600,7 +1596,7 @@
       },
       "form": {
         "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+        "reason": "LFO 10: no published Valve rating, and bo3.gg lists no finished series saved for this fixture"
       },
       "hltv_ranking": {
         "available": true,
@@ -612,14 +1608,14 @@
         "low_confidence": false,
         "inputs": [
           {
-            "name": "HAVU",
-            "points": 8.0,
+            "name": "FORZE Reload",
+            "points": 11.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "ROUNDS",
-            "points": 1.0,
+            "name": "LFO 10",
+            "points": 4.0,
             "series": null,
             "anchored": null
           }
@@ -629,40 +1625,82 @@
       }
     },
     {
-      "id": "1080287",
-      "fixture": "Voca vs HAVU",
-      "starts_at": "2026-10-16T12:00:00Z",
+      "id": "1079657",
+      "fixture": "BakS vs BRUTE",
+      "starts_at": "2026-10-23T17:00:00Z",
       "featured_probabilities": [
-        0.655,
-        0.345
+        0.40054361,
+        0.59945639
       ],
-      "originated_pick_index": 0,
+      "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
+        "available": true,
+        "probabilities": [
+          0.382638977070183,
+          0.617361022929817
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "BakS",
+            "points": 1026.6,
+            "series": 30,
+            "anchored": true
+          },
+          {
+            "name": "BRUTE",
+            "points": 1109.7,
+            "series": 36,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+        "available": true,
+        "probabilities": [
+          0.4211313430827695,
+          0.5788686569172306
+        ],
+        "source_url": "https://bo3.gg/matches/brute-vs-baks-esports-23-10-2026",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "BakS",
+            "points": 1044,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "BRUTE",
+            "points": 1110,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
       },
       "hltv_ranking": {
         "available": true,
         "probabilities": [
-          0.51007245,
-          0.48992755
+          0.50143911,
+          0.49856089
         ],
         "source_url": "https://www.hltv.org/ranking/teams",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "Voca",
-            "points": 15.0,
+            "name": "BAKS",
+            "points": 9.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "HAVU",
+            "name": "BRUTE",
             "points": 8.0,
             "series": null,
             "anchored": null
@@ -673,78 +1711,34 @@
       }
     },
     {
-      "id": "1080288",
-      "fixture": "Phantom vs RoundsGG",
-      "starts_at": "2026-10-16T14:00:00Z",
+      "id": "1081150",
+      "fixture": "ex-RUSTEC vs Saint Sinners",
+      "starts_at": "2026-10-23T17:00:00Z",
       "featured_probabilities": [
-        0.92,
-        0.08
-      ],
-      "originated_pick_index": 0,
-      "exact_tie": false,
-      "network": {
-        "available": false,
-        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
-      },
-      "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.51726252,
-          0.48273748
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "Phantom",
-            "points": 13.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "ROUNDS",
-            "points": 1.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1081120",
-      "fixture": "mellren vs Privateer",
-      "starts_at": "2026-10-16T14:00:00Z",
-      "featured_probabilities": [
-        0.85989312,
-        0.14010688
+        0.80746193,
+        0.19253807
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
         "available": true,
         "probabilities": [
-          0.8531063060491563,
-          0.14689369395084373
+          0.8233597627408137,
+          0.17664023725918632
         ],
         "source_url": "https://bo3.gg/matches",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "mellren",
-            "points": 938.8,
-            "series": 66,
-            "anchored": true
+            "name": "ex-RUSTEC",
+            "points": 1111.3,
+            "series": 75,
+            "anchored": false
           },
           {
-            "name": "Privateer",
-            "points": 633.2,
-            "series": 38,
+            "name": "Saint Sinners",
+            "points": 843.9,
+            "series": 30,
             "anchored": true
           }
         ],
@@ -765,14 +1759,14 @@
         "low_confidence": false,
         "inputs": [
           {
-            "name": "mellren",
-            "points": 9.0,
+            "name": "ex-RUSTEC",
+            "points": 13.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "Privateer",
-            "points": 2.0,
+            "name": "Saint Sinners",
+            "points": 6.0,
             "series": null,
             "anchored": null
           }
@@ -782,12 +1776,316 @@
       }
     },
     {
-      "id": "1080289",
-      "fixture": "RoundsGG vs Voca",
-      "starts_at": "2026-10-16T16:00:00Z",
+      "id": "1082858",
+      "fixture": "Ground Zero vs Off Chops",
+      "starts_at": "2026-10-26T03:00:00Z",
       "featured_probabilities": [
-        0.02791158,
-        0.97208842
+        0.44524623649171446,
+        0.5547537635082855
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.44524623649171446,
+          0.5547537635082855
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Ground Zero",
+            "points": 866.6,
+            "series": 31,
+            "anchored": true
+          },
+          {
+            "name": "Off Chops",
+            "points": 904.8,
+            "series": 6,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Off Chops: no published Valve rating; only 5 anchored series in the last 120 days (needs 8)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.5,
+          0.5
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Ground Zero",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Off Chops",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082859",
+      "fixture": "NEXVOID vs Alter Ego",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "featured_probabilities": [
+        0.72821824,
+        0.27178176
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.7375522774711202,
+          0.2624477225288798
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "NEXVOID",
+            "points": 1025.4,
+            "series": 32,
+            "anchored": true
+          },
+          {
+            "name": "Alter Ego",
+            "points": 845.9,
+            "series": 15,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.50719508,
+          0.49280492
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "NEXVOID",
+            "points": 11.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Alter Ego",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082860",
+      "fixture": "FlyQuest vs Staqued",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "featured_probabilities": [
+        0.52300959,
+        0.47699041
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": false,
+        "reason": "Own network model: Staqued has only 2 finished series in the window (needs 6)"
+      },
+      "form": {
+        "available": false,
+        "reason": "Staqued: no published Valve rating; only 1 anchored series in the last 120 days (needs 8)"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.52300959,
+          0.47699041
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "FlyQuest",
+            "points": 16.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Staqued",
+            "points": 0.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082861",
+      "fixture": "Rooster vs Abyssal",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "featured_probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "originated_pick_index": 1,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.45250886480804525,
+          0.5474911351919547
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Rooster",
+            "points": 722.0,
+            "series": 22,
+            "anchored": true
+          },
+          {
+            "name": "Abyssal",
+            "points": 755.1,
+            "series": 21,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "Both teams already have published Valve rows; results model not needed"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.49568276,
+          0.50431724
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Rooster",
+            "points": 3.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "Abyssal",
+            "points": 6.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "featured_probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "originated_pick_index": 0,
+      "exact_tie": false,
+      "network": {
+        "available": true,
+        "probabilities": [
+          0.9807987325888552,
+          0.019201267411144807
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "HOTU",
+            "points": 1444.3,
+            "series": 40,
+            "anchored": true
+          },
+          {
+            "name": "The Huns",
+            "points": 761.0,
+            "series": 28,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
+      },
+      "form": {
+        "available": false,
+        "reason": "The Huns: no published Valve rating, and bo3.gg lists no finished series saved for this fixture"
+      },
+      "hltv_ranking": {
+        "available": true,
+        "probabilities": [
+          0.55446937,
+          0.44553063
+        ],
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "HOTU",
+            "points": 43.0,
+            "series": null,
+            "anchored": null
+          },
+          {
+            "name": "The Huns",
+            "points": 5.0,
+            "series": null,
+            "anchored": null
+          }
+        ],
+        "graph_matches": null,
+        "graph_anchors": null
+      }
+    },
+    {
+      "id": "1082793",
+      "fixture": "5star vs 1WIN",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "featured_probabilities": [
+        0.17816902,
+        0.82183098
       ],
       "originated_pick_index": 1,
       "exact_tie": false,
@@ -802,65 +2100,21 @@
       "hltv_ranking": {
         "available": true,
         "probabilities": [
-          0.47986328,
-          0.52013672
+          0.34939537,
+          0.65060463
         ],
         "source_url": "https://www.hltv.org/ranking/teams",
         "low_confidence": false,
         "inputs": [
           {
-            "name": "ROUNDS",
-            "points": 1.0,
+            "name": "5star",
+            "points": 50.0,
             "series": null,
             "anchored": null
           },
           {
-            "name": "Voca",
-            "points": 15.0,
-            "series": null,
-            "anchored": null
-          }
-        ],
-        "graph_matches": null,
-        "graph_anchors": null
-      }
-    },
-    {
-      "id": "1080290",
-      "fixture": "Phantom vs HAVU",
-      "starts_at": "2026-10-16T18:00:00Z",
-      "featured_probabilities": [
-        0.705,
-        0.295
-      ],
-      "originated_pick_index": 0,
-      "exact_tie": false,
-      "network": {
-        "available": false,
-        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
-      },
-      "form": {
-        "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
-      },
-      "hltv_ranking": {
-        "available": true,
-        "probabilities": [
-          0.50719508,
-          0.49280492
-        ],
-        "source_url": "https://www.hltv.org/ranking/teams",
-        "low_confidence": false,
-        "inputs": [
-          {
-            "name": "Phantom",
-            "points": 13.0,
-            "series": null,
-            "anchored": null
-          },
-          {
-            "name": "HAVU",
-            "points": 8.0,
+            "name": "1win",
+            "points": 158.0,
             "series": null,
             "anchored": null
           }
