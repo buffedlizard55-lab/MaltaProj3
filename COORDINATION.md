@@ -1,3 +1,28 @@
+# Current session: arena-3cf793ef — independent live verification, HLTV/esportsbook line research for the pick-less gap, and final integration verification
+
+Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/3cf793ef-maltaproj3`, from `main` at
+`285a0d9a0bd0f6dd64cddab8e890007ced9baef3` (merge of PR #162). The board and every open remote branch
+were read first. Two sessions were **live at claim time** (both claimed 07:29Z, one minute before this
+one): `arena/ee27e097` (EE-1..EE-4) and `arena/a56f3474` (A56-1..A56-4), and both hold
+`scripts/build.py`, `scripts/originate.py` and `assets/scout.css`. This session therefore deliberately
+claims **none** of those files and does not start any task either of them has claimed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3C-1 Independently read the **live** Hotspawn CS2 inventory and every active pick row from the public site and the lobby, then verify the published snapshot line by line (inventory count, both probabilities, pick side, source link per row, timestamp freshness) | in progress | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-2 Research, with dated saved evidence, a **real two-sided price or a documented HLTV/ratings basis** for every fixture the featured ladder leaves model-only or blank: HLTV first (ranking, match page, H2H), then esportsbooks/aggregators. Record the exact blocker per fixture where nothing can be sourced; never invent a price | in progress | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
+| 3C-3 Flag every irregularity found during the repo and site review (stale checked-in snapshot, unverified values, label drift, missing source links) on the Flagged for Review page through the existing register machinery — **requested** from the owner of `scripts/build.py` rather than edited here while a live claim exists | in progress | arena-3cf793ef | request logged in this section |
+| 3C-4 After the two live sessions publish, verify the combined `main` state line by line, confirm the build/link/mobile checks, open the PR from this fixed branch, merge on green and confirm the Pages deployment; record the PR link and merge result here | unclaimed | arena-3cf793ef | `COORDINATION.md`, `README.md` only if a published claim is wrong, `data/research/3cf793ef/**` |
+
+**Non-overlap pledge.** While the `ee27e097` and `a56f3474` claims are live this session edits **no**
+`scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/hltv_ranking.py`,
+`scripts/network_model.py`, `scripts/reference_odds.py`, `scripts/sources.py`, `assets/*.css`,
+`assets/*.js`, `data/latest.json`, `data/origination.json`, `data/origination/**`,
+`data/origination/aliases.json`, `.github/workflows/pages.yml`, any `data/research/<other id>/`, or
+`archive/`. Any needed change in those files is written here as a request. Read-only probe scripts are
+namespaced `scripts/3cf793ef_*.py`; tests are namespaced `tests/test_3cf793ef_*.py`. No hand-authored
+probability, pick or match record is ever written into a canonical feed.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
