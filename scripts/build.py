@@ -527,7 +527,7 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
          'Historical Thunderpick final-day review and result record.'),
-        (prefix + 'unresolved/', f'Unresolved &amp; limits ({unresolved})', 'alert',
+        (prefix + 'unresolved/', f'Unresolved &amp; limits ({unresolved})', 'flag',
          'No pick or no line — blocker and sources.'),
         (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
          'This page lists every pick without a line, its blocker and the sources actually tried.'),
@@ -1301,8 +1301,14 @@ def summary(data, prefix, now=None):
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
     out += exec_banner(data, prefix)
-    out += start_here(data, prefix)
+    # Session ee27e097: the picks themselves come before the site map. On a
+    # 390 px phone the start-here bar alone is ~620 px, which pushed "Picks at a
+    # glance" past the first screen even though the brief asks for the pick and
+    # both probabilities to be readable without scrolling. The banner still
+    # carries the one-tap "Updated picks" button; the jump bar now follows the
+    # picks it points at.
     out += glance(data, prefix, now=now)
+    out += start_here(data, prefix)
     out += unresolved_register(data, prefix, page_href=prefix + 'unresolved/')
     if complete:
         if not data['coverage_complete']:
@@ -1685,7 +1691,7 @@ def shell(data, key, body, prefix, now=None):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('edge', 'Edge'), ('coverage', 'Sources'), ('review', 'Review')])
     # Phone-first status strip: two one-tap destinations, present on every page.
     # Session 541cd43a — the brief asks to be able to reach an updated picks list
     # from a phone without hunting. Counts are the same canonical counts the

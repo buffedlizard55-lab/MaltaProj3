@@ -1,0 +1,120 @@
+[
+  {
+    "id": "df80ab9f-kingui-missing-alias-inverted-pick",
+    "severity": "warning",
+    "match_ids": [
+      "1082919"
+    ],
+    "title": "Missing Tropa do KinGui alias on fixture 1082919 (Projeto do KinGui vs Martians) inverted the 07:32Z HLTV unranked-floor pick to Martians (50.1%)",
+    "detail": "Hotspawn fixture 1082919 (CCT South America 2026 Series #7, 2026-10-22T13:00:00Z) lists Tropa do KinGui under its earlier stack name Projeto do KinGui. Official HLTV match 2399904 (drg, ALLE, ckzao, xureba, lash — 4/5 core of Valve #144 ex-Keyd Stars, 854 pts) ranks Tropa do KinGui at VRS #149 versus Martians at VRS #335 (HLTV #240, 1.0 pt), and Polymarket event 1232953 (market 6033256) quotes Tropa do KinGui at bestBid 0.54 / bestAsk 0.96 (75.0% / 25.0% wide-book midpoint, spread 0.42). Because Tropa do KinGui -> Projeto do KinGui is missing from data/origination/aliases.json, live audit 39741108044 fell to HLTV world ranking unranked floor (0.0 vs 1.0 pt) and favored Martians (50.1%). Executable probability is left null here and flagged; the competition-scoped alias request is logged in COORDINATION.md.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+      "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+      "https://polymarket.com/event/cs2-tdkg-mar1-2026-10-22",
+      "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+    ]
+  },
+  {
+    "id": "df80ab9f-cct-sa7-polymarket-alias-gaps",
+    "severity": "warning",
+    "match_ids": [
+      "1082920",
+      "1082921",
+      "1082922"
+    ],
+    "title": "Four missing CCT South America Series #7 team aliases bypassed live Polymarket money lines on 1082920, 1082921 and 1082922 (inverting Low Cortisol BR vs Grêmio)",
+    "detail": "Direct Polymarket Gamma API verification at 2026-10-22T07:44Z confirmed three priced CCT South America Series #7 series-winner books that name_key() does not join without explicit aliases in data/origination/aliases.json: (1) market 6033268 MEIA NOITE vs Procyon Gaming (44.5% / 55.5%, $85.92 vol, $851.40 liquidity) for fixture 1082920; (2) market 6033280 Yawara Esports vs your end (84.5% / 15.5%, $78.88 vol, $857.46 liquidity) for fixture 1082921; and (3) market 6033284 Low Cortisol vs Grêmio Esports (28.5% / 71.5%, 0.01 spread, $1,416.42 liquidity) for fixture 1082922. On 1082922, falling back to 2026-10-05 Valve standings (774 vs 654 pts -> 66.6% Low Cortisol BR) picks the opposite side of Polymarket’s 1-cent-spread order book (71.5% Grêmio). All four competition-scoped aliases are documented in COORDINATION.md.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22",
+      "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22",
+      "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+      "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "df80ab9f-isurus-hacha-hltv-integer-tie-1082926",
+    "severity": "warning",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "Isurus vs Hacha (1082926) is the sole active match (45/46) without a directional pick: HLTV integer points tie at 2.0 vs 2.0 despite #215 vs #229 HLTV and #200 vs #378 VRS",
+    "detail": "In live CI audit 39741108044 (check-run 119698261806, 2026-10-22T07:32Z), fixture 1082926 (Isurus vs Hacha, CCT South America 2026 Series #7, 2026-10-23T22:00:00Z) had an unquoted Polymarket stub (market 6036925, bestBid 0.04 / bestAsk 0.96, spread 0.92, $0 volume) and no Kalshi line. Official HLTV match 2399911 confirms Isurus (#215 HLTV, #200 VRS; 5/5 match to Valve #173 Isurus, 783 pts) against Hacha (#229 HLTV, #378 VRS, fielding KvNs as substitute), who sit below Valve’s top-300 GitHub export cutoff. Because HLTV weekly rankings round both #215 and #229 to 2 integer points, the 400-scale transform outputs [0.5, 0.5] and leaves the directional pick blank rather than inventing an uncalibrated tie-breaker.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+      "https://gamma-api.polymarket.com/events?slug=cs2-isg-hachae-2026-10-23",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+    ]
+  },
+  {
+    "id": "df80ab9f-low-confidence-oceania-sa-fallbacks",
+    "severity": "notice",
+    "match_ids": [
+      "1082858",
+      "1082860",
+      "1082925"
+    ],
+    "title": "Three low-tier fallback estimates (1082858 Ground Zero vs Off Chops, 1082860 FlyQuest vs Staqued, 1082925 BESTIA Academy vs RED Canids Academy) carry wide uncertainty or an unranked floor",
+    "detail": "Live CI audit 39741108044 flagged low_confidence=true on three future matches lacking executable betting lines: (1) 1082858 Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00Z), priced by the bo3.gg Bradley-Terry network on 6 Off Chops series at 44.4% / 55.6% with a 1-sigma interval of [11.6%, 82.9%] crossing 50%; (2) 1082860 FlyQuest vs Staqued (2026-10-27T03:00Z), priced by HLTV world ranking (#61 16.0 pts vs 0.0 unranked floor -> 52.3% / 47.7%); and (3) 1082925 BESTIA Academy vs RED Canids Academy (2026-10-23T19:00Z), priced by the bo3.gg network at 21.2% / 78.8% (1-sigma [5.7%, 54.5%]) while Polymarket cs2-bsta-reda-2026-10-23 remains unquoted (0.05/0.95).",
+    "source_urls": [
+      "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "https://bo3.gg/teams/584",
+      "https://bo3.gg/teams/18461",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+    ]
+  },
+  {
+    "id": "df80ab9f-build-provenance-label-mismatch",
+    "severity": "warning",
+    "match_ids": [
+      "1082882",
+      "1081148"
+    ],
+    "title": "scripts/build.py renders [Bookmaker] / purple Researched badges on Polymarket-led consensus rows (1082882) and Bookmaker API on bo3.gg-relayed rows (1081148)",
+    "detail": "Line-by-line audit of scripts/build.py against the deployed 2026-10-22T05:37Z Pages HTML identified three UI provenance mismatches: (1) matches_table (line 251) and glance (line 567) lack explicit consensus and relay branches, labeling 1082882 UNiTY vs Apogee Betclic as [Bookmaker] while linking https://polymarket.com/event/cs2-unity-bca-2026-10-22; (2) basis_badge (lines 246, 281) styles researched money-line fallbacks in purple (model) despite Note 02 on / stating purple denotes an uncalibrated rating model; and (3) researched_method (line 308) describes bo3.gg-relayed quotes (1081148) as an esportsbook line rather than a second-hand bo3.gg relay.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026"
+    ]
+  },
+  {
+    "id": "df80ab9f-daily-hltv-vrs-gap-beyond-top300",
+    "severity": "notice",
+    "match_ids": [
+      "1082919",
+      "1082926",
+      "1081149"
+    ],
+    "title": "Valve GitHub standings export ends at global #300 on 2026-10-05 while HLTV daily VRS ranks #301-#400 and October roster rebrands",
+    "detail": "Inspection of ValveSoftware/counter-strike_regional_standings/live/2026 confirmed 2026_10_05 is the newest official GitHub snapshot and stops at global rank #300. Official HLTV match pages on 2026-10-22 expose daily VRS standings (/valve-ranking/teams/2026/october/22) covering Martians (VRS #335), Hacha (VRS #378), Tropa do KinGui (VRS #149), and LFO 10 (VRS #157), explaining why those matches fall past the Valve GitHub rung when money books are wide or unquoted.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/valve-ranking/teams/2026/october/22",
+      "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7"
+    ]
+  },
+  {
+    "id": "df80ab9f-unarchived-featured-bookmaker-quotes",
+    "severity": "notice",
+    "match_ids": [
+      "1082923",
+      "1082901"
+    ],
+    "title": "Two newly added fixtures (1082923 Alka vs LOS NINOS, 1082901 Envy vs GamerLegion) resolved in 07:32Z CI featured pass before the next 4h Pages JSON publish",
+    "detail": "Hotspawn added fixtures 1082923 and 1082901 after the 05:36:38Z Pages publish. Live CI run 39741108044 (07:32:04Z) confirmed both resolved with directional picks in the featured pass (0 unresolved, only 1082926 tied), while Polymarket held wide $0-volume books (78c/51c on cs2-alka1-ln3-2026-10-23 and 86c/90c on cs2-envy-gl1-2026-10-27). In data/research/df80ab9f/live-inventory-audit.json their exact runner-observed bookmaker decimals are left null rather than inferred until the scheduled Pages publisher writes the full origination.json artifact.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+      "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "https://polymarket.com/event/cs2-alka1-ln3-2026-10-23",
+      "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+    ]
+  }
+]
