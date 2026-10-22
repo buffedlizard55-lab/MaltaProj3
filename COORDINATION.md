@@ -49,6 +49,33 @@ Claimed **2026-10-22** on Arena-fixed branch `arena/7e8bed83-maltaproj3` from `m
 
 ---
 
+---
+
+# Current session: arena-416d93ee — independent line-by-line verification of the live picks, phone check, final integration
+
+Claimed **2026-10-22T01:03Z** on Arena's fixed branch `arena/416d93ee-maltaproj3`, branched
+from `main` at `d599724` (merge of PR #145). The board was read first. Two sessions were
+already live at that moment and **both are respected here**: `arena-fbdc97d6` (claimed 01:12Z,
+holds `scripts/build.py` → `glance()`, `unresolved_register()`, `researched_method_summary()`,
+`assets/scout.css`, `tests/test_build.py`, `tests/test_summary_navigation.py`) and
+`arena-15fc6bca` (claimed 01:10Z, holds `scripts/originate.py`). This session takes neither
+file and edits neither script while those claims are live.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| VD-1 Independently verify, line by line and from first-party sources, that (a) every CS2 fixture Hotspawn lists is published, (b) every published pick's stated percentage is reproducible from the source its row cites, and (c) the executive summary's in-site pick links and phone layout work — then publish the findings register, rebase onto the merged `main`, open the pull request, merge it and verify the live deployment | in progress | arena-416d93ee | new `data/research/416d93ee/**`, one session-only verification workflow `.github/workflows/416d93ee-verify.yml` (deleted before merge; the captured evidence stays in `data/research/416d93ee/`), this section |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/collect.py`, `assets/scout.css`, `data/origination/aliases.json`,
+`data/origination/aliases.json`, `data/latest.json` / `data/sources.json` /
+`data/origination.json` (the checked-in replay fixtures),
+`archive/`, `docs/`, the other sessions' `data/research/<id>/`, or any pick value.
+Any defect that can only be fixed in a file another session holds is written here as a
+change request, not edited. This session also acts as the integration pass: it rebases
+onto whatever has merged to `main`, re-runs the whole verification on the combined tree,
+and does not merge a site whose build or checks fail.
+
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
