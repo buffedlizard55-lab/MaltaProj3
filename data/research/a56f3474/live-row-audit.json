@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "session": "arena-a56f3474",
-  "audited_at": "2026-10-22T08:12:25Z",
+  "audited_at": "2026-10-22T08:26:39Z",
   "source_directory": "data/research/a56f3474/live",
-  "source_generated_at": "2026-10-22T08:02:59Z",
-  "source_snapshot_at": "2026-10-22T08:02:22Z",
+  "source_generated_at": "2026-10-22T08:24:05Z",
+  "source_snapshot_at": "2026-10-22T08:23:30Z",
   "source_sha256": {
-    "latest.json": "5e44bc594ad4815033c5a13350acc4bef08f9ba071969c67c4014a788d15af48",
-    "origination.json": "235bc1498ed9cd22f5730c4cccd3cef45c54eefd471719b6f0ad3c7eb9ae8bb2",
-    "sources.json": "9daca2d07b9a756122b5f68c927eb92f9b406ff98b9ba3d6bdbbfa9307c297ce",
-    "pick-index.json": "7ed3a0a9b0ce166bcce4c8be0beca285ed29aa6d3f433f558ccf14025fd86d88"
+    "latest.json": "039d59b9bf502fabd1b11076759e1cc82a3d4e75ecbe91d67b021c23dc2568f7",
+    "origination.json": "099c97ed1a9bb36b5970b97e90f8d662c96bc136a82489c79011902cdcf343e8",
+    "sources.json": "b2cdd9aba76aaf7955d5160ff85e4b2956202544850d2f07bdbe2999565734fa",
+    "pick-index.json": "8d1c8e5924becbdda8af5b1ce3dd498631bea8e1e85e3fa1aff82105937ca1dd"
   },
   "summary": {
     "rows": 43,
@@ -41,13 +41,13 @@
       "status": "match"
     },
     "market": {
-      "published": 15,
-      "recomputed": 15,
+      "published": 16,
+      "recomputed": 16,
       "status": "match"
     },
     "bookmaker": {
-      "published": 6,
-      "recomputed": 6,
+      "published": 5,
+      "recomputed": 5,
       "status": "match"
     },
     "consensus": {
@@ -162,8 +162,8 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
       "probabilities": [
-        0.595,
-        0.405
+        0.565,
+        0.435
       ],
       "pick_index": 0,
       "status": "directional",
@@ -204,8 +204,8 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
       "probabilities": [
-        0.635,
-        0.365
+        0.645,
+        0.355
       ],
       "pick_index": 0,
       "status": "directional",
@@ -284,12 +284,12 @@
       ],
       "competition": "CCT Europe 2026 Series #11",
       "starts_at": "2026-10-22T14:00:00Z",
-      "method": "consensus",
-      "source": "Polymarket + Thunderpick",
+      "method": "market",
+      "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
       "probabilities": [
-        0.53668231,
-        0.46331769
+        0.505,
+        0.495
       ],
       "pick_index": 0,
       "status": "directional",
@@ -473,12 +473,12 @@
       ],
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-22T17:00:00Z",
-      "method": "market",
-      "source": "Polymarket",
+      "method": "consensus",
+      "source": "Polymarket + Thunderpick",
       "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
       "probabilities": [
-        0.52,
-        0.48
+        0.5188172,
+        0.4811828
       ],
       "pick_index": 0,
       "status": "directional",
@@ -498,8 +498,8 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
       "probabilities": [
-        0.905,
-        0.095
+        0.895,
+        0.105
       ],
       "pick_index": 0,
       "status": "directional",
@@ -771,8 +771,8 @@
       "source": "Own network model (bo3.gg results graph)",
       "source_url": "https://bo3.gg/matches",
       "probabilities": [
-        0.2104426189073444,
-        0.7895573810926556
+        0.2086310737927185,
+        0.7913689262072815
       ],
       "pick_index": 1,
       "status": "directional",
@@ -813,8 +813,8 @@
       "source": "Own network model (bo3.gg results graph)",
       "source_url": "https://bo3.gg/matches",
       "probabilities": [
-        0.44553062597832394,
-        0.5544693740216761
+        0.44481971954143495,
+        0.555180280458565
       ],
       "pick_index": 1,
       "status": "directional",
@@ -893,12 +893,12 @@
       ],
       "competition": "Tesla Cup 2026",
       "starts_at": "2026-10-27T08:00:00Z",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/api/matches",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
       "probabilities": [
-        0.52702703,
-        0.47297297
+        0.545,
+        0.455
       ],
       "pick_index": 0,
       "status": "directional",
@@ -914,12 +914,12 @@
       ],
       "competition": "Tesla Cup 2026",
       "starts_at": "2026-10-27T11:00:00Z",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "method": "bookmaker",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
       "probabilities": [
-        0.345,
-        0.655
+        0.3718593,
+        0.6281407
       ],
       "pick_index": 1,
       "status": "directional",
@@ -939,8 +939,8 @@
       "source": "Polymarket",
       "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
       "probabilities": [
-        0.515,
-        0.485
+        0.54,
+        0.46
       ],
       "pick_index": 0,
       "status": "directional",
@@ -956,12 +956,12 @@
       ],
       "competition": "Tesla Cup 2026",
       "starts_at": "2026-10-27T20:00:00Z",
-      "method": "bookmaker",
-      "source": "Thunderpick (relayed by bo3.gg)",
-      "source_url": "https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
       "probabilities": [
-        0.46236559,
-        0.53763441
+        0.455,
+        0.545
       ],
       "pick_index": 1,
       "status": "directional",

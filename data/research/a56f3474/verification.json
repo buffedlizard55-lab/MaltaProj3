@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "session": "416d93ee",
-  "observed_at": "2026-10-22T08:05:14Z",
+  "observed_at": "2026-10-22T08:26:35Z",
   "purpose": "Independent verification of the published picks; read-only, no pick is written.",
   "published_source": "data",
   "published": {
-    "generated_at": "2026-10-22T08:02:47Z",
-    "inventory_observed_at": "2026-10-22T08:02:22Z",
+    "generated_at": "2026-10-22T08:23:53Z",
+    "inventory_observed_at": "2026-10-22T08:23:30Z",
     "coverage_complete": true,
     "counts": {
-      "inventory": 107,
+      "inventory": 104,
       "upcoming": 43,
-      "archived": 64,
+      "archived": 61,
       "unknown_schedule": 0,
-      "market": 15,
+      "market": 17,
       "bookmaker": 3,
-      "model": 14,
-      "unresolved": 11,
-      "picks": 31,
+      "model": 13,
+      "unresolved": 10,
+      "picks": 32,
       "no_edge": 1
     },
     "origination_counts": {
@@ -26,16 +26,16 @@
       "unresolved": 0,
       "with_pick": 42,
       "consensus": 3,
-      "market": 15,
-      "bookmaker": 6,
+      "market": 16,
+      "bookmaker": 5,
       "reference": 0,
       "model": 19,
       "network": 2,
-      "relay": 1,
+      "relay": 0,
       "guidance": 0,
       "alias_joined": 5
     },
-    "origination_source_snapshot_at": "2026-10-22T08:02:22Z"
+    "origination_source_snapshot_at": "2026-10-22T08:23:30Z"
   },
   "pick_coverage": {
     "records": 43,
@@ -139,12 +139,12 @@
             "source": "Valve",
             "name": "Banda Chuya",
             "row_points": 801,
-            "valve_points": null,
+            "valve_points": 801.0,
             "candidates": [
               801.0,
               402.0
             ],
-            "status": "ambiguous-name"
+            "status": "match"
           }
         ]
       },
@@ -192,12 +192,12 @@
             "source": "Valve",
             "name": "Chinggis Warriors",
             "row_points": 1084,
-            "valve_points": null,
+            "valve_points": 1084.0,
             "candidates": [
               1084.0,
               685.0
             ],
-            "status": "ambiguous-name"
+            "status": "match"
           }
         ]
       },
@@ -209,22 +209,24 @@
             "source": "Valve",
             "name": "ex-Zero Tenacity",
             "row_points": 1065.6,
-            "valve_points": 1066.0,
+            "valve_points": 1065.6,
             "candidates": [
               1066.0
             ],
-            "status": "mismatch"
+            "status": "match",
+            "detail_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
           },
           {
             "source": "Valve",
             "name": "ex-RUSTEC",
             "row_points": 1066.4,
-            "valve_points": null,
+            "valve_points": 1066.4,
             "candidates": [
               1066.0,
               824.0
             ],
-            "status": "ambiguous-name"
+            "status": "match",
+            "detail_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md"
           }
         ]
       },
@@ -318,12 +320,12 @@
             "source": "Valve",
             "name": "BRUTE",
             "row_points": 1116,
-            "valve_points": null,
+            "valve_points": 1116.0,
             "candidates": [
               1116.0,
               689.0
             ],
-            "status": "ambiguous-name"
+            "status": "match"
           }
         ]
       },
@@ -335,12 +337,12 @@
             "source": "Valve",
             "name": "ex-RUSTEC",
             "row_points": 1066,
-            "valve_points": null,
+            "valve_points": 1066.0,
             "candidates": [
               1066.0,
               824.0
             ],
-            "status": "ambiguous-name"
+            "status": "match"
           },
           {
             "source": "Valve",
@@ -492,12 +494,12 @@
             "source": "Valve",
             "name": "The Huns",
             "row_points": 944,
-            "valve_points": null,
+            "valve_points": 944.0,
             "candidates": [
               944.0,
               701.0
             ],
-            "status": "ambiguous-name"
+            "status": "match"
           }
         ]
       },
@@ -531,12 +533,12 @@
   },
   "hotspawn": {
     "api_http": 200,
-    "api_sha256": "82af5cd3f23303c7fa6186c8cf340842c78457e0fc77144eaf8e3e12fcc2e913",
+    "api_sha256": "ec642caa3bf626aec546926b451b36ea0922c10dccee05056e76e641405d0063",
     "lobby_http": 200,
     "cs2_lobby_http": 200,
     "lobby": {
       "matches_this_week": 180,
-      "all_tiers_count": 107,
+      "all_tiers_count": 104,
       "fixture_links_in_html": 40,
       "fixture_ids_in_html": [
         "1079189",
@@ -583,7 +585,7 @@
     },
     "cs2_lobby": {
       "matches_this_week": 180,
-      "all_tiers_count": 107,
+      "all_tiers_count": 104,
       "fixture_links_in_html": 40,
       "fixture_ids_in_html": [
         "1079189",
@@ -629,18 +631,18 @@
       ]
     },
     "coverage_counts": {
-      "lobby_cs2_all_tiers": 107,
+      "lobby_cs2_all_tiers": 104,
       "lobby_this_week": 180,
-      "api_records": 107,
-      "published_inventory": 107,
+      "api_records": 104,
+      "published_inventory": 104,
       "published_upcoming": 43,
       "lobby_equals_api": true,
       "lobby_equals_published_inventory": true
     },
     "inventory_compare": {
-      "api_records": 107,
+      "api_records": 104,
       "api_future": 43,
-      "api_past_start_but_scheduled": 64,
+      "api_past_start_but_scheduled": 61,
       "published_open": 43,
       "missing_from_site": [],
       "published_but_not_in_api": [],
@@ -1339,11 +1341,24 @@
       "all_competitions_match": true
     },
     "status_matrix": {
-      "scheduled": 107
+      "scheduled": 104
     }
   },
+  "phone": {
+    "viewport_meta": true,
+    "nav_landmarks": 5,
+    "skip_link": true,
+    "internal_links": 204,
+    "pick_index_links": [
+      "./origination/#picks"
+    ],
+    "has_unresolved_section": true,
+    "mentions_every_match": true,
+    "picks_page_table_rows": 43,
+    "unresolved_page_present": false
+  },
   "unresolved_register": {
-    "published_on_summary": false,
+    "published_on_summary": true,
     "rows_checked": [
       {
         "id": "1082926",
@@ -1352,7 +1367,7 @@
           "Hacha"
         ],
         "has_probabilities": true,
-        "listed_in_register": false
+        "listed_in_register": true
       }
     ]
   },
@@ -1371,7 +1386,7 @@
     },
     {
       "check": "every_side_less_row_is_listed_in_the_unresolved_register",
-      "pass": false
+      "pass": true
     },
     {
       "check": "every_published_probability_replays_from_its_own_inputs",
@@ -1392,20 +1407,22 @@
     {
       "check": "published_fixture_teams_and_times_match_the_api",
       "pass": true
+    },
+    {
+      "check": "phone_summary_links_the_picks_list",
+      "pass": true
     }
   ],
-  "failures": [
-    "every_side_less_row_is_listed_in_the_unresolved_register"
-  ],
+  "failures": [],
   "requests": [
     {
       "label": "valve-standings-2026-10-05",
       "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-22T08:05:14Z",
+      "observed_at": "2026-10-22T08:26:35Z",
       "http_status": 200,
       "final_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
       "content_type": "text/plain; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "response_date": "Thu, 22 Oct 2026 08:26:35 GMT",
       "bytes": 77872,
       "sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
       "saved_as": "valve-standings-2026-10-05.html.txt",
@@ -1414,51 +1431,77 @@
     {
       "label": "hltv-ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-22T08:05:14Z",
+      "observed_at": "2026-10-22T08:26:35Z",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "response_date": "Thu, 22 Oct 2026 08:26:35 GMT",
       "bytes": 5601,
-      "sha256": "86672f3c79f9c437b507c0dbd4d79cd97c27e017cd05d753c744c79ef0f36079",
+      "sha256": "96a186807095fb1651fc4ef018512b4d7a810601d59ba8dac2ab1416f4884cd5",
       "ok": false
+    },
+    {
+      "label": "valve-detail-1079654-ex-Zero Tenacity",
+      "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "observed_at": "2026-10-22T08:26:35Z",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "content_type": "text/plain; charset=utf-8",
+      "response_date": "Thu, 22 Oct 2026 08:26:35 GMT",
+      "bytes": 21221,
+      "sha256": "45fc6adeaee04a3ea58bc94b08883c3aa948f9c73a0ea95dc3353625c810eb17",
+      "saved_as": "valve-detail-1079654-ex-Zero-Tenacity.html.txt",
+      "ok": true
+    },
+    {
+      "label": "valve-detail-1079654-ex-RUSTEC",
+      "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+      "observed_at": "2026-10-22T08:26:35Z",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+      "content_type": "text/plain; charset=utf-8",
+      "response_date": "Thu, 22 Oct 2026 08:26:36 GMT",
+      "bytes": 13914,
+      "sha256": "232600db93f055ca165392a750652d0c730d0b299e4bf39d3c2295e2baf8d8b2",
+      "saved_as": "valve-detail-1079654-ex-RUSTEC.html.txt",
+      "ok": true
     },
     {
       "label": "hotspawn-fixtures",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "observed_at": "2026-10-22T08:05:14Z",
+      "observed_at": "2026-10-22T08:26:36Z",
       "http_status": 200,
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:15 GMT",
-      "bytes": 85134,
-      "sha256": "82af5cd3f23303c7fa6186c8cf340842c78457e0fc77144eaf8e3e12fcc2e913",
+      "response_date": "Thu, 22 Oct 2026 08:26:36 GMT",
+      "bytes": 82764,
+      "sha256": "ec642caa3bf626aec546926b451b36ea0922c10dccee05056e76e641405d0063",
       "saved_as": "hotspawn-fixtures.json",
       "ok": true
     },
     {
       "label": "hotspawn-lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792656314",
-      "observed_at": "2026-10-22T08:05:15Z",
+      "url": "https://play.hotspawn.com/lobby?cb=1792657595",
+      "observed_at": "2026-10-22T08:26:36Z",
       "http_status": 200,
-      "final_url": "https://play.hotspawn.com/lobby?cb=1792656314",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792657595",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:16 GMT",
-      "bytes": 559515,
-      "sha256": "16676de3787f5218269d6f6ff9f0f512a50d681f4e90c56f5ff0ac35276da2e6",
+      "response_date": "Thu, 22 Oct 2026 08:26:37 GMT",
+      "bytes": 556916,
+      "sha256": "3acac2aab874e32a9cbd1cbc7f9ac5ec86ea197e9673b7a6f4828e9be68bf0e2",
       "saved_as": "hotspawn-lobby.html.txt",
       "ok": true
     },
     {
       "label": "hotspawn-cs2-lobby",
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792656314",
-      "observed_at": "2026-10-22T08:05:16Z",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792657595",
+      "observed_at": "2026-10-22T08:26:37Z",
       "http_status": 200,
-      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792656314",
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792657595",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:17 GMT",
-      "bytes": 558047,
-      "sha256": "a59d6217113595d7bf2ca1a31e36707ddcb8db2e14e416a7b40e0c608147a5df",
+      "response_date": "Thu, 22 Oct 2026 08:26:38 GMT",
+      "bytes": 555448,
+      "sha256": "5f22aadba76d5ddfdb8f5d8b0e14538549b33039a7bafd6ef973237f370c41a1",
       "saved_as": "hotspawn-cs2-lobby.html.txt",
       "ok": true
     }
@@ -1467,13 +1510,13 @@
     {
       "label": "hltv-ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-22T08:05:14Z",
+      "observed_at": "2026-10-22T08:26:35Z",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "response_date": "Thu, 22 Oct 2026 08:26:35 GMT",
       "bytes": 5601,
-      "sha256": "86672f3c79f9c437b507c0dbd4d79cd97c27e017cd05d753c744c79ef0f36079",
+      "sha256": "96a186807095fb1651fc4ef018512b4d7a810601d59ba8dac2ab1416f4884cd5",
       "ok": false
     }
   ]
