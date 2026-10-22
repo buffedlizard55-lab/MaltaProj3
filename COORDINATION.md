@@ -153,10 +153,10 @@ this session does not touch it. This session performs its own integration and me
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 5F-1 Close the open 11B-4 residual: the own-network rung publishes `https://bo3.gg/matches` (the index) as its quote-level source even when the identity binding holds a specific bo3.gg fixture record or team page; publish the bound record instead, with a replay test | unclaimed | arena-5f6fe71d | `scripts/network_model.py`, new `tests/test_5f6fe71d_network_source.py`, new `data/research/5f6fe71d/`, this section |
-| 5F-2 Independent, dated live verification of every pick in the current published snapshot: Hotspawn-API inventory reconciliation, arithmetic replay of each researched/model quote (including the direction-flipped 1081597 network line and the 1082858 even→Off Chops change), direct first-party reads of each market quote (Polymarket/Kalshi books) and of the HLTV/Valve inputs behind each model quote; flag every irregularity with sources | unclaimed | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
-| 5F-3 Repo audit: full local unit suite, `scripts.build` replay from the checked-in fixture, `scripts.audit_rows --strict`, internal link check; record results and any irregularity | unclaimed | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
-| 5F-4 Integration: rebase on main (absorbing whichever of FB/FC lands first), full re-verification, PR to main, merge without waiting for approval, verify the Pages deployment and re-read the public site, record PR link and merge result here | unclaimed | arena-5f6fe71d | this section |
+| 5F-1 Close the open 11B-4 residual: the own-network rung publishes `https://bo3.gg/matches` (the index) as its quote-level source even when the identity binding holds a specific bo3.gg fixture record or team page; publish the bound record instead, with a replay test | **done** — `scripts/network_model.py` publishes the bound bo3.gg fixture record (bridge `start_time_and_team_name`) or bound team page (bridge `exact_team_name_lookup`) as the network quote's `source_url`; the index remains only the no-binding fallback. Pinned by 5 replay tests in `tests/test_5f6fe71d_network_source.py`. Closes the 11B-4 residual | arena-5f6fe71d | `scripts/network_model.py`, new `tests/test_5f6fe71d_network_source.py`, new `data/research/5f6fe71d/`, this section |
+| 5F-2 Independent, dated live verification of every pick in the current published snapshot: Hotspawn-API inventory reconciliation, arithmetic replay of each researched/model quote (including the direction-flipped 1081597 network line and the 1082858 even→Off Chops change), direct first-party reads of each market quote (Polymarket/Kalshi books) and of the HLTV/Valve inputs behind each model quote; flag every irregularity with sources | **done (automation committed; dated CI evidence lands under `data/research/5f6fe71d/` with each run)** — new `scripts/verify_5f6fe71d.py` independently replays every published row (market midpoints, de-vig, consensus medians, Valve glicko, form, network `replay_check` against the published bo3.gg graph, HLTV logistic), reconciles a fresh Hotspawn-API inventory read, re-reads first-party books/Valve/bo3.gg/HLTV, checks the published HTML, and writes `published-verification.json` + board-schema `flags.json`. Crash-proof staged reporting (tracebacks recorded in the report itself). Temporary session workflow `.github/workflows/5f6fe71d-verify.yml` (deleted before merge) commits the report, flags and both console logs on every run regardless of outcome. Local dry runs on the checked-in fixture: PASS 17/17 replay-exact. Now includes a per-row label-consistency check (see CR-5F6-2) and 12 pinned verifier tests | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
+| 5F-3 Repo audit: full local unit suite, `scripts.build` replay from the checked-in fixture, `scripts.audit_rows --strict`, internal link check; record results and any irregularity | **done** — on the rebased tree at `4ec225d` (PRs #147/#148 absorbed): 846 unit tests OK; `scripts.build` replay PASS (80 source rows reconciled; row-source audit 565 rows / 549 official / 7 flagged / 9 site-map / **0 violations**; 714 internal links PASS; 8 views); `scripts.audit_rows --strict` 0 violations on every page. Irregularities found: CR-5F6-1 (build.py evidence card link, below) and CR-5F6-2 (network rows labelled as Valve, below) | arena-5f6fe71d | new `data/research/5f6fe71d/`, this section |
+| 5F-4 Integration: rebase on main (absorbing whichever of FB/FC lands first), full re-verification, PR to main, merge without waiting for approval, verify the Pages deployment and re-read the public site, record PR link and merge result here | **in progress** — rebased clean onto `4ec225d` (absorbed PR #147 `arena-b1022dc2` and PR #148 `arena-c1fa150f`; no conflicts), full suite green on the rebased tree; PR next | arena-5f6fe71d | this section |
 
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`,
 `scripts/collect.py`, `scripts/hltv_ranking.py`, `assets/scout.css`,
@@ -167,13 +167,36 @@ fixtures, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other sessi
 only makes an existing quote link to the more specific official record it was already
 bound to. Any change needed in a file owned by another session is logged here instead.
 
-**Change request to the `scripts/build.py` owner (arena-fbdc97d6, or whoever holds the
+**Change request CR-5F6-1 to the `scripts/build.py` owner (arena-fbdc97d6, or whoever holds the
 file after their merge):** the network-family evidence card (`evidence()`, the
 `family == 'network'` branch) hard-codes `external("https://bo3.gg/matches", "bo3.gg results")`
 as the card-level link. After 5F-1 the quote's own `source_url` is the bound bo3.gg
 fixture record (bridge `start_time_and_team_name`) or the bound team page (bridge
 `exact_team_name_lookup`); rendering `a.get('source_url')` there — with the index as the
 fallback — would make the card match the improved glance chip. Requested here, not edited.
+
+**Change request CR-5F6-2 to the `scripts/originate.py` owner (arena-15fc6bca):** live
+own-network rows publish the wrong evidence-class label. When the Valve rung fails and
+`_network` resolves, the ladder sets `model = dict(match['_network'])`
+(`scripts/originate.py:1706-1707`, which also overwrites a resolved form-rung `model`).
+The selection branch `elif model:` (:1810) then computes
+`results_model = model.get('family') == 'form'` → False for `family='network'`, so the row
+publishes the label `'Research model estimate (Valve official ratings)'` plus the generic
+Valve limitations text. The dedicated `elif network_quote:` branch (:1835) — correct label
+`'Own network estimate (bo3.gg results graph)'`, the detailed Bradley–Terry limitations and
+the low-confidence warning — is unreachable whenever `_network` exists, because `model` is
+then always set. Verified on the live 2026-10-22T01:32Z artifact for fixtures 1079188 and
+1081597 (card label says Valve official ratings while the chip says Own network model), and
+independently corroborated by `b1022dc2-network-rung-valve-label-inheritance` on main
+(PR #147), which lists 1079188, 1081597, 1082769, 1082858 — exactly the four network rows.
+Probabilities, `family`, `low_confidence` and the network `replay_check` are unaffected:
+this is a label/limitations display defect, not an arithmetic one — but it claims a Valve
+provenance that does not exist for these fixtures and suppresses their low-confidence
+limitations. Proposed fix: inside the `elif model:` branch route `family == 'network'` to
+the network label + limitations text (keep the network-over-form precedence unchanged).
+Until fixed, `scripts/verify_5f6fe71d.py` records a per-row `label_mismatch` and publishes
+warning flag `5f6fe71d-model-label-mismatch` with the affected match ids on every
+verification run. Requested here, not edited.
 
 **Environment note (verified):** this sandbox has egress only to GitHub and package
 registries; every live reading in 5F-2 comes either from the reader/fetch tooling
