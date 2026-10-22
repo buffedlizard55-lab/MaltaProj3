@@ -240,7 +240,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
             inactive = expired or closed or lock is None
-            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + ((' · money line replaced the featured model' if fallback.get('upgraded_from_featured_model') else ' · researched fallback, featured method rejected this fixture') if researched else '')
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + ((' · money line replaced the featured model' if fallback.get('upgraded_from_featured_model') else ' · tie-break, the official ratings are exactly tied' if fallback.get('upgraded_from_featured_tie') else ' · researched fallback, featured method rejected this fixture') if researched else '')
             status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
             out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
 
@@ -509,6 +509,7 @@ def glance(data, prefix, now=None):
     for m in shown:
         names = [t['name'] or 'Unverified team' for t in m['teams']]
         a, pick, researched = basis(m)
+        row_fallback = (fallbacks.get(str(m['id'])) or {}) if researched else {}
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
@@ -523,7 +524,8 @@ def glance(data, prefix, now=None):
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
-                      + ('<span class="badge purple">Researched</span>' if researched else ''))
+                      + ('<span class="badge purple">Tie-break</span>' if researched and row_fallback.get('upgraded_from_featured_tie')
+                         else '<span class="badge purple">Researched</span>' if researched else ''))
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>'

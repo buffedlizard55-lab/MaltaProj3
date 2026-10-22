@@ -267,6 +267,33 @@ class TieBreakDisplay(unittest.TestCase):
         self.assertIn('breaks the tie', text)
         self.assertIn('not a money line', text)
 
+    def test_the_phone_glance_badges_the_row_as_a_tie_break(self):
+        data = self.inventory()
+        match = data['matches'][0]
+        match.update(availability='open', analysis={'method': 'model', 'probabilities': [0.5, 0.5]},
+                     pick_index=None, locks_at='2026-10-23T07:54:00Z')
+        data['fallbacks'] = {'1079654': self.fallback()}
+        html = build.glance(data, './')
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('Tie-break', text)
+        self.assertIn('RUSTEC', text)
+
+    def test_the_picks_table_caption_says_tie_break_not_rejected(self):
+        data = self.inventory()
+        match = data['matches'][0]
+        match.update(availability='open',
+                     analysis={'method': 'model', 'label': 'Valve-rating research estimate',
+                               'probabilities': [0.5, 0.5], 'fair_decimal': [2.0, 2.0],
+                               'observed_at': '2026-10-22T01:11:44Z', 'source': 'Valve official standings',
+                               'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                               'inputs': [], 'snapshot_date': '2026-10-05',
+                               'quotes': [], 'limitations': []},
+                     pick_index=None)
+        html = build.matches_table([match], './', fallbacks={'1079654': self.fallback()})
+        text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
+        self.assertIn('tie-break, the official ratings are exactly tied', text)
+        self.assertNotIn('featured method rejected this fixture', text)
+
 
 if __name__ == '__main__':
     unittest.main()
