@@ -1564,6 +1564,33 @@ def model_estimate(match: dict, ratings: list, registry: dict, meta: dict, now: 
     return quote, detail
 
 
+def model_label(model: dict) -> str:
+    """Label a research-model row by the rung that actually produced it."""
+    family = (model or {}).get('family')
+    if family == 'network':
+        return 'Own network estimate (bo3.gg results graph)'
+    if family == 'form':
+        return 'Own results-based estimate (bo3.gg series results)'
+    return 'Research model estimate (Valve official ratings)'
+
+
+def network_limitation(model: dict) -> str:
+    """The published limitation for a bo3.gg network-model row."""
+    interval = model.get('interval') or [0.0, 1.0]
+    text = (
+        'Own uncalibrated network model, not observed betting odds: no money line, no aggregated '
+        'reference and no complete official rating row existed for this fixture. Both ratings come from '
+        f"a Bradley–Terry fit over {model.get('graph_matches')} finished bo3.gg series, anchored on "
+        f"Valve's official points for {model.get('graph_anchors')} teams; the rating-difference "
+        f"one-sigma interval is {model.get('rating_sd_diff')} points "
+        f'(probability interval {interval[0]:.3f}-{interval[1]:.3f}). '
+        'Current lineups, stand-ins and map vetoes are unverified.')
+    if model.get('low_confidence'):
+        text += (' Low confidence: the interval crosses 50% or a side has fewer than ten '
+                 'finished series. Treat the direction as indicative only.')
+    return text
+
+
 def selection(probs) -> int | None:
     a, b = probs
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
@@ -1808,14 +1835,19 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     elif model:
         chosen = dict(model)
         results_model = model.get('family') == 'form'
+        # Session fbdc97d6: the network rung is assigned to `model` above, so a
+        # row priced by the bo3.gg results graph used to be labelled "Valve
+        # official ratings" - a source the row never used. The label now follows
+        # the rung that actually produced the number.
         chosen.update({'method': 'model',
-                       'label': ('Own results-based estimate (bo3.gg series results)' if results_model
-                                 else 'Research model estimate (Valve official ratings)'),
+                       'label': model_label(model),
                        'fair_decimal': [round(1 / p, 3) for p in model['probabilities']],
                        'quotes': [model],
                        'source': model.get('provider') or 'Valve official standings',
                        'model_crosscheck': None})
-        if results_model:
+        if model.get('family') == 'network':
+            limitations.append(network_limitation(model))
+        elif results_model:
             limitations.append(
                 'Own uncalibrated results model, not observed betting odds: a single rating was fitted to '
                 f'{model.get("n_series")} finished series against officially rated opponents (posterior SD '

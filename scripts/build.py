@@ -673,6 +673,44 @@ def source_probe_block(data, prefix):
             'dated source probe ↓</a></p></div>')
 
 
+def line_sources_block(data, prefix):
+    """Dated record of which line sources answered, for every reader.
+
+    Session fbdc97d6 captured a read-only sweep of the esportsbook and
+    aggregator surfaces from the GitHub runner. The brief asks for the
+    *limitations* of generating a pick and for the sources to be reviewable,
+    so the sweep is published with its status codes. It adds no probability and
+    no pick; a 200 here is not a price.
+    """
+    record = data.get('_line_sources') or {}
+    sources = record.get('sources') or []
+    if not sources:
+        return ''
+    reachable = [s for s in sources if s.get('http_status') == 200]
+    blocked = [s for s in sources if s.get('http_status') != 200]
+    rows = ''
+    for s in sources:
+        status = s.get('http_status')
+        kind = 'resolved' if status == 200 else 'unresolved'
+        label = str(status) if status is not None else 'no response'
+        names = ', '.join(s.get('fixtures_listed') or [])
+        rows += (f'<li class="line-source-row"><span class="tried-chip {kind}">{e(label)}</span>'
+                 f'<a class="source-link" href="{e(s.get("url"))}" target="_blank" rel="noopener noreferrer">'
+                 f'{e(s.get("name"))}{icon("external")}</a>'
+                 f'<span class="line-source-note">{e(s.get("note") or "")}'
+                 + (f' <span class="tiny muted">Listed here: {e(names)}</span>' if names else '')
+                 + '</span></li>')
+    return ('<div class="line-sources" id="line-sources">'
+            '<h3>Line sources checked this refresh</h3>'
+            f'<p class="tiny">Read-only sweep from {e(record.get("environment") or "an automated runner")} at '
+            f'{local_time(record.get("observed_at"))}: <strong>{len(reachable)}</strong> of '
+            f'<strong>{len(sources)}</strong> surfaces answered HTTP 200 and <strong>{len(blocked)}</strong> '
+            'refused, deleted or timed out. A reachable page is never a price by itself — only a two-sided '
+            'first-party line or a published official rating may produce a number. '
+            f'<a class="internal-link" href="{prefix}data/research/fbdc97d6/line-sources.json">Full record (JSON) ↓</a></p>'
+            f'<ul class="line-source-list">{rows}</ul></div>')
+
+
 def unresolved_register(data, prefix):
     """A separate, phone-first register of every fixture without a pick.
 
@@ -792,6 +830,7 @@ def unresolved_register(data, prefix):
                        '</li>')
         out.append('</ul>')
     out.append(source_probe_block(data, prefix))
+    out.append(line_sources_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -1229,6 +1268,12 @@ def build(source: Path, output: Path, now=None):
     # Session 541cd43a: the dated, read-only source sweep behind the unresolved
     # register (HLTV, bo3.gg, esportsbook surfaces). Rendering it is the only use;
     # no value in it ever becomes a probability.
+    line_sources_path = source / 'research/fbdc97d6/line-sources.json'
+    if line_sources_path.exists():
+        try:
+            data['_line_sources'] = json.loads(line_sources_path.read_text())
+        except ValueError:
+            data['_line_sources'] = None
     probe_path = source / 'research/541cd43a/provider-probe.json'
     if probe_path.exists():
         try:

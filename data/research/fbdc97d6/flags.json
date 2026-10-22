@@ -1,0 +1,80 @@
+[
+  {
+    "id": "fbdc97d6-research-provenance-sentence-was-wrong",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The executive summary claimed every researched pick came from one Thunderpick book; the published rows say otherwise (fixed)",
+    "detail": "Until this session the 'Unresolved picks & limitations' section of the executive summary printed a hard-coded sentence: the fixtures the featured method left blank 'each now carr[y] an alias-aware researched line — HLTV event identity first, then a verified Thunderpick paired-price book (margin removed)'. Checked line by line against data/origination.json on 2026-10-22T01:05Z, that was false for four of the five rows: the Kalshi exchange priced Vitalem Aerem-Rare Atom, the Valve official-ratings model priced Donstu-Banda chuya and HOTU-The Huns, and the bo3.gg results network priced Ground Zero-Off Chops and benched gods-TitanFlow. Only the Thunderpick statement itself was a copied assumption. The sentence is now generated from each row's own origination record (scripts/build.py researched_method) and lists the real source and a link per fixture.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "fbdc97d6-hltv-and-books-block-the-automated-runner",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "HLTV, EGamersWorld, GG.BET, BetBoom, 1xBet and Marathonbet refuse the automated runner; HLTV is readable by a person",
+    "detail": "A read-only sweep from the GitHub runner on 2026-10-22T01:29Z recorded HTTP 403 Cloudflare challenges for the HLTV match listing, the HLTV match page for FlyQuest-Staqued and the HLTV ranking page, and for EGamersWorld's CS2 list and match pages; GG.BET returned 403, BetBoom 401, 1xBet 203 with a challenge and Marathonbet 403. The same HLTV match page and the HLTV world-ranking page were read successfully by hand at 01:20Z-01:24Z on the same day, so HLTV is a usable verification source for a person but not an automated odds feed. This project therefore uses HLTV only for fixture identity and the published world ranking, never as a price.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fbdc97d6/esportsbook-probe.json",
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/ranking/teams",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://gg.bet/en/counter-strike"
+    ]
+  },
+  {
+    "id": "fbdc97d6-bo3gg-relay-adds-no-new-coverage",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "bo3.gg relays a real two-sided Thunderpick price, but only for fixtures that already had a first-party line",
+    "detail": "bo3.gg answered HTTP 200 and publishes a named bookmaker block (provider 'thunderpick') with a decimal coefficient for both teams. On 2026-10-22T01:29Z that block existed for 5 of the 35 active fixtures: FORZE Reload-Just Players 1.40/2.70, JiJieHao-Nexus 1.44/2.55, Imperial-Turma do Pagode 1.22/3.80, BESTIA-ShindeN 1.82/1.88 and Sangal-Metizport 1.75/1.95. Every one of those five already carries a first-party Polymarket or Thunderpick line in the same snapshot, so the relay closes no blank fixture and is NOT wired into the pricing ladder. It stays documented as an independent cross-check a reader can open; the coefficients are recorded verbatim in the relay evidence and were never converted into a probability.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fbdc97d6/bo3-bet-probe.json",
+      "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026",
+      "https://bo3.gg/matches/bestia-vs-shinden-22-10-2026"
+    ]
+  },
+  {
+    "id": "fbdc97d6-exact-even-tie-has-no-side",
+    "severity": "notice",
+    "match_ids": [
+      "1079654"
+    ],
+    "title": "ex-Zero Tenacity vs ex-RUSTEC is an exact 50.0/50.0 estimate, so it is published with no side",
+    "detail": "The 2026-10-22T01:20Z snapshot carries this fixture (CCT Europe 2026 Series #11, 2026-10-23T08:00Z) with probabilities 0.5000/0.5000 from the official Valve ratings rung: both published rows give identical points. No money line exists on any reachable provider. The row is listed in the separate unresolved register with its source trail and deliberately has no directional pick; inventing a side or a 50/50.1 nudge would be a fabricated edge. Every other active fixture in the same snapshot has a side.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654"
+    ]
+  },
+  {
+    "id": "fbdc97d6-unranked-floor-estimates-are-assumptions",
+    "severity": "warning",
+    "match_ids": [
+      "1082860",
+      "1081597"
+    ],
+    "title": "Low-tier picks that rest on the HLTV unranked floor are labelled assumptions, not measured ratings",
+    "detail": "Two fixtures in the 2026-10-22T01:20Z snapshot are priced from HLTV's published world ranking with one side unranked, so that side is given HLTV's floor of 0.000 points: FlyQuest-Staqued (FlyQuest 52.3%, HLTV #61, Staqued unranked) and benched gods-TitanFlow (TitanFlow 77.8% by the network model; the HLTV rung is also present). No bookmaker priced either fixture on any reachable provider, and Staqued has two finished series in the 120-day window. The numbers are usable as a called side for a pick'em, but they are a stated assumption about the unranked side, not a market-implied probability, and the row says so.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://bo3.gg/matches"
+    ]
+  },
+  {
+    "id": "fbdc97d6-review-page-live-findings-first",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The current findings now render first on Flagged for Review; earlier sessions' dated registers are collapsed below them",
+    "detail": "On 2026-10-22 the review page opened with a dated 15 October repo audit and several session registers before the live findings, so a phone reader had to scroll through many screens of history to reach a current warning. The findings register is now the first section and the dated registers are kept verbatim inside one collapsed 'Dated registers from earlier sessions' block, labelled as not current. Nothing was deleted or reworded.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  }
+]

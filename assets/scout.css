@@ -288,3 +288,16 @@
 .archive-register>p.tiny{padding:0 22px 8px;margin:0}
 .archive-register>section{margin:0;border:0;box-shadow:none;border-top:1px solid var(--border);border-radius:0}
 @media(max-width:700px){.archive-register>summary{font-size:12px;padding:15px 17px}}
+
+/* Session fbdc97d6 — dated line-source reachability record inside the register. */
+.line-sources{margin:14px 20px 18px;border:1px solid var(--border);border-radius:10px;background:#fbfcfd;padding:15px 16px}
+.line-sources h3{font-size:14px;margin:0 0 7px;color:var(--navy);letter-spacing:-.2px}
+.line-sources>p{margin:0 0 10px}
+.line-source-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.line-source-row{display:grid;grid-template-columns:auto auto 1fr;gap:4px 9px;align-items:baseline;font-size:11px;line-height:1.7}
+.line-source-note{color:#4a5e6c;overflow-wrap:anywhere}
+@media(max-width:700px){
+  .line-sources{margin:12px 17px 16px;padding:13px 14px}
+  .line-source-row{grid-template-columns:auto 1fr;font-size:10.5px}
+  .line-source-note{grid-column:1/-1}
+}
