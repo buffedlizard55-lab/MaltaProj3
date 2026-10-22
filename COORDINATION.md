@@ -4566,3 +4566,27 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+---
+
+# Current session: arena-e544ca54 — reconcile coverage labels and put both win chances on the phone summary
+
+Claimed **2026-10-22T01:12Z** on the fixed Arena branch `arena/e544ca54-maltaproj3`, based on `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4`. Read the coordination board before starting. This is a narrow UI/audit follow-up; it does not change match facts, probabilities, aliases, source collection, or refresh cadence.
+
+**Coordination / non-overlap check:** the prior `arena-0582cbe9` claim is older than 60 minutes and its declared `scripts/build.py` scope was the executive banner, not the coverage page. Open PR [#139](https://github.com/buffedlizard55-lab/MaltaProj3/pull/139), session `arena-6e92015a`, last had a head commit at `2026-10-21T21:36:26Z` (more than 60 minutes before this claim). The stale-claim handoff rule permits taking over only the needed `glance()` phone-display hunk from that branch; this session does not adopt its research snapshot, source-probe tooling, probability/alias changes, or other files. The current board’s complete-list/counts requirements remain unchanged.
+
+**Dated live mismatch found before editing (2026-10-22T01:06–01:09Z):**
+- Cache-busted public [`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=9384756102210003) reported `generated_at=2026-10-22T01:06:32Z`, `coverage_complete=true`, 97 inventory records, 35 upcoming, 13 unresolved in the *featured* feed, and 21 featured directional picks.
+- Cache-busted public [`data/origination.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=794522001422) reported `generated_at=2026-10-22T01:06:45Z`, 35 active / 35 resolved / 34 directional / 0 unresolved; the one remaining row is an equal estimate with no supported side.
+- The public [Coverage & sources page](https://buffedlizard55-lab.github.io/MaltaProj3/coverage/?cb=9384756102210005) presented “Future probabilities 22 / 35” and “13 unresolved” without saying those are only the featured-method results. The simultaneously published [executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/?cb=9384756102210002) correctly showed 35/35 probability estimates, 34 directional picks, and one even/no-side estimate. This is confusing, not a disagreement in the underlying complete list.
+- The executive-summary glance rows showed only the chosen team's percentage, although the user requested both sides' win probabilities to be easy to read on a phone.
+- A cache-busted live read of the prior 12-fixture snapshot displayed a blanket “verified Thunderpick paired-price” explanation for every featured-method gap. That is not true for gaps resolved by a market, a rating model, or the bo3.gg network fit. The current snapshot includes Kalshi and researched-model estimates (for example, the current 1081869 record is a Kalshi line), so provider-specific wording must not be generalized.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E544-1 Label featured-feed counts separately from complete researched coverage; show the full-list counts and links on Coverage & sources | in progress | arena-e544ca54 | `scripts/build.py` → `coverage()` only; `tests/test_coverage_scope.py`; `data/research/e544ca54/`; this section |
+| E544-2 Show both teams’ sourced probabilities on each phone-first glance row and replace provider-specific “all fallbacks are Thunderpick” copy with method-neutral, card-linked wording | in progress | arena-e544ca54 | `scripts/build.py` → `glance()` and `unresolved_register()` only; `tests/test_coverage_scope.py`; `data/research/e544ca54/`; this section |
+| E544-3 Rebuild, replay tests, strict row-source / internal-link audit, mobile browser checks, then open and merge this branch’s PR after successful verification | unclaimed | arena-e544ca54 | this section, PR, published build artifact |
+
+**Non-overlap pledge:** no edits to `data/latest.json`, `data/origination.json`, aliases, evidence inputs, pick/model semantics, collectors, workflows, CSS, navigation, or another session’s research directory. The only stale-PR takeover is the explicitly named `glance()` display hunk; all other changes are the unclaimed `coverage()` scope and an empty-state copy correction. The generated `coverage/index.html` and homepage are produced by the standard build, not hand-edited.
+
