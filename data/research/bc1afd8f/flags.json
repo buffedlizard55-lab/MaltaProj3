@@ -2,14 +2,16 @@
   {
     "id": "bc1afd8f-legacy-root-has-no-pick-index",
     "severity": "warning",
-    "title": "The branch root the legacy Pages builder republishes has no executive-summary banner, no phone pick index and no unresolved page",
-    "detail": "Measured 2026-10-22T09:12Z with `python -m scripts.bc1afd8f_mobile_audit --root .` on the checked-in root: 8 of the 19 current-view checks fail. The root index.html has no `section.exec-banner`, carries zero `.glance-row` entries for the 17 active fixtures in `data/latest.json`, has no `unresolved/` directory at all, and keeps an orphan `twc-final/index.html` whose two tables are not inside any wrapper that declares `overflow-x:auto` (so they can stretch a 320 px phone page). `GET https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages` answers `{\"status\":\"building\",\"build_type\":\"legacy\",\"source\":{\"branch\":\"main\",\"path\":\"/\"}}` and `git show origin/main:data/latest.json` reads `generated_at 2026-10-15T08:36:13Z` with `counts.unresolved = 4`, so whenever that legacy build lands last a phone reader gets a week-old page with no pick index and no route to the unresolved register. The same audit run over a fresh build of the same code passes 20/20 (`data/research/bc1afd8f/mobile-audit-fresh-build.md`), so the gap is publication, not the renderer. `.github/workflows/pages-artifact-guard.yml` (this session) closes it from the side the repository controls: it re-deploys the newest verified artifact whenever the public site is not serving it, in a concurrency group that pushes to main cannot starve, and it commits nothing. Note on scope: `pages.yml`'s new `republish-last-verified` job (PR #183) re-deploys the last *verified artifact* on every push, and an artifact does contain the executive-summary banner, the phone pick index and `/unresolved/`, so this gap closes whenever a fresh build succeeds and the artifact deploy is the last one to land. It reopens on the next legacy root build, because the checked-in root still has neither. The two durable fixes are the root-sync publishing a self-consistent snapshot (see `bc1afd8f-root-publish-would-break-the-build`) or switching Pages off legacy publishing, which a workflow token cannot do (403).",
+    "title": "The branch root the legacy Pages builder republishes had no executive-summary banner, no phone pick index and no unresolved page — closed in part by root-sync commit a448de6, with three measured defects left",
+    "detail": "Measured 2026-10-22T09:12Z with `python -m scripts.bc1afd8f_mobile_audit --root .` on the checked-in root: 8 of the 19 current-view checks fail. The root index.html has no `section.exec-banner`, carries zero `.glance-row` entries for the 17 active fixtures in `data/latest.json`, has no `unresolved/` directory at all, and keeps an orphan `twc-final/index.html` whose two tables are not inside any wrapper that declares `overflow-x:auto` (so they can stretch a 320 px phone page). `GET https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages` answers `{\"status\":\"building\",\"build_type\":\"legacy\",\"source\":{\"branch\":\"main\",\"path\":\"/\"}}` and `git show origin/main:data/latest.json` reads `generated_at 2026-10-15T08:36:13Z` with `counts.unresolved = 4`, so whenever that legacy build lands last a phone reader gets a week-old page with no pick index and no route to the unresolved register. The same audit run over a fresh build of the same code passes 20/20 (`data/research/bc1afd8f/mobile-audit-fresh-build.md`), so the gap is publication, not the renderer. `.github/workflows/pages-artifact-guard.yml` (this session) closes it from the side the repository controls: it re-deploys the newest verified artifact whenever the public site is not serving it, in a concurrency group that pushes to main cannot starve, and it commits nothing. RE-MEASURED after root-sync commit `a448de6` (2026-10-22T10:45:14Z) landed on `main`: `python -m scripts.bc1afd8f_mobile_audit --root <main at 8e8609c>` now reports **17 of 20** checks passing (`data/research/bc1afd8f/mobile-audit-published-root-main-8e8609c.md`) — the executive-summary banner, its four in-site links (complete picks, featured feed, unresolved register), the separate unresolved section, a six-slot phone nav with a direct picks slot, both per-team probabilities on 42 of 43 rows and 44-48 px tap targets are all present in the root now, and `unresolved/` and `final-day/` exist. The three remaining failures are published as their own findings: `bc1afd8f-root-pages-contradict-root-data` (the 43 rendered rows are today's fixtures while the committed `data/latest.json` is still 15 October, so `glance-coverage` cannot pass), `bc1afd8f-root-keeps-orphan-pages` (`twc-final/index.html` has two tables outside any scroll wrapper) and, until PR #177 merges, `bc1afd8f-public-verifier-rejects-the-tie-break`.",
     "match_ids": [],
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-published-root.md",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-fresh-build.md"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-fresh-build.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a448de6",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-published-root-main-8e8609c.md"
     ]
   },
   {
@@ -70,6 +72,49 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/gate-fresh-snapshot.md",
       "https://github.com/buffedlizard55-lab/MaltaProj3/commit/1c1d87b",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_4c972a51_tiebreak.py"
+    ]
+  },
+  {
+    "id": "bc1afd8f-root-pages-contradict-root-data",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The branch root now serves pages rendered from today's live snapshot next to a committed data/latest.json from 15 October, so the public pages and the public data contradict each other",
+    "detail": "Measured on `main` at `8e8609c` (root-sync commit `a448de6`, 2026-10-22T10:45:14Z), from the committed files themselves: `index.html` renders 43 `.glance-row` entries whose `data-glance-id` values are exactly the 43 active fixtures of today's live inventory (all 43 match this session's runner collection of 2026-10-22T09:46Z, and none of the 17 active fixtures in the committed snapshot), `picks/index.html` carries observation stamps of 2026-10-22T10:39:32Z-10:39:38Z, while `data/latest.json` still reads `generated_at 2026-10-15T08:36:13Z` with `counts {inventory 80, upcoming 17, archived 63, unresolved 4}` and `data/origination.json` reads 2026-10-15T09:31:24Z. Commit `a448de6` changed 11 rendered HTML files and no data file at all. Mechanism, verified in the code rather than guessed: `scripts/root_publish.build_plan()` decides what to write by comparing `site/data/<name>` with the **working tree's** `./data/<name>` (`target.read_bytes() == source.read_bytes()`, `scripts/root_publish.py:212-217`) and the workflow commits only the paths that plan lists. On the runner, `pages.yml` has already run `scripts.collect` and `scripts.originate --live` in the same checkout, so the working-tree data is the fresh snapshot and the built data is byte-identical to it (PR #181 made `write_reconciled_snapshot()` preserve a byte-identical `latest.json`), so no data file enters the plan and only the pages are committed. Consequences, all user-visible: a phone reader sees 43 current fixtures while `/data/latest.json` on the same origin reports a week-old inventory with 4 unresolved; `scripts/verify_live.py`'s public-parity and coverage checks compare the deployed pages against data that is not the data the pages were built from; and the 34 checked-in test modules that read `data/latest.json` build pages that no longer match the committed root. This is the other half of `bc1afd8f-root-publish-would-break-the-build`: publishing the pages without the data contradicts the site, and publishing the data without the evidence tree breaks every build. The consistent fix is to publish pages, data and the build's whole `site/data/evidence/` tree together (3.0 MB committed, already inside the Pages artifact), or to stop the branch root from being a publisher at all - which needs an admin token, because `PUT /repos/.../pages {\"build_type\":\"workflow\"}` answers 403 from a workflow token. No file owned by another session was edited here; this is recorded as a change request for whoever owns `scripts/root_publish.py` and `pages.yml`.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a448de6",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-published-root-main-8e8609c.md",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  },
+  {
+    "id": "bc1afd8f-public-verifier-rejects-the-tie-break",
+    "severity": "warning",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "The public deployment verifier on main rejects the documented tie-break pick, so pages.yml cannot verify its own publication (fix already open in PR #177)",
+    "detail": "Read from the check-run annotations API for `main` at `49dd327`, check-run `verify-and-deploy` `119749532581`: `Public deployment verification failed | ValueError: Public complete-picks coverage audit failed: fixture 1082926: exactly even estimate must not name a pick | snapshot 2026-10-22T10:04:59Z | counts {inventory 104, upcoming 43, archived 61, market 18, bookmaker 3, model 12, unresolved 10, picks 33}`. The rule is `scripts/coverage_audit.py:96-98` (`if probs[0] == probs[1]: if pick is not None: problems.append(...)`), which was written before PR #174 gave an exactly even research-model row a direction from the provider's own published order. This is the third face of the same defect: `build_origination.validate_origination` rejected it (fixed by PR #179), `scripts/validate.py:98` carries a parallel assertion for featured rows, and the post-deploy public audit still rejects it, so the four-hour publisher's own verification step is red on `main` and the deployed snapshot cannot be confirmed by the repository's own contract. **Not fixed here**: PR #177 (arena-e5cc3d49, open, updated 2026-10-22T10:36Z) already patches exactly these lines in `scripts/coverage_audit.py` - it accepts an even pick only for `method == 'model'` with a `tie_break` record whose `winner` equals `pick_index`, that names its rule and links an https source, and it adds a check that a published tie-break winner never disagrees with `pick_index`. Editing the same file from this branch would duplicate an in-flight fix, so the finding is recorded with its evidence instead, and this session's own modules only measure it. Until PR #177 merges, treat a red `verify-and-deploy` on `main` as this known cause and not as a new regression.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/coverage_audit.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/177/files",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/verify_live.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39762965971",
+      "https://www.hltv.org/ranking/teams"
+    ]
+  },
+  {
+    "id": "bc1afd8f-root-keeps-orphan-pages",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The branch root keeps pages the current build no longer writes, and one of them overflows a 320 px phone screen",
+    "detail": "Measured with `python -m scripts.bc1afd8f_mobile_audit --root <main at 8e8609c>` (`data/research/bc1afd8f/mobile-audit-published-root-main-8e8609c.md`): `twc-final/index.html` exists in the root and carries two tables that sit outside every scroll wrapper the stylesheet defines (`.matches-wrap`, `.mini-table-wrap`, `.table-scroll`, `.table-wrap`, `.top-nav`), which is the `table-scroll-wrappers` failure and, at 320 px, a page-wide horizontal scroll. The current build does not produce that page: `python -m scripts.build` writes 9 current views plus the compatible old URLs and the explicitly archived session views, `site/twc-final` is not among them, and `scripts/build.py` contains no reference to `twc-final`. `scripts/root_publish.py` only ever writes files, never deletes them, so a page retired by the builder stays published at its old URL indefinitely with the content it had when it was last built. Non-blocking and cosmetic next to the two warnings above, but it is why the root scores 17/20 rather than 19/20, and the fix belongs with the publisher: either drop retired paths when the plan runs, or move them under `archive/` where the audit already reports them separately.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/twc-final/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bc1afd8f/mobile-audit-published-root-main-8e8609c.md"
     ]
   }
 ]

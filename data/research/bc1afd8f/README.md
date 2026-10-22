@@ -7,13 +7,14 @@ them was typed by hand, and none of them changes a probability, a pick, an alias
 
 | File | Generator | What it is |
 | --- | --- | --- |
-| `flags.json` | hand-written findings, machine-checked by `scripts.build` | The five irregularities this session found, published on the site's **Flagged for Review** page (`/review/`) with their source links |
+| `flags.json` | hand-written findings, machine-checked by `scripts.build` | The eight irregularities this session found, published on the site's **Flagged for Review** page (`/review/`) with their source links. Three are marked resolved-on-main with the commit that fixed them; five are open, two of them warnings about the publisher |
 | `live-coverage.json` / `.md` | `scripts/bc1afd8f_probe.py` | **Authoritative** per-fixture pick coverage from a live runner collection, plus HLTV-first / esportsbook reachability for every fixture the ladder priced without a betting line |
 | `live-coverage-<UTC>.json` / `.md` | same | Dated copies. `20261022T091704Z` is the first live run; `20261022T091228Z` is the offline run over the checked-in 15 October fixture (0 surfaces probed — the sandbox has no egress) |
 | `gate-fresh-snapshot.json` / `.md` | `scripts/bc1afd8f_gate.py` | The whole checked-in suite (929 tests) measured against the live snapshot, with matching fresh evidence. This is what found the build-stopping tie-break assertion |
 | `build-outcome.json` | `.github/workflows/bc1afd8f-live.yml` | Whether the fresh snapshot actually built, and which pages were written |
 | `mobile-audit-fresh-build.json` / `.md` | `scripts/bc1afd8f_mobile_audit.py` | Static phone-first contract audit of a fresh build of the current code |
-| `mobile-audit-published-root.json` / `.md` | same, `--root .` | The same audit over the **checked-in branch root**, i.e. what GitHub Pages' legacy builder republishes on every push to `main` |
+| `mobile-audit-published-root.json` / `.md` | same, `--root .` | The same audit over the **checked-in branch root** of this branch, i.e. what GitHub Pages' legacy builder republishes on every push to `main` — 12/20 before root-sync commit `a448de6` |
+| `mobile-audit-published-root-main-8e8609c.json` / `.md` | same, `--root <main at 8e8609c>` | The same audit over `main`'s root **after** root-sync commit `a448de6`: 17/20, and the measurement behind three findings — the 43 rendered rows are today's fixtures while the committed `data/latest.json` is 15 October, and `twc-final/index.html` is an orphan page with two unwrapped tables |
 | `root-publish-risk.json` / `.md` | `scripts/bc1afd8f_root_risk.py` | What committing a fresh snapshot into the branch root would do to `scripts.validate.check_data`, published as two simulations: one offline against a saved live snapshot, and one that replays `scripts.root_publish`'s own `build_plan()`/`apply_plan()` against a real build (`--site site`, runner-only) |
 
 ## Corrections and supersessions
@@ -72,8 +73,20 @@ them, so this branch merged `origin/main` and kept their fixes rather than shipp
 | `bc1afd8f-preexisting-red-check` | PR #181, commit `81139b1` (df80ab9f) | Nothing — re-verified only: `tests.test_review_flags` passes on this merged branch |
 | `bc1afd8f-refresh-runs-cancelled-by-merge-storm` | PR #183, commit `870f856` (96fbe295) | The independent measurement of the same mechanism and the same cancelled run ids. The guard workflow's push trigger was removed, because `pages.yml`'s own `republish-last-verified` job now re-deploys the previous verified artifact on every push; the guard keeps the two-hourly public-URL check that job cannot perform |
 
-Still open after the merge, and the reason this branch exists: `bc1afd8f-legacy-root-has-no-pick-index`
-(the checked-in root the legacy Pages builder republishes has no executive-summary banner, no phone
-pick index and no `/unresolved/`) and `bc1afd8f-root-publish-would-break-the-build` (the root-sync
-step in `pages.yml` publishes seven data files and leaves 31 evidence files frozen, so the root it
-produces cannot pass `check_data`).
+Still open after the merge, and the reason this branch exists:
+
+* `bc1afd8f-root-pages-contradict-root-data` — root-sync commit `a448de6` (10:45:14Z) committed 11
+  rendered pages built from the live 10:39Z snapshot and **no data file**, because
+  `root_publish.build_plan()` compares against the runner's working tree, which `pages.yml`'s own
+  collect/originate steps had already refreshed. `main`'s root now shows 43 current fixtures beside a
+  `data/latest.json` that still says 15 October, 80 records, 4 unresolved.
+* `bc1afd8f-root-publish-would-break-the-build` — the other half: publishing the data files without the
+  build's evidence tree makes `scripts.validate.check_data` fail, which breaks `checks.yml` on every PR
+  and the refresh itself.
+* `bc1afd8f-public-verifier-rejects-the-tie-break` — `scripts/coverage_audit.py` still rejects the
+  documented tie-break, so `verify-and-deploy` is red on `main`; PR #177 already patches those exact
+  lines, so this branch measured it and did not touch the file.
+* `bc1afd8f-root-keeps-orphan-pages` — `twc-final/index.html` survives in the root although the current
+  build no longer writes it, and its two unwrapped tables overflow a 320 px screen.
+* `bc1afd8f-legacy-root-has-no-pick-index` — closed in part by `a448de6` (12/20 → 17/20); the remaining
+  failures are the four findings above.
