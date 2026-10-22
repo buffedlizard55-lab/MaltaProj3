@@ -100,6 +100,22 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
   Esportes da Sorte/KTO 7,001-byte script shells, 1xBet 203, OddsPortal 429, Oddspedia 404. No
   access control was bypassed and a refusal is never treated as proof that no market exists.
 
+# Current session: arena-e5cc3d49 — independent line-by-line verification of the live picks, a fresh runner-read snapshot, and the phone/executive-summary check
+Claimed **2026-10-22T07:40Z** on Arena's fixed branch `arena/e5cc3d49-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162). The whole board was read before claiming, and four sessions
+were live at claim time: `3016b0c6` (line-source probe), `3cf793ef` (independent verification),
+`df80ab9f` (origination source audit) and `4c972a51` (live diagnostics). This session therefore
+claims **only new, session-named files** and does not edit any file another session is working on.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E5-1 Read the live Hotspawn inventory and the live pick snapshot from the runner (the sandbox has no egress to Hotspawn, HLTV or any book), keep a dated copy under `data/research/e5cc3d49/live/`, and audit every published row line by line against its own cited first-party evidence | **in progress** | arena-e5cc3d49 | `.github/workflows/e5cc3d49-live.yml` (**session-only, deleted before merge**), `scripts/e5cc3d49_audit.py` (new, read-only), `tests/test_e5cc3d49.py` (new), `data/research/e5cc3d49/` (new), this section |
+| E5-2 Verify the executive summary's in-site links and the unresolved/limitations section, and the phone layout at 390 px, against the freshly read snapshot; publish findings (and fix only defects inside files this session owns at that moment) | **unclaimed** | — | to be recorded here before any edit |
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
+`scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
+`data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`,
+`.github/workflows/pages.yml` or any other session's `data/research/<id>/` while this claim is live.
+Any change needed in those files is requested here instead of made. The branch-scoped workflow is
+removed before the merge; the audit script stays in the tree as `scripts/fbdc97d6_probe.py` did.
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
