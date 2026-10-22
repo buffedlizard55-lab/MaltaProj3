@@ -82,6 +82,37 @@ def _median_of(rows):
     return [statistics.median([r[0] for r in rows]), statistics.median([r[1] for r in rows])]
 
 
+def _key(name) -> str:
+    return ' '.join(str(name or '').split()).lower()
+
+
+def outcome_book_index(origination: dict, teams: list[str]):
+    """Map each published team to the saved order book that priced it.
+
+    ``quotes`` is published in Hotspawn team order, while the two saved books
+    are in the market's own outcome order (``source_outcomes``). When those two
+    orders differ, the collector reorders the quotes, so a check that pairs
+    quote *i* with book *i* would test the wrong side. This returns
+    ``[book_index_for_team_0, book_index_for_team_1]`` or ``None`` when the
+    published outcome names cannot be matched to the teams (in which case no
+    book-level claim is made at all).
+    """
+    outcomes = origination.get('source_outcomes')
+    if not isinstance(outcomes, list) or len(outcomes) != 2 or len(teams) != 2:
+        return None
+    keys = [_key(o) for o in outcomes]
+    mapping = []
+    for team in teams:
+        wanted = _key(team)
+        if wanted not in keys:
+            return None
+        index = keys.index(wanted)
+        if index in mapping:
+            return None
+        mapping.append(index)
+    return mapping
+
+
 def best_book_prices(book: dict):
     """Return (best bid, best ask) from a saved Polymarket CLOB book.
 
@@ -107,6 +138,7 @@ def audit_row(row: dict, evidence_dir: Path, now: datetime):
     label = f'fixture {mid}'
     problems: list[str] = []
     checks: list[str] = []
+    note_order = ''
     teams = row.get('teams') or []
     if len(teams) != 2 or not all(t.get('name') for t in teams):
         return checks, [f'{label}: does not name exactly two teams'], None, 'no row'
@@ -198,21 +230,32 @@ def audit_row(row: dict, evidence_dir: Path, now: datetime):
         # outcome's book is saved under its own index; a book is never used to
         # confirm the other outcome.
         event_id = origination.get('event_id')
-        for index, quote in enumerate(quotes):
-            book_path = evidence_dir / f'polymarket-book-{event_id}-{index}.json' if event_id else None
-            if not book_path or not book_path.exists():
-                continue
-            try:
-                prices = best_book_prices(json.loads(book_path.read_text()))
-            except (ValueError, KeyError, OSError):
-                prices = None
-            if not prices:
-                problems.append(f'{label}: saved order book for outcome {index} has no two-sided quote')
-                continue
-            if abs(prices[0] - quote['bid']) > 0.005 or abs(prices[1] - quote['ask']) > 0.005:
-                problems.append(f'{label}: saved order book does not reproduce the quoted bid/ask for outcome {index}')
-            else:
-                checks.append(f'saved order book reproduces outcome {index} bid/ask')
+        mapping = outcome_book_index(origination, names)
+        if mapping is None:
+            checks.append('market outcome names could not be matched to the teams; '
+                          'no order-book claim is made (see note)')
+            note_order = ('the published market outcome names do not match the Hotspawn team names, '
+                          'so the saved books were not used to confirm side alignment')
+        else:
+            if mapping != [0, 1]:
+                checks.append(f'market outcome order differs from Hotspawn order; books mapped {mapping}')
+            for index, quote in enumerate(quotes):
+                book_index = mapping[index]
+                book_path = evidence_dir / f'polymarket-book-{event_id}-{book_index}.json' if event_id else None
+                if not book_path or not book_path.exists():
+                    continue
+                try:
+                    prices = best_book_prices(json.loads(book_path.read_text()))
+                except (ValueError, KeyError, OSError):
+                    prices = None
+                if not prices:
+                    problems.append(f'{label}: saved order book {book_index} has no two-sided quote')
+                    continue
+                if abs(prices[0] - quote['bid']) > 0.005 or abs(prices[1] - quote['ask']) > 0.005:
+                    problems.append(f'{label}: saved order book {book_index} does not reproduce the '
+                                    f'quoted bid/ask for {names[index]}')
+                else:
+                    checks.append(f'saved order book reproduces {names[index]} bid/ask')
     elif method in {'bookmaker', 'reference'} and quotes and all(q.get('odds') for q in quotes):
         odds = quotes[0]['odds']
         if all(isinstance(o, (int, float)) and o > 1 for o in odds) and len(odds) == 2:
@@ -252,7 +295,7 @@ def audit_row(row: dict, evidence_dir: Path, now: datetime):
         else:
             problems.append(f'{label}: Valve model row without two point inputs')
 
-    note = ''
+    note = note_order
     if recomputed is None and method == 'model':
         note = ('model fit (network / HLTV-ranking / results form); its graph inputs are not in the '
                 'published payload, so the number is recorded as not independently recomputable')

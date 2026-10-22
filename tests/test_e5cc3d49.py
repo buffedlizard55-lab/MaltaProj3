@@ -34,6 +34,7 @@ def fixture(match_id='1', method='market', probs=(0.6, 0.4), quotes=None, **extr
         },
         'research': [], 'limitations': [],
     }
+    row['origination']['source_outcomes'] = ['Alpha', 'Beta']
     row.update(extra)
     return row
 
@@ -88,7 +89,34 @@ class RecomputeTests(unittest.TestCase):
             row['origination']['event_id'] = '99'
             report = run([row], evidence=Path(tmp))
             self.assertEqual(report['violations'], [])
-            self.assertTrue(any('saved order book reproduces outcome 0' in c for c in report['rows'][0]['checks']))
+            self.assertTrue(any('saved order book reproduces Alpha bid/ask' in c for c in report['rows'][0]['checks']))
+
+    def test_reversed_outcome_order_maps_books_by_name(self):
+        """A market whose outcome order is reversed must not be flagged.
+
+        Polymarket publishes 'Phantom Academy vs Falcons Force' while Hotspawn
+        lists 'Falcons Force vs Phantom Academy'; the collector reorders the
+        quotes, so the audit has to pair each team with its own book rather than
+        with the book of the same position.
+        """
+        quotes = [
+            {'provider': 'Polymarket', 'family': 'market', 'bid': 0.58, 'ask': 0.62},
+            {'provider': 'Polymarket', 'family': 'market', 'bid': 0.38, 'ask': 0.42},
+        ]
+        row = fixture(quotes=quotes)
+        row['origination']['source_outcomes'] = ['Beta', 'Alpha']
+        row['origination']['event_id'] = '98'
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            # book 0 is Beta (the second Hotspawn team), book 1 is Alpha
+            Path(tmp, 'polymarket-book-98-0.json').write_text(json.dumps(
+                {'bids': [{'price': '0.38', 'size': '10'}], 'asks': [{'price': '0.42', 'size': '4'}]}))
+            Path(tmp, 'polymarket-book-98-1.json').write_text(json.dumps(
+                {'bids': [{'price': '0.58', 'size': '10'}], 'asks': [{'price': '0.62', 'size': '4'}]}))
+            report = run([row], evidence=Path(tmp))
+        self.assertEqual(report['violations'], [])
+        self.assertTrue(any('books mapped' in c for c in report['rows'][0]['checks']))
+        self.assertTrue(any('reproduces Alpha bid/ask' in c for c in report['rows'][0]['checks']))
 
     def test_bookmaker_odds_reproduce_probability(self):
         quotes = [{'provider': 'Thunderpick', 'family': 'thunderpick', 'odds': [1.5, 2.5]}]
