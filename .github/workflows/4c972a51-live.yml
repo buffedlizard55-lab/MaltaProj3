@@ -34,10 +34,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.collect --output live
+      - name: Provide the reviewed alias registry to the isolated output directory
+        run: cp -r data/origination live/origination
       - name: Originate picks for the fixtures the featured method left blank
+        id: originate
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live --output live
+      - name: Record the originate outcome (the diagnostic still runs on failure)
+        run: echo "${{ steps.originate.outcome }}" > live/origination-outcome.txt
       - name: Write the compact diagnostic the session reads
         run: python -m scripts.diag_4c972a51 --data live --out data/research/4c972a51
       - name: Probe reachable independent sources (read-only, non-fatal)
@@ -50,7 +56,9 @@ jobs:
       - name: Keep the raw snapshot pair for replay
         run: |
           mkdir -p data/research/4c972a51/live
-          cp live/latest.json live/origination.json data/research/4c972a51/live/
+          cp live/latest.json data/research/4c972a51/live/
+          cp live/origination.json data/research/4c972a51/live/ 2>/dev/null || true
+          ls live > data/research/4c972a51/live/run-files.txt
           python - <<'PY'
           import json
           from pathlib import Path
@@ -61,6 +69,7 @@ jobs:
           PY
           du -sh data/research/4c972a51
       - name: Commit the observation to the session branch
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -69,3 +78,8 @@ jobs:
           git commit -m 'data(4c972a51): live snapshot diagnostic and reachability probe [skip ci]'
           git pull --rebase origin arena/4c972a51-maltaproj3
           git push origin HEAD:arena/4c972a51-maltaproj3
+      - name: Fail visibly when origination did not complete
+        if: steps.originate.outcome != 'success'
+        run: |
+          echo "::error title=originate::python -m scripts.originate --live exited ${{ steps.originate.outcome }}"
+          exit 1
