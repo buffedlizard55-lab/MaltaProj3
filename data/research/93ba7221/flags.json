@@ -80,5 +80,17 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/93ba7221/probability-replay.json",
       "https://buffedlizard55-lab.github.io/MaltaProj3/"
     ]
+  },
+  {
+    "id": "93ba7221-phone-fold-check-was-failing-on-main",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The repository's own phone check was failing before this branch: Picks at a Glance sat 26 px below the 1,500 px budget (fixed)",
+    "detail": "tests/browser/dashboard.spec.mjs asserts that #picks-at-a-glance starts above 1,500 px at 320 px and 390 px wide. On a clean build of origin/main (2fb99b0, PR #167) the block starts at y = 1526.25 px at 390 px wide, so the check failed on main before this branch touched it; 75aa5b56's longer banner copy, aria-labels and 48 px tap targets are what pushed it past the budget. This session measured the same value on its own merge commit, then compacted the phone layout without removing anything a reader needs: the three banner buttons keep a 44 px tap target, and the older five-link jump bar below the banner is tightened to 44 px rows with two-line descriptions. Measured after the change on the same build: 320 px -> y = 1326.7 px, 390 px -> y = 1364.0 px, no horizontal overflow at either width, and the full Playwright suite (85 checks) passes. This is a layout finding only; no pick, probability or source changed.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/dashboard.spec.mjs",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
   }
 ]

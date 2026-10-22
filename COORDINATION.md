@@ -40,6 +40,22 @@ coverage**, its split is labelled *featured stages only*, and the same paragraph
 every rejected fixture and gives the complete figure with the number of explicitly blank rows. Nothing is
 recomputed. Covered by `CoverageCardConsistencyTests`.
 
+### 93B-1c result — the repository's own phone check was red on main, and is green now
+
+`tests/browser/dashboard.spec.mjs` requires `#picks-at-a-glance` to start above 1,500 px at 320 px and
+390 px. Built from `origin/main` (2fb99b0) in a clean worktree, the block starts at **y = 1526.25 px** at
+390 px, so the check was already failing on main; 75aa5b56's longer banner copy, aria-labels and 48 px tap
+targets are what pushed it over. Fixed without removing navigation:
+
+* the three banner buttons keep a 44 px tap target and tighter headings;
+* the older five-link jump bar below the banner is compacted to 44 px rows with two-line descriptions;
+* only the banner's inventory line (a duplicate of the snapshot line immediately above it) is hidden, and
+  only at ≤375 px.
+
+Measured on the merged build: **320 px → y = 1326.7 px, 390 px → y = 1364.0 px, `scrollWidth −
+clientWidth = 0` at both widths**; `npx playwright test` → **85 passed** (was 83 passed / 2 failed). No pick,
+probability or source changed. Published as a notice flag in `data/research/93ba7221/flags.json`.
+
 ### 93B-2 result — live inventory re-read and a probability replay (2026-10-22T08:05Z)
 
 - **The sandbox cannot reach the sources directly.** `curl` to `play.hotspawn.com`, `api.hotspawn.com` and
