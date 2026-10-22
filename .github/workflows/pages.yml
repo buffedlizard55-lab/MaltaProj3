@@ -417,4 +417,3 @@ jobs:
       - name: Verify the public site after root-sync re-deploy
         if: steps.root_sync.outputs.pushed_sha != ''
         run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
-

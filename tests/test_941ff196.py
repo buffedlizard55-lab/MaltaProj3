@@ -49,6 +49,7 @@ class ExecBannerTests(unittest.TestCase):
         cc = data['complete_picks']['counts']
         text = BeautifulSoup(exec_banner(data, './'), 'html.parser').get_text(' ')
         self.assertIn(f"{cc['with_pick']} of {cc['active']} with a pick", text)
+        # Sessions 3016b0c6/4c972a51: unresolved = without a *pick* (not "without a line").
         self.assertIn(f"{cc['unresolved']} without a pick", text)
 
     def test_banner_renders_without_complete_picks(self):

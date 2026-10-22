@@ -1,0 +1,37 @@
+[
+  {
+    "id": "3016b0c6-hltv-and-book-access-limitations",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Runner access limitations: HLTV and several esportsbook pages refuse automated requests; absence of a page result is not proof no market exists",
+    "detail": "The 2026-10-22T07:39:57Z GitHub Actions runner sweep was read-only. HLTV matches and ranking returned HTTP 403 with Cloudflare challenge markers; BetBoom 401, Stake 403, Marathonbet 403 and EGamersWorld 403. GG.BET changed from 403 to HTTP 200 on the second run but served challenge markers and no target fixture prices. DraftKings, OddsPortal and BC.Game answered 200 but no target fixture's two-sided prematch series price was extracted. Pinnacle's guest esports matchup API returned 16,201 rows but none of the 18 target fixtures. These are access/extraction limitations, not proof that no book lists a fixture; all model-only rows remain explicitly labelled as research estimates and are retried on the scheduled refresh. The exact per-source response and timestamps are in the linked runner JSON.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://gg.bet/en/counter-strike",
+      "https://betboom.ru/sport/cs2",
+      "https://stake.com/sports/esports/cs2",
+      "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3016b0c6/line-source-research.json"
+    ]
+  },
+  {
+    "id": "3016b0c6-thunderpick-relay-lead-1081146",
+    "severity": "notice",
+    "match_ids": [
+      "1081146"
+    ],
+    "title": "The 07:39Z bo3.gg/Thunderpick relay lead for fixture 1081146 was superseded by a later Polymarket market estimate",
+    "detail": "At 2026-10-22T07:39:57Z, bo3.gg bound Hotspawn fixture 1081146 (CCT Europe 2026 Series #12) at the exact start and displayed a named Thunderpick block: 6yuBoJlbl 1.72 / ex-6666 2.00 (event 2868959). This was second-hand relay evidence, not a direct capture. The later public Origination snapshot (generated 2026-10-22T10:39:55Z) lists a Polymarket estimate for this fixture at 51.5% / 48.5%, with the Polymarket event linked on the current card. That later line is the current published source; the earlier bo3.gg relay remains only a dated audit lead and is not combined with or shown as a second pick. The four-hour collector may use the higher-ranked direct quote; the current match card is authoritative.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
+      "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
+      "https://thunderpick.io/match/2868959",
+      "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081146",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3016b0c6/line-source-research.json"
+    ]
+  }
+]

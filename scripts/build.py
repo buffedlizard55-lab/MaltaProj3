@@ -651,7 +651,8 @@ def glance(data, prefix, now=None):
             closed_attr = (f' data-glance-starts="{e(m.get("starts_at") or "")}"'
                            f' data-glance-locks="{e(m.get("locks_at") or "")}"'
                            f' data-glance-closed="{"true" if closed else "false"}"')
-        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}"{closed_attr}>'
+        search_text = ' '.join([names[0], names[1], m['competition'] or '']).lower()
+        rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}" data-search="{e(search_text)}"{closed_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
                  f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
                  f'<div class="glance-choice">{choice}</div>'
@@ -679,7 +680,17 @@ def glance(data, prefix, now=None):
             'Every row shows both teams\' win probability, the pick, and what produced the number. '
             'A missing estimate is never filled with a default 50/50; model-only rows are listed with their limitations under '
             f'{no_line_link}.</p>'
-            '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
+            # Phone findability (session 3016b0c6): type a team/tournament and
+            # only matching glance rows stay visible. Progressive enhancement
+            # only — with no JavaScript every row stays visible; it never
+            # re-prices or recalculates anything.
+            '<div class="glance-finder"><label for="glance-search">Find a pick — type a team or tournament</label>'
+            '<input id="glance-search" type="search" inputmode="search" autocomplete="off" '
+            'placeholder="e.g. Spirit Academy" aria-controls="glance-list">'
+            '<p class="glance-count" id="glance-count" role="status"></p>'
+            '<p class="glance-empty" id="glance-empty" hidden>No match in this snapshot uses that name. '
+            'Clear the search to see every pick, or open the complete list.</p></div>'
+            '<ol class="glance-list" id="glance-list">' + rows + '</ol>' + note + '</section>')
 
 
 def _brief_blank_reason(match: dict) -> str:
@@ -931,6 +942,74 @@ def line_sources_block(data, prefix):
             f'<a class="internal-link" href="{prefix}data/research/fbdc97d6/line-sources.json">Full record (JSON) ↓</a></p>'
             f'<ul class="line-source-list">{rows}</ul></div>')
 
+
+def no_line_research_block(data, prefix):
+    """Dated per-fixture research for matches with no betting line (3016b0c6).
+
+    HLTV was tried first, then esportsbooks/aggregators, for every fixture the
+    featured method left on a research model. This block publishes the dated
+    outcome only: which fixtures still had no two-sided price anywhere
+    reachable, and any *lead* (a bound two-sided relay quote) that the
+    reviewed ladder must replay on the next refresh before a pick can change.
+    Coefficients are quoted verbatim as evidence, never converted here.
+    """
+    record = data.get('_no_line_research') or {}
+    fixtures = record.get('per_fixture') or []
+    if not fixtures:
+        return ''
+    leads = [f for f in fixtures if f.get('money_line_lead')]
+    # A dated sweep is never allowed to override the current complete-picks
+    # snapshot. If the four-hour resolver has since consumed the lead, say so
+    # and link to the current card; otherwise keep it clearly as a lead.
+    current_rows = {str(m.get('id')): m for m in
+                    ((data.get('complete_picks') or {}).get('matches') or [])}
+    lead_rows = ''
+    for f in leads:
+        current = current_rows.get(str(f.get('id'))) or {}
+        current_o = current.get('origination') or {}
+        current_money = (current_o.get('method') in MONEY_METHODS
+                         or current_o.get('family') == 'relay')
+        bet = f.get('bo3_bet') or {}
+        t1, t2 = bet.get('team_1') or {}, bet.get('team_2') or {}
+        detail = (f"{e(bet.get('provider') or 'bookmaker')} via bo3.gg: "
+                  f"{e(t1.get('name') or '')} {e(t1.get('coeff'))} / "
+                  f"{e(t2.get('name') or '')} {e(t2.get('coeff'))}") if bet else 'Pinnacle guest board lists the fixture'
+        url = f.get('bo3_bound_url')
+        link = external(url, 'bo3.gg fixture') if url else ''
+        if bet.get('path'):
+            # Keep the second-hand origin transparent and give a reviewer the
+            # bookmaker's own event link as well as the relay page. The quote
+            # stays a lead until the first-party collector replays it.
+            link += external(bet['path'], 'Thunderpick market')
+        if current_money:
+            current_label = current_o.get('label') or current_o.get('source') or 'external money line'
+            status_note = (f'This dated lead was subsequently superseded in the current complete-picks '
+                           f'snapshot by {e(current_label)}. Open the current match card; the dated relay '
+                           'is not shown as a second pick.')
+            link += f'<a class="internal-link" href="{prefix}origination/#match-{e(f.get("id"))}">Current card →</a>'
+        else:
+            status_note = ('Recorded as a lead only. The reviewed first-party ladder must replay it on a '
+                           'later refresh before any pick changes; consult the current match card, not this dated lead.')
+            if str(f.get('id')) in current_rows:
+                link += f'<a class="internal-link" href="{prefix}origination/#match-{e(f.get("id"))}">Current card →</a>'
+            elif f.get('hotspawn_url'):
+                link += external(f['hotspawn_url'], 'Hotspawn fixture')
+        lead_rows += (f'<li class="line-source-row"><span class="tried-chip resolved">dated lead</span>'
+                      f'<strong>{e(" vs ".join(f.get("teams") or []))}</strong> '
+                      f'<span class="line-source-note">{detail} · {status_note}</span>{link}</li>')
+    leads_html = f'<ul class="line-source-list">{lead_rows}</ul>' if lead_rows else '<p class="tiny">No new money-line lead was found for any of them on that sweep.</p>'
+    return ('<div class="line-sources" id="no-line-research">'
+            '<h3>Fixtures without a betting line — latest dated research</h3>'
+            f'<p class="tiny">On {local_time(record.get("observed_at"))} every fixture then carrying only a '
+            f'research-model pick (<strong>{len(fixtures)}</strong>) was re-researched in brief order: '
+            'HLTV first (identity/ranking; it publishes no two-sided price and answered the runner with a '
+            'Cloudflare 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, '
+            'OddsPortal, EGamersWorld, the Pinnacle guest board and the bo3.gg bookmaker relay. '
+            f'<strong>{len(leads)}</strong> new money-line lead(s) found; the rest had no two-sided prematch '
+            'price on any reachable surface, so their model picks and limitations stand. '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Full dated record ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">JSON ↓</a></p>'
+            + leads_html + '</div>')
 
 
 #: Session 4c972a51's dated runner sweep. The file is evidence, not a feed: it
@@ -1268,6 +1347,7 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
     out.append(no_line_register(data, prefix))
     out.append(source_probe_block(data, prefix))
     out.append(line_sources_block(data, prefix))
+    out.append(no_line_research_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -1780,6 +1860,15 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = json.loads(line_sources_path.read_text())
         except ValueError:
             data['_line_sources'] = None
+    # Session 3016b0c6: per-fixture research for matches with no betting line
+    # (HLTV first, then esportsbooks/aggregators). Dated evidence only; a lead
+    # recorded there is not a price and never becomes a pick in this renderer.
+    no_line_path = source / 'research/3016b0c6/line-source-research.json'
+    if no_line_path.exists():
+        try:
+            data['_no_line_research'] = json.loads(no_line_path.read_text())
+        except ValueError:
+            data['_no_line_research'] = None
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
