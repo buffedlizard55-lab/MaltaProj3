@@ -11,7 +11,7 @@
    "severity": "high",
    "status": "verified",
    "finding": "Every active Hotspawn CS2 fixture in the live inventory carries a published directional pick: 46 of 46 rows resolved, 0 unresolved, and the published method counts match the rows exactly (16 market, 8 bookmaker, 2 consensus, 20 model). No active fixture is missing from the complete list, and no row refers to a fixture outside the current inventory.",
-   "handling": "Reconciled by scripts/e5cc3d49_audit.py against the live snapshot it read; the audit fails if any active fixture lacks a row, if any row is not in the inventory, or if the published counts disagree with the rows. The unresolved register therefore has no rows in this snapshot, and the executive summary states that explicitly.",
+   "handling": "Reconciled by scripts/e5cc3d49_audit.py against the live snapshot it read; the audit fails if any active fixture lacks a row, if any row is not in the inventory, or if the published counts disagree with the rows. The unresolved register therefore has no rows in this snapshot, and the executive summary states that explicitly. Run 39742089707 read the live snapshot of 2026-10-22T07:44Z and recorded the report in data/research/e5cc3d49/line-by-line-audit.json; the follow-up run 39744061339 on the corrected audit returned zero violations on the 07:56Z snapshot.",
    "evidence": [
     {
      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
@@ -24,6 +24,10 @@
     {
      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/e5cc3d49_audit.py",
      "detail": "The read-only audit that produced this register (coverage, counts, argmax, https-source and freshness checks)."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39742089707",
+     "detail": "The runner run that read the live Hotspawn inventory and every supported external line, then ran this audit against the freshly built site."
     }
    ]
   },
@@ -46,6 +50,10 @@
     {
      "url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
      "detail": "Example first-party market page: the moneyline shows g1 43c / tsa 58c, so a published 47.5/52.5 at 07:36Z is a point-in-time midpoint, not a claim about the current price."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e5cc3d49/line-by-line-audit.json",
+     "detail": "The dated report: every row's checks, the 17 model rows that are not independently recomputable, and the exact violations found in that snapshot."
     }
    ]
   },
@@ -55,7 +63,7 @@
    "severity": "medium",
    "status": "fixed",
    "finding": "The first version of this audit paired each published quote with the saved order book of the same position. That is wrong whenever Polymarket's outcome order differs from Hotspawn's team order (for example Polymarket lists 'Phantom Academy vs Falcons Force' while Hotspawn lists 'Falcons Force vs Phantom Academy'), because the collector reorders the quotes to the Hotspawn order. It produced four false 'does not reproduce' findings on fixtures 1081596 and 1082769.",
-   "handling": "The audit now maps each team to its own book through the published source_outcomes and makes no book-level claim when the names cannot be mapped. Re-run on the live snapshot: zero violations. The row itself was confirmed independently: Polymarket's own page for the Falcons Force–Phantom Academy series reports Falcons Force at 60c and Phantom Academy at 41c, which matches the published 59.5% / 40.5% midpoint. Locked by tests/test_e5cc3d49.py (reversed-outcome-order case).",
+   "handling": "The audit now maps each team to its own book through the published source_outcomes and makes no book-level claim when the names cannot be mapped. Re-run on the live snapshot (run 39744061339): zero violations. The row itself was confirmed independently: Polymarket's own page for the Falcons Force–Phantom Academy series reports Falcons Force at 60c and Phantom Academy at 41c, which matches the published 59.5% / 40.5% midpoint. Locked by tests/test_e5cc3d49.py (reversed-outcome-order case).",
    "evidence": [
     {
      "url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",

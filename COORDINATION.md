@@ -108,8 +108,55 @@ were live at claim time: `3016b0c6` (line-source probe), `3cf793ef` (independent
 claims **only new, session-named files** and does not edit any file another session is working on.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| E5-1 Read the live Hotspawn inventory and the live pick snapshot from the runner (the sandbox has no egress to Hotspawn, HLTV or any book), keep a dated copy under `data/research/e5cc3d49/live/`, and audit every published row line by line against its own cited first-party evidence | **in progress** | arena-e5cc3d49 | `.github/workflows/e5cc3d49-live.yml` (**session-only, deleted before merge**), `scripts/e5cc3d49_audit.py` (new, read-only), `tests/test_e5cc3d49.py` (new), `data/research/e5cc3d49/` (new), this section |
-| E5-2 Verify the executive summary's in-site links and the unresolved/limitations section, and the phone layout at 390/320 px, publish the findings register on Flagged for Review, and record every measurement | **in progress** — see E5-2 result | arena-e5cc3d49 | `data/research/e5cc3d49/repo-review.json` (new register), `scripts/review_register.py` (**one line**: the `REGISTERS` tuple only), `data/research/e5cc3d49/live/mobile-check-local.txt` (new), this section |
+| E5-1 Read the live Hotspawn inventory and every supported external line from the runner (the sandbox has no egress to Hotspawn, HLTV or any book) and audit every published row line by line against its own cited first-party evidence | **done** — see E5-1 result | arena-e5cc3d49 | `.github/workflows/e5cc3d49-live.yml` (**session-only, deleted before merge**), `scripts/e5cc3d49_audit.py` (new, read-only), `tests/test_e5cc3d49.py` (new), `data/research/e5cc3d49/` (new), this section |
+| E5-2 Verify the executive summary's in-site links and the unresolved/limitations section, and the phone layout at 390/320 px, publish the findings register on Flagged for Review, and record every measurement | **done** — see E5-2 result | arena-e5cc3d49 | `data/research/e5cc3d49/repo-review.json` (new register), `scripts/review_register.py` (**one line**: the `REGISTERS` tuple only), `data/research/e5cc3d49/live/mobile-check-local.txt` (new), this section |
+### E5-1 result — the live picks reproduce from their own evidence (2026-10-22T07:44Z and 07:56Z snapshots)
+
+Two runner reads, both with the publisher's own collector, then `scripts/e5cc3d49_audit.py` (new,
+read-only, 16 unit tests) against the freshly built site:
+
+| Check | Result |
+| --- | --- |
+| Active Hotspawn CS2 fixtures in the live inventory | **46** (up from 33 at 05:36Z) |
+| Rows with a published directional pick / unresolved | **46 / 0** |
+| Published method counts vs the rows | reconcile exactly (16 market, 8 bookmaker, 2 consensus, 20 model) |
+| Inventory ↔ rows, rows ↔ counts, rows ↔ built pages | all reconcile; every active fixture has a glance row naming its published pick and a `match-<id>` + `row-<id>` anchor |
+| Numbers re-derived exactly from their own primary evidence | **29 of 46** — 16 Polymarket (bid/ask midpoints, and the saved CLOB books where present), 8 esportsbook (`1/o` from quoted odds), 2 consensus (provider median), 3 Valve (official points, fixed RD 75) |
+| Model rows not independently re-derivable | **17**, each listed by fixture id and source under `not_recomputable` (Bradley–Terry network, HLTV-ranking and results-form fits; their graph inputs are not in the public payload) |
+| Executive-summary links | `origination/#picks`, `origination/#unresolved`, `#unresolved-register`, `#no-line-register` all present |
+
+**One correction was made to the audit, not to the site.** The first version paired each published
+quote with the saved order book at the same position, which is wrong when Polymarket's outcome order
+differs from Hotspawn's ("Phantom Academy vs Falcons Force" vs "Falcons Force vs Phantom Academy").
+That produced four false "does not reproduce" findings on fixtures 1081596 and 1082769. The audit now
+maps each team to its own book through the published `source_outcomes`; the re-run (run 39744061339)
+returned **zero violations**. The row itself was confirmed against Polymarket's own page: Falcons
+Force 60¢ / Phantom Academy 41¢, matching the published 59.5% / 40.5%.
+
+A third run (live snapshot plus runner-side phone check) never left GitHub's queue while this session
+was live; it is not reported as a result, and the phone measurements published here are the local
+ones. The session-only workflow `.github/workflows/e5cc3d49-live.yml` is removed before the merge.
+
+### E5-2 result — the site's own links and the phone layout, measured (2026-10-22T08:25Z)
+
+| Page at 390 px (and 320 px) | Horizontal overflow | Page height | Pick index / first row |
+| --- | --- | --- | --- |
+| `/` executive summary | **0** (0) | 22,464 px (25,234) | 1,457 px / 1,751 px (1,479 / 1,875) |
+| `/origination/` complete list | 0 (0) | 26,497 px (29,921) | picks section 1,782 px / first row 2,281 px |
+| `/picks/` featured feed | 0 (0) | 11,912 px (12,467) | first row 1,501 px (1,592) |
+| `/coverage/` | 0 (0) | 20,238 px | first row 2,533 px |
+| `/methodology/` | 0 (0) | 8,632 px | — |
+| `/review/` Flagged for Review | 0 (0) | **116,265 px** (137,397) | first row 896 px |
+
+The pick path a phone reader takes is sound (no horizontal scrolling at either width, viewport meta
+on every page, six-item bottom bar, both teams' percentages on every glance row). The one real
+mobile problem is the review page: 112,452 px of it is a single "All findings" register of full
+cards. That is published as **E5-05 needs review** with a concrete recommended fix, together with
+**E5-04** (the checked-in root snapshot is still 15 October while the live artifact is current, so a
+push can briefly republish week-old pages through the platform's legacy Pages build) and **E5-06**
+(emoji-only icons on the complete-picks hero). The register is wired into `scripts/review_register.py`
+with one line and renders on Flagged for Review.
+
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
 `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`,
