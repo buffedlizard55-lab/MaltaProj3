@@ -4,13 +4,75 @@ Claimed **2026-10-22T07:55Z** on Arena's fixed branch `arena/93ba7221-maltaproj3
 no other claim is live, so no scope is taken from anyone. Only the files listed below are edited.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 93B-1 Fix the `/picks/` coverage sentence that adds the *featured* market count to the *fallback* count (rendered "33 of 33 … 11 come from an external … line, 12 more from the audited research ladder", i.e. 23 of 33 accounted for) and lock the two summaries together with a regression test | **in progress** | arena-93ba7221 | `scripts/build.py` (`picks()` info strip only), new `tests/test_93ba7221_counts.py`, this section |
-| 93B-2 Re-read Hotspawn's own fixture API and CS2 lobby through the platform reader, measure the inventory delta against the published 05:36Z snapshot, and publish the dated evidence plus one flag | **in progress** | arena-93ba7221 | new `data/research/93ba7221/`, `scripts/review_register.py` (register list only) |
-| 93B-3 After the merge-triggered refresh, verify every newly added fixture carries a pick or an explicit blank, run the phone checks at 320/390 px, open and merge the PR, and confirm the Pages deployment | unclaimed | — | new `data/research/93ba7221/`, this section |
+| 93B-1 Fix the `/picks/` coverage sentence that adds the *featured* market count to the *fallback* count (rendered "33 of 33 … 11 come from an external … line, 12 more from the audited research ladder", i.e. 23 of 33 accounted for) and lock the two summaries together with a regression test | **done** — see 93B-1 result | arena-93ba7221 | `scripts/build.py` (`picks()` info strip only), new `tests/test_93ba7221_counts.py`, this section |
+| 93B-2 Re-read Hotspawn's own fixture API and CS2 lobby through the platform reader, measure the inventory delta against the published 05:36Z snapshot, and publish the dated evidence plus one flag | **done** — see 93B-2 result | arena-93ba7221 | new `data/research/93ba7221/`, this section |
+| 93B-3 After the merge-triggered refresh, verify every newly added fixture carries a pick or an explicit blank, run the phone checks at 320/390 px, open and merge the PR, and confirm the Pages deployment | **in progress** | arena-93ba7221 | new `data/research/93ba7221/`, this section |
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`,
 `assets/`, `.github/workflows/`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`,
 `archive/`, `docs/` or any other session's `data/research/<id>/`. The only shared file touched is
 `scripts/build.py` (`picks()` info strip), which is unowned because its last owner merged and stopped.
+### 93B-1 result — the picks page now adds up (2026-10-22T08:00Z)
+
+- **Defect, read on the live site at 07:47Z.** `/picks/` printed *"33 of 33 matches below carry a pick. 11 come
+  from an external market, esportsbook or aggregated bookmaker line, 12 more from the audited research ladder,
+  badged Researched fallback, and 0 remain blank"*. 11 + 12 = 23, so ten of the 33 rows were unaccounted for.
+  The executive summary on the same snapshot printed the correct split (15 external line, 18 research model,
+  0 unresolved), so the two pages contradicted each other.
+- **Cause.** `picks()` took the first number from `data['counts']` (featured-method rows only) and the second
+  from the count of researched fallbacks, while the page itself renders the *effective* basis (featured pick,
+  otherwise an audited fallback). The sentence therefore described two different populations.
+- **Fix.** Every number in the sentence is now derived from `effective_basis()` over the rows the page renders:
+  money rows, model rows, then "N of those rows were resolved by the audited research ladder" as a *method*
+  note rather than a third bucket (a fallback can be a money line too), then the blank count. Singular/plural
+  now follows the count. On the 15 October fixture snapshot the same code prints
+  *"17 of 17 matches below carry a pick. 12 come from an external … line and 5 from a research model; 4 of
+  those rows were resolved by the audited research ladder … 0 remain blank"* — 12 + 5 = 17.
+- **Locked** by `tests/test_93ba7221_counts.py` (5 tests): the groups must add up, a stale `counts` block must
+  never reach the sentence, the executive summary and the picks page must publish the same split, singular
+  counts must still read correctly, and the coverage card must name both the featured and complete figures.
+
+### 93B-1b result — the coverage card no longer looks like it contradicts the summary
+
+The same snapshot's `/coverage/` card read *"Future probabilities 23 / 33"* while the summary read *"33 of 33
+… with a directional pick"*. Both numbers were right for different things (featured stages only versus
+featured plus the researched ladder) and neither was labelled. The card is now titled **Featured method
+coverage**, its split is labelled *featured stages only*, and the same paragraph states that the ladder runs on
+every rejected fixture and gives the complete figure with the number of explicitly blank rows. Nothing is
+recomputed. Covered by `CoverageCardConsistencyTests`.
+
+### 93B-2 result — live inventory re-read and a probability replay (2026-10-22T08:05Z)
+
+- **The sandbox cannot reach the sources directly.** `curl` to `play.hotspawn.com`, `api.hotspawn.com` and
+  `www.hltv.org` returns `SSL_ERROR_SYSCALL`, and GitHub Actions artifacts redirect to a blocked blob host, so
+  the published `data/origination.json` was read through the agent's page reader instead. Every read below is
+  labelled person-grade evidence, not a runner probe, in `data/research/93ba7221/live-inventory-recheck.json`.
+- **Hotspawn itself, read 07:34Z–07:51Z:** the scheduled-fixture API, the rendered `/cs2-pickems` lobby (live
+  countdown 00:09:23 to the 08:00Z lock pins the render to ~07:45Z) and the general `/lobby`. The tier filter
+  reports All tiers 107 = B 47 + C 60, so the current weekly CS2 pool has no tier-A fixture.
+- **Five fixtures exist on Hotspawn that are absent from the 33-row published snapshot:** 1082921 your end vs
+  Yawara, 1082922 Low Cortisol BR vs Grêmio, 1082924 BORRACHEIROS vs QUINTESSÊNCIA, 1082925 BESTIA Academy vs
+  RED Canids Academy and 1082926 Isurus vs Hacha, all CCT South America 2026 Series #7. The published `/picks/`
+  lists no CCT South America tournament at all, so they cannot be duplicates. This is **not** a collector
+  defect — the snapshot's own cross-check required the API and every readable lobby payload to agree at
+  05:36:38Z and these records were not in those responses — it measures the four-hour blind window. Published
+  as a flag with the ids, and the post-merge refresh is verified against them below.
+- **Probability replay, 12 of 12 exact.** Twelve research-model picks on the live snapshot were recomputed from
+  Valve's official `standings_global_2026_10_05.md` (cloned from the official repository) with the formula the
+  site documents (`RD = 75`, `g = 1/sqrt(1 + 3(ln10/400)²RD²/π²)`, `p = 1/(1+10^(g(r_b−r_a)/400))`). Every value
+  reproduces the published percentage within **0.05 pp** (display rounding). The duplicate-name cases resolve
+  the documented way — only complete five-player rows are candidates: Banda Chuya 801 (five players, standing
+  165) not the 402 two-player remnant; BRUTE 1116 (standing 75) not 689; ex-RUSTEC 1066 (standing 92) not the
+  824 four-player row; Chinggis Warriors 1084 (standing 87) not 685; The Huns 944 (standing 122) not 701;
+  `ex-6666` via the reviewed alias to Valve's `6666` 923 (standing 127) not the 425 remnant. Record:
+  `data/research/93ba7221/probability-replay.json`.
+- **Not verified, and not claimed:** HLTV world-ranking rows (hltv.org unreachable here), the money-line rows
+  (replayed by the pipeline from saved order books, not recomputed by this session) and the bo3.gg
+  network/form rows (their fitted inputs are not on the summary). The published CSV answered **HTTP 500** to
+  the page reader while JSON and HTML answered 200 on the same host, so it is published as unverified rather
+  than broken.
+- **Flags published** (`data/research/93ba7221/flags.json`, rendered on Flagged for Review): the picks-page
+  arithmetic (notice, fixed), the coverage-card contradiction (notice, fixed), the five new fixtures (notice,
+  ids), the CSV reader response (notice, unverified).
 ---
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched

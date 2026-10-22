@@ -1,0 +1,84 @@
+[
+  {
+    "id": "93ba7221-picks-page-accounted-for-23-of-33",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The picks page accounted for 23 of the 33 matches it said carried a pick (fixed)",
+    "detail": "Read on the live site at 2026-10-22T07:47Z, /picks/ printed: '33 of 33 matches below carry a pick. 11 come from an external market, esportsbook or aggregated bookmaker line, 12 more from the audited research ladder, badged Researched fallback, and 0 remain blank because no supported evidence exists.' 11 + 12 = 23, so ten rows were unaccounted for. The cause was arithmetic, not data: the first number came from data['counts'] (featured-method rows only) while the page renders the effective basis (featured pick, otherwise an audited fallback), and the second number counted fallbacks. The executive summary on the same snapshot printed the correct split (15 external line, 18 research model, 0 unresolved), so the two pages disagreed. scripts/build.py picks() now derives every number in the sentence from the same effective basis the page renders, and prints the researched count as a method ('N of those rows were resolved by the audited research ladder') instead of a third bucket, because a fallback can be a money line as well as a model. tests/test_93ba7221_counts.py pins the contract: the groups must add up to the rows with a pick, a stale counts block must never reach the sentence, and the executive summary and picks page must publish the same split.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_93ba7221_counts.py"
+    ]
+  },
+  {
+    "id": "93ba7221-coverage-card-contradicted-the-summary",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The coverage page's 'Future probabilities' card read 23 / 33 while the summary said 33 of 33 had a pick (fixed)",
+    "detail": "On the same 2026-10-22T05:36Z snapshot, /coverage/ showed 'Future probabilities 23 / 33' and the executive summary showed '33 of 33 \u2026 with a directional pick'. Both numbers were computed correctly for different things (featured stages only versus featured plus the researched ladder), but neither was labelled, which is exactly the kind of contradiction that made the site hard to read. The card is now titled 'Featured method coverage', its split is labelled as featured stages only, and the same paragraph states that the audited research ladder then runs on every rejected fixture and gives the complete figure with the count of explicitly blank rows. No probability is recomputed and no new source is introduced.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "93ba7221-five-fixtures-added-between-refreshes",
+    "severity": "notice",
+    "match_ids": [
+      "1082921",
+      "1082922",
+      "1082924",
+      "1082925",
+      "1082926"
+    ],
+    "title": "Hotspawn added at least five fixtures in the two and a half hours after the published snapshot; they reach the site at the next refresh",
+    "detail": "Read through the agent's page reader at 2026-10-22T07:51Z, Hotspawn's scheduled-fixture API contains five CCT South America 2026 Series #7 fixtures that do not exist anywhere in the published 05:36:38Z snapshot: 1082921 your end vs Yawara (22 Oct 19:00Z), 1082922 Low Cortisol BR vs Gr\u00eamio (22 Oct 22:00Z), 1082924 BORRACHEIROS vs QUINTESS\u00caNCIA (23 Oct 16:00Z), 1082925 BESTIA Academy vs RED Canids Academy (23 Oct 19:00Z) and 1082926 Isurus vs Hacha (23 Oct 22:00Z). The published /picks/ page lists no CCT South America tournament at all, so these cannot be duplicates of published rows. This is not a collector defect: the snapshot's own cross-check required the fixture API and every readable lobby payload to agree exactly at 05:36:38Z, and these records were not in those responses then. It measures the blind window the four-hour refresh creates, which is why the pages scope every coverage claim to 'this snapshot' and print the observation time. The refresh that follows this PR is verified against these five ids; see the session record in COORDINATION.md.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/93ba7221/live-inventory-recheck.json"
+    ]
+  },
+  {
+    "id": "93ba7221-csv-download-unverified-from-the-reader",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The CSV download answered HTTP 500 to the page reader while JSON and HTML pages answered 200 (unverified, not claimed broken)",
+    "detail": "Requested at 2026-10-22T07:44Z, https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv returned HTTP 500 to the agent's page reader, while /data/latest.json, /data/sources.json and the HTML pages on the same host returned 200. GitHub Pages serves .csv as text/csv, and the reader may simply not render that content type, so this is published as unverified rather than as a broken link. The CSV is generated by scripts/build.py picks_csv() from the same rows the HTML table renders and is covered by the repository's row-source audit, but a successful download has not been observed by this session and no claim is made that it works.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "93ba7221-model-rows-replayed-against-valve-official-file",
+    "severity": "notice",
+    "match_ids": [
+      "1081143",
+      "1082767",
+      "1081600",
+      "1079657",
+      "1081150",
+      "1081146",
+      "1079655",
+      "1081871",
+      "1082859",
+      "1082861",
+      "1082793",
+      "1082792"
+    ],
+    "title": "Verification: 12 research-model picks replay exactly from Valve's official standings file",
+    "detail": "Twelve research-model picks on the published 2026-10-22T05:36Z snapshot were recomputed from Valve's official live/2026/standings_global_2026_10_05.md with the formula the methodology page documents (fixed rating deviation 75, g = 1/sqrt(1 + 3*(ln10/400)^2*75^2/pi^2), p = 1/(1+10^(g*(r_b-r_a)/400))). All twelve reproduce the published one-decimal percentage within 0.05 percentage points, which is display rounding: BakS-Azuolas 73.4%, Nemesis-WW 91.8%, Donstu-Banda chuya 59.5%, BakS-BRUTE 59.9%, ex-RUSTEC-Saint Sinners 80.7%, 6yuBoJlbl-ex-6666 62.6%, Nuclear TigeRES-ILLYRIANS 93.0%, Lynn Vision-Chinggis Warriors 64.4%, NEXVOID-Alter Ego 72.8%, Rooster-Abyssal 52.2%, 5star-1WIN 82.2% and HOTU-The Huns 94.1%. Where Valve's table holds several rows for one name, the published number is reproduced only by a complete five-player row - Banda Chuya 801 (standing 165) not the two-player 402 remnant, BRUTE 1116 (standing 75) not 689, ex-RUSTEC 1066 (standing 92) not the four-player 824 row, Chinggis Warriors 1084 (standing 87) not 685, The Huns 944 (standing 122) not 701, and ex-6666 through the reviewed alias registry to Valve's 6666 at 923 (standing 127) not the 425 four-player remnant. The money-line rows and the bo3.gg network/form rows are outside this replay and no claim is made about them here.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/93ba7221/probability-replay.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  }
+]

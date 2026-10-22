@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "session": "arena-93ba7221",
+  "task": "93B-2",
+  "observed_at": "2026-10-22T07:34Z to 2026-10-22T07:56Z",
+  "reader": {
+    "name": "Arena platform page reader",
+    "note": "The coding sandbox itself cannot reach these hosts: curl to play.hotspawn.com, api.hotspawn.com and www.hltv.org returns SSL_ERROR_SYSCALL, and GitHub Actions artifacts redirect to a blocked blob host. The reads below were taken with the agent's page reader, which is a second, independent path to the same public pages. They are person-grade evidence, not a runner probe, and are labelled as such.",
+    "wrote_to_repo": "data/research/93ba7221/live-inventory-recheck.json"
+  },
+  "snapshot_under_review": {
+    "published_json": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "generated_at": "2026-10-22T05:36:57Z",
+    "inventory_observed_at": "2026-10-22T05:36:38Z",
+    "coverage_complete": true,
+    "inventory_crosscheck": "complete",
+    "counts": {
+      "inventory": 96,
+      "upcoming": 33,
+      "archived": 63,
+      "market": 10,
+      "bookmaker": 1,
+      "model": 12,
+      "unresolved": 10,
+      "picks": 23,
+      "no_edge": 0
+    },
+    "rendered_summary": "The executive summary and the picks page report 33 of 33 active fixtures with a directional pick (15 from an external betting line, 18 from a research model) once the audited research ladder is applied to the 10 fixtures the featured method rejected. The featured-only counts above are the ones the picks-page sentence used to print."
+  },
+  "reads": [
+    {
+      "label": "Hotspawn scheduled-fixture API (the inventory authority)",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "chunks_read": [
+        0,
+        8,
+        9
+      ],
+      "total_chunks": 11,
+      "observed_at": "2026-10-22T07:51Z",
+      "notes": "Unpaginated JSON array of every CS2 record with status=scheduled, ordered by scheduled_start_time. Read partially: chunk 0 (June records, confirming the API also returns long-past scheduled anomalies), chunk 8 (22 October) and chunk 9 (23-27 October)."
+    },
+    {
+      "label": "Hotspawn CS2 Pick'em lobby (rendered cross-check)",
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "chunks_read": [
+        0,
+        1,
+        2
+      ],
+      "total_chunks": 3,
+      "observed_at": "2026-10-22T07:45Z",
+      "notes": "Live countdown: the 08:00Z NODWIN fixture showed 00:09:23 to lock (lock 07:54Z), which pins the render to about 07:45Z. Tier filter: All tiers (107), B (47), C (60) - 47 + 60 = 107, so the current weekly pool contains no tier-A CS2 fixture."
+    },
+    {
+      "label": "Hotspawn general lobby (rendered cross-check)",
+      "url": "https://play.hotspawn.com/lobby",
+      "chunks_read": [
+        0
+      ],
+      "total_chunks": 4,
+      "observed_at": "2026-10-22T07:34Z",
+      "notes": "Same 08:00Z fixture showed 00:24:48 to lock, pinning this render to about 07:34Z."
+    }
+  ],
+  "fixtures_in_hotspawn_at_read_but_absent_from_the_published_snapshot": [
+    {
+      "id": "1082921",
+      "teams": [
+        "your end",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T19:00:00Z",
+      "scheduled_start_time_epoch_ms": "1792695600000",
+      "observed_in": "fixture API chunk 8",
+      "lobby_anchor": "https://play.hotspawn.com/cs2-pickems#fixture-1082921"
+    },
+    {
+      "id": "1082922",
+      "teams": [
+        "Low Cortisol BR",
+        "Gr\u00eamio"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T22:00:00Z",
+      "scheduled_start_time_epoch_ms": "1792706400000",
+      "observed_in": "fixture API chunk 8",
+      "lobby_anchor": "https://play.hotspawn.com/cs2-pickems#fixture-1082922"
+    },
+    {
+      "id": "1082924",
+      "teams": [
+        "BORRACHEIROS",
+        "QUINTESS\u00caNCIA"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T16:00:00Z",
+      "scheduled_start_time_epoch_ms": "1792771200000",
+      "observed_in": "fixture API chunk 9",
+      "lobby_anchor": "https://play.hotspawn.com/cs2-pickems#fixture-1082924"
+    },
+    {
+      "id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "scheduled_start_time_epoch_ms": "1792782000000",
+      "observed_in": "fixture API chunk 9",
+      "lobby_anchor": "https://play.hotspawn.com/cs2-pickems#fixture-1082925"
+    },
+    {
+      "id": "1082926",
+      "teams": [
+        "Isurus",
+        "Hacha"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "scheduled_start_time_epoch_ms": "1792792800000",
+      "observed_in": "fixture API chunk 9",
+      "lobby_anchor": "https://play.hotspawn.com/cs2-pickems#fixture-1082926"
+    }
+  ],
+  "absence_check": {
+    "method": "The published picks page renders a tournament filter built from every active fixture in the snapshot.",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+    "observed_at": "2026-10-22T07:47Z",
+    "tournaments_listed": [
+      "CCT Europe 2026 Challengers #8",
+      "CCT Europe 2026 Series #11",
+      "CCT Europe 2026 Series #12",
+      "CIS LAN Championship #9",
+      "Circuit X Curitiba #4",
+      "DFRAG Invitational 2026",
+      "DraculaN Season 7",
+      "Moscow Cyber Games 2026",
+      "NODWIN Clutch Series #13",
+      "Stake Ranked Episode 6: Closed Qualifier",
+      "VOID Autumn Cup 2026"
+    ],
+    "result": "No CCT South America fixture and no CCT South America tournament option appears in the 33-row snapshot, so the five records above cannot be duplicates of published rows. They were created on Hotspawn after 2026-10-22T05:36:38Z, the snapshot's inventory_observed_at."
+  },
+  "conclusion": "No coverage defect in the collector: the snapshot's own cross-check required the fixture API and every rendered lobby payload it could read to agree exactly at 05:36:38Z, and the fixtures above were not in those responses then. What the reads measure is the size of the blind window created by the four-hour refresh: in under two and a half hours Hotspawn added at least five fixtures to one tournament, and every one of them was listed on the site only after the next successful refresh. The site's coverage claim is therefore always scoped to its snapshot, which is why the pages say 'in this snapshot' and publish the observation time.",
+  "limitations": [
+    "The reader is not the GitHub runner, so these reads do not prove runner reachability; the runner's own sweep is published separately in data/research/fbdc97d6/line-sources.json.",
+    "The fixture API response was read in three of eleven chunks. Records outside those chunks were not inspected and are not claimed.",
+    "No price, probability or pick is produced here. The five records are inventory findings only.",
+    "Fixture 1082923 was visible only as a truncated record at a chunk boundary and is deliberately not claimed."
+  ],
+  "sources": [
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://play.hotspawn.com/lobby",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json"
+  ]
+}

@@ -1204,7 +1204,6 @@ def where_everything_lives(data, prefix):
 
 
 def picks(data, prefix, now=None):
-    c = data['counts']
     fallbacks = data.get('fallbacks') or {}
     active = [m for m in data['matches'] if m['availability'] != 'past']
     basis = [effective_basis(m, fallbacks) for m in active]
@@ -1214,11 +1213,26 @@ def picks(data, prefix, now=None):
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
     with_pick = shown['all'] - shown['unresolved']
+    # Session 93ba7221: this sentence used to mix the featured-only counts
+    # (data['counts']) with the fallback count, so the live 22 October snapshot
+    # rendered "33 of 33 … 11 come from an external … line, 12 more from the
+    # audited research ladder" and left ten rows unaccounted for. Every number
+    # below is now derived from the same effective basis this page renders, so
+    # the two groups always add up to the rows with a pick. The researched
+    # count is published as "how", never as a third bucket, because a fallback
+    # can be a money line as well as a model.
+    def agree(n, singular, plural):
+        return singular if n == 1 else plural
+
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
-    out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
-            f'{c["market"] + c["bookmaker"] + c.get("reference", 0)} come from an external market, esportsbook or aggregated bookmaker line'
-            + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
-            + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
+    out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} '
+            f'{agree(shown["all"], "match", "matches")} below {agree(with_pick, "carries", "carry")} a pick.</strong> '
+            f'{shown["market"]} {agree(shown["market"], "comes", "come")} from an external market, esportsbook or '
+            f'aggregated bookmaker line and {shown["model"]} from a research model'
+            + (f'; {researched} of those rows {agree(researched, "was", "were")} resolved by the audited research '
+               'ladder and badged <strong>Researched fallback</strong>' if researched else '')
+            + f'. {shown["unresolved"]} {agree(shown["unresolved"], "remains", "remain")} blank because no supported '
+            f'evidence exists. '
             f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
             f'<a href="{prefix}edge/">Day-one upset review &amp; contrarian edge →</a></span></div>')
     out += f'<div class="limitations-callout"><strong>Need a pick for rows unresolved below?</strong> <a style="text-decoration:underline" href="{prefix}origination/#picks">Complete researched picks: featured estimates plus source-backed fallbacks →</a> <a style="text-decoration:underline" href="{prefix}origination/#unresolved">Remaining limitations →</a> <a style="text-decoration:underline" href="{prefix}index.html#contrarian">Day 1 contrarian review →</a></div>'
@@ -1238,8 +1252,22 @@ def picks(data, prefix, now=None):
 
 def coverage(data, prefix, now=None):
     c = data['counts']
+    # Session 93ba7221: the executive summary and the picks page count the
+    # *effective* basis (featured pick, else researched fallback), while
+    # ``data['counts']`` here is featured-only. Unlabelled, the coverage card
+    # read "23 / 33" beside "33 of 33 with a pick" elsewhere on the same
+    # snapshot. The card is now labelled as featured-method coverage and names
+    # the complete figure in the same sentence; nothing is recomputed.
+    complete = data.get('complete_picks')
+    cc = (complete or {}).get('counts') if complete else None
+    ladder_note = ''
+    if cc:
+        ladder_note = (f' Featured stages only. The audited research ladder then runs on every rejected '
+                       f'fixture, and in this snapshot <strong>{cc["with_pick"]} of {cc["active"]}</strong> active '
+                       f'fixtures carry a pick with <strong>{cc["unresolved"]}</strong> explicitly blank '
+                       f'(<a href="{prefix}origination/#picks">complete list</a>).')
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
-    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Featured method coverage</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} rejected.{ladder_note}</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
     out += ('<section class="content-section" id="hotspawn-integration"><div class="section-heading"><div>'
             '<p class="eyebrow">Reverse-engineered, read-only</p><h2>How the Hotspawn list is read</h2></div>'
             '<a class="internal-link" href="' + prefix + 'data/evidence/hotspawn-context.json">Reconciliation record ↓</a></div>'

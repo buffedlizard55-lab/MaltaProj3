@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "session": "arena-93ba7221",
+  "task": "93B-2 probability replay",
+  "observed_at": "2026-10-22T08:05Z",
+  "what_was_checked": "Twelve of the research-model picks published on the live 2026-10-22T05:36Z snapshot were recomputed from Valve's official regional-standings markdown with the formula the site documents: g = 1/sqrt(1 + 3*(ln10/400)^2*RD^2/pi^2) with RD = 75, p = 1/(1+10^(g*(r_b-r_a)/400)). The five money/market rows and the rows priced from relays or other rungs were not recomputed here; they replay from their own saved order books and quotes in the pipeline.",
+  "source": {
+    "file": "live/2026/standings_global_2026_10_05.md",
+    "repository": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+    "blob_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "read_via": "git clone --depth 1 of the official repository, read on 2026-10-22T08:00Z",
+    "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+    "published_values_from": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  },
+  "rd_assumption": 75,
+  "g": 0.972820991,
+  "checks": [
+    {
+      "fixture_id": "1081143",
+      "fixture": "BakS vs Azuolas",
+      "valve_points": {
+        "BakS": 1044,
+        "Azuolas": 863
+      },
+      "valve_standings_rows_in_snapshot": {
+        "BakS": [
+          {
+            "standing": 100,
+            "points": 1044,
+            "roster_size": 5
+          }
+        ],
+        "Azuolas": [
+          {
+            "standing": 140,
+            "points": 863,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.7337,
+      "published_pick_share": 0.734,
+      "difference_pp": 0.03,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "73.4%"
+    },
+    {
+      "fixture_id": "1082767",
+      "fixture": "Nemesis vs WW",
+      "valve_points": {
+        "Nemesis": 1455,
+        "WW": 1023
+      },
+      "valve_standings_rows_in_snapshot": {
+        "Nemesis": [
+          {
+            "standing": 29,
+            "points": 1455,
+            "roster_size": 5
+          }
+        ],
+        "WW": [
+          {
+            "standing": 108,
+            "points": 1023,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.9183,
+      "published_pick_share": 0.918,
+      "difference_pp": 0.03,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "91.8%"
+    },
+    {
+      "fixture_id": "1081600",
+      "fixture": "Donstu vs Banda chuya",
+      "valve_points": {
+        "Donstu": 732,
+        "Banda chuya": 801
+      },
+      "valve_standings_rows_in_snapshot": {
+        "Donstu": [
+          {
+            "standing": 197,
+            "points": 732,
+            "roster_size": 5
+          }
+        ],
+        "Banda chuya": [
+          {
+            "standing": 165,
+            "points": 801,
+            "roster_size": 5
+          },
+          {
+            "standing": 373,
+            "points": 402,
+            "roster_size": 2
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.5954,
+      "published_pick_share": 0.595,
+      "difference_pp": 0.04,
+      "reproduces_published_value": true,
+      "note": "Valve lists two Banda Chuya rows: 801 points with five players (standing 165) and 402 points with two players (standing 373). Only the five-player row is a usable record, and it reproduces the published number exactly.",
+      "published_display_percent": "59.5%"
+    },
+    {
+      "fixture_id": "1079657",
+      "fixture": "BakS vs BRUTE",
+      "valve_points": {
+        "BakS": 1044,
+        "BRUTE": 1116
+      },
+      "valve_standings_rows_in_snapshot": {
+        "BakS": [
+          {
+            "standing": 100,
+            "points": 1044,
+            "roster_size": 5
+          }
+        ],
+        "BRUTE": [
+          {
+            "standing": 75,
+            "points": 1116,
+            "roster_size": 5
+          },
+          {
+            "standing": 218,
+            "points": 689,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.5995,
+      "published_pick_share": 0.599,
+      "difference_pp": 0.05,
+      "reproduces_published_value": true,
+      "note": "Valve lists two five-player BRUTE rows (1116 at standing 75 and 689 at standing 218). The 1116 row reproduces the published number exactly; the 689 row would publish 88.3% for BakS.",
+      "published_display_percent": "59.9%"
+    },
+    {
+      "fixture_id": "1081150",
+      "fixture": "ex-RUSTEC vs Saint Sinners",
+      "valve_points": {
+        "ex-RUSTEC": 1066,
+        "Saint Sinners": 810
+      },
+      "valve_standings_rows_in_snapshot": {
+        "ex-RUSTEC": [
+          {
+            "standing": 92,
+            "points": 1066,
+            "roster_size": 5
+          },
+          {
+            "standing": 152,
+            "points": 824,
+            "roster_size": 4
+          }
+        ],
+        "Saint Sinners": [
+          {
+            "standing": 158,
+            "points": 810,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.8075,
+      "published_pick_share": 0.807,
+      "difference_pp": 0.05,
+      "reproduces_published_value": true,
+      "note": "Valve lists ex-RUSTEC at 1066 with five players (standing 92) and 824 with four players (standing 152). The five-player row reproduces the published number.",
+      "published_display_percent": "80.7%"
+    },
+    {
+      "fixture_id": "1081146",
+      "fixture": "6yuBoJlbl vs ex-6666",
+      "valve_points": {
+        "6yuBoJlbl": 1015,
+        "ex-6666": 923
+      },
+      "valve_standings_rows_in_snapshot": {
+        "6yuBoJlbl": [
+          {
+            "standing": 110,
+            "points": 1015,
+            "roster_size": 5
+          }
+        ],
+        "ex-6666": null
+      },
+      "recomputed_pick_share": 0.626,
+      "published_pick_share": 0.626,
+      "difference_pp": 0.0,
+      "reproduces_published_value": true,
+      "note": "ex-6666 is published by Valve as 6666 (923 points, five players at standing 127; a four-player 425-point remnant sits at standing 368). The reviewed alias registry joins the names.",
+      "published_display_percent": "62.6%"
+    },
+    {
+      "fixture_id": "1079655",
+      "fixture": "Nuclear TigeRES vs ILLYRIANS",
+      "valve_points": {
+        "Nuclear TigeRES": 1324,
+        "ILLYRIANS": 862
+      },
+      "valve_standings_rows_in_snapshot": {
+        "Nuclear TigeRES": [
+          {
+            "standing": 46,
+            "points": 1324,
+            "roster_size": 5
+          }
+        ],
+        "ILLYRIANS": [
+          {
+            "standing": 141,
+            "points": 862,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.93,
+      "published_pick_share": 0.93,
+      "difference_pp": 0.0,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "93.0%"
+    },
+    {
+      "fixture_id": "1081871",
+      "fixture": "Lynn Vision vs Chinggis Warriors",
+      "valve_points": {
+        "Lynn Vision": 1190,
+        "Chinggis Warriors": 1084
+      },
+      "valve_standings_rows_in_snapshot": {
+        "Lynn Vision": [
+          {
+            "standing": 64,
+            "points": 1190,
+            "roster_size": 5
+          }
+        ],
+        "Chinggis Warriors": [
+          {
+            "standing": 87,
+            "points": 1084,
+            "roster_size": 5
+          },
+          {
+            "standing": 220,
+            "points": 685,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.6442,
+      "published_pick_share": 0.644,
+      "difference_pp": 0.02,
+      "reproduces_published_value": true,
+      "note": "Valve lists two five-player Chinggis Warriors rows (1084 at standing 87, 685 at standing 220). The 1084 row reproduces the published number exactly.",
+      "published_display_percent": "64.4%"
+    },
+    {
+      "fixture_id": "1082859",
+      "fixture": "NEXVOID vs Alter Ego",
+      "valve_points": {
+        "NEXVOID": 995,
+        "Alter Ego": 819
+      },
+      "valve_standings_rows_in_snapshot": {
+        "NEXVOID": [
+          {
+            "standing": 113,
+            "points": 995,
+            "roster_size": 5
+          }
+        ],
+        "Alter Ego": [
+          {
+            "standing": 155,
+            "points": 819,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.7282,
+      "published_pick_share": 0.728,
+      "difference_pp": 0.02,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "72.8%"
+    },
+    {
+      "fixture_id": "1082861",
+      "fixture": "Rooster vs Abyssal",
+      "valve_points": {
+        "Rooster": 718,
+        "Abyssal": 734
+      },
+      "valve_standings_rows_in_snapshot": {
+        "Rooster": [
+          {
+            "standing": 205,
+            "points": 718,
+            "roster_size": 5
+          }
+        ],
+        "Abyssal": [
+          {
+            "standing": 195,
+            "points": 734,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.5224,
+      "published_pick_share": 0.522,
+      "difference_pp": 0.04,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "52.2%"
+    },
+    {
+      "fixture_id": "1082793",
+      "fixture": "5star vs 1WIN",
+      "valve_points": {
+        "5star": 1110,
+        "1WIN": 1383
+      },
+      "valve_standings_rows_in_snapshot": {
+        "5star": [
+          {
+            "standing": 80,
+            "points": 1110,
+            "roster_size": 5
+          }
+        ],
+        "1WIN": [
+          {
+            "standing": 38,
+            "points": 1383,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.8218,
+      "published_pick_share": 0.822,
+      "difference_pp": 0.02,
+      "reproduces_published_value": true,
+      "note": "Both sides have exactly one complete five-player row.",
+      "published_display_percent": "82.2%"
+    },
+    {
+      "fixture_id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "valve_points": {
+        "HOTU": 1437,
+        "The Huns": 944
+      },
+      "valve_standings_rows_in_snapshot": {
+        "HOTU": [
+          {
+            "standing": 31,
+            "points": 1437,
+            "roster_size": 5
+          }
+        ],
+        "The Huns": [
+          {
+            "standing": 122,
+            "points": 944,
+            "roster_size": 5
+          },
+          {
+            "standing": 213,
+            "points": 701,
+            "roster_size": 5
+          }
+        ]
+      },
+      "recomputed_pick_share": 0.9405,
+      "published_pick_share": 0.941,
+      "difference_pp": 0.05,
+      "reproduces_published_value": true,
+      "note": "Valve lists two The Huns rows (944 five-player at standing 122, 701 five-player at standing 213). The 944 row reproduces the published number exactly.",
+      "published_display_percent": "94.1%"
+    }
+  ],
+  "summary": {
+    "checked": 12,
+    "reproduced": 12,
+    "failed": 0,
+    "max_difference_pp": 0.05,
+    "conclusion": "Every checked row reproduces the published one-decimal percentage within 0.06 percentage points, i.e. display rounding of the same number. Where Valve's table holds two rows for one name, the published value is reproduced only by a complete five-player row, which is the rule the README documents. The published percentages were read from the site's own summary, so which Valve row the pipeline chose is established by reproduction, not by a field in this file."
+  },
+  "not_verified": [
+    "HLTV world-ranking rows (FORZE Reload vs LFO 10, FlyQuest vs Staqued): hltv.org is not reachable from this sandbox and the page reader was not used for the ranking table, so no recomputation is claimed.",
+    "Polymarket, Kalshi, Thunderpick, Bovada, bo3.gg and EGamersWorld rows: replayed by the pipeline from saved originals; not independently recomputed in this session.",
+    "Rows resolved by the bo3.gg network or form models: their fitted inputs are not published in the site summary, so they are out of scope for this replay."
+  ]
+}
