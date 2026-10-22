@@ -61,8 +61,24 @@ class ReviewFlagsIntegration(unittest.TestCase):
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
+        # The source directory is never modified by a render.
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        # The published copy is the same snapshot with the documented
+        # featured-vs-researched reconciliation added (session 4c972a51,
+        # write_reconciled_snapshot). Before that change this assertion required
+        # byte equality, which no longer holds because the published JSON is
+        # serialised at indent 1 and carries three extra keys. The contract that
+        # matters is unchanged: no count, match, probability or finding is
+        # altered by rendering. Fix adopted verbatim from PR #172 (arena-aae76fb3)
+        # by session arena-8877b140 because the red test blocks every merge and
+        # the four-hour publisher; the same contract is used identically in
+        # PRs #169/#171/#173, so an eventual merge is content-identical.
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        original = json.loads(self.original)
+        for key in ('generated_at', 'inventory_observed_at', 'counts', 'matches', 'flags'):
+            self.assertEqual(published[key], original[key], key)
+        self.assertEqual(set(published) - set(original),
+                         {'featured_method_counts', 'complete_coverage_counts', 'counts_note'})
 
 
 if __name__ == '__main__':

@@ -15,6 +15,19 @@
     ]
   },
   {
+    "id": "8877b140-red-main-review-flags-byte-equality-regression",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Red main: test_review_flags byte-equality assertion contradicted the PR #174 reconciliation rewrite (fixed, test-only)",
+    "detail": "On 2026-10-22 the full unittest discovery on origin/main (3f2dc79) had exactly one failure: test_review_flags.ReviewFlagsIntegration.test_render_only_findings_do_not_rewrite_the_canonical_json. Reproduced in a clean worktree of origin/main, so it was a pre-existing regression rather than anything this session changed. Cause: PR #174 (arena-4c972a51) added write_reconciled_snapshot(), which deliberately republishes site/data/latest.json at indent 1 with three additional keys (featured_method_counts, complete_coverage_counts, counts_note) so the downloaded JSON cannot contradict the rendered page; the older test still required byte-identical output. The same test-only fix was already designed independently in open PRs #169/#171/#172/#173. Because the red suite blocks every session's merge and the four-hour publisher, and no session holds an active COORDINATION claim on tests/test_review_flags.py, session arena-8877b140 adopted PR #172's stronger contract verbatim (source bytes untouched; published JSON identical on generated_at/inventory_observed_at/counts/matches/flags and allowed exactly the three documented extra keys). No renderer, feed, count, pick or finding changed; the module now passes 4/4 and the replacement is content-identical to the competing branches, so the eventual merge is a no-op.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_review_flags.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/172",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/174"
+    ]
+  },
+  {
     "id": "8877b140-origination-page-missing-csp-meta",
     "severity": "notice",
     "match_ids": [],
