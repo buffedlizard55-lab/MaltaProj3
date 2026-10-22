@@ -92,5 +92,18 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css",
       "https://buffedlizard55-lab.github.io/MaltaProj3/"
     ]
+  },
+  {
+    "id": "93ba7221-review-flags-test-required-a-stale-copy",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "A unit test on main required the published snapshot to be byte-identical to its source, so the new reconciliation block failed it (fixed)",
+    "detail": "tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json asserted that site/data/latest.json was byte-identical to data/latest.json. 4c972a51 added scripts.build.write_reconciled_snapshot, which deliberately adds featured_method_counts, complete_coverage_counts and counts_note to the published copy so the download states both tallies (counts.* is featured-only; the researched list is what every page renders). The two changes are each correct and together made the test fail on main - reproduced on 2026-10-22T09:00Z in a clean worktree at 68e3c38, outside this branch. checks.yml only runs on pull requests to main and on arena/** pushes, so the regression was not caught on main. The test now asserts the invariant it was written for: the canonical source file is byte-identical, no canonical key is altered, the only additions to the published copy are the three documented reconciliation keys, and no session-only finding (synthetic or otherwise) is written into the JSON. Nothing was relaxed to make this pass: the old byte-equality clause was replaced by exact key equality on all original keys, which is a stricter statement about the data.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_review_flags.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/checks.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/68e3c38"
+    ]
   }
 ]

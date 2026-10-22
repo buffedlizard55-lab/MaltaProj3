@@ -60,9 +60,28 @@ class ReviewFlagsIntegration(unittest.TestCase):
                 self.assertEqual(self.html.count('id="flag-' + identity + '"'), 1)
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
+    #: The only keys the publisher may add to the *published copy* of the
+    #: snapshot. scripts.build.write_reconciled_snapshot adds them deliberately:
+    #: ``counts.*`` describes the featured exact-name method while every page
+    #: renders the researched list, so the download publishes both tallies.
+    #: Session 93ba7221: this test used to require the published copy to be
+    #: byte-identical to the source, which made that reconciliation a failure on
+    #: main. The invariant it is really protecting is that session-only findings
+    #: are rendered, never written back into the canonical data.
+    RECONCILIATION_KEYS = {'featured_method_counts', 'complete_coverage_counts', 'counts_note'}
+
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        canonical = json.loads(self.original)
+        # Nothing was removed or altered; only the documented reconciliation keys
+        # may appear. Flags stay exactly as checked in.
+        self.assertTrue(self.RECONCILIATION_KEYS <= set(published))
+        for key, value in canonical.items():
+            self.assertEqual(published[key], value, f'published copy rewrote {key}')
+        self.assertEqual(set(published) - set(canonical), self.RECONCILIATION_KEYS)
+        self.assertNotIn(self.synthetic['id'],
+                         [flag['id'] for flag in published.get('flags') or []])
 
 
 if __name__ == '__main__':

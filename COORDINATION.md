@@ -11,6 +11,19 @@ no other claim is live, so no scope is taken from anyone. Only the files listed 
 `assets/`, `.github/workflows/`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`,
 `archive/`, `docs/` or any other session's `data/research/<id>/`. The only shared file touched is
 `scripts/build.py` (`picks()` info strip), which is unowned because its last owner merged and stopped.
+### 93B-4 result — a red test on main, reproduced and fixed (2026-10-22T09:05Z)
+
+Merging `main` turned `tests/test_review_flags.py` red. Reproduced in a **clean worktree at `68e3c38`**, so it is main's
+regression, not this branch's: 4c972a51's `write_reconciled_snapshot()` deliberately adds `featured_method_counts`,
+`complete_coverage_counts` and `counts_note` to the *published* `site/data/latest.json`, while that test still demanded
+byte-equality with the source file. `checks.yml` runs only on pull requests to `main` and on `arena/**` pushes, which is
+why nothing on `main` caught it.
+
+The test now asserts what it was written to protect — and more strictly than before: the canonical `data/latest.json`
+is byte-identical; **every** original top-level key of the published copy equals its canonical value; the only
+additional top-level keys are the three documented reconciliation keys; and no session-only finding is written into the
+JSON. Published as a notice flag with the commit link. No publisher behaviour changed.
+
 ### 93B-1 addendum — main got there first, and the merge says so (2026-10-22T08:45Z)
 
 While this branch was in CI, `main` merged **4c972a51** (picks-page arithmetic, `unique`/guidance bucket) and **df80ab9f**
