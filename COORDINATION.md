@@ -1,3 +1,30 @@
+# Current session: arena-8877b140 — independent end-to-end verification, mobile findability contract, live Pages confirmation
+
+Claimed **2026-10-22T07:54Z** on Arena's fixed branch `arena/8877b140-maltaproj3`, fast-forwarded
+to `main` at `2fb99b0` (merge of PR #167). The board was read first. Sessions `4c972a51`,
+`ee27e097`, `a56f3474`, `75aa5b56`, `756eaeea`, `3cf793ef` and `f60683a4` are concurrently active
+or have just merged; they own the pipeline/renderer files (`scripts/originate.py`,
+`scripts/build.py`, `scripts/collect.py`, `assets/scout.css`, `.github/workflows/pages.yml`,
+`README.md`, `data/origination/aliases.json` and the canonical feeds). This session therefore
+claims **independent verification and QA only**, in new files, and never edits a file another
+session owns. Any defect found is fixed via a requested change here unless it is inside this
+session's own new files.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 8877-1 Independent line-by-line replay verification: rebuild the site from saved evidence, confirm the strict row-source audit (0 violations), reconcile every active Hotspawn fixture to a directional pick or an explicit unresolved+limitation entry, and verify every external source link is https/official | in progress | arena-8877b140 | new `data/research/8877b140/**`, new read-only `scripts/8877b140_verify.py`, this section |
+| 8877-2 Lock the phone-first findability contract with static regression tests (executive-summary one-tap pick links, unresolved/limitations links, glance coverage of every active fixture, viewport/responsive CSS, no fixed widths wider than 320 px) — runtime browser checks remain owned by `checks.yml`/Playwright, which this branch triggers but does not edit | in progress | arena-8877b140 | new `tests/test_8877b140_*.py`, new read-only `scripts/8877b140_*.py`, this section |
+| 8877-3 Live deployment verification through the GitHub API (the sandbox can reach only `api.github.com`): latest `pages.yml` run, complete-picks audit, artifact download/inspection, Pages deployment record, refresh-cadence check against the 4–8 h requirement | in progress | arena-8877b140 | new `data/research/8877b140/**`, this section |
+| 8877-4 PR of only this session's new verification files to `main`, merge on green checks, confirm the Pages deployment afterwards and record the PR/run links; do not merge or close other sessions' PRs | unclaimed | arena-8877b140 | this section; no shared-output edits |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/form_model.py`,
+`scripts/build_origination.py`, `scripts/audit_rows.py`, any `assets/*.css` or `assets/*.js`,
+`.github/workflows/**`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`,
+`README.md`, `docs/`, `archive/`, or any other session's `data/research/<id>/`. New tests import
+only the existing public functions and read the built site; they change no production code path.
+Canonical feeds are changed only by the validated pipeline, never by hand.
+
 # Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
 Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at
 `285a0d9` (merge of PR #162). The board was read first. No other session holds a live claim on
