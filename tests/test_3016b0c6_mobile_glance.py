@@ -60,8 +60,8 @@ class BannerWordingTests(unittest.TestCase):
                 "complete_picks": {"counts": {"active": 3, "with_pick": 2, "unresolved": 1, "model": 2, "guidance": 0},
                                    "generated_at": "2026-10-22T05:37:07Z"}}
         html = exec_banner(data, "")
-        self.assertIn("1 without a pick · 2 model-only (no betting line)", html)
-        self.assertNotIn("without a line ·", html.replace("model-only (no betting line)", ""))
+        self.assertIn("1 without a pick · 2 from research models", html)
+        self.assertNotIn("without a line", html)
 
 
 if __name__ == "__main__":

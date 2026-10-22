@@ -35,20 +35,22 @@ class ExecBannerTests(unittest.TestCase):
         section = soup.select_one('section.exec-banner')
         self.assertIsNotNone(section)
         hrefs = [a['href'] for a in section.select('.exec-banner-actions a')]
-        self.assertEqual(hrefs, ['./origination/#picks', './picks/', './origination/#unresolved'])
+        # Session 4c972a51 gives the unresolved register its own page, so the
+        # third action now points there; the full research trails stay linked
+        # from the banner meta line and the register itself.
+        self.assertEqual(hrefs, ['./origination/#picks', './picks/', './unresolved/'])
         for href in hrefs:
             self.assertTrue(href.startswith('./'), href)
             self.assertNotIn('http', href)
+        self.assertIn('./origination/#unresolved', [a['href'] for a in section.select('a')])
 
     def test_banner_counts_match_complete_picks_snapshot(self):
         data = with_complete(inventory())
         cc = data['complete_picks']['counts']
         text = BeautifulSoup(exec_banner(data, './'), 'html.parser').get_text(' ')
         self.assertIn(f"{cc['with_pick']} of {cc['active']} with a pick", text)
-        # Session 3016b0c6: "without a line" was the wrong claim here —
-        # unresolved means without a *pick*; model-only is the no-line group.
+        # Sessions 3016b0c6/4c972a51: unresolved = without a *pick* (not "without a line").
         self.assertIn(f"{cc['unresolved']} without a pick", text)
-        self.assertIn("model-only (no betting line)", text)
 
     def test_banner_renders_without_complete_picks(self):
         # A retained snapshot without origination data must not crash the summary.
