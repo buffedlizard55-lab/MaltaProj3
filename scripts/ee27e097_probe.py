@@ -138,13 +138,21 @@ def main(argv=None) -> int:
                         'bet_provider': (r.get('bet_updates') or {}).get('provider'),
                         'bet': r.get('bet_updates')} for r in results[:40]],
         }
+        document['bo3_rows'] = [{'slug': r.get('slug'), 'start': r.get('start_date'),
+                                 'tournament': (r.get('tournament') or {}).get('name'),
+                                 'teams': [(r.get('team1') or {}).get('name'),
+                                           (r.get('team2') or {}).get('name')],
+                                 'team_ranks': [(r.get('team1') or {}).get('rank'),
+                                                (r.get('team2') or {}).get('rank')],
+                                 'bet_provider': (r.get('bet_updates') or {}).get('provider'),
+                                 'bet': r.get('bet_updates')} for r in results]
     except Exception as exc:  # noqa: BLE001
         document['bo3'] = {'error': f'{type(exc).__name__}: {exc}'[:300]}
 
     try:
         response = requests.get(HOTSPAWN_API, timeout=25)
         body = response.json()
-        matches = body.get('data') or body.get('fixtures') or body if isinstance(body, list) else []
+        matches = body if isinstance(body, list) else (body.get('data') or body.get('fixtures') or [])
         document['fixtures'] = {'status': response.status_code,
                                 'count': len(matches) if isinstance(matches, list) else None,
                                 'keys': sorted(matches[0].keys())[:30] if isinstance(matches, list) and matches
