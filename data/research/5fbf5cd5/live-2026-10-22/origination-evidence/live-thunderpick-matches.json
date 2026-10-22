@@ -6846,7 +6846,7 @@
                 "id": 597441130,
                 "name": "KUUSAMO.gg",
                 "status": 1,
-                "odds": 2.92,
+                "odds": 2.97,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -6883,7 +6883,7 @@
                 "id": 597441034,
                 "name": "LPH Gaming",
                 "status": 1,
-                "odds": 2.06,
+                "odds": 2.05,
                 "handicap": -1.5,
                 "total": "-1.5",
                 "type": "home"
@@ -6892,7 +6892,7 @@
                 "id": 597441033,
                 "name": "KUUSAMO.gg",
                 "status": 1,
-                "odds": 1.66,
+                "odds": 1.68,
                 "handicap": 1.5,
                 "total": "1.5",
                 "type": "away"
@@ -6932,7 +6932,7 @@
                 "id": 597441184,
                 "name": "Over",
                 "status": 1,
-                "odds": 2.16,
+                "odds": 2.18,
                 "handicap": null,
                 "total": "2.5",
                 "type": "other"
@@ -7048,7 +7048,7 @@
           "away": {
             "id": 597441130,
             "name": "KUUSAMO.gg",
-            "odds": 2.92,
+            "odds": 2.97,
             "status": 1
           },
           "hasCombo": true,
@@ -7812,27 +7812,253 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2868023,
-            "id": 239546368,
+            "eventId": 2868069,
+            "id": 239551976,
             "name": "Match Winner",
             "status": 1,
             "type": 0,
             "category": 1,
             "selections": [
               {
-                "id": 597717012,
-                "name": "Imotion",
+                "id": 597731286,
+                "name": "Inner Circle Academy",
                 "status": 1,
-                "odds": 1.65,
+                "odds": 1.9,
                 "handicap": null,
                 "total": null,
                 "type": "home"
               },
               {
-                "id": 597717013,
+                "id": 597731287,
+                "name": "Team Spirit Academy",
+                "status": 1,
+                "odds": 1.8,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Match Handicap",
+            "eventId": 2868069,
+            "id": 239551970,
+            "name": "Match Handicap",
+            "status": 1,
+            "type": 0,
+            "category": 2,
+            "selections": [
+              {
+                "id": 597731273,
+                "name": "Inner Circle Academy",
+                "status": 1,
+                "odds": 1.28,
+                "handicap": 1.5,
+                "total": "1.5",
+                "type": "home"
+              },
+              {
+                "id": 597731274,
+                "name": "Team Spirit Academy",
+                "status": 1,
+                "odds": 3.3,
+                "handicap": -1.5,
+                "total": "-1.5",
+                "type": "away"
+              }
+            ],
+            "order": 99994,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": -1.5,
+            "baseLine": "-1.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Inner Circle Academy",
+              "awayColumn": "Team Spirit Academy"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Maps",
+            "eventId": 2868069,
+            "id": 239551972,
+            "name": "Total Maps Played Over/Under",
+            "status": 1,
+            "type": 0,
+            "category": 5,
+            "selections": [
+              {
+                "id": 597731278,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.85,
+                "handicap": null,
+                "total": "2.5",
+                "type": "other"
+              },
+              {
+                "id": 597731279,
+                "name": "Under",
+                "status": 1,
+                "odds": 1.85,
+                "handicap": null,
+                "total": "2.5",
+                "type": "other"
+              }
+            ],
+            "order": 170,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "2.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2868069,
+        "gameId": 6,
+        "startTime": "2026-10-23T11:00:00+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 12,
+        "totalAvailableMarkets": 13,
+        "bestOfMaps": 3,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [],
+        "plainStreamLinks": [],
+        "note": "",
+        "isNoteVisible": false,
+        "score": null,
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "Inner Circle Academy vs Team Spirit Academy",
+        "isLive": false,
+        "bestOf": 3,
+        "teams": {
+          "home": {
+            "id": 54372,
+            "name": "Inner Circle Academy",
+            "hasImage": true,
+            "shortName": "ICA"
+          },
+          "away": {
+            "id": 20228,
+            "name": "Team Spirit Academy",
+            "hasImage": true,
+            "shortName": "TSA"
+          }
+        },
+        "competition": {
+          "id": 11467,
+          "name": "CCT Europe 2026 Series 12",
+          "shortName": "CCT EU 26 S12",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 239551976,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 597731286,
+            "name": "Inner Circle Academy",
+            "odds": 1.9,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 597731287,
+            "name": "Team Spirit Academy",
+            "odds": 1.8,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": "https://disir.oddin.gg/csgo/match?availableData=tournament&availableData=teams&availableData=players&awayTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjI4NTQ%3D&brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&homeTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjIxNjY3&id=bWF0Y2gvb2Q6bWF0Y2g6MzMzNzk2Mg%3D%3D&lang=en&layout=default&t=1885203378&theme=dark&timeframe=THREE_MONTHS&tournamentId=dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjE1MzM1&type=teams",
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": false,
+        "freeBetEligible": false
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2868156,
+            "id": 239564467,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 597763256,
+                "name": "Imotion",
+                "status": 1,
+                "odds": 1.72,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 597763255,
                 "name": "Sahur",
                 "status": 1,
-                "odds": 2.1,
+                "odds": 2,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -7858,27 +8084,27 @@
           },
           {
             "nickName": "Round Handicap",
-            "eventId": 2868023,
-            "id": 239546452,
+            "eventId": 2868156,
+            "id": 239564506,
             "name": "Round Handicap (Incl. Overtime) - Map 1",
             "status": 1,
             "type": 0,
             "category": 2,
             "selections": [
               {
-                "id": 597717196,
+                "id": 597763365,
                 "name": "Imotion",
                 "status": 1,
-                "odds": 2.05,
+                "odds": 2.1,
                 "handicap": -2.5,
                 "total": "-2.5",
                 "type": "home"
               },
               {
-                "id": 597717195,
+                "id": 597763366,
                 "name": "Sahur",
                 "status": 1,
-                "odds": 1.68,
+                "odds": 1.65,
                 "handicap": 2.5,
                 "total": "2.5",
                 "type": "away"
@@ -7910,15 +8136,15 @@
           },
           {
             "nickName": "Total Rounds",
-            "eventId": 2868023,
-            "id": 239546444,
+            "eventId": 2868156,
+            "id": 239564540,
             "name": "Total Rounds - Map 1",
             "status": 1,
             "type": 0,
             "category": 3,
             "selections": [
               {
-                "id": 597717178,
+                "id": 597763437,
                 "name": "Under",
                 "status": 1,
                 "odds": 1.65,
@@ -7927,7 +8153,7 @@
                 "type": "other"
               },
               {
-                "id": 597717177,
+                "id": 597763438,
                 "name": "Over",
                 "status": 1,
                 "odds": 2.1,
@@ -7961,9 +8187,9 @@
             "groupIds": []
           }
         ],
-        "id": 2868023,
+        "id": 2868156,
         "gameId": 6,
-        "startTime": "2026-10-22T01:47:00+00:00",
+        "startTime": "2026-10-22T02:07:00+00:00",
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
@@ -7984,7 +8210,24 @@
         "plainStreamLinks": null,
         "note": "",
         "isNoteVisible": false,
-        "score": null,
+        "score": {
+          "id": 2868156,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": null,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "0",
+                "awayScore": "0"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
         "hasMainMarket": true,
         "prematchSgcEnabled": false,
         "inPlaySgcEnabled": false,
@@ -8015,21 +8258,259 @@
           "parentTournament": null
         },
         "market": {
-          "id": 239546368,
+          "id": 239564467,
           "name": "Match Winner",
           "type": 0,
           "status": 1,
           "home": {
-            "id": 597717012,
+            "id": 597763256,
             "name": "Imotion",
-            "odds": 1.65,
+            "odds": 1.72,
             "status": 1
           },
           "draw": null,
           "away": {
-            "id": 597717013,
+            "id": 597763255,
             "name": "Sahur",
-            "odds": 2.1,
+            "odds": 2,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": false,
+        "freeBetEligible": true
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2868178,
+            "id": 239567712,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 0,
+            "category": 1,
+            "selections": [
+              {
+                "id": 597771270,
+                "name": "Patapim",
+                "status": 1,
+                "odds": 1.4,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 597771271,
+                "name": "Sahur",
+                "status": 1,
+                "odds": 2.7,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Round Handicap",
+            "eventId": 2868178,
+            "id": 239567692,
+            "name": "Round Handicap (Incl. Overtime) - Map 1",
+            "status": 1,
+            "type": 0,
+            "category": 2,
+            "selections": [
+              {
+                "id": 597771228,
+                "name": "Patapim",
+                "status": 1,
+                "odds": 1.65,
+                "handicap": -2.5,
+                "total": "-2.5",
+                "type": "home"
+              },
+              {
+                "id": 597771229,
+                "name": "Sahur",
+                "status": 1,
+                "odds": 2.1,
+                "handicap": 2.5,
+                "total": "2.5",
+                "type": "away"
+              }
+            ],
+            "order": 1200,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": 2.5,
+            "baseLine": "2.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Patapim",
+              "awayColumn": "Sahur"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Rounds",
+            "eventId": 2868178,
+            "id": 239567691,
+            "name": "Total Rounds - Map 1",
+            "status": 1,
+            "type": 0,
+            "category": 3,
+            "selections": [
+              {
+                "id": 597771226,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.72,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              },
+              {
+                "id": 597771227,
+                "name": "Under",
+                "status": 1,
+                "odds": 2,
+                "handicap": null,
+                "total": "21.5",
+                "type": "other"
+              }
+            ],
+            "order": 999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "21.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2868178,
+        "gameId": 6,
+        "startTime": "2026-10-22T02:26:00+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 62,
+        "totalAvailableMarkets": 100,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "other",
+            "streamOrder": 1,
+            "url": "https://player.kick.com/berserk-cs2-league-2"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": null,
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "Patapim vs Sahur",
+        "isLive": false,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 76367,
+            "name": "Patapim",
+            "hasImage": true,
+            "shortName": "PAT"
+          },
+          "away": {
+            "id": 76365,
+            "name": "Sahur",
+            "hasImage": true,
+            "shortName": "SAH"
+          }
+        },
+        "competition": {
+          "id": 4404,
+          "name": "Berserk League 2026",
+          "shortName": "BerserkLeague26",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 239567712,
+          "name": "Match Winner",
+          "type": 0,
+          "status": 1,
+          "home": {
+            "id": 597771270,
+            "name": "Patapim",
+            "odds": 1.4,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 597771271,
+            "name": "Sahur",
+            "odds": 2.7,
             "status": 1
           },
           "hasCombo": true,
@@ -8425,8 +8906,8 @@
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
-        "totalOpenMarkets": 312,
-        "totalAvailableMarkets": 355,
+        "totalOpenMarkets": 311,
+        "totalAvailableMarkets": 354,
         "bestOfMaps": 3,
         "pin": {
           "isPinned": false,
@@ -10713,27 +11194,27 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2863225,
-            "id": 238822434,
+            "eventId": 2868160,
+            "id": 239565552,
             "name": "Match Winner",
             "status": 1,
             "type": 1,
             "category": 1,
             "selections": [
               {
-                "id": 595983164,
-                "name": "Celestial Esports",
+                "id": 597765696,
+                "name": "team_Wolfyyycs",
                 "status": 1,
-                "odds": 1.14,
+                "odds": 3.54,
                 "handicap": null,
                 "total": null,
                 "type": "home"
               },
               {
-                "id": 595983163,
-                "name": "Endless Esports",
+                "id": 597765697,
+                "name": "Players",
                 "status": 1,
-                "odds": 4.9,
+                "odds": 1.25,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -10759,29 +11240,29 @@
           },
           {
             "nickName": "Round Handicap",
-            "eventId": 2863225,
-            "id": 239548536,
+            "eventId": 2868160,
+            "id": 239569062,
             "name": "Round Handicap (Incl. Overtime) - Map 1",
             "status": 1,
             "type": 1,
             "category": 2,
             "selections": [
               {
-                "id": 597722693,
-                "name": "Celestial Esports",
+                "id": 597774747,
+                "name": "team_Wolfyyycs",
                 "status": 1,
-                "odds": 1.9,
-                "handicap": -6.5,
-                "total": "-6.5",
+                "odds": 1.79,
+                "handicap": 4.5,
+                "total": "4.5",
                 "type": "home"
               },
               {
-                "id": 597722694,
-                "name": "Endless Esports",
+                "id": 597774748,
+                "name": "Players",
                 "status": 1,
-                "odds": 1.79,
-                "handicap": 6.5,
-                "total": "6.5",
+                "odds": 1.9,
+                "handicap": -4.5,
+                "total": "-4.5",
                 "type": "away"
               }
             ],
@@ -10790,12 +11271,12 @@
             "hasInPlay": true,
             "isVisible": true,
             "overrideMainOrder": false,
-            "handicap": -6.5,
-            "baseLine": "-6.5",
+            "handicap": 4.5,
+            "baseLine": "4.5",
             "isMainLine": true,
             "lineMarketColumnNames": {
-              "homeColumn": "Celestial Esports",
-              "awayColumn": "Endless Esports"
+              "homeColumn": "team_Wolfyyycs",
+              "awayColumn": "Players"
             },
             "customColumnNames": null,
             "subCategory": 2,
@@ -10811,29 +11292,29 @@
           },
           {
             "nickName": "Total Rounds",
-            "eventId": 2863225,
-            "id": 239548539,
+            "eventId": 2868160,
+            "id": 239565556,
             "name": "Total Rounds - Map 1",
             "status": 1,
             "type": 1,
             "category": 3,
             "selections": [
               {
-                "id": 597722700,
+                "id": 597765703,
                 "name": "Over",
                 "status": 1,
-                "odds": 1.8,
+                "odds": 1.97,
                 "handicap": null,
-                "total": "19.5",
+                "total": "21.5",
                 "type": "other"
               },
               {
-                "id": 597722701,
+                "id": 597765702,
                 "name": "Under",
                 "status": 1,
-                "odds": 1.89,
+                "odds": 1.73,
                 "handicap": null,
-                "total": "19.5",
+                "total": "21.5",
                 "type": "other"
               }
             ],
@@ -10843,7 +11324,7 @@
             "isVisible": true,
             "overrideMainOrder": false,
             "handicap": null,
-            "baseLine": "19.5",
+            "baseLine": "21.5",
             "isMainLine": true,
             "lineMarketColumnNames": {
               "homeColumn": "Under",
@@ -10862,25 +11343,31 @@
             "groupIds": []
           }
         ],
-        "id": 2863225,
+        "id": 2868160,
         "gameId": 6,
-        "startTime": "2026-10-22T01:13:19+00:00",
+        "startTime": "2026-10-22T01:55:34+00:00",
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
-        "totalOpenMarkets": 17,
-        "totalAvailableMarkets": 21,
+        "totalOpenMarkets": 7,
+        "totalAvailableMarkets": 8,
         "bestOfMaps": 1,
         "pin": {
           "isPinned": false,
           "order": 0
         },
-        "streams": [],
-        "plainStreamLinks": [],
+        "streams": [
+          {
+            "language": "en",
+            "streamOrder": 1,
+            "url": "https://player.twitch.tv/?channel=wolfyyycs"
+          }
+        ],
+        "plainStreamLinks": null,
         "note": "",
         "isNoteVisible": false,
         "score": {
-          "id": 2863225,
+          "id": 2868160,
           "score": {
             "homeScore": "0",
             "awayScore": "0"
@@ -10889,8 +11376,8 @@
           "periodScores": [
             {
               "score": {
-                "homeScore": "5",
-                "awayScore": "0"
+                "homeScore": "1",
+                "awayScore": "5"
               },
               "periodNumber": 1
             }
@@ -10901,47 +11388,47 @@
         "prematchSgcEnabled": false,
         "inPlaySgcEnabled": false,
         "isBetBuilderEnabled": false,
-        "name": "Celestial Esports vs Endless Esports",
+        "name": "team_Wolfyyycs vs Players",
         "isLive": true,
         "bestOf": 1,
         "teams": {
           "home": {
-            "id": 58323,
-            "name": "Celestial Esports",
-            "hasImage": false,
-            "shortName": "CE"
+            "id": 70570,
+            "name": "team_Wolfyyycs",
+            "hasImage": true,
+            "shortName": "TMO"
           },
           "away": {
-            "id": 68920,
-            "name": "Endless Esports",
-            "hasImage": false,
-            "shortName": "EE"
+            "id": 22239,
+            "name": "Players",
+            "hasImage": true,
+            "shortName": "PLA"
           }
         },
         "competition": {
-          "id": 11441,
-          "name": "ESEA Advanced Season 59 North America",
-          "shortName": "ESEA Adv S59 NA",
+          "id": 7775,
+          "name": "FACEIT Random Match",
+          "shortName": "FACEIT RANDOM ",
           "countryCode": null,
           "defaultStream": null,
           "parentTournament": null
         },
         "market": {
-          "id": 238822434,
+          "id": 239565552,
           "name": "Match Winner",
           "type": 1,
           "status": 1,
           "home": {
-            "id": 595983164,
-            "name": "Celestial Esports",
-            "odds": 1.14,
+            "id": 597765696,
+            "name": "team_Wolfyyycs",
+            "odds": 3.54,
             "status": 1
           },
           "draw": null,
           "away": {
-            "id": 595983163,
-            "name": "Endless Esports",
-            "odds": 4.9,
+            "id": 597765697,
+            "name": "Players",
+            "odds": 1.25,
             "status": 1
           },
           "hasCombo": true,
@@ -10962,27 +11449,27 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2863227,
-            "id": 238822439,
+            "eventId": 2868161,
+            "id": 239565569,
             "name": "Match Winner",
             "status": 1,
             "type": 1,
             "category": 1,
             "selections": [
               {
-                "id": 595983171,
-                "name": "Counterstrike Team",
+                "id": 597765756,
+                "name": "team_krasnalcs",
                 "status": 1,
-                "odds": 5.5,
+                "odds": 4.66,
                 "handicap": null,
                 "total": null,
                 "type": "home"
               },
               {
-                "id": 595983172,
-                "name": "Master One",
+                "id": 597765755,
+                "name": "Players",
                 "status": 1,
-                "odds": 1.11,
+                "odds": 1.16,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -11008,27 +11495,27 @@
           },
           {
             "nickName": "Round Handicap",
-            "eventId": 2863227,
-            "id": 239543935,
+            "eventId": 2868161,
+            "id": 239566718,
             "name": "Round Handicap (Incl. Overtime) - Map 1",
             "status": 1,
             "type": 1,
             "category": 2,
             "selections": [
               {
-                "id": 597711121,
-                "name": "Counterstrike Team",
+                "id": 597768914,
+                "name": "team_krasnalcs",
                 "status": 1,
-                "odds": 1.98,
+                "odds": 1.96,
                 "handicap": 5.5,
                 "total": "5.5",
                 "type": "home"
               },
               {
-                "id": 597711122,
-                "name": "Master One",
+                "id": 597768915,
+                "name": "Players",
                 "status": 1,
-                "odds": 1.72,
+                "odds": 1.74,
                 "handicap": -5.5,
                 "total": "-5.5",
                 "type": "away"
@@ -11043,8 +11530,8 @@
             "baseLine": "5.5",
             "isMainLine": true,
             "lineMarketColumnNames": {
-              "homeColumn": "Counterstrike Team",
-              "awayColumn": "Master One"
+              "homeColumn": "team_krasnalcs",
+              "awayColumn": "Players"
             },
             "customColumnNames": null,
             "subCategory": 2,
@@ -11060,27 +11547,27 @@
           },
           {
             "nickName": "Total Rounds",
-            "eventId": 2863227,
-            "id": 239543930,
+            "eventId": 2868161,
+            "id": 239565583,
             "name": "Total Rounds - Map 1",
             "status": 1,
             "type": 1,
             "category": 3,
             "selections": [
               {
-                "id": 597711111,
+                "id": 597765779,
                 "name": "Over",
                 "status": 1,
-                "odds": 2.03,
+                "odds": 1.97,
                 "handicap": null,
                 "total": "20.5",
                 "type": "other"
               },
               {
-                "id": 597711112,
+                "id": 597765780,
                 "name": "Under",
                 "status": 1,
-                "odds": 1.69,
+                "odds": 1.73,
                 "handicap": null,
                 "total": "20.5",
                 "type": "other"
@@ -11111,25 +11598,31 @@
             "groupIds": []
           }
         ],
-        "id": 2863227,
+        "id": 2868161,
         "gameId": 6,
-        "startTime": "2026-10-22T01:08:37+00:00",
+        "startTime": "2026-10-22T01:57:20+00:00",
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
-        "totalOpenMarkets": 15,
-        "totalAvailableMarkets": 16,
+        "totalOpenMarkets": 8,
+        "totalAvailableMarkets": 9,
         "bestOfMaps": 1,
         "pin": {
           "isPinned": false,
           "order": 0
         },
-        "streams": [],
-        "plainStreamLinks": [],
+        "streams": [
+          {
+            "language": "en",
+            "streamOrder": 1,
+            "url": "https://player.twitch.tv/?channel=krasnalcs"
+          }
+        ],
+        "plainStreamLinks": null,
         "note": "",
         "isNoteVisible": false,
         "score": {
-          "id": 2863227,
+          "id": 2868161,
           "score": {
             "homeScore": "0",
             "awayScore": "0"
@@ -11138,8 +11631,8 @@
           "periodScores": [
             {
               "score": {
-                "homeScore": "2",
-                "awayScore": "5"
+                "homeScore": "1",
+                "awayScore": "7"
               },
               "periodNumber": 1
             }
@@ -11150,47 +11643,47 @@
         "prematchSgcEnabled": false,
         "inPlaySgcEnabled": false,
         "isBetBuilderEnabled": false,
-        "name": "Counterstrike Team vs Master One",
+        "name": "team_krasnalcs vs Players",
         "isLive": true,
         "bestOf": 1,
         "teams": {
           "home": {
-            "id": 66657,
-            "name": "Counterstrike Team",
+            "id": 82972,
+            "name": "team_krasnalcs",
             "hasImage": false,
-            "shortName": "CT"
+            "shortName": "TMA"
           },
           "away": {
-            "id": 78512,
-            "name": "Master One",
-            "hasImage": false,
-            "shortName": "MO"
+            "id": 22239,
+            "name": "Players",
+            "hasImage": true,
+            "shortName": "PLA"
           }
         },
         "competition": {
-          "id": 11441,
-          "name": "ESEA Advanced Season 59 North America",
-          "shortName": "ESEA Adv S59 NA",
+          "id": 7775,
+          "name": "FACEIT Random Match",
+          "shortName": "FACEIT RANDOM ",
           "countryCode": null,
           "defaultStream": null,
           "parentTournament": null
         },
         "market": {
-          "id": 238822439,
+          "id": 239565569,
           "name": "Match Winner",
           "type": 1,
           "status": 1,
           "home": {
-            "id": 595983171,
-            "name": "Counterstrike Team",
-            "odds": 5.5,
+            "id": 597765756,
+            "name": "team_krasnalcs",
+            "odds": 4.66,
             "status": 1
           },
           "draw": null,
           "away": {
-            "id": 595983172,
-            "name": "Master One",
-            "odds": 1.11,
+            "id": 597765755,
+            "name": "Players",
+            "odds": 1.16,
             "status": 1
           },
           "hasCombo": true,
@@ -11206,431 +11699,6 @@
         "databetWidgetJwt": null,
         "databetWidgetAvailable": true,
         "freeBetEligible": false
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
-            "eventId": 2867299,
-            "id": 239448030,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 1,
-            "category": 1,
-            "selections": [
-              {
-                "id": 597472272,
-                "name": "Fluxo W7M",
-                "status": 1,
-                "odds": 7,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 597472273,
-                "name": "Galorys",
-                "status": 1,
-                "odds": 1.06,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2867299,
-        "gameId": 6,
-        "startTime": "2026-10-21T22:30:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 60,
-        "totalAvailableMarkets": 63,
-        "bestOfMaps": 3,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "other",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/circuitx"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": {
-          "id": 2867299,
-          "score": {
-            "homeScore": "1",
-            "awayScore": "1"
-          },
-          "currentPeriod": 3,
-          "periodScores": [
-            {
-              "score": {
-                "homeScore": "9",
-                "awayScore": "13"
-              },
-              "periodNumber": 1
-            },
-            {
-              "score": {
-                "homeScore": "13",
-                "awayScore": "9"
-              },
-              "periodNumber": 2
-            },
-            {
-              "score": {
-                "homeScore": "7",
-                "awayScore": "11"
-              },
-              "periodNumber": 3
-            }
-          ],
-          "additionalScore": null
-        },
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Fluxo W7M vs Galorys",
-        "isLive": true,
-        "bestOf": 3,
-        "teams": {
-          "home": {
-            "id": 53359,
-            "name": "Fluxo W7M",
-            "hasImage": true,
-            "shortName": "FW"
-          },
-          "away": {
-            "id": 39163,
-            "name": "Galorys",
-            "hasImage": true,
-            "shortName": "GAL"
-          }
-        },
-        "competition": {
-          "id": 11643,
-          "name": "Circuit X Curitiba #4",
-          "shortName": "CIRCUIT X CURIT",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 239448030,
-          "name": "Match Winner",
-          "type": 1,
-          "status": 1,
-          "home": {
-            "id": 597472272,
-            "name": "Fluxo W7M",
-            "odds": 7,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 597472273,
-            "name": "Galorys",
-            "odds": 1.06,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": "https://disir.oddin.gg/csgo/match?availableData=tournament&availableData=teams&availableData=players&awayTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjEyNTQx&brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&homeTeamId=dGVhbS9vZDpjb21wZXRpdG9yOjE3NjQ3&id=bWF0Y2gvb2Q6bWF0Y2g6MzMzNjYxMw%3D%3D&lang=en&layout=default&t=2904786392&theme=dark&timeframe=THREE_MONTHS&tournamentId=dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjE1MzMy&type=teams",
-        "liveScoreMatchWidgetUrl": "https://disir.oddin.gg/csgo/scoreboard?brandToken=d76fbff2-086a-4a80-a74d-bf3aaa386769&darkMode=true&id=bWF0Y2gvb2Q6bWF0Y2g6MzMzNjYxMw%3D%3D&lang=en&layout=&t=1390532004&theme=dark",
-        "live3dVisualizationUrl": "https://cdn.oddin.gg/ghost-assets/cs2/v1.0.24/map/dust2/Oddin-HTML5-Shipping.html?X-MatchURN=3336613&token=a0d1c082-852a-480a-8ae1-3471299ea95c&url=api-ghost.oddin.gg",
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
-      },
-      {
-        "preferredMarkets": [
-          {
-            "nickName": "Winner",
-            "eventId": 2868012,
-            "id": 239545588,
-            "name": "Match Winner",
-            "status": 1,
-            "type": 1,
-            "category": 1,
-            "selections": [
-              {
-                "id": 597715124,
-                "name": "Imotion",
-                "status": 1,
-                "odds": 1.95,
-                "handicap": null,
-                "total": null,
-                "type": "home"
-              },
-              {
-                "id": 597715123,
-                "name": "Patapim",
-                "status": 1,
-                "odds": 1.75,
-                "handicap": null,
-                "total": null,
-                "type": "away"
-              }
-            ],
-            "order": 99999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": null,
-            "isMainLine": false,
-            "lineMarketColumnNames": null,
-            "customColumnNames": null,
-            "subCategory": 1,
-            "isFeatured": true,
-            "period": null,
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Round Handicap",
-            "eventId": 2868012,
-            "id": 239545587,
-            "name": "Round Handicap (Incl. Overtime) - Map 1",
-            "status": 1,
-            "type": 1,
-            "category": 2,
-            "selections": [
-              {
-                "id": 597715122,
-                "name": "Imotion",
-                "status": 1,
-                "odds": 1.62,
-                "handicap": 2.5,
-                "total": "2.5",
-                "type": "home"
-              },
-              {
-                "id": 597715121,
-                "name": "Patapim",
-                "status": 1,
-                "odds": 2.15,
-                "handicap": -2.5,
-                "total": "-2.5",
-                "type": "away"
-              }
-            ],
-            "order": 1200,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": -2.5,
-            "baseLine": "-2.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Imotion",
-              "awayColumn": "Patapim"
-            },
-            "customColumnNames": null,
-            "subCategory": 2,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          },
-          {
-            "nickName": "Total Rounds",
-            "eventId": 2868012,
-            "id": 239545548,
-            "name": "Total Rounds - Map 1",
-            "status": 1,
-            "type": 1,
-            "category": 3,
-            "selections": [
-              {
-                "id": 597715037,
-                "name": "Under",
-                "status": 1,
-                "odds": 1.72,
-                "handicap": null,
-                "total": "22.5",
-                "type": "other"
-              },
-              {
-                "id": 597715036,
-                "name": "Over",
-                "status": 1,
-                "odds": 2,
-                "handicap": null,
-                "total": "22.5",
-                "type": "other"
-              }
-            ],
-            "order": 999,
-            "hasCombo": true,
-            "hasInPlay": true,
-            "isVisible": true,
-            "overrideMainOrder": false,
-            "handicap": null,
-            "baseLine": "22.5",
-            "isMainLine": true,
-            "lineMarketColumnNames": {
-              "homeColumn": "Under",
-              "awayColumn": "Over"
-            },
-            "customColumnNames": null,
-            "subCategory": 4,
-            "isFeatured": false,
-            "period": {
-              "type": "map",
-              "number": 1
-            },
-            "prematchSgcEnabled": false,
-            "inPlaySgcEnabled": false,
-            "note": null,
-            "groupIds": []
-          }
-        ],
-        "id": 2868012,
-        "gameId": 6,
-        "startTime": "2026-10-22T01:20:00+00:00",
-        "hasInPlayMarkets": true,
-        "isHighlighted": false,
-        "isLiveModeOverridden": true,
-        "totalOpenMarkets": 66,
-        "totalAvailableMarkets": 100,
-        "bestOfMaps": 1,
-        "pin": {
-          "isPinned": false,
-          "order": 0
-        },
-        "streams": [
-          {
-            "language": "en",
-            "streamOrder": 1,
-            "url": "https://player.kick.com/berserk-cs2-league-2"
-          },
-          {
-            "language": "en",
-            "streamOrder": 2,
-            "url": "https://player.twitch.tv/?channel=berserk_cs2_league2"
-          }
-        ],
-        "plainStreamLinks": null,
-        "note": "",
-        "isNoteVisible": false,
-        "score": {
-          "id": 2868012,
-          "score": {
-            "homeScore": "0",
-            "awayScore": "0"
-          },
-          "currentPeriod": 1,
-          "periodScores": [
-            {
-              "score": {
-                "homeScore": "1",
-                "awayScore": "1"
-              },
-              "periodNumber": 1
-            }
-          ],
-          "additionalScore": null
-        },
-        "hasMainMarket": true,
-        "prematchSgcEnabled": false,
-        "inPlaySgcEnabled": false,
-        "isBetBuilderEnabled": false,
-        "name": "Imotion vs Patapim",
-        "isLive": true,
-        "bestOf": 1,
-        "teams": {
-          "home": {
-            "id": 75389,
-            "name": "Imotion",
-            "hasImage": true,
-            "shortName": "IMO"
-          },
-          "away": {
-            "id": 76367,
-            "name": "Patapim",
-            "hasImage": true,
-            "shortName": "PAT"
-          }
-        },
-        "competition": {
-          "id": 4404,
-          "name": "Berserk League 2026",
-          "shortName": "BerserkLeague26",
-          "countryCode": null,
-          "defaultStream": null,
-          "parentTournament": null
-        },
-        "market": {
-          "id": 239545588,
-          "name": "Match Winner",
-          "type": 1,
-          "status": 1,
-          "home": {
-            "id": 597715124,
-            "name": "Imotion",
-            "odds": 1.95,
-            "status": 1
-          },
-          "draw": null,
-          "away": {
-            "id": 597715123,
-            "name": "Patapim",
-            "odds": 1.75,
-            "status": 1
-          },
-          "hasCombo": true,
-          "hasInPlay": true,
-          "order": 99999,
-          "overrideMainOrder": false,
-          "isSgc": false,
-          "note": null
-        },
-        "widgetUrl": null,
-        "liveScoreMatchWidgetUrl": null,
-        "live3dVisualizationUrl": null,
-        "databetWidgetJwt": null,
-        "databetWidgetAvailable": false,
-        "freeBetEligible": true
       }
     ],
     "outrights": [
