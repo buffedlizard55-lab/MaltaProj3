@@ -48,6 +48,24 @@ Claimed **2026-10-22** on Arena-fixed branch `arena/7e8bed83-maltaproj3` from `m
 **Non-overlap:** no pick values, collectors, alias registry, or other sessions' research files are changed.
 
 ---
+# Current session: arena-bd4f77c6 — pick provenance that matches the evidence, and a limitation register for every non-market pick
+
+Claimed **2026-10-22T01:10Z** on the Arena-fixed branch `arena/bd4f77c6-maltaproj3`, branched
+from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4`. The board was read before starting.
+Other live claims are respected: `fbdc97d6` (pick provenance / low-tier source research),
+`15fc6bca` (full pick coverage + phone-first executive summary), `3bad13ea` (coverage),
+`7e8bed83` (coverage audit) are working on their own branches; this session does not edit their
+scopes and logs requests here instead of editing a file they own.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| BD-1 A published pick must name the rung that actually produced it. Two first-hand defects found on the live site: (a) a network-model quote is labelled "Research model estimate (Valve official ratings)" and can overwrite a higher-rung Valve/results model; (b) the executive summary's no-unresolved note hardcodes "a verified Thunderpick paired-price book" for every featured-blank fixture. Fix the selection precedence, the label and the note; add regression tests | in progress | arena-bd4f77c6 | `scripts/originate.py` (selection block + network trail only), `scripts/build.py` (`unresolved_register()` note only), new `tests/test_bd4f77c6_provenance.py`, `data/research/bd4f77c6/`, this section |
+| BD-2 Independent live verification with first-hand dated reads: Hotspawn scheduled-fixture API and rendered lobby reconciled 1:1, every active fixture's pick traced to its published rung, and HLTV-then-esportsbook research for any fixture without a market line. Evidence dossier in `data/research/bd4f77c6/` | in progress | arena-bd4f77c6 | new `data/research/bd4f77c6/` only |
+| BD-3 Executive summary: keep the separate unresolved register, and add the limitation trail for picks that have **no** bookmaker line (model-badged rows), so a reader can see why each percentage is model-derived. Phone-first at 320/390 px | in progress | arena-bd4f77c6 | `scripts/build.py` (`unresolved_register()` only), `assets/scout.css` (additive register styles), new tests, this section |
+
+**Non-overlap pledge:** no change to collectors, the alias registry, `pages.yml`, `data/latest.json`,
+`data/origination.json`, pick values, other sessions' `data/research/<id>/`, or `archive/`.
+Research findings are published as evidence and flags; only BD-1/BD-3 touch code, in the blocks named above.
 
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
