@@ -65,3 +65,16 @@ one while the jump bar landed on the top register. Now: one canonical register
 before research fallback", all summary unresolved shortcuts → the register.
 Pinned by `tests/test_3a5448de_summary.py`; phone spec updated in
 `tests/browser/dashboard.spec.mjs`.
+
+## Addendum after merging main (PR #174, session 4c972a51)
+Main merged a *published-rank tie-break* while this session ran: an exactly even
+research-model estimate (50/50) now gets a direction from the provider's own
+published ranking order (Isurus HLTV #215 over Hacha #229), with probabilities
+unchanged and the rule recorded on the row. That gives every active fixture a
+pick at the latest live snapshot (43/43 in the 08:5xZ originate audit). This
+session also fixed the replay validator (`scripts/build_origination.py`), which
+still asserted an even row could never carry a pick and therefore failed the
+live build whenever the tie-break fired, and updated
+`tests/test_review_flags.py` for 4c972a51's deliberate published-JSON
+reconciliation keys. The tie-break direction is a convention, not an edge —
+flagged as such in `flags.json`.

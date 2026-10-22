@@ -29,8 +29,8 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await page.goto('/');
   const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
   await expect(phoneNav.getByRole('link')).toHaveCount(6);
-  await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
-  await expect(page).toHaveURL(/\/methodology\/$/);
+  await phoneNav.getByRole('link', { name: 'Unresolved', exact: true }).click();
+  await expect(page).toHaveURL(/\/unresolved\/$/);
 });
 
 test('search, method filters, sorting and clearing work', async ({ page }) => {

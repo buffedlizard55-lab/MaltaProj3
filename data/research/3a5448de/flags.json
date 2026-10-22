@@ -2,9 +2,11 @@
   {
     "id": "3a5448de-isurus-hacha-even-no-side",
     "severity": "warning",
-    "match_ids": ["1082926"],
-    "title": "Isurus vs Hacha (1082926): probabilities exist but no directional pick is supportable",
-    "detail": "Live runner snapshot 2026-10-22T08:04:52Z: every money rung failed for this CCT South America 2026 Series #7 fixture (Polymarket book spread 0.92, no Kalshi/Thunderpick/Bovada/Pinnacle line, no bo3.gg relayed quote, no EGamersWorld capture), Hacha has no Valve rating row, the own results model has only 2 anchored Hacha series (needs 8) and the own network model only 5 finished Hacha series (needs 6). The HLTV world-ranking rung resolved it with exactly equal published points (Isurus 2.0, HLTV #215; Hacha 2.0, HLTV #229), i.e. 50.0%/50.0%. An equal estimate is published with no side in the executive summary's separate Unresolved picks & limitations register; no tie-break is invented. bo3.gg does publish a team 'rank' field, but the record carries no published strength methodology (it sits beside avg_views and six_month_earned), so it was not used to break the tie.",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "Isurus vs Hacha (1082926): exactly even estimate — direction comes only from the published-rank tie-break",
+    "detail": "Live runner snapshots 2026-10-22T07:43Z and 08:04Z: every money rung failed for this CCT South America 2026 Series #7 fixture (Polymarket book spread 0.92, no Kalshi/Thunderpick/Bovada/Pinnacle line, no bo3.gg relayed quote, no EGamersWorld capture), Hacha has no Valve rating row, the own results model has only 2 anchored Hacha series (needs 8) and the own network model only 5 finished Hacha series (needs 6). The HLTV world-ranking rung gives exactly equal published points (Isurus 2.0, HLTV #215; Hacha 2.0, HLTV #229), so the probabilities stay 50.0%/50.0% and carry no edge. At the 08:04Z snapshot this session's probe still showed no side; main has since merged session 4c972a51's published-rank tie-break (PR #174), which gives the fixture a direction (Isurus, the higher published rank) without changing the 50/50 probabilities. Treat that direction as a ranking-order convention, not an estimated edge: the pick exists so the pick'em slate has a team, and the even probabilities remain the honest estimate. bo3.gg publishes a team 'rank' field, but the record carries no published strength methodology (it sits beside avg_views and six_month_earned), so it was not used.",
     "source_urls": [
       "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
       "https://www.hltv.org/ranking/teams",
