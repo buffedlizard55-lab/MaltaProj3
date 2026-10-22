@@ -61,8 +61,22 @@ class ReviewFlagsIntegration(unittest.TestCase):
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
+        # Rendering a review finding must never touch the canonical snapshot.
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        # The published copy is allowed to *add* the featured-vs-researched
+        # reconciliation (scripts.build.write_reconciled_snapshot), because the
+        # downloaded JSON otherwise contradicted every page on the site. Nothing
+        # it added may change a published counter, a match row or a flag.
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        canonical = json.loads(self.original)
+        for key, value in canonical.items():
+            if key in {'counts_note', 'featured_method_counts', 'complete_coverage_counts'}:
+                continue
+            self.assertEqual(published.get(key), value, key)
+        self.assertIn('counts_note', published)
+        self.assertEqual(published['featured_method_counts']['unresolved'],
+                         canonical['counts']['unresolved'])
+        self.assertEqual(len(published['matches']), len(canonical['matches']))
 
 
 if __name__ == '__main__':

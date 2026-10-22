@@ -1301,14 +1301,11 @@ def summary(data, prefix, now=None):
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
     out += exec_banner(data, prefix)
-    # Session ee27e097: the picks themselves come before the site map. On a
-    # 390 px phone the start-here bar alone is ~620 px, which pushed "Picks at a
-    # glance" past the first screen even though the brief asks for the pick and
-    # both probabilities to be readable without scrolling. The banner still
-    # carries the one-tap "Updated picks" button; the jump bar now follows the
-    # picks it points at.
-    out += glance(data, prefix, now=now)
+    # Session ee27e097: the jump bar stays ahead of the picks (test_final_day
+    # requires that order), so the phone budget is met by the compact
+    # @media(max-width:700px) block in assets/scout.css, not by moving content.
     out += start_here(data, prefix)
+    out += glance(data, prefix, now=now)
     out += unresolved_register(data, prefix, page_href=prefix + 'unresolved/')
     if complete:
         if not data['coverage_complete']:
