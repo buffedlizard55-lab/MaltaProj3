@@ -453,6 +453,24 @@ class RootRiskTests(unittest.TestCase):
         self.assertGreater(report["count"], 10)
         self.assertTrue(all(module.startswith("tests/") for module in report["modules"]))
 
+    def test_the_publisher_simulation_reports_a_missing_build_instead_of_guessing(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            result = risk.simulate_from_build(ROOT, work / "no-site", work)
+        self.assertEqual(result["check_data"], "not-run")
+        self.assertIn("no built site", result["reason"])
+
+    def test_the_publisher_simulation_refuses_a_stub_build(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            site = work / "site"
+            (site / "data").mkdir(parents=True)
+            (site / "index.html").write_text("<html>stub</html>")
+            (site / "data" / "latest.json").write_text((ROOT / "data" / "latest.json").read_text())
+            result = risk.simulate_from_build(ROOT, site, work)
+        self.assertEqual(result["check_data"], "not-run")
+        self.assertIn("refusing to publish a stub", result["refused"])
+
     def test_the_offline_reproduction_runs_and_writes_both_reports(self):
         with tempfile.TemporaryDirectory() as temporary:
             out = Path(temporary)
@@ -460,6 +478,7 @@ class RootRiskTests(unittest.TestCase):
             self.assertEqual(code, 0)
             report = json.loads((out / "root-publish-risk.json").read_text())
             self.assertIn(report["simulation"]["check_data"], {"passed", "failed"})
+            self.assertIn(report["simulation_from_build"]["check_data"], {"passed", "failed", "not-run"})
             self.assertTrue(report["conclusion"])
             self.assertIn("check_data", (out / "root-publish-risk.md").read_text())
 

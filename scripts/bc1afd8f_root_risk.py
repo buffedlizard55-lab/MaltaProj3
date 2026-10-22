@@ -135,6 +135,62 @@ def simulate_publish(repo_data: Path, fresh: dict[str, Path], work: Path) -> dic
     return result
 
 
+def simulate_from_build(repo_root: Path, site: Path, work: Path) -> dict:
+    """Run ``scripts.root_publish``'s own plan against a real build, then replay the validator.
+
+    This is the faithful simulation: the publisher's own ``build_plan``/``apply_plan``
+    decide which files land in the root (rendered pages, ``assets/`` and the seven
+    ``DATA_FILES``), so the resulting tree is byte-for-byte what a successful
+    root-sync commit would leave on ``main`` — including the part that matters, a
+    fresh ``data/latest.json`` beside a frozen ``data/evidence/`` tree.
+    """
+    from scripts.root_publish import PublishRefused, apply_plan, build_plan
+
+    result: dict = {"site": str(site), "site_exists": site.is_dir()}
+    if not (site / "index.html").is_file() or not (site / "data" / "latest.json").is_file():
+        result["check_data"] = "not-run"
+        result["reason"] = "no built site with data/latest.json was available to publish"
+        return result
+    root_copy = work / "root"
+    (root_copy / "data").parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(repo_root / "data", root_copy / "data")
+    try:
+        plan = build_plan(site, root_copy, allow_stale=True)
+    except PublishRefused as exc:
+        result["check_data"] = "not-run"
+        result["refused"] = str(exc)
+        return result
+    if plan.reason:
+        result["check_data"] = "not-run"
+        result["skipped"] = plan.reason
+        return result
+    written = apply_plan(plan, root_copy)
+    data_written = sorted(name for name in written if name.startswith("data/"))
+    evidence_dir = root_copy / "data" / "evidence"
+    result.update(
+        {
+            "files_written": len(written),
+            "data_files_written": data_written,
+            "evidence_files_after_publish": len(list(evidence_dir.glob("*"))) if evidence_dir.is_dir() else 0,
+            "published_generated_at": generated_at(root_copy / "data" / "latest.json"),
+            "frozen_generated_at": generated_at(repo_root / "data" / "latest.json"),
+        }
+    )
+
+    from scripts.validate import check_data
+
+    try:
+        check_data(root_copy / "data")
+    except Exception as exc:  # noqa: BLE001 - the failure IS the finding
+        result["check_data"] = "failed"
+        result["error_type"] = type(exc).__name__
+        result["error"] = str(exc)
+        result["traceback"] = traceback.format_exc(limit=6).splitlines()[-6:]
+    else:
+        result["check_data"] = "passed"
+    return result
+
+
 def count_snapshot_reading_tests(repo_root: Path) -> dict:
     """How many checked-in test modules read ``data/latest.json`` by path."""
     readers = []
@@ -153,12 +209,16 @@ def build_report(
     data_dir: Path,
     fresh_dir: Path,
     *,
+    site: Path | None = None,
     observed_at: datetime | None = None,
 ) -> dict:
     fresh = snapshot_files(fresh_dir)
     moment = observed_at or datetime.now(UTC)
     with tempfile.TemporaryDirectory(prefix="bc1afd8f-root-risk-") as temporary:
         simulation = simulate_publish(data_dir, fresh, Path(temporary))
+        from_build = (
+            simulate_from_build(repo_root, site, Path(temporary)) if site is not None else {"check_data": "not-run"}
+        )
     return {
         "schema_version": SCHEMA_VERSION,
         "session": SESSION,
@@ -185,13 +245,16 @@ def build_report(
             "generated_at": generated_at(fresh_dir / "latest.json"),
         },
         "simulation": simulation,
+        "simulation_from_build": from_build,
         "snapshot_reading_tests": count_snapshot_reading_tests(repo_root),
         "conclusion": None,  # filled by main() so the wording follows the observed result
     }
 
 
 def conclusion_for(report: dict) -> tuple[str, list[str]]:
-    simulation = report["simulation"]
+    simulation = report.get("simulation_from_build") or {}
+    if simulation.get("check_data") not in {"passed", "failed"}:
+        simulation = report["simulation"]
     if simulation.get("check_data") == "passed":
         return (
             "A root publish of this candidate snapshot still replays: the checked-in evidence matches it.",
@@ -247,6 +310,24 @@ def render_markdown(report: dict) -> str:
             *(simulation.get("traceback") or []),
             "```",
         ]
+    from_build = report.get("simulation_from_build") or {}
+    lines += [
+        "",
+        "## Same test using `scripts.root_publish`'s own plan on a real build",
+        "",
+        f"- built site: `{from_build.get('site')}` (present: {from_build.get('site_exists')})",
+        f"- files the publisher would write into the root: {from_build.get('files_written')}",
+        f"- data files among them: {', '.join(f'`{n}`' for n in (from_build.get('data_files_written') or [])) or 'none'}",
+        f"- `data/evidence/` files left in the root afterwards: {from_build.get('evidence_files_after_publish')}",
+        f"- published `generated_at`: `{from_build.get('published_generated_at')}` (frozen: `{from_build.get('frozen_generated_at')}`)",
+        f"- `scripts.validate.check_data` on that root: **{from_build.get('check_data')}**"
+        + (f" — `{from_build.get('error_type')}: {from_build.get('error')}`" if from_build.get("error") else "")
+        + (f" — refused: {from_build.get('refused')}" if from_build.get("refused") else "")
+        + (f" — skipped: {from_build.get('skipped')}" if from_build.get("skipped") else "")
+        + (f" — {from_build.get('reason')}" if from_build.get("reason") else ""),
+    ]
+    if from_build.get("traceback"):
+        lines += ["", "```", *from_build["traceback"], "```"]
     lines += [
         "",
         "## Conclusion",
@@ -271,6 +352,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--repo", type=Path, default=Path("."))
     parser.add_argument("--data", type=Path, default=None, help="defaults to <repo>/data")
     parser.add_argument("--fresh", type=Path, default=None, help="snapshot directory; default: newest saved live snapshot")
+    parser.add_argument("--site", type=Path, default=None, help="a built site/ tree; enables the faithful root_publish simulation")
     parser.add_argument("--out", type=Path, default=Path("data/research/bc1afd8f"))
     args = parser.parse_args(argv)
 
@@ -290,7 +372,10 @@ def main(argv: list[str] | None = None) -> int:
                 fresh_dir = sibling
     fresh_dir = fresh_dir.resolve()
 
-    report = build_report(repo, data_dir, fresh_dir)
+    site = args.site
+    if site is None and (repo / "site" / "data" / "latest.json").is_file():
+        site = repo / "site"
+    report = build_report(repo, data_dir, fresh_dir, site=site)
     report["conclusion"], report["notes"] = conclusion_for(report)
 
     args.out.mkdir(parents=True, exist_ok=True)

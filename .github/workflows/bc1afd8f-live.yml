@@ -54,12 +54,16 @@ jobs:
         run: python -m scripts.originate --live || echo "::warning::originate failed; the probe reports the featured snapshot only"
       - name: Report per-fixture pick coverage and research every fixture without a betting line
         run: python -m scripts.bc1afd8f_probe --timeout 12
-      - name: Reproduce what a fresh-snapshot root publish would do to the build
-        run: python -m scripts.bc1afd8f_root_risk
       - name: Build the fresh site
         id: build
         continue-on-error: true
         run: python -m scripts.build
+      - name: Reproduce what a fresh-snapshot root publish would do to the build
+        if: always()
+        # Runs after the build so it can replay scripts.root_publish's own plan
+        # against the real site/ tree: that is byte-for-byte what a successful
+        # root-sync commit would leave on main.
+        run: python -m scripts.bc1afd8f_root_risk --site site
       - name: Record whether the fresh snapshot actually built, and which pages exist
         if: always()
         run: |
