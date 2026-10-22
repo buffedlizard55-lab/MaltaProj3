@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 from scripts import verify_5f6fe71d as v
@@ -208,6 +209,27 @@ class ValveRereadTest(unittest.TestCase):
         self.assertEqual(got['verdict'], 'match')
         missing = v.match_valve_input(table['by_name'], 'ex-6666', 923)
         self.assertEqual(missing['verdict'], 'team-not-in-official-table')
+
+
+class TimestampTest(unittest.TestCase):
+    """The fixture API answers epoch-milliseconds strings; snapshots answer ISO.
+    Pinned to fixture 1081597: API '1792666800000' == published 2026-10-22T11:00:00Z."""
+
+    EXPECTED = datetime(2026, 10, 22, 11, 0, tzinfo=timezone.utc)
+
+    def test_epoch_milliseconds_string_from_the_fixture_api(self):
+        self.assertEqual(v.ts('1792666800000'), self.EXPECTED)
+
+    def test_epoch_seconds_number(self):
+        self.assertEqual(v.ts(1792666800), self.EXPECTED)
+
+    def test_iso_strings_are_utc(self):
+        self.assertEqual(v.ts('2026-10-22T11:00:00Z'), self.EXPECTED)
+        self.assertEqual(v.ts('2026-10-22T11:00:00'), self.EXPECTED)
+
+    def test_junk_is_none_never_a_crash(self):
+        for bad in (None, True, '', 'soon', -5, 0, [], {}):
+            self.assertIsNone(v.ts(bad))
 
 
 class InventoryShapeTest(unittest.TestCase):

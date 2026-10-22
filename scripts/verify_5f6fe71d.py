@@ -67,9 +67,24 @@ def iso(value=None) -> str:
 
 
 def ts(value):
+    """Parse ISO-8601 strings and epoch numbers (seconds or milliseconds).
+
+    The Hotspawn fixture API answers scheduled_start_time/lock_time as
+    epoch-milliseconds strings ('1792666800000'); published snapshots carry
+    ISO strings ('2026-10-22T11:00:00Z'). Both must parse for the inventory
+    reconciliation to compare like with like. Naive ISO is treated as UTC.
+    """
+    if value is None or isinstance(value, bool):
+        return None
     try:
-        return datetime.fromisoformat(str(value).replace('Z', '+00:00'))
-    except (TypeError, ValueError):
+        if isinstance(value, (int, float)) or str(value).isdigit():
+            v = float(value)
+            if v <= 0:
+                return None
+            return datetime.fromtimestamp(v / 1000 if v > 100_000_000_000 else v, UTC)
+        parsed = datetime.fromisoformat(str(value).replace('Z', '+00:00'))
+        return parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed
+    except (TypeError, ValueError, OverflowError, OSError):
         return None
 
 
@@ -434,6 +449,7 @@ def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
                    'in_api_not_published': missing, 'published_not_in_api': extra,
                    'observed_at': read['observed_at']})
     mismatches = []
+    reschedules = []
     for fid in sorted(set(upcoming_api) & set(published_upcoming)):
         api_row, pub = upcoming_api[fid], published_upcoming[fid]
         api_names = sorted(name_key(api_row.get(f'participants{i}_name') or '') for i in (0, 1))
@@ -442,12 +458,16 @@ def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
         if api_names != pub_names:
             mismatches.append({'id': fid, 'field': 'teams', 'api': api_names, 'published': pub_names})
         elif api_start and pub_start and abs((api_start - pub_start).total_seconds()) > 300:
-            mismatches.append({'id': fid, 'field': 'starts_at',
-                               'api': api_start.isoformat(), 'published': pub_start.isoformat()})
+            reschedules.append({'id': fid, 'field': 'starts_at',
+                                'api': api_start.isoformat(), 'published': pub_start.isoformat()})
     result['fact_mismatches'] = mismatches
+    # A start time that moved AFTER the snapshot was published is source churn,
+    # recorded with both timestamps — never a publication defect and never
+    # silently ignored. A team-identity disagreement IS a defect (hard fail).
+    result['fact_reschedules'] = reschedules
     if mismatches:
         result['verdict'] = 'fail'
-    elif missing or extra:
+    elif missing or extra or reschedules:
         # Fixtures that appeared or started between the snapshot and this check
         # are timing drift, recorded with both counts — never silently ignored
         # and never treated as agreement.

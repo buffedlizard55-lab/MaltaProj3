@@ -103,7 +103,8 @@ jobs:
                            f"{rc.get('recompute_unavailable')} unavailable, {rc.get('blank')} blank")
               lines.append(f"- inventory: {inv.get('verdict')} — published {inv.get('published_upcoming')} upcoming vs "
                            f"API {inv.get('api_upcoming_future_start')} future-start; started since snapshot {len(inv.get('started_since_snapshot') or [])}, "
-                           f"new since snapshot {len(inv.get('in_api_not_published') or [])}, gone {len(inv.get('published_not_in_api') or [])}")
+                           f"new since snapshot {len(inv.get('in_api_not_published') or [])}, gone {len(inv.get('published_not_in_api') or [])}, "
+                           f"rescheduled after snapshot {len(inv.get('fact_reschedules') or [])}")
               lines.append(f"- valve: {(d.get('valve_reread') or {}).get('verdict')}; html: {(d.get('html') or {}).get('verdict')}; "
                            f"hltv attempt: HTTP {(d.get('hltv_attempt') or {}).get('http_status')}")
               conflicts = [i for i in d.get('market_rereads') or [] if i.get('direction_agrees') is False]
