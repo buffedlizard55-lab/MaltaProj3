@@ -61,9 +61,12 @@ class ExecBannerTests(unittest.TestCase):
         html = summary(with_complete(inventory()), './')
         banner_at = html.find('exec-banner')
         self.assertGreater(banner_at, 0)
-        # The jump bar, glance index and register all follow the banner.
-        for marker in ('id="start-here"', 'id="picks-at-a-glance"', 'id="unresolved-register"'):
-            self.assertGreater(html.find(marker), banner_at, marker)
+        # Phone-first (f60683a4): the jump bar and glance index sit above the
+        # banner so #picks-at-a-glance is actually on the first phone screen.
+        # The banner still has to exist; the register still follows it.
+        self.assertGreater(html.find('id="start-here"'), 0)
+        self.assertGreater(html.find('id="picks-at-a-glance"'), html.find('id="start-here"'))
+        self.assertGreater(html.find('id="unresolved-register"'), banner_at)
 
 
 class GuidanceDisplayTests(unittest.TestCase):

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "f60683a4-nemesis-ww-polymarket-series-exists",
+    "severity": "warning",
+    "match_ids": ["1082767"],
+    "title": "Nemesis vs WW (1082767): a Polymarket series event with matching start time exists, but the 05:37Z snapshot still used the Valve model",
+    "detail": "Read 2026-10-22T07:32Z. Hotspawn fixture 1082767 (Nemesis vs WW, CIS LAN Championship #9) is displayed at 13:30 Europe/Malta = 11:30 UTC. Polymarket Gamma event 1232386 (slug cs2-nem-ww-2026-10-22, title 'Team Nemesis vs WW Team') publishes gameStartTime 2026-10-22 11:30:00+00 and eventStartTime 2026-10-22T11:30:00Z, volume 11812.57, liquidity 21350.56. The alias registry already maps Team Nemesis -> Nemesis and WW Team -> WW inside this competition. The 2026-10-22T05:37:07Z origination snapshot still priced the row from Valve (Nemesis 91.8%). The Polymarket directory at 07:32Z displayed 82¢ / 18¢; that listing is not a validated CLOB midpoint and was not written into any snapshot. Flagged so the next live origination retry is reviewed against the series moneyline books rather than assumed to stay a model.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-nem-ww-2026-10-22",
+      "https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nem-ww-2026-10-22",
+      "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082767",
+      "https://www.hltv.org/matches/2399844/nemesis-vs-ww-winline-mpkbk-cis-lan-season-9"
+    ]
+  },
+  {
+    "id": "f60683a4-butterfly-lavked-directory-opposite-valve",
+    "severity": "warning",
+    "match_ids": ["1079651"],
+    "title": "Butterfly vs Lavked (1079651): featured Polymarket books were rejected as wide/crossed; the directory later displayed the opposite side from the Valve pick",
+    "detail": "The 2026-10-22T05:37Z snapshot prices Butterfly 77.4% from the Valve rating model. The featured collector had already found https://polymarket.com/event/cs2-btf-lavked-2026-10-22 and rejected it ('Crossed or wider-than-12-cent order book'). Gamma event 1232201 confirms gameStartTime 2026-10-22 11:00:00+00 (Hotspawn 13:00 Europe/Malta) and volume 38. At 07:32Z the Polymarket CCT Europe directory displayed Butterfly 43¢ / Lavked 57¢ — the opposite side from Valve. Directory cents are not a CLOB midpoint and were not written into any snapshot. Flagged because a later refresh that accepts a now-two-sided book would change the pick, and because the model currently disagrees with the public listing.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-btf-lavked-2026-10-22",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-btf-lavked-2026-10-22",
+      "https://www.hltv.org/matches/2399328/butterfly-vs-lavked-cct-2026-europe-series-11",
+      "https://www.hotspawn.com/matches/butterfly-vs-lavked-cct-europe-2026-series-11-1079651",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079651"
+    ]
+  },
+  {
+    "id": "f60683a4-hltv-betting-module-is-not-a-price",
+    "severity": "notice",
+    "match_ids": ["1081143"],
+    "title": "HLTV match 2399493 (BakS vs Azuolas) betting module is casino advertising plus a fan vote, not a two-sided bookmaker pair",
+    "detail": "Read 2026-10-22T07:32Z from https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12. The match was 28m 18s from start, BO3, CCT 2026 Europe Series 12 Swiss 0-1. The Betting table contained Stake casino creative and 'No promocode available'. The 'Pick a winner' module showed BAKS 84.0% / Azuolas 16.0%; that is an HLTV community vote and is excluded by project policy (same rule as Hotspawn picked_percent). No decimal bookmaker pair was present to originate from. The published pick remains the Valve research estimate (BakS 73.4%) with that limitation on the card. EGamersWorld's 1.8 display next to BakS eSports is recorded as a placeholder, not a two-sided book.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-azuolas-szW-cgP2U",
+      "https://www.hotspawn.com/matches/baks-vs-azuolas-cct-europe-2026-series-12-1081143",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "f60683a4-k27-nexora-polymarket-zero-volume-listing",
+    "severity": "notice",
+    "match_ids": ["1082769"],
+    "title": "K27 vs NEXORA (1082769): Polymarket directory lists a $0-volume market in the same direction as the published EGamersWorld average",
+    "detail": "The 05:37Z snapshot prices K27 88.8% from the EGamersWorld aggregated bookmaker average (method=reference). At 07:32Z the Polymarket CIS LAN directory listed NEXORA 11¢ / K27 90¢ with a $0 vol label at https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nexora-k271-2026-10-22. Same direction as the published average. Directory cents are not a CLOB midpoint and were not written into any snapshot. Flagged because a zero-volume listing is not evidence the first-party book would pass the spread ceiling.",
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/cis-lan-championship",
+      "https://polymarket.com/esports/cs2/cis-lan-championship/cs2-nexora-k271-2026-10-22",
+      "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT",
+      "https://www.hotspawn.com/matches/nexora-vs-k27-cis-lan-championship-9-1082769"
+    ]
+  },
+  {
+    "id": "f60683a4-start-here-day5-archive-buried-current-picks",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Phone start-here bar listed a 18 Oct Day-5 archive ahead of the current pick index (fixed this session)",
+    "detail": "scripts/build.py::start_here() previously put 'Day-5 archive (18 Oct)' as the third jump on every phone visit to the executive summary. That is a historical TWC review, not today's Hotspawn card, and on a 390 px screen it pushed Picks at a glance below five navigation cards. Session f60683a4 replaced that item with an in-page jump to #picks-at-a-glance as the first start-here destination, kept the complete-list / unresolved / blanks links, and compacted the bar to a two-column phone grid with the picks jump full-width. The Day-5 archive remains linked from the site map and /final-day/. No probability was changed.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/#start-here",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  }
+]

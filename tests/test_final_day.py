@@ -238,9 +238,12 @@ class StartHereNavigation(unittest.TestCase):
         bar = soup.select_one('nav.start-here')
         self.assertIsNotNone(bar)
         hrefs = [a['href'] for a in bar.select('a[href]')]
+        self.assertIn('./#picks-at-a-glance', hrefs)
+        self.assertEqual(hrefs[0], './#picks-at-a-glance')
         self.assertIn('./origination/#picks', hrefs)
-        self.assertIn('./final-day/', hrefs)
         self.assertIn('./origination/#unresolved', hrefs)
+        # The Day-5 archive remains on the site map, not in the current-picks bar.
+        self.assertNotIn('./final-day/', hrefs)
         # It must come before the first match row in document order.
         html = str(soup)
         self.assertLess(html.index('start-here'), html.index('id="picks-at-a-glance"'))

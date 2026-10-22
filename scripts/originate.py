@@ -2138,6 +2138,14 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     # the narrowest observed wide-book midpoint as guidance-only output.
     guidance_candidates.sort(key=lambda item: item[0])
     guidance_spread, guidance_quote = (guidance_candidates[0] if guidance_candidates else (None, None))
+    # Session f2b91672: a two-team HLTV world-ranking row outranks wide-book guidance,
+    # and a one-ranked-team `unranked_floor` row still outranks unquoted placeholder
+    # stubs (e.g. 0.04/0.96). However, when one side is unranked on HLTV (0.0-pt
+    # synthetic floor) AND a real-money book posts a resting bid strictly above 50%
+    # (`max(bid) > 0.5`), defer to the observed resting book rather than letting a
+    # synthetic 0.0-point floor invert a priced favorite (e.g. 1082919 Tropa do KinGui
+    # [4/5 ex-Keyd Stars Valve #144, unranked on HLTV] vs Martians [#240, 1.0 pt]).
+    directional_guidance = bool(guidance_quote and max((guidance_quote.get('bid') or [0.0])) > 0.5)
     if families:
         probs_list = [q['probabilities'] for q in families.values()]
         p0 = median(pr[0] for pr in probs_list)
@@ -2242,7 +2250,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if network_quote.get('low_confidence'):
             limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
                                'finished series. Treat the direction as indicative only.')
-    elif hltv_model:
+    elif hltv_model and not (hltv_model.get('unranked_floor') and directional_guidance):
         chosen = dict(hltv_model)
         floor = hltv_model.get('unranked_floor') or []
         chosen.update({'method': 'model',
@@ -2276,6 +2284,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             f'has a spread of {guidance_spread:.2f}, far wider than the {MAX_ACCEPTED_SPREAD:.2f} acceptance '
             'ceiling, so the midpoint is barely a price. It is shown because the brief asks for a researched '
             'percentage even when no compliant source lists the match. Do not treat it as a validated line.')
+        if hltv_model and hltv_model.get('unranked_floor'):
+            limitations.append(
+                f'HLTV unranked-floor model deferred: {", ".join(hltv_model["unranked_floor"])} has no HLTV '
+                'world-ranking row (0.0-point synthetic floor), whereas an observed resting market bid exceeds '
+                '50%. Real-money resting order-book bids take precedence over a synthetic 0.0-point floor.')
     else:
         trail.append({'stage': 'Origination result', 'status': 'unresolved',
                       'source_url': match.get('source_url') or POLY_INDEX,

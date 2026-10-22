@@ -62,7 +62,16 @@ class ReviewFlagsIntegration(unittest.TestCase):
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        # Session 4c972a51 (merged) publishes a reconciled copy of latest.json
+        # beside the raw counts. That overlay is allowed; session flags.json
+        # findings still must not leak into it, and the source file stays byte
+        # identical to what was copied in.
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        canonical = json.loads(self.original)
+        self.assertEqual(published['generated_at'], canonical['generated_at'])
+        self.assertEqual(published['flags'][0], self.baseline_flag)
+        published_ids = {finding['id'] for finding in published.get('flags') or []}
+        self.assertNotIn(self.synthetic['id'], published_ids)
 
 
 if __name__ == '__main__':

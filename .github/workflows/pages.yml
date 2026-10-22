@@ -363,9 +363,13 @@ jobs:
       # serve the same, current site, and the root keeps the newest snapshot forever
       # because scripts/root_publish.py refuses to move backwards or to publish a
       # snapshot older than twelve hours.
-      # `[skip ci]` stops the commit from starting another workflow run; the legacy
-      # Pages build still runs for the push, which is exactly what we want.
+      # `[skip ci]` stops the commit from starting another workflow run; when a commit
+      # is pushed, GitHub's legacy Pages build runs for that push (~30s). We wait for
+      # that legacy build to complete (`--wait-legacy-sha`) and re-deploy the verified
+      # `github-pages` artifact so the live site serves BOTH current HTML pages in the
+      # branch root AND the complete fresh `data/` + evidence tree from the artifact.
       - name: Publish the verified build into the branch root (the legacy Pages source)
+        id: root_sync
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -390,7 +394,9 @@ jobs:
             fi
             git commit -m 'publish: sync the verified build into the branch root [skip ci]'
             if git push origin HEAD:main; then
-              echo "Published $(wc -l < "$RUNNER_TEMP/root-paths.txt") file(s) from this verified build into the branch root (attempt $attempt)." >> "$GITHUB_STEP_SUMMARY"
+              pushed_sha="$(git rev-parse HEAD)"
+              echo "pushed_sha=$pushed_sha" >> "$GITHUB_OUTPUT"
+              echo "Published $(wc -l < "$RUNNER_TEMP/root-paths.txt") file(s) from this verified build into the branch root ($pushed_sha, attempt $attempt)." >> "$GITHUB_STEP_SUMMARY"
               exit 0
             fi
             echo "::warning::root publish push attempt $attempt lost the race to another commit; retrying"
@@ -398,3 +404,17 @@ jobs:
           done
           echo "::error::the verified build could not be published into the branch root in three attempts"
           exit 1
+      - name: Wait for the root-sync commit's legacy Pages build
+        if: steps.root_sync.outputs.pushed_sha != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python -m scripts.root_publish --wait-legacy-sha "${{ steps.root_sync.outputs.pushed_sha }}"
+      - name: Re-deploy the verified artifact over the legacy root build
+        if: steps.root_sync.outputs.pushed_sha != ''
+        uses: actions/deploy-pages@v5
+      - name: Verify the public site after root-sync re-deploy
+        if: steps.root_sync.outputs.pushed_sha != ''
+        run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
+
