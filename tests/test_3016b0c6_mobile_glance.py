@@ -66,3 +66,29 @@ class BannerWordingTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NoLineResearchBlockTests(unittest.TestCase):
+    def test_block_renders_leads_as_leads_not_picks(self):
+        from scripts.build import no_line_research_block
+        data = {"_no_line_research": {
+            "observed_at": "2026-10-22T07:39:57+00:00",
+            "per_fixture": [
+                {"teams": ["6yuBoJlbl", "ex-6666"], "money_line_lead": True,
+                 "bo3_bound_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
+                 "bo3_bet": {"provider": "thunderpick",
+                             "team_1": {"name": "6yuBoJlbl", "coeff": 1.72},
+                             "team_2": {"name": "ex-6666", "coeff": 2.0}}},
+                {"teams": ["BakS", "Azuolas"], "money_line_lead": False}]}}
+        html = no_line_research_block(data, "")
+        self.assertIn('id="no-line-research"', html)
+        self.assertIn("1</strong> new money-line lead", html)
+        self.assertIn("thunderpick via bo3.gg: 6yuBoJlbl 1.72 / ex-6666 2.0", html)
+        self.assertIn("reviewed", html)
+        self.assertIn("ladder replays it on the next four-hour refresh", html)
+        self.assertIn("data/research/3016b0c6/line-source-research.json", html)
+        self.assertNotIn("Pick</span>", html)  # a lead is never presented as a pick
+
+    def test_block_absent_without_record(self):
+        from scripts.build import no_line_research_block
+        self.assertEqual(no_line_research_block({}, ""), "")

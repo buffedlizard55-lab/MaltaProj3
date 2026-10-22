@@ -887,6 +887,48 @@ def line_sources_block(data, prefix):
             f'<ul class="line-source-list">{rows}</ul></div>')
 
 
+def no_line_research_block(data, prefix):
+    """Dated per-fixture research for matches with no betting line (3016b0c6).
+
+    HLTV was tried first, then esportsbooks/aggregators, for every fixture the
+    featured method left on a research model. This block publishes the dated
+    outcome only: which fixtures still had no two-sided price anywhere
+    reachable, and any *lead* (a bound two-sided relay quote) that the
+    reviewed ladder must replay on the next refresh before a pick can change.
+    Coefficients are quoted verbatim as evidence, never converted here.
+    """
+    record = data.get('_no_line_research') or {}
+    fixtures = record.get('per_fixture') or []
+    if not fixtures:
+        return ''
+    leads = [f for f in fixtures if f.get('money_line_lead')]
+    lead_rows = ''
+    for f in leads:
+        bet = f.get('bo3_bet') or {}
+        t1, t2 = bet.get('team_1') or {}, bet.get('team_2') or {}
+        detail = (f"{e(bet.get('provider') or 'bookmaker')} via bo3.gg: "
+                  f"{e(t1.get('name') or '')} {e(t1.get('coeff'))} / "
+                  f"{e(t2.get('name') or '')} {e(t2.get('coeff'))}") if bet else 'Pinnacle guest board lists the fixture'
+        url = f.get('bo3_bound_url') or (bet.get('path') if bet else None)
+        link = external(url, 'bo3.gg fixture') if url else ''
+        lead_rows += (f'<li class="line-source-row"><span class="tried-chip resolved">lead</span>'
+                      f'<strong>{e(" vs ".join(f.get("teams") or []))}</strong> '
+                      f'<span class="line-source-note">{detail} — recorded as a lead only; the reviewed '
+                      f'ladder replays it on the next four-hour refresh before any pick changes.</span>{link}</li>')
+    leads_html = f'<ul class="line-source-list">{lead_rows}</ul>' if lead_rows else '<p class="tiny">No new money-line lead was found for any of them on that sweep.</p>'
+    return ('<div class="line-sources" id="no-line-research">'
+            '<h3>Fixtures without a betting line — latest dated research</h3>'
+            f'<p class="tiny">On {local_time(record.get("observed_at"))} every fixture then carrying only a '
+            f'research-model pick (<strong>{len(fixtures)}</strong>) was re-researched in brief order: '
+            'HLTV first (identity/ranking; it publishes no two-sided price and answered the runner with a '
+            'Cloudflare 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, '
+            'OddsPortal, EGamersWorld, the Pinnacle guest board and the bo3.gg bookmaker relay. '
+            f'<strong>{len(leads)}</strong> new money-line lead(s) found; the rest had no two-sided prematch '
+            'price on any reachable surface, so their model picks and limitations stand. '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Full dated record ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">JSON ↓</a></p>'
+            + leads_html + '</div>')
+
 
 def unresolved_register(data, prefix):
     """A separate, phone-first register of every fixture without a pick.
@@ -1019,6 +1061,7 @@ def unresolved_register(data, prefix):
     out.append(no_line_register(data, prefix))
     out.append(source_probe_block(data, prefix))
     out.append(line_sources_block(data, prefix))
+    out.append(no_line_research_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -1462,6 +1505,15 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = json.loads(line_sources_path.read_text())
         except ValueError:
             data['_line_sources'] = None
+    # Session 3016b0c6: per-fixture research for matches with no betting line
+    # (HLTV first, then esportsbooks/aggregators). Dated evidence only; a lead
+    # recorded there is not a price and never becomes a pick in this renderer.
+    no_line_path = source / 'research/3016b0c6/line-source-research.json'
+    if no_line_path.exists():
+        try:
+            data['_no_line_research'] = json.loads(no_line_path.read_text())
+        except ValueError:
+            data['_no_line_research'] = None
     probe_path = source / 'research/541cd43a/provider-probe.json'
     if probe_path.exists():
         try:
