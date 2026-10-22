@@ -110,9 +110,12 @@ Nothing from the other session was discarded:
   (run [39704309375](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39704309375), then
   the 02:08Z refresh): `inventory_crosscheck: complete` (lobby and CS2 lobby both agreed with the API),
   97 inventory records, 62 past starts, **35 active, 35 with probabilities, 34 with a directional pick,
-  0 without a line, 1 exact even estimate without a side**; methods after the label fix: 8 market,
-  1 consensus, 3 network, 2 results-based, 14 Valve, 2 HLTV-unranked-floor, 1 HLTV, 4 Valve-labelled
-  model rows on non-network rungs. Evidence: `data/research/fbdc97d6/live/snapshot-summary.json`.
+  0 without a line, 1 exact even estimate without a side**. Method split in that snapshot: 9 external
+  money lines (8 Polymarket/Kalshi market rows + 1 consensus), 18 Valve-rating rows (14 "Valve-rating
+  research estimate" + 4 "Research model estimate (Valve official ratings)", all sourced to the Valve
+  official standings), 3 network, 2 results-based, 3 HLTV world-ranking (2 of them unranked-floor) and
+  1 exact even tie. The three network rows now say so instead of naming Valve. Evidence:
+  `data/research/fbdc97d6/live/snapshot-summary.json`.
 - **Flags published** (`data/research/fbdc97d6/flags.json` → Flagged for Review): the hard-coded
   Thunderpick provenance sentence (notice, fixed), the HLTV/EGamersWorld/GG.BET/BetBoom/1xBet/
   Marathonbet runner blocks (warning), the bo3.gg relay that adds no coverage (notice), the exact even
