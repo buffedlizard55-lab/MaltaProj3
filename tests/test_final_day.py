@@ -240,7 +240,9 @@ class StartHereNavigation(unittest.TestCase):
         hrefs = [a['href'] for a in bar.select('a[href]')]
         self.assertIn('./origination/#picks', hrefs)
         self.assertIn('./final-day/', hrefs)
-        self.assertIn('./origination/#unresolved', hrefs)
+        # Session ee27e097: the start-here bar now opens the dedicated
+        # unresolved/ page, which renders the same verified register.
+        self.assertTrue({'./origination/#unresolved', './unresolved/'} & set(hrefs))
         # It must come before the first match row in document order.
         html = str(soup)
         self.assertLess(html.index('start-here'), html.index('id="picks-at-a-glance"'))

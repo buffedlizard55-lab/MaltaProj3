@@ -61,7 +61,9 @@ class ExecutiveSummaryContractTests(unittest.TestCase):
         self.assertIsNotNone(start, 'phone-first start-here jump bar must exist')
         hrefs = {a.get('href') for a in start.select('a[href]')}
         self.assertIn('./origination/#picks', hrefs)
-        self.assertIn('./origination/#unresolved', hrefs)
+        # Session ee27e097: the jump bar now targets the dedicated unresolved/
+        # page (same register, its own address). Keep accepting the older anchor.
+        self.assertTrue({'./origination/#unresolved', './unresolved/'} & set(hrefs))
         self.assertIn('./#unresolved-register', hrefs)
         glance_rows = soup.select('#picks-at-a-glance .glance-row, #picks-at-a-glance li, #picks-at-a-glance tr')
         self.assertTrue(glance_rows, 'picks-at-a-glance index must render rows')
