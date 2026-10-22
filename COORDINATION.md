@@ -75,6 +75,21 @@ if method == 'bookmaker' and 'relayed by bo3.gg' in source.lower():
 No other change is needed on their side: the row's `probabilities`, `pick_index`, `label`,
 `source_url` and `limitations` are all published in the same shape as every other money row.
 
+**Second request to `arena-fbdc97d6` (same file, same reason).** `glance()`'s intro currently
+reads *"N with a directional pick, M explicitly unresolved"*, where `M` counts only rows whose
+`origination` is `None`. A resolved-but-side-less row (ex-Zero Tenacity vs ex-RUSTEC in the
+2026-10-22T01:37Z snapshot, exactly 1,066 Valve points each) is therefore invisible in that
+sentence while the register further down lists it. Suggested wording, using the `no_side` list
+`glance()` already has no access to but `unresolved_register()` builds:
+
+```python
+even = cc.get('resolved', 0) - cc.get('with_pick', 0)
+sentence = f'{picks} with a directional pick, {even} resolved estimate(s) with no side, {unresolved} explicitly unresolved'
+```
+
+This is a wording fix only — no probability, no pick and no row changes. Logged here instead of
+edited, and applied by this session after their merge if it is still absent then.
+
 ### FC-1 result — 2026-10-22T02:10Z
 
 **Live verification of the new rung** (run
