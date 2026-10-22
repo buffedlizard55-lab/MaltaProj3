@@ -1798,13 +1798,141 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
+# Every stage name the ladder writes for a source that could have supplied a
+# *price*, mapped to the source's published name. The ledger below is built from
+# the trail, so it can never claim a source was checked when it was not: a stage
+# that is absent from the trail is absent from the ledger.
+PRICE_SOURCE_STAGES = {
+    'Betting market (Polymarket series winner)': 'Polymarket',
+    'Exchange market (Kalshi CS2 match winner)': 'Kalshi',
+    'Esportsbook line (Thunderpick original prices)': 'Thunderpick',
+    'Esportsbook line (Bovada original prices)': 'Bovada',
+    'Esportsbook line (Pinnacle original prices)': 'Pinnacle',
+    'Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)': 'bo3.gg relay',
+    'Aggregated bookmaker reference (EGamersWorld)': 'EGamersWorld',
+}
+
+# Statuses that mean "this source had nothing usable for this fixture".
+NO_PRICE_STATUSES = {'unresolved', 'unavailable', 'rejected', 'not needed', 'checked'}
+
+
+def _price_source_name(stage: str) -> str | None:
+    """The published source name behind a trail stage, if that stage is a price source."""
+    stage = str(stage or '')
+    if stage in PRICE_SOURCE_STAGES:
+        return PRICE_SOURCE_STAGES[stage]
+    # Provider-specific esportsbook probes (GG.BET, Stake, Rivalry, ...) are
+    # written as '<Provider> esportsbook'. Keep them, so a 403 is named instead
+    # of being folded into a generic "no line" sentence.
+    if stage.endswith(' esportsbook'):
+        return stage[:-len(' esportsbook')].strip() or None
+    return None
+
+
+def _short_reason(detail: str, limit: int = 90) -> str:
+    """First sentence of a trail detail, trimmed for one-line publication."""
+    text = ' '.join(str(detail or '').split())
+    for stop in ('. ', '; '):
+        cut = text.find(stop)
+        if 0 <= cut <= limit:
+            return text[:cut].strip().rstrip('.')
+    truncated = text[:limit].rstrip()
+    return truncated + ('…' if len(text) > limit else '')
+
+
+def _concise_reason(source: str, detail: str) -> str | None:
+    """One short, source-named reason for the ledger (full text stays in the trail)."""
+    text = ' '.join(str(detail or '').split())
+    if not text:
+        return None
+    low = text.lower()
+    if low.startswith('no alias-verified') and 'match-winner line' in low:
+        return 'no matching line'
+    if low.startswith('no reviewed aggregated-bookmaker capture'):
+        return 'no matching aggregate'
+    if source == 'bo3.gg relay' and 'without a bookmaker quote block' in low:
+        return 'listed without a bookmaker quote'
+    if source == 'bo3.gg relay' and 'lists no fixture bound' in low:
+        return 'no bound fixture'
+    if '403' in text:
+        return 'HTTP 403 from the runner'
+    if 'redirected to a generic landing page' in low:
+        return 'redirected to a landing page'
+    if 'multiple matching events/markets' in low:
+        return 'ambiguous: several matching markets'
+    return _short_reason(text, 60)
+
+
+def source_ledger(trail: list) -> list:
+    """One entry per price source this fixture was checked against.
+
+    The brief asks that a missing pick name the source that could not be used
+    ("no usable source: say so and name it"). The research trail already records
+    every provider with its own status; this collapses it into a machine-readable
+    ledger so the unresolved register, the data feed and any audit can cite the
+    same facts the page shows. Nothing is added that the trail does not contain.
+    """
+    ledger, seen = [], set()
+    for entry in trail or []:
+        name = _price_source_name(entry.get('stage'))
+        if not name or name in seen:
+            continue
+        seen.add(name)
+        ledger.append({'source': name,
+                       'outcome': entry.get('status'),
+                       'reason': _concise_reason(name, entry.get('detail')),
+                       'source_url': entry.get('source_url')})
+    return ledger
+
+
+def missing_price_sources(ledger: list) -> list:
+    """Ledger entries whose source produced no usable price for this fixture."""
+    return [e for e in ledger if e.get('outcome') in NO_PRICE_STATUSES]
+
+
+def even_estimate_explanation(chosen: dict) -> tuple[str, str | None]:
+    """Why a published estimate is exactly 50/50, in the source's own numbers.
+
+    An exactly even estimate has no side. Saying only "no pick" hides the reason:
+    on 2026-10-22 the two sides of ex-Zero Tenacity vs ex-RUSTEC carried the
+    *same* 1,066 Valve points (standings 92 and 93), so the published model is
+    even to the last digit and the standing order is a table sort, not a rating
+    difference. A reader is entitled to that fact rather than to an invented
+    tie-break, which is why no side is defaulted here.
+    """
+    inputs = [i for i in (chosen.get('inputs') or []) if isinstance(i, dict)]
+    if len(inputs) == 2 and all(i.get('points') is not None for i in inputs):
+        a, b = inputs
+        if a.get('points') == b.get('points'):
+            standings = sorted(str(i.get('standing')) for i in inputs if i.get('standing') is not None)
+            order = (' (standings ' + ' and '.join(standings) + ')') if len(standings) == 2 else ''
+            date = a.get('snapshot_date') or chosen.get('snapshot_date')
+            return (f'both sides publish the same {a["points"]} official points in the '
+                    f'{date or "current"} snapshot{order}; the standings order is a table sort, not a '
+                    'rating difference.', chosen.get('source_url'))
+    quotes = [q for q in (chosen.get('quotes') or []) if isinstance(q, dict)]
+    if len(quotes) == 1 and quotes[0].get('odds'):
+        odds = quotes[0]['odds']
+        if len(odds) == 2 and abs(float(odds[0]) - float(odds[1])) < 1e-9:
+            provider = quotes[0].get('provider') or chosen.get('source') or 'the source'
+            return (f'{provider} quotes the same {float(odds[0]):.2f} decimal price on both sides, so the '
+                    'margin is zero on each side of an even book.', quotes[0].get('source_url'))
+    probs = chosen.get('probabilities') or []
+    if len(probs) == 2:
+        return (f'the published inputs produce 50.0% on each side ({probs[0]:.6f} / {probs[1]:.6f}); '
+                'the difference is below the 1e-8 publication threshold.',
+                chosen.get('source_url'))
+    return 'the published probabilities are exactly equal.', chosen.get('source_url')
+
+
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
                     reference: list | None = None, hltv_rank: list | None = None,
                     hltv_meta: dict | None = None, relay: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
-                'limitations': [reason], 'research': [{'stage': 'Fixture identity', 'status': 'unresolved',
+                'limitations': [reason], 'sources_checked': [], 'sources_without_price': [],
+                'research': [{'stage': 'Fixture identity', 'status': 'unresolved',
                 'source_url': match.get('source_url') or 'https://play.hotspawn.com/lobby', 'detail': reason}]}
     trail = []
     aliases = []
@@ -2229,6 +2357,39 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                                 'detail': '; '.join(f"{a['alias']} → {a['canonical']}" for a in deduped)
                                 + '. Competition-scoped registry entries with official evidence links; this supersedes any earlier '
                                   '"equivalence not verified" observation for these names in this competition only.'})
+    # 6. Publish the source ledger and the two honesty cases the brief calls out.
+    #    (a) An exactly even estimate has no side; say why, in the source's own
+    #        numbers, instead of leaving a blank that reads like a missing source.
+    #    (b) A row that no price source could price names the sources that were
+    #        checked and what each answered, so the limiting factor is visible on
+    #        the row itself and not only in the collapsed research trail.
+    ledger = source_ledger(trail)
+    if chosen and pick is None:
+        detail, url = even_estimate_explanation(chosen)
+        trail.append({'stage': 'Exactly even estimate (no side published)', 'status': 'checked',
+                      'source_url': url or match.get('source_url') or POLY_INDEX,
+                      'detail': 'The estimate is exactly even because ' + detail
+                                + ' No side is published: an even estimate is reported as even rather '
+                                  'than broken with an invented tie-break, and it is never a default '
+                                  '50/50 fallback.'})
+        limitations.append('Exactly even estimate: ' + detail
+                           + ' No side is published, so this row is counted separately from both '
+                             'directional picks and unresolved fixtures.')
+    if not chosen or chosen.get('method') not in MONEY_METHODS:
+        missing = missing_price_sources(ledger)
+        if missing:
+            named = ', '.join(
+                f"{e['source']} ({e['reason']})" if e.get('reason') else str(e['source'])
+                for e in missing[:7])
+            if chosen:
+                limitations.append(
+                    f'No usable price from any source checked: {named}. '
+                    f'The published percentage is this project\'s own '
+                    f'{"model" if chosen.get("method") == "model" else "guidance-only"} estimate, '
+                    'not a market or bookmaker price.')
+            else:
+                limitations.append(f'Nothing priced this fixture. Sources checked and what they '
+                                   f'answered: {named}. The pick stays blank rather than defaulted.')
     return {
         'origination': chosen,
         'pick_index': pick,
@@ -2236,6 +2397,8 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         'research': trail,
         'limitations': limitations,
         'time_flags': sorted(set(time_flags)),
+        'sources_checked': ledger,
+        'sources_without_price': [e['source'] for e in missing_price_sources(ledger)],
     }
 
 
