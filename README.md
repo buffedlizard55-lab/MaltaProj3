@@ -445,3 +445,49 @@ The standing brief asks for a pick or win probability for **every** Hotspawn-lis
 5. **Runner research workflow.** `.github/workflows/c03ef201-research.yml` runs the full live pipeline on GitHub’s runner (the only environment with provider egress) and commits only dated reports and hash-checked originals to `data/research/c03ef201/`. `workflow_dispatch` remains HTTP 403 for this token, so a push trigger is used with a guard that skips the workflow’s own report commits.
 
 **Result on the 2026-10-19T05:29Z snapshot: 31 of 34 active fixtures carry a researched estimate; 3 stay intentionally blank** (ex-6666–Privateer, The Last Resort–LFO 10, Chinggis Warriors–WXM — each has one team with an official HLTV page but no ranking entry, no Valve row and no price anywhere). The executive summary’s [Unresolved picks & limitations](https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved) section, the [complete list](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks) and the [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) page publish those three with their full research trails and official links; nothing is filled with a guess. Every new rung replays from saved originals before the site builds (708-test suite green).
+
+## 22 October session arena-13bdd12a: a direction for every priced match, and a phone summary that opens on the picks
+
+The brief for this session was narrow: **every** Hotspawn CS2 match must show a pick (or an
+explicit, source-linked limitation), the executive summary must link to where the picks live and
+must carry the unresolved-pick limitations, and the site has to be readable on a phone. This
+session worked from three first-hand sources and the live pipeline, and it changed four things.
+
+1. **An exactly level estimate now gets a documented direction — or stays explicitly even.**
+   Two official ratings can be identical: on the 5 October 2026 Valve snapshot
+   `ex-Zero Tenacity` (standing 93) and `ex-RUSTEC` (standing 92) both carried **1066 points**, so
+   the Valve rung produced exactly 50.0% / 50.0% and the published row had a probability pair with
+   no pick. The ladder now continues, in a fixed published order, through the estimates it has
+   already fetched — the HLTV world-ranking transform, then our own bo3.gg network fit, then our own
+   results fit — and takes the first that separates the teams by at least one percentage point.
+   The row is badged **Tie-break estimate**, the level primary pair is kept verbatim in
+   `tie_break_of`, and a replay check in `scripts/build_origination.py` fails the build if the pair
+   is missing or the row is unmarked. A **money line is never tie-broken**, a gap below one point is
+   treated as level, and when no sourced rung separates the teams the row stays **Even · no side**.
+   Two unit suites pin both directions (`tests/test_13bdd12a_tiebreak.py`).
+2. **The own-network rung was publishing the wrong source label (fixed).** `scripts/originate.py`
+   reused one variable for the results fit *and* the network fit, so a bo3.gg Bradley–Terry estimate
+   was labelled *"Research model estimate (Valve official ratings)"* and carried Valve-rating
+   wording. Observed live on `benched gods vs TitanFlow` and `Ground Zero vs Off Chops`. The label,
+   provider and limitation text now follow the quote's own family (`network`), and the published
+   input URLs are the bo3.gg team pages they came from.
+3. **The executive summary now explains *why* some matches have no betting line**, in its own
+   block inside the unresolved section, with a dated first-hand evidence record
+   (`data/research/13bdd12a/limits-evidence.json`): HLTV publishes a fan vote and a partner promo,
+   not a two-sided prematch moneyline; bo3.gg shows a Thunderpick partner link rather than a price on
+   unpriced fixtures; EGamersWorld prints an identical `1.8 / 1.8` placeholder that the pipeline
+   rejects. Each claim links the exact page it was read from, and none of them becomes a probability.
+4. **Phone layout.** At 390 × 844 the first pick used to start below the fold: a status strip, a
+   three-button banner and a five-card jump bar came first. Each is now a compact single row, the
+   first fixture with its pick and percentage is visible on the first screen, and all six bottom-bar
+   destinations (including **Review**) fit without a horizontal scroll at 390 px and 320 px. Every
+   label, link and count stays in the DOM and in the accessibility tree; the axe WCAG AA route passes
+   at both widths.
+
+**Verification.** Full local suite `python -m unittest discover -s tests` green (including the new
+`tests/test_13bdd12a_tiebreak.py`, 11 cases); Playwright desktop + phone suites green
+(84 tests, axe WCAG A/AA at 320/390/1440 px); local build replay `555 rows / 541 with an official
+link / 0 without a source`, `709 internal links/assets/anchors`, mobile landmarks PASS. The live
+pipeline runs on this branch are recorded in `data/research/13bdd12a/live/` and the session's claim,
+sources and findings are on the board in
+[`COORDINATION.md`](https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md).
