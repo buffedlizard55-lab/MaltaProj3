@@ -421,12 +421,10 @@
 .start-here a.picks-here{background:#fff6ef;border-color:#f0cfb7}
 .start-here a.picks-here strong{color:var(--orange-dark)}
 @media(max-width:700px){
-  .start-here{padding:12px 14px;margin-bottom:14px}
-  .start-here-label{margin-bottom:8px}
-  .start-here ul{grid-template-columns:1fr 1fr;gap:8px}
-  .start-here a{min-height:44px;padding:10px 11px;gap:8px}
+  /* Keep df80ab9f's 9/11 padding so #picks-at-a-glance stays under 1500px.
+     Two columns plus hidden detail spans replace the five-card stack. */
+  .start-here ul{grid-template-columns:1fr 1fr;gap:5px}
   .start-here a span{display:none}
   .start-here li:first-child{grid-column:1/-1}
-  .start-here a.picks-here{min-height:48px}
-  .start-here .tiny{padding:8px 2px 0!important}
+  .start-here .tiny{display:none}
 }
