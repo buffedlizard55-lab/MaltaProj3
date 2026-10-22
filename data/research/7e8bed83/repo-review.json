@@ -1,0 +1,81 @@
+{
+  "session": "arena-7e8bed83",
+  "branch": "arena/7e8bed83-maltaproj3",
+  "review_clock_utc": "2026-10-22T01:10Z",
+  "scope": "Every-match pick coverage: live complete-picks snapshot of 2026-10-21T23:42Z, the post-deploy verifier, and the executive-summary mobile pick path.",
+  "method": "Live public JSON was read directly (data/latest.json and data/origination.json on GitHub Pages), counts were reconciled row-by-row by the new scripts/coverage_audit.py against the checked-in fixture, and synthetic regressions (dropped pick, silent blank, even estimate naming a side, Hotspawn votes enabled, probabilities not summing to 1) were asserted to fail in tests/test_coverage_audit.py. No probability was created or changed.",
+  "items": [
+    {
+      "id": "7E-01",
+      "area": "coverage verifier",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "scripts/verify_live.py checked that deployed pick cards match the inventory and printed complete-picks counts, but never enforced that every active fixture actually carries a sourced probability + argmax pick (or even no-side estimate) or an explicit unresolved entry. A regression silently blanking picks would still deploy.",
+      "handling": "New pure scripts/coverage_audit.py enforces counts==rows, two probabilities in (0,1) summing to 1, known ladder method, https source/evidence links, pick==argmax (no side when exactly even), unresolved rows having https-linked research trails and limitations, and policy.hotspawn_votes_used/fan_votes_used explicitly false. verify_live.py now fails the deploy verification when the audit fails. The audit also caught that featured Valve model rows publish quotes=[] with rating inputs instead; the evidence rule now accepts inputs-or-quotes while requiring https on every published evidence link.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/verify_live.py",
+          "detail": "Post-deploy verifier wired to the audit"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "Live complete-picks payload the audit runs against"
+        }
+      ]
+    },
+    {
+      "id": "7E-02",
+      "area": "live coverage",
+      "severity": "info",
+      "status": "verified",
+      "finding": "Live snapshot 2026-10-21T23:42Z: featured exact-name method resolves 7 of 12 active fixtures (5 unresolved), while the complete researched list resolves 12 of 12 with 12 directional picks and 0 unresolved (3 market, 9 model incl. 2 own-network). The executive summary's Unresolved picks & limitations section therefore correctly reports zero at this snapshot and links the full register.",
+      "handling": "No pick was changed. Recorded in data/research/7e8bed83/live-audit.json with source links. When a future fixture cannot be resolved it will appear, blank and flagged, in the executive-summary unresolved section and origination/#unresolved \u2014 never as a default 50/50.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+          "detail": "Featured counts: 12 upcoming, 7 picks, 5 unresolved"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "Complete counts: 12 active, 12 resolved, 0 unresolved"
+        }
+      ]
+    },
+    {
+      "id": "7E-03",
+      "area": "platform",
+      "severity": "medium",
+      "status": "platform limitation",
+      "finding": "GitHub Pages is still build_type=legacy (source main:/); the Pages configuration API returns HTTP 403 to the workflow token, so CI cannot switch it to Actions mode. A legacy build can transiently republish the checked-in root.",
+      "handling": "Left unchanged (owner-only setting). Existing mitigation stands: the publisher waits, re-runs scripts.verify_live against the public URL and republishes the verified artifact; the new coverage audit is part of that verification.",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+          "detail": "Pages configuration: build_type legacy, status built"
+        }
+      ]
+    },
+    {
+      "id": "7E-04",
+      "area": "mobile executive summary",
+      "severity": "info",
+      "status": "verified",
+      "finding": "On a phone the executive summary opens with the exec banner (Updated picks \u2014 all matches, with counts), Picks at a glance, a phone-only mobile-status strip and bottom mobile nav, all linking to origination/#picks and origination/#unresolved.",
+      "handling": "Verified by existing tests/test_mobile_picks_nav.py, tests/test_summary_navigation.py and the glance rendering in scripts/build.py; no layout change was needed this session.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Live executive summary"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+          "detail": "Complete phone-first picks list"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+          "detail": "Unresolved picks and limitations"
+        }
+      ]
+    }
+  ]
+}
