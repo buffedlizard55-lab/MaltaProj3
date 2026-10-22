@@ -5324,3 +5324,49 @@ Claimed **2026-10-22T07:30Z** on Arena-fixed branch `arena/75aa5b56-maltaproj3`,
 - **Change log:** `scripts/build.py` exec-banner + `assets/scout.css` mobile overrides + `docs/SOURCE_RESEARCH.md` hotspawn docs + `data/research/75aa5b56/` + `tests/test_75aa5b56.py`. No pick/probability/alias values were hand-edited.
 
 
+
+---
+
+# Current session: arena-96fbe295 — make the published site current (legacy Pages root), and prove every active fixture still has a sourced pick
+
+Claimed **2026-10-22T08:25Z** on Arena's fixed branch `arena/96fbe295-maltaproj3`, branched from
+`main` at `2fb99b0` (merge of PR #167). The board was read first (head and tail). No open PR (#164,
+#165, #168–#174) touches `.github/workflows/pages.yml`, so this session's scope is free.
+
+**Defect this session exists to close.** The public site was serving a six-day-stale page at
+2026-10-22T08:20Z. Verified from the live deployment, not inferred:
+- `GET https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` → `generated_at
+  2026-10-15T08:36:13Z`, 17 upcoming fixtures whose starts are 15 Oct (i.e. already past).
+- `GET .../data/row-source-audit.json` → `totals.rows = 334`, byte-for-byte the tracked
+  `data/row-source-audit.json`; the site build's own audit writes that file, so the served site
+  *is* the branch root.
+- `GET /repos/.../pages` → `build_type: legacy`, `source {branch: main, path: /}`. The Pages
+  legacy build for `2fb99b0` finished **07:52:31Z** and republished the checked-in root, which is
+  the 15 October build. The workflow's verified artifact deploys under the same paths, so whichever
+  publisher lands last wins; today the legacy build landed last and has stayed last because the
+  `pages.yml` run for `2fb99b0` is still **pending** behind the queue (13 open session PRs).
+- Attempted the documented remedy first: `PUT /repos/.../pages {build_type: workflow}` →
+  **403 Resource not accessible by integration** (token has no repo-admin scope). So the source
+  cannot be switched from here, exactly as session `c1fa150f` recorded.
+
+**The fix this session claims:** publish the verified build into the branch root itself, so that
+*whichever* publisher wins the race serves current data. Prior sessions rejected committing the
+whole `site/` tree (~24 MB, 22 MB of which is `data/evidence/`). This session copies only the
+rendered pages, `assets/`, and the four data files the pages read (~2 MB total; evidence files stay
+out of the loop and remain committed from earlier sessions).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 96F-1 Publish the verified build to the branch root: new `scripts/root_publish.py` (idempotent, scoped copy, refuses a degraded/short build) | in progress | arena-96fbe295 | `scripts/root_publish.py` (new), `tests/test_96fbe295.py` (new), `data/research/96fbe295/` (new) |
+| 96F-2 Wire it into the four-hour publisher so the root can never regress: `pages.yml` step after the artifact deploy, `contents: write`, `[skip ci]` commit, fetch/rebase/retry push | in progress | arena-96fbe295 | `.github/workflows/pages.yml` (one permission line + one appended step), `scripts/root_publish.py` |
+| 96F-3 Re-verify live pick coverage against the Hotspawn lobby and publish the unresolved register with per-fixture limitations and source links | in progress | arena-96fbe295 | `data/research/96fbe295/`, this section |
+| 96F-4 PR to `main`, merge, dispatch/confirm the publisher, and confirm the public site serves today's snapshot | in progress | arena-96fbe295 | `main`, GitHub Pages |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
+`scripts/sources.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`,
+`data/origination/aliases.json`, `data/latest.json` *values*, or any other session's
+`data/research/<id>/`. The only shared files this session touches are the root HTML pages (which it
+regenerates verbatim from the build, never hand-edits) and the two files named in 96F-1/96F-2.
+Probability, pick and alias values are never hand-edited here; any value change is a request in this
+section instead.
+
