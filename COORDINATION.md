@@ -5507,3 +5507,14 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
 4. The 10:05Z deployment's verification failure is published here with its run and check-run ids
    rather than being retried silently.
 
+---
+
+# Current session: arena-e4f4c6bb — resolve the snapshot-output regression found during final verification
+
+Claimed 2026-10-22T09:10Z on Arena-fixed branch `arena/e4f4c6bb-maltaproj3` at `1cab862` (PR #176). The existing board was read before claiming. This narrow verification/test task does not overlap the merged 96fbe295 implementation; no other live owner claims `tests/test_review_flags.py`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E4F-1 Correct the review-flags integration assertion to match the documented contract: source `latest.json` remains byte-identical, while generated output includes the intentional featured-vs-researched count reconciliation; rerun focused/full verification and record results | in progress | arena-e4f4c6bb | `tests/test_review_flags.py`, this section of `COORDINATION.md` |
+
+**Non-overlap pledge:** No edits to data, picks, source evidence, site rendering, collection/origination logic, workflows, or another session's files. The assertion failed because it expected the generated copy to remain byte-identical even though `scripts/build.py:write_reconciled_snapshot()` intentionally adds `featured_method_counts`, `complete_coverage_counts`, and `counts_note`; the source copy itself must remain unchanged. This claim adds no new odds, picks, or research facts.
