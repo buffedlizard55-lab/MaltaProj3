@@ -1,0 +1,301 @@
+{
+  "session_id": "arena-ca4d2a02",
+  "observed_at": "2026-10-22T07:45:00Z",
+  "methodology": {
+    "policy": "HLTV first (match page, team roster, VRS & weekly world ranking) for identity/lineup verification ONLY on fixtures not resolved by the exact-name featured method, followed in strict order by first-party prediction markets & esportsbooks (Polymarket Gamma/CLOB, Kalshi KXCS2GAME, Thunderpick /api/matches, Bovada CS2 coupon, Pinnacle Arcadia guest board), bo3.gg relayed bookmaker quotes, reviewed EGamersWorld bookmaker-average captures, Valve official regional standings (Glicko RD=75), bo3.gg 120-day Bradley-Terry network fit, and HLTV weekly ranking transform.",
+    "hotspawn_votes_used": false,
+    "hltv_fan_votes_used": false,
+    "hallucinated_or_inferred_fills": 0
+  },
+  "featured_unresolved_live_fixtures": [
+    {
+      "fixture_id": "1082919",
+      "teams": ["Projeto do KinGui", "Martians"],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+        "finding": "HLTV match 2399904 lists Tropa do KinGui (team/13151, HLTV Unranked, VRS #149; drg, ALLE, ckzao, xureba, lash) vs Martians (team/13230, HLTV #240 = 1.0 pt, VRS #335; Dexter, bpg, pazini, ght, fhz) at 2026-10-22T13:00:00Z."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1232953 (https://polymarket.com/esports/cs2/cct-south-america/cs2-tdkg-mar1-2026-10-22): $0.00 volume, wide opening asks (0.96 / 0.46), rejected.",
+        "kalshi": "No KXCS2GAME contract listed.",
+        "thunderpick": "No prematch series moneyline listed.",
+        "bovada": "No CS2 coupon event listed.",
+        "pinnacle": "No CS2 guest-board series moneyline listed.",
+        "bo3_relay": "bo3.gg match 132645 (Tropa do KinGui 19919 vs Martians 7461): bet_updates=null."
+      },
+      "originated_resolution": {
+        "rung": "HLTV world ranking (unranked floor)",
+        "probabilities": [0.49856089, 0.50143911],
+        "pick_team": "Martians",
+        "irregularity_flagged": "ca4d2a02-1082919-kingui-unranked-floor-inversion: 4/5 of Tropa do KinGui (drg, ckzao, xureba, lash) hold Valve #144 ex-Keyd Stars (854 pts), so HLTV's 0-pt unranked floor inverts the #149 vs #335 VRS ordering."
+      }
+    },
+    {
+      "fixture_id": "1082882",
+      "teams": ["UNiTY", "Apogee Betclic"],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+        "finding": "Exact slot/lineups confirmed (UNiTY: Dytor, KWERTZZ, 2high, M1key, Sn0w vs Betclic: Demho, Prism, Ex1st, ultimate, Qlocuu)."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1231280 (https://polymarket.com/event/cs2-unity-bca-2026-10-22): bid 0.42/0.57, ask 0.43/0.58, spread 0.01 -> [0.425, 0.575].",
+        "thunderpick": "Event 2865424 (https://thunderpick.io/api/matches): decimal 2.10 / 1.65 -> no-vig [0.44, 0.56].",
+        "bovada": "Event 32573371 (https://www.bovada.lv/sports/esports/counter-strike-2/stake-ranked-qualifiers/unity-esports-betclic-apogee-202610221000): decimal 2.20 / 1.645161 -> no-vig [0.42785231, 0.57214769]."
+      },
+      "originated_resolution": {
+        "rung": "3-source money consensus (Polymarket + Thunderpick + Bovada)",
+        "probabilities": [0.42785231, 0.57214769],
+        "pick_team": "Apogee Betclic",
+        "irregularity_flagged": "ca4d2a02-consensus-polymarket-chip-label (UI link text says 'Bookmaker' for Polymarket URL)."
+      }
+    },
+    {
+      "fixture_id": "1081871",
+      "teams": ["Lynn Vision", "Chinggis Warriors"],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lynn-vision-vs-chinggis-warriors-void-autumn-cup-2026-1081871",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399586/lynn-vision-vs-chinggis-warriors-macemedia-void-autumn-cup-2026",
+        "finding": "BO3 confirmed; 4/5 Chinggis Warriors lineup matches Valve #87 (1084 pts; tikuak in for yAmi) vs Valve #64 Lynn Vision (1190 pts)."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1232241 (https://polymarket.com/event/cs2-lvg-cw-2026-10-22): spread 0.36 > 0.15 (0.60/0.96 vs 0.04/0.40), rejected.",
+        "esportsbooks_and_relays": "No Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline; EGamersWorld shows symmetric 1.8/1.8 site placeholder (rejected)."
+      },
+      "originated_resolution": {
+        "rung": "Valve official ratings (4/5 HLTV core disambiguation)",
+        "probabilities": [0.64419091, 0.35580909],
+        "pick_team": "Lynn Vision",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1081149",
+      "teams": ["FORZE Reload", "LFO 10"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+        "finding": "Exact teams and 2026-10-23T14:00:00Z BO3 confirmed; HLTV ranking #80 FORZE Reload (11.0 pts) vs #167 LFO 10 (4.0 pts)."
+      },
+      "betting_line_checks": {
+        "polymarket": "Listed as FORZE Reload vs S\u00f6kerorg (https://polymarket.com/esports/cs2/cct-europe/cs2-forzer-skr2-2026-10-23) with $0.00 volume and 0.90 empty spread (0.95/0.95 asks), so no usable book exists.",
+        "esportsbooks_and_relays": "No Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline."
+      },
+      "originated_resolution": {
+        "rung": "HLTV world ranking",
+        "probabilities": [0.51007245, 0.48992755],
+        "pick_team": "FORZE Reload",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1079657",
+      "teams": ["BakS", "BRUTE"],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+        "finding": "Exact 5/5 player match disambiguates Valve #75 BRUTE (1116 pts: nbqq, aidKiT, hfah, ZEDKO, tAk) vs Valve #100 BAKS (1044 pts)."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1233339 (https://polymarket.com/esports/cs2/cct-europe/cs2-brute-baks-2026-10-23): $0.00 volume, spread 0.62 > 0.15, rejected.",
+        "esportsbooks_and_relays": "No Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline."
+      },
+      "originated_resolution": {
+        "rung": "Valve official ratings (5/5 HLTV lineup disambiguation)",
+        "probabilities": [0.40054361, 0.59945639],
+        "pick_team": "BRUTE",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1082925",
+      "teams": ["BESTIA Academy", "RED Canids Academy"],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+        "finding": "Exact teams and 2026-10-23T19:00:00Z BO3 confirmed; RED Canids Academy has no Oct-5 Valve row."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1233767 (https://polymarket.com/esports/cs2/cct-south-america/cs2-bsta-reda-2026-10-23): $0.00 volume, spread 0.90 > 0.15, rejected.",
+        "esportsbooks_and_relays": "bo3.gg match 132651 has bet_updates=null; no Kalshi/Thunderpick/Bovada/Pinnacle line."
+      },
+      "originated_resolution": {
+        "rung": "Own Bradley-Terry network model (bo3.gg 4,647-series graph, 269 Valve anchors; 41 vs 21 series)",
+        "probabilities": [0.20939243, 0.79060757],
+        "pick_team": "RED Canids Academy",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1082926",
+      "teams": ["Isurus", "Hacha"],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+        "finding": "Isurus (HLTV #215, VRS #200, Oct-5 Valve #173 783 pts: Hezz, dott1, atarax1a, rzk, deco) vs Hacha (HLTV #229, VRS #378: Lucasye, superex, toto, BUSAN, KvNs [Substitute for Rivo])."
+      },
+      "betting_line_checks": {
+        "polymarket": "Event 1233768 (https://polymarket.com/esports/cs2/cct-south-america/cs2-isg-hachae-2026-10-23): spread 0.92 (0.04/0.96), rejected.",
+        "esportsbooks_and_relays": "bo3.gg match 132652 has bet_updates=null; Hacha (bo3.gg 9764) has 5 finished series in 120d (needs 6)."
+      },
+      "originated_resolution": {
+        "rung": "HLTV world ranking (rounded 2.0 pts vs 2.0 pts)",
+        "probabilities": [0.5, 0.5],
+        "pick_team": null,
+        "irregularity_flagged": "ca4d2a02-1082926-isurus-hacha-rounded-points-tie"
+      }
+    },
+    {
+      "fixture_id": "1082858",
+      "teams": ["Ground Zero", "Off Chops"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "finding": "Exact teams and 2026-10-26T03:00:00Z BO3 confirmed; Off Chops lacks an Oct-5 Valve row."
+      },
+      "betting_line_checks": {
+        "esportsbooks_and_relays": "4 days before lock; no Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline published yet."
+      },
+      "originated_resolution": {
+        "rung": "Own Bradley-Terry network model (bo3.gg 4,647-series graph; 31 vs 6 series, low_confidence=true)",
+        "probabilities": [0.44396693, 0.55603307],
+        "pick_team": "Off Chops",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": ["FlyQuest", "Staqued"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+        "finding": "Exact teams and 2026-10-27T03:00:00Z BO3 confirmed; FlyQuest HLTV #61 (16.0 pts), Staqued unranked on HLTV and Valve and has only 2 bo3.gg series in 120d."
+      },
+      "betting_line_checks": {
+        "esportsbooks_and_relays": "5 days before lock; no Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline published yet."
+      },
+      "originated_resolution": {
+        "rung": "HLTV world ranking (unranked floor, low_confidence=true)",
+        "probabilities": [0.52300959, 0.47699041],
+        "pick_team": "FlyQuest",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": ["Envy", "GamerLegion"],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches",
+        "finding": "Tesla Cup Group B BO3; Polymarket cs2-envy-gl1-2026-10-27 has $0 vol and wide opening asks (0.86/0.90 -> spread 0.76 > 0.15)."
+      },
+      "betting_line_checks": {
+        "bo3_relay": "bo3.gg match https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026 relays Thunderpick paired prematch odds -> no-vig [0.46236559, 0.53763441]."
+      },
+      "originated_resolution": {
+        "rung": "Esportsbook line relayed by bo3.gg (Thunderpick, no-vig)",
+        "probabilities": [0.46236559, 0.53763441],
+        "pick_team": "GamerLegion",
+        "irregularity_flagged": null
+      }
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_check": {
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "finding": "Exact 2026-10-31T09:00:00Z BO3 confirmed; 4/5 HLTV lineup matches Valve #122 The Huns against HOTU."
+      },
+      "betting_line_checks": {
+        "esportsbooks_and_relays": "9 days before lock; no Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, or bo3.gg moneyline published yet."
+      },
+      "originated_resolution": {
+        "rung": "Valve official ratings (4/5 HLTV core disambiguation)",
+        "probabilities": [0.94052062, 0.05947938],
+        "pick_team": "HOTU",
+        "irregularity_flagged": null
+      }
+    }
+  ],
+  "recommended_competition_scoped_aliases_for_owner": [
+    {
+      "alias": "Low Cortisol",
+      "canonical": "Low Cortisol BR",
+      "applies_to": ["CCT South America 2026 Series #7"],
+      "impact": "Joins Polymarket event 1232958 (cs2-lowcor1-grmioe-2026-10-22, spread 0.01, $1,834 liquidity -> 28.5% / 71.5% Gr\u00eamio) on fixture 1082922, fixing a Valve-fallback pick inversion.",
+      "evidence_urls": [
+        "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+        "https://www.hotspawn.com/matches/low-cortisol-br-vs-gremio-cct-south-america-2026-series-7-1082922"
+      ]
+    },
+    {
+      "alias": "Gr\u00eamio Esports",
+      "canonical": "Gr\u00eamio",
+      "applies_to": ["CCT South America 2026 Series #7"],
+      "impact": "Paired partner alias with 'Low Cortisol -> Low Cortisol BR' for fixture 1082922 on Polymarket event 1232958.",
+      "evidence_urls": [
+        "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+        "https://www.hotspawn.com/matches/low-cortisol-br-vs-gremio-cct-south-america-2026-series-7-1082922"
+      ]
+    },
+    {
+      "alias": "Procyon Gaming",
+      "canonical": "Procyon",
+      "applies_to": ["CCT South America 2026 Series #7"],
+      "impact": "Joins Polymarket event 1232955 (cs2-meiano-pcy-2026-10-22, spread 0.03, $1,384 liquidity -> 44.5% / 55.5%) with Pinnacle (44.1% / 55.9%) on fixture 1082920.",
+      "evidence_urls": [
+        "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22",
+        "https://www.hotspawn.com/matches/meia-noite-vs-procyon-cct-south-america-2026-series-7-1082920"
+      ]
+    },
+    {
+      "alias": "Yawara Esports",
+      "canonical": "Yawara",
+      "applies_to": ["CCT South America 2026 Series #7"],
+      "impact": "Joins Polymarket event 1232957 (cs2-yaw-youren-2026-10-22, $1,741 liquidity -> ~19% / ~81%) with Pinnacle (19.5% / 80.5%) on fixture 1082921.",
+      "evidence_urls": [
+        "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22",
+        "https://www.hotspawn.com/matches/your-end-vs-yawara-cct-south-america-2026-series-7-1082921"
+      ]
+    },
+    {
+      "alias": "Tropa do KinGui",
+      "canonical": "Projeto do KinGui",
+      "applies_to": ["CCT South America 2026 Series #7"],
+      "impact": "Joins HLTV match 2399904, Polymarket cs2-tdkg-mar1-2026-10-22 (once liquid), and bo3.gg match 132645 on fixture 1082919.",
+      "evidence_urls": [
+        "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+        "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+        "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919"
+      ]
+    }
+  ]
+}
