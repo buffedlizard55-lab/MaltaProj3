@@ -15,7 +15,8 @@ from scripts import bc1afd8f_gate as gate
 from scripts import bc1afd8f_mobile_audit as mobile
 from scripts import bc1afd8f_probe as probe
 from scripts import bc1afd8f_root_risk as risk
-from scripts.build_origination import expected_pick_for
+import scripts.build_origination
+from scripts.originate import ranked_tie_break, selection
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -189,56 +190,52 @@ class ModelRowClassificationTests(unittest.TestCase):
 
 
 class EvenTieBreakValidationTests(unittest.TestCase):
-    """`scripts.build_origination.expected_pick_for` must replay the published tie-break.
+    """An exactly even research-model row must not stop the build.
 
-    Without it the live 2026-10-22T09:15:53Z snapshot could not be built at all:
-    fixture 1082926 is exactly 0.500/0.500 with the direction taken from HLTV's
-    published positions, and the validator stopped the build with
-    'Fallback pick differs from its probabilities'.
+    Fixture ``1082926`` in the live 2026-10-22T09:15:53Z snapshot is 0.500/0.500
+    with the direction taken from HLTV's published positions 215/229. The
+    validator in ``scripts/build_origination`` asserted
+    ``pick_index == selection(probabilities)``, ``selection`` returns ``None`` for
+    an exact tie, and ``python -m scripts.build`` died with
+    'Fallback pick differs from its probabilities' — measured on the runner in
+    ``data/research/bc1afd8f/gate-fresh-snapshot.md``. Session df80ab9f fixed the
+    validator on ``main`` (PR #179) by replaying ``ranked_tie_break``; this branch
+    merged that fix instead of shipping a second, divergent replay. These tests
+    pin the production row shape against the merged code.
     """
 
-    def even_row(self, ranks=(215, 229), winner=0, method="model", rule="published-rank tie-break", ties=1):
-        quote = {"provider": "HLTV world ranking", "family": "model", "probabilities": [0.5, 0.5]}
-        if ties:
-            for _ in range(ties):
-                quote = dict(quote)
-                quote["tie_break"] = {"rule": rule, "ranks": list(ranks), "winner": winner, "source": "HLTV world ranking"}
-        return {"method": method, "probabilities": [0.5, 0.5], "quotes": [quote]}
+    def live_tie_row(self, ranks=(215, 229)):
+        return {
+            "provider": "HLTV world ranking",
+            "family": "model",
+            "method": "model",
+            "probabilities": [0.5, 0.5],
+            "inputs": [{"name": "Isurus", "rank": ranks[0]}, {"name": "Hacha Esports", "rank": ranks[1]}],
+        }
 
-    def test_a_published_rank_tie_break_gives_the_even_row_its_documented_side(self):
-        self.assertEqual(expected_pick_for(self.even_row()), 0)
-        self.assertEqual(expected_pick_for(self.even_row(ranks=(229, 215), winner=1)), 1)
+    def test_the_published_order_decides_the_even_row_without_moving_a_probability(self):
+        winner, record = ranked_tie_break(self.live_tie_row())
+        self.assertEqual(winner, 0)
+        self.assertEqual(record["ranks"], [215, 229])
+        self.assertEqual(record["rule"], "published-rank tie-break")
 
-    def test_an_even_row_without_a_record_still_has_no_side(self):
-        self.assertIsNone(expected_pick_for(self.even_row(ties=0)))
+    def test_the_validator_replay_agrees_with_the_originator_for_that_row(self):
+        from scripts.build_origination import validate_origination  # noqa: F401 - merged replay lives here
 
-    def test_a_real_favourite_is_never_overridden_by_a_tie_break(self):
-        row = self.even_row()
-        row["probabilities"] = [0.62, 0.38]
-        self.assertEqual(expected_pick_for(row), 0)
+        row = self.live_tie_row()
+        winner, record = ranked_tie_break(row)
+        row["tie_break"] = record
+        self.assertEqual(selection(row["probabilities"]), None)
+        self.assertEqual(ranked_tie_break(row), (winner, row["tie_break"]))
+        self.assertNotIn("expected_pick_for", dir(scripts.build_origination))
 
-    def test_a_money_line_may_not_use_the_tie_break(self):
-        with self.assertRaises(AssertionError):
-            expected_pick_for(self.even_row(method="bookmaker"))
-
-    def test_a_direction_that_contradicts_the_cited_order_is_refused(self):
-        with self.assertRaises(AssertionError):
-            expected_pick_for(self.even_row(ranks=(215, 229), winner=1))
-
-    def test_equal_or_missing_published_positions_decide_nothing(self):
-        for ranks in ((215, 215), (0, 229), ("215", 229), (215,)):
-            with self.subTest(ranks=ranks), self.assertRaises(AssertionError):
-                expected_pick_for(self.even_row(ranks=ranks, winner=0))
-
-    def test_an_unknown_rule_is_refused(self):
-        with self.assertRaises(AssertionError):
-            expected_pick_for(self.even_row(rule="coin flip"))
-
-    def test_more_than_one_tie_break_record_is_refused(self):
-        row = self.even_row()
-        row["quotes"].append(dict(row["quotes"][0]))
-        with self.assertRaises(AssertionError):
-            expected_pick_for(row)
+    def test_a_money_row_or_a_real_favourite_is_never_tie_broken(self):
+        money = dict(self.live_tie_row(), family="market")
+        self.assertIsNone(ranked_tie_break(money))
+        favourite = self.live_tie_row()
+        favourite["probabilities"] = [0.62, 0.38]
+        self.assertIsNone(ranked_tie_break(favourite))
+        self.assertEqual(selection(favourite["probabilities"]), 0)
 
 
 class NameMatchingTests(unittest.TestCase):
@@ -554,10 +551,12 @@ class GuardWorkflowTests(unittest.TestCase):
     def test_the_workflow_file_exists_on_this_branch(self):
         self.assertTrue(self.path.is_file())
 
-    def test_it_runs_on_pushes_to_main_on_a_schedule_and_on_demand(self):
-        self.assertIn("branches: [main]", self.text)
+    def test_it_runs_on_a_schedule_and_on_demand_but_never_races_the_refresh_push(self):
         self.assertIn("- cron: '23 */2 * * *'", self.text)
         self.assertIn("workflow_dispatch:", self.text)
+        # pages.yml re-deploys the previous verified artifact on every push to main
+        # (PR #183); a second push-triggered deploy here would only race that job.
+        self.assertNotIn("  push:", self.text)
 
     def test_it_never_shares_the_concurrency_group_that_starved_the_refresh(self):
         self.assertIn("group: verified-artifact-guard", self.text)
@@ -609,6 +608,11 @@ class SessionWorkflowTests(unittest.TestCase):
     def test_it_commits_only_this_sessions_reports(self):
         self.assertIn("git add data/research/bc1afd8f/", self.text)
         self.assertIn("git checkout -- data/", self.text)
+
+    def test_the_root_publish_replay_runs_after_the_build_so_it_can_use_the_real_site(self):
+        self.assertLess(self.text.index("id: build"), self.text.index("scripts.bc1afd8f_root_risk --site site"))
+        block = step_block(self.text, "Reproduce what a fresh-snapshot root publish")
+        self.assertIn("if: always()", block)
 
     def test_it_runs_the_repository_collectors_before_reporting(self):
         self.assertIn("python -m scripts.collect", self.text)

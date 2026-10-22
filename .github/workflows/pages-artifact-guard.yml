@@ -11,9 +11,11 @@
 #    `PUT /repos/.../pages {"build_type":"workflow"}` answers *403 Resource not
 #    accessible by integration*, so the source cannot be switched from a workflow
 #    token (recorded independently by sessions c1fa150f and 96fbe295).
-# 2. `pages.yml` puts the whole four-hour refresh in ONE concurrency group (`pages`,
+# 2. `pages.yml` put the whole four-hour refresh in ONE concurrency group (`pages`,
 #    `cancel-in-progress: false`). GitHub cancels a *pending* run in a group as soon as
-#    a newer run for that group is created, so a merge storm starves the refresh:
+#    a newer run for that group is created, so a merge storm starved the refresh
+#    (FIXED on main by session 96fbe295 in PR #183, commit 870f856, which splits the
+#    group per event name; this file keeps its own group regardless):
 #      run 39742916817  PR #166 merge  created 07:46:58Z  cancelled 07:47:40Z (42 s later)
 #      run 39742996589  PR #167 merge  created 07:47:38Z  cancelled 07:58:21Z
 #      run 39744284108  schedule slot  created 07:58:19Z  still `queued` at 08:41Z
@@ -24,17 +26,26 @@
 #
 # Why this workflow does NOT commit fresh data into the branch root
 # ----------------------------------------------------------------
-# That was the obvious fix and it is a trap. `scripts/root_publish.py` copies the fresh
-# `data/latest.json` (and three siblings) but deliberately leaves `data/evidence/`
-# frozen, because committing ~22 MB every four hours is not acceptable. The resulting
+# That was the obvious fix and it is a trap as currently written. `scripts/root_publish.py`
+# copies seven `DATA_FILES` (`data/latest.json`, `origination.json`, `sources.json`,
+# `row-source-audit.json`, `origination/aliases.json` and the two hotspawn evidence files)
+# and leaves the other 31 files in `data/evidence/` frozen at 2026-10-15. The resulting
 # root does not replay: `scripts/build` calls `scripts.validate.check_data` first, and
-# pairing a fresh snapshot with frozen inventory evidence fails with
-# `ValueError: Inventory observation timestamp restamped`
-# (reproduced offline by `python -m scripts.bc1afd8f_root_risk`, evidence in
-# `data/research/bc1afd8f/root-publish-risk.md`). `checks.yml` runs that build on every
-# pull request and `pages.yml` runs it before deploying, so a committed fresh snapshot
-# would turn every PR red and freeze the refresh pipeline itself. 33 checked-in test
-# modules also read `data/latest.json` as their fixture.
+# pairing a fresh snapshot with frozen evidence fails (reproduced offline by
+# `python -m scripts.bc1afd8f_root_risk`, and faithfully on a runner with
+# `--site site`, which replays `root_publish`'s own `build_plan`/`apply_plan` and then
+# the validator — evidence in `data/research/bc1afd8f/root-publish-risk.md`).
+# `checks.yml` runs that build on every pull request and `pages.yml` runs it before
+# deploying, so a root that does not replay turns every PR red and freezes the refresh
+# pipeline itself. 33 checked-in test modules also read `data/latest.json` as their fixture.
+#
+# CHANGE REQUEST for whoever owns `scripts/root_publish.py` / `pages.yml` (PR #176/#183):
+# publish the build's whole evidence tree, not seven files. `site/data/evidence/` is
+# 3.0 MB measured (`du -sh site/data/evidence`), and it is already inside the Pages
+# artifact, so copying it into the root makes the committed snapshot self-consistent and
+# keeps `check_data` green. The durable alternative is switching Pages to
+# `build_type: workflow` so the root stops being a publisher at all — `PUT /pages` from a
+# workflow token answers 403, so that needs a human or an admin-scoped token.
 #
 # The safe fix: leave the frozen fixture alone and make the **artifact** publisher win.
 # This workflow re-deploys the newest verified `github-pages` artifact whenever the
@@ -43,11 +54,16 @@
 # than the 8-hour bound the brief sets. It commits nothing.
 name: Keep the verified snapshot on screen
 on:
-  push:
-    branches: [main]
+  # No push trigger. `pages.yml` gained its own `republish-last-verified` job
+  # (session 96fbe295, PR #183) which re-deploys the previous verified artifact
+  # the moment a push to main lands, so a second push-triggered deploy here would
+  # only race it. What that job cannot catch is the *ordering* of the platform's
+  # legacy root build: it publishes the checked-in branch root and can land after
+  # the artifact deploy, silently putting the 2026-10-15 snapshot back on screen.
+  # Only a later, independent check of the public URL can see that, hence schedule.
   schedule:
-    # Every two hours: a legacy root build can land after the last artifact deploy,
-    # and the brief's freshness bound is 4-8 h, so the guard re-checks inside it.
+    # Every two hours: inside the brief's 4-8 h freshness bound, and short enough
+    # that a legacy root build is on screen for at most one guard interval.
     - cron: '23 */2 * * *'
   workflow_dispatch:
 permissions:

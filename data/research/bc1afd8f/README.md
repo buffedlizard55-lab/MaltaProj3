@@ -14,7 +14,7 @@ them was typed by hand, and none of them changes a probability, a pick, an alias
 | `build-outcome.json` | `.github/workflows/bc1afd8f-live.yml` | Whether the fresh snapshot actually built, and which pages were written |
 | `mobile-audit-fresh-build.json` / `.md` | `scripts/bc1afd8f_mobile_audit.py` | Static phone-first contract audit of a fresh build of the current code |
 | `mobile-audit-published-root.json` / `.md` | same, `--root .` | The same audit over the **checked-in branch root**, i.e. what GitHub Pages' legacy builder republishes on every push to `main` |
-| `root-publish-risk.json` / `.md` | `scripts/bc1afd8f_root_risk.py` | Offline reproduction of what committing a fresh snapshot into the branch root would do to `scripts.validate.check_data` |
+| `root-publish-risk.json` / `.md` | `scripts/bc1afd8f_root_risk.py` | What committing a fresh snapshot into the branch root would do to `scripts.validate.check_data`, published as two simulations: one offline against a saved live snapshot, and one that replays `scripts.root_publish`'s own `build_plan()`/`apply_plan()` against a real build (`--site site`, runner-only) |
 
 ## Corrections and supersessions
 
@@ -31,6 +31,10 @@ them was typed by hand, and none of them changes a probability, a pick, an alias
   failed or is smaller than 20 kB, and the markers actually found are published beside it.
 * The first live run's stable-named reports were overwritten by the workflow's own
   `git checkout -- data/` restore (run 39753692322); the restore now excludes this directory.
+* `gate-fresh-snapshot.md` measures the suite against a snapshot collected **before** main's PR #179
+  fix existed on this branch, so its 15 failures + 19 errors include the tie-break assertion that
+  main has since fixed. The newest runner run reports both the build outcome and a fresh gate
+  measurement over the merged code; read `build-outcome.json` and the newest dated files together.
 
 ## What this evidence is used for
 
@@ -39,5 +43,22 @@ them was typed by hand, and none of them changes a probability, a pick, an alias
   starve, and dispatches `pages.yml` when the newest verified snapshot passes the brief's
   eight-hour bound. It commits nothing, because `root-publish-risk.md` shows that committing a
   fresh snapshot over the frozen `data/evidence/` tree breaks the build every pull request runs.
-* `scripts/build_origination.py::expected_pick_for` — replays the published tie-break record
-  instead of rejecting it, which is what stopped the live snapshot from building at all.
+* `tests/test_bc1afd8f.py::EvenTieBreakValidationTests` — pins the live row shape that stopped
+  the 09:15:53Z snapshot from building at all, against the tie-break replay now on `main`.
+
+## Merge with `origin/main` at 2026-10-22T09:50Z
+
+Three of the five findings were fixed on `main` by other sessions while this one was measuring
+them, so this branch merged `origin/main` and kept their fixes rather than shipping parallel code:
+
+| Finding | Fixed on `main` by | What this branch now contributes |
+| --- | --- | --- |
+| `bc1afd8f-even-tie-break-stopped-the-build` | PR #179, commit `1c1d87b` (df80ab9f) | Its own equivalent `expected_pick_for()` replay was **deleted** at merge; `scripts/build_origination.py` is main's file verbatim. The runner reproduction (929 tests, 15 failures + 19 errors, build died in `build_origination`) stays as the evidence that the defect reached production, and 4 tests pin the live fixture's row shape against main's validator |
+| `bc1afd8f-preexisting-red-check` | PR #181, commit `81139b1` (df80ab9f) | Nothing — re-verified only: `tests.test_review_flags` passes on this merged branch |
+| `bc1afd8f-refresh-runs-cancelled-by-merge-storm` | PR #183, commit `870f856` (96fbe295) | The independent measurement of the same mechanism and the same cancelled run ids. The guard workflow's push trigger was removed, because `pages.yml`'s own `republish-last-verified` job now re-deploys the previous verified artifact on every push; the guard keeps the two-hourly public-URL check that job cannot perform |
+
+Still open after the merge, and the reason this branch exists: `bc1afd8f-legacy-root-has-no-pick-index`
+(the checked-in root the legacy Pages builder republishes has no executive-summary banner, no phone
+pick index and no `/unresolved/`) and `bc1afd8f-root-publish-would-break-the-build` (the root-sync
+step in `pages.yml` publishes seven data files and leaves 31 evidence files frozen, so the root it
+produces cannot pass `check_data`).

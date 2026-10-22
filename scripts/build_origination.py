@@ -481,55 +481,6 @@ document.addEventListener('click', function (ev) {
 </body></html>'''
 
 
-def expected_pick_for(o):
-    """The side a researched row must show, or ``None`` when it must show no side.
-
-    ``scripts.originate.selection`` returns no side for an exactly even estimate,
-    which is the honest default. Session 4c972a51 added one narrow, published
-    exception: an exactly even **research model** row may take its *direction* from
-    the provider's own published order (``ranked_tie_break``), which writes a
-    ``tie_break`` record onto the chosen quote and changes no probability.
-
-    Without replaying that record the complete-picks page could not be built at all
-    for a snapshot containing such a fixture. Observed on the live collection of
-    2026-10-22T09:15:53Z: fixture 1082926 (Isurus vs Hacha, CCT South America 2026
-    Series #7) is priced by the HLTV world-ranking rung at exactly 0.500/0.500 with
-    the direction taken from HLTV's published positions 215 and 229, and
-    ``validate_origination`` stopped the whole build with
-    ``AssertionError: Fallback pick differs from its probabilities``
-    (``data/research/bc1afd8f/gate-fresh-snapshot.md``).
-
-    The record is replayed here, never trusted: the row must be a research-model
-    row, exactly one quote may carry the record, the rule must be the published-rank
-    tie-break, both published positions must be positive integers and different, and
-    the direction must be the one those positions imply. A money line may never use
-    it, and an estimate that is not exactly even keeps its own favourite.
-    """
-    from scripts.originate import selection
-    probabilities = o.get('probabilities') or []
-    pick = selection(probabilities) if len(probabilities) == 2 else None
-    if pick is not None:
-        return pick
-    ties = [q.get('tie_break') for q in (o.get('quotes') or [])
-            if isinstance(q, dict) and isinstance(q.get('tie_break'), dict)]
-    if not ties:
-        # No published record, no side: the row must show a blank pick, exactly as
-        # before the tie-break existed.
-        return None
-    assert o.get('method') == 'model', 'An exactly even estimate with a pick must be a research-model row'
-    assert len(ties) == 1, 'An exactly even estimate with a pick must carry exactly one published tie-break record'
-    record = ties[0]
-    assert record.get('rule') == 'published-rank tie-break', 'Unknown tie-break rule on an exactly even estimate'
-    ranks = record.get('ranks') or []
-    assert len(ranks) == 2 and all(isinstance(r, int) and not isinstance(r, bool) and r > 0 for r in ranks), \
-        'Tie-break record must carry two positive published positions'
-    assert ranks[0] != ranks[1], 'Tie-break record carries equal published positions, so it decides nothing'
-    winner = record.get('winner')
-    assert winner == (0 if ranks[0] < ranks[1] else 1), \
-        'Tie-break direction contradicts the published order it cites'
-    return winner
-
-
 def validate_origination(data, source):
     """Replay fallback quotes from saved first-party responses before rendering."""
     from scripts.originate import load_registry, align_by_name
@@ -712,7 +663,18 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
-        assert m['pick_index'] == expected_pick_for(o), 'Fallback pick differs from its probabilities'
+        from scripts.originate import ranked_tie_break, selection
+        expected_pick = selection(o['probabilities'])
+        if expected_pick is None:
+            tie = ranked_tie_break(o)
+            if tie:
+                expected_pick, expected_tie = tie
+                assert o.get('tie_break') == expected_tie, 'Fallback tie-break differs from published ranking order'
+            else:
+                assert o.get('tie_break') is None, 'Unexplained fallback tie-break'
+        else:
+            assert o.get('tie_break') is None, 'Non-tied fallback row must not carry a tie_break'
+        assert m['pick_index'] == expected_pick, 'Fallback pick differs from its probabilities'
         assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
