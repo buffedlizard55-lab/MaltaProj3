@@ -1,0 +1,183 @@
+{
+  "session": "arena-bd4f77c6",
+  "title": "Independent verification of the published CS2 picks, 22 October 2026",
+  "observed_at": "2026-10-22T01:15:00Z",
+  "method": "First-hand reads of the sources the site itself cites, made outside the CI runner. Each row records the exact URL, the values read and whether the published pick direction is supported. No probability was recalculated here and no pick was changed in this file.",
+  "published_snapshot": {
+    "malta_time": "2026-10-22T01:42:00+02:00",
+    "utc": "2026-10-21T23:42:26Z",
+    "source": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=bd4f77c6a",
+    "inventory": 74,
+    "upcoming": 12,
+    "featured_market": 2,
+    "featured_model": 5,
+    "featured_unresolved": 5,
+    "complete_ladder_resolved": 12,
+    "complete_ladder_unresolved": 0
+  },
+  "fixtures": [
+    {
+      "id": "1081870",
+      "teams": ["Vitalem Aerem", "Rare Atom"],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at_utc": "2026-10-22T05:00:00Z",
+      "published_pick": "Rare Atom 67.7%",
+      "published_rung": "Originated market line (Kalshi)",
+      "status": "verified_direction",
+      "checks": [
+        {
+          "source": "Kalshi market page",
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220100rava",
+          "read": "Title 'Rare Atom vs Vitalem Aerem'; Rare Atom 63% (Yes 74c / No 32c), Vitalem Aerem 37% (Yes 32c / No 74c); 'Begins ... Oct 22, 1:00am EDT' = 2026-10-22T05:00Z, matching Hotspawn's 07:00 Malta start; $1,227 volume.",
+          "verdict": "Market exists, is two-sided and the direction (Rare Atom favourite) matches the published pick."
+        }
+      ],
+      "caveat": "The published 67.7% is the normalised midpoint of the order books recorded at collection (0.260/0.370 vs 0.620/0.700), not the later last price of 63%. Both are the same direction; the percentage is a dated observation."
+    },
+    {
+      "id": "1082688",
+      "teams": ["Imperial", "Turma do Pagode"],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at_utc": "2026-10-22T14:00:00Z",
+      "published_pick": "Imperial 77.0%",
+      "published_rung": "Originated market line (Polymarket)",
+      "status": "verified_direction",
+      "checks": [
+        {
+          "source": "Polymarket event page",
+          "url": "https://polymarket.com/esports/cs2/circuit-x/cs2-imp11-tdp-2026-10-22",
+          "read": "Moneyline 'imp11 79c / tdp 24c'; page percentages Imperial 79%, Turma do Pagode 24%; scheduled 'October 22, 2026 at 10:00 AM ET' = 14:00Z, matching Hotspawn 16:00 Malta.",
+          "verdict": "Direction and start instant verified. The published 77.0% is the normalised midpoint, consistent with 79c/24c."
+        }
+      ]
+    },
+    {
+      "id": "1082689",
+      "teams": ["BESTIA", "ShindeN"],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at_utc": "2026-10-22T14:00:00Z",
+      "published_pick": "ShindeN 52.5%",
+      "published_rung": "Originated market line (Polymarket)",
+      "status": "verified_direction",
+      "checks": [
+        {
+          "source": "Polymarket event page",
+          "url": "https://polymarket.com/esports/cs2/circuit-x/cs2-bst-shin-2026-10-22",
+          "read": "Moneyline 'bst 48c / shin 53c'; page percentages ShindeN 53%, BESTIA 48%; $9.62K volume; 'October 22, 2026 at 10:00 AM ET' = 14:00Z.",
+          "verdict": "Direction verified; 52.5% is the normalised midpoint of 48/53."
+        }
+      ]
+    },
+    {
+      "id": "1082882",
+      "teams": ["UNiTY", "Apogee Betclic"],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at_utc": "2026-10-22T14:00:00Z",
+      "published_pick": "Apogee Betclic 61.4% (research model at the 01:42 snapshot)",
+      "published_rung": "Research model (not a market line)",
+      "status": "defect_fixed_alias_added",
+      "checks": [
+        {
+          "source": "Polymarket event page",
+          "url": "https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22",
+          "read": "Event 'UNiTY esports vs Betclic Apogee Esports'; moneyline 'unity 41c / bca 61c' (page: Betclic Apogee 60%, UNiTY 40%); 'initially scheduled for October 22, 2026 at 10:00 AM ET' = 14:00Z.",
+          "verdict": "A live two-sided market existed for this fixture. It was not read by the pipeline: 'Betclic Apogee Esports' and 'UNiTY esports' were not registered for this competition, so the fixture fell through to a research model."
+        },
+        {
+          "source": "HLTV match page",
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "read": "UNiTY vs Betclic, Stake Ranked Episode 6 Closed Qualifier, 22 Oct, Best of 3 semi-final; HLTV odds bar 17.7% / 82.3%; rosters UNiTY (KWERTZZ, 2high, M1key, Sn0w, Dytor) and Betclic (Demho, Prism, ex1st, Qlocuu, ultimate).",
+          "verdict": "Identity confirmed. HLTV's displayed bookmaker odds favour Betclic far more strongly than Polymarket; both point the same way."
+        },
+        {
+          "source": "Hotspawn fixture page",
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "read": "h1 'UNiTY vs Apogee Betclic'; opponent card 'Betclic Apogee Esports' (/counter-strike/teams/betclic-apogee-esports); 22 OCT 14:00 UTC.",
+          "verdict": "First-party proof that Hotspawn's 'Apogee Betclic' and 'Betclic Apogee Esports' are one club, and that the start instant equals Polymarket's."
+        }
+      ],
+      "action": "Added two competition-scoped alias entries (Betclic Apogee Esports -> Apogee Betclic, UNiTY esports -> UNiTY) to data/origination/aliases.json with the three evidence links above, so the next refresh can read the live market instead of a model."
+    },
+    {
+      "id": "1081597",
+      "teams": ["benched gods", "TitanFlow"],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at_utc": "2026-10-22T11:00:00Z",
+      "published_pick": "TitanFlow 77.8%",
+      "published_rung": "Own network model (bo3.gg results graph) - previously mislabelled as a Valve estimate",
+      "status": "verified_no_market_model_only",
+      "checks": [
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+          "read": "Match 22.10.26, Bo3; '1.8' printed on both sides; EGamersWorld ratings benched gods 694 / TitanFlow 1408; lineups benched gods Wign, K014NZ, facer, norescue, yoyoS2; TitanFlow only ZzZoOm plus four 'noName' entries.",
+          "verdict": "Identical 1.8/1.8 on both sides is the known placeholder pattern, not a market. No usable two-sided price."
+        },
+        {
+          "source": "Polymarket CCT Europe directory",
+          "url": "https://polymarket.com/esports/cs2/cct-europe",
+          "read": "Upcoming CCT Europe markets listed: Butterfly-Lavked, GenOne-Spirit Academy, Acend-ex-6666 (CCT Europe Series #11). No benched gods-TitanFlow market.",
+          "verdict": "No Polymarket market for this fixture."
+        },
+        {
+          "source": "HLTV event page",
+          "url": "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+          "read": "CCT 2026 Challengers Europe Series 8, Oct 17-25 2026, $5,000, 16 teams, Europe online; TitanFlow roster Belarus Henma, Russia ZzZoOm, Saiman Strit, keeisen, ves111.",
+          "verdict": "Event identity confirmed. HLTV publishes no prematch two-sided moneyline for this fixture."
+        },
+        {
+          "source": "HLTV recent results",
+          "url": "https://www.hltv.org/matches/2399690/titanflow-vs-donstu-cct-2026-challengers-europe-series-8",
+          "read": "TitanFlow 0:2 DONSTU on 20 Oct 2026 (Inferno 8:13, Anubis).",
+          "verdict": "TitanFlow enters on a loss; benched gods beat MAYBE 2-0 on the same day (match 2399687). Mixed form evidence, not a price."
+        }
+      ],
+      "caveat": "No bookmaker line exists at 01:45Z. The published direction (TitanFlow 77.8%) comes from the own Bradley-Terry fit and is flagged low confidence (nine series for the thinner side). Hotspawn's 95% crowd pick on benched gods is not and must not be an input."
+    },
+    {
+      "id": "1082858",
+      "teams": ["Ground Zero", "Off Chops"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "published_pick": "Off Chops 55.4%",
+      "published_rung": "Own network model (bo3.gg results graph)",
+      "status": "verified_no_market_model_only",
+      "checks": [
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+          "read": "Match 26.10.2026 03:00Z, Bo3, DFRAG Invitational 2026, Sydney; '1.8' printed on both sides; head-to-head shows Off Chops 2-1 Ground Zero at DFRAG Logitech G Pro Series 2026.",
+          "verdict": "Placeholder 1.8/1.8 again, no market price. The head-to-head supports the Off Chops direction but is not a probability."
+        }
+      ],
+      "caveat": "Start time note: Hotspawn displays 26 Oct 04:00 Malta; Malta switches to CET (UTC+1) on 25 Oct, so 04:00 local = 03:00Z, identical to EGamersWorld. No time conflict."
+    }
+  ],
+  "not_independently_verified": [
+    {"id": "1081600", "reason": "Valve-model row; replayed by the pipeline from the official Valve standings file, not re-read by hand in this session."},
+    {"id": "1082859", "reason": "Valve-model row; replay only in this session."},
+    {"id": "1082860", "reason": "HLTV world-ranking row; replay only in this session."},
+    {"id": "1082861", "reason": "Valve-model row; replay only in this session."},
+    {"id": "1082792", "reason": "Valve-model row; replay only in this session."},
+    {"id": "1082793", "reason": "Valve-model row; replay only in this session."}
+  ],
+  "sources_used": [
+    "https://play.hotspawn.com/lobby",
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+    "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220100rava",
+    "https://polymarket.com/esports/cs2/circuit-x/cs2-imp11-tdp-2026-10-22",
+    "https://polymarket.com/esports/cs2/circuit-x/cs2-bst-shin-2026-10-22",
+    "https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22",
+    "https://polymarket.com/esports/cs2/cct-europe",
+    "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+    "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+    "https://www.hltv.org/matches/2399690/titanflow-vs-donstu-cct-2026-challengers-europe-series-8",
+    "https://www.hltv.org/matches/2399687/benched-gods-vs-maybe-cct-2026-challengers-europe-series-8",
+    "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+    "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+    "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md"
+  ]
+}
