@@ -38,18 +38,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p /tmp/live
-          python -m scripts.collect --output /tmp/live
+          # A collection failure must still leave the partial evidence and the
+          # exact error on the branch; the report below records what was read.
+          python -m scripts.collect --output /tmp/live 2>&1 | tee /tmp/live/collect.log || echo "::warning::collection failed; recording the failure instead of guessing" 
       - name: Resolve the live picks (featured, then researched fallbacks)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python -m scripts.originate --output /tmp/live --live
+        run: python -m scripts.originate --output /tmp/live --live 2>&1 | tee /tmp/live/originate.log || echo "::warning::origination failed; recording the failure instead of guessing"
       - name: Record the snapshot and the coverage reconciliation
         run: |
           mkdir -p data/research/c1fa150f/live
-          cp /tmp/live/latest.json /tmp/live/sources.json data/research/c1fa150f/live/
+          cp /tmp/live/latest.json /tmp/live/sources.json data/research/c1fa150f/live/ 2>/dev/null || true
+          cp /tmp/live/collect.log /tmp/live/originate.log data/research/c1fa150f/live/ 2>/dev/null || true
           cp /tmp/live/origination.json data/research/c1fa150f/live/ 2>/dev/null || true
           mkdir -p data/research/c1fa150f/live/evidence
           cp /tmp/live/evidence/hotspawn-fixtures.json /tmp/live/evidence/hotspawn-context.json data/research/c1fa150f/live/evidence/ 2>/dev/null || true
+          if [ ! -f /tmp/live/latest.json ]; then
+            printf '%s\n' '{"status":"collection produced no snapshot; see collect.log"}' > data/research/c1fa150f/live/coverage.json
+            exit 0
+          fi
           python - <<'PY'
           import json
           from pathlib import Path
