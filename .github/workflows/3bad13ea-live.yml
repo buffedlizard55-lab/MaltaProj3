@@ -44,6 +44,43 @@ jobs:
         continue-on-error: true
         run: python -m scripts.probe_3bad13ea
 
+      - name: Check the built pages for the tie-break row
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          out = {}
+          orig = json.loads(Path('data/origination.json').read_text())
+          ties = [m for m in orig.get('matches', []) if m.get('upgraded_from_featured_tie')]
+          out['tie_upgraded_ids'] = [m['id'] for m in ties]
+          out['tie_rows'] = [{'id': m['id'], 'fixture': ' vs '.join(t['name'] for t in m['teams']),
+                              'pick_index': m['pick_index'],
+                              'pick': m['teams'][m['pick_index']]['name'] if m.get('pick_index') is not None else None,
+                              'probabilities': m['origination']['probabilities'],
+                              'tie_break': m['origination'].get('tie_break')} for m in ties]
+          pages = {'summary': Path('site/index.html'), 'origination': Path('site/origination/index.html'),
+                   'picks': Path('site/picks/index.html')}
+          checks = {}
+          for name, path in pages.items():
+              if not path.exists():
+                  checks[name] = 'missing'
+                  continue
+              html = path.read_text()
+              entry = {'bytes': len(html), 'sha256': hashlib.sha256(html.encode()).hexdigest()[:16],
+                       'tie_break_mentions': html.count('Tie-break'), 'rows': {}}
+              for m in ties:
+                  entry['rows'][m['id']] = {'match_anchor': f'match-{m["id"]}' in html,
+                                            'pick_name': (m['teams'][m['pick_index']]['name']
+                                                          if m.get('pick_index') is not None else None) in html
+                                            if m.get('pick_index') is not None else None}
+              checks[name] = entry
+          out['pages'] = checks
+          Path('data/research/3bad13ea/tie-break-verification.json').write_text(
+              json.dumps(out, ensure_ascii=False, indent=2) + '\n')
+          print(json.dumps({k: v for k, v in out.items() if k != 'pages'}, indent=1)[:1500])
+          PY
+
       - name: Record the session snapshot
         run: |
           python - <<'PY'
