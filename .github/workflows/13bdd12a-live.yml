@@ -4,6 +4,11 @@ name: 13B live snapshot (session-only, never deploys)
 # research trails. It never publishes a site, never touches data/latest.json in
 # the working tree, and is deleted before this session's integration merge.
 on:
+  # workflow_dispatch is not registered until the file exists on main, so this
+  # session triggers a run by touching the marker path below.
+  push:
+    branches: [arena/13bdd12a-maltaproj3]
+    paths: ['.github/13bdd12a-trigger']
   workflow_dispatch:
 permissions:
   contents: write
