@@ -1,4 +1,4 @@
-# Independent verification — 2026-10-22T01:12:11Z
+# Independent verification — 2026-10-22T01:17:08Z
 
 Read-only audit by session 416d93ee of `https://buffedlizard55-lab.github.io/MaltaProj3`.
 
@@ -20,18 +20,32 @@ Read-only audit by session 416d93ee of `https://buffedlizard55-lab.github.io/Mal
 ## Arithmetic replay
 
 - rows with probabilities: **35**
-- replayed exactly: **30**
-- display-rounding only: **2**
-- mismatches: **1**
-- not replayable: **2**
+- replayed exactly: **33**
+- display-rounding only: **0**
+- mismatches: **2**
+- not replayable: **0**
 
-  - `1082882` Own results-based estimate (bo3.gg series results): method 'model' has no replayable formula in this audit
-  - `1081146` Own results-based estimate (bo3.gg series results): method 'model' has no replayable formula in this audit
+
+## Method labels
+
+- rows checked: **35**; labels naming a different method than the inputs: **4**
+
+  - `1079188` label “Research model estimate (Valve official ratings)” but inputs are `Own network model (bo3.gg results graph)` (family network) — expected an own-network label
+  - `1081597` label “Research model estimate (Valve official ratings)” but inputs are `Own network model (bo3.gg results graph)` (family network) — expected an own-network label
+  - `1082769` label “Research model estimate (Valve official ratings)” but inputs are `Own network model (bo3.gg results graph)` (family network) — expected an own-network label
+  - `1082858` label “Research model estimate (Valve official ratings)” but inputs are `Own network model (bo3.gg results graph)` (family network) — expected an own-network label
 
 ## Hotspawn inventory parity
 
+- API records: **97** (future starts: **35**, past-start records still marked scheduled: **62**)
+- published open fixtures: **35**
+- missing from the published site: **0** []
+- published but not in the API: **0** []
+- teams match: **True**; starts within 60 s: **True**; competitions match: **True**
+
 - rendered lobby counts: `{"all_tiers_count": 97, "fixture_ids_in_html": ["1079188", "1079189", "1079650", "1079651", "1079652", "1079653", "1079654", "1079655", "1079657", "1081143", "1081145", "1081146", "1081148", "1081149", "1081150", "1081596", "1081597", "1081600", "1081869", "1081870", "1081871", "1082180", "1082688", "1082689", "1082767", "1082769", "1082770", "1082792", "1082793", "1082882"], "fixture_links_in_html": 30, "matches_this_week": 170}`
 - rendered CS2 lobby counts: `{"all_tiers_count": 97, "fixture_ids_in_html": ["1079188", "1079189", "1079650", "1079651", "1079652", "1079653", "1079654", "1079655", "1079657", "1081143", "1081145", "1081146", "1081148", "1081149", "1081150", "1081596", "1081597", "1081600", "1081869", "1081870", "1081871", "1082180", "1082688", "1082689", "1082767", "1082769", "1082770", "1082792", "1082793", "1082882"], "fixture_links_in_html": 30, "matches_this_week": 170}`
+- coverage counts: `{"api_records": 97, "lobby_cs2_all_tiers": 97, "lobby_equals_api": true, "lobby_equals_published_inventory": true, "lobby_this_week": 170, "published_inventory": 97, "published_upcoming": 35}`
 
 ## Official model inputs
 
@@ -40,54 +54,54 @@ Read-only audit by session 416d93ee of `https://buffedlizard55-lab.github.io/Mal
 
   - `1079188` Research model estimate (Valve official ratings): Valve Bushido Wildcats row 950.3 vs published None — missing-in-table
   - `1079188` Research model estimate (Valve official ratings): Valve ex-6666 row 940.1 vs published None — missing-in-table
-  - `1079650` Valve-rating research estimate: Valve GenOne row 1185 vs published None — missing-in-table
-  - `1079650` Valve-rating research estimate: Valve Spirit Academy row 981 vs published None — missing-in-table
-  - `1081143` Valve-rating research estimate: Valve BAKS row 1044 vs published None — missing-in-table
-  - `1081143` Valve-rating research estimate: Valve Azuolas row 863 vs published None — missing-in-table
-  - `1079651` Valve-rating research estimate: Valve Butterfly row 1082 vs published None — missing-in-table
-  - `1079651` Valve-rating research estimate: Valve Lavked row 862 vs published None — missing-in-table
-  - `1081596` Valve-rating research estimate: Valve Falcons Force row 806 vs published None — missing-in-table
-  - `1081596` Valve-rating research estimate: Valve Phantom Academy row 783 vs published None — missing-in-table
+  - `1079650` Valve-rating research estimate: Valve GenOne row 1185 vs published 1185.0 — match
+  - `1079650` Valve-rating research estimate: Valve Spirit Academy row 981 vs published 981.0 — match
+  - `1081143` Valve-rating research estimate: Valve BAKS row 1044 vs published 1044.0 — match
+  - `1081143` Valve-rating research estimate: Valve Azuolas row 863 vs published 863.0 — match
+  - `1079651` Valve-rating research estimate: Valve Butterfly row 1082 vs published 1082.0 — match
+  - `1079651` Valve-rating research estimate: Valve Lavked row 862 vs published 862.0 — match
+  - `1081596` Valve-rating research estimate: Valve Falcons Force row 806 vs published 806.0 — match
+  - `1081596` Valve-rating research estimate: Valve Phantom Academy row 783 vs published 783.0 — match
   - `1081597` Research model estimate (Valve official ratings): Valve benched gods row 777.8 vs published None — missing-in-table
   - `1081597` Research model estimate (Valve official ratings): Valve TitanFlow row 996.5 vs published None — missing-in-table
-  - `1082767` Valve-rating research estimate: Valve Nemesis row 1455 vs published None — missing-in-table
-  - `1082767` Valve-rating research estimate: Valve WW row 1023 vs published None — missing-in-table
-  - `1081600` Valve-rating research estimate: Valve DONSTU row 732 vs published None — missing-in-table
-  - `1081600` Valve-rating research estimate: Valve Banda Chuya row 801 vs published None — missing-in-table
-  - `1079652` Research model estimate (Valve official ratings): Valve Acend row 1197 vs published None — missing-in-table
-  - `1079652` Research model estimate (Valve official ratings): Valve 6666 row 923 vs published None — missing-in-table
-  - `1081145` Valve-rating research estimate: Valve Lavked row 862 vs published None — missing-in-table
-  - `1081145` Valve-rating research estimate: Valve HAVU row 937 vs published None — missing-in-table
-  - `1079653` Valve-rating research estimate: Valve Rune Eaters row 1110 vs published None — missing-in-table
-  - `1079653` Valve-rating research estimate: Valve FORZE Reload row 1100 vs published None — missing-in-table
+  - `1082767` Valve-rating research estimate: Valve Nemesis row 1455 vs published 1455.0 — match
+  - `1082767` Valve-rating research estimate: Valve WW row 1023 vs published 1023.0 — match
+  - `1081600` Valve-rating research estimate: Valve DONSTU row 732 vs published 732.0 — match
+  - `1081600` Valve-rating research estimate: Valve Banda Chuya row 801 vs published 402.0 — mismatch
+  - `1079652` Research model estimate (Valve official ratings): Valve Acend row 1197 vs published 1197.0 — match
+  - `1079652` Research model estimate (Valve official ratings): Valve 6666 row 923 vs published 425.0 — mismatch
+  - `1081145` Valve-rating research estimate: Valve Lavked row 862 vs published 862.0 — match
+  - `1081145` Valve-rating research estimate: Valve HAVU row 937 vs published 937.0 — match
+  - `1079653` Valve-rating research estimate: Valve Rune Eaters row 1110 vs published 1110.0 — match
+  - `1079653` Valve-rating research estimate: Valve FORZE Reload row 1100 vs published 1100.0 — match
   - `1082769` Research model estimate (Valve official ratings): Valve K27 row 1429.2 vs published None — missing-in-table
   - `1082769` Research model estimate (Valve official ratings): Valve NEXORA row 714.9 vs published None — missing-in-table
-  - `1081871` Research model estimate (Valve official ratings): Valve Lynn Vision row 1190 vs published None — missing-in-table
-  - `1081871` Research model estimate (Valve official ratings): Valve Chinggis Warriors row 1084 vs published None — missing-in-table
-  - `1079654` Valve-rating research estimate: Valve ex-Zero Tenacity row 1066 vs published None — missing-in-table
-  - `1079654` Valve-rating research estimate: Valve ex-RUSTEC row 1066 vs published None — missing-in-table
-  - `1079655` Valve-rating research estimate: Valve Nuclear TigeRES row 1324 vs published None — missing-in-table
-  - `1079655` Valve-rating research estimate: Valve Illyrians row 862 vs published None — missing-in-table
-  - `1081148` Valve-rating research estimate: Valve Inner Circle Academy row 1064 vs published None — missing-in-table
-  - `1081148` Valve-rating research estimate: Valve Spirit Academy row 981 vs published None — missing-in-table
+  - `1081871` Research model estimate (Valve official ratings): Valve Lynn Vision row 1190 vs published 1190.0 — match
+  - `1081871` Research model estimate (Valve official ratings): Valve Chinggis Warriors row 1084 vs published 685.0 — mismatch
+  - `1079654` Valve-rating research estimate: Valve ex-Zero Tenacity row 1066 vs published 1066.0 — match
+  - `1079654` Valve-rating research estimate: Valve ex-RUSTEC row 1066 vs published 824.0 — mismatch
+  - `1079655` Valve-rating research estimate: Valve Nuclear TigeRES row 1324 vs published 1324.0 — match
+  - `1079655` Valve-rating research estimate: Valve Illyrians row 862 vs published 862.0 — match
+  - `1081148` Valve-rating research estimate: Valve Inner Circle Academy row 1064 vs published 1064.0 — match
+  - `1081148` Valve-rating research estimate: Valve Spirit Academy row 981 vs published 981.0 — match
   - `1081149` Research model estimate (HLTV world ranking): HLTV FORZE Reload row 11.0 vs published 11.0 — match
   - `1081149` Research model estimate (HLTV world ranking): HLTV LFO 10 row 4.0 vs published 4.0 — match
-  - `1079657` Research model estimate (Valve official ratings): Valve BAKS row 1044 vs published None — missing-in-table
-  - `1079657` Research model estimate (Valve official ratings): Valve BRUTE row 1116 vs published None — missing-in-table
-  - `1081150` Valve-rating research estimate: Valve ex-RUSTEC row 1066 vs published None — missing-in-table
-  - `1081150` Valve-rating research estimate: Valve Saint Sinners row 810 vs published None — missing-in-table
+  - `1079657` Research model estimate (Valve official ratings): Valve BAKS row 1044 vs published 1044.0 — match
+  - `1079657` Research model estimate (Valve official ratings): Valve BRUTE row 1116 vs published 689.0 — mismatch
+  - `1081150` Valve-rating research estimate: Valve ex-RUSTEC row 1066 vs published 824.0 — mismatch
+  - `1081150` Valve-rating research estimate: Valve Saint Sinners row 810 vs published 810.0 — match
   - `1082858` Research model estimate (Valve official ratings): Valve Ground Zero row 866.5 vs published None — missing-in-table
   - `1082858` Research model estimate (Valve official ratings): Valve Off Chops row 904.6 vs published None — missing-in-table
-  - `1082859` Valve-rating research estimate: Valve NEXVOID row 995 vs published None — missing-in-table
-  - `1082859` Valve-rating research estimate: Valve Alter Ego row 819 vs published None — missing-in-table
+  - `1082859` Valve-rating research estimate: Valve NEXVOID row 995 vs published 995.0 — match
+  - `1082859` Valve-rating research estimate: Valve Alter Ego row 819 vs published 819.0 — match
   - `1082860` Research model estimate (HLTV world ranking · unranked floor): HLTV FlyQuest row 16.0 vs published 16.0 — match
   - `1082860` Research model estimate (HLTV world ranking · unranked floor): HLTV Staqued row 0.0 vs published None — not-in-top-listing
-  - `1082861` Valve-rating research estimate: Valve Rooster row 718 vs published None — missing-in-table
-  - `1082861` Valve-rating research estimate: Valve Abyssal row 734 vs published None — missing-in-table
-  - `1082792` Research model estimate (Valve official ratings): Valve HOTU row 1437 vs published None — missing-in-table
-  - `1082792` Research model estimate (Valve official ratings): Valve The Huns row 944 vs published None — missing-in-table
-  - `1082793` Valve-rating research estimate: Valve 5star row 1110 vs published None — missing-in-table
-  - `1082793` Valve-rating research estimate: Valve 1win row 1383 vs published None — missing-in-table
+  - `1082861` Valve-rating research estimate: Valve Rooster row 718 vs published 718.0 — match
+  - `1082861` Valve-rating research estimate: Valve Abyssal row 734 vs published 734.0 — match
+  - `1082792` Research model estimate (Valve official ratings): Valve HOTU row 1437 vs published 1437.0 — match
+  - `1082792` Research model estimate (Valve official ratings): Valve The Huns row 944 vs published 701.0 — mismatch
+  - `1082793` Valve-rating research estimate: Valve 5star row 1110 vs published 1110.0 — match
+  - `1082793` Valve-rating research estimate: Valve 1win row 1383 vs published 1383.0 — match
 
 ## Phone findability
 
@@ -103,8 +117,11 @@ Read-only audit by session 416d93ee of `https://buffedlizard55-lab.github.io/Mal
 - FAIL — every_active_fixture_has_a_directional_pick
 - FAIL — every_published_probability_replays_from_its_own_inputs
 - PASS — published_pick_is_the_published_argmax
+- FAIL — every_published_label_names_the_evidence_it_uses
+- PASS — every_future_dated_hotspawn_fixture_is_published
+- PASS — published_fixture_teams_and_times_match_the_api
 - PASS — phone_summary_links_the_picks_list
 
 ## Unreadable requests
 
-- `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1&cb=1792631531` — 400
+- none
