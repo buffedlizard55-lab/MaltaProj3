@@ -131,9 +131,12 @@ What does remain, and is worth fixing:
 1. **The published audit snapshot disagrees with the published page.** The `data/latest.json` the
    site serves still holds `analysis.method = "model"` for those two fixtures — 33.31% UPGRADE /
    66.69% Virtus.pro and 61.42% Inner Circle Academy / 38.58% Spirit Academy — and it carries no
-   `fallbacks` map, because the upgrade is attached during the build only. For `1081148` that means
-   the snapshot implies the **opposite pick** from the one the page renders. The page is right; the
-   snapshot you are invited to audit does not reflect it.
+   `fallbacks` map. That is deliberate (`scripts/build.py`: *"the published latest.json remains the
+   untouched source-directory copy"*): the upgrade is attached while the pages are rendered. The
+   effect is still worth stating, because the page links that file as **"Full snapshot JSON ↓"**:
+   for `1081148` the snapshot implies the **opposite pick** from the row beside it. The rendered
+   page is right; the file a reader is invited to audit does not reflect it. A one-line caption on
+   the download, or publishing the resolved record, would close the gap.
 2. **Badge wording.** An upgraded, money-backed row renders the purple **Researched** badge while its
    own evidence link says **Bookmaker**. Cosmetic, but it is the one visible badge/source mismatch.
 3. **`1081597` is published but no longer listed by Hotspawn** (see §3) — normal retirement, but the
