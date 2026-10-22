@@ -422,7 +422,7 @@ def exec_banner(data, prefix):
         f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times.</p>'
         f'<div class="exec-banner-actions">'
         f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured-method audit<span class="sub">Searchable · may show blanks</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
@@ -446,12 +446,12 @@ def start_here(data, prefix):
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
-        (prefix + 'final-day/', 'Final day · Day 5', 'clock',
-         'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
+        (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
+         'Historical Thunderpick final-day review and result record.'),
         (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
          'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
+         'This page lists every pick without a line, its blocker and the sources actually tried.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -1116,14 +1116,25 @@ def flags_table(flags):
 def review(data, prefix):
     out = heading('Transparent by design', 'Flagged for Review', 'Unresolved matches, blocked sources and inconsistent official fields are published here. They do not block publication; they do block unsupported claims.')
     out += f'<div class="limitations-callout"><strong>Additional identity research and fallback picks</strong><p>Exact-name rejections below are retained for audit. <a style="text-decoration:underline" href="{prefix}origination/#picks">See newly researched fallback picks</a> and <a style="text-decoration:underline" href="{prefix}origination/#aliases">the source-linked alias review registry</a>. These associations do not independently confirm current rosters; Valve estimates remain uncalibrated.</p></div>'
-    out += review_note(prefix, data.get('day_one_audit'))
+    # Session fbdc97d6: the current, source-linked findings used to render at the
+    # very bottom of this page, after many screens of dated registers from
+    # earlier sessions. A phone reader had to scroll past all of it to see the
+    # live warnings. Current findings come first; the dated history is retained
+    # verbatim inside one collapsed block below.
+    out += flags_table(data['flags'])
+    history = review_note(prefix, data.get('day_one_audit'))
     if data.get('repo_audit'):
-        out += audit_register(data['repo_audit'], prefix)
+        history += audit_register(data['repo_audit'], prefix)
     if data.get('session_reviews'):
         from scripts.review_register import render_all as session_register
-        out += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
+        history += session_register(data['session_reviews'], prefix, data.get('session_review_paths'))
+    if history:
+        out += ('<details class="archive-register" id="dated-registers"><summary>'
+                'Dated registers from earlier sessions · retained for audit, not current findings</summary>'
+                f'<p class="tiny muted">Everything below is an earlier session’s dated record. It is kept unchanged '
+                'for provenance; the findings at the top of this page are the current ones.</p>' + history + '</details>')
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">No evidence, no invented pick</p><h2>Unresolved future matches</h2></div></div>' + unresolved_table(data, prefix) + '</section>'
-    return out + flags_table(data['flags'])
+    return out
 
 
 def urlparse_host(url):

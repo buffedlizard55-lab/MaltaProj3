@@ -278,3 +278,13 @@
   .glance-other{font-size:10px;padding-left:6px}
   .researched-methods li{font-size:10.5px}
 }
+
+/* Session fbdc97d6 — current findings first; dated history stays available but collapsed. */
+.archive-register{margin:0 0 26px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow)}
+.archive-register>summary{cursor:pointer;padding:18px 22px;font-size:13px;font-weight:650;color:var(--navy);min-height:48px;display:flex;align-items:center;gap:9px;list-style:none}
+.archive-register>summary::-webkit-details-marker{display:none}
+.archive-register>summary:before{content:"+";display:grid;place-items:center;width:20px;height:20px;border-radius:5px;background:#eef3f5;color:#4a5e6c;font-weight:700;flex:0 0 auto}
+.archive-register[open]>summary:before{content:"–"}
+.archive-register>p.tiny{padding:0 22px 8px;margin:0}
+.archive-register>section{margin:0;border:0;box-shadow:none;border-top:1px solid var(--border);border-radius:0}
+@media(max-width:700px){.archive-register>summary{font-size:12px;padding:15px 17px}}

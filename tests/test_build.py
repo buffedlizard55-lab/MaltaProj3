@@ -428,3 +428,20 @@ class ResearchProvenanceTests(unittest.TestCase):
         self.assertIn('Alpha 32.0%', choice)
         # The pick is still the first, bolded team and is labelled as such.
         self.assertIn('Pick', choice)
+
+
+class ReviewFindabilityTests(unittest.TestCase):
+    """Session fbdc97d6: the live findings must come before the dated history."""
+
+    def test_current_findings_render_before_the_collapsed_dated_registers(self):
+        from scripts.build import review
+        data = json.loads(Path('data/latest.json').read_text())
+        data.setdefault('flags', [])
+        html = review(data, '')
+        self.assertLess(html.index('All findings'), html.index('id="dated-registers"'))
+        self.assertIn('<details class="archive-register" id="dated-registers">', html)
+        self.assertIn('retained for audit, not current findings', html)
+        # The live unresolved section still follows the registers and the page
+        # still ends on the section boundary the link checker expects.
+        self.assertLess(html.index('id="dated-registers"'), html.index('id="unresolved"'))
+        self.assertTrue(html.endswith('</section>'))
