@@ -31,7 +31,9 @@ NOTES = {
                                 'observation record; most low-tier pages print a 1.8/1.8 placeholder.'),
     'betexplorer-cs2': 'No CS2 page at this address (HTTP 404). Not used.',
     'oddspedia-cs2': 'Permanently deleted (HTTP 410); the previous sweep recorded the same status.',
-    'oddsportal-cs2': 'HTTP 503 from the runner. No price extracted.',
+    'oddsportal-cs2': ('Answered HTTP 200 on the retry and HTTP 503 on the first sweep. The delivered page is a '
+                       'client-side shell: it names bookmakers but contains no prematch coefficient, so no price '
+                       'can be extracted without reverse-engineering an undocumented API. Not used.'),
     'hltv-matches-2': 'See the HLTV entry.',
     'bo3-gg-matches': ('Public match API answered. It relays a named bookmaker quote (Thunderpick) for a '
                        'subset of upcoming fixtures; the ladder already consumes it through the relay rung. '
@@ -101,8 +103,10 @@ def convert(probe: dict) -> dict:
                    'the ladder in scripts/originate.py decides which one is used.'),
         'conclusion': ('No new automated two-sided price source was found for the low-tier fixtures. '
                        'EGamersWorld refuses the runner even in Chromium, HLTV refuses the runner, Oddspedia is '
-                       'deleted and BetExplorer/OddsPortal did not answer with a usable page. bo3.gg answered and '
-                       'remains the only relay of a named bookmaker, but it prices only a subset of fixtures.'),
+                       'deleted, BetExplorer 404s and OddsPortal returns a client-side shell with no coefficient in '
+                       'the delivered HTML. bo3.gg answered and remains the only relay of a named bookmaker: on this '
+                       'observation 23 of 100 upcoming fixtures carried a quote, and 14 of them join the live '
+                       'Hotspawn inventory by exact names.'),
         'sources': sources,
     }
     observation_path = Path('data/research/ee27e097/egamersworld-observation.json')

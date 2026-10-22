@@ -1,10 +1,10 @@
 {
  "schema_version": 1,
  "session": "arena-ee27e097",
- "observed_at": "2026-10-22T07:32:05+00:00",
+ "observed_at": "2026-10-22T07:51:05+00:00",
  "environment": "github-actions-runner (ubuntu-24.04), plus a headless Chromium context",
  "policy": "Read-only reachability record. A page listed here is NOT a price. Only a two-sided, first-party prematch series line or a published official rating may produce a number, and the ladder in scripts/originate.py decides which one is used.",
- "conclusion": "No new automated two-sided price source was found for the low-tier fixtures. EGamersWorld refuses the runner even in Chromium, HLTV refuses the runner, Oddspedia is deleted and BetExplorer/OddsPortal did not answer with a usable page. bo3.gg answered and remains the only relay of a named bookmaker, but it prices only a subset of fixtures.",
+ "conclusion": "No new automated two-sided price source was found for the low-tier fixtures. EGamersWorld refuses the runner even in Chromium, HLTV refuses the runner, Oddspedia is deleted, BetExplorer 404s and OddsPortal returns a client-side shell with no coefficient in the delivered HTML. bo3.gg answered and remains the only relay of a named bookmaker: on this observation 23 of 100 upcoming fixtures carried a quote, and 14 of them join the live Hotspawn inventory by exact names.",
  "sources": [
   {
    "name": "EGamersWorld CS2 match listing",
@@ -45,11 +45,11 @@
   {
    "name": "OddsPortal CS2",
    "url": "https://www.oddsportal.com/esports/counter-strike/",
-   "http_status": 503,
+   "http_status": 200,
    "error": null,
    "detail_url": "https://www.oddsportal.com/esports/counter-strike/",
    "fixtures_listed": [],
-   "note": "HTTP 503 from the runner. No price extracted."
+   "note": "Answered HTTP 200 on the retry and HTTP 503 on the first sweep. The delivered page is a client-side shell: it names bookmakers but contains no prematch coefficient, so no price can be extracted without reverse-engineering an undocumented API. Not used. Page title at the runner: 'Counter-Strike Betting Odds, eSports | OddsPortal'."
   },
   {
    "name": "HLTV match listing",
@@ -106,5 +106,5 @@
   "placeholders": 4,
   "summary": "A reader loaded EGamersWorld on 2026-10-22T08:10:00Z for 5 of the fixtures that carry a research-model pick. The site prints its 1.8/1.8 placeholder for 4 of them, and for one fixture its listing pair contradicts its own match page, which shows the placeholder and no bookmaker-average sentence. No listing number was promoted to a price."
  },
- "probe_file": "data/research/ee27e097/probe-2026-10-22T0732Z.json"
+ "probe_file": "data/research/ee27e097/probe-2026-10-22T0751Z.json"
 }

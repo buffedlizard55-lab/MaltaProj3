@@ -2,7 +2,13 @@
  {
   "id": "ee27e097-egamersworld-contradicts-itself",
   "severity": "warning",
-  "match_ids": ["1082767", "1081143", "1081597", "1079651", "1081600"],
+  "match_ids": [
+   "1082767",
+   "1081143",
+   "1081597",
+   "1079651",
+   "1081600"
+  ],
   "title": "EGamersWorld's listing and its own match page disagree, and most low-tier pages print a 1.8/1.8 placeholder",
   "detail": "A person (not the runner) read EGamersWorld's CS2 listing and match pages on 2026-10-22 between 07:55Z and 08:10Z for five fixtures that currently carry only a research-model pick. Four of the five print an identical 1.8/1.8 pair, which the site also uses as its default banner; the reviewed reference capture already rejects identical prices as a placeholder. For Nemesis-WW the listing printed 1.17/4.40 while the match page printed 1.8/1.8 and carried no bookmaker-average sentence. A third-party page that disagrees with itself cannot produce a reviewed price, so no listing number was promoted to a probability. The dated record, with both URLs and the quoted text, is data/research/ee27e097/egamersworld-observation.json.",
   "source_urls": [
@@ -25,7 +31,9 @@
  {
   "id": "ee27e097-bo3-relay-gains-prices-on-model-only-fixtures",
   "severity": "notice",
-  "match_ids": ["1081146"],
+  "match_ids": [
+   "1081146"
+  ],
   "title": "bo3.gg relayed a Thunderpick pair for a fixture that the published snapshot still prices with a Valve model",
   "detail": "On the same 2026-10-22T07:32Z observation the bo3.gg public API returned 100 upcoming fixtures, 23 with a named bookmaker quote block. One of them is 6yuBoJlbl vs ex-6666 (fixture 1081146, 19:00Z): Thunderpick 1.72 / 2.00, which the ladder's relay rung ranks above every research model. The published 05:36Z snapshot still shows a Valve-rating estimate for that fixture, because the relay only sees what bo3.gg has at fetch time. The next live refresh should promote it; this session verifies that the deployed snapshot does, and if it does not, the relay rung is the place to look.",
   "source_urls": [
@@ -39,7 +47,7 @@
   "severity": "notice",
   "match_ids": [],
   "title": "No new automated two-sided price source closed the low-tier gap: HLTV 403, Oddspedia 410, BetExplorer 404, OddsPortal 503",
-  "detail": "The brief asks to try HLTV first, then esportsbooks and betting lines, for the fixtures the featured method cannot resolve. The runner's dated sweep answered: HLTV match listing HTTP 403 (Cloudflare), Oddspedia CS2 HTTP 410 (permanently deleted), BetExplorer CS2 HTTP 404, OddsPortal CS2 HTTP 503. bo3.gg (200) and the Hotspawn lobby (200) answered; Hotspawn is inventory only and bo3.gg only relays prices for the subset of fixtures its bookmaker partner covers. The sweep is published under the unresolved register and on the new unresolved/ page, so the limitation is visible rather than implied.",
+  "detail": "The brief asks to try HLTV first, then esportsbooks and betting lines, for the fixtures the featured method cannot resolve. Two dated runner sweeps (2026-10-22T07:32Z and 07:51Z) answered: HLTV match listing HTTP 403 (Cloudflare), Oddspedia CS2 HTTP 410 (permanently deleted), BetExplorer CS2 HTTP 404, OddsPortal HTTP 503 on the first sweep and HTTP 200 on the retry — but the 200 is a client-side shell that names bookmakers and carries no prematch coefficient in the delivered HTML. bo3.gg (200) and the Hotspawn lobby (200) answered; Hotspawn is inventory only, and bo3.gg relayed a named bookmaker quote for 23 of 100 upcoming fixtures, 14 of which join the live inventory by exact team names. The sweep is published under the unresolved register and on the new unresolved/ page, so the limitation is visible rather than implied.",
   "source_urls": [
    "https://www.hltv.org/matches",
    "https://oddspedia.com/esports/counter-strike",
