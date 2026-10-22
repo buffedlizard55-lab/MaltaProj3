@@ -300,6 +300,7 @@
   .no-line-register h3{padding-inline:12px;font-size:14px}
   .no-line-card{padding:13px 14px}
   .no-line-card h3{font-size:15px}
+}
 
 /* Session fbdc97d6 — both published probabilities in the phone index, and a
    research provenance list that names the actual source behind every row the
@@ -421,4 +422,19 @@
 @media(max-width:375px){
   .exec-banner-actions a{min-height:44px}
   .start-here span{font-size:10px;line-height:1.34}
+}
+
+/* Session arena-ca4d2a02 — keep 9-item desktop .sidebar within 844px fixed
+   height so .sidebar-repo never overflows onto light --bg (#f4f7f8) under
+   Ubuntu font metrics (fixes axe color-contrast 2.23:1 at 1440x844 in CI). */
+.sidebar{overflow-y:auto}
+.sidebar-repo{color:#b9c9d3}
+@media(min-width:701px) and (max-height:920px){
+  .sidebar{padding-top:18px;padding-bottom:14px}
+  .brand{margin-bottom:20px}
+  .nav-label{margin-bottom:10px}
+  .sidebar nav{gap:4px}
+  .nav-link{min-height:42px;padding:9px 13px}
+  .sidebar-bottom{padding-top:14px}
+  .sidebar-note{padding:10px 12px;margin-bottom:12px}
 }

@@ -1,0 +1,97 @@
+[
+  {
+    "id": "ca4d2a02-1082922-polymarket-alias-pick-inversion",
+    "severity": "warning",
+    "match_ids": [
+      "1082922"
+    ],
+    "title": "1082922 (Low Cortisol BR vs Gr\u00eamio): live 1-cent-spread Polymarket moneyline favors Gr\u00eamio 71.5%, opposite to the Oct-5 Valve fallback pick",
+    "detail": "Direct read of Polymarket Gamma API event 1232958 (cs2-lowcor1-grmioe-2026-10-22, 'Counter-Strike: Low Cortisol vs Gr\u00eamio Esports (BO3) - CCT South America Series 7 Playoffs', gameStartTime 2026-10-22 22:00:00+00, resolving on HLTV) on 2026-10-22T07:42Z found a live 1-cent-spread series moneyline (bestBid 0.28, bestAsk 0.29, spread 0.01 <= 0.12, $1,834.19 CLOB liquidity) pricing Low Cortisol 28.5% / Gr\u00eamio Esports 71.5% (favorite: Gr\u00eamio). HLTV match 2399907 confirms the identical 2026-10-22T22:00:00Z CCT 2026 South America Series 7 Round-of-16 BO3 between Low Cortisol BR (team/14051, HLTV Unranked, VRS #202; lineup revoltz, stormzyn, lkz, sakamoto, shazn \u2014 sakamoto replacing pesadelo from the Oct-5 Valve roster) and Gr\u00eamio (team/13912, HLTV #214, VRS #241; lineup MITHPUTTINI, yeda, balencyy, s1lent, spinnie [Substitute]). Because 'Low Cortisol -> Low Cortisol BR' and 'Gr\u00eamio Esports -> Gr\u00eamio' are not yet registered in data/origination/aliases.json for 'CCT South America 2026 Series #7', the 2026-10-22T07:37Z origination run fell back to the 2026-10-05 Valve rating (66.2% / 33.8%, picking Low Cortisol BR). Logged as a ready-to-apply competition-scoped alias request in COORDINATION.md for the active aliases.json claim owner; treat the Valve-model pick on 1082922 as flagged until that alias join merges.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/low-cortisol-br-vs-gremio-cct-south-america-2026-series-7-1082922",
+      "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-lowcor1-grmioe-2026-10-22",
+      "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "ca4d2a02-1082919-kingui-unranked-floor-inversion",
+    "severity": "warning",
+    "match_ids": [
+      "1082919"
+    ],
+    "title": "1082919 (Projeto do KinGui vs Martians): HLTV 0-point unranked floor favors VRS #335 Martians (50.1%) over VRS #149 Tropa do KinGui / ex-Keyd Stars 4/5 core",
+    "detail": "Direct verification on 2026-10-22T07:40Z across HLTV, Polymarket, bo3.gg, and Valve official standings explains why fixture 1082919 (2026-10-22T13:00:00Z, CCT South America 2026 Series #7 Ro16 BO3) priced Martians 50.1% / Projeto do KinGui 49.9%: (1) HLTV match 2399904 lists the identical slot as Tropa do KinGui (team/13151, HLTV Unranked, VRS #149; lineup drg, ALLE, ckzao, xureba, lash) vs Martians (team/13230, HLTV #240 = 1.0 pt, VRS #335; lineup Dexter, bpg, pazini, ght, fhz); (2) Polymarket event 1232953 (cs2-tdkg-mar1-2026-10-22) has $0 volume and wide asks (0.96/0.46), and bo3.gg match 132645 has bet_updates=null, so no compliant betting line exists yet; (3) four of Tropa do KinGui's five starters (drg, ckzao, xureba, lash) are rated under Valve #144 'ex-Keyd Stars' (854 pts, #24 Americas) in standings_global_2026_10_05.md, while bo3.gg team 19919 ('Tropa do KinGui') has 0 series inside the 120-day window (last recorded 2025-10-26); (4) because 'Tropa do KinGui -> Projeto do KinGui' is absent from aliases.json and HLTV's weekly table marks team 13151 Unranked, hltv_ranking.py assigned Projeto do KinGui the 0.0-point unranked floor against Martians's 1.0 pt, inverting the #149 vs #335 official VRS order. No manual probability is substituted; flagged for review with full roster provenance.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+      "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+      "https://www.hltv.org/valve-ranking/teams",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-tdkg-mar1-2026-10-22",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_americas_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "ca4d2a02-1082926-isurus-hacha-rounded-points-tie",
+    "severity": "warning",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "1082926 (Isurus vs Hacha): only active live fixture without a directional pick (50.0% / 50.0%, pick_index: null) due to 5<6 bo3.gg sample gate and rounded 2.0-pt HLTV tie",
+    "detail": "Independent rung-by-rung audit on 2026-10-22T07:41Z traced why Isurus vs Hacha (2026-10-23T22:00:00Z, CCT South America 2026 Series #7 Ro16 BO3) is the sole non-directional row (45/46 with a pick) in the 2026-10-22T07:37Z origination run: (1) Polymarket event 1233768 (cs2-isg-hachae-2026-10-23, joined via Hacha Esports -> Hacha) is empty (bestBid 0.04, bestAsk 0.96, spread 0.92 > 0.15); (2) Kalshi, Thunderpick, Bovada, Pinnacle, and bo3.gg (match 132652, bet_updates: null) publish no moneyline yet; (3) Valve standings_global_2026_10_05.md and standings_americas_2026_10_05.md list Isurus (#173 global / #32 Americas, 783 pts: atarax1a, deco, dott1, Hezz, rzk), whereas Hacha (HLTV match 2399911: VRS #378, Lucasye, superex, toto, BUSAN, KvNs [Substitute for Rivo]) has no Oct-5 Valve snapshot row; (4) on api.bo3.gg, Hacha (team 9764) has exactly 5 finished series inside the 120-day window (2026-10-13..2026-10-21; prior match 2026-04-03), 1 short of network_model.MIN_TEAM_MATCHES = 6; (5) on https://www.hltv.org/ranking/teams, #215 Isurus and #229 Hacha both round to 2.0 integer HLTV points, yielding [0.5, 0.5] and pick_index: null rather than fabricating an uncalibrated tie-breaker.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+      "https://www.hltv.org/ranking/teams",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-isg-hachae-2026-10-23",
+      "https://api.bo3.gg/api/v1/matches?page%5Boffset%5D=0&page%5Blimit%5D=20&filter%5Bmatches.status%5D%5Bin%5D=upcoming&filter%5Bmatches.tournament_id%5D%5Beq%5D=5623&with=teams,tournament"
+    ]
+  },
+  {
+    "id": "ca4d2a02-1082920-1082921-polymarket-cct-sa-aliases",
+    "severity": "notice",
+    "match_ids": [
+      "1082920",
+      "1082921"
+    ],
+    "title": "1082920 (MEIA NOITE vs Procyon) & 1082921 (your end vs Yawara): live Polymarket CLOB books confirm Pinnacle picks within <1% and await suffix aliases for 2-source consensus",
+    "detail": "Both CCT South America 2026 Series #7 Ro16 fixtures are already directionally resolved in the 2026-10-22T07:37Z origination run via Pinnacle's first-party guest board: 1082920 at 44.1% MEIA NOITE / 55.9% Procyon (pick: Procyon) and 1082921 at 19.5% your end / 80.5% Yawara (pick: Yawara). Direct Gamma CLOB checks at 2026-10-22T07:42Z confirm independent Polymarket series moneylines agreeing tightly on both: event 1232955 (cs2-meiano-pcy-2026-10-22, HLTV 2399905, bestBid 0.43, bestAsk 0.46, spread 0.03, $1,384.42 liquidity -> 44.5% / 55.5% Procyon Gaming) and event 1232957 (cs2-yaw-youren-2026-10-22, HLTV 2399906, $1,740.87 liquidity -> ~19% your end / ~81% Yawara Esports). Registering 'Procyon Gaming -> Procyon' and 'Yawara Esports -> Yawara' in data/origination/aliases.json (logged in COORDINATION.md) upgrades both fixtures from single-source bookmaker to 2-source consensus.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-2026-south-america-series-7",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-meiano-pcy-2026-10-22",
+      "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-2026-south-america-series-7",
+      "https://polymarket.com/esports/cs2/cct-south-america/cs2-yaw-youren-2026-10-22",
+      "https://www.pinnacle.com/en/esports/counter-strike-2"
+    ]
+  },
+  {
+    "id": "ca4d2a02-consensus-polymarket-chip-label",
+    "severity": "warning",
+    "match_ids": [
+      "1082767",
+      "1082882"
+    ],
+    "title": "Consensus rows whose primary source_url is polymarket.com render a 'Bookmaker' source chip in scripts/build.py",
+    "detail": "Line-by-line inspection of scripts/build.py (glance() at line 566 and featured table row links at line 682) alongside the live GitHub Pages deployment verified that method == 'consensus' falls through to the 'Bookmaker' / 'Bookmaker API' link label, even when origination.source_url points to https://polymarket.com/event/cs2-unity-bca-2026-10-22 (1082882 UNiTY vs Apogee Betclic, median of Polymarket + Thunderpick + Bovada) or https://polymarket.com/event/cs2-nem-ww-2026-10-22 (1082767 Nemesis vs WW). Underlying consensus probabilities and hrefs are mathematically verified; logged in COORDINATION.md for the active scripts/build.py claim owner to label consensus links 'Consensus' (or derive provider label from source_url).",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+      "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "ca4d2a02-live-46-fixture-audit-complete",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Independent line-by-line audit complete: 80/80 baseline rows + 107/107 live Hotspawn CS2 rows (46 active) verified against official sources",
+    "detail": "Session arena-ca4d2a02 verified every row of data/latest.json (80 rows: 17 open, 63 past), data/origination.json (17/17 resolved with picks), built site/ HTML (732 internal links, 0 strict row-source violations), and the live 2026-10-22T07:36:29Z Hotspawn CS2 inventory (107 records: 46 active, 61 past; 46/46 resolved, 45/46 directional picks, 1 explicit 50/50 tie on 1082926). All 11 fixtures left unresolved by the exact-name featured collector were independently traced HLTV-first and across Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg, EGamersWorld, and Valve official standings (data/research/ca4d2a02/low-tier-line-research.json & live-inventory-audit.json). Zero Hotspawn '% picked' or HLTV fan-vote values enter any probability calculation.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39741744839",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json"
+    ]
+  }
+]
