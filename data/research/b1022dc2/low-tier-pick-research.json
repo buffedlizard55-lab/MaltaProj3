@@ -1,0 +1,83 @@
+{
+  "session": "arena-b1022dc2",
+  "verified_at": "2026-10-22T01:14:00Z",
+  "fallback_ladder": [
+    "1. Verified-alias Polymarket series-winner CLOB books (spread <= 0.12 featured, <= 0.15 fallback)",
+    "2. Verified-alias Kalshi CS2 match-winner order books (KXCS2GAME)",
+    "3. Verified-alias first-party esportsbooks (Thunderpick, Bovada, Pinnacle; proportional no-vig)",
+    "4. Median consensus across independent money providers",
+    "5. Reviewed aggregated bookmaker average (EGamersWorld; rejects symmetric 1.8/1.8 placeholders)",
+    "6. Official Valve Regional Standings (VRS) 400-point logistic model (RD=75, exact 5-player or 4/5 HLTV lineup disambiguation)",
+    "7. Results-based series fit (bo3.gg finished series against Valve-rated opponents, >= 8 anchored series)",
+    "8. Own Bradley-Terry network model over bo3.gg finished series graph (4,645 series, 269 Valve anchors, >= 6 series per side)",
+    "9. HLTV weekly world-ranking 400-point logistic model (including explicit 0.0-point unranked floor when one side is ranked)",
+    "10. Wide-book indicative guidance / Explicit Unresolved register with full per-source blocker trail"
+  ],
+  "deep_dive_fixtures": [
+    {
+      "id": "1079654",
+      "match": "ex-Zero Tenacity vs ex-RUSTEC",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T08:00:00Z",
+      "current_status": "Even estimate (50.0% / 50.0%) \u00b7 no directional pick \u00b7 listed in #unresolved-register",
+      "hltv_match_url": "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "bo3_match_url": "https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+      "why_even": "Both teams carry exactly 1,066 points in Valve's 2026-10-05 global standings (#92 ex-RUSTEC vs #93 ex-Zero Tenacity), and no Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle moneyline has opened yet.",
+      "independent_findings": {
+        "hltv_world_ranking_2026_10_19": {
+          "ex-Zero Tenacity": {
+            "rank": 67,
+            "points": 15.0,
+            "url": "https://www.hltv.org/ranking/teams/2026/october/19/13573"
+          },
+          "ex-RUSTEC": {
+            "rank": 70,
+            "points": 14.0,
+            "url": "https://www.hltv.org/ranking/teams/2026/october/19/13901"
+          }
+        },
+        "roster_continuity_vs_valve_2026_10_05": {
+          "ex-Zero Tenacity": "5/5 intact (Dragon, Kind0, VLDN, brutmonster, Cjoffo)",
+          "ex-RUSTEC": "3/5 overlap (youka, yiksrezo, Brilliance retained; bl1x1 and jakekeS replace shalfey and glowiing after shalfey signed with GamerLegion)"
+        },
+        "egamersworld_check": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/ex-zero-tenacity-vs-ex-rustec-YieSsHTBr shows placeholder 1.8 \u2014 rejected"
+      }
+    },
+    {
+      "id": "1081597",
+      "match": "benched gods vs TitanFlow",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "current_status": "Resolved via Own network model (bo3.gg results graph) -> Pick TitanFlow 77.9% (low confidence)",
+      "independent_findings": {
+        "esportsbooks_checked": "Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle have no market; EGamersWorld prints symmetric 1.8/1.8 placeholder (rejected).",
+        "network_model": "TitanFlow 903.0 pts (9 series) vs benched gods 684.6 pts (15 series), SD 166.8 -> TitanFlow 77.9%.",
+        "hltv_world_ranking_2026_10_19": "benched gods #204 (3 pts) vs TitanFlow unranked (0 pts floor) -> benched gods 50.4%.",
+        "hltv_vrs_europe_2026_10_21": "TitanFlow #175 (630 Valve pts) vs benched gods #230 (496 Valve pts) at https://www.hltv.org/valve-ranking/teams/2026/october/21/region/Europe."
+      }
+    },
+    {
+      "id": "1082860",
+      "match": "FlyQuest vs Staqued",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_status": "Resolved via HLTV world ranking (unranked floor) -> Pick FlyQuest 52.3% (low confidence)",
+      "hltv_match_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "independent_findings": {
+        "hltv_event_9414": "FlyQuest (HLTV #61, 16 pts; VRS #54) vs Staqued (LCQ replacement team: kasze, w0mbat, Hazel, lzj, xelja; unranked on HLTV and VRS, only 2 finished bo3.gg series).",
+        "esportsbooks_checked": "No two-sided moneyline open yet at T-5d on Polymarket, Kalshi, Thunderpick, Bovada, or Pinnacle; EGW prints symmetric 1.8/1.8 placeholder."
+      }
+    },
+    {
+      "id": "1082858",
+      "match": "Ground Zero vs Off Chops",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_status": "Resolved via Own network model (bo3.gg results graph) -> Pick Off Chops 55.5% (low confidence)",
+      "hltv_match_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "independent_findings": {
+        "hltv_world_ranking_2026_10_19": "Ground Zero #143 (5.0 pts) vs Off Chops #142 (5.0 pts) \u2014 tied on HLTV points, resolved directionally by the bo3.gg Bradley-Terry network graph (Off Chops 904.6 pts across 6 series vs Ground Zero 866.5 pts across 31 series)."
+      }
+    }
+  ]
+}

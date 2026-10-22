@@ -1,0 +1,46 @@
+{
+  "session": "arena-b1022dc2",
+  "verified_at": "2026-10-22T01:14:00Z",
+  "target_url": "https://play.hotspawn.com/lobby",
+  "cs2_pickems_url": "https://play.hotspawn.com/cs2-pickems",
+  "fixture_api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+  "architecture": {
+    "frontend_framework": "Angular SSR with <script id=\"ng-state\" type=\"application/json\"> TransferState hydration",
+    "backend_api": "Cloudways-hosted JSON API (tenantId=1, sport_alias=cs2, status=scheduled)",
+    "fixture_fields": [
+      "id",
+      "competition_id",
+      "competition_name",
+      "sport_alias",
+      "status",
+      "scheduled_start_time",
+      "lock_time",
+      "lock_offset_sec",
+      "offered_points",
+      "base_points",
+      "best_of",
+      "series_format",
+      "tier",
+      "stage",
+      "points_breakdown",
+      "participants0_id",
+      "participants0_name",
+      "participants0_picked_percent",
+      "participants1_id",
+      "participants1_name",
+      "participants1_picked_percent"
+    ],
+    "lock_rule": "lock_time = scheduled_start_time - 360000 ms (locks 6 minutes prior to scheduled start)",
+    "cdn_cache_behavior": "HTML routes (/lobby, /cs2-pickems) sit behind CDN/Varnish caching; collector appends cache-busting ?cb=<epoch> and cross-checks SSR TransferState against the authoritative JSON API",
+    "refresh_schedule": {
+      "workflow": ".github/workflows/pages.yml",
+      "primary_cron": "17 */4 * * * (every 4 hours)",
+      "catchup_cron": "47 2-22/4 * * * (every 4 hours offset)",
+      "stale_threshold_hours": 8
+    },
+    "prohibited_inputs": [
+      "participants0_picked_percent / participants1_picked_percent (Hotspawn crowd pick percentage)",
+      "HLTV 'Pick a winner' fan vote percentages"
+    ]
+  }
+}
