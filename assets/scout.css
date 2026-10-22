@@ -356,6 +356,7 @@
   .exec-banner-actions a{min-height:48px}
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
+}
 /* Session 4c972a51 — dedicated unresolved page: status cards, the dated source
    matrix behind the limitations, and the published resolution ladder. */
 .unresolved-metrics{margin:18px 0 26px}
@@ -388,3 +389,27 @@
   .probe-source-head .source-link{font-size:11.5px}
   .ladder-list li{font-size:11.5px;line-height:1.9}
 }
+
+/* Session df80ab9f — restore phone above-the-fold budget (< 1500px at 320px/390px)
+   after PRs #163 + #174 while preserving >= 44px touch targets. */
+@media(max-width:700px){
+  .exec-banner{padding:11px 13px;margin-bottom:9px}
+  .exec-banner-label{margin-bottom:3px}
+  .exec-banner h3{margin-bottom:4px}
+  .exec-banner-desc{margin-bottom:7px;line-height:1.42}
+  .exec-banner-actions{gap:6px}
+  .exec-banner-actions a{min-height:44px;padding:6px 10px}
+  .exec-banner-meta{margin-top:6px;line-height:1.38}
+  .start-here{padding:9px 11px;margin-bottom:9px}
+  .start-here-label{margin-bottom:5px}
+  .start-here ul{gap:5px}
+  .start-here a{min-height:44px;padding:6px 10px}
+  .start-here strong{font-size:13px}
+  .start-here span{font-size:10.5px;line-height:1.38}
+  .mobile-status a{min-height:46px}
+}
+@media(max-width:375px){
+  .exec-banner-actions a{min-height:44px}
+  .start-here span{font-size:10px;line-height:1.34}
+}
+
