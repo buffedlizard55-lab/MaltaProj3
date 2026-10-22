@@ -5402,3 +5402,18 @@ regenerates verbatim from the build, never hand-edits) and the two files named i
 Probability, pick and alias values are never hand-edited here; any value change is a request in this
 section instead.
 
+---
+
+# Current session: arena-f2b91672 — fix root_publish data-snapshot regression & legacy Pages deploy race, add verified CCT SA #7 aliases & lineup-to-floor inversion guard, and publish live line-by-line review dossier
+
+Claimed **2026-10-22T09:08Z** on Arena's fixed branch `arena/f2b91672-maltaproj3`, branched from `main` at `3f2dc79` (PR #179). Read `COORDINATION.md` head/tail and inspected all open active PRs (#164–#180); zero file overlap with any active session.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F2B-1 Fix two merged defects in PR #176 (`scripts/root_publish.py` + `.github/workflows/pages.yml`): keep git-tracked `data/*` replay snapshot intact (sync HTML views + `.nojekyll` + `assets/` only, monotonicity via `data-snapshot-generated`), and re-run `deploy-pages` + `verify_live` after any `[skip ci]` root push's legacy Pages build completes | in progress | arena-f2b91672 | `scripts/root_publish.py`, `.github/workflows/pages.yml`, `tests/test_96fbe295.py`, rendered root HTML views (`index.html`, `unresolved/index.html`, `final-day/index.html`, etc.) |
+| F2B-2 Verify live Hotspawn CS2 inventory (107 total / scheduled active slate) against HLTV, Polymarket Gamma/CLOB, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg, and Valve VRS; add first-party verified `CCT South America 2026 Series #7` aliases and prevent `hltv_ranking` `unranked_floor` from inverting a team with verified HLTV lineup proof on Valve VRS / two-sided market quote | in progress | arena-f2b91672 | `data/origination/aliases.json`, `scripts/originate.py`, `scripts/f2b91672_live_audit.py` (new), `data/research/f2b91672/` (new), `tests/test_f2b91672.py` (new) |
+| F2B-3 Line-by-line verification, `/review/` flags (`data/research/f2b91672/flags.json`), Playwright mobile/desktop verification, PR to `main`, merge, and confirm live GitHub Pages deployment | in progress | arena-f2b91672 | `data/research/f2b91672/flags.json`, `COORDINATION.md`, `main`, GitHub Pages |
+
+**Non-overlap pledge:** No edits to `scripts/build.py`, `scripts/build_origination.py`, `scripts/coverage_audit.py`, `scripts/review_register.py`, `assets/scout.css`, `assets/scout.js`, `README.md`, `tests/browser/dashboard.spec.mjs`, `tests/test_review_flags.py`, `tests/test_final_day.py`, or any other session's `data/research/<id>/`. Review flags publish via `data/research/f2b91672/flags.json` auto-loader.
+
+
