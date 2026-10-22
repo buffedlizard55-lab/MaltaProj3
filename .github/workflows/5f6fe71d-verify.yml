@@ -50,6 +50,21 @@ jobs:
           run-id: ${{ steps.lastrun.outputs.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: published
+      # upload-pages-artifact packages the site root as artifact.tar inside the
+      # 'github-pages' artifact, so published/ holds a tarball, not the site.
+      # Unpack it into the layout the verifier and the compare step expect
+      # (published/index.html, published/data/latest.json, ...).
+      - name: Extract the Pages artifact tarball into published/
+        run: |
+          if [ -f published/artifact.tar ]; then
+            mkdir -p published-site
+            tar -xf published/artifact.tar -C published-site
+            rm -rf published
+            mv published-site published
+          fi
+          echo "published/ top level:"; ls published | head -20
+          test -f published/data/latest.json && echo "published/data/latest.json present" \
+            || { echo "::error title=5F::published/data/latest.json missing after extraction"; exit 1; }
       - name: Verify the published snapshot line by line (independent arithmetic + fresh reads)
         id: verify
         continue-on-error: true
