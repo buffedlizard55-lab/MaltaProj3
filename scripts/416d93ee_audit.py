@@ -64,7 +64,10 @@ class Reader:
                          bytes=len(body),
                          sha256=hashlib.sha256(body).hexdigest())
             if keep and response.status_code == 200:
-                suffix = '.json' if 'json' in (response.headers.get('Content-Type') or '') else '.html'
+                # Never save evidence as .html: the site build publishes data/
+                # verbatim and validates every .html page it finds, so a saved
+                # source page would be audited as one of our own pages.
+                suffix = '.json' if 'json' in (response.headers.get('Content-Type') or '') else '.html.txt'
                 path = self.evidence / (re.sub(r'[^A-Za-z0-9_.-]+', '-', label).strip('-') + suffix)
                 path.write_bytes(body)
                 entry['saved_as'] = path.name
