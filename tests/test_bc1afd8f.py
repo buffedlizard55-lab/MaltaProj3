@@ -570,7 +570,11 @@ class GateTests(unittest.TestCase):
             timeout=120,
             cwd=ROOT,
         )
-        self.assertEqual(report["snapshot"]["latest.json"]["generated_at"], "2026-10-15T08:36:13Z")
+        # Read from the fixture, never hardcoded: on a runner this workflow has just
+        # collected a fresh snapshot into data/, and the hardcoded 15 October stamp made
+        # this test fail in run 39757283508 for a reason that had nothing to do with the gate.
+        expected = json.loads((ROOT / "data" / "latest.json").read_text())["generated_at"]
+        self.assertEqual(report["snapshot"]["latest.json"]["generated_at"], expected)
         self.assertIsNotNone(report["returncode"])
         self.assertGreater(report["snapshot"]["evidence_files"], 0)
 
@@ -669,6 +673,12 @@ class SessionWorkflowTests(unittest.TestCase):
         self.assertLess(self.text.index("id: build"), self.text.index("scripts.bc1afd8f_root_risk --site site"))
         block = step_block(self.text, "Reproduce what a fresh-snapshot root publish")
         self.assertIn("if: always()", block)
+
+    def test_a_measurement_step_can_never_destroy_the_measurement(self):
+        gate_block = step_block(self.text, "Measure the checked-in regression suite")
+        self.assertIn("continue-on-error: true", gate_block)
+        for name in ("Restore every tracked data file", "Commit the dated reports"):
+            self.assertIn("if: always()", step_block(self.text, name))
 
     def test_it_runs_the_repository_collectors_before_reporting(self):
         self.assertIn("python -m scripts.collect", self.text)

@@ -91,8 +91,16 @@ jobs:
         continue-on-error: true
         run: python -m scripts.bc1afd8f_mobile_audit --site site --data data --json-only
       - name: Measure the checked-in regression suite against the fresh snapshot
+        # continue-on-error and the bounded timeout are both load-bearing. Run
+        # 39762828402 hit the 1500 s timeout (10:28:20Z -> 10:53:20Z, exit 1), the
+        # job failed, and the two steps below were skipped - so the build outcome,
+        # the root-publish replay and the phone audit measured on that runner were
+        # never committed and were lost with the workspace. A measurement step must
+        # never be able to destroy the measurement.
+        continue-on-error: true
         run: python -m scripts.bc1afd8f_gate --label fresh-snapshot --timeout 1500
       - name: Restore every tracked data file so only this session's reports are committed
+        if: always()
         run: |
           # The exclude pathspec matters: this session's own reports are tracked
           # files, and a plain `git checkout -- data/` restored the previous
@@ -102,6 +110,7 @@ jobs:
           git checkout -- data/ ':!data/research/bc1afd8f/' 2>/dev/null || true
           git clean -fdq data/evidence data/origination data/research/twc-current site 2>/dev/null || true
       - name: Commit the dated reports to this session branch
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
