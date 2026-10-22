@@ -5191,3 +5191,33 @@ the deploying run's own complete-picks audit reported
 So the published site is inside its four-hour bound, every active fixture carries a sourced pick,
 and the older root pages are gone. **Do not reintroduce an artifact cleanup that depends on
 `actions: write`** — the interim upload is already isolated by name (`github-pages-interim`).
+
+### C1F-5 — correction to C1F-4, and the stale-root window measured (2026-10-22T05:15Z)
+
+**C1F-4 said "the earlier 15 October root is gone". That is only true between the artifact
+deploy and the next push.** A push to `main` starts the platform's *legacy* Pages build, which
+republishes the checked-in branch root (`data/latest.json` committed at
+`generated_at 2026-10-15T08:36:13Z`), so the public site reverts to the 15 October dashboard
+until this workflow's own publish lands.
+
+- **Measured on this session's last merge** (`f8b4df5`, PR #161, pushed 04:50Z): the run stayed
+  `pending` behind a cancelled predecessor until 05:06Z. Reading `/` at 04:58Z returned the
+  checked-in page — *"Featured method picks · 17 picks · 4 researched fallbacks · 0 blank"* and
+  *"Flagged for Review · 43 open flags"*, i.e. the 15 October build, not the 34-fixture snapshot.
+- **Recovery is automatic.** `republish-last-verified` ran at 05:06–05:07Z and the public
+  `data/latest.json` then read `generated_at 2026-10-22T05:00:30Z`,
+  `{inventory 96, upcoming 33, picks 23, unresolved 10}`, `coverage_complete: true`. In the normal
+  case (no queueing) that job restores the verified site in about 20 seconds after the legacy
+  build lands.
+- **The window is bounded by workflow scheduling, not by data.** It is longest exactly when a
+  run is queued behind a cancelled one — the concurrency group is `pages` with
+  `cancel-in-progress: false`, so a cancelled run still delays its successor.
+- **Why it cannot be closed from here:** `PUT /repos/.../pages` with `build_type: workflow`
+  answers **403 Resource not accessible by integration**; switching the source needs repo admin
+  in the web UI. The alternative — committing the built site back to the branch root, which is
+  what the retired six-hour writer did — means an ~18 MB commit every four hours and reintroduces
+  push contention between sessions. Not re-added.
+- **Read correctly:** while the window is open the page is honest about it (visible
+  *"Do not treat these as current picks"* banner and the *"A newer verified snapshot is
+  available"* reload button), but its rows are six days old. Treat any reading taken within a
+  few minutes of a `main` push as unverified until `data/latest.json` shows today's date.
