@@ -1,0 +1,53 @@
+# Session arena-15fc6bca — live coverage ground truth (dispatch only, never deploys).
+#
+# The coding sandbox has no egress to Hotspawn, HLTV, bo3.gg or any bookmaker; the
+# GitHub runner does. This workflow runs the repository's own collectors and the
+# published origination ladder, then scripts/15fc6bca_probe.py records, per
+# upcoming fixture, the ladder's exact output and whether bo3.gg relays a
+# two-sided bookmaker quote. Only data/research/15fc6bca/ is committed; every
+# tracked data file is restored first so the replay fixtures stay untouched.
+name: 15fc6bca coverage probe (never deploys)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 15fc6bca-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Run the published origination ladder live
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Record per-fixture coverage and bo3.gg relay state
+        run: python -m scripts.15fc6bca_probe
+      - name: Restore every tracked data file so only the report is committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated report to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/15fc6bca/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(15fc6bca): live coverage + bo3.gg relay probe (never published)'
+          git pull --rebase origin arena/15fc6bca-maltaproj3
+          git push origin arena/15fc6bca-maltaproj3
