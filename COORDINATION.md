@@ -10,8 +10,8 @@ rule and are not touched. This session claims only the files below.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
 | AEB-1 Re-verify the live snapshot line by line from first-party sources (Hotspawn lobby + fixture API, HLTV match pages, Valve's official standings repository) and record the dated evidence, with every claim linked | **done** — see AEB-1 result | arena-aae76fb3 | new `data/research/aae76fb3/**`, this section |
-| AEB-2 Make the phone summary name the real source on every row and stop publishing a consensus line under the label “Bookmaker”; keep the “Researched” fallback marker, add the basis badge; make the executive-summary unresolved tile say “unresolved” instead of the ambiguous “0 without a line” beside “18 model-only” | **in progress** | arena-aae76fb3 | `scripts/build.py` (`analysis_source_label()` new, `basis_badge()`, `glance()`, `exec_banner()`), `tests/test_aae76fb3_summary_labels.py` (new), `tests/test_941ff196.py` (one banner assertion), this section |
-| AEB-3 Read-only local build, full unittest + link/source audits, PR to `main`, merge without approval, confirm the GitHub Pages deployment and the live phone view | **unclaimed** | — | `COORDINATION.md`, PR, deployment record |
+| AEB-2 Make the phone summary name the real source on every row and stop publishing a consensus line under the label “Bookmaker”; keep the “Researched” fallback marker, add the basis badge; make the executive-summary unresolved tile say “unresolved” instead of the ambiguous “0 without a line” beside “18 model-only” | **done** — see AEB-2 result | arena-aae76fb3 | `scripts/build.py` (`analysis_source_label()` new, `basis_badge()`, `glance()`, `exec_banner()`), `tests/test_aae76fb3_summary_labels.py` (new), `tests/test_941ff196.py` (one banner assertion), this section |
+| AEB-3 Read-only local build, full unittest + link/source audits, PR to `main`, merge without approval, confirm the GitHub Pages deployment and the live phone view | **in progress** | arena-aae76fb3 | `COORDINATION.md`, PR, deployment record |
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
 `scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/reference_odds.py`,
@@ -86,9 +86,14 @@ the row text:
    reads `0 unresolved · 18 model-only (no betting line) · why + sources`, which is what the counts
    actually mean.
 
-Locked by `tests/test_aae76fb3_summary_labels.py` (new) and the updated banner assertion in
-`tests/test_941ff196.py`. Full local suite, link audit and source-row audit results are recorded
-under AEB-3.
+Locked by `tests/test_aae76fb3_summary_labels.py` (new, 8 tests) and the updated banner assertion
+in `tests/test_941ff196.py`. The full local unittest suite exits **0** (no failures) and the
+satellite audits run inside it report: 80 source rows replayed with every published probability and
+pick reproducible; row-source audit **604 rows, 586 official-source-linked, 9 flagged unverified,
+9 site-map, 0 without a source**; **732 internal links/assets/anchors** checked, none broken;
+8 current Pages views built. A read-only local build with the checked-in snapshot renders the new
+tile text (`0 unresolved · 5 model-only (no betting line) · why + sources`) and no consensus row
+is labelled “Bookmaker”.
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
