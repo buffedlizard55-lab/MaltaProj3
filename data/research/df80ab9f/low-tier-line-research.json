@@ -1,0 +1,673 @@
+{
+  "schema_version": 1,
+  "session": "arena-df80ab9f",
+  "observed_at": "2026-10-22T07:45:00Z",
+  "policy": {
+    "scope": "Applied strictly to matches not resolved by the exact-name featured pass or affected by competition-scoped alias gaps on featured books.",
+    "order": [
+      "1. Official HLTV match page, team page, 5-player lineup, HLTV weekly world ranking, and HLTV daily VRS table",
+      "2. First-party prediction markets and esportsbooks (Polymarket Gamma/CLOB, Kalshi KXCS2GAME, Thunderpick, Bovada, Pinnacle)",
+      "3. Research models (Valve official regional standings with HLTV core disambiguation, bo3.gg anchored Bradley-Terry network model, HLTV world-ranking model)",
+      "4. Explicit null + review flag when no executable market or non-tied rating exists"
+    ],
+    "hotspawn_votes_used": false
+  },
+  "fixtures": [
+    {
+      "id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "featured_gap_reason": "Exact-name pass did not join Betclic Apogee Esports / UNiTY esports across books without competition-scoped aliases.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "source_url": "https://www.hltv.org/ranking/teams"
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "accepted_tight_book",
+          "probabilities": [
+            0.435,
+            0.565
+          ],
+          "bid_ask": [
+            [
+              0.43,
+              0.44
+            ],
+            [
+              0.56,
+              0.57
+            ]
+          ],
+          "spread": 0.01,
+          "source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22"
+        },
+        {
+          "provider": "Thunderpick",
+          "status": "accepted_paired_moneyline",
+          "source_url": "https://thunderpick.io/api/matches"
+        }
+      ],
+      "originated_probabilities": [
+        0.435,
+        0.565
+      ],
+      "originated_pick_team": "Apogee Betclic",
+      "originated_rung": "consensus (median of Polymarket + Thunderpick)",
+      "flag_ids": [
+        "df80ab9f-build-provenance-label-mismatch"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+        "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+        "https://thunderpick.io/api/matches",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082919",
+      "teams": [
+        "Projeto do KinGui",
+        "Martians"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "featured_gap_reason": "Hotspawn lists Tropa do KinGui under its earlier stack name 'Projeto do KinGui'; aliases.json lacks 'Tropa do KinGui' -> 'Projeto do KinGui'.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+        "team_urls": [
+          "https://www.hltv.org/team/13151/tropa-do-kingui",
+          "https://www.hltv.org/team/13230/martians"
+        ],
+        "lineups": {
+          "Tropa do KinGui": [
+            "drg",
+            "ALLE",
+            "ckzao",
+            "xureba",
+            "lash"
+          ],
+          "Martians": [
+            "Dexter",
+            "bpg",
+            "pazini",
+            "ght",
+            "fhz"
+          ]
+        },
+        "hltv_world_rank": {
+          "Tropa do KinGui": null,
+          "Martians": 240
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "Tropa do KinGui": 149,
+          "Martians": 335
+        },
+        "valve_core_equivalence": "4/5 of Tropa do KinGui (ckzao, drg, xureba, lash) matches Valve #144 ex-Keyd Stars (854 pts)."
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "wide_book_quote_spread_gt_0_15",
+          "event_id": "1232953",
+          "market_id": "6033256",
+          "bid_ask_team0": [
+            0.54,
+            0.96
+          ],
+          "spread": 0.42,
+          "midpoint_probabilities": [
+            0.75,
+            0.25
+          ],
+          "source_url": "https://polymarket.com/event/cs2-tdkg-mar1-2026-10-22"
+        },
+        {
+          "provider": "Kalshi",
+          "status": "not_listed",
+          "source_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open"
+        }
+      ],
+      "originated_probabilities": null,
+      "originated_pick_team": null,
+      "originated_rung": "flagged_unverified_inverted_hltv_floor (pipeline emitted [0.4986, 0.5014] Martians; official VRS #149 vs #335 and Polymarket 0.75/0.25 midpoint favor Tropa do KinGui)",
+      "flag_ids": [
+        "df80ab9f-kingui-missing-alias-inverted-pick",
+        "df80ab9f-daily-hltv-vrs-gap-beyond-top300"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+        "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-tdkg-mar1-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082920",
+      "teams": [
+        "MEIA NOITE",
+        "Procyon"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "featured_gap_reason": "Polymarket names Procyon as 'Procyon Gaming', which is absent from aliases.json for CCT South America 2026 Series #7.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-2026-south-america-series-7"
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "accepted_tight_book_pending_alias",
+          "market_id": "6033268",
+          "probabilities": [
+            0.445,
+            0.555
+          ],
+          "volume_usd": 85.92,
+          "liquidity_usd": 851.4,
+          "source_url": "https://polymarket.com/event/cs2-meiano-pcy-2026-10-22"
+        }
+      ],
+      "originated_probabilities": [
+        0.445,
+        0.555
+      ],
+      "originated_pick_team": "Procyon",
+      "originated_rung": "Polymarket direct Gamma verification (pending Procyon Gaming -> Procyon alias)",
+      "flag_ids": [
+        "df80ab9f-cct-sa7-polymarket-alias-gaps"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/meia-noite-vs-procyon-cct-south-america-2026-series-7-1082920",
+        "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-meiano-pcy-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22"
+      ]
+    },
+    {
+      "id": "1082921",
+      "teams": [
+        "your end",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T19:00:00Z",
+      "featured_gap_reason": "Polymarket names Yawara as 'Yawara Esports', which is absent from aliases.json for CCT South America 2026 Series #7.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-2026-south-america-series-7"
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "accepted_tight_book_pending_alias",
+          "market_id": "6033280",
+          "probabilities": [
+            0.155,
+            0.845
+          ],
+          "volume_usd": 78.88,
+          "liquidity_usd": 857.46,
+          "source_url": "https://polymarket.com/event/cs2-yaw-youren-2026-10-22"
+        }
+      ],
+      "originated_probabilities": [
+        0.155,
+        0.845
+      ],
+      "originated_pick_team": "Yawara",
+      "originated_rung": "Polymarket direct Gamma verification (pending Yawara Esports -> Yawara alias)",
+      "flag_ids": [
+        "df80ab9f-cct-sa7-polymarket-alias-gaps"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/your-end-vs-yawara-cct-south-america-2026-series-7-1082921",
+        "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-yaw-youren-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22"
+      ]
+    },
+    {
+      "id": "1082922",
+      "teams": [
+        "Low Cortisol BR",
+        "Grêmio"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T22:00:00Z",
+      "featured_gap_reason": "Polymarket lists 'Low Cortisol vs Grêmio Esports' without 'BR' / with 'Esports'; missing aliases left 07:32Z pipeline on 2026-10-05 Valve points (66.6% Low Cortisol BR), opposite the 1c-spread Polymarket favorite Grêmio (71.5%).",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+        "lineups": {
+          "Low Cortisol BR": [
+            "revoltz",
+            "stormzyn",
+            "lkz",
+            "sakamoto",
+            "shazn"
+          ],
+          "Grêmio": [
+            "MITHPUTTINI",
+            "yeda",
+            "balencyy",
+            "s1lent",
+            "spinnie"
+          ]
+        },
+        "hltv_world_rank": {
+          "Low Cortisol BR": null,
+          "Grêmio": 214
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "Low Cortisol BR": 202,
+          "Grêmio": 241
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "accepted_tight_book_pending_alias",
+          "market_id": "6033284",
+          "probabilities": [
+            0.285,
+            0.715
+          ],
+          "spread": 0.01,
+          "volume_usd": 5.0,
+          "liquidity_usd": 1416.42,
+          "source_url": "https://polymarket.com/event/cs2-lowcor1-grmioe-2026-10-22"
+        }
+      ],
+      "originated_probabilities": [
+        0.285,
+        0.715
+      ],
+      "originated_pick_team": "Grêmio",
+      "originated_rung": "Polymarket direct Gamma verification (pending Low Cortisol / Grêmio Esports aliases)",
+      "flag_ids": [
+        "df80ab9f-cct-sa7-polymarket-alias-gaps"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/low-cortisol-br-vs-gr-mio-cct-south-america-2026-series-7-1082922",
+        "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-lowcor1-grmioe-2026-10-22",
+        "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "featured_gap_reason": "Polymarket series moneyline spread > 0.15 and Valve global table has two Chinggis Warriors entries (#87 and #220).",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "disambiguation": "HLTV active roster matches Valve #87 Chinggis Warriors (1084 pts) against #64 Lynn Vision (1190 pts).",
+        "source_url": "https://www.hltv.org/ranking/teams"
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "wide_book_rejected",
+          "event_id": "1232241",
+          "source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22"
+        }
+      ],
+      "originated_probabilities": [
+        0.6442,
+        0.3558
+      ],
+      "originated_pick_team": "Lynn Vision",
+      "originated_rung": "Valve official standings (HLTV lineup-disambiguated)",
+      "flag_ids": [],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/lynn-vision-vs-chinggis-warriors-void-autumn-cup-2026-1081871",
+        "https://polymarket.com/event/cs2-lvg-cw-2026-10-22",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1081149",
+      "teams": [
+        "FORZE Reload",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T14:00:00Z",
+      "featured_gap_reason": "LFO 10 is absent by name from 2026-10-05 Valve standings (3/5 former Entropy #156) and Polymarket lists 'FORZE Reload vs Sökerorg' with an unquoted 0.05/0.95 book.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+        "h2h_url": "https://www.hltv.org/matches/2399301/forze-reload-vs-lfo-10-cct-2026-europe-series-11",
+        "hltv_world_rank": {
+          "FORZE Reload": 80,
+          "LFO 10": 167
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "FORZE Reload": 85,
+          "LFO 10": 157
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "unquoted_stub_0_05_0_95",
+          "market_id": "6036901",
+          "spread": 0.9,
+          "source_url": "https://polymarket.com/event/cs2-forzer-skr2-2026-10-23"
+        }
+      ],
+      "originated_probabilities": [
+        0.5101,
+        0.4899
+      ],
+      "originated_pick_team": "FORZE Reload",
+      "originated_rung": "HLTV world ranking (#80 11.0 pts vs #167 4.0 pts)",
+      "flag_ids": [
+        "df80ab9f-daily-hltv-vrs-gap-beyond-top300"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+        "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+        "https://www.hltv.org/matches/2399301/forze-reload-vs-lfo-10-cct-2026-europe-series-11",
+        "https://polymarket.com/event/cs2-forzer-skr2-2026-10-23",
+        "https://www.hltv.org/ranking/teams",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "featured_gap_reason": "Polymarket cs2-brute-baks-2026-10-23 spread > 0.15 ($0 vol, asks 80c/82c) and Valve global table has two BRUTE rows (#75 and #218).",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "disambiguation": "HLTV active Czech BRUTE lineup matches Valve #75 BRUTE (1116 pts) vs #100 BAKS (1044 pts).",
+        "source_url": "https://www.hltv.org/ranking/teams"
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "wide_book_rejected",
+          "observed_card_asks": [
+            0.82,
+            0.8
+          ],
+          "source_url": "https://polymarket.com/event/cs2-brute-baks-2026-10-23"
+        }
+      ],
+      "originated_probabilities": [
+        0.4005,
+        0.5995
+      ],
+      "originated_pick_team": "BRUTE",
+      "originated_rung": "Valve official standings (HLTV lineup-disambiguated)",
+      "flag_ids": [],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+        "https://polymarket.com/event/cs2-brute-baks-2026-10-23",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "featured_gap_reason": "RED Canids Academy is unranked on Valve VRS and Polymarket cs2-bsta-reda-2026-10-23 is an unquoted 0.05/0.95 stub ($0 vol).",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+        "hltv_world_rank": {
+          "BESTIA Academy": 184,
+          "RED Canids Academy": 170
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "BESTIA Academy": 243,
+          "RED Canids Academy": null
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "unquoted_stub_0_05_0_95",
+          "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23"
+        },
+        {
+          "provider": "bo3.gg network model",
+          "status": "low_confidence_estimate",
+          "probabilities": [
+            0.2116,
+            0.7884
+          ],
+          "interval_1sigma": [
+            0.0567,
+            0.5452
+          ],
+          "source_url": "https://bo3.gg/teams/18461"
+        }
+      ],
+      "originated_probabilities": [
+        0.2116,
+        0.7884
+      ],
+      "originated_pick_team": "RED Canids Academy",
+      "originated_rung": "Own network model (bo3.gg results graph, low_confidence=true)",
+      "flag_ids": [
+        "df80ab9f-low-confidence-oceania-sa-fallbacks"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+        "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
+        "https://bo3.gg/teams/18461",
+        "https://bo3.gg/teams/16743",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082926",
+      "teams": [
+        "Isurus",
+        "Hacha"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "featured_gap_reason": "Polymarket cs2-isg-hachae-2026-10-23 is an unquoted 0.04/0.96 stub ($0 vol); Hacha (VRS #378) is outside Valve top-300 GitHub export and has <6 bo3.gg series; HLTV rounds both #215 Isurus and #229 Hacha to 2.0 points.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "match_url": "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+        "lineups": {
+          "Isurus": [
+            "Hezz",
+            "dott1",
+            "atarax1a",
+            "rzk",
+            "deco"
+          ],
+          "Hacha": [
+            "Lucasye",
+            "superex",
+            "toto",
+            "BUSAN",
+            "KvNs"
+          ]
+        },
+        "hltv_world_rank": {
+          "Isurus": 215,
+          "Hacha": 229
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "Isurus": 200,
+          "Hacha": 378
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket",
+          "status": "unquoted_stub_0_04_0_96",
+          "event_id": "1233768",
+          "market_id": "6036925",
+          "spread": 0.92,
+          "source_url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23"
+        },
+        {
+          "provider": "Kalshi",
+          "status": "not_listed",
+          "source_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open"
+        }
+      ],
+      "originated_probabilities": [
+        0.5,
+        0.5
+      ],
+      "originated_pick_team": null,
+      "originated_rung": "HLTV world ranking equal-points tie (2.0 vs 2.0 -> [0.5, 0.5]; directional pick left null)",
+      "flag_ids": [
+        "df80ab9f-isurus-hacha-hltv-integer-tie-1082926",
+        "df80ab9f-daily-hltv-vrs-gap-beyond-top300"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+        "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+        "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+        "https://gamma-api.polymarket.com/events?slug=cs2-isg-hachae-2026-10-23",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "featured_gap_reason": "Four days before LAN start in Brisbane; no open Polymarket/Kalshi/esportsbook market and Off Chops has no Valve or HLTV world-ranking row.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "event_url": "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+        "hltv_world_rank": {
+          "Ground Zero": 143,
+          "Off Chops": null
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "bo3.gg network model",
+          "status": "low_confidence_estimate",
+          "probabilities": [
+            0.444,
+            0.556
+          ],
+          "interval_1sigma": [
+            0.1164,
+            0.8288
+          ],
+          "n_series_min": 6,
+          "source_url": "https://bo3.gg/teams/584"
+        }
+      ],
+      "originated_probabilities": [
+        0.444,
+        0.556
+      ],
+      "originated_pick_team": "Off Chops",
+      "originated_rung": "Own network model (bo3.gg results graph, 6-series sample, low_confidence=true)",
+      "flag_ids": [
+        "df80ab9f-low-confidence-oceania-sa-fallbacks"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+        "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+        "https://bo3.gg/teams/584",
+        "https://bo3.gg/teams/25492",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "featured_gap_reason": "Five days before match start; no open Polymarket/Kalshi/esportsbook market, and ANZ qualifier stack Staqued has no Valve row, no HLTV ranking row, and <6 bo3.gg series.",
+      "hltv_first_check": {
+        "checked": true,
+        "identity_confirmed": true,
+        "event_url": "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+        "hltv_world_rank": {
+          "FlyQuest": 61,
+          "Staqued": null
+        },
+        "hltv_vrs_rank_2026_10_22": {
+          "FlyQuest": 54,
+          "Staqued": null
+        }
+      },
+      "external_lines_checked": [
+        {
+          "provider": "HLTV world ranking (unranked floor)",
+          "status": "low_confidence_estimate",
+          "probabilities": [
+            0.523,
+            0.477
+          ],
+          "source_url": "https://www.hltv.org/ranking/teams"
+        }
+      ],
+      "originated_probabilities": [
+        0.523,
+        0.477
+      ],
+      "originated_pick_team": "FlyQuest",
+      "originated_rung": "HLTV world ranking · unranked floor (#61 16.0 pts vs 0.0 floor, low_confidence=true)",
+      "flag_ids": [
+        "df80ab9f-low-confidence-oceania-sa-fallbacks"
+      ],
+      "source_urls": [
+        "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+        "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+        "https://www.hltv.org/ranking/teams",
+        "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations"
+      ]
+    }
+  ]
+}
