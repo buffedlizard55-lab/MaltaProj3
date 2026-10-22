@@ -1,3 +1,12 @@
+# Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
+Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S3016-1 Fresh line-source research for model-only/unresolved fixtures: HLTV first, then esportsbooks/aggregators not yet priced in ladder; dated evidence; wire a source only if it returns a real two-sided prematch price replayable from saved evidence | in progress | arena-3016b0c6 | `scripts/3016b0c6_probe.py` (new, read-only), `.github/workflows/3016b0c6-probe.yml` (session-only, removed before merge), new `data/research/3016b0c6/` |
+| S3016-2 Phone findability: in-page "find a pick" filter on Picks at a glance (team/competition search, count, no JS = all rows visible), sticky on mobile; executive-summary links audited | unclaimed→in progress | arena-3016b0c6 | `scripts/build.py` (`glance()` only), `assets/scout.js`, `assets/scout.css`, `tests/test_3016b0c6_mobile_glance.py` (new) |
+| S3016-3 Separate unresolved/no-line section in executive summary verified per-row (blocker, sources tried incl. HLTV then esportsbooks, limitation, source links); rebuild, verify line-by-line, PR + merge + Pages confirm | unclaimed | arena-3016b0c6 | `data/research/3016b0c6/`, this section; `scripts/build.py` unresolved register only if a defect is found |
+Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If wiring a new price source into `originate.py` becomes justified it will be logged here first (that file is unowned — all prior owners merged).
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
