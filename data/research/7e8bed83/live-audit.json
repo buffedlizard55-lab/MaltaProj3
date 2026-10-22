@@ -1,0 +1,80 @@
+{
+  "session": "arena-7e8bed83",
+  "observed_at": "2026-10-22T01:10Z",
+  "live_snapshot": {
+    "latest_generated_at": "2026-10-21T23:42:26Z",
+    "inventory_observed_at": "2026-10-21T23:42:14Z",
+    "origination_generated_at": "2026-10-21T23:42:37Z",
+    "counts_latest": {
+      "inventory": 74,
+      "upcoming": 12,
+      "archived": 62,
+      "market": 2,
+      "bookmaker": 0,
+      "model": 5,
+      "featured_unresolved": 5,
+      "featured_picks": 7
+    },
+    "counts_complete": {
+      "active": 12,
+      "resolved": 12,
+      "unresolved": 0,
+      "with_pick": 12,
+      "market": 3,
+      "bookmaker": 0,
+      "model": 9,
+      "network": 2,
+      "guidance": 0,
+      "alias_joined": 1
+    },
+    "interpretation": "Featured exact-name method leaves 5 of 12 active fixtures unresolved; the researched fallback ladder (HLTV first, then Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle, EGamersWorld aggregate, Valve, own network, HLTV ranking, guidance) resolves all 12 in the complete list. No fixture is blank in the complete list at this snapshot; the executive-summary unresolved section therefore correctly reports 0 and links the register for when a fixture cannot be resolved.",
+    "sources": [
+      {
+        "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+        "detail": "Live featured snapshot"
+      },
+      {
+        "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+        "detail": "Live complete-picks snapshot, counts and ladder policy"
+      },
+      {
+        "url": "https://play.hotspawn.com/lobby",
+        "detail": "Hotspawn lobby inventory source (never a probability input)"
+      },
+      {
+        "url": "https://www.hltv.org/matches",
+        "detail": "HLTV research first stop"
+      },
+      {
+        "url": "https://www.hltv.org/ranking/teams",
+        "detail": "HLTV world ranking model rung"
+      },
+      {
+        "url": "https://polymarket.com/esports/cs2",
+        "detail": "Esportsbook/exchange research"
+      },
+      {
+        "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+        "detail": "Kalshi CS2 match-winner markets (example live quote 2026-10-21T23:42Z)"
+      },
+      {
+        "url": "https://thunderpick.io/esports/counter-strike",
+        "detail": "Thunderpick esportsbook"
+      },
+      {
+        "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+        "detail": "Bovada esportsbook"
+      },
+      {
+        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+        "detail": "Valve official standings model rung"
+      }
+    ]
+  },
+  "limitations": [
+    "A fixture with no compliant market/book line and no rating/network input stays blank by design; it is published in the executive-summary Unresolved picks & limitations section and origination/#unresolved with its HLTV-first research trail \u2014 never filled with 50/50.",
+    "HLTV match pages have returned HTTP 403 to CI runners (prior session dbaf7692, flagged); HLTV ranking pages remain the usable HLTV rung and HLTV fan votes are never used.",
+    "GitHub Pages remains build_type=legacy (API HTTP 403 to the workflow token); the publisher re-verifies and republishes after the legacy build \u2014 platform limitation, flagged previously.",
+    "Model/network/HLTV-ranking estimates are uncalibrated research estimates, not betting odds; lineups, stand-ins and vetoes are unverified. Guidance-only wide-book midpoints are never counted as money picks."
+  ]
+}

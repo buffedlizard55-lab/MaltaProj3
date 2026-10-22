@@ -1,0 +1,420 @@
+{
+  "session": "arena-c1fa150f",
+  "task": "C1F-2 independent re-verification of the live Hotspawn CS2 inventory",
+  "method": "Read https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 directly (the exact URL scripts/sources.py uses) through a read-only page reader, chunk by chunk, between 2026-10-22T01:09Z and 2026-10-22T01:25Z. Records were transcribed by hand from the response text; no value was inferred and no request was made with credentials or a challenge bypass.",
+  "endpoint": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+  "read_window_utc": [
+    "2026-10-22T01:09Z",
+    "2026-10-22T01:25Z"
+  ],
+  "comparison_snapshot": {
+    "file": "data/research/11be2015/live/latest.json",
+    "generated_at": "2026-10-21T20:39:42Z",
+    "inventory_observed_at": "2026-10-21T20:39:32Z",
+    "records": 75,
+    "upcoming": 13
+  },
+  "records_transcribed": 33,
+  "records": [
+    {
+      "chunk": "chunk 6",
+      "id": "1081869",
+      "teams": [
+        "Morningstar",
+        "NEXVOID"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "scheduled_start_utc": "2026-10-22T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1081870",
+      "teams": [
+        "Vitalem Aerem",
+        "Rare Atom"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "scheduled_start_utc": "2026-10-22T05:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1081143",
+      "teams": [
+        "BakS",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "scheduled_start_utc": "2026-10-22T08:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1079650",
+      "teams": [
+        "GenOne",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-22T08:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1079188",
+      "teams": [
+        "Bushido Wildcats",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "scheduled_start_utc": "2026-10-22T08:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1079651",
+      "teams": [
+        "Butterfly",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-22T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1079189",
+      "teams": [
+        "FORZE Reload",
+        "Just Players"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "scheduled_start_utc": "2026-10-22T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 6",
+      "id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "scheduled_start_utc": "2026-10-22T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1081597",
+      "teams": [
+        "benched gods",
+        "TitanFlow"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "scheduled_start_utc": "2026-10-22T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1082767",
+      "teams": [
+        "Nemesis",
+        "WW"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "scheduled_start_utc": "2026-10-22T11:30:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1081598",
+      "teams": [
+        "JiJieHao",
+        "Nexus"
+      ],
+      "competition": "DraculaN Season 7",
+      "scheduled_start_utc": "2026-10-22T13:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1081600",
+      "teams": [
+        "Donstu",
+        "Banda chuya"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "scheduled_start_utc": "2026-10-22T13:45:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "scheduled_start_utc": "2026-10-22T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1081145",
+      "teams": [
+        "Lavked",
+        "HAVU"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "scheduled_start_utc": "2026-10-22T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1082688",
+      "teams": [
+        "Imperial",
+        "Turma do Pagode"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "scheduled_start_utc": "2026-10-22T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1082689",
+      "teams": [
+        "BESTIA",
+        "ShindeN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "scheduled_start_utc": "2026-10-22T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1079652",
+      "teams": [
+        "Acend",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-22T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 7",
+      "id": "1082180",
+      "teams": [
+        "Sangal",
+        "Metizport"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "scheduled_start_utc": "2026-10-22T16:30:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1079653",
+      "teams": [
+        "Rune Eaters",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-22T17:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1082769",
+      "teams": [
+        "K27",
+        "NEXORA"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "scheduled_start_utc": "2026-10-22T17:30:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1082770",
+      "teams": [
+        "UPGRADE",
+        "Virtus.pro"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "scheduled_start_utc": "2026-10-22T20:30:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "scheduled_start_utc": "2026-10-23T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-23T08:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "scheduled_start_utc": "2026-10-23T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "scheduled_start_utc": "2026-10-23T11:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1081149",
+      "teams": [
+        "FORZE Reload",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "scheduled_start_utc": "2026-10-23T14:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 8",
+      "id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "scheduled_start_utc": "2026-10-23T17:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": false
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "scheduled_start_utc": "2026-10-26T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "scheduled_start_utc": "2026-10-26T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "scheduled_start_utc": "2026-10-27T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "scheduled_start_utc": "2026-10-27T03:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "scheduled_start_utc": "2026-10-31T09:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    },
+    {
+      "chunk": "chunk 9",
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "scheduled_start_utc": "2026-10-31T13:00:00Z",
+      "in_published_snapshot_2026_10_21T20_39Z": true
+    }
+  ],
+  "absent_from_that_snapshot": [
+    "1081869",
+    "1081143",
+    "1079650",
+    "1079188",
+    "1079651",
+    "1079189",
+    "1081596",
+    "1082767",
+    "1081598",
+    "1081145",
+    "1079652",
+    "1082180",
+    "1079653",
+    "1082769",
+    "1082770",
+    "1081871",
+    "1079654",
+    "1081148",
+    "1079655",
+    "1081149",
+    "1081150"
+  ],
+  "absent_count": 21,
+  "cross_checks": [
+    {
+      "check": "A published fixture permalink still resolves and names the same fixture, date and time.",
+      "url": "https://www.hotspawn.com/matches/vitalem-aerem-vs-rare-atom-void-autumn-cup-2026-1081870",
+      "read_at": "2026-10-22T01:40Z",
+      "observed": "Title \"Vitalem Aerem vs Rare Atom ... VOID Autumn Cup 2026 - 1081870\", 05:00 22 OCT; the same page links the previous fixture 1081869 (Morningstar vs NEXVOID) and the next 1081871 (Lynn Vision vs Chinggis Warriors)."
+    }
+  ],
+  "limitations": [
+    "The page reader returns the response body in chunks; records listed here are only those whose fields were fully printed in a chunk boundary. Rows cut in half by a chunk boundary were not transcribed.",
+    "This read cannot by itself prove when a fixture was added to Hotspawn. A fixture absent from the 20:39Z collector snapshot and present at 01:09Z is consistent with a later schedule publication, with a partial/stale API response at 20:39Z, or with a collector omission. The next production refresh settles it.",
+    "No probability, pick or market line is recorded here. This file is an inventory observation only."
+  ]
+}

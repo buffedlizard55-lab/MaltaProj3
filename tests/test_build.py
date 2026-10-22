@@ -350,12 +350,14 @@ class GlanceIndexTests(unittest.TestCase):
     def test_no_active_fixtures_renders_nothing_rather_than_an_empty_claim(self):
         self.assertEqual(glance({'matches': [], 'fallbacks': {}}, ''), '')
 
-    def test_glance_renders_split_probabilities_for_both_teams(self):
+    def test_glance_renders_probabilities_for_both_teams(self):
         from datetime import datetime, timedelta, timezone
         fixed_now = datetime(2026, 10, 21, 12, 0, tzinfo=timezone.utc)
         match = self.fixed_match(5, fixed_now + timedelta(hours=2))
         html = glance({'matches': [match], 'fallbacks': {}}, '', now=fixed_now)
-        self.assertIn('class="glance-split"', html)
-        self.assertIn('(62.0% vs 38.0%)', html)
+        self.assertIn('glance-prob', html)
+        self.assertIn('62.0%', html)
+        self.assertIn('glance-other', html)
+        self.assertIn('38.0%', html)
 
 
