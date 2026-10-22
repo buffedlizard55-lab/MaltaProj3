@@ -7,7 +7,7 @@ on:
     paths: ['scripts/3cf793ef_research.py', '.github/workflows/3cf793ef-research.yml']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   verify:
     runs-on: ubuntu-24.04
@@ -21,8 +21,14 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Read live Hotspawn inventory and the live published snapshot
         run: python -m scripts.3cf793ef_research --out data/research/3cf793ef/live
-      - uses: actions/upload-artifact@v6
-        with:
-          name: 3cf793ef-live-verification
-          path: data/research/3cf793ef/live/
-          retention-days: 7
+      - name: Commit the captured evidence to this session branch
+        run: |
+          git config user.name 'arena-3cf793ef'
+          git config user.email 'arena-3cf793ef@users.noreply.github.com'
+          git add data/research/3cf793ef/live
+          if git diff --cached --quiet; then
+            echo 'no change'
+          else
+            git commit -m "evidence(3cf793ef): live inventory, published ladder and drift capture"
+            git push
+          fi
