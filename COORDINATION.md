@@ -66,6 +66,26 @@ Runner-observed, read-only, `2026-10-22T01:29Z` (`data/research/fbdc97d6/esports
 - **The sweep is now part of the four-hour publisher** (`pages.yml`, non-fatal, 10 s per request) so the
   published limitations carry a current date without manual input. `scripts/fbdc97d6_probe.py` is kept
   (like the earlier `scripts/bo3_odds_probe.py`); only the branch-scoped workflow below is removed.
+### Publication record (2026-10-22T07:10Z)
+
+- **PR merged:** [#153](https://github.com/buffedlizard55-lab/MaltaProj3/pull/153) — *FB: real provenance
+  for every researched pick, dated line-source sweep, phone findability* — merged into `main` without
+  approval as `d55ed87` at **2026-10-22T03:51:51Z**, after two rebases/merges to absorb `main`'s movement
+  (#152, #157, the Pages duplicate-artifact fix).
+- **Checks green on the final head** `83b0325`: `Rows, build, links, mobile and accessibility` pass (17m45s),
+  `originate` pass (4m12s).
+- **Pages deployment confirmed live** (run 39719177378, `republish-last-verified` + `verify-and-deploy` both
+  success). Verified on the published site at 22 Oct 2026, 06:18 snapshot:
+  `https://buffedlizard55-lab.github.io/MaltaProj3/` shows **34 active fixtures, 34 with a directional pick,
+  15 from an external line, 19 from a research model, 0 unresolved**; every glance row shows **both**
+  teams' probabilities; the stale "Thunderpick paired-price book" sentence is **gone** and each researched
+  row now names its real source (Valve rating model / HLTV world-ranking model / bo3.gg results network /
+  median of independent money sources / aggregated bookmaker average); the **dated line-source sweep** is
+  published (`Line sources checked — dated sweep`: 7 of 22 surfaces answered, 15 refused/deleted/timed
+  out); the no-betting-line register is live; `review/` still lists every finding with source links.
+- **Site verification at 390 px**: no horizontal overflow on `/` or `/review/` (`scrollWidth − clientWidth
+  = 0`), and the local build of the same tree passes the 714-link audit with **0 sourceless rows**.
+
 ### Second merge (2026-10-22T04:20Z)
 
 `main` moved again while PR #153's checks ran (`a5c4bb6` PR #152, `a44bba5` Pages artifact fix, `fcaced9`
