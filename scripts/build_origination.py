@@ -384,11 +384,13 @@ def validate_origination(data, source):
                     'Tie-break row replaced a featured model without being marked'
                 assert any(r.get('stage') == 'Tie-break research' for r in m.get('research') or []), \
                     'Tie-break row has no dated research record'
-                continue
-            # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
-            # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.
-            # Either must be marked and is replayed from its saved first-party responses below.
-            assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
+                # Fall through: the underlying research rung must still replay
+                # from its own saved evidence exactly like any other model row.
+            else:
+                # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
+                # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.
+                # Either must be marked and is replayed from its saved first-party responses below.
+                assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
         if not o:
             assert m['pick_index'] is None
             continue

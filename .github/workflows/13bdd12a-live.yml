@@ -38,6 +38,18 @@ jobs:
         run: python -m scripts.originate --live
       - name: Save a compact, replayable snapshot under this session
         run: |
+          date -u +'snapshot step start: %FT%TZ'
+          python - <<'PY'
+          from datetime import datetime, timedelta, timezone
+          import json as _json
+          _latest = _json.load(open('data/latest.json'))
+          _t = datetime.fromisoformat(_latest['generated_at'].replace('Z', '+00:00'))
+          # Fail loudly instead of re-committing an older snapshot: a fresh
+          # collection must be newer than ten minutes before this step runs.
+          assert datetime.now(timezone.utc) - _t < timedelta(minutes=10), (
+              'collected snapshot is stale: ' + _latest['generated_at'])
+          print('fresh snapshot', _latest['generated_at'])
+          PY
           python - <<'PY'
           import json, shutil
           from pathlib import Path
