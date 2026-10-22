@@ -1,0 +1,44 @@
+[
+  {
+    "id": "3a5448de-isurus-hacha-even-no-side",
+    "severity": "warning",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "Isurus vs Hacha (1082926): exactly even estimate — direction comes only from the published-rank tie-break",
+    "detail": "Live runner snapshots 2026-10-22T07:43Z and 08:04Z: every money rung failed for this CCT South America 2026 Series #7 fixture (Polymarket book spread 0.92, no Kalshi/Thunderpick/Bovada/Pinnacle line, no bo3.gg relayed quote, no EGamersWorld capture), Hacha has no Valve rating row, the own results model has only 2 anchored Hacha series (needs 8) and the own network model only 5 finished Hacha series (needs 6). The HLTV world-ranking rung gives exactly equal published points (Isurus 2.0, HLTV #215; Hacha 2.0, HLTV #229), so the probabilities stay 50.0%/50.0% and carry no edge. At the 08:04Z snapshot this session's probe still showed no side; main has since merged session 4c972a51's published-rank tie-break (PR #174), which gives the fixture a direction (Isurus, the higher published rank) without changing the 50/50 probabilities. Treat that direction as a ranking-order convention, not an estimated edge: the pick exists so the pick'em slate has a team, and the even probabilities remain the honest estimate. bo3.gg publishes a team 'rank' field, but the record carries no published strength methodology (it sits beside avg_views and six_month_earned), so it was not used.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://www.hltv.org/ranking/teams",
+      "https://bo3.gg/matches/isurus-gaming-cs-go-vs-hacha-esports-23-10-2026",
+      "https://polymarket.com/esports/cs2"
+    ]
+  },
+  {
+    "id": "3a5448de-no-new-book-source-wired",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "HLTV-then-esportsbook research for featured-blank fixtures: no new price source could be verified (2026-10-22)",
+    "detail": "Runner probe 2026-10-22T08:06Z (data/research/3a5448de/live-research.json) for the 19 active fixtures the featured method did not resolve with a first-party money line (19 resolved by research models, 1 of them even with no side, 0 still blank out of 43 active; 42/43 have a directional pick). HLTV first: match listing and world ranking both HTTP 403 Cloudflare challenge to the runner, and HLTV publishes no two-sided prematch price in any case (fan vote excluded). Esportsbooks/aggregators: Stake 403, GG.BET 403, Marathonbet 403, EGamersWorld 403, BetBoom 401, 1xBet 203 challenge, DraftKings 404 on the CS2 path, Betway 404, Oddspedia 410 (page deleted), Luckbox DNS failure; OddsPortal and Rivalry answered 200 but listed none of the target teams and render prices client-side, so no two-sided price could be verified from them. bo3.gg bound 14 of the 19 fixtures by both names and start time but published a bet_updates bookmaker block for 0 of them (the relay remains a rung for fixtures that do carry one). bo3.gg team records publish a 'rank' and 'six_month_earned' with no strength methodology in the record, so that field was recorded as a rejected lead, not wired. Conclusion: no new source was added to the ladder and no probability changed; the model-only fixtures keep their labelled research estimates, their failed money sources, and this limitation, and every four-hour refresh retries all of them.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://bo3.gg/matches",
+      "https://www.oddsportal.com/esports/counter-strike/",
+      "https://www.rivalry.com/esports/counter-strike-2-betting",
+      "https://gg.bet/en/counter-strike",
+      "https://www.oddspedia.com/esports/counter-strike-2"
+    ]
+  },
+  {
+    "id": "3a5448de-exec-summary-single-unresolved-register",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Executive summary had two different 'Unresolved picks & limitations' sections; now one canonical register",
+    "detail": "Before this session the executive summary rendered the H2 'Unresolved picks & limitations' twice with different counts: the separate complete-list register near the top (#unresolved-register) and a featured-method table near the bottom (#unresolved), and the hero/briefing phone shortcuts pointed at the bottom one while the jump bar pointed at the top one. The bottom section is now titled 'Featured-method gaps, before research fallback' and explicitly says the register above is the current answer; every summary shortcut for unresolved picks lands on #unresolved-register. Locked by tests/test_3a5448de_summary.py and the updated phone browser spec.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  }
+]
