@@ -50,5 +50,17 @@
       "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
       "https://www.hltv.org/ranking/teams"
     ]
+  },
+  {
+    "id": "bdc084c1-main-was-red-on-a-stale-render-test",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "main's unit suite was failing on a stale byte-equality assertion about the published snapshot",
+    "detail": "On 2026-10-22 at 09:35Z the checked-out origin/main (1cab862) failed test_review_flags.ReviewFlagsIntegration.test_render_only_findings_do_not_rewrite_the_canonical_json: it required site/data/latest.json to be byte-identical to data/latest.json, but write_reconciled_snapshot() (session 4c972a51) deliberately republishes that file at indent 1 with three additional keys (featured_method_counts, complete_coverage_counts, counts_note) so the downloaded JSON cannot contradict the rendered page. Verified on a clean worktree of origin/main: 4 tests, 1 failure, so this was not introduced by the merging session. The assertion is replaced by the stronger contract used in PR #172 (source bytes unchanged; published JSON identical on generated_at, inventory_observed_at, counts, matches and flags; extra keys exactly those three). No published number, pick or finding changes. Published because a red suite on main can hide a real regression behind a known failure.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_review_flags.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/172"
+    ]
   }
 ]
