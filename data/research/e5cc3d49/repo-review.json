@@ -155,17 +155,17 @@
    "id": "E5-08",
    "area": "test contract",
    "severity": "high",
-   "status": "fixed",
+   "status": "verified",
    "finding": "tests/test_review_flags.py asserted that the published site/data/latest.json is byte-identical to data/latest.json. scripts/build.py::write_reconciled_snapshot (PR #176) deliberately adds three documented reconciliation keys to the published copy so the downloadable JSON cannot contradict the rendered page, so the assertion failed and blocked every pull request's test suite.",
-   "handling": "Test updated to the actual contract: the collected source snapshot is never rewritten; the published copy differs by exactly featured_method_counts, complete_coverage_counts and counts_note; every original key and value survives unchanged; and the reconciliation keys cannot appear without their explanatory note. No production code changed.",
+   "handling": "Same defect, fixed upstream before this branch merged: session df80ab9f changed write_reconciled_snapshot() to publish the reconciliation in data/reconciled-counts.json, so data/latest.json is byte-identical again and the original assertion holds. This session briefly edited the test, then dropped that edit when the rebase showed the upstream fix; the register records the finding and the resolution, and no test change from this session remains in the tree.",
    "evidence": [
     {
      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39750414537",
-     "detail": "The pull-request run that failed on this assertion (annotation: 'FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json')."
+     "detail": "The pull-request run that failed on this assertion (annotation: 'FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json') while the repository carried the keys-in-latest.json version."
     },
     {
      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
-     "detail": "write_reconciled_snapshot(): the documented reason for the three added keys, and the note that counts.* describes the featured method only."
+     "detail": "write_reconciled_snapshot(): now writes data/reconciled-counts.json and leaves data/latest.json untouched, which is the contract the test asserts."
     }
    ]
   }

@@ -179,19 +179,18 @@ Review. Files touched outside this session's original scope: `scripts/build_orig
 `scripts/coverage_audit.py` — both unowned at edit time (their owners merged and stopped; no active
 claim named them), and the change is the minimum needed to stop the publisher aborting.
 
-### E5-4 — the second blocker: an outdated snapshot-contract test (2026-10-22T09:40Z)
+### E5-4 — the second blocker, and the upstream fix that superseded it (2026-10-22T10:05Z)
 
 `checks.yml` on this PR failed at
 `tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json`, which
-asserted the published `site/data/latest.json` is byte-identical to `data/latest.json`.
-`scripts/build.py::write_reconciled_snapshot()` (session 4c972a51, PR #176) deliberately adds
-`featured_method_counts`, `complete_coverage_counts` and `counts_note` to the **published copy** so
-the downloaded JSON cannot contradict the page. The source snapshot is still never rewritten; the
-test encoded the pre-#176 contract and blocked every PR. Updated to assert the real contract: the
-source file is untouched, the published copy differs only by those three documented keys, every
-original key survives unchanged, and the reconciliation keys never appear without their note.
-Recorded as **E5-08 fixed**. File touched outside the original scope: `tests/test_review_flags.py`
-(unowned at edit time).
+asserted the published `site/data/latest.json` is byte-identical to `data/latest.json`, while
+`write_reconciled_snapshot()` was adding three keys to the published copy. This session edited the
+test to encode the new contract; the rebase onto current `main` then showed that session `df80ab9f`
+had already fixed the same defect properly — the reconciliation now lives in
+`data/reconciled-counts.json`, so `latest.json` is byte-identical again and the original assertion
+holds. **The test edit from this session was dropped**, and the finding is published as **E5-08
+verified** with the upstream commit named. Lesson recorded for the next integration: rebase before
+editing a test that encodes a contract, because the contract may already have been restored.
 
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
