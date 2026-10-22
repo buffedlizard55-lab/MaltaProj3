@@ -6,9 +6,9 @@ Claimed **2026-10-22T07:45Z** on Arena's fixed branch `arena/bdc084c1-maltaproj3
 merged, so nothing overlaps this scope. This session integrates and merges its own work.
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| BD-1 Verify that fixtures Hotspawn adds *after* a published snapshot are picked up by the next refresh, and publish what each newly listed fixture resolves to (line, research model, or explicit limitation) | in progress | arena-bdc084c1 | `scripts/bdc084c1_probe.py` (read-only, kept), `.github/workflows/bdc084c1-probe.yml` (**session-only, removed before merge**), new `data/research/bdc084c1/` |
-| BD-2 Name the destination source on every phone-index link (the summary currently labels a Polymarket or Thunderpick link "Bookmaker", and a consensus row can point at a prediction market) | in progress | arena-bdc084c1 | `scripts/build.py` (`glance()` source-link label only), `assets/scout.css` (only if a new class is needed), `tests/test_bdc084c1_labels.py`, this section |
-| BD-3 Rebuild from the checked-in replay fixture, run the unit and browser suites, publish flags, open and merge a PR, then confirm the Pages deployment | in progress | arena-bdc084c1 | `data/research/bdc084c1/`, this section |
+| BD-1 Verify that fixtures Hotspawn adds *after* a published snapshot are picked up by the next refresh, and publish what each newly listed fixture resolves to (line, research model, or explicit limitation) | **done** — see BD-1 result | arena-bdc084c1 | `scripts/bdc084c1_probe.py` (read-only, kept), `.github/workflows/bdc084c1-probe.yml` (**session-only, removed before merge**), new `data/research/bdc084c1/` |
+| BD-2 Name the destination source on every phone-index link (the summary currently labels a Polymarket or Thunderpick link "Bookmaker", and a consensus row can point at a prediction market) | **done** — see BD-2 done | arena-bdc084c1 | `scripts/build.py` (`glance()` source-link label only), `assets/scout.css` (only if a new class is needed), `tests/test_bdc084c1_labels.py`, this section |
+| BD-3 Rebuild from the checked-in replay fixture, run the unit and browser suites, publish flags, open and merge a PR, then confirm the Pages deployment | **done** — see BD-3 result | arena-bdc084c1 | `data/research/bdc084c1/`, this section |
 **Non-overlap pledge.** No change to `scripts/collect.py`, `scripts/sources.py`, `scripts/originate.py`,
 `scripts/domain.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/coverage_probe.py`,
 `data/origination/aliases.json`, `data/latest.json`, `data/sources.json`, `data/origination.json`,
@@ -56,6 +56,33 @@ intentionally republishes that JSON at indent 1 with three extra keys (`featured
   session's merge. Where the two branches meet the content is identical, so the merge is a no-op.
 - With that file, the merged tree's suite is green apart from nothing: `tests.test_review_flags`
   4 tests OK, and the full suite is re-run by CI on this PR.
+
+### BD-3 result — the red browser job was the render test, and main had already fixed it (2026-10-22T10:55Z)
+The `Rows, build, links, mobile and accessibility` job failed twice on this branch at the step
+"Phone, desktop, no-JS, staleness and WCAG A/AA checks" while the same browser suite passed 85/85
+locally. The job's logs are not readable from this session's sandbox (the log blob host is
+unreachable), so the first thing added was a reporter that names its own test:
+`npx playwright test --reporter=list,github`, which publishes each failure as a run annotation.
+The annotation answered it immediately and it was **not a browser failure at all**:
+`FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json`. That step runs the unit suite
+before Playwright, so one stale unit test was taking the whole mobile/accessibility job down.
+- **Why the branch was red and main was not.** This branch had adopted PR #172's field-by-field
+  contract for `site/data/latest.json`. Upstream then fixed the *cause* instead: commit `81139b1`
+  (merged in PR #181) leaves `data/latest.json` byte-identical and writes the reconciliation to
+  `data/reconciled-counts.json`. With that, PR #172's contract can never hold (the three extra keys
+  are no longer added) while main's original two-line byte-equality assertion is true again.
+- **Fix.** `tests/test_review_flags.py` restored to `origin/main`'s version verbatim, after verifying
+  on a clean worktree of `origin/main` @ `49dd327` that it passes there and fails on this branch.
+  The published flag `bdc084c1-main-was-red-on-a-stale-render-test` was rewritten to say that
+  upstream fixed it and that **PR #172 is superseded and must not be merged as-is** (merging it
+  would turn the suite red in the other direction).
+- **Local suite on the merged tree:** `python -m unittest discover -s tests` → **942 tests, OK**.
+- **Live coverage re-probed from CI** (`bdc084c1-probe.yml`, run `39764976089`, re-run after the
+  test fix): 104 ids reconciled with `inventory_crosscheck: complete`, 43 upcoming, **43 active,
+  43 with probabilities, 42 with a pick, 1 without a side** (Isurus vs Hacha, the even model
+  estimate already on Flagged for Review). Numbers are published as run annotations because the
+  job logs are unreadable here.
+- The session-only probe workflow is deleted again before this PR merges, as in BD-1.
 
 ### BD-1 result — fixtures added after a published snapshot are captured and priced (2026-10-22T08:35Z)
 Runner-observed, read-only. `scripts/bdc084c1_probe.py` compares the freshly collected snapshot with
