@@ -317,6 +317,15 @@ def estimate_fixture(match: dict, binding: dict | None, document: dict | None,
     low = win_probability(inputs[0]['points'] - sd_diff, inputs[1]['points'] + sd_diff)
     high = win_probability(inputs[0]['points'] + sd_diff, inputs[1]['points'] - sd_diff)
     low_confidence = bool(low < 0.5 < high or min(inputs[0]['series'], inputs[1]['series']) < 10)
+    # Session 5f6fe71d (board task 5F-1, residual of the 11B-4 finding): the
+    # quote always linked bo3.gg's match *index* even when the identity binding
+    # held a specific official record — the bound fixture page (bridge
+    # start_time_and_team_name) or the bound team page (bridge
+    # exact_team_name_lookup). Publish the most specific bo3.gg record behind
+    # the estimate; only an absent or non-bo3.gg binding URL falls back to the
+    # index, so the chip can never link a less specific page than the evidence.
+    bound_source = str((binding or {}).get('source_url') or '')
+    quote_source = bound_source if bound_source.startswith('https://bo3.gg/') else 'https://bo3.gg/matches'
     quote = {
         'provider': 'Own network model (bo3.gg results graph)',
         'family': 'network',
@@ -330,7 +339,7 @@ def estimate_fixture(match: dict, binding: dict | None, document: dict | None,
         'graph_matches': document.get('graph_matches'),
         'graph_anchors': len(document.get('anchors') or {}),
         'low_confidence': low_confidence,
-        'source_url': 'https://bo3.gg/matches',
+        'source_url': quote_source,
         'identity_bridge': (binding or {}).get('bridge'),
         'evidence_file': EVIDENCE_REFERENCE,
         'evidence_sha256': document.get('evidence_sha256'),

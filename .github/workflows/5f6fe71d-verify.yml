@@ -1,0 +1,176 @@
+name: 5F (arena-5f6fe71d) published-artifact verification and live recheck
+# Session-only workflow (board tasks 5F-2/5F-3): deleted before the merge, per
+# the board's convention for capture tooling. It never deploys and never writes
+# to main; it verifies the PUBLISHED artifact independently and re-runs the
+# production chain on this branch so the 5F-1 network-provenance repair is
+# validated against live sources before the PR.
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/5f6fe71d-maltaproj3]
+    paths:
+      - 'scripts/verify_5f6fe71d.py'
+      - 'scripts/network_model.py'
+      - '.github/workflows/5f6fe71d-verify.yml'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: 5f-verify
+  cancel-in-progress: false
+jobs:
+  verify-published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Identify the latest successful production deployment on main
+        id: lastrun
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          run_id=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].id // empty')
+          if [ -z "$run_id" ]; then
+            echo "::error title=5F::no successful production run found on main"
+            exit 1
+          fi
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "Verifying the artifact of production run $run_id"
+      - name: Download the published Pages artifact of that run
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          run-id: ${{ steps.lastrun.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: published
+      - name: Verify the published snapshot line by line (independent arithmetic + fresh reads)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          python -m scripts.verify_5f6fe71d --published published --out data/research/5f6fe71d 2>&1 | tee verify-5f.log
+          status=${PIPESTATUS[0]}
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          d = json.load(open('data/research/5f6fe71d/published-verification.json'))
+          rc, inv = d['row_count'], d['inventory']
+          print('## 5F independent verification of the published artifact\n')
+          print(f"Verdict: **{d['verdict'].upper()}** (published snapshot {d['published_generated_at']})\n")
+          print(f"- validator: {d['validator'].get('verdict')} — {d['validator'].get('detail', '')[:160]}")
+          print(f"- rows: {rc['active']} active, {rc['replay_pass']} recomputed exactly, {rc['replay_fail']} failed, "
+                f"{rc['recompute_unavailable']} unavailable, {rc['blank']} blank")
+          print(f"- inventory: {inv.get('verdict')} — published {inv.get('published_upcoming')} upcoming vs "
+                f"API {inv.get('api_upcoming_future_start')} future-start; drift: started {len(inv.get('started_since_snapshot') or [])}, "
+                f"new {len(inv.get('in_api_not_published') or [])}, gone {len(inv.get('published_not_in_api') or [])}")
+          print(f"- valve: {d['valve_reread'].get('verdict')}; html: {d['html'].get('verdict')}; "
+                f"hltv attempt: HTTP {d['hltv_attempt'].get('http_status')}")
+          conflicts = [i for i in d['market_rereads'] if i.get('direction_agrees') is False]
+          print(f"- market re-reads: {len(d['market_rereads'])} recorded, {len(conflicts)} direction conflicts")
+          if d['hard_failures']:
+              print('\nHard failures:\n')
+              for f in d['hard_failures']:
+                  print(f'- {f}')
+          PY
+          exit "$status"
+      - name: Live pipeline recheck — fresh collect + originate + full replay build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+          python -m scripts.build --output site-live
+      - name: Compare the fresh chain against the published snapshot and the 5F-1 repair
+        run: |
+          python - <<'PY'
+          import gzip, json, shutil
+          from datetime import datetime, timezone
+          from pathlib import Path
+          out = Path('data/research/5f6fe71d'); (out / 'live').mkdir(parents=True, exist_ok=True)
+          fresh_latest = json.load(open('data/latest.json'))
+          fresh_orig = json.load(open('data/origination.json'))
+          pub_latest = json.load(open('published/data/latest.json'))
+          pub_orig_path = Path('published/data/origination.json')
+          pub_orig = json.load(open(pub_orig_path)) if pub_orig_path.exists() else {'matches': []}
+
+          def active_map(orig):
+              return {str(m['id']): m for m in orig.get('matches') or [] if m.get('availability') != 'past'}
+          fresh_rows, pub_rows = active_map(fresh_orig), active_map(pub_orig)
+          comparison = []
+          for fid in sorted(set(fresh_rows) | set(pub_rows)):
+              f, p = fresh_rows.get(fid), pub_rows.get(fid)
+              def summary(row):
+                  if not row:
+                      return None
+                  o = row.get('origination') or {}
+                  return {'method': o.get('method'), 'family': o.get('family'), 'source': o.get('source'),
+                          'pick_index': row.get('pick_index'),
+                          'probabilities': o.get('probabilities'), 'source_url': o.get('source_url')}
+              comparison.append({'id': fid,
+                                 'teams': [t.get('name') for t in (f or p).get('teams') or []],
+                                 'starts_at': (f or p).get('starts_at'),
+                                 'published': summary(p), 'fresh': summary(f),
+                                 'changed': summary(p) != summary(f)})
+
+          # 5F-1 repair check on the live chain: a network quote must publish the
+          # bound bo3.gg record when the binding holds one, else the index.
+          bindings_path = Path('data/origination/evidence/live-bo3-bindings.json')
+          bindings = (json.load(open(bindings_path)).get('matches') or {}) if bindings_path.exists() else {}
+          repair = []
+          for fid, row in fresh_rows.items():
+              o = row.get('origination') or {}
+              if o.get('family') != 'network':
+                  continue
+              binding = bindings.get(fid) or {}
+              bound = str(binding.get('source_url') or '')
+              expected = bound if bound.startswith('https://bo3.gg/') else 'https://bo3.gg/matches'
+              repair.append({'id': fid, 'bridge': binding.get('bridge'),
+                             'binding_source_url': bound or None,
+                             'quote_source_url': o.get('source_url'),
+                             'expected_source_url': expected,
+                             'repair_ok': o.get('source_url') == expected})
+
+          report = {'schema_version': 1, 'session': 'arena-5f6fe71d',
+                    'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+                    'fresh_generated_at': fresh_orig.get('generated_at'),
+                    'published_generated_at': pub_orig.get('generated_at'),
+                    'fresh_counts': fresh_latest.get('counts'),
+                    'published_counts': pub_latest.get('counts'),
+                    'comparison': comparison,
+                    'changed_rows': sum(1 for c in comparison if c['changed']),
+                    'network_repair': repair,
+                    'network_repair_ok': all(r['repair_ok'] for r in repair) if repair else None,
+                    'note': ('A fresh run minutes after the published snapshot can legitimately differ: '
+                             'markets move, fixtures start, new fixtures appear. Differences are recorded '
+                             'with both timestamps; nothing here rewrites a published pick.')}
+          (out / 'live-recheck.json').write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n')
+          for name in ('latest.json', 'origination.json', 'sources.json'):
+              src = Path('data') / name
+              if src.exists():
+                  (out / 'live' / (name + '.gz')).write_bytes(gzip.compress(src.read_bytes(), 6))
+          for name in ('live-bo3-bindings.json', 'live-bo3-graph.json'):
+              src = Path('data/origination/evidence') / name
+              if src.exists() and src.stat().st_size < 40_000_000:
+                  (out / 'live' / (name + '.gz')).write_bytes(gzip.compress(src.read_bytes(), 6))
+          print('5F live recheck:',
+                f"fresh {report['fresh_generated_at']} vs published {report['published_generated_at']};",
+                f"{report['changed_rows']} changed active rows;",
+                f"network repair ok={report['network_repair_ok']} ({len(repair)} network rows)")
+          if repair and not all(r['repair_ok'] for r in repair):
+              raise SystemExit('5F-1 repair did not hold on the live chain: ' + json.dumps(repair))
+          PY
+      - name: Commit the dated verification evidence to this session branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/research/5f6fe71d
+          if git diff --cached --quiet; then
+            echo "No new evidence to commit."
+          else
+            git commit -m "5F: dated independent verification of the published snapshot and live recheck evidence"
+            git push origin HEAD:refs/heads/arena/5f6fe71d-maltaproj3
+          fi
