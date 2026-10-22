@@ -357,3 +357,13 @@
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
 }
+
+/* Session ee27e097 — the start-here bar gained a dedicated unresolved/ page, so
+   on the narrowest phones its cards are tightened (never below a 48px target) to
+   keep the "Picks at a glance" index inside the documented first-screen bound. */
+@media(max-width:375px){
+  .start-here{padding:13px 14px;margin-bottom:16px}
+  .start-here ul{gap:7px}
+  .start-here a{padding:10px 12px;min-height:48px}
+  .start-here span{font-size:10px;line-height:1.5}
+}

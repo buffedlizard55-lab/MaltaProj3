@@ -509,11 +509,10 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
          'Historical Thunderpick final-day review and result record.'),
-        (prefix + 'unresolved/', 'Unresolved & limitations', 'alert',
-         'The separate register: every fixture with no pick, every pick without a betting line, '
-         'the exact blocker and every source actually tried.'),
-        (prefix + '#unresolved-register', f'Gaps in this summary ({unresolved} with no pick)', 'flag',
-         'The same register on this page, for scanning without leaving the summary.'),
+        (prefix + 'unresolved/', 'Unresolved & limits', 'alert',
+         'No pick or no line — blocker and sources.'),
+        (prefix + '#unresolved-register', f'Gaps in this summary ({unresolved})', 'flag',
+         'Same register, on this page.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
