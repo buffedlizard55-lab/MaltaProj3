@@ -1,0 +1,1335 @@
+{
+ "schema_version": 1,
+ "audited_at": "2026-10-22T07:47:04.149307Z",
+ "snapshot": {
+  "featured_generated_at": "2026-10-22T07:44:26Z",
+  "origination_generated_at": "2026-10-22T07:44:38Z",
+  "inventory_observed_at": "2026-10-22T07:44:00Z"
+ },
+ "violations": [
+  "fixture 1081596: saved order book does not reproduce the quoted bid/ask for outcome 0",
+  "fixture 1081596: saved order book does not reproduce the quoted bid/ask for outcome 1",
+  "fixture 1082769: saved order book does not reproduce the quoted bid/ask for outcome 0",
+  "fixture 1082769: saved order book does not reproduce the quoted bid/ask for outcome 1"
+ ],
+ "rows": [
+  {
+   "id": "1079188",
+   "teams": [
+    "Bushido Wildcats",
+    "ex-6666"
+   ],
+   "method": "market",
+   "pick": "ex-6666",
+   "probabilities": [
+    0.305,
+    0.695
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (ex-6666)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1079650",
+   "teams": [
+    "GenOne",
+    "Spirit Academy"
+   ],
+   "method": "market",
+   "pick": "Spirit Academy",
+   "probabilities": [
+    0.415,
+    0.585
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Spirit Academy)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081143",
+   "teams": [
+    "BakS",
+    "Azuolas"
+   ],
+   "method": "model",
+   "pick": "BakS",
+   "probabilities": [
+    0.73372436,
+    0.26627564
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (BakS)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1079189",
+   "teams": [
+    "FORZE Reload",
+    "Just Players"
+   ],
+   "method": "market",
+   "pick": "FORZE Reload",
+   "probabilities": [
+    0.665,
+    0.335
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FORZE Reload)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1079651",
+   "teams": [
+    "Butterfly",
+    "Lavked"
+   ],
+   "method": "model",
+   "pick": "Butterfly",
+   "probabilities": [
+    0.77416873,
+    0.22583127
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Butterfly)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1081596",
+   "teams": [
+    "Falcons Force",
+    "Phantom Academy"
+   ],
+   "method": "market",
+   "pick": "Falcons Force",
+   "probabilities": [
+    0.595,
+    0.405
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Falcons Force)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints"
+   ],
+   "violations": [
+    "fixture 1081596: saved order book does not reproduce the quoted bid/ask for outcome 0",
+    "fixture 1081596: saved order book does not reproduce the quoted bid/ask for outcome 1"
+   ],
+   "note": ""
+  },
+  {
+   "id": "1082767",
+   "teams": [
+    "Nemesis",
+    "WW"
+   ],
+   "method": "consensus",
+   "pick": "Nemesis",
+   "probabilities": [
+    0.7688816,
+    0.2311184
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Nemesis)",
+    "known ladder method (consensus)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed as the median of 3 independent providers"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081598",
+   "teams": [
+    "JiJieHao",
+    "Nexus"
+   ],
+   "method": "market",
+   "pick": "JiJieHao",
+   "probabilities": [
+    0.645,
+    0.355
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (JiJieHao)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081599",
+   "teams": [
+    "FaZe",
+    "BC.Game"
+   ],
+   "method": "bookmaker",
+   "pick": "FaZe",
+   "probabilities": [
+    0.52291105,
+    0.47708895
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FaZe)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082919",
+   "teams": [
+    "Projeto do KinGui",
+    "Martians"
+   ],
+   "method": "model",
+   "pick": "Martians",
+   "probabilities": [
+    0.49856089,
+    0.50143911
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Martians)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1081600",
+   "teams": [
+    "Donstu",
+    "Banda chuya"
+   ],
+   "method": "model",
+   "pick": "Banda chuya",
+   "probabilities": [
+    0.4045841,
+    0.5954159
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Banda chuya)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1079652",
+   "teams": [
+    "Acend",
+    "ex-6666"
+   ],
+   "method": "market",
+   "pick": "Acend",
+   "probabilities": [
+    0.515,
+    0.485
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Acend)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081145",
+   "teams": [
+    "Lavked",
+    "HAVU"
+   ],
+   "method": "market",
+   "pick": "HAVU",
+   "probabilities": [
+    0.495,
+    0.505
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (HAVU)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082688",
+   "teams": [
+    "Imperial",
+    "Turma do Pagode"
+   ],
+   "method": "market",
+   "pick": "Imperial",
+   "probabilities": [
+    0.77,
+    0.23
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Imperial)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082689",
+   "teams": [
+    "BESTIA",
+    "ShindeN"
+   ],
+   "method": "market",
+   "pick": "ShindeN",
+   "probabilities": [
+    0.465,
+    0.535
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (ShindeN)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082882",
+   "teams": [
+    "UNiTY",
+    "Apogee Betclic"
+   ],
+   "method": "consensus",
+   "pick": "Apogee Betclic",
+   "probabilities": [
+    0.42785231,
+    0.57214769
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Apogee Betclic)",
+    "known ladder method (consensus)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed as the median of 3 independent providers"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081603",
+   "teams": [
+    "SinnerS",
+    "Eternal Fire"
+   ],
+   "method": "market",
+   "pick": "SinnerS",
+   "probabilities": [
+    0.535,
+    0.465
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (SinnerS)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082920",
+   "teams": [
+    "MEIA NOITE",
+    "Procyon"
+   ],
+   "method": "bookmaker",
+   "pick": "Procyon",
+   "probabilities": [
+    0.45346493,
+    0.54653507
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Procyon)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082180",
+   "teams": [
+    "Sangal",
+    "Metizport"
+   ],
+   "method": "market",
+   "pick": "Sangal",
+   "probabilities": [
+    0.535,
+    0.465
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Sangal)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1079653",
+   "teams": [
+    "Rune Eaters",
+    "FORZE Reload"
+   ],
+   "method": "market",
+   "pick": "FORZE Reload",
+   "probabilities": [
+    0.355,
+    0.645
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FORZE Reload)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081146",
+   "teams": [
+    "6yuBoJlbl",
+    "ex-6666"
+   ],
+   "method": "market",
+   "pick": "6yuBoJlbl",
+   "probabilities": [
+    0.51,
+    0.49
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (6yuBoJlbl)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082769",
+   "teams": [
+    "K27",
+    "NEXORA"
+   ],
+   "method": "market",
+   "pick": "K27",
+   "probabilities": [
+    0.895,
+    0.105
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (K27)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints"
+   ],
+   "violations": [
+    "fixture 1082769: saved order book does not reproduce the quoted bid/ask for outcome 0",
+    "fixture 1082769: saved order book does not reproduce the quoted bid/ask for outcome 1"
+   ],
+   "note": ""
+  },
+  {
+   "id": "1082921",
+   "teams": [
+    "your end",
+    "Yawara"
+   ],
+   "method": "bookmaker",
+   "pick": "Yawara",
+   "probabilities": [
+    0.1687448,
+    0.8312552
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Yawara)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082770",
+   "teams": [
+    "UPGRADE",
+    "Virtus.pro"
+   ],
+   "method": "market",
+   "pick": "Virtus.pro",
+   "probabilities": [
+    0.385,
+    0.615
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Virtus.pro)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082922",
+   "teams": [
+    "Low Cortisol BR",
+    "Gr\u00eamio"
+   ],
+   "method": "model",
+   "pick": "Low Cortisol BR",
+   "probabilities": [
+    0.66195106,
+    0.33804894
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Low Cortisol BR)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1081871",
+   "teams": [
+    "Lynn Vision",
+    "Chinggis Warriors"
+   ],
+   "method": "model",
+   "pick": "Lynn Vision",
+   "probabilities": [
+    0.64419091,
+    0.35580909
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Lynn Vision)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from official Valve points (fixed RD 75)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1079654",
+   "teams": [
+    "ex-Zero Tenacity",
+    "ex-RUSTEC"
+   ],
+   "method": "model",
+   "pick": "ex-RUSTEC",
+   "probabilities": [
+    0.49888,
+    0.50112
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (ex-RUSTEC)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "method": "model",
+   "pick": "Nuclear TigeRES",
+   "probabilities": [
+    0.93003347,
+    0.06996653
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Nuclear TigeRES)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "method": "market",
+   "pick": "Spirit Academy",
+   "probabilities": [
+    0.455,
+    0.545
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Spirit Academy)",
+    "known ladder method (market)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from published bid/ask midpoints",
+    "saved order book reproduces outcome 0 bid/ask",
+    "saved order book reproduces outcome 1 bid/ask"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082923",
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "method": "bookmaker",
+   "pick": "Alka",
+   "probabilities": [
+    0.71111111,
+    0.28888889
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Alka)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081149",
+   "teams": [
+    "FORZE Reload",
+    "LFO 10"
+   ],
+   "method": "model",
+   "pick": "FORZE Reload",
+   "probabilities": [
+    0.51007245,
+    0.48992755
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FORZE Reload)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESS\u00caNCIA"
+   ],
+   "method": "model",
+   "pick": "QUINTESS\u00caNCIA",
+   "probabilities": [
+    0.47621793,
+    0.52378207
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (QUINTESS\u00caNCIA)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "method": "model",
+   "pick": "BRUTE",
+   "probabilities": [
+    0.40054361,
+    0.59945639
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (BRUTE)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from official Valve points (fixed RD 75)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "method": "model",
+   "pick": "ex-RUSTEC",
+   "probabilities": [
+    0.80746193,
+    0.19253807
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (ex-RUSTEC)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "method": "model",
+   "pick": "RED Canids Academy",
+   "probabilities": [
+    0.21130473672903713,
+    0.7886952632709628
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (RED Canids Academy)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "method": "model",
+   "pick": null,
+   "probabilities": [
+    0.5,
+    0.5
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "method": "model",
+   "pick": "Off Chops",
+   "probabilities": [
+    0.4439669300944456,
+    0.5560330699055545
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Off Chops)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "method": "model",
+   "pick": "NEXVOID",
+   "probabilities": [
+    0.72821824,
+    0.27178176
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (NEXVOID)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "method": "model",
+   "pick": "FlyQuest",
+   "probabilities": [
+    0.52300959,
+    0.47699041
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FlyQuest)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "method": "model",
+   "pick": "Abyssal",
+   "probabilities": [
+    0.47761494,
+    0.52238506
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Abyssal)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "method": "bookmaker",
+   "pick": "B8",
+   "probabilities": [
+    0.52702703,
+    0.47297297
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (B8)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "method": "bookmaker",
+   "pick": "FaZe",
+   "probabilities": [
+    0.3718593,
+    0.6281407
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (FaZe)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "method": "bookmaker",
+   "pick": "Luminosity",
+   "probabilities": [
+    0.53763441,
+    0.46236559
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (Luminosity)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "method": "bookmaker",
+   "pick": "GamerLegion",
+   "probabilities": [
+    0.46236559,
+    0.53763441
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (GamerLegion)",
+    "known ladder method (bookmaker)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from quoted decimal odds (1/o, normalised)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "method": "model",
+   "pick": "HOTU",
+   "probabilities": [
+    0.94052062,
+    0.05947938
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (HOTU)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time",
+    "recomputed from official Valve points (fixed RD 75)"
+   ],
+   "violations": [],
+   "note": ""
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "method": "model",
+   "pick": "1WIN",
+   "probabilities": [
+    0.17816902,
+    0.82183098
+   ],
+   "checks": [
+    "two named teams",
+    "official Hotspawn link carries the fixture id",
+    "two probabilities in (0, 1)",
+    "probabilities sum to 1",
+    "pick is the argmax (1WIN)",
+    "known ladder method (model)",
+    "https source link beside the number",
+    "ISO-8601 observation time"
+   ],
+   "violations": [],
+   "note": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable"
+  }
+ ],
+ "not_recomputable": [
+  {
+   "id": "1081143",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1079651",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1082919",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://www.hltv.org/ranking/teams"
+  },
+  {
+   "id": "1081600",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1082922",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1079654",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
+  },
+  {
+   "id": "1079655",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1081149",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://www.hltv.org/ranking/teams"
+  },
+  {
+   "id": "1082924",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1081150",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1082925",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://bo3.gg/matches"
+  },
+  {
+   "id": "1082926",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://www.hltv.org/ranking/teams"
+  },
+  {
+   "id": "1082858",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://bo3.gg/matches"
+  },
+  {
+   "id": "1082859",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1082860",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://www.hltv.org/ranking/teams"
+  },
+  {
+   "id": "1082861",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  },
+  {
+   "id": "1082793",
+   "reason": "model fit (network / HLTV-ranking / results form); its graph inputs are not in the published payload, so the number is recorded as not independently recomputable",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  }
+ ],
+ "checks": {
+  "inventory_reconciled": true,
+  "active_fixtures": 46,
+  "counts_reconciled": true,
+  "summary_links": true,
+  "glance_complete": true,
+  "summary_picks_match": true
+ },
+ "totals": {
+  "market": 16,
+  "bookmaker": 8,
+  "consensus": 2,
+  "reference": 0,
+  "model": 20,
+  "guidance": 0,
+  "unresolved": 0,
+  "recomputed": 29,
+  "rows": 46
+ }
+}
