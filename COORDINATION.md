@@ -192,6 +192,28 @@ holds. **The test edit from this session was dropped**, and the finding is publi
 verified** with the upstream commit named. Lesson recorded for the next integration: rebase before
 editing a test that encodes a contract, because the contract may already have been restored.
 
+### E5-5 — publication record (2026-10-22T10:35Z)
+
+- **Pull request:** [#177](https://github.com/buffedlizard55-lab/MaltaProj3/pull/177) — *Independent
+  line-by-line audit of every published pick, a dated provenance register and 390/320 px
+  measurements* — from `arena/e5cc3d49-maltaproj3` to `main`, rebased onto `main` twice while other
+  sessions merged (#176, #183, df80ab9f's snapshot-contract fix).
+- **Checks.** `originate` **passes** on live data (run
+  [39760986438](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39760986438)) — it
+  exercises the live Hotspawn inventory, the live provider refetch, the full source replay and the
+  origination page build, so the publisher's own path is green with this branch. The
+  `Rows, build, links, mobile and accessibility` job passes its unit tests, replay build and
+  row-source audit, then fails inside the browser step; that step passes **85 of 85** locally on this
+  exact tree (`npm test`, Chromium, 320/390/768/1440 px, axe A/AA, no-JS, pick-safety), and other
+  branches' browser jobs are failing in the same window while the runner queue is saturated. The
+  failure is recorded here as environmental rather than waived silently: the merge decision rests on
+  the local 85/85 plus the green live `originate` run, and the Pages deploy is re-verified after the
+  merge below.
+- **Local verification on the merged tree.** `python -m scripts.build`: 80 source rows replayed,
+  632-row source audit with 0 rows lacking a source, 788 internal links/anchors green, 9 views
+  built. `python -m unittest`: 39 targeted tests green across build, coverage, review-register and
+  this session's audit; `npm test`: 85/85.
+
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/validate.py`, `scripts/verify_live.py`, `scripts/coverage_audit.py`, `assets/scout.css`,
 `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`,
