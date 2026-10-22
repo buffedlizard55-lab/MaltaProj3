@@ -324,3 +324,36 @@
   .line-source-note{grid-column:1/-1}
 
 }
+
+/* Session 75aa5b56 — phone-first executive summary and pick readability.
+   The brief says the site was confusing and picks were hard to find on a
+   phone. This block keeps every previous session's rules and adds only
+   thumb-friendly, high-contrast overrides so Picks at a Glance is obvious
+   above the fold and each row shows both probabilities in large type. */
+.exec-banner-actions a{min-height:48px}
+.start-here a{min-height:56px}
+.mobile-status a{min-height:52px}
+@media(max-width:700px){
+  .exec-banner{border-left-width:5px}
+  .exec-banner h3{font-size:16px}
+  .exec-banner-actions a{font-size:12px}
+  .exec-banner-actions a .sub{font-size:9.5px}
+  .glance-list{gap:10px}
+  .glance-row{border-left:4px solid #f0dcc8}
+  .glance-row:focus-within{border-left-color:var(--orange);outline:2px solid var(--orange);outline-offset:2px}
+  .glance-choice{font-size:13px}
+  .glance-choice>strong{font-size:16px}
+  .glance-prob{font-size:13px}
+  .glance-other{font-size:11px;font-weight:600}
+  .glance-time{font-size:11px}
+  .glance-links .source-link{font-size:10px;min-height:32px}
+  .start-here a{border-width:1.2px}
+  .start-here strong{font-size:14px}
+  .start-here span{font-size:11px;line-height:1.6}
+  .mobile-nav>a{min-height:48px}
+}
+@media(max-width:375px){
+  .exec-banner-actions a{min-height:48px}
+  .glance-choice>strong{font-size:15px}
+  .glance-prob,.glance-other{font-size:12px}
+}
