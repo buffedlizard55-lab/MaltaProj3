@@ -186,14 +186,8 @@
 .limitations-callout li{font-size:12px;line-height:1.9;margin-bottom:7px}
 @media(max-width:700px){
   .start-here{padding:15px 16px;margin-bottom:20px}
-  /* Phone: the jump bar is a nav strip, not five stacked cards. Two compact
-     columns with titles only (details stay on wider screens) so Picks at a
-     glance starts above 1,500px instead of after ~450px of link cards.
-     Integration fix (3016b0c6): the stacked-card layout pushed the glance
-     section to y=1561 on main, failing the phone above-the-fold check. */
-  .start-here ul{grid-template-columns:1fr 1fr;gap:8px}
-  .start-here a{min-height:44px;padding:10px 11px;align-items:center}
-  .start-here span{display:none}
+  .start-here ul{grid-template-columns:1fr;gap:9px}
+  .start-here a{min-height:52px;padding:12px 13px}
   .day-read{padding:0 16px 18px;grid-template-columns:1fr;gap:11px}
   .final-day-card{margin:0 16px 13px}
   .final-day-head{padding:15px 16px}
@@ -372,6 +366,7 @@
   .exec-banner-actions a{min-height:48px}
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
+}
 /* Session 4c972a51 — dedicated unresolved page: status cards, the dated source
    matrix behind the limitations, and the published resolution ladder. */
 .unresolved-metrics{margin:18px 0 26px}
@@ -403,4 +398,27 @@
   .probe-source{padding:10px 12px}
   .probe-source-head .source-link{font-size:11.5px}
   .ladder-list li{font-size:11.5px;line-height:1.9}
+}
+
+/* Session df80ab9f — restore phone above-the-fold budget (< 1500px at 320px/390px)
+   after PRs #163 + #174 while preserving >= 44px touch targets. */
+@media(max-width:700px){
+  .exec-banner{padding:11px 13px;margin-bottom:9px}
+  .exec-banner-label{margin-bottom:3px}
+  .exec-banner h3{margin-bottom:4px}
+  .exec-banner-desc{margin-bottom:7px;line-height:1.42}
+  .exec-banner-actions{gap:6px}
+  .exec-banner-actions a{min-height:44px;padding:6px 10px}
+  .exec-banner-meta{margin-top:6px;line-height:1.38}
+  .start-here{padding:9px 11px;margin-bottom:9px}
+  .start-here-label{margin-bottom:5px}
+  .start-here ul{gap:5px}
+  .start-here a{min-height:44px;padding:6px 10px}
+  .start-here strong{font-size:13px}
+  .start-here span{font-size:10.5px;line-height:1.38}
+  .mobile-status a{min-height:46px}
+}
+@media(max-width:375px){
+  .exec-banner-actions a{min-height:44px}
+  .start-here span{font-size:10px;line-height:1.34}
 }

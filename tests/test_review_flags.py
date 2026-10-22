@@ -62,18 +62,15 @@ class ReviewFlagsIntegration(unittest.TestCase):
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        # Session 4c972a51 (d4ab460, on main) intentionally publishes a
-        # featured-vs-researched reconciliation in the *output* snapshot, so
-        # byte equality no longer holds there. Integration fix (3016b0c6):
-        # this test failed on unmodified main 1cab862; assert the documented
-        # contract instead — every original field preserved unchanged, and
-        # only the three reconciliation keys added.
-        published = json.loads((self.output / 'data/latest.json').read_text())
-        original = json.loads(self.original)
-        added = {'featured_method_counts', 'complete_coverage_counts', 'counts_note'}
-        self.assertEqual(set(published) - set(original), added)
-        for key, value in original.items():
-            self.assertEqual(published[key], value, key)
+        # The published count reconciliation is a sidecar; the canonical feed
+        # and its output copy remain byte-identical to the collector artifact.
+        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        reconciled = json.loads((self.output / 'data/reconciled-counts.json').read_text())
+        self.assertEqual(set(reconciled), {
+            'generated_at', 'inventory_observed_at', 'featured_method_counts',
+            'complete_coverage_counts', 'counts_note',
+        })
+
 
 
 if __name__ == '__main__':

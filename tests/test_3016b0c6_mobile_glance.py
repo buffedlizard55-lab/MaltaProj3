@@ -74,9 +74,10 @@ class NoLineResearchBlockTests(unittest.TestCase):
         data = {"_no_line_research": {
             "observed_at": "2026-10-22T07:39:57+00:00",
             "per_fixture": [
-                {"teams": ["6yuBoJlbl", "ex-6666"], "money_line_lead": True,
+                {"id": "1081146", "teams": ["6yuBoJlbl", "ex-6666"], "money_line_lead": True,
                  "bo3_bound_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
-                 "bo3_bet": {"provider": "thunderpick",
+                 "hotspawn_url": "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
+                 "bo3_bet": {"provider": "thunderpick", "path": "https://thunderpick.io/match/2868959",
                              "team_1": {"name": "6yuBoJlbl", "coeff": 1.72},
                              "team_2": {"name": "ex-6666", "coeff": 2.0}}},
                 {"teams": ["BakS", "Azuolas"], "money_line_lead": False}]}}
@@ -85,9 +86,29 @@ class NoLineResearchBlockTests(unittest.TestCase):
         self.assertIn("1</strong> new money-line lead", html)
         self.assertIn("thunderpick via bo3.gg: 6yuBoJlbl 1.72 / ex-6666 2.0", html)
         self.assertIn("reviewed", html)
-        self.assertIn("ladder replays it on the next four-hour refresh", html)
+        self.assertIn("first-party ladder must replay it on a later refresh", html)
         self.assertIn("data/research/3016b0c6/line-source-research.json", html)
+        self.assertIn("https://thunderpick.io/match/2868959", html)
+        self.assertIn("Thunderpick market", html)
         self.assertNotIn("Pick</span>", html)  # a lead is never presented as a pick
+
+    def test_later_money_line_snapshot_supersedes_the_dated_lead(self):
+        from scripts.build import no_line_research_block
+        data = {"_no_line_research": {
+            "observed_at": "2026-10-22T07:39:57+00:00",
+            "per_fixture": [{"id": "1081146", "teams": ["6yuBoJlbl", "ex-6666"],
+                             "money_line_lead": True, "bo3_bound_url": "https://bo3.gg/matches/x",
+                             "bo3_bet": {"provider": "thunderpick",
+                                         "team_1": {"name": "6yuBoJlbl", "coeff": 1.72},
+                                         "team_2": {"name": "ex-6666", "coeff": 2.0},
+                                         "path": "https://thunderpick.io/match/2868959"}}]},
+                "complete_picks": {"matches": [{"id": "1081146", "origination": {
+                    "method": "bookmaker", "label": "Current Thunderpick money line"}}]}}
+        html = no_line_research_block(data, "")
+        self.assertIn("subsequently superseded in the current complete-picks snapshot", html)
+        self.assertIn("Current Thunderpick money line", html)
+        self.assertIn("origination/#match-1081146", html)
+        self.assertNotIn("must replay it on a later refresh", html)
 
     def test_block_absent_without_record(self):
         from scripts.build import no_line_research_block

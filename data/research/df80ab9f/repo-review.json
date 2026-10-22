@@ -1,0 +1,164 @@
+{
+  "session": "arena-df80ab9f",
+  "branch": "arena/df80ab9f-maltaproj3",
+  "review_clock_utc": "2026-10-22T07:45Z",
+  "scope": "Line-by-line verification of all 107 scheduled Hotspawn CS2 fixtures (46 active upcoming + 61 past), the multi-rung external origination pipeline (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg, Valve VRS, HLTV world ranking), HLTV-first low-tier fallback research across CCT South America Series #7, CCT Europe Series #11/#12, VOID Autumn Cup and DFRAG Invitational, and mobile Executive Summary + Flagged for Review provenance in scripts/build.py.",
+  "method": "Every row in the live 2026-10-22T07:32-07:44Z Hotspawn Cloudways API array was cross-checked against our live GitHub Actions origination audit (run 39741108044, check-run 119698261806), the deployed 05:37Z Pages JSON, first-party Polymarket Gamma API payloads, official HLTV match/ranking/VRS pages, and Valve official 2026-10-05 GitHub standings. Unconfirmed values were left null and flagged rather than inferred.",
+  "items": [
+    {
+      "id": "df80-01",
+      "area": "Hotspawn CS2 lobby inventory & 4-8h autonomous refresh",
+      "status": "verified",
+      "finding": "Live verification at 2026-10-22T07:32-07:38Z reconciled all 107 scheduled CS2 records across play.hotspawn.com/lobby, /cs2-pickems and the Cloudways tenantId=1 API (crosscheck=complete: 61 past, 46 upcoming from 2026-10-22T08:00Z through 2026-10-31T13:00Z; 30 Tier B and 16 Tier C active). Scheduled workflow .github/workflows/pages.yml refreshes every 4 hours (17 */4 * * * plus 47 2-22/4 * * * catch-up) with hotspawn_votes_used=false.",
+      "handling": "All 46 active matches and their community vote exclusions are archived line by line in data/research/df80ab9f/live-inventory-audit.json with SHA-256 verification via scripts/df80ab9f_audit.py.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Authoritative 107-record scheduled CS2 fixture array (46 upcoming, 61 past) with community pick shares excluded from probability origination."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Public Hotspawn lobby surface reconciled against the API array (crosscheck=complete)."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations",
+          "detail": "Live CI run 39741108044 (2026-10-22T07:32:04Z) confirming 107 records, 46 canonical non-past fixtures, 0 unresolved, 45 directional picks."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "4-hour scheduled publisher + 2.5h catch-up + 75s legacy-Pages build verification."
+        }
+      ]
+    },
+    {
+      "id": "df80-02",
+      "area": "mobile Executive Summary, internal pick links & unresolved limitations",
+      "status": "verified",
+      "finding": "Landing page index.html surfaces a persistent mobile-status shortcut bar (picks ready -> origination/#picks; unresolved -> origination/#unresolved), a Start Here card, a phone-first Picks at a glance list displaying both teams’ win probabilities and the obvious pick side, and a dedicated #unresolved-picks section documenting every featured-pass limitation and researched fallback.",
+      "handling": "Verified via local build (604 audited rows, 0 violations, 732 internal links/anchors passing) and strict row-source audit.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "Renders mobile-status strip, Start Here navigation, two-sided Picks at a glance rows, and the unresolved/researched limitations register."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/audit_rows.py",
+          "detail": "Strict row-level official-source auditor confirming 0 sourceless rows across all generated pages."
+        }
+      ]
+    },
+    {
+      "id": "df80-03",
+      "area": "HLTV-disambiguated Valve & money-consensus fallbacks (1082882, 1081871, 1079657)",
+      "status": "verified",
+      "finding": "Fallback origination ran strictly on fixtures unresolved by the featured exact-name pass: 1082882 UNiTY vs Apogee Betclic resolved to 43.5% / 56.5% via Polymarket (1c spread) + Thunderpick consensus; 1081871 Lynn Vision vs Chinggis Warriors (64.4% / 35.6%) and 1079657 BakS vs BRUTE (40.1% / 59.9%) disambiguated duplicate Valve team rows (#87 vs #220 Chinggis Warriors; #75 vs #218 BRUTE) via active HLTV 5-player rosters after rejecting wide $0-volume Polymarket books.",
+      "handling": "Verified mathematically against Valve 2026-10-05 global standings and live check-run 119698261806.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+          "detail": "Polymarket series book (0.43/0.44 and 0.56/0.57, spread 0.01) combined with Thunderpick on fixture 1082882."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22",
+          "detail": "Wide Polymarket book on 1081871 rightly rejected before HLTV-disambiguated Valve fallback."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official Valve 2026-10-05 global standings supplying #64 Lynn Vision (1190), #87 Chinggis Warriors (1084), #100 BAKS (1044), #75 BRUTE (1116)."
+        },
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/check-runs/119698261806/annotations",
+          "detail": "Live CI annotations confirming exact probabilities for 1082882, 1081871 and 1079657."
+        }
+      ]
+    },
+    {
+      "id": "df80-04",
+      "area": "fixture 1082919 Projeto do KinGui vs Martians (inverted HLTV unranked-floor pick)",
+      "status": "needs review",
+      "finding": "Official HLTV match 2399904 and Polymarket event 1232953 list Hotspawn’s Projeto do KinGui (drg, ALLE, ckzao, xureba, lash — 4/5 of Valve #144 ex-Keyd Stars, 854 pts) as Tropa do KinGui (VRS #149 vs Martians VRS #335; Polymarket bid 0.54 / ask 0.96, 75%/25% midpoint). Because Tropa do KinGui -> Projeto do KinGui is missing from aliases.json, the 07:32Z ladder fell to HLTV world ranking unranked floor (0.0 vs #240 1.0 pt) and inverted the pick to Martians (50.1%).",
+      "handling": "Executable probability left null in df80ab9f audit artifacts, published as a warning on /review/ (flag df80ab9f-kingui-missing-alias-inverted-pick), and logged in COORDINATION.md for aliases.json owners.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-2026-south-america-series-7",
+          "detail": "Official HLTV Ro16 page confirming Tropa do KinGui (VRS #149, HLTV Unranked) vs Martians (VRS #335, HLTV #240)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+          "detail": "Polymarket market 6033256 quoting Tropa do KinGui bestBid 0.54 / bestAsk 0.96 (midpoint 0.75/0.25, spread 0.42)."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Valve #144 ex-Keyd Stars (854 pts: ckzao, drg, flash, lash, xureba) sharing 4/5 starters with Tropa do KinGui."
+        }
+      ]
+    },
+    {
+      "id": "df80-05",
+      "area": "CCT South America Series #7 Polymarket alias gaps (1082920, 1082921, 1082922)",
+      "status": "needs review",
+      "finding": "Four missing competition-scoped aliases (Procyon Gaming -> Procyon, Yawara Esports -> Yawara, Low Cortisol -> Low Cortisol BR, Grêmio Esports -> Grêmio) prevented the 07:32Z collector from joining three active real-money Polymarket series books: 6033268 (44.5%/55.5%), 6033280 (15.5%/84.5%), and 6033284 (28.5%/71.5%, 0.01 spread, $1,416.42 liquidity — opposite the 66.6% Low Cortisol BR 2026-10-05 Valve baseline).",
+      "handling": "Verified against first-party Polymarket Gamma API and HLTV match 2399907, flagged on /review/, and logged as an exact 5-alias specification in COORDINATION.md.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22",
+          "detail": "Polymarket market 6033268: MEIA NOITE 0.445 / Procyon Gaming 0.555 ($85.92 vol)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22",
+          "detail": "Polymarket market 6033280: Yawara Esports 0.845 / your end 0.155 ($78.88 vol)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+          "detail": "Polymarket market 6033284: Low Cortisol 0.285 / Grêmio Esports 0.715 (spread 0.01, $1,416.42 liquidity)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-2026-south-america-series-7",
+          "detail": "Official HLTV match page confirming Low Cortisol BR vs Grêmio lineups and ranks."
+        }
+      ]
+    },
+    {
+      "id": "df80-06",
+      "area": "fixture 1082926 Isurus vs Hacha equal-points tie & Valve top-300 export cutoff",
+      "status": "platform limitation",
+      "finding": "Fixture 1082926 Isurus vs Hacha (2026-10-23T22:00Z) is the sole active match (45/46) without a directional pick: Polymarket market 6036925 is an unquoted 0.04/0.96 stub ($0 vol), Hacha (VRS #378) sits below Valve’s 300-team GitHub export (#173 Isurus 783 pts), and HLTV weekly points round both #215 Isurus and #229 Hacha to 2.0 points ([0.5, 0.5]).",
+      "handling": "Directional pick remains intentionally null rather than fabricated; Hacha Esports -> Hacha alias is already active in aliases.json so scheduled refreshes will adopt Polymarket/esportsbook lines automatically once market makers tighten quotes.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+          "detail": "HLTV match 2399911 showing Isurus (#215 HLTV, #200 VRS) vs Hacha (#229 HLTV, #378 VRS, KvNs substitute)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-isg-hachae-2026-10-23",
+          "detail": "Polymarket market 6036925 showing bestBid 0.04 / bestAsk 0.96 (spread 0.92, $0 volume)."
+        },
+        {
+          "url": "https://www.hltv.org/valve-ranking/teams/2026/october/22",
+          "detail": "HLTV daily VRS ranking publication extending beyond Valve’s monthly top-300 GitHub table."
+        }
+      ]
+    },
+    {
+      "id": "df80-07",
+      "area": "scripts/build.py consensus/relay labels & checked-in replay snapshot",
+      "status": "needs review",
+      "finding": "In scripts/build.py, matches_table (line 251), basis_badge (lines 246, 281), researched_method (line 308), and glance (line 567) label Polymarket-led consensus rows (1082882) as [Bookmaker] with a purple model badge, and label bo3.gg-relayed quotes (1081148) as Bookmaker API / an esportsbook line. Separately, checked-in data/latest.json (2026-10-15) serves as the deterministic offline CI fixture while live data is built and deployed directly in .github/workflows/pages.yml.",
+      "handling": "Published on /review/ (flag df80ab9f-build-provenance-label-mismatch) and logged with exact line numbers in COORDINATION.md to avoid cross-scope edits on scripts/build.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "Lines 246-251, 281-283, 308 and 567 in scripts/build.py."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+          "detail": "Consensus primary URL rendered under a [Bookmaker] anchor on deployed Pages."
+        },
+        {
+          "url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+          "detail": "Second-hand bo3.gg relay URL rendered as Bookmaker API in glance()."
+        }
+      ]
+    }
+  ]
+}
