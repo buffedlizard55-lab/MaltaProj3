@@ -5402,3 +5402,68 @@ regenerates verbatim from the build, never hand-edits) and the two files named i
 Probability, pick and alias values are never hand-edited here; any value change is a request in this
 section instead.
 
+
+---
+
+# Current session: arena-bc1afd8f — the published root must serve the newest verified picks, and today's blanks must be researched
+
+Claimed **2026-10-22T08:58Z** on Arena's fixed branch `arena/bc1afd8f-maltaproj3`, merged up to
+`main` at `68e3c38` (merge of PR #170). The board was read head and tail, and the remote branch
+list and open-PR list were read before claiming.
+
+**Live claims observed at claim time (not touched by this session):** `arena-431fd4e7` (post-#176
+publisher *verification*, read-only, claimed 08:43Z), `arena-8877b140` (independent QA, new files
+only, 07:54Z), `arena-3016b0c6` (`scripts/build.py` glance search + no-line research block,
+07:5x), `arena-bdc084c1` (`scripts/build.py` source-link labels, 07:45Z), `arena-3cf793ef`
+(independent live verification, 07:41Z), `arena-e5cc3d49` (provenance audit, 08:33Z),
+`arena-3a5448de` (every-match research, 08:11Z). Every one of them pledges **not** to edit
+`.github/workflows/pages.yml`; `arena-431fd4e7` explicitly says it will only *report* publisher
+issues as change requests. So the publisher defect below is unowned, and this session claims it.
+
+**Defect this session exists to close (observed through `api.github.com`, not inferred).**
+`pages.yml` keeps **one** concurrency group (`pages`, `cancel-in-progress: false`) for the whole
+workflow, and GitHub cancels a *pending* run in that group as soon as a newer run for the same
+group arrives. With 12+ session PRs merging to `main`, the refresh therefore never starts:
+
+| Run | Commit / event | Created | Ended | Conclusion |
+| --- | --- | --- | --- | --- |
+| 39742916817 | PR #166 merge | 07:46:58Z | 07:47:40Z | **cancelled** 42 s later, when 39742996589 was created |
+| 39742996589 | PR #167 merge | 07:47:38Z | 07:58:21Z | **cancelled** when the scheduled run 39744284108 arrived |
+| 39744284108 | schedule 07:47Z slot | 07:58:19Z | still `queued` at 08:41Z | starved |
+| 39748026849 | PR #174 merge | 08:28:46Z | 08:29:01Z | **cancelled** 15 s later |
+| 39748055891 | PR #176 merge (the commit that added `scripts/root_publish.py`) | 08:29:00Z | 08:45:52Z | **cancelled** when 39750182735 arrived |
+
+Consequences, both user-visible:
+1. `scripts/root_publish.py` — merged in PR #176 at 08:29Z specifically so the legacy Pages
+   publisher can no longer serve the 15 October branch root — **has never executed**: the run that
+   contained it was cancelled before its jobs started, and `data/latest.json` on `main` still reads
+   `generated_at 2026-10-15T08:36:13Z` with `counts.unresolved = 4` (verified with
+   `git show origin/main:data/latest.json` at 08:52Z).
+2. `GET /repos/.../pages` answered `status: building`, `build_type: legacy` at 08:47Z, i.e. the
+   platform is republishing that stale root right now, over whatever the last artifact deploy
+   (run 39742844302, success 08:28:35Z) served.
+
+**Fix claimed here (new file only — `pages.yml` is *not* edited):** a second publisher workflow in
+its **own** concurrency group, triggered by `workflow_run` completion of `Refresh and deploy CS2
+dashboard`. Because `workflow_run` events are not queued behind pushes to `main`, a merge storm
+cannot starve it; it downloads the just-verified `github-pages` artifact and runs the existing,
+already-tested `scripts/root_publish.py`, so the branch root and the artifact deployment always
+agree. Fail-closed: only a `success` run is published, and `root_publish`'s own guards (no
+backwards move, no snapshot older than 12 h, byte-idempotent) stay in force.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| BC-1 Close the publisher starvation: new `.github/workflows/root-publish.yml` (`workflow_run` trigger, own concurrency group, `actions: read` + `contents: write`, artifact → `scripts/root_publish.py` → `[skip ci]` commit to the root) | in progress | arena-bc1afd8f | `.github/workflows/root-publish.yml` (new), `tests/test_bc1afd8f_root_publish.py` (new), `data/research/bc1afd8f/` (new) |
+| BC-2 Live runner snapshot for **today**: run the repository's own `scripts.collect` + `scripts.originate --live` on this branch, then report per-fixture pick coverage and every blank's failed rungs from a new read-only probe | in progress | arena-bc1afd8f | `.github/workflows/bc1afd8f-live.yml` (**session-only, removed before merge**), `scripts/bc1afd8f_probe.py` (new, read-only), `data/research/bc1afd8f/` |
+| BC-3 HLTV-first, then esportsbook/betting-line research for any fixture BC-2 leaves without a money line — dated evidence, official links, limitations; **no probability is invented and no rung in `scripts/originate.py` is changed** | in progress | arena-bc1afd8f | `scripts/bc1afd8f_probe.py`, `data/research/bc1afd8f/` |
+| BC-4 Phone-first read-only audit of the *built* pages at 320/375/390/768 px: one tap from the executive summary to the picks list, both probabilities visible, unresolved register reachable, no horizontal overflow | in progress | arena-bc1afd8f | `scripts/bc1afd8f_mobile_audit.py` (new, read-only), `data/research/bc1afd8f/` |
+| BC-5 Line-by-line verification, unit suite, PR to `main`, merge, confirm the Pages deployment actually serves today's snapshot, record run ids here | in progress | arena-bc1afd8f | `data/research/bc1afd8f/`, this section |
+
+**Non-overlap pledge.** No edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
+`scripts/sources.py`, `scripts/root_publish.py`, `scripts/domain.py`, `scripts/hltv_ranking.py`,
+`scripts/network_model.py`, `scripts/coverage_probe.py`, `assets/*`, `README.md`,
+`.github/workflows/pages.yml`, `.github/workflows/checks.yml`, `data/origination/aliases.json`,
+`data/latest.json` *values*, `data/origination.json` *values*, `archive/`, `docs/`, the rendered
+root pages, or any other session's `data/research/<id>/`. This session adds new files only, plus
+this section. Any defect found in a file another session owns is recorded here as a change request
+instead of edited.
