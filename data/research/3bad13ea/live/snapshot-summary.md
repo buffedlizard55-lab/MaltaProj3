@@ -1,7 +1,7 @@
 # Live snapshot captured by the session workflow
 
-- captured_at: 2026-10-22T01:13:52Z
-- inventory_observed_at: 2026-10-22T01:11:28Z
+- captured_at: 2026-10-22T01:19:14Z
+- inventory_observed_at: 2026-10-22T01:16:34Z
 - counts: `{"inventory": 97, "upcoming": 35, "archived": 62, "unknown_schedule": 0, "market": 5, "bookmaker": 1, "model": 16, "unresolved": 13, "picks": 21, "no_edge": 1}`
 - origination_counts: `{"active": 35, "resolved": 35, "unresolved": 0, "with_pick": 34, "consensus": 1, "market": 6, "bookmaker": 1, "reference": 0, "model": 27, "network": 4, "guidance": 0, "alias_joined": 2}`
 
@@ -9,10 +9,10 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | 1081869 | Morningstar vs NEXVOID | 2026-10-22T03:00:00Z | open | - | NEXVOID 78.7% | 0.213 / 0.787 |
 | 1081870 | Vitalem Aerem vs Rare Atom | 2026-10-22T05:00:00Z | open | market | Rare Atom 64.5% | 0.355 / 0.645 |
-| 1079188 | Bushido Wildcats vs ex-6666 | 2026-10-22T08:00:00Z | open | - | Bushido Wildcats 51.4% | 0.514 / 0.486 |
+| 1079188 | Bushido Wildcats vs ex-6666 | 2026-10-22T08:00:00Z | open | - | Bushido Wildcats 51.5% | 0.515 / 0.485 |
 | 1079650 | GenOne vs Spirit Academy | 2026-10-22T08:00:00Z | open | model | GenOne 75.8% | 0.758 / 0.242 |
 | 1081143 | BakS vs Azuolas | 2026-10-22T08:00:00Z | open | model | BakS 73.4% | 0.734 / 0.266 |
-| 1079189 | FORZE Reload vs Just Players | 2026-10-22T11:00:00Z | open | market | FORZE Reload 65.5% | 0.655 / 0.345 |
+| 1079189 | FORZE Reload vs Just Players | 2026-10-22T11:00:00Z | open | market | FORZE Reload 65.0% | 0.650 / 0.350 |
 | 1079651 | Butterfly vs Lavked | 2026-10-22T11:00:00Z | open | model | Butterfly 77.4% | 0.774 / 0.226 |
 | 1081596 | Falcons Force vs Phantom Academy | 2026-10-22T11:00:00Z | open | model | Falcons Force 53.2% | 0.532 / 0.468 |
 | 1081597 | benched gods vs TitanFlow | 2026-10-22T11:00:00Z | open | - | TitanFlow 78.0% | 0.220 / 0.780 |
