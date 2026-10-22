@@ -83,11 +83,14 @@ jobs:
         run: |
           git config user.name 'arena-3bad13ea'
           git config user.email 'arena-3bad13ea@users.noreply.github.com'
+          # actions/checkout leaves a detached HEAD on a push event; name the
+          # branch before committing so `pull --rebase`/`push` cannot fail 128.
+          git checkout -B arena/3bad13ea-maltaproj3
           git add data/research/3bad13ea
           if git diff --cached --quiet; then
             echo 'nothing new to commit'
           else
             git commit -m '3bad13ea: capture live coverage snapshot for review'
-            git pull --rebase origin arena/3bad13ea-maltaproj3
-            git push origin HEAD:arena/3bad13ea-maltaproj3
+            git pull --rebase --autostash origin arena/3bad13ea-maltaproj3
+            git push origin arena/3bad13ea-maltaproj3
           fi
