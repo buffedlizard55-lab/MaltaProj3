@@ -100,4 +100,6 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m 'research(a56f3474): export independently audited live pick rows'
           git pull --rebase origin arena/a56f3474-maltaproj3
-          git push origin arena/a56f3474-maltaproj3
+          # actions/checkout may leave a detached HEAD; publish the audited
+          # commit explicitly to this session's fixed branch.
+          git push origin HEAD:refs/heads/arena/a56f3474-maltaproj3
