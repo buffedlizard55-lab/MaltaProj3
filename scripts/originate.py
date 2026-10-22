@@ -2113,7 +2113,10 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     hltv_records = [dict(r) for r in (hltv or []) if str(r.get('stage', '')).startswith('HLTV') and str(r.get('source_url', '')).startswith('https://www.hltv.org/')]
     if hltv_records:
         for record in reversed(hltv_records):
-            trail.insert(0, {k: record[k] for k in ('stage', 'status', 'source_url', 'detail') if k in record})
+            # Session 4c972a51: keep the collector's observation time with the
+            # HLTV identity record. Without it a reader cannot tell whether
+            # "checked" means today's roster or a capture from a week ago.
+            trail.insert(0, {k: record[k] for k in ('stage', 'status', 'source_url', 'detail', 'observed_at') if k in record})
     elif name_key(match.get('competition') or '') in {'elisa breakout series #2', 'elisa breakout series 2'}:
         trail.insert(0, {'stage': 'HLTV identity research', 'status': 'checked', 'source_url': HLTV_EVENT,
                          'detail': 'Event identity evidence is listed in the reviewed alias registry. HLTV fan votes are never probability inputs; current lineups remain unverified.'})

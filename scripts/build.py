@@ -1376,6 +1376,9 @@ def where_everything_lives(data, prefix):
         ('Complete match picks', 'origination/#picks', 'The list to use on your phone: every non-archived Hotspawn CS2 '
          'fixture with both probabilities, one obvious pick, lock times and expandable evidence.',
          'Featured estimates plus researched fallbacks'),
+        ('Unresolved picks & limitations', 'unresolved/', 'Every active match without a pick, the exact blocker, every '
+         'source tried, the dated reachability matrix and the order the resolver works through.', 
+         f'{still_blank} without a pick · {with_pick} with a pick'),
         ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
@@ -1446,10 +1449,55 @@ def picks(data, prefix, now=None):
     return out
 
 
+def write_reconciled_snapshot(snapshot_path, data):
+    """Add the featured-vs-researched reconciliation to the published JSON.
+
+    ``counts.*`` describes the featured exact-name method alone. Every page on
+    the site renders the researched list. Before this block the downloaded JSON
+    said "10 unresolved" while the page said "0", and both statements were true
+    of different lists — a contradiction a reader cannot resolve. The raw
+    counters are preserved unchanged and the second list is published beside
+    them, with a note that says which is which.
+    """
+    if not snapshot_path.exists() or not data.get('complete_picks'):
+        return
+    snapshot = json.loads(snapshot_path.read_text())
+    cc = data['complete_picks'].get('counts') or {}
+    featured = snapshot.get('counts') or {}
+    snapshot['featured_method_counts'] = {
+        k: featured.get(k) for k in
+        ('upcoming', 'market', 'bookmaker', 'consensus', 'model', 'unresolved', 'picks')}
+    snapshot['complete_coverage_counts'] = {
+        k: (cc.get(k) or 0) for k in
+        ('active', 'resolved', 'with_pick', 'market', 'bookmaker', 'consensus',
+         'reference', 'model', 'guidance', 'unresolved')}
+    snapshot['counts_note'] = (
+        'counts.* and featured_method_counts describe the featured exact-name method only. '
+        'complete_coverage_counts describe the researched list every page renders: one row per '
+        'active Hotspawn fixture, with a market, bookmaker, consensus or reference price where one '
+        'was found and a labelled research-model estimate where none was. A fixture is unresolved '
+        'only when neither list can produce a number.')
+    snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=1) + '\n')
+
+
+def _reconciled(data):
+    """One short, arithmetic-free sentence pointing at the researched list.
+
+    The two lists disagree by design (the featured method is exact-name only);
+    saying so in the same card stops a reader from reading the featured
+    counters as the site's coverage.
+    """
+    cc = (data.get('complete_picks') or {}).get('counts') or {}
+    if not cc:
+        return ''
+    return (f'; the researched list has {cc.get("with_pick", 0)} of {cc.get("active", 0)} '
+            f'with a pick and {cc.get("unresolved", 0)} unresolved')
+
+
 def coverage(data, prefix, now=None):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
-    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved in the featured method{_reconciled(data)}</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
     out += ('<section class="content-section" id="hotspawn-integration"><div class="section-heading"><div>'
             '<p class="eyebrow">Reverse-engineered, read-only</p><h2>How the Hotspawn list is read</h2></div>'
             '<a class="internal-link" href="' + prefix + 'data/evidence/hotspawn-context.json">Reconciliation record ↓</a></div>'
@@ -1576,7 +1624,7 @@ def shell(data, key, body, prefix, now=None):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('edge', 'Edge'), ('coverage', 'Sources'), ('review', 'Review')])
     # Phone-first status strip: two one-tap destinations, present on every page.
     # Session 541cd43a — the brief asks to be able to reach an updated picks list
     # from a phone without hunting. Counts are the same canonical counts the
@@ -1710,6 +1758,12 @@ def build(source: Path, output: Path, now=None):
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
     if (output / 'data').resolve() != source.resolve():
         shutil.copytree(source, output / 'data', dirs_exist_ok=True)
+    # Publish the reconciliation beside the raw counts. `counts.*` describes the
+    # featured exact-name method alone; every page on this site shows the
+    # researched list. Before this block the downloaded JSON said "10
+    # unresolved" while the page said "0", and both were true of different
+    # lists. A reader must never have to guess which list a number belongs to.
+    write_reconciled_snapshot(output / 'data/latest.json', data)
     (output / '.nojekyll').touch()
     from scripts import build as _self
     from scripts.build_edge import edge_review
