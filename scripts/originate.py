@@ -1829,9 +1829,17 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                            'Dated observation; confirm the price before relying on it.')
     elif model:
         chosen = dict(model)
-        results_model = model.get('family') == 'form'
+        # Session arena-3bad13ea: the results and network fits replace `model`
+        # above, so the label must follow the quote's own family. Before this,
+        # a network row was published as a "Valve official ratings" estimate
+        # with the Valve limitations while its probability came from the bo3.gg
+        # graph - a mislabel, not a different number.
+        family = model.get('family')
+        results_model = family == 'form'
+        network_row = family == 'network'
         chosen.update({'method': 'model',
                        'label': ('Own results-based estimate (bo3.gg series results)' if results_model
+                                 else 'Own network estimate (bo3.gg results graph)' if network_row
                                  else 'Research model estimate (Valve official ratings)'),
                        'fair_decimal': [round(1 / p, 3) for p in model['probabilities']],
                        'quotes': [model],
@@ -1848,6 +1856,18 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if model.get('low_confidence'):
                 limitations.append('Low confidence: the one-sigma interval or the sample size is wide. '
                                    'Treat the direction as indicative only.')
+        elif network_row:
+            limitations.append(
+                'Own uncalibrated network model, not observed betting odds: no money line, no aggregated '
+                'reference and no complete official rating row covered both sides, so both ratings come from '
+                f"a Bradley-Terry fit over {model.get('graph_matches')} finished bo3.gg series, anchored on "
+                f"Valve's official points for {model.get('graph_anchors')} teams; the rating-difference "
+                f"one-sigma interval is {model.get('rating_sd_diff')} points "
+                f"(probability interval {model['interval'][0]:.3f}-{model['interval'][1]:.3f}). Current "
+                'lineups, stand-ins and map vetoes are unverified.')
+            if model.get('low_confidence'):
+                limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
+                                   'finished series. Treat the direction as indicative only.')
         else:
             limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
         for proof in (chosen.get('lineup_disambiguation') or []):
@@ -1992,6 +2012,30 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                                'side has fewer than ten finished series. The side is a tie-break, not a '
                                'favourite.')
         chosen = tie_line
+    elif chosen and chosen.get('method') == 'model' and selection(chosen.get('probabilities') or [0.5, 0.5]) is None:
+        # An exact tie that nothing could break. This must not be a silent blank:
+        # the row stays even and the register says exactly which second sources
+        # were consulted and why each one failed to separate the sides.
+        consulted = []
+        for label, quote, reason in (
+            ('HLTV world ranking', hltv_model, hltv_model_detail),
+            ('Own network model (bo3.gg results graph)', network_quote, match.get('_network_reason')),
+            ('Own results model (bo3.gg series results)', match.get('_form'), match.get('_form_reason')),
+        ):
+            if quote:
+                consulted.append(f'{label}: also exactly tied')
+            elif reason:
+                consulted.append(f'{label}: {reason}')
+            else:
+                consulted.append(f'{label}: no estimate available')
+        detail = ('; '.join(consulted) + '. No second source separates the sides, so the estimate stays even '
+                  'and no side is published. This is not a missing number and never becomes a default pick.')
+        trail.append({'stage': 'Exact-tie tie-break', 'status': 'unresolved',
+                      'source_url': (hltv_meta or {}).get('source_url') or 'https://www.hltv.org/ranking/teams',
+                      'detail': detail})
+        limitations.append(
+            f'Exact tie, no side published: {detail} The row is listed in the unresolved register with this '
+            'trail, and the next refresh retries every source.')
 
     pick = selection(chosen['probabilities']) if chosen else None
     deduped = []

@@ -14,15 +14,48 @@
   {
     "id": "3bad13ea-tie-break-is-a-direction-not-an-edge",
     "severity": "notice",
-    "match_ids": ["1079654"],
+    "match_ids": [
+      "1079654"
+    ],
     "title": "The one exact-tie fixture is priced by a documented tie-break, which is a direction rather than a measured edge",
-    "detail": "On the 2026-10-22T01:11Z live snapshot, ex-Zero Tenacity vs ex-RUSTEC (Hotspawn fixture 1079654, CCT Europe 2026 Series #11, 08:00Z on 23 October) was the only active fixture with no side. Both official Valve rows carry the same 1066 points (ranks 93 and 92), so the published transform returns exactly 50.0% / 50.0%; HLTV's own world-ranking publication ties them as well at 13.0 points each, so the first tie-break candidate could not separate them either. The side published on the site therefore comes from our own Bradley-Terry network fit over finished bo3.gg series (48.7% / 51.3%, low confidence: the one-sigma interval crosses 50%). It is labelled 'Tie-break estimate' everywhere it appears, the tied 50/50 primary estimate is published next to it for replay, and it must not be read as a market price or a stable edge - the direction can move as results change between four-hour refreshes. If a money line opens for this fixture it replaces the tie-break without any further condition.",
+    "detail": "On the 2026-10-22T01:11Z live snapshot, ex-Zero Tenacity vs ex-RUSTEC (Hotspawn fixture 1079654, CCT Europe 2026 Series #11, 08:00Z on 23 October) was the only active fixture with no side. Both official Valve rows carry the same 1066 points (ranks 93 and 92), so the published transform returns exactly 50.0% / 50.0%; HLTV's own world-ranking publication ties them as well at 13.0 points each, so the first tie-break candidate could not separate them either. The side published on the site therefore comes from our own Bradley-Terry network fit over finished bo3.gg series (48.7% / 51.3%, low confidence: the one-sigma interval crosses 50%). It is labelled 'Tie-break estimate' everywhere it appears, the tied 50/50 primary estimate is published next to it for replay, and it must not be read as a market price or a stable edge - the direction can move as results change between four-hour refreshes. On the next capture (2026-10-22T02:08Z) the bo3.gg results graph was unavailable to the run, so the network model could not be fitted and this fixture stayed at an exact 50.0% / 50.0% with no side; the tie-break is therefore a best-available direction, not a permanent resolution, and it is withdrawn whenever the second source cannot be replayed. If a money line opens for this fixture it replaces the tie-break without any further condition.",
     "source_urls": [
       "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "https://www.hltv.org/ranking/teams",
       "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
       "https://bo3.gg/matches",
       "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654"
+    ]
+  },
+  {
+    "id": "3bad13ea-exact-ties-vary-by-cycle",
+    "severity": "notice",
+    "match_ids": [
+      "1079654",
+      "1082858"
+    ],
+    "title": "Two exact ties stayed even on the 02:08Z cycle because the results graph was unavailable that run",
+    "detail": "On the 2026-10-22T02:08:09Z capture, 33 of 35 active fixtures carried a directional pick and two did not: ex-Zero Tenacity vs ex-RUSTEC (1079654; both Valve rows 1066 points) and Ground Zero vs Off Chops (1082858; both Valve rows 5.0 points, HLTV 5.0 each). The run recorded bo3_results_error = null with 25 bound fixtures and 264 samples, but the Bradley-Terry graph document was not written, so the own-network rung was unavailable ('no results-graph evidence for this run'). The own results model declined 1082858 on its sample gate: Off Chops has no published Valve rating and only 5 anchored series in the 120-day window (the model needs 8). Both rows keep their exact 50.0% / 50.0% and are published in the Unresolved picks & limitations register with this trail; no side is invented to fill them. The same two fixtures were resolved on the 2026-10-22T01:47Z cycle (1082858 via the network model at 55.5%, 1079654 via the documented tie-break), so complete directional coverage depends on the results graph being available in that cycle. This is a coverage limitation of our own model, not a Hotspawn or market failure. The Hotspawn lobby URL for 1082858 is the pick'em anchor the snapshot itself publishes (the fixture API returned no per-match page for it that cycle).",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/ranking/teams",
+      "https://bo3.gg/matches",
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
+    ]
+  },
+  {
+    "id": "3bad13ea-network-rows-mislabelled-as-valve",
+    "severity": "warning",
+    "match_ids": [
+      "1082858"
+    ],
+    "title": "Network-model rows were labelled \"Valve official ratings\" while their probability came from the bo3.gg results graph",
+    "detail": "Found while verifying the tie-break on the 2026-10-22T01:47Z capture. When the Valve rating rung has no complete row for both teams, scripts/originate.py replaces its `model` variable with the own network fit. The published label was chosen from `family == 'form'` only, so a network row fell through to the Valve label: fixture 1082858 (Ground Zero vs Off Chops) published 55.5% for Off Chops with label 'Research model estimate (Valve official ratings)', the Valve limitation text, a quote whose family is 'network' and source 'Own network model (bo3.gg results graph)', and a graph-fit trail entry. Four rows on that snapshot used the network family. The number itself was correct and replayed; the label and limitations misdescribed its source, and the evidence panel already showed the network explanation, so the page contradicted itself. Fixed in this branch: the label and limitations now follow the quote family ('Own network estimate (bo3.gg results graph)' plus the Bradley-Terry inputs and interval), with a regression test. This is a labelling defect, not a probability change - no published number was altered by the fix.",
+    "source_urls": [
+      "https://bo3.gg/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
     ]
   }
 ]

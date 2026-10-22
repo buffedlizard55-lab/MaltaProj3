@@ -173,6 +173,18 @@ class TieBreakInTheLadder(unittest.TestCase):
         self.assertEqual(result['pick_index'], 0)
         self.assertEqual(o['source'], 'HLTV world ranking')
 
+    def test_a_network_row_is_not_labelled_as_a_valve_estimate(self):
+        """The network fit replaces `model`, so the label must follow its family."""
+        # One side has no official row, so the network fit is the chosen model.
+        only_one_row = ratings()[:1]
+        result = resolve(fixture(_network=network_quote()), ratings_rows=only_one_row)
+        o = result['origination']
+        self.assertEqual(o.get('family'), 'network')
+        self.assertEqual(o['label'], 'Own network estimate (bo3.gg results graph)')
+        self.assertTrue(any('Bradley-Terry fit' in text for text in result['limitations']))
+        self.assertFalse(any('not observed betting odds. Uncalibrated; current lineups and map vetoes '
+                             'unverified.' == text for text in result['limitations']))
+
 
 class ResolveMatchMarking(unittest.TestCase):
     """The featured tie is replaced only through the marked tie-break path."""
@@ -210,6 +222,17 @@ class ResolveMatchMarking(unittest.TestCase):
                                          reference=[], hltv_rank=[], hltv_meta=None)
         self.assertNotIn('upgraded_from_featured_tie', result)
         self.assertEqual(result['pick_index'], 0)
+
+    def test_an_unbreakable_tie_explains_every_source_it_tried(self):
+        match = fixture(_network_reason='Own network model: no results-graph evidence for this run',
+                        _form_reason='Both teams already have published Valve rows; results model not needed')
+        result = resolve(match)
+        self.assertIsNone(result['pick_index'])
+        self.assertEqual(result['origination']['probabilities'], [0.5, 0.5])
+        stage = next(r for r in result['research'] if r['stage'] == 'Exact-tie tie-break')
+        self.assertEqual(stage['status'], 'unresolved')
+        self.assertIn('no results-graph evidence for this run', stage['detail'])
+        self.assertTrue(any('Exact tie, no side published' in text for text in result['limitations']))
 
 
 class TieBreakDisplay(unittest.TestCase):

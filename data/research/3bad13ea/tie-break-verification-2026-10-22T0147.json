@@ -1,0 +1,72 @@
+{
+  "tie_upgraded_ids": [
+    "1079654"
+  ],
+  "tie_rows": [
+    {
+      "id": "1079654",
+      "fixture": "ex-Zero Tenacity vs ex-RUSTEC",
+      "pick_index": 1,
+      "pick": "ex-RUSTEC",
+      "probabilities": [
+        0.4939560085380321,
+        0.5060439914619679
+      ],
+      "tie_break": {
+        "primary": "Valve official standings",
+        "primary_probabilities": [
+          0.5,
+          0.5
+        ],
+        "primary_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "primary_points": [
+          1066,
+          1066
+        ],
+        "chosen": "Own network model (bo3.gg results graph)",
+        "chosen_family": "network",
+        "chosen_probabilities": [
+          0.4939560085380321,
+          0.5060439914619679
+        ],
+        "chosen_source_url": "https://bo3.gg/matches",
+        "note": "The primary official ratings are exactly tied, so they support no side. This side comes from a second independent source and is a direction, not a measured edge."
+      }
+    }
+  ],
+  "pages": {
+    "summary": {
+      "bytes": 158727,
+      "sha256": "e0dc5478d09a870e",
+      "tie_break_mentions": 0,
+      "rows": {
+        "1079654": {
+          "match_anchor": true,
+          "pick_name": true
+        }
+      }
+    },
+    "origination": {
+      "bytes": 249549,
+      "sha256": "ce99d01110019c46",
+      "tie_break_mentions": 4,
+      "rows": {
+        "1079654": {
+          "match_anchor": true,
+          "pick_name": true
+        }
+      }
+    },
+    "picks": {
+      "bytes": 508229,
+      "sha256": "14c6cfeafc2ad675",
+      "tie_break_mentions": 1,
+      "rows": {
+        "1079654": {
+          "match_anchor": true,
+          "pick_name": true
+        }
+      }
+    }
+  }
+}
