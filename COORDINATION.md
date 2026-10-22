@@ -116,6 +116,8 @@ Nothing from the other session was discarded:
   official standings), 3 network, 2 results-based, 3 HLTV world-ranking (2 of them unranked-floor) and
   1 exact even tie. The three network rows now say so instead of naming Valve. Evidence:
   `data/research/fbdc97d6/live/snapshot-summary.json`.
+- **Pull request:** [#153](https://github.com/buffedlizard55-lab/MaltaProj3/pull/153). Checks:
+  `Rows, build, links, mobile and accessibility` **pass**, `originate` **pass**.
 - **Flags published** (`data/research/fbdc97d6/flags.json` → Flagged for Review): the hard-coded
   Thunderpick provenance sentence (notice, fixed), the HLTV/EGamersWorld/GG.BET/BetBoom/1xBet/
   Marathonbet runner blocks (warning), the bo3.gg relay that adds no coverage (notice), the exact even
