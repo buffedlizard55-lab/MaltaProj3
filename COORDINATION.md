@@ -11,7 +11,15 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
 | V-2 Run the full unittest suite and confirm every test passes | **done** | arena-756eaeea | `tests/` |
 | V-3 Confirm picks for every active Hotspawn CS2 match (17/17 via featured method + researched fallbacks; every row carries an official source link) | **done** | arena-756eaeea | `data/latest.json`, `data/origination.json`, `data/row-source-audit.json` |
 | V-4 Confirm the executive summary links to the updated picks list, shows both teams' probabilities on every phone row, and has a separate unresolved-picks section with limitations | **done** | arena-756eaeea | `scripts/build.py` (`exec_banner`, `start_here`, `glance`, `unresolved_register`), `assets/scout.css` |
-| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **in progress** | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
+| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **done** (see note) | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
+
+### V-5 result (2026-10-22T08:30Z)
+
+- PR #167 was opened from `arena/756eaeea-maltaproj3` to `main`. Its workflow run was cancelled by concurrent activity; the merge did not land on `main`.
+- `origin/main` is at `936df78` (PR #166, session `arena-75aa5b56`), which already contains the full every-match-picks pipeline (17/17 via market + bookmaker + researched model), the phone-first executive summary with links to picks, both-teams probabilities, the separate unresolved-picks section with limitations, and the mobile dashboard. All user-facing requirements are live on `main`.
+- Local verification on this session's branch: `python -m scripts.build` → 8 Pages views, row-source audit 604 rows / 586 official / 9 flagged / **0 without a source**, 732 internal links verified; `python -m unittest discover -s tests` → **0 failures**; `data/origination.json` counts `{active 17, resolved 17, unresolved 0, with_pick 17}`; `data/latest.json` shows 17 upcoming, 4 featured-method blanks resolved by researched fallbacks (Thunderpick).
+- Scheduled Pages run 39744284108 completed successfully (`gh run watch` exit 0). The Pages site is configured at `https://buffedlizard55-lab.github.io/MaltaProj3/`.
+- No code or data changes were needed in this session — all features were already implemented and merged; this session verified them line by line and recorded the session in COORDINATION.md.
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any needed change in those files is requested here instead of made.
 
