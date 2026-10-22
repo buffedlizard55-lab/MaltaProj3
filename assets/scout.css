@@ -186,8 +186,14 @@
 .limitations-callout li{font-size:12px;line-height:1.9;margin-bottom:7px}
 @media(max-width:700px){
   .start-here{padding:15px 16px;margin-bottom:20px}
-  .start-here ul{grid-template-columns:1fr;gap:9px}
-  .start-here a{min-height:52px;padding:12px 13px}
+  /* Phone: the jump bar is a nav strip, not five stacked cards. Two compact
+     columns with titles only (details stay on wider screens) so Picks at a
+     glance starts above 1,500px instead of after ~450px of link cards.
+     Integration fix (3016b0c6): the stacked-card layout pushed the glance
+     section to y=1561 on main, failing the phone above-the-fold check. */
+  .start-here ul{grid-template-columns:1fr 1fr;gap:8px}
+  .start-here a{min-height:44px;padding:10px 11px;align-items:center}
+  .start-here span{display:none}
   .day-read{padding:0 16px 18px;grid-template-columns:1fr;gap:11px}
   .final-day-card{margin:0 16px 13px}
   .final-day-head{padding:15px 16px}

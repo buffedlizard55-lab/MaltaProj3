@@ -29,8 +29,11 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await page.goto('/');
   const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
   await expect(phoneNav.getByRole('link')).toHaveCount(6);
-  await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
-  await expect(page).toHaveURL(/\/methodology\/$/);
+  // Integration fix (3016b0c6): the phone nav on main is now
+  // Summary/Picks/Unresolved/Edge/Sources/Review (4c972a51 added Unresolved);
+  // there is no 'Methods' link. This assertion failed on unmodified main.
+  await phoneNav.getByRole('link', { name: 'Sources', exact: true }).click();
+  await expect(page).toHaveURL(/\/coverage\/$/);
 });
 
 test('search, method filters, sorting and clearing work', async ({ page }) => {
