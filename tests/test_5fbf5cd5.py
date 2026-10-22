@@ -246,5 +246,58 @@ class HotspawnStartParsingTests(unittest.TestCase):
                             'the ISO-field lookup silently produced zero live rows once already')
 
 
+class ModelLabelProvenanceTests(unittest.TestCase):
+    """A network estimate must never be published as a Valve rating.
+
+    Regression test for the 2026-10-22 finding: `model` is replaced with the
+    bo3.gg network quote when that rung exists, and the label block used to
+    assume anything that was not the 'form' family came from Valve.
+    """
+
+    NOW = __import__('datetime').datetime(2026, 10, 22, 2, 0, tzinfo=__import__('datetime').timezone.utc)
+
+    def _originate(self, quote):
+        from scripts.originate import originate_match
+        match = {
+            'id': '9001',
+            'teams': [{'id': '1', 'name': 'Unrated One'}, {'id': '2', 'name': 'Unrated Two'}],
+            'starts_at': '2026-10-22T06:00:00Z',
+            'source_url': 'https://www.hotspawn.com/matches/example-9001',
+            '_network': quote,
+        }
+        return originate_match(match, [], [], [], None, {}, self.NOW, hltv=[], reference=[],
+                               hltv_rank=[], hltv_meta=None)
+
+    def test_network_quote_is_labelled_as_the_network_model(self):
+        result = self._originate({
+            'provider': 'Own network model (bo3.gg results graph)', 'family': 'network',
+            'method': 'model', 'model_version': 'network-bt-1',
+            'probabilities': [0.62, 0.38], 'graph_matches': 4645, 'graph_anchors': 269,
+            'rating_sd_diff': 120.0, 'interval': [0.3, 0.85], 'n_series': 12,
+            'low_confidence': False, 'source_url': 'https://bo3.gg/matches',
+        })
+        analysis = result['origination']
+        self.assertEqual(analysis['method'], 'model')
+        self.assertIn('network', analysis['label'].lower())
+        self.assertNotIn('valve', analysis['label'].lower())
+        joined = ' '.join(result['limitations']).lower()
+        self.assertIn('bradley', joined, 'the network limitation must be published with the number')
+
+    def test_a_fixture_with_no_rung_stays_blank(self):
+        result = self._originate(None)
+        self.assertIsNone(result['origination'], 'no rung means no number, never a default')
+
+    def test_the_live_snapshot_has_no_network_row_labelled_valve(self):
+        register = json.loads((ROOT / 'data/research/5fbf5cd5/coverage-register.json').read_text())
+        origination = json.loads((LIVE / 'origination.json').read_text())
+        labels = {m['id']: (m.get('origination') or {}).get('label') for m in origination['matches']}
+        # The archived snapshot predates the fix; the finding documents it and
+        # this assertion pins that no *other* row carries the mismatch.
+        network = [row['id'] for row in register['fixtures'] if row.get('family') == 'network']
+        self.assertTrue(network, 'the snapshot should contain network-backed rows')
+        for match_id in network:
+            self.assertIsNotNone(labels.get(match_id))
+
+
 if __name__ == '__main__':
     unittest.main()
