@@ -29,7 +29,6 @@ import re
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlparse
 
 from scripts.audit_rows import OFFICIAL, is_official
 
