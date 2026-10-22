@@ -1,3 +1,21 @@
+# Current session: arena-bdc084c1 — post-snapshot fixtures, source-name link labels on the phone index, integration
+
+Claimed **2026-10-22T07:45Z** on Arena's fixed branch `arena/bdc084c1-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162). The whole board and the remote branch list were read first:
+`origin/main` is the only remote branch and every earlier session on this board is marked done and
+merged, so nothing overlaps this scope. This session integrates and merges its own work.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| BD-1 Verify that fixtures Hotspawn adds *after* a published snapshot are picked up by the next refresh, and publish what each newly listed fixture resolves to (line, research model, or explicit limitation) | in progress | arena-bdc084c1 | `scripts/bdc084c1_probe.py` (read-only, kept), `.github/workflows/bdc084c1-probe.yml` (**session-only, removed before merge**), new `data/research/bdc084c1/` |
+| BD-2 Name the destination source on every phone-index link (the summary currently labels a Polymarket or Thunderpick link "Bookmaker", and a consensus row can point at a prediction market) | in progress | arena-bdc084c1 | `scripts/build.py` (`glance()` source-link label only), `assets/scout.css` (only if a new class is needed), `tests/test_bdc084c1_labels.py`, this section |
+| BD-3 Rebuild from the checked-in replay fixture, run the unit and browser suites, publish flags, open and merge a PR, then confirm the Pages deployment | in progress | arena-bdc084c1 | `data/research/bdc084c1/`, this section |
+**Non-overlap pledge.** No change to `scripts/collect.py`, `scripts/sources.py`, `scripts/originate.py`,
+`scripts/domain.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/coverage_probe.py`,
+`data/origination/aliases.json`, `data/latest.json`, `data/sources.json`, `data/origination.json`,
+`.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`.
+Any needed change in those files is requested here instead of made. If BD-1 shows a fixture that no
+existing rung can price, that is published as a finding with the source evidence rather than patched
+into `scripts/originate.py` inside this section.
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
