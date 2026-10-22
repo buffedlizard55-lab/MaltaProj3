@@ -40,8 +40,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 UTC = timezone.utc
 SESSION = ROOT / 'data' / 'research' / '5fbf5cd5'
-UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
-      'Chrome/124.0 Safari/537.36')
+# The repository's own collector identifies itself with this UA and reads HLTV
+# successfully from the runner. An earlier version of this probe impersonated a
+# desktop browser and every HLTV request returned HTTP 403; that measured the
+# probe's headers, not HLTV, so the polite identifying UA is used instead.
+UA = 'HotspawnCS2Coverage/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'
 FIXTURES_API = ('https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures'
                 '?sport_alias=cs2&status=scheduled&tenantId=1')
 LOBBY = 'https://play.hotspawn.com/lobby'
@@ -59,8 +62,7 @@ def iso_now() -> str:
 
 def get(url: str, *, headers: dict | None = None, timeout: int = 25) -> dict:
     """One bounded GET. Every outcome is recorded, never raised."""
-    base = {'User-Agent': UA, 'Accept': 'application/json, text/html;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9'}
+    base = {'User-Agent': UA, 'Accept': 'application/json,text/html;q=0.9'}
     base.update(headers or {})
     started = datetime.now(UTC)
     request = urllib.request.Request(url, headers=base)
@@ -299,11 +301,95 @@ def probe_egamers(team_names: list[str]) -> dict:
     return out
 
 
+MONEY = {'market', 'bookmaker', 'consensus', 'reference'}
+
+
+def build_register(archive: Path) -> dict:
+    """Derive the per-fixture coverage register from an archived run.
+
+    Read-only: every value is copied from the snapshot, the origination file
+    and the probe report that the same run wrote. Nothing is recomputed and
+    nothing is filled in.
+    """
+    snapshot = json.loads((archive / 'latest.json').read_text())
+    origination = json.loads((archive / 'origination.json').read_text())
+    coverage = json.loads((archive / 'coverage.json').read_text())
+    summary = json.loads((archive / 'summary.json').read_text()) \
+        if (archive / 'summary.json').exists() else {}
+    probe_rows = {f['id']: f for f in coverage.get('fixtures') or []}
+    register = []
+    for match in origination.get('matches') or []:
+        if match.get('availability') == 'past':
+            continue
+        analysis = match.get('origination') or {}
+        probe = probe_rows.get(str(match.get('id')), {})
+        bound, priced = {}, []
+        for team, info in (probe.get('bo3gg') or {}).items():
+            for candidate in info.get('bound_matches') or []:
+                bound[candidate.get('slug')] = candidate
+        for candidate in bound.values():
+            coefficients = candidate.get('relayed_coefficients') or {}
+            if coefficients and all(coefficients.values()):
+                priced.append({'provider': candidate.get('relayed_provider'),
+                               'coefficients': coefficients, 'url': candidate.get('url')})
+        names = [t.get('name') for t in match.get('teams') or []]
+        pick_index = match.get('pick_index')
+        register.append({
+            'id': str(match.get('id')),
+            'teams': names,
+            'competition': match.get('competition'),
+            'starts_at': match.get('starts_at'),
+            'method': analysis.get('method'),
+            'family': analysis.get('family'),
+            'provider': analysis.get('provider'),
+            'probabilities': analysis.get('probabilities'),
+            'pick': names[pick_index] if pick_index is not None and pick_index < len(names) else None,
+            'low_confidence': analysis.get('low_confidence'),
+            'source_url': analysis.get('source_url'),
+            'hltv_listing_status': (probe.get('hltv') or {}).get('listing', {}).get('status'),
+            'bo3_bound_matches': len(bound),
+            'bo3_relayed_price': priced,
+            'ladder': [{'stage': r.get('stage'), 'status': r.get('status')}
+                       for r in match.get('research') or []
+                       if r.get('stage') != 'Origination result'],
+        })
+    register.sort(key=lambda row: (row.get('starts_at') or '', row['id']))
+    return {
+        'session': 'arena-5fbf5cd5',
+        'archive': str(archive.as_posix()),
+        'generated_at': snapshot.get('generated_at'),
+        'inventory_observed_at': snapshot.get('inventory_observed_at'),
+        'run_id': summary.get('run_id'),
+        'commit': summary.get('commit'),
+        'source': ('GitHub Actions runner: python -m scripts.collect && '
+                   'python -m scripts.originate --live && '
+                   'python -m scripts.coverage_5fbf5cd5 --live'),
+        'inventory': coverage.get('inventory'),
+        'counts': {'featured': snapshot.get('counts'),
+                   'complete_ladder': origination.get('counts')},
+        'method_mix': {method: sum(1 for r in register if r['method'] == method)
+                       for method in sorted({r['method'] for r in register if r['method']})},
+        'money_backed': sum(1 for r in register if r['method'] in MONEY),
+        'fixtures': register,
+    }
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--live', action='store_true', help='make bounded public GETs')
     parser.add_argument('--out', type=Path, default=None)
+    parser.add_argument('--register', type=Path, default=None,
+                        help='derive coverage-register.json from an archived run directory')
     args = parser.parse_args(argv)
+    if args.register:
+        target = SESSION / 'coverage-register.json'
+        register = build_register(args.register)
+        target.write_text(json.dumps(register, ensure_ascii=False, indent=1) + '\n')
+        print(json.dumps({'path': str(target), 'fixtures': len(register['fixtures']),
+                          'money_backed': register['money_backed'],
+                          'inventory_missing': (register['inventory'] or {}).get('missing_from_site')},
+                         indent=1))
+        return 0
     now = datetime.now(UTC)
     origination = json.loads((ROOT / 'data' / 'origination.json').read_text())
     rows = ladder_rows(origination)

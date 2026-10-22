@@ -1,9 +1,11 @@
 {
  "session": "arena-5fbf5cd5",
- "observed_at": "2026-10-22T01:13:35Z",
- "generated_at": "2026-10-22T01:13:52Z",
- "run_id": "39704308328",
- "source": "GitHub Actions runner; python -m scripts.collect && python -m scripts.originate --live && python -m scripts.coverage_5fbf5cd5 --live",
+ "archive": "data/research/5fbf5cd5/live-2026-10-22",
+ "generated_at": "2026-10-22T01:20:18Z",
+ "inventory_observed_at": "2026-10-22T01:20:01Z",
+ "run_id": "39704897198",
+ "commit": "80e27b0b94c7adfb92f9cbd014f07ff1a809fc40",
+ "source": "GitHub Actions runner: python -m scripts.collect && python -m scripts.originate --live && python -m scripts.coverage_5fbf5cd5 --live",
  "inventory": {
   "published_active_ids": [
    "1079188",
@@ -43,22 +45,19 @@
    "1082882"
   ],
   "published_count": 35,
-  "snapshot_generated_at": "2026-10-22T01:13:52Z",
+  "snapshot_generated_at": "2026-10-22T01:20:18Z",
   "request": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "status": 200,
-   "observed_at": "2026-10-22T01:15:00Z",
+   "observed_at": "2026-10-22T01:21:24Z",
    "bytes": 77256,
-   "sha256": "1c4830fd400aaf9813b22ef4b3b3343ed6144c886b003ee2917e63c28e7f0fe7",
+   "sha256": "d3023ec90f9f1d4d3c97da08bb55fa06d1494003c909ca63c6df9bd62e60daac",
    "content_type": "application/json; charset=utf-8",
-   "elapsed_ms": 701
+   "elapsed_ms": 655
   },
   "result": "ok",
   "api_records": 97,
-  "api_active_ids": [],
-  "api_active_count": 0,
-  "missing_from_site": [],
-  "extra_on_site": [
+  "api_active_ids": [
    "1079188",
    "1079189",
    "1079650",
@@ -94,7 +93,10 @@
    "1082860",
    "1082861",
    "1082882"
-  ]
+  ],
+  "api_active_count": 35,
+  "missing_from_site": [],
+  "extra_on_site": []
  },
  "counts": {
   "featured": {
@@ -125,10 +127,10 @@
   }
  },
  "method_mix": {
-  "market": 6,
-  "model": 27,
   "bookmaker": 1,
-  "consensus": 1
+  "consensus": 1,
+  "market": 6,
+  "model": 27
  },
  "money_backed": 8,
  "fixtures": [
@@ -150,9 +152,8 @@
    "pick": "NEXVOID",
    "low_confidence": null,
    "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -213,15 +214,14 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.355,
-    0.645
+    0.345,
+    0.655
    ],
    "pick": "Rare Atom",
    "low_confidence": null,
    "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -242,15 +242,14 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.5145309753858345,
-    0.4854690246141655
+    0.515106115972348,
+    0.484893884027652
    ],
    "pick": "Bushido Wildcats",
    "low_confidence": true,
    "source_url": "https://bo3.gg/matches",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -317,9 +316,8 @@
    "pick": "GenOne",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -374,9 +372,8 @@
    "pick": "BakS",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -431,21 +428,12 @@
    "pick": "FORZE Reload",
    "low_confidence": null,
    "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [
     {
      "provider": "thunderpick",
-     "coeffs": {
-      "team_1": 1.4,
-      "team_2": 2.7
-     },
-     "url": "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026"
-    },
-    {
-     "provider": "thunderpick",
-     "coeffs": {
+     "coefficients": {
       "team_1": 1.4,
       "team_2": 2.7
      },
@@ -477,9 +465,8 @@
    "pick": "Butterfly",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -534,9 +521,8 @@
    "pick": "Falcons Force",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -585,15 +571,14 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.22185154578086755,
-    0.7781484542191325
+    0.22135506461988838,
+    0.7786449353801116
    ],
    "pick": "TitanFlow",
    "low_confidence": true,
    "source_url": "https://bo3.gg/matches",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -660,9 +645,8 @@
    "pick": "Nemesis",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -717,21 +701,12 @@
    "pick": "JiJieHao",
    "low_confidence": null,
    "source_url": "https://thunderpick.io/api/matches",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [
     {
      "provider": "thunderpick",
-     "coeffs": {
-      "team_1": 1.44,
-      "team_2": 2.55
-     },
-     "url": "https://bo3.gg/matches/jijiehao-vs-nexus-22-10-2026"
-    },
-    {
-     "provider": "thunderpick",
-     "coeffs": {
+     "coefficients": {
       "team_1": 1.44,
       "team_2": 2.55
      },
@@ -771,9 +746,8 @@
    "pick": "Banda chuya",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -828,9 +802,8 @@
    "pick": "Acend",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -893,9 +866,8 @@
    "pick": "HAVU",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -950,21 +922,12 @@
    "pick": "Imperial",
    "low_confidence": null,
    "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [
     {
      "provider": "thunderpick",
-     "coeffs": {
-      "team_1": 1.22,
-      "team_2": 3.8
-     },
-     "url": "https://bo3.gg/matches/imperial-vs-turma-do-pagode-22-10-2026"
-    },
-    {
-     "provider": "thunderpick",
-     "coeffs": {
+     "coefficients": {
       "team_1": 1.22,
       "team_2": 3.8
      },
@@ -996,21 +959,12 @@
    "pick": "ShindeN",
    "low_confidence": null,
    "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [
     {
      "provider": "thunderpick",
-     "coeffs": {
-      "team_1": 1.82,
-      "team_2": 1.88
-     },
-     "url": "https://bo3.gg/matches/bestia-vs-shinden-22-10-2026"
-    },
-    {
-     "provider": "thunderpick",
-     "coeffs": {
+     "coefficients": {
       "team_1": 1.82,
       "team_2": 1.88
      },
@@ -1042,9 +996,8 @@
    "pick": "Apogee Betclic",
    "low_confidence": false,
    "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1119,21 +1072,12 @@
    "pick": "Sangal",
    "low_confidence": null,
    "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [
     {
      "provider": "thunderpick",
-     "coeffs": {
-      "team_1": 1.75,
-      "team_2": 1.95
-     },
-     "url": "https://bo3.gg/matches/sangal-vs-metizport-22-10-2026"
-    },
-    {
-     "provider": "thunderpick",
-     "coeffs": {
+     "coefficients": {
       "team_1": 1.75,
       "team_2": 1.95
      },
@@ -1165,9 +1109,8 @@
    "pick": "Rune Eaters",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1222,9 +1165,8 @@
    "pick": "6yuBoJlbl",
    "low_confidence": true,
    "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1285,15 +1227,14 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.983895436934679,
-    0.016104563065321043
+    0.9838863131596313,
+    0.016113686840368735
    ],
    "pick": "K27",
    "low_confidence": false,
    "source_url": "https://bo3.gg/matches",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1360,9 +1301,8 @@
    "pick": "Virtus.pro",
    "low_confidence": null,
    "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/upgrade-virtus-pro-202610221630",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1421,9 +1361,8 @@
    "pick": "Lynn Vision",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1486,9 +1425,8 @@
    "pick": null,
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1543,9 +1481,8 @@
    "pick": "Nuclear TigeRES",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1600,9 +1537,8 @@
    "pick": "Inner Circle Academy",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1657,9 +1593,8 @@
    "pick": "FORZE Reload",
    "low_confidence": false,
    "source_url": "https://www.hltv.org/ranking/teams",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1726,9 +1661,8 @@
    "pick": "BRUTE",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1791,9 +1725,8 @@
    "pick": "ex-RUSTEC",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1842,15 +1775,14 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.445104055181629,
-    0.554895944818371
+    0.44538842676485035,
+    0.5546115732351496
    ],
    "pick": "Off Chops",
    "low_confidence": true,
    "source_url": "https://bo3.gg/matches",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1917,9 +1849,8 @@
    "pick": "NEXVOID",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -1974,9 +1905,8 @@
    "pick": "FlyQuest",
    "low_confidence": true,
    "source_url": "https://www.hltv.org/ranking/teams",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -2043,9 +1973,8 @@
    "pick": "Abyssal",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 1,
+   "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -2100,9 +2029,8 @@
    "pick": "HOTU",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
@@ -2165,9 +2093,8 @@
    "pick": "1WIN",
    "low_confidence": null,
    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "hltv_reachable": false,
    "hltv_listing_status": 403,
-   "bo3_bound": 0,
+   "bo3_bound_matches": 0,
    "bo3_relayed_price": [],
    "ladder": [
     {
