@@ -64,10 +64,13 @@ MAX_ACCEPTED_SPREAD = 0.15
 # resolved the fixture, it is never folded into a first-party consensus (which
 # would double-count the same bookmaker), and every published row names the
 # bookmaker, the bo3.gg page the numbers were read from and the bookmaker match
-# page bo3.gg links to. The join is at least as strict as every other money rung:
-# both team names must resolve exactly or through the reviewed alias registry,
-# and the start time must agree inside the tolerance published below.
-RELAY_START_TOLERANCE_SEC = 900
+# page bo3.gg links to. The join is exactly as strict as every other money rung:
+# both team names must resolve exactly or through the reviewed alias registry, and
+# the start time must agree inside the project-wide 60-second window (a delayed or
+# rescheduled fixture must never inherit a price from another slot). Every observed
+# bo3.gg fixture that did not bind is recorded with its own reason, including the
+# start-time delta, so a skipped price stays visible instead of silently dropped.
+RELAY_START_TOLERANCE_SEC = START_TOLERANCE_SEC
 RELAY_FAMILY = 'relay'
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
@@ -1901,6 +1904,15 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'source_url': quote['source_url'],
                       'detail': detail + ('' if not relay_reasons else
                                           ' Narrowest of ' + str(len(relay_quotes)) + ' relayed pairs.')})
+        if quote.get('book_url'):
+            # The bookmaker's own page is linked by bo3.gg's record; publishing it
+            # lets a reader check the price at the source, which this project does
+            # not read directly.
+            trail.append({'stage': f"Bookmaker page named by bo3.gg ({quote['provider'].split(' (')[0]})",
+                          'status': 'checked', 'source_url': quote['book_url'],
+                          'detail': "bo3.gg's record links this bookmaker match page for the fixture. "
+                                    'This dashboard did not read that page; the coefficients above are '
+                                    "bo3.gg's copy of the provider's price."})
     elif relay_reasons:
         row, detail = relay_reasons[0]
         trail.append({'stage': relay_stage, 'status': 'unresolved',

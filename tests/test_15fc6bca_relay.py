@@ -70,11 +70,12 @@ class RelayJoinTest(unittest.TestCase):
         _, _, status = relay_join(['Imperial', 'Turma do Pagode'], '2026-10-22T15:00:00Z',
                                   fixture(), REGISTRY)
         self.assertEqual(status, 'time')
-        # ... and inside it, it is accepted (the tolerance is published).
-        _, _, ok = relay_join(['Imperial', 'Turma do Pagode'], '2026-10-22T14:10:00Z',
-                              fixture(), REGISTRY)
-        self.assertEqual(ok, 'matched')
-        self.assertEqual(RELAY_START_TOLERANCE_SEC, 900)
+        # ... and the tolerance is the project-wide 60-second money window, so a
+        # ten-minute disagreement stays a rejection (no relaxed matching).
+        _, _, still = relay_join(['Imperial', 'Turma do Pagode'], '2026-10-22T14:00:30Z',
+                                 fixture(), REGISTRY)
+        self.assertEqual(still, 'matched')
+        self.assertEqual(RELAY_START_TOLERANCE_SEC, 60)
 
     def test_alias_registry_is_the_only_relaxation(self):
         registry = {'updated_at': '2026-10-01', 'aliases': [{
