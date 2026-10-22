@@ -77,6 +77,55 @@ def name_key(value: str) -> str:
     return re.sub(r'[^a-z0-9]+', '', (value or '').casefold())
 
 
+def parse_valve_table(text: str) -> dict:
+    """Parse one official Valve standings markdown table.
+
+    A team name can appear several times in one table: Valve keeps a dated row
+    per historical roster (e.g. standings_global_2026_10_05.md holds two BRUTE
+    rows, two ex-RUSTEC rows, two Banda Chuya rows). Every row is kept and
+    indexed by normalized name — a flat name→points map would let the last
+    roster row silently overwrite the row the published input actually used.
+    """
+    head = re.search(r'Standings as of (\d{4})_(\d{2})_(\d{2})', text)
+    rows, by_name = [], {}
+    for line in text.splitlines():
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) >= 4 and cells[0].isdigit() and cells[1].isdigit():
+            parsed = {'standing': int(cells[0]), 'points': int(cells[1]), 'name': cells[2],
+                      'roster': sorted(p.strip().casefold() for p in cells[3].split(',') if p.strip())}
+            rows.append(parsed)
+            by_name.setdefault(name_key(cells[2]), []).append(parsed)
+    return {'snapshot_date': '-'.join(head.groups()) if head else None, 'rows': rows, 'by_name': by_name}
+
+
+def match_valve_input(by_name: dict, src_name: str, points, standing=None, roster=None) -> dict:
+    """Confirm one published Valve input against the parsed official table.
+
+    The input records the source row it used (name as listed, standing, roster);
+    matching goes through that identity, not the fixture team name — aliases
+    like ex-6666 → the historical '6666' row are resolved upstream.
+    """
+    candidates = by_name.get(name_key(src_name)) or []
+    norm_roster = sorted(p.strip().casefold() for p in (roster or []))
+    base = {'official_rows_found': len(candidates),
+            'official_points_candidates': [r['points'] for r in candidates]}
+    exact = [r for r in candidates
+             if r['points'] == points
+             and (standing is None or r['standing'] == standing)
+             and (not norm_roster or not r['roster'] or r['roster'] == norm_roster)]
+    if exact:
+        return dict(base, verdict='match', official_standing=exact[0]['standing'],
+                    standing_confirmed=standing is not None,
+                    roster_confirmed=bool(norm_roster and exact[0]['roster']))
+    if any(r['points'] == points for r in candidates):
+        return dict(base, verdict='match',
+                    note=('published points present on a same-name row; standing/roster detail '
+                          'was not recorded on the input for exact confirmation'))
+    if not candidates:
+        return dict(base, verdict='team-not-in-official-table')
+    return dict(base, verdict='points-mismatch')
+
+
 class Recorder:
     """Dated fetches with saved gz evidence; failures are observations, not crashes."""
 
@@ -257,6 +306,11 @@ def stage_rows(latest: dict, origination: dict, published_data: Path) -> tuple:
                        'event_id': basis.get('event_id'), 'market_id': basis.get('market_id'),
                        'input_points': [r.get('points') for r in basis.get('inputs') or []],
                        'input_sources': [r.get('source_url') for r in basis.get('inputs') or []],
+                       # full input rows (name/standing/roster as recorded from the
+                       # official table) — the valve re-read matches on these, not
+                       # on the fixture team names, because the official tables hold
+                       # several historical roster rows per team name.
+                       'inputs': basis.get('inputs') or [],
                        '_quotes': basis.get('quotes') or []})
         expected, how = None, None
         method = basis.get('method')
@@ -339,7 +393,12 @@ def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
     api_rows = body.get('data') or []
     if not api_rows:
         result['verdict'] = 'unexpected-response-shape'
-        result['detail'] = 'fixture API answered without a data array'
+        raw = read.get('json') if read.get('json') is not None else read.get('text')
+        result['detail'] = ('fixture API answered without a data array: HTTP '
+                            f"{read.get('http_status')}, body starts {str(raw)[:300]!r}. The raw body is "
+                            'saved as evidence hotspawn-fixture-api.gz; this can be a transient outage '
+                            'answer — the live-recheck collect later in the same run is an independent '
+                            'second read of the same API.')
         return result, []
     result['api_rows'] = len(api_rows)
     upcoming_api = {}
@@ -538,16 +597,12 @@ def stage_valve_reread(rec: Recorder, rows: list) -> dict:
             result['files'].append({'url': url, 'verdict': 'source-unreadable', 'detail': read.get('error')})
             return None
         text = read.get('text') or ''
-        head = re.search(r'Standings as of (\d{4})_(\d{2})_(\d{2})', text)
-        points = {}
-        for line in text.splitlines():
-            cells = [c.strip() for c in line.strip().strip('|').split('|')]
-            if len(cells) >= 4 and cells[0].isdigit() and cells[1].isdigit():
-                points[name_key(cells[2])] = int(cells[1])
-        tables[url] = {'snapshot_date': '-'.join(head.groups()) if head else None,
-                       'points': points, 'observed_at': read['observed_at']}
-        result['files'].append({'url': url, 'verdict': 'parsed', 'teams': len(points),
-                                'snapshot_date': tables[url]['snapshot_date'],
+        parsed = parse_valve_table(text)
+        parsed['observed_at'] = read['observed_at']
+        tables[url] = parsed
+        result['files'].append({'url': url, 'verdict': 'parsed', 'rows': len(parsed['rows']),
+                                'teams': len(parsed['by_name']),
+                                'snapshot_date': parsed['snapshot_date'],
                                 'observed_at': read['observed_at']})
         return tables[url]
 
@@ -556,24 +611,26 @@ def stage_valve_reread(rec: Recorder, rows: list) -> dict:
         if row.get('method') != 'model' or row.get('family') in ('network', 'form') \
                 or str(row.get('source') or '') == 'HLTV world ranking':
             continue
-        for name, points, url in zip(row['teams'], row.get('input_points') or [], row.get('input_sources') or []):
+        inputs = [i for i in (row.get('inputs') or []) if isinstance(i, dict)]
+        for idx, (name, points, url) in enumerate(zip(row['teams'], row.get('input_points') or [],
+                                                      row.get('input_sources') or [])):
             table = table_for(url)
-            check = {'match_id': row['id'], 'team': name, 'published_points': points,
-                     'published_input_url': url}
+            inp = inputs[idx] if idx < len(inputs) else {}
+            src_name = str(inp.get('name') or name)
+            check = {'match_id': row['id'], 'team': name, 'input_name': src_name,
+                     'published_points': points, 'published_input_url': url,
+                     'published_standing': inp.get('standing')}
             if table is None:
                 check['verdict'] = 'source-unreadable'
             else:
-                official = table['points'].get(name_key(name))
-                check['official_points'] = official
+                check.update(match_valve_input(table['by_name'], src_name, points,
+                                               standing=inp.get('standing'), roster=inp.get('roster')))
                 check['official_snapshot'] = table['snapshot_date']
-                if official is None:
-                    check['verdict'] = 'team-not-in-official-table'
-                    failures.append(f'{row["id"]} {name}: no row in the official table {url}')
-                elif points != official:
-                    check['verdict'] = 'points-mismatch'
-                    failures.append(f'{row["id"]} {name}: published {points} != official {official} ({url})')
-                else:
-                    check['verdict'] = 'match'
+                if check['verdict'] == 'team-not-in-official-table':
+                    failures.append(f'{row["id"]} {src_name}: no row in the official table {url}')
+                elif check['verdict'] == 'points-mismatch':
+                    failures.append(f'{row["id"]} {src_name}: published {points} not among the official '
+                                    f'rows for that name {check["official_points_candidates"]} ({url})')
             result['checks'].append(check)
     result['verdict'] = 'fail' if failures else ('pass' if result['checks'] else 'no-valve-rows')
     result['failures'] = failures

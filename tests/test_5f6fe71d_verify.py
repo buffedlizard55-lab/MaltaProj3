@@ -158,5 +158,57 @@ class StageRowsTest(unittest.TestCase):
         self.assertEqual(failures, [])
 
 
+class ValveRereadTest(unittest.TestCase):
+    """The official Valve tables hold several dated roster rows per team name.
+
+    Pinned against the real 2026-10-22 CI false alarm: standings_global_2026_10_05.md
+    has BRUTE at 1116 (standing 75) and again at 689 (standing 218), Banda Chuya at
+    801 (165) and 402 (373), and no 'ex-6666' row — the published inputs used the
+    roster-matched rows and the recorded source names, and the re-read must confirm
+    exactly those rows instead of the last same-name match.
+    """
+
+    TABLE = (
+        '### Standings as of 2026_10_05<br />\n'
+        '| Standing | Points | Team Name | Roster | |\n'
+        '| :- | -: | :- | :- | :- |\n'
+        '| 75       |   1116 | BRUTE                | aidKiT, hfah, nbqq, tAk, ZEDKO | [details](d.md) |\n'
+        '| 127      |    923 | 6666                 | amster, dENZY, kL1o, rendysky, skcH | [details](d.md) |\n'
+        '| 165      |    801 | Banda Chuya          | AdrieN, ezox, maaryy, Showk, tomiko | [details](d.md) |\n'
+        '| 218      |    689 | BRUTE                | hfah, KAD1M, majky, nbqq, realzen | [details](d.md) |\n'
+        '| 373      |    402 | Banda Chuya          | ezox, manio | [details](d.md) |\n'
+    )
+
+    def test_multi_roster_rows_are_all_kept(self):
+        table = v.parse_valve_table(self.TABLE)
+        self.assertEqual(table['snapshot_date'], '2026-10-05')
+        self.assertEqual(len(table['rows']), 5)
+        self.assertEqual([r['points'] for r in table['by_name']['brute']], [1116, 689])
+        self.assertEqual([r['points'] for r in table['by_name']['bandachuya']], [801, 402])
+
+    def test_input_identity_selects_the_right_roster_row(self):
+        table = v.parse_valve_table(self.TABLE)
+        got = v.match_valve_input(table['by_name'], 'Banda chuya', 801, standing=165,
+                                  roster=['AdrieN', 'ezox', 'maaryy', 'Showk', 'tomiko'])
+        self.assertEqual(got['verdict'], 'match')
+        self.assertEqual(got['official_standing'], 165)
+        self.assertTrue(got['standing_confirmed'])
+        self.assertTrue(got['roster_confirmed'])
+        # The first-name-row points must not be 'corrected' to the last same-name row.
+        self.assertEqual(v.match_valve_input(table['by_name'], 'BRUTE', 1116)['verdict'], 'match')
+        self.assertEqual(v.match_valve_input(table['by_name'], 'BRUTE', 689)['verdict'], 'match')
+        bad = v.match_valve_input(table['by_name'], 'BRUTE', 999)
+        self.assertEqual(bad['verdict'], 'points-mismatch')
+        self.assertEqual(bad['official_points_candidates'], [1116, 689])
+
+    def test_alias_source_name_matches_the_recorded_row(self):
+        table = v.parse_valve_table(self.TABLE)
+        # The fixture team is 'ex-6666'; the input records the source row name '6666'.
+        got = v.match_valve_input(table['by_name'], '6666', 923, standing=127)
+        self.assertEqual(got['verdict'], 'match')
+        missing = v.match_valve_input(table['by_name'], 'ex-6666', 923)
+        self.assertEqual(missing['verdict'], 'team-not-in-official-table')
+
+
 if __name__ == '__main__':
     unittest.main()
