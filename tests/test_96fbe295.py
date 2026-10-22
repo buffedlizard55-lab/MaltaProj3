@@ -246,6 +246,14 @@ class WorkflowWiringTests(unittest.TestCase):
         publish = self.text.index("name: Publish the verified build into the branch root")
         self.assertLess(verify, publish, "a build must be verified before it is committed to the root")
 
+    def test_pushes_cannot_cancel_a_scheduled_refresh(self):
+        # GitHub cancels a pending run when a newer run enters its concurrency group.
+        # With one shared `pages` group and a branch pushed every few minutes, the
+        # four-hour refresh was cancelled before it could start (see the comment in
+        # pages.yml). The runs must be grouped per event type.
+        self.assertIn("group: pages-${{ github.event_name }}", self.text)
+        self.assertNotIn("group: pages\n", self.text)
+
     def test_the_publisher_is_idempotent_in_the_job(self):
         # The step must exit cleanly when the root already matches, otherwise every
         # scheduled run would fail on an empty commit.
