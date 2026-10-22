@@ -118,7 +118,12 @@ class CoverageProbeDossierTests(unittest.TestCase):
             (data_dir / 'data/research/8fa2b226/coverage-probe.json').write_text(json.dumps(probe))
             from scripts.build import build
             build(data_dir / 'data', data_dir / 'site')
-            soup = BeautifulSoup((data_dir / 'site/index.html').read_text(), 'html.parser')
+            # Session arena-5fbf5cd5 moved the dossier to the dedicated
+            # unresolved page; the exec summary links that page in one tap.
+            summary_soup = BeautifulSoup((data_dir / 'site/index.html').read_text(), 'html.parser')
+            self.assertTrue(summary_soup.select('a[href="./unresolved/"]'),
+                            'exec summary must link the page that carries the dossier')
+            soup = BeautifulSoup((data_dir / 'site/unresolved/index.html').read_text(), 'html.parser')
             box = next(x.parent for x in soup.select('p.eyebrow') if 'Coverage probe' in x.get_text())
             text = box.get_text(' ', strip=True)
             self.assertIn('1 blank, live fixture(s) documented', text)
@@ -238,7 +243,10 @@ class BuiltSiteTests(unittest.TestCase):
             self.assertIn(finding['title'][:40], text, finding['id'])
 
     def test_the_exec_summary_links_the_dossier_it_describes(self):
-        soup = self.page('index.html')
+        summary_soup = self.page('index.html')
+        self.assertTrue(summary_soup.select('a[href="./unresolved/"]'),
+                        'exec summary must link the page that carries the dossier')
+        soup = self.page('unresolved/index.html')
         box = next(x.parent for x in soup.select('p.eyebrow') if 'Coverage probe' in x.get_text())
         text = box.get_text(' ', strip=True)
         self.assertIn('never writes a probability', text)

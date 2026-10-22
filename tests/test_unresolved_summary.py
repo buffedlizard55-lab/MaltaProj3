@@ -103,7 +103,10 @@ class UnresolvedRegisterTests(unittest.TestCase):
         data = dataset([])
         html = unresolved_register(data, './')
         text = BeautifulSoup(html, 'html.parser').get_text(' ', strip=True)
-        self.assertIn('No unresolved fixtures in this snapshot', text)
+        # Session arena-5fbf5cd5: the copy names blanks rather than claiming an
+        # absence of unresolved fixtures, because a model-backed pick can exist
+        # without any bookmaker line.
+        self.assertIn('No blank picks in this snapshot', text)
 
     def test_standing_limitations_are_published_with_the_register(self):
         text = BeautifulSoup(unresolved_register(dataset([blank_match(1)]), './'),
@@ -123,7 +126,9 @@ class UnresolvedRegisterTests(unittest.TestCase):
         bar = soup.select_one('nav.start-here')
         self.assertIsNotNone(bar)
         hrefs = [a['href'] for a in bar.select('a[href]')]
-        self.assertIn('./#unresolved-register', hrefs)
+        # Session arena-5fbf5cd5: the dedicated unresolved page is the primary
+        # destination; the in-summary register remains on this same page.
+        self.assertIn('./unresolved/', hrefs)
         self.assertIsNotNone(soup.select_one('#unresolved-register'))
         self.assertIn('Team A1', soup.select_one('#unresolved-register').get_text(' ', strip=True))
 

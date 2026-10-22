@@ -19,10 +19,13 @@ from scripts.briefing import render as contrarian_briefing, review_note, audit_r
 
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
+# Families that come from a real two-sided price. Anything else is a rating or
+# results model and is reported separately (session arena-5fbf5cd5).
+MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'unresolved': ('Unresolved picks', 'unresolved/index.html', 'flag'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
@@ -368,80 +371,77 @@ def contrarian_review(data, prefix):
 
 
 def exec_banner(data, prefix):
-    """Executive-summary banner that answers 'where are the updated picks?'.
+    """The one block that answers "where are the updated picks?" on a phone.
 
-    The brief requires the executive summary to contain internal links to the
-    updated picks list and to be obvious on a phone. This banner is the first
-    content block after the page heading; it contains only links and counts,
-    never a probability or a pick, and every href is an internal site link
-    that was verified by the link audit.
+    Rewritten for session arena-5fbf5cd5 after a 390 px render showed the first
+    pick 1,430 px down the page: two stacked link lists (this banner and the
+    former five-item jump bar) put ~920 px of navigation above the picks. The
+    banner now carries a single primary action, two secondary links and one
+    status line. It contains only links and counts - never a probability, a
+    pick or a fixture - and every href is an internal route the link audit
+    checks.
     """
     complete = data.get('complete_picks') or {}
     cc = complete.get('counts') or {}
     active = cc.get('active', data['counts'].get('upcoming', 0))
     with_pick = cc.get('with_pick', 0)
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
-    generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
+    checked = local_time(data.get('inventory_observed_at'))
+    noun = 'fixture' if active == 1 else 'fixtures'
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
-        f'<p class="exec-banner-label">Executive summary — start here</p>'
+        f'<p class="exec-banner-label">Executive summary · updated picks</p>'
         f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
-        f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times.</p>'
+        f'<a class="primary" href="{prefix}origination/#picks">'
+        f'<span class="label">See all picks'
+        f'<span class="sub">{with_pick} of {active} {noun} · both probabilities</span></span>'
+        f'<span aria-hidden="true">→</span></a>'
         f'<div class="exec-banner-actions">'
-        f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}unresolved/"><span class="label">Unresolved'
+        f'<span class="sub">{unresolved} without a line · why</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}methodology/"><span class="label">How picks are made'
+        f'<span class="sub">Sources &amp; limits</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
+        f'<p class="exec-banner-meta">Checked {checked} · automatic refresh every 4 hours · '
+        f'<a href="{prefix}coverage/">source status &amp; logs →</a></p>'
         f'</section>'
     )
 
 
 def start_here(data, prefix):
-    """A phone-first jump bar directly under the page title.
+    """One compact line of secondary destinations, not a second pick banner.
 
-    The brief asked for one place on the phone that says where the picks are.
-    This block links only; it adds no probability, no pick and no fixture.
+    A 390 px render showed this block at 564 px tall when it was a five-item
+    card list; the primary action already lives in the banner above, so this is
+    now a single wrapped line of links plus one count sentence. It contains
+    links and counts only.
     """
     complete = data.get('complete_picks')
     cc = (complete or {}).get('counts') or {}
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    if with_pick is None:
+        with_pick = max(0, active - unresolved)
     items = [
-        (prefix + 'origination/#picks', 'All match picks', 'target',
-         'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
-        (prefix + 'strategy/', 'Leaderboard plan', 'layers',
-         'One plan pick per open fixture and the underdogs worth a play.'),
-        (prefix + 'final-day/', 'Final day · Day 5', 'clock',
-         'Days 1–4 reviewed and the two 18 October Thunderpick fixtures.'),
-        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Unresolved register', 'flag',
-         'This summary lists every blank pick, its blocker and the sources actually tried.'),
+        (prefix + 'origination/#picks', 'All match picks'),
+        (prefix + 'unresolved/', f'Unresolved ({unresolved})'),
+        (prefix + 'picks/', 'Featured audit'),
+        (prefix + 'strategy/', 'Leaderboard plan'),
+        (prefix + 'review/', 'Flagged for review'),
     ]
-    out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
-           '<p class="start-here-label">Start here · where the picks are</p><ul>')
-    for href, title, sym, detail in items:
-        out += (f'<li><a href="{e(href)}">{icon(sym)}<strong>{e(title)}</strong>'
-                f'<span>{e(detail)}</span></a></li>')
-    out += '</ul>'
-    if with_pick is not None:
-        resolved = cc.get('resolved', active - unresolved)
-        without_direction = max(0, resolved - with_pick)
-        pick_word = 'pick' if with_pick == 1 else 'picks'
-        counts = [f'{with_pick} directional {pick_word} from {active} active fixtures']
-        if without_direction:
-            estimate_word = 'estimate' if without_direction == 1 else 'estimates'
-            verb = 'has' if without_direction == 1 else 'have'
-            counts.append(f'{without_direction} resolved {estimate_word} {verb} no directional pick')
-        if unresolved:
-            fixture_word = 'fixture' if unresolved == 1 else 'fixtures'
-            counts.append(f'{unresolved} unresolved {fixture_word}')
-        out += (f'<p class="tiny muted" style="padding:10px 2px 0">'
-                + '; '.join(e(part) for part in counts) +
-                '. Missing estimates stay blank; open the complete list for every match and its research trail.</p>')
-    return out + '</nav>'
+    links = ''.join(f'<a href="{e(href)}">{e(title)}</a>' for href, title in items)
+    without_direction = max(0, (cc.get('resolved', active - unresolved)) - with_pick)
+    counts = f'{with_pick} directional pick{"s" if with_pick != 1 else ""} from {active} active fixtures'
+    if without_direction:
+        counts += (f'; {without_direction} resolved estimate{"s" if without_direction != 1 else ""} '
+                   'with no side')
+    if unresolved:
+        counts += f'; {unresolved} unresolved'
+    return (f'<nav class="start-here" id="start-here" aria-label="More lists on this site">'
+            f'<p class="start-here-label">Also on this site</p><p class="start-here-links">{links}</p>'
+            f'<p class="start-here-count">{e(counts)}. Missing estimates stay blank and are listed '
+            'with their sources.</p></nav>')
 
 
 def glance(data, prefix, now=None):
@@ -635,7 +635,38 @@ def source_probe_block(data, prefix):
             'dated source probe ↓</a></p></div>')
 
 
-def unresolved_register(data, prefix):
+def coverage_probe_block(data, prefix):
+    """The session arena-8fa2b226 dossier: why each blank stayed blank.
+
+    Moved here from the executive summary in session arena-5fbf5cd5 so the
+    detailed provider probe lives on the unresolved page with the rest of the
+    audit trail instead of pushing today's picks down the phone summary.
+    """
+    probe = data.get('coverage_probe') or {}
+    if not probe:
+        return ''
+    pc = probe.get('counts') or {}
+    blanks = pc.get('unresolved_fixtures') or 0
+    lead = probe.get('headline') or (f'{blanks} blank fixture(s) documented')
+    where = 'the GitHub runner' if probe.get('environment') == 'github-actions-runner' else 'a local checkout'
+    detail = (f'{e(pc.get("with_provider_lead"))} of them have a provider listing that the strict join rejected for a '
+              f'named reason, and {e(pc.get("display_name_only"))} are blocked by display-name differences alone — the one '
+              'class of gap a reviewed alias can close, and the only class where a lead is published with the listing it came from.'
+              if blanks else
+              'The dossier is republished on every refresh, so a blank can never appear without a record beside it.')
+    return ('<div class="limitations-callout"><p class="eyebrow">Coverage probe · every blank, one by one</p>'
+            f'<p><strong>{e(lead)}</strong> {detail} The dossier was written by the probe script against {where} at '
+            f'{local_time(probe.get("generated_at"))} ({e(probe.get("mode"))}); it never writes a probability, a pick or an '
+            'alias, and it does not overwrite the collector’s own reasons above.</p>'
+            f'<p><a class="internal-link" href="{prefix}data/research/8fa2b226/coverage-probe.json">Full probe dossier (JSON) ↓</a>'
+            + ''.join(f' <a class="source-link" href="{e(x.get("url"))}" target="_blank" rel="noopener noreferrer">{e(x.get("name"))}: {e(x.get("status"))}</a>'
+                      for x in (probe.get('book_probes') or [])[:5])
+            + ('' if (probe.get('book_probes') or []) else ' <span class="tiny muted">no endpoint probes in this mode</span>')
+            + f'</p><p class="tiny">{e((probe.get("policy") or "")[:420])}</p>'
+            + '<p class="tiny">' + e('; '.join((probe.get('limitations') or [])[:2])) + '</p></div>')
+
+
+def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'):
     """A separate, phone-first register of every fixture without a pick.
 
     The brief asked for the unresolved picks and their limitations to be a
@@ -662,11 +693,15 @@ def unresolved_register(data, prefix):
         no_side = []
     total_pickless = len(rows) + len(no_side)
     active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
-    out = ['<section class="content-section unresolved-register" id="unresolved-register" '
+    out = ['<span class="anchor-alias" id="unresolved" aria-hidden="true"></span>'
+           '<section class="content-section unresolved-register" id="unresolved-register" '
            'aria-labelledby="unresolved-register-title">'
            '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
-           '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
+           f'<h2 id="unresolved-register-title">{title}</h2></div>'
            f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
+    model_rows = [m for m in (complete.get('matches') or [])
+                  if (m.get('origination') or {}).get('method') not in MONEY_METHODS
+                  and (m.get('origination') or {}).get('method') is not None]
     if not total_pickless:
         closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
         extra = ''
@@ -682,10 +717,18 @@ def unresolved_register(data, prefix):
                      '— HLTV event identity first, then a verified Thunderpick paired-price book (margin removed) — '
                      'with the alias evidence and fair lines on its origination card. No line is invented; see the '
                      f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> for the source links.</p>')
-        out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
+        model_note = ''
+        if model_rows:
+            low = sum(1 for m in model_rows if (m.get('origination') or {}).get('low_confidence'))
+            model_note = (f' <strong>{len(model_rows)} of them are researched model estimates, not '
+                          f'bookmaker lines</strong>{f" ({low} carry a wide-confidence interval)" if low else ""}; '
+                          f'their sources and limits are listed on <a class="internal-link" '
+                          f'href="{prefix}unresolved/#research-only">Researched but not market-backed →</a>.')
+        out.append('<div class="ok-note"><strong>No blank picks in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
-                   f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '
-                   'This is a dated observation: the inventory refreshes every four hours and new '
+                   f'{local_time(complete.get("generated_at") or data.get("generated_at"))}.'
+                   + model_note +
+                   ' This is a dated observation: the inventory refreshes every four hours and new '
                    'fixtures can appear before a market opens.</div>' + extra)
     else:
         parts = []
@@ -757,6 +800,177 @@ def unresolved_register(data, prefix):
     return ''.join(out)
 
 
+def unresolved(data, prefix, now=None):
+    """A page of its own for every fixture without a pick.
+
+    The brief asks for a *separate* section for unresolved picks and the
+    limitations that produced them, reachable from the executive summary and
+    obvious on a phone. /unresolved/ is that page: the same register the
+    summary shows, plus the full source ladder and the per-fixture trail for
+    every row that still has no side. It never re-prices a row, never averages
+    a rejected book and never turns a missing value into a default 50/50.
+    """
+    complete = data.get('complete_picks') or {}
+    active = (complete.get('counts') or {}).get('active') or data['counts'].get('upcoming', 0)
+    rows = [m for m in (complete.get('matches') or []) if m.get('origination') is None]
+    no_side = [m for m in (complete.get('matches') or [])
+               if m.get('origination') is not None and m.get('pick_index') is None]
+    pickless = rows + no_side
+    out = heading('Unresolved picks', 'Unresolved picks & limitations',
+                  'Every active Hotspawn CS2 fixture with no pick, and every pick that comes from a '
+                  'rating model instead of a book, with the sources tried and the limits that apply.')
+    out += ('<section class="content-section" id="unresolved-summary-block">'
+            '<div class="section-heading"><div><p class="eyebrow">Current snapshot</p>'
+            f'<h2>{len(pickless)} of {active} active fixtures without a pick</h2></div>'
+            f'<a class="internal-link" href="{prefix}origination/#picks">All picks {icon("arrow")}</a></div>'
+            f'<p class="section-intro">{len(rows)} with no estimate at all, {len(no_side)} with a '
+            'probability pair but no supportable side. A blank is published as a blank: it is never '
+            'filled with a default 50/50 and never inferred from Hotspawn participation.</p></section>')
+    out += unresolved_register(data, prefix, title='The register: every fixture without a pick')
+    out += coverage_probe_block(data, prefix)
+    model_rows = [m for m in (complete.get('matches') or [])
+                  if (m.get('origination') or {}).get('method') is not None
+                  and (m.get('origination') or {}).get('method') not in MONEY_METHODS]
+    out += ('<section class="content-section" id="research-only">'
+            '<div class="section-heading"><div><p class="eyebrow">Picks that exist, but not from a book</p>'
+            f'<h2>Researched but not market-backed: {len(model_rows)} fixtures</h2></div>'
+            f'<a class="internal-link" href="{prefix}origination/#picks">See every pick {icon("arrow")}</a></div>')
+    if model_rows:
+        low = sum(1 for m in model_rows if (m.get('origination') or {}).get('low_confidence'))
+        out += (f'<p class="section-intro">These fixtures <strong>do have a directional pick and both '
+                f'probabilities</strong>, but no reachable bookmaker or exchange published a usable '
+                f'two-sided series price, so the number comes from an official rating or a results model. '
+                + (f'{low} of them carry a wide confidence interval. ' if low else '')
+                + 'Each is labelled as a research model on its card and is never presented as a betting '
+                'line. The source ladder below was tried first for every one of them; the source column '
+                'links the rating or results page that produced the number.</p>')
+        out += ('<div class="table-scroll"><table class="simple-table model-register">'
+                '<caption class="sr-only">Fixtures whose pick comes from a rating or results model rather '
+                'than a two-sided market price</caption><thead><tr><th scope="col">Fixture</th>'
+                '<th scope="col">Pick &amp; probability</th><th scope="col">Why no book price</th>'
+                '<th scope="col">Source used</th></tr></thead><tbody>')
+        for m in sorted(model_rows, key=lambda r: r.get('starts_at') or ''):
+            o = m.get('origination') or {}
+            names = [x.get('name') or 'Unverified team' for x in m.get('teams') or []]
+            probs = o.get('probabilities') or []
+            pick = m.get('pick_index')
+            pick_txt = (f'<strong>{e(names[pick])}</strong> {probs[pick] * 100:.1f}%'
+                        if pick is not None and len(probs) == 2 else 'Even estimate · no side')
+            trail = [r for r in m.get('research') or [] if r.get('stage') != 'Origination result']
+            # Stage labels differ between collector generations ("Primary: Polymarket",
+            # "Original esportsbook lines", "GG.BET esportsbook", ...). Match on the
+            # provider words rather than one exact prefix, and keep only rows that
+            # actually failed to produce a price.
+            money_words = ('polymarket', 'kalshi', 'market', 'bookmaker', 'esportsbook',
+                           'book', 'pinnacle', 'bovada', 'thunderpick', 'gg.bet', 'rivalry',
+                           'stake', 'egamers', 'aggregated')
+            blocked = [r for r in trail
+                       if r.get('status') not in {'resolved', 'checked'}
+                       and any(w in str(r.get('stage') or '').lower() for w in money_words)]
+            why_parts = [f'<span class="tiny muted">{e((r.get("stage") or "").split("(")[0].strip())}: '
+                         f'{e((r.get("detail") or "")[:150])}</span>' for r in blocked[:3]]
+            why = ('<br>'.join(why_parts)
+                   or '<span class="tiny muted">No money source reached this fixture; see the card trail.</span>')
+            source = (external(o['source_url'], 'Model source') if str(o.get('source_url') or '').startswith('https://') else blank())
+            source += f'<br><span class="badge {"amber" if o.get("low_confidence") else "purple"}">'
+            source += ('Low confidence' if o.get('low_confidence') else 'Research model') + '</span>'
+            out += (f'<tr><th scope="row">{e(names[0])} vs {e(names[1])}'
+                    f'<small>{e(m.get("competition") or "Unverified tournament")} · '
+                    f'{local_time(m.get("starts_at"))}</small></th>'
+                    f'<td>{pick_txt}<br><span class="tiny muted">{e(o.get("provider") or "")}</span></td>'
+                    f'<td>{why}</td><td>{source}<br>'
+                    f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">Full trail →</a></td></tr>')
+        out += '</tbody></table></div>'
+        out += ('<div class="limitations-callout unresolved-limits"><strong>What a model pick cannot tell you'
+                '</strong><ul>'
+                '<li>A rating model does not know today&rsquo;s lineup, stand-ins, illness, travel or a map veto.</li>'
+                '<li>Valve and HLTV publish team-level points; they are not calibrated win probabilities.</li>'
+                '<li>These rows are re-priced on every refresh, so a later snapshot can change them or replace '
+                'them with a real bookmaker line once one opens.</li>'
+                '<li>If the model inputs disappear (for example a source outage), the row reverts to blank '
+                'rather than keeping a stale number.</li>'
+                '</ul></div>')
+    else:
+        out += ('<p class="section-intro">Every active fixture with a pick is backed by a two-sided market '
+                'or esportsbook price in this snapshot.</p>')
+    out += '</section>'
+
+    out += ('<section class="content-section" id="source-ladder">'
+            '<div class="section-heading"><div><p class="eyebrow">How a pick is produced</p>'
+            '<h2>The source ladder, in order</h2></div>'
+            f'<a class="internal-link" href="{prefix}methodology/">Full method {icon("arrow")}</a></div>'
+            '<p class="section-intro">Each rung is tried in this order and a rung only produces a number '
+            'when it returns a genuine two-sided price or an official published rating for this exact '
+            'fixture. The first rung that passes wins; a model never overrides money.</p>'
+            '<ol class="ladder-list">'
+            '<li><strong>Prediction markets.</strong> Polymarket series-winner order books; both sides '
+            'validated, spread ceiling 0.12. <a class="source-link" href="https://polymarket.com/esports/cs2" '
+            'target="_blank" rel="noopener noreferrer">Polymarket CS2 ↗</a></li>'
+            '<li><strong>Regulated exchange.</strong> Kalshi CS2 match-winner books, spread ceiling 0.15 in '
+            'the fallback ladder. <a class="source-link" href="https://kalshi.com/markets/kxcs2game" '
+            'target="_blank" rel="noopener noreferrer">Kalshi ↗</a></li>'
+            '<li><strong>Esportsbooks.</strong> Thunderpick, Bovada and Pinnacle prematch series moneylines, '
+            'margin removed proportionally. <a class="source-link" href="https://thunderpick.io/esports/counter-strike" '
+            'target="_blank" rel="noopener noreferrer">Thunderpick ↗</a> '
+            '<a class="source-link" href="https://www.bovada.lv/sports/esports/counter-strike-2" '
+            'target="_blank" rel="noopener noreferrer">Bovada ↗</a> '
+            '<a class="source-link" href="https://www.pinnacle.com/en/esports/counter-strike-2" '
+            'target="_blank" rel="noopener noreferrer">Pinnacle ↗</a></li>'
+            '<li><strong>Aggregated bookmaker average.</strong> A dated, hash-checked EGamersWorld capture; '
+            'labelled as an aggregation, never as a first-party quote. '
+            '<a class="source-link" href="https://egamersworld.com/counterstrike/matches" '
+            'target="_blank" rel="noopener noreferrer">EGamersWorld ↗</a></li>'
+            '<li><strong>Official rating models.</strong> Valve regional standings and the HLTV world '
+            'ranking, both explicitly uncalibrated. '
+            '<a class="source-link" href="https://github.com/ValveSoftware/counter-strike_regional_standings" '
+            'target="_blank" rel="noopener noreferrer">Valve standings ↗</a> '
+            '<a class="source-link" href="https://www.hltv.org/ranking/teams" target="_blank" '
+            'rel="noopener noreferrer">HLTV ranking ↗</a></li>'
+            '<li><strong>Our own results model.</strong> A Bradley&ndash;Terry network model over bo3.gg '
+            'finished series, anchored on Valve points. <a class="source-link" href="https://bo3.gg/matches" '
+            'target="_blank" rel="noopener noreferrer">bo3.gg results ↗</a></li>'
+            '</ol>'
+            '<p class="section-intro"><strong>If every rung fails, the row stays blank</strong> and appears '
+            'in the register above with the reason. A blocked page (HTTP 403, timeout, geo-fence) is recorded '
+            'as blocked access, never as proof that no market exists.</p></section>')
+    if pickless:
+        out += ('<section class="content-section" id="trail"><div class="section-heading"><div>'
+                '<p class="eyebrow">Source by source</p><h2>Why each of these stayed blank</h2></div>'
+                f'<a class="internal-link" href="{prefix}review/">Verification flags {icon("arrow")}</a></div>'
+                '<div class="table-scroll"><table class="simple-table unresolved-trail">'
+                '<caption class="sr-only">Research trail for every fixture without a pick</caption>'
+                '<thead><tr><th scope="col">Fixture</th><th scope="col">Source tried</th>'
+                '<th scope="col">Result</th></tr></thead><tbody>')
+        for m in pickless:
+            names = [t_.get('name') or 'Unverified team' for t_ in m.get('teams') or []]
+            trail = [r for r in m.get('research') or [] if r.get('stage') != 'Origination result']
+            for r in trail:
+                link = (external(r['source_url'], 'Source')
+                        if str(r.get('source_url') or '').startswith('https://') else blank())
+                out += (f'<tr><th scope="row">{e(names[0])} vs {e(names[1])}'
+                        f'<small>{local_time(m.get("starts_at"))}</small></th>'
+                        f'<td>{e(r.get("stage") or "Source")}</td>'
+                        f'<td><span class="badge {"green" if r.get("status") == "resolved" else "amber"}">'
+                        f'{e(r.get("status") or "unknown")}</span> {e((r.get("detail") or "")[:320])} {link}</td></tr>')
+        out += '</tbody></table></div></section>'
+    out += ('<section class="content-section" id="unresolved-rules"><div class="section-heading"><div>'
+            '<p class="eyebrow">Rules, not excuses</p><h2>What this page will never do</h2></div></div>'
+            '<ul class="limitations-list">'
+            '<li>It never uses Hotspawn&rsquo;s &ldquo;% picked&rdquo; or an HLTV fan vote as a probability.</li>'
+            '<li>It never treats a blocked or unreadable source as evidence that no market exists.</li>'
+            '<li>It never joins a provider display name without a reviewed, competition-scoped alias in the '
+            'public registry, and it never matches on one team plus a start time.</li>'
+            '<li>It never fills a missing value: if a source cannot be confirmed, the row stays blank and '
+            'is listed here.</li>'
+            '<li>It never prices an in-play or closed market as a prematch pick.</li>'
+            '</ul>'
+            f'<p class="section-intro"><a class="internal-link" href="{prefix}coverage/">Source health and '
+            f'refresh status →</a> <a class="internal-link" href="{prefix}methodology/">Formulas and '
+            f'thresholds →</a> <a class="internal-link" href="{prefix}origination/#aliases">Identity '
+            'evidence →</a></p></section>')
+    return out
+
+
 def summary(data, prefix, now=None):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -770,11 +984,13 @@ def summary(data, prefix, now=None):
     unresolved = cc['unresolved'] if cc else c['unresolved']
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
-    out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
+    out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Picks, probabilities and sources in one tap.')
     out += exec_banner(data, prefix)
-    out += start_here(data, prefix)
+    # Order is deliberate for a phone: the banner's one tap, then the pick index,
+    # then the unresolved register, and only then the secondary-site link line.
     out += glance(data, prefix, now=now)
     out += unresolved_register(data, prefix)
+    out += start_here(data, prefix)
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
@@ -821,6 +1037,13 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    # Dated tournament material is retained for audit but collapsed on a phone:
+    # the 18 October TWC finale is not a current picks list, and its two blocks
+    # pushed today's fixtures 6,300 px down the page.
+    twc_archive = data.get('_twc_day5') is not None or data.get('_twc_day4') is not None
+    if twc_archive:
+        out += ('<details class="archive-block" id="archive-twc">'
+                '<summary>Archived tournament review · TWC 2026 final day and its source checks</summary>')
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
         out += final_day_summary(data['_twc_day5'], prefix)
@@ -851,6 +1074,8 @@ def summary(data, prefix, now=None):
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
                 f'{tournament_link}'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
+    if twc_archive:
+        out += '</details>'
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics below describe the original featured method only. The next-match preview uses the same selected estimates as the complete list, including researched fallbacks. Featured observations remain available for audit.</p>'
@@ -864,31 +1089,13 @@ def summary(data, prefix, now=None):
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'origination/#picks">All match picks ' + icon('arrow') + '</a></div>'
     out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks'), now=now) + '</section>'
     out += contrarian_review(data, prefix)
-    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
-    out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
-    unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
-    out += unresolved_table(unresolved_data, prefix)
-    probe = data.get('coverage_probe') or {}
-    if probe:
-        pc = probe.get('counts') or {}
-        blanks = pc.get('unresolved_fixtures') or 0
-        lead = probe.get('headline') or (f'{blanks} blank fixture(s) documented')
-        where = 'the GitHub runner' if probe.get('environment') == 'github-actions-runner' else 'a local checkout'
-        detail = (f'{e(pc.get("with_provider_lead"))} of them have a provider listing that the strict join rejected for a '
-                  f'named reason, and {e(pc.get("display_name_only"))} are blocked by display-name differences alone — the one '
-                  'class of gap a reviewed alias can close, and the only class where a lead is published with the listing it came from.'
-                  if blanks else
-                  'The dossier is republished on every refresh, so a blank can never appear without a record beside it.')
-        out += ('<div class="limitations-callout"><p class="eyebrow">Coverage probe · every blank, one by one</p>'
-                f'<p><strong>{e(lead)}</strong> {detail} The dossier was written by the probe script against {where} at '
-                f'{local_time(probe.get("generated_at"))} ({e(probe.get("mode"))}); it never writes a probability, a pick or an '
-                'alias, and it does not overwrite the collector’s own reasons above.</p>'
-                f'<p><a class="internal-link" href="{prefix}data/research/8fa2b226/coverage-probe.json">Full probe dossier (JSON) ↓</a>'
-                + ''.join(f' <a class="source-link" href="{e(x.get("url"))}" target="_blank" rel="noopener noreferrer">{e(x.get("name"))}: {e(x.get("status"))}</a>'
-                          for x in (probe.get('book_probes') or [])[:5])
-                + ('' if (probe.get('book_probes') or []) else ' <span class="tiny muted">no endpoint probes in this mode</span>')
-                + f'</p><p class="tiny">{e((probe.get("policy") or "")[:420])}</p>'
-                + '<p class="tiny">' + e('; '.join((probe.get('limitations') or [])[:2])) + '</p></div>')
+    out += ('<section class="content-section" id="audit-register"><div class="section-heading"><div>'
+            '<p class="eyebrow">Audit trail</p><h2>Every rejected line, in one place</h2></div>'
+            f'<a class="internal-link" href="{prefix}unresolved/">Unresolved picks &amp; limits {icon("arrow")}</a></div>'
+            '<p class="section-intro">The register above lists every active fixture without a pick. This '
+            'single page also keeps the per-fixture research trail, the source ladder and the reason each '
+            'source was rejected, so a blank can be audited without hunting through the site. '
+            f'<a class="internal-link" href="{prefix}review/#unresolved">All verification flags →</a></p></section>')
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'
     out += contrarian_briefing(data, prefix)
@@ -908,6 +1115,9 @@ def where_everything_lives(data, prefix):
         ('Complete match picks', 'origination/#picks', 'The list to use on your phone: every non-archived Hotspawn CS2 '
          'fixture with both probabilities, one obvious pick, lock times and expandable evidence.',
          'Featured estimates plus researched fallbacks'),
+        ('Unresolved picks', 'unresolved/', 'Every active fixture without a pick: the source ladder, the exact blocker per '
+         'fixture and the rule that kept the row blank. Reachable in one tap from the executive summary and the phone bar.',
+         'Separate register · no 50/50 defaults'),
         ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
@@ -1090,7 +1300,7 @@ def shell(data, key, body, prefix, now=None):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2] if k != "unresolved" else "flag")}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     # Phone-first status strip: two one-tap destinations, present on every page.
     # Session 541cd43a — the brief asks to be able to reach an updated picks list
     # from a phone without hunting. Counts are the same canonical counts the
@@ -1221,6 +1431,7 @@ def build(source: Path, output: Path, now=None):
     from scripts.build_final_day import render as final_day_render
     renderers = {'summary': lambda d, pfx: summary(d, pfx, now=now),
                  'picks': lambda d, pfx: picks(d, pfx, now=now),
+                 'unresolved': lambda d, pfx: unresolved(d, pfx, now=now),
                  'coverage': lambda d, pfx: coverage(d, pfx, now=now),
                  'methodology': methodology, 'review': review,
                  'edge': lambda d, pfx: edge_review(d, pfx, edge_path),

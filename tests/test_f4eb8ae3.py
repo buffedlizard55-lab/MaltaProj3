@@ -52,8 +52,10 @@ class ExecutiveSummaryContractTests(unittest.TestCase):
         self.assertIsNotNone(banner, 'executive summary must open with the picks jump banner')
         hrefs = {a.get('href') for a in banner.select('a[href]')}
         self.assertIn('./origination/#picks', hrefs, 'banner must link the updated picks list')
-        self.assertIn('./picks/', hrefs, 'banner must link the featured picks feed')
-        self.assertIn('./origination/#unresolved', hrefs, 'banner must link unresolved picks & limitations')
+        # Session arena-5fbf5cd5: unresolved picks became their own page, which is
+        # a stronger link than the summary anchor the original test pinned.
+        self.assertIn('./unresolved/', hrefs, 'banner must link the unresolved picks page')
+        self.assertIn('./unresolved/', hrefs, 'banner must link unresolved picks & limitations')
 
     def test_start_here_nav_and_glance_index_reach_the_picks(self):
         soup = BeautifulSoup(self.summary_html, 'html.parser')
@@ -61,8 +63,8 @@ class ExecutiveSummaryContractTests(unittest.TestCase):
         self.assertIsNotNone(start, 'phone-first start-here jump bar must exist')
         hrefs = {a.get('href') for a in start.select('a[href]')}
         self.assertIn('./origination/#picks', hrefs)
-        self.assertIn('./origination/#unresolved', hrefs)
-        self.assertIn('./#unresolved-register', hrefs)
+        self.assertIn('./unresolved/', hrefs, 'the unresolved page must be reachable from the summary')
+        self.assertIn('./picks/', hrefs, 'the featured audit feed must stay reachable from the summary')
         glance_rows = soup.select('#picks-at-a-glance .glance-row, #picks-at-a-glance li, #picks-at-a-glance tr')
         self.assertTrue(glance_rows, 'picks-at-a-glance index must render rows')
 
@@ -75,6 +77,9 @@ class ExecutiveSummaryContractTests(unittest.TestCase):
         self.assertIn('Unresolved', heading.get_text())
         self.assertTrue(register.select('a[href*="origination/#unresolved"]'),
                         'register must link the full research trails')
+        # The summary itself also links the dedicated unresolved page.
+        self.assertTrue(soup.select('a[href="./unresolved/"]'),
+                        'summary must link the separate unresolved picks page')
 
     def test_mobile_landmarks_and_viewport(self):
         soup = BeautifulSoup(self.summary_html, 'html.parser')

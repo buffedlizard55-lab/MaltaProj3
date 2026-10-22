@@ -69,10 +69,11 @@ class SummaryNavigation(unittest.TestCase):
         status = soup.select_one('[aria-label="Complete pick coverage"]')
         self.assertIn('Pick coverage & unresolved matches', status.get_text(' ', strip=True))
         self.assertNotIn('Picks for every match', status.get_text(' ', strip=True))
-        self.assertIn('2 directional picks from 4 active fixtures', soup.select_one('.start-here').get_text(' ', strip=True))
-        self.assertIn('1 resolved estimate has no directional pick', soup.select_one('.start-here').get_text(' ', strip=True))
-        self.assertIn('1 unresolved fixture', soup.select_one('.start-here').get_text(' ', strip=True))
-        self.assertIn('Both team win probabilities where sourced', soup.select_one('.start-here').get_text(' ', strip=True))
+        bar = soup.select_one('.start-here').get_text(' ', strip=True)
+        self.assertIn('2 directional picks from 4 active fixtures', bar)
+        self.assertIn('1 resolved estimate with no side', bar)
+        self.assertIn('1 unresolved', bar)
+        self.assertIn('Missing estimates stay blank', bar)
 
     def test_all_resolved_but_even_estimate_is_probability_coverage_not_full_directional_coverage(self):
         self.data['coverage_complete'] = True

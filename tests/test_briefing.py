@@ -84,7 +84,7 @@ class BriefingTests(unittest.TestCase):
         soup = BeautifulSoup(text, 'html.parser')
         self.assertEqual(soup.select_one('.hero-actions a')['href'], './origination/#picks')
         self.assertEqual(soup.select('.mobile-nav a')[1]['href'], './origination/#picks')
-        self.assertIn('featured-method rejections', text)
+        self.assertIn('Featured rejections', text)
         self.assertIsNotNone(soup.select_one('[aria-label="Complete pick coverage"]'))
 
     def test_official_roster_rows_replay_original_github_blobs(self):

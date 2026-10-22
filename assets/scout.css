@@ -265,3 +265,50 @@
 
 .badge.neutral{background:#eef2f4;color:#576b79;border-color:#dfe8ec}
 .review-table>tbody>tr.superseded-flag{background:#ffffff}.review-table>tbody>tr.superseded-flag>td,.review-table>tbody>tr.superseded-flag>th{color:#576b79}
+
+/* Session arena-5fbf5cd5 — phone-first executive summary.
+   A 390 px render put the first pick 1,430 px down the page because two stacked
+   link lists sat above it. The banner is now one card with one primary action,
+   and the jump bar is a compact chip row. */
+.exec-banner>.primary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:14px 16px;border-radius:11px;background:var(--orange);color:var(--navy-deep);border:1px solid var(--orange);text-decoration:none!important;font-size:15px;font-weight:700;line-height:1.3}
+.exec-banner>.primary .label{display:flex;flex-direction:column;gap:3px;min-width:0}
+.exec-banner>.primary .sub{font-size:11px;font-weight:500;opacity:.9}
+.exec-banner-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px}
+.exec-banner-actions a{min-height:44px;padding:9px 12px}
+.start-here{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin:0 0 18px;box-shadow:var(--shadow)}
+.start-here-label{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#576b79;font-weight:650;margin:0 0 9px}
+.start-here ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+.start-here li{flex:1 1 auto;min-width:0}
+.start-here a{display:flex;align-items:center;gap:6px;min-height:40px;padding:8px 11px;border:1px solid #dbe4e9;border-radius:9px;background:#f8fafb;color:#2e5260;font-size:11px;font-weight:600;text-decoration:none!important;white-space:nowrap}
+.start-here a:hover{border-color:#b9c9d3;background:#fff}
+.start-here .icon{width:15px;height:15px;color:#576b79;flex:0 0 auto}
+.start-here-count{font-size:10px;color:#576b79;line-height:1.7;margin:9px 0 0}
+@media(max-width:700px){
+  .exec-banner h3{font-size:16px}
+  .exec-banner-actions{grid-template-columns:1fr 1fr}
+  .start-here a{font-size:11px;padding:8px 9px}
+  .start-here li{flex:1 1 46%}
+}
+@media(max-width:375px){
+  .start-here a{white-space:normal;font-size:10.5px}
+  .exec-banner>.primary{min-height:52px;font-size:14px;padding:12px 13px}
+}
+.anchor-alias{display:block;position:relative;top:-8px;visibility:hidden}
+.ladder-list{margin:0;padding:0 22px 4px 44px;display:grid;gap:12px}
+.ladder-list li{font-size:12px;line-height:1.85;color:#43525e}
+.ladder-list strong{color:#22384a}
+.ladder-list .source-link{font-size:11px;min-height:28px;align-items:center}
+.limitations-list{margin:0;padding:0 22px 8px 40px;display:grid;gap:9px}
+.limitations-list li{font-size:12px;line-height:1.85;color:#43525e}
+.unresolved-trail td{font-size:11px;line-height:1.8}
+.unresolved-trail .badge{margin-right:6px}
+.archive-block{border:1px solid var(--border);border-radius:var(--radius);background:var(--white);margin:0 0 26px;box-shadow:var(--shadow)}
+.archive-block>summary{cursor:pointer;padding:17px 20px;font-size:13px;font-weight:650;color:#22384a;min-height:48px;display:flex;align-items:center;gap:9px;list-style:none}
+.archive-block>summary::-webkit-details-marker{display:none}
+.archive-block>summary:before{content:"▸";color:var(--orange-dark);font-size:12px;transition:transform .15s}
+.archive-block[open]>summary:before{transform:rotate(90deg)}
+.archive-block .content-section,.archive-block .limitations-callout{margin:0;border:0;border-top:1px solid var(--border);border-radius:0;box-shadow:none}
+.start-here{padding:10px 14px}
+.start-here-links{display:flex;flex-wrap:wrap;gap:4px 14px;margin:0;font-size:11px;font-weight:600}
+.start-here-links a{color:#2e5260;text-decoration:underline;text-underline-offset:3px;min-height:32px;display:inline-flex;align-items:center}
+.start-here-count{font-size:9.5px;margin-top:5px}

@@ -239,11 +239,12 @@ class StartHereNavigation(unittest.TestCase):
         self.assertIsNotNone(bar)
         hrefs = [a['href'] for a in bar.select('a[href]')]
         self.assertIn('./origination/#picks', hrefs)
-        self.assertIn('./final-day/', hrefs)
-        self.assertIn('./origination/#unresolved', hrefs)
-        # It must come before the first match row in document order.
+        self.assertIn('./unresolved/', hrefs)
+        # Session arena-5fbf5cd5: the one-tap pick entry point moved into the
+        # banner above the index, and this secondary line follows the picks.
         html = str(soup)
-        self.assertLess(html.index('start-here'), html.index('id="picks-at-a-glance"'))
+        self.assertLess(html.index('exec-banner'), html.index('id="picks-at-a-glance"'))
+        self.assertLess(html.index('id="picks-at-a-glance"'), html.index('start-here'))
 
     def test_site_map_lists_the_final_day_page(self):
         from unittest.mock import patch

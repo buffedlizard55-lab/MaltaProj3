@@ -34,9 +34,14 @@ class ExecBannerTests(unittest.TestCase):
         soup = BeautifulSoup(html, 'html.parser')
         section = soup.select_one('section.exec-banner')
         self.assertIsNotNone(section)
+        # Session arena-5fbf5cd5: the banner keeps one primary picks action and
+        # two secondary internal destinations; the featured feed moved to the
+        # compact "Also on this site" line so the first pick sits higher on a phone.
+        primary = section.select_one('a.primary')
+        self.assertEqual(primary['href'], './origination/#picks')
         hrefs = [a['href'] for a in section.select('.exec-banner-actions a')]
-        self.assertEqual(hrefs, ['./origination/#picks', './picks/', './origination/#unresolved'])
-        for href in hrefs:
+        self.assertEqual(hrefs, ['./unresolved/', './methodology/'])
+        for href in [primary['href']] + hrefs:
             self.assertTrue(href.startswith('./'), href)
             self.assertNotIn('http', href)
 
@@ -44,21 +49,22 @@ class ExecBannerTests(unittest.TestCase):
         data = with_complete(inventory())
         cc = data['complete_picks']['counts']
         text = BeautifulSoup(exec_banner(data, './'), 'html.parser').get_text(' ')
-        self.assertIn(f"{cc['with_pick']} of {cc['active']} with a pick", text)
+        self.assertIn(f"{cc['with_pick']} of {cc['active']}", text)
+        self.assertIn('both probabilities', text)
         self.assertIn(f"{cc['unresolved']} without a line", text)
 
     def test_banner_renders_without_complete_picks(self):
         # A retained snapshot without origination data must not crash the summary.
         text = BeautifulSoup(exec_banner(inventory(), './'), 'html.parser').get_text(' ')
-        self.assertIn('Updated picks', text)
+        self.assertIn('See all picks', text)
         self.assertIn('Unresolved', text)
 
     def test_banner_is_first_block_after_summary_heading(self):
         html = summary(with_complete(inventory()), './')
         banner_at = html.find('exec-banner')
         self.assertGreater(banner_at, 0)
-        # The jump bar, glance index and register all follow the banner.
-        for marker in ('id="start-here"', 'id="picks-at-a-glance"', 'id="unresolved-register"'):
+        # The glance index, the register and the secondary link line all follow the banner.
+        for marker in ('id="picks-at-a-glance"', 'id="unresolved-register"', 'id="start-here"'):
             self.assertGreater(html.find(marker), banner_at, marker)
 
 
@@ -99,10 +105,11 @@ class HotspawnProvenanceTests(unittest.TestCase):
         css = Path('assets/scout.css').read_text()
         self.assertIn('.exec-banner', css)
         self.assertIn('.exec-banner-actions a .label', css)
-        # The phone rule stacks the three actions vertically.
-        phone = css[css.find('Session 941ff196'):]
+        # A phone rule still restacks the banner actions (session arena-5fbf5cd5
+        # puts the primary action full width and the two secondaries in a row).
+        phone = css[css.find('Session arena-5fbf5cd5'):]
         self.assertIn('@media(max-width:700px)', phone)
-        self.assertIn('grid-template-columns:1fr', phone.replace(' ', ''))
+        self.assertIn('grid-template-columns:1fr1fr', phone.replace(' ', ''))
 
 
 if __name__ == '__main__':
