@@ -7,6 +7,11 @@
 name: c1fa150f live inventory verification (dispatch only)
 
 on:
+  # A push trigger scoped to this file only: GitHub's dispatch API needs the
+  # workflow on the default branch, so this session triggers it by editing it.
+  push:
+    branches: ['arena/c1fa150f-maltaproj3']
+    paths: ['.github/workflows/c1fa150f-verify.yml']
   workflow_dispatch:
 
 permissions:
