@@ -1,0 +1,110 @@
+{
+ "schema_version": 1,
+ "session": "arena-ee27e097",
+ "observed_at": "2026-10-22T07:32:05+00:00",
+ "environment": "github-actions-runner (ubuntu-24.04), plus a headless Chromium context",
+ "policy": "Read-only reachability record. A page listed here is NOT a price. Only a two-sided, first-party prematch series line or a published official rating may produce a number, and the ladder in scripts/originate.py decides which one is used.",
+ "conclusion": "No new automated two-sided price source was found for the low-tier fixtures. EGamersWorld refuses the runner even in Chromium, HLTV refuses the runner, Oddspedia is deleted and BetExplorer/OddsPortal did not answer with a usable page. bo3.gg answered and remains the only relay of a named bookmaker, but it prices only a subset of fixtures.",
+ "sources": [
+  {
+   "name": "EGamersWorld CS2 match listing",
+   "url": "https://egamersworld.com/counterstrike/matches",
+   "http_status": 403,
+   "error": null,
+   "detail_url": "https://egamersworld.com/counterstrike/matches",
+   "fixtures_listed": [],
+   "note": "Cloudflare challenge to the runner (requests). A person can load the page; its listing odds are unverified and can contradict its own match page — see egamersworld-observation.json. Page title at the runner: 'Just a moment...'."
+  },
+  {
+   "name": "EGamersWorld match page (Bushido Wildcats vs ex-6666)",
+   "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/bushido-wildcats-vs-ex-6666-Xs452MP7y",
+   "http_status": 403,
+   "error": null,
+   "detail_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/bushido-wildcats-vs-ex-6666-Xs452MP7y",
+   "fixtures_listed": [],
+   "note": "Cloudflare challenge to the runner (requests). Read by hand for the observation record; most low-tier pages print a 1.8/1.8 placeholder. Page title at the runner: 'Just a moment...'."
+  },
+  {
+   "name": "BetExplorer CS2",
+   "url": "https://www.betexplorer.com/esports/counter-strike-2/",
+   "http_status": 404,
+   "error": null,
+   "detail_url": "https://www.betexplorer.com/esports/counter-strike-2/",
+   "fixtures_listed": [],
+   "note": "No CS2 page at this address (HTTP 404). Not used."
+  },
+  {
+   "name": "Oddspedia CS2",
+   "url": "https://oddspedia.com/esports/counter-strike",
+   "http_status": 410,
+   "error": null,
+   "detail_url": "https://oddspedia.com/esports/counter-strike",
+   "fixtures_listed": [],
+   "note": "Permanently deleted (HTTP 410); the previous sweep recorded the same status. Page title at the runner: 'The resource you have requested has been permanently deleted'."
+  },
+  {
+   "name": "OddsPortal CS2",
+   "url": "https://www.oddsportal.com/esports/counter-strike/",
+   "http_status": 503,
+   "error": null,
+   "detail_url": "https://www.oddsportal.com/esports/counter-strike/",
+   "fixtures_listed": [],
+   "note": "HTTP 503 from the runner. No price extracted."
+  },
+  {
+   "name": "HLTV match listing",
+   "url": "https://www.hltv.org/matches",
+   "http_status": 403,
+   "error": null,
+   "detail_url": "https://www.hltv.org/matches",
+   "fixtures_listed": [],
+   "note": "Cloudflare challenge to the automated runner. HLTV publishes identity, rankings and a fan vote, not a two-sided prematch price, so it is never an odds input. Page title at the runner: 'Just a moment...'."
+  },
+  {
+   "name": "bo3.gg public match API (relayed bookmaker quotes)",
+   "url": "https://bo3.gg/matches",
+   "http_status": 200,
+   "error": null,
+   "detail_url": "https://bo3.gg/matches",
+   "fixtures_listed": [],
+   "note": "Public match API answered. It relays a named bookmaker quote (Thunderpick) for a subset of upcoming fixtures; the ladder already consumes it through the relay rung. A fixture without that block has no relayed price."
+  },
+  {
+   "name": "Hotspawn lobby (inventory only)",
+   "url": "https://play.hotspawn.com/lobby",
+   "http_status": 200,
+   "error": null,
+   "detail_url": "https://play.hotspawn.com/lobby",
+   "fixtures_listed": [],
+   "note": "The authoritative scheduled inventory, independent of any price. Page title at the runner: \"Pick'ems Lobby | Hotspawn Play\"."
+  },
+  {
+   "name": "EGamersWorld CS2 listing — headless Chromium",
+   "url": "https://egamersworld.com/counterstrike/matches",
+   "http_status": 403,
+   "error": null,
+   "detail_url": "https://egamersworld.com/counterstrike/matches",
+   "fixtures_listed": [],
+   "note": "A real Chromium context (UTC timezone, desktop user agent) still received the security-verification interstitial, so automation cannot use EGamersWorld as a live price feed. Manual, dated captures remain the only reviewed use of that site."
+  },
+  {
+   "name": "bo3.gg relay coverage on the same observation",
+   "url": "https://api.bo3.gg/api/v1/matches",
+   "http_status": 200,
+   "error": null,
+   "detail_url": "https://bo3.gg/matches",
+   "fixtures_listed": [],
+   "note": "100 upcoming fixtures read; 23 carried a named bookmaker quote block. Only those can produce a relayed line."
+  }
+ ],
+ "observation": {
+  "title": "EGamersWorld listing vs its own match page — human read",
+  "file": "data/research/ee27e097/egamersworld-observation.json",
+  "observed_at": "2026-10-22T08:10:00Z",
+  "fixtures_checked": 5,
+  "contradictions": 1,
+  "placeholders": 4,
+  "summary": "A reader loaded EGamersWorld on 2026-10-22T08:10:00Z for 5 of the fixtures that carry a research-model pick. The site prints its 1.8/1.8 placeholder for 4 of them, and for one fixture its listing pair contradicts its own match page, which shows the placeholder and no bookmaker-average sentence. No listing number was promoted to a price."
+ },
+ "probe_file": "data/research/ee27e097/probe-2026-10-22T0732Z.json"
+}

@@ -8,6 +8,7 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 | --- | --- |
 | [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | **Picks at a glance** (a phone-first index above the fold: every active fixture with **both** teams' win probability, the obvious pick, a Market line / Model / Researched badge and links to its evidence), coverage, complete-pick counts, the separate **Picks without a betting line** register (each model-only pick with the money sources that failed and why), unresolved-pick limitations, upcoming matches, the Day 1 contrarian review and a map of every page |
 | [Complete match picks](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks) | The phone-first list: every non-archived fixture with both probabilities, one obvious pick, lock times and expandable evidence |
+| [Unresolved & limitations](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) | The separate register, one tap from the phone status strip and the start-here bar: every fixture with no pick, every pick that has **no external betting line**, the exact blocker for each, the dated list of money sources that answered/refused/were deleted, and a dated reader observation of EGamersWorld |
 | [Leaderboard plan](https://buffedlizard55-lab.github.io/MaltaProj3/strategy/) | One plan pick per open fixture from our own external-line probabilities, the few underdogs worth an upset play (with their expected-point cost), a separate unresolved section, the Thunderpick tournament pick'em (team plus score), Hotspawn's verified scoring contract and Days 1–2 results cross-checked against Hotspawn's own API |
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
 | [Day 1 contrarian review](https://buffedlizard55-lab.github.io/MaltaProj3/#contrarian) | Source-linked 9z–Aurora upset review, Aurora rebuild context and a strictly bounded 9z–Falcons watch that never overrides the primary pick |
@@ -62,6 +63,33 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
 | Legacy 1-2 FURIA (Group B winners'; FURIA to semi-final) | Cache 13-10 · Inferno 5-13 · Mirage 8-13 | Legacy took a map off FURIA; this alone does not calibrate a comparative form advantage |
 
 **Historical 15 October advisory—not current picks.** Day 3 (16 Oct, both bo3 deciders): **Aurora vs 9z** (14:00 UTC per Polymarket's Gamma record; provider prices Aurora 0.69 / 9z 0.31 at 22:23Z, thin) and **Legacy vs BETBOOM** (17:00 UTC; market created 22:25Z with zero trades, so **no probability is published**). Guidance: primary Aurora with **9z as the single designated contrarian flip** for leaderboard climbers (head-to-head 2-0 two days ago + map off Falcons, against Aurora's Day 2 reset and ~2:1 market price); Legacy is a labeled low-confidence *form lean only* in the unpriced decider. Rest is symmetric — all four teams played Day 2 — and no new roster change was verified for Day 3. The current [Day 4 guide](https://buffedlizard55-lab.github.io/MaltaProj3/twc-picks/#day-four-picks) and complete-picks snapshot are authoritative; this older advisory is retained as dated history, not reissued after the results.
+
+## 22 October session arena-ee27e097: a separate gap page, and what the line sources actually answer
+
+- **`/unresolved/` is now a page of its own**, linked from the start-here bar, the hero actions,
+  the register heading, both navigation bars and the site map. It renders the same verified
+  register as the executive summary — no second calculation — and states the two gaps separately:
+  *no pick* (blank probability) and *no betting line* (a labelled, uncalibrated research
+  estimate). The phone status strip now reports both counts ("0 unresolved · 18 no line" on the
+  22 October 07:37Z snapshot) instead of a reassuring zero.
+- **EGamersWorld is readable by a person and refuses the runner — in plain HTTP and in Chromium.**
+  A dated sweep from the GitHub runner on `2026-10-22T07:32Z` recorded HTTP 403 (Cloudflare
+  "Just a moment") for the CS2 listing and a match page with `requests`, and HTTP 403 for the same
+  listing in a real headless Chromium context. HLTV 403, Oddspedia 410 (deleted), BetExplorer 404
+  and OddsPortal 503 completed the sweep. bo3.gg answered 200 with a named bookmaker quote block
+  for 23 of 100 upcoming fixtures — its relay rung already consumes those.
+- **The one low-tier fixture EGamersWorld appeared to price does not survive review.**
+  For Nemesis–WW the listing printed 1.17 / 4.40 while the site's own
+  [match page](https://egamersworld.com/counterstrike/match/4yp_dlKtNl/team-nemesis-vs-ww-team-m2zGV4lUp)
+  printed the 1.8 / 1.8 placeholder and no bookmaker-average sentence. Four other model-only
+  fixtures printed 1.8 / 1.8 in the same listing. Nothing was promoted to a price; the dated
+  record is [`data/research/ee27e097/egamersworld-observation.json`](data/research/ee27e097/egamersworld-observation.json)
+  and the finding is on the Flagged for Review page.
+- **bo3.gg had gained a real relayed pair for a fixture the published snapshot still prices with a
+  model.** On the same observation, 6yuBoJlbl–ex-6666 carried Thunderpick 1.72 / 2.00, which the
+  ladder ranks above every research model. The next live refresh should promote that row; the
+  deployed snapshot is checked against it after the merge.
+
 
 ## 21 October session arena-dbaf7692: a pick or an explicit limitation for every match
 

@@ -873,8 +873,28 @@ def line_sources_block(data, prefix):
             f'<strong>{len(sources)}</strong> surfaces answered HTTP 200 and <strong>{len(blocked)}</strong> '
             'refused, deleted or timed out. A reachable page is never a price by itself — only a two-sided '
             'first-party line or a published official rating may produce a number. '
-            f'<a class="internal-link" href="{prefix}data/research/fbdc97d6/line-sources.json">Full record (JSON) ↓</a></p>'
-            f'<ul class="line-source-list">{rows}</ul></div>')
+            f'<a class="internal-link" href="{prefix}{e(str(record.get("_document_path") or "data/research/fbdc97d6/line-sources.json"))}">Full record (JSON) ↓</a></p>'
+            f'<ul class="line-source-list">{rows}</ul>'
+            + observation_note(record, prefix) + '</div>')
+
+
+def observation_note(record: dict, prefix: str) -> str:
+    """A dated reader observation beside the automated sweep, clearly labelled.
+
+    The sweep records what the runner saw. Where a person could load a page the
+    runner cannot, that read is published separately, with its own timestamp and
+    its own limitation. It never becomes a price input: the whole point of this
+    note is that one surface contradicted its own match page and the rest showed
+    the site's 1.8/1.8 placeholder.
+    """
+    observation = record.get('observation') or {}
+    if not observation:
+        return ''
+    href = prefix + str(observation.get('file') or '').lstrip('./')
+    return ('<div class="limitations-callout" id="reader-observation" style="margin-top:14px">'
+            f'<strong>{e(observation.get("title") or "Reader observation")}:</strong> '
+            f'{e(observation.get("summary") or "")} '
+            f'<a class="internal-link" href="{e(href)}">Dated observation record (JSON) ↓</a></div>')
 
 
 
@@ -1239,7 +1259,7 @@ def unresolved_page(data, prefix):
         model = max(0, (cc.get('resolved') or 0) - money) if cc else 0
     out = heading(
         'Separate register · no guesswork',
-        'Unresolved picks &amp; limitations',
+        'Unresolved picks & limitations',
         'Two different gaps, kept apart on purpose. A fixture with no pick has no supported '
         'probability at all. A pick without a betting line has a published percentage from a '
         'labelled research model — an uncalibrated estimate, not a price you could have bet. '
@@ -1503,12 +1523,25 @@ def build(source: Path, output: Path, now=None):
     # Session 541cd43a: the dated, read-only source sweep behind the unresolved
     # register (HLTV, bo3.gg, esportsbook surfaces). Rendering it is the only use;
     # no value in it ever becomes a probability.
-    line_sources_path = source / 'research/fbdc97d6/line-sources.json'
-    if line_sources_path.exists():
+    # Session ee27e097: every session may add a dated sweep. Publish the newest
+    # one (by its own observed_at) and keep the file it came from, so the JSON
+    # link under the table points at the record that is actually rendered. An
+    # unreadable or undated file is skipped, never shown as current.
+    sweeps = []
+    for candidate in sorted((source / 'research').glob('*/line-sources*.json')):
         try:
-            data['_line_sources'] = json.loads(line_sources_path.read_text())
-        except ValueError:
-            data['_line_sources'] = None
+            document = json.loads(candidate.read_text())
+        except (ValueError, OSError):
+            continue
+        if not isinstance(document, dict) or not document.get('sources'):
+            continue
+        sweeps.append((str(document.get('observed_at') or ''), str(candidate), document))
+    if sweeps:
+        observed, path_text, document = max(sweeps, key=lambda item: (item[0], item[1]))
+        document['_document_path'] = path_text
+        data['_line_sources'] = document
+    else:
+        data['_line_sources'] = None
     probe_path = source / 'research/541cd43a/provider-probe.json'
     if probe_path.exists():
         try:

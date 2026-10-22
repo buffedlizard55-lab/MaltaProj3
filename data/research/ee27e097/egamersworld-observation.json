@@ -1,0 +1,93 @@
+{
+ "schema_version": 1,
+ "session": "arena-ee27e097",
+ "kind": "human-read observation of a Cloudflare-protected page",
+ "observed_at": "2026-10-22T08:10:00Z",
+ "read_window": "2026-10-22T07:55Z–2026-10-22T08:10Z",
+ "reader": "session agent, normal desktop browser context through a documentation proxy (not the GitHub runner)",
+ "policy": "Observation only. No value here becomes a probability or a pick. The project's aggregated-reference rung accepts only a published bookmaker-average sentence that can be retained and hash-checked; listing-page numbers are not that sentence.",
+ "why_recorded": "The published 'no betting line' limitation for model-only fixtures says no external price was reachable. A reader can load EGamersWorld, so this record documents exactly what that site showed for those fixtures, including where its own two surfaces disagree.",
+ "fixtures": [
+  {
+   "hotspawn_id": "1082767",
+   "teams": ["Nemesis", "WW"],
+   "starts_at": "2026-10-22T13:30:00Z",
+   "listing": {
+    "url": "https://egamersworld.com/counterstrike/matches",
+    "observed_at": "2026-10-22T07:58:00Z",
+    "printed": "Team Nemesis 1.17 · WW Team 4.4",
+    "quoted_text": "MPKBK CIS LAN Season 9 … Team Nemesis … 22.10.26 07:30 Bo3 … WW Team … [1.17] [Make a bet] [4.4]"
+   },
+   "match_page": {
+    "url": "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/team-nemesis-vs-ww-team-m2zGV4lUp",
+    "observed_at": "2026-10-22T08:08:00Z",
+    "printed": "Team Nemesis 1.8 · WW Team 1.8",
+    "quoted_text": "Team Nemesis1.8 … 07:30Bo3 … WW Team1.8 … [1.8] [Make a bet] [1.8]",
+    "bookmaker_average_sentence": null,
+    "note": "The page carries the site's 1.8/1.8 placeholder and no 'average odds' sentence."
+   },
+   "conclusion": "The two EGamersWorld surfaces contradict each other for the same fixture (1.17/4.40 vs 1.8/1.8) and neither is a retainable bookmaker-average sentence. Not used as a price; the row stays a Valve-rating research estimate.",
+   "published_state_at_observation": "model-only (featured method left it blank), Valve rating 91.8% / 8.2%"
+  },
+  {
+   "hotspawn_id": "1081143",
+   "teams": ["BakS", "Azuolas"],
+   "starts_at": "2026-10-22T10:00:00Z",
+   "listing": {
+    "url": "https://egamersworld.com/counterstrike/matches",
+    "observed_at": "2026-10-22T07:58:00Z",
+    "printed": "BakS eSports 1.8 · Azuolas 1.8",
+    "quoted_text": "BakS eSports … 22.10.26 04:00 Bo3 … Azuolas … [1.8] [Make a bet] [1.8]"
+   },
+   "match_page": null,
+   "conclusion": "Identical prices are the site's placeholder, the same rule the reviewed reference capture applies. Not a quote."
+  },
+  {
+   "hotspawn_id": "1081597",
+   "teams": ["benched gods", "TitanFlow"],
+   "starts_at": "2026-10-22T13:00:00Z",
+   "listing": {
+    "url": "https://egamersworld.com/counterstrike/matches",
+    "observed_at": "2026-10-22T07:58:00Z",
+    "printed": "benched gods 1.8 · TitanFlow 1.8",
+    "quoted_text": "benched gods … 22.10.26 07:00 Bo3 … TitanFlow … [1.8] [Make a bet] [1.8]"
+   },
+   "match_page": null,
+   "conclusion": "Placeholder pair; not a quote."
+  },
+  {
+   "hotspawn_id": "1079651",
+   "teams": ["Butterfly", "Lavked"],
+   "starts_at": "2026-10-22T13:00:00Z",
+   "listing": {
+    "url": "https://egamersworld.com/counterstrike/matches",
+    "observed_at": "2026-10-22T07:58:00Z",
+    "printed": "Butterfly 1.8 · Lavked 1.8",
+    "quoted_text": "Butterfly … 22.10.26 07:00 Bo3 … Lavked … [1.8] [Make a bet] [1.8]"
+   },
+   "match_page": null,
+   "conclusion": "Placeholder pair; not a quote."
+  },
+  {
+   "hotspawn_id": "1081600",
+   "teams": ["Donstu", "Banda chuya"],
+   "starts_at": "2026-10-22T15:45:00Z",
+   "listing": {
+    "url": "https://egamersworld.com/counterstrike/matches",
+    "observed_at": "2026-10-22T07:58:00Z",
+    "printed": "Donstu Esports 1.8 · banda chuya 1.8",
+    "quoted_text": "Donstu Esports … 22.10.26 09:45 Bo3 … banda chuya … [1.8] [Make a bet] [1.8]"
+   },
+   "match_page": null,
+   "conclusion": "Placeholder pair; not a quote."
+  }
+ ],
+ "control_observations": [
+  {
+   "note": "The same listing does print non-identical pairs for fixtures that already carry a first-party line, so the surface is not simply broken: Bushido Wildcats 2.36 / ex-6666 1.52, GenOne 2.14 / Spirit Academy 1.62, Falcons Force 1.58 / Phantom Academy 2.15, FORZE Reload 1.39 / Just Players 2.72.",
+   "url": "https://egamersworld.com/counterstrike/matches",
+   "observed_at": "2026-10-22T07:58:00Z"
+  }
+ ],
+ "limitation": "These are date-stamped reads of a page that refuses the automated runner (HTTP 403 to requests and to headless Chromium, recorded in line-sources.json). They cannot be reproduced by CI, so they are published as observations and never as a price input. The one fixture with a non-placeholder listing pair (Nemesis–WW) is explicitly rejected because the same site's match page prints the 1.8/1.8 placeholder and no bookmaker-average sentence."
+}
