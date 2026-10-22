@@ -158,9 +158,8 @@ AssertionError: b'{\n "schema_version": 1, ...' != b'{\n  "schema_version": 1, .
   bytes unchanged) and re-ran it green. Nothing of AEB-2b survives in the diff; the block is kept
   because it records the red main and the reason the fix belongs in the renderer, not the test.
 
-
- The full local unittest suite runs green after that merge, and the
-satellite audits run inside it report: 80 source rows replayed with every published probability and
+**Local verification of the branch (10:30Z).** The full local unittest suite runs green after that
+merge, and the satellite audits run inside it report: 80 source rows replayed with every published probability and
 pick reproducible; row-source audit **625 rows, 606 official-source-linked, 9 flagged unverified,
 10 site-map, 0 without a source**; **787 internal links/assets/anchors** checked, none broken;
 9 current Pages views built. A read-only local build with the checked-in snapshot shows no
