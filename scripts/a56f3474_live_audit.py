@@ -224,7 +224,7 @@ def audit(source: Path) -> dict:
         'source_generated_at': complete.get('generated_at'),
         'source_snapshot_at': complete.get('source_snapshot_at'),
         'source_sha256': {path.name: sha256(source / path.name)
-                          for path in (source / name for name in ('latest.json', 'origination.json', 'sources.json'))
+                          for path in (source / name for name in ('latest.json', 'origination.json', 'sources.json', 'pick-index.json'))
                           if path.exists()},
         'summary': {
             'rows': len(rows),

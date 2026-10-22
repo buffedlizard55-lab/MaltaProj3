@@ -51,6 +51,16 @@ jobs:
       - name: Export the exact audited snapshot and a compact row index
         run: |
           cp data/latest.json data/origination.json data/sources.json data/research/a56f3474/live/
+          # Preserve the original ranking captures as well as the derived rows,
+          # so an HLTV/Valve input can be manually replayed after the run.
+          for evidence in live-hltv-ranking.json live-valve-directory.json live-valve-standings.json live-valve-standings-text.json live-collection-manifest.json; do
+            if [ -f "data/origination/evidence/$evidence" ]; then
+              cp "data/origination/evidence/$evidence" data/research/a56f3474/live/
+            fi
+          done
+          for evidence in data/origination/evidence/live-hltv-ranking-*.json; do
+            if [ -f "$evidence" ]; then cp "$evidence" data/research/a56f3474/live/; fi
+          done
           python - <<'PY'
           import json
           from datetime import datetime, timezone

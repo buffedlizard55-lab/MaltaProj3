@@ -291,6 +291,34 @@ def valve_points(markdown: str) -> dict[str, list[dict]]:
     return table
 
 
+def roster_names(value) -> frozenset[str]:
+    """Normalize a roster list or Valve's comma-joined markdown cell."""
+    if isinstance(value, list):
+        parts = value
+    else:
+        parts = str(value or '').split(',')
+    return frozenset(str(part).strip().casefold() for part in parts if str(part).strip())
+
+
+def choose_valve_row(candidates: list[dict], roster) -> dict | None:
+    """Select the exact roster, not merely a duplicated team display name."""
+    wanted = roster_names(roster)
+    if wanted:
+        exact = [candidate for candidate in candidates
+                 if roster_names(candidate.get('roster')) == wanted]
+        if len(exact) == 1:
+            return exact[0]
+        if len(exact) > 1:
+            return None
+    return candidates[0] if len(candidates) == 1 else None
+
+
+def valve_detail_points(text: str) -> float | None:
+    """Exact Final Rank Value from an official Valve roster detail page."""
+    match = re.search(r'Final Rank Value:\s*(-?\d+(?:\.\d+)?)', unescape(text))
+    return float(match.group(1)) if match else None
+
+
 def hltv_ranking_points(html: str) -> dict[str, float]:
     """Parse HLTV's world ranking page into {team name: published points}."""
     soup = BeautifulSoup(html, 'html.parser')
@@ -543,6 +571,7 @@ def main() -> int:
             valve_tables[date] = valve_points(read['text'])
     hltv_read = reader.get(HLTV_RANKING, 'hltv-ranking', keep=True)
     hltv_table = hltv_ranking_points(hltv_read['text']) if hltv_read.get('ok') else {}
+    detail_cache = {}
     report['official_inputs'] = {'valve_snapshots_read': sorted(valve_tables), 'hltv_ranking_http': hltv_read.get('http_status'),
                                  'hltv_rows_parsed': len(hltv_table), 'checks': []}
     for record in model_rows:
@@ -561,18 +590,34 @@ def main() -> int:
             for source in origination_row.get('inputs') or []:
                 name, points = source.get('name'), source.get('points')
                 candidates = table.get((name or '').casefold()) or []
-                roster = ' '.join(source.get('roster') or []).casefold()
-                chosen = next((c for c in candidates if roster and roster in c['roster']), None)
-                if chosen is None and len(candidates) == 1:
-                    chosen = candidates[0]
+                chosen = choose_valve_row(candidates, source.get('roster'))
                 published = chosen['points'] if chosen else None
                 ambiguous = len(candidates) > 1 and chosen is None
-                entry['checks'].append({'source': 'Valve', 'name': name, 'row_points': points,
-                                        'valve_points': published,
-                                        'candidates': [c['points'] for c in candidates],
-                                        'status': 'match' if published is not None and abs(published - float(points)) < 1e-6
-                                        else ('ambiguous-name' if ambiguous
-                                              else ('missing-in-table' if published is None else 'mismatch'))})
+                detail_url = None
+                detail_error = None
+                # Valve's main table rounds some values to integers while its
+                # roster detail page publishes the exact Final Rank Value used
+                # by the pipeline. Replay that page before calling it a mismatch.
+                if chosen and published != float(points) and source.get('detail_path'):
+                    detail_url = VALVE_RAW + f"live/{date[:4]}/{source['detail_path']}"
+                    if detail_url not in detail_cache:
+                        read = reader.get(detail_url, f"valve-detail-{record['id']}-{name}", keep=True)
+                        detail_cache[detail_url] = (valve_detail_points(read['text']) if read.get('ok') else None,
+                                                    None if read.get('ok') else (read.get('http_status') or read.get('error')))
+                    exact, detail_error = detail_cache[detail_url]
+                    if exact is not None:
+                        published = exact
+                check = {'source': 'Valve', 'name': name, 'row_points': points,
+                         'valve_points': published,
+                         'candidates': [c['points'] for c in candidates],
+                         'status': 'match' if published is not None and abs(published - float(points)) < 1e-6
+                         else ('ambiguous-name' if ambiguous
+                               else ('missing-in-table' if published is None else 'mismatch'))}
+                if detail_url:
+                    check['detail_url'] = detail_url
+                if detail_error:
+                    check['detail_error'] = detail_error
+                entry['checks'].append(check)
         elif 'HLTV' in label and not provider.startswith('Own'):
             for source in origination_row.get('inputs') or []:
                 name, points = source.get('name'), source.get('points')

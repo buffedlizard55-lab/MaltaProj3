@@ -15,7 +15,8 @@ from pathlib import Path
 
 from scripts.a56f3474_live_audit import audit
 
-unresolved_section_text = importlib.import_module('scripts.416d93ee_audit').unresolved_section_text
+independent_audit = importlib.import_module('scripts.416d93ee_audit')
+unresolved_section_text = independent_audit.unresolved_section_text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -54,6 +55,22 @@ class IndependentRenderedRegisterTests(unittest.TestCase):
                 text = unresolved_section_text(html)
                 self.assertIn('Isurus', text)
                 self.assertIn('Hacha', text)
+
+
+class IndependentOfficialInputTests(unittest.TestCase):
+    def test_duplicate_team_name_is_disambiguated_by_exact_roster(self):
+        candidates = [
+            {'points': 801.0, 'roster': 'AdrieN, ezox, maaryy, Showk, tomiko'},
+            {'points': 402.0, 'roster': 'ezox, manio'},
+        ]
+        chosen = independent_audit.choose_valve_row(
+            candidates, ['AdrieN', 'ezox', 'maaryy', 'Showk', 'tomiko'])
+        self.assertIsNotNone(chosen)
+        self.assertEqual(chosen['points'], 801.0)
+
+    def test_valve_detail_value_is_not_confused_with_rounded_main_table(self):
+        text = 'Team Name: ex-Zero Tenacity<br />Final Rank Value:  1065.6<br />'
+        self.assertEqual(independent_audit.valve_detail_points(text), 1065.6)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "a56-no-side-1082926",
+    "title": "Dated snapshot: Isurus vs Hacha is an exact no-side estimate",
+    "detail": "In the 2026-10-22T08:02:59Z complete-picks snapshot, both published HLTV world-ranking inputs are exactly 2.0 points, so the declared 400-scale transform replays to 50.0% / 50.0%. This is a computed tie, not a default substituted for missing evidence. No directional side is published. Polymarket's 0.92 spread and Kalshi's 0.55 spread exceeded the 0.15 ceiling and were rejected. The landing-page register shows both probabilities and the full research trail. This is dated evidence, not a claim that later snapshots remain tied.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+      "https://www.hltv.org/ranking/teams",
+      "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct231800hacisg"
+    ],
+    "match_ids": ["1082926"],
+    "severity": "notice"
+  },
+  {
+    "id": "a56-valve-roster-and-rounding-review",
+    "title": "Dated Valve source review: duplicate names, roster changes and rounded table values",
+    "detail": "The 2026-10-05 official Valve table contains repeated display names for some rosters used by the 08:02 UTC snapshot. The row auditor now compares exact five-player roster sets; Banda Chuya, Chinggis Warriors, BRUTE, ex-RUSTEC and The Huns are not selected by team name alone. Chinggis Warriors and The Huns have a disclosed four-of-five current-HLTV overlap and remain uncalibrated. ex-Zero Tenacity's detail page publishes Final Rank Value 1065.6 while the main table displays rounded 1066; ex-RUSTEC's selected detail row publishes 1066.4. These exact detail values are retained, not replaced with the rounded display values.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+      "https://www.hltv.org/matches/2399586/lynn-vision-vs-chinggis-warriors-macemedia-void-autumn-cup-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+    ],
+    "match_ids": ["1079654", "1081600", "1081871", "1079657", "1081150", "1082792"],
+    "severity": "notice"
+  },
+  {
+    "id": "a56-independent-hltv-refetch-limitation",
+    "title": "Dated independent audit limitation: direct HLTV ranking refetch returned 403",
+    "detail": "The independent 08:05 UTC verification run replayed all 43 probability pairs successfully but its separate direct request for the HLTV world-ranking page received HTTP 403. That is an access limitation, not evidence that the page or teams are absent. The original collection's parsed inputs and source URLs remain in the dated evidence; the four HLTV ranking model rows stay explicitly uncalibrated. Manual reviewers should open the official ranking link and treat a failed automated refetch as unverified rather than inventing a replacement value.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39743799998"
+    ],
+    "match_ids": ["1082919", "1081149", "1082926", "1082860"],
+    "severity": "warning"
+  }
+]
