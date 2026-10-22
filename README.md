@@ -503,8 +503,10 @@ places where the *rendering* was less honest than the data behind it:
 - **A researched money line was badged only “Researched”.** That marker stays — it is the audit trail
   for a fallback row — but a money-backed fallback now also carries its basis badge (`Consensus`,
   `Bookmaker`, `Market line`, `Aggregated`). Model and guidance rows keep the single purple marker.
-- **The executive-summary tile no longer reads “0 without a line · 18 model-only”.** It now reads
-  `0 unresolved · 18 model-only (no betting line) · why + sources`, which is what the counts mean.
+- **The executive-summary tile no longer reads “0 without a line · 18 model-only”.** That tile was
+  rewritten on `main` by session `arena-4c972a51` (PR #174) to `{unresolved} without a pick ·
+  {model} from research models · why + sources`, linking a dedicated `/unresolved/` page. This
+  session preserves that wording and adds a regression test so “without a line” cannot return.
 
 **Independent re-verification** (dated, first-party, in
 [`data/research/aae76fb3/verification.json`](data/research/aae76fb3/verification.json)): 23 of the 33
@@ -517,3 +519,9 @@ and all six reproduce to the published one-decimal figure (BakS 73.37%→73.4%, 
 Nemesis 91.83%→91.8%, Donstu 40.46%→40.5%, Nuclear TigeRES 93.00%→93.0%, 6yuBoJlbl 62.60%→62.6%);
 and the [HLTV UNiTY–Betclic page](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
 confirms the fixture identity. No probability, pick, alias or source capture was changed.
+
+Integration onto `main` at `1cab862` also fixed one red test that PR #174 left behind:
+`tests/test_review_flags.py` still demanded a byte-identical published `data/latest.json`, which
+contradicts the reconciliation keys `write_reconciled_snapshot()` now adds. The test now accepts
+exactly those three documented keys and requires every original key to be unchanged; the renderer,
+the data and every finding are untouched.

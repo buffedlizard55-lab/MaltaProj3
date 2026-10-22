@@ -8,8 +8,10 @@ is contacted. The contracts are:
 * the link text names the provider the row's own provenance actually names;
 * a researched money line keeps the required "Researched" marker *and* shows
   whether it is money-backed or a research model;
-* the executive-summary unresolved tile says "unresolved" and never reads
-  "0 without a line" beside a non-zero model-only count.
+* the executive-summary unresolved tile (rewritten on `main` by session 4c972a51)
+  keeps saying "without a pick" rather than the ambiguous "without a line", and
+  its model count is labelled as research models; this session preserved that
+  wording while changing the row labels.
 """
 from __future__ import annotations
 
@@ -138,16 +140,18 @@ class UnresolvedTileTests(unittest.TestCase):
             },
         }
 
-    def test_the_tile_says_unresolved_and_names_the_model_only_count(self):
+    def test_the_tile_says_without_a_pick_not_without_a_line(self):
+        # 4c972a51 rewrote this tile on main; aae76fb3 must not regress it back
+        # to the ambiguous "without a line" beside a non-zero model count.
         text = BeautifulSoup(exec_banner(self.data(), './'), 'html.parser').get_text(' ')
-        self.assertIn('0 unresolved', text)
-        self.assertIn('18 model-only (no betting line)', text)
+        self.assertIn('0 without a pick', text)
+        self.assertIn('18 from research models', text)
         self.assertNotIn('without a line', text)
 
-    def test_the_tile_still_links_the_unresolved_section(self):
+    def test_the_tile_still_links_the_unresolved_page(self):
         soup = BeautifulSoup(exec_banner(self.data(), './'), 'html.parser')
         hrefs = [a.get('href') for a in soup.select('.exec-banner-actions a')]
-        self.assertIn('./origination/#unresolved', hrefs)
+        self.assertIn('./unresolved/', hrefs)
 
 
 if __name__ == '__main__':

@@ -203,8 +203,8 @@
       "claim": "The executive-summary unresolved tile read '0 without a line - 18 model-only', which reads as a contradiction.",
       "source": "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "observed_at": "2026-10-22T07:40:00Z",
-      "result": "defect confirmed and fixed in AEB-2",
-      "detail": "The '0' is the unresolved count, not the no-betting-line count. The tile now reads '0 unresolved - 18 model-only (no betting line) - why + sources'."
+      "result": "defect confirmed; already fixed on main by session 4c972a51, preserved here",
+      "detail": "The '0' is the unresolved count, not the no-betting-line count. While this session was working, session arena-4c972a51 rewrote the tile on main to '{unresolved} without a pick \u00b7 {model} from research models \u00b7 why + sources' and linked a dedicated /unresolved/ page (PR #174). This branch keeps that wording; tests/test_aae76fb3_summary_labels.py pins it so the ambiguous 'without a line' cannot return. No duplicate edit was made."
     }
   ],
   "irregularities": [],
