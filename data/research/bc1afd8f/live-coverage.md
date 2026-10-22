@@ -1,13 +1,13 @@
 # arena-bc1afd8f — live pick coverage and line research
 
-Observed **2026-10-22T09:46:37Z**. Read-only. Every number below is copied from the
+Observed **2026-10-22T11:03:50Z**. Read-only. Every number below is copied from the
 snapshot's own fields; nothing is recalculated, repaired or invented here.
 
 ## Snapshot
 
-- inventory `data/latest.json` generated_at: `2026-10-22T09:45:12Z`
-- inventory observed_at: `2026-10-22T09:44:48Z`
-- origination `data/origination.json` generated_at: `2026-10-22T09:45:21Z`
+- inventory `data/latest.json` generated_at: `2026-10-22T11:01:50Z`
+- inventory observed_at: `2026-10-22T11:01:27Z`
+- origination `data/origination.json` generated_at: `2026-10-22T11:02:01Z`
 - origination live collection: `True`
 - run status: `partial-picks`
 
@@ -16,45 +16,42 @@ snapshot's own fields; nothing is recalculated, repaired or invented here.
 | Measure | Count |
 | --- | --- |
 | `inventory` | 104 |
-| `active` | 43 |
-| `archived_past_start` | 61 |
-| `active_with_pick` | 43 |
-| `active_money_line` | 25 |
-| `active_model_only` | 18 |
+| `active` | 40 |
+| `archived_past_start` | 64 |
+| `active_with_pick` | 40 |
+| `active_money_line` | 24 |
+| `active_model_only` | 16 |
 | `active_blank` | 0 |
-| `active_without_betting_line` | 18 |
+| `active_without_betting_line` | 16 |
 | `active_missing_second_probability` | 0 |
 
 ## Every active fixture
 
 | Fixture | Pick | Probabilities | Basis | Line source |
 | --- | --- | --- | --- | --- |
-| FORZE Reload vs Just Players (`1079189`) | FORZE Reload | 64.0% / 36.0% | money-line | Polymarket |
-| Butterfly vs Lavked (`1079651`) | Butterfly | 55.5% / 44.5% | money-line | Polymarket |
-| Falcons Force vs Phantom Academy (`1081596`) | Falcons Force | 65.5% / 34.5% | money-line | Polymarket |
 | Nemesis vs WW (`1082767`) | Nemesis | 76.6% / 23.4% | money-line | Polymarket + Bovada + Pinnacle |
-| JiJieHao vs Nexus (`1081598`) | JiJieHao | 64.5% / 35.5% | money-line | Polymarket |
-| FaZe vs BC.Game (`1081599`) | FaZe | 54.3% / 45.7% | money-line | Thunderpick |
+| JiJieHao vs Nexus (`1081598`) | JiJieHao | 63.0% / 37.0% | money-line | Polymarket |
+| FaZe vs BC.Game (`1081599`) | FaZe | 55.1% / 44.9% | money-line | Thunderpick |
 | Projeto do KinGui vs Martians (`1082919`) | Martians | 49.9% / 50.1% | model-only | HLTV world ranking |
 | Donstu vs Banda chuya (`1081600`) | Banda chuya | 40.5% / 59.5% | model-only | Valve official standings |
-| Acend vs ex-6666 (`1079652`) | Acend | 52.0% / 48.0% | money-line | Polymarket |
+| Acend vs ex-6666 (`1079652`) | Acend | 53.5% / 46.5% | money-line | Polymarket |
 | Lavked vs HAVU (`1081145`) | HAVU | 48.5% / 51.5% | money-line | Polymarket |
 | Imperial vs Turma do Pagode (`1082688`) | Imperial | 76.5% / 23.5% | money-line | Polymarket |
-| BESTIA vs ShindeN (`1082689`) | ShindeN | 47.5% / 52.5% | money-line | Polymarket |
-| UNiTY vs Apogee Betclic (`1082882`) | Apogee Betclic | 39.5% / 60.5% | money-line | Polymarket + Thunderpick + Bovada |
+| BESTIA vs ShindeN (`1082689`) | ShindeN | 48.5% / 51.5% | money-line | Polymarket |
+| UNiTY vs Apogee Betclic (`1082882`) | Apogee Betclic | 40.5% / 59.5% | money-line | Polymarket + Thunderpick + Bovada |
 | SinnerS vs Eternal Fire (`1081603`) | SinnerS | 53.5% / 46.5% | money-line | Polymarket |
-| MEIA NOITE vs Procyon (`1082920`) | Procyon | 48.3% / 51.7% | money-line | Pinnacle |
+| MEIA NOITE vs Procyon (`1082920`) | Procyon | 47.9% / 52.1% | money-line | Pinnacle |
 | Sangal vs Metizport (`1082180`) | Sangal | 53.5% / 46.5% | money-line | Polymarket |
 | Rune Eaters vs FORZE Reload (`1079653`) | FORZE Reload | 34.5% / 65.5% | money-line | Polymarket |
 | 6yuBoJlbl vs ex-6666 (`1081146`) | 6yuBoJlbl | 51.5% / 48.5% | money-line | Polymarket |
-| K27 vs NEXORA (`1082769`) | K27 | 91.5% / 8.5% | money-line | Polymarket |
-| your end vs Yawara (`1082921`) | Yawara | 17.2% / 82.8% | money-line | Pinnacle |
-| UPGRADE vs Virtus.pro (`1082770`) | Virtus.pro | 32.5% / 67.5% | money-line | Polymarket |
+| K27 vs NEXORA (`1082769`) | K27 | 89.5% / 10.5% | money-line | Polymarket |
+| your end vs Yawara (`1082921`) | Yawara | 16.7% / 83.3% | money-line | Pinnacle |
+| UPGRADE vs Virtus.pro (`1082770`) | Virtus.pro | 30.5% / 69.5% | money-line | Polymarket |
 | Low Cortisol BR vs Grêmio (`1082922`) | Low Cortisol BR | 66.2% / 33.8% | model-only | Valve official standings |
-| Lynn Vision vs Chinggis Warriors (`1081871`) | Lynn Vision | 64.4% / 35.6% | model-only | Valve official standings |
-| ex-Zero Tenacity vs ex-RUSTEC (`1079654`) | ex-RUSTEC | 49.9% / 50.1% | model-only | Valve official standings |
+| Lynn Vision vs Chinggis Warriors (`1081871`) | Lynn Vision | 72.5% / 27.5% | money-line | Polymarket |
+| ex-Zero Tenacity vs ex-RUSTEC (`1079654`) | ex-RUSTEC | 50.0% / 50.0% | money-line | Bovada |
 | Nuclear TigeRES vs ILLYRIANS (`1079655`) | Nuclear TigeRES | 93.0% / 7.0% | model-only | Valve official standings |
-| Inner Circle Academy vs Spirit Academy (`1081148`) | Spirit Academy | 45.0% / 55.0% | money-line | Polymarket |
+| Inner Circle Academy vs Spirit Academy (`1081148`) | Spirit Academy | 45.5% / 54.5% | money-line | Polymarket |
 | Alka vs LOS NINOS (`1082923`) | Alka | 71.1% / 28.9% | money-line | Thunderpick |
 | FORZE Reload vs LFO 10 (`1081149`) | FORZE Reload | 51.0% / 49.0% | model-only | HLTV world ranking |
 | BORRACHEIROS vs QUINTESSÊNCIA (`1082924`) | QUINTESSÊNCIA | 47.6% / 52.4% | model-only | Valve official standings |
@@ -66,10 +63,10 @@ snapshot's own fields; nothing is recalculated, repaired or invented here.
 | NEXVOID vs Alter Ego (`1082859`) | NEXVOID | 72.8% / 27.2% | model-only | Valve official standings |
 | FlyQuest vs Staqued (`1082860`) | FlyQuest | 52.3% / 47.7% | model-only | HLTV world ranking |
 | Rooster vs Abyssal (`1082861`) | Abyssal | 47.8% / 52.2% | model-only | Valve official standings |
-| B8 vs K27 (`1082897`) | B8 | 55.0% / 45.0% | money-line | Polymarket |
-| Alliance vs FaZe (`1082898`) | FaZe | 37.2% / 62.8% | money-line | Thunderpick |
+| B8 vs K27 (`1082897`) | B8 | 54.5% / 45.5% | money-line | Polymarket |
+| Alliance vs FaZe (`1082898`) | FaZe | 33.0% / 67.0% | money-line | Polymarket |
 | Luminosity vs HOTU (`1082900`) | Luminosity | 54.5% / 45.5% | money-line | Polymarket |
-| Envy vs GamerLegion (`1082901`) | GamerLegion | 46.0% / 54.0% | money-line | Polymarket |
+| Envy vs GamerLegion (`1082901`) | GamerLegion | 45.5% / 54.5% | money-line | Polymarket |
 | HOTU vs The Huns (`1082792`) | HOTU | 94.1% / 5.9% | model-only | Valve official standings |
 | 5star vs 1WIN (`1082793`) | 1WIN | 17.8% / 82.2% | model-only | Valve official standings |
 
@@ -80,19 +77,19 @@ snapshot's own fields; nothing is recalculated, repaired or invented here.
 | [HLTV match listing](https://www.hltv.org/matches) | hltv | HTTP 403 (challenge page: just a moment, challenge-platform, enable javascript and cookies), 5669 bytes |
 | [HLTV world ranking](https://www.hltv.org/ranking/teams) | hltv | HTTP 403 (challenge page: just a moment, challenge-platform, enable javascript and cookies), 5708 bytes |
 | [HLTV CS2 results](https://www.hltv.org/results) | hltv | HTTP 403 (challenge page: just a moment, challenge-platform, enable javascript and cookies), 5669 bytes |
-| [EGamersWorld CS2 matches](https://egamersworld.com/counterstrike/matches) | aggregator | HTTP 403 (challenge page: challenge-platform, attention required, captcha), 6134 bytes |
-| [EGamersWorld CS2 odds](https://egamersworld.com/counterstrike/odds) | aggregator | HTTP 403 (challenge page: challenge-platform, attention required, captcha), 6134 bytes |
+| [EGamersWorld CS2 matches](https://egamersworld.com/counterstrike/matches) | aggregator | HTTP 403 (challenge page: challenge-platform, attention required, captcha), 6133 bytes |
+| [EGamersWorld CS2 odds](https://egamersworld.com/counterstrike/odds) | aggregator | HTTP 403 (challenge page: challenge-platform, attention required, captcha), 6133 bytes |
 | [bo3.gg matches](https://bo3.gg/matches) | aggregator | HTTP 200 (challenge page: captcha), 13188 bytes |
-| [Oddspedia CS2](https://www.oddspedia.com/esports/counter-strike-2) | aggregator | HTTP 410 (challenge page: challenge-platform, captcha), 341190 bytes |
+| [Oddspedia CS2](https://www.oddspedia.com/esports/counter-strike-2) | aggregator | HTTP 410 (challenge page: challenge-platform, captcha), 341189 bytes |
 | [OddsPortal CS2](https://www.oddsportal.com/esports/counter-strike/) | aggregator | HTTP 200, 339012 bytes |
-| [Thunderpick match API](https://thunderpick.io/api/matches) | bookmaker | HTTP 200, 277572 bytes |
-| [Bovada CS2 coupon](https://www.bovada.lv/sports/esports/counter-strike-2) | bookmaker | HTTP 200, 2503907 bytes |
+| [Thunderpick match API](https://thunderpick.io/api/matches) | bookmaker | HTTP 200, 283717 bytes |
+| [Bovada CS2 coupon](https://www.bovada.lv/sports/esports/counter-strike-2) | bookmaker | HTTP 200, 2497988 bytes |
 | [Pinnacle CS2](https://www.pinnacle.com/en/esports/counter-strike-2) | bookmaker | HTTP 404, 307 bytes |
 | [GG.BET CS](https://gg.bet/en/counter-strike) | bookmaker | HTTP 403, 126 bytes |
 | [Betway CS2](https://www.betway.com/en/sports/esports/counter-strike-2) | bookmaker | HTTP 404, 6690 bytes |
-| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | bookmaker | HTTP 200, 1646635 bytes |
-| [Polymarket CS2 directory](https://polymarket.com/esports/cs2) | exchange | HTTP 200, 3055449 bytes |
-| [Kalshi CS2 series](https://kalshi.com/markets/kxcs2game/counter-strike-2-game) | exchange | HTTP 429, 34224 bytes |
+| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | bookmaker | HTTP 404, 257100 bytes |
+| [Polymarket CS2 directory](https://polymarket.com/esports/cs2) | exchange | HTTP 200, 3138393 bytes |
+| [Kalshi CS2 series](https://kalshi.com/markets/kxcs2game/counter-strike-2-game) | exchange | HTTP 429, 34232 bytes |
 
 ## Fixtures without a betting line
 
@@ -120,24 +117,6 @@ snapshot's own fields; nothing is recalculated, repaired or invented here.
 - published: model-only, pick **Low Cortisol BR** (Valve-rating research estimate)
 - published source: https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md
 - names seen on **Polymarket CS2 directory**: Grêmio
-- two-sided price verified: **False**
-- limitation: No two-sided prematch series price could be verified from a reachable independent source at observation time. The published number stays exactly as the snapshot's own rung produced it; nothing here overrides, repairs or re-prices it.
-
-### Lynn Vision vs Chinggis Warriors (`1081871`)
-
-- competition: VOID Autumn Cup 2026 · starts `2026-10-23T03:00:00Z`
-- published: model-only, pick **Lynn Vision** (Research model estimate (Valve official ratings))
-- published source: https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md
-- names seen on **Polymarket CS2 directory**: Lynn Vision, Chinggis Warriors
-- two-sided price verified: **False**
-- limitation: No two-sided prematch series price could be verified from a reachable independent source at observation time. The published number stays exactly as the snapshot's own rung produced it; nothing here overrides, repairs or re-prices it.
-
-### ex-Zero Tenacity vs ex-RUSTEC (`1079654`)
-
-- competition: CCT Europe 2026 Series #11 · starts `2026-10-23T08:00:00Z`
-- published: model-only, pick **ex-RUSTEC** (Valve-rating research estimate)
-- published source: https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md
-- names seen on **Polymarket CS2 directory**: ex-Zero Tenacity, ex-RUSTEC
 - two-sided price verified: **False**
 - limitation: No two-sided prematch series price could be verified from a reachable independent source at observation time. The published number stays exactly as the snapshot's own rung produced it; nothing here overrides, repairs or re-prices it.
 
@@ -192,6 +171,7 @@ snapshot's own fields; nothing is recalculated, repaired or invented here.
 - competition: CCT South America 2026 Series #7 · starts `2026-10-23T19:00:00Z`
 - published: model-only, pick **RED Canids Academy** (Own network estimate (bo3.gg results graph))
 - published source: https://bo3.gg/matches
+- names seen on **Thunderpick match API**: BESTIA Academy
 - names seen on **Polymarket CS2 directory**: BESTIA Academy, RED Canids Academy
 - two-sided price verified: **False**
 - limitation: No two-sided prematch series price could be verified from a reachable independent source at observation time. The published number stays exactly as the snapshot's own rung produced it; nothing here overrides, repairs or re-prices it.

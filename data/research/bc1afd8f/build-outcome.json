@@ -1,6 +1,6 @@
 {
-  "observed_at": "2026-10-22T09:47:09Z",
-  "build_outcome": "failure",
+  "observed_at": "2026-10-22T11:04:59Z",
+  "build_outcome": "success",
   "site_dir_exists": true,
   "pages_written": [
     "archive/root-session/index.html",
@@ -10,11 +10,13 @@
     "final-day/index.html",
     "index.html",
     "methodology/index.html",
+    "origination/index.html",
     "picks/index.html",
     "review/index.html",
+    "strategy/index.html",
     "twc-picks/index.html",
     "unresolved/index.html"
   ],
-  "complete_picks_page_written": false,
+  "complete_picks_page_written": true,
   "note": "A failed build here means the four-hour publisher would fall back to the last verified snapshot instead of serving this one. The reason is in the build step log and, when it is a validator assertion, in gate-fresh-snapshot.md as well."
 }

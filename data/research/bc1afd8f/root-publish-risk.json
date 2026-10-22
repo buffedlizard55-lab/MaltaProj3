@@ -1,17 +1,31 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T09:47:00Z",
+  "observed_at": "2026-10-22T11:04:58Z",
   "question": "If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?",
   "method": [
-    "Copied the checked-in data/ tree into a temporary directory (the repository was not modified).",
-    "Overwrote exactly the data files scripts.root_publish.DATA_FILES would overwrite, from the newest saved live snapshot under data/research/*/live/.",
-    "Left data/evidence/ frozen, exactly as root_publish.py documents and does.",
-    "Ran scripts.validate.check_data over the resulting tree - the same call scripts.build makes first."
+    "Materialised the data/ tree as it is committed at HEAD with `git archive HEAD data` into a temporary directory; the repository's own working tree was not modified. On a runner the working tree is NOT the checked-in fixture, because this workflow collects and originates live data before this step.",
+    "Simulation 1 overwrote exactly the data files scripts/root_publish.DATA_FILES would overwrite, from the newest saved live snapshot under data/research/*/live/, and left data/evidence/ frozen.",
+    "Simulation 2 ran scripts.root_publish.build_plan()/apply_plan() against a real built site/ tree, so the publisher itself decided what lands in the root, then replayed scripts.validate.check_data - the same call scripts.build makes first.",
+    "Both simulations report where their base tree came from, so a 'passed' result can never be mistaken for a measurement over an already-fresh tree."
   ],
-  "checked_in_snapshot": {
-    "data/latest.json": "2026-10-22T09:45:12Z",
-    "data/origination.json": "2026-10-22T09:45:21Z"
+  "committed_root": {
+    "provenance": "git HEAD (the committed data/ tree)",
+    "data/latest.json": "2026-10-15T08:36:13Z",
+    "data/origination.json": "2026-10-15T09:31:24Z",
+    "evidence": {
+      "files": 38,
+      "bytes": 2981464
+    }
+  },
+  "working_tree_root": {
+    "data/latest.json": "2026-10-22T11:01:50Z",
+    "data/origination.json": "2026-10-22T11:02:01Z",
+    "evidence": {
+      "files": 83,
+      "bytes": 26467135
+    },
+    "differs_from_commit": true
   },
   "candidate_snapshot": {
     "directory": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/fbdc97d6/live",
@@ -24,7 +38,7 @@
     "generated_at": "2026-10-22T02:08:59Z"
   },
   "simulation": {
-    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-b974uz1q/data",
+    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-e636b2o2/offline/root/published/data",
     "files_written": [
       {
         "path": "data/latest.json",
@@ -53,11 +67,11 @@
       "data/evidence/hotspawn-context.json",
       "data/evidence/hotspawn-fixtures.json",
       "data/evidence/hotspawn-rules.json",
-      "data/evidence/polymarket-book-1224236-0.json",
-      "data/evidence/polymarket-book-1224236-1.json",
-      "data/evidence/polymarket-book-1224237-0.json"
+      "data/evidence/polymarket-book-1140039-0.json",
+      "data/evidence/polymarket-book-1140039-1.json",
+      "data/evidence/polymarket-book-1173312-0.json"
     ],
-    "evidence_frozen_count": 92,
+    "evidence_frozen_count": 38,
     "check_data": "failed",
     "error_type": "ValueError",
     "error": "Inventory observation timestamp restamped",
@@ -74,14 +88,43 @@
   "simulation_from_build": {
     "site": "site",
     "site_exists": true,
-    "files_written": 25,
+    "root": "/tmp/bc1afd8f-root-risk-e636b2o2/build/root",
+    "root_provenance": "git HEAD (the committed data/ tree)",
+    "site_evidence": {
+      "files": 83,
+      "bytes": 26467135
+    },
+    "committed_evidence": {
+      "files": 38,
+      "bytes": 2981464
+    },
+    "committed_generated_at": "2026-10-15T08:36:13Z",
+    "site_generated_at": "2026-10-22T11:01:50Z",
+    "files_written": 32,
     "data_files_written": [
-      "data/latest.json"
+      "data/evidence/hotspawn-context.json",
+      "data/evidence/hotspawn-fixtures.json",
+      "data/latest.json",
+      "data/origination.json",
+      "data/row-source-audit.json",
+      "data/sources.json"
     ],
-    "evidence_files_after_publish": 92,
-    "published_generated_at": "2026-10-22T09:45:12Z",
-    "frozen_generated_at": "2026-10-22T09:45:12Z",
-    "check_data": "passed"
+    "evidence_after_publish": {
+      "files": 38,
+      "bytes": 3008946
+    },
+    "published_generated_at": "2026-10-22T11:01:50Z",
+    "check_data": "failed",
+    "error_type": "ValueError",
+    "error": "HLTV observation timestamp restamped",
+    "traceback": [
+      "    check_data(root_copy / \"data\")",
+      "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py\", line 70, in check_data",
+      "    require(request.get('status') == 'ok' and request.get('observed_at') == page['observed_at'], 'HLTV observation timestamp restamped')",
+      "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py\", line 24, in require",
+      "    raise ValueError(message)",
+      "ValueError: HLTV observation timestamp restamped"
+    ]
   },
   "snapshot_reading_tests": {
     "count": 34,
@@ -122,9 +165,12 @@
       "tests/test_verify_live.py"
     ]
   },
-  "conclusion": "A root publish of this candidate snapshot still replays: the checked-in evidence matches it.",
+  "conclusion": "A root publish of a fresh snapshot would break the repository's own build: ValueError: HLTV observation timestamp restamped.",
   "notes": [
-    "Publishing the verified build into the branch root is safe for this candidate.",
-    "The checked-in test modules that read data/latest.json were counted but not run here."
+    "Decisive measurement: simulation 2 (`scripts.root_publish`'s own plan over a build that was fresher than the committed root); simulation 1 measured a different, older candidate.",
+    "scripts.build calls scripts.validate.check_data first, so the build - and therefore checks.yml on every pull request and the pages.yml refresh - would fail on the published root.",
+    "The cause is the pairing root_publish.py documents: a fresh data/latest.json with the frozen data/evidence/ tree (its inventory observation timestamp no longer matches).",
+    "This is why the publisher shipped by this session re-deploys the verified artifact instead of committing fresh data to main: it makes the public site current without changing the frozen fixture that CI builds from.",
+    "34 checked-in test modules read data/latest.json or ROOT/'data' directly, so a committed fresh snapshot also moves their fixture underneath them."
   ]
 }

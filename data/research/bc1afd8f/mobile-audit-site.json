@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T09:47:10Z",
+  "observed_at": "2026-10-22T11:05:00Z",
   "site": "/home/runner/work/MaltaProj3/MaltaProj3/site",
   "data": "/home/runner/work/MaltaProj3/MaltaProj3/data",
   "counts": {
@@ -15,7 +15,7 @@
       "id": "viewport-meta",
       "description": "Every current page declares `width=device-width, initial-scale=1`",
       "passed": true,
-      "detail": "all 9 current pages declare it",
+      "detail": "all 11 current pages declare it",
       "scope": "current"
     },
     {
@@ -64,14 +64,14 @@
       "id": "glance-coverage",
       "description": "Every active fixture in the snapshot appears in the phone pick index",
       "passed": true,
-      "detail": "43 rows for 43 active fixtures",
+      "detail": "40 rows for 40 active fixtures",
       "scope": "current"
     },
     {
       "id": "glance-both-probabilities",
       "description": "Every pick row shows both teams' win probability, or is an explicit blank that links to its limitation",
       "passed": true,
-      "detail": "43 rows show both percentages; 0 explicit blanks link to their limitation",
+      "detail": "39 rows show both percentages; 1 explicit blanks link to their limitation",
       "scope": "current"
     },
     {

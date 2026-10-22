@@ -1,6 +1,6 @@
 # arena-bc1afd8f — phone-first static audit
 
-Observed **2026-10-22T09:47:10Z** against `/home/runner/work/MaltaProj3/MaltaProj3/site` (data `/home/runner/work/MaltaProj3/MaltaProj3/data`).
+Observed **2026-10-22T11:05:00Z** against `/home/runner/work/MaltaProj3/MaltaProj3/site` (data `/home/runner/work/MaltaProj3/MaltaProj3/data`).
 Static HTML/CSS contract only; the runtime 320/390/768/1440 px browser checks live in
 `checks.yml` and `tests/browser/`. No page was edited and no value recalculated.
 
@@ -8,15 +8,15 @@ Result: **20/20 checks passed**
 
 | Check | Result | What was found |
 | --- | --- | --- |
-| `viewport-meta` — Every current page declares `width=device-width, initial-scale=1` | PASS | all 9 current pages declare it |
+| `viewport-meta` — Every current page declares `width=device-width, initial-scale=1` | PASS | all 11 current pages declare it |
 | `executive-summary` — The landing page opens with an executive summary | PASS | h1 = 'Executive summary' |
 | `exec-banner` — The landing page carries the `Start here on your phone` executive-summary banner | PASS | found section.exec-banner |
 | `exec-link-complete` — The executive summary links inside this site to the complete picks list | PASS | links: ./origination/#picks |
 | `exec-link-featured` — The executive summary links inside this site to the featured picks feed | PASS | links: ./picks/ |
 | `exec-link-unresolved` — The executive summary links inside this site to the unresolved & limitations | PASS | links: ./origination/#unresolved, ./unresolved/ |
 | `exec-links-internal` — The banner's own links stay inside this site (no reader is sent off-site to find a pick) | PASS | external links in the banner: none |
-| `glance-coverage` — Every active fixture in the snapshot appears in the phone pick index | PASS | 43 rows for 43 active fixtures |
-| `glance-both-probabilities` — Every pick row shows both teams' win probability, or is an explicit blank that links to its limitation | PASS | 43 rows show both percentages; 0 explicit blanks link to their limitation |
+| `glance-coverage` — Every active fixture in the snapshot appears in the phone pick index | PASS | 40 rows for 40 active fixtures |
+| `glance-both-probabilities` — Every pick row shows both teams' win probability, or is an explicit blank that links to its limitation | PASS | 39 rows show both percentages; 1 explicit blanks link to their limitation |
 | `mobile-nav` — A fixed phone navigation bar with at least five labelled, internal destinations | PASS | 6 slots: Summary, Picks, Unresolved, Edge, Sources, Review |
 | `mobile-nav-picks` — One phone-nav slot goes straight to the picks | PASS | href = ./origination/#picks |
 | `unresolved-section` — The landing page carries a separate unresolved-picks section with its limitations | PASS | found #unresolved-register |
