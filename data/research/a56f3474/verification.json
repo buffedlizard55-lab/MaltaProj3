@@ -1,0 +1,1480 @@
+{
+  "schema_version": 1,
+  "session": "416d93ee",
+  "observed_at": "2026-10-22T08:05:14Z",
+  "purpose": "Independent verification of the published picks; read-only, no pick is written.",
+  "published_source": "data",
+  "published": {
+    "generated_at": "2026-10-22T08:02:47Z",
+    "inventory_observed_at": "2026-10-22T08:02:22Z",
+    "coverage_complete": true,
+    "counts": {
+      "inventory": 107,
+      "upcoming": 43,
+      "archived": 64,
+      "unknown_schedule": 0,
+      "market": 15,
+      "bookmaker": 3,
+      "model": 14,
+      "unresolved": 11,
+      "picks": 31,
+      "no_edge": 1
+    },
+    "origination_counts": {
+      "active": 43,
+      "resolved": 43,
+      "unresolved": 0,
+      "with_pick": 42,
+      "consensus": 3,
+      "market": 15,
+      "bookmaker": 6,
+      "reference": 0,
+      "model": 19,
+      "network": 2,
+      "relay": 1,
+      "guidance": 0,
+      "alias_joined": 5
+    },
+    "origination_source_snapshot_at": "2026-10-22T08:02:22Z"
+  },
+  "pick_coverage": {
+    "records": 43,
+    "active": 43,
+    "active_with_probabilities": 43,
+    "active_with_pick": 42,
+    "active_without_pick": [
+      {
+        "id": "1082926",
+        "teams": [
+          "Isurus",
+          "Hacha"
+        ],
+        "reason": "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified."
+      }
+    ],
+    "active_without_any_probability": []
+  },
+  "arithmetic": {
+    "rows_with_probabilities": 43,
+    "replayed": 43,
+    "rounding_only": 0,
+    "mismatch": [],
+    "not_replayable": [],
+    "pick_mismatches": [],
+    "fair_line_mismatches": [],
+    "sum_mismatches": []
+  },
+  "label_consistency": {
+    "checked": 43,
+    "issues": []
+  },
+  "official_inputs": {
+    "valve_snapshots_read": [
+      "2026-10-05"
+    ],
+    "hltv_ranking_http": 403,
+    "hltv_rows_parsed": 0,
+    "checks": [
+      {
+        "id": "1079651",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "Butterfly",
+            "row_points": 1082,
+            "valve_points": 1082.0,
+            "candidates": [
+              1082.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Lavked",
+            "row_points": 862,
+            "valve_points": 862.0,
+            "candidates": [
+              862.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1082919",
+        "label": "Research model estimate (HLTV world ranking · unranked floor)",
+        "checks": [
+          {
+            "source": "HLTV",
+            "name": "Projeto do KinGui",
+            "row_points": 0.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          },
+          {
+            "source": "HLTV",
+            "name": "Martians",
+            "row_points": 1.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          }
+        ]
+      },
+      {
+        "id": "1081600",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "DONSTU",
+            "row_points": 732,
+            "valve_points": 732.0,
+            "candidates": [
+              732.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Banda Chuya",
+            "row_points": 801,
+            "valve_points": null,
+            "candidates": [
+              801.0,
+              402.0
+            ],
+            "status": "ambiguous-name"
+          }
+        ]
+      },
+      {
+        "id": "1082922",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "Low Cortisol BR",
+            "row_points": 774,
+            "valve_points": 774.0,
+            "candidates": [
+              774.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Grêmio",
+            "row_points": 654,
+            "valve_points": 654.0,
+            "candidates": [
+              654.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1081871",
+        "label": "Research model estimate (Valve official ratings)",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "Lynn Vision",
+            "row_points": 1190,
+            "valve_points": 1190.0,
+            "candidates": [
+              1190.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Chinggis Warriors",
+            "row_points": 1084,
+            "valve_points": null,
+            "candidates": [
+              1084.0,
+              685.0
+            ],
+            "status": "ambiguous-name"
+          }
+        ]
+      },
+      {
+        "id": "1079654",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "ex-Zero Tenacity",
+            "row_points": 1065.6,
+            "valve_points": 1066.0,
+            "candidates": [
+              1066.0
+            ],
+            "status": "mismatch"
+          },
+          {
+            "source": "Valve",
+            "name": "ex-RUSTEC",
+            "row_points": 1066.4,
+            "valve_points": null,
+            "candidates": [
+              1066.0,
+              824.0
+            ],
+            "status": "ambiguous-name"
+          }
+        ]
+      },
+      {
+        "id": "1079655",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "Nuclear TigeRES",
+            "row_points": 1324,
+            "valve_points": 1324.0,
+            "candidates": [
+              1324.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Illyrians",
+            "row_points": 862,
+            "valve_points": 862.0,
+            "candidates": [
+              862.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1081149",
+        "label": "Research model estimate (HLTV world ranking)",
+        "checks": [
+          {
+            "source": "HLTV",
+            "name": "FORZE Reload",
+            "row_points": 11.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          },
+          {
+            "source": "HLTV",
+            "name": "LFO 10",
+            "row_points": 4.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          }
+        ]
+      },
+      {
+        "id": "1082924",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "BORRACHEIROS",
+            "row_points": 706,
+            "valve_points": 706.0,
+            "candidates": [
+              706.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "QUINTESSÊNCIA",
+            "row_points": 723,
+            "valve_points": 723.0,
+            "candidates": [
+              723.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1079657",
+        "label": "Research model estimate (Valve official ratings)",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "BAKS",
+            "row_points": 1044,
+            "valve_points": 1044.0,
+            "candidates": [
+              1044.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "BRUTE",
+            "row_points": 1116,
+            "valve_points": null,
+            "candidates": [
+              1116.0,
+              689.0
+            ],
+            "status": "ambiguous-name"
+          }
+        ]
+      },
+      {
+        "id": "1081150",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "ex-RUSTEC",
+            "row_points": 1066,
+            "valve_points": null,
+            "candidates": [
+              1066.0,
+              824.0
+            ],
+            "status": "ambiguous-name"
+          },
+          {
+            "source": "Valve",
+            "name": "Saint Sinners",
+            "row_points": 810,
+            "valve_points": 810.0,
+            "candidates": [
+              810.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1082925",
+        "label": "Own network estimate (bo3.gg results graph)",
+        "checks": [
+          {
+            "source": "own-model",
+            "name": "-",
+            "row_points": null,
+            "valve_points": null,
+            "status": "not-an-official-rating-row",
+            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
+          }
+        ]
+      },
+      {
+        "id": "1082926",
+        "label": "Research model estimate (HLTV world ranking)",
+        "checks": [
+          {
+            "source": "HLTV",
+            "name": "Isurus",
+            "row_points": 2.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          },
+          {
+            "source": "HLTV",
+            "name": "Hacha",
+            "row_points": 2.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          }
+        ]
+      },
+      {
+        "id": "1082858",
+        "label": "Own network estimate (bo3.gg results graph)",
+        "checks": [
+          {
+            "source": "own-model",
+            "name": "-",
+            "row_points": null,
+            "valve_points": null,
+            "status": "not-an-official-rating-row",
+            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
+          }
+        ]
+      },
+      {
+        "id": "1082859",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "NEXVOID",
+            "row_points": 995,
+            "valve_points": 995.0,
+            "candidates": [
+              995.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Alter Ego",
+            "row_points": 819,
+            "valve_points": 819.0,
+            "candidates": [
+              819.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1082860",
+        "label": "Research model estimate (HLTV world ranking · unranked floor)",
+        "checks": [
+          {
+            "source": "HLTV",
+            "name": "FlyQuest",
+            "row_points": 16.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          },
+          {
+            "source": "HLTV",
+            "name": "Staqued",
+            "row_points": 0.0,
+            "hltv_points": null,
+            "status": "not-in-top-listing"
+          }
+        ]
+      },
+      {
+        "id": "1082861",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "Rooster",
+            "row_points": 718,
+            "valve_points": 718.0,
+            "candidates": [
+              718.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "Abyssal",
+            "row_points": 734,
+            "valve_points": 734.0,
+            "candidates": [
+              734.0
+            ],
+            "status": "match"
+          }
+        ]
+      },
+      {
+        "id": "1082792",
+        "label": "Research model estimate (Valve official ratings)",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "HOTU",
+            "row_points": 1437,
+            "valve_points": 1437.0,
+            "candidates": [
+              1437.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "The Huns",
+            "row_points": 944,
+            "valve_points": null,
+            "candidates": [
+              944.0,
+              701.0
+            ],
+            "status": "ambiguous-name"
+          }
+        ]
+      },
+      {
+        "id": "1082793",
+        "label": "Valve-rating research estimate",
+        "checks": [
+          {
+            "source": "Valve",
+            "name": "5star",
+            "row_points": 1110,
+            "valve_points": 1110.0,
+            "candidates": [
+              1110.0
+            ],
+            "status": "match"
+          },
+          {
+            "source": "Valve",
+            "name": "1win",
+            "row_points": 1383,
+            "valve_points": 1383.0,
+            "candidates": [
+              1383.0
+            ],
+            "status": "match"
+          }
+        ]
+      }
+    ]
+  },
+  "hotspawn": {
+    "api_http": 200,
+    "api_sha256": "82af5cd3f23303c7fa6186c8cf340842c78457e0fc77144eaf8e3e12fcc2e913",
+    "lobby_http": 200,
+    "cs2_lobby_http": 200,
+    "lobby": {
+      "matches_this_week": 180,
+      "all_tiers_count": 107,
+      "fixture_links_in_html": 40,
+      "fixture_ids_in_html": [
+        "1079189",
+        "1079651",
+        "1079652",
+        "1079653",
+        "1079654",
+        "1079655",
+        "1079657",
+        "1081145",
+        "1081146",
+        "1081148",
+        "1081149",
+        "1081150",
+        "1081596",
+        "1081600",
+        "1081871",
+        "1082180",
+        "1082688",
+        "1082689",
+        "1082767",
+        "1082769",
+        "1082770",
+        "1082792",
+        "1082793",
+        "1082858",
+        "1082859",
+        "1082860",
+        "1082861",
+        "1082882",
+        "1082897",
+        "1082898",
+        "1082900",
+        "1082901",
+        "1082919",
+        "1082920",
+        "1082921",
+        "1082922",
+        "1082923",
+        "1082924",
+        "1082925",
+        "1082926"
+      ]
+    },
+    "cs2_lobby": {
+      "matches_this_week": 180,
+      "all_tiers_count": 107,
+      "fixture_links_in_html": 40,
+      "fixture_ids_in_html": [
+        "1079189",
+        "1079651",
+        "1079652",
+        "1079653",
+        "1079654",
+        "1079655",
+        "1079657",
+        "1081145",
+        "1081146",
+        "1081148",
+        "1081149",
+        "1081150",
+        "1081596",
+        "1081600",
+        "1081871",
+        "1082180",
+        "1082688",
+        "1082689",
+        "1082767",
+        "1082769",
+        "1082770",
+        "1082792",
+        "1082793",
+        "1082858",
+        "1082859",
+        "1082860",
+        "1082861",
+        "1082882",
+        "1082897",
+        "1082898",
+        "1082900",
+        "1082901",
+        "1082919",
+        "1082920",
+        "1082921",
+        "1082922",
+        "1082923",
+        "1082924",
+        "1082925",
+        "1082926"
+      ]
+    },
+    "coverage_counts": {
+      "lobby_cs2_all_tiers": 107,
+      "lobby_this_week": 180,
+      "api_records": 107,
+      "published_inventory": 107,
+      "published_upcoming": 43,
+      "lobby_equals_api": true,
+      "lobby_equals_published_inventory": true
+    },
+    "inventory_compare": {
+      "api_records": 107,
+      "api_future": 43,
+      "api_past_start_but_scheduled": 64,
+      "published_open": 43,
+      "missing_from_site": [],
+      "published_but_not_in_api": [],
+      "per_fixture": [
+        {
+          "id": "1079189",
+          "teams_match": true,
+          "api_teams": [
+            "FORZE Reload",
+            "Just Players"
+          ],
+          "published_teams": [
+            "FORZE Reload",
+            "Just Players"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T11:00:00Z",
+          "published_start": "2026-10-22T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079651",
+          "teams_match": true,
+          "api_teams": [
+            "Butterfly",
+            "Lavked"
+          ],
+          "published_teams": [
+            "Butterfly",
+            "Lavked"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T11:00:00Z",
+          "published_start": "2026-10-22T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079652",
+          "teams_match": true,
+          "api_teams": [
+            "Acend",
+            "ex-6666"
+          ],
+          "published_teams": [
+            "Acend",
+            "ex-6666"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T14:00:00Z",
+          "published_start": "2026-10-22T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079653",
+          "teams_match": true,
+          "api_teams": [
+            "Rune Eaters",
+            "FORZE Reload"
+          ],
+          "published_teams": [
+            "Rune Eaters",
+            "FORZE Reload"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T17:00:00Z",
+          "published_start": "2026-10-22T17:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079654",
+          "teams_match": true,
+          "api_teams": [
+            "ex-Zero Tenacity",
+            "ex-RUSTEC"
+          ],
+          "published_teams": [
+            "ex-Zero Tenacity",
+            "ex-RUSTEC"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T08:00:00Z",
+          "published_start": "2026-10-23T08:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079655",
+          "teams_match": true,
+          "api_teams": [
+            "Nuclear TigeRES",
+            "ILLYRIANS"
+          ],
+          "published_teams": [
+            "Nuclear TigeRES",
+            "ILLYRIANS"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T11:00:00Z",
+          "published_start": "2026-10-23T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1079657",
+          "teams_match": true,
+          "api_teams": [
+            "BakS",
+            "BRUTE"
+          ],
+          "published_teams": [
+            "BakS",
+            "BRUTE"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T17:00:00Z",
+          "published_start": "2026-10-23T17:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081145",
+          "teams_match": true,
+          "api_teams": [
+            "Lavked",
+            "HAVU"
+          ],
+          "published_teams": [
+            "Lavked",
+            "HAVU"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T14:00:00Z",
+          "published_start": "2026-10-22T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081146",
+          "teams_match": true,
+          "api_teams": [
+            "6yuBoJlbl",
+            "ex-6666"
+          ],
+          "published_teams": [
+            "6yuBoJlbl",
+            "ex-6666"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T17:00:00Z",
+          "published_start": "2026-10-22T17:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081148",
+          "teams_match": true,
+          "api_teams": [
+            "Inner Circle Academy",
+            "Spirit Academy"
+          ],
+          "published_teams": [
+            "Inner Circle Academy",
+            "Spirit Academy"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T11:00:00Z",
+          "published_start": "2026-10-23T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081149",
+          "teams_match": true,
+          "api_teams": [
+            "FORZE Reload",
+            "LFO 10"
+          ],
+          "published_teams": [
+            "FORZE Reload",
+            "LFO 10"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T14:00:00Z",
+          "published_start": "2026-10-23T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081150",
+          "teams_match": true,
+          "api_teams": [
+            "ex-RUSTEC",
+            "Saint Sinners"
+          ],
+          "published_teams": [
+            "ex-RUSTEC",
+            "Saint Sinners"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T17:00:00Z",
+          "published_start": "2026-10-23T17:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081596",
+          "teams_match": true,
+          "api_teams": [
+            "Falcons Force",
+            "Phantom Academy"
+          ],
+          "published_teams": [
+            "Falcons Force",
+            "Phantom Academy"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T11:00:00Z",
+          "published_start": "2026-10-22T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081598",
+          "teams_match": true,
+          "api_teams": [
+            "JiJieHao",
+            "Nexus"
+          ],
+          "published_teams": [
+            "JiJieHao",
+            "Nexus"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T13:00:00Z",
+          "published_start": "2026-10-22T13:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081599",
+          "teams_match": true,
+          "api_teams": [
+            "FaZe",
+            "BC.Game"
+          ],
+          "published_teams": [
+            "FaZe",
+            "BC.Game"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T13:00:00Z",
+          "published_start": "2026-10-22T13:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081600",
+          "teams_match": true,
+          "api_teams": [
+            "Donstu",
+            "Banda chuya"
+          ],
+          "published_teams": [
+            "Donstu",
+            "Banda chuya"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T13:45:00Z",
+          "published_start": "2026-10-22T13:45:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081603",
+          "teams_match": true,
+          "api_teams": [
+            "SinnerS",
+            "Eternal Fire"
+          ],
+          "published_teams": [
+            "SinnerS",
+            "Eternal Fire"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T16:00:00Z",
+          "published_start": "2026-10-22T16:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1081871",
+          "teams_match": true,
+          "api_teams": [
+            "Lynn Vision",
+            "Chinggis Warriors"
+          ],
+          "published_teams": [
+            "Lynn Vision",
+            "Chinggis Warriors"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T03:00:00Z",
+          "published_start": "2026-10-23T03:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082180",
+          "teams_match": true,
+          "api_teams": [
+            "Sangal",
+            "Metizport"
+          ],
+          "published_teams": [
+            "Sangal",
+            "Metizport"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T16:30:00Z",
+          "published_start": "2026-10-22T16:30:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082688",
+          "teams_match": true,
+          "api_teams": [
+            "Imperial",
+            "Turma do Pagode"
+          ],
+          "published_teams": [
+            "Imperial",
+            "Turma do Pagode"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T14:00:00Z",
+          "published_start": "2026-10-22T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082689",
+          "teams_match": true,
+          "api_teams": [
+            "BESTIA",
+            "ShindeN"
+          ],
+          "published_teams": [
+            "BESTIA",
+            "ShindeN"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T14:00:00Z",
+          "published_start": "2026-10-22T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082767",
+          "teams_match": true,
+          "api_teams": [
+            "Nemesis",
+            "WW"
+          ],
+          "published_teams": [
+            "Nemesis",
+            "WW"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T11:30:00Z",
+          "published_start": "2026-10-22T11:30:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082769",
+          "teams_match": true,
+          "api_teams": [
+            "K27",
+            "NEXORA"
+          ],
+          "published_teams": [
+            "K27",
+            "NEXORA"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T17:30:00Z",
+          "published_start": "2026-10-22T17:30:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082770",
+          "teams_match": true,
+          "api_teams": [
+            "UPGRADE",
+            "Virtus.pro"
+          ],
+          "published_teams": [
+            "UPGRADE",
+            "Virtus.pro"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T20:30:00Z",
+          "published_start": "2026-10-22T20:30:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082792",
+          "teams_match": true,
+          "api_teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "published_teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-31T09:00:00Z",
+          "published_start": "2026-10-31T09:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082793",
+          "teams_match": true,
+          "api_teams": [
+            "5star",
+            "1WIN"
+          ],
+          "published_teams": [
+            "5star",
+            "1WIN"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-31T13:00:00Z",
+          "published_start": "2026-10-31T13:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082858",
+          "teams_match": true,
+          "api_teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "published_teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-26T03:00:00Z",
+          "published_start": "2026-10-26T03:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082859",
+          "teams_match": true,
+          "api_teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "published_teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-26T03:00:00Z",
+          "published_start": "2026-10-26T03:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082860",
+          "teams_match": true,
+          "api_teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "published_teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T03:00:00Z",
+          "published_start": "2026-10-27T03:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082861",
+          "teams_match": true,
+          "api_teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "published_teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T03:00:00Z",
+          "published_start": "2026-10-27T03:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082882",
+          "teams_match": true,
+          "api_teams": [
+            "UNiTY",
+            "Apogee Betclic"
+          ],
+          "published_teams": [
+            "UNiTY",
+            "Apogee Betclic"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T14:00:00Z",
+          "published_start": "2026-10-22T14:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082897",
+          "teams_match": true,
+          "api_teams": [
+            "B8",
+            "K27"
+          ],
+          "published_teams": [
+            "B8",
+            "K27"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T08:00:00Z",
+          "published_start": "2026-10-27T08:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082898",
+          "teams_match": true,
+          "api_teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "published_teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T11:00:00Z",
+          "published_start": "2026-10-27T11:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082900",
+          "teams_match": true,
+          "api_teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "published_teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T17:00:00Z",
+          "published_start": "2026-10-27T17:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082901",
+          "teams_match": true,
+          "api_teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "published_teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-27T20:00:00Z",
+          "published_start": "2026-10-27T20:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082919",
+          "teams_match": true,
+          "api_teams": [
+            "Projeto do KinGui",
+            "Martians"
+          ],
+          "published_teams": [
+            "Projeto do KinGui",
+            "Martians"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T13:00:00Z",
+          "published_start": "2026-10-22T13:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082920",
+          "teams_match": true,
+          "api_teams": [
+            "MEIA NOITE",
+            "Procyon"
+          ],
+          "published_teams": [
+            "MEIA NOITE",
+            "Procyon"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T16:00:00Z",
+          "published_start": "2026-10-22T16:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082921",
+          "teams_match": true,
+          "api_teams": [
+            "your end",
+            "Yawara"
+          ],
+          "published_teams": [
+            "your end",
+            "Yawara"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T19:00:00Z",
+          "published_start": "2026-10-22T19:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082922",
+          "teams_match": true,
+          "api_teams": [
+            "Low Cortisol BR",
+            "Grêmio"
+          ],
+          "published_teams": [
+            "Low Cortisol BR",
+            "Grêmio"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-22T22:00:00Z",
+          "published_start": "2026-10-22T22:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082923",
+          "teams_match": true,
+          "api_teams": [
+            "Alka",
+            "LOS NINOS"
+          ],
+          "published_teams": [
+            "Alka",
+            "LOS NINOS"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T13:00:00Z",
+          "published_start": "2026-10-23T13:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082924",
+          "teams_match": true,
+          "api_teams": [
+            "BORRACHEIROS",
+            "QUINTESSÊNCIA"
+          ],
+          "published_teams": [
+            "BORRACHEIROS",
+            "QUINTESSÊNCIA"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T16:00:00Z",
+          "published_start": "2026-10-23T16:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082925",
+          "teams_match": true,
+          "api_teams": [
+            "BESTIA Academy",
+            "RED Canids Academy"
+          ],
+          "published_teams": [
+            "BESTIA Academy",
+            "RED Canids Academy"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T19:00:00Z",
+          "published_start": "2026-10-23T19:00:00Z",
+          "competition_match": true
+        },
+        {
+          "id": "1082926",
+          "teams_match": true,
+          "api_teams": [
+            "Isurus",
+            "Hacha"
+          ],
+          "published_teams": [
+            "Isurus",
+            "Hacha"
+          ],
+          "start_delta_sec": 0,
+          "api_start": "2026-10-23T22:00:00Z",
+          "published_start": "2026-10-23T22:00:00Z",
+          "competition_match": true
+        }
+      ],
+      "all_teams_match": true,
+      "all_starts_within_60s": true,
+      "all_competitions_match": true
+    },
+    "status_matrix": {
+      "scheduled": 107
+    }
+  },
+  "unresolved_register": {
+    "published_on_summary": false,
+    "rows_checked": [
+      {
+        "id": "1082926",
+        "teams": [
+          "Isurus",
+          "Hacha"
+        ],
+        "has_probabilities": true,
+        "listed_in_register": false
+      }
+    ]
+  },
+  "verdicts": [
+    {
+      "check": "inventory_and_picks_cover_every_active_fixture",
+      "pass": true
+    },
+    {
+      "check": "every_active_fixture_shows_a_probability_on_the_summary",
+      "pass": true
+    },
+    {
+      "check": "every_active_fixture_has_a_pick_or_a_published_even_estimate",
+      "pass": true
+    },
+    {
+      "check": "every_side_less_row_is_listed_in_the_unresolved_register",
+      "pass": false
+    },
+    {
+      "check": "every_published_probability_replays_from_its_own_inputs",
+      "pass": true
+    },
+    {
+      "check": "published_pick_is_the_published_argmax",
+      "pass": true
+    },
+    {
+      "check": "every_published_label_names_the_evidence_it_uses",
+      "pass": true
+    },
+    {
+      "check": "every_future_dated_hotspawn_fixture_is_published",
+      "pass": true
+    },
+    {
+      "check": "published_fixture_teams_and_times_match_the_api",
+      "pass": true
+    }
+  ],
+  "failures": [
+    "every_side_less_row_is_listed_in_the_unresolved_register"
+  ],
+  "requests": [
+    {
+      "label": "valve-standings-2026-10-05",
+      "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-22T08:05:14Z",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
+      "content_type": "text/plain; charset=utf-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "bytes": 77872,
+      "sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
+      "saved_as": "valve-standings-2026-10-05.html.txt",
+      "ok": true
+    },
+    {
+      "label": "hltv-ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "observed_at": "2026-10-22T08:05:14Z",
+      "http_status": 403,
+      "final_url": "https://www.hltv.org/ranking/teams",
+      "content_type": "text/html; charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "bytes": 5601,
+      "sha256": "86672f3c79f9c437b507c0dbd4d79cd97c27e017cd05d753c744c79ef0f36079",
+      "ok": false
+    },
+    {
+      "label": "hotspawn-fixtures",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "observed_at": "2026-10-22T08:05:14Z",
+      "http_status": 200,
+      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:15 GMT",
+      "bytes": 85134,
+      "sha256": "82af5cd3f23303c7fa6186c8cf340842c78457e0fc77144eaf8e3e12fcc2e913",
+      "saved_as": "hotspawn-fixtures.json",
+      "ok": true
+    },
+    {
+      "label": "hotspawn-lobby",
+      "url": "https://play.hotspawn.com/lobby?cb=1792656314",
+      "observed_at": "2026-10-22T08:05:15Z",
+      "http_status": 200,
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792656314",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:16 GMT",
+      "bytes": 559515,
+      "sha256": "16676de3787f5218269d6f6ff9f0f512a50d681f4e90c56f5ff0ac35276da2e6",
+      "saved_as": "hotspawn-lobby.html.txt",
+      "ok": true
+    },
+    {
+      "label": "hotspawn-cs2-lobby",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792656314",
+      "observed_at": "2026-10-22T08:05:16Z",
+      "http_status": 200,
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792656314",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:17 GMT",
+      "bytes": 558047,
+      "sha256": "a59d6217113595d7bf2ca1a31e36707ddcb8db2e14e416a7b40e0c608147a5df",
+      "saved_as": "hotspawn-cs2-lobby.html.txt",
+      "ok": true
+    }
+  ],
+  "read_failures": [
+    {
+      "label": "hltv-ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "observed_at": "2026-10-22T08:05:14Z",
+      "http_status": 403,
+      "final_url": "https://www.hltv.org/ranking/teams",
+      "content_type": "text/html; charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 08:05:14 GMT",
+      "bytes": 5601,
+      "sha256": "86672f3c79f9c437b507c0dbd4d79cd97c27e017cd05d753c744c79ef0f36079",
+      "ok": false
+    }
+  ]
+}

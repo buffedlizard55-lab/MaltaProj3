@@ -1,0 +1,1696 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-22T08:03:51Z",
+  "scope": "Read-only source/replay register. Dated input estimates are not restamped or promoted to current picks.",
+  "inventory_observed_at": "2026-10-22T08:02:22Z",
+  "origination_generated_at": "2026-10-22T08:02:59Z",
+  "inventory_fresh_at_audit": true,
+  "inventory_complete": true,
+  "input_sha256": {
+    "latest.json": "5e44bc594ad4815033c5a13350acc4bef08f9ba071969c67c4014a788d15af48",
+    "origination.json": "235bc1498ed9cd22f5730c4cccd3cef45c54eefd471719b6f0ad3c7eb9ae8bb2"
+  },
+  "counts": {
+    "canonical_nonpast_fixtures": 43,
+    "audited_rows": 43,
+    "supported_dated_estimates": 43,
+    "currently_usable_lines": 43,
+    "explicitly_unresolved": 0
+  },
+  "research_discovery": {
+    "source": "Polymarket directory plus replayed retained CS2-tag discovery",
+    "role": "Identity discovery only; selected original event and both order books are re-fetched.",
+    "supplemental_identities": 321,
+    "retained_identities_replayed": 426,
+    "discovered_identities": 426,
+    "directory_is_exhaustive": false,
+    "tagged_discovery_available": true,
+    "prices_used": false,
+    "reused_requests": [
+      {
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
+        "observed_at": "2026-10-22T08:02:25Z",
+        "evidence": "data/evidence/polymarket-discovery-0.json"
+      },
+      {
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
+        "observed_at": "2026-10-22T08:02:25Z",
+        "evidence": "data/evidence/polymarket-discovery-100.json"
+      },
+      {
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
+        "observed_at": "2026-10-22T08:02:26Z",
+        "evidence": "data/evidence/polymarket-discovery-200.json"
+      },
+      {
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
+        "observed_at": "2026-10-22T08:02:26Z",
+        "evidence": "data/evidence/polymarket-discovery-300.json"
+      },
+      {
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
+        "observed_at": "2026-10-22T08:02:26Z",
+        "evidence": "data/evidence/polymarket-discovery-400.json"
+      }
+    ],
+    "limitations": []
+  },
+  "rows": [
+    {
+      "fixture_id": "1079189",
+      "teams": [
+        "FORZE Reload",
+        "Just Players"
+      ],
+      "starts_at": "2026-10-22T11:00:00Z",
+      "locks_at": "2026-10-22T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/forze-reload-vs-just-players-nodwin-clutch-series-13-1079189",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079651",
+      "teams": [
+        "Butterfly",
+        "Lavked"
+      ],
+      "starts_at": "2026-10-22T11:00:00Z",
+      "locks_at": "2026-10-22T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.77416873,
+        0.22583127
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/butterfly-vs-lavked-cct-europe-2026-series-11-1079651",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "starts_at": "2026-10-22T11:00:00Z",
+      "locks_at": "2026-10-22T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.595,
+        0.405
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/falcons-force-vs-phantom-academy-cct-europe-2026-challengers-8-1081596",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082767",
+      "teams": [
+        "Nemesis",
+        "WW"
+      ],
+      "starts_at": "2026-10-22T11:30:00Z",
+      "locks_at": "2026-10-22T11:24:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "consensus",
+      "probabilities": [
+        0.75708504,
+        0.24291496
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:05Z",
+          "evidence_file": "data/origination/evidence/live-polymarket-observations.json"
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/team-nemesis-ww-202610220730",
+          "provider": "Bovada",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:15Z",
+          "evidence_file": "data/origination/evidence/live-bovada-cs2.json"
+        },
+        {
+          "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "provider": "Pinnacle",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:18Z",
+          "evidence_file": "data/origination/evidence/live-pinnacle-cs.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081598",
+      "teams": [
+        "JiJieHao",
+        "Nexus"
+      ],
+      "starts_at": "2026-10-22T13:00:00Z",
+      "locks_at": "2026-10-22T12:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.635,
+        0.365
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1081598",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081599",
+      "teams": [
+        "FaZe",
+        "BC.Game"
+      ],
+      "starts_at": "2026-10-22T13:00:00Z",
+      "locks_at": "2026-10-22T12:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.51752022,
+        0.48247978
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1081599",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:02:42Z",
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082919",
+      "teams": [
+        "Projeto do KinGui",
+        "Martians"
+      ],
+      "starts_at": "2026-10-22T13:00:00Z",
+      "locks_at": "2026-10-22T12:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.49856089,
+        0.50143911
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "provider": "HLTV world ranking",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-hltv-ranking.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+        "Unranked floor: Projeto do KinGui has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081600",
+      "teams": [
+        "Donstu",
+        "Banda chuya"
+      ],
+      "starts_at": "2026-10-22T13:45:00Z",
+      "locks_at": "2026-10-22T13:39:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.4045841,
+        0.5954159
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/donstu-vs-banda-chuya-cct-europe-2026-challengers-8-1081600",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079652",
+      "teams": [
+        "Acend",
+        "ex-6666"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "locks_at": "2026-10-22T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "consensus",
+      "probabilities": [
+        0.53668231,
+        0.46331769
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-ex-6666-cct-europe-2026-series-11-1079652",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:06Z",
+          "evidence_file": "data/origination/evidence/live-polymarket-observations.json"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:03Z",
+          "evidence_file": "data/origination/evidence/live-thunderpick-matches.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081145",
+      "teams": [
+        "Lavked",
+        "HAVU"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "locks_at": "2026-10-22T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.495,
+        0.505
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/lavked-vs-havu-cct-europe-2026-series-12-1081145",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082688",
+      "teams": [
+        "Imperial",
+        "Turma do Pagode"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "locks_at": "2026-10-22T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.77,
+        0.23
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/imperial-vs-turma-do-pagode-circuit-x-curitiba-4-1082688",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082689",
+      "teams": [
+        "BESTIA",
+        "ShindeN"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "locks_at": "2026-10-22T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.465,
+        0.535
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/bestia-vs-shinden-circuit-x-curitiba-4-1082689",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "locks_at": "2026-10-22T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "consensus",
+      "probabilities": [
+        0.42785231,
+        0.57214769
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:05Z",
+          "evidence_file": "data/origination/evidence/live-polymarket-observations.json"
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:03Z",
+          "evidence_file": "data/origination/evidence/live-thunderpick-matches.json"
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/stake-ranked-qualifiers/unity-esports-betclic-apogee-202610221000",
+          "provider": "Bovada",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:15Z",
+          "evidence_file": "data/origination/evidence/live-bovada-cs2.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081603",
+      "teams": [
+        "SinnerS",
+        "Eternal Fire"
+      ],
+      "starts_at": "2026-10-22T16:00:00Z",
+      "locks_at": "2026-10-22T15:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1081603",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082920",
+      "teams": [
+        "MEIA NOITE",
+        "Procyon"
+      ],
+      "starts_at": "2026-10-22T16:00:00Z",
+      "locks_at": "2026-10-22T15:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.44704606,
+        0.55295394
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/meia-noite-vs-procyon-cct-south-america-2026-series-7-1082920",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "provider": "Pinnacle",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-pinnacle-cs.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082180",
+      "teams": [
+        "Sangal",
+        "Metizport"
+      ],
+      "starts_at": "2026-10-22T16:30:00Z",
+      "locks_at": "2026-10-22T16:24:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.535,
+        0.465
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/sangal-vs-metizport-stake-ranked-episode-6-closed-qualifier-1082180",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079653",
+      "teams": [
+        "Rune Eaters",
+        "FORZE Reload"
+      ],
+      "starts_at": "2026-10-22T17:00:00Z",
+      "locks_at": "2026-10-22T16:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.345,
+        0.655
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/rune-eaters-vs-forze-reload-cct-europe-2026-series-11-1079653",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081146",
+      "teams": [
+        "6yuBoJlbl",
+        "ex-6666"
+      ],
+      "starts_at": "2026-10-22T17:00:00Z",
+      "locks_at": "2026-10-22T16:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.52,
+        0.48
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082769",
+      "teams": [
+        "K27",
+        "NEXORA"
+      ],
+      "starts_at": "2026-10-22T17:30:00Z",
+      "locks_at": "2026-10-22T17:24:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.905,
+        0.095
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/nexora-vs-k27-cis-lan-championship-9-1082769",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082921",
+      "teams": [
+        "your end",
+        "Yawara"
+      ],
+      "starts_at": "2026-10-22T19:00:00Z",
+      "locks_at": "2026-10-22T18:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.1687448,
+        0.8312552
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/yawara-vs-your-end-cct-south-america-2026-series-7-1082921",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "provider": "Pinnacle",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-pinnacle-cs.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082770",
+      "teams": [
+        "UPGRADE",
+        "Virtus.pro"
+      ],
+      "starts_at": "2026-10-22T20:30:00Z",
+      "locks_at": "2026-10-22T20:24:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.385,
+        0.615
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/upgrade-vs-virtus-pro-cis-lan-championship-9-1082770",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082922",
+      "teams": [
+        "Low Cortisol BR",
+        "Grêmio"
+      ],
+      "starts_at": "2026-10-22T22:00:00Z",
+      "locks_at": "2026-10-22T21:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.66195106,
+        0.33804894
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/low-cortisol-br-vs-gremio-cct-south-america-2026-series-7-1082922",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "starts_at": "2026-10-23T03:00:00Z",
+      "locks_at": "2026-10-23T02:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.64419091,
+        0.35580909
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/lynn-vision-vs-chinggis-warriors-void-autumn-cup-2026-1081871",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "provider": "Valve official standings",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:21Z",
+          "evidence_file": "data/origination/evidence/live-valve-standings-text.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+        "Chinggis Warriors: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "starts_at": "2026-10-23T08:00:00Z",
+      "locks_at": "2026-10-23T07:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.49888,
+        0.50112
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "starts_at": "2026-10-23T11:00:00Z",
+      "locks_at": "2026-10-23T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.93003347,
+        0.06996653
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "starts_at": "2026-10-23T11:00:00Z",
+      "locks_at": "2026-10-23T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "starts_at": "2026-10-23T13:00:00Z",
+      "locks_at": "2026-10-23T12:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.71111111,
+        0.28888889
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:02:42Z",
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081149",
+      "teams": [
+        "FORZE Reload",
+        "LFO 10"
+      ],
+      "starts_at": "2026-10-23T14:00:00Z",
+      "locks_at": "2026-10-23T13:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.51007245,
+        0.48992755
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "provider": "HLTV world ranking",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-hltv-ranking.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082924",
+      "teams": [
+        "BORRACHEIROS",
+        "QUINTESSÊNCIA"
+      ],
+      "starts_at": "2026-10-23T16:00:00Z",
+      "locks_at": "2026-10-23T15:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.47621793,
+        0.52378207
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "starts_at": "2026-10-23T17:00:00Z",
+      "locks_at": "2026-10-23T16:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.40054361,
+        0.59945639
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "provider": "Valve official standings",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:21Z",
+          "evidence_file": "data/origination/evidence/live-valve-standings-text.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "starts_at": "2026-10-23T17:00:00Z",
+      "locks_at": "2026-10-23T16:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.80746193,
+        0.19253807
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "starts_at": "2026-10-23T19:00:00Z",
+      "locks_at": "2026-10-23T18:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.2104426189073444,
+        0.7895573810926556
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://bo3.gg/matches",
+          "provider": "Own network model (bo3.gg results graph)",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:02:59Z",
+          "evidence_file": "data/origination/evidence/live-bo3-graph.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 130.1 points (probability interval 0.056-0.544). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082926",
+      "teams": [
+        "Isurus",
+        "Hacha"
+      ],
+      "starts_at": "2026-10-23T22:00:00Z",
+      "locks_at": "2026-10-23T21:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.5,
+        0.5
+      ],
+      "snapshot_pick_index": null,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "provider": "HLTV world ranking",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-hltv-ranking.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.44553062597832394,
+        0.5544693740216761
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://bo3.gg/matches",
+          "provider": "Own network model (bo3.gg results graph)",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:02:59Z",
+          "evidence_file": "data/origination/evidence/live-bo3-graph.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.4 points (probability interval 0.117-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.72821824,
+        0.27178176
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.52300959,
+        0.47699041
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "provider": "HLTV world ranking",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:19Z",
+          "evidence_file": "data/origination/evidence/live-hltv-ranking.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+        "Unranked floor: Staqued has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "starts_at": "2026-10-27T08:00:00Z",
+      "locks_at": "2026-10-27T07:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.52702703,
+        0.47297297
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "provider": "Thunderpick",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:02:42Z",
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "starts_at": "2026-10-27T11:00:00Z",
+      "locks_at": "2026-10-27T10:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.345,
+        0.655
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": null,
+          "evidence_file": null
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "starts_at": "2026-10-27T17:00:00Z",
+      "locks_at": "2026-10-27T16:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "market",
+      "probabilities": [
+        0.515,
+        0.485
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+          "provider": "Polymarket",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:13Z",
+          "evidence_file": "data/origination/evidence/live-polymarket-observations.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "At least one contributing market is thin/wide; treat the estimate as indicative, not executable.",
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "starts_at": "2026-10-27T20:00:00Z",
+      "locks_at": "2026-10-27T19:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "bookmaker",
+      "probabilities": [
+        0.46236559,
+        0.53763441
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026",
+          "provider": "Thunderpick (relayed by bo3.gg)",
+          "role": "Original paired prematch money line",
+          "observed_at": "2026-10-22T08:03:22Z",
+          "evidence_file": "data/origination/evidence/live-bo3-relay.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Bookmaker price relayed by bo3.gg, not read from the bookmaker's own page: bo3.gg publishes the coefficient pair it receives from the provider, and that page is linked on this row. Confirm the live price with the bookmaker before relying on it."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "starts_at": "2026-10-31T09:00:00Z",
+      "locks_at": "2026-10-31T08:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "snapshot_pick_index": 0,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "provider": "Valve official standings",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:03:21Z",
+          "evidence_file": "data/origination/evidence/live-valve-standings-text.json"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+        "The Huns: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+      ],
+      "featured_facts_unchanged": true
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "starts_at": "2026-10-31T13:00:00Z",
+      "locks_at": "2026-10-31T12:54:00Z",
+      "inventory_observed_at": "2026-10-22T08:02:22Z",
+      "estimate_method": "model",
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "snapshot_pick_index": 1,
+      "currently_usable": true,
+      "sources": [
+        {
+          "url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+          "role": "Official Hotspawn fixture/inventory"
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "role": "Official ratings input; uncalibrated research model",
+          "observed_at": "2026-10-22T08:02:44Z",
+          "snapshot_date": "2026-10-05"
+        }
+      ],
+      "unresolved_reason": null,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "featured_facts_unchanged": true
+    }
+  ]
+}
