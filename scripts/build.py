@@ -458,7 +458,7 @@ def start_here(data, prefix):
          'This summary lists every blank pick, its blocker and the sources actually tried.'),
     ]
     if model_picks:
-        items.append((prefix + '#model-picks', f'Research-only picks ({model_picks})', 'trend',
+        items.append((prefix + '#no-line-register', f'Research-only picks ({model_picks})', 'trend',
                       'Picks with no bookmaker line: the model that produced each number and what limits it.'))
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')

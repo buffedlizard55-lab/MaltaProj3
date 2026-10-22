@@ -259,22 +259,25 @@ class SummaryProvenanceTest(unittest.TestCase):
         # row, including the network-model row that has no Thunderpick line.
         self.assertNotIn('verified Thunderpick paired-price book', html)
 
-    def test_model_pick_register_publishes_the_limitation_trail(self):
-        html = build.model_pick_register({'complete_picks': self._complete()}, '')
-        self.assertIn('Picks without a bookmaker line', html)
+    def test_no_line_register_publishes_the_limitation_trail(self):
+        # main's no_line_register replaced this session's earlier model-pick
+        # register during integration; the contract is the same: name the rung,
+        # the providers actually checked, and the blocker for model-only picks.
+        html = build.no_line_register({'complete_picks': self._complete()}, '')
+        self.assertIn('Picks without a betting line', html)
         self.assertIn('benched gods', html)
         self.assertIn('TitanFlow', html)
         self.assertIn('77.8%', html)
         self.assertIn('Own network estimate (bo3.gg results graph)', html)
-        self.assertIn('Polymarket', html)
+        self.assertIn('Why there is no line', html)
+        self.assertIn('uncalibrated estimate, not a betting price', html)
         self.assertIn('Thunderpick', html)
-        self.assertIn('Low confidence', html)
-        # A market-backed row is not a model pick and must not be listed here.
+        # A market-backed row is not a model-only row and must not be listed here.
         self.assertNotIn('Vitalem Aerem', html)
 
-    def test_model_pick_register_is_empty_without_model_picks(self):
+    def test_no_line_register_is_empty_without_model_picks(self):
         data = {'complete_picks': {'matches': [self._complete()['matches'][1]]}}
-        self.assertEqual(build.model_pick_register(data, ''), '')
+        self.assertEqual(build.no_line_register(data, ''), '')
 
 
 if __name__ == '__main__':
