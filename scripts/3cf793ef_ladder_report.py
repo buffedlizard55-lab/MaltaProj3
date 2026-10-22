@@ -87,12 +87,18 @@ def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     path = OUT_DIR / f"ladder-{now.strftime('%Y%m%dT%H%MZ')}.json"
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False))
-    print(json.dumps({k: report[k] for k in ('inventory_records', 'upcoming', 'upcoming_in_ladder',
-                                             'upcoming_with_pick', 'upcoming_without_pick',
-                                             'methods')}, indent=1))
+    summary = {k: report[k] for k in ('inventory_records', 'upcoming', 'upcoming_in_ladder',
+                                      'upcoming_with_pick', 'upcoming_without_pick', 'methods')}
+    print(json.dumps(summary, indent=1))
+    # Workflow annotations stay readable through the GitHub API even where the
+    # Actions log storage host is unreachable.
+    print('::notice title=Ladder coverage::' + json.dumps(summary))
     for u in unpriced:
         print('NO PICK', u['id'], u['teams'], '|', u['competition'], '|',
               '; '.join(f"{r['stage']}={r['status']}" for r in u['research'][-3:]))
+        print('::warning title=No pick::' + json.dumps({
+            'id': u['id'], 'teams': u['teams'], 'competition': u['competition'],
+            'trail': [f"{r['stage']}={r['status']}" for r in u['research'][-3:]]}))
     print('report:', path)
     return 0
 
