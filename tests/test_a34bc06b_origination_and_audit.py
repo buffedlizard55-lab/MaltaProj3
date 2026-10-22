@@ -125,6 +125,26 @@ class OriginationTableAndProvenanceTests(unittest.TestCase):
         self.assertEqual(dossier['counts']['unresolved'], 0)
         self.assertEqual(len(dossier['all_35_active_matches']), 35)
 
+    def test_pages_workflow_jobs_use_distinct_artifact_names(self):
+        """Regression for run 39713153422: two jobs uploading `github-pages` broke deploy-pages@v5."""
+        wf = (ROOT / '.github/workflows/pages.yml').read_text(encoding='utf-8')
+        republish_section, verify_section = wf.split('  verify-and-deploy:', 1)
+        self.assertIn('name: github-pages-interim', republish_section)
+        self.assertIn('artifact_name: github-pages-interim', republish_section)
+        self.assertNotIn('name: github-pages-interim', verify_section)
+
+    def test_relayed_bookmaker_quote_replays_and_links_both_sources(self):
+        """Cross-PR integration with 15fc6bca: relayed quotes link bo3.gg + book_url and replay cleanly."""
+        live_dir = ROOT / 'data/research/15fc6bca/live'
+        relay_doc = json.loads((live_dir / 'origination.json').read_text(encoding='utf-8'))
+        relayed_match = next(m for m in relay_doc['matches'] if (m.get('origination') or {}).get('family') == 'relay')
+        o = relayed_match['origination']
+        label, kind, group = build_origination.basis_meta(o)
+        self.assertEqual((label, kind, group), ('Relayed money line · bo3.gg bookmaker feed', 'green', 'money'))
+        links_html = ' '.join(build_origination.match_source_links(relayed_match, o))
+        self.assertIn(o['source_url'], links_html)
+        self.assertIn(o['book_url'], links_html)
+
 
 if __name__ == '__main__':
     unittest.main()
