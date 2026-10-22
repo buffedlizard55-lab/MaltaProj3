@@ -4566,3 +4566,17 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+---
+
+# Session: arena-38f43834 — full pick coverage, both-team probabilities in glance view, specific bo3 match link resolution, and line-by-line verification
+
+Claimed **2026-10-22T01:25Z** on the Arena-fixed branch `arena/38f43834-maltaproj3`,
+branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4` (merge of PR #145).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 38F-1 Full pick coverage & mobile probability visibility: enhance glance summary to show both teams' win percentages beside obvious picks; wire specific bo3.gg match links in network model to resolve index-link residual flag; verify all rows line-by-line against official sources; update executive summary and Flagged for Review; run complete test suites and browser QA at 320/390/768/1440px | **in progress** | arena-38f43834 | `scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `data/research/38f43834/**`, `COORDINATION.md` |
+
+**Non-overlap pledge:** write only to claimed files (`scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `data/research/38f43834/**`, `COORDINATION.md`). No modifications to other sessions' research dossiers.
+
