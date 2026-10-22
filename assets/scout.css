@@ -422,15 +422,17 @@
 .start-here a.picks-here strong{color:var(--orange-dark)}
 @media(max-width:700px){
   /* Keep df80ab9f's 9/11 padding so #picks-at-a-glance stays under 1500px.
-     Hide the banner's repeated copy and two-column the jump bar so the
-     glance index itself (not only a jump to it) sits above the fold. */
+     Hide the banner's repeated copy. Two-column the jump bar with min-width:0
+     so 320px does not overflow (grid items default to min-width:auto). */
   .exec-banner-label,.exec-banner-desc,.exec-banner-meta{display:none}
   .exec-banner-actions a .sub{display:none}
   .exec-banner h3{font-size:15px;margin:0 0 6px}
-  .exec-banner-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   .start-here-label{display:none}
   .start-here ul{grid-template-columns:1fr 1fr;gap:5px}
+  .start-here li{min-width:0}
+  .start-here a{min-width:0;overflow:hidden}
   .start-here a span{display:none}
+  .start-here a strong{overflow-wrap:anywhere}
   .start-here li:first-child{grid-column:1/-1}
   .start-here .tiny{display:none}
 }
