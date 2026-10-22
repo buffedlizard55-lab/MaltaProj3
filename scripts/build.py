@@ -826,11 +826,26 @@ def unresolved_register(data, prefix):
                 names.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">{e(n[0])} vs {e(n[1])}</a>')
             detail = ' · '.join(names)
             more = f' <span class="tiny muted">+{len(closed) - len(names)} more</span>' if len(closed) > len(names) else ''
-            extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
-                     f'{len(closed)} fixture(s) blank ({detail}{more}); each now carries an alias-aware researched line '
-                     '— HLTV event identity first, then a verified Thunderpick paired-price book (margin removed) — '
-                     'with the alias evidence and fair lines on its origination card. No line is invented; see the '
-                     f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> for the source links.</p>')
+            extra = ''
+            rungs = {}
+            for m in closed:
+                o = m.get('origination') or {}
+                key = o.get('label') or ('Money line' if o.get('method') in {'market', 'bookmaker', 'consensus', 'reference'}
+                                         else 'Research estimate')
+                rungs[key] = rungs.get(key, 0) + 1
+            if rungs:
+                # Session bd4f77c6: name the rung that actually produced each row.
+                # The previous sentence credited a "verified Thunderpick paired-price
+                # book" for every featured-blank fixture, which was false for rows
+                # resolved by the Valve, results or bo3.gg network models.
+                described = ', '.join(f'{e(k)} ×{v}' if v > 1 else e(k)
+                                      for k, v in sorted(rungs.items(), key=lambda kv: (-kv[1], kv[0])))
+                extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
+                         f'{len(closed)} fixture(s) blank ({detail}{more}); each now carries the rung named on its '
+                         f'origination card — {described} — with that rung\'s own inputs, sample and limitations. '
+                         'No line is invented, no provider is credited for a price it did not publish, and the '
+                         f'<a class="internal-link" href="{prefix}origination/#aliases">alias registry</a> lists the identity evidence.</p>')
+
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '

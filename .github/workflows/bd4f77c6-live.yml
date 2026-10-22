@@ -1,0 +1,43 @@
+name: bd4f77c6 live verification (session-only, removed before merge)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: bd4f77c6-live
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/bd4f77c6-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Originate a pick for every fixture (live provider reads)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Build the pages from the fresh snapshot
+        run: python -m scripts.build --data data --output site
+      - name: Row-source audit (strict)
+        run: python -m scripts.audit_rows --site site --strict --report data/research/bd4f77c6/live/row-source-audit.json
+      - name: Provenance and phone-view check
+        run: python -m scripts.bd4f77c6_report
+      - name: Commit the dated evidence
+        run: |
+          git config user.name "arena-bd4f77c6"
+          git config user.email "arena@users.noreply.github.com"
+          git add data/research/bd4f77c6
+          git commit -m "research(bd4f77c6): live snapshot, provenance check and built pages" || echo "nothing to commit"
+          git pull --rebase origin arena/bd4f77c6-maltaproj3
+          git push origin HEAD:arena/bd4f77c6-maltaproj3

@@ -1704,13 +1704,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         # anchored teams. It is the only rung that can price a fixture whose
         # *both* sides are missing from every official rating table.
         if match.get('_network'):
-            model = dict(match['_network'])
-            model_detail = (f"Own Bradley–Terry network fit over {model.get('graph_matches')} bo3.gg finished "
-                            f"series with {model.get('graph_anchors')} Valve-anchored teams; "
-                            f"{model.get('n_series')} series for the thinner side, rating-difference SD "
-                            f"{model.get('rating_sd_diff')} points.")
+            # Session bd4f77c6: this must NOT be assigned to `model`. `model` is
+            # the Valve/results rung, and the selection ladder below tests
+            # `elif model:` before `elif network_quote:`. Assigning the network
+            # quote here (a) published our own bo3.gg fit under the label
+            # "Research model estimate (Valve official ratings)", and (b) let
+            # the lowest rung overwrite a resolved Valve or results model.
+            # The network quote already reaches the ladder through
+            # `network_quote = match.get('_network')` above.
+            net = dict(match['_network'])
+            net_detail = (f"Own Bradley–Terry network fit over {net.get('graph_matches')} bo3.gg finished "
+                          f"series with {net.get('graph_anchors')} Valve-anchored teams; "
+                          f"{net.get('n_series')} series for the thinner side, rating-difference SD "
+                          f"{net.get('rating_sd_diff')} points.")
             trail.append({'stage': 'Own network model (bo3.gg results graph)', 'status': 'resolved',
-                          'source_url': model['source_url'], 'detail': model_detail})
+                          'source_url': net['source_url'], 'detail': net_detail})
         elif match.get('_network_reason'):
             trail.append({'stage': 'Own network model (bo3.gg results graph)', 'status': 'unresolved',
                           'source_url': 'https://bo3.gg/matches', 'detail': match['_network_reason']})
