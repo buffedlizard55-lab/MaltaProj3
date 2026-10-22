@@ -1,30 +1,34 @@
-"""Session 96fbe295 — the published root must carry the verified build, never an old page.
+"""Session 96fbe295 + f2b91672 — publish rendered HTML views to the root without breaking data fixtures.
 
 The brief says the site has to be updated every 4-8 hours and that it must be obvious where the
-picks are. The public deployment failed both: on 2026-10-22T08:20Z the live ``data/latest.json`` was
-the checked-in 15 October snapshot, because GitHub Pages is in legacy mode and the branch root was
-six days old (see ``data/research/96fbe295/pages-root-verification.json``).
+picks are. GitHub Pages is configured in legacy mode (`main /`), so every push to `main` triggers a
+legacy Pages build alongside `actions/deploy-pages`.
 
-These tests lock the publisher that closes that race:
+These tests lock the publisher and workflow ordering that close both sides of that race:
 
-* only rendered pages, assets, the data files the pages read and the two small inventory-evidence
-  files are copied - never ``data/research``, ``docs``, ``archive`` or the bulk evidence attachments;
+* only rendered HTML pages, `assets/`, and `.nojekyll` are copied into the git-tracked branch root;
+* `data/*` (including `data/latest.json`, `data/origination.json`, `data/evidence/*`, and
+  `data/research/*`), `docs/*`, and `archive/*` are NEVER copied into the git-tracked root, so
+  deterministic CI replay (`scripts.validate.check_data`, `validate_origination`,
+  `tests/test_contrarian.py`) never breaks on `main`;
+* monotonicity is enforced via `data-snapshot-generated` on `root/index.html`;
 * an unchanged root is a byte-for-byte no-op (so the four-hour job does not commit noise);
 * a stub, missing or unparseable build is refused, and a snapshot older than the age limit is
   refused unless explicitly allowed;
-* the root never moves backwards to an older snapshot.
+* whenever `pages.yml` pushes a `[skip ci]` root-sync commit, it waits for that commit's legacy
+  Pages build (`--wait-legacy-sha`) and re-deploys `actions/deploy-pages@v5` + `scripts.verify_live`
+  so the live deployment serves the complete `site/` artifact last.
 """
 from __future__ import annotations
 
 import json
 import tempfile
 import unittest
-from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from scripts import root_publish
-from scripts.root_publish import PublishRefused, build_plan, main
+from scripts.root_publish import PublishRefused, build_plan, main, wait_for_legacy_pages_build
 
 NOW = datetime(2026, 10, 22, 9, 0, tzinfo=timezone.utc)
 
@@ -36,12 +40,13 @@ def _write(path: Path, text: str) -> Path:
 
 
 def _snapshot(root: Path, *, when: datetime, upcoming: int = 3) -> None:
+    stamp = when.strftime("%Y-%m-%dT%H:%M:%SZ")
     _write(
         root / "data/latest.json",
         json.dumps(
             {
                 "schema_version": 1,
-                "generated_at": when.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "generated_at": stamp,
                 "counts": {"upcoming": upcoming, "picks": upcoming},
                 "matches": [],
             }
@@ -49,25 +54,35 @@ def _snapshot(root: Path, *, when: datetime, upcoming: int = 3) -> None:
     )
 
 
+def _write_index(root: Path, *, when: datetime) -> None:
+    stamp = when.strftime("%Y-%m-%dT%H:%M:%SZ")
+    _write(
+        root / "index.html",
+        f'<!doctype html><html lang="en" data-snapshot-generated="{stamp}">'
+        f"<title>Executive summary</title>" + "x" * 60_000,
+    )
+
+
 def make_site(tmp: Path, *, when: datetime = NOW - timedelta(minutes=20)) -> Path:
     """A miniature build output shaped like the real ``site/`` tree."""
     output = tmp / "site"
-    _write(output / "index.html", "<!doctype html><title>Executive summary</title>" + "x" * 60_000)
+    _write_index(output, when=when)
     _write(output / "picks.html", '<meta http-equiv="refresh" content="0;url=picks/">')
     _write(output / "picks/index.html", "<title>Picks</title>" + "y" * 4_000)
+    _write(output / "unresolved/index.html", "<title>Unresolved picks & limitations</title>")
     _write(output / "review/index.html", "<title>Flagged for review</title>")
     _write(output / "final-day/index.html", "<title>Archived final day</title>")
     _write(output / "assets/scout.css", "body{font-size:16px}")
     _write(output / "assets/scout.js", "console.log('scout')")
     _write(output / ".nojekyll", "")
     _snapshot(output, when=when)
+    # Never published into git-tracked `data/` — served via the `github-pages` artifact instead:
     _write(output / "data/origination.json", json.dumps({"counts": {"active": 3}}))
     _write(output / "data/sources.json", json.dumps({"sources": []}))
     _write(output / "data/row-source-audit.json", json.dumps({"totals": {"rows": 1}}))
-    _write(output / "data/origination/aliases.json", json.dumps({"aliases": {}}))
+    _write(output / "data/origination/aliases.json", json.dumps({"aliases": []}))
     _write(output / "data/evidence/hotspawn-fixtures.json", "[{}]")
     _write(output / "data/evidence/hotspawn-context.json", "{}")
-    # Never published, no matter how large:
     _write(output / "data/evidence/thunderpick-matches.json", "[{}]")
     _write(output / "data/research/abc/live.json", "{}")
     _write(output / "docs/index.html", "<title>old docs</title>")
@@ -90,28 +105,20 @@ class PlanTests(unittest.TestCase):
         plan = build_plan(self.output, self.root, **options)
         return plan, root_publish.apply_plan(plan, self.root)
 
-    def test_publishes_pages_assets_and_the_four_data_files(self):
-        plan, written = self.publish()
+    def test_publishes_pages_assets_and_nojekyll(self):
+        _, written = self.publish()
         self.assertIn("index.html", written)
         self.assertIn("picks/index.html", written)
+        self.assertIn("unresolved/index.html", written)
+        self.assertIn("final-day/index.html", written)
         self.assertIn("assets/scout.css", written)
-        self.assertIn("data/latest.json", written)
-        self.assertIn("data/origination.json", written)
         self.assertIn(".nojekyll", written)
         for expected in written:
             self.assertTrue((self.root / expected).is_file(), expected)
 
-    def test_publishes_only_the_inventory_evidence_the_rows_link(self):
+    def test_never_overwrites_git_tracked_data_docs_or_archive(self):
         _, written = self.publish()
-        self.assertIn("data/evidence/hotspawn-fixtures.json", written)
-        self.assertIn("data/evidence/hotspawn-context.json", written)
-        self.assertIn("data/origination/aliases.json", written)
-        self.assertNotIn("data/evidence/thunderpick-matches.json", written,
-                         "bulk evidence attachments must stay out of the four-hour commit")
-
-    def test_never_publishes_research_docs_or_archive(self):
-        _, written = self.publish()
-        for forbidden in ("data/research/", "docs/", "archive/"):
+        for forbidden in ("data/", "docs/", "archive/"):
             offenders = [p for p in written if p.startswith(forbidden)]
             self.assertEqual(offenders, [], f"{forbidden} must stay out of the root publish")
 
@@ -178,7 +185,7 @@ class RefusalTests(unittest.TestCase):
         plan = build_plan(self.output, self.root, now=NOW, allow_stale=True)
         self.assertTrue(plan.writes)
 
-    def test_name_age_hours_is_configurable(self):
+    def test_max_age_hours_is_configurable(self):
         _snapshot(self.output, when=NOW - timedelta(hours=20))
         with self.assertRaises(PublishRefused):
             build_plan(self.output, self.root, now=NOW)
@@ -186,23 +193,77 @@ class RefusalTests(unittest.TestCase):
         self.assertTrue(plan.writes)
 
     def test_never_moves_the_root_backwards(self):
-        _snapshot(self.root, when=NOW - timedelta(minutes=5))
+        _write_index(self.root, when=NOW - timedelta(minutes=5))
         plan = build_plan(self.output, self.root, now=NOW)
         self.assertEqual(plan.writes, {})
         self.assertIn("newer than the build", plan.reason)
 
     def test_an_older_root_is_replaced_by_a_newer_build(self):
-        _snapshot(self.root, when=NOW - timedelta(days=6))
+        _write_index(self.root, when=NOW - timedelta(days=6))
         plan = build_plan(self.output, self.root, now=NOW)
-        self.assertIn("data/latest.json", plan.writes)
+        self.assertIn("index.html", plan.writes)
 
     def test_refusal_exit_code_is_three(self):
         (self.output / "data/latest.json").unlink()
         self.assertEqual(main(["--output", str(self.output), "--root", str(self.root)]), 3)
 
 
+class LegacyWaitTests(unittest.TestCase):
+    def test_wait_completes_once_dynamic_pages_run_completes(self):
+        calls = []
+
+        class FakeResp:
+            def __init__(self, body):
+                self._body = body
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self._body
+
+        class FakeSession:
+            def get(self, url, headers=None, params=None, timeout=20):
+                calls.append((url, params))
+                if url.endswith("/pages"):
+                    return FakeResp({"build_type": "legacy"})
+                if len(calls) == 2:
+                    return FakeResp(
+                        {
+                            "workflow_runs": [
+                                {
+                                    "id": 99,
+                                    "name": "pages build and deployment",
+                                    "status": "in_progress",
+                                    "conclusion": None,
+                                    "head_sha": "abc123",
+                                }
+                            ]
+                        }
+                    )
+                return FakeResp(
+                    {
+                        "workflow_runs": [
+                            {
+                                "id": 99,
+                                "name": "pages build and deployment",
+                                "status": "completed",
+                                "conclusion": "success",
+                                "head_sha": "abc123",
+                            }
+                        ]
+                    }
+                )
+
+        summary = wait_for_legacy_pages_build(
+            "owner/repo", "abc123", "tok", session=FakeSession(), attempts=4, pause=0.0
+        )
+        self.assertEqual(summary["build_type"], "legacy")
+        self.assertEqual(summary["legacy_runs"][0]["status"], "completed")
+
+
 class PathsFileTests(unittest.TestCase):
-    def test_paths_file_lists_exactly_the_changed_paths(self):
+    def test_paths_file_lists_changed_html_and_assets_never_data(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             output = make_site(tmp_path)
@@ -215,16 +276,96 @@ class PathsFileTests(unittest.TestCase):
             self.assertEqual(code, 0)
             listed = [line for line in listing.read_text().splitlines() if line]
             self.assertIn("index.html", listed)
-            self.assertIn("data/latest.json", listed)
-            self.assertEqual(
-                [p for p in listed if p.startswith("data/evidence")],
-                ["data/evidence/hotspawn-context.json", "data/evidence/hotspawn-fixtures.json"],
-            )
-            self.assertFalse([p for p in listed if p.startswith("data/research")])
+            self.assertIn("unresolved/index.html", listed)
+            self.assertFalse([p for p in listed if p.startswith("data/")])
+
+
+class EvenEstimateAuditTests(unittest.TestCase):
+    """An exactly even estimate may only name a side when a provider publishes the order.
+
+    Session 4c972a51 added that tie-break in ``scripts/originate.py``; the published
+    coverage audit still rejected every even pick, so the 10:05Z deploy's own
+    ``verify_live`` step failed on fixture 1082926 (job 119749532581, annotation
+    "exactly even estimate must not name a pick") and the run never reached the
+    branch-root publish. These tests pin the audit to the tie-break contract.
+    """
+
+    def payload(self, probs, pick, tie_break=None):
+        origination = {
+            "method": "model",
+            "label": "Research model estimate",
+            "probabilities": list(probs),
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "quotes": [{"family": "model", "source_url": "https://www.hltv.org/ranking/teams",
+                        "provider": "HLTV world ranking"}],
+        }
+        if tie_break is not None:
+            origination["tie_break"] = tie_break
+        return {
+            "policy": {"hotspawn_votes_used": False, "fan_votes_used": False},
+            "counts": {"active": 1, "resolved": 1, "unresolved": 0,
+                       "with_pick": 0 if pick is None else 1},
+            "matches": [{
+                "id": "1082926",
+                "teams": [{"id": "1", "name": "Alpha"}, {"id": "2", "name": "Bravo"}],
+                "pick_index": pick,
+                "origination": origination,
+            }],
+        }
+
+    def real_tie_break(self, ranks=(40, 61), pick=0):
+        from scripts.originate import ranked_tie_break
+        quote = {
+            "family": "model",
+            "probabilities": [0.5, 0.5],
+            "provider": "HLTV world ranking",
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "inputs": [{"name": "Alpha", "rank": ranks[0]}, {"name": "Bravo", "rank": ranks[1]}],
+        }
+        winner, record = ranked_tie_break(quote)
+        self.assertEqual(winner, pick)
+        return record
+
+    def audit(self, payload):
+        from scripts.coverage_audit import audit_complete_picks
+        return audit_complete_picks(payload)
+
+    def test_even_estimate_with_the_real_tie_break_passes(self):
+        record = self.real_tie_break()
+        self.assertEqual(self.audit(self.payload([0.5, 0.5], 0, record)), [])
+
+    def test_even_estimate_without_a_tie_break_still_fails(self):
+        problems = self.audit(self.payload([0.5, 0.5], 0))
+        self.assertTrue(any("exactly even estimate must not name a pick" in p for p in problems), problems)
+
+    def test_a_tie_break_that_points_at_the_other_team_fails(self):
+        record = self.real_tie_break()
+        problems = self.audit(self.payload([0.5, 0.5], 1, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_with_equal_ranks_fails(self):
+        record = dict(self.real_tie_break(), ranks=[40, 40])
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_without_a_source_fails(self):
+        record = dict(self.real_tie_break(), source_url="http://example.invalid")
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_of_the_wrong_rule_fails(self):
+        record = dict(self.real_tie_break(), rule="coin toss")
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_clear_favourite_is_unaffected(self):
+        self.assertEqual(self.audit(self.payload([0.62, 0.38], 0)), [])
+        problems = self.audit(self.payload([0.62, 0.38], 1))
+        self.assertTrue(any("higher-probability" in p for p in problems), problems)
 
 
 class WorkflowWiringTests(unittest.TestCase):
-    """The publisher is only useful if the four-hour job actually calls it."""
+    """The publisher is only useful if the four-hour job calls it and re-deploys the artifact."""
 
     WORKFLOW = Path(__file__).resolve().parents[1] / ".github" / "workflows" / "pages.yml"
 
@@ -254,9 +395,16 @@ class WorkflowWiringTests(unittest.TestCase):
         self.assertIn("group: pages-${{ github.event_name }}", self.text)
         self.assertNotIn("group: pages\n", self.text)
 
+    def test_artifact_is_redeployed_after_root_sync_legacy_build(self):
+        publish = self.text.index("name: Publish the verified build into the branch root")
+        wait_step = self.text.index("name: Wait for the root-sync commit's legacy Pages build")
+        redeploy = self.text.index("name: Re-deploy the verified artifact over the legacy root build")
+        reverify = self.text.index("name: Verify the public site after root-sync re-deploy")
+        self.assertLess(publish, wait_step)
+        self.assertLess(wait_step, redeploy)
+        self.assertLess(redeploy, reverify)
+
     def test_the_publisher_is_idempotent_in_the_job(self):
-        # The step must exit cleanly when the root already matches, otherwise every
-        # scheduled run would fail on an empty commit.
         self.assertIn('if [ ! -s "$RUNNER_TEMP/root-paths.txt" ]', self.text)
 
 

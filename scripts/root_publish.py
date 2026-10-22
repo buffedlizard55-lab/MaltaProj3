@@ -1,4 +1,4 @@
-"""Publish the verified build into the branch root, so the site can never serve an old page.
+"""Publish rendered HTML views into the branch root without touching git-tracked data fixtures.
 
 Why this exists
 ---------------
@@ -8,30 +8,32 @@ The refresh workflow (``.github/workflows/pages.yml``) publishes the freshly bui
 through ``actions/deploy-pages``. A legacy build republishes the checked-in branch root on **every
 push to ``main``**, so the two publishers race for the same paths:
 
-* the artifact deploy wins  -> current picks,
-* the legacy build wins     -> whatever was last committed to the root.
+* the artifact deploy wins  -> current picks and full ``data/`` tree,
+* the legacy build wins     -> whatever HTML views were last committed to the root.
 
-Observed on 2026-10-22 (see ``data/research/96fbe295/pages-root-verification.json``):
+``PUT /repos/.../pages {"build_type": "workflow"}`` answers **403 Resource not accessible by
+integration**, so the source cannot be switched from a workflow token.
 
-* the legacy build for ``2fb99b0`` finished 07:52:31Z and published the root;
-* the public ``data/latest.json`` then read ``generated_at 2026-10-15T08:36:13Z`` (17 fixtures
-  whose start times were a week in the past), and the public ``data/row-source-audit.json`` was
-  byte-identical to the tracked file, proving the served site *was* the branch root;
-* ``PUT /repos/.../pages {"build_type": "workflow"}`` answers **403 Resource not accessible by
-  integration**, so the source cannot be switched from a workflow token.
+What is copied (and why ``data/*`` is NEVER copied)
+---------------------------------------------------
+Copied: every rendered HTML page (``index.html``, ``picks/index.html``, ``origination/index.html``,
+``unresolved/index.html``, ``coverage/index.html``, ``methodology/index.html``, ``review/index.html``,
+``edge/index.html``, ``strategy/index.html``, ``final-day/index.html``, ``twc-picks/index.html``, and
+top-level redirect stubs), ``assets/``, and ``.nojekyll``.
 
-This module closes the race from the only side the repository controls: it copies the verified
-build over the checked-in root, so *both* publishers serve the same, current site.
+NEVER copied: ``data/*``, ``docs/*``, ``archive/*``.
+Git-tracked ``data/*`` is the repository's deterministic CI replay fixture:
 
-What is copied (and what is deliberately not)
----------------------------------------------
-Copied: every rendered page, ``assets/``, the four data files those pages read plus the alias
-registry and the two inventory-evidence files the rows link (~2 MB in total), and ``.nojekyll``.
+* ``scripts/validate.py:check_data`` and ``scripts/build_origination.py:validate_origination`` replay
+  ``data/latest.json`` and ``data/origination.json`` against all 80+ files in ``data/evidence/`` and
+  ``data/origination/evidence/``; overwriting ``data/latest.json`` or ``data/origination.json``
+  without committing ~22 MB of evidence attachments breaks ``python -m scripts.build`` on ``main``;
+* regression tests (e.g. ``tests/test_contrarian.py``, documented in ``.github/workflows/pages.yml``)
+  assert against the checked-in ``data/latest.json`` snapshot before any runtime cache overlay.
 
-Not copied: the remaining ``data/evidence/`` attachments and all of ``data/research/`` (~22 MB).
-Those files change on every refresh; committing them every four hours would put hundreds of
-megabytes into the repository for no publishing benefit. They stay committed from their own
-sessions, and the artifact deploy still serves their current copies.
+To ensure the live deployment ALSO serves fresh ``data/*`` and evidence attachments after a
+``[skip ci]`` root-sync push, ``pages.yml`` waits for that commit's legacy Pages build to complete
+(``--wait-legacy-sha``) and immediately re-deploys the verified ``github-pages`` artifact.
 
 Guards
 ------
@@ -40,25 +42,28 @@ The publisher is fail-closed, because a wrong publish is worse than a stale one:
 * it refuses an output tree without a substantial ``index.html``;
 * it refuses an output whose ``data/latest.json`` is missing, unparseable or has no
   ``generated_at``;
-* it never moves backwards: if the root already carries a *newer* snapshot than the one being
-  published, nothing is written (an equal snapshot is still reconciled, so a hand-edited or
-  half-published root is repaired);
+* it never moves backwards: if the root ``index.html`` already carries a *newer*
+  ``data-snapshot-generated`` timestamp than the build being published, nothing is written;
 * it refuses a snapshot older than ``--max-age-hours`` (default 12) unless ``--allow-stale`` is
   given, so a fallback republication cannot overwrite a newer root;
 * it writes only files whose bytes changed, so re-running it is a no-op.
 
 CLI
 ---
-    python -m scripts.root_publish                 # publish site/ -> repo root
-    python -m scripts.root_publish --print-paths   # one changed path per line (for git add)
-    python -m scripts.root_publish --check         # exit 2 if the root is not current
+    python -m scripts.root_publish                          # publish site/ HTML+assets -> repo root
+    python -m scripts.root_publish --print-paths            # one changed path per line (for git add)
+    python -m scripts.root_publish --check                  # exit 2 if the root is not current
+    python -m scripts.root_publish --wait-legacy-sha <sha>  # wait for legacy Pages build on <sha>
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 import shutil
 import sys
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -69,21 +74,10 @@ SKIP_DIRS = {"data", "docs", "archive", "_fixture", "assets", "node_modules", "_
 #: Files at the top of the build output that are always published (compat redirect stubs included).
 TOP_FILES = ("index.html", "flagged.html", "methodology.html", "picks.html")
 
-#: Data files the rendered pages read, plus the two small pieces of inventory evidence the pages
-#: link from every row. The rest of ``data/evidence/`` (3 MB) and all of ``data/research/`` (19 MB)
-#: stay out of the four-hour commit; the artifact deploy still serves their current copies.
-DATA_FILES = (
-    "data/latest.json",
-    "data/origination.json",
-    "data/sources.json",
-    "data/row-source-audit.json",
-    "data/origination/aliases.json",
-    "data/evidence/hotspawn-fixtures.json",
-    "data/evidence/hotspawn-context.json",
-)
-
 #: A real dashboard page, not a redirect stub. Guards against publishing an empty build.
 MIN_INDEX_BYTES = 50_000
+
+_HTML_STAMP_RE = re.compile(r'data-snapshot-generated="([^"]+)"')
 
 
 class PublishRefused(RuntimeError):
@@ -126,10 +120,7 @@ def _asset_files(output: Path) -> list[Path]:
     return sorted(p for p in assets.rglob("*") if p.is_file())
 
 
-def _snapshot_time(payload: object) -> datetime | None:
-    if not isinstance(payload, dict):
-        return None
-    value = payload.get("generated_at") or payload.get("inventory_observed_at")
+def _parse_iso(value: object) -> datetime | None:
     if not isinstance(value, str) or not value:
         return None
     try:
@@ -137,6 +128,24 @@ def _snapshot_time(payload: object) -> datetime | None:
     except ValueError:
         return None
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
+def _snapshot_time(payload: object) -> datetime | None:
+    if not isinstance(payload, dict):
+        return None
+    return _parse_iso(payload.get("generated_at") or payload.get("inventory_observed_at"))
+
+
+def _html_snapshot_time(index_file: Path) -> datetime | None:
+    """Extract ``data-snapshot-generated`` from a rendered ``index.html``."""
+    if not index_file.is_file():
+        return None
+    try:
+        head = index_file.read_text(encoding="utf-8", errors="ignore")[:4096]
+    except OSError:
+        return None
+    match = _HTML_STAMP_RE.search(head)
+    return _parse_iso(match.group(1)) if match else None
 
 
 def load_snapshot_time(data_file: Path) -> datetime:
@@ -188,24 +197,15 @@ def build_plan(
 
     plan = Plan()
     if monotonic:
-        published = root / "data/latest.json"
-        if published.is_file():
-            try:
-                current = _snapshot_time(json.loads(published.read_text()))
-            except (json.JSONDecodeError, OSError):
-                current = None
-            if current is not None and current > stamp:
-                plan.reason = (
-                    f"root already carries {current.isoformat()}, which is newer than the build's "
-                    f"{stamp.isoformat()}; refusing to move the published site backwards"
-                )
-                return plan
+        current = _html_snapshot_time(root / "index.html")
+        if current is not None and current > stamp:
+            plan.reason = (
+                f"root index.html already carries {current.isoformat()}, which is newer than the build's "
+                f"{stamp.isoformat()}; refusing to move the published site backwards"
+            )
+            return plan
 
     sources: list[Path] = list(_view_pages(output)) + _asset_files(output)
-    for name in DATA_FILES:
-        candidate = output / name
-        if candidate.is_file():
-            sources.append(candidate)
     if (output / ".nojekyll").is_file():
         sources.append(output / ".nojekyll")
 
@@ -230,6 +230,59 @@ def apply_plan(plan: Plan, root: Path) -> list[str]:
     return written
 
 
+def wait_for_legacy_pages_build(
+    repository: str,
+    sha: str,
+    token: str,
+    *,
+    session=None,
+    attempts: int = 36,
+    pause: float = 5.0,
+    initial_polls: int = 4,
+) -> dict:
+    """Wait for GitHub's legacy ``pages-build-deployment`` run on ``sha`` to finish without touching ``data/``."""
+    import requests
+
+    sess = session or requests.Session()
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    api = f"https://api.github.com/repos/{repository}"
+    pages_resp = sess.get(f"{api}/pages", headers=headers, timeout=20)
+    pages_resp.raise_for_status()
+    mode = pages_resp.json().get("build_type")
+    summary: dict = {"sha": sha, "build_type": mode, "legacy_runs": []}
+    if mode != "legacy":
+        return summary
+
+    for attempt in range(attempts):
+        runs_resp = sess.get(
+            f"{api}/actions/runs",
+            headers=headers,
+            params={"head_sha": sha, "event": "dynamic", "per_page": 100},
+            timeout=20,
+        )
+        runs_resp.raise_for_status()
+        legacy = [
+            r
+            for r in runs_resp.json().get("workflow_runs", [])
+            if (r.get("name") or "").replace(" ", "-").lower()
+            in {"pages-build-deployment", "pages-build-and-deployment"}
+        ]
+        summary["legacy_runs"] = [
+            {k: r.get(k) for k in ("id", "status", "conclusion", "head_sha")} for r in legacy
+        ]
+        if legacy and all(r.get("status") == "completed" for r in legacy):
+            return summary
+        if not legacy and attempt >= initial_polls:
+            return summary
+        if attempt < attempts - 1:
+            time.sleep(pause)
+    raise TimeoutError(f"Legacy Pages build for {sha} did not complete within {attempts * pause:.0f}s")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--output", type=Path, default=Path("site"), help="built site directory")
@@ -240,7 +293,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--print-paths", action="store_true", help="print changed root paths one per line")
     parser.add_argument("--paths-file", type=Path, help="write changed root paths to this file (for git add)")
     parser.add_argument("--check", action="store_true", help="exit 2 if the root is not current")
+    parser.add_argument(
+        "--wait-legacy-sha",
+        help="wait for GitHub's legacy Pages build on this commit SHA before returning",
+    )
     args = parser.parse_args(argv)
+
+    if args.wait_legacy_sha:
+        repo = os.environ.get("GITHUB_REPOSITORY", "")
+        token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
+        if not repo or not token:
+            print("root publish wait-legacy-sha requires GITHUB_REPOSITORY and GH_TOKEN", file=sys.stderr)
+            return 3
+        summary = wait_for_legacy_pages_build(repo, args.wait_legacy_sha, token)
+        print(f"legacy Pages wait complete: {json.dumps(summary)}")
+        return 0
 
     try:
         plan = build_plan(

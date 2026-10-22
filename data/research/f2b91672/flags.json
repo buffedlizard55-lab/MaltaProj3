@@ -1,0 +1,58 @@
+[
+  {
+    "id": "f2b91672-cct-sa7-inverted-model-picks",
+    "severity": "warning",
+    "title": "Two CCT South America Series #7 model-fallback picks were directionally inverted against live Polymarket and Pinnacle books due to missing scoped aliases",
+    "detail": "Line-by-line verification of the 2026-10-22 live board against HLTV (matches 2399904–2399907), Polymarket Gamma API (events 1232953, 1232955, 1232957, 1232958), and Pinnacle Arcadia API (league 235977 matchups 1638943045, 1638943044, 1638938930) uncovered six competition-scoped naming gaps in CCT South America 2026 Series #7: (1) Fixture 1082922 (Low Cortisol BR vs Grêmio, 2026-10-22T22:00:00Z) fell through to a dated 2026-10-05 Valve rating row at 66.2% Low Cortisol BR / 33.8% Grêmio because Polymarket listed 'Low Cortisol vs Grêmio Esports' (event 1232958: bestBid 0.29, bestAsk 0.30, $3,046.92 liquidity -> 29.5% / 70.5% Grêmio) and Pinnacle listed ASCII 'Low Cortisol vs Gremio' (+208 / -315 -> 29.97% / 70.03% Grêmio; NFKC name_key preserves 'ê'). Adding scoped aliases 'Low Cortisol' -> 'Low Cortisol BR', 'Grêmio Esports' -> 'Grêmio', and 'Gremio' -> 'Grêmio' upgrades 1082922 to a two-provider Polymarket + Pinnacle consensus at 29.7% Low Cortisol BR / 70.3% Grêmio. (2) Fixture 1082919 (Projeto do KinGui vs Martians, 2026-10-22T13:00:00Z) fell through to HLTV's synthetic 0.0-point unranked floor at 49.9% / 50.1% Martians because HLTV 2399904, Polymarket 1232953, and bo3.gg list the identical five-man roster (cutzmeretz, leleo, t9rnay, delboNi, lash — 4/5 of Valve #144 ex-Keyd Stars, VRS #149 vs Martians VRS #335) under 'Tropa do KinGui' (Polymarket bestBid 0.57, bestAsk 0.76, lastTradePrice 0.77 -> 66.5% Tropa do KinGui; bo3.gg AI 56%). Adding scoped alias 'Tropa do KinGui' -> 'Projeto do KinGui' and deferring synthetic unranked-floor rows to directional resting market bids (>50%) resolves 1082919 at 66.5% Projeto do KinGui / 33.5% Martians (guidance-only wide book). Scoped aliases 'Procyon Gaming' -> 'Procyon' and 'Yawara Esports' -> 'Yawara' simultaneously upgrade 1082920 (MEIA NOITE vs Procyon) and 1082921 (Yawara vs your end) from single-book lines to two-provider Polymarket + Pinnacle consensus.",
+    "match_ids": [
+      "1082919",
+      "1082920",
+      "1082921",
+      "1082922"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-south-america-2026-series-7",
+      "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+      "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+      "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+      "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups"
+    ]
+  },
+  {
+    "id": "f2b91672-sokerorg-lfo10-translation-alias",
+    "severity": "notice",
+    "title": "Polymarket lists Swedish roster LFO 10 under its Swedish translation 'Sökerorg' in CCT Europe 2026 Series #12",
+    "detail": "Fixture 1081149 (FORZE Reload vs LFO 10, 2026-10-23T14:00:00Z, CCT Europe 2026 Series #12) corresponds to HLTV match 2399499 ('FORZE Reload vs LFO 10', HLTV team 14084: Swedish #5 roster dottie, flaw, Sapec) and Polymarket event 1233762 (cs2-forzer-skr2-2026-10-23, 'FORZE Reload vs Sökerorg', resolving on HLTV at 2026-10-23T14:00:00Z; Swedish 'söker org' = 'looking for org' = LFO). Scoped alias 'Sökerorg' -> 'LFO 10' is registered for CCT Europe 2026 Series #12: while Polymarket's order book remains at its unquoted 0.04/0.96 stub (observed 2026-10-22T09:10Z), the two-ranked-team HLTV world-ranking model continues to price FORZE Reload over LFO 10, and the row automatically upgrades to a real-money market line as soon as market makers quote within the published spread ceiling.",
+    "match_ids": [
+      "1081149"
+    ],
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-forzer-skr2-2026-10-23",
+      "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-europe-2026-series-12",
+      "https://www.hltv.org/team/14084/lfo-10"
+    ]
+  },
+  {
+    "id": "f2b91672-root-publish-data-and-deploy-ordering",
+    "severity": "warning",
+    "title": "Branch-root publisher had to be restricted to HTML/assets and paired with post-push artifact re-deploy",
+    "detail": "Live verification of https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/ at 2026-10-22T08:55Z returned HTTP 404 while the root index served 08:22Z HTML, exposing two publication hazards in scripts/root_publish.py and .github/workflows/pages.yml: (1) copying site/data/latest.json and site/data/origination.json into the git-tracked branch root without committing ~22 MB of data/evidence/ attachments breaks scripts.validate.check_data, validate_origination, and tests/test_contrarian.py on subsequent CI runs; (2) pushing a '[skip ci]' root-sync commit at the end of pages.yml triggers GitHub's legacy pages-build-deployment without running actions/deploy-pages@v5 afterwards, overwriting the full 24 MB artifact with the partial branch root. Fixed in scripts/root_publish.py and .github/workflows/pages.yml: root_publish now syncs only rendered HTML views, assets/, and .nojekyll (enforcing monotonicity via data-snapshot-generated in index.html and never touching git-tracked data/), and whenever root_sync pushes a commit, pages.yml waits for its legacy Pages build (--wait-legacy-sha), re-deploys actions/deploy-pages@v5, and re-runs scripts.verify_live.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages"
+    ]
+  },
+  {
+    "id": "f2b91672-hotspawn-stuck-june-2026-rows",
+    "severity": "notice",
+    "title": "Hotspawn fixtures API continues to return ~60 June-2026 ESL Pro League / regional rows still marked status=scheduled",
+    "detail": "Direct verification of https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 on 2026-10-22T08:58Z confirmed that chunks 1–4 of Hotspawn's upstream scheduled feed remain populated by June-2026 fixtures (start_timestamp 17819xxxxx–17825xxxxx) whose upstream status was never transitioned out of 'scheduled', alongside the 43–46 genuinely active late-October CS2 fixtures (through fixture 1082793 on 2026-10-31). The collector's start-time gate quarantines those historical rows to availability='past' rather than fabricating picks for matches played four months ago.",
+    "match_ids": [],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  }
+]
