@@ -9,6 +9,8 @@
 name: 15fc6bca coverage probe (never deploys)
 on:
   workflow_dispatch:
+  push:
+    branches: ['arena/15fc6bca-maltaproj3']
 permissions:
   contents: write
 concurrency:
@@ -16,6 +18,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   probe:
+    # A report commit must never re-trigger the probe.
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(15fc6bca)')
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
