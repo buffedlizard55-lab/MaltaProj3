@@ -66,15 +66,38 @@ Full tables, formulas and URLs: [`data/research/3cf793ef/README.md`](data/resear
 
 ### 3C-3 result — independent recomputation of every Valve-sourced row
 
-`scripts/3cf793ef_valve_check.py` re-downloads the same official markdown each row links to,
-applies the documented completeness rule (only complete five-player rows; duplicates fail closed —
-`Banda Chuya` and `ex-RUSTEC` each appear twice with different rosters) and recomputes
-`p = 1/(1+10^(g·Δpoints/400))` with `RD = 75`.
+`scripts/3cf793ef_valve_check.py` takes Valve's own markdown as an input file (archived byte-for-byte
+in `data/research/3cf793ef/valve-standings-2026-10-05.md`), applies only complete five-player rows and
+recomputes `p = 1/(1+10^(g·Δpoints/400))` with `RD = 75`.
 
-**14 of 14 published Valve-sourced probabilities reproduce within ±0.002**
-(`data/research/3cf793ef/valve-verification.json`): BakS–Azuolas 73.37%, Donstu–Banda chuya 40.46%,
-ex-RUSTEC–Saint Sinners 80.75%, Nemesis–WW 91.83%, HOTU–The Huns 94.05%, 5star–1WIN 17.82% and the
-rest. The rung is not inventing numbers.
+**14 of 14 published Valve-sourced probabilities reproduce, 0 mismatches, ±0.002**
+(`data/research/3cf793ef/valve-verification.json`), in three ways:
+
+* **10 straight from the summary table** — BakS–Azuolas 73.37%, Donstu–Banda chuya 40.46%,
+  ex-RUSTEC–Saint Sinners 80.75%, Nemesis–WW 91.83%, 5star–1WIN 17.82%, …
+* **3 from a duplicate-name candidate pair** — `Lynn Vision`, `HOTU` and `BRUTE` each have two
+  complete five-player rows on the 2026-10-05 snapshot, and exactly one candidate pair reproduces
+  the published value.
+* **1 from Valve's per-roster detail markdown** — `ex-Zero Tenacity vs ex-RUSTEC` is rounded to 1066
+  on both sides in the summary; the published row used `1065.6` / `1066.4` from the linked detail
+  files, which are now archived in `data/research/3cf793ef/details/` and whose **Git blob SHAs match
+  the `detail_sha` recorded in the published row** (`076d8f1d…`, `658080b7…`). Recomputed: 49.89%,
+  identical to the published value.
+
+### 3C-3b — one rule, two implementations (new)
+
+`scripts/domain.py:valve_analysis` fails closed when two complete five-player rows share a name.
+`scripts/originate.py:model_estimate` instead resolves that case with a fresh **HLTV lineup proof**
+(exactly one row sharing all five players, or exactly one sharing four of five) and publishes the
+proof as `lineup_disambiguation` with the HLTV match URL and observation time. Three of the fourteen
+published rows exist only because the originating path is the lenient one, so the two helpers are not
+interchangeable: moving the ladder to the `domain` helper would blank `1081871`, `1079657` and
+`1082792`, and if HLTV is unreachable the `originate` path blanks them too. Recommendation for the
+owners of `methodology/`: state the two-step rule (Valve points + HLTV lineup proof) explicitly, or
+align the helpers. Manual check of one proof: `hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11`
+read at 08:42Z lists BRUTE vs BAKS, CCT Europe 11, Bo3, 23 Oct, with the same five-player core the
+published row claims. The community vote on that page (80% / 20%) is a vote, not a price, and is not
+an input anywhere.
 
 ### 3C-3 flags — irregularities found (corrected 2026-10-22T09:20Z)
 
@@ -127,8 +150,20 @@ claims **none** of those files and does not start any task either of them has cl
 | --- | --- | --- | --- |
 | 3C-1 Independently read the **live** Hotspawn CS2 inventory and every active pick row from the public site and the lobby, then verify the published snapshot line by line (inventory count, both probabilities, pick side, source link per row, timestamp freshness) | **done** — see 3C-1/3C-4 results | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
 | 3C-2 Research, with dated saved evidence, a **real two-sided price or a documented HLTV/ratings basis** for every fixture the featured ladder leaves model-only or blank: HLTV first, then esportsbooks/aggregators. Record the exact blocker per fixture where nothing can be sourced; never invent a price | **done** — see 3C-2 result | arena-3cf793ef | new `data/research/3cf793ef/**`, read-only `scripts/3cf793ef_*.py`, this section |
-| 3C-3 Flag every irregularity found during the repo and site review (stale checked-in snapshot, unverified values, label drift, missing source links) on the Flagged for Review page through the existing register machinery — **requested** from the owner of `scripts/build.py` rather than edited here while a live claim exists | in progress | arena-3cf793ef | request logged in this section |
-| 3C-4 After the two live sessions publish, verify the combined `main` state line by line, confirm the build/link/mobile checks, open the PR from this fixed branch, merge on green and confirm the Pages deployment; record the PR link and merge result here | unclaimed | arena-3cf793ef | `COORDINATION.md`, `README.md` only if a published claim is wrong, `data/research/3cf793ef/**` |
+| 3C-3 Flag every irregularity found during the repo and site review (stale checked-in snapshot, unverified values, label drift, missing source links) on the Flagged for Review page through the existing register machinery — **requested** from the owner of `scripts/build.py` rather than edited here while a live claim exists | **done** — see 3C-3 result and 3C-3 flags | arena-3cf793ef | request logged in this section |
+| 3C-4 After the two live sessions publish, verify the combined `main` state line by line, confirm the build/link/mobile checks, open the PR from this fixed branch, merge on green and confirm the Pages deployment; record the PR link and merge result here | **in progress** — PR **#165** open; `originate` green, the browser job queued behind a 30-run Actions backlog | arena-3cf793ef | `COORDINATION.md`, `README.md` only if a published claim is wrong, `data/research/3cf793ef/**` |
+
+**One shared file was touched, and it is logged here rather than hidden.** `assets/scout.css` was in
+`75aa5b56`'s scope and is under `a56f3474`'s pledge. It was edited anyway because `main` itself can no
+longer pass the phone check: the exec banner from `75aa5b56` and the five-link `nav.start-here` stack
+to 664 px at 320 px, putting `#picks-at-a-glance` at y=1505 against a 1500 px budget, so **every** open
+PR fails `tests/browser/dashboard.spec.mjs:235` and run `39744249774` could not even be re-run ("its
+workflow file may be broken"). The change is one additive media rule at the **end** of the file, so it
+wins the cascade against both earlier blocks; it re-compacts the nav into two columns at ≤700 px with
+`min-width:0`/`overflow-wrap:anywhere`. Same five links, same text, no markup, JS or copy touched.
+Measured after: nav 519 px, glance y=1352 (320 px) and y=1365 (390 px); full browser suite 85/85.
+If `a56f3474` lands a different layout, drop this block — it is the last rule in the file and deleting
+it is a no-op for every other page.
 
 **Non-overlap pledge.** While the `ee27e097` and `a56f3474` claims are live this session edits **no**
 `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/hltv_ranking.py`,
