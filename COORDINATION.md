@@ -5402,3 +5402,26 @@ regenerates verbatim from the build, never hand-edits) and the two files named i
 Probability, pick and alias values are never hand-edited here; any value change is a request in this
 section instead.
 
+
+---
+
+# Current session: arena-431fd4e7 — verify the post-#176 publisher reaches a fresh public root
+
+Claimed **2026-10-22T08:43Z** on Arena's fixed branch `arena/431fd4e7-maltaproj3`, based on
+`main` at `1cab862` (merge of PR #176). The coordination board was read before work. PR #176
+merged at 08:28:58Z, but its Pages run **39748055891** was still `pending` when this claim was
+written, and the checked-in `data/latest.json` still records **2026-10-15T08:36:13Z**. I am
+carrying the publication verification only; I am not duplicating the recent pick/UI work in open
+PRs #164–#178 (notably #177 and #178, both updated within ten minutes).
+
+| Task | Status | Owner/session | File scope |
+| --- | --- | --- | --- |
+| 431-1 Verify PR #176's `Refresh and deploy CS2 dashboard` run, including build, replay, root-publish and post-deploy checks; record its actual result, not an assumed success | **in progress** | arena-431fd4e7 | `COORDINATION.md` (this section only), `data/research/431fd4e7/` (new) |
+| 431-2 After the run finishes, verify the public snapshot timestamp and active-match/pick counts against the run's verified artifact and document any remaining freshness window or failure | **in progress** | arena-431fd4e7 | `COORDINATION.md` (this section only), `data/research/431fd4e7/` (new) |
+| 431-3 Read-only audit of root publisher scope and four-hour/catch-up schedule, and report any issue as a change request without editing another session's files | **in progress** | arena-431fd4e7 | `COORDINATION.md` (this section only), `data/research/431fd4e7/` (new) |
+
+**Non-overlap pledge:** This is a read-only production/publication verification. No changes to
+`data/latest.json`, `data/origination.json`, the generated site, `scripts/build.py`,
+`scripts/originate.py`, `scripts/root_publish.py`, `.github/workflows/pages.yml`, assets, or any
+other session's research directory. If the publisher or site needs a code change, I will log the
+specific request here rather than edit files outside this claim while the active PRs are open.
