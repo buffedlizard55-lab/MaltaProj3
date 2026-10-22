@@ -1562,7 +1562,13 @@ def build(source: Path, output: Path, now=None):
             continue
         if not isinstance(document, dict) or not document.get('sources'):
             continue
-        sweeps.append((str(document.get('observed_at') or ''), str(candidate), document))
+        try:
+            # The link must be relative to the published site, never an absolute
+            # path from whichever directory the build ran in.
+            path_text = 'data/' + str(candidate.relative_to(source))
+        except ValueError:
+            path_text = str(candidate)
+        sweeps.append((str(document.get('observed_at') or ''), path_text, document))
     if sweeps:
         observed, path_text, document = max(sweeps, key=lambda item: (item[0], item[1]))
         document['_document_path'] = path_text
