@@ -200,6 +200,16 @@ def verify(url, expected):
     originated = get('data/origination.json').json()
     if originated.get('source_snapshot_at') != expected['inventory_observed_at']:
         raise ValueError('Public fallback lines belong to another inventory observation')
+    # Every-match coverage invariant (session arena-7e8bed83): each active
+    # fixture must carry a source-linked probability + argmax pick (or an
+    # even no-side estimate) or an explicit unresolved entry with an
+    # https-linked research trail and limitations. A silent blank fails
+    # the deploy verification instead of reaching phones unnoticed.
+    from scripts.coverage_audit import audit_complete_picks
+    coverage_problems = audit_complete_picks(originated)
+    if coverage_problems:
+        raise ValueError('Public complete-picks coverage audit failed: ' + '; '.join(coverage_problems))
+    print('::notice::Complete-picks coverage audit passed: every active fixture has a sourced pick or an explicit unresolved entry')
     # The TWC page must be the generated view of this exact snapshot, not the
     # former hand-authored file with conflicting probabilities.
     twc = get('data/twc-day3-picks.json').json()

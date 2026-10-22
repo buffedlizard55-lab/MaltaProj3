@@ -88,6 +88,57 @@ work. Every live reading below therefore comes from a GitHub Actions run in this
 and the captured responses are committed under `data/research/15fc6bca/` so each number can
 be re-checked against the artifact rather than trusted.
 
+# Current session: arena-b1022dc2 — line-by-line source verification, low-tier pick research (HLTV & esportsbooks), Hotspawn reverse-engineering, mobile executive-summary audit & final integration
+
+Claimed **2026-10-22T01:10Z** on the Arena-fixed branch `arena/b1022dc2-maltaproj3`, branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4` (merge of PR #145) and rebased onto `077291b` (merge of PR #146). The entire `COORDINATION.md` board and active remote branches were read before starting. Active concurrent sessions `arena-fbdc97d6`, `arena-15fc6bca`, and `arena-416d93ee` are strictly respected — this session claims a completely non-overlapping scope.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B10-1 Independent line-by-line verification of repository fixtures, probabilities, picks, aliases, and source links against official verified trusted sources (Hotspawn API/lobby, HLTV, Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg, Valve VRS); flag any irregularities | **done** — verified all 80 checked-in fixtures (17 active, 17/17 resolved) and all 97 live Hotspawn CS2 fixtures (35 active, 34 directional picks + 1 even estimate `1079654`, 0 blank); published 5 dated, source-linked flags in `data/research/b1022dc2/flags.json` | arena-b1022dc2 | `data/research/b1022dc2/line-by-line-verification.json`, `data/research/b1022dc2/flags.json`, this section in `COORDINATION.md` |
+| B10-2 Reverse-engineer `https://play.hotspawn.com/lobby` (fixture API, SSR hydration state, CDN cache behavior, 4–8h refresh cadence) and verify complete coverage of all listed Hotspawn CS2 matches without using Hotspawn crowd percentages | **done** — verified Cloudways API (`tenantId=1, sport_alias=cs2, status=scheduled`) vs SSR lobby HTML (`97` weekly / `35` open matches: `22` Closing Soon + `13` Upcoming), confirmed `picked_percent` is never used as a probability, and verified 4h cron (`17 */4 * * *` + `:47` catch-up) | arena-b1022dc2 | `data/research/b1022dc2/hotspawn-reverse-engineering.json`, this section in `COORDINATION.md` |
+| B10-3 Low-tier CS2 pick resolution research (HLTV first, then esportsbooks/betting lines, then originated rating/network/ranking lines) and audit of the separate unresolved-picks & limitations section in the executive summary | **done** — verified all 8 featured-unresolved checked-in matches (`1079434, 1081597, 1081743, 1081956, 1082068, 1082837, 1082858, 1082860`) and live even-estimate fixture `1079654` (`ex-Zero Tenacity vs ex-RUSTEC`, HLTV `#2399331`, bo3.gg) on HLTV first then esportsbooks; verified `#unresolved-register` on `/` | arena-b1022dc2 | `data/research/b1022dc2/low-tier-pick-research.json`, `data/research/b1022dc2/flags.json`, this section in `COORDINATION.md` |
+| B10-4 Mobile-friendly executive summary & category dashboard verification (one-tap links to updated picks and unresolved register, clear team win probabilities, obvious pick badges at 320px/390px phone viewports) + regression test suite | **done** — audited `320px/390px/768px/1440px` layouts, `.mobile-status-strip`, `.exec-picks-banner`, `#start-here-nav`, `#summary-picks-at-a-glance`, and `#unresolved-register`; 85/85 Playwright tests & 106/106 pick-safety checks pass; added `tests/test_b1022dc2_coverage_and_mobile.py` (6 tests) | arena-b1022dc2 | `data/research/b1022dc2/mobile-ux-audit.json`, `tests/test_b1022dc2_coverage_and_mobile.py`, this section in `COORDINATION.md` |
+| B10-5 Final integration: rebase onto latest `main`, re-verify combined data line by line, confirm zero row-source audit violations and clean build/link/Playwright checks, open PR to `main`, merge, and verify live GitHub Pages deployment | **done** — rebased onto `main` (`077291b`), verified 564 rows / 0 row-source violations / 708 internal links / 85 Playwright browser checks / 106 pick-safety assertions, opened and merged PR [#147](https://github.com/buffedlizard55-lab/MaltaProj3/pull/147) (`arena/b1022dc2-maltaproj3` -> `main`), and verified GitHub Pages deployment | arena-b1022dc2 | `COORDINATION.md` (this section), PR [#147](https://github.com/buffedlizard55-lab/MaltaProj3/pull/147) & merge |
+
+**Non-overlap pledge:** This session does not edit `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `assets/scout.css`, `data/latest.json`, `data/origination.json`, `data/sources.json`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/` or test files while their claims are active. Any cross-scope change request is logged here.
+
+### B10-1..B10-4 Verification & Research Summary (2026-10-22T01:26Z)
+
+- **Hotspawn Reverse-Engineering & Complete Coverage (`data/research/b1022dc2/hotspawn-reverse-engineering.json`):**
+  - Queried `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` (`97` total scheduled records: `35` future `scheduled_start_time`, `62` past-start archived) and cross-checked against `https://play.hotspawn.com/lobby?cb=202610220111` (`97` CS2 matches this week; `41` Tier B, `56` Tier C; `22` Closing Soon + `13` Upcoming = `35` open matches).
+  - Verified 1:1 parity with the live deployed dashboard (`https://buffedlizard55-lab.github.io/MaltaProj3/?cb=202610220111`, snapshot `2026-10-22T01:06:14Z`): all `35` active fixtures are published (`34` with a directional originated pick, `1` even `50.0%/50.0%` estimate `1079654 ex-Zero Tenacity vs ex-RUSTEC` surfaced in `#unresolved-register`, `0` blank).
+  - Confirmed zero usage of Hotspawn's `picked_percent` crowd distribution or HLTV community vote percentages anywhere in probability/pick calculation.
+- **Line-by-Line Verification & Low-Tier Research (`data/research/b1022dc2/line-by-line-verification.json`, `data/research/b1022dc2/low-tier-pick-research.json`):**
+  - Replayed all `17` active fixtures in the checked-in snapshot (`17/17` resolved: `1` consensus, `2` single-market, `1` Bovada bookmaker, `11` Valve rating model, `2` bo3.gg Bradley–Terry network, `1` HLTV world-ranking unranked-floor) and all `35` active fixtures in the live snapshot (`34` directional + `1` even estimate) against official sources.
+  - Investigated `1079654 ex-Zero Tenacity vs ex-RUSTEC` (`2026-10-23T08:00:00Z`, CCT Season 3 Europe Series 11) on HLTV (`https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11`) and bo3.gg (`https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-23-10-2026`): documented that the 2026-10-05 Valve `1,066`-point tie (`#93` vs `#92` -> `50.0%/50.0%`) reflects an older `ex-RUSTEC` roster (`Brilliance, glowiing, shalfey, yiksrezo, youka`) that now shares only `3/5` players with the HLTV match lineup (`youka, bl1x1, yiksrezo, Brilliance, jakekeS`) after GamerLegion signed `shalfey`, whereas `ex-Zero Tenacity` retains `5/5` (`Dragon, Kind0, VLDN, brutmonster, Cjoffo`) and leads on HLTV World Ranking (`#67, 15 pts` vs `#70, 14 pts`). Because no two-sided bookmaker/market line is open yet, keeping `pick_index: null` in `#unresolved-register` is verified and flagged for review.
+  - Investigated `1081597 benched gods vs TitanFlow`, `1082858 Ground Zero vs Off Chops`, and `1082860 FlyQuest vs Staqued` across HLTV match pages (`#2399888`, `#2399890`), HLTV 2026-10-19 World Ranking, HLTV 2026-10-21 Europe Valve Regional Standings (`#175 TitanFlow 630 pts` vs `#230 benched gods 496 pts`), and bo3.gg.
+- **Published Review Flags (`data/research/b1022dc2/flags.json`, rendered on `/review/`):**
+  - `b1022dc2-ex-rustec-roster-change-vs-valve-tie` (`warning`, match `1079654`)
+  - `b1022dc2-origination-subpage-unresolved-even-copy` (`notice`, match `1079654` — logged as a cross-scope note for `scripts/build_origination.py` so `/origination/#unresolved` also lists even-estimate rows with `pick_index: null`, matching `/` `#unresolved-register`)
+  - `b1022dc2-network-rung-valve-label-inheritance` (`notice`, matches `1079188, 1081597, 1082769, 1082858` — logged for `scripts/originate.py` owner `arena-15fc6bca`)
+  - `b1022dc2-benched-gods-titanflow-model-disagreement` (`warning`, match `1081597`)
+  - `b1022dc2-flyquest-staqued-unranked-floor-assumption` (`notice`, match `1082860`)
+- **Build, Row-Source Audit, Browser & Safety Verification:**
+  - `.venv/bin/python -m scripts.build`: `PASS: 80 source rows reconciled; every published probability and pick replayed from first-party evidence. Row-source audit: 560 rows, 546 with an official link, 5 flagged unverified, 9 site-map, 0 without a source. PASS: 707 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.`
+  - `.venv/bin/python -m scripts.audit_rows --site site --strict`: `rows=560 ok=546 flagged-unverified=5 site-map=9 violations=0`.
+  - `.venv/bin/python -m unittest tests.test_b1022dc2_coverage_and_mobile tests.test_review_flags tests.test_coverage_audit -v`: `OK`.
+  - `npm test` (Playwright): `85 passed` across `320px/390px/768px/1440px`, no-JS, and axe WCAG A/AA.
+  - `node tests/pick-safety-browser.mjs`: `PASS: 106 pick-presentation safety assertions`.
+
+---
+
+# Current session: arena-7e8bed83 — every-match pick coverage audit, unresolved guard, mobile executive summary
+
+Claimed **2026-10-22** on Arena-fixed branch `arena/7e8bed83-maltaproj3` from `main` `d599724c`. Board read first; prior claims are marked done. This session also performs its own integration/merge.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 7E-1 Enforce, post-deploy and in tests, that every active Hotspawn CS2 fixture in the complete list has either a source-linked probability+pick (or an even no-side estimate) or an explicit unresolved entry with research trail + limitations; record the 2026-10-22 live audit (HLTV first, then books) and publish flags | **done** — `scripts/coverage_audit.py` wired into `scripts/verify_live.py`; live audit 2026-10-21T23:42Z: featured 7/12 picks, complete list 12/12 resolved / 0 unresolved; full suite 813 tests OK; flags 7E-01..7E-04 published via `data/research/7e8bed83/repo-review.json` on Flagged for Review. Irregularities: Pages remains `build_type=legacy` (platform limitation, owner-only fix); featured Valve model rows publish `quotes=[]` with rating `inputs` instead (audit accepts either, https required) | arena-7e8bed83 | `scripts/coverage_audit.py` (new), `scripts/verify_live.py` (wire audit), `scripts/review_register.py` (register list only), `tests/test_coverage_audit.py` (new), `data/research/7e8bed83/`, this section of `COORDINATION.md`, `README.md` (session note) |
+
+**Non-overlap:** no pick values, collectors, alias registry, or other sessions' research files are changed.
+
+---
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
