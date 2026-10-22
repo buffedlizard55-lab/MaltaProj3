@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "session": "arena-bc1afd8f",
+  "observed_at": "2026-10-22T09:12:27Z",
+  "site": "/home/user/MaltaProj3/site",
+  "data": "/home/user/MaltaProj3/data",
+  "counts": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "current": 19
+  },
+  "checks": [
+    {
+      "id": "viewport-meta",
+      "description": "Every current page declares `width=device-width, initial-scale=1`",
+      "passed": true,
+      "detail": "all 11 current pages declare it",
+      "scope": "current"
+    },
+    {
+      "id": "executive-summary",
+      "description": "The landing page opens with an executive summary",
+      "passed": true,
+      "detail": "h1 = 'Executive summary'",
+      "scope": "current"
+    },
+    {
+      "id": "exec-banner",
+      "description": "The landing page carries the `Start here on your phone` executive-summary banner",
+      "passed": true,
+      "detail": "found section.exec-banner",
+      "scope": "current"
+    },
+    {
+      "id": "exec-link-complete",
+      "description": "The executive summary links inside this site to the complete picks list",
+      "passed": true,
+      "detail": "links: ./origination/#picks",
+      "scope": "current"
+    },
+    {
+      "id": "exec-link-featured",
+      "description": "The executive summary links inside this site to the featured picks feed",
+      "passed": true,
+      "detail": "links: ./picks/",
+      "scope": "current"
+    },
+    {
+      "id": "exec-link-unresolved",
+      "description": "The executive summary links inside this site to the unresolved & limitations",
+      "passed": true,
+      "detail": "links: ./origination/#unresolved, ./unresolved/",
+      "scope": "current"
+    },
+    {
+      "id": "exec-links-internal",
+      "description": "The banner's own links stay inside this site (no reader is sent off-site to find a pick)",
+      "passed": true,
+      "detail": "external links in the banner: none",
+      "scope": "current"
+    },
+    {
+      "id": "glance-coverage",
+      "description": "Every active fixture in the snapshot appears in the phone pick index",
+      "passed": true,
+      "detail": "17 rows for 17 active fixtures",
+      "scope": "current"
+    },
+    {
+      "id": "glance-both-probabilities",
+      "description": "Every pick row shows both teams' win probability, or is an explicit blank that links to its limitation",
+      "passed": true,
+      "detail": "17 rows show both percentages; 0 explicit blanks link to their limitation",
+      "scope": "current"
+    },
+    {
+      "id": "mobile-nav",
+      "description": "A fixed phone navigation bar with at least five labelled, internal destinations",
+      "passed": true,
+      "detail": "6 slots: Summary, Picks, Unresolved, Edge, Sources, Review",
+      "scope": "current"
+    },
+    {
+      "id": "mobile-nav-picks",
+      "description": "One phone-nav slot goes straight to the picks",
+      "passed": true,
+      "detail": "href = ./origination/#picks",
+      "scope": "current"
+    },
+    {
+      "id": "unresolved-section",
+      "description": "The landing page carries a separate unresolved-picks section with its limitations",
+      "passed": true,
+      "detail": "found #unresolved-register",
+      "scope": "current"
+    },
+    {
+      "id": "tap-target-mobile-nav-a",
+      "description": "phone navigation slots declare a ≥44px tap target",
+      "passed": true,
+      "detail": "largest declared min-height 48px — .mobile-nav>a {min-height:46px} ; .mobile-nav>a {min-height:48px} in @media(max-width:700px)",
+      "scope": "current"
+    },
+    {
+      "id": "tap-target-exec-banner-actions-a",
+      "description": "executive-summary action buttons declare a ≥44px tap target",
+      "passed": true,
+      "detail": "largest declared min-height 48px — /* Session 75aa5b56 — phone-first executive summary and pick readability. The brief says the site was confusing and picks were hard to find on a phone. This block keeps every previous session's rules and adds only thumb-friendly, high-contrast overrides so Picks at a Glance is obvious above the fold and each row shows both probabilities in large type. */ .exec-banner-actions a {min-height:48px} in @media(max-width:620px); .exec-banner-actions a {min-height:48px} in @media(max-width:375px)",
+      "scope": "current"
+    },
+    {
+      "id": "table-scroll-wrappers",
+      "description": "Every table in a current view sits inside a wrapper that scrolls horizontally (no page-wide overflow at 320 px)",
+      "passed": true,
+      "detail": "scroll wrappers in CSS: .matches-wrap, .mini-table-wrap, .table-scroll, .table-wrap, .top-nav; unwrapped tables: none",
+      "scope": "current"
+    },
+    {
+      "id": "no-wide-fixed-widths",
+      "description": "No non-table layout rule declares a fixed width wider than 320px",
+      "passed": true,
+      "detail": "none found",
+      "scope": "current"
+    },
+    {
+      "id": "table-min-widths",
+      "description": "Tables wider than a phone scroll inside their own wrapper rather than stretching the page (informational)",
+      "passed": true,
+      "detail": "table min-widths: table.simple min-width:520px; table min-width:860px — every one of them is inside a wrapper that declares overflow-x:auto",
+      "scope": "current"
+    },
+    {
+      "id": "phone-breakpoints",
+      "description": "The stylesheet carries max-width phone breakpoints",
+      "passed": true,
+      "detail": "11 distinct phone media queries: @media (max-width: 430px), @media (max-width: 719px), @media (max-width: 800px), @media (max-width:620px), @media(max-width:1000px), @media(max-width:1200px)",
+      "scope": "current"
+    },
+    {
+      "id": "probability-type-size",
+      "description": "The probability text declares a readable phone size (informational — the cascade decides the effective size)",
+      "passed": true,
+      "detail": "/* ---- Session arena-c1fa150f: both-team probabilities on the phone summary and the \"picks without a betting line\" register. Append-only; no existing rule is redefined, so other sessions' styles are untouched. ---- */ .glance-other {font-size:10.5px}; .glance-other {font-size:9.5px} in @media(max-width:375px); .glance-other {font-size:11px} in @media(max-width:700px); .glance-prob,.glance-other {font-size:12px} in @media(max-width:375px)",
+      "scope": "current"
+    },
+    {
+      "id": "archived-views",
+      "description": "Archived session views are reported separately from the current pages",
+      "passed": true,
+      "detail": "12 archived page(s); without a viewport meta: none",
+      "scope": "archived"
+    }
+  ],
+  "label": "fresh-build"
+}

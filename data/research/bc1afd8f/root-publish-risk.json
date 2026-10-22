@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "session": "arena-bc1afd8f",
+  "observed_at": "2026-10-22T09:12:27Z",
+  "question": "If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?",
+  "method": [
+    "Copied the checked-in data/ tree into a temporary directory (the repository was not modified).",
+    "Overwrote exactly the data files scripts.root_publish.DATA_FILES would overwrite, from the newest saved live snapshot under data/research/*/live/.",
+    "Left data/evidence/ frozen, exactly as root_publish.py documents and does.",
+    "Ran scripts.validate.check_data over the resulting tree - the same call scripts.build makes first."
+  ],
+  "checked_in_snapshot": {
+    "data/latest.json": "2026-10-15T08:36:13Z",
+    "data/origination.json": "2026-10-15T09:31:24Z"
+  },
+  "candidate_snapshot": {
+    "directory": "/home/user/MaltaProj3/data/research/fbdc97d6/live",
+    "files": [
+      "data/latest.json",
+      "data/origination.json",
+      "data/row-source-audit.json",
+      "data/sources.json"
+    ],
+    "generated_at": "2026-10-22T02:08:59Z"
+  },
+  "simulation": {
+    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-bfr40nmt/data",
+    "files_written": [
+      {
+        "path": "data/latest.json",
+        "bytes": 324201,
+        "generated_at": "2026-10-22T02:08:59Z"
+      },
+      {
+        "path": "data/origination.json",
+        "bytes": 299765,
+        "generated_at": "2026-10-22T02:09:09Z"
+      },
+      {
+        "path": "data/row-source-audit.json",
+        "bytes": 2486,
+        "generated_at": null
+      },
+      {
+        "path": "data/sources.json",
+        "bytes": 40230,
+        "generated_at": null
+      }
+    ],
+    "evidence_left_frozen": [
+      "data/evidence/hltv-page.json",
+      "data/evidence/hltv-research.json",
+      "data/evidence/hotspawn-context.json",
+      "data/evidence/hotspawn-fixtures.json",
+      "data/evidence/hotspawn-rules.json",
+      "data/evidence/polymarket-book-1140039-0.json",
+      "data/evidence/polymarket-book-1140039-1.json",
+      "data/evidence/polymarket-book-1173312-0.json"
+    ],
+    "evidence_frozen_count": 38,
+    "check_data": "failed",
+    "error_type": "ValueError",
+    "error": "Inventory observation timestamp restamped",
+    "traceback": [
+      "           ^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/home/user/MaltaProj3/scripts/validate.py\", line 47, in check_data",
+      "    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')",
+      "  File \"/home/user/MaltaProj3/scripts/validate.py\", line 24, in require",
+      "    raise ValueError(message)",
+      "ValueError: Inventory observation timestamp restamped"
+    ],
+    "published_rows": null
+  },
+  "snapshot_reading_tests": {
+    "count": 34,
+    "modules": [
+      "tests/test_4c972a51_unresolved_page.py",
+      "tests/test_75aa5b56.py",
+      "tests/test_8fa2b226.py",
+      "tests/test_941ff196.py",
+      "tests/test_96fbe295.py",
+      "tests/test_9866e1ba.py",
+      "tests/test_b1022dc2_coverage_and_mobile.py",
+      "tests/test_bc1afd8f.py",
+      "tests/test_briefing.py",
+      "tests/test_build.py",
+      "tests/test_contrarian.py",
+      "tests/test_day3.py",
+      "tests/test_day5_card.py",
+      "tests/test_deployment_audit.py",
+      "tests/test_df80ab9f_audit.py",
+      "tests/test_e6c0f47d.py",
+      "tests/test_edge.py",
+      "tests/test_f392649f.py",
+      "tests/test_f4eb8ae3.py",
+      "tests/test_final_day.py",
+      "tests/test_lineups.py",
+      "tests/test_mobile_picks_nav.py",
+      "tests/test_origination.py",
+      "tests/test_origination_upgrade.py",
+      "tests/test_reference_odds.py",
+      "tests/test_review_flags.py",
+      "tests/test_review_register.py",
+      "tests/test_row_sources.py",
+      "tests/test_strategy.py",
+      "tests/test_summary_navigation.py",
+      "tests/test_twc.py",
+      "tests/test_unresolved_research.py",
+      "tests/test_unresolved_summary.py",
+      "tests/test_verify_live.py"
+    ]
+  },
+  "conclusion": "A root publish of this candidate snapshot would break the repository's own build: ValueError: Inventory observation timestamp restamped.",
+  "notes": [
+    "scripts.build calls scripts.validate.check_data first, so the build - and therefore checks.yml on every pull request and the pages.yml refresh - would fail on the published root.",
+    "The cause is the pairing root_publish.py documents: a fresh data/latest.json with the frozen data/evidence/ tree (its inventory observation timestamp no longer matches).",
+    "This is why the publisher shipped by this session re-deploys the verified artifact instead of committing fresh data to main: it makes the public site current without changing the frozen fixture that CI builds from.",
+    "34 checked-in test modules read data/latest.json or ROOT/'data' directly, so a committed fresh snapshot also moves their fixture underneath them."
+  ]
+}

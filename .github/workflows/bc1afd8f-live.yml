@@ -1,0 +1,85 @@
+# Session arena-bc1afd8f — read-only live coverage, HLTV-first line research and gate measurement.
+#
+# Dispatch plus a path-guarded push trigger on this session branch only. It is
+# never scheduled and it never deploys. The coding sandbox has no egress to
+# Hotspawn, HLTV or any bookmaker; the GitHub runner does, so the repository's own
+# collectors run here and this session's read-only modules report on the result:
+#
+#   scripts.bc1afd8f_probe        per-fixture pick coverage + HLTV-first / esportsbook
+#                                 reachability for every fixture without a betting line
+#   scripts.bc1afd8f_root_risk    offline reproduction of what committing a fresh
+#                                 snapshot into the branch root would do to the build
+#   scripts.bc1afd8f_mobile_audit static phone-first contract audit of the fresh build
+#   scripts.bc1afd8f_gate         the checked-in suite measured against the fresh snapshot
+#
+# Only `data/research/bc1afd8f/` is committed. Every tracked data file the
+# collectors rewrote is restored first, so the frozen fixture CI builds from is
+# never moved by this session.
+name: bc1afd8f live coverage and line research (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/bc1afd8f-maltaproj3']
+    paths:
+      - '.github/workflows/bc1afd8f-live.yml'
+      - 'scripts/bc1afd8f_probe.py'
+      - 'scripts/bc1afd8f_root_risk.py'
+      - 'scripts/bc1afd8f_mobile_audit.py'
+      - 'scripts/bc1afd8f_gate.py'
+permissions:
+  contents: write
+concurrency:
+  group: bc1afd8f-live
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/bc1afd8f-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect || echo "::warning::collect failed; the probe reports on the checked-in snapshot instead"
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live || echo "::warning::originate failed; the probe reports the featured snapshot only"
+      - name: Report per-fixture pick coverage and research every fixture without a betting line
+        run: python -m scripts.bc1afd8f_probe --timeout 12
+      - name: Reproduce what a fresh-snapshot root publish would do to the build
+        run: python -m scripts.bc1afd8f_root_risk
+      - name: Build the fresh site
+        id: build
+        run: python -m scripts.build || echo "::warning::the fresh tree did not build; the mobile audit reports on the last build"
+      - name: Static phone-first audit of the fresh build
+        continue-on-error: true
+        run: python -m scripts.bc1afd8f_mobile_audit --site site --data data --json-only
+      - name: Measure the checked-in regression suite against the fresh snapshot
+        run: python -m scripts.bc1afd8f_gate --label fresh-snapshot --timeout 1500
+      - name: Restore every tracked data file so only this session's reports are committed
+        run: |
+          git checkout -- data/ 2>/dev/null || true
+          git clean -fdq data/evidence data/origination data/research/twc-current site 2>/dev/null || true
+      - name: Commit the dated reports to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/bc1afd8f/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(bc1afd8f): live coverage, HLTV-first line research, phone audit and gate measurement'
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/bc1afd8f-maltaproj3 || true
+            git rebase origin/arena/bc1afd8f-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/bc1afd8f-maltaproj3 && exit 0
+            sleep 5
+          done
+          echo "::error::the research reports could not be pushed in four attempts"
+          exit 1

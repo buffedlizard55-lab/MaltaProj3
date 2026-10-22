@@ -1,0 +1,216 @@
+# Session arena-bc1afd8f — keep the *verified artifact* on screen, whatever the legacy root build does.
+#
+# The problem, observed through api.github.com on 2026-10-22 (not inferred)
+# ------------------------------------------------------------------------
+# 1. `GET /repos/buffedlizard55-lab/MaltaProj3/pages` answers
+#    `{"status":"building","build_type":"legacy","source":{"branch":"main","path":"/"}}`.
+#    Every push to `main` therefore republishes the **checked-in branch root**, whose
+#    `data/latest.json` still read `generated_at 2026-10-15T08:36:13Z` with
+#    `counts.unresolved = 4` at 08:52Z (`git show origin/main:data/latest.json`) —
+#    seventeen fixtures whose start times were a week in the past.
+#    `PUT /repos/.../pages {"build_type":"workflow"}` answers *403 Resource not
+#    accessible by integration*, so the source cannot be switched from a workflow
+#    token (recorded independently by sessions c1fa150f and 96fbe295).
+# 2. `pages.yml` puts the whole four-hour refresh in ONE concurrency group (`pages`,
+#    `cancel-in-progress: false`). GitHub cancels a *pending* run in a group as soon as
+#    a newer run for that group is created, so a merge storm starves the refresh:
+#      run 39742916817  PR #166 merge  created 07:46:58Z  cancelled 07:47:40Z (42 s later)
+#      run 39742996589  PR #167 merge  created 07:47:38Z  cancelled 07:58:21Z
+#      run 39744284108  schedule slot  created 07:58:19Z  still `queued` at 08:41Z
+#      run 39748026849  PR #174 merge  created 08:28:46Z  cancelled 08:29:01Z (15 s later)
+#      run 39748055891  PR #176 merge  created 08:29:00Z  cancelled 08:45:52Z
+#    The last one matters most: PR #176 is the commit that added the root-sync step, so
+#    that step never ran at all.
+#
+# Why this workflow does NOT commit fresh data into the branch root
+# ----------------------------------------------------------------
+# That was the obvious fix and it is a trap. `scripts/root_publish.py` copies the fresh
+# `data/latest.json` (and three siblings) but deliberately leaves `data/evidence/`
+# frozen, because committing ~22 MB every four hours is not acceptable. The resulting
+# root does not replay: `scripts/build` calls `scripts.validate.check_data` first, and
+# pairing a fresh snapshot with frozen inventory evidence fails with
+# `ValueError: Inventory observation timestamp restamped`
+# (reproduced offline by `python -m scripts.bc1afd8f_root_risk`, evidence in
+# `data/research/bc1afd8f/root-publish-risk.md`). `checks.yml` runs that build on every
+# pull request and `pages.yml` runs it before deploying, so a committed fresh snapshot
+# would turn every PR red and freeze the refresh pipeline itself. 33 checked-in test
+# modules also read `data/latest.json` as their fixture.
+#
+# The safe fix: leave the frozen fixture alone and make the **artifact** publisher win.
+# This workflow re-deploys the newest verified `github-pages` artifact whenever the
+# public site is not serving it, in its own concurrency group (so pushes to `main`
+# cannot starve it), and nudges the refresh when the newest verified snapshot is older
+# than the 8-hour bound the brief sets. It commits nothing.
+name: Keep the verified snapshot on screen
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every two hours: a legacy root build can land after the last artifact deploy,
+    # and the brief's freshness bound is 4-8 h, so the guard re-checks inside it.
+    - cron: '23 */2 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  # `actions: write` is only used by the bounded nudge that dispatches pages.yml
+  # when the newest verified snapshot is older than the brief's 8-hour bound.
+  actions: write
+  pages: write
+  id-token: write
+concurrency:
+  # Deliberately not the `pages` group: sharing it is what let pushes to main cancel
+  # the publisher before it started. These runs are short, so the newest one winning
+  # is exactly the desired behaviour.
+  group: verified-artifact-guard
+  cancel-in-progress: false
+jobs:
+  guard:
+    name: Re-deploy the verified artifact if the public site is not serving it
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+    steps:
+      - name: Find the newest verified refresh run on main
+        id: pick
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          run_id=$(gh api "repos/${{ github.repository }}/actions/workflows/pages.yml/runs?status=success&per_page=15" \
+            --jq '[.workflow_runs[] | select(.head_branch == "main")][0].id // empty')
+          if [ -z "$run_id" ]; then
+            echo "::warning::no successful 'Refresh and deploy CS2 dashboard' run on main yet; nothing verified can be re-deployed"
+            echo "run_id=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          finished=$(gh api "repos/${{ github.repository }}/actions/runs/$run_id" --jq '.updated_at')
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "finished_at=$finished" >> "$GITHUB_OUTPUT"
+          age_minutes=$(( ( $(date -u +%s) - $(date -u -d "$finished" +%s) ) / 60 ))
+          echo "age_minutes=$age_minutes" >> "$GITHUB_OUTPUT"
+          echo "Newest verified refresh: run $run_id, finished $finished ($age_minutes min ago)."
+      - name: Nudge the four-hour refresh when the verified snapshot is older than the bound
+        if: steps.pick.outputs.run_id != '' && steps.pick.outputs.age_minutes > 480
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          busy=$(gh api "repos/${{ github.repository }}/actions/workflows/pages.yml/runs?per_page=10" \
+            --jq '[.workflow_runs[] | select(.status != "completed")] | length')
+          if [ "$busy" != "0" ]; then
+            echo "A refresh is already queued or running ($busy); not dispatching another."
+            exit 0
+          fi
+          echo "::warning::the newest verified snapshot is ${{ steps.pick.outputs.age_minutes }} min old (> 8 h); dispatching a refresh"
+          gh workflow run pages.yml --ref main
+      - uses: actions/checkout@v7
+        if: steps.pick.outputs.run_id != ''
+        with:
+          ref: main
+      - name: Download that run's verified Pages artifact
+        if: steps.pick.outputs.run_id != ''
+        id: artifact
+        continue-on-error: true
+        uses: actions/download-artifact@v5
+        with:
+          name: github-pages
+          path: artifact
+          run-id: ${{ steps.pick.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract it and refuse anything that is not a full site
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success'
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          tar -xf artifact/artifact.tar -C site
+          test -f site/index.html
+          test -f site/data/latest.json
+          python3 - <<'PY'
+          import json
+          snapshot = json.load(open('site/data/latest.json'))
+          counts = snapshot.get('counts') or {}
+          print('verified snapshot:', snapshot.get('generated_at'),
+                '| inventory', counts.get('inventory'),
+                '| upcoming', counts.get('upcoming'),
+                '| picks', counts.get('picks'),
+                '| unresolved', counts.get('unresolved'))
+          PY
+      - uses: actions/setup-python@v7
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success'
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success'
+      - name: Read the public Pages URL
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success'
+        id: pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          url=$(gh api "repos/${{ github.repository }}/pages" --jq '.html_url')
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Public site: $url"
+      - name: Let the legacy root build for this push land first
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success' && github.event_name == 'push'
+        run: |
+          echo "Waiting 90 s so the guard observes the state a reader would see after this push."
+          sleep 90
+      - name: Check whether the public site already serves the verified snapshot
+        if: steps.pick.outputs.run_id != '' && steps.artifact.outcome == 'success'
+        id: check
+        continue-on-error: true
+        run: python -m scripts.verify_live --url '${{ steps.pages.outputs.url }}' --data site/data/latest.json
+      - uses: actions/configure-pages@v6
+        if: steps.check.outcome == 'failure'
+      - name: Re-upload the verified artifact under an isolated name
+        if: steps.check.outcome == 'failure'
+        id: upload
+        uses: actions/upload-pages-artifact@v5
+        with:
+          name: github-pages-guard
+          path: site
+      - name: Re-deploy it
+        if: steps.check.outcome == 'failure'
+        id: deployment
+        # A concurrent pages.yml deploy can make this one lose the race; the
+        # verification below is the real gate, and it retries while the CDN settles.
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-guard
+      - name: Remove the guard artifact so the next refresh is not blocked by an artifact count
+        if: steps.check.outcome == 'failure' && always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          id='${{ steps.upload.outputs.artifact_id }}'
+          if [ -z "$id" ]; then
+            echo "::warning::no artifact id reported; the guard artifact keeps its distinct name"
+            exit 0
+          fi
+          gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$id" \
+            || echo "::warning::could not delete the guard artifact (actions: read)"
+      - name: Wait for the legacy publisher window, then verify the re-deployment
+        if: steps.check.outcome == 'failure'
+        run: |
+          sleep 75
+          python -m scripts.verify_live --url '${{ steps.pages.outputs.url }}' --data site/data/latest.json
+      - name: Record what a reader sees now
+        if: always()
+        run: |
+          {
+            echo '## Verified-snapshot guard'
+            echo ''
+            echo "- newest verified refresh run: \`${{ steps.pick.outputs.run_id }}\` (finished \`${{ steps.pick.outputs.finished_at }}\`, ${{ steps.pick.outputs.age_minutes }} min before this guard)"
+            echo "- public check before this job: \`${{ steps.check.outcome }}\`"
+            if [ "${{ steps.check.outcome }}" = "failure" ]; then
+              echo '- the public site was **not** serving the verified snapshot, so it was re-deployed and verified again above'
+            else
+              echo '- the public site already served the verified snapshot; nothing was deployed and nothing was committed'
+            fi
+            echo "- this workflow commits nothing: the checked-in fixture CI builds from stays frozen"
+          } >> "$GITHUB_STEP_SUMMARY"
