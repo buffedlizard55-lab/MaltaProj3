@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "session": "arena-5f6fe71d",
- "generated_at": "2026-10-22T02:51:57Z",
+ "generated_at": "2026-10-22T03:07:11Z",
  "artifact_run_id": "39707526365",
  "artifact_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39707526365",
  "stage_errors": {},
@@ -2114,49 +2114,16 @@
   "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "api_rows": 97,
   "published_upcoming": 35,
-  "api_upcoming_future_start": 0,
-  "started_since_snapshot": [],
-  "in_api_not_published": [],
-  "published_not_in_api": [
-   "1079188",
-   "1079189",
-   "1079650",
-   "1079651",
-   "1079652",
-   "1079653",
-   "1079654",
-   "1079655",
-   "1079657",
-   "1081143",
-   "1081145",
-   "1081146",
-   "1081148",
-   "1081149",
-   "1081150",
-   "1081596",
-   "1081597",
-   "1081598",
-   "1081600",
-   "1081869",
-   "1081870",
-   "1081871",
-   "1082180",
-   "1082688",
-   "1082689",
-   "1082767",
-   "1082769",
-   "1082770",
-   "1082792",
-   "1082793",
-   "1082858",
-   "1082859",
-   "1082860",
-   "1082861",
-   "1082882"
+  "api_upcoming_future_start": 34,
+  "started_since_snapshot": [
+   "1081869"
   ],
-  "observed_at": "2026-10-22T02:51:59Z",
+  "in_api_not_published": [],
+  "published_not_in_api": [],
+  "observed_at": "2026-10-22T03:07:12Z",
   "fact_mismatches": [],
-  "verdict": "drift"
+  "fact_reschedules": [],
+  "verdict": "pass"
  },
  "market_rereads": [
   {
@@ -2208,20 +2175,20 @@
    "fresh_markets": [
     {
      "name": "Spirit Academy",
-     "yes_bid": "0.4600",
-     "yes_ask": "0.6400",
+     "yes_bid": "0.6000",
+     "yes_ask": "0.6500",
      "status": "active",
      "ticker": "KXCS2GAME-26OCT220400TSAG1-TSA"
     },
     {
      "name": "GenOne",
-     "yes_bid": "0.3500",
-     "yes_ask": "0.5400",
+     "yes_bid": "0.3400",
+     "yes_ask": "0.4000",
      "status": "active",
      "ticker": "KXCS2GAME-26OCT220400TSAG1-G1"
     }
    ],
-   "fresh_observed_at": "2026-10-22T02:51:59Z",
+   "fresh_observed_at": "2026-10-22T03:07:13Z",
    "event_status": null,
    "verdict": "read"
   },
@@ -2917,7 +2884,7 @@
     "rows": 380,
     "teams": 349,
     "snapshot_date": "2026-10-05",
-    "observed_at": "2026-10-22T02:52:00Z"
+    "observed_at": "2026-10-22T03:07:14Z"
    }
   ],
   "verdict": "pass",
@@ -2931,7 +2898,7 @@
    "bo3_ids": [
     22240
    ],
-   "observed_at": "2026-10-22T02:52:00Z"
+   "observed_at": "2026-10-22T03:07:14Z"
   },
   {
    "match_id": "1081597",
@@ -2940,7 +2907,7 @@
    "bo3_ids": [
     25277
    ],
-   "observed_at": "2026-10-22T02:52:00Z"
+   "observed_at": "2026-10-22T03:07:15Z"
   },
   {
    "match_id": "1082769",
@@ -2949,7 +2916,7 @@
    "bo3_ids": [
     10718
    ],
-   "observed_at": "2026-10-22T02:52:00Z"
+   "observed_at": "2026-10-22T03:07:16Z"
   },
   {
    "match_id": "1082769",
@@ -2958,7 +2925,7 @@
    "bo3_ids": [
     24638
    ],
-   "observed_at": "2026-10-22T02:52:01Z"
+   "observed_at": "2026-10-22T03:07:18Z"
   },
   {
    "match_id": "1082858",
@@ -2967,7 +2934,7 @@
    "bo3_ids": [
     584
    ],
-   "observed_at": "2026-10-22T02:52:01Z"
+   "observed_at": "2026-10-22T03:07:21Z"
   },
   {
    "match_id": "1082858",
@@ -2976,14 +2943,14 @@
    "bo3_ids": [
     25492
    ],
-   "observed_at": "2026-10-22T02:52:01Z"
+   "observed_at": "2026-10-22T03:07:26Z"
   }
  ],
  "hltv_attempt": {
   "url": "https://www.hltv.org/ranking/teams",
   "http_status": 200,
   "status": "ok",
-  "observed_at": "2026-10-22T02:52:01Z",
+  "observed_at": "2026-10-22T03:07:27Z",
   "note": "HLTV reachable from this runner at verification time"
  },
  "html": {
@@ -3004,7 +2971,7 @@
   {
    "label": "hotspawn-fixture-api",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:12Z",
    "http_status": 200,
    "response_sha256": "7cfa9c0b654c7ab1cead81bcaeed3533e922188d228ed8c976b7687f6959f743",
    "bytes": 77268,
@@ -3014,19 +2981,19 @@
   {
    "label": "polymarket-event-1231330",
    "url": "https://gamma-api.polymarket.com/events/1231330",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:13Z",
    "http_status": 200,
-   "response_sha256": "d2bc757682281c66ec30cc73dc95138b34f85be979afcefa87ce1288826d617a",
-   "bytes": 24074,
+   "response_sha256": "03c542a7f5675c3dd8c0c43d1be203b23fbe9fa353061633e5e199fce73ed62b",
+   "bytes": 24081,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231330.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231331",
    "url": "https://gamma-api.polymarket.com/events/1231331",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:13Z",
    "http_status": 200,
-   "response_sha256": "ff20df4c0823098b50c4e126167544cbeca16fc897cd39c448458a069de4dc18",
+   "response_sha256": "ee8aceb30428afee9348daaffd68a448fd507eacf1e2a38ce7813879273b5672",
    "bytes": 43139,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231331.gz",
    "status": "ok"
@@ -3034,77 +3001,77 @@
   {
    "label": "kalshi-event-KXCS2GAME-26OCT220400TSAG1",
    "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT220400TSAG1",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:13Z",
    "http_status": 200,
-   "response_sha256": "9ea7cbf02f77919430fb7348d8e3ad9dfdb3f44a930772cd37774e391fa5061f",
-   "bytes": 5675,
+   "response_sha256": "34f6ef39c49dd0072e154cee33fb338cdc3553508e71342a26bbf90f6b5f9091",
+   "bytes": 5678,
    "evidence": "data/research/5f6fe71d/evidence/kalshi-event-KXCS2GAME-26OCT220400TSAG1.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231332",
    "url": "https://gamma-api.polymarket.com/events/1231332",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:13Z",
    "http_status": 200,
-   "response_sha256": "a114066c971db88c60dedf37fe11c7549174b9e5321d48cf8928f3240113b195",
-   "bytes": 53354,
+   "response_sha256": "aa1652f548c85b02892be44730e935adf22b3d8f22bb7c28dea5cd62217d46e6",
+   "bytes": 53380,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231332.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1232512",
    "url": "https://gamma-api.polymarket.com/events/1232512",
-   "observed_at": "2026-10-22T02:51:59Z",
+   "observed_at": "2026-10-22T03:07:13Z",
    "http_status": 200,
-   "response_sha256": "63414bb0900dca588981bb0a44b6e3d7474e8532f5b67b44e0176821f3a17cbb",
-   "bytes": 42955,
+   "response_sha256": "a9a6cda710e037dd741f8a8032b8860819d42220eacabf79351ed62db10c161a",
+   "bytes": 42834,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1232512.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1224236",
    "url": "https://gamma-api.polymarket.com/events/1224236",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
-   "response_sha256": "47d0e5bd2cd2b9bcea91bed4ed57aeebfbacc70ba5f08f1f59295bcd7649b360",
-   "bytes": 38980,
+   "response_sha256": "1152e4833b201c088d1b8701c7c67b744097718df59f08f0c372c087804f8e1c",
+   "bytes": 38874,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1224236.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1224237",
    "url": "https://gamma-api.polymarket.com/events/1224237",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
-   "response_sha256": "eac4217878ee809139105765273b4a41a4d45130cc641cadec1e8eaadd7b9cb0",
-   "bytes": 43378,
+   "response_sha256": "a0e1f9745120b33f1a7e461d8afe43ba67650ae2911e756616a6afccfbd7b7d9",
+   "bytes": 43433,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1224237.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231735",
    "url": "https://gamma-api.polymarket.com/events/1231735",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
-   "response_sha256": "1c12060c10ddca01ab6c515bfbded2766bc92d14e766c6a18e710d6e3d865398",
-   "bytes": 43498,
+   "response_sha256": "3ea3a2d8cb46bc7e6a6dfc0cf8432e6da0fd20bed542c386dd2df4a7f69f1bbe",
+   "bytes": 43469,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231735.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1232959",
    "url": "https://gamma-api.polymarket.com/events/1232959",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
-   "response_sha256": "d6307f2f34ffa4047fd06c3ecc4c0efd93fad254069a037ba8a2a8843fe0a231",
-   "bytes": 43162,
+   "response_sha256": "40dda3a080c5d6d1d20907b08fb9288d602c2cc0ce1fd0c5c82a95d80a191558",
+   "bytes": 43152,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1232959.gz",
    "status": "ok"
   },
   {
    "label": "valve-standings-standings_global_2026_10_05.md",
    "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
    "response_sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
    "bytes": 77872,
@@ -3114,7 +3081,7 @@
   {
    "label": "bo3-team-benchedgods",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=benched%20gods",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:14Z",
    "http_status": 200,
    "response_sha256": "ed7e06d017d2b2d2f5467026ad9dd0baf075b645fdae0c6f6c1bc23d679d8246",
    "bytes": 2939,
@@ -3124,7 +3091,7 @@
   {
    "label": "bo3-team-titanflow",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=TitanFlow",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:15Z",
    "http_status": 200,
    "response_sha256": "39d6e2606cd7a126c2380eb056167f90dd2badce86ea977add71fd09b7ebb597",
    "bytes": 817,
@@ -3134,7 +3101,7 @@
   {
    "label": "bo3-team-k27",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=K27",
-   "observed_at": "2026-10-22T02:52:00Z",
+   "observed_at": "2026-10-22T03:07:16Z",
    "http_status": 200,
    "response_sha256": "294d1789acf7541ef8a381b1c95c905e08641336ad8d29f1b753552dcc1d45b2",
    "bytes": 5122,
@@ -3144,7 +3111,7 @@
   {
    "label": "bo3-team-nexora",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=NEXORA",
-   "observed_at": "2026-10-22T02:52:01Z",
+   "observed_at": "2026-10-22T03:07:18Z",
    "http_status": 200,
    "response_sha256": "7dda6d8c582459c567249eb27eaf3c9f4d1dfc64e6ced670dd59aeb291204dfa",
    "bytes": 2926,
@@ -3154,7 +3121,7 @@
   {
    "label": "bo3-team-groundzero",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=Ground%20Zero",
-   "observed_at": "2026-10-22T02:52:01Z",
+   "observed_at": "2026-10-22T03:07:21Z",
    "http_status": 200,
    "response_sha256": "b66bca0ee7798d23fd01b4cb664a51cbf4f51c26c996e48163f886e0dae8dc6a",
    "bytes": 2922,
@@ -3164,7 +3131,7 @@
   {
    "label": "bo3-team-offchops",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=Off%20Chops",
-   "observed_at": "2026-10-22T02:52:01Z",
+   "observed_at": "2026-10-22T03:07:26Z",
    "http_status": 200,
    "response_sha256": "e67ad3cda35f9f1d6e16674913ffbd7524705b3a97bcccd7c4500d51ecbe9a63",
    "bytes": 2934,
@@ -3174,10 +3141,10 @@
   {
    "label": "hltv-ranking-attempt",
    "url": "https://www.hltv.org/ranking/teams",
-   "observed_at": "2026-10-22T02:52:01Z",
+   "observed_at": "2026-10-22T03:07:27Z",
    "http_status": 200,
-   "response_sha256": "4f13caabcb8b6472095d410d1fdd54cdb290d4fb3fe7e47d9b5b6888cb5ffd85",
-   "bytes": 1064043,
+   "response_sha256": "2e8a30d562730e52962bbfe1f1bb94919e168dc63f4f13b088b840e063e35f91",
+   "bytes": 1063226,
    "evidence": "data/research/5f6fe71d/evidence/hltv-ranking-attempt.gz",
    "status": "ok"
   }
