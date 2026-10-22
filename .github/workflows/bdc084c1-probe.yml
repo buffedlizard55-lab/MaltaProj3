@@ -115,7 +115,13 @@ jobs:
           fi
           git config user.name "arena-bdc084c1"
           git config user.email "arena@users.noreply.github.com"
+          cp data/research/bdc084c1/probe-report.json data/research/bdc084c1/probe-report.md /tmp/
+          git checkout -- data/ 2>/dev/null || true
+          git clean -fd data/evidence data/origination >/dev/null 2>&1 || true
+          cp /tmp/probe-report.json /tmp/probe-report.md data/research/bdc084c1/
           git add data/research/bdc084c1/probe-report.json data/research/bdc084c1/probe-report.md
-          git restore --staged data/research/bdc084c1/published-latest.json 2>/dev/null || true
           git commit -m "evidence(bdc084c1): fresh-snapshot coverage probe [skip ci]" --no-verify
+          # The session branch moves while other sessions push, so rebase before
+          # the push rather than failing on a non-fast-forward.
+          git -c rebase.autoStash=true pull --rebase origin arena/bdc084c1-maltaproj3
           git push origin HEAD:arena/bdc084c1-maltaproj3
