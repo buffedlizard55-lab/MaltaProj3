@@ -1,0 +1,26 @@
+[
+  {
+    "id": "aae76fb3-sidebar-link-below-the-fold",
+    "severity": "warning",
+    "title": "The desktop sidebar's last link sat outside its own panel and below the fold at 1440x844 (fixed)",
+    "detail": "Found while diagnosing a pipeline-wide browser-check failure. At 1440x844 the last sidebar item, the .sidebar-repo link ('Open-source & auditable'), was painted at y=860-875 while the fixed sidebar ended at y=844 and its content fitted only 844px, so the link was outside the painted navy panel, unreachable by pointer, and reported by axe as 2.23:1 against the page background (#96aab8 on #f4f7f8) instead of 6.4:1 against the sidebar. The defect is layout, not colour: the sidebar's children overflowed its fixed height. Fixed in this session by giving .sidebar overflow-y:auto and tightening .brand (53px to 22px) and .sidebar-bottom (30px to 14px) spacing; after the fix the link sits at y=813-828 at 1440x844, at 807-822 at 1024x844 and at 808-822 at 768x844, and shorter viewports scroll the sidebar. Regression test: tests/browser/sidebar_fit.spec.mjs. Measured in Chromium at the four published widths; screenshots are not stored in the repository.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39762907867",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/sidebar_fit.spec.mjs"
+    ],
+    "match_ids": []
+  },
+  {
+    "id": "aae76fb3-browser-step-failures-were-anonymous",
+    "severity": "notice",
+    "title": "193 of 200 recent checks runs failed and the browser step never named the failing test",
+    "detail": "Between 2026-10-22T07:47Z and 10:17Z the Validate dashboard workflow recorded 7 successes and 193 failures across every session's branch; every failure after 08:27:50Z reported only 'Process completed with exit code 1' for the Playwright step, and this environment cannot download job logs (they are served from productionresultssa*.blob.core.windows.net and results-receiver.actions.githubusercontent.com, both unreachable). The Python step already published its failures as annotations; the browser step did not. New scripts/playwright-annotations.mjs (registered in playwright.config.mjs) prints one ::error per failing test with the assertion diff, which named the seven 1440px contrast tests on run 39762907867. A second, unrelated cause of a red PR check is recorded too: the pull_request job for commit 5cc2673 was cancelled at exactly 30m13s by the job cap while the same commit passed the push-triggered job in 25m52s, so the cap was raised to 45 minutes.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39762907867",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39767969500",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/playwright-annotations.mjs"
+    ],
+    "match_ids": []
+  }
+]
