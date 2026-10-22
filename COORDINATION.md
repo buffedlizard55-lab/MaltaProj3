@@ -67,6 +67,17 @@ reachable without scrolling past a five-card stack. Locked by
 - **assets/scout.css:** kept session `75aa5b56`'s phone readability block (PR #163/#166)
   and appended this session's `.picks-here` / two-column start-here rules after it.
 
+### F60-3 note — live origination replay (2026-10-22T08:45Z)
+
+PR #164 originate failed after merging `origin/main` (`1cab862`, PRs #174/#176):
+`scripts/build_origination.py` asserted `pick_index == selection(probabilities)`,
+but session 4c972a51's already-merged ranked tie-break labels a 50/50 research
+estimate (Isurus vs Hacha in the 08:41Z live run) without changing either
+probability, so `selection` is `None` while `pick_index` is `0`. The assertion
+now accepts that documented `tie_break.winner`. `scripts/originate.py` was not
+edited.
+
+
 # Current session: arena-4c972a51 — a sourced pick for every unresolved match, an honest unresolved register, and a phone-first route to the picks
 
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/4c972a51-maltaproj3`, branched
