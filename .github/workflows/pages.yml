@@ -77,13 +77,31 @@ jobs:
           PY
       - uses: actions/configure-pages@v6
         if: steps.previous.outputs.skip == 'false'
-      - uses: actions/upload-pages-artifact@v5
+      - id: upload
+        uses: actions/upload-pages-artifact@v5
         if: steps.previous.outputs.skip == 'false'
         with:
           path: site
       - id: deployment
         if: steps.previous.outputs.skip == 'false'
         uses: actions/deploy-pages@v5
+      # deploy-pages refuses to publish while a run holds two artifacts named
+      # github-pages ("Artifact count is 2", observed on run 39713153422 for
+      # 2026-10-22T03:10Z). This job is finished with its artifact once the
+      # deployment step returns, so delete it and leave the fresh, fully
+      # validated upload below as the only candidate in the run.
+      - name: Remove the republished artifact before the fresh publish
+        if: always() && steps.previous.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
+        run: |
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "::warning::No artifact id was reported; a duplicate github-pages artifact may block the fresh publish."
+            exit 0
+          fi
+          gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID" \
+            || echo "::warning::Could not delete the republished artifact; the fresh publish may fail on a duplicate artifact name."
   verify-and-deploy:
     needs: [republish-last-verified]
     # Runs even when the fast republish failed: a broken helper must never stop
