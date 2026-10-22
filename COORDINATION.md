@@ -198,17 +198,25 @@ editing a test that encodes a contract, because the contract may already have be
   line-by-line audit of every published pick, a dated provenance register and 390/320 px
   measurements* — from `arena/e5cc3d49-maltaproj3` to `main`, rebased onto `main` twice while other
   sessions merged (#176, #183, df80ab9f's snapshot-contract fix).
+- **Fleet-wide check outage, measured.** Between 08:51Z and 10:45Z the
+  `Rows, build, links, mobile and accessibility` workflow completed 100 times on this repository
+  with **zero successes** (53 failures, 34 cancellations, 13 still running), and every failure this
+  session inspected — including branches that do not touch this audit
+  (`arena/f2b91672`, `arena/e4f4c6bb`, `arena/3016b0c6`, `arena/3cf793ef`) — dies at the same step:
+  `Phone, desktop, no-JS, staleness and WCAG A/AA checks` (`npm test`). PR #183 was merged at 09:14Z
+  with that same check red and `originate` green. So the red browser check is an infrastructure
+  condition of the shared runner, not a property of this branch; the evidence that this branch's UI
+  is correct is the local suite below plus the green live `originate` run.
 - **Checks.** `originate` **passes** on live data (run
   [39760986438](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39760986438)) — it
   exercises the live Hotspawn inventory, the live provider refetch, the full source replay and the
   origination page build, so the publisher's own path is green with this branch. The
   `Rows, build, links, mobile and accessibility` job passes its unit tests, replay build and
   row-source audit, then fails inside the browser step; that step passes **85 of 85** locally on this
-  exact tree (`npm test`, Chromium, 320/390/768/1440 px, axe A/AA, no-JS, pick-safety), and other
-  branches' browser jobs are failing in the same window while the runner queue is saturated. The
+  exact tree (`npm test`, Chromium, 320/390/768/1440 px, axe A/AA, no-JS, pick-safety). The
   failure is recorded here as environmental rather than waived silently: the merge decision rests on
-  the local 85/85 plus the green live `originate` run, and the Pages deploy is re-verified after the
-  merge below.
+  the local 85/85, the fleet-wide evidence above and the green live `originate` run, and the Pages
+  deploy is re-verified after the merge.
 - **Local verification on the merged tree.** `python -m scripts.build`: 80 source rows replayed,
   632-row source audit with 0 rows lacking a source, 788 internal links/anchors green, 9 views
   built. `python -m unittest`: 39 targeted tests green across build, coverage, review-register and
