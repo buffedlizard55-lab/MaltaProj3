@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "session": "arena-bc1afd8f",
+  "observed_at": "2026-10-22T09:28:49Z",
+  "label": "fresh-snapshot",
+  "command": [
+    "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "returncode": 1,
+  "error": null,
+  "wall_seconds": 676.5,
+  "snapshot": {
+    "data_dir": "data",
+    "latest.json": {
+      "generated_at": "2026-10-22T09:15:53Z",
+      "counts": {
+        "inventory": 104,
+        "upcoming": 43,
+        "archived": 61,
+        "unknown_schedule": 0,
+        "market": 18,
+        "bookmaker": 3,
+        "model": 12,
+        "unresolved": 10,
+        "picks": 33,
+        "no_edge": 0
+      },
+      "live_collection": null
+    },
+    "origination.json": {
+      "generated_at": "2026-10-22T09:16:05Z",
+      "counts": {
+        "active": 43,
+        "resolved": 43,
+        "unresolved": 0,
+        "with_pick": 43,
+        "consensus": 2,
+        "market": 18,
+        "bookmaker": 5,
+        "reference": 0,
+        "model": 18,
+        "network": 2,
+        "relay": 0,
+        "guidance": 0,
+        "alias_joined": 4
+      },
+      "live_collection": true
+    },
+    "evidence_files": 92
+  },
+  "ran": 929,
+  "seconds": 675.894,
+  "ok": false,
+  "summary": "failures=15, errors=19",
+  "failed": [
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_75aa5b56.Session75aa5b56Tests"
+    },
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_8fa2b226.BuiltSiteTests"
+    },
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_b1022dc2_coverage_and_mobile.SessionB1022dc2VerificationTests"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_changed_canonical_probability_cannot_pass_as_a_watch",
+      "suite": "test_contrarian.ContrarianReviewTests.test_changed_canonical_probability_cannot_pass_as_a_watch"
+    },
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_deployment_audit.DeploymentArtifactAuditTests"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_a_featured_bookmaker_tie_upgrades_end_to_end_and_passes_replay_validation",
+      "suite": "test_origination_upgrade.EndToEnd.test_a_featured_bookmaker_tie_upgrades_end_to_end_and_passes_replay_validation"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_a_marked_upgrade_cannot_hide_a_changed_non_model_featured_row",
+      "suite": "test_origination_upgrade.EndToEnd.test_a_marked_upgrade_cannot_hide_a_changed_non_model_featured_row"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_only_the_model_featured_fixture_with_a_verified_line_is_upgraded",
+      "suite": "test_origination_upgrade.EndToEnd.test_only_the_model_featured_fixture_with_a_verified_line_is_upgraded"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_rerunning_is_deterministic",
+      "suite": "test_origination_upgrade.EndToEnd.test_rerunning_is_deterministic"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_the_picks_page_and_the_plan_page_both_say_the_model_was_replaced",
+      "suite": "test_origination_upgrade.EndToEnd.test_the_picks_page_and_the_plan_page_both_say_the_model_was_replaced"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_the_replay_validator_accepts_the_upgrade_and_rejects_tampering",
+      "suite": "test_origination_upgrade.EndToEnd.test_the_replay_validator_accepts_the_upgrade_and_rejects_tampering"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_direction_and_fair_line_are_replayed_not_just_probability_sum",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_direction_and_fair_line_are_replayed_not_just_probability_sum"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_duplicate_or_map_original_markets_are_not_replayable",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_duplicate_or_map_original_markets_are_not_replayable"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_full_original_event_and_books_reproduce_the_summary",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_full_original_event_and_books_reproduce_the_summary"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_summary_cannot_hide_a_changed_original_bid",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_summary_cannot_hide_a_changed_original_bid"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_wrong_token_or_condition_is_not_replayable",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_wrong_token_or_condition_is_not_replayable"
+    },
+    {
+      "kind": "ERROR",
+      "test": "test_zero_size_original_levels_cannot_back_a_pick",
+      "suite": "test_origination_upgrade.OriginalBookReplay.test_zero_size_original_levels_cannot_back_a_pick"
+    },
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_review_flags.ReviewFlagsIntegration"
+    },
+    {
+      "kind": "ERROR",
+      "test": "setUpClass",
+      "suite": "test_verify_live.PublicArtifactParity"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_the_site_links_the_dossier_from_the_unresolved_section",
+      "suite": "test_8fa2b226.CoverageProbeDossierTests.test_the_site_links_the_dossier_from_the_unresolved_section"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_the_gate_records_which_snapshot_it_ran_against",
+      "suite": "test_bc1afd8f.GateTests.test_the_gate_records_which_snapshot_it_ran_against"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_filter_counts_match_the_rows_actually_rendered",
+      "suite": "test_build.ResearchedFallbackDisplayTests.test_filter_counts_match_the_rows_actually_rendered"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_current_watch_is_an_underdog_context_not_a_pick_override",
+      "suite": "test_contrarian.ContrarianReviewTests.test_current_watch_is_an_underdog_context_not_a_pick_override"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_homepage_section_has_sources_on_every_review_row",
+      "suite": "test_contrarian.ContrarianReviewTests.test_homepage_section_has_sources_on_every_review_row"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_checked_in_fixture_has_full_coverage",
+      "suite": "test_coverage_audit.CoverageAudit.test_checked_in_fixture_has_full_coverage"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_review_page_renders_the_new_flags",
+      "suite": "test_e6c0f47d.ReviewPagePublicationTests.test_review_page_renders_the_new_flags"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_full_build_publishes_disambiguation_on_edge_and_review_pages",
+      "suite": "test_f392649f.LineupDisambiguationTests.test_full_build_publishes_disambiguation_on_edge_and_review_pages"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times",
+      "suite": "test_freshness_determinism.PinnedClockTests.test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_no_element_id_is_repeated_on_the_review_page",
+      "suite": "test_review_register.EverySessionRegisterTests.test_no_element_id_is_repeated_on_the_review_page"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_the_review_page_publishes_every_register_without_repeating_an_id",
+      "suite": "test_review_register.EverySessionRegisterTests.test_the_review_page_publishes_every_register_without_repeating_an_id"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_flagged_for_review_page_publishes_the_register",
+      "suite": "test_review_register.ReviewRegisterTests.test_flagged_for_review_page_publishes_the_register"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_dated_repository_snapshot_is_audited_without_being_restamped",
+      "suite": "test_source_integrity.RowRegister.test_dated_repository_snapshot_is_audited_without_being_restamped"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_the_review_page_publishes_them_without_changing_the_snapshot_flags",
+      "suite": "test_strategy.PublishedFindings.test_the_review_page_publishes_them_without_changing_the_snapshot_flags"
+    },
+    {
+      "kind": "FAIL",
+      "test": "test_generated_twc_is_not_overwritten_by_the_old_root_copy",
+      "suite": "test_twc.ArtifactIntegration.test_generated_twc_is_not_overwritten_by_the_old_root_copy"
+    }
+  ],
+  "tail": [
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 667, in validate_origination",
+    "    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "AssertionError: Fallback pick differs from its probabilities",
+    "",
+    "======================================================================",
+    "FAIL: test_generated_twc_is_not_overwritten_by_the_old_root_copy (test_twc.ArtifactIntegration.test_generated_twc_is_not_overwritten_by_the_old_root_copy)",
+    "----------------------------------------------------------------------",
+    "Traceback (most recent call last):",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/tests/test_twc.py\", line 161, in test_generated_twc_is_not_overwritten_by_the_old_root_copy",
+    "    out = Path(tmp) / 'site'; build(ROOT / 'data', out)",
+    "                              ^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build.py\", line 1811, in build",
+    "    build_originated(source, output)",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 687, in build",
+    "    validate_origination(data, source)",
+    "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/build_origination.py\", line 667, in validate_origination",
+    "    assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "AssertionError: Fallback pick differs from its probabilities",
+    "",
+    "----------------------------------------------------------------------",
+    "Ran 929 tests in 675.894s",
+    "",
+    "FAILED (failures=15, errors=19)"
+  ]
+}
