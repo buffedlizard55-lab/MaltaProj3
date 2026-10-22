@@ -1,20 +1,20 @@
 {
  "schema_version": 1,
  "session": "arena-5f6fe71d",
- "generated_at": "2026-10-22T02:39:40Z",
- "fresh_generated_at": "2026-10-22T02:38:02Z",
+ "generated_at": "2026-10-22T02:55:07Z",
+ "fresh_generated_at": "2026-10-22T02:52:35Z",
  "published_generated_at": "2026-10-22T02:26:56Z",
  "fresh_counts": {
   "inventory": 97,
   "upcoming": 35,
   "archived": 62,
   "unknown_schedule": 0,
-  "market": 8,
+  "market": 9,
   "bookmaker": 0,
-  "model": 15,
+  "model": 14,
   "unresolved": 12,
-  "picks": 22,
-  "no_edge": 1
+  "picks": 23,
+  "no_edge": 0
  },
  "published_counts": {
   "inventory": 97,
@@ -53,12 +53,12 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.34,
-     0.66
+     0.355,
+     0.645
     ],
     "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
    },
-   "changed": true
+   "changed": false
   },
   {
    "id": "1079189",
@@ -110,13 +110,13 @@
     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220400tsag1"
    },
    "fresh": {
-    "method": "consensus",
+    "method": "market",
     "family": null,
-    "source": "Polymarket + Kalshi",
+    "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.40833334,
-     0.59166666
+     0.4,
+     0.6
     ],
     "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
    },
@@ -237,14 +237,14 @@
     "method": "model",
     "family": null,
     "source": "Valve official standings",
-    "pick_index": null,
+    "pick_index": 1,
     "probabilities": [
-     0.5,
-     0.5
+     0.49888,
+     0.50112
     ],
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
    },
-   "changed": false
+   "changed": true
   },
   {
    "id": "1079655",
@@ -390,16 +390,16 @@
    },
    "fresh": {
     "method": "model",
-    "family": "form",
-    "source": "Own results-based model (bo3.gg series results)",
+    "family": "model",
+    "source": "Valve official standings",
     "pick_index": 0,
     "probabilities": [
-     0.572758648799329,
-     0.42724135120067097
+     0.62602485,
+     0.37397515
     ],
-    "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026"
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    },
-   "changed": false
+   "changed": true
   },
   {
    "id": "1081148",
@@ -425,8 +425,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.445,
-     0.555
+     0.455,
+     0.545
     ],
     "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23"
    },
@@ -518,8 +518,8 @@
     "source": "Polymarket",
     "pick_index": 0,
     "probabilities": [
-     0.59,
-     0.41
+     0.595,
+     0.405
     ],
     "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22"
    },
@@ -549,8 +549,8 @@
     "source": "Own network model (bo3.gg results graph)",
     "pick_index": 1,
     "probabilities": [
-     0.22076033759141514,
-     0.7792396624085849
+     0.2203644895995899,
+     0.7796355104004101
     ],
     "source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026"
    },
@@ -580,8 +580,8 @@
     "source": "Polymarket",
     "pick_index": 0,
     "probabilities": [
-     0.635,
-     0.365
+     0.64,
+     0.36
     ],
     "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
    },
@@ -642,8 +642,8 @@
     "source": "Kalshi",
     "pick_index": 1,
     "probabilities": [
-     0.18274112,
-     0.81725888
+     0.23762376,
+     0.76237624
     ],
     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
    },
@@ -673,12 +673,12 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.29,
-     0.71
+     0.32,
+     0.68
     ],
     "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
    },
-   "changed": false
+   "changed": true
   },
   {
    "id": "1081871",
@@ -854,15 +854,15 @@
     "source_url": "https://bo3.gg/matches"
    },
    "fresh": {
-    "method": "model",
-    "family": "network",
-    "source": "Own network model (bo3.gg results graph)",
+    "method": "reference",
+    "family": "reference",
+    "source": "EGamersWorld (bookmaker average)",
     "pick_index": 0,
     "probabilities": [
-     0.9838771843003609,
-     0.016122815699639137
+     0.88806052,
+     0.11193948
     ],
-    "source_url": "https://bo3.gg/teams/10718"
+    "source_url": "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT"
    },
    "changed": true
   },
@@ -1102,20 +1102,20 @@
     "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
    },
    "fresh": {
-    "method": "model",
-    "family": "form",
-    "source": "Own results-based model (bo3.gg series results)",
+    "method": "consensus",
+    "family": null,
+    "source": "Polymarket + Thunderpick + Bovada",
     "pick_index": 1,
     "probabilities": [
-     0.39773644745590364,
-     0.6022635525440964
+     0.39276486,
+     0.60723514
     ],
-    "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
+    "source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22"
    },
-   "changed": false
+   "changed": true
   }
  ],
- "changed_rows": 10,
+ "changed_rows": 13,
  "network_repair": [
   {
    "id": "1081597",
@@ -1123,14 +1123,6 @@
    "binding_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
    "quote_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
    "expected_source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
-   "repair_ok": true
-  },
-  {
-   "id": "1082769",
-   "bridge": "exact_team_name_lookup",
-   "binding_source_url": "https://bo3.gg/teams/10718",
-   "quote_source_url": "https://bo3.gg/teams/10718",
-   "expected_source_url": "https://bo3.gg/teams/10718",
    "repair_ok": true
   },
   {
