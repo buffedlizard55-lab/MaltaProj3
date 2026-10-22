@@ -1,0 +1,165 @@
+# Session arena-e5cc3d49 — read-only live audit.
+#
+# The Arena sandbox has no egress to Hotspawn, HLTV, Polymarket, Kalshi or any
+# esportsbook, so the live inventory and the live lines can only be read from a
+# GitHub runner (the same egress the publisher uses). This workflow reads them,
+# rebuilds the site from the freshly collected snapshot, runs the independent
+# line-by-line audit and the phone check, and commits ONLY its own dated report
+# under `data/research/e5cc3d49/`. It never edits a published page, a
+# probability, a pick or an alias, and it is deleted before this branch merges.
+name: e5cc3d49 live line-by-line audit (session-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/e5cc3d49-maltaproj3']
+    paths:
+      - '.github/workflows/e5cc3d49-live.yml'
+      - 'scripts/e5cc3d49_audit.py'
+permissions:
+  contents: write
+concurrency:
+  group: e5cc3d49-live
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/e5cc3d49-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: pip install -r requirements.txt
+      - name: Unit-test the audit logic first
+        run: python -m unittest tests.test_e5cc3d49 -v
+      - name: Read the live Hotspawn inventory and every supported external line
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+      - name: Build every page from the freshly read snapshot
+        run: python -m scripts.build --data data --output site
+      - name: Re-derive every published number from its own primary evidence
+        id: audit
+        run: |
+          python -m scripts.e5cc3d49_audit \
+            --data data --site site \
+            --out data/research/e5cc3d49/line-by-line-audit.json
+      - name: Record the live snapshot this audit read
+        run: |
+          mkdir -p data/research/e5cc3d49/live
+          cp data/latest.json data/research/e5cc3d49/live/latest.json
+          cp data/origination.json data/research/e5cc3d49/live/origination.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          audit = json.loads(Path('data/research/e5cc3d49/line-by-line-audit.json').read_text())
+          latest = json.loads(Path('data/latest.json').read_text())
+          origination = json.loads(Path('data/origination.json').read_text())
+          summary = {
+              'audited_at': audit['audited_at'],
+              'inventory_observed_at': latest.get('inventory_observed_at'),
+              'origination_generated_at': origination.get('generated_at'),
+              'inventory_counts': latest.get('counts'),
+              'origination_counts': origination.get('counts'),
+              'audit_totals': audit.get('totals'),
+              'not_recomputable': audit.get('not_recomputable'),
+              'violations': audit.get('violations'),
+              'checks': audit.get('checks'),
+          }
+          Path('data/research/e5cc3d49/live/summary.json').write_text(json.dumps(summary, indent=1) + '\n')
+          print(json.dumps(summary['audit_totals'], indent=1))
+          print('violations:', len(summary['violations']))
+          PY
+      - name: Install the packaged browser (no CDN download)
+        run: npm ci
+      - name: Phone layout check on the freshly built pages
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 --directory site &
+          sleep 2
+          node --input-type=module - <<'JS' > data/research/e5cc3d49/live/mobile-check.txt 2>&1
+          import { chromium } from '@playwright/test';
+          import sparticuz from '@sparticuz/chromium';
+          import fs from 'node:fs'; import path from 'node:path'; import zlib from 'node:zlib';
+          import { execFileSync } from 'node:child_process';
+          const libRoot = path.resolve('.cache/chromium-libs');
+          if (!fs.existsSync(path.join(libRoot, 'lib/libnspr4.so'))) {
+            fs.mkdirSync(libRoot, { recursive: true });
+            const archive = path.resolve('.cache/chromium-libs.tar');
+            fs.writeFileSync(archive, zlib.brotliDecompressSync(fs.readFileSync('node_modules/@sparticuz/chromium/bin/al2023.tar.br')));
+            execFileSync('tar', ['-xf', archive, '-C', libRoot]);
+          }
+          const browser = await chromium.launch({
+            executablePath: await sparticuz.executablePath(),
+            args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+            env: { ...process.env, LD_LIBRARY_PATH: [path.join(libRoot, 'lib'), process.env.LD_LIBRARY_PATH].filter(Boolean).join(':') },
+          });
+          const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+          let bad = 0;
+          for (const url of ['/', '/origination/', '/picks/', '/review/', '/coverage/', '/methodology/']) {
+            const page = await ctx.newPage();
+            const errors = [];
+            page.on('pageerror', e => errors.push(String(e)));
+            await page.goto('http://127.0.0.1:8000' + url, { waitUntil: 'networkidle' });
+            const m = await page.evaluate(() => {
+              const y = el => el ? Math.round(el.getBoundingClientRect().top + window.scrollY) : null;
+              return {
+                sw: document.documentElement.scrollWidth,
+                cw: document.documentElement.clientWidth,
+                glanceTop: y(document.querySelector('#picks-at-a-glance, #picks')),
+                firstRowTop: y(document.querySelector('.glance-row, .match-row, tbody tr')),
+                navItems: document.querySelectorAll('.mobile-nav > a').length,
+                hasViewport: !!document.querySelector('meta[name=viewport]'),
+                glanceRows: document.querySelectorAll('.glance-row').length,
+              };
+            });
+            const overflow = m.sw - m.cw;
+            if (overflow > 0) bad += 1;
+            console.log(url, JSON.stringify({ ...m, overflow, errors }));
+            await page.close();
+          }
+          await browser.close();
+          console.log('PAGES_WITH_HORIZONTAL_OVERFLOW', bad);
+          process.exit(bad ? 1 : 0);
+          JS
+      - name: Publish a compact annotation
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('data/research/e5cc3d49/line-by-line-audit.json')
+          if not p.exists():
+              print('::warning::audit report was not written')
+          else:
+              r = json.loads(p.read_text())
+              t = r.get('totals') or {}
+              print(f"::notice title=e5cc3d49 audit::rows={t.get('rows')}; recomputed={t.get('recomputed')}; "
+                    f"model_not_recomputable={len(r.get('not_recomputable') or [])}; violations={len(r.get('violations') or [])}")
+              for v in (r.get('violations') or [])[:20]:
+                  print(f'::warning title=e5cc3d49 violation::{v}')
+          PY
+      - name: Commit the dated report to this session branch
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/e5cc3d49
+          git diff --cached --quiet && exit 0
+          git commit -m 'research: e5cc3d49 live line-by-line audit and phone check'
+          git stash push --keep-index --include-untracked -m 'e5cc3d49 collector scratch' || true
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/e5cc3d49-maltaproj3 || true
+            git rebase origin/arena/e5cc3d49-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/e5cc3d49-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
