@@ -61,13 +61,14 @@ class ReviewFlagsIntegration(unittest.TestCase):
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
-        # The source snapshot is immutable. The generated copy is intentionally
-        # enriched with a count reconciliation so featured-only counters cannot
-        # be confused with the researched coverage rendered by the site.
+        # Preserve the canonical artifact byte-for-byte; the generated site
+        # publishes featured-vs-researched counts in a separate sidecar.
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
         original = json.loads(self.original)
-        published = json.loads((self.output / 'data/latest.json').read_text())
-        self.assertEqual(published['counts'], original['counts'])
+        published_bytes = (self.output / 'data/latest.json').read_bytes()
+        self.assertEqual(published_bytes, self.original)
+        published = json.loads((self.output / 'data/reconciled-counts.json').read_text())
+        self.assertEqual(published['generated_at'], original['generated_at'])
         self.assertEqual(
             published['featured_method_counts'],
             {key: original['counts'].get(key) for key in
