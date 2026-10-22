@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-3016b0c6",
-  "observed_at": "2026-10-22T07:36:04+00:00",
+  "observed_at": "2026-10-22T07:39:57+00:00",
   "environment": "github-actions-runner",
   "policy": "Read-only research. HLTV first (identity/ranking, no price), then esportsbooks/aggregators. Nothing here is a probability or a pick.",
   "target_source": {
@@ -241,32 +241,31 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "HLTV world ranking",
       "url": "https://www.hltv.org/ranking/teams",
       "status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
-      "bytes": 5644,
+      "bytes": 5665,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "GG.BET CS2",
       "url": "https://gg.bet/en/counter-strike",
-      "status": 403,
-      "final_url": "https://gg.bet/en/counter-strike",
-      "bytes": 126,
-      "challenge_markers": [],
+      "status": 200,
+      "final_url": "https://gg.bet/counter-strike",
+      "bytes": 116965,
+      "challenge_markers": [
+        "just a moment",
+        "captcha"
+      ],
       "teams_found": []
     },
     {
@@ -274,7 +273,7 @@
       "url": "https://betboom.ru/sport/cs2",
       "status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1798,
+      "bytes": 1801,
       "challenge_markers": [
         "captcha"
       ],
@@ -291,9 +290,7 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "BC.Game CS2",
@@ -304,16 +301,14 @@
       "challenge_markers": [
         "challenge-platform"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
-      "status": 203,
-      "final_url": "https://1xbet.com/en/block",
-      "bytes": 2618,
+      "status": 404,
+      "final_url": "https://ca.1xbet.com/en/line/counter-strike-2",
+      "bytes": 35788,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -324,63 +319,54 @@
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
       "status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5486,
+      "bytes": 35821,
       "challenge_markers": [
         "challenge-platform",
-        "attention required",
-        "captcha"
+        "enable javascript and cookies"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "Betway esports",
       "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
       "status": 404,
-      "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
-      "bytes": 6690,
+      "final_url": "https://betway.com/g/en-ca/sports/esports/counter-strike-2",
+      "bytes": 6693,
       "challenge_markers": [],
       "teams_found": []
     },
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "status": 404,
-      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257087,
+      "status": 200,
+      "final_url": "https://sportsbook.draftkings.com/sports/esports",
+      "bytes": 1649412,
       "challenge_markers": [],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
       "status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 337859,
+      "bytes": 337816,
       "challenge_markers": [
         "captcha"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5773,
+      "bytes": 5736,
       "challenge_markers": [
+        "just a moment",
         "challenge-platform",
-        "attention required",
-        "captcha"
+        "enable javascript and cookies"
       ],
-      "teams_found": [
-        "WW"
-      ]
+      "teams_found": []
     },
     {
       "name": "Pinnacle CS2 page",
@@ -1006,16 +992,7 @@
       "bo3_bet_two_sided": false,
       "bo3_bet": null,
       "pinnacle_matchup": null,
-      "pages_listing_a_team": [
-        "HLTV match listing",
-        "HLTV world ranking",
-        "Stake CS2",
-        "BC.Game CS2",
-        "Marathonbet CS2",
-        "DraftKings CS2",
-        "OddsPortal CS2",
-        "EGamersWorld CS2 matches"
-      ],
+      "pages_listing_a_team": [],
       "money_line_lead": false,
       "verdict": "No two-sided price found on any probed surface; research-model pick remains, limitation stands"
     },

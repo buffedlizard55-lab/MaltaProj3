@@ -1,6 +1,6 @@
 # Line-source research for fixtures without a betting line — arena-3016b0c6
 
-Observed 2026-10-22T07:36:04+00:00 (github-actions-runner). Targets: 18 fixtures with no external line in snapshot 2026-10-22T05:37:07Z (live published snapshot).
+Observed 2026-10-22T07:39:57+00:00 (github-actions-runner). Targets: 18 fixtures with no external line in snapshot 2026-10-22T05:37:07Z (live published snapshot).
 
 HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
@@ -29,18 +29,18 @@ HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
 | Source | HTTP | Teams found | Challenge |
 | --- | --- | --- | --- |
-| HLTV match listing (https://www.hltv.org/matches) | 403 | WW | just a moment, challenge-platform, enable javascript and cookies |
-| HLTV world ranking (https://www.hltv.org/ranking/teams) | 403 | WW | just a moment, challenge-platform, enable javascript and cookies |
-| GG.BET CS2 (https://gg.bet/en/counter-strike) | 403 | — | — |
+| HLTV match listing (https://www.hltv.org/matches) | 403 | — | just a moment, challenge-platform, enable javascript and cookies |
+| HLTV world ranking (https://www.hltv.org/ranking/teams) | 403 | — | just a moment, challenge-platform, enable javascript and cookies |
+| GG.BET CS2 (https://gg.bet/en/counter-strike) | 200 | — | just a moment, captcha |
 | BetBoom CS2 (https://betboom.ru/sport/cs2) | 401 | — | captcha |
-| Stake CS2 (https://stake.com/sports/esports/cs2) | 403 | WW | just a moment, challenge-platform, enable javascript and cookies |
-| BC.Game CS2 (https://bc.game/sports/esports) | 200 | WW | challenge-platform |
-| 1xBet CS2 (https://1xbet.com/en/line/counter-strike-2) | 203 | — | challenge-platform |
-| Marathonbet CS2 (https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/) | 403 | WW | challenge-platform, attention required, captcha |
+| Stake CS2 (https://stake.com/sports/esports/cs2) | 403 | — | just a moment, challenge-platform, enable javascript and cookies |
+| BC.Game CS2 (https://bc.game/sports/esports) | 200 | — | challenge-platform |
+| 1xBet CS2 (https://1xbet.com/en/line/counter-strike-2) | 404 | — | challenge-platform |
+| Marathonbet CS2 (https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/) | 403 | — | challenge-platform, enable javascript and cookies |
 | Betway esports (https://www.betway.com/en/sports/esports/counter-strike-2) | 404 | — | — |
-| DraftKings CS2 (https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 404 | WW | — |
-| OddsPortal CS2 (https://www.oddsportal.com/esports/counter-strike/) | 200 | WW | captcha |
-| EGamersWorld CS2 matches (https://egamersworld.com/counterstrike/matches) | 403 | WW | challenge-platform, attention required, captcha |
+| DraftKings CS2 (https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 200 | — | — |
+| OddsPortal CS2 (https://www.oddsportal.com/esports/counter-strike/) | 200 | — | captcha |
+| EGamersWorld CS2 matches (https://egamersworld.com/counterstrike/matches) | 403 | — | just a moment, challenge-platform, enable javascript and cookies |
 | Pinnacle CS2 page (https://www.pinnacle.com/en/esports/counter-strike-2) | 404 | — | — |
 
 Pinnacle guest API: 16201 esports matchups, 0 target-fixture hits
