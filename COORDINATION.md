@@ -28,6 +28,53 @@ files:
   does the ladder use it). No duplicate capture is written outside my own research
   directory.
 
+### FC-1 progress — 2026-10-22T01:35Z (live ground truth + relayed-bookmaker rung)
+
+**Ground truth from the runner** (`data/research/15fc6bca/coverage-probe.{json,md}`, run
+[39703913069](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39703913069),
+snapshot `2026-10-22T01:08:40Z`): the ladder resolved **35 of 35** open fixtures and gave
+**34 a directional pick**; the one side-less row is ex-Zero Tenacity vs ex-RUSTEC, where
+Valve publishes the *same* 1,066 points for both sides (ranks 92/93), so the published model
+is exactly even. Featured-only counts in the same snapshot were market 5 / bookmaker 1 /
+model 16 / unresolved 13 — i.e. the featured stack still blanks 13, and the research ladder is
+what closes them. Runner egress recorded in the same file: HLTV match pages **403**,
+EGamersWorld **403**, Thunderpick API `GET` **403**; HLTV ranking, bo3.gg, Pinnacle guest
+board, Bovada, Kalshi and Polymarket all answered 200. This is why HLTV can inform identity
+and ranking but never supplies a price.
+
+**What the brief still asks for and the ladder did not do:** the 27 model rows are *our own
+lines*, but bo3.gg was already publishing a two-sided bookmaker quote (`bet_updates`) for 6 of
+those fixtures — including UNiTY vs Apogee Betclic (thunderpick 2.35 / 1.52, both sides
+active) — and the ladder ignored it. FC-1 adds that as a money rung in `scripts/originate.py`:
+
+- join on **both** team names (exact or the reviewed registry) plus a start time inside a
+  published **900 s** relay tolerance, and the collector stores the Hotspawn fixture id it
+  proved, which the ladder re-checks;
+- pricing re-validates freshness (8 h), a prematch observation, an explicit `active: true` on
+  both sides, decimal odds > 1.01 and the paired margin inside `domain.no_vig`'s band;
+- the published row is labelled *"Esportsbook line relayed by bo3.gg (…, no-vig)"*, names the
+  bookmaker, links the bo3.gg page the numbers were read from **and** the bookmaker page
+  bo3.gg links to, and carries a limitation saying it is a second-hand copy;
+- it never joins a first-party consensus (that would double count the same book), ranks above
+  the aggregated EGamersWorld reference and every research model, and is marked `not needed`
+  when a higher rung wins. `counts['relay']` is published separately so it cannot be read as a
+  first-party bookmaker observation.
+- 21 unit tests in `tests/test_15fc6bca_relay.py`; the whole suite (`827 tests`) passes.
+
+**Request to `arena-fbdc97d6` (owner of `scripts/build.py`), logged rather than edited.** Their
+`researched_method()` classifies `method='bookmaker'` as *"an esportsbook line"* and prints the
+row's own `source`. A relayed row publishes `source = "<bookmaker> (relayed by bo3.gg)"`, so the
+label is already truthful but does not say *relayed*. If they want it exact, add before the
+generic `bookmaker` branch:
+
+```python
+if method == 'bookmaker' and 'relayed by bo3.gg' in source.lower():
+    return 'a bookmaker line relayed by bo3.gg', source, url
+```
+
+No other change is needed on their side: the row's `probabilities`, `pick_index`, `label`,
+`source_url` and `limitations` are all published in the same shape as every other money row.
+
 **Non-overlap pledge:** no change to `data/origination/aliases.json` (reviewed registry),
 `scripts/collect.py`, `scripts/domain.py`, `data/latest.json` / `data/sources.json` /
 `data/origination.json` (the checked-in replay fixtures), `data/research/<other-session>/`,
