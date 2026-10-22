@@ -128,7 +128,9 @@ def evidence(m, prefix, fallback=None):
             body += (f'<p class="tiny">Rating-difference SD {e(a.get("rating_sd_diff"))} points · one-sigma '
                      f'probability interval {a["interval"][0]:.3f}–{a["interval"][1]:.3f} · graph size '
                      f'{e(a.get("graph_matches"))} series · {e(a.get("graph_anchors"))} anchored teams.</p>')
-            body += (f'<div class="evidence-links">{external("https://bo3.gg/matches", "bo3.gg results")}'
+            fixture_url = a.get("source_url") or "https://bo3.gg/matches"
+            label = "bo3.gg fixture" if "/matches/" in fixture_url else "bo3.gg results"
+            body += (f'<div class="evidence-links">{external(fixture_url, label)}'
                      f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
@@ -506,12 +508,18 @@ def glance(data, prefix, now=None):
             # browser repeats this check (assets/glance-lock.js) so a page built before
             # the lock or start passed never keeps advertising "Pick".
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
+            p0 = a["probabilities"][0] * 100
+            p1 = a["probabilities"][1] * 100
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
-                      + ('<span class="badge purple">Researched</span>' if researched else ''))
+                      + ('<span class="badge purple">Researched</span>' if researched else '')
+                      + f'<span class="glance-split" title="Win probabilities: {e(names[0])} {p0:.1f}%, {e(names[1])} {p1:.1f}%">({p0:.1f}% vs {p1:.1f}%)</span>')
         elif a:
+            p0 = a["probabilities"][0] * 100
+            p1 = a["probabilities"][1] * 100
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>'
+                      f'<span class="glance-split">({p0:.1f}% vs {p1:.1f}%)</span>'
                       f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
         else:
             choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'

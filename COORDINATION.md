@@ -4576,7 +4576,20 @@ branched from `main` at `d599724ccf177efeee6ea4d06f86c875c7d7c8d4` (merge of PR 
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 38F-1 Full pick coverage & mobile probability visibility: enhance glance summary to show both teams' win percentages beside obvious picks; wire specific bo3.gg match links in network model to resolve index-link residual flag; verify all rows line-by-line against official sources; update executive summary and Flagged for Review; run complete test suites and browser QA at 320/390/768/1440px | **in progress** | arena-38f43834 | `scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `data/research/38f43834/**`, `COORDINATION.md` |
+| 38F-1 Full pick coverage & mobile probability visibility: enhance glance summary to show both teams' win percentages beside obvious picks; wire specific bo3.gg match links in network model to resolve index-link residual flag; verify all rows line-by-line against official sources; update executive summary and Flagged for Review; run complete test suites and browser QA at 320/390/768/1440px | **done** | arena-38f43834 | `scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `tests/test_network_model.py`, `COORDINATION.md` |
 
-**Non-overlap pledge:** write only to claimed files (`scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `data/research/38f43834/**`, `COORDINATION.md`). No modifications to other sessions' research dossiers.
+**Non-overlap pledge:** write only to claimed files (`scripts/build.py`, `scripts/network_model.py`, `assets/scout.css`, `tests/test_build.py`, `tests/test_network_model.py`, `COORDINATION.md`). No modifications to other sessions' research dossiers.
+
+### Completed Work & Verification Log (38F-1)
+- **Specific fixture link resolution in network model:** In `scripts/network_model.py`, updated `estimate_fixture()` to propagate `binding.get('source_url')` rather than hardcoding `'https://bo3.gg/matches'`. In `scripts/build.py`, updated network model evidence link generation to use `fixture_url` (`label = "bo3.gg fixture"` when `/matches/` is in URL). This resolves the residual flag from the prior session regarding generic index links for network model estimates.
+- **Both-team probability visibility in executive summary glance:** In `scripts/build.py`, enhanced `glance()` to render `.glance-split` with both teams' win probabilities (e.g. `(35.5% vs 64.5%)`) alongside the pick badge, and `(50.0% vs 50.0%)` for even estimates. In `assets/scout.css`, styled `.glance-split` (`font-size:11px;color:#576b79;font-weight:500;white-space:nowrap;margin-left:2px`) maintaining WCAG AA contrast (5.55:1 on white, 5.1:1 on closed rows).
+- **Test additions:**
+  - `tests/test_network_model.py`: Added `test_estimate_fixture_propagates_binding_source_url` and `test_estimate_fixture_defaults_source_url_when_missing`.
+  - `tests/test_build.py`: Added `test_glance_renders_split_probabilities_for_both_teams`.
+- **Audits and browser tests:**
+  - `python3 -m scripts.build`: 80 source rows reconciled; 555 rows checked (541 official, 5 flagged unverified, 9 site-map, 0 violations); 707 internal links/assets/anchors checked.
+  - `python3 -m scripts.audit_rows --site site --strict`: 0 violations across all site pages.
+  - `node tests/pick-safety-browser.mjs`: All 106 safety assertions passed (Python/JS parity, open-tab expiry, locks, rollback, no-JS, 4 widths, axe A/AA).
+  - `npm test`: All 85 Playwright tests passed across 320px, 390px, 768px, and 1440px viewports.
+
 

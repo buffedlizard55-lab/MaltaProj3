@@ -164,6 +164,20 @@ class NetworkModelTest(unittest.TestCase):
         kept = network_model.usable_edges([old, no_winner, unparsed], NOW)
         self.assertEqual([edge['id'] for edge in kept], [3])
 
+    def test_estimate_fixture_propagates_binding_source_url(self):
+        match, binding = _fixture()
+        binding['source_url'] = 'https://bo3.gg/matches/unique-fixture-test'
+        est, _ = network_model.estimate_fixture(match, binding, self.document, NOW)
+        self.assertIsNotNone(est)
+        self.assertEqual(est['source_url'], 'https://bo3.gg/matches/unique-fixture-test')
+
+    def test_estimate_fixture_defaults_source_url_when_missing(self):
+        match, binding = _fixture()
+        binding.pop('source_url', None)
+        est, _ = network_model.estimate_fixture(match, binding, self.document, NOW)
+        self.assertIsNotNone(est)
+        self.assertEqual(est['source_url'], 'https://bo3.gg/matches')
+
 
 if __name__ == '__main__':
     unittest.main()
