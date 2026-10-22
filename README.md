@@ -528,3 +528,16 @@ fixed the renderer itself (`81139b1`, PR #181): the reconciliation counts are pu
 artifact. This session therefore keeps the original strict test rather than a relaxed one — both the
 source and the published snapshot must match the collector byte for byte, and the renderer, the data
 and every finding are untouched.
+
+**A red pipeline that was not this branch's fault.** While the PR waited, `checks.yml` had 193
+failures and 7 successes in the previous three hours across every session's branch. The public run
+page could not name the failing test (job logs live on a host this environment cannot reach), so the
+browser step now publishes each failure as an annotation
+([`scripts/playwright-annotations.mjs`](scripts/playwright-annotations.mjs)). It immediately named a
+real defect: at 1440 px the sidebar's last link (`.sidebar-repo`, "Open-source & auditable") overflowed
+the fixed sidebar and was painted at y=860 in an 844 px viewport, outside its own navy panel — 2.23:1
+against the page background and not clickable. The sidebar now scrolls when it cannot fit and its
+vertical spacing is tight enough for a laptop viewport, pinned by
+[`tests/browser/sidebar_fit.spec.mjs`](tests/browser/sidebar_fit.spec.mjs). The job cap is 45 minutes
+because the identical commit took 12 minutes idle and 25m52s on a loaded runner. `5cc2673` passed the
+full check job.

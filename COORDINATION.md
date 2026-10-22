@@ -166,6 +166,42 @@ pick reproducible; row-source audit **625 rows, 606 official-source-linked, 9 fl
 consensus row labelled “Bookmaker” and keeps `main`'s `0 without a pick · 18 from research models`
 tile.
 
+### AEB-2c — the whole pipeline was red, not just this PR (found and fixed 2026-10-22T11:40Z)
+
+While waiting for `AEB-3`, `gh run list --workflow checks.yml --limit 200` showed **7 successes and
+193 failures** between 07:47Z and 10:17Z; the last success was `39747913189` at 08:27:50Z on
+`arena/ca4d2a02`, and every branch failed afterwards. This was therefore not a defect in
+`arena/aae76fb3`'s diff, and it also blocks every other session's PR.
+
+- **Diagnosis was impossible from the logs:** GitHub stores job logs on
+  `productionresultssa*.blob.core.windows.net` / `results-receiver.actions.githubusercontent.com`,
+  which this sandbox cannot reach (`EOF`). The run page showed only "Process completed with exit
+  code 1" for step 11, with no test name.
+- **Fix 1 — make a browser failure name itself.** New `scripts/playwright-annotations.mjs`, registered
+  in `playwright.config.mjs`, prints one `::error` per failing test with the first 30 lines of the
+  assertion diff (ANSI stripped) plus a `::notice` summary. The Python step already did this; the
+  browser step did not. On run `39762907867` this immediately named the defect.
+- **The actual defect (real, user-visible, not a flake):** all seven pages failed the 1440px WCAG scan
+  with `color-contrast` on `.sidebar-repo` — "insufficient color contrast of 2.23 (foreground
+  #96aab8, background #f4f7f8)". The colour pair is fine on the sidebar's navy (about 6.4:1); axe
+  reported the *page* background because the link had overflowed the fixed sidebar. Measured in the
+  browser at 1440x844: the sidebar ended at y=844 and `.sidebar-repo` sat at y=860-875, i.e. below the
+  fold and outside the painted sidebar, so the link could not be clicked at all. It only showed up in
+  CI because font metrics decide whether the last item overflows.
+- **Fix 2 — layout:** `.sidebar` now has `overflow-y:auto` + `overscroll-behavior:contain`, and the
+  vertical gaps were tightened (`.brand` margin 53px → 22px, `.sidebar-bottom` padding-top 30px → 14px)
+  so the whole menu fits at 1440x844. Measured after the change: `.sidebar-repo` at y=813-828 at
+  1440x844 (inside the viewport, inside the sidebar), at 807-822 at 1024x844 and 808-822 at 768x844;
+  below 844px of height the sidebar scrolls instead of clipping.
+  New regression file `tests/browser/sidebar_fit.spec.mjs` (4 tests) pins both properties.
+- **Fix 3 — job cap:** the PR run of commit `5cc2673` was cancelled at exactly 30m13s while the
+  *same commit* passed the push-triggered job in 25m52s. Shared-runner load, not code. `checks.yml`
+  `timeout-minutes` 30 → 45, with the reason recorded in the workflow comment.
+- **Verification of the fixes:** `npx playwright test` **85/85 → 89/89 with the new file**,
+  `node tests/pick-safety-browser.mjs` **106/106**, `python -m scripts.build` 624 rows / 605 linked /
+  0 unsourced, **787** links, 9 views; and the push-triggered CI run `39767969500` on `5cc2673`
+  **passed the full job** (`Rows, build, links, mobile and accessibility`, 25m52s).
+
 ### AEB-3 — CI state on PR #172 (recorded 2026-10-22T10:25Z, merge still open)
 
 - Run `39752777616` on `a37f861`: job `originate` **passed** (4m31s); job `Rows, build, links, mobile
