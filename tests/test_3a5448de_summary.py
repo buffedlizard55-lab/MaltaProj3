@@ -54,3 +54,28 @@ class SingleUnresolvedRegisterTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SidebarBadgeContrastTests(unittest.TestCase):
+    """The flag-count badge must not depend on a later rule for its contrast.
+
+    axe measured 2.23:1 (below the 4.5:1 AA floor for 10 px text) wherever the
+    base ``.nav-count`` colour applied on the dark sidebar; the readable colour
+    lived only in a later override. Either declaration alone must now pass.
+    """
+
+    def test_base_nav_count_colour_is_readable_on_the_sidebar(self):
+        import re
+        css = (ROOT / 'assets/scout.css').read_text()
+
+        def luminance(value):
+            value = value.lstrip('#')
+            parts = [int(value[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+            linear = [(c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4) for c in parts]
+            return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+        navy = re.search(r'--navy:(#[0-9a-fA-F]{6})', css).group(1)
+        base = re.search(r'\.nav-count\{[^}]*color:(#[0-9a-fA-F]{6})', css).group(1)
+        lighter, darker = sorted((luminance(base), luminance(navy)), reverse=True)
+        ratio = (lighter + 0.05) / (darker + 0.05)
+        self.assertGreaterEqual(ratio, 4.5, f'base .nav-count colour {base} on {navy} is {ratio:.2f}:1')
