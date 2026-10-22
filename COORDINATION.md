@@ -292,12 +292,18 @@ While waiting for `AEB-3`, `gh run list --workflow checks.yml --limit 200` showe
   browser at 1440x844: the sidebar ended at y=844 and `.sidebar-repo` sat at y=860-875, i.e. below the
   fold and outside the painted sidebar, so the link could not be clicked at all. It only showed up in
   CI because font metrics decide whether the last item overflows.
-- **Fix 2 — layout:** `.sidebar` now has `overflow-y:auto` + `overscroll-behavior:contain`, and the
-  vertical gaps were tightened (`.brand` margin 53px → 22px, `.sidebar-bottom` padding-top 30px → 14px)
-  so the whole menu fits at 1440x844. Measured after the change: `.sidebar-repo` at y=813-828 at
-  1440x844 (inside the viewport, inside the sidebar), at 807-822 at 1024x844 and 808-822 at 768x844;
-  below 844px of height the sidebar scrolls instead of clipping.
-  New regression file `tests/browser/sidebar_fit.spec.mjs` (4 tests) pins both properties.
+- **Fix 2 — layout, shipped twice by two sessions.** This session tightened the sidebar spacing
+  (`.brand` 53px → 22px, `.sidebar-bottom` 30px → 14px) and gave `.sidebar` `overflow-y:auto` +
+  `overscroll-behavior:contain`; measured after that change, `.sidebar-repo` sat at y=813-828 at
+  1440x844 (inside the viewport and inside the sidebar), 807-822 at 1024x844 and 808-822 at 768x844.
+  While this branch waited, session `arena-ca4d2a02` independently diagnosed the same overflow and
+  merged an equivalent fix to `main` (`c536501`: `overflow-y:auto`, `.sidebar-repo` colour
+  #b9c9d3, and a `@media(min-width:701px) and (max-height:920px)` compaction block). That fix is
+  kept as merged; this branch does not duplicate it, and only adds `overscroll-behavior:contain` so
+  scrolling the sidebar cannot scroll the page underneath. The regression file
+  `tests/browser/sidebar_fit.spec.mjs` (4 tests) is kept: it pins the property that actually broke —
+  the last sidebar link must stay inside the sidebar and above the fold at 1440x844, 1024x844 and
+  768x844, and shorter viewports must scroll the sidebar instead of clipping it.
 - **Fix 3 — job cap:** the PR run of commit `5cc2673` was cancelled at exactly 30m13s while the
   *same commit* passed the push-triggered job in 25m52s. Shared-runner load, not code. `checks.yml`
   `timeout-minutes` 30 → 45, with the reason recorded in the workflow comment.

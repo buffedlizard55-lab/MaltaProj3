@@ -556,8 +556,9 @@ browser step now publishes each failure as an annotation
 ([`scripts/playwright-annotations.mjs`](scripts/playwright-annotations.mjs)). It immediately named a
 real defect: at 1440 px the sidebar's last link (`.sidebar-repo`, "Open-source & auditable") overflowed
 the fixed sidebar and was painted at y=860 in an 844 px viewport, outside its own navy panel — 2.23:1
-against the page background and not clickable. The sidebar now scrolls when it cannot fit and its
-vertical spacing is tight enough for a laptop viewport, pinned by
+against the page background and not clickable. Session `arena-ca4d2a02` reached the same conclusion
+and its fix is the one on `main` (`c536501`); this branch keeps that fix, adds
+`overscroll-behavior:contain`, and pins the behaviour with
 [`tests/browser/sidebar_fit.spec.mjs`](tests/browser/sidebar_fit.spec.mjs). The job cap is 45 minutes
 because the identical commit took 12 minutes idle and 25m52s on a loaded runner. `5cc2673` passed the
-full check job.
+full check job, and the merged head passed it again in 9m32s.
