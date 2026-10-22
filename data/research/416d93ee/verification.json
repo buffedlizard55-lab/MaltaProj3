@@ -1,61 +1,49 @@
 {
   "schema_version": 1,
   "session": "416d93ee",
-  "observed_at": "2026-10-22T01:19:44Z",
+  "observed_at": "2026-10-22T01:30:26Z",
   "purpose": "Independent verification of the published picks; read-only, no pick is written.",
   "published_source": "https://buffedlizard55-lab.github.io/MaltaProj3",
   "published": {
-    "generated_at": "2026-10-22T01:06:32Z",
-    "inventory_observed_at": "2026-10-22T01:06:14Z",
+    "generated_at": "2026-10-15T08:36:13Z",
+    "inventory_observed_at": "2026-10-15T08:36:04Z",
     "coverage_complete": true,
     "counts": {
-      "inventory": 97,
-      "upcoming": 35,
-      "archived": 62,
+      "inventory": 80,
+      "upcoming": 17,
+      "archived": 63,
       "unknown_schedule": 0,
-      "market": 5,
+      "market": 7,
       "bookmaker": 1,
-      "model": 16,
-      "unresolved": 13,
-      "picks": 21,
-      "no_edge": 1
+      "model": 5,
+      "unresolved": 4,
+      "picks": 13,
+      "no_edge": 0
     },
     "origination_counts": {
-      "active": 35,
-      "resolved": 35,
+      "active": 17,
+      "resolved": 17,
       "unresolved": 0,
-      "with_pick": 34,
-      "consensus": 1,
-      "market": 6,
-      "bookmaker": 1,
-      "reference": 0,
-      "model": 27,
-      "network": 4,
-      "guidance": 0,
-      "alias_joined": 2
+      "with_pick": 17,
+      "consensus": 0,
+      "market": 7,
+      "bookmaker": 5,
+      "model": 5,
+      "alias_joined": 4
     },
-    "origination_source_snapshot_at": "2026-10-22T01:06:14Z"
+    "origination_source_snapshot_at": "2026-10-15T08:36:04Z"
   },
   "pick_coverage": {
-    "records": 35,
-    "active": 35,
-    "active_with_probabilities": 35,
-    "active_with_pick": 34,
-    "active_without_pick": [
-      {
-        "id": "1079654",
-        "teams": [
-          "ex-Zero Tenacity",
-          "ex-RUSTEC"
-        ],
-        "reason": "Hotspawn best-of format is unverified; left blank."
-      }
-    ],
+    "records": 17,
+    "active": 17,
+    "active_with_probabilities": 17,
+    "active_with_pick": 17,
+    "active_without_pick": [],
     "active_without_any_probability": []
   },
   "arithmetic": {
-    "rows_with_probabilities": 35,
-    "replayed": 35,
+    "rows_with_probabilities": 17,
+    "replayed": 17,
     "rounding_only": 0,
     "mismatch": [],
     "not_replayable": [],
@@ -64,41 +52,8 @@
     "sum_mismatches": []
   },
   "label_consistency": {
-    "checked": 35,
-    "issues": [
-      {
-        "id": "1079188",
-        "label": "Research model estimate (Valve official ratings)",
-        "provider": "Own network model (bo3.gg results graph)",
-        "family": "network",
-        "expected": "an own-network label",
-        "detail": "the row is priced from our own bo3.gg Bradley-Terry fit but the label names another method"
-      },
-      {
-        "id": "1081597",
-        "label": "Research model estimate (Valve official ratings)",
-        "provider": "Own network model (bo3.gg results graph)",
-        "family": "network",
-        "expected": "an own-network label",
-        "detail": "the row is priced from our own bo3.gg Bradley-Terry fit but the label names another method"
-      },
-      {
-        "id": "1082769",
-        "label": "Research model estimate (Valve official ratings)",
-        "provider": "Own network model (bo3.gg results graph)",
-        "family": "network",
-        "expected": "an own-network label",
-        "detail": "the row is priced from our own bo3.gg Bradley-Terry fit but the label names another method"
-      },
-      {
-        "id": "1082858",
-        "label": "Research model estimate (Valve official ratings)",
-        "provider": "Own network model (bo3.gg results graph)",
-        "family": "network",
-        "expected": "an own-network label",
-        "detail": "the row is priced from our own bo3.gg Bradley-Terry fit but the label names another method"
-      }
-    ]
+    "checked": 17,
+    "issues": []
   },
   "official_inputs": {
     "valve_snapshots_read": [
@@ -108,625 +63,130 @@
     "hltv_rows_parsed": 253,
     "checks": [
       {
-        "id": "1079188",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1079650",
+        "id": "1080202",
         "label": "Valve-rating research estimate",
         "checks": [
           {
             "source": "Valve",
-            "name": "GenOne",
-            "row_points": 1185,
-            "valve_points": 1185.0,
+            "name": "9z",
+            "row_points": 1543,
+            "valve_points": 1543.0,
             "candidates": [
-              1185.0
+              1543.0
             ],
             "status": "match"
           },
           {
             "source": "Valve",
-            "name": "Spirit Academy",
-            "row_points": 981,
-            "valve_points": 981.0,
+            "name": "Falcons",
+            "row_points": 1843,
+            "valve_points": 1843.0,
             "candidates": [
-              981.0
+              1843.0
             ],
             "status": "match"
           }
         ]
       },
       {
-        "id": "1081143",
+        "id": "1080203",
         "label": "Valve-rating research estimate",
         "checks": [
           {
             "source": "Valve",
-            "name": "BAKS",
-            "row_points": 1044,
-            "valve_points": 1044.0,
+            "name": "PARIVISION",
+            "row_points": 1411,
+            "valve_points": 1411.0,
             "candidates": [
-              1044.0
+              1411.0
             ],
             "status": "match"
           },
           {
             "source": "Valve",
-            "name": "Azuolas",
-            "row_points": 863,
-            "valve_points": 863.0,
+            "name": "BETBOOM",
+            "row_points": 1596,
+            "valve_points": 1596.0,
             "candidates": [
-              863.0
+              1596.0
             ],
             "status": "match"
           }
         ]
       },
       {
-        "id": "1079651",
+        "id": "1080282",
         "label": "Valve-rating research estimate",
         "checks": [
           {
             "source": "Valve",
-            "name": "Butterfly",
-            "row_points": 1082,
-            "valve_points": 1082.0,
+            "name": "EAC",
+            "row_points": 1035,
+            "valve_points": 1035.0,
             "candidates": [
-              1082.0
+              1035.0
             ],
             "status": "match"
           },
           {
             "source": "Valve",
-            "name": "Lavked",
-            "row_points": 862,
-            "valve_points": 862.0,
+            "name": "BOJONG",
+            "row_points": 463,
+            "valve_points": 463.0,
             "candidates": [
-              862.0
+              463.0
             ],
             "status": "match"
           }
         ]
       },
       {
-        "id": "1081596",
+        "id": "1080284",
         "label": "Valve-rating research estimate",
         "checks": [
           {
             "source": "Valve",
-            "name": "Falcons Force",
-            "row_points": 806,
-            "valve_points": 806.0,
+            "name": "EAC",
+            "row_points": 1035,
+            "valve_points": 1035.0,
             "candidates": [
-              806.0
+              1035.0
             ],
             "status": "match"
           },
           {
             "source": "Valve",
-            "name": "Phantom Academy",
-            "row_points": 783,
-            "valve_points": 783.0,
+            "name": "ENCE",
+            "row_points": 1025,
+            "valve_points": 1025.0,
             "candidates": [
-              783.0
+              1025.0
             ],
             "status": "match"
           }
         ]
       },
       {
-        "id": "1081597",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1082767",
+        "id": "1081120",
         "label": "Valve-rating research estimate",
         "checks": [
           {
             "source": "Valve",
-            "name": "Nemesis",
-            "row_points": 1455,
-            "valve_points": 1455.0,
+            "name": "mellren",
+            "row_points": 932,
+            "valve_points": 932.0,
             "candidates": [
-              1455.0
+              932.0
             ],
             "status": "match"
           },
           {
             "source": "Valve",
-            "name": "WW",
-            "row_points": 1023,
-            "valve_points": 1023.0,
+            "name": "Privateer",
+            "row_points": 608,
+            "valve_points": 608.0,
             "candidates": [
-              1023.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1081600",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "DONSTU",
-            "row_points": 732,
-            "valve_points": 732.0,
-            "candidates": [
-              732.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Banda Chuya",
-            "row_points": 801,
-            "valve_points": null,
-            "candidates": [
-              801.0,
-              402.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1079652",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Acend",
-            "row_points": 1197,
-            "valve_points": 1197.0,
-            "candidates": [
-              1197.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "6666",
-            "row_points": 923,
-            "valve_points": null,
-            "candidates": [
-              923.0,
-              425.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1081145",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Lavked",
-            "row_points": 862,
-            "valve_points": 862.0,
-            "candidates": [
-              862.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "HAVU",
-            "row_points": 937,
-            "valve_points": 937.0,
-            "candidates": [
-              937.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1082882",
-        "label": "Own results-based estimate (bo3.gg series results)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own results-based model (bo3.gg series results); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1079653",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Rune Eaters",
-            "row_points": 1110,
-            "valve_points": 1110.0,
-            "candidates": [
-              1110.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "FORZE Reload",
-            "row_points": 1100,
-            "valve_points": 1100.0,
-            "candidates": [
-              1100.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1081146",
-        "label": "Own results-based estimate (bo3.gg series results)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own results-based model (bo3.gg series results); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1082769",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1081871",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Lynn Vision",
-            "row_points": 1190,
-            "valve_points": 1190.0,
-            "candidates": [
-              1190.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Chinggis Warriors",
-            "row_points": 1084,
-            "valve_points": null,
-            "candidates": [
-              1084.0,
-              685.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1079654",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "ex-Zero Tenacity",
-            "row_points": 1066,
-            "valve_points": 1066.0,
-            "candidates": [
-              1066.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "ex-RUSTEC",
-            "row_points": 1066,
-            "valve_points": null,
-            "candidates": [
-              1066.0,
-              824.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1079655",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Nuclear TigeRES",
-            "row_points": 1324,
-            "valve_points": 1324.0,
-            "candidates": [
-              1324.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Illyrians",
-            "row_points": 862,
-            "valve_points": 862.0,
-            "candidates": [
-              862.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1081148",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Inner Circle Academy",
-            "row_points": 1064,
-            "valve_points": 1064.0,
-            "candidates": [
-              1064.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Spirit Academy",
-            "row_points": 981,
-            "valve_points": 981.0,
-            "candidates": [
-              981.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1081149",
-        "label": "Research model estimate (HLTV world ranking)",
-        "checks": [
-          {
-            "source": "HLTV",
-            "name": "FORZE Reload",
-            "row_points": 11.0,
-            "hltv_points": 11.0,
-            "status": "match"
-          },
-          {
-            "source": "HLTV",
-            "name": "LFO 10",
-            "row_points": 4.0,
-            "hltv_points": 4.0,
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1079657",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "BAKS",
-            "row_points": 1044,
-            "valve_points": 1044.0,
-            "candidates": [
-              1044.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "BRUTE",
-            "row_points": 1116,
-            "valve_points": null,
-            "candidates": [
-              1116.0,
-              689.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1081150",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "ex-RUSTEC",
-            "row_points": 1066,
-            "valve_points": null,
-            "candidates": [
-              1066.0,
-              824.0
-            ],
-            "status": "ambiguous-name"
-          },
-          {
-            "source": "Valve",
-            "name": "Saint Sinners",
-            "row_points": 810,
-            "valve_points": 810.0,
-            "candidates": [
-              810.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1082858",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "own-model",
-            "name": "-",
-            "row_points": null,
-            "valve_points": null,
-            "status": "not-an-official-rating-row",
-            "detail": "priced from Own network model (bo3.gg results graph); Valve/HLTV rows are not its inputs"
-          }
-        ]
-      },
-      {
-        "id": "1082859",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "NEXVOID",
-            "row_points": 995,
-            "valve_points": 995.0,
-            "candidates": [
-              995.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Alter Ego",
-            "row_points": 819,
-            "valve_points": 819.0,
-            "candidates": [
-              819.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1082860",
-        "label": "Research model estimate (HLTV world ranking · unranked floor)",
-        "checks": [
-          {
-            "source": "HLTV",
-            "name": "FlyQuest",
-            "row_points": 16.0,
-            "hltv_points": 16.0,
-            "status": "match"
-          },
-          {
-            "source": "HLTV",
-            "name": "Staqued",
-            "row_points": 0.0,
-            "hltv_points": null,
-            "status": "not-in-top-listing"
-          }
-        ]
-      },
-      {
-        "id": "1082861",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "Rooster",
-            "row_points": 718,
-            "valve_points": 718.0,
-            "candidates": [
-              718.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "Abyssal",
-            "row_points": 734,
-            "valve_points": 734.0,
-            "candidates": [
-              734.0
-            ],
-            "status": "match"
-          }
-        ]
-      },
-      {
-        "id": "1082792",
-        "label": "Research model estimate (Valve official ratings)",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "HOTU",
-            "row_points": 1437,
-            "valve_points": 1437.0,
-            "candidates": [
-              1437.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "The Huns",
-            "row_points": 944,
-            "valve_points": null,
-            "candidates": [
-              944.0,
-              701.0
-            ],
-            "status": "ambiguous-name"
-          }
-        ]
-      },
-      {
-        "id": "1082793",
-        "label": "Valve-rating research estimate",
-        "checks": [
-          {
-            "source": "Valve",
-            "name": "5star",
-            "row_points": 1110,
-            "valve_points": 1110.0,
-            "candidates": [
-              1110.0
-            ],
-            "status": "match"
-          },
-          {
-            "source": "Valve",
-            "name": "1win",
-            "row_points": 1383,
-            "valve_points": 1383.0,
-            "candidates": [
-              1383.0
+              608.0
             ],
             "status": "match"
           }
@@ -736,7 +196,7 @@
   },
   "hotspawn": {
     "api_http": 200,
-    "api_sha256": "d3023ec90f9f1d4d3c97da08bb55fa06d1494003c909ca63c6df9bd62e60daac",
+    "api_sha256": "b828caa9bd2c4392a1791ee032b6fc67850022e82928f7eb6c40e646e6b48feb",
     "lobby_http": 200,
     "cs2_lobby_http": 200,
     "lobby": {
@@ -817,580 +277,73 @@
       "lobby_cs2_all_tiers": 97,
       "lobby_this_week": 170,
       "api_records": 97,
-      "published_inventory": 97,
-      "published_upcoming": 35,
+      "published_inventory": 80,
+      "published_upcoming": 17,
       "lobby_equals_api": true,
-      "lobby_equals_published_inventory": true
+      "lobby_equals_published_inventory": false
     },
     "inventory_compare": {
       "api_records": 97,
       "api_future": 35,
       "api_past_start_but_scheduled": 62,
-      "published_open": 35,
-      "missing_from_site": [],
-      "published_but_not_in_api": [],
-      "per_fixture": [
-        {
-          "id": "1079188",
-          "teams_match": true,
-          "api_teams": [
-            "Bushido Wildcats",
-            "ex-6666"
-          ],
-          "published_teams": [
-            "Bushido Wildcats",
-            "ex-6666"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T08:00:00Z",
-          "published_start": "2026-10-22T08:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079189",
-          "teams_match": true,
-          "api_teams": [
-            "FORZE Reload",
-            "Just Players"
-          ],
-          "published_teams": [
-            "FORZE Reload",
-            "Just Players"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T11:00:00Z",
-          "published_start": "2026-10-22T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079650",
-          "teams_match": true,
-          "api_teams": [
-            "GenOne",
-            "Spirit Academy"
-          ],
-          "published_teams": [
-            "GenOne",
-            "Spirit Academy"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T08:00:00Z",
-          "published_start": "2026-10-22T08:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079651",
-          "teams_match": true,
-          "api_teams": [
-            "Butterfly",
-            "Lavked"
-          ],
-          "published_teams": [
-            "Butterfly",
-            "Lavked"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T11:00:00Z",
-          "published_start": "2026-10-22T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079652",
-          "teams_match": true,
-          "api_teams": [
-            "Acend",
-            "ex-6666"
-          ],
-          "published_teams": [
-            "Acend",
-            "ex-6666"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T14:00:00Z",
-          "published_start": "2026-10-22T14:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079653",
-          "teams_match": true,
-          "api_teams": [
-            "Rune Eaters",
-            "FORZE Reload"
-          ],
-          "published_teams": [
-            "Rune Eaters",
-            "FORZE Reload"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T17:00:00Z",
-          "published_start": "2026-10-22T17:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079654",
-          "teams_match": true,
-          "api_teams": [
-            "ex-Zero Tenacity",
-            "ex-RUSTEC"
-          ],
-          "published_teams": [
-            "ex-Zero Tenacity",
-            "ex-RUSTEC"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T08:00:00Z",
-          "published_start": "2026-10-23T08:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079655",
-          "teams_match": true,
-          "api_teams": [
-            "Nuclear TigeRES",
-            "ILLYRIANS"
-          ],
-          "published_teams": [
-            "Nuclear TigeRES",
-            "ILLYRIANS"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T11:00:00Z",
-          "published_start": "2026-10-23T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1079657",
-          "teams_match": true,
-          "api_teams": [
-            "BakS",
-            "BRUTE"
-          ],
-          "published_teams": [
-            "BakS",
-            "BRUTE"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T17:00:00Z",
-          "published_start": "2026-10-23T17:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081143",
-          "teams_match": true,
-          "api_teams": [
-            "BakS",
-            "Azuolas"
-          ],
-          "published_teams": [
-            "BakS",
-            "Azuolas"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T08:00:00Z",
-          "published_start": "2026-10-22T08:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081145",
-          "teams_match": true,
-          "api_teams": [
-            "Lavked",
-            "HAVU"
-          ],
-          "published_teams": [
-            "Lavked",
-            "HAVU"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T14:00:00Z",
-          "published_start": "2026-10-22T14:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081146",
-          "teams_match": true,
-          "api_teams": [
-            "6yuBoJlbl",
-            "ex-6666"
-          ],
-          "published_teams": [
-            "6yuBoJlbl",
-            "ex-6666"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T17:00:00Z",
-          "published_start": "2026-10-22T17:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081148",
-          "teams_match": true,
-          "api_teams": [
-            "Inner Circle Academy",
-            "Spirit Academy"
-          ],
-          "published_teams": [
-            "Inner Circle Academy",
-            "Spirit Academy"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T11:00:00Z",
-          "published_start": "2026-10-23T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081149",
-          "teams_match": true,
-          "api_teams": [
-            "FORZE Reload",
-            "LFO 10"
-          ],
-          "published_teams": [
-            "FORZE Reload",
-            "LFO 10"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T14:00:00Z",
-          "published_start": "2026-10-23T14:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081150",
-          "teams_match": true,
-          "api_teams": [
-            "ex-RUSTEC",
-            "Saint Sinners"
-          ],
-          "published_teams": [
-            "ex-RUSTEC",
-            "Saint Sinners"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T17:00:00Z",
-          "published_start": "2026-10-23T17:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081596",
-          "teams_match": true,
-          "api_teams": [
-            "Falcons Force",
-            "Phantom Academy"
-          ],
-          "published_teams": [
-            "Falcons Force",
-            "Phantom Academy"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T11:00:00Z",
-          "published_start": "2026-10-22T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081597",
-          "teams_match": true,
-          "api_teams": [
-            "benched gods",
-            "TitanFlow"
-          ],
-          "published_teams": [
-            "benched gods",
-            "TitanFlow"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T11:00:00Z",
-          "published_start": "2026-10-22T11:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081598",
-          "teams_match": true,
-          "api_teams": [
-            "JiJieHao",
-            "Nexus"
-          ],
-          "published_teams": [
-            "JiJieHao",
-            "Nexus"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T13:00:00Z",
-          "published_start": "2026-10-22T13:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081600",
-          "teams_match": true,
-          "api_teams": [
-            "Donstu",
-            "Banda chuya"
-          ],
-          "published_teams": [
-            "Donstu",
-            "Banda chuya"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T13:45:00Z",
-          "published_start": "2026-10-22T13:45:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081869",
-          "teams_match": true,
-          "api_teams": [
-            "Morningstar",
-            "NEXVOID"
-          ],
-          "published_teams": [
-            "Morningstar",
-            "NEXVOID"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T03:00:00Z",
-          "published_start": "2026-10-22T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081870",
-          "teams_match": true,
-          "api_teams": [
-            "Vitalem Aerem",
-            "Rare Atom"
-          ],
-          "published_teams": [
-            "Vitalem Aerem",
-            "Rare Atom"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T05:00:00Z",
-          "published_start": "2026-10-22T05:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1081871",
-          "teams_match": true,
-          "api_teams": [
-            "Lynn Vision",
-            "Chinggis Warriors"
-          ],
-          "published_teams": [
-            "Lynn Vision",
-            "Chinggis Warriors"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-23T03:00:00Z",
-          "published_start": "2026-10-23T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082180",
-          "teams_match": true,
-          "api_teams": [
-            "Sangal",
-            "Metizport"
-          ],
-          "published_teams": [
-            "Sangal",
-            "Metizport"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T16:30:00Z",
-          "published_start": "2026-10-22T16:30:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082688",
-          "teams_match": true,
-          "api_teams": [
-            "Imperial",
-            "Turma do Pagode"
-          ],
-          "published_teams": [
-            "Imperial",
-            "Turma do Pagode"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T14:00:00Z",
-          "published_start": "2026-10-22T14:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082689",
-          "teams_match": true,
-          "api_teams": [
-            "BESTIA",
-            "ShindeN"
-          ],
-          "published_teams": [
-            "BESTIA",
-            "ShindeN"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T14:00:00Z",
-          "published_start": "2026-10-22T14:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082767",
-          "teams_match": true,
-          "api_teams": [
-            "Nemesis",
-            "WW"
-          ],
-          "published_teams": [
-            "Nemesis",
-            "WW"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T11:30:00Z",
-          "published_start": "2026-10-22T11:30:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082769",
-          "teams_match": true,
-          "api_teams": [
-            "K27",
-            "NEXORA"
-          ],
-          "published_teams": [
-            "K27",
-            "NEXORA"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T17:30:00Z",
-          "published_start": "2026-10-22T17:30:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082770",
-          "teams_match": true,
-          "api_teams": [
-            "UPGRADE",
-            "Virtus.pro"
-          ],
-          "published_teams": [
-            "UPGRADE",
-            "Virtus.pro"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T20:30:00Z",
-          "published_start": "2026-10-22T20:30:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082792",
-          "teams_match": true,
-          "api_teams": [
-            "HOTU",
-            "The Huns"
-          ],
-          "published_teams": [
-            "HOTU",
-            "The Huns"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-31T09:00:00Z",
-          "published_start": "2026-10-31T09:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082793",
-          "teams_match": true,
-          "api_teams": [
-            "5star",
-            "1WIN"
-          ],
-          "published_teams": [
-            "5star",
-            "1WIN"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-31T13:00:00Z",
-          "published_start": "2026-10-31T13:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082858",
-          "teams_match": true,
-          "api_teams": [
-            "Ground Zero",
-            "Off Chops"
-          ],
-          "published_teams": [
-            "Ground Zero",
-            "Off Chops"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-26T03:00:00Z",
-          "published_start": "2026-10-26T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082859",
-          "teams_match": true,
-          "api_teams": [
-            "NEXVOID",
-            "Alter Ego"
-          ],
-          "published_teams": [
-            "NEXVOID",
-            "Alter Ego"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-26T03:00:00Z",
-          "published_start": "2026-10-26T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082860",
-          "teams_match": true,
-          "api_teams": [
-            "FlyQuest",
-            "Staqued"
-          ],
-          "published_teams": [
-            "FlyQuest",
-            "Staqued"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-27T03:00:00Z",
-          "published_start": "2026-10-27T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082861",
-          "teams_match": true,
-          "api_teams": [
-            "Rooster",
-            "Abyssal"
-          ],
-          "published_teams": [
-            "Rooster",
-            "Abyssal"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-27T03:00:00Z",
-          "published_start": "2026-10-27T03:00:00Z",
-          "competition_match": true
-        },
-        {
-          "id": "1082882",
-          "teams_match": true,
-          "api_teams": [
-            "UNiTY",
-            "Apogee Betclic"
-          ],
-          "published_teams": [
-            "UNiTY",
-            "Apogee Betclic"
-          ],
-          "start_delta_sec": 0,
-          "api_start": "2026-10-22T14:00:00Z",
-          "published_start": "2026-10-22T14:00:00Z",
-          "competition_match": true
-        }
+      "published_open": 17,
+      "missing_from_site": [
+        "1079188",
+        "1079189",
+        "1079650",
+        "1079651",
+        "1079652",
+        "1079653",
+        "1079654",
+        "1079655",
+        "1079657",
+        "1081143",
+        "1081145",
+        "1081146",
+        "1081148",
+        "1081149",
+        "1081150",
+        "1081596",
+        "1081597",
+        "1081598",
+        "1081600",
+        "1081869",
+        "1081870",
+        "1081871",
+        "1082180",
+        "1082688",
+        "1082689",
+        "1082767",
+        "1082769",
+        "1082770",
+        "1082792",
+        "1082793",
+        "1082858",
+        "1082859",
+        "1082860",
+        "1082861",
+        "1082882"
       ],
+      "published_but_not_in_api": [
+        "1079440",
+        "1079442",
+        "1080202",
+        "1080203",
+        "1080204",
+        "1080280",
+        "1080281",
+        "1080282",
+        "1080283",
+        "1080284",
+        "1080285",
+        "1080286",
+        "1080287",
+        "1080288",
+        "1080289",
+        "1080290",
+        "1081120"
+      ],
+      "per_fixture": [],
       "all_teams_match": true,
       "all_starts_within_60s": true,
       "all_competitions_match": true
@@ -1401,16 +354,20 @@
   },
   "phone": {
     "viewport_meta": true,
-    "nav_landmarks": 5,
+    "nav_landmarks": 3,
     "skip_link": true,
-    "internal_links": 160,
+    "internal_links": 84,
     "pick_index_links": [
       "./origination/#picks"
     ],
     "has_unresolved_section": true,
-    "mentions_every_match": true,
-    "picks_page_table_rows": 35,
+    "mentions_every_match": false,
+    "picks_page_table_rows": 17,
     "unresolved_page_present": false
+  },
+  "unresolved_register": {
+    "published_on_summary": true,
+    "rows_checked": []
   },
   "verdicts": [
     {
@@ -1418,8 +375,16 @@
       "pass": true
     },
     {
-      "check": "every_active_fixture_has_a_directional_pick",
-      "pass": false
+      "check": "every_active_fixture_shows_a_probability_on_the_summary",
+      "pass": true
+    },
+    {
+      "check": "every_active_fixture_has_a_pick_or_a_published_even_estimate",
+      "pass": true
+    },
+    {
+      "check": "every_side_less_row_is_listed_in_the_unresolved_register",
+      "pass": true
     },
     {
       "check": "every_published_probability_replays_from_its_own_inputs",
@@ -1431,11 +396,11 @@
     },
     {
       "check": "every_published_label_names_the_evidence_it_uses",
-      "pass": false
+      "pass": true
     },
     {
       "check": "every_future_dated_hotspawn_fixture_is_published",
-      "pass": true
+      "pass": false
     },
     {
       "check": "published_fixture_teams_and_times_match_the_api",
@@ -1447,123 +412,122 @@
     }
   ],
   "failures": [
-    "every_active_fixture_has_a_directional_pick",
-    "every_published_label_names_the_evidence_it_uses"
+    "every_future_dated_hotspawn_fixture_is_published"
   ],
   "requests": [
     {
       "label": "live-latest",
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=416d93ee-1792631984",
-      "observed_at": "2026-10-22T01:19:44Z",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=416d93ee-1792632626",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
-      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=416d93ee-1792631984",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=416d93ee-1792632626",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:44 GMT",
-      "bytes": 332253,
-      "sha256": "f4d4734af49240bb282d3561c6ec2b374fea234248e571a05dc5058687502d94",
+      "response_date": "Thu, 22 Oct 2026 01:30:26 GMT",
+      "bytes": 201016,
+      "sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
       "saved_as": "live-latest.json",
       "ok": true
     },
     {
       "label": "live-origination",
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=416d93ee-1792631984",
-      "observed_at": "2026-10-22T01:19:44Z",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=416d93ee-1792632626",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
-      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=416d93ee-1792631984",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=416d93ee-1792632626",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:44 GMT",
-      "bytes": 305220,
-      "sha256": "8436034b9e8f86b6638a60f1c531ca235fe2fd3c1e4d6c2b3a8dc251bcbab96e",
+      "response_date": "Thu, 22 Oct 2026 01:30:26 GMT",
+      "bytes": 88452,
+      "sha256": "661ac8ff3a202e6ffc6dc2da8d57d94c91653ff71dfa790b1448422bf02ff5b2",
       "saved_as": "live-origination.json",
       "ok": true
     },
     {
       "label": "live-summary",
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=416d93ee-1792631984",
-      "observed_at": "2026-10-22T01:19:44Z",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=416d93ee-1792632626",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
-      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=416d93ee-1792631984",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=416d93ee-1792632626",
       "content_type": "text/html; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:44 GMT",
-      "bytes": 165454,
-      "sha256": "63ab6f661c1d295432dc5dc1a2236212cd5283b97927be926d0b0d9e86ead761",
+      "response_date": "Thu, 22 Oct 2026 01:30:26 GMT",
+      "bytes": 77589,
+      "sha256": "6559dede30a362e26c39358a6b57759feaa433b00f6fcfd324f8ef32fb48e51f",
       "ok": true
     },
     {
       "label": "live-picks",
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/?cb=416d93ee-1792631984",
-      "observed_at": "2026-10-22T01:19:44Z",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/?cb=416d93ee-1792632626",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
-      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/?cb=416d93ee-1792631984",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/?cb=416d93ee-1792632626",
       "content_type": "text/html; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:45 GMT",
-      "bytes": 517178,
-      "sha256": "87065f233c655b72d691baa794dba2f6e5f7f59971596caedfb364fa6d4bdf50",
+      "response_date": "Thu, 22 Oct 2026 01:30:26 GMT",
+      "bytes": 218424,
+      "sha256": "6a65b086060073cb5e5df45e8af299edf4bb2d5def620b8cb38066093c878adf",
       "ok": true
     },
     {
       "label": "valve-standings-2026-10-05",
       "url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
-      "observed_at": "2026-10-22T01:19:45Z",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
       "final_url": "https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md",
       "content_type": "text/plain; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:45 GMT",
+      "response_date": "Thu, 22 Oct 2026 01:30:26 GMT",
       "bytes": 77872,
       "sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
-      "saved_as": "valve-standings-2026-10-05.html",
+      "saved_as": "valve-standings-2026-10-05.html.txt",
       "ok": true
     },
     {
       "label": "hltv-ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-22T01:19:45Z",
+      "observed_at": "2026-10-22T01:30:26Z",
       "http_status": 200,
       "final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:45 GMT",
-      "bytes": 1078692,
-      "sha256": "796ff8b98f68161f884f0ae0234bf4be5c5a322f77ef0186fc8abd9d8d92b799",
-      "saved_as": "hltv-ranking.html",
+      "response_date": "Thu, 22 Oct 2026 01:30:27 GMT",
+      "bytes": 1070296,
+      "sha256": "e2f5f86ca03180ceb89e84e0d72616eea4383e765405e3cb9113721619bdc60f",
+      "saved_as": "hltv-ranking.html.txt",
       "ok": true
     },
     {
       "label": "hotspawn-fixtures",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "observed_at": "2026-10-22T01:19:46Z",
+      "observed_at": "2026-10-22T01:30:28Z",
       "http_status": 200,
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:46 GMT",
-      "bytes": 77256,
-      "sha256": "d3023ec90f9f1d4d3c97da08bb55fa06d1494003c909ca63c6df9bd62e60daac",
+      "response_date": "Thu, 22 Oct 2026 01:30:28 GMT",
+      "bytes": 77260,
+      "sha256": "b828caa9bd2c4392a1791ee032b6fc67850022e82928f7eb6c40e646e6b48feb",
       "saved_as": "hotspawn-fixtures.json",
       "ok": true
     },
     {
       "label": "hotspawn-lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792631984",
-      "observed_at": "2026-10-22T01:19:46Z",
+      "url": "https://play.hotspawn.com/lobby?cb=1792632626",
+      "observed_at": "2026-10-22T01:30:28Z",
       "http_status": 200,
-      "final_url": "https://play.hotspawn.com/lobby?cb=1792631984",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792632626",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:48 GMT",
-      "bytes": 477967,
-      "sha256": "e019d35e0adb463e62761814c9d646564a63352bed95ddb954ba0f8d5f2e639b",
-      "saved_as": "hotspawn-lobby.html",
+      "response_date": "Thu, 22 Oct 2026 01:30:30 GMT",
+      "bytes": 477972,
+      "sha256": "3dc8f7d27a83ed8ad98c04e117ef137db7dddc555fdb29313b1cf9d882c64094",
+      "saved_as": "hotspawn-lobby.html.txt",
       "ok": true
     },
     {
       "label": "hotspawn-cs2-lobby",
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792631984",
-      "observed_at": "2026-10-22T01:19:48Z",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792632626",
+      "observed_at": "2026-10-22T01:30:30Z",
       "http_status": 200,
-      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792631984",
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792632626",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Thu, 22 Oct 2026 01:19:48 GMT",
-      "bytes": 476673,
-      "sha256": "2e8b6acb3c258a0f4afedccf79c33f83ff8081aa3c01f0878531a308ec8b5c45",
-      "saved_as": "hotspawn-cs2-lobby.html",
+      "response_date": "Thu, 22 Oct 2026 01:30:31 GMT",
+      "bytes": 476678,
+      "sha256": "18fb0263e24f77837516800063c6389d78b7e752e65ce6f05418a563fd4b521e",
+      "saved_as": "hotspawn-cs2-lobby.html.txt",
       "ok": true
     }
   ],
