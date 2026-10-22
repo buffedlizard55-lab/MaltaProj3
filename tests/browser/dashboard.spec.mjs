@@ -2,7 +2,9 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs/promises';
 
-const routes = ['/', '/picks/', '/edge/', '/twc-picks/', '/coverage/', '/methodology/', '/review/'];
+// Session ee27e097: the dedicated unresolved/limitations page is a current view and
+// is held to the same phone, overflow and WCAG A/AA checks as every other page.
+const routes = ['/', '/picks/', '/unresolved/', '/edge/', '/twc-picks/', '/coverage/', '/methodology/', '/review/'];
 
 for (const width of [320, 390, 768, 1440]) {
   test(`all current pages are readable without horizontal overflow at ${width}px`, async ({ page }) => {
@@ -28,7 +30,7 @@ test('phone navigation reaches the full picks list in one tap', async ({ page })
   await expect(page.locator('.pick-card')).not.toHaveCount(0);
   await page.goto('/');
   const phoneNav = page.getByRole('navigation', { name: 'Mobile navigation' });
-  await expect(phoneNav.getByRole('link')).toHaveCount(6);
+  await expect(phoneNav.getByRole('link')).toHaveCount(7);
   await phoneNav.getByRole('link', { name: 'Methods', exact: true }).click();
   await expect(page).toHaveURL(/\/methodology\/$/);
 });
