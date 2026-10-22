@@ -261,6 +261,34 @@ def stage_rows(latest: dict, origination: dict, published_data: Path) -> tuple:
         expected, how = None, None
         method = basis.get('method')
         quotes = basis.get('quotes') or []
+        # Label consistency (independent of the replay arithmetic): a model
+        # row's label must name the evidence family the estimate actually came
+        # from. Checked only for researched-fallback rows, whose labels come
+        # from originate.py's ladder vocabulary (the featured pipeline in
+        # domain.py has its own, e.g. 'Valve-rating research estimate').
+        # Observed defect 2026-10-22: originate.py's selection branch
+        # labels a family='network' estimate 'Research model estimate (Valve
+        # official ratings)' because the network rung overwrites `model`
+        # upstream (change-request logged for the originate.py owner). Recorded
+        # per row, never a replay failure — the probabilities themselves are
+        # right; only the provenance label/limitations text is the defect.
+        if method == 'model' and basis_kind == 'researched-fallback':
+            fam = str(basis.get('family') or '')
+            label = str(basis.get('label') or '')
+            provider = str(basis.get('source') or '')
+            if fam == 'network':
+                expected_label = 'Own network estimate (bo3.gg results graph)'
+            elif fam == 'form':
+                expected_label = 'Own results-based estimate (bo3.gg series results)'
+            elif 'HLTV' in provider:
+                expected_label = 'Research model estimate (HLTV'
+            elif fam == 'model':
+                expected_label = 'Research model estimate (Valve official ratings)'
+            else:
+                expected_label = None
+            if expected_label and not label.startswith(expected_label):
+                record['label_mismatch'] = (f'label {label!r} does not match family={fam!r} '
+                                            f'provider={provider!r} (expected {expected_label!r} prefix)')
         try:
             if basis_kind == 'featured':
                 expected = recalc_featured(basis)
@@ -673,7 +701,8 @@ def main() -> int:
                                'blank': sum(1 for r in rows if not r.get('has_estimate')),
                                'replay_pass': sum(1 for r in rows if r.get('verdict') == 'replay-pass'),
                                'replay_fail': sum(1 for r in rows if r.get('verdict') == 'replay-fail'),
-                               'recompute_unavailable': sum(1 for r in rows if r.get('verdict') == 'recompute-unavailable')}
+                               'recompute_unavailable': sum(1 for r in rows if r.get('verdict') == 'recompute-unavailable'),
+                               'label_mismatch': sum(1 for r in rows if r.get('label_mismatch'))}
         for fixture_id, detail in row_failures:
             hard_failures.append(f'row {fixture_id}: {detail}')
 
@@ -742,13 +771,32 @@ def main() -> int:
                                  'the next scheduled refresh can be compared, not silently corrected here. Details in '
                                  'data/research/5f6fe71d/published-verification.json.'),
                       'source_urls': ['https://polymarket.com/esports/cs2', KALSHI_EVENTS]})
+    label_mismatches = [r for r in (report.get('rows') or []) if r.get('label_mismatch')]
+    if label_mismatches:
+        flags.append({'id': '5f6fe71d-model-label-mismatch', 'severity': 'warning',
+                      'match_ids': sorted({str(r['id']) for r in label_mismatches}),
+                      'title': 'Model rows are labelled with the wrong evidence class',
+                      'detail': ('Observed ' + iso(now) + f'. {len(label_mismatches)} model-labelled rows carry a '
+                                 'label from a different evidence family than the estimate that replayed exactly '
+                                 'from their published inputs — a bo3.gg Bradley–Terry network fit (family '
+                                 '"network") is presented as "Research model estimate (Valve official ratings)" '
+                                 'with the generic Valve limitations text, so the network model\'s own '
+                                 'sample-size/interval limitations and low-confidence warning never publish. The '
+                                 'probabilities are correct; the provenance label is the defect. Change-request '
+                                 'logged for the originate.py owner in COORDINATION.md (session arena-5f6fe71d). '
+                                 'Per-row detail: ' +
+                                 '; '.join(f"{r['id']}: {r['label_mismatch']}" for r in label_mismatches)[:2500] +
+                                 '. Full record: data/research/5f6fe71d/published-verification.json.'),
+                      'source_urls': ['https://buffedlizard55-lab.github.io/MaltaProj3/origination/',
+                                      'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py']})
     (args.out / 'flags.json').write_text(json.dumps(flags, ensure_ascii=False, indent=1) + '\n')
 
     rc = report.get('row_count') or {}
     inv = report.get('inventory') or {}
     print(f'5F verification: {report["verdict"].upper()} — active {rc.get("active")}, '
           f'replay-pass {rc.get("replay_pass")}, replay-fail {rc.get("replay_fail")}, '
-          f'unavailable {rc.get("recompute_unavailable")}, blank {rc.get("blank")}; '
+          f'unavailable {rc.get("recompute_unavailable")}, blank {rc.get("blank")}, '
+          f'label-mismatch {rc.get("label_mismatch")}; '
           f'inventory {inv.get("verdict")}; validator {(report.get("validator") or {}).get("verdict")}; '
           f'html {(report.get("html") or {}).get("verdict")}; valve {(report.get("valve_reread") or {}).get("verdict")}; '
           f'stage errors: {sorted(report["stage_errors"])}')

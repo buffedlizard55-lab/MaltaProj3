@@ -114,6 +114,49 @@ class StageRowsTest(unittest.TestCase):
         self.assertEqual(rows[0]['pick'], 'Beta')
         self.assertEqual(failures, [])
 
+    def test_network_row_labelled_as_valve_is_recorded_as_mismatch_but_still_replays(self):
+        # Published defect (change-request logged for the originate.py owner):
+        # the network rung overwrites `model`, so the selection branch labels a
+        # family='network' estimate with the Valve label. The verifier records
+        # the mismatch per row but the replay verdict stays pass — the numbers
+        # are right, only the provenance label is wrong. Never a hard failure.
+        from scripts import network_model
+        p = network_model.win_probability(1500.0, 1330.0)
+        origination = {'matches': [dict(_row('9', None, None), pick_index=0,
+                                        origination={'method': 'model', 'family': 'network',
+                                                     'label': 'Research model estimate (Valve official ratings)',
+                                                     'source': 'Own network model (bo3.gg results graph)',
+                                                     'probabilities': v.norm_pair(p, 1 - p),
+                                                     'inputs': [{'points': 1500.0}, {'points': 1330.0}]})]}
+        rows, failures = self._run({'matches': [_row('9', None, None)]}, origination)
+        self.assertEqual(rows[0]['basis'], 'researched-fallback')
+        self.assertEqual(rows[0]['verdict'], 'replay-pass')
+        self.assertEqual(failures, [])
+        self.assertIn('label_mismatch', rows[0])
+        self.assertIn('network', rows[0]['label_mismatch'])
+
+    def test_correctly_labelled_model_rows_carry_no_mismatch(self):
+        from scripts import network_model
+        p = network_model.win_probability(1500.0, 1330.0)
+        valve = {'method': 'model', 'family': 'model',
+                 'label': 'Research model estimate (Valve official ratings)',
+                 'source': 'Valve official standings',
+                 'probabilities': [v.glicko_expectation(1500, 1465),
+                                   1 - v.glicko_expectation(1500, 1465)],
+                 'inputs': [{'points': 1500}, {'points': 1465}]}
+        network = {'method': 'model', 'family': 'network',
+                   'label': 'Own network estimate (bo3.gg results graph)',
+                   'source': 'Own network model (bo3.gg results graph)',
+                   'probabilities': v.norm_pair(p, 1 - p),
+                   'inputs': [{'points': 1500.0}, {'points': 1330.0}]}
+        origination = {'matches': [dict(_row('1', None, None), pick_index=0, origination=valve),
+                                   dict(_row('2', None, None), pick_index=0, origination=network)]}
+        rows, failures = self._run({'matches': [_row('1', None, None), _row('2', None, None)]},
+                                   origination)
+        self.assertNotIn('label_mismatch', rows[0])
+        self.assertNotIn('label_mismatch', rows[1])
+        self.assertEqual(failures, [])
+
 
 if __name__ == '__main__':
     unittest.main()
