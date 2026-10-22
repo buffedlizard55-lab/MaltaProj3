@@ -1,17 +1,17 @@
 {
  "schema": 1,
  "session": "arena-15fc6bca",
- "generated_at": "2026-10-22T01:10:06.264321Z",
+ "generated_at": "2026-10-22T01:39:40.862609Z",
  "snapshot": {
-  "generated_at": "2026-10-22T01:08:40Z",
-  "inventory_observed_at": "2026-10-22T01:08:21Z",
+  "generated_at": "2026-10-22T01:37:13Z",
+  "inventory_observed_at": "2026-10-22T01:36:54Z",
   "counts": {
    "inventory": 97,
    "upcoming": 35,
    "archived": 62,
    "unknown_schedule": 0,
-   "market": 5,
-   "bookmaker": 1,
+   "market": 6,
+   "bookmaker": 0,
    "model": 16,
    "unresolved": 13,
    "picks": 21,
@@ -28,6 +28,7 @@
    "reference": 0,
    "model": 27,
    "network": 4,
+   "relay": 1,
    "guidance": 0,
    "alias_joined": 2
   }
@@ -37,31 +38,31 @@
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "http_status": 200,
-   "fetched_at": "2026-10-22T01:09:55.586804Z",
-   "bytes": 218798,
-   "sha256": "f3332a7c0e0d726cd7fd9df2aa3aa0f2607c932f04b79981dd4780ebefc1ed5a",
+   "fetched_at": "2026-10-22T01:39:30.510674Z",
+   "bytes": 222245,
+   "sha256": "23f5ed7339367d744ea990be25e669972ec80e1ade1ca89a668c3315f701bea2",
    "error": null
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=100&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "http_status": 200,
-   "fetched_at": "2026-10-22T01:09:56.055122Z",
+   "fetched_at": "2026-10-22T01:39:31.009929Z",
    "bytes": 215267,
-   "sha256": "933fcaa64931404cba32d2b8b1c52c906bff1f77115b324c0fe64e4394219684",
+   "sha256": "87d457368d4a100e34814794d7d04be3d82da4a6ee5922931ab2c438fe03116e",
    "error": null
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=200&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "http_status": 200,
-   "fetched_at": "2026-10-22T01:09:56.417619Z",
+   "fetched_at": "2026-10-22T01:39:31.471709Z",
    "bytes": 213417,
-   "sha256": "d7b4582027ffb08df66612bbb9da73a5d005174318fbbe78a6baeb06a31437f2",
+   "sha256": "614b5cb56a6931fa42fee568ea2f04b5c2f048352671bfe53efd3b3af6bb63d5",
    "error": null
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=300&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "http_status": 200,
-   "fetched_at": "2026-10-22T01:09:57.076506Z",
+   "fetched_at": "2026-10-22T01:39:32.699622Z",
    "bytes": 36996,
    "sha256": "6d7d1c60be84586d4c6bac0985ef2f566e82e5adec0b0a8f06ce74be33f181b3",
    "error": null
@@ -76,16 +77,16 @@
    "bytes": 256749,
    "sha256": "894e9f08834a09e9faa7724044960037c4f7d5ac9a42d999f511d2503ec617ef",
    "error": null,
-   "fetched_at": "2026-10-22T01:09:57.427657Z"
+   "fetched_at": "2026-10-22T01:39:33.023017Z"
   },
   {
    "label": "Hotspawn fixtures API",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "http_status": 200,
-   "bytes": 77256,
-   "sha256": "1c4830fd400aaf9813b22ef4b3b3343ed6144c886b003ee2917e63c28e7f0fe7",
+   "bytes": 77260,
+   "sha256": "b828caa9bd2c4392a1791ee032b6fc67850022e82928f7eb6c40e646e6b48feb",
    "error": null,
-   "fetched_at": "2026-10-22T01:09:58.996219Z"
+   "fetched_at": "2026-10-22T01:39:34.363399Z"
   },
   {
    "label": "HLTV matches",
@@ -94,16 +95,16 @@
    "bytes": null,
    "sha256": null,
    "error": "HTTPError: HTTP Error 403: Forbidden",
-   "fetched_at": "2026-10-22T01:10:00.187193Z"
+   "fetched_at": "2026-10-22T01:39:35.515786Z"
   },
   {
    "label": "HLTV world ranking",
    "url": "https://www.hltv.org/ranking/teams",
-   "http_status": 200,
-   "bytes": 1068133,
-   "sha256": "7a8aaa9b8691d7612a3c459b767d5ac21530b3e2a695e3524bfcdcf41f01d071",
-   "error": null,
-   "fetched_at": "2026-10-22T01:10:00.641894Z"
+   "http_status": 403,
+   "bytes": null,
+   "sha256": null,
+   "error": "HTTPError: HTTP Error 403: Forbidden",
+   "fetched_at": "2026-10-22T01:39:36.150044Z"
   },
   {
    "label": "bo3.gg API upcoming",
@@ -112,7 +113,7 @@
    "bytes": 4695,
    "sha256": "e582168130e9de030dfd8d32c44db666a6eb6952e5bb5fd3ac8cb5462a914fa1",
    "error": null,
-   "fetched_at": "2026-10-22T01:10:01.553533Z"
+   "fetched_at": "2026-10-22T01:39:36.629438Z"
   },
   {
    "label": "EGamersWorld matches",
@@ -121,7 +122,7 @@
    "bytes": null,
    "sha256": null,
    "error": "HTTPError: HTTP Error 403: Forbidden",
-   "fetched_at": "2026-10-22T01:10:02.154537Z"
+   "fetched_at": "2026-10-22T01:39:37.295273Z"
   },
   {
    "label": "Thunderpick matches API",
@@ -130,7 +131,7 @@
    "bytes": null,
    "sha256": null,
    "error": "HTTPError: HTTP Error 403: Forbidden",
-   "fetched_at": "2026-10-22T01:10:02.656932Z"
+   "fetched_at": "2026-10-22T01:39:37.864942Z"
   },
   {
    "label": "Bovada CS2 coupon",
@@ -139,16 +140,16 @@
    "bytes": 254992,
    "sha256": "4d452362da8e04c25c40214d6bd58bd78ed4f9396455533469a8e73b22ec9954",
    "error": null,
-   "fetched_at": "2026-10-22T01:10:03.095405Z"
+   "fetched_at": "2026-10-22T01:39:38.341937Z"
   },
   {
    "label": "Pinnacle guest CS2",
    "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/19/matchups",
    "http_status": 200,
-   "bytes": 1233113,
-   "sha256": "15914d99ff2c50065ab0acee65290d807596f649b92cd6ba636df827f825d31a",
+   "bytes": 1198626,
+   "sha256": "12e3a3bc213809b1052c64f499470d483e25d3b9aaa19960c9038628f8b0e3a8",
    "error": null,
-   "fetched_at": "2026-10-22T01:10:04.389939Z"
+   "fetched_at": "2026-10-22T01:39:38.930575Z"
   },
   {
    "label": "Kalshi KXCS2GAME",
@@ -157,16 +158,16 @@
    "bytes": 2932,
    "sha256": "822ac6752488fca480cd88ae103cf74025f85636220fc12960b42887483d7408",
    "error": null,
-   "fetched_at": "2026-10-22T01:10:04.938078Z"
+   "fetched_at": "2026-10-22T01:39:39.580149Z"
   },
   {
    "label": "Polymarket CS2 events",
    "url": "https://gamma-api.polymarket.com/events?series_id=10310&closed=false&limit=5",
    "http_status": 200,
-   "bytes": 230637,
-   "sha256": "d576f064aa973f6f11a50b00a8705f9395984eb06b7c6d67480e00893ec46cc0",
+   "bytes": 230629,
+   "sha256": "7751822b05d36c33435f07cacd76a0346d60e792a144e3a4994a905b1b240c20",
    "error": null,
-   "fetched_at": "2026-10-22T01:10:05.470751Z"
+   "fetched_at": "2026-10-22T01:39:40.099056Z"
   }
  ],
  "fixtures": [
@@ -186,14 +187,14 @@
    "tier": "c",
    "featured": null,
    "originated": {
-    "method": "market",
-    "label": "Originated market line (Kalshi)",
+    "method": "model",
+    "label": "Research model estimate (HLTV world ranking · unranked floor)",
     "probabilities": [
-     0.20792079,
-     0.79207921
+     0.48417501,
+     0.51582499
     ],
-    "source": "Kalshi",
-    "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
+    "source": "HLTV world ranking",
+    "source_url": "https://www.hltv.org/ranking/teams"
    },
    "pick_index": 1,
    "trail": [
@@ -207,7 +208,7 @@
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "status": "resolved"
+     "status": "unresolved"
     },
     {
      "stage": "Esportsbook line (Thunderpick original prices)",
@@ -219,6 +220,10 @@
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
      "status": "unresolved"
     },
     {
@@ -249,6 +254,11 @@
      "source_url": "https://polymarket.com/esports/cs2"
     },
     {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
+     "detail": "Kalshi event KXCS2GAME-26OCT212300NEXMOR: Order book spread 0.34 exceeds the 0.15 indicative ceiling (NEXVOID bid/ask 0.50/0.84, Morningstar bid/ask 0.18/0.30); observation recorded, not used as a pick input.",
+     "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
+    },
+    {
      "stage": "Esportsbook line (Thunderpick original prices)",
      "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
      "source_url": "https://thunderpick.io/esports/counter-strike"
@@ -262,6 +272,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -285,8 +300,8 @@
     }
    ],
    "limitations": [
-    "Single independent source; not a multi-source consensus.",
-    "Margin removed where applicable. Estimate is not a guaranteed outcome."
+    "Research model, not observed betting odds. Uncalibrated HLTV ranking transform; current lineups, stand-ins, form and map veto unverified.",
+    "Unranked floor: Morningstar has no HLTV world-ranking row, so the model gives that side HLTV's floor of 0.0 published points. That is a stated assumption, not a measured rating — the estimate is low confidence and only says the ranked side is the stronger side on the published ranking. No market, esportsbook or Valve rating input resolved this fixture."
    ],
    "bo3": {
     "candidates": 1,
@@ -339,8 +354,8 @@
    "featured": {
     "method": "market",
     "probabilities": [
-     0.355,
-     0.645
+     0.295,
+     0.705
     ],
     "pick_index": 1
    },
@@ -348,8 +363,8 @@
     "method": "market",
     "label": "Market-implied estimate",
     "probabilities": [
-     0.355,
-     0.645
+     0.295,
+     0.705
     ],
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
@@ -418,8 +433,8 @@
     "method": "model",
     "label": "Research model estimate (Valve official ratings)",
     "probabilities": [
-     0.5146747642001489,
-     0.4853252357998511
+     0.5143871841659987,
+     0.4856128158340013
     ],
     "source": "Own network model (bo3.gg results graph)",
     "source_url": "https://bo3.gg/matches"
@@ -448,6 +463,10 @@
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
      "status": "unresolved"
     },
     {
@@ -496,6 +515,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -794,8 +818,8 @@
    "featured": {
     "method": "market",
     "probabilities": [
-     0.655,
-     0.345
+     0.665,
+     0.335
     ],
     "pick_index": 0
    },
@@ -803,8 +827,8 @@
     "method": "market",
     "label": "Market-implied estimate",
     "probabilities": [
-     0.655,
-     0.345
+     0.665,
+     0.335
     ],
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22"
@@ -857,13 +881,13 @@
       "team1": {
        "team_id": 10703,
        "name": "FORZE Reload",
-       "coeff": 1.28,
+       "coeff": 1.4,
        "active": true
       },
       "team2": {
        "team_id": 23107,
        "name": "Just Players",
-       "coeff": 3.3,
+       "coeff": 2.7,
        "active": true
       }
      }
@@ -1121,8 +1145,8 @@
     "method": "model",
     "label": "Research model estimate (Valve official ratings)",
     "probabilities": [
-     0.2206613278377196,
-     0.7793386721622804
+     0.22095845260400493,
+     0.7790415473959951
     ],
     "source": "Own network model (bo3.gg results graph)",
     "source_url": "https://bo3.gg/matches"
@@ -1151,6 +1175,10 @@
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
      "status": "unresolved"
     },
     {
@@ -1199,6 +1227,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -1357,45 +1390,31 @@
    "locks_at": "2026-10-22T12:54:00Z",
    "tier": "b",
    "featured": {
-    "method": "bookmaker",
+    "method": "market",
     "probabilities": [
-     0.63909774,
-     0.36090226
+     0.645,
+     0.355
     ],
     "pick_index": 0
    },
    "originated": {
-    "method": "bookmaker",
-    "label": "No-vig bookmaker estimate",
+    "method": "market",
+    "label": "Market-implied estimate",
     "probabilities": [
-     0.63909774,
-     0.36090226
+     0.645,
+     0.355
     ],
-    "source": "Thunderpick",
-    "source_url": "https://thunderpick.io/api/matches"
+    "source": "Polymarket",
+    "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
    },
    "pick_index": 0,
    "trail": [
     {
      "stage": "Primary: Polymarket",
-     "status": "unresolved"
-    },
-    {
-     "stage": "HLTV research",
-     "status": "checked"
-    },
-    {
-     "stage": "Original esportsbook lines",
      "status": "resolved"
     }
    ],
-   "unresolved_details": [
-    {
-     "stage": "Primary: Polymarket",
-     "detail": "Crossed or wider-than-12-cent order book",
-     "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
-    }
-   ],
+   "unresolved_details": [],
    "limitations": [
     "Hotspawn best-of format is unverified; left blank."
    ],
@@ -1621,6 +1640,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -1636,12 +1659,12 @@
    "unresolved_details": [
     {
      "stage": "Betting market (Polymarket series winner)",
-     "detail": "Polymarket event 1232202: Order book spread 0.90 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.05/0.95, ex-6666 bid/ask 0.05/0.95); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232202: Order book spread 0.86 exceeds the 0.15 indicative ceiling (Acend bid/ask 0.09/0.95, ex-6666 bid/ask 0.05/0.91); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.88 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.94, Acend bid/ask 0.06/0.94); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT221000EXACE: Order book spread 0.86 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.06/0.92, Acend bid/ask 0.11/0.94); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221000exace"
     },
     {
@@ -1658,6 +1681,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -2020,13 +2048,13 @@
    "tier": "b",
    "featured": null,
    "originated": {
-    "method": "model",
-    "label": "Own results-based estimate (bo3.gg series results)",
+    "method": "bookmaker",
+    "label": "Esportsbook line relayed by bo3.gg (thunderpick, no-vig)",
     "probabilities": [
-     0.39773644745590364,
-     0.6022635525440964
+     0.39276486,
+     0.60723514
     ],
-    "source": "Own results-based model (bo3.gg series results)",
+    "source": "thunderpick (relayed by bo3.gg)",
     "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
    },
    "pick_index": 1,
@@ -2062,6 +2090,14 @@
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
      "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Bookmaker page named by bo3.gg (thunderpick)",
+     "status": "checked"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -2132,7 +2168,7 @@
     }
    ],
    "limitations": [
-    "Own uncalibrated results model, not observed betting odds: a single rating was fitted to 18 finished series against officially rated opponents (posterior SD 94.6 points, one-sigma interval 0.213-0.617). The sample is small, opponent strength is taken from a dated official snapshot and current lineups, stand-ins and map vetoes are unverified."
+    "Bookmaker price relayed by bo3.gg, not read from the bookmaker's own page: bo3.gg publishes the coefficient pair it receives from the provider, and that page is linked on this row. Confirm the live price with the bookmaker before relying on it."
    ],
    "bo3": {
     "candidates": 1,
@@ -2445,6 +2481,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -2468,12 +2508,12 @@
    "unresolved_details": [
     {
      "stage": "Betting market (Polymarket series winner)",
-     "detail": "Polymarket event 1232205: Order book spread 0.89 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.05/0.94, ex-6666 bid/ask 0.06/0.95); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232205: Order book spread 0.64 exceeds the 0.15 indicative ceiling (6yuBoJlbl bid/ask 0.32/0.96, ex-6666 bid/ask 0.04/0.68); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "detail": "Kalshi event KXCS2GAME-26OCT221300EXYUB: Order book spread 0.83 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.88, 6yuBoJlbl bid/ask 0.06/0.88); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT221300EXYUB: Order book spread 0.58 exceeds the 0.15 indicative ceiling (ex-6666 bid/ask 0.05/0.63, 6yuBoJlbl bid/ask 0.37/0.88); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct221300exyub"
     },
     {
@@ -2490,6 +2530,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -2564,8 +2609,8 @@
     "method": "model",
     "label": "Research model estimate (Valve official ratings)",
     "probabilities": [
-     0.9838863131596313,
-     0.016113686840368735
+     0.9838680503541304,
+     0.016131949645869614
     ],
     "source": "Own network model (bo3.gg results graph)",
     "source_url": "https://bo3.gg/matches"
@@ -2594,6 +2639,10 @@
     },
     {
      "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
      "status": "unresolved"
     },
     {
@@ -2642,6 +2691,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -2728,6 +2782,10 @@
      "status": "resolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -2755,6 +2813,11 @@
      "stage": "Esportsbook line (Thunderpick original prices)",
      "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time.",
      "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -2828,6 +2891,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -2843,12 +2910,12 @@
    "unresolved_details": [
     {
      "stage": "Betting market (Polymarket series winner)",
-     "detail": "Polymarket event 1232241: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.07/0.95, Chinggis Warriors bid/ask 0.05/0.93); observation recorded, not used as a pick input.",
+     "detail": "Polymarket event 1232241: Order book spread 0.45 exceeds the 0.15 indicative ceiling (Lynn Vision bid/ask 0.50/0.95, Chinggis Warriors bid/ask 0.05/0.50); observation recorded, not used as a pick input.",
      "source_url": "https://polymarket.com/event/cs2-lvg-cw-2026-10-22"
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.86 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.93, Lynn Vision bid/ask 0.08/0.92); observation recorded, not used as a pick input.",
+     "detail": "Kalshi event KXCS2GAME-26OCT222300CWLVG: Order book spread 0.24 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.07/0.30, Lynn Vision bid/ask 0.69/0.93); observation recorded, not used as a pick input.",
      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct222300cwlvg"
     },
     {
@@ -2865,6 +2932,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -3310,6 +3382,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -3355,6 +3431,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -3470,6 +3551,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -3507,6 +3592,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -3719,6 +3809,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -3764,6 +3858,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -3986,6 +4085,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -4031,6 +4134,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
@@ -4263,6 +4371,10 @@
      "status": "unresolved"
     },
     {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "status": "unresolved"
+    },
+    {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
      "status": "unresolved"
     },
@@ -4300,6 +4412,11 @@
      "stage": "Esportsbook line (Pinnacle original prices)",
      "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time.",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2"
+    },
+    {
+     "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+     "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture.",
+     "source_url": "https://bo3.gg/matches"
     },
     {
      "stage": "Aggregated bookmaker reference (EGamersWorld)",
