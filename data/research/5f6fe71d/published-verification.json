@@ -1,0 +1,15 @@
+{
+ "schema_version": 1,
+ "session": "arena-5f6fe71d",
+ "generated_at": "2026-10-22T02:09:28Z",
+ "artifact_run_id": "39705180517",
+ "artifact_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39705180517",
+ "stage_errors": {
+  "load-and-verify": "FileNotFoundError: [Errno 2] No such file or directory: 'published/data/latest.json'\nTraceback (most recent call last):\n  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/verify_5f6fe71d.py\", line 642, in stage\n    return fn()\n           ^^^^\n  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/verify_5f6fe71d.py\", line 651, in run_all\n    latest = json.loads((published_data / 'latest.json').read_text())\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'published/data/latest.json'\n"
+ },
+ "fresh_reads": [],
+ "hard_failures": [
+  "stage load-and-verify crashed: FileNotFoundError: [Errno 2] No such file or directory: 'published/data/latest.json'"
+ ],
+ "verdict": "fail"
+}

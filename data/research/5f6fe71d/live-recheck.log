@@ -1,0 +1,80 @@
+::notice title=Hotspawn inventory::{"records": 97, "crosscheck": "complete", "verified_pages": ["lobby", "cs2"], "unavailable": []}
+{
+  "status": "partial-picks",
+  "counts": {
+    "inventory": 97,
+    "upcoming": 35,
+    "archived": 62,
+    "unknown_schedule": 0,
+    "market": 7,
+    "bookmaker": 0,
+    "model": 16,
+    "unresolved": 12,
+    "picks": 22,
+    "no_edge": 1
+  },
+  "sources": [
+    {
+      "name": "Hotspawn match inventory",
+      "status": "ok"
+    },
+    {
+      "name": "Polymarket CS2",
+      "status": "ok"
+    },
+    {
+      "name": "HLTV fallback research",
+      "status": "ok"
+    },
+    {
+      "name": "Thunderpick esportsbook",
+      "status": "ok"
+    },
+    {
+      "name": "GG.BET esportsbook",
+      "status": "unavailable"
+    },
+    {
+      "name": "Pinnacle esportsbook",
+      "status": "unavailable"
+    },
+    {
+      "name": "Rivalry esportsbook",
+      "status": "unavailable"
+    },
+    {
+      "name": "Stake esportsbook",
+      "status": "unavailable"
+    },
+    {
+      "name": "Valve official rating fallback",
+      "status": "ok"
+    }
+  ]
+}
+PASS: 97 source rows reconciled; every published probability and pick replayed from first-party evidence.
+{
+  "counts": {
+    "active": 35,
+    "resolved": 35,
+    "unresolved": 0,
+    "with_pick": 34,
+    "consensus": 1,
+    "market": 8,
+    "bookmaker": 0,
+    "reference": 0,
+    "model": 26,
+    "network": 3,
+    "guidance": 0,
+    "alias_joined": 2
+  },
+  "unresolved": [],
+  "generated_at": "2026-10-22T02:09:59Z"
+}
+PASS: 97 source rows reconciled; every published probability and pick replayed from first-party evidence.
+Row-source audit: 692 rows, 676 with an official link, 7 flagged unverified, 9 site-map, 0 without a source
+PASS: 856 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.
+Built 8 current Pages views, compatible old URLs and explicitly archived session views in site-live
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'published/data/latest.json'
