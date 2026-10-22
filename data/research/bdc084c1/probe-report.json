@@ -1,0 +1,2498 @@
+{
+  "session": "arena-bdc084c1",
+  "purpose": "Does the next refresh give every fixture Hotspawn added after the published snapshot a pick, and what stops any that do not?",
+  "observed_at": "2026-10-22T08:22:15Z",
+  "published_snapshot": {
+    "generated_at": "2026-10-15T08:36:13Z",
+    "inventory": 80,
+    "origination_generated_at": "2026-10-15T09:31:24Z"
+  },
+  "fresh_snapshot": {
+    "generated_at": "2026-10-22T08:20:59Z",
+    "inventory_observed_at": "2026-10-22T08:20:36Z",
+    "inventory_crosscheck": "complete",
+    "inventory": 104,
+    "counts": {
+      "inventory": 104,
+      "upcoming": 43,
+      "archived": 61,
+      "unknown_schedule": 0,
+      "market": 18,
+      "bookmaker": 2,
+      "model": 13,
+      "unresolved": 10,
+      "picks": 32,
+      "no_edge": 1
+    },
+    "coverage_complete": true,
+    "run_status": "partial-picks"
+  },
+  "fixtures": {
+    "new_since_published": [
+      "1079189",
+      "1079651",
+      "1079652",
+      "1079653",
+      "1079654",
+      "1079655",
+      "1079657",
+      "1081145",
+      "1081146",
+      "1081148",
+      "1081149",
+      "1081150",
+      "1081596",
+      "1081598",
+      "1081599",
+      "1081600",
+      "1081603",
+      "1081871",
+      "1082180",
+      "1082688",
+      "1082689",
+      "1082767",
+      "1082769",
+      "1082770",
+      "1082792",
+      "1082793",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082882",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082919",
+      "1082920",
+      "1082921",
+      "1082922",
+      "1082923",
+      "1082924",
+      "1082925",
+      "1082926"
+    ],
+    "no_longer_listed": [
+      "1079440",
+      "1079442",
+      "1080201",
+      "1080202",
+      "1080203",
+      "1080204",
+      "1080279",
+      "1080280",
+      "1080281",
+      "1080282",
+      "1080283",
+      "1080284",
+      "1080285",
+      "1080286",
+      "1080287",
+      "1080288",
+      "1080289",
+      "1080290",
+      "1081120"
+    ],
+    "new_active": 43,
+    "new_archived": 0
+  },
+  "active": {
+    "total": 43,
+    "with_pick": 42,
+    "with_probabilities": 43,
+    "without_probabilities": [],
+    "without_pick": [
+      {
+        "id": "1082926",
+        "teams": [
+          "Isurus",
+          "Hacha"
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "starts_at": "2026-10-23T22:00:00Z",
+        "availability": "open",
+        "best_of": null,
+        "featured_method": null,
+        "basis": "model",
+        "basis_is_researched_fallback": true,
+        "probabilities": [
+          0.5,
+          0.5
+        ],
+        "pick": null,
+        "source": "HLTV world ranking",
+        "source_url": "https://www.hltv.org/ranking/teams",
+        "source_host": "hltv.org",
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank.",
+          "Hacha: no exact-name Valve rating found"
+        ],
+        "label": "Research model estimate (HLTV world ranking)",
+        "observed_at": "2026-10-22T08:21:33Z"
+      }
+    ],
+    "by_basis": {
+      "market": 17,
+      "model": 19,
+      "consensus": 3,
+      "bookmaker": 4
+    },
+    "by_source_host": {
+      "polymarket.com": 20,
+      "github.com": 13,
+      "thunderpick.io": 2,
+      "hltv.org": 4,
+      "pinnacle.com": 2,
+      "bo3.gg": 2
+    },
+    "with_betting_line": 24,
+    "research_model_only": 19
+  },
+  "new_fixtures": [
+    {
+      "id": "1079189",
+      "teams": [
+        "FORZE Reload",
+        "Just Players"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "pick": "FORZE Reload",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:41Z"
+    },
+    {
+      "id": "1079651",
+      "teams": [
+        "Butterfly",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.77416873,
+        0.22583127
+      ],
+      "pick": "Butterfly",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.565,
+        0.435
+      ],
+      "pick": "Falcons Force",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:42Z"
+    },
+    {
+      "id": "1082767",
+      "teams": [
+        "Nemesis",
+        "WW"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T11:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.75708504,
+        0.24291496
+      ],
+      "pick": "Nemesis",
+      "source": "Polymarket + Bovada + Pinnacle",
+      "source_url": "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:20Z"
+    },
+    {
+      "id": "1081598",
+      "teams": [
+        "JiJieHao",
+        "Nexus"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.645,
+        0.355
+      ],
+      "pick": "JiJieHao",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:42Z"
+    },
+    {
+      "id": "1081599",
+      "teams": [
+        "FaZe",
+        "BC.Game"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "bookmaker",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.51752022,
+        0.48247978
+      ],
+      "pick": "FaZe",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "source_host": "thunderpick.io",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "No-vig bookmaker estimate",
+      "observed_at": "2026-10-22T08:20:56Z"
+    },
+    {
+      "id": "1082919",
+      "teams": [
+        "Projeto do KinGui",
+        "Martians"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.49856089,
+        0.50143911
+      ],
+      "pick": "Martians",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Projeto do KinGui: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking \u00b7 unranked floor)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1081600",
+      "teams": [
+        "Donstu",
+        "Banda chuya"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T13:45:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.4045841,
+        0.5954159
+      ],
+      "pick": "Banda chuya",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079652",
+      "teams": [
+        "Acend",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.505,
+        0.495
+      ],
+      "pick": "Acend",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:43Z"
+    },
+    {
+      "id": "1081145",
+      "teams": [
+        "Lavked",
+        "HAVU"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.495,
+        0.505
+      ],
+      "pick": "HAVU",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:44Z"
+    },
+    {
+      "id": "1082688",
+      "teams": [
+        "Imperial",
+        "Turma do Pagode"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.77,
+        0.23
+      ],
+      "pick": "Imperial",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:44Z"
+    },
+    {
+      "id": "1082689",
+      "teams": [
+        "BESTIA",
+        "ShindeN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.465,
+        0.535
+      ],
+      "pick": "ShindeN",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:45Z"
+    },
+    {
+      "id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.42785231,
+        0.57214769
+      ],
+      "pick": "Apogee Betclic",
+      "source": "Polymarket + Thunderpick + Bovada",
+      "source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Apogee Betclic: no exact-name Valve rating found"
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:18Z"
+    },
+    {
+      "id": "1081603",
+      "teams": [
+        "SinnerS",
+        "Eternal Fire"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "pick": "SinnerS",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:45Z"
+    },
+    {
+      "id": "1082920",
+      "teams": [
+        "MEIA NOITE",
+        "Procyon"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.44704606,
+        0.55295394
+      ],
+      "pick": "Procyon",
+      "source": "Pinnacle",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "source_host": "pinnacle.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated esportsbook line (Pinnacle, no-vig)",
+      "observed_at": "2026-10-22T08:21:31Z"
+    },
+    {
+      "id": "1082180",
+      "teams": [
+        "Sangal",
+        "Metizport"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T16:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.535,
+        0.465
+      ],
+      "pick": "Sangal",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:46Z"
+    },
+    {
+      "id": "1079653",
+      "teams": [
+        "Rune Eaters",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.345,
+        0.655
+      ],
+      "pick": "FORZE Reload",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:47Z"
+    },
+    {
+      "id": "1081146",
+      "teams": [
+        "6yuBoJlbl",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.5188172,
+        0.4811828
+      ],
+      "pick": "6yuBoJlbl",
+      "source": "Polymarket + Thunderpick",
+      "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:18Z"
+    },
+    {
+      "id": "1082769",
+      "teams": [
+        "K27",
+        "NEXORA"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T17:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.895,
+        0.105
+      ],
+      "pick": "K27",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:48Z"
+    },
+    {
+      "id": "1082921",
+      "teams": [
+        "your end",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T19:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.1687448,
+        0.8312552
+      ],
+      "pick": "Yawara",
+      "source": "Pinnacle",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "source_host": "pinnacle.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated esportsbook line (Pinnacle, no-vig)",
+      "observed_at": "2026-10-22T08:21:31Z"
+    },
+    {
+      "id": "1082770",
+      "teams": [
+        "UPGRADE",
+        "Virtus.pro"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T20:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.385,
+        0.615
+      ],
+      "pick": "Virtus.pro",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:48Z"
+    },
+    {
+      "id": "1082922",
+      "teams": [
+        "Low Cortisol BR",
+        "Gr\u00eamio"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T22:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.66195106,
+        0.33804894
+      ],
+      "pick": "Low Cortisol BR",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.64419091,
+        0.35580909
+      ],
+      "pick": "Lynn Vision",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Chinggis Warriors: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T08:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.49888,
+        0.50112
+      ],
+      "pick": "ex-RUSTEC",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.93003347,
+        0.06996653
+      ],
+      "pick": "Nuclear TigeRES",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "pick": "Spirit Academy",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:51Z"
+    },
+    {
+      "id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "bookmaker",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.71111111,
+        0.28888889
+      ],
+      "pick": "Alka",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "source_host": "thunderpick.io",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "No-vig bookmaker estimate",
+      "observed_at": "2026-10-22T08:20:56Z"
+    },
+    {
+      "id": "1081149",
+      "teams": [
+        "FORZE Reload",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.51007245,
+        0.48992755
+      ],
+      "pick": "FORZE Reload",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "LFO 10: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082924",
+      "teams": [
+        "BORRACHEIROS",
+        "QUINTESS\u00caNCIA"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.47621793,
+        0.52378207
+      ],
+      "pick": "QUINTESS\u00caNCIA",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.40054361,
+        0.59945639
+      ],
+      "pick": "BRUTE",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "BRUTE: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.80746193,
+        0.19253807
+      ],
+      "pick": "ex-RUSTEC",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.2115926832824933,
+        0.7884073167175067
+      ],
+      "pick": "RED Canids Academy",
+      "source": "Own network model (bo3.gg results graph)",
+      "source_url": "https://bo3.gg/matches",
+      "source_host": "bo3.gg",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "RED Canids Academy: no exact-name Valve rating found"
+      ],
+      "label": "Own network estimate (bo3.gg results graph)",
+      "observed_at": "2026-10-22T08:21:15Z"
+    },
+    {
+      "id": "1082926",
+      "teams": [
+        "Isurus",
+        "Hacha"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.5,
+        0.5
+      ],
+      "pick": null,
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Hacha: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.44553062597832394,
+        0.5544693740216761
+      ],
+      "pick": "Off Chops",
+      "source": "Own network model (bo3.gg results graph)",
+      "source_url": "https://bo3.gg/matches",
+      "source_host": "bo3.gg",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Off Chops: no exact-name Valve rating found"
+      ],
+      "label": "Own network estimate (bo3.gg results graph)",
+      "observed_at": "2026-10-22T08:21:15Z"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.72821824,
+        0.27178176
+      ],
+      "pick": "NEXVOID",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.52300959,
+        0.47699041
+      ],
+      "pick": "FlyQuest",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Staqued: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking \u00b7 unranked floor)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "pick": "Abyssal",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "pick": "B8",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:53Z"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.33,
+        0.67
+      ],
+      "pick": "FaZe",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:54Z"
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.54,
+        0.46
+      ],
+      "pick": "Luminosity",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:54Z"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "pick": "GamerLegion",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:55Z"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "pick": "HOTU",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "The Huns: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "pick": "1WIN",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    }
+  ],
+  "all": [
+    {
+      "id": "1079189",
+      "teams": [
+        "FORZE Reload",
+        "Just Players"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "pick": "FORZE Reload",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:41Z"
+    },
+    {
+      "id": "1079651",
+      "teams": [
+        "Butterfly",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.77416873,
+        0.22583127
+      ],
+      "pick": "Butterfly",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.565,
+        0.435
+      ],
+      "pick": "Falcons Force",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:42Z"
+    },
+    {
+      "id": "1082767",
+      "teams": [
+        "Nemesis",
+        "WW"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T11:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.75708504,
+        0.24291496
+      ],
+      "pick": "Nemesis",
+      "source": "Polymarket + Bovada + Pinnacle",
+      "source_url": "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:20Z"
+    },
+    {
+      "id": "1081598",
+      "teams": [
+        "JiJieHao",
+        "Nexus"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.645,
+        0.355
+      ],
+      "pick": "JiJieHao",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:42Z"
+    },
+    {
+      "id": "1081599",
+      "teams": [
+        "FaZe",
+        "BC.Game"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "bookmaker",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.51752022,
+        0.48247978
+      ],
+      "pick": "FaZe",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "source_host": "thunderpick.io",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "No-vig bookmaker estimate",
+      "observed_at": "2026-10-22T08:20:56Z"
+    },
+    {
+      "id": "1082919",
+      "teams": [
+        "Projeto do KinGui",
+        "Martians"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.49856089,
+        0.50143911
+      ],
+      "pick": "Martians",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Projeto do KinGui: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking \u00b7 unranked floor)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1081600",
+      "teams": [
+        "Donstu",
+        "Banda chuya"
+      ],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T13:45:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.4045841,
+        0.5954159
+      ],
+      "pick": "Banda chuya",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079652",
+      "teams": [
+        "Acend",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.505,
+        0.495
+      ],
+      "pick": "Acend",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:43Z"
+    },
+    {
+      "id": "1081145",
+      "teams": [
+        "Lavked",
+        "HAVU"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.495,
+        0.505
+      ],
+      "pick": "HAVU",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:44Z"
+    },
+    {
+      "id": "1082688",
+      "teams": [
+        "Imperial",
+        "Turma do Pagode"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.77,
+        0.23
+      ],
+      "pick": "Imperial",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:44Z"
+    },
+    {
+      "id": "1082689",
+      "teams": [
+        "BESTIA",
+        "ShindeN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.465,
+        0.535
+      ],
+      "pick": "ShindeN",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:45Z"
+    },
+    {
+      "id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.42785231,
+        0.57214769
+      ],
+      "pick": "Apogee Betclic",
+      "source": "Polymarket + Thunderpick + Bovada",
+      "source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Apogee Betclic: no exact-name Valve rating found"
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:18Z"
+    },
+    {
+      "id": "1081603",
+      "teams": [
+        "SinnerS",
+        "Eternal Fire"
+      ],
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "pick": "SinnerS",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:45Z"
+    },
+    {
+      "id": "1082920",
+      "teams": [
+        "MEIA NOITE",
+        "Procyon"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.44704606,
+        0.55295394
+      ],
+      "pick": "Procyon",
+      "source": "Pinnacle",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "source_host": "pinnacle.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated esportsbook line (Pinnacle, no-vig)",
+      "observed_at": "2026-10-22T08:21:31Z"
+    },
+    {
+      "id": "1082180",
+      "teams": [
+        "Sangal",
+        "Metizport"
+      ],
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T16:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.535,
+        0.465
+      ],
+      "pick": "Sangal",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:46Z"
+    },
+    {
+      "id": "1079653",
+      "teams": [
+        "Rune Eaters",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.345,
+        0.655
+      ],
+      "pick": "FORZE Reload",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:47Z"
+    },
+    {
+      "id": "1081146",
+      "teams": [
+        "6yuBoJlbl",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "consensus",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.5188172,
+        0.4811828
+      ],
+      "pick": "6yuBoJlbl",
+      "source": "Polymarket + Thunderpick",
+      "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated consensus line (median of independent money sources)",
+      "observed_at": "2026-10-22T08:21:18Z"
+    },
+    {
+      "id": "1082769",
+      "teams": [
+        "K27",
+        "NEXORA"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T17:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.895,
+        0.105
+      ],
+      "pick": "K27",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:48Z"
+    },
+    {
+      "id": "1082921",
+      "teams": [
+        "your end",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T19:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.1687448,
+        0.8312552
+      ],
+      "pick": "Yawara",
+      "source": "Pinnacle",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "source_host": "pinnacle.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Originated esportsbook line (Pinnacle, no-vig)",
+      "observed_at": "2026-10-22T08:21:31Z"
+    },
+    {
+      "id": "1082770",
+      "teams": [
+        "UPGRADE",
+        "Virtus.pro"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T20:30:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.385,
+        0.615
+      ],
+      "pick": "Virtus.pro",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:48Z"
+    },
+    {
+      "id": "1082922",
+      "teams": [
+        "Low Cortisol BR",
+        "Gr\u00eamio"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T22:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.66195106,
+        0.33804894
+      ],
+      "pick": "Low Cortisol BR",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.64419091,
+        0.35580909
+      ],
+      "pick": "Lynn Vision",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Chinggis Warriors: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T08:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.49888,
+        0.50112
+      ],
+      "pick": "ex-RUSTEC",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.93003347,
+        0.06996653
+      ],
+      "pick": "Nuclear TigeRES",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "pick": "Spirit Academy",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:51Z"
+    },
+    {
+      "id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "bookmaker",
+      "basis": "bookmaker",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.71111111,
+        0.28888889
+      ],
+      "pick": "Alka",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "source_host": "thunderpick.io",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "No-vig bookmaker estimate",
+      "observed_at": "2026-10-22T08:20:56Z"
+    },
+    {
+      "id": "1081149",
+      "teams": [
+        "FORZE Reload",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T14:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.51007245,
+        0.48992755
+      ],
+      "pick": "FORZE Reload",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "LFO 10: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082924",
+      "teams": [
+        "BORRACHEIROS",
+        "QUINTESS\u00caNCIA"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T16:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.47621793,
+        0.52378207
+      ],
+      "pick": "QUINTESS\u00caNCIA",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.40054361,
+        0.59945639
+      ],
+      "pick": "BRUTE",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "BRUTE: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.80746193,
+        0.19253807
+      ],
+      "pick": "ex-RUSTEC",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.2115926832824933,
+        0.7884073167175067
+      ],
+      "pick": "RED Canids Academy",
+      "source": "Own network model (bo3.gg results graph)",
+      "source_url": "https://bo3.gg/matches",
+      "source_host": "bo3.gg",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "RED Canids Academy: no exact-name Valve rating found"
+      ],
+      "label": "Own network estimate (bo3.gg results graph)",
+      "observed_at": "2026-10-22T08:21:15Z"
+    },
+    {
+      "id": "1082926",
+      "teams": [
+        "Isurus",
+        "Hacha"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.5,
+        0.5
+      ],
+      "pick": null,
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Hacha: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.44553062597832394,
+        0.5544693740216761
+      ],
+      "pick": "Off Chops",
+      "source": "Own network model (bo3.gg results graph)",
+      "source_url": "https://bo3.gg/matches",
+      "source_host": "bo3.gg",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Off Chops: no exact-name Valve rating found"
+      ],
+      "label": "Own network estimate (bo3.gg results graph)",
+      "observed_at": "2026-10-22T08:21:15Z"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.72821824,
+        0.27178176
+      ],
+      "pick": "NEXVOID",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.52300959,
+        0.47699041
+      ],
+      "pick": "FlyQuest",
+      "source": "HLTV world ranking",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "source_host": "hltv.org",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Staqued: no exact-name Valve rating found"
+      ],
+      "label": "Research model estimate (HLTV world ranking \u00b7 unranked floor)",
+      "observed_at": "2026-10-22T08:21:33Z"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "pick": "Abyssal",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "pick": "B8",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:53Z"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.33,
+        0.67
+      ],
+      "pick": "FaZe",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:54Z"
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.54,
+        0.46
+      ],
+      "pick": "Luminosity",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:54Z"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "market",
+      "basis": "market",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "pick": "GamerLegion",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "source_host": "polymarket.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Market-implied estimate",
+      "observed_at": "2026-10-22T08:20:55Z"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": null,
+      "basis": "model",
+      "basis_is_researched_fallback": true,
+      "probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "pick": "HOTU",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "The Huns: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "label": "Research model estimate (Valve official ratings)",
+      "observed_at": "2026-10-22T08:21:35Z"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "availability": "open",
+      "best_of": null,
+      "featured_method": "model",
+      "basis": "model",
+      "basis_is_researched_fallback": false,
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "pick": "1WIN",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_host": "github.com",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "label": "Valve-rating research estimate",
+      "observed_at": "2026-10-22T08:20:58Z"
+    }
+  ]
+}
