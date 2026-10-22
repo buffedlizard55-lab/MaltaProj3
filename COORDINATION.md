@@ -170,6 +170,22 @@ recomputes `p = 1/(1+10^(g·Δpoints/400))` with `RD = 75`.
   the `detail_sha` recorded in the published row** (`076d8f1d…`, `658080b7…`). Recomputed: 49.89%,
   identical to the published value.
 
+### 3C-4 (in progress) — main repair: the review-flags test could not pass with the reconciled snapshot
+
+`main` is red for **every** PR, and it is not this session's data. `build.write_reconciled_snapshot`
+(published from another session) deliberately adds three keys to the *published* copy of
+`data/latest.json` — `featured_method_counts`, `complete_coverage_counts`, `counts_note` — so the
+download no longer says "10 unresolved" while every page renders the researched list. The older test
+`tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json` still
+demanded that the published copy be **byte-identical** to the source file, so it fails on
+`main` itself: the source file is unchanged, the published copy is 17 KB larger by design.
+Evidence: run `39752154397` step 7, `FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json`.
+
+The test was corrected (not weakened) to assert what the reconciliation promises: the source
+directory's file stays byte-identical, the published copy gains **exactly** those three keys, and
+every other key — counts, matches, order and all — is identical to the canonical file, with the
+`counts_note` prefix checked. `python -m unittest tests.test_review_flags` is green again.
+
 ### 3C-3b — one rule, two implementations (new)
 
 `scripts/domain.py:valve_analysis` fails closed when two complete five-player rows share a name.

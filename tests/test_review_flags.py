@@ -61,8 +61,29 @@ class ReviewFlagsIntegration(unittest.TestCase):
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
+        """The source snapshot is never rewritten; the published copy only annotates it.
+
+        build.write_reconciled_snapshot deliberately adds three keys to the
+        *published* copy (featured_method_counts, complete_coverage_counts,
+        counts_note) so a reader of the downloadable JSON is not told "10
+        unresolved" while every page renders the researched list. Everything
+        else — every source key, every match record, every featured counter —
+        must survive untouched, and the source directory's own file must stay
+        byte-identical. Session 3cf793ef: the previous assertion required the
+        published copy to be byte-identical too, which the reconciliation
+        feature made impossible, so main went red for every PR.
+        """
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        canonical = json.loads(self.original)
+        added = set(published) - set(canonical)
+        self.assertEqual(added, {'featured_method_counts', 'complete_coverage_counts', 'counts_note'})
+        for key in canonical:
+            with self.subTest(key=key):
+                self.assertEqual(published[key], canonical[key])
+        self.assertEqual(published['counts'], canonical['counts'])
+        self.assertEqual([m['id'] for m in published['matches']], [m['id'] for m in canonical['matches']])
+        self.assertTrue(published['counts_note'].startswith('counts.* and featured_method_counts'))
 
 
 if __name__ == '__main__':

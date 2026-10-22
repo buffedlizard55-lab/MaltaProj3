@@ -4,7 +4,22 @@
     "severity": "notice",
     "title": "All 14 Valve-sourced probabilities recomputed from Valve's own files: 14/14 reproduced, 0 mismatches",
     "detail": "Session arena-3cf793ef re-derived every published row whose stated source is Valve's official standings, using the archived 2026-10-05 global markdown and the documented formula p = 1/(1+10^(g*dPoints/400)), g = 1/sqrt(1+3*(ln10/400)^2*RD^2/pi^2), RD = 75. Ten rows reproduce straight from the summary table; three (Lynn Vision, HOTU, BRUTE) reproduce from a duplicate-name candidate pair; one (ex-Zero Tenacity vs ex-RUSTEC) had both sides rounded to 1066 in the summary, so it was recomputed from Valve's per-roster detail markdown, whose Git blob SHAs (076d8f1d..., 658080b7...) match the detail_sha the published row recorded. Reproduce with: python -m scripts.3cf793ef_valve_check. Evidence: data/research/3cf793ef/valve-verification.json.",
-    "match_ids": ["1081143", "1079651", "1082767", "1081600", "1081146", "1081871", "1079654", "1079655", "1079657", "1081150", "1082859", "1082861", "1082792", "1082793"],
+    "match_ids": [
+      "1081143",
+      "1079651",
+      "1082767",
+      "1081600",
+      "1081146",
+      "1081871",
+      "1079654",
+      "1079655",
+      "1079657",
+      "1081150",
+      "1082859",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
     "source_urls": [
       "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
@@ -15,8 +30,11 @@
     "id": "3cf793ef-snapshot-json-disagrees-with-rendered-row",
     "severity": "warning",
     "title": "The downloadable snapshot JSON disagrees with the rendered row for two fixtures, and on 1081148 it implies the opposite pick",
-    "detail": "The published pages are correct: 1082770 (UPGRADE vs Virtus.pro) shows Virtus.pro 60.6% from the Bovada + Pinnacle consensus and 1081148 (Inner Circle Academy vs Spirit Academy) shows Spirit Academy 51.4% from the Thunderpick line relayed by bo3.gg, both matching /origination/. The file the page links as 'Full snapshot JSON' still carries analysis.method=model with 33.31%/66.69% for 1082770 and 61.42%/38.58% for 1081148 (the opposite side) and contains no fallbacks map, because scripts/build.py deliberately publishes the untouched source-directory copy and attaches the money-line upgrade only while rendering. Anyone auditing the linked JSON therefore sees different numbers, and one different pick, from the row beside it. Fix: publish the resolved record in that JSON, or caption the download as featured-only estimates.",
-    "match_ids": ["1082770", "1081148"],
+    "detail": "The published pages are correct: 1082770 (UPGRADE vs Virtus.pro) shows Virtus.pro 60.6% from the Bovada + Pinnacle consensus and 1081148 (Inner Circle Academy vs Spirit Academy) shows Spirit Academy 51.4% from the Thunderpick line relayed by bo3.gg, both matching /origination/. The downloadable snapshot linked as 'Full snapshot JSON' now publishes the reconciled counters (featured_method_counts / complete_coverage_counts / counts_note), which closes the count-level contradiction, but each match record inside it still carries analysis.method=model with 33.31%/66.69% for 1082770 and 61.42%/38.58% for 1081148 - the opposite side from the row beside it - because scripts/build.py attaches the money-line upgrade only while rendering. The counts are now honest; the per-fixture numbers a reader would audit are not. Fix: publish the resolved per-fixture record (or caption the download as featured-method estimates).",
+    "match_ids": [
+      "1082770",
+      "1081148"
+    ],
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
       "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
@@ -29,7 +47,10 @@
     "severity": "warning",
     "title": "The HLTV-ranking rung turns large low-tier rank gaps into near coin flips",
     "detail": "Rows 1081149 (FORZE Reload vs LFO 10) and 1082860 (FlyQuest vs Staqued) are priced by applying a 400-point logistic to HLTV's published ranking points. Those points are compressed at the bottom of the table: rank 80 carries 11.0 points and rank 167 carries 4.0, so a 87-place gap becomes 51.0%; a rank-61 side against an unranked opponent (floor 0.0) becomes 52.3%. The pick sides are defensible, but these percentages carry almost no information and are displayed beside bookmaker-derived rows that do. Rank position, or an explicit wide-uncertainty band, would be more honest than a 400-point scale applied to a scale that is not 400 points wide there. Method note only; no published number was changed by this review.",
-    "match_ids": ["1081149", "1082860"],
+    "match_ids": [
+      "1081149",
+      "1082860"
+    ],
     "source_urls": [
       "https://www.hltv.org/ranking/teams",
       "https://buffedlizard55-lab.github.io/MaltaProj3/origination/"
@@ -40,7 +61,11 @@
     "severity": "warning",
     "title": "The duplicate-roster rule is implemented twice, and three published picks depend on the difference",
     "detail": "scripts/domain.py:valve_analysis fails closed when two complete five-player rows share a team name. scripts/originate.py:model_estimate instead resolves that case with a fresh HLTV lineup proof (all five players match, or exactly one four-of-five core with a documented roster change) and records it as lineup_disambiguation. Three published rows (1081871, 1079657, 1082792) exist only because the originating path is the lenient one, so the two helpers are not interchangeable: switching the ladder to the domain helper, or losing HLTV access, turns those three fixtures blank. Manual check of one proof: hltv.org/matches/2399334 (BRUTE vs BAKS, CCT Europe 11, Bo3) lists the same five-player BRUTE core the published row claims. Recommend documenting the two-step rule in methodology or aligning the helpers.",
-    "match_ids": ["1081871", "1079657", "1082792"],
+    "match_ids": [
+      "1081871",
+      "1079657",
+      "1082792"
+    ],
     "source_urls": [
       "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
       "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
@@ -52,7 +77,22 @@
     "severity": "notice",
     "title": "14 fixtures listed by Hotspawn after the 05:36Z snapshot are absent until the next refresh, not a ladder failure",
     "detail": "The live scheduled-fixture API returned 107 records and 46 future starts at 07:36Z; the published snapshot (05:36:57Z) holds 96 records and 33 future starts. All 14 differences are fixtures Hotspawn added in between: eight CCT South America 2026 Series 7 playoff pairings, four CIS LAN Championship 9 pairings, FaZe vs BC.Game and SinnerS vs Eternal Fire. Two of them already have an outside two-way price (FaZe 1.77 / BC.Game 1.94 and SinnerS 1.83 / Eternal Fire 1.90 at bo3.gg, read 07:40Z), and nine have both sides on Valve's standings, so the refresh closes them without new methodology. They are listed here so a reader comparing the site with the lobby knows why the counts differ.",
-    "match_ids": ["1082919", "1081599", "1081603", "1082920", "1082921", "1082922", "1082923", "1082924", "1082925", "1082926", "1082897", "1082898", "1082900", "1082901"],
+    "match_ids": [
+      "1082919",
+      "1081599",
+      "1081603",
+      "1082920",
+      "1082921",
+      "1082922",
+      "1082923",
+      "1082924",
+      "1082925",
+      "1082926",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901"
+    ],
     "source_urls": [
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "https://bo3.gg/matches/current",
@@ -64,7 +104,13 @@
     "severity": "notice",
     "title": "Five fixtures have no public basis found at all: research-only, and they say so per fixture",
     "detail": "Projeto do KinGui vs Martians (1082919), Alka vs LOS NINOS (1082923), BESTIA Academy vs RED Canids Academy (1082925), Isurus vs Hacha (1082926) and Envy vs GamerLegion (1082901) are missing at least one team from Valve's official global standings, and their competitions carry no price: bo3.gg lists no odds for CCT South America 2026 Series 7 and reports no matches at all for CIS LAN Championship 9, Polymarket's CS2 directory has no market for them, and no esportsbook reachable from the review environment lists them. They are the fixtures where the honest output is an unresolved entry with its tried-source trail, never an invented percentage. Each row's limitation text should name its own blocker rather than reuse one generic sentence.",
-    "match_ids": ["1082919", "1082923", "1082925", "1082926", "1082901"],
+    "match_ids": [
+      "1082919",
+      "1082923",
+      "1082925",
+      "1082926",
+      "1082901"
+    ],
     "source_urls": [
       "https://bo3.gg/matches/current",
       "https://bo3.gg/tournaments/cis-lan-championship-9",
