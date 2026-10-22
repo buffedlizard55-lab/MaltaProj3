@@ -1,0 +1,80 @@
+[
+  {
+    "id": "b1022dc2-ex-rustec-roster-change-vs-valve-tie",
+    "severity": "warning",
+    "match_ids": [
+      "1079654"
+    ],
+    "title": "ex-Zero Tenacity vs ex-RUSTEC (1079654): Valve 1,066-point tie rests on a 2026-10-05 ex-RUSTEC roster that has since changed 2 of 5 players",
+    "detail": "Observed on 2026-10-22T01:12Z: Hotspawn fixture 1079654 (ex-Zero Tenacity vs ex-RUSTEC, CCT Europe 2026 Series #11, 2026-10-23T08:00:00Z) is priced at an exact 50.0% / 50.0% tie by the Valve official standings model because both teams carry 1,066 points in standings_global_2026_10_05.md (#92 ex-RUSTEC and #93 ex-Zero Tenacity), leaving it as the sole active fixture with no directional side ('Even estimate \u00b7 no side' in #unresolved-register). First-hand inspection of HLTV match 2399331 and bo3.gg shows ex-Zero Tenacity retains all 5/5 players from the Oct 5 Valve row (Dragon, Kind0, VLDN, brutmonster, Cjoffo; HLTV #67 with 15 pts), whereas ex-RUSTEC's listed lineup (youka, bl1x1, yiksrezo, Brilliance, jakekeS; HLTV #70 with 14 pts) shares only 3 of 5 players with the Oct 5 Valve row (Brilliance, glowiing, shalfey, yiksrezo, youka) following shalfey's transfer to GamerLegion. Because no two-sided moneyline is open yet on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle (and EGamersWorld prints a 1.8 placeholder), the row stays a non-directional 50/50 tie until a moneyline opens.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
+      "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "https://bo3.gg/matches/ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+      "https://www.hltv.org/ranking/teams/2026/october/19",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "b1022dc2-origination-subpage-unresolved-even-copy",
+    "severity": "notice",
+    "match_ids": [
+      "1079654"
+    ],
+    "title": "Origination subpage #unresolved empty-state copy says all active fixtures have a pick when 1 fixture is an even 50/50 estimate without a side",
+    "detail": "In the 2026-10-22T01:06Z live snapshot (35 active fixtures, 34 with a directional pick, 0 with origination=null, 1 even 50.0%/50.0% estimate on 1079654 ex-Zero Tenacity vs ex-RUSTEC), the homepage executive summary (#unresolved-register in scripts/build.py) includes even-estimate-no-side rows and reports '1 estimate with probabilities but no side, out of 35 active Hotspawn CS2 fixtures'. On the origination subpage (origination/#unresolved in scripts/build_origination.py section_unresolved()), the filter checks only m['origination'] is None and prints 'No unresolved fixtures in this snapshot. All 35 active Hotspawn CS2 fixtures have a researched pick', even though the hero stats at the top of the same page state '35 snapshot fixtures \u00b7 34 with a sourced lean'. Logged in COORDINATION.md for scripts/build_origination.py.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py"
+    ]
+  },
+  {
+    "id": "b1022dc2-network-rung-valve-label-inheritance",
+    "severity": "notice",
+    "match_ids": [
+      "1079188",
+      "1081597",
+      "1082769",
+      "1082858"
+    ],
+    "title": "Fixtures resolved by the bo3.gg Bradley-Terry network rung inherit the generic 'Research model estimate (Valve official ratings)' label",
+    "detail": "In the 2026-10-22T01:06Z live origination.json, four fixtures resolved by the Own network model (bo3.gg results graph) rung \u2014 1079188 Bushido Wildcats vs ex-6666, 1081597 benched gods vs TitanFlow, 1082769 K27 vs NEXORA, and 1082858 Ground Zero vs Off Chops \u2014 carry origination.provider='Own network model (bo3.gg results graph)' and origination.family='network', but scripts/originate.py finalize_plan() sets origination.label='Research model estimate (Valve official ratings)' for any model quote whose source is not 'HLTV world ranking' or family='form'. The card's source link and research trail correctly identify the bo3.gg network fit, and a change request is logged in COORDINATION.md for the originate.py owner.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py"
+    ]
+  },
+  {
+    "id": "b1022dc2-benched-gods-titanflow-model-disagreement",
+    "severity": "warning",
+    "match_ids": [
+      "1081597"
+    ],
+    "title": "benched gods vs TitanFlow (1081597): network/VRS Europe ratings favor TitanFlow while HLTV world ranking unranked-floor favors benched gods",
+    "detail": "Verified 2026-10-22T01:12Z: no first-party moneyline exists for benched gods vs TitanFlow (CCT Europe 2026 Challengers #8, 2026-10-22T11:00:00Z), and EGamersWorld prints symmetric 1.8/1.8 placeholder odds. Across rating sources: (1) the bo3.gg Bradley-Terry network model (4,645 series, 269 Valve anchors) rates TitanFlow at 903.0 pts (9 series) vs benched gods at 684.6 pts (15 series, SD 166.8) -> 77.9% TitanFlow; (2) HLTV's 2026-10-21 Europe Valve Regional Standings page lists TitanFlow #175 (630 Valve pts) ahead of benched gods #230 (496 Valve pts); (3) HLTV's 2026-10-19 World Ranking lists benched gods #204 (3 pts) while TitanFlow has no world-ranking row (0.0 floor -> 50.4% benched gods). Treat the 77.9% TitanFlow network estimate as low-confidence research output rather than a market price.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/benched-gods-vs-titanflow-cct-europe-2026-challengers-8-1081597",
+      "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/valve-ranking/teams/2026/october/21/region/Europe",
+      "https://www.hltv.org/ranking/teams/2026/october/19",
+      "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn"
+    ]
+  },
+  {
+    "id": "b1022dc2-flyquest-staqued-unranked-floor-assumption",
+    "severity": "notice",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "FlyQuest vs Staqued (1082860): Staqued is a Last Chance Qualifier replacement team with no Valve or HLTV ranking row",
+    "detail": "Verified 2026-10-22T01:12Z on HLTV match 2399890 and HLTV event 9414 (DFRAG Invitational 2026, Brisbane LAN, 2026-10-27T03:00:00Z): FlyQuest (jks, INS, Vexite, aliStair, nettik; HLTV #61 with 16 pts, VRS #54) faces Staqued (kasze, w0mbat, Hazel, lzj, xelja), who entered as the Last Chance Qualifier replacement team. At T-5 days, no two-sided line is posted on Polymarket, Kalshi, Thunderpick, Bovada or Pinnacle (EGamersWorld shows a 1.8 placeholder), and Staqued has 0 Valve global rows, 0 HLTV ranking rows, and only 2 finished bo3.gg series (below the 6-series network gate). The published pick (FlyQuest 52.3%) uses the HLTV world-ranking unranked-floor rung (16.0 vs 0.0 pts on the 400-point logistic scale) and will automatically upgrade when a moneyline opens.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "https://www.hltv.org/ranking/teams/2026/october/19",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3"
+    ]
+  }
+]

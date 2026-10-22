@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c1fa150f-hotspawn-schedule-churn",
+    "title": "Hotspawn added 21 upcoming CS2 fixtures between two four-hour polls",
+    "detail": "At the 2026-10-21T20:39:32Z collection the public fixture array returned 75 CS2 records and the collector reconciled them three ways (API array, lobby page, CS2 pick'em page) with no disagreement, so that inventory was complete at that moment: 13 upcoming, 62 past-start. Reading the same public endpoint directly on 2026-10-22T01:09-01:25Z returned 21 upcoming fixtures that are absent from that snapshot - CCT Europe 2026 Series #11 and #12, NODWIN Clutch Series #13, CIS LAN Championship #9, DraculaN Season 7, VOID Autumn Cup 2026 and Stake Ranked Episode 6 qualifiers, the first starting at 03:00Z. They were therefore scheduled after the snapshot, not omitted by the collector. Consequence: the published list is complete for its own timestamp but cannot be predictive, and a fixture scheduled less than one refresh interval before its lock can reach the site already closed. Each row carries its own lock time and the summary marks locked rows; the register lists fixtures whose market never opened. Mitigation available but not applied here: a shorter refresh interval, at the cost of more queued runner jobs across parallel sessions.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/lobby",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://www.hotspawn.com/matches/vitalem-aerem-vs-rare-atom-void-autumn-cup-2026-1081870",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c1fa150f/live-api-read-2026-10-22.json"
+    ],
+    "match_ids": [
+      "1081869",
+      "1081143",
+      "1079650",
+      "1079188",
+      "1079651",
+      "1079189",
+      "1081596",
+      "1082767",
+      "1081598",
+      "1081145",
+      "1079652",
+      "1082180",
+      "1079653",
+      "1082769",
+      "1082770",
+      "1081871",
+      "1079654",
+      "1081148",
+      "1079655",
+      "1081149",
+      "1081150"
+    ],
+    "severity": "notice"
+  }
+]
