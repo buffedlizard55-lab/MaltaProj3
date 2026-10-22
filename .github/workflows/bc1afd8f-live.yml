@@ -98,7 +98,22 @@ jobs:
         # never committed and were lost with the workspace. A measurement step must
         # never be able to destroy the measurement.
         continue-on-error: true
-        run: python -m scripts.bc1afd8f_gate --label fresh-snapshot --timeout 1500
+        # Bounded on purpose, and bounded to the modules that touch the changed code.
+        # The whole suite against a *fresh* snapshot does not finish in 25 minutes:
+        # run 39762828402 hit the 1500 s limit (10:28:20Z -> 10:53:20Z) and run
+        # 39767437782 was still inside the step 52 minutes later, when the job's own
+        # timeout-minutes should have stopped it at 45. The cost is structural, not a
+        # hang: about twenty tests rebuild the whole site, and a fresh 104-record
+        # snapshot makes each build roughly a third slower than the 80-record fixture
+        # (89 s here against 66 s locally), so the suite scales with the snapshot.
+        # `scripts.bc1afd8f_gate` now kills the process group when its bound fires, so
+        # a timeout still writes its report with the partial tail.
+        run: |
+          python -m scripts.bc1afd8f_gate --label fresh-snapshot-modules --timeout 900 --modules \
+            tests.test_build tests.test_origination tests.test_origination_upgrade tests.test_review_flags \
+            tests.test_bc1afd8f tests.test_coverage_audit tests.test_verify_live tests.test_freshness_determinism \
+            tests.test_twc tests.test_source_integrity tests.test_df80ab9f_audit tests.test_4c972a51_tiebreak \
+            tests.test_96fbe295
       - name: Restore every tracked data file so only this session's reports are committed
         if: always()
         run: |
