@@ -40,6 +40,23 @@ into `scripts/originate.py` inside this section.
   violations. Full suite on the pre-merge tree: **883 tests OK**.
 - **Open PR:** [#171](https://github.com/buffedlizard55-lab/MaltaProj3/pull/171).
 
+### BD-3 problem found on `main`: the render test was stale, not my merge (2026-10-22T09:40Z)
+`python -m unittest discover -s tests` on this branch after merging `origin/main` @ `1cab862`
+reported **936 tests, 1 failure**: `test_review_flags.ReviewFlagsIntegration.
+test_render_only_findings_do_not_rewrite_the_canonical_json`, which required the published
+`site/data/latest.json` to be byte-identical to the source file. **The same test fails on a clean
+`origin/main` worktree** (`git worktree add /tmp/maincheck origin/main`; 4 tests, 1 failure), so it
+is not caused by this session. Cause: `write_reconciled_snapshot()` (added by session `4c972a51`)
+intentionally republishes that JSON at indent 1 with three extra keys (`featured_method_counts`,
+`complete_coverage_counts`, `counts_note`) so the downloaded file cannot contradict the page.
+- **Fix taken from PR #172 rather than re-invented.** Session `aae76fb3` had already replaced the
+  byte-equality assertion with the correct contract (source bytes untouched; published JSON equal on
+  `generated_at`, `inventory_observed_at`, `counts`, `matches`, `flags`; extra keys exactly those
+  three). That file is used verbatim here, with this note, because a red `main` blocks every
+  session's merge. Where the two branches meet the content is identical, so the merge is a no-op.
+- With that file, the merged tree's suite is green apart from nothing: `tests.test_review_flags`
+  4 tests OK, and the full suite is re-run by CI on this PR.
+
 ### BD-1 result — fixtures added after a published snapshot are captured and priced (2026-10-22T08:35Z)
 Runner-observed, read-only. `scripts/bdc084c1_probe.py` compares the freshly collected snapshot with
 the snapshot committed at `HEAD` and reads its basis from `scripts.build.selected_fallback`, so the
