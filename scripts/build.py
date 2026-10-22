@@ -917,6 +917,9 @@ def session_probe_block(data, prefix):
     if not surfaces:
         return ''
     groups = [
+        ('The exact endpoints the resolver calls', {'ladder'},
+         'Probed with the same method and payload the four-hour pipeline uses. A green row means the '
+         'ladder’s own source answered, not merely that its host is online.'),
         ('First-party esportsbooks & exchanges', {'book', 'exchange'},
          'A bookmaker price is the first choice; only a two-sided prematch line can become a pick.'),
         ('Aggregators & odds comparisons', {'aggregator'},
@@ -1411,14 +1414,21 @@ def picks(data, prefix, now=None):
     shown = {'all': len(active),
              'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker', 'consensus', 'reference')),
              'model': sum(1 for b, _ in basis if b == 'model'),
+             'guidance': sum(1 for b, _ in basis if b == 'guidance'),
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
     with_pick = shown['all'] - shown['unresolved']
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    # Session 4c972a51: the sentence used to add the *featured* counts (11 money
+    # + 12 researched) while the header counted every displayed row (33), so the
+    # arithmetic did not add up and a reader could think ten matches had no pick.
+    # Every number here now comes from the same displayed-basis tally the filter
+    # chips use, and the parts always sum to `shown['all']`.
     out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
-            f'{c["market"] + c["bookmaker"] + c.get("reference", 0)} come from an external market, esportsbook or aggregated bookmaker line'
-            + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
-            + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
+            f'{shown["market"]} come from an external market, esportsbook or aggregated bookmaker line'
+            + (f', {shown["model"]} from a labelled research model, badged <strong>Research model</strong>' if shown["model"] else '')
+            + (f', {shown["guidance"]} from wide-book guidance only' if shown['guidance'] else '')
+            + f', and {shown["unresolved"]} remain blank because no supported evidence exists. '
             f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
             f'<a href="{prefix}edge/">Day-one upset review &amp; contrarian edge →</a></span></div>')
     out += f'<div class="limitations-callout"><strong>Need a pick for rows unresolved below?</strong> <a style="text-decoration:underline" href="{prefix}origination/#picks">Complete researched picks: featured estimates plus source-backed fallbacks →</a> <a style="text-decoration:underline" href="{prefix}origination/#unresolved">Remaining limitations →</a> <a style="text-decoration:underline" href="{prefix}index.html#contrarian">Day 1 contrarian review →</a></div>'

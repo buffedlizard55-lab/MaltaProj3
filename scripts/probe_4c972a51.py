@@ -36,63 +36,76 @@ HEADERS = {
 # publishes its own two-sided price; a results/ratings source can only feed a
 # research model, never a money line.
 TARGETS = [
-    # --- first-party esportsbooks -------------------------------------------
-    ('thunderpick', 'book', 'GET', 'https://thunderpick.io/api/matches'),
-    ('pinnacle-guest', 'book', 'GET', 'https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups'),
-    ('bovada', 'book', 'GET',
-     'https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike?marketFilterId=def&preMatchOnly=true&lang=en'),
-    ('ggbet', 'book', 'GET', 'https://gg.bet/en/counter-strike'),
-    ('ggbet-next', 'book', 'GET', 'https://gg.bet/en/next-to-go?hoursAhead=168&sportId=esports_counter_strike'),
-    ('betway', 'book', 'GET', 'https://sports.betway.com/en/sports/grp/esports/counter-strike'),
-    ('marathonbet', 'book', 'GET', 'https://www.marathonbet.com/en/betting/Esports/Counter-Strike/'),
-    ('1xbet', 'book', 'GET', 'https://1xbet.com/en/line/esports/counter-strike/'),
-    ('fonbet', 'book', 'GET', 'https://www.fonbet.ru/sports/esports/counter-strike/'),
-    ('winline', 'book', 'GET', 'https://winline.ru/stavki/sport/kibersport/counter-strike'),
-    ('betboom', 'book', 'GET', 'https://betboom.ru/sport/esports/counter-strike'),
-    ('rivalry', 'book', 'GET', 'https://www.rivalry.com/esports/counter-strike-2'),
-    ('stake', 'book', 'GET', 'https://stake.com/sports/esports/counter-strike'),
-    ('coolbet', 'book', 'GET', 'https://www.coolbet.com/en/sports/esports/counter-strike'),
-    ('unibet', 'book', 'GET', 'https://www.unibet.com/betting/sports/filter/counter_strike/all/matches'),
-    ('leovegas', 'book', 'GET', 'https://www.leovegas.com/en-row/sportsbook/esports/counter-strike'),
-    ('betano-br', 'book', 'GET', 'https://www.betano.bet.br/e-sports/counter-strike/'),
-    ('betnacional', 'book', 'GET', 'https://betnacional.bet.br/esportes/e-sports'),
-    ('esportes-da-sorte', 'book', 'GET', 'https://esportesdasorte.bet.br/esportes/e-sports'),
-    ('kto-br', 'book', 'GET', 'https://kto.bet.br/esportes/e-sports'),
-    ('bet365', 'book', 'GET', 'https://www.bet365.com/#/AC/B151/C1/D50/E1/F2/'),
-    ('betfair-exchange', 'book', 'GET', 'https://www.betfair.com/exchange/plus/esports'),
-    ('smarkets', 'book', 'GET', 'https://smarkets.com/sport/esports'),
-    ('matchbook', 'book', 'GET', 'https://www.matchbook.com/events/esports'),
-    ('midnite', 'book', 'GET', 'https://www.midnite.com/sports/esports'),
-    ('luckbox', 'book', 'GET', 'https://luckbox.games/'),
-    ('csgoempire', 'book', 'GET', 'https://csgoempire.com/'),
-    ('kalshi', 'exchange', 'GET',
-     'https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=KXCS2&limit=100&status=open'),
-    ('polymarket-gamma', 'exchange', 'GET',
-     'https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100'),
+    # --- the exact endpoints the resolver already calls (production contract) --
+    # These are probed with the same method and payload the collector uses, so a
+    # green row here means the ladder's own source answered, not merely its host.
+    ('POLYMARKET gamma events (tag counter-strike-2)', 'ladder', 'GET',
+     'https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0', None),
+    ('POLYMARKET CLOB order book (token 0)', 'ladder', 'GET',
+     'https://clob.polymarket.com/book?token_id=0', None),
+    ('THUNDERPICK api/matches (POST gameIds [6])', 'ladder', 'POST',
+     'https://thunderpick.io/api/matches', {'gameIds': [6]}),
+    ('KALSHI trade-api events (series KXCS2GAME)', 'ladder', 'GET',
+     'https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&with_nested_markets=true&limit=200', None),
+    ('BOVADA coupon (counter-strike-2)', 'ladder', 'GET',
+     'https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en', None),
+    ('PINNACLE guest 12/matchups', 'ladder', 'GET',
+     'https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups', None),
+    ('PINNACLE guest 12/leagues', 'ladder', 'GET',
+     'https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues', None),
+    ('BO3 api/v1/matches (relay/upcoming)', 'ladder', 'GET',
+     'https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament', None),
+    ('HLTV ranking/teams (ranking rung)', 'ladder', 'GET',
+     'https://www.hltv.org/ranking/teams', None),
+    ('VALVE standings API (live/2026)', 'ladder', 'GET',
+     'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026', None),
+    # --- candidate first-party esportsbooks ----------------------------------
+    ('THUNDERPICK esports page', 'book', 'GET', 'https://thunderpick.io/esports/counter-strike', None),
+    ('GG.BET next-to-go', 'book', 'GET',
+     'https://gg.bet/en/next-to-go?hoursAhead=168&sportId=esports_counter_strike', None),
+    ('BETWAY esports', 'book', 'GET', 'https://sports.betway.com/en/sports/grp/esports/counter-strike', None),
+    ('MARATHONBET counter-strike', 'book', 'GET', 'https://www.marathonbet.com/en/betting/Esports/Counter-Strike/', None),
+    ('1XBET counter-strike', 'book', 'GET', 'https://1xbet.com/en/line/esports/counter-strike/', None),
+    ('FONBET counter-strike', 'book', 'GET', 'https://www.fonbet.ru/sports/esports/counter-strike/', None),
+    ('WINLINE counter-strike', 'book', 'GET', 'https://winline.ru/stavki/sport/kibersport/counter-strike', None),
+    ('BETBOOM counter-strike', 'book', 'GET', 'https://betboom.ru/sport/esports/counter-strike', None),
+    ('RIVALRY counter-strike-2', 'book', 'GET', 'https://www.rivalry.com/esports/counter-strike-2', None),
+    ('STAKE counter-strike', 'book', 'GET', 'https://stake.com/sports/esports/counter-strike', None),
+    ('COOLBET esports', 'book', 'GET', 'https://www.coolbet.com/en/sports/esports/counter-strike', None),
+    ('UNIBET counter_strike', 'book', 'GET', 'https://www.unibet.com/betting/sports/filter/counter_strike/all/matches', None),
+    ('LEOVEGAS esports', 'book', 'GET', 'https://www.leovegas.com/en-row/sportsbook/esports/counter-strike', None),
+    ('BETANO BR e-sports', 'book', 'GET', 'https://www.betano.bet.br/e-sports/counter-strike/', None),
+    ('BETNACIONAL e-sports', 'book', 'GET', 'https://betnacional.bet.br/esportes/e-sports', None),
+    ('ESPORTES DA SORTE e-sports', 'book', 'GET', 'https://esportesdasorte.bet.br/esportes/e-sports', None),
+    ('KTO BR e-sports', 'book', 'GET', 'https://kto.bet.br/esportes/e-sports', None),
+    ('BET365 esports', 'book', 'GET', 'https://www.bet365.com/#/AC/B151/C1/D50/E1/F2/', None),
+    ('BETFAIR exchange esports', 'book', 'GET', 'https://www.betfair.com/exchange/plus/esports', None),
+    ('SMARKETS esports', 'book', 'GET', 'https://smarkets.com/sport/esports', None),
+    ('MATCHBOOK esports', 'book', 'GET', 'https://www.matchbook.com/events/esports', None),
+    ('MIDNITE esports', 'book', 'GET', 'https://www.midnite.com/sports/esports', None),
+    ('LUCKBOX', 'book', 'GET', 'https://luckbox.games/', None),
+    ('CSGOEMPIRE', 'book', 'GET', 'https://csgoempire.com/', None),
     # --- aggregators / odds comparisons -------------------------------------
-    ('oddsportal', 'aggregator', 'GET', 'https://www.oddsportal.com/esports/counter-strike/'),
-    ('oddspedia', 'aggregator', 'GET', 'https://oddspedia.com/counter-strike'),
-    ('bo3', 'aggregator', 'GET', 'https://bo3.gg/matches'),
-    ('egamersworld', 'aggregator', 'GET', 'https://egamersworld.com/counter-strike/matches'),
-    ('escorenews', 'aggregator', 'GET', 'https://escorenews.com/en/csgo'),
-    ('gosugamers', 'aggregator', 'GET', 'https://www.gosugamers.net/counterstrike'),
-    ('escharts', 'aggregator', 'GET', 'https://escharts.com/tournaments/csgo'),
-    ('dltv', 'aggregator', 'GET', 'https://dltv.org/matches'),
-    ('csgo-com', 'aggregator', 'GET', 'https://csgo.com/matches/'),
-    ('cybersport', 'aggregator', 'GET', 'https://www.cybersport.ru/matches'),
-    ('strafe', 'aggregator', 'GET', 'https://strafe.to/'),
-    ('vegasinsider', 'aggregator', 'GET', 'https://www.vegasinsider.com/esports/odds/'),
-    ('actionnetwork', 'aggregator', 'GET', 'https://www.actionnetwork.com/esports/odds'),
-    ('bettingpros', 'aggregator', 'GET', 'https://www.bettingpros.com/esports/odds/'),
+    ('ODDSPORTAL counter-strike', 'aggregator', 'GET', 'https://www.oddsportal.com/esports/counter-strike/', None),
+    ('ODDSPEDIA counter-strike', 'aggregator', 'GET', 'https://oddspedia.com/counter-strike', None),
+    ('BO3.gg match center', 'aggregator', 'GET', 'https://bo3.gg/matches', None),
+    ('EGAMERSWORLD counter-strike', 'aggregator', 'GET', 'https://egamersworld.com/counter-strike/matches', None),
+    ('ESCORENEWS csgo', 'aggregator', 'GET', 'https://escorenews.com/en/csgo', None),
+    ('GOSUGAMERS counterstrike', 'aggregator', 'GET', 'https://www.gosugamers.net/counterstrike', None),
+    ('ESCHARTS tournaments', 'aggregator', 'GET', 'https://escharts.com/tournaments/csgo', None),
+    ('DLTV matches', 'aggregator', 'GET', 'https://dltv.org/matches', None),
+    ('CSGO.COM matches', 'aggregator', 'GET', 'https://csgo.com/matches/', None),
+    ('CYBERSPORT matches', 'aggregator', 'GET', 'https://www.cybersport.ru/matches', None),
+    ('STRAFE', 'aggregator', 'GET', 'https://strafe.to/', None),
+    ('VEGASINSIDER esports odds', 'aggregator', 'GET', 'https://www.vegasinsider.com/esports/odds/', None),
+    ('ACTIONNETWORK esports odds', 'aggregator', 'GET', 'https://www.actionnetwork.com/esports/odds', None),
+    ('BETTINGPROS esports odds', 'aggregator', 'GET', 'https://www.bettingpros.com/esports/odds/', None),
     # --- identity / ratings / results ---------------------------------------
-    ('hltv-matches', 'ratings', 'GET', 'https://www.hltv.org/matches'),
-    ('hltv-ranking', 'ratings', 'GET', 'https://www.hltv.org/ranking/teams'),
-    ('hltv-rss', 'ratings', 'GET', 'https://www.hltv.org/rss/matches'),
-    ('liquipedia-api', 'ratings', 'GET',
-     'https://liquipedia.net/counterstrike/api.php?action=query&meta=siteinfo&format=json'),
-    ('liquipedia-matches', 'ratings', 'GET', 'https://liquipedia.net/counterstrike/Matches'),
-    ('valve-standings', 'ratings', 'GET',
-     'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026'),
+    ('HLTV matches', 'ratings', 'GET', 'https://www.hltv.org/matches', None),
+    ('HLTV result RSS', 'ratings', 'GET', 'https://www.hltv.org/rss/matches', None),
+    ('LIQUIPEDIA api.php', 'ratings', 'GET',
+     'https://liquipedia.net/counterstrike/api.php?action=query&meta=siteinfo&format=json', None),
+    ('LIQUIPEDIA Matches page', 'ratings', 'GET', 'https://liquipedia.net/counterstrike/Matches', None),
 ]
 
 # Search endpoints that take a free-text query, used once per unresolved fixture.
@@ -119,11 +132,13 @@ def _excerpt(body: bytes, limit: int = 1200) -> str:
     return SPACE_RE.sub(' ', text).strip()[:limit]
 
 
-def fetch(session: requests.Session, method: str, url: str, timeout: int) -> dict:
+def fetch(session: requests.Session, method: str, url: str, timeout: int,
+          payload=None) -> dict:
     started = time.time()
     out = {'url': url, 'method': method}
     try:
-        response = session.request(method, url, timeout=timeout, allow_redirects=True)
+        response = session.request(method, url, timeout=timeout, allow_redirects=True,
+                                   json=payload)
     except Exception as exc:  # noqa: BLE001 - every transport failure is evidence
         out.update({'status': None, 'error': f'{type(exc).__name__}: {exc}'[:240],
                     'elapsed_s': round(time.time() - started, 2)})
@@ -201,8 +216,8 @@ def main() -> None:
     session.headers.update(HEADERS)
 
     def surface(item):
-        name, kind, method, url = item
-        record = fetch(session, method, url, args.timeout)
+        name, kind, method, url, payload = item
+        record = fetch(session, method, url, args.timeout, payload)
         record.update({'name': name, 'kind': kind})
         record['teams_present'] = names_in(record, teams)
         record['unresolved_teams_present'] = names_in(record, unresolved_teams)

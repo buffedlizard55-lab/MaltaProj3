@@ -1,0 +1,66 @@
+[
+  {
+    "id": "4c972a51-picks-count-arithmetic",
+    "severity": "warning",
+    "title": "The match-picks header counted every row while its sentence added only the featured counts",
+    "detail": "On the published 2026-10-22T07:36Z snapshot the Match picks page opened with \"33 of 33 matches below carry a pick\" but the next sentence said \"11 come from an external market ... 12 more from the audited research ladder ... and 0 remain blank\": 11 + 12 = 23, ten rows short of 33. The header counted the displayed basis of every active fixture (featured pick plus researched fallback), while the sentence added the featured-only counters from data/latest.json. Fixed in scripts/build.py: the money, research-model, guidance-only and blank counts now all come from the same displayed-basis tally used by the filter chips, so the parts always sum to the number of rows. Verified on the local rebuild: \"17 of 17 ... 12 external ... 5 research model ... 0 blank\", matching the chips 12 / 5 / 0. No probability, pick or source changed.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "4c972a51-even-estimate-tiebreak",
+    "severity": "notice",
+    "title": "An exactly even research estimate now gets a side from the provider's own published order",
+    "detail": "Fixture 1082926 (Isurus vs Hacha) was resolved by the HLTV world-ranking model with exactly 2.0 published points for each team, so the estimate was 50.0% / 50.0% and the pick column stayed empty — the fixture was counted as resolved but had no team to pick. The brief asks for a pick on every listed match, so scripts/originate.py now applies a narrowly scoped tie-break: only when a research-model quote is exactly even, both inputs carry a different positive published position (HLTV rank 215 vs 229 in this case), and the quote is not a money line. The rule sets the direction only; the probabilities stay 2.000 / 2.000 fair lines and the row publishes the rule, both positions and a limitation. Without a published order the side stays blank. Pinned by tests/test_4c972a51_tiebreak.py (8 tests).",
+    "match_ids": [
+      "1082926"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py"
+    ]
+  },
+  {
+    "id": "4c972a51-unranked-floor-thin-edge",
+    "severity": "warning",
+    "title": "An unranked-floor estimate can show a pick with a 0.14-point edge",
+    "detail": "Fixture 1082919 (Projeto do KinGui vs Martians) has no Valve row, no market and no bookmaker quote. The HLTV rung gives the unranked side HLTV's floor of 0.0 points against Martians' 1.0 point, which produces 49.86% vs 50.14% — a directional pick separated by 0.14 percentage points. The row is labelled low confidence and the limitation text says the floor is an assumption, not a measured rating, but the pick still looks more precise than the evidence behind it. It is published as-is for review rather than hidden or rounded into a fake edge; a reader should treat this row as effectively even. No probability was changed by this session.",
+    "match_ids": [
+      "1082919"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+      "https://bo3.gg/matches/tropa-do-kingui-vs-martians-22-10-2026"
+    ]
+  },
+  {
+    "id": "4c972a51-hltv-blocked-and-priceless",
+    "severity": "notice",
+    "title": "HLTV refused every runner path and publishes no prematch price",
+    "detail": "The brief asks to try HLTV first for matches the featured method cannot price. A read-only probe from the publishing runner on 2026-10-22T07:38Z asked HLTV's match list, world ranking and RSS feed for data and received HTTP 403 on all three; HLTV match pages were read successfully by a person on the same day, so the block is automated access, not a missing page. Even when readable, HLTV publishes fixture identity, results and a weekly ranking — no two-sided prematch price. It is therefore used for identity and as the ranking input of the last-resort research model, never as a betting line, and the blocked paths are published on the Unresolved picks page rather than hidden behind a claim that no market exists.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/#source-matrix"
+    ]
+  },
+  {
+    "id": "4c972a51-book-surfaces-are-shells",
+    "severity": "notice",
+    "title": "Most esportsbook pages answer HTTP 200 but return no usable match list",
+    "detail": "The 2026-10-22T07:38Z runner probe asked 49 independent surfaces. 13 answered HTTP 200, but several bookmaker pages that answered were 2-12 KB script shells with no fixture or price in the HTML (Betano, Betnacional, Esportes da Sorte and KTO all returned exactly 7,001 bytes; Fonbet 2,179 bytes; Winline 12,791 bytes). Five books refused automated access outright (GG.BET 403, Stake 403, Marathonbet 403, Coolbet 403, Bet365 403), 1xBet returned a 203 challenge, OddsPortal rate-limited with 429, and Oddspedia, Betway, LeoVegas, csgo.com and BettingPros returned 404. Only the documented APIs already in the ladder (Polymarket Gamma, Pinnacle guest board, Kalshi, Thunderpick POST, bo3.gg) returned machine-readable two-sided data. The matrix is published with its status codes on the Unresolved picks page; a refusal is never treated as evidence that no market exists.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/#source-matrix",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/4c972a51/source-probe.json",
+      "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
+    ]
+  }
+]
