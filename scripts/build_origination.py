@@ -54,6 +54,121 @@ def team_names(m):
     return [t['name'] or 'Unverified team' for t in m['teams']]
 
 
+def method_label(o):
+    if o.get('family') == 'network':
+        return 'Own network estimate (bo3.gg finished-series graph)'
+    return o['label']
+
+
+def match_source_links(m, o):
+    """Deduplicated official source links for one fixture row or card."""
+    links, seen = [], set()
+
+    def add(url, text):
+        if url and url not in seen:
+            seen.add(url)
+            links.append(ext(url, text))
+
+    add(m['source_url'], 'Hotspawn')
+    if o:
+        quotes = [q for q in o.get('quotes', []) if isinstance(q, dict) and q.get('source_url')]
+        for q in quotes:
+            add(q['source_url'], q.get('provider', 'source'))
+        if not quotes:
+            add(o.get('source_url'), o.get('source', 'Analysis source'))
+        for inp in o.get('inputs') or []:
+            if isinstance(inp, dict) and inp.get('source_url'):
+                label = f"{inp.get('name', 'Roster')} rating" if len(o.get('inputs') or []) > 1 else o.get('source', 'Rating source')
+                add(inp['source_url'], label)
+        if o.get('model_crosscheck'):
+            add(o['model_crosscheck'].get('source_url'), 'Valve model cross-check')
+    return links
+
+
+def basis_meta(o):
+    money = o['method'] in {'market', 'bookmaker', 'consensus', 'reference'}
+    kind = 'green' if money else 'purple'
+    label = 'Money-backed line' if money else 'Research model'
+    group = 'money' if money else 'model'
+    if o['method'] == 'reference':
+        label = 'Aggregated money line · third-party bookmaker average'
+    if o['method'] == 'guidance':
+        label = 'Wide-book guidance · indicative only'
+        kind = 'amber'
+        group = 'unresolved'
+    if any(isinstance(q, dict) and q.get('thin') for q in o.get('quotes', [])):
+        label += ' · thin market'
+        kind = 'amber'
+    return label, kind, group
+
+
+def picks_overview_table(picks, states):
+    if not picks:
+        return ''
+    counts = {'all': len(picks), 'money': 0, 'model': 0, 'unresolved': 0}
+    rows_html = []
+    for m in picks:
+        sourced = m.get('origination')
+        o = sourced if sourced and valid_pair(sourced.get('probabilities')) else None
+        names = team_names(m)
+        pick = m.get('pick_index')
+        safety = states[m['id']]
+        current = safety['current']
+        if o and pick is not None:
+            b_label, b_kind, group = basis_meta(o)
+            counts[group] += 1
+            p0, p1 = o['probabilities']
+            probs_cell = (
+                f'<span class="tbl-prob{" is-fav" if pick == 0 else ""}">{e(names[0])}: <strong>{p0 * 100:.1f}%</strong></span>'
+                f'<span class="tbl-prob{" is-fav" if pick == 1 else ""}">{e(names[1])}: <strong>{p1 * 100:.1f}%</strong></span>'
+            )
+            prefix = '✓ ' if current else 'Snapshot: '
+            pick_cell = (
+                f'<strong class="tbl-pick">{e(prefix + names[pick])}</strong>'
+                f'<small>{o["probabilities"][pick] * 100:.1f}% · fair {e(o["fair_decimal"][pick])}</small>'
+            )
+            basis_cell = f'{badge(b_label, b_kind)}<small>{e(method_label(o))}</small>'
+        elif o and pick is None:
+            counts['unresolved'] += 1
+            p0, p1 = o['probabilities']
+            probs_cell = (
+                f'<span class="tbl-prob">{e(names[0])}: <strong>{p0 * 100:.1f}%</strong></span>'
+                f'<span class="tbl-prob">{e(names[1])}: <strong>{p1 * 100:.1f}%</strong></span>'
+            )
+            pick_cell = '<span class="unverified">— unverified <small>(even estimate · no side)</small></span>'
+            basis_cell = f'{badge("Even estimate · no side", "amber")}<small>{e(method_label(o))}</small>'
+        else:
+            counts['unresolved'] += 1
+            probs_cell = '<span class="unverified">— unverified</span>'
+            pick_cell = '<span class="unverified">Unresolved <small>(no verified inputs)</small></span>'
+            basis_cell = badge('No verified pick', 'amber')
+        links = ' · '.join(match_source_links(m, o))
+        rows_html.append(
+            f'<tr id="row-{e(m["id"])}" data-filter-group="{e(group if (o and pick is not None) else "unresolved")}">'
+            f'<th scope="row"><a class="src" href="#match-{e(m["id"])}">{e(names[0])} vs {e(names[1])}</a>'
+            f'<small>{e(m.get("competition") or "Unverified tournament")} · {local_time(m["starts_at"])}</small></th>'
+            f'<td data-label="Win %">{probs_cell}</td>'
+            f'<td data-label="Pick">{pick_cell}</td>'
+            f'<td data-label="Analysis &amp; sources">{basis_cell}<div class="tbl-srcs">{links}</div></td>'
+            '</tr>'
+        )
+    toolbar = (
+        '<div class="filter-bar" role="toolbar" aria-label="Filter picks table">'
+        f'<button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All ({counts["all"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="money" aria-pressed="false">Money-backed ({counts["money"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="model" aria-pressed="false">Research models ({counts["model"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="unresolved" aria-pressed="false">Unresolved / even ({counts["unresolved"]})</button>'
+        '</div>'
+    )
+    return (
+        f'{toolbar}<div class="table-wrap picks-table-wrap">'
+        '<table class="simple picks-table" aria-label="All active Hotspawn CS2 picks overview">'
+        '<thead><tr><th scope="col">Match &amp; schedule</th><th scope="col">Win probabilities</th>'
+        '<th scope="col">Clear pick</th><th scope="col">Analysis &amp; official sources</th></tr></thead>'
+        f'<tbody>{"".join(rows_html)}</tbody></table></div>'
+    )
+
+
 def pick_row(m, safety=None, now=None):
     sourced = m.get('origination')
     o = sourced if sourced and valid_pair(sourced.get('probabilities')) else None
@@ -87,34 +202,9 @@ def pick_row(m, safety=None, now=None):
         else:
             out.append('<p class="pick-line">Pick: <strong>No directional edge</strong> <small>(equal estimate)</small></p>')
         out.append(f'<p class="line-time">Estimate observed {local_time(o.get("observed_at"))}.<span data-historical-only{historical_hidden}> Historical / unverified for current use.</span></p>')
-        money = o['method'] in {'market', 'bookmaker', 'consensus', 'reference'}
-        kind = 'green' if money else 'purple'
-        label = 'Money-backed line' if money else 'Research model'
-        if o['method'] == 'reference':
-            label = 'Aggregated money line · third-party bookmaker average'
-        if o['method'] == 'guidance':
-            label = 'Wide-book guidance · indicative only'
-            kind = 'amber'
-        if any(isinstance(q, dict) and q.get('thin') for q in o.get('quotes', [])):
-            label += ' · thin market'
-            kind = 'amber'
-        out.append(f'<p class="basis">{badge(label, kind)} <span class="method">{e(o["label"])}</span></p>')
-        # One link per distinct source URL (featured market rows carry one quote per
-        # outcome, which used to print the same Polymarket link three times).
-        links, seen = [], set()
-
-        def add(url, text):
-            if url and url not in seen:
-                seen.add(url)
-                links.append(ext(url, text))
-        add(m['source_url'], 'Hotspawn')
-        quotes = [q for q in o.get('quotes', []) if isinstance(q, dict) and q.get('source_url')]
-        for q in quotes:
-            add(q['source_url'], q.get('provider', 'source'))
-        if not quotes:
-            add(o['source_url'], o.get('source', 'Analysis source'))
-        if o.get('model_crosscheck'):
-            add(o['model_crosscheck'].get('source_url'), 'Valve model cross-check')
+        label, kind, _ = basis_meta(o)
+        out.append(f'<p class="basis">{badge(label, kind)} <span class="method">{e(method_label(o))}</span></p>')
+        links = match_source_links(m, o)
         out.append('<p class="row-srcs">' + ' · '.join(links) + '</p>')
     else:
         out.append('<ul class="probs"><li><span>' + e(names[0]) + '</span><strong class="unverified">—</strong></li>'
@@ -131,6 +221,18 @@ def pick_row(m, safety=None, now=None):
         else:
             out.append(f'<p class="alias-note">Upgraded from the featured {e(m.get("featured_method") or "equal")} tie ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a directional money-backed line.</p>')
     details = '<details><summary>Research trail &amp; limitations</summary>'
+    if o and o.get('inputs'):
+        details += '<ul class="limits">'
+        for inp in o['inputs']:
+            if not isinstance(inp, dict):
+                continue
+            pts_note = f"{inp.get('points')} pts"
+            if inp.get('rounded_points') is not None and inp.get('rounded_points') != inp.get('points'):
+                pts_note += f" (summary rounded: {inp['rounded_points']})"
+            standing = f"#{inp['standing']} " if inp.get('standing') is not None else ''
+            src_html = ' ' + ext(inp['source_url'], 'official record') if inp.get('source_url') else ''
+            details += f'<li><strong>{e(standing + str(inp.get("name", "Roster")))}</strong>: {e(pts_note)}{src_html}</li>'
+        details += '</ul>'
     details += '<ol class="trail">'
     for r in m.get('research', []):
         details += (f'<li><strong>{e(r["stage"])}</strong> · {e(r["status"])}<p>{e(r["detail"])}</p>'
@@ -163,15 +265,25 @@ def short_stage(stage):
 def unresolved_card(m):
     """Phone-first card: what every source showed for a match that has no verified pick."""
     names = team_names(m)
-    # Deliberately NOT .pick-card: the picks list owns exactly one .pick-card per fixture
-    # (scripts/verify_live.py asserts that set after every deployment).
-    out = [f'<article class="unresolved-card" id="unresolved-{e(m["id"])}">',
+    sourced = m.get('origination')
+    is_even = sourced is not None and m.get('pick_index') is None
+    # Keep id="unresolved-<id>" strictly on blank (origination is None) cards so
+    # deployment_audit.py's blank-unresolved ID check preserves exact 1-to-1 parity.
+    card_id = f'even-{e(m["id"])}' if is_even else f'unresolved-{e(m["id"])}'
+    header_badge = badge('Even estimate · no side', 'amber') if is_even else badge('No verified pick', 'amber')
+    if is_even and valid_pair(sourced.get('probabilities')):
+        p0, p1 = sourced['probabilities']
+        pick_html = (f'<p class="pick-line">Pick: <strong class="unverified">No directional edge</strong> '
+                     f'<small>({p0 * 100:.1f}% / {p1 * 100:.1f}% — unverified tie, no side chosen)</small></p>')
+    else:
+        pick_html = ('<p class="pick-line">Pick: <strong class="unverified">Unresolved</strong> '
+                     '<small>both win % left blank — no default 50/50</small></p>')
+    out = [f'<article class="unresolved-card" id="{card_id}">',
            f'<header class="card-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")}</span>'
-           f'<span class="tier">{badge("No verified pick", "amber")}</span></header>',
+           f'<span class="tier">{header_badge}</span></header>',
            f'<h3 class="teams"><strong>{e(names[0])}</strong><span class="vs">vs</span><strong>{e(names[1])}</strong></h3>',
            f'<p class="when">{local_time(m["starts_at"])}</p>',
-           '<p class="pick-line">Pick: <strong class="unverified">Unresolved</strong> '
-           '<small>both win % left blank — no default 50/50</small></p>',
+           pick_html,
            '<ul class="findings">']
     for r in m.get('research', []):
         if r.get('stage') == 'Origination result':
@@ -179,25 +291,33 @@ def unresolved_card(m):
         out.append(f'<li><strong>{e(short_stage(r["stage"]))}</strong> <span class="status">{e(r["status"])}</span> — '
                    f'{e(r["detail"])} {ext(r["source_url"], "source")}</li>')
     out.append('</ul>')
-    out.append('<p class="row-srcs">' + ext(m['source_url'], 'Hotspawn fixture')
-               + f' · <a class="src" href="#match-{e(m["id"])}">Full research trail ↓</a></p></article>')
+    extra_srcs = ' · '.join(match_source_links(m, sourced if is_even else None))
+    out.append(f'<p class="row-srcs">{extra_srcs} · <a class="src" href="#match-{e(m["id"])}">Full research trail ↓</a></p></article>')
     return ''.join(out)
 
 
 def section_unresolved(data):
-    rows = [m for m in data['matches'] if m['origination'] is None]
+    blank_rows = [m for m in data['matches'] if m['origination'] is None]
+    even_rows = [m for m in data['matches'] if m['origination'] is not None and m['pick_index'] is None]
+    rows = blank_rows + even_rows
     out = ['<section class="block" id="unresolved"><h2>Unresolved picks &amp; limitations</h2>']
-    out.append('<p class="lede">Every match without a verified pick is listed here with what each source actually showed — '
+    out.append('<p class="lede">Every match without a verified directional pick is listed here with what each source actually showed — '
                'HLTV identity first, then every betting market and esportsbook, then the rating model. '
                'Thin or wide books are recorded for guidance but never turned into a pick. '
                'Missing values stay blank — no default 50/50, no invented lines. '
                'An unavailable source is never treated as proof that a market does not exist.</p>')
     if not rows:
         out.append(f'<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
-                   f'All {data["counts"]["active"]} active Hotspawn CS2 fixtures have a researched pick as of {local_time(data["generated_at"])}. '
+                   f'All {data["counts"]["active"]} active Hotspawn CS2 fixtures have a researched directional pick as of {local_time(data["generated_at"])}. '
                    'This is a dated observation, not a permanent guarantee — the inventory refreshes every four hours and new fixtures can appear without lines.</div>')
+    elif not blank_rows:
+        out.append(f'<p class="tiny">0 blank fixtures and {len(even_rows)} equal-probability estimate(s) without a directional side '
+                   f'({data["counts"]["with_pick"]} of {data["counts"]["active"]} active fixtures carry a directional pick) as of {local_time(data["generated_at"])}.</p>')
+        out.append('<div class="cards">' + ''.join(unresolved_card(m) for m in rows) + '</div>')
     else:
-        out.append(f'<p class="tiny">{len(rows)} of {data["counts"]["active"]} active fixtures are unresolved in this snapshot. '
+        out.append(f'<p class="tiny">{len(blank_rows)} unresolved fixture(s)'
+                   + (f' and {len(even_rows)} equal-probability estimate(s) without a side' if even_rows else '')
+                   + f' across {data["counts"]["active"]} active fixtures in this snapshot. '
                    'Lines for low-tier and later-dated matches often open closer to start time; every four-hour refresh retries all sources.</p>')
         out.append('<div class="cards">' + ''.join(unresolved_card(m) for m in rows) + '</div>')
     out.append('<h3>Standing limitations for originated picks</h3><ul class="limits">')
@@ -306,7 +426,23 @@ def page(data, inventory_complete=True, *, now=None):
                 'a pick for every retained row does not establish current full coverage. Do not treat this as a fully current picks list. '
                 '<a class="src" href="../coverage/">Source status</a> · <a class="src" href="../review/">Flagged for Review</a></div>') + warn
     picks = [m for m in data['matches']]
+    overview = picks_overview_table(picks, states)
     cards = ''.join(pick_row(m, states[m['id']]) for m in picks) if picks else '<div class="ok-note">No active fixtures in this snapshot. Check the <a class="src" href="../coverage/">source status</a>.</div>'
+    filter_script = '''<script>
+document.addEventListener('click', function (ev) {
+  var btn = ev.target.closest('.filter-btn');
+  if (!btn) return;
+  var group = btn.getAttribute('data-filter');
+  document.querySelectorAll('.filter-btn').forEach(function (b) {
+    var active = b === btn;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  document.querySelectorAll('.picks-table tbody tr').forEach(function (tr) {
+    tr.hidden = group !== 'all' && tr.getAttribute('data-filter-group') !== group;
+  });
+});
+</script>'''
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Originated CS2 picks — every Hotspawn match · Spawn Scout</title>
@@ -326,7 +462,8 @@ def page(data, inventory_complete=True, *, now=None):
 <p class="stale" data-runtime-safety-notice role="status"{' hidden' if current_count == len(picks) else ''}>{current_count} currently usable line(s). Other cards are unresolved, closed or historical; their estimates and sources remain visible.</p>
 <noscript><p class="stale">JavaScript is off: lock/freshness labels were checked when this page was built and will not update while it stays open. Check the printed lock and observation times before using a pick; reload for the latest verified snapshot.</p></noscript>
 <section class="block" id="picks"><h2>Updated picks — all matches</h2>
-<p class="lede">Every active Hotspawn CS2 fixture, sorted by start time. The check-marked team is a current pick only while its line, inventory and confirmed lock remain usable. A “Snapshot lean” is historical or unverified for current use, not a submission recommendation. Both teams’ sourced estimates and original observation times stay visible.</p>
+<p class="lede">Every active Hotspawn CS2 fixture, sorted by start time, in a scannable overview table followed by full evidence cards. The check-marked team is a current pick only while its line, inventory and confirmed lock remain usable. A “Snapshot lean” is historical or unverified for current use, not a submission recommendation. Both teams’ sourced estimates and original observation times stay visible.</p>
+{overview}
 <div class="cards">{cards}</div></section>
 {section_unresolved(data)}
 {section_method(data)}
@@ -336,6 +473,7 @@ def page(data, inventory_complete=True, *, now=None):
 <footer><p><strong>Better context. Clearer picks.</strong></p>
 <p>Independent research dashboard · not affiliated with Hotspawn, HLTV, Valve, Polymarket or any betting provider. Informational use only. 18+ where applicable. No bets are placed.</p>
 <p class="tiny"><a class="src" href="../methodology/">Main methodology</a> · <a class="src" href="../review/">Flagged for Review</a> · <a class="src" href="{REPO}">Source repository</a></p></footer>
+{filter_script}
 </body></html>'''
 
 

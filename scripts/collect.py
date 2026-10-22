@@ -20,7 +20,7 @@ from scripts.domain import (identity_matches, name_key, iso, market_analysis, po
                             selection, sportsbook_quote, consensus, timestamp, valve_analysis)
 from scripts.sources import (Client, SourceError, LOBBY, CS2_LOBBY, FIXTURES_API,
                              POLY_INDEX, HLTV, hotspawn, poly_index, hltv_research,
-                             thunderpick, book_page_check, valve_ratings)
+                             thunderpick, book_page_check, valve_detail_points, valve_ratings)
 
 
 BOOK_PAGES = [
@@ -231,6 +231,15 @@ def _collect_into(output: Path):
                 if m['analysis'] is not None:
                     continue
                 analysis, reason = valve_analysis(m, ratings, now, ratings_observed) if ratings else (None, 'Official Valve ratings unavailable')
+                if (analysis and analysis['inputs'][0]['points'] == analysis['inputs'][1]['points']
+                        and all(inp.get('detail_path') for inp in analysis['inputs'])):
+                    try:
+                        year = analysis['snapshot_date'][:4]
+                        exact = {inp['standing']: valve_detail_points(client, year, inp['detail_path'], inp['standing'])
+                                 for inp in analysis['inputs']}
+                        analysis, reason = valve_analysis(m, ratings, now, ratings_observed, exact_points=exact)
+                    except (SourceError, ValueError, KeyError, TypeError) as exc:
+                        m['research'].append({'stage': 'Valve official detail files', 'source_url': analysis['source_url'], 'status': 'unavailable', 'detail': str(exc)})
                 if analysis:
                     m.update(analysis=analysis, pick_index=selection(analysis))
                 m['research'].append({'stage': 'Valve research model', 'source_url': analysis['source_url'] if analysis else 'https://github.com/ValveSoftware/counter-strike_regional_standings', 'status': 'resolved' if analysis else 'unresolved', 'detail': 'Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed.' if analysis else reason})

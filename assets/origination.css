@@ -131,7 +131,51 @@ details summary {
 .limits li { margin-bottom: 6px; }
 .ladder { padding-left: 20px; }
 .ladder li { margin-bottom: 8px; }
-.unverified { color: var(--amber); }
+.unverified { color: #7a5410; }
+
+/* Session a34bc06b: scannable mobile-first overview table & high-contrast filter bar. */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px;
+}
+.filter-btn {
+  appearance: none; border: 1px solid #9db0c2; border-radius: 99px;
+  background: #ffffff; color: var(--ink); padding: 8px 13px; min-height: 40px;
+  font: 600 .82rem/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  cursor: pointer;
+}
+.filter-btn:hover { background: #edf3f8; }
+.filter-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.filter-btn.is-active {
+  background: var(--ink); border-color: var(--ink); color: #ffffff;
+}
+.picks-table-wrap { margin: 0 0 18px; }
+.picks-table td, .picks-table th { font-variant-numeric: tabular-nums; }
+.tbl-prob { display: block; font-size: .85rem; color: var(--ink); }
+.tbl-prob.is-fav { font-weight: 700; color: var(--green); }
+.tbl-pick { display: block; color: var(--green); font-size: .9rem; }
+.tbl-srcs { margin-top: 4px; font-size: .78rem; }
+
+@media (max-width: 719px) {
+  .picks-table thead {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .picks-table, .picks-table tbody, .picks-table tr, .picks-table th, .picks-table td {
+    display: block; width: 100%;
+  }
+  .picks-table tr {
+    border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+    margin-bottom: 10px; background: var(--paper);
+  }
+  .picks-table th, .picks-table td {
+    border-bottom: 0; padding: 4px 0;
+  }
+  .picks-table td::before {
+    content: attr(data-label);
+    display: block; font-size: .7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+  }
+}
 .tiny { font-size: .76rem; color: var(--muted); }
 
 .table-wrap { overflow-x: auto; }

@@ -219,7 +219,8 @@ def parse_valve_table(text: str, url: str, snapshot_date: str) -> list[dict]:
     return result
 
 
-def valve_analysis(match: dict, rows: list, now: datetime, observed_at: str) -> tuple[dict | None, str]:
+def valve_analysis(match: dict, rows: list, now: datetime, observed_at: str,
+                   *, exact_points: dict | None = None) -> tuple[dict | None, str]:
     by_name = defaultdict(list)
     for row in rows:
         by_name[name_key(row['name'])].append(row)
@@ -241,10 +242,22 @@ def valve_analysis(match: dict, rows: list, now: datetime, observed_at: str) -> 
         if not 0 <= (now - day).total_seconds() <= MAX_RATING_AGE_DAYS * 86400:
             return None, 'Valve standings snapshot is future-dated or older than 35 days'
         inputs.append(row)
+    extra_limitations = []
+    if (inputs[0]['points'] == inputs[1]['points'] and exact_points
+            and inputs[0]['standing'] in exact_points and inputs[1]['standing'] in exact_points):
+        enriched = []
+        for row in inputs:
+            detail = exact_points[row['standing']]
+            enriched.append(dict(row, rounded_points=row['points'], points=detail['points'],
+                                 source_url=detail['source_url'], detail_sha=detail['detail_sha']))
+        inputs = enriched
+        extra_limitations.append(
+            'Summary standings rounded both rosters to the same integer; exact Final Rank Values '
+            'from Valve’s linked per-roster detail files were used.')
     g = 1 / math.sqrt(1 + 3 * (math.log(10) / 400) ** 2 * VALVE_RD ** 2 / math.pi ** 2)
     p = 1 / (1 + 10 ** (g * (inputs[1]['points'] - inputs[0]['points']) / 400))
     probs = normalize_pair(p, 1 - p)
-    return {'method': 'model', 'label': 'Valve-rating research estimate', 'probabilities': probs, 'fair_decimal': [round(1 / x, 3) for x in probs], 'observed_at': observed_at, 'source': 'Valve official standings', 'source_url': inputs[0]['source_url'], 'inputs': inputs, 'rd_assumption': VALVE_RD, 'g': g, 'snapshot_date': inputs[0]['snapshot_date'], 'formula_source': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js', 'limitations': ['Research model, not observed betting odds or a verified true win probability.', 'Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.', 'Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated.']}, ''
+    return {'method': 'model', 'label': 'Valve-rating research estimate', 'probabilities': probs, 'fair_decimal': [round(1 / x, 3) for x in probs], 'observed_at': observed_at, 'source': 'Valve official standings', 'source_url': inputs[0]['source_url'], 'inputs': inputs, 'rd_assumption': VALVE_RD, 'g': g, 'snapshot_date': inputs[0]['snapshot_date'], 'formula_source': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js', 'limitations': ['Research model, not observed betting odds or a verified true win probability.', 'Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.', 'Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated.'] + extra_limitations}, ''
 
 
 def selection(analysis: dict | None) -> int | None:

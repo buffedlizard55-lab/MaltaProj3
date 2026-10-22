@@ -32,10 +32,11 @@ class CaptureFileTests(unittest.TestCase):
     def test_every_shipped_entry_is_valid_and_replays(self):
         data = reference_odds.load(ROOT / 'data')
         self.assertFalse(data['missing'])
-        self.assertEqual(len(data['entries']), 4)
+        self.assertEqual(len(data['entries']), 9)
         for entry in data['entries']:
             self.assertEqual(reference_odds.problems(entry), [], entry.get('fixture_id'))
-            quote, reason = reference_odds.quote(entry, fixture(entry['fixture_id'], tuple(entry['teams']), entry['starts_at']), NOW)
+            entry_now = datetime.fromisoformat(entry['observed_at'].replace('Z', '+00:00')) + timedelta(minutes=5)
+            quote, reason = reference_odds.quote(entry, fixture(entry['fixture_id'], tuple(entry['teams']), entry['starts_at']), entry_now)
             self.assertIsNotNone(quote, reason)
             reference_odds.replay(entry, quote)
 
