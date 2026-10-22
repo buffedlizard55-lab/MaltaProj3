@@ -210,5 +210,22 @@ class ValveRereadTest(unittest.TestCase):
         self.assertEqual(missing['verdict'], 'team-not-in-official-table')
 
 
+class InventoryShapeTest(unittest.TestCase):
+    """The fixture API's canonical answer is a bare array; a wrapped {'data': [...]}
+    shape was also observed. Both normalize; anything else yields no rows (recorded
+    as unexpected-response-shape, never a crash)."""
+
+    def test_bare_array_is_the_canonical_shape(self):
+        self.assertEqual(v.api_rows_from([{'id': '1'}, 'junk', {'id': '2'}]),
+                         [{'id': '1'}, {'id': '2'}])
+
+    def test_wrapped_data_shape_is_accepted(self):
+        self.assertEqual(v.api_rows_from({'data': [{'id': '1'}]}), [{'id': '1'}])
+
+    def test_unexpected_shapes_yield_no_rows(self):
+        for payload in ({}, {'data': 'x'}, {'data': None}, None, 'text', 42):
+            self.assertEqual(v.api_rows_from(payload), [])
+
+
 if __name__ == '__main__':
     unittest.main()

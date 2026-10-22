@@ -382,6 +382,22 @@ def stage_rows(latest: dict, origination: dict, published_data: Path) -> tuple:
     return rows, failures
 
 
+def api_rows_from(payload) -> list:
+    """Normalize the Hotspawn fixture API body to a row list.
+
+    The canonical answer of /api/v1/fixtures is a BARE JSON array (that is what
+    scripts/sources.py requires), but a wrapped {'data': [...]} shape was also
+    observed (2026-10-21). Accept both; anything else is an unexpected shape.
+    """
+    if isinstance(payload, list):
+        return [r for r in payload if isinstance(r, dict)]
+    if isinstance(payload, dict):
+        rows = payload.get('data')
+        if isinstance(rows, list):
+            return [r for r in rows if isinstance(r, dict)]
+    return []
+
+
 def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
     result = {'api_url': FIXTURES_API}
     read = rec.get(FIXTURES_API, 'hotspawn-fixture-api')
@@ -389,16 +405,16 @@ def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
         result['verdict'] = 'unreadable'
         result['detail'] = read.get('error')
         return result, []
-    body = read.get('json') if isinstance(read.get('json'), dict) else {}
-    api_rows = body.get('data') or []
+    api_rows = api_rows_from(read.get('json'))
     if not api_rows:
         result['verdict'] = 'unexpected-response-shape'
         raw = read.get('json') if read.get('json') is not None else read.get('text')
-        result['detail'] = ('fixture API answered without a data array: HTTP '
-                            f"{read.get('http_status')}, body starts {str(raw)[:300]!r}. The raw body is "
-                            'saved as evidence hotspawn-fixture-api.gz; this can be a transient outage '
-                            'answer — the live-recheck collect later in the same run is an independent '
-                            'second read of the same API.')
+        result['detail'] = ('fixture API answered without a fixture array (neither a bare list '
+                            f"nor {{'data': [...]}}): HTTP {read.get('http_status')}, body starts "
+                            f'{str(raw)[:300]!r}. The raw body is saved as evidence '
+                            'hotspawn-fixture-api.gz; this can be a transient outage answer — the '
+                            'live-recheck collect later in the same run is an independent second '
+                            'read of the same API.')
         return result, []
     result['api_rows'] = len(api_rows)
     upcoming_api = {}
