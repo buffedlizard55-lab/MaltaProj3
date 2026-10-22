@@ -278,9 +278,19 @@ def basis_badge(analysis, researched=False):
     without opening the evidence box. The classes are the existing badge tones,
     so no new colour contract is introduced.
     """
+    method = (analysis or {}).get('method')
     if researched:
-        return '<span class="badge purple">Researched</span>'
-    label, tone = METHOD_BADGES.get((analysis or {}).get('method'), ('Model', 'purple'))
+        # The fallback marker is part of the audit contract and stays on every
+        # researched row. On its own, though, "Researched" cannot tell a reader
+        # whether the number is a three-book median or an uncalibrated rating
+        # model, so a money-backed fallback also carries its basis badge. Model
+        # and guidance rows keep the single purple marker (session aae76fb3).
+        extra = ''
+        if method in MONEY_METHODS:
+            label, tone = METHOD_BADGES.get(method, ('Source', 'green'))
+            extra = f'<span class="badge {tone}">{e(label)}</span>'
+        return '<span class="badge purple">Researched</span>' + extra
+    label, tone = METHOD_BADGES.get(method, ('Model', 'purple'))
     return f'<span class="badge {tone}">{e(label)}</span>'
 
 
@@ -292,6 +302,44 @@ def model_source_label(analysis: dict) -> str:
     if 'bo3.gg' in url or 'results-based' in source.lower():
         return 'bo3.gg results'
     return 'Valve'
+
+
+#: Provider names, keyed by the host or label that actually appears in a row's
+#: published provenance. The first match wins, so more specific names come first.
+PROVIDER_LABELS = (
+    ('polymarket', 'Polymarket'),
+    ('kalshi', 'Kalshi'),
+    ('thunderpick', 'Thunderpick'),
+    ('bovada', 'Bovada'),
+    ('pinnacle', 'Pinnacle'),
+    ('egamersworld', 'EGamersWorld'),
+    ('bo3.gg', 'bo3.gg'),
+)
+
+
+def analysis_source_label(analysis: dict) -> str:
+    """Name the destination of a row's source link, from that row's own data.
+
+    Session aae76fb3: the phone summary used a ternary chain that only handled
+    market, model, reference and guidance, so every other money method — most
+    visibly a median of two esportsbooks — was published as "Bookmaker" over a
+    single provider's URL. This helper reads the row's published ``source`` and
+    ``source_url`` and never guesses a provider the record does not name.
+    """
+    a = analysis or {}
+    method = a.get('method')
+    source = str(a.get('source') or '')
+    url = str(a.get('source_url') or '')
+    if method == 'model':
+        return model_source_label(a)
+    if method == 'consensus':
+        providers = [part.strip() for part in source.split('+') if part.strip()]
+        return f'Consensus ({len(providers)} sources)' if len(providers) > 1 else 'Consensus'
+    haystack = f'{source} {url}'.casefold()
+    for needle, label in PROVIDER_LABELS:
+        if needle in haystack:
+            return label
+    return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
 def researched_method(match: dict) -> tuple[str, str, str]:
@@ -572,7 +620,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], analysis_source_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
@@ -1380,8 +1428,8 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="{prefix}twc-picks/#day-five-picks">Day 5 final-day picks →</a> '
                 f'<a class="internal-link" href="{prefix}review/">Review flags →</a> '
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
-    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved-register">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
+    out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved-register">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
         out += final_day_summary(data['_twc_day5'], prefix)
@@ -1413,7 +1461,7 @@ def summary(data, prefix, now=None):
                 f'{tournament_link}'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
     if c['unknown_schedule']:
-        out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
+        out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved-register">See unresolved schedules and limitations →</a></div>'
     out += '<p class="muted small">The metrics below describe the original featured method only. The next-match preview uses the same selected estimates as the complete list, including researched fallbacks. Featured observations remain available for audit.</p>'
     out += '<div class="metrics">'
     cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Featured market', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Featured model', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Featured rejections', c['unresolved'], 'Check complete-list fallbacks above', 'flag', 'review/#unresolved')]
@@ -1425,8 +1473,15 @@ def summary(data, prefix, now=None):
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'origination/#picks">All match picks ' + icon('arrow') + '</a></div>'
     out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks'), now=now) + '</section>'
     out += contrarian_review(data, prefix)
-    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
-    out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
+    # Session arena-3a5448de: this bottom section used to carry the same H2
+    # ("Unresolved picks & limitations") and different counts from the separate
+    # register near the top (#unresolved-register), and the hero/briefing links
+    # pointed at this one while the jump bar pointed at the other — on a phone
+    # the two lists read as two answers. There is now ONE section with that
+    # title (the register above); this section is the featured-method audit
+    # trail that feeds it, and says so.
+    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Audit trail · feeds the register above</p><h2>Featured-method gaps, before research fallback</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
+    out += f'<p>These are the fixtures the featured exact-name method alone left blank, with the missing evidence for each. The separate <a class="internal-link" href="#unresolved-register">Unresolved picks &amp; limitations register</a> above is the current answer after research fallback; the <a class="internal-link" href="{prefix}origination/#unresolved">complete-list unresolved section</a> carries every full trail. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
     unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
     out += unresolved_table(unresolved_data, prefix)
     probe = data.get('coverage_probe') or {}

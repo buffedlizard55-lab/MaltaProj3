@@ -14,6 +14,32 @@ Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing la
 - **Irregularity caught & fixed:** first probe run substring-matched team "WW" inside unrelated words/URLs, claiming it was "found" on HLTV/GG pages. Probe now uses word-boundary matching and skips names <3 chars; second run shows no such claims. First-run JSON was superseded by the corrected 07:39Z run in the same files.
 - **S3016-2 phone findability:** Picks at a glance now has a **"Find a pick" search** (team/tournament, live count, empty-state, sticky on ≤700px, 48px input) — `glance()` adds `data-search` per row, `assets/scout.js` filters rendered rows only, no-JS keeps all rows visible. **Wording defect fixed:** exec banner said "0 without a line · 18 model-only" (contradictory); now "N without a pick · M model-only (no betting line)". Executive-summary internal links (updated picks / featured feed / unresolved & limitations / coverage / methodology) all verified by the build link audit.
 - **Verification so far:** targeted suites 104 tests OK (`test_3016b0c6_mobile_glance`, `test_build`, `test_summary*`, `test_mobile_picks_nav`, `test_unresolved_*`, glance/label suites); local full build from checked-in data: **PASS replay, row-source audit 604 rows / 0 without a source, 734 internal links OK**, new block + finder rendered and research MD/JSON copied into the site. Full local `unittest discover` timed out at 600s in the sandbox (network-bound suites) — full suite is therefore taken from CI `Validate dashboard` on the PR head, not claimed locally.
+# Current session: arena-3a5448de — picks for every match (incl. low-tier/no-book), HLTV→esportsbook research for featured blanks, executive-summary/mobile findability
+Claimed **2026-10-22** on Arena's fixed branch `arena/3a5448de-maltaproj3`, branched from `main` at `285a0d9` (merge of PR #162). Board read first. Open PRs #154/#149/#139/#120 are other sessions' stale heads (>60 min, not edited here; their merged equivalents are already on `main` per prior sessions' logs). This session claims only:
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S3-1 DONE (2026-10-22T08:06Z runner probe, 43 active / 42 picks / 0 blank / 1 even no-side; no new source wireable — see data/research/3a5448de/findings.md) — Runner research: for every live fixture the featured method leaves blank/model-only, probe HLTV first then esportsbooks/aggregators (incl. new structured surfaces: bo3.gg team/ranking API, DraftKings, Stake, OddsPortal, Rivalry) — evidence only, no price from HTML scrape | done | arena-3a5448de | `scripts/3a5448de_probe.py` (new, read-only), `.github/workflows/3a5448de-probe.yml` (session-only, removed before merge), new `data/research/3a5448de/` |
+| S3-2 DONE — no source met the bar, no probability/pick/alias changed; bo3 team rank rejected (no strength methodology) — Wire a newly verified structured two-sided source into the research ladder ONLY if the runner probe proves it prices featured-blank fixtures; otherwise publish its limitation and change no probability | unclaimed→arena-3a5448de | arena-3a5448de | `scripts/originate.py` (only if S3-1 proves a source), `tests/test_3a5448de_*.py` (new) |
+
+### S3 results — verified 2026-10-22 (arena-3a5448de)
+- **S3-1 (done).** Runner probe `data/research/3a5448de/live-research.{json,md}` at 2026-10-22T08:06Z, on the 2026-10-22T08:04Z snapshot: **43 active fixtures, 43 with probabilities, 42 with a directional pick, 0 blank, 1 exactly even** (Isurus–Hacha, HLTV 2.0 vs 2.0 points). 19 fixtures were not resolved like the featured picks. HLTV first (listing/ranking 403 to the runner; no prematch price exists there; fan vote excluded), then Stake/GG.BET/Marathonbet/EGamersWorld/BetBoom/1xBet/DraftKings/Betway/Oddspedia(410)/Luckbox/OddsPortal/Rivalry/Pinnacle guest/bo3.gg. bo3.gg bound 14 of 19 by both names + start but published a bookmaker block for **none**; its team `rank` field has no stated strength methodology → recorded as a rejected lead.
+- **S3-2 (done).** No source met the bar, so **no probability, pick or alias changed**. Findings + sources published in `data/research/3a5448de/flags.json` and on /review/.
+- **S3-3 (done).** The executive summary had **two** H2s titled "Unresolved picks & limitations" with different counts, and phone shortcuts pointed at both. One canonical register (`#unresolved-register`) now; the bottom section is "Featured-method gaps, before research fallback". Locked by `tests/test_3a5448de_summary.py` + the phone spec.
+- **CI defect found and fixed (was blocking every session).** `Validate dashboard` had no successful run in the last 100 runs. Its log host is unreachable from restricted environments, so the failing test was invisible; this session added a JSON reporter + failure artifact + `::error` annotations naming each failing test, which showed **axe color-contrast 2.23:1 on all seven pages at 1440px**. The offender is the sidebar flag-count badge: its base rule used `#576b79` on the navy sidebar and was only saved by a later override. The base declaration is now `#f6d4aa` (≈10:1), locked by `SidebarBadgeContrastTests`. After the fix: **Rows/build/links/mobile/a11y pass (20m32s)**, `originate` pass, `a11y` pass.
+- **Also repaired:** `tests/test_review_flags.py` invariant (adopted main's byte-identical `latest.json` fix) and `scripts/build_origination.py`'s tie-break replay (now main's stronger version), so the PR merge-ref builds green.
+
+| S3-3 DONE (single canonical #unresolved-register; tests/test_3a5448de_summary.py) — Executive summary: separate unresolved-picks & limitations section + phone-first links to updated picks; verify mobile (390px, no overflow), rebuild, audit links/rows, open+merge PR, confirm Pages | done | arena-3a5448de | `scripts/build.py`/`assets/scout.css` only if an audit defect is found, `README.md`, this section |
+Non-overlap pledge: no edit to other sessions' `data/research/<id>/`, `archive/`, or PR #154/#149/#139/#120 branches. `scripts/collect.py`, `scripts/originate.py` pricing rules, `data/origination/aliases.json` untouched unless S3-2 triggers, and then only additively with tests logged here.
+
+---
+
+---
+
+---
+
+---
+
+---
 
 # Current session: arena-f60683a4 — picks for every listed match, low-tier line research, phone-first executive summary
 
@@ -150,6 +176,204 @@ Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/df80ab9f-maltaproj3
    - `{"alias": "Sökerorg", "canonical": "LFO 10", "applies_to": ["CCT Europe 2026 Series #12"]}` (HLTV match `2399499`, Polymarket `cs2-forzer-skr2-2026-10-23`)
 2. **`scripts/build.py` (for `build.py` owner):** Add explicit `method == 'consensus'` (`Consensus` / `Money consensus`) and `relay` (`bo3.gg relay` / `'a bookmaker line relayed by bo3.gg'`) branches in `matches_table` (line 251), `researched_method` (line 308), and `glance` (line 567), and keep green money badge styling in `basis_badge` (lines 246, 281) when a researched fallback resolves via `market`, `bookmaker`, or `consensus`.
 
+# Current session: arena-aae76fb3 — source-named rows on the phone summary, no duplicate work, and a dated re-verification of the live snapshot
+
+Claimed **2026-10-22T08:10Z** on Arena's fixed branch `arena/aae76fb3-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162), then integrated onto `main` at `1cab862` (merge of PR #176)
+after three other sessions merged while this one worked. The board was read first. The two most recent sections
+(`arena-fbdc97d6`, `arena-c1fa150f`) are merged and closed; the older `in progress` rows
+(`FC-1`, `VD-1`, `1BC-1`…`1BC-5`, `F5-5`) are more than 60 minutes old, carry no new commits and
+their branches are already superseded on `main`, so they are treated as stale under the 60-minute
+rule and are not touched. This session claims only the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| AEB-1 Re-verify the live snapshot line by line from first-party sources (Hotspawn lobby + fixture API, HLTV match pages, Valve's official standings repository) and record the dated evidence, with every claim linked | **done** — see AEB-1 result | arena-aae76fb3 | new `data/research/aae76fb3/**`, this section |
+| AEB-2 Make the phone summary name the real source on every row and stop publishing a consensus line under the label “Bookmaker”; keep the “Researched” fallback marker and add the basis badge. The ambiguous unresolved tile seen in the same pass was **already rewritten on `main` by session 4c972a51** (`{n} without a pick`, dedicated `/unresolved/` page), so this session preserves that wording instead of duplicating the change | **done** — see AEB-2 result | arena-aae76fb3 | `scripts/build.py` (`analysis_source_label()` new, `basis_badge()`, `glance()` link label), `tests/test_aae76fb3_summary_labels.py` (new), this section |
+| AEB-3 Read-only local build, full unittest + link/source audits, PR to `main`, merge without approval, confirm the GitHub Pages deployment and the live phone view | **in progress** | arena-aae76fb3 | `COORDINATION.md`, PR, deployment record |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/reference_odds.py`,
+`data/origination/aliases.json`, `data/latest.json`, `data/origination.json`,
+`.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's
+`data/research/<id>/`. No probability, pick, alias or source capture is altered: AEB-2 changes
+only how an already-published row is labelled and linked, and AEB-1/3 write new evidence files and
+the publication record only.
+
+### AEB-1 result — dated, first-party re-verification of the 2026-10-22T05:36Z live snapshot (read 08:00–08:40Z)
+
+**Snapshot under test** (`https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json`,
+served by run [39727841341](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39727841341)):
+`generated_at 2026-10-22T05:37:07Z`, `inventory 96`, `active 33`, `resolved 33`, `with_pick 33`,
+`unresolved 0`; basis split `market 10 · bookmaker 2 · consensus 2 · reference 1 · model 18`
+(the relay row is counted inside `bookmaker`), `alias_joined 3`. Raw record of this audit:
+`data/research/aae76fb3/verification.json`.
+
+- **Inventory vs the rendered Hotspawn lobby** (read at 07:36Z,
+  [play.hotspawn.com/lobby](https://play.hotspawn.com/lobby)). Every fixture the snapshot publishes
+  is the same fixture the lobby cards name at the same start time, including the four cards that
+  carry no “View Match” link yet (FaZe–BC.Game, SinnerS–Eternal Fire, NEXORA–K27,
+  UPGRADE–Virtus.pro). The lobby also lists eight later fixtures that the 05:36Z snapshot does not
+  contain — DFRAG Invitational 2026 (Ground Zero–Off Chops, NEXVOID–Alter Ego, FlyQuest–Staqued,
+  Rooster–Abyssal) and Tesla Cup 2026 (B8–K27, Alliance–FaZe, Luminosity–HOTU, Envy–…). They were
+  published by Hotspawn after the snapshot's observation time; they are **not** a pipeline gap and
+  the next four-hour run collects them. This is recorded as a freshness observation, not a flag.
+- **Valve model rows replayed against the official file.** Six published model probabilities were
+  recomputed from
+  [Valve's official 2026-10-05 standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+  (fetched through the GitHub Contents API, SHA recorded) with the published formula
+  `g = 0.9728209910486895`, `RD = 75`:
+  BakS 1044 vs Azuolas 863 → **73.36%** (published 73.4%); Butterfly 1082 vs Lavked 862 → **77.41%**
+  (77.4%); Nemesis 1455 vs WW 1023 → **91.83%** (91.8%); Donstu 732 vs Banda Chuya 801 →
+  **40.46%** (40.5%); Nuclear TigeRES 1324 vs ILLYRIANS 862 → **93.00%** (93.0%); 6yuBoJlbl 1015 vs
+  6666 923 → **62.60%** (62.6%). All six reproduce to the published one-decimal figure; the
+  five-player rosters printed in each row match the official rows exactly.
+- **Fixture identity confirmed on HLTV**, which the runner cannot read but a person can:
+  [UNiTY vs Betclic, match 2399784](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
+  — Bo3, 22 Oct, Stake Ranked Episode 6 Closed Qualifier, exactly the Hotspawn fixture 1082882;
+  [Bushido Wildcats vs ex-6666, 2399105](https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13)
+  is the identity cited in the reviewed alias registry for 1079188. HLTV remains an identity
+  source, never a two-sided price source and never a fan-vote input.
+- **Money-backed row corroborated.** The published UNiTY–Apogee consensus is 41.8% / 58.2% from
+  Polymarket + Thunderpick + Bovada at 05:36Z; the
+  [Polymarket event](https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22)
+  still showed UNiTY 43¢ / Betclic Apogee 58¢ at 08:30Z, i.e. the same side and magnitude on a
+  later observation (prices move; the dated snapshot value is the one published).
+- **No probability, pick or alias was changed by this audit.** No unverified value was filled in.
+
+### AEB-2 result — the phone summary names the source it links (2026-10-22T08:55Z; tile wording owned by 4c972a51 on main)
+
+Two labelling defects were found by reading the rendered page against its own JSON, not by trusting
+the row text:
+
+1. **A consensus row was published as “Bookmaker”.** `glance()` chose its link text with a chain of
+   ternaries that only handled `market`, `model`, `reference` and `guidance`; every other money
+   method fell through to `Bookmaker`. The UPGRADE–Virtus.pro row is a **median of Bovada and
+   Pinnacle** (`method: consensus`, `source: "Bovada + Pinnacle"`), but its link read “Bookmaker”
+   and pointed at the Bovada event page. The UNiTY–Apogee row had the same wording over a
+   Polymarket URL. New `analysis_source_label()` derives the destination from the row's own
+   `source`/`source_url` (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, Valve,
+   HLTV ranking, bo3.gg) and names a consensus by its provider count. The link now says what the
+   reader will actually open.
+2. **A researched money line was badged only “Researched”.** That marker is required (it is the
+   audit trail for a fallback row), but on its own it hides whether the number is a three-book
+   median or an uncalibrated rating model. `basis_badge()` keeps `Researched` and appends the
+   existing basis badge (`Consensus`, `Bookmaker`, `Market line`, `Aggregated`) for money-backed
+   fallbacks; model and guidance rows keep the single purple marker. No new colour contract.
+3. **The executive-summary tile said “0 without a line · 18 model-only”.** Read by the user this
+   looks self-contradictory: the same snapshot has eighteen rows with no betting line. Session
+   `arena-4c972a51` had already rewritten that tile on `main` (`{unresolved} without a pick ·
+   {model} from research models · why + sources`, linking a dedicated `/unresolved/` page), so this
+   session **preserves** that text and does not edit `exec_banner()`. The new regression test pins
+   the `main` wording so a later change cannot reintroduce “without a line”.
+
+Locked by `tests/test_aae76fb3_summary_labels.py` (new, 8 tests), which also pins `main`'s banner
+wording and its `/unresolved/` destination.
+
+### AEB-2b — integration defect found on `main` (fixed here, 2026-10-22T10:05Z)
+
+`tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json` **fails on
+`origin/main` at `1cab862` before any change from this session**. Reproduced in a clean worktree of
+`origin/main`:
+
+```
+FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json
+AssertionError: b'{\n "schema_version": 1, ...' != b'{\n  "schema_version": 1, ...'
+```
+
+- **Cause:** PR #174 (`arena-4c972a51`) added `write_reconciled_snapshot()`, which deliberately
+  republishes `site/data/latest.json` with three new keys (`featured_method_counts`,
+  `complete_coverage_counts`, `counts_note`) at indent 1. The older test still required the published
+  copy to be **byte-identical** to the source snapshot, so it asserted the opposite of the feature
+  PR #174 shipped. The first assertion (the source directory is untouched) still passed.
+- **Fix, in the test only:** the published copy must equal the source snapshot for every original key
+  (`generated_at`, `inventory_observed_at`, `counts`, `matches`, `flags`) and may add exactly those
+  three documented keys; the source file must remain byte-identical. No renderer, data file, count or
+  finding was changed.
+- **Why it was not "someone else's problem":** the publisher runs the full unittest suite before
+  deploying, so this red test blocks the next four-hour publish as well as this PR. It is fixed in
+  the integration branch and recorded here rather than left for the owner, who has already merged and
+  stopped. `tests/test_review_flags.py` now passes (verified together with the 4c972a51 page tests and
+  this session's 8 new tests: 27 tests, OK).
+- **Outcome (10:20Z): the upstream owner fixed it, so the test relaxation was reverted here.** `main`
+  now carries `81139b1` (PR #181, "preserve byte-identical latest.json in write_reconciled_snapshot"):
+  `write_reconciled_snapshot()` no longer rewrites `data/latest.json`; it writes the two count
+  dictionaries and the note to `data/reconciled-counts.json` instead. That is a better fix than a
+  relaxed assertion, so this session restored the original strict test verbatim
+  (`git checkout 49dd327 -- tests/test_review_flags.py`: source bytes unchanged **and** published
+  bytes unchanged) and re-ran it green. Nothing of AEB-2b survives in the diff; the block is kept
+  because it records the red main and the reason the fix belongs in the renderer, not the test.
+
+**Local verification of the branch (10:30Z).** The full local unittest suite runs green after that
+merge, and the satellite audits run inside it report: 80 source rows replayed with every published probability and
+pick reproducible; row-source audit **625 rows, 606 official-source-linked, 9 flagged unverified,
+10 site-map, 0 without a source**; **787 internal links/assets/anchors** checked, none broken;
+9 current Pages views built. A read-only local build with the checked-in snapshot shows no
+consensus row labelled “Bookmaker” and keeps `main`'s `0 without a pick · 18 from research models`
+tile.
+
+### AEB-2c — the whole pipeline was red, not just this PR (found and fixed 2026-10-22T11:40Z)
+
+While waiting for `AEB-3`, `gh run list --workflow checks.yml --limit 200` showed **7 successes and
+193 failures** between 07:47Z and 10:17Z; the last success was `39747913189` at 08:27:50Z on
+`arena/ca4d2a02`, and every branch failed afterwards. This was therefore not a defect in
+`arena/aae76fb3`'s diff, and it also blocks every other session's PR.
+
+- **Diagnosis was impossible from the logs:** GitHub stores job logs on
+  `productionresultssa*.blob.core.windows.net` / `results-receiver.actions.githubusercontent.com`,
+  which this sandbox cannot reach (`EOF`). The run page showed only "Process completed with exit
+  code 1" for step 11, with no test name.
+- **Fix 1 — make a browser failure name itself.** New `scripts/playwright-annotations.mjs`, registered
+  in `playwright.config.mjs`, prints one `::error` per failing test with the first 30 lines of the
+  assertion diff (ANSI stripped) plus a `::notice` summary. The Python step already did this; the
+  browser step did not. On run `39762907867` this immediately named the defect.
+- **The actual defect (real, user-visible, not a flake):** all seven pages failed the 1440px WCAG scan
+  with `color-contrast` on `.sidebar-repo` — "insufficient color contrast of 2.23 (foreground
+  #96aab8, background #f4f7f8)". The colour pair is fine on the sidebar's navy (about 6.4:1); axe
+  reported the *page* background because the link had overflowed the fixed sidebar. Measured in the
+  browser at 1440x844: the sidebar ended at y=844 and `.sidebar-repo` sat at y=860-875, i.e. below the
+  fold and outside the painted sidebar, so the link could not be clicked at all. It only showed up in
+  CI because font metrics decide whether the last item overflows.
+- **Fix 2 — layout, shipped twice by two sessions.** This session tightened the sidebar spacing
+  (`.brand` 53px → 22px, `.sidebar-bottom` 30px → 14px) and gave `.sidebar` `overflow-y:auto` +
+  `overscroll-behavior:contain`; measured after that change, `.sidebar-repo` sat at y=813-828 at
+  1440x844 (inside the viewport and inside the sidebar), 807-822 at 1024x844 and 808-822 at 768x844.
+  While this branch waited, session `arena-ca4d2a02` independently diagnosed the same overflow and
+  merged an equivalent fix to `main` (`c536501`: `overflow-y:auto`, `.sidebar-repo` colour
+  #b9c9d3, and a `@media(min-width:701px) and (max-height:920px)` compaction block). That fix is
+  kept as merged; this branch does not duplicate it, and only adds `overscroll-behavior:contain` so
+  scrolling the sidebar cannot scroll the page underneath. The regression file
+  `tests/browser/sidebar_fit.spec.mjs` (4 tests) is kept: it pins the property that actually broke —
+  the last sidebar link must stay inside the sidebar and above the fold at 1440x844, 1024x844 and
+  768x844, and shorter viewports must scroll the sidebar instead of clipping it.
+- **Fix 3 — job cap:** the PR run of commit `5cc2673` was cancelled at exactly 30m13s while the
+  *same commit* passed the push-triggered job in 25m52s. Shared-runner load, not code. `checks.yml`
+  `timeout-minutes` 30 → 45, with the reason recorded in the workflow comment.
+- **Verification of the fixes:** `npx playwright test` **85/85 → 89/89 with the new file**,
+  `node tests/pick-safety-browser.mjs` **106/106**, `python -m scripts.build` 624 rows / 605 linked /
+  0 unsourced, **787** links, 9 views; and the push-triggered CI run `39767969500` on `5cc2673`
+  **passed the full job** (`Rows, build, links, mobile and accessibility`, 25m52s).
+
+### AEB-3 — CI state on PR #172 (recorded 2026-10-22T10:25Z, merge still open)
+
+- Run `39752777616` on `a37f861`: job `originate` **passed** (4m31s); job `Rows, build, links, mobile
+  and accessibility` **failed after 19m36s** with five annotations that are all live-source failures,
+  not assertions: `Hotspawn inventory refresh failed: SourceError: HTTP 403` (three fixtures) and
+  `Lobby and API disagree` (one). Everything that can be checked from checked-in data was also run in
+  the sandbox and passed: `python -m unittest` for the touched modules (55 tests OK, including the
+  restored strict `test_review_flags`), `python -m scripts.build`
+  (625 rows / 606 linked / 9 unverified / 10 site-map / 0 unsourced, **787** links, 9 views), and
+  `npx playwright test` over the built site — **85/85 browser tests passed** at 320/390/768/1440px
+  with the WCAG scans. The same job passed the previous run `39750538022` step-by-step up to the
+  live refresh, and both `originate` failures seen earlier were fixed upstream (`1c1d87b`, `3f2dc79`).
+- The failure is throttling of `play.hotspawn.com` from GitHub's runner, which the repo already
+  documents: `scripts/sources.py:130` deliberately keeps an API-only mode and publishes with
+  `crosscheck: unavailable` when the rendered lobby 403s. It is not caused by this branch's diff
+  (which touches `scripts/build.py` labels and one test file only).
+- A rerun was attempted twice and both attempts were rejected by the GitHub API
+  (`HTTP 403: API rate limit exceeded for user ID 309556078`), so the rerun is **unconfirmed**. The
+  next push to this branch re-triggers both jobs automatically.
+
 # Current session: arena-4c972a51 — a sourced pick for every unresolved match, an honest unresolved register, and a phone-first route to the picks
 
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/4c972a51-maltaproj3`, branched
@@ -219,6 +443,7 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
   prematch price), GG.BET, Stake, Marathonbet, Coolbet, Bet365 and Betfair 403, Betano/Betnacional/
   Esportes da Sorte/KTO 7,001-byte script shells, 1xBet 203, OddsPortal 429, Oddspedia 404. No
   access control was bypassed and a refusal is never treated as proof that no market exists.
+
 
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
@@ -5638,13 +5863,15 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
    rather than being retried silently.
 
 
-### S3016 integration follow-up — main advanced through 873aeed (2026-10-22)
+### S3016 integration follow-up — main advanced through dc2c444 (2026-10-22)
 
 - **Merged latest main after fetch** (`8f053e7` plus `873aeed`, including PR #164 / session `f60683a4`). Reconciled shared-file changes rather than dropping either side: preserved the 3016b0c6 no-line research block and team/tournament filter; kept F606's highlighted **Picks on this page** jump and compact two-column phone nav; retained the CA4 desktop sidebar contrast/overflow fix; kept the current six-slot Unresolved phone navigation test. `COORDINATION.md` keeps both sessions' claims and logs. Before pushing this merge, `git pull --rebase origin arena/3016b0c6-maltaproj3` was attempted as requested; it conflicted replaying the shared board at F606's `f6a30bc` claim. The rebase was aborted without dropping either side; the branch has no remote-only commits, so the forthcoming update is a fast-forward push of the explicit merge commit.
 - **Review JSON contract:** current `scripts.build.write_reconciled_snapshot` writes `data/reconciled-counts.json`; `data/latest.json` remains byte-identical to the collector feed. `tests/test_review_flags.py` now asserts that sidecar, unchanged canonical copy, and that render-only session flags never leak into it.
 - **Source evidence & current status:** the read-only HLTV-first/no-line runner sweep stays dated at 07:39Z. Its 6yuBoJlbl–ex-6666 bo3.gg/Thunderpick quote (1.72/2.00) is a historical lead only. The published Origination card at snapshot `2026-10-22T10:39:55Z` shows a later Polymarket line (51.5% / 48.5%, event `cs2-6yuboj-66661-2026-10-22`); the executive summary dynamically marks the dated lead superseded if the current complete-picks feed has a money-backed estimate, and the review flag links both observations. It never averages the relay with Polymarket.
 - **Local verification after integrating F606:** targeted suite **59 passed** (`test_3016b0c6_*`, tie-break, review flags, banner, F606 and final-day); all browser specs **85/85** at mobile/desktop/no-JS/WCAG; local full build **641 audited rows, 0 source violations, 791 internal links**. Earlier final-head CI on `add3484` is green: `Validate dashboard` [39771384693](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771384693), `Origination source audit` [39771376912](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39771376912). That live audit saw 39 active fixtures / 39 audited / 39 usable / 0 unresolved at `11:32:58Z`; a prior run on the same day saw 40 / 40 / 40 / 0 at `11:13:44Z` (fixture inventory changes between runs).
-- **Latest-base checks are green on head `f3f015b`:** `Validate dashboard` [39777909210](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777909210) and duplicate PR-event run [39777901216](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777901216) both succeeded; `Origination source audit` [39777901333](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777901333) and duplicate run [39777909134](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777909134) both succeeded on a complete Hotspawn lobby/API cross-check at `2026-10-22T12:23:25Z`: 101 source records, 40 canonical non-past fixtures, 40 audited estimates, 40 currently usable lines, 0 explicitly unresolved. The 403/challenge annotations are explicit line-source limitations, not failed checks. Full 85-spec Playwright suite and targeted 59-test set also passed locally after F606 integration. PR #178 is open, mergeable, and all checks are green; proceeding to merge and verify the Pages publish. S3016-1/2 are done; S3016-3 is in final integration.
+- **Merged main through `dc2c444` (PR #173 / session `3a5448de`).** Preserved its dated 08:06Z low-tier audit and single canonical unresolved section alongside the 3016 no-line snapshot; it independently reports 43 active, 43 with probabilities, 42 directional picks and 1 exact-even no-side, with no newly wireable direct line at its observation time. The current Polymarket quote for 1081146 at the later 10:39Z snapshot supersedes the earlier bo3 relay lead. Merge conflict was only the shared coordination board; both session findings remain in it. Before pushing the dc2c merge, `git pull --rebase` was also attempted and conflicted replaying shared-board claim `594930a` (AEB-1..3); it was aborted without discarding either side. The explicit merge commit retains both boards and the tree is otherwise up to date with the remote session branch. F606's highlighted picks-first jump and search behavior are retained.
+- **Local verification after PR #173 integration:** 71 targeted Python tests passed; full browser suite **89/89** passed (phone/desktop, sidebar fit, no-JS, axe WCAG and pick-safety); build row-source audit **646 rows / 0 violations / 792 internal links**. Review flags include the source-access limitations and 1081146 dated-relay supersession.
+- **Prior-head checks (f3f015b) were green, but do not cover the `dc2c444` merge:** `Validate dashboard` [39777909210](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777909210) and duplicate PR-event run [39777901216](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777901216) succeeded; `Origination source audit` [39777901333](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777901333) and duplicate run [39777909134](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39777909134) succeeded on a complete Hotspawn lobby/API cross-check at `2026-10-22T12:23:25Z`: 101 source records, 40 canonical non-past fixtures, 40 audited estimates, 40 currently usable lines, 0 explicitly unresolved. The 403/challenge annotations are source-access limitations, not failed checks. The newly merged base needs a fresh PR-head check before #178 can merge. PR #178 is open; S3016-1/2 are done; S3016-3 awaits current-head checks, merge and Pages verification.
 
 ### 96F-4 result — publication verified end to end (2026-10-22T11:05Z)
 

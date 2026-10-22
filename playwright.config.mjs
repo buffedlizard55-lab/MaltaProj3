@@ -29,7 +29,11 @@ export default defineConfig({
   timeout: 30000,
   fullyParallel: false,
   workers: process.env.CI ? 2 : 1,
-  reporter: [['list']],
+  // The job log host is not always reachable, so a failing browser test must
+  // name itself on the run page (main's annotation reporter) and also leave a
+  // machine-readable report behind for later review.
+  reporter: [['list'], ['./scripts/playwright-annotations.mjs'],
+             ['json', { outputFile: 'test-results/results.json' }]],
   use: {
     baseURL: process.env.PREVIEW_BASE_URL || 'http://127.0.0.1:8000',
     headless: true,
