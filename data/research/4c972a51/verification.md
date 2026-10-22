@@ -73,6 +73,27 @@ Published from `flags.json` on the Flagged for Review page:
 4. `4c972a51-hltv-blocked-and-priceless` — intermittent HLTV access; no prices published.
 5. `4c972a51-book-surfaces-are-shells` — most bookmaker pages return no usable match list.
 
-## 6. Publication record
+## 6. Final live snapshot (2026-10-22T07:58:42Z)
+
+Artifact: `data/research/4c972a51/live-diagnostic.json` (written by the session
+workflow from the runner's own network egress, then deleted before merge).
+
+| Check | Result |
+| --- | --- |
+| Active fixtures | **46** |
+| With a pick | **46** (0 unresolved) |
+| Featured exact-name method | 17 market · 3 bookmaker · 15 model · 11 blank |
+| Researched list | market 17 · bookmaker/consensus 7 · Valve 15 · HLTV ranking 3 · own network 2 · relay 2 |
+| Exact tie | `1082926` Isurus vs Hacha, 50.00% / 50.00%, direction set by HLTV's published order (215 before 229) with `tie_break` recorded; no probability changed |
+| Lowest-confidence row | `1082919` Projeto do KinGui vs Martians, 49.86% / 50.14%, `unranked_floor` limitation published |
+
+The gap between "11 blank" and "0 unresolved" is the point of the site: the
+featured method only accepts an exact-name market, while the researched list
+falls back through esportsbook lines, the Valve rating table, HLTV's published
+ranking and a documented network model. `data/latest.json` now publishes both
+counter sets side by side (`featured_method_counts`, `complete_coverage_counts`)
+so a downloaded file can never again contradict the page beside it.
+
+## 7. Publication record
 
 Filled in after the pull request is merged and the Pages deployment is confirmed.

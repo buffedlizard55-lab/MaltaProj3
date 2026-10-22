@@ -36,6 +36,38 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
 | V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **done** — PR #167 merged; the follow-up 4C section records the Pages state | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any needed change in those files is requested here instead of made.
+### 4C-1 … 4C-4 result — every active fixture carried a pick, and the blanks are published (2026-10-22T08:15Z)
+- **Live diagnosis from the runner.** Session workflow `4c972a51-live.yml` ran `scripts.collect` +
+  `scripts.originate --live` on this branch and committed the compact diagnostic. Snapshot
+  `2026-10-22T07:58:42Z`: **46 active fixtures, 46 with a pick, 0 unresolved**. The featured
+  exact-name method left 11 blank (17 market · 3 bookmaker · 15 model · 11 blank); the researched
+  list priced all 46 through Polymarket, Thunderpick, Pinnacle, Bovada, the official Valve rating
+  table, HLTV's published weekly ranking and one documented bo3.gg network fit.
+- **The last fixture without a side.** `1082926` Isurus vs Hacha came out at exactly 50.00%/50.00%
+  because HLTV publishes identical points for both (positions 215 and 229). `ranked_tie_break()` in
+  `scripts/originate.py` now sets the *direction* from HLTV's own published order, changes no
+  probability, and records the rule, both ranks, the winner and the ranking URL on the row.
+  Pinned by `tests/test_4c972a51_tiebreak.py` (8 tests).
+- **New page `/unresolved/`.** Four status cards, the register of every fixture still blank (with
+  the exact failed rungs and the sources tried), the dated 49-surface reachability matrix, the
+  nine-rung resolution ladder, and the tie-break rule. Linked from the executive-summary banner,
+  the phone status strip, the site map, the footer and a sixth phone-nav slot. `tests/test_4c972a51_unresolved_page.py`
+  (11 tests) fails the build if any blank is missing from the register, if a probed surface loses
+  its official link, or if a status code is ever narrated as a price.
+- **A contradiction removed.** `data/latest.json` said "10 unresolved" while the page said "0".
+  Both were true of different lists. The published JSON now carries `featured_method_counts`,
+  `complete_coverage_counts` and a `counts_note`; the coverage card names both; the picks header
+  counts what it shows (the old sentence added the featured-only counters, so 11 + 12 accounted for
+  23 of 33 rows). `write_reconciled_snapshot()` is unit-tested.
+- **Phone.** Six nav slots at ≥44 px, `Unresolved` replaces `Methods`, the exec-banner actions keep
+  their 48–56 px targets, and the probe matrix is a list rather than a table so it cannot force
+  horizontal scroll at 320/375/390 px.
+- **Sources tried and refused, published rather than hidden:** HLTV 403 on match list / ranking /
+  RSS from the runner (its 73 saved match records are used for identity only; HLTV publishes no
+  prematch price), GG.BET, Stake, Marathonbet, Coolbet, Bet365 and Betfair 403, Betano/Betnacional/
+  Esportes da Sorte/KTO 7,001-byte script shells, 1xBet 203, OddsPortal 429, Oddspedia 404. No
+  access control was bypassed and a refusal is never treated as proof that no market exists.
+
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
