@@ -22,13 +22,14 @@ LOBBY = 'https://play.hotspawn.com/lobby'
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'unresolved': ('Unresolved & limitations', 'unresolved/index.html', 'alert'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
     'layers': '<path d="m12 3 10 5-10 5L2 8l10-5Z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/>',
     'book': '<path d="M12 5v16M3 3h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5v16h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3V3Z"/>',
     'flag': '<path d="M5 21V3h8l1 3h6v10h-7l-1-3H5"/>',
+    'alert': '<path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5"/><path d="M12 17h.01"/>',
     'arrow': '<path d="M5 12h14m-6-6 6 6-6 6"/>',
     'external': '<path d="M14 3h7v7m0-7L10 14M10 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-6"/>',
     'clock': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -481,10 +482,11 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
          'Historical Thunderpick final-day review and result record.'),
-        (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
-         'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
-         'This page lists every pick without a line, its blocker and the sources actually tried.'),
+        (prefix + 'unresolved/', 'Unresolved & limitations', 'alert',
+         'The separate register: every fixture with no pick, every pick without a betting line, '
+         'the exact blocker and every source actually tried.'),
+        (prefix + '#unresolved-register', f'Gaps in this summary ({unresolved} with no pick)', 'flag',
+         'The same register on this page, for scanning without leaving the summary.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -600,7 +602,7 @@ def glance(data, prefix, now=None):
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
     note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
-            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
+            f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
             f'<a class="internal-link" href="{prefix}origination/#picks">Open the complete audited list →</a> '
@@ -876,8 +878,14 @@ def line_sources_block(data, prefix):
 
 
 
-def unresolved_register(data, prefix):
+def unresolved_register(data, prefix, page_href=None):
     """A separate, phone-first register of every fixture without a pick.
+
+    Session ee27e097: the brief asks for this register to exist as its own
+    section *and* to be easy to reach. The same renderer therefore powers the
+    dedicated `unresolved/` page and the executive-summary section; when
+    ``page_href`` is given the section heading also links to that page. No
+    count, price or limitation is computed differently in the two places.
 
     The brief asked for the unresolved picks and their limitations to be a
     section of their own inside the executive summary, not a footnote. This
@@ -907,7 +915,9 @@ def unresolved_register(data, prefix):
            'aria-labelledby="unresolved-register-title">'
            '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
            '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
-           f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
+           f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a>'
+           + (f'<a class="internal-link" href="{e(page_href)}">Open the full page {icon("arrow")}</a>' if page_href else '')
+           + '</div>']
     if not total_pickless:
         closed = [m for m in (complete.get('matches') or []) if m.get('featured_method') is None and m.get('origination') is not None]
         extra = ''
@@ -1038,7 +1048,7 @@ def summary(data, prefix, now=None):
     out += exec_banner(data, prefix)
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
-    out += unresolved_register(data, prefix)
+    out += unresolved_register(data, prefix, page_href=prefix + 'unresolved/')
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
@@ -1083,7 +1093,7 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="{prefix}twc-picks/#day-five-picks">Day 5 final-day picks →</a> '
                 f'<a class="internal-link" href="{prefix}review/">Review flags →</a> '
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
-    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
+    out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="{prefix}unresolved/">Unresolved &amp; limitations →</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
@@ -1180,6 +1190,9 @@ def where_everything_lives(data, prefix):
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
+        ('Unresolved & limitations', 'unresolved/', 'The separate register the brief asks for: every fixture with no pick, '
+         'every pick that has no external betting line behind it, the exact blocker for each and the dated list of '
+         'money sources that answered, refused or were deleted.', 'No guessing · every trail linked'),
         ('Upset review & edge', 'edge/', 'Dated first-party review of the day-one Thunderpick World Championship '
          'results, Aurora roster context (not a proven cause of the upset), dated Valve standings and the seven rules applied '
          'before disagreeing with a market.', 'Research review · not a live feed'),
@@ -1200,6 +1213,46 @@ def where_everything_lives(data, prefix):
         out += (f'<tr><th scope="row"><a href="{prefix}{e(url)}">{e(title)} →</a><small>{e(meta)}</small></th>'
                 f'<td>{e(detail)}</td></tr>')
     return out + '</tbody></table></div></section>'
+
+
+def unresolved_page(data, prefix):
+    """Dedicated page: every pick-less fixture and every pick without a line.
+
+    The brief asks for a *separate* section covering the fixtures that cannot be
+    resolved the same way as the featured picks, together with the limitations
+    that stopped a price. The executive summary carries the same register inline
+    and links here; this page exists so the register has a stable address that is
+    one tap from the phone status strip, the start-here bar and the site map.
+
+    It renders only the published data (``complete_picks`` plus the dated source
+    records) through the same renderers as the summary. It computes no new
+    probability and no new pick.
+    """
+    complete = data.get('complete_picks') or {}
+    cc = complete.get('counts') or {}
+    c = data.get('counts') or {}
+    active = cc.get('active') or c.get('upcoming')
+    unresolved = cc.get('unresolved', c.get('unresolved') or 0)
+    money = sum(cc.get(k) or 0 for k in ('market', 'bookmaker', 'consensus', 'reference'))
+    model = cc.get('model')
+    if model is None:
+        model = max(0, (cc.get('resolved') or 0) - money) if cc else 0
+    out = heading(
+        'Separate register · no guesswork',
+        'Unresolved picks &amp; limitations',
+        'Two different gaps, kept apart on purpose. A fixture with no pick has no supported '
+        'probability at all. A pick without a betting line has a published percentage from a '
+        'labelled research model — an uncalibrated estimate, not a price you could have bet. '
+        'Both are listed here with the exact source that failed and the sources actually tried.',
+        f'<a class="button secondary" href="{prefix}origination/#picks">All picks {icon("arrow")}</a>')
+    out += (f'<div class="info-strip">{icon("alert")}<span><strong>{e(unresolved)}</strong> active fixture(s) with '
+            f'no pick, <strong>{e(model)}</strong> with a pick but <strong>no betting line</strong>, out of '
+            f'<strong>{e(active)}</strong> in this snapshot. Every four-hour refresh retries every source, so this '
+            f'list shrinks when a market opens. <a href="{prefix}methodology/">How a number is produced →</a> '
+            f'<a href="{prefix}review/">Flagged findings →</a></span></div>')
+    out += ("<section class=\"content-section prose\" aria-label=\"How to read this page\"><h2>What &ldquo;unresolved&rdquo; means here</h2><p><strong>No pick</strong> means no source produced a two-sided prematch price and no official rating cleared our gates. The row stays in the list with a blank probability \u2014 never a default 50/50. <strong>No betting line</strong> means a pick exists, but it is an explicitly uncalibrated research estimate from a published rating, a results-graph fit or a dated aggregated-bookmaker capture, and no external price was reachable for that fixture. Neither state is presented as a betting opportunity, and an access failure is recorded as an access failure, never as proof that no market exists.</p></section>")
+    out += unresolved_register(data, prefix)
+    return out
 
 
 def picks(data, prefix, now=None):
@@ -1365,7 +1418,7 @@ def shell(data, key, body, prefix, now=None):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Gaps'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     # Phone-first status strip: two one-tap destinations, present on every page.
     # Session 541cd43a — the brief asks to be able to reach an updated picks list
     # from a phone without hunting. Counts are the same canonical counts the
@@ -1379,12 +1432,18 @@ def shell(data, key, body, prefix, now=None):
     if _with_pick is None:
         _with_pick = max(0, _active - (_cc.get('unresolved', _counts.get('unresolved') or 0)))
     _unresolved = _cc.get('unresolved', _counts.get('unresolved') or 0)
+    # A pick can exist without any external betting line behind it. That is the
+    # gap the brief asks to see from a phone, so the strip reports it beside the
+    # truly pick-less count instead of showing a reassuring zero. Both groups
+    # are counted from the published origination record, never estimated.
+    _money = sum(_cc.get(k) or 0 for k in ('market', 'bookmaker', 'consensus', 'reference'))
+    _no_line = max(0, (_cc.get('resolved') or 0) - _money) if _cc else 0
     mobile_status = (f'<nav class="mobile-status" aria-label="Picks and unresolved shortcuts">'
                      f'<a class="mobile-status-picks" href="{prefix}origination/#picks">'
                      f'<strong>{e(_with_pick)}</strong><span>picks ready'
                      f'<span class="ms-dim"> of {e(_active)}</span></span></a>'
                      f'<a class="mobile-status-blank" href="{prefix}origination/#unresolved">'
-                     f'<strong>{e(_unresolved)}</strong><span>unresolved<span class="ms-dim"> · why</span></span></a>'
+                     f'<strong>{e(_unresolved)}</strong><span>unresolved<span class="ms-dim"> · {e(_no_line)} no line</span></span></a>'
                      '</nav>')
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, now or datetime.now(timezone.utc))
@@ -1502,6 +1561,7 @@ def build(source: Path, output: Path, now=None):
     from scripts.build_final_day import render as final_day_render
     renderers = {'summary': lambda d, pfx: summary(d, pfx, now=now),
                  'picks': lambda d, pfx: picks(d, pfx, now=now),
+                 'unresolved': lambda d, pfx: unresolved_page(d, pfx),
                  'coverage': lambda d, pfx: coverage(d, pfx, now=now),
                  'methodology': methodology, 'review': review,
                  'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
