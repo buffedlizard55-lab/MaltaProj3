@@ -1,0 +1,76 @@
+# Session arena-3a5448de — fast accessibility reproducer (session only).
+# The full "Validate dashboard" job takes ~18 minutes per attempt and its log
+# storage host is unreachable from the coding sandbox, so the failing element
+# could not be read. This workflow runs ONLY the WCAG checks and prints every
+# violation's selector, measured contrast and failure summary as annotations,
+# which are readable through the public Actions API. It never deploys, never
+# commits and never changes a probability. Removed before this session merges.
+name: 3a5448de a11y repro (session only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/3a5448de-maltaproj3']
+    paths:
+      - '.github/workflows/3a5448de-a11y.yml'
+      - 'tests/browser/dashboard.spec.mjs'
+      - 'assets/scout.css'
+permissions:
+  contents: read
+jobs:
+  a11y:
+    if: github.ref == 'refs/heads/arena/3a5448de-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: pip install -r requirements.txt
+      - run: npm ci
+      - run: python -m scripts.build
+      - run: npx playwright install --with-deps chromium
+      - name: WCAG checks, with each violation printed as an annotation
+        run: |
+          set +e
+          npm test -- -g "WCAG" 2>&1 | tee wcag.log
+          status=${PIPESTATUS[0]}
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          def escape(text, limit=1600):
+              clean = re.sub(r'\x1b\[[0-9;]*m', '', str(text))
+              return clean.replace('%', '%25').replace('\r', '').replace('\n', ' ')[:limit]
+
+          report = Path('test-results/results.json')
+          if report.exists():
+              document = json.loads(report.read_text())
+
+              def walk(suites):
+                  for suite in suites:
+                      for spec in suite.get('specs') or []:
+                          if spec.get('ok') is False:
+                              for test in spec.get('tests') or []:
+                                  for result in test.get('results') or []:
+                                      for error in result.get('errors') or []:
+                                          message = re.sub(r'\x1b\[[0-9;]*m', '', error.get('message') or '')
+                                          selectors = re.findall(r'"target": Array \[([^\]]+)\]', message)
+                                          summaries = re.findall(r'"failureSummary": "([^"]+)"', message)
+                                          detail = ' || '.join(s.strip() for s in selectors[:6])
+                                          note = ' || '.join(s.replace('\\n', ' ')[:300] for s in summaries[:3])
+                                          print('::error title=WCAG ' + escape(spec.get('title', '?'), 120) +
+                                                '::selectors: ' + escape(detail, 900) + ' :: ' + escape(note, 900))
+                      walk(suite.get('suites') or [])
+              walk(document.get('suites') or [])
+          else:
+              lines = [l for l in Path('wcag.log').read_text(errors='replace').splitlines() if '✘' in l or 'Error' in l]
+              print('::error title=WCAG report missing::' + escape(' | '.join(lines[-6:])))
+          PY
+          exit "$status"
