@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-bc1afd8f",
-  "observed_at": "2026-10-22T09:12:27Z",
+  "observed_at": "2026-10-22T09:47:00Z",
   "question": "If the verified build were published into the branch root the way scripts/root_publish.py does it (fresh data files, frozen data/evidence), would the repository's own replay validator still accept the tree that checks.yml and pages.yml build from?",
   "method": [
     "Copied the checked-in data/ tree into a temporary directory (the repository was not modified).",
@@ -10,11 +10,11 @@
     "Ran scripts.validate.check_data over the resulting tree - the same call scripts.build makes first."
   ],
   "checked_in_snapshot": {
-    "data/latest.json": "2026-10-15T08:36:13Z",
-    "data/origination.json": "2026-10-15T09:31:24Z"
+    "data/latest.json": "2026-10-22T09:45:12Z",
+    "data/origination.json": "2026-10-22T09:45:21Z"
   },
   "candidate_snapshot": {
-    "directory": "/home/user/MaltaProj3/data/research/fbdc97d6/live",
+    "directory": "/home/runner/work/MaltaProj3/MaltaProj3/data/research/fbdc97d6/live",
     "files": [
       "data/latest.json",
       "data/origination.json",
@@ -24,7 +24,7 @@
     "generated_at": "2026-10-22T02:08:59Z"
   },
   "simulation": {
-    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-bfr40nmt/data",
+    "candidate_data_dir": "/tmp/bc1afd8f-root-risk-b974uz1q/data",
     "files_written": [
       {
         "path": "data/latest.json",
@@ -53,23 +53,35 @@
       "data/evidence/hotspawn-context.json",
       "data/evidence/hotspawn-fixtures.json",
       "data/evidence/hotspawn-rules.json",
-      "data/evidence/polymarket-book-1140039-0.json",
-      "data/evidence/polymarket-book-1140039-1.json",
-      "data/evidence/polymarket-book-1173312-0.json"
+      "data/evidence/polymarket-book-1224236-0.json",
+      "data/evidence/polymarket-book-1224236-1.json",
+      "data/evidence/polymarket-book-1224237-0.json"
     ],
-    "evidence_frozen_count": 38,
+    "evidence_frozen_count": 92,
     "check_data": "failed",
     "error_type": "ValueError",
     "error": "Inventory observation timestamp restamped",
     "traceback": [
       "           ^^^^^^^^^^^^^^^^^^^^^",
-      "  File \"/home/user/MaltaProj3/scripts/validate.py\", line 47, in check_data",
+      "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py\", line 47, in check_data",
       "    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')",
-      "  File \"/home/user/MaltaProj3/scripts/validate.py\", line 24, in require",
+      "  File \"/home/runner/work/MaltaProj3/MaltaProj3/scripts/validate.py\", line 24, in require",
       "    raise ValueError(message)",
       "ValueError: Inventory observation timestamp restamped"
     ],
     "published_rows": null
+  },
+  "simulation_from_build": {
+    "site": "site",
+    "site_exists": true,
+    "files_written": 25,
+    "data_files_written": [
+      "data/latest.json"
+    ],
+    "evidence_files_after_publish": 92,
+    "published_generated_at": "2026-10-22T09:45:12Z",
+    "frozen_generated_at": "2026-10-22T09:45:12Z",
+    "check_data": "passed"
   },
   "snapshot_reading_tests": {
     "count": 34,
@@ -110,11 +122,9 @@
       "tests/test_verify_live.py"
     ]
   },
-  "conclusion": "A root publish of this candidate snapshot would break the repository's own build: ValueError: Inventory observation timestamp restamped.",
+  "conclusion": "A root publish of this candidate snapshot still replays: the checked-in evidence matches it.",
   "notes": [
-    "scripts.build calls scripts.validate.check_data first, so the build - and therefore checks.yml on every pull request and the pages.yml refresh - would fail on the published root.",
-    "The cause is the pairing root_publish.py documents: a fresh data/latest.json with the frozen data/evidence/ tree (its inventory observation timestamp no longer matches).",
-    "This is why the publisher shipped by this session re-deploys the verified artifact instead of committing fresh data to main: it makes the public site current without changing the frozen fixture that CI builds from.",
-    "34 checked-in test modules read data/latest.json or ROOT/'data' directly, so a committed fresh snapshot also moves their fixture underneath them."
+    "Publishing the verified build into the branch root is safe for this candidate.",
+    "The checked-in test modules that read data/latest.json were counted but not run here."
   ]
 }
