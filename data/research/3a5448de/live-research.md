@@ -1,8 +1,8 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-22T07:44:37Z (GitHub Actions runner)
-Snapshot: latest 2026-10-22T07:42:59Z · origination 2026-10-22T07:43:13Z · counts {'active': 46, 'resolved': 46, 'unresolved': 0, 'with_pick': 45, 'consensus': 2, 'market': 16, 'bookmaker': 8, 'reference': 0, 'model': 20, 'network': 2, 'relay': 2, 'guidance': 0, 'alias_joined': 4}
-Targets (featured-blank or non-money resolution): 20
+Observed: 2026-10-22T08:06:21Z (GitHub Actions runner)
+Snapshot: latest 2026-10-22T08:04:37Z · origination 2026-10-22T08:04:52Z · counts {'active': 43, 'resolved': 43, 'unresolved': 0, 'with_pick': 42, 'consensus': 3, 'market': 15, 'bookmaker': 6, 'reference': 0, 'model': 19, 'network': 2, 'relay': 1, 'guidance': 0, 'alias_joined': 5}
+Targets (featured-blank or non-money resolution): 19
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)
 
@@ -25,13 +25,6 @@ Targets (featured-blank or non-money resolution): 20
 - **Pinnacle guest leagues (sport 12)** — HTTP 200 — https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues — teams listed: —
 
 ## Per-fixture
-
-### BakS vs Azuolas (CCT Europe 2026 Series #12, 2026-10-22T08:00:00Z)
-- Hotspawn: https://www.hotspawn.com/matches/baks-vs-azuolas-cct-europe-2026-series-12-1081143
-- Featured method: model · current: model Valve-rating research estimate pick_index=0 probs=[0.73372436, 0.26627564]
-- Unresolved stages: Primary: Polymarket, Original esportsbook lines, GG.BET esportsbook, Pinnacle esportsbook, Rivalry esportsbook, Stake esportsbook
-- bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Hotspawn best-of format is unverified; left blank.
 
 ### Butterfly vs Lavked (CCT Europe 2026 Series #11, 2026-10-22T11:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/butterfly-vs-lavked-cct-europe-2026-series-11-1079651
@@ -112,10 +105,10 @@ Targets (featured-blank or non-money resolution): 20
 
 ### BESTIA Academy vs RED Canids Academy (CCT South America 2026 Series #7, 2026-10-23T19:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925
-- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.2104426189073444, 0.7895573810926556]
+- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.2115926832824933, 0.7884073167175067]
 - Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld), Research model cross-check (Valve official ratings), Results model (own, bo3.gg series results)
 - bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 130.1 points (probability interval 0.056-0.544). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
+- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 130.0 points (probability interval 0.057-0.545). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
 
 ### Isurus vs Hacha (CCT South America 2026 Series #7, 2026-10-23T22:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926
@@ -126,10 +119,10 @@ Targets (featured-blank or non-money resolution): 20
 
 ### Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858
-- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.44553062597832394, 0.5544693740216761]
+- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.4439669300944456, 0.5560330699055545]
 - Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld), Research model cross-check (Valve official ratings), Results model (own, bo3.gg series results)
 - bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.4 points (probability interval 0.117-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
+- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4647 finished bo3.gg series, anchored on Valve's official points for 269 teams; the rating-difference one-sigma interval is 156.5 points (probability interval 0.116-0.829). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
 
 ### NEXVOID vs Alter Ego (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859
@@ -169,7 +162,7 @@ Targets (featured-blank or non-money resolution): 20
 ## Conclusions
 
 {
-  "with_directional_pick": 19,
+  "with_directional_pick": 18,
   "resolved_no_pick_even": 1,
   "still_blank": 0,
   "bo3_relay_two_sided": 0
