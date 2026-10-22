@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "site": "site",
+  "site": "/tmp/site6",
   "policy": "Every table row or pick card links to an allow-listed official/primary source, or is visibly marked unverified.",
   "official_hosts": [
     "hotspawn.com",
@@ -19,6 +19,8 @@
     "rivalry.com",
     "bovada.lv",
     "kalshi.com",
+    "egamersworld.com",
+    "bo3.gg",
     "github.com/ValveSoftware/",
     "raw.githubusercontent.com/ValveSoftware/",
     "api.github.com/repos/ValveSoftware/",
@@ -27,17 +29,17 @@
     "api.github.com/repos/buffedlizard55-lab/MaltaProj3"
   ],
   "totals": {
-    "rows": 334,
-    "ok": 326,
-    "flagged": 0,
-    "navigation": 8,
+    "rows": 839,
+    "ok": 820,
+    "flagged": 9,
+    "navigation": 10,
     "violation": 0
   },
   "pages": [
     {
       "page": "coverage/index.html",
-      "rows": 76,
-      "ok": 76,
+      "rows": 74,
+      "ok": 74,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,
@@ -45,19 +47,28 @@
     },
     {
       "page": "edge/index.html",
-      "rows": 40,
-      "ok": 40,
+      "rows": 66,
+      "ok": 66,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,
       "violations": []
     },
     {
+      "page": "final-day/index.html",
+      "rows": 51,
+      "ok": 46,
+      "flagged": 5,
+      "navigation": 0,
+      "violation": 0,
+      "violations": []
+    },
+    {
       "page": "index.html",
-      "rows": 22,
-      "ok": 14,
+      "rows": 59,
+      "ok": 49,
       "flagged": 0,
-      "navigation": 8,
+      "navigation": 10,
       "violation": 0,
       "violations": []
     },
@@ -72,8 +83,8 @@
     },
     {
       "page": "origination/index.html",
-      "rows": 22,
-      "ok": 22,
+      "rows": 98,
+      "ok": 98,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,
@@ -81,8 +92,8 @@
     },
     {
       "page": "picks/index.html",
-      "rows": 45,
-      "ok": 45,
+      "rows": 113,
+      "ok": 113,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,
@@ -90,17 +101,17 @@
     },
     {
       "page": "review/index.html",
-      "rows": 83,
-      "ok": 83,
-      "flagged": 0,
+      "rows": 283,
+      "ok": 279,
+      "flagged": 4,
       "navigation": 0,
       "violation": 0,
       "violations": []
     },
     {
       "page": "strategy/index.html",
-      "rows": 31,
-      "ok": 31,
+      "rows": 72,
+      "ok": 72,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,
@@ -108,8 +119,17 @@
     },
     {
       "page": "twc-picks/index.html",
-      "rows": 15,
-      "ok": 15,
+      "rows": 23,
+      "ok": 23,
+      "flagged": 0,
+      "navigation": 0,
+      "violation": 0,
+      "violations": []
+    },
+    {
+      "page": "unresolved/index.html",
+      "rows": 0,
+      "ok": 0,
       "flagged": 0,
       "navigation": 0,
       "violation": 0,

@@ -248,7 +248,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else model_source_label(a) if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            out += external(a['source_url'], 'Market' if method == 'market' else model_source_label(a) if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Consensus' if method == 'consensus' else 'Bookmaker API')
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -410,7 +410,7 @@ def contrarian_review(data, prefix):
     profile = context['profile']
     old_p = historical['pre_match_probabilities']
     map_text = ', '.join(f"{m['map']} {m['score']}" for m in historical['result']['maps'])
-    out = '<section class="content-section" id="contrarian"><div class="section-heading"><div><p class="eyebrow">Day 1 review · source-linked</p><h2>Contrarian, not careless</h2></div><a class="internal-link" href="' + prefix + 'picks/">Current picks ' + icon('arrow') + '</a></div>'
+    out = '<section class="content-section" id="contrarian"><div class="section-heading"><div><p class="eyebrow">Day 1 review · source-linked</p><h2>Day-one upset review: 9z–Aurora</h2></div><a class="internal-link" href="' + prefix + 'picks/">Current picks ' + icon('arrow') + '</a></div>'
     out += '<p class="section-intro">A recent upset can reveal a blind spot, but it is not permission to invent a new probability. This review keeps the primary line intact and preserves a historical, team-specific watch. It does not establish that the underdog is underpriced; the separate market-backed alternatives screen uses stricter evidence criteria. Hotspawn popularity is not used.</p>'
     out += '<div class="table-scroll"><table class="simple-table contrarian-table"><caption class="sr-only">Day 1 upset review, roster context and current contrarian watch</caption><thead><tr><th scope="col">Review item</th><th scope="col">Evidence &amp; verification limits</th><th scope="col">Implication for picks</th></tr></thead><tbody>'
     out += '<tr><th scope="row">9z vs Aurora<small>14 Oct 2026 · ' + e(historical['event']) + '</small></th><td><strong>HLTV reports 9z won ' + e(historical['result']['series_score']) + '.</strong> ' + e(map_text) + '. Organizer result and original historical price: — unverified. The preserved session archive lists a prior estimate, but its original order book was not retained here; it is not treated as a verified closing line.' + _source_links(historical['source_urls'], {historical['source_urls'][0]: 'Hotspawn fixture', historical['source_urls'][1]: 'HLTV match', historical['source_urls'][2]: 'HLTV result report', historical['source_urls'][3]: 'Polymarket line'}) + '</td><td>One high-profile miss is a reason to inspect identity, roster and map context—not to discard external prices. The result is historical context, not a new current win rate.</td></tr>'
@@ -448,15 +448,26 @@ def exec_banner(data, prefix):
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
+    # Session 7293b310: the first question on a phone is "is this current?".
+    # The banner now opens with the observation time and the three counts a
+    # reader needs before scrolling. Every number is copied from the published
+    # snapshot; nothing is estimated or rounded.
+    status = (f'<p class="exec-banner-status" data-banner-status>'
+              f'<span class="status-dot"></span>'
+              f'<strong>Updated {e(local_time(data.get("inventory_observed_at")))}</strong>'
+              f'<span class="exec-banner-status-counts">{active} fixtures · {with_pick} with a pick · '
+              f'{unresolved} unresolved</span>'
+              f'<span class="tiny">automatic check every 4 h</span></p>')
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
+        + status +
         f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
         f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times. All links below stay inside this site and are thumb-friendly on mobile (≥44 px).</p>'
         f'<div class="exec-banner-actions">'
         f'<a class="primary" href="{prefix}origination/#picks" aria-label="Open the updated picks list with every match and both probabilities"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both teams\' % shown</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} from research models · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Pick audit &amp; sources<span class="sub">Searchable table · method filters</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} model-based picks · every source tried</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a> · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
         f'</section>'
@@ -479,12 +490,12 @@ def start_here(data, prefix):
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
         (prefix + 'strategy/', 'Leaderboard plan', 'layers',
          'One plan pick per open fixture and the underdogs worth a play.'),
-        (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
-         'Historical Thunderpick final-day review and result record.'),
+        (prefix + 'final-day/', 'TWC final day (18 Oct)', 'clock',
+         'Historical final-day review and result record — not today’s picks.'),
         (prefix + 'origination/#unresolved', f'Unresolved ({unresolved})', 'flag',
          'Fixtures with no compliant external price, and the reason for each.'),
-        (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
-         'This page lists every pick without a line, its blocker and the sources actually tried.'),
+        (prefix + '#unresolved-register', 'Unresolved register (this page)', 'flag',
+         'Every fixture without a pick, its blocker and the sources actually tried.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -563,7 +574,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Consensus' if a['method'] == 'consensus' else 'Bookmaker')
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
@@ -1289,9 +1300,17 @@ def summary(data, prefix, now=None):
                 f'<a class="internal-link" href="#contrarian">Day-one review →</a></p></section>')
     out += f'<section class="hero" aria-labelledby="briefing-title"><div class="hero-copy"><span class="hero-kicker"><span class="status-dot"></span>{({"complete": "FULL INVENTORY RECONCILED", "partial": "FULL API INVENTORY · ONE LOBBY PAGE UNREADABLE", "unavailable": "FULL API INVENTORY · LOBBY HTML CROSS-CHECK UNAVAILABLE"}.get(data.get("inventory_crosscheck", "complete"), "FULL API INVENTORY · HTML CROSS-CHECK UNAVAILABLE")) if data["coverage_complete"] else "INVENTORY NOT VERIFIED"}</span><h2 id="briefing-title">All the matches.<br>One clear view.</h2><p><strong>{total} active fixtures.</strong> {money} external-line estimates, {models} research-model estimates{f", {guidance} wide-book guidance" if guidance else ""}, and {unresolved} unresolved in the complete list. No Hotspawn popularity scores. No made-up odds.</p><div class="hero-actions"><a class="button primary" href="{prefix}origination/#picks">See all match picks {icon("arrow")}</a><a class="hero-secondary" href="{prefix}strategy/">Leaderboard plan →</a><a class="hero-secondary" href="#unresolved">Unresolved &amp; limitations ↓</a><a class="hero-secondary" href="{prefix}twc-picks/">TWC Day 5: picks &amp; review →</a><a class="hero-secondary" href="{prefix}edge/#day-five-card">Day 5 final-day picks →</a></div></div>{ring}</section>'
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved">Unresolved &amp; limitations</a></nav>'
+    # Session 7293b310. Everything below the current picks list used to appear in
+    # the middle of the executive summary: the 18 October final-day blocks, the
+    # dated contrarian review, a second copy of the unresolved table and the
+    # featured-method metric cards. On a phone that buried "Next matches" behind
+    # four screens of history and made two different "unresolved" lists look like
+    # one contradictory list. Those blocks are still published in full, with every
+    # source link, but they now sit in one clearly labelled archive at the end.
+    archive = []
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
-        out += final_day_summary(data['_twc_day5'], prefix)
+        archive.append(final_day_summary(data['_twc_day5'], prefix))
     day4 = data.get('_twc_day4')
     if day4 is not None:
         confirmed = len(day4['matches'])
@@ -1308,7 +1327,7 @@ def summary(data, prefix, now=None):
                            else 'in the retained Hotspawn snapshot; current coverage is unverified')
         tournament_link = (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Tournament-card lines →</a> '
                            if pending else '')
-        out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
+        archive.append((f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
                 f'<p><a href="{prefix}edge/#day-five-card"><strong>Day-5 final-day picks (Sun 18 Oct) →</strong></a> '
                 f'<a href="{prefix}edge/#day-five-guidance">Days 1–4 reviewed → final-day strategy →</a> '
                 f'<a href="{prefix}edge/#day-five-market-scan">Final-day prices, sources &amp; rejected lines →</a></p>'
@@ -1318,24 +1337,28 @@ def summary(data, prefix, now=None):
                 f'{line_note} '
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
                 f'{tournament_link}'
-                f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
+                f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>'))
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved">See unresolved schedules and limitations →</a></div>'
-    out += '<p class="muted small">The metrics below describe the original featured method only. The next-match preview uses the same selected estimates as the complete list, including researched fallbacks. Featured observations remain available for audit.</p>'
-    out += '<div class="metrics">'
+    metrics = '<p class="muted small">The metrics below describe the original featured method only. The next-match preview uses the same selected estimates as the complete list, including researched fallbacks. Featured observations remain available for audit.</p>'
+    metrics += '<div class="metrics">'
     cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Featured market', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Featured model', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Featured rejections', c['unresolved'], 'Check complete-list fallbacks above', 'flag', 'review/#unresolved')]
     for title, value, subtitle, sym, url in cards:
-        out += f'<a class="metric-card" href="{prefix}{url}"><div class="metric-top"><span>{title}</span>{icon(sym)}</div><strong>{value:02d}</strong><p>{e(subtitle)}</p></a>'
-    out += '</div>'
+        metrics += f'<a class="metric-card" href="{prefix}{url}"><div class="metric-top"><span>{title}</span>{icon(sym)}</div><strong>{value:02d}</strong><p>{e(subtitle)}</p></a>'
+    metrics += '</div>'
+    archive.append(metrics)
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The short version</p><h2>What to know before you pick</h2></div>' + badge('Read-only analysis', 'neutral') + '</div><div class="briefing-notes">'
     out += f'<div><span class="note-number">01</span><p><strong>Start with the full picks list.</strong> Both team probabilities, the suggested team, lock time and original evidence are shown together. {external(LOBBY, "Submit picks on Hotspawn")}</p></div><div><span class="note-number">02</span><p><strong>Know what backs the number.</strong> Green means an external market; purple means an uncalibrated rating model used only when the primary method failed. Neither is a guarantee.</p></div><div><span class="note-number">03</span><p><strong>Check the timestamp.</strong> Automatic checks are scheduled every four hours. GitHub may delay a run. After eight hours without a successful observation, the site warns you not to treat the snapshot as current.</p></div></div></section>'
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'origination/#picks">All match picks ' + icon('arrow') + '</a></div>'
     out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks'), now=now) + '</section>'
-    out += contrarian_review(data, prefix)
-    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Coverage gaps, not hidden omissions</p><h2>Unresolved picks &amp; limitations</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
-    out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a>. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
-    unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
-    out += unresolved_table(unresolved_data, prefix)
+    archive.append(contrarian_review(data, prefix))
+    # This anchor used to hold a second, identical copy of the unresolved table.
+    # It is now the featured-method-only record (a genuinely different list from
+    # the researched register above), so a reader sees one blank list at a time
+    # and can still reach the audit trail from the "#unresolved" links.
+    out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Audit trail · the original method only</p><h2>Unresolved in the featured exact-name method</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
+    out += f'<p><a class="internal-link" href="{prefix}origination/#unresolved">Complete-list unresolved picks &amp; limitations →</a> is the current register: it covers every active fixture, including the researched fallbacks that resolve most of the rows below. This table is the featured method’s own rejection record. Original featured-method rejections also remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>.</p>'
+    out += unresolved_table(data, prefix)
     probe = data.get('coverage_probe') or {}
     if probe:
         pc = probe.get('counts') or {}
@@ -1358,10 +1381,27 @@ def summary(data, prefix, now=None):
                 + f'</p><p class="tiny">{e((probe.get("policy") or "")[:420])}</p>'
                 + '<p class="tiny">' + e('; '.join((probe.get('limitations') or [])[:2])) + '</p></div>')
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
-    out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'
-    out += contrarian_briefing(data, prefix)
+    archive.append('<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>')
+    archive.append(contrarian_briefing(data, prefix))
+    out += archive_fold(archive, prefix)
     out += where_everything_lives(data, prefix)
     return out
+
+
+def archive_fold(blocks, prefix='./'):
+    """One collapsed, clearly labelled home for dated non-current material.
+
+    The content stays in the DOM, so every anchor and every source link keeps
+    working; `assets/scout.js` opens the fold when a hash points inside it.
+    """
+    if not blocks:
+        return ''
+    return ('<details class="archive-fold" id="archive">'
+            '<summary><span class="archive-kicker">Archive · not current picks</span>'
+            '<strong>Earlier tournament coverage, dated research and method metrics</strong>'
+            '<span class="archive-note">Kept for audit. Every row and finding below still carries its own source link; '
+            f'the current picks are above and on the <a href="{prefix}origination/#picks">complete picks list</a>.</span>'
+            '</summary>' + ''.join(blocks) + '</details>')
 
 
 def where_everything_lives(data, prefix):

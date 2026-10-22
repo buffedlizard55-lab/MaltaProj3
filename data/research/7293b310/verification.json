@@ -1,0 +1,688 @@
+{
+  "schema_version": 1,
+  "session": "arena-7293b310",
+  "generated_at": "2026-10-22T10:51:20Z",
+  "snapshot_generated_at": "2026-10-22T09:53:45Z",
+  "inventory_observed_at": "2026-10-22T09:53:21Z",
+  "featured_counts": {
+    "inventory": 104,
+    "upcoming": 43,
+    "archived": 61,
+    "unknown_schedule": 0,
+    "market": 18,
+    "bookmaker": 3,
+    "model": 12,
+    "unresolved": 10,
+    "picks": 33,
+    "no_edge": 0
+  },
+  "origination_counts": {
+    "active": 43,
+    "resolved": 43,
+    "unresolved": 0,
+    "with_pick": 43,
+    "consensus": 2,
+    "market": 18,
+    "bookmaker": 6,
+    "reference": 0,
+    "model": 17,
+    "network": 1,
+    "relay": 0,
+    "guidance": 0,
+    "alias_joined": 4
+  },
+  "active_fixtures": 43,
+  "with_estimate": 43,
+  "with_pick": 43,
+  "without_pick": 0,
+  "unresolved_ids": [],
+  "unresolved_ids_absent_from_the_list": [],
+  "rows_with_problems": 0,
+  "rows": [
+    {
+      "id": "1079189",
+      "match": "FORZE Reload vs Just Players",
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "pick": "FORZE Reload",
+      "probabilities": {
+        "FORZE Reload": 0.645,
+        "Just Players": 0.355
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-forzer-justpl-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-just-players-nodwin-clutch-series-13-1079189",
+      "problems": []
+    },
+    {
+      "id": "1079651",
+      "match": "Butterfly vs Lavked",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "pick": "Butterfly",
+      "probabilities": {
+        "Butterfly": 0.545,
+        "Lavked": 0.455
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-btf-lavked-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/butterfly-vs-lavked-cct-europe-2026-series-11-1079651",
+      "problems": []
+    },
+    {
+      "id": "1081596",
+      "match": "Falcons Force vs Phantom Academy",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T11:00:00Z",
+      "pick": "Falcons Force",
+      "probabilities": {
+        "Falcons Force": 0.655,
+        "Phantom Academy": 0.345
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/falcons-force-vs-phantom-academy-cct-europe-2026-challengers-8-1081596",
+      "problems": []
+    },
+    {
+      "id": "1082767",
+      "match": "Nemesis vs WW",
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T11:30:00Z",
+      "pick": "Nemesis",
+      "probabilities": {
+        "Nemesis": 0.765957,
+        "WW": 0.234043
+      },
+      "method": "consensus",
+      "source_url": "https://polymarket.com/event/cs2-nem-ww-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+      "problems": []
+    },
+    {
+      "id": "1081598",
+      "match": "JiJieHao vs Nexus",
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "pick": "JiJieHao",
+      "probabilities": {
+        "JiJieHao": 0.645,
+        "Nexus": 0.355
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081598",
+      "problems": []
+    },
+    {
+      "id": "1081599",
+      "match": "FaZe vs BC.Game",
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "pick": "FaZe",
+      "probabilities": {
+        "FaZe": 0.542781,
+        "BC.Game": 0.457219
+      },
+      "method": "bookmaker",
+      "source_url": "https://thunderpick.io/api/matches",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081599",
+      "problems": []
+    },
+    {
+      "id": "1082919",
+      "match": "Projeto do KinGui vs Martians",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T13:00:00Z",
+      "pick": "Martians",
+      "probabilities": {
+        "Projeto do KinGui": 0.498561,
+        "Martians": 0.501439
+      },
+      "method": "model",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "hotspawn_url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-martians-cct-south-america-2026-series-7-1082919",
+      "problems": []
+    },
+    {
+      "id": "1081600",
+      "match": "Donstu vs Banda chuya",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-22T13:45:00Z",
+      "pick": "Banda chuya",
+      "probabilities": {
+        "Donstu": 0.404584,
+        "Banda chuya": 0.595416
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/donstu-vs-banda-chuya-cct-europe-2026-challengers-8-1081600",
+      "problems": []
+    },
+    {
+      "id": "1079652",
+      "match": "Acend vs ex-6666",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "pick": "Acend",
+      "probabilities": {
+        "Acend": 0.515,
+        "ex-6666": 0.485
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-ace1-66661-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-ex-6666-cct-europe-2026-series-11-1079652",
+      "problems": []
+    },
+    {
+      "id": "1081145",
+      "match": "Lavked vs HAVU",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "pick": "HAVU",
+      "probabilities": {
+        "Lavked": 0.485,
+        "HAVU": 0.515
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-lavked-havu-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lavked-vs-havu-cct-europe-2026-series-12-1081145",
+      "problems": []
+    },
+    {
+      "id": "1082688",
+      "match": "Imperial vs Turma do Pagode",
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "pick": "Imperial",
+      "probabilities": {
+        "Imperial": 0.765,
+        "Turma do Pagode": 0.235
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-imp11-tdp-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/imperial-vs-turma-do-pagode-circuit-x-curitiba-4-1082688",
+      "problems": []
+    },
+    {
+      "id": "1082689",
+      "match": "BESTIA vs ShindeN",
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "pick": "ShindeN",
+      "probabilities": {
+        "BESTIA": 0.475,
+        "ShindeN": 0.525
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-shinden-circuit-x-curitiba-4-1082689",
+      "problems": []
+    },
+    {
+      "id": "1082882",
+      "match": "UNiTY vs Apogee Betclic",
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T14:00:00Z",
+      "pick": "Apogee Betclic",
+      "probabilities": {
+        "UNiTY": 0.395,
+        "Apogee Betclic": 0.605
+      },
+      "method": "consensus",
+      "source_url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+      "problems": []
+    },
+    {
+      "id": "1081603",
+      "match": "SinnerS vs Eternal Fire",
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "pick": "SinnerS",
+      "probabilities": {
+        "SinnerS": 0.535,
+        "Eternal Fire": 0.465
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-sin2-ef1-2026-10-22",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081603",
+      "problems": []
+    },
+    {
+      "id": "1082920",
+      "match": "MEIA NOITE vs Procyon",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T16:00:00Z",
+      "pick": "Procyon",
+      "probabilities": {
+        "MEIA NOITE": 0.482879,
+        "Procyon": 0.517121
+      },
+      "method": "bookmaker",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "hotspawn_url": "https://www.hotspawn.com/matches/meia-noite-vs-procyon-cct-south-america-2026-series-7-1082920",
+      "problems": []
+    },
+    {
+      "id": "1082180",
+      "match": "Sangal vs Metizport",
+      "competition": "Stake Ranked Episode 6: Closed Qualifier",
+      "starts_at": "2026-10-22T16:30:00Z",
+      "pick": "Sangal",
+      "probabilities": {
+        "Sangal": 0.535,
+        "Metizport": 0.465
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-sng2-mzp-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/sangal-vs-metizport-stake-ranked-episode-6-closed-qualifier-1082180",
+      "problems": []
+    },
+    {
+      "id": "1079653",
+      "match": "Rune Eaters vs FORZE Reload",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "pick": "FORZE Reload",
+      "probabilities": {
+        "Rune Eaters": 0.345,
+        "FORZE Reload": 0.655
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-run2-forzer-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rune-eaters-vs-forze-reload-cct-europe-2026-series-11-1079653",
+      "problems": []
+    },
+    {
+      "id": "1081146",
+      "match": "6yuBoJlbl vs ex-6666",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-22T17:00:00Z",
+      "pick": "6yuBoJlbl",
+      "probabilities": {
+        "6yuBoJlbl": 0.515,
+        "ex-6666": 0.485
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-6yuboj-66661-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/6yubojlbl-vs-ex-6666-cct-europe-2026-series-12-1081146",
+      "problems": []
+    },
+    {
+      "id": "1082769",
+      "match": "K27 vs NEXORA",
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T17:30:00Z",
+      "pick": "K27",
+      "probabilities": {
+        "K27": 0.905,
+        "NEXORA": 0.095
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-nexora-k271-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexora-vs-k27-cis-lan-championship-9-1082769",
+      "problems": []
+    },
+    {
+      "id": "1082921",
+      "match": "your end vs Yawara",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T19:00:00Z",
+      "pick": "Yawara",
+      "probabilities": {
+        "your end": 0.171594,
+        "Yawara": 0.828406
+      },
+      "method": "bookmaker",
+      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "hotspawn_url": "https://www.hotspawn.com/matches/yawara-vs-your-end-cct-south-america-2026-series-7-1082921",
+      "problems": []
+    },
+    {
+      "id": "1082770",
+      "match": "UPGRADE vs Virtus.pro",
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T20:30:00Z",
+      "pick": "Virtus.pro",
+      "probabilities": {
+        "UPGRADE": 0.315,
+        "Virtus.pro": 0.685
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-upgrad-vp-2026-10-22",
+      "hotspawn_url": "https://www.hotspawn.com/matches/upgrade-vs-virtus-pro-cis-lan-championship-9-1082770",
+      "problems": []
+    },
+    {
+      "id": "1082922",
+      "match": "Low Cortisol BR vs Grêmio",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-22T22:00:00Z",
+      "pick": "Low Cortisol BR",
+      "probabilities": {
+        "Low Cortisol BR": 0.661951,
+        "Grêmio": 0.338049
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/low-cortisol-br-vs-gremio-cct-south-america-2026-series-7-1082922",
+      "problems": []
+    },
+    {
+      "id": "1081871",
+      "match": "Lynn Vision vs Chinggis Warriors",
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-23T03:00:00Z",
+      "pick": "Lynn Vision",
+      "probabilities": {
+        "Lynn Vision": 0.644191,
+        "Chinggis Warriors": 0.355809
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lynn-vision-vs-chinggis-warriors-void-autumn-cup-2026-1081871",
+      "problems": []
+    },
+    {
+      "id": "1079654",
+      "match": "ex-Zero Tenacity vs ex-RUSTEC",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T08:00:00Z",
+      "pick": "ex-RUSTEC",
+      "probabilities": {
+        "ex-Zero Tenacity": 0.489878,
+        "ex-RUSTEC": 0.510122
+      },
+      "method": "bookmaker",
+      "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/ex-zero-tenacity-ex-rustec-202610230400",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
+      "problems": []
+    },
+    {
+      "id": "1079655",
+      "match": "Nuclear TigeRES vs ILLYRIANS",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "pick": "Nuclear TigeRES",
+      "probabilities": {
+        "Nuclear TigeRES": 0.930033,
+        "ILLYRIANS": 0.069967
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+      "problems": []
+    },
+    {
+      "id": "1081148",
+      "match": "Inner Circle Academy vs Spirit Academy",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T11:00:00Z",
+      "pick": "Spirit Academy",
+      "probabilities": {
+        "Inner Circle Academy": 0.45,
+        "Spirit Academy": 0.55
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+      "problems": []
+    },
+    {
+      "id": "1082923",
+      "match": "Alka vs LOS NINOS",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T13:00:00Z",
+      "pick": "Alka",
+      "probabilities": {
+        "Alka": 0.711111,
+        "LOS NINOS": 0.288889
+      },
+      "method": "bookmaker",
+      "source_url": "https://thunderpick.io/api/matches",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+      "problems": []
+    },
+    {
+      "id": "1081149",
+      "match": "FORZE Reload vs LFO 10",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T14:00:00Z",
+      "pick": "FORZE Reload",
+      "probabilities": {
+        "FORZE Reload": 0.510072,
+        "LFO 10": 0.489928
+      },
+      "method": "model",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+      "problems": []
+    },
+    {
+      "id": "1082924",
+      "match": "BORRACHEIROS vs QUINTESSÊNCIA",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T16:00:00Z",
+      "pick": "QUINTESSÊNCIA",
+      "probabilities": {
+        "BORRACHEIROS": 0.476218,
+        "QUINTESSÊNCIA": 0.523782
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
+      "problems": []
+    },
+    {
+      "id": "1079657",
+      "match": "BakS vs BRUTE",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "pick": "BRUTE",
+      "probabilities": {
+        "BakS": 0.400544,
+        "BRUTE": 0.599456
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+      "problems": []
+    },
+    {
+      "id": "1081150",
+      "match": "ex-RUSTEC vs Saint Sinners",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "pick": "ex-RUSTEC",
+      "probabilities": {
+        "ex-RUSTEC": 0.807462,
+        "Saint Sinners": 0.192538
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+      "problems": []
+    },
+    {
+      "id": "1082925",
+      "match": "BESTIA Academy vs RED Canids Academy",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "pick": "RED Canids Academy",
+      "probabilities": {
+        "BESTIA Academy": 0.210443,
+        "RED Canids Academy": 0.789557
+      },
+      "method": "model",
+      "source_url": "https://bo3.gg/matches",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+      "problems": []
+    },
+    {
+      "id": "1082926",
+      "match": "Isurus vs Hacha",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "pick": "Isurus",
+      "probabilities": {
+        "Isurus": 0.5,
+        "Hacha": 0.5
+      },
+      "method": "model",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "problems": []
+    },
+    {
+      "id": "1082858",
+      "match": "Ground Zero vs Off Chops",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "pick": "Off Chops",
+      "probabilities": {
+        "Ground Zero": 0.5,
+        "Off Chops": 0.5
+      },
+      "method": "model",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "problems": []
+    },
+    {
+      "id": "1082859",
+      "match": "NEXVOID vs Alter Ego",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "pick": "NEXVOID",
+      "probabilities": {
+        "NEXVOID": 0.728218,
+        "Alter Ego": 0.271782
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "problems": []
+    },
+    {
+      "id": "1082860",
+      "match": "FlyQuest vs Staqued",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "pick": "FlyQuest",
+      "probabilities": {
+        "FlyQuest": 0.52301,
+        "Staqued": 0.47699
+      },
+      "method": "model",
+      "source_url": "https://www.hltv.org/ranking/teams",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "problems": []
+    },
+    {
+      "id": "1082861",
+      "match": "Rooster vs Abyssal",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "pick": "Abyssal",
+      "probabilities": {
+        "Rooster": 0.477615,
+        "Abyssal": 0.522385
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "problems": []
+    },
+    {
+      "id": "1082897",
+      "match": "B8 vs K27",
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "pick": "B8",
+      "probabilities": {
+        "B8": 0.545,
+        "K27": 0.455
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "problems": []
+    },
+    {
+      "id": "1082898",
+      "match": "Alliance vs FaZe",
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "pick": "FaZe",
+      "probabilities": {
+        "Alliance": 0.371859,
+        "FaZe": 0.628141
+      },
+      "method": "bookmaker",
+      "source_url": "https://thunderpick.io/api/matches",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "problems": []
+    },
+    {
+      "id": "1082900",
+      "match": "Luminosity vs HOTU",
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "pick": "Luminosity",
+      "probabilities": {
+        "Luminosity": 0.545,
+        "HOTU": 0.455
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "problems": []
+    },
+    {
+      "id": "1082901",
+      "match": "Envy vs GamerLegion",
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "pick": "GamerLegion",
+      "probabilities": {
+        "Envy": 0.46,
+        "GamerLegion": 0.54
+      },
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "problems": []
+    },
+    {
+      "id": "1082792",
+      "match": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "pick": "HOTU",
+      "probabilities": {
+        "HOTU": 0.940521,
+        "The Huns": 0.059479
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "problems": []
+    },
+    {
+      "id": "1082793",
+      "match": "5star vs 1WIN",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "pick": "1WIN",
+      "probabilities": {
+        "5star": 0.178169,
+        "1WIN": 0.821831
+      },
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "problems": []
+    }
+  ]
+}

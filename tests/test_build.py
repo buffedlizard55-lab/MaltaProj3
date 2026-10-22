@@ -108,7 +108,10 @@ class ResearchedFallbackDisplayTests(unittest.TestCase):
         rows = soup.select('#match-list > tbody > tr')
         tabs = {b.get('data-basis'): int(b.select_one('span').get_text()) for b in soup.select('[data-basis]')}
         self.assertEqual(tabs['all'], len(rows))
-        self.assertEqual(tabs['market'], sum(1 for r in rows if r.get('data-method') in ('market', 'bookmaker')))
+        # Session 7293b310: the tab, the row attribute and the phone filter share
+        # one definition of market-backed (MONEY_METHODS), so an aggregated line
+        # can never be counted by the tab and hidden by the filter.
+        self.assertEqual(tabs['market'], sum(1 for r in rows if r.get('data-method') in ('market', 'bookmaker', 'consensus', 'reference')))
         self.assertEqual(tabs['model'], sum(1 for r in rows if r.get('data-method') == 'model'))
         self.assertEqual(tabs['unresolved'], sum(1 for r in rows if r.get('data-method') == 'unresolved'))
 

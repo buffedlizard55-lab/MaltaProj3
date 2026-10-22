@@ -56,7 +56,12 @@ class SessionB1022dc2VerificationTests(unittest.TestCase):
                     expected_pick = 0 if probs[0] > probs[1] else 1
                     self.assertEqual(m["pick_index"], expected_pick)
                 else:
-                    self.assertIsNone(m["pick_index"])
+                    # An exactly even estimate normally carries no side. Session
+                    # 4c972a51's published-rank tie-break may set one, and the
+                    # shared audit accepts it only with its documented evidence
+                    # (session 7293b310); nothing else may name a side here.
+                    from scripts.coverage_audit import documented_tie_break
+                    self.assertTrue(documented_tie_break(o, m["pick_index"]))
 
     def test_low_tier_featured_unresolved_matches_check_hltv_then_esportsbooks(self):
         low_tier = [m for m in self.orig["matches"] if m.get("featured_method") is None]

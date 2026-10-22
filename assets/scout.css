@@ -414,6 +414,36 @@
   .start-here span{font-size:10px;line-height:1.34}
 }
 
+/* Session 7293b310 — the phone answers "is this current, how many picks, where
+   is the list" before the first scroll, and dated material moves to one
+   labelled archive instead of breaking up the current picks. */
+.exec-banner-status{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin:6px 0 2px;font-size:13px;line-height:1.5;color:var(--ink)}
+.exec-banner-status .status-dot{width:8px;height:8px;background:#2f8a68}
+.exec-banner-status strong{color:var(--navy);font-size:14px}
+.exec-banner-status-counts{font-weight:650;color:var(--navy)}
+.exec-banner-status .tiny{color:#576b79}
+.archive-fold{margin:26px 0 12px;border:1px solid var(--border);border-radius:12px;background:var(--white);box-shadow:var(--shadow);overflow:hidden}
+.archive-fold>summary{display:grid;gap:4px;padding:18px 20px;min-height:56px;background:#fbfcfd;border-bottom:1px solid transparent}
+.archive-fold[open]>summary{border-bottom-color:var(--border)}
+.archive-fold>summary::-webkit-details-marker{display:none}
+.archive-fold>summary:before{content:"▸";float:right;color:#7a8b96;font-size:13px;line-height:1.4;transition:transform .15s}
+.archive-fold[open]>summary:before{content:"▾"}
+.archive-fold>summary strong{font-size:15px;letter-spacing:-.2px}
+.archive-kicker{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;font-weight:650;color:#8a5a1c}
+.archive-note{font-size:12px;color:var(--muted);line-height:1.7}
+.archive-note a{text-decoration:underline;text-underline-offset:3px}
+.archive-fold .content-section,.archive-fold .limitations-callout{margin:18px 20px}
+.archive-fold .hero{margin:18px 20px}
+@media(max-width:700px){
+  .exec-banner-status{font-size:10.5px;gap:2px 6px;margin:2px 0 0;line-height:1.35}
+  .exec-banner-status strong{font-size:11.5px}
+  .exec-banner-status .status-dot{width:6px;height:6px}
+  .archive-fold>summary{padding:16px 17px}
+  .archive-fold>summary strong{font-size:14px}
+  .archive-note{font-size:11.5px}
+  .archive-fold .content-section,.archive-fold .limitations-callout{margin:14px 17px}
+}
+
 /* Session arena-ca4d2a02 — keep 9-item desktop .sidebar within 844px fixed
    height so .sidebar-repo never overflows onto light --bg (#f4f7f8) under
    Ubuntu font metrics (fixes axe color-contrast 2.23:1 at 1440x844 in CI). */
@@ -428,5 +458,3 @@
   .sidebar-bottom{padding-top:14px}
   .sidebar-note{padding:10px 12px;margin-bottom:12px}
 }
-
-

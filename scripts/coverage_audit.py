@@ -13,8 +13,7 @@ enforced until now is the *content* invariant on the deployed data itself:
   counts must agree with the rows, exactly;
 * a resolved row carries two probabilities in (0, 1) summing to 1, an
   https source link, a known ladder method, and a pick that is the argmax
-  --- or, for an exactly even estimate, no pick, unless the row carries the
-  published-rank tie-break record that justifies a direction;
+  (or no pick for an exactly even estimate);
 * an unresolved row carries no probability and no pick, but does carry a
   non-empty, https-linked research trail and at least one limitation;
 * Hotspawn "% picked" and HLTV fan votes are never probability inputs
@@ -40,30 +39,27 @@ def _https(value) -> bool:
     return isinstance(value, str) and value.startswith('https://')
 
 
-def _published_rank_tie_break(record, pick) -> bool:
-    """True when an even estimate's direction is justified by a provider's own order.
+def documented_tie_break(origination: dict, pick) -> bool:
+    """True when an exactly even estimate carries the provider's own published order.
 
-    The record is written by ``scripts.originate.ranked_tie_break`` and must prove
-    that (a) the rule applied is the published-rank tie-break, (b) the direction it
-    names is the row's pick, (c) both teams have a positive published position and
-    the positions differ, and (d) the claim links an https source. It never changes
-    a probability: an exactly even estimate stays exactly even.
+    Session 7293b310. ``selection()`` gives an exactly even estimate no side, but
+    session 4c972a51 lets such a row keep a direction when the ranking provider
+    publishes an order for the two teams, recording the rule in ``tie_break``.
+    The audit accepts that side only with the documented rule, matching winner,
+    two different positive ranks, a research model (never a money line) and an
+    https source. The probabilities themselves are untouched and stay 50/50.
     """
-    if not isinstance(record, dict) or record.get('rule') != 'published-rank tie-break':
-        return False
-    if record.get('winner') != pick:
-        return False
-    ranks = record.get('ranks')
-    if not isinstance(ranks, list) or len(ranks) != 2:
-        return False
-    if any(isinstance(r, bool) or not isinstance(r, int) or r <= 0 for r in ranks):
-        return False
-    if ranks[0] == ranks[1]:
-        return False
-    if not _https(record.get('source_url')):
-        return False
-    return bool(record.get('detail'))
-
+    if pick is None:
+        return True
+    tie = origination.get('tie_break') or {}
+    ranks = tie.get('ranks') or []
+    return bool(origination.get('method') == 'model'
+                and tie.get('rule') == 'published-rank tie-break'
+                and tie.get('winner') == pick
+                and len(ranks) == 2
+                and all(isinstance(r, int) and not isinstance(r, bool) and r > 0 for r in ranks)
+                and ranks[0] != ranks[1]
+                and _https(tie.get('source_url')))
 
 
 def audit_complete_picks(payload: dict) -> list[str]:
@@ -120,18 +116,8 @@ def audit_complete_picks(payload: dict) -> list[str]:
                 if url is not None and not _https(url):
                     problems.append(f'{label}: evidence link is not https: {url!r}')
             if probs[0] == probs[1]:
-                if pick is not None:
-                    # Session 4c972a51 gives an exactly even *research* estimate a
-                    # direction from the provider's own published order (both points
-                    # equal, ranks differ). That is the only sanctioned exception:
-                    # the estimate stays 50/50 and the row must carry the record that
-                    # proves the published order. Anything else is a fabricated side.
-                    tie = origination.get('tie_break')
-                    if not _published_rank_tie_break(tie, pick):
-                        problems.append(
-                            f'{label}: exactly even estimate must not name a pick '
-                            'without a published-rank tie-break record'
-                        )
+                if not documented_tie_break(origination, pick):
+                    problems.append(f'{label}: exactly even estimate must not name a pick (no documented tie-break)')
             elif pick != (0 if probs[0] > probs[1] else 1):
                 problems.append(f'{label}: pick_index {pick!r} is not the higher-probability team')
             if pick is not None:

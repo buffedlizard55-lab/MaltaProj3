@@ -100,7 +100,7 @@ if (table) {
       return a.dataset.start.localeCompare(b.dataset.start);
     });
     ordered.forEach(row => {
-      const matchesBasis = basis === 'all' || (basis === 'market' ? ['market', 'bookmaker', 'consensus'].includes(row.dataset.method) : row.dataset.method === basis);
+      const matchesBasis = basis === 'all' || (basis === 'market' ? ['market', 'bookmaker', 'consensus', 'reference'].includes(row.dataset.method) : row.dataset.method === basis);
       row.hidden = !(matchesBasis && (tournament.value === 'all' || row.dataset.tournament === tournament.value) && row.dataset.search.includes(term));
       if (!row.hidden) visible += 1;
       tbody.append(row);
@@ -182,4 +182,24 @@ checkForUpdate();
   if (!nav || !current || nav.scrollWidth <= nav.clientWidth) return;
   const centre = current.offsetLeft - (nav.clientWidth - current.offsetWidth) / 2;
   nav.scrollLeft = Math.max(0, centre);
+})();
+
+// Session 7293b310: the dated tournament coverage and the featured-method
+// metrics now live in one collapsed archive so the current picks stay near the
+// top of the page. An in-page link such as #contrarian or #upset-watchlist must
+// still reveal what it points at, so open the fold before the browser scrolls.
+(() => {
+  const fold = document.querySelector('details.archive-fold');
+  if (!fold) return;
+  const reveal = () => {
+    const id = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target && fold.contains(target) && !fold.open) {
+      fold.open = true;
+      target.scrollIntoView({ block: 'start' });
+    }
+  };
+  window.addEventListener('hashchange', reveal);
+  reveal();
 })();

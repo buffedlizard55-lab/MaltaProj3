@@ -151,7 +151,9 @@ class EndToEnd(unittest.TestCase):
         latest = json.loads((ROOT / 'data/latest.json').read_text())
         real_now = datetime.now(UTC).replace(microsecond=0)
         self.start = real_now + timedelta(days=1)
-        target = next(m for m in latest['matches'] if m['id'] == self.TARGET)
+        target = next((m for m in latest['matches'] if m['id'] == self.TARGET), None)
+        if target is None:
+            self.skipTest('the committed snapshot no longer lists the featured-model fixture this end-to-end test replays')
         if (target.get('analysis') or {}).get('method') != 'model':
             self.skipTest('committed snapshot no longer has this fixture as a featured model estimate')
         target.update(starts_at=originate.iso(self.start), locks_at=originate.iso(self.start - timedelta(minutes=6)), availability='open')
