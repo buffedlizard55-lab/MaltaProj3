@@ -307,8 +307,12 @@ def stage_inventory(rec: Recorder, latest: dict, now: datetime) -> tuple:
         result['verdict'] = 'unreadable'
         result['detail'] = read.get('error')
         return result, []
-    body = read.get('json') or {}
+    body = read.get('json') if isinstance(read.get('json'), dict) else {}
     api_rows = body.get('data') or []
+    if not api_rows:
+        result['verdict'] = 'unexpected-response-shape'
+        result['detail'] = 'fixture API answered without a data array'
+        return result, []
     result['api_rows'] = len(api_rows)
     upcoming_api = {}
     for row in api_rows:
@@ -398,7 +402,11 @@ def stage_market_rereads(rec: Recorder, latest: dict, rows: list) -> list:
                     item.update({'verdict': 'source-unreadable', 'detail': read.get('error')})
                     out.append(item)
                     continue
-                event = read['json']
+                event = read.get('json')
+                if not isinstance(event, dict):
+                    item.update({'verdict': 'unexpected-response-shape'})
+                    out.append(item)
+                    continue
                 markets = event.get('markets') or []
                 market = next((mk for mk in markets
                                if market_id and str(mk.get('conditionId') or '') == str(market_id)), None) \
@@ -415,7 +423,7 @@ def stage_market_rereads(rec: Recorder, latest: dict, rows: list) -> list:
                 books = []
                 for token in token_ids[:2]:
                     book_read = rec.get(CLOB + str(token), f'polymarket-book-{event_id}-{str(token)[:8]}')
-                    if book_read.get('status') == 'ok':
+                    if book_read.get('status') == 'ok' and isinstance(book_read.get('json'), dict):
                         books.append(book_read['json'])
 
                 def best(book, side):
@@ -455,8 +463,9 @@ def stage_market_rereads(rec: Recorder, latest: dict, rows: list) -> list:
                     item.update({'verdict': 'source-unreadable', 'detail': read.get('error')})
                     out.append(item)
                     continue
-                event = (read['json'] or {}).get('event') or {}
-                markets = (read['json'] or {}).get('markets') or event.get('markets') or []
+                payload = read.get('json') if isinstance(read.get('json'), dict) else {}
+                event = payload.get('event') or {}
+                markets = payload.get('markets') or event.get('markets') or []
                 fresh = [{'name': mk.get('yes_sub_title'), 'yes_bid': mk.get('yes_bid_dollars'),
                           'yes_ask': mk.get('yes_ask_dollars'), 'status': mk.get('status'),
                           'ticker': mk.get('ticker')} for mk in markets]
@@ -555,7 +564,7 @@ def stage_bo3_reread(rec: Recorder, rows: list) -> list:
                            headers=BO3_HEADERS)
             item = {'match_id': row['id'], 'team': name}
             if read.get('status') == 'ok':
-                results = (read['json'] or {}).get('results') or []
+                results = (read.get('json') or {}).get('results') or [] if isinstance(read.get('json'), dict) else []
                 exact = [r for r in results if name_key(r.get('name') or '') == name_key(name)]
                 item.update({'verdict': 'unique' if len(exact) == 1 else ('ambiguous' if len(exact) > 1 else 'not-found'),
                              'bo3_ids': [r.get('id') for r in exact], 'observed_at': read['observed_at']})
@@ -613,60 +622,83 @@ def main() -> int:
                         help='GitHub Actions run id the published artifact came from (traceability only)')
     args = parser.parse_args()
     now = datetime.now(UTC)
-    published_data = args.published / 'data'
-    latest = json.loads((published_data / 'latest.json').read_text())
-    origination_path = published_data / 'origination.json'
-    origination = json.loads(origination_path.read_text()) if origination_path.exists() else None
     args.out.mkdir(parents=True, exist_ok=True)
-    rec = Recorder(args.out / 'evidence')
-
     report = {'schema_version': 1, 'session': 'arena-5f6fe71d', 'generated_at': iso(now),
               'artifact_run_id': args.run_id,
               'artifact_run_url': (f'https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/{args.run_id}'
                                    if args.run_id else None),
-              'published_generated_at': latest.get('generated_at'),
-              'published_inventory_observed_at': latest.get('inventory_observed_at'),
-              'origination_generated_at': (origination or {}).get('generated_at'),
-              'published_counts': latest.get('counts')}
+              'stage_errors': {}}
     hard_failures = []
+    rec = Recorder(args.out / 'evidence')
 
-    if origination is None:
-        report['validator'] = {'verdict': 'fail', 'detail': 'published artifact has no data/origination.json'}
-        hard_failures.append('origination.json missing from the published artifact')
-    else:
-        report['validator'] = stage_validator(published_data, origination)
-        if report['validator']['verdict'] != 'pass':
-            hard_failures.append('published validator: ' + report['validator']['detail'])
+    def stage(name, fn, fallback):
+        """Run one verification stage; a crash is itself a recorded failure.
 
-    rows, row_failures = stage_rows(latest, origination or {'matches': []}, published_data)
-    report['rows'] = rows
-    report['row_count'] = {'active': len(rows),
-                           'with_estimate': sum(1 for r in rows if r.get('has_estimate')),
-                           'blank': sum(1 for r in rows if not r.get('has_estimate')),
-                           'replay_pass': sum(1 for r in rows if r.get('verdict') == 'replay-pass'),
-                           'replay_fail': sum(1 for r in rows if r.get('verdict') == 'replay-fail'),
-                           'recompute_unavailable': sum(1 for r in rows if r.get('verdict') == 'recompute-unavailable')}
-    for fixture_id, detail in row_failures:
-        hard_failures.append(f'row {fixture_id}: {detail}')
+        The runner's console logs are not downloadable from every environment,
+        so the report file is the channel of record: it must exist even when a
+        stage raises, and the traceback must be inside it.
+        """
+        try:
+            return fn()
+        except Exception as exc:  # noqa: BLE001 — recorded, never silent
+            import traceback
+            report['stage_errors'][name] = f'{type(exc).__name__}: {exc}\n' + traceback.format_exc(limit=12)
+            hard_failures.append(f'stage {name} crashed: {type(exc).__name__}: {exc}')
+            return fallback
 
-    inventory, missing = stage_inventory(rec, latest, now)
-    report['inventory'] = inventory
-    if inventory.get('verdict') == 'fail':
-        hard_failures.append('inventory fact mismatch: ' + json.dumps(inventory.get('fact_mismatches')))
+    def run_all():
+        published_data = args.published / 'data'
+        latest = json.loads((published_data / 'latest.json').read_text())
+        origination_path = published_data / 'origination.json'
+        origination = json.loads(origination_path.read_text()) if origination_path.exists() else None
+        report.update({'published_generated_at': latest.get('generated_at'),
+                       'published_inventory_observed_at': latest.get('inventory_observed_at'),
+                       'origination_generated_at': (origination or {}).get('generated_at'),
+                       'published_counts': latest.get('counts')})
 
-    report['market_rereads'] = stage_market_rereads(rec, latest, rows)
-    for record in rows:
-        record.pop('_quotes', None)  # kept for the re-read stage only; not report data
-    report['valve_reread'] = stage_valve_reread(rec, rows)
-    if report['valve_reread'].get('verdict') == 'fail':
-        hard_failures.append('valve standings mismatch: ' + json.dumps(report['valve_reread'].get('failures')))
-    report['bo3_rereads'] = stage_bo3_reread(rec, rows)
-    report['hltv_attempt'] = stage_hltv_attempt(rec)
-    active = [m for m in latest['matches'] if m.get('availability') in {'open', 'locked', 'unknown_lock'}]
-    report['html'] = stage_html(args.published, len(active))
-    if report['html'].get('verdict') != 'pass':
-        hard_failures.append('published HTML check: ' + json.dumps(report['html']))
+        if origination is None:
+            report['validator'] = {'verdict': 'fail', 'detail': 'published artifact has no data/origination.json'}
+            hard_failures.append('origination.json missing from the published artifact')
+        else:
+            report['validator'] = stage('validator', lambda: stage_validator(published_data, origination),
+                                        {'verdict': 'fail', 'detail': 'validator stage crashed'})
+            if report['validator'].get('verdict') != 'pass':
+                hard_failures.append('published validator: ' + str(report['validator'].get('detail')))
 
+        rows_result = stage('rows', lambda: stage_rows(latest, origination or {'matches': []}, published_data), ([], []))
+        rows, row_failures = rows_result
+        report['rows'] = rows
+        report['row_count'] = {'active': len(rows),
+                               'with_estimate': sum(1 for r in rows if r.get('has_estimate')),
+                               'blank': sum(1 for r in rows if not r.get('has_estimate')),
+                               'replay_pass': sum(1 for r in rows if r.get('verdict') == 'replay-pass'),
+                               'replay_fail': sum(1 for r in rows if r.get('verdict') == 'replay-fail'),
+                               'recompute_unavailable': sum(1 for r in rows if r.get('verdict') == 'recompute-unavailable')}
+        for fixture_id, detail in row_failures:
+            hard_failures.append(f'row {fixture_id}: {detail}')
+
+        inventory_result = stage('inventory', lambda: stage_inventory(rec, latest, now), ({'verdict': 'stage-crashed'}, []))
+        inventory = inventory_result[0]
+        report['inventory'] = inventory
+        if inventory.get('verdict') == 'fail':
+            hard_failures.append('inventory fact mismatch: ' + json.dumps(inventory.get('fact_mismatches')))
+
+        report['market_rereads'] = stage('market_rereads', lambda: stage_market_rereads(rec, latest, rows), [])
+        for record in rows:
+            record.pop('_quotes', None)  # kept for the re-read stage only; not report data
+        report['valve_reread'] = stage('valve_reread', lambda: stage_valve_reread(rec, rows), {'verdict': 'stage-crashed'})
+        if report['valve_reread'].get('verdict') == 'fail':
+            hard_failures.append('valve standings mismatch: ' + json.dumps(report['valve_reread'].get('failures')))
+        report['bo3_rereads'] = stage('bo3_rereads', lambda: stage_bo3_reread(rec, rows), [])
+        report['hltv_attempt'] = stage('hltv_attempt', lambda: stage_hltv_attempt(rec), {'verdict': 'stage-crashed'})
+        active = [m for m in latest['matches'] if m.get('availability') in {'open', 'locked', 'unknown_lock'}]
+        report['html'] = stage('html', lambda: stage_html(args.published, len(active)), {'verdict': 'stage-crashed'})
+        if report['html'].get('verdict') not in ('pass', 'stage-crashed'):
+            hard_failures.append('published HTML check: ' + json.dumps(report['html']))
+        elif report['html'].get('verdict') == 'stage-crashed':
+            pass  # already a hard failure via stage_errors
+
+    stage('load-and-verify', run_all, None)
     report['fresh_reads'] = rec.reads
     report['hard_failures'] = hard_failures
     report['verdict'] = 'fail' if hard_failures else 'pass'
@@ -678,26 +710,28 @@ def main() -> int:
         flags.append({'id': '5f6fe71d-published-verification-failures', 'severity': 'critical',
                       'match_ids': sorted({f.split()[1] for f in hard_failures if f.startswith('row ')}),
                       'title': 'Independent verification of the published snapshot failed',
-                      'detail': 'Observed ' + iso(now) + '. ' + ' | '.join(hard_failures) +
-                                ' Full record: data/research/5f6fe71d/published-verification.json.',
+                      'detail': ('Observed ' + iso(now) + '. ' + ' | '.join(hard_failures)[:3000] +
+                                 ' Full record: data/research/5f6fe71d/published-verification.json.'),
                       'source_urls': ['https://buffedlizard55-lab.github.io/MaltaProj3/', FIXTURES_API]})
     else:
+        rc = report.get('row_count') or {}
+        inv = report.get('inventory') or {}
         flags.append({'id': '5f6fe71d-published-verification-clean', 'severity': 'notice', 'match_ids': [],
                       'title': 'Published snapshot replayed clean by independent verification',
-                      'detail': (f'Observed {iso(now)}. The deployed artifact (generated {latest.get("generated_at")}) '
+                      'detail': (f'Observed {iso(now)}. The deployed artifact (generated {report.get("published_generated_at")}) '
                                  f'passed the repository validator against its own published evidence, '
-                                 f'{report["row_count"]["replay_pass"]} of {report["row_count"]["active"]} active rows '
+                                 f'{rc.get("replay_pass")} of {rc.get("active")} active rows '
                                  'recomputed exactly from their published inputs with independently implemented '
                                  f'formulas, the fresh Hotspawn API read reconciled '
-                                 f'({inventory.get("published_upcoming")} published upcoming vs '
-                                 f'{inventory.get("api_upcoming_future_start")} API future-start rows, drift recorded '
+                                 f'({inv.get("published_upcoming")} published upcoming vs '
+                                 f'{inv.get("api_upcoming_future_start")} API future-start rows, drift recorded '
                                  'where fixtures started or appeared between the snapshot and this check), and the '
                                  'published HTML lists every active fixture with the summary navigation links. '
                                  'Fresh market re-reads are dated observations in '
                                  'data/research/5f6fe71d/published-verification.json; price movement is not a defect.'),
                       'source_urls': ['https://buffedlizard55-lab.github.io/MaltaProj3/',
                                       'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/5f6fe71d/published-verification.json']})
-    direction_conflicts = [item for item in report['market_rereads']
+    direction_conflicts = [item for item in report.get('market_rereads') or []
                            if item.get('direction_agrees') is False]
     if direction_conflicts:
         flags.append({'id': '5f6fe71d-fresh-market-direction-conflict', 'severity': 'warning',
@@ -710,13 +744,16 @@ def main() -> int:
                       'source_urls': ['https://polymarket.com/esports/cs2', KALSHI_EVENTS]})
     (args.out / 'flags.json').write_text(json.dumps(flags, ensure_ascii=False, indent=1) + '\n')
 
-    print(f'5F verification: {report["verdict"].upper()} — active {report["row_count"]["active"]}, '
-          f'replay-pass {report["row_count"]["replay_pass"]}, replay-fail {report["row_count"]["replay_fail"]}, '
-          f'unavailable {report["row_count"]["recompute_unavailable"]}, blank {report["row_count"]["blank"]}; '
-          f'inventory {inventory.get("verdict")}; validator {report["validator"].get("verdict") if origination else "n/a"}; '
-          f'html {report["html"].get("verdict")}; valve {report["valve_reread"].get("verdict")}')
+    rc = report.get('row_count') or {}
+    inv = report.get('inventory') or {}
+    print(f'5F verification: {report["verdict"].upper()} — active {rc.get("active")}, '
+          f'replay-pass {rc.get("replay_pass")}, replay-fail {rc.get("replay_fail")}, '
+          f'unavailable {rc.get("recompute_unavailable")}, blank {rc.get("blank")}; '
+          f'inventory {inv.get("verdict")}; validator {(report.get("validator") or {}).get("verdict")}; '
+          f'html {(report.get("html") or {}).get("verdict")}; valve {(report.get("valve_reread") or {}).get("verdict")}; '
+          f'stage errors: {sorted(report["stage_errors"])}')
     for failure in hard_failures:
-        print('::error title=5F-verification::' + failure)
+        print('::error title=5F-verification::' + failure.replace('\n', ' ')[:500])
     return 1 if hard_failures else 0
 
 

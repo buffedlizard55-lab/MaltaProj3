@@ -51,44 +51,77 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: published
       - name: Verify the published snapshot line by line (independent arithmetic + fresh reads)
+        id: verify
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set +e
           python -m scripts.verify_5f6fe71d --published published --out data/research/5f6fe71d --run-id "${{ steps.lastrun.outputs.run_id }}" 2>&1 | tee verify-5f.log
-          status=${PIPESTATUS[0]}
-          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          d = json.load(open('data/research/5f6fe71d/published-verification.json'))
-          rc, inv = d['row_count'], d['inventory']
-          print('## 5F independent verification of the published artifact\n')
-          print(f"Verdict: **{d['verdict'].upper()}** (published snapshot {d['published_generated_at']})\n")
-          print(f"- validator: {d['validator'].get('verdict')} — {d['validator'].get('detail', '')[:160]}")
-          print(f"- rows: {rc['active']} active, {rc['replay_pass']} recomputed exactly, {rc['replay_fail']} failed, "
-                f"{rc['recompute_unavailable']} unavailable, {rc['blank']} blank")
-          print(f"- inventory: {inv.get('verdict')} — published {inv.get('published_upcoming')} upcoming vs "
-                f"API {inv.get('api_upcoming_future_start')} future-start; drift: started {len(inv.get('started_since_snapshot') or [])}, "
-                f"new {len(inv.get('in_api_not_published') or [])}, gone {len(inv.get('published_not_in_api') or [])}")
-          print(f"- valve: {d['valve_reread'].get('verdict')}; html: {d['html'].get('verdict')}; "
-                f"hltv attempt: HTTP {d['hltv_attempt'].get('http_status')}")
-          conflicts = [i for i in d['market_rereads'] if i.get('direction_agrees') is False]
-          print(f"- market re-reads: {len(d['market_rereads'])} recorded, {len(conflicts)} direction conflicts")
-          if d['hard_failures']:
-              print('\nHard failures:\n')
-              for f in d['hard_failures']:
-                  print(f'- {f}')
-          PY
-          exit "$status"
-      - name: Live pipeline recheck — fresh collect + originate + full replay build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python -m scripts.collect
-          python -m scripts.originate --live
-          python -m scripts.build --output site-live
-      - name: Compare the fresh chain against the published snapshot and the 5F-1 repair
+          exit "${PIPESTATUS[0]}"
+      # The runner's console logs are not downloadable from every review
+      # environment, so the findings and any traceback are published as
+      # annotations and committed with the evidence below.
+      - name: Publish the verification findings as annotations and step summary
+        if: always()
         run: |
           python - <<'PY'
+          import json, os
+          from pathlib import Path
+          summary = os.environ['GITHUB_STEP_SUMMARY']
+          path = Path('data/research/5f6fe71d/published-verification.json')
+          lines = []
+          if not path.exists():
+              print('::error title=5F-verification::verifier produced no report; see the committed verify-5f.log')
+              lines.append('## 5F verification produced no report\n\nSee data/research/5f6fe71d/verify-5f.log in this branch.')
+          else:
+              d = json.loads(path.read_text())
+              rc, inv = d.get('row_count') or {}, d.get('inventory') or {}
+              print(f"::notice title=5F-verification::{d.get('verdict', '?').upper()} — active {rc.get('active')}, "
+                    f"replay-pass {rc.get('replay_pass')}, replay-fail {rc.get('replay_fail')}, "
+                    f"inventory {inv.get('verdict')}, stage errors {sorted((d.get('stage_errors') or {}))}")
+              for f in d.get('hard_failures') or []:
+                  print('::error title=5F-verification::' + str(f).replace('\n', ' ')[:500])
+              lines.append('## 5F independent verification of the published artifact\n')
+              lines.append(f"Verdict: **{str(d.get('verdict')).upper()}** (published snapshot {d.get('published_generated_at')}, run {d.get('artifact_run_id')})\n")
+              lines.append(f"- validator: {(d.get('validator') or {}).get('verdict')} — {str((d.get('validator') or {}).get('detail', ''))[:160]}")
+              lines.append(f"- rows: {rc.get('active')} active, {rc.get('replay_pass')} recomputed exactly, {rc.get('replay_fail')} failed, "
+                           f"{rc.get('recompute_unavailable')} unavailable, {rc.get('blank')} blank")
+              lines.append(f"- inventory: {inv.get('verdict')} — published {inv.get('published_upcoming')} upcoming vs "
+                           f"API {inv.get('api_upcoming_future_start')} future-start; started since snapshot {len(inv.get('started_since_snapshot') or [])}, "
+                           f"new since snapshot {len(inv.get('in_api_not_published') or [])}, gone {len(inv.get('published_not_in_api') or [])}")
+              lines.append(f"- valve: {(d.get('valve_reread') or {}).get('verdict')}; html: {(d.get('html') or {}).get('verdict')}; "
+                           f"hltv attempt: HTTP {(d.get('hltv_attempt') or {}).get('http_status')}")
+              conflicts = [i for i in d.get('market_rereads') or [] if i.get('direction_agrees') is False]
+              lines.append(f"- market re-reads: {len(d.get('market_rereads') or [])} recorded, {len(conflicts)} direction conflicts")
+              for name, tb in (d.get('stage_errors') or {}).items():
+                  lines.append(f"\n### stage error: {name}\n\n```\n{tb[-1800:]}\n```")
+              if d.get('hard_failures'):
+                  lines.append('\nHard failures:\n')
+                  for f in d['hard_failures']:
+                      lines.append(f'- {f}')
+          with open(summary, 'a') as fh:
+              fh.write('\n'.join(lines) + '\n')
+          PY
+      - name: Live pipeline recheck — fresh collect + originate + full replay build
+        if: always()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            python -m scripts.collect
+            python -m scripts.originate --live
+            python -m scripts.build --output site-live
+          } 2>&1 | tee live-recheck.log
+          exit "${PIPESTATUS[0]}"
+      - name: Compare the fresh chain against the published snapshot and the 5F-1 repair
+        id: compare
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python - <<'PY' 2>&1 | tee -a live-recheck.log
           import gzip, json, shutil
           from datetime import datetime, timezone
           from pathlib import Path
@@ -163,12 +196,17 @@ jobs:
                 f"{report['changed_rows']} changed active rows;",
                 f"network repair ok={report['network_repair_ok']} ({len(repair)} network rows)")
           if repair and not all(r['repair_ok'] for r in repair):
-              raise SystemExit('5F-1 repair did not hold on the live chain: ' + json.dumps(repair))
+              print('::error title=5F-1-repair::network quote source_url did not follow the binding: ' + json.dumps(repair)[:400])
+              raise SystemExit(1)
           PY
       - name: Commit the dated verification evidence to this session branch
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p data/research/5f6fe71d
+          cp verify-5f.log data/research/5f6fe71d/ 2>/dev/null || true
+          cp live-recheck.log data/research/5f6fe71d/ 2>/dev/null || true
           git add data/research/5f6fe71d
           if git diff --cached --quiet; then
             echo "No new evidence to commit."
@@ -176,3 +214,18 @@ jobs:
             git commit -m "5F: dated independent verification of the published snapshot and live recheck evidence"
             git push origin HEAD:refs/heads/arena/5f6fe71d-maltaproj3
           fi
+      # The job's own conclusion must reflect the verification verdict even
+      # though the evidence steps run with continue-on-error.
+      - name: Fail the job when the verification or the 5F-1 repair failed
+        if: always()
+        run: |
+          rc=0
+          if [ "${{ steps.verify.outcome }}" != "success" ]; then
+            echo "Verification step outcome: ${{ steps.verify.outcome }}"
+            rc=1
+          fi
+          if [ "${{ steps.compare.outcome }}" == "failure" ]; then
+            echo "Live-compare step outcome: ${{ steps.compare.outcome }}"
+            rc=1
+          fi
+          exit "$rc"
