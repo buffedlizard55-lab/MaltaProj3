@@ -75,24 +75,57 @@ do, and what the next refresh will exercise for these two fixtures.
 ## 4. Verification of every Valve-sourced probability (`valve-verification.json`)
 
 The published snapshot carries 14 rows whose stated source is Valve's official standings.
-Each was recomputed from the same official markdown with the documented formula
+Each was recomputed with `scripts/3cf793ef_valve_check.py` from the same official markdown
+(`valve-standings-2026-10-05.md`, archived byte-for-byte) with the documented formula
 `p = 1 / (1 + 10 ** (g * (points_b − points_a) / 400))`,
-`g = 1 / sqrt(1 + 3 · (ln10/400)² · RD² / π²)`, fixed `RD = 75`, keeping only rows with a
-complete five-player roster (the file also contains incomplete remnant rows — `Banda Chuya`
-appears once with five players and once with two, `ex-RUSTEC` twice with different rosters).
+`g = 1 / sqrt(1 + 3 · (ln10/400)² · RD² / π²)`, fixed `RD = 75`, and the rule that only a
+complete five-player roster counts (the file also carries incomplete remnant rows: `Banda Chuya`
+once with five players and once with two, `ex-RUSTEC` twice with different rosters, `BRUTE` twice
+with two different five-player lineups).
 
-**Result: 14 of 14 reproduced within ±0.002.** Examples:
+**Result: 14 of 14 reproduced, 0 mismatches, tolerance ±0.002.**
+
+| How it was reproduced | Rows | Meaning |
+| --- | --- | --- |
+| Direct from the summary table | 10 | points, roster and snapshot all agree; the formula returns the published value to 8 decimals |
+| Duplicate name, candidate pair identified | 3 | `Lynn Vision`, `HOTU`, `BRUTE` each have two five-player rows; exactly one candidate pair reproduces the published value |
+| Valve's per-roster detail file | 1 | `ex-Zero Tenacity vs ex-RUSTEC` — Valve rounded both sides to 1066, so the published row used `1065.6` and `1066.4` from the linked detail markdown |
 
 | Fixture | Valve points (A / B) | Published | Recomputed |
 | --- | --- | --- | --- |
 | BakS vs Azuolas | 1044 / 863 | 73.37% | 73.37% |
-| Donstu vs Banda chuya | 732 / 801 | 40.46% | 40.46% |
+| Donstu vs Banda chuya | 732 / 801 (five-player rows only) | 40.46% | 40.46% |
 | ex-RUSTEC vs Saint Sinners | 1066 / 810 | 80.75% | 80.75% |
 | Nemesis vs WW | 1455 / 1023 | 91.83% | 91.83% |
-| ex-Zero Tenacity vs ex-RUSTEC | 1065.6 / 1066.4 (details file) | 49.89% | 50.00% |
+| ex-Zero Tenacity vs ex-RUSTEC | 1065.6 / 1066.4 (detail files) | 49.89% | 49.89% |
+| 6yuBoJlbl vs ex-6666 | 1015 / 923, via the reviewed `6666 → ex-6666` alias | 62.60% | 62.60% |
 
-`scripts/3cf793ef_valve_check.py` reproduces the table and prints the mismatches; it is
-read-only and writes only into this directory.
+The equal-points row is the interesting one, because it is the only place where the official
+**summary** table is not enough. Both rosters show 1066 there; the exact `Final Rank Value` lives
+in the per-roster detail markdown. Both detail files are archived in `details/`, and their Git blob
+SHAs (`076d8f1d…`, `658080b7…`) match the `detail_sha` recorded in the published row — so the bytes
+that were checked are provably the bytes Valve served.
+
+### 4.1 One rule, two implementations (new finding)
+
+`scripts/domain.py:valve_analysis` fails closed when two complete five-player rows share a name
+("multiple Valve rosters share this name"). `scripts/originate.py:model_estimate` instead
+disambiguates that case with a fresh HLTV lineup proof: exactly one row must share all five
+players, or exactly one must share four of five (a single roster change), and the proof is
+published as `lineup_disambiguation` with the HLTV match URL and its observation time.
+
+Both behaviours are defensible, but they are **not the same rule**, and the difference is visible
+in output: 3 of the 14 published Valve rows (`1081871`, `1079657`, `1082792`) exist only because
+the originating path is the lenient one. If the ladder ever moved to the `domain` helper those
+three fixtures would become blank instead of priced, and if HLTV is unreachable the
+`originate` path fails closed and they go blank too. Recommendation: state the two-step rule
+(Valve points + HLTV lineup proof) in `methodology/` and use one implementation for both feeds.
+
+Manual spot check of that proof: `https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11`
+was read at 08:42Z and lists **BRUTE vs BAKS**, CCT 2026 Europe Series 11, Bo3, 23 Oct 13:00
+(HLTV renders US Eastern), with the same five-player BRUTE core the published row claims. The
+page also shows HLTV's own community vote (80% / 20%). That number is a vote, not a price, and it
+is not an input anywhere in this pipeline.
 
 ## 5. External line evidence (`outside-lines-2026-10-22T0740Z.json`)
 
@@ -152,8 +185,9 @@ What does remain, and is worth fixing:
   page reader, not `requests`, so the raw bytes are not stored here — only quoted values, URLs
   and observation times. The runner-side capture in `live/` *is* raw.
 * No HLTV page was used as a price. HLTV publishes rankings and results, not two-way prematch
-  odds, and it refuses the GitHub runners (HTTP 403, recorded in
-  `data/research/fbdc97d6/`); it is an identity/ranking source only.
+  odds; it refuses the GitHub runners (HTTP 403, recorded in `data/research/fbdc97d6/`) but was
+  readable through the agent's page reader, which is how the BRUTE lineup proof above was checked.
+  It is an identity and ranking source only, never a probability input.
 * Nothing here is a betting instruction, and no probability was invented to fill a blank.
 
 ## Reproduce
@@ -162,3 +196,18 @@ What does remain, and is worth fixing:
 python -m scripts.3cf793ef_research            # live inventory + published snapshot (needs network)
 python -m scripts.3cf793ef_valve_check         # recompute every Valve-sourced row
 ```
+
+## 8. A CI blocker this session fixed (phone budget)
+
+Nothing in the pick pipeline, but it stopped every PR from merging, so it is recorded here.
+Two "start here" blocks landed from different sessions: `.exec-banner` (session `75aa5b56`) and
+`nav.start-here` (session `a56f3474`). On a 320 px phone they stacked to **664 px**, which pushed
+`#picks-at-a-glance` to `y = 1505` — five pixels past the `expect(box.y).toBeLessThan(1500)` budget
+in `tests/browser/dashboard.spec.mjs`. Run `39744249774` failed on exactly that assertion, and a
+re-run was impossible (`run 39744249774 cannot be rerun; its workflow file may be broken`).
+
+Fix: one additive rule at the **end** of `assets/scout.css` (so it wins the cascade against both
+earlier blocks) that compacts the nav into a two-column strip at ≤700 px, with `min-width:0` and
+`overflow-wrap:anywhere` so it cannot overflow 320 px. Same five links, same text. Measured after
+the change: nav 519 px, `#picks-at-a-glance` at `y = 1352` (320 px) and `y = 1365` (390 px).
+Full browser suite: **85/85 passing**. No JS, markup or copy was touched.
