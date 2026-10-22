@@ -40,6 +40,10 @@ jobs:
       - name: Row-source audit (non-fatal here; the PR check is strict)
         continue-on-error: true
         run: python -m scripts.audit_rows --site site --strict
+      - name: Probe which second model exists for every fixture
+        continue-on-error: true
+        run: python -m scripts.probe_3bad13ea
+
       - name: Record the session snapshot
         run: |
           python - <<'PY'
