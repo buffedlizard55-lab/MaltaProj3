@@ -5877,3 +5877,10 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
   evidence is not republished every four hours; new fixtures appear between refreshes
   (`1082919` is the worked example above).
 
+
+### S3 publication record (2026-10-22T13:0xZ)
+- **PR:** [#173](https://github.com/buffedlizard55-lab/MaltaProj3/pull/173) — merged into `main` without waiting for approval at **2026-10-22T13:03:35Z**, merge commit `dc2c444`, after absorbing main's #170/#172/#179/#181/#183/#185/#186/#188 (conflicts resolved without discarding any session's work; every conflict was logged above).
+- **Checks on the merged head `a77b365`:** `Rows, build, links, mobile and accessibility` **pass** (20m15s), `originate` **pass**.
+- **Pages deploy:** run [39783552530](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39783552530) — `republish-last-verified` and `verify-and-deploy` both **success**. Verified on the live site at 22 Oct 2026, 15:2x snapshot: the executive summary renders **one** "Unresolved picks & limitations" register, the bottom section is titled "Featured-method gaps, before research fallback" and links back to `#unresolved-register`; 39 active fixtures, 38 with a directional pick, 0 unresolved.
+- **Flagged for Review is live** with this session's records (`3a5448de-isurus-hacha-even-no-side`, `3a5448de-no-new-book-source-wired`, `3a5448de-exec-summary-single-unresolved-register`), each with its source links.
+- **Accessibility defect fixed site-wide:** the sidebar flag-count badge used a 2.23:1 base colour on the navy sidebar (saved only by a later override). The base declaration is now `#f6d4aa` (≈10:1) and `SidebarBadgeContrastTests` locks it. This was the reason `Validate dashboard` had failed on every session branch.
