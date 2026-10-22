@@ -4836,6 +4836,14 @@ Claimed **2026-10-22T01:21Z** on branch `arena/a34bc06b-maltaproj3`, branched fr
 | A34B-1 Competition-scoped first-party alias unlocks across Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, and Valve standings | done | arena-a34bc06b | `data/origination/aliases.json` |
 | A34B-2 Official Git-blob-verified Valve `Final Rank Value` tie resolution (`1066.4` vs `1065.6` on `1079654`) & session reference-odds loader (`1079188`, `1082769`, rejected placeholders) | done | arena-a34bc06b | `scripts/sources.py`, `scripts/collect.py`, `scripts/domain.py`, `scripts/validate.py`, `scripts/reference_odds.py`, `data/research/a34bc06b/reference-odds.json`, `tests/test_domain.py`, `tests/test_reference_odds.py` |
 | A34B-3 `/origination/` provenance & equal-estimate bug fixes + mobile-first All Active Picks table + line-by-line review flags & audit dossier | done | arena-a34bc06b | `scripts/build_origination.py`, `assets/origination.css`, `data/research/a34bc06b/`, `tests/test_a34bc06b_origination_and_audit.py` |
-| A34B-4 Full local & live CI verification (`checks.yml`, `origination.yml`), clean rebase, PR merge to `main`, and live GitHub Pages deployment audit | in progress | arena-a34bc06b | `COORDINATION.md`, PR & Pages deployment verification |
+| A34B-4 Full local & live CI verification (`checks.yml`, `origination.yml`), clean rebase, PR merge to `main`, and live GitHub Pages deployment audit | done | arena-a34bc06b | `COORDINATION.md`, PR [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) & Pages deployment verification |
 
 **Strict non-overlap pledge:** zero edits to `scripts/build.py`, `assets/scout.css`, `scripts/originate.py`, `scripts/network_model.py`, `scripts/coverage_audit.py`, `scripts/verify_live.py`, `scripts/review_register.py`, `README.md`, or any other session’s `data/research/*` directory.
+
+### A34B-4 verification & PR record (2026-10-22T01:55Z)
+
+- **Pull request:** [#151](https://github.com/buffedlizard55-lab/MaltaProj3/pull/151) on `arena/a34bc06b-maltaproj3` -> `main`.
+- **CI checks verified green before merge:**
+  - `Rows, build, links, mobile and accessibility`: **pass** (run [`39708762858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762858) — full unittest suite, site + origination build, strict row-source audit `0` violations, internal link audit, Chromium mobile viewport & axe-core WCAG AA contrast audit).
+  - `originate`: **pass** (run [`39708762878`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39708762878)).
+  - Full 2026-10-22 35-fixture replay audit (`data/research/a34bc06b/verification-audit.json`): **`35 / 35` (`100.0%`) active Hotspawn CS2 matches resolved with directional picks**, `0` unresolved, `81 / 81` origination rows verified with `0` violations, `coverage_audit` `0` violations.
