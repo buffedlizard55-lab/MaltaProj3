@@ -255,6 +255,22 @@ class RelayCollectionTest(unittest.TestCase):
             self.assertEqual([s['name'] for s in record['sides']], ['Imperial', 'Turma do Pagode'])
             self.assertEqual([s['coeff'] for s in record['sides']], [1.22, 3.8])
 
+    def test_a_name_match_with_a_wrong_start_is_recorded_not_priced(self):
+        class WrongStart(RelayCollectionTest.Stub):
+            def get_json(self, url, label, headers=None, save=True):
+                body, entry = super().get_json(url, label, headers, save)
+                body['results'][0]['start_date'] = '2026-10-22T15:00:00.000+00:00'
+                return body, entry
+        with TemporaryDirectory() as tmp:
+            summary = collect_bo3_relay(WrongStart(), Path(tmp), [fixture()], REGISTRY)
+            self.assertEqual(summary['fixtures_bound'], 0)
+            document = json.loads((Path(tmp) / 'live-bo3-relay.json').read_text())
+            self.assertEqual(document['fixtures'], [])
+            rejection = document['rejections'][0]
+            self.assertIn('60s start window', rejection['reason'])
+            deltas = [c['start_delta_sec'] for c in rejection['candidates']]
+            self.assertIn(3600, deltas)
+
     def test_absent_document_loads_no_rows(self):
         with TemporaryDirectory() as tmp:
             self.assertEqual(bo3_relay_rows(Path(tmp)), [])

@@ -552,13 +552,15 @@ def collect_bo3_relay(client, evidence_dir: Path, matches: list, registry: dict)
             continue
         bound, near = [], []
         for row in rows:
-            other = timestamp(row.get('start_date'))
-            if other is None or abs((other - start).total_seconds()) > RELAY_START_TOLERANCE_SEC:
-                continue
             names = [(row.get('team1') or {}).get('name'), (row.get('team2') or {}).get('name')]
             _, used, status = relay_join(names, row.get('start_date'), match, registry)
+            if status == 'names':
+                continue  # does not name this fixture's two sides at all
+            other = timestamp(row.get('start_date'))
             near.append({'slug': row.get('slug'), 'start': row.get('start_date'), 'teams': names,
-                         'status': status})
+                         'status': status,
+                         'start_delta_sec': (int(abs((other - start).total_seconds()))
+                                             if other is not None else None)})
             if status == 'matched':
                 bound.append((row, used))
         if len(bound) != 1:
@@ -567,7 +569,8 @@ def collect_bo3_relay(client, evidence_dir: Path, matches: list, registry: dict)
                                    'teams': [t.get('name') for t in match.get('teams') or []],
                                    'reason': ('ambiguous: several bo3.gg fixtures join this fixture'
                                               if len(bound) > 1 else
-                                              'no single bo3.gg fixture matched both team names and the start time'),
+                                              'no single bo3.gg fixture matched both team names inside the '
+                                              f'{RELAY_START_TOLERANCE_SEC}s start window'),
                                    'candidates': near[:5]})
             continue
         row, used = bound[0]
