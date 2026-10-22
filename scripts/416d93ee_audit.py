@@ -312,6 +312,13 @@ def hltv_ranking_points(html: str) -> dict[str, float]:
 # Site-level checks
 # ---------------------------------------------------------------------------
 
+def unresolved_section_text(summary_html: str) -> str:
+    """Text of the summary's unresolved register, if the page publishes one."""
+    soup = BeautifulSoup(summary_html, 'html.parser')
+    section = soup.find(id='unresolved')
+    return section.get_text(' ', strip=True) if section else ''
+
+
 def phone_checks(summary_html: str, picks_html: str, unresolved_html: str = '') -> dict:
     soup = BeautifulSoup(summary_html, 'html.parser')
     links = [a.get('href', '') for a in soup.find_all('a', href=True)]
@@ -600,13 +607,35 @@ def main() -> int:
     if summary_html:
         report['phone'] = phone_checks(summary_html, picks_html)
 
+    # -- 5b. are the side-less rows published in the unresolved register? ------
+    register_text = unresolved_section_text(summary_html) if summary_html else ''
+    report['unresolved_register'] = {
+        'published_on_summary': bool(register_text),
+        'rows_checked': [],
+    }
+    for record in active:
+        if record.get('pick_index') is not None:
+            continue
+        names = [t.get('name') or '' for t in record.get('teams') or []]
+        listed = bool(register_text) and all(name.casefold() in register_text.casefold() for name in names if name)
+        report['unresolved_register']['rows_checked'].append({
+            'id': record['id'], 'teams': names,
+            'has_probabilities': bool((record.get('origination') or {}).get('probabilities')),
+            'listed_in_register': listed,
+        })
+
     # -- 6. honest verdicts --------------------------------------------------
     verdicts = []
     coverage = report['pick_coverage']
     verdicts.append(('inventory_and_picks_cover_every_active_fixture',
                      coverage['active'] > 0 and not coverage['active_without_any_probability']))
-    verdicts.append(('every_active_fixture_has_a_directional_pick',
-                     not coverage['active_without_pick']))
+    verdicts.append(('every_active_fixture_shows_a_probability_on_the_summary',
+                     not coverage['active_without_any_probability']))
+    unpicked = report['unresolved_register']['rows_checked']
+    verdicts.append(('every_active_fixture_has_a_pick_or_a_published_even_estimate',
+                     all(row['has_probabilities'] for row in unpicked)))
+    verdicts.append(('every_side_less_row_is_listed_in_the_unresolved_register',
+                     all(row['listed_in_register'] for row in unpicked)))
     verdicts.append(('every_published_probability_replays_from_its_own_inputs',
                      bool(report['arithmetic']['rows_with_probabilities'])
                      and not report['arithmetic']['mismatch']
@@ -702,7 +731,13 @@ def render_markdown(report: dict) -> str:
                   f"- in-site pick links on the summary: {phone['pick_index_links']}",
                   f"- unresolved section on the summary: **{phone['has_unresolved_section']}**",
                   f"- rows on the picks page: **{phone['picks_page_table_rows']}**", '']
-    lines += ['## Verdicts', ''] + [f"- {'PASS' if v['pass'] else 'FAIL'} — {v['check']}" for v in report['verdicts']]
+    register = report.get('unresolved_register') or {}
+    lines += ['## Unresolved register', '',
+              f"- register published on the summary: **{register.get('published_on_summary')}**", '']
+    for row in register.get('rows_checked') or []:
+        lines.append(f"  - `{row['id']}` {' vs '.join(row['teams'])}: probabilities {row['has_probabilities']}, "
+                     f"listed in the register {row['listed_in_register']}")
+    lines += ['', '## Verdicts', ''] + [f"- {'PASS' if v['pass'] else 'FAIL'} — {v['check']}" for v in report['verdicts']]
     read_failures = report.get('read_failures') or []
     lines += ['', '## Unreadable requests', ''] + ([f"- `{r['url']}` — {r.get('http_status') or r.get('error')}" for r in read_failures] or ['- none'])
     return '\n'.join(lines) + '\n'
