@@ -56,6 +56,25 @@ Measured on the merged build: **320 px → y = 1326.7 px, 390 px → y = 1364.0 
 clientWidth = 0` at both widths**; `npx playwright test` → **85 passed** (was 83 passed / 2 failed). No pick,
 probability or source changed. Published as a notice flag in `data/research/93ba7221/flags.json`.
 
+### 93B-2b result — a reusable row verifier, and what it caught in itself
+
+`scripts/verify_93ba7221.py` (new, read-only, no network) recomputes **every active row's**
+published probability from the inputs published beside it — saved order-book midpoints for a prediction
+market, saved decimal odds with the margin removed for an esportsbook, and Valve points with the
+documented formula for a model — and also asserts: both sides in (0,1), the pair sums to 1, the published
+side is the higher probability, no exact-even row carries a side, the row links an official host, and every
+research-trail entry carries an https source. On the checked-in snapshot: **17 active rows, 17 with a
+probability, 17 reproduced, 0 failures**, `data/research/93ba7221/row-verification.json`.
+
+The first run of the tool failed five rows — and the tool was wrong, not the data. It only looked at the
+featured record, so four ladder-only rows (1080281, 1080283, 1080286, 1080289) reported a missing side that
+lives on the origination record, and esportsbook rows reported "no saved quotes" because their quote block
+stores decimal `odds` rather than bid/ask `midpoint`s. Both were fixed; the tool now verifies the ladder
+record *and* the featured record of every fixture and fails only the record the site renders, so a replaced
+estimate can never hide a defect. `tests/test_93ba7221_verify.py` locks this in — including two tamper tests
+(change a saved bookmaker price, or point a source at `example.com`) that must make the verifier fail, and an
+assertion that the module imports no HTTP client.
+
 ### 93B-2 result — live inventory re-read and a probability replay (2026-10-22T08:05Z)
 
 - **The sandbox cannot reach the sources directly.** `curl` to `play.hotspawn.com`, `api.hotspawn.com` and
