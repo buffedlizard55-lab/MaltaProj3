@@ -235,5 +235,81 @@ class Contract8877Tests(unittest.TestCase):
                 self.assertTrue(url.startswith('https://'), url)
 
 
+class EvidenceReplayTests(unittest.TestCase):
+    """Independently recompute money-line probabilities from raw saved odds.
+
+    These tests deliberately do not import the pipeline's de-vig or midpoint
+    helpers: the formulas are re-derived here so a shared implementation bug
+    cannot make the check and the publisher agree by construction.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.orig = json.loads((ROOT / 'data' / 'origination.json').read_text())
+
+    def test_bookmaker_quotes_recompute_to_their_stored_probabilities(self):
+        checked = 0
+        for row in self.orig['matches']:
+            origin = row.get('origination') or {}
+            for quote in origin.get('quotes', []):
+                odds = quote.get('odds')
+                if not odds or quote.get('family') == 'market':
+                    continue
+                # Independent proportional de-vig: raw implied 1/o, then normalize.
+                implied = [1.0 / float(o) for o in odds]
+                overround = sum(implied)
+                rebuilt = [p / overround for p in implied]
+                for got, want in zip(quote['probabilities'], rebuilt):
+                    self.assertAlmostEqual(got, want, places=6,
+                                           msg=(row['id'], quote.get('provider')))
+                self.assertGreaterEqual(overround, 1.0)  # a real book carries a margin
+                checked += 1
+        self.assertGreater(checked, 0)  # the snapshot really contains book quotes
+
+    def test_market_midpoints_recompute_from_bid_ask_and_normalize_to_the_row(self):
+        checked = 0
+        for row in self.orig['matches']:
+            origin = row.get('origination') or {}
+            market = [q for q in origin.get('quotes', []) if q.get('family') == 'market']
+            if not market:
+                continue
+            for quote in market:
+                self.assertAlmostEqual(quote['midpoint'],
+                                       (quote['bid'] + quote['ask']) / 2, places=9)
+                self.assertAlmostEqual(quote['spread'],
+                                       quote['ask'] - quote['bid'], places=9)
+            sides = [q['midpoint'] for q in market[:2]]
+            if len(sides) == 2:
+                total = sum(sides)
+                rebuilt = [s / total for s in sides]
+                for got, want in zip(origin['probabilities'], rebuilt):
+                    self.assertAlmostEqual(got, want, places=6, msg=row['id'])
+                checked += 1
+        self.assertGreater(checked, 0)
+
+    def test_single_source_rows_publish_that_source_exactly(self):
+        for row in self.orig['matches']:
+            origin = row.get('origination') or {}
+            providers = {q.get('provider') for q in origin.get('quotes', [])}
+            if len(providers) != 1:
+                continue
+            quote_probs = [q['probabilities'] for q in origin['quotes']
+                           if 'probabilities' in q]
+            if not quote_probs:
+                continue
+            # Every stored quote for a single-provider row equals the row output.
+            for probs in quote_probs:
+                for got, want in zip(origin['probabilities'], probs):
+                    self.assertAlmostEqual(got, want, places=6, msg=row['id'])
+
+    def test_every_published_probability_trails_a_saved_observation_timestamp(self):
+        # No number without a dated observation: each quote carries its time.
+        for row in self.orig['matches']:
+            origin = row.get('origination') or {}
+            for quote in origin.get('quotes', []):
+                when = quote.get('observed_at') or quote.get('timestamp')
+                self.assertTrue(when, (row['id'], quote.get('provider')))
+
+
 if __name__ == '__main__':
     unittest.main()
