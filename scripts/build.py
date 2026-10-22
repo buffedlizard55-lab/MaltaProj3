@@ -22,14 +22,13 @@ LOBBY = 'https://play.hotspawn.com/lobby'
 # Overridable by build() so the executive summary links the review that ships
 # with this exact data directory.
 EDGE_SOURCE = Path('data/edge-review.json')
-PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'unresolved': ('Unresolved & limitations', 'unresolved/index.html', 'alert'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
+PAGES = {'summary': ('Executive summary', 'index.html', 'overview'), 'picks': ('Match picks', 'picks/index.html', 'target'), 'unresolved': ('Unresolved picks', 'unresolved/index.html', 'flag'), 'edge': ('Upset review & edge', 'edge/index.html', 'trend'), 'twc': ('TWC Day 5 picks', 'twc-picks/index.html', 'target'), 'final': ('Final day review', 'final-day/index.html', 'clock'), 'coverage': ('Coverage & sources', 'coverage/index.html', 'layers'), 'methodology': ('Methodology', 'methodology/index.html', 'book'), 'review': ('Flagged for Review', 'review/index.html', 'flag')}
 ICONS = {
     'overview': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'target': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
     'layers': '<path d="m12 3 10 5-10 5L2 8l10-5Z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/>',
     'book': '<path d="M12 5v16M3 3h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5v16h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3V3Z"/>',
     'flag': '<path d="M5 21V3h8l1 3h6v10h-7l-1-3H5"/>',
-    'alert': '<path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5"/><path d="M12 17h.01"/>',
     'arrow': '<path d="M5 12h14m-6-6 6 6-6 6"/>',
     'external': '<path d="M14 3h7v7m0-7L10 14M10 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-6"/>',
     'clock': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -322,6 +321,25 @@ def source_link_label(a: dict) -> str:
     return 'Source'
 
 
+def observation_note(record: dict, prefix: str) -> str:
+    """A dated reader observation beside the automated sweep, clearly labelled.
+
+    The sweep records what the runner saw. Where a person could load a page the
+    runner cannot, that read is published separately, with its own timestamp and
+    its own limitation. It never becomes a price input: the whole point of this
+    note is that one surface contradicted its own match page and the rest showed
+    the site's 1.8/1.8 placeholder.
+    """
+    observation = record.get('observation') or {}
+    if not observation:
+        return ''
+    href = prefix + str(observation.get('file') or '').lstrip('./')
+    return ('<div class="limitations-callout" id="reader-observation" style="margin-top:14px">'
+            f'<strong>{e(observation.get("title") or "Reader observation")}:</strong> '
+            f'{e(observation.get("summary") or "")} '
+            f'<a class="internal-link" href="{e(href)}">Dated observation record (JSON) ↓</a></div>')
+
+
 def researched_method(match: dict) -> tuple[str, str, str]:
     """Short, data-derived provenance for one researched (featured-blank) row.
 
@@ -484,9 +502,9 @@ def exec_banner(data, prefix):
         f'<div class="exec-banner-actions">'
         f'<a class="primary" href="{prefix}origination/#picks" aria-label="Open the updated picks list with every match and both probabilities"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both teams\' % shown</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved" aria-label="Open unresolved picks and why each is missing a line"><span class="label">Unresolved &amp; limitations<span class="sub\">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} from research models · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a> · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
         f'</section>'
     )
 
@@ -509,10 +527,10 @@ def start_here(data, prefix):
          'One plan pick per open fixture and the underdogs worth a play.'),
         (prefix + 'final-day/', 'Day-5 archive (18 Oct)', 'clock',
          'Historical Thunderpick final-day review and result record.'),
-        (prefix + 'unresolved/', 'Unresolved & limits', 'alert',
+        (prefix + 'unresolved/', f'Unresolved &amp; limits ({unresolved})', 'alert',
          'No pick or no line — blocker and sources.'),
-        (prefix + '#unresolved-register', f'Gaps in this summary ({unresolved})', 'flag',
-         'Same register, on this page.'),
+        (prefix + '#unresolved-register', 'Blanks in this summary', 'flag',
+         'This page lists every pick without a line, its blocker and the sources actually tried.'),
     ]
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
@@ -628,7 +646,7 @@ def glance(data, prefix, now=None):
                  f'<div class="glance-choice">{choice}</div>'
                  f'<div class="glance-links">{links}</div></li>')
     note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
-            f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
+            f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
             if hidden else
             f'<p class="tiny muted glance-foot">All {len(active)} active fixtures are listed. '
             f'<a class="internal-link" href="{prefix}origination/#picks">Open the complete audited list →</a> '
@@ -904,34 +922,225 @@ def line_sources_block(data, prefix):
             + observation_note(record, prefix) + '</div>')
 
 
-def observation_note(record: dict, prefix: str) -> str:
-    """A dated reader observation beside the automated sweep, clearly labelled.
 
-    The sweep records what the runner saw. Where a person could load a page the
-    runner cannot, that read is published separately, with its own timestamp and
-    its own limitation. It never becomes a price input: the whole point of this
-    note is that one surface contradicted its own match page and the rest showed
-    the site's 1.8/1.8 placeholder.
+#: Session 4c972a51's dated runner sweep. The file is evidence, not a feed: it
+#: records what each candidate source answered on one afternoon so the published
+#: limitations can be reviewed instead of asserted.
+SESSION_PROBE = Path('data/research/4c972a51/source-probe.json')
+
+#: What a status code means for a reader. Never a price, never a probability.
+_STATUS_MEANING = {
+    200: 'answered',
+    203: 'challenge/redirect shell',
+    401: 'credentials required',
+    403: 'automated access refused',
+    404: 'page not found',
+    410: 'page permanently removed',
+    429: 'rate-limited',
+    503: 'service unavailable',
+}
+
+
+def _status_chip(status, error=None) -> str:
+    if status == 200:
+        return '<span class="tried-chip resolved">200 · answered</span>'
+    if status is None:
+        return '<span class="tried-chip unresolved">no response</span>'
+    meaning = _STATUS_MEANING.get(status, 'refused or unusable')
+    return f'<span class="tried-chip unresolved">{e(status)} · {e(meaning)}</span>'
+
+
+def session_probe_block(data, prefix):
+    """The full, dated reachability matrix behind the unresolved limitations.
+
+    Rendered from ``data/research/4c972a51/source-probe.json``: 49 independent
+    surfaces grouped by how a price could legitimately be used, each with its
+    own link and the status the GitHub runner received. It publishes no
+    probability, no pick and no inference from a failed request; a 403 is
+    reported as refused access, never as proof that no market exists.
     """
-    observation = record.get('observation') or {}
-    if not observation:
+    probe = data.get('_session_probe') or {}
+    surfaces = probe.get('surfaces') or []
+    if not surfaces:
         return ''
-    href = prefix + str(observation.get('file') or '').lstrip('./')
-    return ('<div class="limitations-callout" id="reader-observation" style="margin-top:14px">'
-            f'<strong>{e(observation.get("title") or "Reader observation")}:</strong> '
-            f'{e(observation.get("summary") or "")} '
-            f'<a class="internal-link" href="{e(href)}">Dated observation record (JSON) ↓</a></div>')
+    groups = [
+        ('The exact endpoints the resolver calls', {'ladder'},
+         'Probed with the same method and payload the four-hour pipeline uses. A green row means the '
+         'ladder’s own source answered, not merely that its host is online.'),
+        ('First-party esportsbooks & exchanges', {'book', 'exchange'},
+         'A bookmaker price is the first choice; only a two-sided prematch line can become a pick.'),
+        ('Aggregators & odds comparisons', {'aggregator'},
+         'An aggregator is a cross-check unless it publishes its own two-sided price.'),
+        ('Identity, ratings & results', {'ratings'},
+         'These sources can identify a fixture or feed a research model; none of them publishes a price.'),
+    ]
+    answered = [s for s in surfaces if s.get('status') == 200]
+    refused = [s for s in surfaces if s.get('status') != 200]
+    hltv = [s for s in surfaces if str(s.get('name', '')).startswith('hltv')]
+    hltv_blocked = [s for s in hltv if s.get('status') != 200]
+    html_shells = [s for s in answered
+                   if s.get('kind') in {'book', 'exchange'} and (s.get('bytes') or 0) < 90_000
+                   and 'json' not in str(s.get('content_type') or '').lower()]
+    body = []
+    for title, kinds, note in groups:
+        rows = []
+        for s in surfaces:
+            if s.get('kind') not in kinds:
+                continue
+            name = s.get('name')
+            url = s.get('url')
+            detail = []
+            if s.get('bytes') is not None:
+                detail.append(f"{int(s['bytes']):,} bytes")
+            if s.get('json_items'):
+                detail.append(f"{s['json_items']} JSON items")
+            elif s.get('json_keys'):
+                detail.append('JSON keys: ' + ', '.join(s['json_keys'][:4]))
+            if s.get('teams_present'):
+                detail.append('mentions ' + ', '.join(s['teams_present'][:3]))
+            if s.get('error'):
+                detail.append(str(s['error'])[:120])
+            rows.append(
+                f'<li class="probe-source"><div class="probe-source-head">'
+                f'<a class="source-link" href="{e(url)}" target="_blank" rel="noopener noreferrer">'
+                f'{e(name)}{icon("external")}</a>{_status_chip(s.get("status"), s.get("error"))}</div>'
+                f'<p class="probe-source-url">{e(url)}</p>'
+                f'<p class="probe-source-detail">{e(" · ".join(detail)) if detail else "no detail recorded"}</p></li>')
+        if not rows:
+            continue
+        body.append('<h3>' + e(title) + '</h3>'
+                    f'<p class="tiny muted">{e(note)}</p>'
+                    '<ul class="probe-source-list">' + ''.join(rows) + '</ul>')
+    if not body:
+        return ''
+    observations = []
+    if hltv:
+        observations.append(
+            f'HLTV was tried first, as the brief asks: <strong>{len(hltv_blocked)} of {len(hltv)}</strong> '
+            'HLTV paths refused the automated request. HLTV publishes no prematch price even when a person '
+            'can read it, so it is used for fixture identity and its published ranking only — never as a '
+            'probability or a betting line in itself.')
+    if html_shells:
+        observations.append(
+            f'<strong>{len(html_shells)}</strong> of the bookmaker pages that answered HTTP 200 returned a '
+            'script shell with no match list in the HTML, so they yield no price without a documented API.')
+    observations.append(
+        f'<strong>{len(answered)}</strong> of <strong>{len(surfaces)}</strong> surfaces answered HTTP 200; '
+        f'<strong>{len(refused)}</strong> refused, disappeared, were rate-limited or timed out. A refusal is '
+        'recorded as a source limitation and never as evidence that no market exists.')
+    if probe.get('unresolved_fixtures') == 0:
+        observations.append(
+            'This sweep ran when every active fixture already had a pick, so the source matrix below is a '
+            'standing capability check rather than a list of blockers for one match.')
+    return ('<section class="content-section session-probe" id="source-matrix" '
+            'aria-labelledby="source-matrix-title">'
+            '<div class="section-heading"><div><p class="eyebrow">Dated evidence · read-only</p>'
+            '<h2 id="source-matrix-title">Sources checked, and what each one answered</h2></div>'
+            f'<a class="internal-link" href="{prefix}data/research/4c972a51/source-probe.json">Raw probe (JSON) ↓</a></div>'
+            f'<p class="section-intro">Every independent surface the resolver can reach, probed from the same '
+            f'GitHub runner that publishes this site at {local_time(probe.get("observed_at"))}. '
+            f'The probe writes status codes and excerpts only — it can never publish a probability. '
+            'No access control was bypassed.</p>'
+            '<ul class="probe-observations">'
+            + ''.join(f'<li>{line}</li>' for line in observations)
+            + '</ul>' + ''.join(body) + '</section>')
 
 
+def unresolved_page(data, prefix, now=None):
+    """A dedicated, phone-first page for every fixture without a pick.
 
-def unresolved_register(data, prefix, page_href=None):
+    The brief asks for a separate section for unresolved picks and the
+    limitations of generating them. The executive summary keeps its compact
+    register; this page is the full, linkable destination: the live count, every
+    blank with its blockers, the picks that rest on a research model rather than
+    a betting line, and the dated source matrix behind all of it.
+    """
+    complete = data.get('complete_picks') or {}
+    cc = complete.get('counts') or {}
+    counts = data.get('counts') or {}
+    active = cc.get('active', counts.get('upcoming', 0))
+    with_pick = cc.get('with_pick')
+    resolved = cc.get('resolved')
+    unresolved = cc.get('unresolved', counts.get('unresolved', 0))
+    no_side = max(0, (resolved or 0) - (with_pick or 0)) if resolved is not None else 0
+    money_backed = sum(cc.get(k) or 0 for k in ('market', 'bookmaker', 'consensus', 'reference', 'relay'))
+    observed = complete.get('generated_at') or data.get('generated_at')
+    if unresolved == 0 and no_side == 0:
+        headline = f'Every one of the {active} active Hotspawn CS2 fixtures has a pick'
+        lede = ('Nothing is blank in this snapshot. The sections below stay published so the method and the '
+                'source limitations can be reviewed before a fixture ever needs them.')
+    else:
+        headline = f'{unresolved} fixture(s) without a pick, {no_side} without a side'
+        lede = ('These are the matches the ladder could not price from a betting line or a rating. Each one '
+                'carries the exact blocker and the sources that were actually tried.')
+    cards = [
+        ('Active fixtures', active, 'Hotspawn CS2 matches open, locked or with an unverified start'),
+        ('With a pick', with_pick if with_pick is not None else max(0, active - unresolved),
+         'A directional team plus both win probabilities'),
+        ('No pick', unresolved, 'No compliant input survived the ladder — listed below'),
+        ('No side', no_side, 'Probabilities published, but exactly even and no published order to break it'),
+    ]
+    card_html = ''.join(
+        f'<div class="metric-card"><div class="metric-top">{e(label)}</div>'
+        f'<strong>{e(value)}</strong><p>{e(note)}</p></div>' for label, value, note in cards)
+    out = heading('Coverage gaps & limits', 'Unresolved picks & limitations',
+                  'What is missing, why it is missing, and what was tried. Read this before treating any blank as a no-market signal.')
+    out += (f'<p class="page-description" id="unresolved-status"><strong>{e(headline)}.</strong> {e(lede)} '
+            f'Snapshot observed {local_time(observed)}.</p>')
+    out += f'<div class="metrics unresolved-metrics">{card_html}</div>'
+    # Session ee27e097: one sentence, on the page itself, that separates the two
+    # different gaps the brief asks about — fixtures with no pick at all, and
+    # picks that rest on a research model instead of an external betting line.
+    model_only = max(0, (resolved or 0) - money_backed)
+    out += (f'<div class="info-strip">{icon("flag")}<span><strong>'
+            f'{e(unresolved)} of {e(active)} fixtures have no pick</strong> and '
+            f'<strong>{e(model_only)} of the {e(resolved or 0)} picked rows rest on a research model, '
+            f'not an external betting line</strong>. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Every pick, both probabilities →</a> '
+            f'<a class="internal-link" href="{prefix}review/">Flagged for Review →</a> '
+            f'<a class="internal-link" href="{prefix}methodology/">How each number is produced →</a></span></div>')
+    out += ('<div class="limitations-callout" id="how-to-read"><strong>How to read this page</strong>'
+            '<ul><li><strong>No pick</strong> means no compliant input produced a number. A blank is never '
+            'replaced with a default 50/50.</li>'
+            '<li><strong>No side</strong> means both probabilities are published and exactly even; the pick '
+            'column shows “Even” unless the ranking provider itself orders the two teams.</li>'
+            '<li><strong>Model-only</strong> means the number comes from a labelled research model, not from a '
+            'bookmaker. It is a pick, but it is not a betting line.</li>'
+            '<li>Every four-hour refresh retries every source. A fixture listed here can gain a market later; '
+            'reload rather than treating this page as permanent.</li></ul></div>')
+    out += unresolved_register(data, prefix, title='Every fixture without a pick, and why')
+    out += session_probe_block(data, prefix)
+    out += ('<section class="content-section prose" id="ladder"><p class="eyebrow">Our method, in order</p>'
+            '<h2>What has to fail before a match is published as unresolved</h2>'
+            '<ol class="ladder-list">'
+            '<li><strong>Featured exact-name market</strong> — Polymarket series-winner order books, both sides, '
+            'fresh and inside the spread ceiling.</li>'
+            '<li><strong>Other first-party exchanges and books</strong> — Kalshi match-winner books, Thunderpick '
+            'paired prices, Bovada and Pinnacle series moneylines.</li>'
+            '<li><strong>Relayed bookmaker quote</strong> — a two-sided price published by bo3.gg, labelled as a '
+            'relay and only used when no first-party quote exists.</li>'
+            '<li><strong>Aggregated reference</strong> — a dated, reviewed bookmaker-average capture.</li>'
+            '<li><strong>Valve official rating model</strong> — complete five-player rows from Valve’s published '
+            'regional standings; uncalibrated, labelled.</li>'
+            '<li><strong>Own results model</strong> — a Bradley–Terry fit over finished bo3.gg series, anchored on '
+            'Valve points, failing closed on thin graphs.</li>'
+            '<li><strong>HLTV world-ranking model</strong> — the published weekly points through a 400-scale '
+            'logistic transform; unranked sides get HLTV’s floor and an explicit low-confidence label.</li>'
+            '<li><strong>Wide-book guidance</strong> — a midpoint of a book too wide to accept, badged as guidance '
+            'and never counted as money-backed.</li>'
+            '<li><strong>Unresolved</strong> — the honest blank, with the blocker and the sources tried.</li>'
+            '</ol>'
+            '<p>When a research model lands on exactly 50/50, the pick is set by the ranking provider’s own '
+            'published order (for example HLTV rank 215 vs 229) and the row says so. That rule changes the '
+            'direction only — never a probability.</p>'
+            f'<p><a class="internal-link" href="{prefix}methodology/">Full methodology →</a> '
+            f'<a class="internal-link" href="{prefix}coverage/">Source status &amp; refresh →</a> '
+            f'<a class="internal-link" href="{prefix}origination/#picks">All match picks →</a></p></section>')
+    return out
+
+
+def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations', page_href=None):
     """A separate, phone-first register of every fixture without a pick.
-
-    Session ee27e097: the brief asks for this register to exist as its own
-    section *and* to be easy to reach. The same renderer therefore powers the
-    dedicated `unresolved/` page and the executive-summary section; when
-    ``page_href`` is given the section heading also links to that page. No
-    count, price or limitation is computed differently in the two places.
 
     The brief asked for the unresolved picks and their limitations to be a
     section of their own inside the executive summary, not a footnote. This
@@ -960,7 +1169,7 @@ def unresolved_register(data, prefix, page_href=None):
     out = ['<section class="content-section unresolved-register" id="unresolved-register" '
            'aria-labelledby="unresolved-register-title">'
            '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
-           '<h2 id="unresolved-register-title">Unresolved picks &amp; limitations</h2></div>'
+           f'<h2 id="unresolved-register-title">{title}</h2></div>'
            f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a>'
            + (f'<a class="internal-link" href="{e(page_href)}">Open the full page {icon("arrow")}</a>' if page_href else '')
            + '</div>']
@@ -1228,6 +1437,9 @@ def where_everything_lives(data, prefix):
         ('Complete match picks', 'origination/#picks', 'The list to use on your phone: every non-archived Hotspawn CS2 '
          'fixture with both probabilities, one obvious pick, lock times and expandable evidence.',
          'Featured estimates plus researched fallbacks'),
+        ('Unresolved picks & limitations', 'unresolved/', 'Every active match without a pick, the exact blocker, every '
+         'source tried, the dated reachability matrix and the order the resolver works through.', 
+         f'{still_blank} without a pick · {with_pick} with a pick'),
         ('Leaderboard plan', 'strategy/', 'What to submit to climb the Hotspawn leaderboard: one plan pick per match, the few underdogs '
          'the lines say have a real shot, the points at stake, Hotspawn\'s scoring rules and the unresolved fixtures.',
          'Contrarian, not stupid'),
@@ -1236,9 +1448,6 @@ def where_everything_lives(data, prefix):
         ('Featured method picks', 'picks/', 'The audit list for the featured exact-name method, with searchable '
          'filters, researched-fallback badges and the unresolved research trails.',
          f'{with_pick} picks · {researched} researched fallbacks · {still_blank} blank'),
-        ('Unresolved & limitations', 'unresolved/', 'The separate register the brief asks for: every fixture with no pick, '
-         'every pick that has no external betting line behind it, the exact blocker for each and the dated list of '
-         'money sources that answered, refused or were deleted.', 'No guessing · every trail linked'),
         ('Upset review & edge', 'edge/', 'Dated first-party review of the day-one Thunderpick World Championship '
          'results, Aurora roster context (not a proven cause of the upset), dated Valve standings and the seven rules applied '
          'before disagreeing with a market.', 'Research review · not a live feed'),
@@ -1261,46 +1470,6 @@ def where_everything_lives(data, prefix):
     return out + '</tbody></table></div></section>'
 
 
-def unresolved_page(data, prefix):
-    """Dedicated page: every pick-less fixture and every pick without a line.
-
-    The brief asks for a *separate* section covering the fixtures that cannot be
-    resolved the same way as the featured picks, together with the limitations
-    that stopped a price. The executive summary carries the same register inline
-    and links here; this page exists so the register has a stable address that is
-    one tap from the phone status strip, the start-here bar and the site map.
-
-    It renders only the published data (``complete_picks`` plus the dated source
-    records) through the same renderers as the summary. It computes no new
-    probability and no new pick.
-    """
-    complete = data.get('complete_picks') or {}
-    cc = complete.get('counts') or {}
-    c = data.get('counts') or {}
-    active = cc.get('active') or c.get('upcoming')
-    unresolved = cc.get('unresolved', c.get('unresolved') or 0)
-    money = sum(cc.get(k) or 0 for k in ('market', 'bookmaker', 'consensus', 'reference'))
-    model = cc.get('model')
-    if model is None:
-        model = max(0, (cc.get('resolved') or 0) - money) if cc else 0
-    out = heading(
-        'Separate register · no guesswork',
-        'Unresolved picks & limitations',
-        'Two different gaps, kept apart on purpose. A fixture with no pick has no supported '
-        'probability at all. A pick without a betting line has a published percentage from a '
-        'labelled research model — an uncalibrated estimate, not a price you could have bet. '
-        'Both are listed here with the exact source that failed and the sources actually tried.',
-        f'<a class="button secondary" href="{prefix}origination/#picks">All picks {icon("arrow")}</a>')
-    out += (f'<div class="info-strip">{icon("alert")}<span><strong>{e(unresolved)}</strong> active fixture(s) with '
-            f'no pick, <strong>{e(model)}</strong> with a pick but <strong>no betting line</strong>, out of '
-            f'<strong>{e(active)}</strong> in this snapshot. Every four-hour refresh retries every source, so this '
-            f'list shrinks when a market opens. <a href="{prefix}methodology/">How a number is produced →</a> '
-            f'<a href="{prefix}review/">Flagged findings →</a></span></div>')
-    out += ("<section class=\"content-section prose\" aria-label=\"How to read this page\"><h2>What &ldquo;unresolved&rdquo; means here</h2><p><strong>No pick</strong> means no source produced a two-sided prematch price and no official rating cleared our gates. The row stays in the list with a blank probability \u2014 never a default 50/50. <strong>No betting line</strong> means a pick exists, but it is an explicitly uncalibrated research estimate from a published rating, a results-graph fit or a dated aggregated-bookmaker capture, and no external price was reachable for that fixture. Neither state is presented as a betting opportunity, and an access failure is recorded as an access failure, never as proof that no market exists.</p></section>")
-    out += unresolved_register(data, prefix)
-    return out
-
-
 def picks(data, prefix, now=None):
     c = data['counts']
     fallbacks = data.get('fallbacks') or {}
@@ -1309,14 +1478,21 @@ def picks(data, prefix, now=None):
     shown = {'all': len(active),
              'market': sum(1 for b, _ in basis if b in ('market', 'bookmaker', 'consensus', 'reference')),
              'model': sum(1 for b, _ in basis if b == 'model'),
+             'guidance': sum(1 for b, _ in basis if b == 'guidance'),
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
     with_pick = shown['all'] - shown['unresolved']
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    # Session 4c972a51: the sentence used to add the *featured* counts (11 money
+    # + 12 researched) while the header counted every displayed row (33), so the
+    # arithmetic did not add up and a reader could think ten matches had no pick.
+    # Every number here now comes from the same displayed-basis tally the filter
+    # chips use, and the parts always sum to `shown['all']`.
     out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
-            f'{c["market"] + c["bookmaker"] + c.get("reference", 0)} come from an external market, esportsbook or aggregated bookmaker line'
-            + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
-            + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
+            f'{shown["market"]} come from an external market, esportsbook or aggregated bookmaker line'
+            + (f', {shown["model"]} from a labelled research model, badged <strong>Research model</strong>' if shown["model"] else '')
+            + (f', {shown["guidance"]} from wide-book guidance only' if shown['guidance'] else '')
+            + f', and {shown["unresolved"]} remain blank because no supported evidence exists. '
             f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
             f'<a href="{prefix}edge/">Day-one upset review &amp; contrarian edge →</a></span></div>')
     out += f'<div class="limitations-callout"><strong>Need a pick for rows unresolved below?</strong> <a style="text-decoration:underline" href="{prefix}origination/#picks">Complete researched picks: featured estimates plus source-backed fallbacks →</a> <a style="text-decoration:underline" href="{prefix}origination/#unresolved">Remaining limitations →</a> <a style="text-decoration:underline" href="{prefix}index.html#contrarian">Day 1 contrarian review →</a></div>'
@@ -1334,10 +1510,55 @@ def picks(data, prefix, now=None):
     return out
 
 
+def write_reconciled_snapshot(snapshot_path, data):
+    """Add the featured-vs-researched reconciliation to the published JSON.
+
+    ``counts.*`` describes the featured exact-name method alone. Every page on
+    the site renders the researched list. Before this block the downloaded JSON
+    said "10 unresolved" while the page said "0", and both statements were true
+    of different lists — a contradiction a reader cannot resolve. The raw
+    counters are preserved unchanged and the second list is published beside
+    them, with a note that says which is which.
+    """
+    if not snapshot_path.exists() or not data.get('complete_picks'):
+        return
+    snapshot = json.loads(snapshot_path.read_text())
+    cc = data['complete_picks'].get('counts') or {}
+    featured = snapshot.get('counts') or {}
+    snapshot['featured_method_counts'] = {
+        k: featured.get(k) for k in
+        ('upcoming', 'market', 'bookmaker', 'consensus', 'model', 'unresolved', 'picks')}
+    snapshot['complete_coverage_counts'] = {
+        k: (cc.get(k) or 0) for k in
+        ('active', 'resolved', 'with_pick', 'market', 'bookmaker', 'consensus',
+         'reference', 'model', 'guidance', 'unresolved')}
+    snapshot['counts_note'] = (
+        'counts.* and featured_method_counts describe the featured exact-name method only. '
+        'complete_coverage_counts describe the researched list every page renders: one row per '
+        'active Hotspawn fixture, with a market, bookmaker, consensus or reference price where one '
+        'was found and a labelled research-model estimate where none was. A fixture is unresolved '
+        'only when neither list can produce a number.')
+    snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=1) + '\n')
+
+
+def _reconciled(data):
+    """One short, arithmetic-free sentence pointing at the researched list.
+
+    The two lists disagree by design (the featured method is exact-name only);
+    saying so in the same card stops a reader from reading the featured
+    counters as the site's coverage.
+    """
+    cc = (data.get('complete_picks') or {}).get('counts') or {}
+    if not cc:
+        return ''
+    return (f'; the researched list has {cc.get("with_pick", 0)} of {cc.get("active", 0)} '
+            f'with a pick and {cc.get("unresolved", 0)} unresolved')
+
+
 def coverage(data, prefix, now=None):
     c = data['counts']
     out = heading('Nothing quietly left out', 'Coverage & original sources', 'Inventory coverage and probability coverage are different. This page reconciles both, and keeps past-start source anomalies visible.')
-    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
+    out += f'<div class="coverage-summary"><div><span class="eyebrow">Source inventory</span><strong>{c["inventory"]} / {c["inventory"] if data["coverage_complete"] else "?"}</strong><p>{("CS2 records reconciled across three official responses" if data.get("inventory_crosscheck", "complete") == "complete" else "CS2 records from the official fixture API; lobby HTML cross-check " + ("partial" if data.get("inventory_crosscheck") == "partial" else "unavailable")) if data["coverage_complete"] else "Complete current coverage is unverified"}</p></div><div><span class="eyebrow">Future probabilities</span><strong>{c["upcoming"] - c["unresolved"]} / {c["upcoming"]}</strong><p>{c["market"] + c["bookmaker"]} market · {c.get("reference", 0)} aggregated · {c["model"]} model · {c["unresolved"]} unresolved in the featured method{_reconciled(data)}</p></div><div><span class="eyebrow">Automatic refresh</span><strong>4 hours</strong><p>Primary target: 00:17, 04:17, 08:17, 12:17, 16:17, 20:17 UTC. Catch-up slots: 02:47, 06:47, 10:47, 14:47, 18:47, 22:47 UTC. GitHub may delay or drop runs; source access can fail. Not a real-time feed. <a href="{REPO}/blob/main/.github/workflows/pages.yml">Official refresh workflow →</a></p></div></div>'
     out += ('<section class="content-section" id="hotspawn-integration"><div class="section-heading"><div>'
             '<p class="eyebrow">Reverse-engineered, read-only</p><h2>How the Hotspawn list is read</h2></div>'
             '<a class="internal-link" href="' + prefix + 'data/evidence/hotspawn-context.json">Reconciliation record ↓</a></div>'
@@ -1398,7 +1619,7 @@ def methodology(data, prefix):
     out += '<section class="content-section resolution-steps">'
     for n, title, description, url, label in steps:
         out += f'<article class="resolution-step"><span>{n}</span><div><h2>{title}</h2><p>{e(description)}</p>{external(url, label)}</div></article>'
-    out += '</section><section class="content-section prose"><p class="eyebrow">Our calculations, not source facts</p><h2>From observations to percentages</h2><h3>Prediction-market estimate</h3><p>For each outcome, take the best positive-size bid and ask from its own book. The midpoint is <code>m = (best bid + best ask) / 2</code>. Normalize the paired midpoints with <code>P(A) = mA / (mA + mB)</code> and <code>P(B) = 1 − P(A)</code>. Require valid two-sided books, a spread of no more than 12 cents per outcome in the featured exact-name path, matching token/condition IDs, and source timestamps no older than eight hours. The fallback origination ladder runs only when the featured method produced no pick; it accepts a two-sided book up to 15 cents and flags anything wider than 12 cents as <strong>thin</strong>, so a marginal, two-sided book is used with an explicit limitation instead of being silently promoted or discarded. Directory percentages and Gamma’s last-price defaults are not used.</p><p>These are indicative midpoints, not guaranteed execution quotes or “true” win probabilities. Trading fees, slippage and position size are excluded. A single prediction market is not independent bookmaker consensus. ' + external('https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Inspect the official book schema') + '</p><h3>Original bookmaker estimate</h3><p>For a verified pair of decimal odds <code>dA, dB</code>, calculate <code>qA = 1/dA</code>, <code>qB = 1/dB</code>, then remove proportional margin with <code>P(A) = qA / (qA + qB)</code>. Only active, two-outcome, prematch match-winner lines are accepted. Implied-probability sums outside 0.85–1.35 are rejected as a data-quality policy. Different mirrors of one book count as one source family; independent families, if present, are combined using the median normalized probability.</p><h3>Valve-rating research estimate</h3><p>The published Valve model uses a Glicko-style expected score. We implement <code>g = 1 / √(1 + 3(ln(10)/400)² × RD² / π²)</code> and <code>P(A) = 1 / (1 + 10^(g × (RB − RA) / 400))</code>. Points <code>RA, RB</code> are sourced facts; <code>RD = 75</code> is a fixed assumption following Valve’s fit example, not a measured uncertainty for today’s roster.</p><p>' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js', 'Valve fit example') + ' ' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/glicko.js', 'Valve expected-score implementation') + '</p><div class="limitations-callout"><strong>Important model limitations</strong><p>This deployment has not been backtested or calibrated. A historic name-matched roster is not proof of today’s lineup. Stand-ins, roster changes, map vetoes, team form since the snapshot and bookmaker information are not added without verification. This model does not override a valid primary market pick and is never labeled a verified betting line.</p></div><h3>Our own network line (research fit)</h3><p>Some low-tier fixtures have no money line, no aggregated reference and no complete official rating rows — but the brief still asks us to originate our own line. For those fixtures only, a maximum-a-posteriori Bradley–Terry fit over finished series published by bo3.gg (a bounded 120-day window) places both teams on the same 400-point logistic scale through anchored teams that hold official Valve points; teams without official points share a division-anchor median with a weak prior and are labelled unanchored. This rung never overrides a money line, an aggregated reference price or a complete official-row estimate, and it never publishes anything when its gates fail: fewer than 300 usable series in the graph, fewer than 10 anchored teams, fewer than 6 finished series for either side in the window, or a rating-difference one-sigma interval wider than 300 points all leave the fixture to the next rung, with the published reason. Every priced row lists its two rating inputs, sample sizes, standard error, interval and evidence hash so the arithmetic can be replayed. It is a research model, never a bookmaker price.</p><h3>HLTV world-ranking research estimate</h3><p>Many low-tier teams never appear in Valve’s regional standings, but they do appear in HLTV’s official weekly world ranking. For fixtures where every money source, the aggregated reference, the Valve roster model and our own network line all failed, the teams’ published HLTV points go through the same 400-scale logistic transform: <code>P(A) = 1 / (1 + 10^((points_B − points_A) / 400))</code>. Both teams must appear on the same dated publication, read from the saved official ranking pages, and the publication must be no older than 14 days. When exactly one side has a published row — the common low-tier case — the unranked side is assigned HLTV’s floor of 0.0 points, the estimate is labelled <strong>unranked floor</strong> and carries an explicit low-confidence limitation; a floor is an assumption, not a measured rating. If neither side has a row the estimate is refused and the fixture stays unresolved. This is the same evidence class as the Valve rung — an explicitly uncalibrated research model, not betting odds. It never overrides a money, aggregated or Valve estimate, and it does not confirm today’s lineup, stand-ins, form or veto. Every input row links its own HLTV ranking page.</p>' + external('https://www.hltv.org/ranking/teams', 'HLTV official world ranking') + '<h3>Wide-book indicative guidance (last resort)</h3><p>Some low-tier fixtures are listed on an exchange, but the only two-sided books are so wide (observed spreads up to 0.90) that they fail every published acceptance ceiling. The brief still asks for a researched percentage, so when — and only when — every compliant rung above failed, the midpoint of the <em>narrowest</em> observed too-wide book is published as <strong>guidance only</strong>. It is badged in amber everywhere it appears, never counted as a money-backed pick, never used by the leaderboard plan’s upset rules, and each row shows the exact bid/ask spread it came from. An exactly even midpoint shows “No edge · Even” instead of a fabricated side. Guidance is a last-resort observation of thin money — not a validated price.</p><h3>Our fair line and the pick</h3><p>The fair decimal line is <code>1/P</code>; it is a calculated reference, not odds offered by any bookmaker. The suggested team has the higher unrounded probability. An exactly equal estimate has no directional pick. Missing data is not replaced with 50/50. Displayed percentages are rounded to one decimal place; the downloadable data retains higher precision.</p></section>'
+    out += '</section><section class="content-section prose"><p class="eyebrow">Our calculations, not source facts</p><h2>From observations to percentages</h2><h3>Prediction-market estimate</h3><p>For each outcome, take the best positive-size bid and ask from its own book. The midpoint is <code>m = (best bid + best ask) / 2</code>. Normalize the paired midpoints with <code>P(A) = mA / (mA + mB)</code> and <code>P(B) = 1 − P(A)</code>. Require valid two-sided books, a spread of no more than 12 cents per outcome in the featured exact-name path, matching token/condition IDs, and source timestamps no older than eight hours. The fallback origination ladder runs only when the featured method produced no pick; it accepts a two-sided book up to 15 cents and flags anything wider than 12 cents as <strong>thin</strong>, so a marginal, two-sided book is used with an explicit limitation instead of being silently promoted or discarded. Directory percentages and Gamma’s last-price defaults are not used.</p><p>These are indicative midpoints, not guaranteed execution quotes or “true” win probabilities. Trading fees, slippage and position size are excluded. A single prediction market is not independent bookmaker consensus. ' + external('https://docs.polymarket.com/api-reference/market-data/get-order-book', 'Inspect the official book schema') + '</p><h3>Original bookmaker estimate</h3><p>For a verified pair of decimal odds <code>dA, dB</code>, calculate <code>qA = 1/dA</code>, <code>qB = 1/dB</code>, then remove proportional margin with <code>P(A) = qA / (qA + qB)</code>. Only active, two-outcome, prematch match-winner lines are accepted. Implied-probability sums outside 0.85–1.35 are rejected as a data-quality policy. Different mirrors of one book count as one source family; independent families, if present, are combined using the median normalized probability.</p><h3>Valve-rating research estimate</h3><p>The published Valve model uses a Glicko-style expected score. We implement <code>g = 1 / √(1 + 3(ln(10)/400)² × RD² / π²)</code> and <code>P(A) = 1 / (1 + 10^(g × (RB − RA) / 400))</code>. Points <code>RA, RB</code> are sourced facts; <code>RD = 75</code> is a fixed assumption following Valve’s fit example, not a measured uncertainty for today’s roster.</p><p>' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js', 'Valve fit example') + ' ' + external('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/glicko.js', 'Valve expected-score implementation') + '</p><div class="limitations-callout"><strong>Important model limitations</strong><p>This deployment has not been backtested or calibrated. A historic name-matched roster is not proof of today’s lineup. Stand-ins, roster changes, map vetoes, team form since the snapshot and bookmaker information are not added without verification. This model does not override a valid primary market pick and is never labeled a verified betting line.</p></div><h3>Our own network line (research fit)</h3><p>Some low-tier fixtures have no money line, no aggregated reference and no complete official rating rows — but the brief still asks us to originate our own line. For those fixtures only, a maximum-a-posteriori Bradley–Terry fit over finished series published by bo3.gg (a bounded 120-day window) places both teams on the same 400-point logistic scale through anchored teams that hold official Valve points; teams without official points share a division-anchor median with a weak prior and are labelled unanchored. This rung never overrides a money line, an aggregated reference price or a complete official-row estimate, and it never publishes anything when its gates fail: fewer than 300 usable series in the graph, fewer than 10 anchored teams, fewer than 6 finished series for either side in the window, or a rating-difference one-sigma interval wider than 300 points all leave the fixture to the next rung, with the published reason. Every priced row lists its two rating inputs, sample sizes, standard error, interval and evidence hash so the arithmetic can be replayed. It is a research model, never a bookmaker price.</p><h3>HLTV world-ranking research estimate</h3><p>Many low-tier teams never appear in Valve’s regional standings, but they do appear in HLTV’s official weekly world ranking. For fixtures where every money source, the aggregated reference, the Valve roster model and our own network line all failed, the teams’ published HLTV points go through the same 400-scale logistic transform: <code>P(A) = 1 / (1 + 10^((points_B − points_A) / 400))</code>. Both teams must appear on the same dated publication, read from the saved official ranking pages, and the publication must be no older than 14 days. When exactly one side has a published row — the common low-tier case — the unranked side is assigned HLTV’s floor of 0.0 points, the estimate is labelled <strong>unranked floor</strong> and carries an explicit low-confidence limitation; a floor is an assumption, not a measured rating. If neither side has a row the estimate is refused and the fixture stays unresolved. This is the same evidence class as the Valve rung — an explicitly uncalibrated research model, not betting odds. It never overrides a money, aggregated or Valve estimate, and it does not confirm today’s lineup, stand-ins, form or veto. Every input row links its own HLTV ranking page.</p>' + external('https://www.hltv.org/ranking/teams', 'HLTV official world ranking') + '<h3>Wide-book indicative guidance (last resort)</h3><p>Some low-tier fixtures are listed on an exchange, but the only two-sided books are so wide (observed spreads up to 0.90) that they fail every published acceptance ceiling. The brief still asks for a researched percentage, so when — and only when — every compliant rung above failed, the midpoint of the <em>narrowest</em> observed too-wide book is published as <strong>guidance only</strong>. It is badged in amber everywhere it appears, never counted as a money-backed pick, never used by the leaderboard plan’s upset rules, and each row shows the exact bid/ask spread it came from. An exactly even midpoint shows “No edge · Even” instead of a fabricated side. Guidance is a last-resort observation of thin money — not a validated price.</p><h3>Our fair line and the pick</h3><p>The fair decimal line is <code>1/P</code>; it is a calculated reference, not odds offered by any bookmaker. The suggested team has the higher unrounded probability. An exactly equal estimate has no directional pick unless the ranking provider itself publishes an order for the two teams: in that case the pick is the side the same official publication ranks higher, the row records the rule and both published positions, and neither probability changes. Without such a published order the side stays blank and the fixture is listed on <a class="internal-link" href="../unresolved/">Unresolved picks &amp; limitations</a>. Missing data is not replaced with 50/50. Displayed percentages are rounded to one decimal place; the downloadable data retains higher precision.</p></section>'
     out += '<section class="content-section prose"><p class="eyebrow">Operational boundaries</p><h2>Freshness, identity &amp; blank values</h2><ul><li>Refreshes are scheduled every four hours in UTC. GitHub Actions schedules are best-effort, not a real-time service-level guarantee.</li><li>The executive summary counts money-line picks and research-model picks separately, prints both teams&#39; probability on every row, and publishes every model-only pick with the money sources that failed in <em>Picks without a betting line</em>. A research model is never presented as a betting line.</li><li>The inventory observation time, price observation time, source book timestamp and rating snapshot date remain distinct. A failed refresh never resets successful-observation timestamps.</li><li>After eight hours, the browser displays a stale warning and disables “current pick” language. After a fixture’s explicit lock time, it is labeled closed for picks. A past scheduled start is not treated as a verified final result.</li><li>Matching is Unicode/case/whitespace-equivalent exact naming plus start time within 60 seconds. Abbreviations, sponsor aliases and fuzzy matches are not guessed. Ambiguous Valve names are rejected unless the complete-picks fallback replays a fresh, exact-fixture HLTV proof matching exactly one entire five-player roster, or exactly one four-of-five core with a documented one-player change (labeled as a roster-change identity join). Two plausible rows, a three-of-five overlap or an unbound lineup still fail closed.</li><li>Unverified factual values remain blank and labeled “unverified.” Calculated probabilities and fair lines are visibly identified as analysis; they are not filled-in source facts.</li><li>Access controls, robots restrictions and challenges are not bypassed. No login, paid API key, user input or betting account is required for this read-only dashboard.</li><li>Every published probability is replayed from saved first-party evidence before deployment. Every match row links back to Hotspawn; pricing and model inputs carry their own original-source links.</li></ul><p>' + external('https://play.hotspawn.com/how-it-works', 'Hotspawn rules for manual review') + f' · <a href="{prefix}review/">See all flagged limitations →</a></p></section>'
     return out
 
@@ -1464,7 +1685,7 @@ def shell(data, key, body, prefix, now=None):
         if k == 'summary':
             href = prefix + 'index.html'
         nav += f'<a class="nav-link {"active" if k == key else ""}" href="{href}"' + (' aria-current="page"' if k == key else '') + f'>{icon(sym)}<span>{label}</span>' + (f'<span class="nav-count">{len(data["flags"])}</span>' if k == 'review' else '') + '</a>'
-    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Gaps'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
+    mobile = ''.join(f'<a href="{prefix + "index.html" if k == "summary" else prefix + ("origination/#picks" if k == "picks" else k + "/")}"' + (' aria-current="page"' if key == k else '') + f'>{icon(PAGES[k][2])}<span>{label}</span></a>' for k, label in [('summary', 'Summary'), ('picks', 'Picks'), ('unresolved', 'Unresolved'), ('edge', 'Edge'), ('coverage', 'Sources'), ('methodology', 'Methods'), ('review', 'Review')])
     # Phone-first status strip: two one-tap destinations, present on every page.
     # Session 541cd43a — the brief asks to be able to reach an updated picks list
     # from a phone without hunting. Counts are the same canonical counts the
@@ -1478,9 +1699,9 @@ def shell(data, key, body, prefix, now=None):
     if _with_pick is None:
         _with_pick = max(0, _active - (_cc.get('unresolved', _counts.get('unresolved') or 0)))
     _unresolved = _cc.get('unresolved', _counts.get('unresolved') or 0)
-    # A pick can exist without any external betting line behind it. That is the
-    # gap the brief asks to see from a phone, so the strip reports it beside the
-    # truly pick-less count instead of showing a reassuring zero. Both groups
+    # Session ee27e097: a pick can exist without any external betting line behind
+    # it. That is the gap a phone reader most needs, so the strip reports it beside
+    # the truly pick-less count instead of showing a reassuring zero. Both numbers
     # are counted from the published origination record, never estimated.
     _money = sum(_cc.get(k) or 0 for k in ('market', 'bookmaker', 'consensus', 'reference'))
     _no_line = max(0, (_cc.get('resolved') or 0) - _money) if _cc else 0
@@ -1489,7 +1710,8 @@ def shell(data, key, body, prefix, now=None):
                      f'<strong>{e(_with_pick)}</strong><span>picks ready'
                      f'<span class="ms-dim"> of {e(_active)}</span></span></a>'
                      f'<a class="mobile-status-blank" href="{prefix}origination/#unresolved">'
-                     f'<strong>{e(_unresolved)}</strong><span>unresolved<span class="ms-dim"> · {e(_no_line)} no line</span></span></a>'
+                     f'<strong>{e(_unresolved)}</strong><span>unresolved'
+                     f'<span class="ms-dim"> · {e(_no_line)} no line</span></span></a>'
                      '</nav>')
     inventory = data.get('inventory_observed_at') or ''
     stale = not data['coverage_complete'] or not is_fresh(inventory, now or datetime.now(timezone.utc))
@@ -1549,31 +1771,37 @@ def build(source: Path, output: Path, now=None):
     # Session 541cd43a: the dated, read-only source sweep behind the unresolved
     # register (HLTV, bo3.gg, esportsbook surfaces). Rendering it is the only use;
     # no value in it ever becomes a probability.
-    # Session ee27e097: every session may add a dated sweep. Publish the newest
-    # one (by its own observed_at) and keep the file it came from, so the JSON
-    # link under the table points at the record that is actually rendered. An
-    # unreadable or undated file is skipped, never shown as current.
+    # Session ee27e097: every session may add its own dated sweep. Publish the
+    # newest one by its own observed_at and remember which file it came from, so
+    # the JSON link under the table points at the record actually rendered. An
+    # unreadable or undated file is skipped, never shown as if it were current.
     sweeps = []
     for candidate in sorted((source / 'research').glob('*/line-sources*.json')):
         try:
             document = json.loads(candidate.read_text())
         except (ValueError, OSError):
             continue
-        if not isinstance(document, dict) or not document.get('sources'):
+        if not isinstance(document, dict) or not document.get('sources') \
+                or not document.get('observed_at'):
             continue
         try:
-            # The link must be relative to the published site, never an absolute
-            # path from whichever directory the build ran in.
+            # Site-relative, never an absolute path from the build directory.
             path_text = 'data/' + str(candidate.relative_to(source))
         except ValueError:
             path_text = str(candidate)
-        sweeps.append((str(document.get('observed_at') or ''), path_text, document))
+        sweeps.append((str(document.get('observed_at')), path_text, document))
     if sweeps:
-        observed, path_text, document = max(sweeps, key=lambda item: (item[0], item[1]))
+        observed_at, path_text, document = max(sweeps, key=lambda item: (item[0], item[1]))
         document['_document_path'] = path_text
         data['_line_sources'] = document
     else:
         data['_line_sources'] = None
+    session_probe_path = source / 'research/4c972a51/source-probe.json'
+    if session_probe_path.exists():
+        try:
+            data['_session_probe'] = json.loads(session_probe_path.read_text())
+        except ValueError:
+            data['_session_probe'] = None
     probe_path = source / 'research/541cd43a/provider-probe.json'
     if probe_path.exists():
         try:
@@ -1617,6 +1845,12 @@ def build(source: Path, output: Path, now=None):
         shutil.copytree('assets', output / 'assets', dirs_exist_ok=True)
     if (output / 'data').resolve() != source.resolve():
         shutil.copytree(source, output / 'data', dirs_exist_ok=True)
+    # Publish the reconciliation beside the raw counts. `counts.*` describes the
+    # featured exact-name method alone; every page on this site shows the
+    # researched list. Before this block the downloaded JSON said "10
+    # unresolved" while the page said "0", and both were true of different
+    # lists. A reader must never have to guess which list a number belongs to.
+    write_reconciled_snapshot(output / 'data/latest.json', data)
     (output / '.nojekyll').touch()
     from scripts import build as _self
     from scripts.build_edge import edge_review
@@ -1626,7 +1860,7 @@ def build(source: Path, output: Path, now=None):
     from scripts.build_final_day import render as final_day_render
     renderers = {'summary': lambda d, pfx: summary(d, pfx, now=now),
                  'picks': lambda d, pfx: picks(d, pfx, now=now),
-                 'unresolved': lambda d, pfx: unresolved_page(d, pfx),
+                 'unresolved': lambda d, pfx: unresolved_page(d, pfx, now=now),
                  'coverage': lambda d, pfx: coverage(d, pfx, now=now),
                  'methodology': methodology, 'review': review,
                  'edge': lambda d, pfx: edge_review(d, pfx, edge_path),
