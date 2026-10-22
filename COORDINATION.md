@@ -5221,3 +5221,27 @@ until this workflow's own publish lands.
   *"Do not treat these as current picks"* banner and the *"A newer verified snapshot is
   available"* reload button), but its rows are six days old. Treat any reading taken within a
   few minutes of a `main` push as unverified until `data/latest.json` shows today's date.
+
+---
+
+# Current session: arena-75aa5b56 — Hotspawn full inventory, picks for every low-tier match via HLTV → esportsbooks ladder, and phone-first executive summary
+
+Claimed **2026-10-22T07:30Z** on Arena-fixed branch `arena/75aa5b56-maltaproj3`, branched from `main` at `285a0d9` (PR #162). Read the completed board above; no other session holds an open claim that overlaps the file scopes below. Stale PRs #120/#121/#136 are superseded and closed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 75A-1 Reverse-engineer hotspawn scheduled-fixture feed and lobby hydration, document full inventory reconciliation and verify 4-8h refresh pipeline (schedule, fallback cache, legacy-overwrite guard) | done | arena-75aa5b56 | `scripts/build.py` (hotspawn-integration section), `docs/SOURCE_RESEARCH.md` (new), `data/evidence/hotspawn-context.json` review, `data/research/75aa5b56/live-inventory.md` |
+| 75A-2 Generate picks for every CS2 match: audit featured picks, apply HLTV → esportsbooks → researched-model ladder to any pick-less fixture, publish both-team probabilities, obvious pick badge and method badge; create separate unresolved-picks register with per-fixture blocker + source links | done | arena-75aa5b56 | `scripts/originate.py` (probe docs only), `scripts/build.py` (glance, unresolved_register, no_line_register), `data/research/75aa5b56/pick-coverage.md`, `tests/test_75aa5b56.py` (new) |
+| 75A-3 Mobile-first executive summary: single-tap links to updated picks, Picks-at-a-glance with both probabilities, thumb-friendly layout, verified at 320/390/768/1440 px | done | arena-75aa5b56 | `scripts/build.py` (exec_banner, start_here, glance), `assets/scout.css` (mobile rules), `tests/test_75aa5b56.py` |
+| 75A-4 Rebuild, strict row-source audit (0 violations), internal-link audit, Playwright mobile landmarks, PR to main, verify Pages deploy | in progress | arena-75aa5b56 | this section, `site/` artifact, `data/` (no manual values) |
+
+**Non-overlap pledge:** No edit to `scripts/collect.py`, `scripts/sources.py`, `scripts/domain.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, other sessions' `data/research/<id>/`, `archive/`, or checked-in `data/latest.json`/`origination.json` values. Any probability/alias change needed is logged as a change request instead of made. `scripts/build.py`, `assets/scout.css`, and new `data/research/75aa5b56/` are the only writable scopes; `docs/SOURCE_RESEARCH.md` is additive.
+
+
+### 75A-1/2/3 implementation — 2026-10-22T07:40Z
+
+- **Hotspawn reverse engineering documented** in `docs/SOURCE_RESEARCH.md` (fixture API URL, hydration block parsing, two-page cross-check, fail-closed contract, lock rule, permalink, 4-8h refresh workflow with `republish-last-verified` guard). Coverage page `hotspawn-integration` section links `data/evidence/hotspawn-context.json` and `data/evidence/hotspawn-fixtures.json`. Live inventory verified in `data/research/75aa5b56/live-inventory.md`.
+- **Every-match picks:** `data/latest.json` featured 17 upcoming with 4 unresolved; `data/origination.json` complete list 17/17 resolved (12 external-line, 5 research-model, 0 unresolved) — both probabilities, pick badge, method badge on every active row. Low-tier ladder documented per fixture in `data/research/75aa5b56/pick-coverage.md`: HLTV directory identity checked, then Thunderpick/Bovada/Pinnacle/Kalshi/bo3.gg relay, then Valve/network/HLTV-ranking fallbacks. Model-only rows badged purple and listed under **Picks without a betting line · limitations** in the executive summary with the money sources that failed and per-fixture blocker. Verified by `tests/test_75aa5b56.py` (8 tests: coverage, ladder stages, exec links, unresolved section, mobile viewport + glance both-probabilities, hotspawn docs, 0 violations).
+- **Phone-first executive summary:** `scripts/build.py:exec_banner` now says "start here on your phone", carries aria-labels, thumb-friendly 44px targets and a link to `#picks-at-a-glance`; `assets/scout.css` appends only 75aa5b56 overrides for larger glance type (16px pick, 11px other side), left-border cues and 320/375/700 breakpoints. `site/index.html` rebuilt: `Picks at a glance` shows both teams' % on every resolved row (e.g., MIBR 55.0% · BC.Game 45.0%), `exec-banner` has 3 internal site links, `start-here` nav has 5 one-tap links, `mobile-nav` 6 items, `mobile-status` 2 shortcuts, `unresolved-register` separate section with limitations. 320/390/768/1440 px playbook: no overflow, 44px tap targets, 1.4.1 non-colour link distinction.
+- **Build verification:** `python -m scripts.build` → 80 source rows reconciled, 604 rows audit (586 official links, 9 flagged, 9 site-map, 0 without source), 733 internal links/assets/anchors, 8 Pages views. `tests/test_75aa5b56` 8/8 OK, `tests/test_b1022dc2_coverage_and_mobile` 6/6 OK, `tests/test_build` 26/26 OK.
+
