@@ -280,6 +280,90 @@ class PathsFileTests(unittest.TestCase):
             self.assertFalse([p for p in listed if p.startswith("data/")])
 
 
+class EvenEstimateAuditTests(unittest.TestCase):
+    """An exactly even estimate may only name a side when a provider publishes the order.
+
+    Session 4c972a51 added that tie-break in ``scripts/originate.py``; the published
+    coverage audit still rejected every even pick, so the 10:05Z deploy's own
+    ``verify_live`` step failed on fixture 1082926 (job 119749532581, annotation
+    "exactly even estimate must not name a pick") and the run never reached the
+    branch-root publish. These tests pin the audit to the tie-break contract.
+    """
+
+    def payload(self, probs, pick, tie_break=None):
+        origination = {
+            "method": "model",
+            "label": "Research model estimate",
+            "probabilities": list(probs),
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "quotes": [{"family": "model", "source_url": "https://www.hltv.org/ranking/teams",
+                        "provider": "HLTV world ranking"}],
+        }
+        if tie_break is not None:
+            origination["tie_break"] = tie_break
+        return {
+            "policy": {"hotspawn_votes_used": False, "fan_votes_used": False},
+            "counts": {"active": 1, "resolved": 1, "unresolved": 0,
+                       "with_pick": 0 if pick is None else 1},
+            "matches": [{
+                "id": "1082926",
+                "teams": [{"id": "1", "name": "Alpha"}, {"id": "2", "name": "Bravo"}],
+                "pick_index": pick,
+                "origination": origination,
+            }],
+        }
+
+    def real_tie_break(self, ranks=(40, 61), pick=0):
+        from scripts.originate import ranked_tie_break
+        quote = {
+            "family": "model",
+            "probabilities": [0.5, 0.5],
+            "provider": "HLTV world ranking",
+            "source_url": "https://www.hltv.org/ranking/teams",
+            "inputs": [{"name": "Alpha", "rank": ranks[0]}, {"name": "Bravo", "rank": ranks[1]}],
+        }
+        winner, record = ranked_tie_break(quote)
+        self.assertEqual(winner, pick)
+        return record
+
+    def audit(self, payload):
+        from scripts.coverage_audit import audit_complete_picks
+        return audit_complete_picks(payload)
+
+    def test_even_estimate_with_the_real_tie_break_passes(self):
+        record = self.real_tie_break()
+        self.assertEqual(self.audit(self.payload([0.5, 0.5], 0, record)), [])
+
+    def test_even_estimate_without_a_tie_break_still_fails(self):
+        problems = self.audit(self.payload([0.5, 0.5], 0))
+        self.assertTrue(any("exactly even estimate must not name a pick" in p for p in problems), problems)
+
+    def test_a_tie_break_that_points_at_the_other_team_fails(self):
+        record = self.real_tie_break()
+        problems = self.audit(self.payload([0.5, 0.5], 1, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_with_equal_ranks_fails(self):
+        record = dict(self.real_tie_break(), ranks=[40, 40])
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_without_a_source_fails(self):
+        record = dict(self.real_tie_break(), source_url="http://example.invalid")
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_tie_break_of_the_wrong_rule_fails(self):
+        record = dict(self.real_tie_break(), rule="coin toss")
+        problems = self.audit(self.payload([0.5, 0.5], 0, record))
+        self.assertTrue(any("exactly even" in p for p in problems), problems)
+
+    def test_a_clear_favourite_is_unaffected(self):
+        self.assertEqual(self.audit(self.payload([0.62, 0.38], 0)), [])
+        problems = self.audit(self.payload([0.62, 0.38], 1))
+        self.assertTrue(any("higher-probability" in p for p in problems), problems)
+
+
 class WorkflowWiringTests(unittest.TestCase):
     """The publisher is only useful if the four-hour job calls it and re-deploys the artifact."""
 
