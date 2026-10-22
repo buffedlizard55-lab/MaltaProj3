@@ -19,7 +19,10 @@ Review page as `4c972a51-picks-count-arithmetic`.
 
 ## 2. Live inventory, collected by the publishing runner
 
-Artifact: `live/latest.json` (snapshot `2026-10-22T07:36:53Z`), `live/origination.json`.
+Artifact: the session workflow's `live/latest.json` (snapshot `2026-10-22T07:36:53Z`) and
+`live/origination.json`. The raw snapshot pair and the branch-only workflow were removed from the
+tree before merge; the readings they produced are recorded below and in
+`live-diagnostic.md`. The published site is rebuilt from `data/latest.json` on `main`.
 
 | Check | Result |
 | --- | --- |
@@ -75,8 +78,9 @@ Published from `flags.json` on the Flagged for Review page:
 
 ## 6. Final live snapshot (2026-10-22T07:58:42Z)
 
-Artifact: `data/research/4c972a51/live-diagnostic.json` (written by the session
-workflow from the runner's own network egress, then deleted before merge).
+Artifact: `live-diagnostic.md` (written by the session workflow from the runner's own network
+egress). The 160 KB JSON it summarised was deleted before merge; the table below keeps every number
+it contained.
 
 | Check | Result |
 | --- | --- |
