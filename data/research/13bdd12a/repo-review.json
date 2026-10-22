@@ -1,0 +1,165 @@
+{
+  "session": "arena-13bdd12a",
+  "branch": "arena/13bdd12a-maltaproj3",
+  "review_clock_utc": "2026-10-22T02:00Z",
+  "scope": "This session's own changes and the published site they affect: scripts/originate.py (tie-break rung, own-network label), scripts/build.py (tie-break caption, unresolved register, market-limits evidence block, phone summary), scripts/build_origination.py (tie-break replay audit), assets/scout.css (phone layout), data/research/13bdd12a/limits-evidence.json, and the executive summary as rendered at 390px and 320px. Every item links the page it was read from. Nothing in this register is a probability input.",
+  "method": "Each item was reproduced in this checkout on 2026-10-22 between 01:00Z and 02:00Z: the pipeline was run locally against the branch's retained evidence (`python -m scripts.build`, 555 rows / 541 with an official link / 0 without a source; 709 internal links checked) and in GitHub Actions for the live sources, and the phone layout was measured with Playwright at 390x844 and 320x700 with the axe WCAG A/AA rules. Sandbox egress is limited to GitHub, npm and PyPI, so external pages were read through the page fetcher, not by an HTTP client: every external claim below names the exact page.",
+  "items": [
+    {
+      "id": "13b-01",
+      "area": "pick coverage / level estimate",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "Two official ratings can be identical. On the 5 October 2026 Valve snapshot ex-Zero Tenacity (standing 93) and ex-RUSTEC (standing 92) both carry 1066 points, so the Valve rung produced exactly 50.0% / 50.0% and the published row had a probability pair with no pick — a match the brief requires to carry a pick or an explicit limitation.",
+      "handling": "A documented tie-break rung was added after the primary estimate: when the selected research estimate is exactly level, the ladder continues, in a fixed published order, through the HLTV world-ranking transform, then our own bo3.gg network fit, then our own results fit, and takes the first rung that separates the teams by at least one percentage point. The row is badged 'Tie-break estimate', the level primary pair is kept verbatim in `tie_break_of`, and scripts/build_origination.py fails the build unless the pair, the flag and a dated research row are all present. Money lines are never tie-broken. If no sourced rung separates the teams the fixture stays 'Even' and now publishes each rung it tried and why that rung could not supply a direction. Pinned by tests/test_13bdd12a_tiebreak.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Valve standings: ex-Zero Tenacity #93 and ex-RUSTEC #92, both 1066 points (the level input)."
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams",
+          "detail": "HLTV official weekly world ranking used by the first tie-break rung."
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+          "detail": "HLTV match context for the fixture; HLTV #67 vs #70 with no published price."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_13bdd12a_tiebreak.py",
+          "detail": "Regression tests for both directions of the rung (direction taken, and Even kept)."
+        }
+      ]
+    },
+    {
+      "id": "13b-02",
+      "area": "provenance / own-network rung",
+      "severity": "high",
+      "status": "fixed",
+      "finding": "The own-network rung published the wrong source label. One variable was reused for the results fit and the network fit, so a bo3.gg Bradley–Terry estimate appeared as 'Research model estimate (Valve official ratings)' with Valve-rating wording, and its input links pointed at Valve text. Observed live on benched gods–TitanFlow and Ground Zero–Off Chops.",
+      "handling": "The label, provider and limitation text are now chosen from the quote's own family (`network`), and the published input URLs are the bo3.gg team pages the ratings came from. The same switch also fixed the counts block, which now classifies a network row by family rather than by the reused variable.",
+      "evidence": [
+        {
+          "url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+          "detail": "bo3.gg fixture used by the network fit; shows a partner link, not a price."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+          "detail": "Family-driven labels and the tie-break rung in the ladder."
+        }
+      ]
+    },
+    {
+      "id": "13b-03",
+      "area": "market coverage limitations",
+      "severity": "medium",
+      "status": "verified",
+      "finding": "The brief asked the executive summary to state the limitations that stop a betting-line pick on low-tier matches, not only to list blank rows. The site had the register but not the evidence behind 'there is no line'.",
+      "handling": "A dated, source-linked 'Why some matches have no betting line' block now sits inside the unresolved section of the executive summary, backed by data/research/13bdd12a/limits-evidence.json. It records the HLTV pages that publish rankings and context but no prematch moneyline, the bo3.gg partner link in place of a price, and the identical 1.8/1.8 placeholder that the pipeline rejects. None of those observations is used as a probability.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "detail": "HLTV match page: fan vote and partner promo, no two-sided price."
+        },
+        {
+          "url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+          "detail": "bo3.gg page with no bookmaker price."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+          "detail": "EGamersWorld page printing the symmetric 1.8/1.8 pair that is rejected."
+        }
+      ]
+    },
+    {
+      "id": "13b-04",
+      "area": "source clock / start-time integrity",
+      "severity": "medium",
+      "status": "verified",
+      "finding": "EGamersWorld prints its fixture clock four hours behind UTC. benched gods–TitanFlow shows 07:00 there and 11:00Z on Hotspawn; Morningstar–NEXVOID shows 23:00 where Hotspawn schedules 03:00Z, and Vitalem Aerem–Rare Atom shows 01:00 where Hotspawn schedules 05:00Z. Read naively, the first looks like a four-hour start-time conflict.",
+      "handling": "The offset was measured on three fixtures read at the same time and recorded in the dated evidence file, so a future reader does not re-raise it as a conflict. No published start time is shifted by assumption: the dashboard keeps Hotspawn's schedule and only prices a fixture whose names and start time join exactly within 60 seconds.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "Clock reference: upcoming fixtures listed at -4:00 from UTC."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Inventory of record for the fixture start times."
+        }
+      ]
+    },
+    {
+      "id": "13b-05",
+      "area": "HLTV match-page clock",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": "The HLTV match page for ex-Zero Tenacity–ex-RUSTEC prints 04:00 where Hotspawn schedules 08:00Z. That is the same -4:00 offset seen on EGamersWorld, which suggests a rendered local clock rather than a different kickoff — but HLTV does not print the timezone on the page, so this session cannot confirm it from the fetched markup.",
+      "handling": "Left unchanged and published here for manual review: open the page in a browser with a known timezone and confirm whether HLTV renders a visitor-local clock. No start time was normalized and no probability depends on it.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+          "detail": "HLTV match page showing 04:00 and no timezone label."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Hotspawn schedule: 10:00 Europe/Malta (08:00Z)."
+        }
+      ]
+    },
+    {
+      "id": "13b-06",
+      "area": "roster completeness / own line",
+      "severity": "medium",
+      "status": "needs review",
+      "finding": "EGamersWorld lists only one named player for TitanFlow and four 'noName' placeholders on the benched gods–TitanFlow page. Our own network estimate for that fixture is therefore built on dated bo3.gg series results with no current-lineup confirmation, and is flagged low-confidence.",
+      "handling": "Published as low-confidence with its sample sizes and one-sigma interval on the row; no lineup claim is made. Flagged here so a reviewer can confirm TitanFlow's actual roster before treating the lean as a current-form estimate.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+          "detail": "Roster block with one named player and four placeholders."
+        },
+        {
+          "url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+          "detail": "Dated series results used by the network fit."
+        }
+      ]
+    },
+    {
+      "id": "13b-07",
+      "area": "mobile usability of the executive summary",
+      "severity": "medium",
+      "status": "fixed",
+      "finding": "At 390x844 the executive summary put a status strip, a three-button banner, a five-card jump bar and a four-line description before the first fixture, so the first pick and its percentage sat below the first screen. The six-destination phone bar also overflowed: 'Review' was rendered off-screen behind a horizontal scroll.",
+      "handling": "The navigation blocks are compact single rows at phone width, the first fixture with its pick and percentage now starts on the first screen, and all six phone destinations fit without a horizontal scroll at 390px and 320px. Every label, link and count stays in the DOM and in the accessibility tree; the axe WCAG A/AA route pair passes at both widths.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/dashboard.spec.mjs",
+          "detail": "Playwright phone and desktop routes, including the axe WCAG A/AA checks."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Published summary page the measurements were taken on."
+        }
+      ]
+    },
+    {
+      "id": "13b-08",
+      "area": "session capture integrity",
+      "severity": "low",
+      "status": "fixed",
+      "finding": "The session's live-snapshot workflow could commit a collection that had not actually refreshed: a cached or failed collection writes the retained snapshot back with its old timestamp, and the job then published it as a new observation.",
+      "handling": "The job now asserts that data/latest.json was generated less than ten minutes before the step runs and fails loudly otherwise, so a stale collection can never be recorded as this session's capture. It also keeps the generated top-level files out of the commit.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/13bdd12a-live.yml",
+          "detail": "Freshness assertion in the snapshot job."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39706880845",
+          "detail": "Run that carries the guard and its diagnostics."
+        }
+      ]
+    }
+  ]
+}
