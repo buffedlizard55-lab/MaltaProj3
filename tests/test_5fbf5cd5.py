@@ -299,5 +299,36 @@ class ModelLabelProvenanceTests(unittest.TestCase):
             self.assertIsNotNone(labels.get(match_id))
 
 
+class PicksPageCountTests(unittest.TestCase):
+    """The picks page must describe the rows it renders, not the featured counters.
+
+    On 2026-10-22 the page said "35 of 35 ... carry a pick" and "8 come from an
+    external market" while the rendered table had 34 directional picks, 10
+    money-backed rows and one exact even estimate. The counts now follow the
+    selected fallback, and a no-side row is named instead of being counted as a
+    pick.
+    """
+
+    def test_money_count_and_even_row_describe_the_rendered_table(self):
+        from bs4 import BeautifulSoup
+        from scripts.build import picks
+        data = json.loads((ROOT / 'data/latest.json').read_text())
+        data['fallbacks'] = {}
+        active = [m for m in data['matches'] if m['availability'] != 'past']
+        even = active[0]
+        even['analysis'] = dict(even['analysis'] or {'probabilities': [0.5, 0.5], 'fair_decimal': [2.0, 2.0],
+                                                      'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings',
+                                                      'source': 'Valve official ratings', 'observed_at': even['observed_at'],
+                                                      'method': 'model'})
+        even['analysis']['probabilities'] = [0.5, 0.5]
+        even['pick_index'] = None
+        expected = sum(1 for m in active if m['analysis'] and m['pick_index'] is not None)
+        text = BeautifulSoup(picks(data, './'), 'html.parser').select_one('.info-strip').get_text(' ', strip=True)
+        self.assertIn(f'{expected} of {len(active)} matches below carry a directional pick', text)
+        self.assertNotIn('carry a pick', text)
+        self.assertRegex(text, r'(shows|show) both probabilities with no supportable side')
+        self.assertIn('No fixture is missing an estimate', text)
+
+
 if __name__ == '__main__':
     unittest.main()

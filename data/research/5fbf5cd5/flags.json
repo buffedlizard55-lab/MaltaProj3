@@ -4,9 +4,9 @@
     "severity": "warning",
     "match_ids": [
       "1081869",
+      "1079650",
       "1081143",
       "1079651",
-      "1081596",
       "1081597",
       "1082767",
       "1081600",
@@ -19,7 +19,6 @@
       "1081871",
       "1079654",
       "1079655",
-      "1081148",
       "1081149",
       "1079657",
       "1081150",
@@ -30,11 +29,11 @@
       "1082792",
       "1082793"
     ],
-    "title": "26 of 35 active Hotspawn CS2 fixtures carry a model estimate, not a bookmaker line",
-    "detail": "Live runner snapshot at 2026-10-22T02:05:52Z (run 39709449794). Every one of the 35 active fixtures has both probabilities and 34 have a directional pick, but only 9 come from a two-sided price (Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle or their consensus). The other 26 come from a Valve-rating, HLTV-ranking, results or network model. Those rungs are explicitly uncalibrated: they do not know today's lineup, stand-ins or map veto, and Valve/HLTV publish team-level points rather than win probabilities. The site labels every one of them as a research model and lists them together on /unresolved/#research-only rather than presenting them as betting lines. This is the honest answer to 'a pick for every match': coverage is complete, market backing is not. What would change it: a reachable two-sided prematch series price for each fixture, which the ladder re-checks on every four-hour refresh.",
+    "title": "25 of 35 active Hotspawn CS2 fixtures carry a model estimate, not a bookmaker line",
+    "detail": "Live runner snapshot at 2026-10-22T02:32:22Z (run 39711915027). Every one of the 35 active fixtures has both probabilities and 34 have a directional pick, but only 10 come from a two-sided price (Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle or their consensus). The other 25 come from a Valve-rating, HLTV-ranking, results or network model. Those rungs are explicitly uncalibrated: they do not know today's lineup, stand-ins or map veto, and Valve/HLTV publish team-level points rather than win probabilities. The site labels every one of them as a research model and lists them together on /unresolved/#research-only rather than presenting them as betting lines. This is the honest answer to 'a pick for every match': coverage is complete, market backing is not. What would change it: a reachable two-sided prematch series price for each fixture, which the ladder re-checks on every four-hour refresh.",
     "source_urls": [
       "https://play.hotspawn.com/lobby",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39709449794",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39711915027",
       "https://github.com/ValveSoftware/counter-strike_regional_standings",
       "https://www.hltv.org/ranking/teams",
       "https://bo3.gg/matches"
@@ -49,12 +48,13 @@
       "1082858"
     ],
     "title": "Three model-backed picks were labelled \"Valve official ratings\" while the number came from the bo3.gg network model - fixed",
-    "detail": "Verified line by line in the live snapshot and in scripts/originate.py. The last-resort ladder assigns `model = match['_network']` when the Bradley-Terry network rung exists, but the label block that follows only distinguished the results ('form') family from everything else, so every network-backed row was published as 'Research model estimate (Valve official ratings)'. In the 2026-10-22T02:05Z snapshot that was benched gods vs TitanFlow (1081597), K27 vs NEXORA (1082769) and Ground Zero vs Off Chops (1082858): their `family` was 'network' and their `provider` was 'Own network model (bo3.gg results graph)' while their label named Valve. No probability, pick or source URL was wrong; the provenance sentence was. Fixed in scripts/originate.py by deriving the label from the model's own family and adding the network-specific limitation (Bradley-Terry fit size, anchors, one-sigma interval). Re-running the ladder is what re-labels those rows; nothing was hand-edited, and the fix is covered by the existing origination/network suites.",
+    "detail": "Verified line by line in the live snapshot and in scripts/originate.py. The last-resort ladder assigns `model = match['_network']` when the Bradley-Terry network rung exists, but the label block that follows only distinguished the results ('form') family from everything else, so every network-backed row was published as 'Research model estimate (Valve official ratings)'. In the 2026-10-22T02:05Z snapshot that was benched gods vs TitanFlow (1081597), K27 vs NEXORA (1082769) and Ground Zero vs Off Chops (1082858): their `family` was 'network' and their `provider` was 'Own network model (bo3.gg results graph)' while their label named Valve. No probability, pick or source URL was wrong; the provenance sentence was. Fixed in scripts/originate.py by deriving the label from the model's own family and adding the network-specific limitation (Bradley-Terry fit size, anchors, one-sigma interval). Re-running the ladder is what re-labels those rows; nothing was hand-edited. Confirmed in the next live run (39711915027, 2026-10-22T02:32:22Z): all three rows now publish 'Own network estimate (bo3.gg results graph)', and tests/test_5fbf5cd5.py pins the behaviour.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39709449794",
       "https://bo3.gg/matches",
-      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39711915027"
     ]
   },
   {
@@ -62,11 +62,11 @@
     "severity": "notice",
     "match_ids": [],
     "title": "HLTV's match listing rejected the runner with HTTP 403 while HLTV team search answered 200 for 67 of 70 lookups",
-    "detail": "Measured, not assumed. With the repository's identifying User-Agent, https://www.hltv.org/matches returned HTTP 403 on all 35 fixture probes and https://www.hltv.org/search?query=<team> returned HTTP 200 for 67 of 70 team lookups and HTTP 403 for the other 3 (repeated identical requests inside one run). An earlier version of the same probe used a desktop-browser User-Agent and every HLTV request answered 403; that measurement was of the probe's headers, not of HLTV, and it was corrected before anything was published. Consequence: the pipeline can confirm HLTV identity from its own saved listing capture, but HLTV cannot be used as a live odds source from the runner, and no HLTV-sourced price is claimed anywhere. Access controls were not bypassed.",
+    "detail": "Measured, not assumed. With the repository's identifying User-Agent, https://www.hltv.org/matches returned HTTP 403 on all 35 fixture probes, while https://www.hltv.org/search?query=<team> returned HTTP 200 for 70 of 70 team lookups and HTTP 403 for the other 0 (repeated identical requests inside one run). An earlier version of the same probe used a desktop-browser User-Agent and every HLTV request answered 403; that measurement was of the probe's headers, not of HLTV, and it was corrected before anything was published. Consequence: the pipeline can confirm HLTV identity from its own saved listing capture, but HLTV cannot be used as a live odds source from the runner, and no HLTV-sourced price is claimed anywhere. Access controls were not bypassed.",
     "source_urls": [
       "https://www.hltv.org/matches",
       "https://www.hltv.org/search?query=HOTU",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39709449794"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39711915027"
     ]
   },
   {
@@ -90,10 +90,11 @@
       "1081598",
       "1082688",
       "1082689",
-      "1082180"
+      "1082180",
+      "1081148"
     ],
-    "title": "bo3.gg relayed a named Thunderpick price for 5 fixtures - all of them already priced by the ladder",
-    "detail": "bo3.gg's public match objects carry a bet_updates block naming the bookmaker and both decimal coefficients. On 2026-10-22T02:05:52Z the probe bound 27 of 35 fixtures to a bo3.gg record and found a relayed price on 5 of them. Every one of those five already has a ladder price from Polymarket or Thunderpick directly, so the relay adds no pick and closes no gap. No relayed coefficient is used as a probability in this build; it is recorded in data/research/5fbf5cd5/live-2026-10-22/coverage.json with the bo3.gg match URL so the claim can be replayed. Published as a notice because a relay is a second-hand quote, not a first-party book.",
+    "title": "bo3.gg relayed a named Thunderpick price for 6 fixtures - all already priced by the ladder",
+    "detail": "bo3.gg's public match objects carry a bet_updates block naming the bookmaker and both decimal coefficients. On 2026-10-22T02:32:22Z the probe bound 27 of 35 fixtures to a bo3.gg record and found a relayed price on 6 of them. Every one of those already has a ladder price from Polymarket or Thunderpick directly, so the relay adds no pick and closes no gap. No relayed coefficient is used as a probability in this build; it is recorded in data/research/5fbf5cd5/live-2026-10-22/coverage.json with the bo3.gg match URL so the claim can be replayed. Published as a notice because a relay is a second-hand quote, not a first-party book.",
     "source_urls": [
       "https://bo3.gg/matches",
       "https://api.bo3.gg/api/v1/matches",

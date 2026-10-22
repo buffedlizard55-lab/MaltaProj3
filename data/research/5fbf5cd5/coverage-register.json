@@ -1,10 +1,10 @@
 {
  "session": "arena-5fbf5cd5",
  "archive": "data/research/5fbf5cd5/live-2026-10-22",
- "generated_at": "2026-10-22T02:06:09Z",
- "inventory_observed_at": "2026-10-22T02:05:52Z",
- "run_id": "39709449794",
- "commit": "42aa541050decec8cf85253f27b9dd88d2f76c91",
+ "generated_at": "2026-10-22T02:32:41Z",
+ "inventory_observed_at": "2026-10-22T02:32:22Z",
+ "run_id": "39711915027",
+ "commit": "9d2079198d2e9b6735ab24cf276e82602d9df41e",
  "source": "GitHub Actions runner: python -m scripts.collect && python -m scripts.originate --live && python -m scripts.coverage_5fbf5cd5 --live",
  "inventory": {
   "published_active_ids": [
@@ -45,15 +45,15 @@
    "1082882"
   ],
   "published_count": 35,
-  "snapshot_generated_at": "2026-10-22T02:06:09Z",
+  "snapshot_generated_at": "2026-10-22T02:32:41Z",
   "request": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "status": 200,
-   "observed_at": "2026-10-22T02:07:08Z",
+   "observed_at": "2026-10-22T02:33:44Z",
    "bytes": 77262,
    "sha256": "1304a82e59d925e5d57d4c43a5079fe31167bc2774ebb86390e3e8104a329534",
    "content_type": "application/json; charset=utf-8",
-   "elapsed_ms": 772
+   "elapsed_ms": 500
   },
   "result": "ok",
   "api_records": 97,
@@ -117,10 +117,10 @@
    "unresolved": 0,
    "with_pick": 34,
    "consensus": 1,
-   "market": 8,
+   "market": 9,
    "bookmaker": 0,
    "reference": 0,
-   "model": 26,
+   "model": 25,
    "network": 3,
    "guidance": 0,
    "alias_joined": 2
@@ -128,10 +128,10 @@
  },
  "method_mix": {
   "consensus": 1,
-  "market": 8,
-  "model": 26
+  "market": 9,
+  "model": 25
  },
- "money_backed": 9,
+ "money_backed": 10,
  "fixtures": [
   {
    "id": "1081869",
@@ -213,8 +213,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.3,
-    0.7
+    0.295,
+    0.705
    ],
    "pick": "Rare Atom",
    "low_confidence": null,
@@ -241,8 +241,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.31,
-    0.69
+    0.355,
+    0.645
    ],
    "pick": "ex-6666",
    "low_confidence": null,
@@ -265,22 +265,50 @@
    ],
    "competition": "CCT Europe 2026 Series #11",
    "starts_at": "2026-10-22T08:00:00Z",
-   "method": "market",
+   "method": "model",
    "family": null,
    "provider": null,
    "probabilities": [
-    0.59,
-    0.41
+    0.7581203,
+    0.2418797
    ],
    "pick": "GenOne",
    "low_confidence": null,
-   "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
      "stage": "Primary: Polymarket",
+     "status": "unresolved"
+    },
+    {
+     "stage": "HLTV research",
+     "status": "checked"
+    },
+    {
+     "stage": "Original esportsbook lines",
+     "status": "unresolved"
+    },
+    {
+     "stage": "GG.BET esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Pinnacle esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Rivalry esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Stake esportsbook",
+     "status": "unavailable"
+    },
+    {
+     "stage": "Valve research model",
      "status": "resolved"
     }
    ]
@@ -442,50 +470,54 @@
    ],
    "competition": "CCT Europe 2026 Challengers #8",
    "starts_at": "2026-10-22T11:00:00Z",
-   "method": "model",
+   "method": "market",
    "family": null,
    "provider": null,
    "probabilities": [
-    0.5321556,
-    0.4678444
+    0.59,
+    0.41
    ],
    "pick": "Falcons Force",
    "low_confidence": null,
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
-     "stage": "Primary: Polymarket",
-     "status": "unresolved"
-    },
-    {
      "stage": "HLTV research",
      "status": "checked"
     },
     {
-     "stage": "Original esportsbook lines",
+     "stage": "Betting market (Polymarket series winner)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Exchange market (Kalshi CS2 match winner)",
      "status": "unresolved"
     },
     {
-     "stage": "GG.BET esportsbook",
-     "status": "unavailable"
+     "stage": "Esportsbook line (Thunderpick original prices)",
+     "status": "unresolved"
     },
     {
-     "stage": "Pinnacle esportsbook",
-     "status": "unavailable"
+     "stage": "Esportsbook line (Bovada original prices)",
+     "status": "unresolved"
     },
     {
-     "stage": "Rivalry esportsbook",
-     "status": "unavailable"
+     "stage": "Esportsbook line (Pinnacle original prices)",
+     "status": "unresolved"
     },
     {
-     "stage": "Stake esportsbook",
-     "status": "unavailable"
+     "stage": "Aggregated bookmaker reference (EGamersWorld)",
+     "status": "unresolved"
     },
     {
-     "stage": "Valve research model",
+     "stage": "Research model cross-check (Valve official ratings)",
+     "status": "resolved"
+    },
+    {
+     "stage": "Research model cross-check (HLTV world ranking)",
      "status": "resolved"
     }
    ]
@@ -502,8 +534,8 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.2203644895995899,
-    0.7796355104004101
+    0.21977167281780216,
+    0.7802283271821978
    ],
    "pick": "TitanFlow",
    "low_confidence": true,
@@ -626,8 +658,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.645,
-    0.355
+    0.635,
+    0.365
    ],
    "pick": "JiJieHao",
    "low_confidence": null,
@@ -876,8 +908,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.475,
-    0.525
+    0.465,
+    0.535
    ],
    "pick": "ShindeN",
    "low_confidence": null,
@@ -888,8 +920,8 @@
     {
      "provider": "thunderpick",
      "coefficients": {
-      "team_1": 1.82,
-      "team_2": 1.88
+      "team_1": 1.92,
+      "team_2": 1.78
      },
      "url": "https://bo3.gg/matches/bestia-vs-shinden-22-10-2026"
     }
@@ -1150,8 +1182,8 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.9838771843003609,
-    0.016122815699639137
+    0.9838863131596313,
+    0.016113686840368735
    ],
    "pick": "K27",
    "low_confidence": false,
@@ -1450,50 +1482,31 @@
    ],
    "competition": "CCT Europe 2026 Series #12",
    "starts_at": "2026-10-23T11:00:00Z",
-   "method": "model",
+   "method": "market",
    "family": null,
    "provider": null,
    "probabilities": [
-    0.6141524,
-    0.3858476
+    0.47,
+    0.53
    ],
-   "pick": "Inner Circle Academy",
+   "pick": "Spirit Academy",
    "low_confidence": null,
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
-   "bo3_relayed_price": [],
+   "bo3_relayed_price": [
+    {
+     "provider": "thunderpick",
+     "coefficients": {
+      "team_1": 1.9,
+      "team_2": 1.8
+     },
+     "url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026"
+    }
+   ],
    "ladder": [
     {
      "stage": "Primary: Polymarket",
-     "status": "unresolved"
-    },
-    {
-     "stage": "HLTV research",
-     "status": "checked"
-    },
-    {
-     "stage": "Original esportsbook lines",
-     "status": "unresolved"
-    },
-    {
-     "stage": "GG.BET esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Pinnacle esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Rivalry esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Stake esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Valve research model",
      "status": "resolved"
     }
    ]

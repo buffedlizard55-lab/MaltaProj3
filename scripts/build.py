@@ -386,6 +386,8 @@ def exec_banner(data, prefix):
     active = cc.get('active', data['counts'].get('upcoming', 0))
     with_pick = cc.get('with_pick', 0)
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
+    resolved = cc.get('resolved', max(active - unresolved, with_pick))
+    even = max(0, resolved - with_pick)
     checked = local_time(data.get('inventory_observed_at'))
     noun = 'fixture' if active == 1 else 'fixtures'
     return (
@@ -398,7 +400,7 @@ def exec_banner(data, prefix):
         f'<span aria-hidden="true">→</span></a>'
         f'<div class="exec-banner-actions">'
         f'<a class="secondary" href="{prefix}unresolved/"><span class="label">Unresolved'
-        f'<span class="sub">{unresolved} without a line · why</span></span><span aria-hidden="true">→</span></a>'
+        f'<span class="sub">{unresolved} without a line' + (f' · {even} even, no side' if even else ' · why') + '</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}methodology/"><span class="label">How picks are made'
         f'<span class="sub">Sources &amp; limits</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
@@ -1162,12 +1164,34 @@ def picks(data, prefix, now=None):
              'model': sum(1 for b, _ in basis if b == 'model'),
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
-    with_pick = shown['all'] - shown['unresolved']
+    # A published estimate is not always a pick: an exact 50/50 has both
+    # probabilities and no supportable side, and the old sentence counted it as
+    # a pick while the unresolved page counted it as "without a pick". Count the
+    # side from the row that is actually displayed so the two pages agree.
+    with_pick, even = 0, 0
+    for m in active:
+        fallback = selected_fallback(m, fallbacks)
+        pick = fallback.get('pick_index') if fallback else m['pick_index']
+        if fallback is None and m['analysis'] is None:
+            continue
+        if pick is None:
+            even += 1
+        else:
+            with_pick += 1
     out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
-    out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a pick.</strong> '
-            f'{c["market"] + c["bookmaker"] + c.get("reference", 0)} come from an external market, esportsbook or aggregated bookmaker line'
-            + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
-            + f'and {shown["unresolved"]} remain blank because no supported evidence exists. '
+    if even:
+        # The featured snapshot's own counters only describe the featured method;
+        # the ladder can add money-backed rows on top. Use what this page displays.
+        counts_sentence = (f'{shown["market"]} display an external market, esportsbook or aggregated bookmaker line, '
+                           f'{shown["model"]} a research model, and {even} {"shows" if even == 1 else "show"} both probabilities with no supportable side '
+                           f'(an exact even estimate, listed with its trail on <a href="{prefix}unresolved/">Unresolved</a>). '
+                           'No fixture is missing an estimate.')
+    else:
+        counts_sentence = (f'{shown["market"]} come from an external market, esportsbook or aggregated bookmaker line'
+                           + (f', {researched} more from the audited research ladder, badged <strong>Researched fallback</strong>, ' if researched else ', ')
+                           + f'and {shown["unresolved"]} remain blank because no supported evidence exists.')
+    out += (f'<div class="info-strip">{icon("check")}<span><strong>{with_pick} of {shown["all"]} matches below carry a directional pick.</strong> '
+            + counts_sentence + ' '
             f'<a href="{prefix}origination/#picks">Complete researched picks view →</a> '
             f'<a href="{prefix}edge/">Day-one upset review &amp; contrarian edge →</a></span></div>')
     out += f'<div class="limitations-callout"><strong>Need a pick for rows unresolved below?</strong> <a style="text-decoration:underline" href="{prefix}origination/#picks">Complete researched picks: featured estimates plus source-backed fallbacks →</a> <a style="text-decoration:underline" href="{prefix}origination/#unresolved">Remaining limitations →</a> <a style="text-decoration:underline" href="{prefix}index.html#contrarian">Day 1 contrarian review →</a></div>'
