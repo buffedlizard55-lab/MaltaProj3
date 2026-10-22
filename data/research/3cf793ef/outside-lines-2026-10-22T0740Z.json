@@ -1,0 +1,268 @@
+{
+ "schema_version": 1,
+ "session": "arena-3cf793ef",
+ "purpose": "Independent esportsbook evidence gathered by the agent to guide pick selection for fixtures the published snapshot did not yet cover. Read-only: nothing here writes a probability into a canonical feed.",
+ "observed_at": "2026-10-22T07:40:00Z",
+ "reader": "agent fetch of https://bo3.gg/matches/current (rendered page; times on that page are shown in the reader's local zone, not UTC)",
+ "source": {
+  "name": "bo3.gg match centre",
+  "url": "https://bo3.gg/matches/current",
+  "operator_note": "bo3.gg displays a two-way decimal price to a named partner sportsbook (Thunderpick) for each fixture it prices; the numbers below are that relayed pair, not a bo3.gg model.",
+  "independent_cross_check": "https://bo3.gg/tournaments/cct-south-america-2026-series-7 and https://bo3.gg/tournaments/cis-lan-championship-9 were read at the same time: the CCT South America 7 playoff fixtures carry no price ('All odds are on' = no odds listed) and CIS LAN Championship 9 has no match rows on bo3.gg at all."
+ },
+ "rows": [
+  {
+   "hotspawn_fixture_id": "1079188",
+   "teams": [
+    "Bushido Wildcats",
+    "ex-6666"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "bo3_url": "https://bo3.gg/matches/bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+   "decimal_odds": [
+    2.35,
+    1.56
+   ],
+   "no_vig_probabilities": [
+    0.399,
+    0.601
+   ],
+   "margin": 0.0666
+  },
+  {
+   "hotspawn_fixture_id": "1079650",
+   "teams": [
+    "GenOne",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "bo3_url": "https://bo3.gg/matches/genone-vs-spirit-academy-22-10-2026",
+   "decimal_odds": [
+    2.03,
+    1.71
+   ],
+   "no_vig_probabilities": [
+    0.4572,
+    0.5428
+   ],
+   "margin": 0.0774
+  },
+  {
+   "hotspawn_fixture_id": "1079189",
+   "teams": [
+    "FORZE Reload",
+    "Just Players"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "bo3_url": "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026",
+   "decimal_odds": [
+    1.38,
+    2.8
+   ],
+   "no_vig_probabilities": [
+    0.6699,
+    0.3301
+   ],
+   "margin": 0.0818
+  },
+  {
+   "hotspawn_fixture_id": "1081599",
+   "teams": [
+    "FaZe",
+    "BC.Game"
+   ],
+   "competition": "DraculaN Season 7",
+   "bo3_url": "https://bo3.gg/matches/bc-game-vs-faze-22-10-2026",
+   "decimal_odds": [
+    1.77,
+    1.94
+   ],
+   "note": "bo3.gg lists BC.Game first and FaZe second on this page; the pair is re-ordered here to the Hotspawn team order (FaZe, BC.Game).",
+   "no_vig_probabilities": [
+    0.5229,
+    0.4771
+   ],
+   "margin": 0.0804
+  },
+  {
+   "hotspawn_fixture_id": "1081598",
+   "teams": [
+    "JiJieHao",
+    "Nexus"
+   ],
+   "competition": "DraculaN Season 7",
+   "bo3_url": "https://bo3.gg/matches/jijiehao-vs-nexus-22-10-2026",
+   "decimal_odds": [
+    1.44,
+    2.63
+   ],
+   "no_vig_probabilities": [
+    0.6462,
+    0.3538
+   ],
+   "margin": 0.0747
+  },
+  {
+   "hotspawn_fixture_id": "1079652",
+   "teams": [
+    "Acend",
+    "ex-6666"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "bo3_url": "https://bo3.gg/matches/acend-cs2-vs-ex-6666-22-10-2026",
+   "decimal_odds": [
+    1.61,
+    2.12
+   ],
+   "no_vig_probabilities": [
+    0.5684,
+    0.4316
+   ],
+   "margin": 0.0928
+  },
+  {
+   "hotspawn_fixture_id": "1082882",
+   "teams": [
+    "UNiTY",
+    "Apogee Betclic"
+   ],
+   "competition": "Stake Ranked Episode 6: Closed Qualifier",
+   "bo3_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+   "decimal_odds": [
+    2.1,
+    1.65
+   ],
+   "note": "bo3.gg shortens the second team to 'Betclic'; the event name on the same row ('Stake Ranked Episode 6: Closed Qualifier') and the date match the Hotspawn fixture. Recorded as a name-variant observation only.",
+   "no_vig_probabilities": [
+    0.44,
+    0.56
+   ],
+   "margin": 0.0823
+  },
+  {
+   "hotspawn_fixture_id": "1081603",
+   "teams": [
+    "SinnerS",
+    "Eternal Fire"
+   ],
+   "competition": "DraculaN Season 7",
+   "bo3_url": "https://bo3.gg/matches/sinners-vs-eternal-fire-22-10-2026",
+   "decimal_odds": [
+    1.83,
+    1.9
+   ],
+   "note": "Hotspawn spells the team 'SinnerS'; bo3.gg spells it 'SINNERS'.",
+   "no_vig_probabilities": [
+    0.5094,
+    0.4906
+   ],
+   "margin": 0.0728
+  }
+ ],
+ "no_price_observed": [
+  {
+   "teams": [
+    "Projeto do KinGui",
+    "Martians"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg has the fixture but shows no price; the team is 'Tropa do KinGui' there, a different label from Hotspawn's 'Projeto do KinGui'."
+  },
+  {
+   "teams": [
+    "MEIA NOITE",
+    "Procyon"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg has the fixture but shows no price."
+  },
+  {
+   "teams": [
+    "your end",
+    "Yawara"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg has the fixture but shows no price."
+  },
+  {
+   "teams": [
+    "Low Cortisol BR",
+    "Grêmio"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg playoff page lists no price for this pairing."
+  },
+  {
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg playoff page lists no price."
+  },
+  {
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESSÊNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg playoff page lists no price."
+  },
+  {
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg playoff page lists no price."
+  },
+  {
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "reason": "bo3.gg playoff page lists no price."
+  },
+  {
+   "teams": [
+    "Nemesis",
+    "WW"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "reason": "bo3.gg has no match rows for CIS LAN Championship 9 at all (tournament page: 'There are currently no matches related to CIS LAN Championship 9')."
+  },
+  {
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "reason": "same - no bo3.gg rows for this event."
+  },
+  {
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "reason": "same."
+  },
+  {
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "reason": "same."
+  },
+  {
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "reason": "same."
+  }
+ ]
+}

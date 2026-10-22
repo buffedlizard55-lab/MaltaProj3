@@ -1,0 +1,569 @@
+{
+ "schema_version": 1,
+ "session": "arena-3cf793ef",
+ "observed_at": "2026-10-22T07:39:48+00:00",
+ "method": {
+  "source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+  "fetch": {
+   "local_copy": "/tmp/valve-global.md",
+   "observed_at": "2026-10-22T07:39:48+00:00",
+   "sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
+   "note": "downloaded with curl from the GitHub contents API in the same session"
+  },
+  "formula": "p = 1/(1+10^(g*(points_b-points_a)/400)), g = 1/sqrt(1+3*(ln10/400)^2*RD^2/pi^2), RD=75",
+  "completeness_rule": "only rows with a complete five-player roster are eligible; duplicates fail closed"
+ },
+ "published_valve_rows": 14,
+ "reproduced_within_tolerance": 14,
+ "tolerance": 0.002,
+ "mismatches": [],
+ "checks": [
+  {
+   "id": "1081143",
+   "teams": [
+    "BakS",
+    "Azuolas"
+   ],
+   "published": [
+    0.73372436,
+    0.26627564
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1044,
+    863
+   ],
+   "recomputed": 0.733724,
+   "delta": 0.0
+  },
+  {
+   "id": "1079651",
+   "teams": [
+    "Butterfly",
+    "Lavked"
+   ],
+   "published": [
+    0.77416873,
+    0.22583127
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1082,
+    862
+   ],
+   "recomputed": 0.774169,
+   "delta": 0.0
+  },
+  {
+   "id": "1082767",
+   "teams": [
+    "Nemesis",
+    "WW"
+   ],
+   "published": [
+    0.91827998,
+    0.08172002
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1455,
+    1023
+   ],
+   "recomputed": 0.91828,
+   "delta": 0.0
+  },
+  {
+   "id": "1081600",
+   "teams": [
+    "Donstu",
+    "Banda chuya"
+   ],
+   "published": [
+    0.4045841,
+    0.5954159
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    732,
+    801
+   ],
+   "recomputed": 0.404584,
+   "delta": 0.0
+  },
+  {
+   "id": "1081146",
+   "teams": [
+    "6yuBoJlbl",
+    "ex-6666"
+   ],
+   "published": [
+    0.62602485,
+    0.37397515
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:37:26Z",
+   "a": "unique complete five-player row",
+   "b": "team not listed in this snapshot",
+   "points": [
+    1015,
+    923
+   ],
+   "recomputed": 0.626025,
+   "delta": 0.0,
+   "note": "recomputed from the row inputs (details-file points)"
+  },
+  {
+   "id": "1081871",
+   "teams": [
+    "Lynn Vision",
+    "Chinggis Warriors"
+   ],
+   "published": [
+    0.64419091,
+    0.35580909
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:37:26Z",
+   "a": "unique complete five-player row",
+   "b": "2 complete rows - ambiguous, ladder must fail closed",
+   "points": [
+    1190,
+    1084
+   ],
+   "recomputed": 0.644191,
+   "delta": 0.0,
+   "note": "recomputed from the row inputs (details-file points)"
+  },
+  {
+   "id": "1079654",
+   "teams": [
+    "ex-Zero Tenacity",
+    "ex-RUSTEC"
+   ],
+   "published": [
+    0.49888,
+    0.50112
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1066,
+    1066
+   ],
+   "recomputed": 0.5,
+   "delta": 0.00112
+  },
+  {
+   "id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "published": [
+    0.93003347,
+    0.06996653
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1324,
+    862
+   ],
+   "recomputed": 0.930033,
+   "delta": 0.0
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "published": [
+    0.40054361,
+    0.59945639
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:37:26Z",
+   "a": "unique complete five-player row",
+   "b": "2 complete rows - ambiguous, ladder must fail closed",
+   "points": [
+    1044,
+    1116
+   ],
+   "recomputed": 0.400544,
+   "delta": 0.0,
+   "note": "recomputed from the row inputs (details-file points)"
+  },
+  {
+   "id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "published": [
+    0.80746193,
+    0.19253807
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1066,
+    810
+   ],
+   "recomputed": 0.807462,
+   "delta": 0.0
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "published": [
+    0.72821824,
+    0.27178176
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    995,
+    819
+   ],
+   "recomputed": 0.728218,
+   "delta": 0.0
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "published": [
+    0.47761494,
+    0.52238506
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    718,
+    734
+   ],
+   "recomputed": 0.477615,
+   "delta": 0.0
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "published": [
+    0.94052062,
+    0.05947938
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:37:26Z",
+   "a": "unique complete five-player row",
+   "b": "2 complete rows - ambiguous, ladder must fail closed",
+   "points": [
+    1437,
+    944
+   ],
+   "recomputed": 0.940521,
+   "delta": 0.0,
+   "note": "recomputed from the row inputs (details-file points)"
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "published": [
+    0.17816902,
+    0.82183098
+   ],
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "observed_at": "2026-10-22T05:36:56Z",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1110,
+    1383
+   ],
+   "recomputed": 0.178169,
+   "delta": 0.0
+  }
+ ],
+ "live_fixtures_not_in_published_snapshot": 14,
+ "uncovered_with_recomputed_price": 9,
+ "uncovered_without_price": 5,
+ "uncovered": [
+  {
+   "id": "1082919",
+   "teams": [
+    "Projeto do KinGui",
+    "Martians"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-22T13:00:00+00:00",
+   "a": "team not listed in this snapshot",
+   "b": "team not listed in this snapshot"
+  },
+  {
+   "id": "1081599",
+   "teams": [
+    "FaZe",
+    "BC.Game"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-22T13:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1482,
+    1318
+   ],
+   "probabilities": [
+    0.7147,
+    0.2853
+   ],
+   "pick": "FaZe",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1081603",
+   "teams": [
+    "SinnerS",
+    "Eternal Fire"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-22T16:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1359,
+    1429
+   ],
+   "probabilities": [
+    0.4032,
+    0.5968
+   ],
+   "pick": "Eternal Fire",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082920",
+   "teams": [
+    "MEIA NOITE",
+    "Procyon"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-22T16:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    674,
+    842
+   ],
+   "probabilities": [
+    0.2807,
+    0.7193
+   ],
+   "pick": "Procyon",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082921",
+   "teams": [
+    "your end",
+    "Yawara"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-22T19:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    582,
+    845
+   ],
+   "probabilities": [
+    0.1865,
+    0.8135
+   ],
+   "pick": "Yawara",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082922",
+   "teams": [
+    "Low Cortisol BR",
+    "Gr\u00eamio"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-22T22:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    774,
+    654
+   ],
+   "probabilities": [
+    0.662,
+    0.338
+   ],
+   "pick": "Low Cortisol BR",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082923",
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T13:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "team not listed in this snapshot"
+  },
+  {
+   "id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESS\u00caNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T16:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    706,
+    723
+   ],
+   "probabilities": [
+    0.4762,
+    0.5238
+   ],
+   "pick": "QUINTESS\u00caNCIA",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T19:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "team not listed in this snapshot"
+  },
+  {
+   "id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T22:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "team not listed in this snapshot"
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1555,
+    1435
+   ],
+   "probabilities": [
+    0.662,
+    0.338
+   ],
+   "pick": "B8",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1483,
+    1482
+   ],
+   "probabilities": [
+    0.5014,
+    0.4986
+   ],
+   "pick": "Alliance",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00+00:00",
+   "a": "unique complete five-player row",
+   "b": "unique complete five-player row",
+   "points": [
+    1547,
+    1437
+   ],
+   "probabilities": [
+    0.6493,
+    0.3507
+   ],
+   "pick": "Luminosity",
+   "basis": "Valve official standings (recomputed)"
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00+00:00",
+   "a": "team not listed in this snapshot",
+   "b": "unique complete five-player row"
+  }
+ ]
+}
