@@ -35,7 +35,7 @@ reachable from here, so:
 | Glance covers every active fixture | PASS | one `.glance-row` per active id; separate `#unresolved-register` (with universal limitations callout) and `#no-line-register` present |
 | Internal links/anchors resolve | PASS | 733 internal links/assets/anchors, zero broken (renderer audit: PASS; independent verifier: PASS) |
 | Mobile stylesheet contract | PASS | smallest breakpoint 375 px; sidebar hidden and fixed bottom nav shown ≤700 px; touch targets up to 56 px min-height (≥44 px rule present); no fixed page width >320 px; flexible `minmax(0,1fr)` / `overflow-wrap:anywhere` / border-box primitives |
-| Strict row-source audit of the rebuilt site | PASS | after the 4c972a51/96fbe295 merges (9 pages incl. the dedicated `/unresolved/` page): 612 rows · 593 official links · 9 flagged unverified · 10 site-map · **0 without a source**; 786 internal links/assets/anchors resolve |
+| Strict row-source audit of the rebuilt site | PASS | after the 4c972a51/96fbe295/df80ab9f merges (9 pages incl. the dedicated `/unresolved/` page): 626 rows · 607 official links · 9 flagged unverified · 10 site-map · **0 without a source**; 787 internal links/assets/anchors resolve |
 | Dedicated unresolved page (post-merge) | PASS | `site/unresolved/index.html` ships viewport + CSP, https-only links, and is linked from the executive summary (`./unresolved/`); included in the verifier's `CURRENT_PAGES` |
 
 ## Findings published on Flagged for Review
