@@ -55,7 +55,11 @@ jobs:
       - name: Install browser for independent UI verification
         run: npx playwright install --with-deps chromium
       - name: Phone, desktop, no-JS, staleness and WCAG A/AA checks
-        run: npm test
+        # The github reporter turns each failing Playwright test into a check
+        # annotation. Job logs live on a blob host that restricted sandboxes
+        # cannot read, so without this a browser failure reports only "exit
+        # code 1" and no test name (observed on run 39755661835).
+        run: npx playwright test --reporter=list,github
       - name: Expire stale or locked recommendations in open tabs and without JavaScript
         run: node tests/pick-safety-browser.mjs
       - name: Publish test summary
