@@ -45,7 +45,10 @@ class ExecBannerTests(unittest.TestCase):
         cc = data['complete_picks']['counts']
         text = BeautifulSoup(exec_banner(data, './'), 'html.parser').get_text(' ')
         self.assertIn(f"{cc['with_pick']} of {cc['active']} with a pick", text)
-        self.assertIn(f"{cc['unresolved']} without a line", text)
+        # Session aae76fb3: "without a line" read as "no betting line" beside a
+        # non-zero model-only count. The tile now says what the count means.
+        self.assertIn(f"{cc['unresolved']} unresolved", text)
+        self.assertNotIn('without a line', text)
 
     def test_banner_renders_without_complete_picks(self):
         # A retained snapshot without origination data must not crash the summary.

@@ -1,0 +1,217 @@
+{
+  "session": "arena-aae76fb3",
+  "purpose": "Independent, dated re-verification of the live published snapshot and of the two phone-summary labelling defects fixed in this session. Nothing in this file is a probability input; no pick, price, alias or source capture was changed by the audit.",
+  "audit_window": {
+    "started_at": "2026-10-22T07:55:00Z",
+    "finished_at": "2026-10-22T08:45:00Z",
+    "performed_from": "Arena sandbox (read-only web fetches and the GitHub Contents API); the four-hour collector itself was not run",
+    "timezone_note": "All instants are UTC. The rendered Hotspawn lobby prints US Eastern time; 04:00 EDT = 08:00Z."
+  },
+  "snapshot_under_test": {
+    "source_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+    "producing_run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39727841341",
+    "generated_at": "2026-10-22T05:37:07Z",
+    "source_snapshot_at": "2026-10-22T05:36:38Z",
+    "counts": {
+      "active": 33,
+      "resolved": 33,
+      "unresolved": 0,
+      "with_pick": 33,
+      "market": 10,
+      "bookmaker": 2,
+      "consensus": 2,
+      "reference": 1,
+      "model": 18,
+      "relay": 1,
+      "guidance": 0,
+      "alias_joined": 3
+    },
+    "glance_claim_checked": "The executive summary states 33 of 33 active fixtures with a directional pick, 15 from an external betting line and 18 from a research model. 10 market + 2 bookmaker + 2 consensus + 1 reference = 15 money-backed rows; the relay row is counted inside bookmaker; 18 model rows. The arithmetic matches the published counts."
+  },
+  "checks": [
+    {
+      "id": "AEB1-inventory-lobby",
+      "claim": "Sampled published fixtures are the same fixtures Hotspawn lists, at the same start time, including cards that carry no 'View Match' link yet.",
+      "source": "https://play.hotspawn.com/lobby",
+      "source_type": "first-party Hotspawn rendered lobby",
+      "observed_at": "2026-10-22T07:36:00Z",
+      "result": "consistent",
+      "detail": "Read the whole CS2 Closing Soon and Upcoming list and matched 23 of the 33 published fixtures name-for-name and start-time-for-start-time (the four cards without a 'View Match' link \u2014 FaZe-BC.Game, SinnerS-Eternal Fire, NEXORA-K27, UPGRADE-Virtus.pro \u2014 are published in the snapshot, so a missing outbound link is not a missing fixture). The page prints US Eastern time; UNiTY-Apogee 10:00 EDT = 14:00Z matches the snapshot's starts_at. The remaining ten published fixtures were not re-read in this audit; the publisher's own three-way API/lobby/CS2-lobby reconciliation at 05:36Z returned 'complete' in the published collection record, and the next refresh re-checks all of them.",
+      "verified_fixtures": [
+        "1079188 Bushido Wildcats vs ex-6666 2026-10-22T08:00:00Z",
+        "1079650 GenOne vs Spirit Academy 2026-10-22T08:00:00Z",
+        "1081143 BakS vs Azuolas 2026-10-22T08:00:00Z",
+        "1079189 FORZE Reload vs Just Players 2026-10-22T11:00:00Z",
+        "1079651 Butterfly vs Lavked 2026-10-22T11:00:00Z",
+        "1081596 Falcons Force vs Phantom Academy 2026-10-22T11:00:00Z",
+        "1081597 benched gods vs TitanFlow 2026-10-22T11:00:00Z",
+        "1082767 Nemesis vs WW 2026-10-22T11:30:00Z",
+        "1081598 JiJieHao vs Nexus 2026-10-22T13:00:00Z",
+        "1081600 Donstu vs Banda chuya 2026-10-22T13:45:00Z",
+        "1082882 UNiTY vs Apogee Betclic 2026-10-22T14:00:00Z",
+        "1081145 Lavked vs HAVU 2026-10-22T14:00:00Z",
+        "1082688 Imperial vs Turma do Pagode 2026-10-22T14:00:00Z",
+        "1082689 BESTIA vs ShindeN 2026-10-22T14:00:00Z",
+        "1079652 Acend vs ex-6666 2026-10-22T14:00:00Z",
+        "1082180 Sangal vs Metizport 2026-10-22T16:30:00Z",
+        "1079653 Rune Eaters vs FORZE Reload 2026-10-22T17:00:00Z",
+        "1081146 6yuBoJlbl vs ex-6666 2026-10-22T17:00:00Z",
+        "1082769 NEXORA vs K27 2026-10-22T17:30:00Z",
+        "1082770 UPGRADE vs Virtus.pro 2026-10-22T20:30:00Z",
+        "1081871 Lynn Vision vs Chinggis Warriors 2026-10-23T03:00:00Z",
+        "1079654 ex-Zero Tenacity vs ex-RUSTEC 2026-10-23T08:00:00Z",
+        "1079655 Nuclear TigeRES vs ILLYRIANS 2026-10-23T11:00:00Z"
+      ],
+      "sample_size": {
+        "checked": 23,
+        "published_active": 33
+      }
+    },
+    {
+      "id": "AEB1-inventory-freshness",
+      "claim": "Fixtures published by Hotspawn after the snapshot's observation are not a coverage defect; they are picked up by the next scheduled refresh.",
+      "source": "https://play.hotspawn.com/lobby",
+      "observed_at": "2026-10-22T07:36:00Z",
+      "result": "explained",
+      "detail": "The 07:36Z lobby additionally lists eight later fixtures absent from the 05:36Z snapshot: DFRAG Invitational 2026 (Ground Zero-Off Chops, NEXVOID-Alter Ego, FlyQuest-Staqued, Rooster-Abyssal, 25-26 Oct) and Tesla Cup 2026 (B8-K27, Alliance-FaZe, Luminosity-HOTU, Envy-..., 27 Oct). These carry lock countdowns of 3-5 days, so they were not open at the snapshot instant; the four-hour publisher collects them on its next run. Recorded for transparency, not as a flag."
+    },
+    {
+      "id": "AEB1-valve-replay",
+      "claim": "Every sampled model probability reproduces from Valve's official published points with the site's published formula.",
+      "source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "source_type": "official Valve regional standings, fetched through the GitHub Contents API",
+      "source_sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
+      "observed_at": "2026-10-22T08:10:00Z",
+      "formula": "g = 0.9728209910486895 (fixed RD 75); P(A) = 1 / (1 + 10^(g * (R_B - R_A) / 400))",
+      "result": "all sampled rows reproduce",
+      "rows": [
+        {
+          "fixture_id": "1081143",
+          "teams": [
+            "BakS",
+            "Azuolas"
+          ],
+          "points": [
+            1044,
+            863
+          ],
+          "computed": 0.7337,
+          "published": 0.734,
+          "agrees": true
+        },
+        {
+          "fixture_id": "1079651",
+          "teams": [
+            "Butterfly",
+            "Lavked"
+          ],
+          "points": [
+            1082,
+            862
+          ],
+          "computed": 0.7742,
+          "published": 0.774,
+          "agrees": true
+        },
+        {
+          "fixture_id": "1082767",
+          "teams": [
+            "Nemesis",
+            "WW"
+          ],
+          "points": [
+            1455,
+            1023
+          ],
+          "computed": 0.9183,
+          "published": 0.918,
+          "agrees": true
+        },
+        {
+          "fixture_id": "1081600",
+          "teams": [
+            "Donstu",
+            "Banda chuya"
+          ],
+          "points": [
+            732,
+            801
+          ],
+          "computed": 0.4046,
+          "published": 0.405,
+          "agrees": true
+        },
+        {
+          "fixture_id": "1079655",
+          "teams": [
+            "Nuclear TigeRES",
+            "ILLYRIANS"
+          ],
+          "points": [
+            1324,
+            862
+          ],
+          "computed": 0.93,
+          "published": 0.93,
+          "agrees": true
+        },
+        {
+          "fixture_id": "1081146",
+          "teams": [
+            "6yuBoJlbl",
+            "6666"
+          ],
+          "points": [
+            1015,
+            923
+          ],
+          "computed": 0.626,
+          "published": 0.626,
+          "agrees": true
+        }
+      ],
+      "note": "The published percentages are rounded to one decimal, so an absolute difference of up to 0.0005 is expected. Banda Chuya has a second, incomplete Valve row (402 points, two players); the collected figure used the complete five-player row (801), which is the published uniqueness rule."
+    },
+    {
+      "id": "AEB1-hltv-identity",
+      "claim": "The HLTV match pages the ladder cites exist and describe the same fixture Hotspawn schedules.",
+      "source": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+      "source_type": "HLTV match page, read by hand (the automated runner receives HTTP 403)",
+      "observed_at": "2026-10-22T08:25:00Z",
+      "result": "confirmed",
+      "detail": "UNiTY vs Betclic, 22 October, Best of 3, Stake Ranked Episode 6 Closed Qualifier; matches Hotspawn fixture 1082882 at 2026-10-22T14:00:00Z. A second page, https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13, is the identity evidence cited for fixture 1079188 in data/origination/aliases.json. HLTV is used as an identity/ranking source only: no HLTV price and no HLTV fan vote enters any probability."
+    },
+    {
+      "id": "AEB1-money-corroboration",
+      "claim": "The UNiTY-Apogee consensus row is consistent with the prediction market it names.",
+      "source": "https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22",
+      "source_type": "Polymarket event page",
+      "observed_at": "2026-10-22T08:30:00Z",
+      "result": "consistent (later observation, prices move)",
+      "detail": "Published snapshot value: UNiTY 41.8% / Apogee Betclic 58.2% (median of Polymarket + Thunderpick + Bovada at 05:36Z). At 08:30Z Polymarket showed unity 43c / bca 58c, the same side and a comparable magnitude. The dated 05:36Z value is the one published; this check only confirms the row is not reversed."
+    },
+    {
+      "id": "AEB1-label-defect-consensus",
+      "claim": "The phone summary published a consensus row under the link text 'Bookmaker'.",
+      "source": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "observed_at": "2026-10-22T07:40:00Z",
+      "result": "defect confirmed and fixed in AEB-2",
+      "detail": "Glance rows for UPGRADE-Virtus.pro (method consensus, source 'Bovada + Pinnacle') and UNiTY-Apogee (method consensus, source 'Polymarket + Thunderpick + Bovada') both read 'Bookmaker' and linked a single provider URL (Bovada and Polymarket respectively). The row data was correct; the rendering label was not. Fixed by analysis_source_label() and locked by tests/test_aae76fb3_summary_labels.py."
+    },
+    {
+      "id": "AEB1-label-defect-tile",
+      "claim": "The executive-summary unresolved tile read '0 without a line - 18 model-only', which reads as a contradiction.",
+      "source": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "observed_at": "2026-10-22T07:40:00Z",
+      "result": "defect confirmed and fixed in AEB-2",
+      "detail": "The '0' is the unresolved count, not the no-betting-line count. The tile now reads '0 unresolved - 18 model-only (no betting line) - why + sources'."
+    }
+  ],
+  "irregularities": [],
+  "flags_recommended": [],
+  "not_verified_here": [
+    "The saved Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle original responses inside the deployed artifact were not re-downloaded in this session (the Actions artifact endpoint is not reachable from the sandbox). Their replay is enforced by the publisher itself (scripts/validate.py, scripts/audit_rows.py, tests/test_source_integrity.py) and by the live deployment verification step.",
+    "HLTV ranking values were not re-read row by row; the HLTV rung did not price any of the sampled rows.",
+    "Map vetoes, stand-ins and current lineups are not verified by this audit, exactly as every model row states."
+  ]
+}

@@ -486,3 +486,34 @@ The standing brief asks for a pick or win probability for **every** Hotspawn-lis
 
 - **New post-deploy invariant.** `scripts/coverage_audit.py` checks the complete picks list row by row: counts must equal the rows, every resolved fixture has two probabilities in (0, 1) summing to 1, a known ladder method, https source/evidence links and a pick that is exactly the higher-probability team (an exactly even estimate names no side), and every unresolved fixture has no pick but an https-linked HLTV-first research trail plus published limitations. `scripts/verify_live.py` now fails the deployment verification if the public data violates this — a silent blank can no longer reach phones unnoticed. Hotspawn "% picked" and HLTV fan votes must stay explicitly unused in the published policy.
 - **Live audit (2026-10-21T23:42Z snapshot).** Featured exact-name method: 7 picks / 5 unresolved of 12 active. Complete researched list: **12/12 resolved, 12 directional picks, 0 unresolved**. Recorded with sources in [`data/research/7e8bed83/live-audit.json`](data/research/7e8bed83/live-audit.json); findings and the legacy-Pages platform limitation are on the [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) page. The executive summary keeps its phone-first banner, Picks at a glance and separate [Unresolved picks & limitations](https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved) section, which correctly reports zero only while the complete list is fully resolved.
+
+## 22 October session arena-aae76fb3: the phone row names the source it links
+
+The live snapshot at 05:37Z already resolved **33 of 33** active Hotspawn CS2 fixtures (15 from a
+money source, 18 from a labelled research model, 0 unresolved). This session found and fixed two
+places where the *rendering* was less honest than the data behind it:
+
+- **A consensus line was published as “Bookmaker”.** `glance()` chose its link text with a ternary
+  chain that only understood `market`, `model`, `reference` and `guidance`; every other money method
+  fell through to `Bookmaker`. UPGRADE–Virtus.pro is a median of **Bovada + Pinnacle**, and its link
+  read “Bookmaker” over a single Bovada URL; UNiTY–Apogee was the same over a Polymarket URL. New
+  `analysis_source_label()` reads each row's own `source` and `source_url` and names the destination
+  (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, Valve, HLTV ranking, bo3.gg) or
+  the provider count for a consensus. It never invents a provider the record does not name.
+- **A researched money line was badged only “Researched”.** That marker stays — it is the audit trail
+  for a fallback row — but a money-backed fallback now also carries its basis badge (`Consensus`,
+  `Bookmaker`, `Market line`, `Aggregated`). Model and guidance rows keep the single purple marker.
+- **The executive-summary tile no longer reads “0 without a line · 18 model-only”.** It now reads
+  `0 unresolved · 18 model-only (no betting line) · why + sources`, which is what the counts mean.
+
+**Independent re-verification** (dated, first-party, in
+[`data/research/aae76fb3/verification.json`](data/research/aae76fb3/verification.json)): 23 of the 33
+published fixtures matched the rendered [Hotspawn lobby](https://play.hotspawn.com/lobby)
+name-for-name and start-time-for-start-time at 07:36Z, including the four cards with no “View Match”
+link; eight later DFRAG/Tesla Cup fixtures appeared on the lobby after the snapshot's observation
+time and are picked up by the next four-hour run (freshness, not a gap); six model probabilities were
+recomputed from [Valve's official 2026-10-05 standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+and all six reproduce to the published one-decimal figure (BakS 73.37%→73.4%, Butterfly 77.42%→77.4%,
+Nemesis 91.83%→91.8%, Donstu 40.46%→40.5%, Nuclear TigeRES 93.00%→93.0%, 6yuBoJlbl 62.60%→62.6%);
+and the [HLTV UNiTY–Betclic page](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
+confirms the fixture identity. No probability, pick, alias or source capture was changed.

@@ -278,9 +278,19 @@ def basis_badge(analysis, researched=False):
     without opening the evidence box. The classes are the existing badge tones,
     so no new colour contract is introduced.
     """
+    method = (analysis or {}).get('method')
     if researched:
-        return '<span class="badge purple">Researched</span>'
-    label, tone = METHOD_BADGES.get((analysis or {}).get('method'), ('Model', 'purple'))
+        # The fallback marker is part of the audit contract and stays on every
+        # researched row. On its own, though, "Researched" cannot tell a reader
+        # whether the number is a three-book median or an uncalibrated rating
+        # model, so a money-backed fallback also carries its basis badge. Model
+        # and guidance rows keep the single purple marker (session aae76fb3).
+        extra = ''
+        if method in MONEY_METHODS:
+            label, tone = METHOD_BADGES.get(method, ('Source', 'green'))
+            extra = f'<span class="badge {tone}">{e(label)}</span>'
+        return '<span class="badge purple">Researched</span>' + extra
+    label, tone = METHOD_BADGES.get(method, ('Model', 'purple'))
     return f'<span class="badge {tone}">{e(label)}</span>'
 
 
@@ -292,6 +302,44 @@ def model_source_label(analysis: dict) -> str:
     if 'bo3.gg' in url or 'results-based' in source.lower():
         return 'bo3.gg results'
     return 'Valve'
+
+
+#: Provider names, keyed by the host or label that actually appears in a row's
+#: published provenance. The first match wins, so more specific names come first.
+PROVIDER_LABELS = (
+    ('polymarket', 'Polymarket'),
+    ('kalshi', 'Kalshi'),
+    ('thunderpick', 'Thunderpick'),
+    ('bovada', 'Bovada'),
+    ('pinnacle', 'Pinnacle'),
+    ('egamersworld', 'EGamersWorld'),
+    ('bo3.gg', 'bo3.gg'),
+)
+
+
+def analysis_source_label(analysis: dict) -> str:
+    """Name the destination of a row's source link, from that row's own data.
+
+    Session aae76fb3: the phone summary used a ternary chain that only handled
+    market, model, reference and guidance, so every other money method — most
+    visibly a median of two esportsbooks — was published as "Bookmaker" over a
+    single provider's URL. This helper reads the row's published ``source`` and
+    ``source_url`` and never guesses a provider the record does not name.
+    """
+    a = analysis or {}
+    method = a.get('method')
+    source = str(a.get('source') or '')
+    url = str(a.get('source_url') or '')
+    if method == 'model':
+        return model_source_label(a)
+    if method == 'consensus':
+        providers = [part.strip() for part in source.split('+') if part.strip()]
+        return f'Consensus ({len(providers)} sources)' if len(providers) > 1 else 'Consensus'
+    haystack = f'{source} {url}'.casefold()
+    for needle, label in PROVIDER_LABELS:
+        if needle in haystack:
+            return label
+    return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
 def researched_method(match: dict) -> tuple[str, str, str]:
@@ -456,7 +504,7 @@ def exec_banner(data, prefix):
         f'<div class="exec-banner-actions">'
         f'<a class="primary" href="{prefix}origination/#picks"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="secondary" href="{prefix}picks/"><span class="label">Featured picks feed<span class="sub">Searchable audit</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} unresolved · {model} model-only (no betting line) · why + sources</span></span><span aria-hidden="true">→</span></a>'
 
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh 4h · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a></p>'
@@ -564,7 +612,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], analysis_source_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
