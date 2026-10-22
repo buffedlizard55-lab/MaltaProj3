@@ -119,20 +119,28 @@ bookmaker line to find.
 
 ## 6. Irregularities flagged for review
 
-1. **Two rows are labelled `model` although their own record names a money source.**
-   `1082770` UPGRADE vs Virtus.pro — `featured_method: "model"`, but
-   `label: "Originated consensus line (median of independent money sources)"`,
-   `source: "Bovada + Pinnacle"`. `1081148` Inner Circle Academy vs Spirit Academy —
-   `featured_method: "model"`, but `label: "Esportsbook line relayed by bo3.gg (Thunderpick,
-   no-vig)"`. Both therefore render the **Model** badge and count toward the summary's
-   "from a research model" figure instead of "from an external betting line". The number is not
-   wrong; the provenance label is. This is the same class of defect as FB-1 in `COORDINATION.md`,
-   in the opposite direction. Reported to the owners of `scripts/originate.py`; not edited here.
-2. **`1081597` is published but no longer listed by Hotspawn** (see §3) — normal, but it means the
-   "33 of 33" count is a count of the snapshot, not of Hotspawn at read time.
-3. **CIS LAN Championship #9 is invisible to bo3.gg** and five of the CCT South America fixtures
-   are unpriced everywhere reachable. Those rows can only ever be research estimates, and the
-   limitation text should say so per fixture rather than in one generic sentence.
+**A claim this session made and then disproved is kept here on purpose.** Reading the raw
+`data/latest.json` suggested that `1082770` (UPGRADE vs Virtus.pro) and `1081148` (Inner Circle
+Academy vs Spirit Academy) published a Valve model where a money line existed. The **rendered**
+pages were then read at 09:10Z and they are correct: the summary shows Virtus.pro 60.6% (Bovada +
+Pinnacle consensus) and Spirit Academy 51.4% (Thunderpick relayed by bo3.gg), both matching
+`/origination/`. The raw-JSON reading was the mistake.
+
+What does remain, and is worth fixing:
+
+1. **The published audit snapshot disagrees with the published page.** The `data/latest.json` the
+   site serves still holds `analysis.method = "model"` for those two fixtures — 33.31% UPGRADE /
+   66.69% Virtus.pro and 61.42% Inner Circle Academy / 38.58% Spirit Academy — and it carries no
+   `fallbacks` map, because the upgrade is attached during the build only. For `1081148` that means
+   the snapshot implies the **opposite pick** from the one the page renders. The page is right; the
+   snapshot you are invited to audit does not reflect it.
+2. **Badge wording.** An upgraded, money-backed row renders the purple **Researched** badge while its
+   own evidence link says **Bookmaker**. Cosmetic, but it is the one visible badge/source mismatch.
+3. **`1081597` is published but no longer listed by Hotspawn** (see §3) — normal retirement, but the
+   "33 of 33" figure describes the snapshot, not Hotspawn at read time.
+4. **CIS LAN Championship #9 is invisible to bo3.gg** and five CCT South America fixtures are
+   unpriced everywhere reachable, so those rows can only ever be research estimates. Their limitation
+   text should say so per fixture instead of in one generic sentence.
 
 ## 7. Limits of this session
 

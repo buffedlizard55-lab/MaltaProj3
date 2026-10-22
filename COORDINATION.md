@@ -59,25 +59,34 @@ applies the documented completeness rule (only complete five-player rows; duplic
 ex-RUSTEC–Saint Sinners 80.75%, Nemesis–WW 91.83%, HOTU–The Huns 94.05%, 5star–1WIN 17.82% and the
 rest. The rung is not inventing numbers.
 
-### 3C-3 flags — irregularities found (not edited by this session)
+### 3C-3 flags — irregularities found (corrected 2026-10-22T09:20Z)
 
-1. **Two rows say `model` while their own record names a money source.** `1082770` UPGRADE vs
-   Virtus.pro (`label: "Originated consensus line (median of independent money sources)"`,
-   `source: "Bovada + Pinnacle"`) and `1081148` Inner Circle Academy vs Spirit Academy
-   (`label: "Esportsbook line relayed by bo3.gg (Thunderpick, no-vig)"`) both carry
-   `featured_method: "model"`. They therefore render the **Model** badge and count toward
-   "from a research model" instead of "from an external betting line". The probabilities are not
-   wrong; the provenance label is. **Request to the owners of `scripts/originate.py`** (sessions
-   `ee27e097`, `a56f3474`, `75aa5b56`): set the method from the rung that produced the quote
-   (`consensus` / `relay`) instead of `model` for those two rows, and add a regression test. This
-   session did not edit the file while those claims are live.
-2. **CIS LAN Championship 9 does not exist on bo3.gg** ("There are currently no matches related to
-   CIS LAN Championship 9") and the CCT South America 7 playoff rows carry no price, so five of the
-   latest fixtures can never have a money line. Their limitation text should name that per fixture
-   rather than in one generic sentence.
-3. HLTV currently answers the GitHub runners with HTTP 403, so it is an identity/ranking source
-   only. This session read HLTV ranking pages through the agent page reader; no HLTV figure was
-   converted into a price, and no HLTV crowd vote was used.
+**Correction to this session's first reading.** The first version of this section claimed that
+`1082770` and `1081148` "render the Model badge and count toward the research-model figure".
+That was wrong, and it is recorded here rather than quietly deleted. It came from reading the raw
+`data/latest.json` (`analysis.method = model`) instead of the **rendered** page. Re-read on the live
+site at 09:10Z, the executive summary's *Picks at a glance* is right:
+
+* row 20, **UPGRADE vs Virtus.pro** — "Pick **Virtus.pro** 60.6% · UPGRADE 39.4%", evidence link
+  **Bookmaker → bovada.lv/…/upgrade-virtus-pro-202610221630**, i.e. the Bovada + Pinnacle consensus;
+* row 24, **Inner Circle Academy vs Spirit Academy** — "Pick **Spirit Academy** 51.4% · Inner Circle
+  Academy 48.6%", evidence link **Bookmaker → bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026**,
+  i.e. the relayed Thunderpick line.
+
+Both agree with `/origination/` and with the registry, so the money line does override the featured
+model wherever the ladder found one. Two smaller, real issues remain:
+
+1. **The published audit snapshot does not reproduce the rendered rows.** `data/latest.json` served
+   by the site still carries `analysis.method = "model"` for `1082770` (33.31% UPGRADE / 66.69%
+   Virtus.pro) and `1081148` (61.42% Inner Circle Academy / 38.58% Spirit Academy, i.e. the *opposite*
+   side from the page), and it contains no `fallbacks` map — the upgrade is attached only in the build
+   output. Anyone reviewing "the full public snapshot" therefore sees different numbers, and one
+   different pick, than the page they are reviewing. Either publish the upgraded record in the
+   snapshot or state on the page that the snapshot holds featured-only estimates. **Request to the
+   owners of `scripts/originate.py` / `scripts/build.py`.**
+2. **Badge wording on an upgraded row.** Those rows render the purple **Researched** badge although
+   their own evidence link says **Bookmaker**. Cosmetic, but it is the one place where the badge and
+   the linked source still disagree.
 
 ### Coordination note (2026-10-22T08:25Z)
 
