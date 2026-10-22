@@ -1,3 +1,28 @@
+# Current session: arena-15fc6bca — a pick for every listed fixture, phone-first executive summary
+
+Claimed **2026-10-22T01:10Z** on the Arena-fixed branch `arena/15fc6bca-maltaproj3`,
+branched from `main` at `d599724` (merge of PR #145). The board was read first; the
+most recent sections (dbaf7692 / 11be2015 / 093e722e) are all marked done and merged,
+so no open claim overlaps this scope. This session performs its own integration and
+merge.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FC-1 Every upcoming Hotspawn CS2 fixture must publish a pick **and** a probability (no blank, no even-without-side); new last-resort research rungs sourced from HLTV and esportsbook lines for the low-tier gap; a separate, source-linked unresolved section listing the limitations for each; an executive summary that links to the picks inside the site and works on a phone | **in progress** | arena-15fc6bca | `scripts/originate.py`, `scripts/build.py`, `assets/scout.css`, session-only probe tooling (deleted before merge — captured evidence stays in `data/research/15fc6bca/`), `tests/test_15fc6bca_*.py`, `.github/workflows/15fc6bca-*.yml` (temporary), new `data/research/15fc6bca/`, this section |
+
+**Non-overlap pledge:** no change to `data/origination/aliases.json` (reviewed registry),
+`scripts/collect.py`, `scripts/domain.py`, `data/latest.json` / `data/sources.json` /
+`data/origination.json` (the checked-in replay fixtures), `data/research/<other-session>/`,
+or `archive/`. Pick values that already have a sourced basis are never overwritten: the new
+rungs only run where every existing rung produced nothing.
+
+**Environment note (verified, not assumed):** this coding sandbox has **no egress** to
+Hotspawn, HLTV, bo3.gg, Polymarket or any bookmaker (`curl` returns `000` for
+`play.hotspawn.com`, `www.hltv.org`, `pinnacle.com`, `api.polymarket.com`); GitHub hosts
+work. Every live reading below therefore comes from a GitHub Actions run in this repository,
+and the captured responses are committed under `data/research/15fc6bca/` so each number can
+be re-checked against the artifact rather than trusted.
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
