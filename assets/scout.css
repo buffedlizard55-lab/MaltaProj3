@@ -356,6 +356,37 @@
   .exec-banner-actions a{min-height:48px}
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
+/* Session 4c972a51 — dedicated unresolved page: status cards, the dated source
+   matrix behind the limitations, and the published resolution ladder. */
+.unresolved-metrics{margin:18px 0 26px}
+.unresolved-metrics .metric-card strong{font-size:30px}
+.unresolved-metrics .metric-card p{font-size:10px;line-height:1.7}
+#how-to-read{margin:0 0 24px}
+#how-to-read ul{margin:8px 0 0;padding-left:18px}
+#how-to-read li{font-size:12px;line-height:1.9;margin-bottom:7px}
+.session-probe .probe-observations{margin:0 20px 18px;padding-left:18px}
+.session-probe .probe-observations li{font-size:12px;line-height:1.9;margin-bottom:8px;color:#3f525f}
+.session-probe h3{font-size:15px;margin:22px 20px 4px;color:var(--navy);letter-spacing:-.2px}
+.session-probe>p.tiny.muted{margin:0 20px 10px}
+.probe-source-list{list-style:none;margin:0 20px 18px;padding:0;display:grid;gap:8px}
+.probe-source{border:1px solid var(--border);border-radius:9px;background:#fbfcfd;padding:11px 13px}
+.probe-source-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.probe-source-head .source-link{font-size:12px;font-weight:600}
+.probe-source-url{margin:4px 0 0;font-size:10px;color:#6b7f8c;overflow-wrap:anywhere}
+.probe-source-detail{margin:5px 0 0;font-size:11px;line-height:1.7;color:#3f525f}
+.ladder-list{margin:10px 0 16px;padding-left:20px}
+.ladder-list li{font-size:12px;line-height:1.95;margin-bottom:8px}
+@media(max-width:700px){
+  .unresolved-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .unresolved-metrics .metric-card strong{font-size:26px}
+  .session-probe .probe-observations{margin:0 17px 14px;padding-left:15px}
+  .session-probe .probe-observations li{font-size:11.5px;line-height:1.85}
+  .session-probe h3{margin:18px 17px 4px;font-size:14px}
+  .session-probe>p.tiny.muted{margin:0 17px 9px}
+  .probe-source-list{margin:0 17px 15px}
+  .probe-source{padding:10px 12px}
+  .probe-source-head .source-link{font-size:11.5px}
+  .ladder-list li{font-size:11.5px;line-height:1.9}
 }
 
 /* Session f60683a4 — current picks are the first tap on a phone.
