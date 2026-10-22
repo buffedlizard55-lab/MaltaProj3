@@ -351,5 +351,73 @@ class HLTVCardTests(unittest.TestCase):
         with self.assertRaises(SourceError): parse_hltv_matches('<title>Please verify you are human</title>')
 
 
+class ValveExactDetailTieTests(unittest.TestCase):
+    def test_integer_tie_resolves_from_verified_detail_points(self):
+        match = {
+            'id': '1079654',
+            'starts_at': START,
+            'teams': [{'id': '1', 'name': 'ex-Zero Tenacity'}, {'id': '2', 'name': 'ex-RUSTEC'}],
+        }
+        rows = [
+            {
+                'standing': 92, 'points': 1066, 'name': 'ex-RUSTEC',
+                'roster': ['Brilliance', 'glowiing', 'shalfey', 'yiksrezo', 'youka'],
+                'detail_path': 'details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md',
+                'snapshot_date': '2026-10-05',
+                'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md',
+            },
+            {
+                'standing': 93, 'points': 1066, 'name': 'ex-Zero Tenacity',
+                'roster': ['brutmonster', 'Cjoffo', 'Dragon', 'Kind0', 'VLDN'],
+                'detail_path': 'details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md',
+                'snapshot_date': '2026-10-05',
+                'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md',
+            },
+        ]
+        now = datetime(2026, 10, 22, 1, 6, tzinfo=timezone.utc)
+        tied, _ = valve_analysis(match, rows, now, iso(now))
+        self.assertEqual(tied['probabilities'], [0.5, 0.5])
+        self.assertIsNone(selection(tied))
+        exact = {
+            92: {'points': 1066.4, 'detail_sha': 'a' * 40,
+                 'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md'},
+            93: {'points': 1065.6, 'detail_sha': 'b' * 40,
+                 'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md'},
+        }
+        resolved, reason = valve_analysis(match, rows, now, iso(now), exact_points=exact)
+        self.assertIsNotNone(resolved, reason)
+        self.assertEqual(resolved['probabilities'], [0.49888, 0.50112])
+        self.assertEqual(selection(resolved), 1)
+        self.assertEqual([i['points'] for i in resolved['inputs']], [1065.6, 1066.4])
+        self.assertEqual([i['rounded_points'] for i in resolved['inputs']], [1066, 1066])
+        self.assertTrue(any('Final Rank Values' in lim for lim in resolved['limitations']))
+
+    def test_valve_detail_points_verifies_git_sha1_and_rejects_tampering(self):
+        import base64, hashlib, tempfile
+        from scripts.sources import Client, valve_detail_points
+        md = b'Team Name: ex-RUSTEC\nFinal Rank Value:  1066.4<br />\n'
+        sha = hashlib.sha1(b'blob ' + str(len(md)).encode() + b'\0' + md).hexdigest()
+        b64 = base64.b64encode(md).decode('ascii')
+        with tempfile.TemporaryDirectory() as tmp:
+            client = Client(Path(tmp))
+            client.json = lambda url, label: (
+                {'encoding': 'base64', 'sha': sha, 'content': b64,
+                 'html_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092.md'},
+                {'status': 'ok'},
+            )
+            out = valve_detail_points(client, '2026', 'details/2026_10_05/0092.md', 92)
+            self.assertEqual(out['points'], 1066.4)
+            self.assertEqual(out['detail_sha'], sha)
+            client.json = lambda url, label: (
+                {'encoding': 'base64', 'sha': '0' * 40, 'content': b64,
+                 'html_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092.md'},
+                {'status': 'ok'},
+            )
+            with self.assertRaises(SourceError):
+                valve_detail_points(client, '2026', 'details/2026_10_05/0092.md', 92)
+            with self.assertRaises(SourceError):
+                valve_detail_points(client, '2026', '../etc/passwd', 92)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -21,8 +21,92 @@ concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
+  # A push to main also starts the platform's *legacy* Pages build, which
+  # publishes the checked-in branch root — `data/latest.json` generated
+  # 2026-10-15T08:36:13Z — and it lands in well under a minute, while this
+  # workflow needs about ten minutes to collect, replay and rebuild. Verified
+  # 2026-10-22T01:20Z-01:32Z: eleven minutes after PR #146 merged, the public
+  # /data/latest.json still reported 15 October, 80 records and 17 upcoming
+  # (`data/research/416d93ee/verification.md`, read at 01:30:26Z). A reader who
+  # opens the site in that window sees six-day-old matches and no current picks.
+  # This job republishes the previous run's already-verified artifact straight
+  # away, so the site never goes backwards while the fresh snapshot is built.
+  # It is best-effort: if it fails, the publisher below still runs (`always()`)
+  # and publishes the fresh snapshot exactly as before.
+  republish-last-verified:
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Find the most recent successful publish
+        id: previous
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CURRENT_RUN: ${{ github.run_id }}
+        run: |
+          run_id=$(gh api "repos/${{ github.repository }}/actions/workflows/pages.yml/runs?status=success&per_page=20" \
+            --jq "[.workflow_runs[] | select(.id != ($CURRENT_RUN | tonumber))][0].id")
+          if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+            echo "::warning::No previous successful publish is available to republish; the fresh snapshot will publish normally."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Download that run's verified artifact
+        if: steps.previous.outputs.skip == 'false'
+        uses: actions/download-artifact@v5
+        with:
+          name: github-pages
+          path: previous
+          run-id: ${{ steps.previous.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract it and refuse anything that is not a full site
+        if: steps.previous.outputs.skip == 'false'
+        run: |
+          mkdir -p site && tar -xf previous/artifact.tar -C site
+          test -f site/index.html
+          test -f site/data/latest.json
+          python3 - <<'PY'
+          import json
+          snapshot = json.load(open('site/data/latest.json'))
+          print('republishing snapshot generated_at', snapshot['generated_at'], snapshot['counts'])
+          PY
+      - uses: actions/configure-pages@v6
+        if: steps.previous.outputs.skip == 'false'
+      - id: upload
+        uses: actions/upload-pages-artifact@v5
+        if: steps.previous.outputs.skip == 'false'
+        with:
+          path: site
+      - id: deployment
+        if: steps.previous.outputs.skip == 'false'
+        uses: actions/deploy-pages@v5
+      # deploy-pages refuses to publish while a run holds two artifacts named
+      # github-pages ("Artifact count is 2", observed on run 39713153422 for
+      # 2026-10-22T03:10Z). This job is finished with its artifact once the
+      # deployment step returns, so delete it and leave the fresh, fully
+      # validated upload below as the only candidate in the run.
+      - name: Remove the republished artifact before the fresh publish
+        if: always() && steps.previous.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
+        run: |
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "::warning::No artifact id was reported; a duplicate github-pages artifact may block the fresh publish."
+            exit 0
+          fi
+          gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID" \
+            || echo "::warning::Could not delete the republished artifact; the fresh publish may fail on a duplicate artifact name."
   verify-and-deploy:
-    if: github.ref == 'refs/heads/main'
+    needs: [republish-last-verified]
+    # Runs even when the fast republish failed: a broken helper must never stop
+    # the fresh, fully validated snapshot from being published.
+    if: always() && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

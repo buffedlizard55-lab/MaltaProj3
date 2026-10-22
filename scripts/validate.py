@@ -115,7 +115,21 @@ def check_data(root: Path):
                 saved = load(evidence / 'valve-ratings.json')
                 valve_rows = parse_valve_table(content.decode('utf-8'), source['html_url'], saved['snapshot_date'])
                 require(valve_rows == saved['rows'], 'Valve rating records do not match original official markdown')
-            replay, reason = valve_analysis(m, valve_rows, now, a['observed_at'])
+            exact = None
+            if any('detail_sha' in inp for inp in a['inputs']):
+                exact = {}
+                for inp in a['inputs']:
+                    standing = inp['standing']
+                    detail_source = load(evidence / f'valve-detail-{standing}.json')
+                    require(attempts.get(f'valve-detail-{standing}', {}).get('status') == 'ok', f'{m["id"]}: missing verified valve-detail-{standing} request')
+                    require(detail_source.get('encoding') == 'base64', f'{m["id"]}: valve-detail-{standing} not base64')
+                    detail_raw = base64.b64decode(''.join(detail_source['content'].split()), validate=True)
+                    detail_sha = hashlib.sha1(b'blob ' + str(len(detail_raw)).encode() + b'\0' + detail_raw).hexdigest()
+                    require(detail_sha == detail_source.get('sha') == inp.get('detail_sha'), f'{m["id"]}: Valve detail blob fails Git SHA-1 verification')
+                    detail_match = re.search(r'Final Rank Value:\s*(\d+(?:\.\d+)?)', detail_raw.decode('utf-8'))
+                    require(detail_match is not None and detail_source.get('html_url') == inp.get('source_url'), f'{m["id"]}: Valve detail file missing Final Rank Value or source URL')
+                    exact[standing] = {'points': float(detail_match.group(1)), 'source_url': detail_source['html_url'], 'detail_sha': detail_sha}
+            replay, reason = valve_analysis(m, valve_rows, now, a['observed_at'], exact_points=exact)
             require(replay is not None, f'{m["id"]}: {reason}')
             require(a['inputs'] == replay['inputs'], f'{m["id"]}: model inputs are not exact official records')
             if data.get('analysis_as_of'):

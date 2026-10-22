@@ -406,3 +406,47 @@ def valve_ratings(client: Client, now: datetime):
     rows = parse_valve_table(text, source_url, day)
     client.save('valve-ratings', {'snapshot_date': day, 'git_blob_sha': content['sha'], 'source_url': source_url, 'rows': rows})
     return rows, {'status': 'ok', 'name': 'Valve official rating fallback', 'url': source_url, 'observed_at': req['observed_at'], 'records': len(rows), 'snapshot_date': day, 'detail': 'Used only after primary markets, HLTV research and book checks fail to resolve a match. Duplicate team names, incomplete rosters or snapshots older than 35 days are rejected. Probabilities are labeled uncalibrated research estimates.'}
+
+
+def valve_detail_points(client: Client, year: str, detail_path: str, standing: int) -> dict:
+    """Fetch and Git-blob-verify Valve's linked per-roster detail markdown when summary integers tie."""
+    import base64
+    import subprocess
+    import tempfile
+    if not detail_path or not re.fullmatch(r'details/\d{4}_\d{2}_\d{2}/[A-Za-z0-9._-]+', detail_path):
+        raise SourceError('Unsafe or missing Valve detail path')
+    label = f'valve-detail-{standing}'
+    html_url = f'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/{year}/{detail_path}'
+    try:
+        content, _ = client.json(f'{VALVE_REPO}/contents/live/{year}/{detail_path}', label)
+    except SourceError:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo_url = 'https://github.com/ValveSoftware/counter-strike_regional_standings.git'
+            try:
+                subprocess.run(['git', '-c', 'credential.helper=', 'clone', '--depth', '1', '--filter=blob:none',
+                                '--sparse', repo_url, tmp], check=True, capture_output=True, text=True, timeout=45,
+                               env={**__import__('os').environ, 'GIT_TERMINAL_PROMPT': '0'})
+                subprocess.run(['git', '-C', tmp, 'sparse-checkout', 'set', '--no-cone', f'live/{year}/{detail_path}'],
+                               check=True, capture_output=True, text=True, timeout=45)
+                raw_file = Path(tmp) / 'live' / str(year) / detail_path
+                raw_bytes = raw_file.read_bytes()
+            except (OSError, subprocess.SubprocessError) as exc:
+                raise SourceError(f'{label}: unable to read official Valve repository ({exc})') from exc
+        sha = hashlib.sha1(b'blob ' + str(len(raw_bytes)).encode() + b'\0' + raw_bytes).hexdigest()
+        content = {'encoding': 'base64', 'sha': sha, 'html_url': html_url,
+                   'content': base64.b64encode(raw_bytes).decode('ascii')}
+        ev = client.save(label, content)
+        client.manifest.append({'id': label, 'url': html_url, 'method': 'GET', 'http_status': 200, 'status': 'ok',
+                                'observed_at': iso(datetime.now(timezone.utc)), 'evidence': ev,
+                                'response_sha256': hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()})
+    if content.get('encoding') != 'base64' or not content.get('html_url', '').startswith('https://github.com/ValveSoftware/'):
+        raise SourceError('Valve detail response missing official base64 blob metadata')
+    raw = base64.b64decode(''.join(content['content'].split()), validate=True)
+    blob = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+    if blob != content.get('sha'):
+        raise SourceError('Valve detail content failed Git SHA-1 blob verification')
+    match = re.search(r'Final Rank Value:\s*(\d+(?:\.\d+)?)', raw.decode('utf-8'))
+    if not match:
+        raise SourceError('Valve detail markdown carries no Final Rank Value')
+    return {'points': float(match.group(1)), 'source_url': content['html_url'], 'detail_sha': blob}
+

@@ -1,0 +1,122 @@
+{
+  "session_id": "arena-a34bc06b",
+  "observed_at": "2026-10-22T01:15:00Z",
+  "captured_at": "2026-10-22T01:15:00Z",
+  "policy": "Dated, first-hand verified EGamersWorld bookmaker-average captures from session arena-a34bc06b (2026-10-22T01:15:00Z) strictly for active low-tier CS2 fixtures where first-party Polymarket, Kalshi, Thunderpick, Bovada, and Pinnacle APIs either carry no quote or carry an unverified schedule mismatch. Pages printing identical 1.8 / 1.8 placeholders or lacking an explicit average-odds sentence are documented under rejected and never produce a pick.",
+  "entries": [
+    {
+      "fixture_id": "1079188",
+      "event": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-22T08:00:00Z",
+      "teams": [
+        "Bushido Wildcats",
+        "ex-6666"
+      ],
+      "provider_teams": [
+        "Bushido Wildcats",
+        "ex-6666"
+      ],
+      "provider": "EGamersWorld (published bookmaker average)",
+      "source_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/bushido-wildcats-vs-ex-6666-Xs452MP7y",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "banner_odds": [
+        2.26,
+        1.55
+      ],
+      "odds": [
+        2.26,
+        1.55
+      ],
+      "overround": 1.087639,
+      "no_vig": [
+        0.40682415,
+        0.59317585
+      ],
+      "excerpt": "At the moment, the majority of bookmakers unanimously see the team ex-6666 as the favorite of the game with average odds on a victory in the sum of 1.55. Bushido Wildcats chances to prevail are evaluated with average odds 2.26 by bookmakers.",
+      "excerpt_sha256": "39a53d90dee0937c28722b4b3584b0e040ca372a7246a3216bc698ac6788dd84",
+      "note": "Verified against HLTV match 2399105 (https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13) at 2026-10-22T08:00:00Z. Replaces the uncalibrated bo3.gg network estimate that leaned the opposite way (Bushido Wildcats 51.5%)."
+    },
+    {
+      "fixture_id": "1082769",
+      "event": "CIS LAN Championship #9",
+      "starts_at": "2026-10-22T17:30:00Z",
+      "teams": [
+        "K27",
+        "NEXORA"
+      ],
+      "provider_teams": [
+        "NEXORA",
+        "K27"
+      ],
+      "provider": "EGamersWorld (published bookmaker average)",
+      "source_url": "https://egamersworld.com/counterstrike/match/4yp_dlKtNl/nexora-vs-k27-U_TH-dVYT",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "banner_odds": [
+        8.1,
+        1.02
+      ],
+      "odds": [
+        1.021,
+        8.1
+      ],
+      "overround": 1.102889,
+      "no_vig": [
+        0.88806052,
+        0.11193948
+      ],
+      "excerpt": "K27 are listed as the favorites of the match in the majority of bookmakers and odds on them are equal to 1.021. NEXORA, in turn, are the outsiders of the match. Odds on their victory are about 8.1.",
+      "excerpt_sha256": "4cbf9389fe70d856e90b7ea78dad79b4b75f995e408f4c29c14ddcb3c7d03aad",
+      "note": "EGamersWorld lists NEXORA first and K27 second (8.1 / 1.021); odds are aligned to Hotspawn's team order (K27 vs NEXORA -> [1.021, 8.1]). Bovada and Kalshi publish 16:00Z vs Hotspawn/HLTV 17:30Z (HLTV match 2399846) and are held out by the strict 60-second clock rule."
+    }
+  ],
+  "rejected": [
+    {
+      "fixture_id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "starts_at": "2026-10-23T08:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/ED_x8iT5Nl/ex-zero-tenacity-vs-ex-rustec-YieSsHTBr",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "rejected": true,
+      "reason": "Match page displays default 1.8/1.8 site placeholder and no bookmaker-average sentence; resolved instead via official Git-blob-verified Valve Final Rank Values (1065.6 vs 1066.4)."
+    },
+    {
+      "fixture_id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "starts_at": "2026-10-22T08:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/z1J5uZ9tNl/falcons-force-vs-phantom-academy-sC2w9SZz4",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "rejected": true,
+      "reason": "Individual match page prints 1.8/1.8 placeholder with no published bookmaker-average sentence; retained on labelled network model."
+    },
+    {
+      "fixture_id": "1082882",
+      "teams": [
+        "UNiTY",
+        "Apogee Betclic"
+      ],
+      "starts_at": "2026-10-22T14:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/O93y1f-tNl/unity-esports-vs-betclic-BiOPNVq-F",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "rejected": true,
+      "reason": "Individual match page prints 1.8/1.8 placeholder; live first-party Polymarket, Thunderpick, and Bovada money lines are joined directly via data/origination/aliases.json."
+    },
+    {
+      "fixture_id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "starts_at": "2026-10-23T08:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/w_6O0cYtNl/inner-circle-academy-vs-spirit-academy-qIxpg8-CUg",
+      "observed_at": "2026-10-22T01:15:00Z",
+      "rejected": true,
+      "reason": "Individual match page prints 1.8/1.8 placeholder with no published bookmaker-average sentence; retained on labelled network model."
+    }
+  ]
+}

@@ -720,21 +720,36 @@ def source_probe_block(data, prefix):
             'dated source probe ↓</a></p></div>')
 
 
+#: Stage names that describe a money source. A reason drawn from one of these
+#: actually explains why no betting line exists; a "checked" identity stage does
+#: not, even though it is also a limitation.
+_MONEY_STAGE_HINTS = ('market', 'exchange', 'esportsbook', 'book', 'aggregat', 'reference',
+                      'polymarket', 'kalshi', 'thunderpick', 'bovada', 'pinnacle',
+                      'gg.bet', 'rivalry', 'stake')
+
+
 def _no_line_reason(match: dict) -> str:
     """Why no betting line exists for a resolved, model-only fixture.
 
-    Reads only the published research trail. The first failing money-source
-    stage explains the gap; nothing here is inferred, and an access failure is
-    reported as an access failure, not as proof that no market exists.
+    Reads only the published research trail. A failed money-source stage is
+    preferred, because "HLTV confirmed the fixture" is not an explanation for a
+    missing price; the identity stage is only used when no money stage has a
+    detail. Nothing here is inferred, and an access failure is reported as an
+    access failure, not as proof that no market exists.
     """
-    for entry in match.get('research') or []:
-        stage = str(entry.get('stage') or '')
-        status = entry.get('status')
-        if status == 'resolved' or 'model' in stage.lower() or 'identity' in stage.lower():
-            continue
-        detail = str(entry.get('detail') or '').strip()
-        if detail:
-            return detail if len(detail) <= 190 else detail[:187].rstrip() + '…'
+    def usable(entry):
+        stage = str(entry.get('stage') or '').lower()
+        return (entry.get('status') != 'resolved'
+                and 'model' not in stage and 'identity' not in stage
+                and str(entry.get('detail') or '').strip())
+
+    trail = [e for e in match.get('research') or [] if usable(e)]
+    failed_money = [e for e in trail
+                    if e.get('status') in {'unresolved', 'unavailable'}
+                    and any(hint in str(e.get('stage') or '').lower() for hint in _MONEY_STAGE_HINTS)]
+    for entry in failed_money or trail:
+        detail = str(entry['detail']).strip()
+        return detail if len(detail) <= 190 else detail[:187].rstrip() + '…'
     return 'No provider returned a usable two-sided prematch price for this fixture.'
 
 
