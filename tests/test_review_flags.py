@@ -61,8 +61,21 @@ class ReviewFlagsIntegration(unittest.TestCase):
         self.assertNotIn('Synthetic duplicate must not replace the original', self.html)
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
+        # The collected snapshot itself is never rewritten by a build.
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
+        # The published copy carries exactly one documented addition since
+        # session 4c972a51: the featured-vs-researched reconciliation keys,
+        # because counts.* describes the featured method alone while every page
+        # renders the researched list. Every original key and value must survive
+        # byte for byte, and no reconciliation key may appear without a note.
+        published = json.loads((self.output / 'data/latest.json').read_text())
+        original = json.loads(self.original)
+        added = {'featured_method_counts', 'complete_coverage_counts', 'counts_note'}
+        self.assertEqual(set(published) - set(original), added)
+        for key, value in original.items():
+            self.assertEqual(published[key], value, f'{key} was rewritten by the build')
+        self.assertTrue(published['counts_note'])
+        self.assertIn('featured', published['counts_note'].lower())
 
 
 if __name__ == '__main__':
