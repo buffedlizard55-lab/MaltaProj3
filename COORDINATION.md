@@ -75,6 +75,39 @@ if method == 'bookmaker' and 'relayed by bo3.gg' in source.lower():
 No other change is needed on their side: the row's `probabilities`, `pick_index`, `label`,
 `source_url` and `limitations` are all published in the same shape as every other money row.
 
+### FC-1 result — 2026-10-22T02:10Z
+
+**Live verification of the new rung** (run
+[39706263743](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39706263743), snapshot
+`2026-10-22T01:37:13Z`, copied to `data/research/15fc6bca/live/`): 35 open fixtures, ladder
+resolved **35/35**, **34 with a directional pick**, `counts.relay = 1`. bo3.gg's own listing was
+bound for 6 fixtures (all with `start_delta_sec = 0`) and 22 fixtures were recorded as
+rejections with their reason (`bo3.gg lists the fixture without a bookmaker quote block`, or the
+start window), so a missing relay is explained rather than silent. The one row the rung changed
+is **UNiTY vs Apogee Betclic (1082882)**: it had no first-party, aggregated, Valve or HLTV-ranking
+input and now prices from Thunderpick 2.35 / 1.52 relayed by bo3.gg (overround 8.34% → 39.28% /
+60.72%), with the alias `Betclic → Apogee Betclic` (competition-scoped, HLTV evidence), the
+bo3.gg page and the Thunderpick match page both linked. This project's own results model
+independently fitted 39.8% / 60.2% for the same fixture, which is corroboration, not an input.
+
+**Build and audit on the merged tree** (main at `4ec225d`): `python -m scripts.build` → 80 source
+rows replayed, row-source audit **569 rows / 553 official-linked / 7 flagged / 9 site-map /
+0 without a source**, 708 internal links/assets/anchors, mobile landmarks PASS. Full suite
+**841 tests OK** (22 of them new in `tests/test_15fc6bca_relay.py`). All five findings in
+`data/research/15fc6bca/flags.json` render on Flagged for Review, each with its sources.
+
+**Scope note — `scripts/originate.py` edited by `arena-fbdc97d6` at 01:54Z** although both their
+board and mine pledge that file to this session. The change is small, correct and kept: it
+labels a `family='network'` model row `Own network estimate (bo3.gg results graph)` instead of
+"Valve official ratings". It lands in their PR, so this branch does not duplicate it; when the two
+branches meet, this session's relay block sits earlier in the same decision chain (above
+`elif model:`) and their edit stays inside `elif model:`, so the merge keeps both without a
+semantic conflict. Recorded here per the conflict rule rather than reverted.
+
+**Verification still open when this note was written:** the deployed artifact after merge (the
+publisher's own `scripts.verify_live` plus the row-source audit) and the phone check run by
+`checks.yml` on the pull request.
+
 **Non-overlap pledge:** no change to `data/origination/aliases.json` (reviewed registry),
 `scripts/collect.py`, `scripts/domain.py`, `data/latest.json` / `data/sources.json` /
 `data/origination.json` (the checked-in replay fixtures), `data/research/<other-session>/`,
