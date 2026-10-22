@@ -144,23 +144,34 @@ def bo3_team_lookup(name: str, get=None) -> dict:
             if norm(row.get('name') or '') == norm(name)]
     out['matches'] = [{'id': row.get('id'), 'name': row.get('name'),
                        'slug': row.get('slug')} for row in rows]
-    if len(rows) == 1 and rows[0].get('id'):
-        team_id = rows[0]['id']
-        try:
-            d = get(f'{BO3_API}/teams/{team_id}', headers=BO3_HEADERS, timeout=25)
-            d.raise_for_status()
-            payload = d.json() or {}
-            record = payload.get('result') or payload.get('data') or payload
-            if isinstance(record, dict):
-                out['detail_keys'] = sorted(record.keys())
-                # Scalars only, verbatim: this records whether bo3.gg publishes
-                # any team rating/points field at all. It is never converted
-                # into a probability by this probe.
-                out['detail_sample'] = {k: record[k] for k in sorted(record.keys())
-                                        if isinstance(record.get(k), (int, float, str, bool))
-                                        and k not in ('logo', 'image', 'banner')}
-        except Exception as exc:  # noqa: BLE001
-            out['detail_error'] = f'{type(exc).__name__}: {exc}'[:200]
+    if len(rows) == 1:
+        # The listing row is copied verbatim (scalars only): this records
+        # whether bo3.gg publishes any team rating/points field at all. It is
+        # never converted into a probability by this probe. (The /teams/{id}
+        # detail path answered 404 for every team on 2026-10-22, so the slug
+        # path is tried as well and both outcomes are recorded.)
+        row = rows[0]
+        out['listing_keys'] = sorted(row.keys())
+        out['listing_sample'] = {k: row[k] for k in sorted(row.keys())
+                                 if isinstance(row.get(k), (int, float, str, bool))
+                                 and k not in ('logo', 'image', 'banner')}
+        for label, url in (('id', f"{BO3_API}/teams/{row.get('id')}"),
+                           ('slug', f"{BO3_API}/teams/{row.get('slug')}")):
+            if not url.endswith(str(row.get('id') if label == 'id' else row.get('slug'))):
+                continue
+            try:
+                d = get(url, headers=BO3_HEADERS, timeout=25)
+                d.raise_for_status()
+                payload = d.json() or {}
+                record = payload.get('result') or payload.get('data') or payload
+                if isinstance(record, dict):
+                    out.setdefault('detail_by_' + label, {
+                        'keys': sorted(record.keys()),
+                        'sample': {k: record[k] for k in sorted(record.keys())
+                                   if isinstance(record.get(k), (int, float, str, bool))
+                                   and k not in ('logo', 'image', 'banner')}})
+            except Exception as exc:  # noqa: BLE001
+                out.setdefault('detail_errors', {})[label] = f'{type(exc).__name__}: {exc}'[:200]
     return out
 
 
@@ -215,6 +226,9 @@ def fixture_report(fixture: dict, bo3: dict, team_lookups: dict) -> dict:
         'current_resolution': ({'method': o.get('method'), 'label': o.get('label'),
                                 'source': o.get('source'), 'source_url': o.get('source_url'),
                                 'probabilities': o.get('probabilities'),
+                                'inputs': [{'name': q.get('name'), 'points': q.get('points'),
+                                            'rank': q.get('rank'), 'source_url': q.get('source_url')}
+                                           for q in (o.get('inputs') or []) if isinstance(q, dict)],
                                 'pick_index': fixture.get('pick_index'),
                                 'limitations': o.get('limitations') or fixture.get('limitations')}
                                if o else None),
