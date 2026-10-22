@@ -1,10 +1,10 @@
 {
-  "captured_at": "2026-10-22T02:09:48Z",
-  "network_evidence": false,
+  "captured_at": "2026-10-22T02:24:53Z",
+  "network_evidence": true,
   "hltv_ranking_meta": {
     "source_url": "https://www.hltv.org/ranking/teams",
     "snapshot_date": "2026-10-22",
-    "observed_at": "2026-10-22T02:08:49Z",
+    "observed_at": "2026-10-22T02:23:36Z",
     "evidence_file": "data/origination/evidence/live-hltv-ranking.json",
     "publication_pages": 1
   },
@@ -12,7 +12,7 @@
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "snapshot_date": "2026-10-05",
     "evidence_file": "data/evidence/valve-ratings.json",
-    "observed_at": "2026-10-22T02:08:26Z",
+    "observed_at": "2026-10-22T02:23:10Z",
     "git_blob_sha": "2aa2805394fbc68f36a5752a5b16026f2ab2fed5"
   },
   "fixtures": [
@@ -28,7 +28,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: Morningstar has only 2 finished series in the window (needs 6)"
       },
       "form": {
         "available": false,
@@ -65,14 +65,14 @@
       "fixture": "Vitalem Aerem vs Rare Atom",
       "starts_at": "2026-10-22T05:00:00Z",
       "featured_probabilities": [
-        0.3,
-        0.7
+        0.27,
+        0.73
       ],
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -109,14 +109,35 @@
       "fixture": "Bushido Wildcats vs ex-6666",
       "starts_at": "2026-10-22T08:00:00Z",
       "featured_probabilities": [
-        0.33,
-        0.67
+        0.355,
+        0.645
       ],
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.518124912329692,
+          0.48187508767030796
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Bushido Wildcats",
+            "points": 953.2,
+            "series": 79,
+            "anchored": true
+          },
+          {
+            "name": "ex-6666",
+            "points": 940.6,
+            "series": 10,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": true,
@@ -174,18 +195,39 @@
       "fixture": "GenOne vs Spirit Academy",
       "starts_at": "2026-10-22T08:00:00Z",
       "featured_probabilities": [
-        0.59,
-        0.41
+        0.7581203,
+        0.2418797
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.6835673387708694,
+          0.3164326612291306
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "GenOne",
+            "points": 1147.4,
+            "series": 57,
+            "anchored": true
+          },
+          {
+            "name": "Spirit Academy",
+            "points": 1013.6,
+            "series": 38,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
-        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
+        "reason": "Both teams already have published Valve rows; results model not needed"
       },
       "hltv_ranking": {
         "available": true,
@@ -225,7 +267,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -268,8 +310,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.6211612715233082,
+          0.37883872847669176
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "FORZE Reload",
+            "points": 1106.9,
+            "series": 22,
+            "anchored": true
+          },
+          {
+            "name": "Just Players",
+            "points": 1021.0,
+            "series": 64,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": true,
@@ -333,8 +396,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.7435247641338264,
+          0.2564752358661736
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Butterfly",
+            "points": 1077.0,
+            "series": 36,
+            "anchored": true
+          },
+          {
+            "name": "Lavked",
+            "points": 892.1,
+            "series": 49,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -377,8 +461,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.5595827514697413,
+          0.44041724853025865
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Falcons Force",
+            "points": 821.6,
+            "series": 49,
+            "anchored": true
+          },
+          {
+            "name": "Phantom Academy",
+            "points": 780.0,
+            "series": 48,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -415,14 +520,35 @@
       "fixture": "benched gods vs TitanFlow",
       "starts_at": "2026-10-22T11:00:00Z",
       "featured_probabilities": [
-        0.50431724,
-        0.49568276
+        0.2205623499204933,
+        0.7794376500795067
       ],
-      "originated_pick_index": 0,
+      "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.2205623499204933,
+          0.7794376500795067
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "benched gods",
+            "points": 777.8,
+            "series": 59,
+            "anchored": false
+          },
+          {
+            "name": "TitanFlow",
+            "points": 997.1,
+            "series": 9,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -465,8 +591,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.9221428994096369,
+          0.0778571005903631
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "Nemesis",
+            "points": 1431.1,
+            "series": 28,
+            "anchored": true
+          },
+          {
+            "name": "WW",
+            "points": 1001.7,
+            "series": 10,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -503,14 +650,14 @@
       "fixture": "JiJieHao vs Nexus",
       "starts_at": "2026-10-22T13:00:00Z",
       "featured_probabilities": [
-        0.645,
-        0.355
+        0.62,
+        0.38
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -554,7 +701,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -597,8 +744,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.8024533043247647,
+          0.1975466956752353
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Acend",
+            "points": 1184.1,
+            "series": 24,
+            "anchored": true
+          },
+          {
+            "name": "ex-6666",
+            "points": 940.6,
+            "series": 10,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -641,8 +809,29 @@
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.4330537971218377,
+          0.5669462028781622
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Lavked",
+            "points": 892.1,
+            "series": 49,
+            "anchored": true
+          },
+          {
+            "name": "HAVU",
+            "points": 938.9,
+            "series": 37,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -686,7 +875,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -723,14 +912,14 @@
       "fixture": "BESTIA vs ShindeN",
       "starts_at": "2026-10-22T14:00:00Z",
       "featured_probabilities": [
-        0.475,
-        0.525
+        0.465,
+        0.535
       ],
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -774,7 +963,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": true,
@@ -839,7 +1028,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -882,8 +1071,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.4562193774706616,
+          0.5437806225293385
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Rune Eaters",
+            "points": 1076.4,
+            "series": 23,
+            "anchored": true
+          },
+          {
+            "name": "FORZE Reload",
+            "points": 1106.9,
+            "series": 22,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -927,7 +1137,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: 6yuBoJlbl has only 3 finished series in the window (needs 6)"
       },
       "form": {
         "available": true,
@@ -985,14 +1195,35 @@
       "fixture": "K27 vs NEXORA",
       "starts_at": "2026-10-22T17:30:00Z",
       "featured_probabilities": [
-        0.54592192,
-        0.45407808
+        0.9838863131596313,
+        0.016113686840368735
       ],
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.9838863131596313,
+          0.016113686840368735
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "K27",
+            "points": 1429.1,
+            "series": 38,
+            "anchored": true
+          },
+          {
+            "name": "NEXORA",
+            "points": 714.8,
+            "series": 18,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1035,8 +1266,29 @@
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.24800693943855448,
+          0.7519930605614455
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "UPGRADE",
+            "points": 1133.2,
+            "series": 15,
+            "anchored": true
+          },
+          {
+            "name": "Virtus.pro",
+            "points": 1325.9,
+            "series": 20,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1079,8 +1331,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.7217723715906914,
+          0.2782276284093086
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Lynn Vision",
+            "points": 1197.2,
+            "series": 24,
+            "anchored": true
+          },
+          {
+            "name": "Chinggis Warriors",
+            "points": 1031.6,
+            "series": 24,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": true,
@@ -1138,14 +1411,35 @@
       "fixture": "ex-Zero Tenacity vs ex-RUSTEC",
       "starts_at": "2026-10-23T08:00:00Z",
       "featured_probabilities": [
-        0.5,
-        0.5
+        0.4935243415307319,
+        0.5064756584692681
       ],
-      "originated_pick_index": null,
-      "exact_tie": true,
+      "originated_pick_index": 1,
+      "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.4935243415307319,
+          0.5064756584692681
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "ex-Zero Tenacity",
+            "points": 1106.7,
+            "series": 54,
+            "anchored": true
+          },
+          {
+            "name": "ex-RUSTEC",
+            "points": 1111.2,
+            "series": 75,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1189,7 +1483,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -1226,18 +1520,18 @@
       "fixture": "Inner Circle Academy vs Spirit Academy",
       "starts_at": "2026-10-23T11:00:00Z",
       "featured_probabilities": [
-        0.6141524,
-        0.3858476
+        0.48,
+        0.52
       ],
-      "originated_pick_index": 0,
+      "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
-        "reason": "Both teams already have published Valve rows; results model not needed"
+        "reason": "No bo3.gg fixture binding (results model needs an observed series history)"
       },
       "hltv_ranking": {
         "available": true,
@@ -1277,7 +1571,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
@@ -1320,8 +1614,29 @@
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.38291097947468744,
+          0.6170890205253126
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "BakS",
+            "points": 1026.7,
+            "series": 30,
+            "anchored": true
+          },
+          {
+            "name": "BRUTE",
+            "points": 1109.6,
+            "series": 36,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": true,
@@ -1385,8 +1700,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.8232760260466105,
+          0.17672397395338946
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "ex-RUSTEC",
+            "points": 1111.2,
+            "series": 75,
+            "anchored": false
+          },
+          {
+            "name": "Saint Sinners",
+            "points": 843.9,
+            "series": 30,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1423,14 +1759,35 @@
       "fixture": "Ground Zero vs Off Chops",
       "starts_at": "2026-10-26T03:00:00Z",
       "featured_probabilities": [
-        0.5,
-        0.5
+        0.44524623649171446,
+        0.5547537635082855
       ],
-      "originated_pick_index": null,
-      "exact_tie": true,
+      "originated_pick_index": 1,
+      "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.44524623649171446,
+          0.5547537635082855
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Ground Zero",
+            "points": 866.6,
+            "series": 31,
+            "anchored": true
+          },
+          {
+            "name": "Off Chops",
+            "points": 904.8,
+            "series": 6,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1473,8 +1830,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.7375522774711202,
+          0.2624477225288798
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "NEXVOID",
+            "points": 1025.4,
+            "series": 32,
+            "anchored": true
+          },
+          {
+            "name": "Alter Ego",
+            "points": 845.9,
+            "series": 15,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1518,7 +1896,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: Staqued has only 2 finished series in the window (needs 6)"
       },
       "form": {
         "available": false,
@@ -1561,8 +1939,29 @@
       "originated_pick_index": 1,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.45250886480804525,
+          0.5474911351919547
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": true,
+        "inputs": [
+          {
+            "name": "Rooster",
+            "points": 722.0,
+            "series": 22,
+            "anchored": true
+          },
+          {
+            "name": "Abyssal",
+            "points": 755.1,
+            "series": 21,
+            "anchored": true
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1605,8 +2004,29 @@
       "originated_pick_index": 0,
       "exact_tie": false,
       "network": {
-        "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "available": true,
+        "probabilities": [
+          0.9808095704927172,
+          0.01919042950728278
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "low_confidence": false,
+        "inputs": [
+          {
+            "name": "HOTU",
+            "points": 1444.4,
+            "series": 40,
+            "anchored": true
+          },
+          {
+            "name": "The Huns",
+            "points": 761.0,
+            "series": 28,
+            "anchored": false
+          }
+        ],
+        "graph_matches": 4646,
+        "graph_anchors": 269
       },
       "form": {
         "available": false,
@@ -1650,7 +2070,7 @@
       "exact_tie": false,
       "network": {
         "available": false,
-        "reason": "Own network model: no results-graph evidence for this run"
+        "reason": "Own network model: no unambiguous bo3.gg identity for both sides (exact team ids and start time required)"
       },
       "form": {
         "available": false,
