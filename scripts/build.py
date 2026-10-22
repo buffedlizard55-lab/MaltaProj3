@@ -248,7 +248,7 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
         out += '<div class="row-source-links">' + external(m['source_url'], 'Hotspawn')
         if a:
-            out += external(a['source_url'], 'Market' if method == 'market' else model_source_label(a) if method == 'model' else 'Aggregated odds' if method == 'reference' else 'Wide book' if method == 'guidance' else 'Bookmaker API')
+            out += external(a['source_url'], source_link_label(a))
         if researched:
             out += f'<a class="source-link" href="{prefix}origination/#match-{e(m["id"])}">Audit trail{icon("arrow")}</a>'
         out += '</div>' + evidence(m, prefix, fallback) + '</td></tr>'
@@ -282,6 +282,50 @@ def basis_badge(analysis, researched=False):
         return '<span class="badge purple">Researched</span>'
     label, tone = METHOD_BADGES.get((analysis or {}).get('method'), ('Model', 'purple'))
     return f'<span class="badge {tone}">{e(label)}</span>'
+
+
+#: The site a source link actually opens. A phone reader taps the link, so the
+#: label has to name the destination, never only the method: a consensus row can
+#: point at Polymarket, and a relayed bookmaker row points at bo3.gg. Labelling
+#: either of those "Bookmaker" sends the reader somewhere the label did not name.
+SOURCE_HOST_LABELS = (
+    ('polymarket.com', 'Polymarket'),
+    ('kalshi.com', 'Kalshi'),
+    ('thunderpick.io', 'Thunderpick'),
+    ('bovada.lv', 'Bovada'),
+    ('pinnacle.com', 'Pinnacle'),
+    ('egamersworld.com', 'EGamersWorld'),
+    ('bo3.gg', 'bo3.gg'),
+    ('hltv.org', 'HLTV'),
+    ('github.com/valvesoftware', 'Valve standings'),
+)
+#: Used only when the URL carries no recognisable host, so a label is always
+#: something the reader can act on. Never claims a provider the row does not name.
+METHOD_FALLBACK_LABELS = {
+    'market': 'Market line', 'bookmaker': 'Bookmaker', 'consensus': 'Consensus sources',
+    'reference': 'Aggregated odds', 'guidance': 'Wide book', 'model': 'Research model',
+}
+
+
+def source_link_label(analysis: dict) -> str:
+    """Name the site this row's evidence link opens, plus its extra providers.
+
+    Derived only from the row's own ``source_url`` and ``quotes``; it never adds
+    a provider, and a multi-source consensus says how many further providers the
+    same row names (+2 for a three-provider median) so the number cannot be read
+    as a single book.
+    """
+    analysis = analysis or {}
+    url = str(analysis.get('source_url') or '')
+    lowered = url.lower()
+    label = next((name for needle, name in SOURCE_HOST_LABELS if needle in lowered), '')
+    if not label:
+        label = urlparse_host(lowered).removeprefix('www.') or METHOD_FALLBACK_LABELS.get(
+            str(analysis.get('method') or ''), 'Source')
+    if str(analysis.get('method') or '') == 'consensus':
+        providers = {str(q.get('provider')) for q in analysis.get('quotes') or [] if q.get('provider')}
+        label = f'{label} +{max(len(providers) - 1, 1)}'
+    return label
 
 
 def model_source_label(analysis: dict) -> str:
@@ -564,7 +608,7 @@ def glance(data, prefix, now=None):
         detail = f'{prefix}origination/#match-{e(m["id"])}'
         links = external(m['source_url'], 'Hotspawn')
         if a:
-            links += external(a['source_url'], 'Market' if a['method'] == 'market' else model_source_label(a) if a['method'] == 'model' else 'Aggregated odds' if a['method'] == 'reference' else 'Wide book' if a['method'] == 'guidance' else 'Bookmaker')
+            links += external(a['source_url'], source_link_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
