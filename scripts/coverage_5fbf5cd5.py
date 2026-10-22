@@ -126,6 +126,31 @@ def active_ids(snapshot: dict, now: datetime) -> list[str]:
     return out
 
 
+def hotspawn_start(row: dict) -> datetime | None:
+    """The fixture start exactly as Hotspawn publishes it.
+
+    The scheduled-fixture array stores epoch **milliseconds as a string** in
+    ``scheduled_start_time`` (verified against the saved 2026-10-22 payload:
+    15 records carried ``start_time`` too, but that field is the actual start
+    used after a match has begun). The first version of this probe looked for
+    ``start_date``/``starts_at`` and silently produced zero live rows; the
+    fix is recorded in the session log rather than hidden.
+    """
+    raw = row.get('scheduled_start_time')
+    if raw in (None, ''):
+        return None
+    try:
+        value = int(str(raw))
+    except (TypeError, ValueError):
+        return None
+    # 13 digits = milliseconds, 10 digits = seconds.
+    seconds = value / 1000 if value > 10_000_000_000 else value
+    try:
+        return datetime.fromtimestamp(seconds, tz=UTC)
+    except (OverflowError, OSError, ValueError):
+        return None
+
+
 def inventory_check(now: datetime, *, live: bool) -> dict:
     """Compare the published snapshot with Hotspawn's own scheduled array."""
     snapshot = json.loads((ROOT / 'data' / 'latest.json').read_text())
@@ -150,16 +175,8 @@ def inventory_check(now: datetime, *, live: bool) -> dict:
     rows = parse_fixtures(payload)
     live_active = []
     for row in rows:
-        start = row.get('start_date') or row.get('starts_at') or row.get('start_time')
-        if not isinstance(start, str):
-            continue
-        try:
-            parsed = datetime.fromisoformat(start.replace('Z', '+00:00'))
-        except ValueError:
-            continue
-        if parsed.tzinfo is None:
-            parsed = parsed.replace(tzinfo=UTC)
-        if parsed > now:
+        parsed = hotspawn_start(row)
+        if parsed is not None and parsed > now:
             live_active.append(str(row.get('id')))
     report.update({
         'result': 'ok',
