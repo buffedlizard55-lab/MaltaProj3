@@ -58,10 +58,11 @@ OFFICIAL = [
     # bo3.gg: first-party match results and team series history read directly by
     # scripts/originate.py and scripts/form_model.py, and the primary publisher of
     # the finished-series results the own-line network model fits on (session
-    # 541cd43a). Model rows link the exact team or match page; it is never used
-    # as a price source.
-    # bo3.gg: first-party match results and team series history read directly by
-    # scripts/originate.py and scripts/form_model.py.
+    # 541cd43a). Since session 15fc6bca it is also the page a *relayed* bookmaker
+    # quote is read from: that row names the bookmaker, keeps its coefficients
+    # verbatim and links the bookmaker's own match page as a second source, so the
+    # relay is labelled second-hand everywhere it appears and never counted as a
+    # first-party price.
     ('bo3.gg', None),
     # Valve's own regional standings repository and model code.
     ('github.com', '/ValveSoftware/'), ('raw.githubusercontent.com', '/ValveSoftware/'),

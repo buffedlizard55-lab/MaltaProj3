@@ -1,0 +1,487 @@
+{
+  "source": "bo3.gg public match API (relayed bookmaker quote)",
+  "api_url": "https://api.bo3.gg/api/v1/matches",
+  "documentation": "https://api.bo3.gg/api/v1",
+  "observed_at": "2026-10-22T01:37:47Z",
+  "rows_fetched": 300,
+  "policy": "Verbatim copy of the bookmaker quote bo3.gg relays. No probability, pick or alias is decided here; the ladder validates the pair before it can become an estimate.",
+  "fixtures": [
+    {
+      "hotspawn_id": "1079189",
+      "bo3_id": 131190,
+      "bo3_url": "https://bo3.gg/matches/forze-reload-vs-just-players-22-10-2026",
+      "tournament": "NODWIN Clutch Series 13",
+      "bo_type": 3,
+      "start": "2026-10-22T11:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2866205",
+      "sides": [
+        {
+          "team_id": 10703,
+          "name": "FORZE Reload",
+          "coeff": 1.4,
+          "active": true
+        },
+        {
+          "team_id": 23107,
+          "name": "Just Players",
+          "coeff": 2.7,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1081598",
+      "bo3_id": 132065,
+      "bo3_url": "https://bo3.gg/matches/jijiehao-vs-nexus-22-10-2026",
+      "tournament": "DraculaN Season 7",
+      "bo_type": 3,
+      "start": "2026-10-22T13:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2867450",
+      "sides": [
+        {
+          "team_id": 3869,
+          "name": "JiJieHao",
+          "coeff": 1.44,
+          "active": true
+        },
+        {
+          "team_id": 326,
+          "name": "Nexus",
+          "coeff": 2.55,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1082688",
+      "bo3_id": 132411,
+      "bo3_url": "https://bo3.gg/matches/imperial-vs-turma-do-pagode-22-10-2026",
+      "tournament": "Circuit X Curitiba 4",
+      "bo_type": 3,
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2859701",
+      "sides": [
+        {
+          "team_id": 1430,
+          "name": "Imperial",
+          "coeff": 1.22,
+          "active": true
+        },
+        {
+          "team_id": 4122,
+          "name": "Turma do Pagode",
+          "coeff": 3.8,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1082689",
+      "bo3_id": 132410,
+      "bo3_url": "https://bo3.gg/matches/bestia-vs-shinden-22-10-2026",
+      "tournament": "Circuit X Curitiba 4",
+      "bo_type": 3,
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2859702",
+      "sides": [
+        {
+          "team_id": 5701,
+          "name": "BESTIA",
+          "coeff": 1.82,
+          "active": true
+        },
+        {
+          "team_id": 11174,
+          "name": "ShindeN",
+          "coeff": 1.88,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1082882",
+      "bo3_id": 132327,
+      "bo3_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+      "tournament": "Stake Ranked Episode 6: Closed Qualifier",
+      "bo_type": 3,
+      "start": "2026-10-22T14:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2865424",
+      "sides": [
+        {
+          "team_id": 3829,
+          "name": "UNiTY",
+          "coeff": 2.35,
+          "active": true
+        },
+        {
+          "team_id": 11101,
+          "name": "Betclic",
+          "coeff": 1.52,
+          "active": true
+        }
+      ],
+      "aliases_used": [
+        {
+          "alias": "Betclic",
+          "canonical": "Apogee Betclic"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082180",
+      "bo3_id": 132326,
+      "bo3_url": "https://bo3.gg/matches/sangal-vs-metizport-22-10-2026",
+      "tournament": "Stake Ranked Episode 6: Closed Qualifier",
+      "bo_type": 3,
+      "start": "2026-10-22T16:30:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-22T01:37:47Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2866602",
+      "sides": [
+        {
+          "team_id": 36,
+          "name": "Sangal",
+          "coeff": 1.75,
+          "active": true
+        },
+        {
+          "team_id": 1578,
+          "name": "Metizport",
+          "coeff": 1.95,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    }
+  ],
+  "rejections": [
+    {
+      "hotspawn_id": "1081869",
+      "teams": [
+        "Morningstar",
+        "NEXVOID"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "morningstar-vs-nexvoid-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081870",
+      "teams": [
+        "Vitalem Aerem",
+        "Rare Atom"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "vitalem-aerem-vs-rare-atom-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079188",
+      "teams": [
+        "Bushido Wildcats",
+        "ex-6666"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "bushido-wildcats-cs-vs-ex-6666-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079650",
+      "teams": [
+        "GenOne",
+        "Spirit Academy"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "genone-vs-spirit-academy-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081143",
+      "teams": [
+        "BakS",
+        "Azuolas"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "baks-esports-vs-azuolas-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079651",
+      "teams": [
+        "Butterfly",
+        "Lavked"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "butterfly-vs-lavked-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081596",
+      "teams": [
+        "Falcons Force",
+        "Phantom Academy"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "phantom-academy-vs-falcons-force-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081597",
+      "teams": [
+        "benched gods",
+        "TitanFlow"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "benched-gods-vs-titanflow-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079652",
+      "teams": [
+        "Acend",
+        "ex-6666"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "acend-cs2-vs-ex-6666-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081145",
+      "teams": [
+        "Lavked",
+        "HAVU"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "lavked-vs-havu-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079653",
+      "teams": [
+        "Rune Eaters",
+        "FORZE Reload"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "rune-eaters-esports-vs-forze-reload-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081146",
+      "teams": [
+        "6yuBoJlbl",
+        "ex-6666"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "6yubojlbl-vs-ex-6666-22-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081871",
+      "teams": [
+        "Lynn Vision",
+        "Chinggis Warriors"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "lynn-vision-vs-chinggis-warriors-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079654",
+      "teams": [
+        "ex-Zero Tenacity",
+        "ex-RUSTEC"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "ex-zero-tenacity-vs-ex-rustec-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "brute-vs-baks-esports-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "ex-rustec-vs-saint-sinners-23-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "ground-zero-vs-off-chops-26-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "nexvoid-vs-alter-ego-26-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "flyquest-vs-staqued-27-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "rooster-vs-abyssal-27-10-2026",
+          "status": "matched"
+        }
+      ]
+    }
+  ]
+}
