@@ -278,9 +278,16 @@ def basis_badge(analysis, researched=False):
     without opening the evidence box. The classes are the existing badge tones,
     so no new colour contract is introduced.
     """
-    if researched:
-        return '<span class="badge purple">Researched</span>'
-    label, tone = METHOD_BADGES.get((analysis or {}).get('method'), ('Model', 'purple'))
+    method = (analysis or {}).get('method')
+    # A fallback found through the research ladder can still be a real paired
+    # bookmaker/market price. Keep that method visible; "Researched" alone
+    # would incorrectly make a money-backed row look like a model estimate.
+    if method in METHOD_BADGES:
+        label, tone = METHOD_BADGES[method]
+    elif researched:
+        label, tone = 'Researched', 'purple'
+    else:
+        label, tone = 'Model', 'purple'
     return f'<span class="badge {tone}">{e(label)}</span>'
 
 
@@ -446,6 +453,9 @@ def exec_banner(data, prefix):
     active = cc.get('active', data['counts'].get('upcoming', 0))
     with_pick = cc.get('with_pick', 0)
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
+    resolved = cc.get('resolved', with_pick)
+    no_side = max(0, resolved - with_pick)
+    no_side_label = f'{no_side} no-side estimate' + ('' if no_side == 1 else 's')
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
     return (
@@ -454,9 +464,9 @@ def exec_banner(data, prefix):
         f'<h3>Every Hotspawn CS2 pick, one tap away</h3>'
         f'<p class="exec-banner-desc">Picks live on their own pages with full probabilities, evidence and lock times. All links below stay inside this site and are thumb-friendly on mobile (≥44 px).</p>'
         f'<div class="exec-banner-actions">'
-        f'<a class="primary" href="{prefix}origination/#picks" aria-label="Open the updated picks list with every match and both probabilities"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both teams\' % shown</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="primary" href="{prefix}origination/#picks" aria-label="Open the updated picks list with every match and both probabilities"><span class="label">Updated picks — all matches<span class="sub">{with_pick} of {active} with a pick · both teams\' probabilities shown</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
-        f'<a class="tertiary" href="{prefix}origination/#unresolved" aria-label="Open unresolved picks and why each is missing a line"><span class="label">Unresolved &amp; limitations<span class="sub\">{unresolved} without a line · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
+        f'<a class="tertiary" href="{prefix}origination/#unresolved" aria-label="Open unresolved and no-side estimates with their limitations"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} unresolved · {no_side_label} · {model} model-only · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
         f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a></p>'
         f'</section>'
@@ -583,9 +593,19 @@ def glance(data, prefix, now=None):
                       + basis_badge(a, researched))
 
         elif a:
-            choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
-                      '<span class="glance-prob">no side</span>'
-                      f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
+            probs = a.get('probabilities') or []
+            if len(probs) == 2:
+                # An exactly even estimate still has two sourced probabilities.
+                # Show both rather than hiding them behind "no side", but never
+                # manufacture a directional pick to break the tie.
+                choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+                          f'<span class="glance-prob">{e(names[0])} {probs[0] * 100:.1f}%</span>'
+                          f'<span class="glance-other">{e(names[1])} {probs[1] * 100:.1f}%</span>'
+                          + basis_badge(a, researched))
+            else:
+                choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
+                          '<span class="glance-prob">no side</span>')
+            choice += f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>'
         else:
             choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
@@ -619,7 +639,7 @@ def glance(data, prefix, now=None):
             f'<p class="section-intro"><strong>{len(active)}</strong> active Hotspawn CS2 fixtures in this snapshot, '
             f'<strong>{picks}</strong> with a directional pick — <strong>{money_picks}</strong> from an external betting line, '
             f'<strong>{model_picks}</strong> from a research model — and <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
-            'Every row shows both teams\' win probability, the pick, and what produced the number. '
+            'Every row shows both teams\' win probability, the pick or an explicit no-side reason, and what produced the number. '
             'A missing estimate is never filled with a default 50/50; model-only rows are listed with their limitations under '
             f'{no_line_link}.</p>'
             '<ol class="glance-list">' + rows + '</ol>' + note + '</section>')
@@ -781,6 +801,10 @@ def no_line_register(data, prefix):
             choice = (f'<span class="glance-pick-label">Pick</span><strong>{e(names[pick])}</strong>'
                       f'<span class="glance-prob">{probs[pick] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[other])} {probs[other] * 100:.1f}%</span>')
+        elif len(probs) == 2:
+            choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+                      f'<span class="glance-prob">{e(names[0])} {probs[0] * 100:.1f}%</span>'
+                      f'<span class="glance-other">{e(names[1])} {probs[1] * 100:.1f}%</span>')
         else:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>')
@@ -827,7 +851,7 @@ def no_line_register(data, prefix):
     return ('<div class="no-line-register" id="no-line-register">'
             '<h3 id="no-line-title">Picks without a betting line · limitations</h3>'
             f'<p class="section-intro">These <strong>{len(rows)}</strong> of <strong>{active}</strong> active fixtures carry a '
-            'pick that no external sportsbook, exchange or market listed for us at the last refresh. They stay in the list — '
+            'research estimate, but no external sportsbook, exchange or market listed a usable price for them at the last refresh. They stay in the list — '
             'the brief asks for a pick or an explicit reason for every match — but each one is a '
             '<strong>research estimate</strong>: an uncalibrated rating or results model, not a price you could have bet. '
             'The model, the money sources tried and the blocked reason are shown for each. Every four-hour refresh retries '
