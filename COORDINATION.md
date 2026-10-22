@@ -1,3 +1,95 @@
+# Current session: arena-aae76fb3 — source-named rows, an unambiguous unresolved tile, and a dated re-verification of the live snapshot
+
+Claimed **2026-10-22T08:10Z** on Arena's fixed branch `arena/aae76fb3-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162). The board was read first. The two most recent sections
+(`arena-fbdc97d6`, `arena-c1fa150f`) are merged and closed; the older `in progress` rows
+(`FC-1`, `VD-1`, `1BC-1`…`1BC-5`, `F5-5`) are more than 60 minutes old, carry no new commits and
+their branches are already superseded on `main`, so they are treated as stale under the 60-minute
+rule and are not touched. This session claims only the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| AEB-1 Re-verify the live snapshot line by line from first-party sources (Hotspawn lobby + fixture API, HLTV match pages, Valve's official standings repository) and record the dated evidence, with every claim linked | **done** — see AEB-1 result | arena-aae76fb3 | new `data/research/aae76fb3/**`, this section |
+| AEB-2 Make the phone summary name the real source on every row and stop publishing a consensus line under the label “Bookmaker”; keep the “Researched” fallback marker, add the basis badge; make the executive-summary unresolved tile say “unresolved” instead of the ambiguous “0 without a line” beside “18 model-only” | **in progress** | arena-aae76fb3 | `scripts/build.py` (`analysis_source_label()` new, `basis_badge()`, `glance()`, `exec_banner()`), `tests/test_aae76fb3_summary_labels.py` (new), `tests/test_941ff196.py` (one banner assertion), this section |
+| AEB-3 Read-only local build, full unittest + link/source audits, PR to `main`, merge without approval, confirm the GitHub Pages deployment and the live phone view | **unclaimed** | — | `COORDINATION.md`, PR, deployment record |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/reference_odds.py`,
+`data/origination/aliases.json`, `data/latest.json`, `data/origination.json`,
+`.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's
+`data/research/<id>/`. No probability, pick, alias or source capture is altered: AEB-2 changes
+only how an already-published row is labelled and linked, and AEB-1/3 write new evidence files and
+the publication record only.
+
+### AEB-1 result — dated, first-party re-verification of the 2026-10-22T05:36Z live snapshot (read 08:00–08:40Z)
+
+**Snapshot under test** (`https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json`,
+served by run [39727841341](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39727841341)):
+`generated_at 2026-10-22T05:37:07Z`, `inventory 96`, `active 33`, `resolved 33`, `with_pick 33`,
+`unresolved 0`; basis split `market 10 · bookmaker 2 · consensus 2 · reference 1 · model 18`
+(the relay row is counted inside `bookmaker`), `alias_joined 3`. Raw record of this audit:
+`data/research/aae76fb3/verification.json`.
+
+- **Inventory vs the rendered Hotspawn lobby** (read at 07:36Z,
+  [play.hotspawn.com/lobby](https://play.hotspawn.com/lobby)). Every fixture the snapshot publishes
+  is the same fixture the lobby cards name at the same start time, including the four cards that
+  carry no “View Match” link yet (FaZe–BC.Game, SinnerS–Eternal Fire, NEXORA–K27,
+  UPGRADE–Virtus.pro). The lobby also lists eight later fixtures that the 05:36Z snapshot does not
+  contain — DFRAG Invitational 2026 (Ground Zero–Off Chops, NEXVOID–Alter Ego, FlyQuest–Staqued,
+  Rooster–Abyssal) and Tesla Cup 2026 (B8–K27, Alliance–FaZe, Luminosity–HOTU, Envy–…). They were
+  published by Hotspawn after the snapshot's observation time; they are **not** a pipeline gap and
+  the next four-hour run collects them. This is recorded as a freshness observation, not a flag.
+- **Valve model rows replayed against the official file.** Six published model probabilities were
+  recomputed from
+  [Valve's official 2026-10-05 standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+  (fetched through the GitHub Contents API, SHA recorded) with the published formula
+  `g = 0.9728209910486895`, `RD = 75`:
+  BakS 1044 vs Azuolas 863 → **73.36%** (published 73.4%); Butterfly 1082 vs Lavked 862 → **77.41%**
+  (77.4%); Nemesis 1455 vs WW 1023 → **91.83%** (91.8%); Donstu 732 vs Banda Chuya 801 →
+  **40.46%** (40.5%); Nuclear TigeRES 1324 vs ILLYRIANS 862 → **93.00%** (93.0%); 6yuBoJlbl 1015 vs
+  6666 923 → **62.60%** (62.6%). All six reproduce to the published one-decimal figure; the
+  five-player rosters printed in each row match the official rows exactly.
+- **Fixture identity confirmed on HLTV**, which the runner cannot read but a person can:
+  [UNiTY vs Betclic, match 2399784](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
+  — Bo3, 22 Oct, Stake Ranked Episode 6 Closed Qualifier, exactly the Hotspawn fixture 1082882;
+  [Bushido Wildcats vs ex-6666, 2399105](https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13)
+  is the identity cited in the reviewed alias registry for 1079188. HLTV remains an identity
+  source, never a two-sided price source and never a fan-vote input.
+- **Money-backed row corroborated.** The published UNiTY–Apogee consensus is 41.8% / 58.2% from
+  Polymarket + Thunderpick + Bovada at 05:36Z; the
+  [Polymarket event](https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22)
+  still showed UNiTY 43¢ / Betclic Apogee 58¢ at 08:30Z, i.e. the same side and magnitude on a
+  later observation (prices move; the dated snapshot value is the one published).
+- **No probability, pick or alias was changed by this audit.** No unverified value was filled in.
+
+### AEB-2 result — the phone summary names the source it links, and the unresolved tile is unambiguous (2026-10-22T08:55Z)
+
+Two labelling defects were found by reading the rendered page against its own JSON, not by trusting
+the row text:
+
+1. **A consensus row was published as “Bookmaker”.** `glance()` chose its link text with a chain of
+   ternaries that only handled `market`, `model`, `reference` and `guidance`; every other money
+   method fell through to `Bookmaker`. The UPGRADE–Virtus.pro row is a **median of Bovada and
+   Pinnacle** (`method: consensus`, `source: "Bovada + Pinnacle"`), but its link read “Bookmaker”
+   and pointed at the Bovada event page. The UNiTY–Apogee row had the same wording over a
+   Polymarket URL. New `analysis_source_label()` derives the destination from the row's own
+   `source`/`source_url` (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, Valve,
+   HLTV ranking, bo3.gg) and names a consensus by its provider count. The link now says what the
+   reader will actually open.
+2. **A researched money line was badged only “Researched”.** That marker is required (it is the
+   audit trail for a fallback row), but on its own it hides whether the number is a three-book
+   median or an uncalibrated rating model. `basis_badge()` keeps `Researched` and appends the
+   existing basis badge (`Consensus`, `Bookmaker`, `Market line`, `Aggregated`) for money-backed
+   fallbacks; model and guidance rows keep the single purple marker. No new colour contract.
+3. **The executive-summary tile said “0 without a line · 18 model-only”.** Read by the user this
+   looks self-contradictory: the same snapshot has eighteen rows with no betting line. The tile now
+   reads `0 unresolved · 18 model-only (no betting line) · why + sources`, which is what the counts
+   actually mean.
+
+Locked by `tests/test_aae76fb3_summary_labels.py` (new) and the updated banner assertion in
+`tests/test_941ff196.py`. Full local suite, link audit and source-row audit results are recorded
+under AEB-3.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
