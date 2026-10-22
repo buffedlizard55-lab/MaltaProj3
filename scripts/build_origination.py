@@ -663,17 +663,17 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
-        from scripts.originate import selection
+        from scripts.originate import ranked_tie_break, selection
         expected_pick = selection(o['probabilities'])
-        # Session 4c972a51 (already on main) may label a 50/50 research estimate
-        # with a published-rank direction without changing either probability.
-        # selection() still returns None in that case; the labelled winner is
-        # the pick. Accept that documented side so the live replay does not
-        # reject a fixture the origination ladder already resolved.
-        if expected_pick is None and isinstance(o.get('tie_break'), dict):
-            winner = o['tie_break'].get('winner')
-            if winner in (0, 1):
-                expected_pick = winner
+        if expected_pick is None:
+            tie = ranked_tie_break(o)
+            if tie:
+                expected_pick, expected_tie = tie
+                assert o.get('tie_break') == expected_tie, 'Fallback tie-break differs from published ranking order'
+            else:
+                assert o.get('tie_break') is None, 'Unexplained fallback tie-break'
+        else:
+            assert o.get('tie_break') is None, 'Non-tied fallback row must not carry a tie_break'
         assert m['pick_index'] == expected_pick, 'Fallback pick differs from its probabilities'
         assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
