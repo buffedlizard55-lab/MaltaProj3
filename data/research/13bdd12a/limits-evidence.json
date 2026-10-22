@@ -1,0 +1,56 @@
+{
+  "session": "arena-13bdd12a",
+  "observed_at": "2026-10-22T01:25:00Z",
+  "purpose": "First-hand observations behind the executive-summary section 'Why some matches have no betting line'. Read directly by this session from the named pages; no value in this file is used as a probability or a pick.",
+  "observations": [
+    {
+      "id": "13b-hltv-no-moneyline",
+      "source": "HLTV match page",
+      "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "read_at": "2026-10-22T01:12:00Z",
+      "finding": "The 'Betting' block contains a Stake sweepstakes promotion ('America's Social Casino - Play For Free, 21+'), not a price. The 'Pick a winner' panel shows a community vote of 90.0% FlyQuest / 10.0% Staqued. The team panel prints HLTV #61 and VRS #54 for FlyQuest and 'Unranked' for Staqued. No two-sided prematch moneyline is published.",
+      "used_as_probability": false
+    },
+    {
+      "id": "13b-hltv-analytics-context-only",
+      "source": "HLTV betting analytics page",
+      "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "read_at": "2026-10-22T01:13:00Z",
+      "finding": "The page lists pros/cons ('FlyQuest has won 4 out of the last 5 matches', 'Staqued is worse ranked (Unranked)', 'Core lineup has only played 4 matches together'), the event prize pool and head-to-head player ratings. No decimal or American price appears on the page.",
+      "used_as_probability": false
+    },
+    {
+      "id": "13b-hltv-analytics-tie",
+      "source": "HLTV betting analytics page",
+      "url": "https://www.hltv.org/betting/analytics/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "read_at": "2026-10-22T01:18:00Z",
+      "finding": "ex-Zero Tenacity is printed as HLTV #67 and 'has won 3 out of the last 5 matches'; ex-RUSTEC is printed as HLTV #70 with 'No insights detected' in favour. No price is published; this is ranking/form context only.",
+      "used_as_probability": false
+    },
+    {
+      "id": "13b-bo3-no-price",
+      "source": "bo3.gg match page",
+      "url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026",
+      "read_at": "2026-10-22T01:16:00Z",
+      "finding": "The fixture page shows 'All odds are on' linking to a Thunderpick partner landing page (go.thunder.partners). No odds for the fixture itself are printed. The page does publish dated finished-series form (benched gods 2-1 Dark Moon, 2-1 Saint Sinners, 2-0 MAYBE, 0-2 Illyrians, 1-2 Quintessence; TitanFlow 2-0 Noir Verse, 0-2 DONSTU, 2-0 Honved, 0-2 Quintessence, 2-1 The Golden Horde) and map win rates.",
+      "used_as_probability": false
+    },
+    {
+      "id": "13b-egamersworld-symmetric",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn",
+      "read_at": "2026-10-22T01:22:00Z",
+      "finding": "The page prints the identical decimal price 1.8 for benched gods and 1.8 for TitanFlow, each followed by 'Make a bet' anchors that point back to egamersworld.com/# (no bookmaker destination). A symmetric 1.8/1.8 pair implies 111.1% total probability, so it is a placeholder rather than a two-sided market and is rejected by the pipeline.",
+      "used_as_probability": false
+    },
+    {
+      "id": "13b-published-coverage",
+      "source": "Published executive summary (GitHub Pages)",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=13bdd12a-0106",
+      "read_at": "2026-10-22T01:10:00Z",
+      "finding": "The published snapshot observed 2026-10-22T01:06:32Z contained 35 active Hotspawn CS2 fixtures, 34 with a directional pick, 0 fixtures without any probability, and 1 resolved estimate with no side (ex-Zero Tenacity vs ex-RUSTEC, CCT Europe 2026 Series #11). The site presented the level pair as 'Even estimate - no side'.",
+      "used_as_probability": false
+    }
+  ],
+  "conclusion": "HLTV does not publish a two-sided CS2 moneyline; bo3.gg points to a partner rather than a price for unpriced low-tier fixtures; EGamersWorld can print a symmetric placeholder. The pipeline therefore rejects each of those as a price and originates its own labelled estimate from official ratings and dated series results, with the exception that an exact rating tie had no side. The tie-break rung added in this session resolves that last case only when a dated independent estimate separates the teams."
+}

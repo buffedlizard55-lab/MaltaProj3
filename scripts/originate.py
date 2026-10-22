@@ -57,6 +57,11 @@ TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a fl
 #     than 0.15 are still rejected and never become a pick.
 THIN_SPREAD = 0.12
 MAX_ACCEPTED_SPREAD = 0.15
+# Session arena-13bdd12a: an exact official-rating tie is not a pick. When the
+# selected research model is level, the next published rung may supply a
+# direction, but only if it separates the teams by at least this much. A
+# rounding-level difference is not evidence and stays "even".
+TIE_BREAK_MIN_GAP = 0.01
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
 POLY_INDEX = 'https://polymarket.com/esports/cs2'
@@ -1807,9 +1812,18 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                            'Dated observation; confirm the price before relying on it.')
     elif model:
         chosen = dict(model)
-        results_model = model.get('family') == 'form'
+        # Session arena-13bdd12a: the rung variable is reused for the own
+        # results fit and the own network fit, so the published label must
+        # follow the quote's family. Before this fix a network estimate was
+        # labelled "Valve official ratings" even though its inputs were
+        # bo3.gg series results; that is a source mislabel, not a wording
+        # preference.
+        family = model.get('family')
+        results_model = family == 'form'
+        network_model_quote = family == 'network'
         chosen.update({'method': 'model',
                        'label': ('Own results-based estimate (bo3.gg series results)' if results_model
+                                 else 'Own network estimate (bo3.gg results graph)' if network_model_quote
                                  else 'Research model estimate (Valve official ratings)'),
                        'fair_decimal': [round(1 / p, 3) for p in model['probabilities']],
                        'quotes': [model],
@@ -1826,6 +1840,18 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if model.get('low_confidence'):
                 limitations.append('Low confidence: the one-sigma interval or the sample size is wide. '
                                    'Treat the direction as indicative only.')
+        elif network_model_quote:
+            limitations.append(
+                'Own uncalibrated network model, not observed betting odds: no money line, no aggregated '
+                'reference and no complete official rating row existed for this fixture. Both ratings come from '
+                f"a Bradley-Terry fit over {model.get('graph_matches')} finished bo3.gg series, anchored on "
+                f"Valve's official points for {model.get('graph_anchors')} teams; the rating-difference "
+                f"one-sigma interval is {model.get('rating_sd_diff')} points "
+                f"(probability interval {model['interval'][0]:.3f}-{model['interval'][1]:.3f}). "
+                'Current lineups, stand-ins and map vetoes are unverified.')
+            if model.get('low_confidence'):
+                limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
+                                   'finished series. Treat the direction as indicative only.')
         else:
             limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
         for proof in (chosen.get('lineup_disambiguation') or []):
@@ -1894,6 +1920,70 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
+    # 6. Directional tie-break (session arena-13bdd12a).
+    #
+    # An exact tie between two published official ratings is a probability
+    # pair without a pick. The brief requires a direction for every match, so
+    # when the selected model is exactly level this rung continues down the
+    # evidence already fetched, in a fixed published order, and uses the first
+    # independent research estimate that separates the teams by at least
+    # TIE_BREAK_MIN_GAP. It never re-prices a money line, never averages
+    # sources, and never pretends the result is a betting market: the row is
+    # labelled "Tie-break estimate" and keeps the level primary estimate in
+    # `tie_break_of` for audit. If no sourced rung separates the teams, the
+    # fixture stays explicitly even instead of receiving an invented side.
+    if chosen and chosen.get('method') == 'model' and selection(chosen['probabilities']) is None:
+        candidates = []
+        for source_label, candidate in (
+                ('HLTV world ranking', hltv_model),
+                ('Own network model (bo3.gg results graph)', network_quote),
+                ('Own results-based model (bo3.gg series results)', match.get('_form'))):
+            if not candidate:
+                continue
+            probs = candidate.get('probabilities') or []
+            if len(probs) != 2 or abs(probs[0] - probs[1]) < TIE_BREAK_MIN_GAP:
+                continue
+            same_source = (str(candidate.get('source_url') or '') == str(chosen.get('source_url') or '')
+                           and str(candidate.get('provider') or '') == str(chosen.get('source') or ''))
+            if same_source:
+                continue
+            candidates.append((source_label, candidate))
+        if candidates:
+            source_label, candidate = candidates[0]
+            primary = {
+                'provider': chosen.get('provider') or chosen.get('source'),
+                'label': chosen.get('label'),
+                'probabilities': list(chosen['probabilities']),
+                'source_url': chosen.get('source_url'),
+                'observed_at': chosen.get('observed_at'),
+            }
+            chosen = dict(candidate)
+            chosen.update({
+                'method': 'model',
+                'label': f'Tie-break estimate ({source_label})',
+                'fair_decimal': [round(1 / p, 3) for p in candidate['probabilities']],
+                'quotes': [candidate],
+                'source': candidate.get('provider') or source_label,
+                'model_crosscheck': None,
+                'tie_break_of': primary,
+            })
+            trail.append({
+                'stage': 'Tie-break research',
+                'status': 'resolved',
+                'source_url': candidate.get('source_url') or HLTV_RANKING_URL,
+                'detail': (f'The primary official-rating estimate is exactly level '
+                           f'({primary["probabilities"][0] * 100:.1f}% / {primary["probabilities"][1] * 100:.1f}%), '
+                           f'so it supplies no side. This dated independent research estimate '
+                           f'({candidate["probabilities"][0] * 100:.1f}% / {candidate["probabilities"][1] * 100:.1f}%) '
+                           'is the only published signal that separates the teams. It is a research '
+                           'estimate, not a bookmaker price.'),
+            })
+            limitations.append(
+                'Tie-break direction: the official ratings used by the primary model are exactly level, so the '
+                f'direction comes from {source_label} '
+                f'({candidate["probabilities"][0] * 100:.1f}% / {candidate["probabilities"][1] * 100:.1f}%). '
+                'This is a low-confidence research lean taken from dated inputs, not an observed money line; '
+                'the even primary estimate is retained on the row for audit.')
     if reference_quote and (chosen or {}).get('method') != 'reference':
         # The capture exists but a first-party line won; say so instead of
         # presenting an unused fallback as a resolved source.
@@ -1966,6 +2056,13 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     if featured.get('method') == 'model' and method in MONEY_METHODS:
         return dict(result, upgraded_from_featured_model=True)
     if featured_pick is None and method in MONEY_METHODS and result.get('pick_index') is not None:
+        return dict(result, upgraded_from_featured_model=True)
+    # Session arena-13bdd12a: a featured model that produced an exact tie has a
+    # probability pair but no pick. If the alias-aware research produced a
+    # documented tie-break direction, publish that row instead of the level
+    # pair; the level primary estimate stays inside `tie_break_of`.
+    if (featured_pick is None and result.get('pick_index') is not None
+            and (result.get('origination') or {}).get('tie_break_of')):
         return dict(result, upgraded_from_featured_model=True)
     return keep_featured()
 

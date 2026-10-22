@@ -126,7 +126,11 @@ def pick_row(m, safety=None, now=None):
         out.append(f'<p class="alias-note">Verified alias join: {e(used)}</p>')
     if m.get('upgraded_from_featured_model') and m.get('featured_probabilities'):
         fp = m['featured_probabilities']
-        if m.get('featured_method') == 'model':
+        if (m.get('origination') or {}).get('tie_break_of'):
+            out.append(f'<p class="alias-note">Tie-break direction: the featured official-rating estimate was exactly level '
+                       f'({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%). A dated independent research rung separates the teams; '
+                       'the level pair is retained for audit and the result is not a bookmaker price.</p>')
+        elif m.get('featured_method') == 'model':
             out.append(f'<p class="alias-note">Upgraded from the featured Valve-model estimate ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.</p>')
         else:
             out.append(f'<p class="alias-note">Upgraded from the featured {e(m.get("featured_method") or "equal")} tie ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a directional money-backed line.</p>')
@@ -356,13 +360,30 @@ def validate_origination(data, source):
         assert all(m.get(k) == raw.get(k) for k in facts), 'Fixture facts or confirmed pick deadline changed'
         o = m.get('origination')
         if raw.get('analysis'):
+            # Session arena-13bdd12a: a featured model that produced an exact
+            # tie may be replaced by a documented tie-break direction. That is
+            # not a money line, so it has its own branch: the published
+            # probabilities must differ, the level primary pair must be kept
+            # verbatim in `tie_break_of`, and the row must be marked.
+            tie_break_upgrade = bool(o) and bool(o.get('tie_break_of')) and (
+                raw['analysis'].get('method') == 'model'
+                and raw.get('pick_index') is None and m.get('pick_index') is not None
+            )
             upgraded = bool(o) and o.get('method') in {'market', 'bookmaker', 'consensus', 'reference'} and (
                 raw['analysis'].get('method') == 'model'
                 or (raw.get('pick_index') is None and m.get('pick_index') is not None)
             )
-            if not upgraded:
+            if not upgraded and not tie_break_upgrade:
                 assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
                 assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
+                continue
+            if tie_break_upgrade:
+                assert o['tie_break_of']['probabilities'] == raw['analysis']['probabilities'], \
+                    'Tie-break row must preserve the level featured pair'
+                assert m.get('upgraded_from_featured_model') is True, \
+                    'Tie-break row replaced a featured model without being marked'
+                assert any(r.get('stage') == 'Tie-break research' for r in m.get('research') or []), \
+                    'Tie-break row has no dated research record'
                 continue
             # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
             # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.

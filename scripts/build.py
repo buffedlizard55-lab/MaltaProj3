@@ -233,7 +233,13 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             expired = not is_fresh(m['observed_at'], now) or not is_fresh(a['observed_at'], now)
             inactive = expired or closed or lock is None
-            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance' + ((' · money line replaced the featured model' if fallback.get('upgraded_from_featured_model') else ' · researched fallback, featured method rejected this fixture') if researched else '')
+            caption = f'{max(a["probabilities"]) * 100:.1f}% estimated win chance'
+            if researched:
+                if a.get('tie_break_of'):
+                    caption += ' · tie-break direction, featured official ratings were level'
+                else:
+                    caption += (' · money line replaced the featured model' if fallback.get('upgraded_from_featured_model')
+                                else ' · researched fallback, featured method rejected this fixture')
             status = 'Stale / unverified freshness · not a current pick' if expired else 'Closed for picks · estimate retained for audit' if closed else 'Lock unverified · confirm on Hotspawn' if lock is None else caption
             out += f'<div class="pick-choice {"inactive-pick" if inactive else ""}" data-pick-choice>{icon("check")}<strong data-original="{e(names[pick])}">{"Snapshot: " if inactive else ""}{e(names[pick])}</strong></div><p class="pick-caption" data-pick-caption data-original="{e(caption)}">{e(status)}</p>'
 
@@ -242,7 +248,9 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
         else:
             out += '<strong class="unresolved-text">Not yet resolved</strong><p class="pick-caption">See the research trail.</p>'
         out += '</td><td class="basis-cell" data-label="Basis &amp; sources">'
-        if researched:
+        if a and a.get('tie_break_of'):
+            out += badge('Tie-break estimate', 'purple')
+        elif researched:
             out += badge('Researched fallback', 'purple')
         else:
             out += badge({'market': 'Market-backed', 'bookmaker': 'Bookmaker line', 'reference': 'Aggregated line', 'model': 'Research model', 'guidance': 'Wide-book guidance', 'unresolved': 'Unresolved'}[method], {'market': 'green', 'bookmaker': 'green', 'reference': 'green', 'model': 'purple', 'guidance': 'amber', 'unresolved': 'amber'}[method])
@@ -272,6 +280,12 @@ def selected_fallback(m, fallbacks):
     if not row or not row.get('origination'):
         return None
     a = m.get('analysis')
+    # Session arena-13bdd12a: a featured model tie has probabilities but no
+    # side. The researched tie-break row is the displayed basis for that
+    # fixture, and it is badged as a tie-break (never as a money line).
+    if (a is not None and m.get('pick_index') is None and row.get('pick_index') is not None
+            and (row.get('origination') or {}).get('tie_break_of')):
+        return row
     if a is None or ((a.get('method') == 'model' or (m.get('pick_index') is None and row.get('pick_index') is not None))
                      and row.get('upgraded_from_featured_model')
                      and row['origination']['method'] in {'market', 'bookmaker', 'consensus', 'reference'}):
@@ -508,7 +522,8 @@ def glance(data, prefix, now=None):
             closed = (lock is not None and lock <= now) or (start is not None and start <= now)
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
-                      + ('<span class="badge purple">Researched</span>' if researched else ''))
+                      + ('<span class="badge purple">Tie-break</span>' if a.get('tie_break_of')
+                         else '<span class="badge purple">Researched</span>' if researched else ''))
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
                       '<span class="glance-prob">no side</span>'
@@ -635,6 +650,53 @@ def source_probe_block(data, prefix):
             'dated source probe ↓</a></p></div>')
 
 
+def market_limits_block(data, prefix):
+    """Why some fixtures have no betting line — dated, first-hand, source-linked.
+
+    The brief asks the executive summary to carry the limitations that stop a
+    market pick on low-tier matches, not only a list of blank rows. Every claim
+    here was read on 2026-10-22 and is linked to the exact page; the record is
+    also published as data/research/13bdd12a/limits-evidence.json. The block
+    never adds, changes or re-prices a probability.
+    """
+    complete = data.get('complete_picks') or {}
+    rows = complete.get('matches') or []
+    tie_break = [m for m in rows if (m.get('origination') or {}).get('tie_break_of')]
+    tie_note = ''
+    if tie_break:
+        tie_note = (' When even the official ratings are level, a documented tie-break rung supplies the '
+                    'direction from the next dated independent estimate; those rows are badged '
+                    '<strong>Tie-break</strong> and keep the level primary pair for audit.')
+    return ('<div class="limitations-callout unresolved-limits" id="why-no-market">'
+            '<strong>Why some matches have no betting line — verified 22 Oct 2026</strong>'
+            '<ul>'
+            '<li><strong>HLTV publishes rankings and match context, not a two-sided prematch moneyline.</strong> '
+            'A match page carries a “Pick a winner” fan vote (never used as a probability here) and a partner '
+            'promo under “Betting”; the betting-analytics page lists form, rank and head-to-head insights '
+            'without prices. Re-checked on '
+            + external('https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026', 'FlyQuest–Staqued')
+            + ' and '
+            + external('https://www.hltv.org/betting/analytics/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11', 'ex-Zero Tenacity–ex-RUSTEC')
+            + '.</li>'
+            '<li><strong>Low-tier and academy events are not priced by the books this pipeline can verify.</strong> '
+            'Every refresh queries Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, GG.BET, Rivalry and Stake for '
+            'each fixture and writes every rejection into that fixture’s research trail; on these matches '
+            'bo3.gg shows a Thunderpick partner link rather than a price ('
+            + external('https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026', 'benched gods–TitanFlow')
+            + ').</li>'
+            '<li><strong>Aggregators can print a placeholder.</strong> EGamersWorld showed the identical 1.8 / 1.8 '
+            'pair on both sides of the same fixture ('
+            + external('https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn', 'EGamersWorld record')
+            + '); a symmetric pair is rejected, never averaged into a pick.</li>'
+            '<li><strong>So the lowest rungs originate a line from official data:</strong> Valve’s regional '
+            'standings, HLTV’s weekly world ranking, then dated finished-series results from bo3.gg. Each estimate '
+            'prints its inputs, sample size, rating deviation and one-sigma interval, and is labelled uncalibrated.'
+            + tie_note + '</li>'
+            '</ul>'
+            f'<p class="tiny">Dated evidence record: <a href="{prefix}data/research/13bdd12a/limits-evidence.json">'
+            'source-limitation observations, 22 October 2026 ↓</a></p></div>')
+
+
 def unresolved_register(data, prefix):
     """A separate, phone-first register of every fixture without a pick.
 
@@ -753,7 +815,8 @@ def unresolved_register(data, prefix):
                '<li>The Valve-rating fallback is explicitly uncalibrated and is used only when no money source resolves a fixture.</li>'
                '<li>Every four-hour refresh retries all sources, so this register shrinks when a market opens — '
                'reload the page rather than treating this list as permanent.</li>'
-               '</ul></div></section>')
+               '</ul></div>'
+               + market_limits_block(data, prefix) + '</section>')
     return ''.join(out)
 
 
@@ -809,7 +872,7 @@ def summary(data, prefix, now=None):
                           'an unavailable source is never treated as proof that no market exists.</p>')
         guidance_note = f', {guidance} wide-book guidance' if guidance else ''
         out += (f'<section class="limitations-callout" id="picks-status" aria-label="Complete pick coverage">'
-                f'<h2>{coverage_label}: {cc["with_pick"]} / {cc["active"]}</h2>'
+                f'<h2>{coverage_label}: {cc["resolved"]} / {cc["active"]}</h2>'
                 f'<p>{cc["resolved"]} with probabilities ({money} external-line, {models} research-model{guidance_note}); '
                 f'{cc["unresolved"]} unresolved in the complete researched list.{direction_note} '
                 f'Estimate snapshot: {local_time(complete["generated_at"])}.</p>'
