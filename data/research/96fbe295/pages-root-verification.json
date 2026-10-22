@@ -115,6 +115,33 @@
       },
       "result": "It cannot be rebuilt locally because validate.py refuses a snapshot whose inventory_observed_at does not match data/evidence/hotspawn-context.json, and that evidence is produced by the collector on the runner. The workflow must be the publisher.",
       "github_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/15fc6bca/live/latest.json"
+    },
+    {
+      "claim": "The four-hour refresh was being cancelled while pending, before it could start.",
+      "method": "gh run list --workflow=pages.yml and gh api repos/.../actions/runs/<id>",
+      "observed": {
+        "cancelled_while_pending": [
+          {
+            "run": 39748026849,
+            "created_at": "2026-10-22T08:28:46Z"
+          },
+          {
+            "run": 39748055891,
+            "created_at": "2026-10-22T08:29:00Z"
+          },
+          {
+            "run": 39750182735,
+            "created_at": "2026-10-22T08:45:50Z"
+          },
+          {
+            "run": 39751657137,
+            "created_at": "2026-10-22T08:57:20Z"
+          }
+        ],
+        "last_successful_publish_before_session": "2026-10-22T05:41:14Z",
+        "mechanism": "GitHub cancels a pending run when a newer run enters the same concurrency group; cancel-in-progress:false only governs the in-progress run."
+      },
+      "source_url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency"
     }
   ],
   "fix": {
@@ -122,7 +149,8 @@
     "files": [
       "scripts/root_publish.py",
       ".github/workflows/pages.yml (permissions.contents + one appended step)",
-      "tests/test_96fbe295.py"
+      "tests/test_96fbe295.py",
+      ".github/workflows/pages.yml (concurrency group per event)"
     ],
     "guards": [
       "refuses a build whose index.html is smaller than 50 kB (a redirect stub)",
@@ -130,7 +158,8 @@
       "refuses a snapshot older than 12 hours unless --allow-stale is passed",
       "refuses to publish a snapshot older than the one already in the root",
       "writes only files whose bytes changed, so a re-run is a no-op",
-      "the workflow step runs only after the deploy and public-site verification steps succeed"
+      "the workflow step runs only after the deploy and public-site verification steps succeed",
+      "scheduled and manual refreshes use their own concurrency group, so pushes can no longer cancel them while pending"
     ],
     "published_paths": "every rendered page, assets/, data/latest.json, data/origination.json, data/sources.json, data/row-source-audit.json, data/origination/aliases.json, data/evidence/hotspawn-fixtures.json, data/evidence/hotspawn-context.json, .nojekyll",
     "excluded_paths": "data/research/ (19 MB) and the remaining data/evidence/ attachments (3 MB) - they change every refresh and are still served by the artifact deploy"
