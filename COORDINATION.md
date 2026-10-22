@@ -5387,3 +5387,6 @@ regenerates verbatim from the build, never hand-edits) and the two files named i
 Probability, pick and alias values are never hand-edited here; any value change is a request in this
 section instead.
 
+
+### S3016 integration fix — pre-existing main failure (2026-10-22)
+`tests.test_review_flags...test_render_only_findings_do_not_rewrite_the_canonical_json` **fails on unmodified `origin/main` 1cab862** (verified in a clean worktree): session 4c972a51's `d4ab460` intentionally writes `featured_method_counts`/`complete_coverage_counts`/`counts_note` into the *output* `data/latest.json` (`write_reconciled_snapshot`), but the older byte-equality assertion was never updated. Fixed here by asserting the documented contract (source file untouched; output = original fields unchanged + only those three keys). No production code changed for this fix. This blocked `Validate dashboard` on the merged head (run 39749568867) and would have blocked any session merging current main.
