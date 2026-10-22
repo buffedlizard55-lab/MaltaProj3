@@ -73,7 +73,13 @@ class ReviewFlagsIntegration(unittest.TestCase):
             {key: original['counts'].get(key) for key in
              ('upcoming', 'market', 'bookmaker', 'consensus', 'model', 'unresolved', 'picks')},
         )
-        self.assertTrue(published['complete_coverage_counts']['active'])
+        researched = json.loads((self.source / 'origination.json').read_text())['counts']
+        self.assertEqual(
+            published['complete_coverage_counts'],
+            {key: researched.get(key, 0) or 0 for key in
+             ('active', 'resolved', 'with_pick', 'market', 'bookmaker', 'consensus',
+              'reference', 'model', 'guidance', 'unresolved')},
+        )
         self.assertIn('complete_coverage_counts describe the researched list', published['counts_note'])
 
 
