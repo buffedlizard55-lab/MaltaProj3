@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bdc084c1-link-labels-named-the-wrong-destination",
+    "severity": "notice",
+    "match_ids": ["1082882"],
+    "title": "Every money link on the phone index said \"Bookmaker\", including links that open Polymarket (fixed)",
+    "detail": "Read on the published site at 2026-10-22T07:30Z, the executive summary's phone index row 15 (UNiTY vs Apogee Betclic, fixture 1082882, pick Apogee Betclic 58.2%) carried one evidence link, labelled \"Bookmaker\", to https://polymarket.com/event/cs2-unity-bca-2026-10-22. The row's own origination label is \"Originated consensus line (median of independent money sources)\" and its card names Polymarket, Thunderpick and Bovada, so the link was a prediction-market page, not a sportsbook. The /picks/ table and the origination cards had the same defect with the wording \"Bookmaker API\". scripts/build.py now derives every such label from the row's own source_url (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, bo3.gg, HLTV, Valve standings) and appends the count of further providers for a multi-source median (\"Polymarket +2\"); it never names a provider the row does not use, and with no recognisable URL it falls back to the method label. No probability, pick or provider was changed. Locked by tests/test_bdc084c1_labels.py.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082882",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "bdc084c1-hotspawn-lists-new-fixtures-between-refreshes",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Hotspawn adds fixtures between refreshes: the published array grew from 96 to 107 records in two hours",
+    "detail": "The published 2026-10-22T05:36Z snapshot reconciled 96 CS2 fixture ids across the lobby, the CS2 lobby and the public fixture array (data/evidence/hotspawn-context.json, api_ids ending at 1082882). A read-only runner probe at 2026-10-22T07:44Z read 107 CS2 records and still reported inventory_crosscheck \"complete\" (run 39742349192), and the rendered lobby read by hand at 07:29Z already listed CCT South America 2026 Series #7 (1082919-1082926) and Tesla Cup 2026 (1082897, 1082898, 1082900, 1082901) fixtures that are absent from the 05:36Z api_ids. This is not a collection defect: the pipeline captured and reconciled every one of them on its next run. It is a limitation of any snapshot: between two four-hour refreshes the published list can lag Hotspawn's lobby by up to one refresh interval, which is inside the 4-8 hour bound the brief sets. The site states its observation time on every page and the browser refuses to keep advertising a pick after its lock time.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/hotspawn-context.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39742349192",
+      "https://play.hotspawn.com/lobby"
+    ]
+  },
+  {
+    "id": "bdc084c1-two-sessions-fixed-the-same-label",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Two sessions wrote a same-named source_link_label() at the same time; the merge rule is recorded, not improvised",
+    "detail": "This session and session ee27e097 (PR #168) independently fixed the \"every link says Bookmaker\" defect in scripts/build.py, both naming the helper source_link_label(). They differ: ee27e097 labels by published method (\"Median of sources\", \"Relayed bookmaker\"), this session labels by the destination host (\"Polymarket +2\", \"bo3.gg\"). The rule written into COORDINATION.md before either merged is that the surviving function keeps this session's host lookup in front and ee27e097's method strings as the fallback for rows with no recognisable URL, so both sessions' tests pass and no assertion is discarded. Flagged so a reviewer can see why the same function appears in two pull requests.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/168",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/171",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md"
+    ]
+  }
+]

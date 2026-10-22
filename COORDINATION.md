@@ -17,6 +17,29 @@ Any needed change in those files is requested here instead of made. If BD-1 show
 existing rung can price, that is published as a finding with the source evidence rather than patched
 into `scripts/originate.py` inside this section.
 
+### BD-2 done — every pick-index link now names the site it opens (2026-10-22T08:25Z)
+- **Defect (verified on the published site at 07:30Z, not inferred).** The executive summary's phone
+  index row for UNiTY vs Apogee Betclic (1082882, pick Apogee Betclic 58.2%) had one evidence link,
+  labelled **"Bookmaker"**, pointing at
+  `https://polymarket.com/event/cs2-unity-bca-2026-10-22`. That row's own label is "Originated
+  consensus line (median of independent money sources)" and its card names Polymarket, Thunderpick
+  and Bovada, so the reader was told they would land on a sportsbook and landed on a prediction
+  market. The `/picks/` table and the origination cards said "Bookmaker API" for the same rows.
+- **Fix.** `scripts/build.py` → new `source_link_label()`, used by `glance()`, `matches_table()` and
+  the original-source line in `unresolved_table()`. The label is derived from the row's own
+  `source_url` (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, bo3.gg, HLTV,
+  Valve standings) plus the number of *further* providers for a multi-source median
+  (`Polymarket +2`); an unrecognisable URL falls back to the host, then to the method. It never
+  names a provider the row does not use. No probability, pick, provider or quote changed.
+- **Tests.** `tests/test_bdc084c1_labels.py` (12 tests) pins the host map, the consensus count, the
+  relay case, the unknown host, the no-URL fallback and the rendered phone index.
+- **Build/audit on the merged tree** (`origin/main` @ `2fb99b0` merged in as `9476120`):
+  `python -m scripts.build` → 80 source rows replayed, row-source audit **607 rows / 589
+  official-linked / 9 flagged / 9 site-map / 0 without a source**, 733 internal
+  links/assets/anchors, mobile landmarks PASS; `scripts.audit_rows --site site --strict` → 0
+  violations. Full suite on the pre-merge tree: **883 tests OK**.
+- **Open PR:** [#171](https://github.com/buffedlizard55-lab/MaltaProj3/pull/171).
+
 ### BD-2 conflict noted: session ee27e097 landed the same fix independently (2026-10-22T08:15Z)
 While this session was writing `source_link_label()` (label every money link by the site it
 actually opens), session `ee27e097` opened **PR #168** with a same-named function that labels the
