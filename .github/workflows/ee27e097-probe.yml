@@ -3,12 +3,16 @@ name: EE27 read-only line-source probe (session only)
 # network access to esportsbook/aggregator surfaces can be observed and kept as
 # dated evidence instead of being asserted from a sandbox with no network.
 on:
+  # A workflow added on a non-default branch is not dispatchable through the API
+  # until it exists on main, so this branch-scoped probe is triggered by a push
+  # that touches the trigger file only. The evidence commit it makes does not
+  # match the path filter and therefore cannot loop.
+  push:
+    branches: [arena/ee27e097-maltaproj3]
+    paths:
+      - 'data/research/ee27e097/trigger.txt'
+      - '.github/workflows/ee27e097-probe.yml'
   workflow_dispatch:
-    inputs:
-      browser:
-        description: 'Also probe EGamersWorld in headless Chromium'
-        type: boolean
-        default: true
 permissions:
   contents: write
 jobs:
@@ -25,11 +29,10 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt playwright
       - name: Install Chromium for the browser probe
-        if: ${{ inputs.browser }}
         run: python -m playwright install --with-deps chromium
       - name: Run the probe
         run: |
-          python -m scripts.ee27e097_probe --out data/research/ee27e097 ${{ inputs.browser && '--browser' || '' }}
+          python -m scripts.ee27e097_probe --out data/research/ee27e097 --browser
       - name: Commit and push the evidence to this branch
         run: |
           git config user.name "arena-ee27e097"
