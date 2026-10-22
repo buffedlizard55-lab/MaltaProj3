@@ -49,6 +49,94 @@ Claimed **2026-10-22** on Arena-fixed branch `arena/7e8bed83-maltaproj3` from `m
 
 ---
 
+# Current session: arena-416d93ee — independent line-by-line verification of the live picks, phone check, final integration
+
+Claimed **2026-10-22T01:03Z** on Arena's fixed branch `arena/416d93ee-maltaproj3`, branched
+from `main` at `d599724` (merge of PR #145). The board was read first. Two sessions were
+already live at that moment and **both are respected here**: `arena-fbdc97d6` (claimed 01:12Z,
+holds `scripts/build.py` → `glance()`, `unresolved_register()`, `researched_method_summary()`,
+`assets/scout.css`, `tests/test_build.py`, `tests/test_summary_navigation.py`) and
+`arena-15fc6bca` (claimed 01:10Z, holds `scripts/originate.py`). This session takes neither
+file and edits neither script while those claims are live.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| VD-1 Independently verify, line by line and from first-party sources, that (a) every CS2 fixture Hotspawn lists is published, (b) every published pick's stated percentage is reproducible from the source its row cites, and (c) the executive summary's in-site pick links and phone layout work — then publish the findings register, rebase onto the merged `main`, open the pull request, merge it and verify the live deployment | in progress | arena-416d93ee | new `data/research/416d93ee/**`, one session-only verification workflow `.github/workflows/416d93ee-verify.yml` (deleted before merge; the captured evidence stays in `data/research/416d93ee/`), this section |
+
+### VD-1 result — independent verification of the published picks (2026-10-22T01:17Z-01:50Z)
+
+Read-only. The audit (`scripts/416d93ee_audit.py`) writes only to
+`data/research/416d93ee/`; it never edits `data/`, and its arithmetic is re-implemented
+inside the audit so a bug in the publisher cannot validate itself. Machine-readable report:
+`data/research/416d93ee/verification.json` (every request keeps its HTTP status and
+response SHA-256); readable report: `verification.md`. Findings are published as the
+**VD-01…VD-07** register in `data/research/416d93ee/repo-review.json`, rendered on
+[Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/).
+
+- **VD-01 coverage — PASS.** Audit 01:17:08Z: Hotspawn's scheduled-fixture API returned
+  **97 records**, of which **35 have a future start** and 62 are past-start records still
+  marked `scheduled`. The published snapshot carried exactly those 35, with **0 missing**,
+  **0 extra**, identical team pairs, every start within 60 s and every competition name
+  identical. The rendered CS2 lobby's own counter reads **All tiers (97)** = API 97 =
+  published inventory 97.
+- **VD-02 arithmetic — PASS.** 35/35 rows replayed from the inputs each row publishes.
+  Two rows first disagreed (UNiTY–Apogee Betclic 1082882, 6yuBoJlbl–ex-6666 1081146)
+  because *this audit* used a flat RD of 75; the results-based rung actually uses
+  `150 + 300/√n` and the larger of the two RDs (`scripts/form_model.py:149-157`). With the
+  correct rule the 01:30:26Z run replayed **17/17 rows exactly**. No published pair fails
+  to sum to 1, no pick contradicts its own percentages, no fair line contradicts `1/p`.
+- **VD-03 method label — NEEDS REVIEW (change request, not edited).** Four rows price a
+  fixture with our own bo3.gg Bradley–Terry fit but label it *"Research model estimate
+  (Valve official ratings)"*: **1079188, 1081597, 1082769, 1082858**. The same JSON object
+  says `family: "network"` and `provider: "Own network model (bo3.gg results graph)"`.
+  Cause: `scripts/originate.py` assigns `model = dict(match['_network'])` in the
+  no-Valve-row branch, so the later `elif model:` writes the Valve label.
+  **CR-1 → `arena-15fc6bca` (owner of `scripts/originate.py`)**: pick the label from
+  `model['family']` and add a regression test that every published label names the same
+  evidence as its provider. No number changes; this session did not edit the file.
+- **VD-04 stale window — FIXED (this session).** A push to main starts the platform's
+  **legacy** Pages build, which publishes the checked-in branch root
+  (`data/latest.json` `generated_at 2026-10-15T08:36:13Z`) in under a minute, while the
+  production workflow needs ~10 minutes. Verified: PR **#146** merged 01:21:14Z and at
+  **01:30:26Z** the public snapshot was *still* the 15 October one (80 records / 17
+  upcoming), unchanged at 01:40Z while the production run was still in progress. That is
+  the user's "we don't have picks" symptom, one cause of it. `pages.yml` now runs a first
+  job, `republish-last-verified`, that downloads the previous successful run's verified
+  `github-pages` artifact and deploys it immediately; the existing publisher keeps its own
+  job and runs afterwards **unconditionally** (`needs` + `if: always()`), so a failure in
+  the new job cannot stop a fresh snapshot. The legacy-mode setting itself stays an
+  owner-only repository setting.
+- **VD-05 phone findability — PASS.** At 390×844 the first screen carries "Updated picks —
+  all matches" (→ `./origination/#picks`) and "Unresolved & limitations"; viewport meta,
+  five nav landmarks, skip link, 138 internal links, 35 rows on `/origination/`. The
+  repository Playwright suite passes **85 checks** at 320/390/768/1440 px including axe
+  WCAG A/AA; the full Python suite is **813 tests OK** on this branch.
+- **VD-06 build integrity — FIXED.** This session's own first capture stored raw source
+  pages as `.html` under `data/research/`, and the build validates every `.html` in `data/`,
+  so it failed with "no main landmark". Captures are now `.html.txt`; the three committed
+  files were renamed.
+- **VD-07 unresolved register — PASS.** One active fixture (1079654 ex-Zero Tenacity vs
+  ex-RUSTEC) publishes an exactly even estimate with no side, by policy, and appears in the
+  summary's unresolved register with its blocker and sources.
+
+**Change requests logged, not made:** CR-1 above (`scripts/originate.py`, owner
+`arena-15fc6bca`). No request to `arena-fbdc97d6`: their FB-1 replaces the hard-coded
+"each now carries an alias-aware researched line … Thunderpick paired-price book" sentence,
+which this audit independently confirmed is wrong for today's rows (the five featured blanks
+were resolved by Kalshi, the Valve model, the bo3.gg results network and the HLTV ranking).
+
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/collect.py`, `assets/scout.css`, `data/origination/aliases.json`,
+`data/origination/aliases.json`, `data/latest.json` / `data/sources.json` /
+`data/origination.json` (the checked-in replay fixtures),
+`archive/`, `docs/`, the other sessions' `data/research/<id>/`, or any pick value.
+Any defect that can only be fixed in a file another session holds is written here as a
+change request, not edited. This session also acts as the integration pass: it rebases
+onto whatever has merged to `main`, re-runs the whole verification on the combined tree,
+and does not merge a site whose build or checks fail.
+
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
