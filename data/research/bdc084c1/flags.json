@@ -2,7 +2,9 @@
   {
     "id": "bdc084c1-link-labels-named-the-wrong-destination",
     "severity": "notice",
-    "match_ids": ["1082882"],
+    "match_ids": [
+      "1082882"
+    ],
     "title": "Every money link on the phone index said \"Bookmaker\", including links that open Polymarket (fixed)",
     "detail": "Read on the published site at 2026-10-22T07:30Z, the executive summary's phone index row 15 (UNiTY vs Apogee Betclic, fixture 1082882, pick Apogee Betclic 58.2%) carried one evidence link, labelled \"Bookmaker\", to https://polymarket.com/event/cs2-unity-bca-2026-10-22. The row's own origination label is \"Originated consensus line (median of independent money sources)\" and its card names Polymarket, Thunderpick and Bovada, so the link was a prediction-market page, not a sportsbook. The /picks/ table and the origination cards had the same defect with the wording \"Bookmaker API\". scripts/build.py now derives every such label from the row's own source_url (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, bo3.gg, HLTV, Valve standings) and appends the count of further providers for a multi-source median (\"Polymarket +2\"); it never names a provider the row does not use, and with no recognisable URL it falls back to the method label. No probability, pick or provider was changed. Locked by tests/test_bdc084c1_labels.py.",
     "source_urls": [
@@ -33,6 +35,20 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/168",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/171",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md"
+    ]
+  },
+  {
+    "id": "bdc084c1-one-active-fixture-has-no-side",
+    "severity": "warning",
+    "match_ids": [
+      "1082926"
+    ],
+    "title": "One active fixture carries an exactly even model estimate, so it has probabilities but no pick",
+    "detail": "In the 2026-10-22T08:20:59Z runner snapshot (43 active fixtures, data/research/bdc084c1/probe-report.json) 43 of 43 fixtures had probabilities and 42 had a directional pick. The one row without a side is Isurus vs Hacha (fixture 1082926, CCT South America 2026 Series #7, starting 2026-10-23T22:00Z). Its basis is the HLTV world-ranking research model at 0.5000 / 0.5000, and the collector records 'Hacha: no exact-name Valve rating found'; the HLTV transform returns exactly 50% when the two published point totals are equal, so there is no directional edge to publish. The site shows it as 'Even estimate \u00b7 no side' with a Why link rather than inventing a default side, and the four-hour refresh retries Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, bo3.gg and HLTV for it every run. A reviewed alias-aware money line for this fixture would replace the even estimate; none was observed in this snapshot. This is published so the one match without a pick is visible, dated and checkable rather than hidden in an average.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/bdc084c1/probe-report.json",
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://www.hltv.org/ranking/teams"
     ]
   }
 ]

@@ -40,6 +40,37 @@ into `scripts/originate.py` inside this section.
   violations. Full suite on the pre-merge tree: **883 tests OK**.
 - **Open PR:** [#171](https://github.com/buffedlizard55-lab/MaltaProj3/pull/171).
 
+### BD-1 result — fixtures added after a published snapshot are captured and priced (2026-10-22T08:35Z)
+Runner-observed, read-only. `scripts/bdc084c1_probe.py` compares the freshly collected snapshot with
+the snapshot committed at `HEAD` and reads its basis from `scripts.build.selected_fallback`, so the
+report cannot disagree with the site about which record produced a row's number.
+- **Fixtures added between refreshes are reconciled, not missed.** The published 05:36Z snapshot
+  reconciled 96 CS2 ids (`data/evidence/hotspawn-context.json`, `api_ids` ending at `1082882`); the
+  runner's 07:44Z read reconciled **107** ids and the 08:20Z read **104** ids, both with
+  `inventory_crosscheck: complete` across the lobby, the CS2 lobby and the fixture array. The array
+  grows as Hotspawn publishes rounds and shrinks as matches start; the collector follows it.
+- **Every fixture in the fresh snapshot got a number.** At `2026-10-22T08:20:59Z`
+  (`data/research/bdc084c1/probe-report.json`, committed by the branch-scoped workflow and kept):
+  **43 active fixtures, 43 with probabilities, 42 with a directional pick** — **24** priced from an
+  external line (17 market, 3 consensus, 4 bookmaker) and **19** from a research model. Basis mix
+  `{"market":17,"model":19,"consensus":3,"bookmaker":4}`; sources `polymarket.com 20, github.com 13,
+  hltv.org 4, bo3.gg 2, pinnacle.com 2, thunderpick.io 2`.
+- **The one row with no side is published, not hidden.** Isurus vs Hacha (1082926, 23 Oct 22:00Z) is
+  an exactly even 0.5000/0.5000 HLTV world-ranking estimate, so it carries probabilities but no
+  pick. That is flag `bdc084c1-one-active-fixture-has-no-side` with the Hotspawn page and the ranking
+  page linked. The earlier brief-critical fixtures that the featured method blanks — the CCT South
+  America Series #7 card, the Tesla Cup fixtures and the Moscow Cyber Games fixtures — all resolved
+  (market, bookmaker or model) in the same snapshot.
+- **The comparison baseline is the checked-in snapshot, not the live one.** `HEAD` in this branch
+  still carries the 15 October replay fixture, so the report's "43 new since publication" counts
+  every fixture added since then rather than only those added since 05:36Z. The 96→107→104
+  reconciliation above is the narrower live comparison and is quoted from the runner's own
+  annotations and `hotspawn-context.json`, not from the probe's baseline.
+- **Tooling.** `scripts/bdc084c1_probe.py` stays in the tree (read-only, like `bo3_odds_probe.py`);
+  `.github/workflows/bdc084c1-probe.yml` is **deleted in this branch** before the merge, as
+  `fbdc97d6-live.yml` was. The one crash found on its first run (`None.startswith` when a new row
+  has no source URL in the Markdown table) was fixed and re-run green before removal.
+
 ### BD-2 conflict noted: session ee27e097 landed the same fix independently (2026-10-22T08:15Z)
 While this session was writing `source_link_label()` (label every money link by the site it
 actually opens), session `ee27e097` opened **PR #168** with a same-named function that labels the
