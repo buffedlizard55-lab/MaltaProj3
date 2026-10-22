@@ -50,6 +50,14 @@
       "read_at": "2026-10-22T01:10:00Z",
       "finding": "The published snapshot observed 2026-10-22T01:06:32Z contained 35 active Hotspawn CS2 fixtures, 34 with a directional pick, 0 fixtures without any probability, and 1 resolved estimate with no side (ex-Zero Tenacity vs ex-RUSTEC, CCT Europe 2026 Series #11). The site presented the level pair as 'Even estimate - no side'.",
       "used_as_probability": false
+    },
+    {
+      "id": "13b-egamersworld-clock",
+      "source": "EGamersWorld CS2 match list",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "read_at": "2026-10-22T01:45:00Z",
+      "finding": "EGamersWorld prints its fixture clock four hours behind UTC, not in UTC: it showed Morningstar-NEXVOID at 21.10.26 23:00 where Hotspawn schedules 22 Oct 03:00Z, Vitalem Aerem-Rare Atom at 22.10.26 01:00 where Hotspawn schedules 05:00Z, and benched gods-TitanFlow at 22.10.26 07:00 where Hotspawn schedules 11:00Z. The same -4:00 offset holds on all three, so those are not start-time conflicts; no time is ever shifted by assumption, and only an exact 60-second join can price a fixture.",
+      "used_as_probability": false
     }
   ],
   "conclusion": "HLTV does not publish a two-sided CS2 moneyline; bo3.gg points to a partner rather than a price for unpriced low-tier fixtures; EGamersWorld can print a symmetric placeholder. The pipeline therefore rejects each of those as a price and originates its own labelled estimate from official ratings and dated series results, with the exception that an exact rating tie had no side. The tie-break rung added in this session resolves that last case only when a dated independent estimate separates the teams."

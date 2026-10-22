@@ -689,6 +689,10 @@ def market_limits_block(data, prefix):
             'pair on both sides of the same fixture ('
             + external('https://egamersworld.com/counterstrike/match/rW6Ymkl0D/benched-gods-vs-titanflow-EcLgERbZn', 'EGamersWorld record')
             + '); a symmetric pair is rejected, never averaged into a pick.</li>'
+            '<li><strong>Aggregator clocks are not always UTC.</strong> EGamersWorld printed 07:00 for '
+            'benched gods–TitanFlow, which is 11:00Z: that site’s clock ran four hours behind UTC, and the same '
+            '−4:00 offset appeared on two other fixtures read at the same time. No time is shifted by '
+            'assumption, and only an exact 60-second join can price a fixture.</li>'
             '<li><strong>So the lowest rungs originate a line from official data:</strong> Valve’s regional '
             'standings, HLTV’s weekly world ranking, then dated finished-series results from bo3.gg. Each estimate '
             'prints its inputs, sample size, rating deviation and one-sigma interval, and is labelled uncalibrated.'
