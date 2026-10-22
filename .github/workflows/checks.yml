@@ -88,9 +88,17 @@ jobs:
                                   for result in test.get('results') or []:
                                       for error in result.get('errors') or []:
                                           message = error.get('message') or error.get('value') or ''
+                                          # Accessibility failures must name the element and the
+                                          # measured contrast, not just 'a violation exists'.
+                                          detail = ''
+                                          import re as _re
+                                          for target in _re.findall(r'"target" => Array \[\s*"([^"]+)"', message):
+                                              detail += ' | selector: ' + target
+                                          for summary in _re.findall(r'"failureSummary" => "([^"]+)"', message):
+                                              detail += ' | ' + summary[:220]
                                           print('::error title=Browser test failed::' + escape(
                                               suite.get('file', '?') + ' :: ' + (spec.get('title') or '?') +
-                                              ' :: ' + message[:800]))
+                                              ' :: ' + message[:500] + detail, 1800))
                                           printed += 1
                       walk(suite.get('suites') or [])
               walk(document.get('suites') or [])
