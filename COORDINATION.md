@@ -8,7 +8,25 @@ merge.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| FC-1 Every upcoming Hotspawn CS2 fixture must publish a pick **and** a probability (no blank, no even-without-side); new last-resort research rungs sourced from HLTV and esportsbook lines for the low-tier gap; a separate, source-linked unresolved section listing the limitations for each; an executive summary that links to the picks inside the site and works on a phone | **in progress** | arena-15fc6bca | `scripts/originate.py`, `scripts/build.py`, `assets/scout.css`, session-only probe tooling (deleted before merge — captured evidence stays in `data/research/15fc6bca/`), `tests/test_15fc6bca_*.py`, `.github/workflows/15fc6bca-*.yml` (temporary), new `data/research/15fc6bca/`, this section |
+| FC-1 Publish a money-backed line wherever an esportsbook actually lists a low-tier fixture: add a bo3.gg-relayed two-sided bookmaker quote as a reviewed money rung in the origination ladder, with strict join, de-vig and an explicit "relayed, not first-party" label; verify coverage from the runner; keep the unresolved register honest | **in progress** | arena-15fc6bca | `scripts/originate.py` (new relayed-bookmaker rung only), session-only probe tooling `scripts/15fc6bca_probe.py` + `.github/workflows/15fc6bca-probe.yml` (both deleted before merge — captured evidence stays in `data/research/15fc6bca/`), `tests/test_15fc6bca_*.py`, new `data/research/15fc6bca/`, this section |
+
+**Overlap resolved with `arena-fbdc97d6` (claimed 01:12Z, after my 01:05Z claim).** Their
+FB-1 holds `scripts/build.py` (`glance()`, `unresolved_register()`, `researched_method_summary()`)
+and `assets/scout.css`; they also run their own low-tier line-source probe under FB-2. I
+**withdraw my claim on those two files** and keep `scripts/originate.py`, which their board
+explicitly pledges not to touch. Consequences, written here rather than edited into their
+files:
+
+- The research-ladder changes below change *which method* resolves a fixture, so the
+  hard-coded "each now carries an alias-aware researched line … verified Thunderpick
+  paired-price book" sentence they are removing must stay removed; the replacement must be
+  derived from each row's own `origination.label`, which is what my rung sets.
+- I will not edit `scripts/build.py`. If a renderer change is needed after their merge I
+  will log the request here first, or take the file over only under the 60-minute rule.
+- They are probing line sources for today's fixtures; my probe answers a different
+  question (does the ladder's own bo3.gg listing carry a two-sided bookmaker quote, and
+  does the ladder use it). No duplicate capture is written outside my own research
+  directory.
 
 **Non-overlap pledge:** no change to `data/origination/aliases.json` (reviewed registry),
 `scripts/collect.py`, `scripts/domain.py`, `data/latest.json` / `data/sources.json` /
