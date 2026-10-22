@@ -1,0 +1,74 @@
+# Session-scoped coverage probe for arena-bdc084c1.
+#
+# Why a workflow: the sandbox this session runs in cannot reach the official
+# sources (Hotspawn's fixture API and lobby are blocked by the sandbox network
+# policy), so the "does every fixture Hotspawn lists end up with a pick" question
+# can only be answered from inside GitHub Actions, where the four-hour refresh
+# already reads them. The probe itself (scripts/bdc084c1_probe.py) is read-only:
+# it reads the fresh snapshot, the saved evidence and the published HTML and
+# writes one report. It never writes data/latest.json, data/origination.json or
+# any site page.
+#
+# This file is deleted again before the PR merges, like every other session's
+# runner-scoped workflow.
+name: bdc084c1 coverage probe
+
+on:
+  push:
+    branches: ['arena/bdc084c1-maltaproj3']
+    paths:
+      - 'scripts/bdc084c1_probe.py'
+      - '.github/workflows/bdc084c1-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bdc084c1-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: python -m pip install --quiet -r requirements.txt
+      - name: Collect the live inventory
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Originate every pick
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Build the site from the fresh snapshot
+        run: python -m scripts.build --data data --output site
+      - name: Probe coverage and basis
+        run: |
+          python scripts/bdc084c1_probe.py \
+            --snapshot data/latest.json \
+            --origination data/origination.json \
+            --evidence data/evidence \
+            --site site \
+            --output data/research/bdc084c1/probe-report.json \
+            --markdown data/research/bdc084c1/probe-report.md
+      - name: Summarise
+        if: always()
+        run: cat data/research/bdc084c1/probe-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bdc084c1-probe-report
+          path: |
+            data/research/bdc084c1/probe-report.json
+            data/research/bdc084c1/probe-report.md
+          if-no-files-found: warn
