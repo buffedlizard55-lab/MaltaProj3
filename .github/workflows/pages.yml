@@ -127,6 +127,17 @@ jobs:
           else
             echo "::warning::coverage probe failed; unresolved sections keep the collector's own reasons"
           fi
+      - name: Record which line sources actually answered this refresh (read-only, non-fatal)
+        # Session fbdc97d6: the executive summary publishes this sweep beside the
+        # unresolved register so the source limitations are dated and reviewable.
+        # It writes status codes and notes only - never a probability, a pick or
+        # an alias - and a failure keeps the previous dated record.
+        run: |
+          if python -m scripts.fbdc97d6_probe --timeout 10 --out data/research/fbdc97d6; then
+            echo "line-source sweep recorded"
+          else
+            echo "::warning::line-source sweep failed; the register keeps the last dated record"
+          fi
       - name: Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)
         run: python -m scripts.twc_research
       - name: Order platform publishers and record Pages configuration

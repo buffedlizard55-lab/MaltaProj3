@@ -70,11 +70,11 @@ def _title(html: str) -> str:
     return re.sub(r'\s+', ' ', m.group(1)).strip()[:180] if m else ''
 
 
-def probe(name: str, url: str, teams: list[str]) -> dict:
+def probe(name: str, url: str, teams: list[str], timeout: int = 25) -> dict:
     record = {'name': name, 'url': url, 'observed_at': datetime.now(UTC).isoformat(timespec='seconds')}
     try:
         r = requests.get(url, headers={'User-Agent': UA, 'Accept-Language': 'en-US,en;q=0.9'},
-                         timeout=25, allow_redirects=True)
+                         timeout=timeout, allow_redirects=True)
     except Exception as exc:  # noqa: BLE001 - evidence records the actual failure
         record.update(status=None, error=f'{type(exc).__name__}: {exc}'[:300])
         return record
@@ -96,6 +96,61 @@ def probe(name: str, url: str, teams: list[str]) -> dict:
     record['teams_on_page'] = found
     return record
 
+
+
+# One plain-language note per surface, shown on the site beside its status code.
+# A reachable page is never a price; these notes only explain what the source is.
+NOTES = {
+    'HLTV match listing': 'Cloudflare challenge to the automated runner. HLTV match and ranking pages are readable by a person (verified by hand on 2026-10-22), so HLTV guides identity and ranking but cannot supply an automated prematch price.',
+    'HLTV known match page': 'Same challenge. HLTV publishes a fan vote and analytics, not a two-sided prematch line, so it is not an odds source even when readable.',
+    'HLTV world ranking': 'Ranking page also challenged for the runner; the dated ranking rung reads a saved official page, so it is unaffected.',
+    'EGamersWorld CS2 matches': 'Cloudflare challenge to the runner. The reviewed bookmaker-average capture is a separate hash-checked input.',
+    'EGamersWorld known match': 'Cloudflare challenge to the runner.',
+    'bo3.gg matches': 'HTTP 200. bo3.gg publishes a named bookmaker block for some fixtures; see the separate relay probe.',
+    'bo3.gg known match': 'HTTP 200. Team form, lineups and map statistics readable.',
+    'Oddspedia CS2': 'HTTP 410: the page has been permanently deleted, so it is not a usable source.',
+    'Oddspedia match list API': 'HTTP 400 on the unauthenticated query; no odds returned.',
+    'OddsPortal CS2': 'Page answers, but prices are rendered client-side and no two-sided prematch CS2 series price could be extracted from the HTML.',
+    'Polymarket CS2': 'HTTP 200; the primary featured source (official CLOB order books are read through the Gamma/CLOB APIs).',
+    'Kalshi CS2 game series': 'HTTP 429 Vercel checkpoint on the HTML page. The official Kalshi API used by the collector answers, so the exchange rung is unaffected by the HTML block.',
+    'Thunderpick CS': 'HTTP 200; first-party esportsbook, read through the official POST /api/matches query.',
+    'Bovada CS2': 'HTTP 200; first-party esportsbook. Series prices are read through the collector\'s structured request.',
+    'Pinnacle CS2': 'HTTP 404 on this path (and a generic redirect on the alternate path); no match-level line verified.',
+    'GG.BET CS': 'HTTP 403 to the runner.',
+    'BetBoom CS2': 'HTTP 401 (geo or login gate).',
+    '1xBet CS2': 'HTTP 203 with a challenge page; not usable.',
+    'Marathonbet CS2': 'Cloudflare challenge to the runner.',
+    'Betway CS2': 'HTTP 404 on this path.',
+    'DraftKings CS2': 'HTTP 200 and the landing page names some of the day\'s teams, but no per-fixture market discovery was verified here; recorded as a lead, not a price.',
+    'Luckbox CS2': 'Connection error from the runner; not usable.',
+}
+
+
+def write_line_sources(out: Path, results: list[dict], observed_at: str) -> dict:
+    """Write the dated record the site renders under the unresolved register."""
+    import os
+    document = {
+        'schema_version': 1,
+        'session': 'arena-fbdc97d6',
+        'observed_at': observed_at,
+        'environment': ('github-actions-runner' if os.environ.get('GITHUB_ACTIONS')
+                        else 'local checkout'),
+        'policy': ('Read-only reachability record. A page listed here is NOT a price. Only a two-sided, '
+                   'first-party prematch series line or a published official rating may produce a number, '
+                   'and the ladder in scripts/originate.py decides which one is used.'),
+        'sources': [{'name': r['name'], 'url': r['url'], 'http_status': r.get('status'),
+                     'error': r.get('error'), 'detail_url': r.get('final_url'),
+                     'fixtures_listed': sorted((r.get('teams_on_page') or {}).keys()),
+                     'challenge_markers': r.get('challenge_markers') or [],
+                     'note': NOTES.get(r['name'], '')} for r in results],
+        'conclusion': ('Of the sources reachable from the runner, the exchanges and esportsbooks that answer are '
+                       'Polymarket, Kalshi (API), Thunderpick and Bovada, plus bo3.gg and the OddsPortal / '
+                       'DraftKings landing pages; HLTV, EGamersWorld, GG.BET, BetBoom, 1xBet and Marathonbet block '
+                       'unattended access. A reachable page still has to publish a two-sided price for the exact '
+                       'fixture before it can move a pick.'),
+    }
+    (out / 'line-sources.json').write_text(json.dumps(document, indent=2, ensure_ascii=False) + '\n')
+    return document
 
 def bo3_bet_probe(out: Path) -> dict:
     """Read bo3.gg's published bookmaker block for every active fixture.
@@ -156,6 +211,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--out', type=Path, default=Path('data/research/fbdc97d6'))
     ap.add_argument('--bo3', action='store_true', help='probe bo3.gg published bookmaker blocks')
+    ap.add_argument('--timeout', type=int, default=25, help='per-request timeout in seconds')
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     if args.bo3:
@@ -163,7 +219,7 @@ def main() -> int:
         priced = sum(1 for f in report['fixtures'] if f['bet'])
         print(f"bo3 bet probe: {priced} of {len(report['fixtures'])} active fixtures priced")
         return 0
-    results = [probe(name, url, TEAMS) for name, url in PAGES]
+    results = [probe(name, url, TEAMS, timeout=args.timeout) for name, url in PAGES]
     document = {
         'session': 'arena-fbdc97d6',
         'purpose': ('Read-only reachability probe of line sources that could price low-tier Hotspawn '
@@ -183,6 +239,7 @@ def main() -> int:
         marks = ', '.join(r.get('challenge_markers') or []) or '—'
         lines.append(f"| {r['name']} | {status} | {teams} | {marks} | {r.get('title') or '—'} |")
     (args.out / 'esportsbook-probe.md').write_text('\n'.join(lines) + '\n')
+    write_line_sources(args.out, results, document['observed_at'])
     print(f"probed {len(results)} sources -> {args.out / 'esportsbook-probe.json'}")
     return 0
 

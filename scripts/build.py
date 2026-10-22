@@ -292,8 +292,10 @@ def researched_method(match: dict) -> tuple[str, str, str]:
         lowered = f'{source} {label}'.lower()
         if 'hltv' in lowered:
             return 'the HLTV world-ranking model', source or 'HLTV world ranking', url
-        if 'bo3' in lowered or 'results-based' in lowered or 'network' in lowered:
+        if 'network' in lowered:
             return 'the bo3.gg results network model', source or 'bo3.gg series results', url
+        if 'bo3' in lowered or 'results-based' in lowered:
+            return 'the bo3.gg results model', source or 'bo3.gg series results', url
         if 'valve' in lowered:
             return 'the Valve rating model', source or 'Valve official standings', url
     return label or method or 'a researched estimate', source or 'Research source', url
@@ -701,9 +703,10 @@ def line_sources_block(data, prefix):
                  + (f' <span class="tiny muted">Listed here: {e(names)}</span>' if names else '')
                  + '</span></li>')
     return ('<div class="line-sources" id="line-sources">'
-            '<h3>Line sources checked this refresh</h3>'
-            f'<p class="tiny">Read-only sweep from {e(record.get("environment") or "an automated runner")} at '
-            f'{local_time(record.get("observed_at"))}: <strong>{len(reachable)}</strong> of '
+            '<h3>Line sources checked — dated sweep</h3>'
+            f'<p class="tiny">Read-only sweep recorded from {e(record.get("environment") or "an automated runner")} at '
+            f'{local_time(record.get("observed_at"))} and re-run by the four-hour pipeline when it can: '
+            f'<strong>{len(reachable)}</strong> of '
             f'<strong>{len(sources)}</strong> surfaces answered HTTP 200 and <strong>{len(blocked)}</strong> '
             'refused, deleted or timed out. A reachable page is never a price by itself — only a two-sided '
             'first-party line or a published official rating may produce a number. '
@@ -763,11 +766,21 @@ def unresolved_register(data, prefix):
                 items.append(f'<li><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
                              f'{e(n[0])} vs {e(n[1])}</a> <span class="method-note">· {e(label)}</span> {link}</li>')
             summary = ', '.join(f'{count} from {label}' for label, count in sorted(counts.items(), key=lambda x: (-x[1], x[0])))
+            money_methods = {'market', 'bookmaker', 'consensus', 'reference'}
+            kinds = {(m.get('origination') or {}).get('method') in money_methods for m in closed}
+            if kinds == {True}:
+                nature = ('These are external money lines — one provider each unless a row says it is a median of '
+                          'independent sources — never a multi-book consensus.')
+            elif kinds == {False}:
+                nature = ('These are labelled research estimates, not bookmaker lines: no reachable book priced these '
+                          'fixtures at the observation time.')
+            else:
+                nature = ('These are a mix of external money lines and labelled research estimates; each row states '
+                          'which one it is.')
             extra = (f'<p class="tiny" style="margin-top:10px">In this snapshot the featured exact-name method left '
                      f'<strong>{len(closed)}</strong> fixture(s) without a pick. Each now carries a researched estimate '
-                     f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. '
-                     'These are labelled research estimates, not a single bookmaker consensus; every figure keeps its '
-                     'own source and limitation on the origination card. No line is invented.</p>'
+                     f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. {nature} '
+                     'Every figure keeps its own source and limitation on the origination card. No line is invented.</p>'
                      '<ul class="researched-methods">' + ''.join(items) + '</ul>')
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '

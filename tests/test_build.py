@@ -399,8 +399,12 @@ class ResearchProvenanceTests(unittest.TestCase):
         label, source, url = researched_method(self.fixture(
             3, ['Eps', 'Zeta'], 'model', 'Own results-based estimate (bo3.gg series results)',
             'Own results-based model (bo3.gg series results)', 'https://bo3.gg/matches'))
-        self.assertIn('bo3.gg results network', label)
+        self.assertIn('bo3.gg results model', label)
         self.assertEqual(url, 'https://bo3.gg/matches')
+        label, _, _ = researched_method(self.fixture(
+            5, ['Iota', 'Kappa'], 'model', 'Own network estimate (bo3.gg results graph)',
+            'Own network model (bo3.gg results graph)', 'https://bo3.gg/matches'))
+        self.assertIn('bo3.gg results network', label)
         label, _, _ = researched_method(self.fixture(
             4, ['Eta', 'Theta'], 'model', 'Research model estimate (HLTV world ranking)',
             'HLTV world ranking', 'https://www.hltv.org/ranking/teams'))
@@ -445,3 +449,32 @@ class ReviewFindabilityTests(unittest.TestCase):
         # still ends on the section boundary the link checker expects.
         self.assertLess(html.index('id="dated-registers"'), html.index('id="unresolved"'))
         self.assertTrue(html.endswith('</section>'))
+
+
+class ResearchedNatureTests(unittest.TestCase):
+    def _data(self, methods):
+        rows = []
+        for i, method in enumerate(methods):
+            rows.append({'id': str(i), 'teams': [{'name': f'A{i}'}, {'name': f'B{i}'}],
+                         'starts_at': '2026-10-22T10:00:00Z',
+                         'source_url': f'https://www.hotspawn.com/matches/x-{i}',
+                         'featured_method': None, 'pick_index': 0, 'research': [],
+                         'origination': {'method': method,
+                                         'label': 'Originated market line (Kalshi)' if method == 'market'
+                                                  else 'Valve-rating research estimate',
+                                         'source': 'Kalshi' if method == 'market' else 'Valve official standings',
+                                         'source_url': 'https://kalshi.com/markets/kxcs2game/x',
+                                         'probabilities': [0.4, 0.6], 'observed_at': '2026-10-22T01:00:00Z'}})
+        return {'matches': [], 'flags': [], 'complete_picks': {
+            'matches': rows, 'counts': {'active': len(rows)}, 'generated_at': '2026-10-22T01:00:00Z'}}
+
+    def test_the_closing_sentence_matches_the_rows_it_describes(self):
+        from bs4 import BeautifulSoup
+        from scripts.build import unresolved_register
+        money = BeautifulSoup(unresolved_register(self._data(['market']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('external money lines', money)
+        self.assertNotIn('not bookmaker lines', money)
+        model = BeautifulSoup(unresolved_register(self._data(['model']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('not bookmaker lines', model)
+        mixed = BeautifulSoup(unresolved_register(self._data(['market', 'model']), ''), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('a mix of external money lines', mixed)

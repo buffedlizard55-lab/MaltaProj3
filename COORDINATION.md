@@ -10,15 +10,73 @@ claims only the files below and does not edit PR #139.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| FB-1 Publish the *actual* research method beside every fixture whose featured method was blank (the executive-summary text currently claims all five came from one Thunderpick book), and show **both** teams' probabilities in the phone pick index | in progress | arena-fbdc97d6 | `scripts/build.py` (only `glance()`, `unresolved_register()`, new `researched_method_summary()`), `assets/scout.css` (glance probability pair), `tests/test_build.py`, `tests/test_summary_navigation.py`, this section |
-| FB-2 Research reachable low-tier line sources from the runner (HLTV first, then esportsbooks/aggregators), save dated evidence, and add a reviewed source only if it returns a real two-sided price for today's fixtures | in progress | arena-fbdc97d6 | new `scripts/fbdc97d6_probe.py` and `.github/workflows/fbdc97d6-live.yml` (**both session-only, deleted before merge**), new `data/research/fbdc97d6/` |
+| FB-1 Publish the *actual* research method beside every fixture whose featured method was blank (the executive-summary text claimed all five came from one Thunderpick book), and show **both** teams' probabilities in the phone pick index | **done** — see FB-1 result | arena-fbdc97d6 | `scripts/build.py` (`glance()`, `unresolved_register()`, new `researched_method()`, `line_sources_block()`, review-page ordering), `assets/scout.css`, `tests/test_build.py`, this section |
+| FB-2 Research reachable low-tier line sources from the runner (HLTV first, then esportsbooks/aggregators), save dated evidence, and add a reviewed source only if it returns a real two-sided price for today's fixtures | **done** — see FB-2 result | arena-fbdc97d6 | `scripts/fbdc97d6_probe.py` (kept, read-only), `.github/workflows/fbdc97d6-live.yml` (**session-only, removed before merge**), `scripts/originate.py` (`model_label()`, `network_limitation()` and the label call site only — label fix, no pricing change), `.github/workflows/pages.yml` (one non-fatal sweep step), new `data/research/fbdc97d6/` |
 | FB-3 Verify the live inventory/pick coverage line by line, rebuild from the live snapshot, run the phone/desktop suites, publish flags, open and merge a PR, then confirm the Pages deployment | pending | arena-fbdc97d6 | `data/research/fbdc97d6/`, this section |
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
 `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`,
 `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`,
 or any other session's `data/research/<id>/`. Any needed change in those files is requested here
-instead of made. The two temporary session files listed under FB-2 are removed before the merge.
+instead of made. The branch-scoped workflow `fbdc97d6-live.yml` is removed before the merge; the read-only probe script
+stays in the tree, as `scripts/bo3_odds_probe.py` did. `scripts/originate.py` and
+`.github/workflows/pages.yml` were unowned at claim time (every earlier owner had merged and stopped), so
+this session made the two minimal changes noted above and logged them here rather than requesting them.
+
+### FB-1 result — every researched pick now names its real source (2026-10-22T02:20Z)
+
+- **Defect found and fixed.** The executive-summary register printed a hard-coded sentence saying the
+  fixtures the featured method left blank "each now carr[y] an alias-aware researched line — HLTV event
+  identity first, then a verified Thunderpick paired-price book (margin removed)". Read against the
+  rendered 2026-10-21T23:42Z build, the Vitalem Aerem–Rare Atom card was priced by Kalshi and the
+  benched gods–TitanFlow card by the bo3.gg results network; neither used Thunderpick. `glance()` and
+  `unresolved_register()` now call a new `researched_method()` that derives the source label, name and
+  link from each row's own `origination` record, and the closing sentence adapts to whether the rows are
+  money lines, research models or a mix. Locked by `tests/test_build.py::ResearchProvenanceTests` and
+  `ResearchedNatureTests`.
+- **Second label defect fixed in `scripts/originate.py`.** The network rung is assigned to the `model`
+  variable, so rows priced by the Bradley–Terry network fit were published as "Research model estimate
+  (Valve official ratings)" — a source the row never used. Four fixtures in the 01:20Z snapshot carried
+  that label. New `model_label()`/`network_limitation()` label each model row by the rung that produced
+  it; the 02:08Z snapshot shows three network rows correctly labelled. Locked by
+  `tests/test_fbdc97d6_labels.py`.
+- **Phone findability.** Each *Picks at a glance* row now shows the pick with its percentage **and** the
+  opponent's published percentage (`glance()`, `.glance-other` in `assets/scout.css`); nothing is
+  recalculated. The jump bar renamed two ambiguous entries ("Featured-method audit", "Day-5 archive")
+  and the review page now renders the current findings register **first**, with every earlier session's
+  dated register kept verbatim inside one collapsed "not current findings" block.
+
+### FB-2 result — line-source research (HLTV first, then esportsbooks)
+
+Runner-observed, read-only, `2026-10-22T01:29Z` (`data/research/fbdc97d6/esportsbook-probe.json`,
+`line-sources.json`, `bo3-bet-probe.json`; rendered under the unresolved register):
+
+| Surface | Result from the runner |
+| --- | --- |
+| HLTV match listing, match page, world ranking | **HTTP 403** Cloudflare challenge |
+| EGamersWorld CS2 list and match page | **HTTP 403** |
+| GG.BET / BetBoom / 1xBet / Marathonbet | 403 / 401 / 203 + challenge / 403 |
+| Oddspedia CS2 | **HTTP 410** (page permanently deleted) |
+| OddsPortal, DraftKings, Bovada, Thunderpick, Polymarket | HTTP 200 (landing pages only; no per-fixture price extracted by the sweep) |
+| Kalshi HTML | HTTP 429 (Vercel checkpoint); the official Kalshi API the collector uses answers |
+| Pinnacle / Betway | 404 on the probed paths |
+| Luckbox | connection error |
+| bo3.gg | HTTP 200; named `thunderpick` block with both coefficients for **5 of 35** active fixtures |
+
+- **HLTV is readable by a person, not by the runner.** The FlyQuest–Staqued match page and the world
+  ranking page were both read successfully by hand on 2026-10-22 (HLTV #61 / VRS #54 for FlyQuest,
+  DFRAG Invitational 2026, 23:00 26 Oct in the reader's zone). HLTV therefore stays an identity and
+  ranking source; it publishes no two-sided prematch price.
+- **bo3.gg's relay closes no blank.** The five priced fixtures (FORZE Reload–Just Players 1.40/2.70,
+  JiJieHao–Nexus 1.44/2.55, Imperial–Turma do Pagode 1.22/3.80, BESTIA–ShindeN 1.82/1.88,
+  Sangal–Metizport 1.75/1.95) all already carried a first-party Polymarket or Thunderpick line, so the
+  relay is documented as a cross-check and **not** wired into the ladder. Wiring a relayed price of a
+  provider already in the ladder would add no coverage and would risk double-counting.
+- **The sweep is now part of the four-hour publisher** (`pages.yml`, non-fatal, 10 s per request) so the
+  published limitations carry a current date without manual input. `scripts/fbdc97d6_probe.py` is kept
+  (like the earlier `scripts/bo3_odds_probe.py`); only the branch-scoped workflow below is removed.
+
+### FB-3 result — verification, merge and publication
 
 ### FB-0 starting state (observed 2026-10-22T01:05Z)
 
