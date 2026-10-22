@@ -422,7 +422,13 @@
 .start-here a.picks-here strong{color:var(--orange-dark)}
 @media(max-width:700px){
   /* Keep df80ab9f's 9/11 padding so #picks-at-a-glance stays under 1500px.
-     Two columns plus hidden detail spans replace the five-card stack. */
+     Hide the banner's repeated copy and two-column the jump bar so the
+     glance index itself (not only a jump to it) sits above the fold. */
+  .exec-banner-label,.exec-banner-desc,.exec-banner-meta{display:none}
+  .exec-banner-actions a .sub{display:none}
+  .exec-banner h3{font-size:15px;margin:0 0 6px}
+  .exec-banner-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .start-here-label{display:none}
   .start-here ul{grid-template-columns:1fr 1fr;gap:5px}
   .start-here a span{display:none}
   .start-here li:first-child{grid-column:1/-1}
