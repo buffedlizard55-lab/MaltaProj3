@@ -1,3 +1,16 @@
+# Current session: arena-a56f3474 — complete current pick coverage, independent low-tier research, phone-first summary, final integration
+
+Claimed **2026-10-22T07:29Z** on Arena's fixed branch `arena/a56f3474-maltaproj3`, from `main` at `285a0d9a0bd0f6dd64cddab8e890007ced9baef3` (PR #162). The board was read first. Open PRs #154, #149, #139 and #120 have had no commits for more than 60 minutes (latest commit 02:40Z; observed 07:29Z), so they are stale under the board's takeover rule. They are **not** merged blindly; this session starts from current `main`, preserves their published findings, and records any adopted fix explicitly. Arena fixes this session's branch, so the requested `session-<id>/<task>` branch name cannot be used.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A56-1 Audit the current live Hotspawn CS2 inventory and every active pick/blank line by line; try HLTV first and then esportsbooks for any featured-unresolved or complete-ladder gap; retain dated official-source evidence and limitations | **in progress** | arena-a56f3474 | new `data/research/a56f3474/**`, optional read-only `scripts/a56f3474_*.py`, this section |
+| A56-2 Fix only verified coverage/provenance defects in the complete-picks ladder and automatic 4–8h refresh; never use Hotspawn/HLTV crowd percentages or invent probabilities | **in progress** | arena-a56f3474 | `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/reference_odds.py`, `scripts/sources.py`, `scripts/collect.py`, `data/origination/aliases.json`, new A56 tests, this section |
+| A56-3 Verify and repair the executive summary's one-tap current-picks links, both-team probabilities, separate unresolved/no-betting-line limitations, and 320/390px mobile usability | **in progress** | arena-a56f3474 | `scripts/build.py`, `scripts/build_origination.py`, `assets/scout.css`, `assets/origination.css`, new A56 tests, this section |
+| A56-4 Final integration: full replay/tests, strict row-source and link audits, PR from this fixed branch to `main`, merge on green, verify GitHub Pages and record sources/irregularities | **in progress** | arena-a56f3474 | `.github/workflows/pages.yml` only if a verified publication defect requires it, `README.md` for accurate user-facing documentation, `data/research/a56f3474/**`, this section |
+
+**Non-overlap / integrity pledge:** no edits to another session's `data/research/<id>/`, historical archives, or dated evidence. No manually authored live probabilities, picks, or match records. Current `data/latest.json`, `data/origination.json`, and related canonical feeds are changed only by the validated pipeline, never hand-filled. If a fresh concurrent claim appears, its scope takes precedence and any necessary request is logged here instead of edited.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
