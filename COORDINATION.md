@@ -11,6 +11,23 @@ no other claim is live, so no scope is taken from anyone. Only the files listed 
 `assets/`, `.github/workflows/`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`,
 `archive/`, `docs/` or any other session's `data/research/<id>/`. The only shared file touched is
 `scripts/build.py` (`picks()` info strip), which is unowned because its last owner merged and stopped.
+### 93B-1 addendum — main got there first, and the merge says so (2026-10-22T08:45Z)
+
+While this branch was in CI, `main` merged **4c972a51** (picks-page arithmetic, `unique`/guidance bucket) and **df80ab9f**
+(restoring the 1,500 px phone budget). Both fix defects this session had also diagnosed and fixed, so the merge
+resolved the two overlapping files **in main's favour** rather than stacking a second implementation:
+
+| File | Resolution | Why |
+| --- | --- | --- |
+| `scripts/build.py` (`picks()`, `coverage()`) | **main's** | 4c972a51 derives every published number from the displayed-basis tally and adds the wide-book bucket; a duplicate second implementation would be worse than one |
+| `assets/scout.css` | **main's** | df80ab9f's compaction reaches the same budget (measured here after the merge: 320 px → y = 1310.9 px, 390 px → y = 1361.9 px, `scrollWidth − clientWidth = 0`) |
+| `tests/test_93ba7221_counts.py` | **kept, rewritten** | it now asserts the *arithmetic invariant and cross-page agreement* instead of pinning prose, so it survives future wording changes and guards 4c972a51's fix |
+| `COORDINATION.md` | both | this section first, then main's newest sessions verbatim |
+
+Nothing of either session's work was discarded silently: this branch's equivalent changes are recorded here, main's
+implementation is what ships, and the regression test is the durable contribution. Flags 1, 2 and 6 were rewritten to say
+exactly that (who fixed it, where, and what is left here as proof).
+
 ### 93B-1 result — the picks page now adds up (2026-10-22T08:00Z)
 
 - **Defect, read on the live site at 07:47Z.** `/picks/` printed *"33 of 33 matches below carry a pick. 11 come
