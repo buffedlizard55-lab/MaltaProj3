@@ -1,13 +1,13 @@
 {
  "schema_version": 1,
  "session": "arena-5f6fe71d",
- "generated_at": "2026-10-22T02:22:17Z",
- "artifact_run_id": "39707211841",
- "artifact_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39707211841",
+ "generated_at": "2026-10-22T02:37:31Z",
+ "artifact_run_id": "39707526365",
+ "artifact_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39707526365",
  "stage_errors": {},
- "published_generated_at": "2026-10-22T02:07:20Z",
- "published_inventory_observed_at": "2026-10-22T02:07:03Z",
- "origination_generated_at": "2026-10-22T02:07:34Z",
+ "published_generated_at": "2026-10-22T02:26:41Z",
+ "published_inventory_observed_at": "2026-10-22T02:26:23Z",
+ "origination_generated_at": "2026-10-22T02:26:56Z",
  "published_counts": {
   "inventory": 97,
   "upcoming": 35,
@@ -59,6 +59,26 @@
     "https://www.hltv.org/ranking/teams",
     "https://www.hltv.org/ranking/teams"
    ],
+   "inputs": [
+    {
+     "name": "Morningstar",
+     "points": 0.0,
+     "rank": null,
+     "matched_as": null,
+     "unranked": true,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    },
+    {
+     "name": "NEXVOID",
+     "points": 11.0,
+     "rank": 77,
+     "matched_as": "nexvoid",
+     "unranked": false,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.4841750147352649,
@@ -82,8 +102,8 @@
    "source": "Polymarket",
    "label": "Market-implied estimate",
    "probabilities": [
-    0.3,
-    0.7
+    0.29,
+    0.71
    ],
    "pick": "Rare Atom",
    "low_confidence": null,
@@ -93,10 +113,11 @@
    "market_id": "6024922",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.3,
-    0.7
+    0.29,
+    0.71
    ]
   },
   {
@@ -116,8 +137,8 @@
    "source": "Polymarket",
    "label": "Market-implied estimate",
    "probabilities": [
-    0.31,
-    0.69
+    0.355,
+    0.645
    ],
    "pick": "ex-6666",
    "low_confidence": null,
@@ -127,10 +148,11 @@
    "market_id": "6024926",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.31,
-    0.69
+    0.355,
+    0.645
    ]
   },
   {
@@ -143,28 +165,29 @@
    "starts_at": "2026-10-22T08:00:00Z",
    "locks_at": "2026-10-22T07:54:00Z",
    "availability": "open",
-   "basis": "featured",
+   "basis": "researched-fallback",
    "has_estimate": true,
    "method": "market",
    "family": null,
-   "source": "Polymarket",
-   "label": "Market-implied estimate",
+   "source": "Kalshi",
+   "label": "Originated market line (Kalshi)",
    "probabilities": [
-    0.59,
-    0.41
+    0.46268657,
+    0.53731343
    ],
-   "pick": "GenOne",
+   "pick": "Spirit Academy",
    "low_confidence": null,
    "limitations": 1,
-   "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
-   "event_id": "1232200",
-   "market_id": "6028795",
+   "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220400tsag1",
+   "event_id": null,
+   "market_id": null,
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.59,
-    0.41
+    0.46268657,
+    0.53731343
    ]
   },
   {
@@ -201,6 +224,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 100,
+     "points": 1044,
+     "name": "BAKS",
+     "roster": [
+      "danistzz",
+      "Norwi",
+      "turbo",
+      "whisper",
+      "xdENiSZERA"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0100--baks--danistzz-norwi-turbo-whisper-xdeniszera.md"
+    },
+    {
+     "standing": 140,
+     "points": 863,
+     "name": "Azuolas",
+     "roster": [
+      "MAGILA",
+      "maty",
+      "StreakN",
+      "Uzman",
+      "yakuza"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0140--azuolas--magila-maty-streakn-uzman-yakuza.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.7337243588961906,
@@ -235,6 +290,7 @@
    "market_id": "6024934",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
     0.665,
@@ -274,6 +330,38 @@
    "input_sources": [
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   ],
+   "inputs": [
+    {
+     "standing": 88,
+     "points": 1082,
+     "name": "Butterfly",
+     "roster": [
+      "ayano",
+      "Forester",
+      "k1ssly",
+      "Kurama",
+      "nitzie"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0088--butterfly--ayano-forester-k1ssly-kurama-nitzie.md"
+    },
+    {
+     "standing": 143,
+     "points": 862,
+     "name": "Lavked",
+     "roster": [
+      "1NVISIBLEE",
+      "azukay",
+      "k4nfuz",
+      "sol",
+      "xm1nd"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0143--lavked--1nvisiblee-azukay-k4nfuz-sol-xm1nd.md"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -315,6 +403,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 161,
+     "points": 806,
+     "name": "Falcons Force",
+     "roster": [
+      "clockzi",
+      "grecu",
+      "NucleonZ",
+      "Tapewaare",
+      "VENO"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0161--falcons_force--clockzi-grecu-nucleonz-tapewaare-veno.md"
+    },
+    {
+     "standing": 172,
+     "points": 783,
+     "name": "Phantom Academy",
+     "roster": [
+      "Ayteel",
+      "Brain47",
+      "Dr3nquu",
+      "kalyambys",
+      "stefienson"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0172--phantom_academy--ayteel-brain47-dr3nquu-kalyambys-stefienson.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.5321556032787839,
@@ -338,8 +458,8 @@
    "source": "Own network model (bo3.gg results graph)",
    "label": "Research model estimate (Valve official ratings)",
    "probabilities": [
-    0.22195093748712438,
-    0.7780490625128756
+    0.22105755786076664,
+    0.7789424421392334
    ],
    "pick": "TitanFlow",
    "low_confidence": true,
@@ -348,18 +468,42 @@
    "event_id": null,
    "market_id": null,
    "input_points": [
-    777.9,
-    995.8
+    777.7,
+    996.5
    ],
    "input_sources": [
     "https://bo3.gg/teams/22240",
     "https://bo3.gg/teams/25277"
    ],
+   "inputs": [
+    {
+     "name": "benched gods",
+     "team_id": 22240,
+     "points": 777.7,
+     "se": 62.6,
+     "series": 59,
+     "anchored": false,
+     "anchor_points": null,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/22240"
+    },
+    {
+     "name": "TitanFlow",
+     "team_id": 25277,
+     "points": 996.5,
+     "se": 154.8,
+     "series": 9,
+     "anchored": false,
+     "anchor_points": null,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/25277"
+    }
+   ],
    "label_mismatch": "label 'Research model estimate (Valve official ratings)' does not match family='network' provider='Own network model (bo3.gg results graph)' (expected 'Own network estimate (bo3.gg results graph)' prefix)",
    "verdict": "replay-pass",
    "recomputed": [
-    0.22195093748712438,
-    0.7780490625128756
+    0.22105755786076664,
+    0.7789424421392334
    ]
   },
   {
@@ -396,6 +540,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 29,
+     "points": 1455,
+     "name": "Nemesis",
+     "roster": [
+      "mag1k3Y",
+      "r3salt",
+      "Sdaim",
+      "SELLTER",
+      "tex1y"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0029--nemesis--mag1k3y-r3salt-sdaim-sellter-tex1y.md"
+    },
+    {
+     "standing": 108,
+     "points": 1023,
+     "name": "WW",
+     "roster": [
+      "kelieN",
+      "m3wsu",
+      "Ryujin",
+      "StRoGo",
+      "tried"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0108--ww--kelien-m3wsu-ryujin-strogo-tried.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.9182799831946548,
@@ -419,8 +595,8 @@
    "source": "Polymarket",
    "label": "Market-implied estimate",
    "probabilities": [
-    0.645,
-    0.355
+    0.625,
+    0.375
    ],
    "pick": "JiJieHao",
    "low_confidence": null,
@@ -430,10 +606,11 @@
    "market_id": "6031296",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.645,
-    0.355
+    0.625,
+    0.375
    ]
   },
   {
@@ -469,6 +646,38 @@
    "input_sources": [
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   ],
+   "inputs": [
+    {
+     "standing": 197,
+     "points": 732,
+     "name": "DONSTU",
+     "roster": [
+      "Due1yant",
+      "gleb86rus",
+      "LAKSHERi",
+      "NeoLife",
+      "phorate"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0197--donstu--due1yant-gleb86rus-laksheri-neolife-phorate.md"
+    },
+    {
+     "standing": 165,
+     "points": 801,
+     "name": "Banda Chuya",
+     "roster": [
+      "AdrieN",
+      "ezox",
+      "maaryy",
+      "Showk",
+      "tomiko"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0165--banda_chuya--adrien-ezox-maaryy-showk-tomiko.md"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -510,6 +719,36 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "name": "Acend",
+     "points": 1197,
+     "standing": 63,
+     "roster": [
+      "h4rn",
+      "REDSTAR",
+      "SHiPZ",
+      "Skrimo",
+      "SPELLAN"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "name": "6666",
+     "points": 923,
+     "standing": 127,
+     "roster": [
+      "amster",
+      "dENZY",
+      "kL1o",
+      "rendysky",
+      "skcH"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.8226494858881057,
@@ -550,6 +789,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 143,
+     "points": 862,
+     "name": "Lavked",
+     "roster": [
+      "1NVISIBLEE",
+      "azukay",
+      "k4nfuz",
+      "sol",
+      "xm1nd"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0143--lavked--1nvisiblee-azukay-k4nfuz-sol-xm1nd.md"
+    },
+    {
+     "standing": 124,
+     "points": 937,
+     "name": "HAVU",
+     "roster": [
+      "8Juho8",
+      "Alxc",
+      "ottob",
+      "p3kko",
+      "uli"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0124--havu--8juho8-alxc-ottob-p3kko-uli.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.3965166105025573,
@@ -584,6 +855,7 @@
    "market_id": "5972064",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
     0.775,
@@ -607,8 +879,8 @@
    "source": "Polymarket",
    "label": "Market-implied estimate",
    "probabilities": [
-    0.475,
-    0.525
+    0.465,
+    0.535
    ],
    "pick": "ShindeN",
    "low_confidence": null,
@@ -618,10 +890,11 @@
    "market_id": "5972071",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.475,
-    0.525
+    0.465,
+    0.535
    ]
   },
   {
@@ -658,6 +931,33 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026"
    ],
+   "inputs": [
+    {
+     "name": "UNiTY",
+     "points": 1167,
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "source": "Valve official standings",
+     "roster": [
+      "2high",
+      "Dytor",
+      "KWERTZZ",
+      "M1key",
+      "Sn0w"
+     ]
+    },
+    {
+     "name": "Apogee Betclic",
+     "points": 1255,
+     "source": "Own results-based fit (bo3.gg series results)",
+     "source_url": "https://bo3.gg/matches/unity-vs-betclic-apogee-esports-22-10-2026",
+     "roster": null,
+     "fitted": {
+      "n": 18,
+      "posterior_sd": 94.6,
+      "prior_center": 1259
+     }
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.39773644745590364,
@@ -692,6 +992,7 @@
    "market_id": "6026283",
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
     0.54,
@@ -731,6 +1032,38 @@
    "input_sources": [
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   ],
+   "inputs": [
+    {
+     "standing": 81,
+     "points": 1110,
+     "name": "Rune Eaters",
+     "roster": [
+      "demente",
+      "dukefissura",
+      "forkyz",
+      "her1tage",
+      "noni"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0081--rune_eaters--demente-dukefissura-forkyz-her1tage-noni.md"
+    },
+    {
+     "standing": 84,
+     "points": 1100,
+     "name": "FORZE Reload",
+     "roster": [
+      "HeCkBNk",
+      "Kaide",
+      "KusMe",
+      "Lack1",
+      "YumsaN"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0084--forze_reload--heckbnk-kaide-kusme-lack1-yumsan.md"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -772,6 +1105,33 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026"
    ],
+   "inputs": [
+    {
+     "name": "6yuBoJlbl",
+     "points": 1015,
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "source": "Valve official standings",
+     "roster": [
+      "AdreN",
+      "neaLaN",
+      "nyx",
+      "Pump",
+      "tasman"
+     ]
+    },
+    {
+     "name": "ex-6666",
+     "points": 950,
+     "source": "Own results-based fit (bo3.gg series results)",
+     "source_url": "https://bo3.gg/matches/6yubojlbl-vs-ex-6666-22-10-2026",
+     "roster": null,
+     "fitted": {
+      "n": 9,
+      "posterior_sd": 119.0,
+      "prior_center": 871
+     }
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.572758648799329,
@@ -795,8 +1155,8 @@
    "source": "Own network model (bo3.gg results graph)",
    "label": "Research model estimate (Valve official ratings)",
    "probabilities": [
-    0.983895436934679,
-    0.016104563065321043
+    0.9838863131596313,
+    0.016113686840368735
    ],
    "pick": "K27",
    "low_confidence": false,
@@ -806,17 +1166,41 @@
    "market_id": null,
    "input_points": [
     1429.2,
-    714.8
+    714.9
    ],
    "input_sources": [
     "https://bo3.gg/teams/10718",
     "https://bo3.gg/teams/24638"
    ],
+   "inputs": [
+    {
+     "name": "K27",
+     "team_id": 10718,
+     "points": 1429.2,
+     "se": 49.5,
+     "series": 38,
+     "anchored": true,
+     "anchor_points": 1435.0,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/10718"
+    },
+    {
+     "name": "NEXORA",
+     "team_id": 24638,
+     "points": 714.9,
+     "se": 111.6,
+     "series": 18,
+     "anchored": false,
+     "anchor_points": null,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/24638"
+    }
+   ],
    "label_mismatch": "label 'Research model estimate (Valve official ratings)' does not match family='network' provider='Own network model (bo3.gg results graph)' (expected 'Own network estimate (bo3.gg results graph)' prefix)",
    "verdict": "replay-pass",
    "recomputed": [
-    0.983895436934679,
-    0.016104563065321043
+    0.9838863131596313,
+    0.016113686840368735
    ]
   },
   {
@@ -847,6 +1231,7 @@
    "market_id": null,
    "input_points": [],
    "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
     0.39368826,
@@ -886,6 +1271,36 @@
    "input_sources": [
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   ],
+   "inputs": [
+    {
+     "name": "Lynn Vision",
+     "points": 1190,
+     "standing": 64,
+     "roster": [
+      "C4LLM3SU3",
+      "EmiliaQAQ",
+      "Starry",
+      "Westmelon",
+      "z4KR"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "name": "Chinggis Warriors",
+     "points": 1084,
+     "standing": 87,
+     "roster": [
+      "cool4st",
+      "fury5k",
+      "ROUX",
+      "sk0R",
+      "yAmi"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -927,6 +1342,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 93,
+     "points": 1066,
+     "name": "ex-Zero Tenacity",
+     "roster": [
+      "brutmonster",
+      "Cjoffo",
+      "Dragon",
+      "Kind0",
+      "VLDN"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
+    },
+    {
+     "standing": 92,
+     "points": 1066,
+     "name": "ex-RUSTEC",
+     "roster": [
+      "Brilliance",
+      "glowiing",
+      "shalfey",
+      "yiksrezo",
+      "youka"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.5,
@@ -967,6 +1414,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 46,
+     "points": 1324,
+     "name": "Nuclear TigeRES",
+     "roster": [
+      "ayuki",
+      "Djon8",
+      "flouzer",
+      "senka",
+      "tronic"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0046--nuclear_tigeres--ayuki-djon8-flouzer-senka-tronic.md"
+    },
+    {
+     "standing": 141,
+     "points": 862,
+     "name": "Illyrians",
+     "roster": [
+      "ammar",
+      "BledarD",
+      "cerber",
+      "vAloN",
+      "xonn1k"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0141--illyrians--ammar-bledard-cerber-valon-xonn1k.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.9300334703006695,
@@ -985,32 +1464,27 @@
    "availability": "open",
    "basis": "featured",
    "has_estimate": true,
-   "method": "model",
+   "method": "market",
    "family": null,
-   "source": "Valve official standings",
-   "label": "Valve-rating research estimate",
+   "source": "Polymarket",
+   "label": "Market-implied estimate",
    "probabilities": [
-    0.6141524,
-    0.3858476
+    0.475,
+    0.525
    ],
-   "pick": "Inner Circle Academy",
+   "pick": "Spirit Academy",
    "low_confidence": null,
-   "limitations": 3,
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "event_id": null,
-   "market_id": null,
-   "input_points": [
-    1064,
-    981
-   ],
-   "input_sources": [
-    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   ],
+   "limitations": 1,
+   "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
+   "event_id": "1232959",
+   "market_id": "6033288",
+   "input_points": [],
+   "input_sources": [],
+   "inputs": [],
    "verdict": "replay-pass",
    "recomputed": [
-    0.6141524030337128,
-    0.38584759696628723
+    0.475,
+    0.525
    ]
   },
   {
@@ -1046,6 +1520,26 @@
    "input_sources": [
     "https://www.hltv.org/ranking/teams",
     "https://www.hltv.org/ranking/teams"
+   ],
+   "inputs": [
+    {
+     "name": "FORZE Reload",
+     "points": 11.0,
+     "rank": 80,
+     "matched_as": "forze reload",
+     "unranked": false,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    },
+    {
+     "name": "LFO 10",
+     "points": 4.0,
+     "rank": 167,
+     "matched_as": "lfo 10",
+     "unranked": false,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -1087,6 +1581,36 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "name": "BAKS",
+     "points": 1044,
+     "standing": 100,
+     "roster": [
+      "danistzz",
+      "Norwi",
+      "turbo",
+      "whisper",
+      "xdENiSZERA"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "name": "BRUTE",
+     "points": 1116,
+     "standing": 75,
+     "roster": [
+      "aidKiT",
+      "hfah",
+      "nbqq",
+      "tAk",
+      "ZEDKO"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.40054361437326136,
@@ -1127,6 +1651,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 92,
+     "points": 1066,
+     "name": "ex-RUSTEC",
+     "roster": [
+      "Brilliance",
+      "glowiing",
+      "shalfey",
+      "yiksrezo",
+      "youka"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md"
+    },
+    {
+     "standing": 158,
+     "points": 810,
+     "name": "Saint Sinners",
+     "roster": [
+      "Caleyy",
+      "deb0",
+      "iRV1NG",
+      "pavlysha666",
+      "ves111"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0158--saint_sinners--caleyy-deb0-irv1ng-pavlysha666-ves111.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.8074619274664621,
@@ -1166,6 +1722,30 @@
    "input_sources": [
     "https://bo3.gg/teams/584",
     "https://bo3.gg/teams/25492"
+   ],
+   "inputs": [
+    {
+     "name": "Ground Zero",
+     "team_id": 584,
+     "points": 866.6,
+     "se": 50.4,
+     "series": 31,
+     "anchored": true,
+     "anchor_points": 878.0,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/584"
+    },
+    {
+     "name": "Off Chops",
+     "team_id": 25492,
+     "points": 904.8,
+     "se": 148.0,
+     "series": 6,
+     "anchored": false,
+     "anchor_points": null,
+     "source": "Own network Bradley–Terry fit over bo3.gg finished series",
+     "source_url": "https://bo3.gg/teams/25492"
+    }
    ],
    "label_mismatch": "label 'Research model estimate (Valve official ratings)' does not match family='network' provider='Own network model (bo3.gg results graph)' (expected 'Own network estimate (bo3.gg results graph)' prefix)",
    "verdict": "replay-pass",
@@ -1208,6 +1788,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 113,
+     "points": 995,
+     "name": "NEXVOID",
+     "roster": [
+      "AccuracyTG",
+      "erkaSt",
+      "MiQ",
+      "xerolte",
+      "Zesta"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0113--nexvoid--accuracytg-erkast-miq-xerolte-zesta.md"
+    },
+    {
+     "standing": 155,
+     "points": 819,
+     "name": "Alter Ego",
+     "roster": [
+      "adeX",
+      "BnTeT",
+      "Gratisfaction",
+      "laxiee",
+      "PokemoN"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0155--alter_ego--adex-bntet-gratisfaction-laxiee-pokemon.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.7282182354771827,
@@ -1247,6 +1859,26 @@
    "input_sources": [
     "https://www.hltv.org/ranking/teams",
     "https://www.hltv.org/ranking/teams"
+   ],
+   "inputs": [
+    {
+     "name": "FlyQuest",
+     "points": 16.0,
+     "rank": 61,
+     "matched_as": "flyquest",
+     "unranked": false,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    },
+    {
+     "name": "Staqued",
+     "points": 0.0,
+     "rank": null,
+     "matched_as": null,
+     "unranked": true,
+     "snapshot_date": "2026-10-22",
+     "source_url": "https://www.hltv.org/ranking/teams"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -1288,6 +1920,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 205,
+     "points": 718,
+     "name": "Rooster",
+     "roster": [
+      "ADK",
+      "chelleos",
+      "damyo",
+      "rekonz",
+      "SkulL"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0205--rooster--adk-chelleos-damyo-rekonz-skull.md"
+    },
+    {
+     "standing": 195,
+     "points": 734,
+     "name": "Abyssal",
+     "roster": [
+      "blood",
+      "dangeR",
+      "foggers",
+      "gump",
+      "vinhy"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0195--abyssal--blood-danger-foggers-gump-vinhy.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.4776149428184876,
@@ -1327,6 +1991,36 @@
    "input_sources": [
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   ],
+   "inputs": [
+    {
+     "name": "HOTU",
+     "points": 1437,
+     "standing": 31,
+     "roster": [
+      "dwushka",
+      "frontales",
+      "kade0",
+      "mizu",
+      "n0rb3r7"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+     "name": "The Huns",
+     "points": 944,
+     "standing": 122,
+     "roster": [
+      "Annihilation",
+      "Bart4k",
+      "bexyz",
+      "controlez",
+      "Cozen"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
    ],
    "verdict": "replay-pass",
    "recomputed": [
@@ -1368,6 +2062,38 @@
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    ],
+   "inputs": [
+    {
+     "standing": 80,
+     "points": 1110,
+     "name": "5star",
+     "roster": [
+      "ariucle",
+      "clouden",
+      "hoolig4n",
+      "NEUZ",
+      "rate"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0080--5star--ariucle-clouden-hoolig4n-neuz-rate.md"
+    },
+    {
+     "standing": 38,
+     "points": 1383,
+     "name": "1win",
+     "roster": [
+      "ArtFr0st",
+      "Ax1Le",
+      "BELCHONOKK",
+      "fame",
+      "nafany"
+     ],
+     "snapshot_date": "2026-10-05",
+     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail_path": "details/2026_10_05/0038--1win--artfr0st-ax1le-belchonokk-fame-nafany.md"
+    }
+   ],
    "verdict": "replay-pass",
    "recomputed": [
     0.17816901694318932,
@@ -1387,7 +2113,7 @@
  "inventory": {
   "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "verdict": "unexpected-response-shape",
-  "detail": "fixture API answered without a data array"
+  "detail": "fixture API answered without a data array: HTTP 200, body starts \"[{'id': '1052746', 'competition_id': '35005', 'competition_name': 'European Pro League Series 8 Play-In', 'sport_alias': 'cs2', 'sport_name': 'Counter-Strike 2', 'status': 'scheduled', 'scheduled_start_time': '1782469800000', 'lock_time': '1782469440000', 'lock_offset_sec': 360, 'offered_points': 2,\". The raw body is saved as evidence hotspawn-fixture-api.gz; this can be a transient outage answer — the live-recheck collect later in the same run is an independent second read of the same API."
  },
  "market_rereads": [
   {
@@ -1400,8 +2126,8 @@
    "event_id": "1231330",
    "market_id": "6024922",
    "published_probabilities": [
-    0.3,
-    0.7
+    0.29,
+    0.71
    ],
    "published_pick": "Rare Atom",
    "verdict": "market-not-found"
@@ -1416,8 +2142,8 @@
    "event_id": "1231331",
    "market_id": "6024926",
    "published_probabilities": [
-    0.31,
-    0.69
+    0.355,
+    0.645
    ],
    "published_pick": "ex-6666",
    "verdict": "market-not-found"
@@ -1428,15 +2154,33 @@
     "GenOne",
     "Spirit Academy"
    ],
-   "provider": "Polymarket",
-   "event_id": "1232200",
-   "market_id": "6028795",
+   "provider": "Kalshi",
+   "event_id": "KXCS2GAME-26OCT220400TSAG1",
+   "market_id": null,
    "published_probabilities": [
-    0.59,
-    0.41
+    0.46268657,
+    0.53731343
    ],
-   "published_pick": "GenOne",
-   "verdict": "market-not-found"
+   "published_pick": "Spirit Academy",
+   "fresh_markets": [
+    {
+     "name": "Spirit Academy",
+     "yes_bid": "0.5300",
+     "yes_ask": "0.6800",
+     "status": "active",
+     "ticker": "KXCS2GAME-26OCT220400TSAG1-TSA"
+    },
+    {
+     "name": "GenOne",
+     "yes_bid": "0.3500",
+     "yes_ask": "0.4700",
+     "status": "active",
+     "ticker": "KXCS2GAME-26OCT220400TSAG1-G1"
+    }
+   ],
+   "fresh_observed_at": "2026-10-22T02:37:32Z",
+   "event_status": null,
+   "verdict": "read"
   },
   {
    "match_id": "1079189",
@@ -1464,8 +2208,8 @@
    "event_id": "1232512",
    "market_id": "6031296",
    "published_probabilities": [
-    0.645,
-    0.355
+    0.625,
+    0.375
    ],
    "published_pick": "JiJieHao",
    "verdict": "market-not-found"
@@ -1496,8 +2240,8 @@
    "event_id": "1224237",
    "market_id": "5972071",
    "published_probabilities": [
-    0.475,
-    0.525
+    0.465,
+    0.535
    ],
    "published_pick": "ShindeN",
    "verdict": "market-not-found"
@@ -1517,6 +2261,22 @@
    ],
    "published_pick": "Sangal",
    "verdict": "market-not-found"
+  },
+  {
+   "match_id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "provider": "Polymarket",
+   "event_id": "1232959",
+   "market_id": "6033288",
+   "published_probabilities": [
+    0.475,
+    0.525
+   ],
+   "published_pick": "Spirit Academy",
+   "verdict": "market-not-found"
   }
  ],
  "valve_reread": {
@@ -1524,347 +2284,601 @@
    {
     "match_id": "1081143",
     "team": "BakS",
+    "input_name": "BAKS",
     "published_points": 1044,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1044,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 100,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1044
+    ],
+    "verdict": "match",
+    "official_standing": 100,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081143",
     "team": "Azuolas",
+    "input_name": "Azuolas",
     "published_points": 863,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 863,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 140,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     863
+    ],
+    "verdict": "match",
+    "official_standing": 140,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079651",
     "team": "Butterfly",
+    "input_name": "Butterfly",
     "published_points": 1082,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1082,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 88,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1082
+    ],
+    "verdict": "match",
+    "official_standing": 88,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079651",
     "team": "Lavked",
+    "input_name": "Lavked",
     "published_points": 862,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 862,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 143,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     862
+    ],
+    "verdict": "match",
+    "official_standing": 143,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081596",
     "team": "Falcons Force",
+    "input_name": "Falcons Force",
     "published_points": 806,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 806,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 161,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     806
+    ],
+    "verdict": "match",
+    "official_standing": 161,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081596",
     "team": "Phantom Academy",
+    "input_name": "Phantom Academy",
     "published_points": 783,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 783,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 172,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     783
+    ],
+    "verdict": "match",
+    "official_standing": 172,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082767",
     "team": "Nemesis",
+    "input_name": "Nemesis",
     "published_points": 1455,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1455,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 29,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1455
+    ],
+    "verdict": "match",
+    "official_standing": 29,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082767",
     "team": "WW",
+    "input_name": "WW",
     "published_points": 1023,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1023,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 108,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1023
+    ],
+    "verdict": "match",
+    "official_standing": 108,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081600",
     "team": "Donstu",
+    "input_name": "DONSTU",
     "published_points": 732,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 732,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 197,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     732
+    ],
+    "verdict": "match",
+    "official_standing": 197,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081600",
     "team": "Banda chuya",
+    "input_name": "Banda Chuya",
     "published_points": 801,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 402,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 165,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     801,
+     402
+    ],
+    "verdict": "match",
+    "official_standing": 165,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079652",
     "team": "Acend",
+    "input_name": "Acend",
     "published_points": 1197,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1197,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 63,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1197
+    ],
+    "verdict": "match",
+    "official_standing": 63,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079652",
     "team": "ex-6666",
+    "input_name": "6666",
     "published_points": 923,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": null,
-    "official_snapshot": "2026-10-05",
-    "verdict": "team-not-in-official-table"
+    "published_standing": 127,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     923,
+     425
+    ],
+    "verdict": "match",
+    "official_standing": 127,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081145",
     "team": "Lavked",
+    "input_name": "Lavked",
     "published_points": 862,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 862,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 143,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     862
+    ],
+    "verdict": "match",
+    "official_standing": 143,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081145",
     "team": "HAVU",
+    "input_name": "HAVU",
     "published_points": 937,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 937,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 124,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     937
+    ],
+    "verdict": "match",
+    "official_standing": 124,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079653",
     "team": "Rune Eaters",
+    "input_name": "Rune Eaters",
     "published_points": 1110,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1110,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 81,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1110
+    ],
+    "verdict": "match",
+    "official_standing": 81,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079653",
     "team": "FORZE Reload",
+    "input_name": "FORZE Reload",
     "published_points": 1100,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1100,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 84,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1100
+    ],
+    "verdict": "match",
+    "official_standing": 84,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081871",
     "team": "Lynn Vision",
+    "input_name": "Lynn Vision",
     "published_points": 1190,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1190,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 64,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1190
+    ],
+    "verdict": "match",
+    "official_standing": 64,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081871",
     "team": "Chinggis Warriors",
+    "input_name": "Chinggis Warriors",
     "published_points": 1084,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 685,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 87,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     1084,
+     685
+    ],
+    "verdict": "match",
+    "official_standing": 87,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079654",
     "team": "ex-Zero Tenacity",
+    "input_name": "ex-Zero Tenacity",
     "published_points": 1066,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1066,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 93,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1066
+    ],
+    "verdict": "match",
+    "official_standing": 93,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079654",
     "team": "ex-RUSTEC",
+    "input_name": "ex-RUSTEC",
     "published_points": 1066,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 824,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 92,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     1066,
+     824
+    ],
+    "verdict": "match",
+    "official_standing": 92,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079655",
     "team": "Nuclear TigeRES",
+    "input_name": "Nuclear TigeRES",
     "published_points": 1324,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1324,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 46,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1324
+    ],
+    "verdict": "match",
+    "official_standing": 46,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079655",
     "team": "ILLYRIANS",
+    "input_name": "Illyrians",
     "published_points": 862,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 862,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
-   },
-   {
-    "match_id": "1081148",
-    "team": "Inner Circle Academy",
-    "published_points": 1064,
-    "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1064,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
-   },
-   {
-    "match_id": "1081148",
-    "team": "Spirit Academy",
-    "published_points": 981,
-    "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 981,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 141,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     862
+    ],
+    "verdict": "match",
+    "official_standing": 141,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079657",
     "team": "BakS",
+    "input_name": "BAKS",
     "published_points": 1044,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1044,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 100,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1044
+    ],
+    "verdict": "match",
+    "official_standing": 100,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1079657",
     "team": "BRUTE",
+    "input_name": "BRUTE",
     "published_points": 1116,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 689,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 75,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     1116,
+     689
+    ],
+    "verdict": "match",
+    "official_standing": 75,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081150",
     "team": "ex-RUSTEC",
+    "input_name": "ex-RUSTEC",
     "published_points": 1066,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 824,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 92,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     1066,
+     824
+    ],
+    "verdict": "match",
+    "official_standing": 92,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1081150",
     "team": "Saint Sinners",
+    "input_name": "Saint Sinners",
     "published_points": 810,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 810,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 158,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     810
+    ],
+    "verdict": "match",
+    "official_standing": 158,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082859",
     "team": "NEXVOID",
+    "input_name": "NEXVOID",
     "published_points": 995,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 995,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 113,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     995
+    ],
+    "verdict": "match",
+    "official_standing": 113,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082859",
     "team": "Alter Ego",
+    "input_name": "Alter Ego",
     "published_points": 819,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 819,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 155,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     819
+    ],
+    "verdict": "match",
+    "official_standing": 155,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082861",
     "team": "Rooster",
+    "input_name": "Rooster",
     "published_points": 718,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 718,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 205,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     718
+    ],
+    "verdict": "match",
+    "official_standing": 205,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082861",
     "team": "Abyssal",
+    "input_name": "Abyssal",
     "published_points": 734,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 734,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 195,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     734
+    ],
+    "verdict": "match",
+    "official_standing": 195,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082792",
     "team": "HOTU",
+    "input_name": "HOTU",
     "published_points": 1437,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1437,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 31,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1437
+    ],
+    "verdict": "match",
+    "official_standing": 31,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082792",
     "team": "The Huns",
+    "input_name": "The Huns",
     "published_points": 944,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 701,
-    "official_snapshot": "2026-10-05",
-    "verdict": "points-mismatch"
+    "published_standing": 122,
+    "official_rows_found": 2,
+    "official_points_candidates": [
+     944,
+     701
+    ],
+    "verdict": "match",
+    "official_standing": 122,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082793",
     "team": "5star",
+    "input_name": "5star",
     "published_points": 1110,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1110,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 80,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1110
+    ],
+    "verdict": "match",
+    "official_standing": 80,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    },
    {
     "match_id": "1082793",
     "team": "1WIN",
+    "input_name": "1win",
     "published_points": 1383,
     "published_input_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "official_points": 1383,
-    "official_snapshot": "2026-10-05",
-    "verdict": "match"
+    "published_standing": 38,
+    "official_rows_found": 1,
+    "official_points_candidates": [
+     1383
+    ],
+    "verdict": "match",
+    "official_standing": 38,
+    "standing_confirmed": true,
+    "roster_confirmed": true,
+    "official_snapshot": "2026-10-05"
    }
   ],
   "files": [
    {
     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "verdict": "parsed",
+    "rows": 380,
     "teams": 349,
     "snapshot_date": "2026-10-05",
-    "observed_at": "2026-10-22T02:22:19Z"
+    "observed_at": "2026-10-22T02:37:33Z"
    }
   ],
-  "verdict": "fail",
-  "failures": [
-   "1081600 Banda chuya: published 801 != official 402 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)",
-   "1079652 ex-6666: no row in the official table https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-   "1081871 Chinggis Warriors: published 1084 != official 685 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)",
-   "1079654 ex-RUSTEC: published 1066 != official 824 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)",
-   "1079657 BRUTE: published 1116 != official 689 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)",
-   "1081150 ex-RUSTEC: published 1066 != official 824 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)",
-   "1082792 The Huns: published 944 != official 701 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)"
-  ]
+  "verdict": "pass",
+  "failures": []
  },
  "bo3_rereads": [
   {
@@ -1874,7 +2888,7 @@
    "bo3_ids": [
     22240
    ],
-   "observed_at": "2026-10-22T02:22:20Z"
+   "observed_at": "2026-10-22T02:37:33Z"
   },
   {
    "match_id": "1081597",
@@ -1883,7 +2897,7 @@
    "bo3_ids": [
     25277
    ],
-   "observed_at": "2026-10-22T02:22:20Z"
+   "observed_at": "2026-10-22T02:37:33Z"
   },
   {
    "match_id": "1082769",
@@ -1892,7 +2906,7 @@
    "bo3_ids": [
     10718
    ],
-   "observed_at": "2026-10-22T02:22:22Z"
+   "observed_at": "2026-10-22T02:37:33Z"
   },
   {
    "match_id": "1082769",
@@ -1901,7 +2915,7 @@
    "bo3_ids": [
     24638
    ],
-   "observed_at": "2026-10-22T02:22:22Z"
+   "observed_at": "2026-10-22T02:37:34Z"
   },
   {
    "match_id": "1082858",
@@ -1910,7 +2924,7 @@
    "bo3_ids": [
     584
    ],
-   "observed_at": "2026-10-22T02:22:22Z"
+   "observed_at": "2026-10-22T02:37:34Z"
   },
   {
    "match_id": "1082858",
@@ -1919,14 +2933,14 @@
    "bo3_ids": [
     25492
    ],
-   "observed_at": "2026-10-22T02:22:23Z"
+   "observed_at": "2026-10-22T02:37:34Z"
   }
  ],
  "hltv_attempt": {
   "url": "https://www.hltv.org/ranking/teams",
   "http_status": 200,
   "status": "ok",
-  "observed_at": "2026-10-22T02:22:23Z",
+  "observed_at": "2026-10-22T02:37:34Z",
   "note": "HLTV reachable from this runner at verification time"
  },
  "html": {
@@ -1947,7 +2961,7 @@
   {
    "label": "hotspawn-fixture-api",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:31Z",
    "http_status": 200,
    "response_sha256": "1304a82e59d925e5d57d4c43a5079fe31167bc2774ebb86390e3e8104a329534",
    "bytes": 77262,
@@ -1957,87 +2971,97 @@
   {
    "label": "polymarket-event-1231330",
    "url": "https://gamma-api.polymarket.com/events/1231330",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "335e84a095173154043e9270893fda5b4837d65b13c993d1e0297d0e3d1444ba",
-   "bytes": 24145,
+   "response_sha256": "4de469171818bf755905417eb0c9e7665d2a09ee09f6f3d459cea0814a5f81f7",
+   "bytes": 24105,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231330.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231331",
    "url": "https://gamma-api.polymarket.com/events/1231331",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "5452907d487a23ae8043fd8df9bac77cc1df2a6c073dad96b2fd9002c9ffe32c",
-   "bytes": 43143,
+   "response_sha256": "e98985aa1a4e852dac6d8a1a612a43f859bc7cbda0ba7d6991e75fcdb424535b",
+   "bytes": 43141,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231331.gz",
    "status": "ok"
   },
   {
-   "label": "polymarket-event-1232200",
-   "url": "https://gamma-api.polymarket.com/events/1232200",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "label": "kalshi-event-KXCS2GAME-26OCT220400TSAG1",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events/KXCS2GAME-26OCT220400TSAG1",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "d456bebb6ae8839136a01f424246cea0ff8175c421cd779beaac8f18adcf3517",
-   "bytes": 24057,
-   "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1232200.gz",
+   "response_sha256": "ad5233312731e5464cdc84364b23b8130f58488027e23fd8d4f3ca733ce9ae62",
+   "bytes": 5671,
+   "evidence": "data/research/5f6fe71d/evidence/kalshi-event-KXCS2GAME-26OCT220400TSAG1.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231332",
    "url": "https://gamma-api.polymarket.com/events/1231332",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "4873a0052489779d7961d4ad4e241cda66a91f4ab28a8331728142e2465080b2",
-   "bytes": 53464,
+   "response_sha256": "e8f8cd72da6b8deacb6a26e19f6806379eaacecffefa03fa46ff3567b4bf2922",
+   "bytes": 53379,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231332.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1232512",
    "url": "https://gamma-api.polymarket.com/events/1232512",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "a5f2e8604b7ecc795ab062510754f0ea0931d1cc427e13c3ba5c118a4c046ac7",
-   "bytes": 42955,
+   "response_sha256": "6ff0ea1fd4c9d873204b234b8238437b836cfb63fd1076e26df43a64ee7a79af",
+   "bytes": 42958,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1232512.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1224236",
    "url": "https://gamma-api.polymarket.com/events/1224236",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "d9958180270801e066987c616d23d443afaba972e68406018769c0fc6f5dbc47",
-   "bytes": 38920,
+   "response_sha256": "27424e7f2441e0ba3238811c86a262de4d7c44750d5458694e591dd576ee3329",
+   "bytes": 38882,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1224236.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1224237",
    "url": "https://gamma-api.polymarket.com/events/1224237",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "c551bd5d3a4d6192df0b60be761f7f4585d80d7600656f4bd3c8886ed4993ef7",
-   "bytes": 43382,
+   "response_sha256": "edcd64e45955020145e57543b1c88ff19b53981ba790c88d81d79b2eb5d82246",
+   "bytes": 43369,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1224237.gz",
    "status": "ok"
   },
   {
    "label": "polymarket-event-1231735",
    "url": "https://gamma-api.polymarket.com/events/1231735",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:32Z",
    "http_status": 200,
-   "response_sha256": "db40cdeb2cf8921242b80549f51426ac4c0c25a3eabe34fb5c6310d686b066e0",
-   "bytes": 43529,
+   "response_sha256": "e7622c58686a121fef2d4fa3277fbae1f6feac3b223cfb4cbe85bbf1d314a688",
+   "bytes": 43497,
    "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1231735.gz",
+   "status": "ok"
+  },
+  {
+   "label": "polymarket-event-1232959",
+   "url": "https://gamma-api.polymarket.com/events/1232959",
+   "observed_at": "2026-10-22T02:37:33Z",
+   "http_status": 200,
+   "response_sha256": "de38e153ef3367af48fe705af2fdc8d09df1eddac63fa5aa6bcd20a75ca10d1b",
+   "bytes": 43161,
+   "evidence": "data/research/5f6fe71d/evidence/polymarket-event-1232959.gz",
    "status": "ok"
   },
   {
    "label": "valve-standings-standings_global_2026_10_05.md",
    "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
-   "observed_at": "2026-10-22T02:22:19Z",
+   "observed_at": "2026-10-22T02:37:33Z",
    "http_status": 200,
    "response_sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
    "bytes": 77872,
@@ -2047,7 +3071,7 @@
   {
    "label": "bo3-team-benchedgods",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=benched%20gods",
-   "observed_at": "2026-10-22T02:22:20Z",
+   "observed_at": "2026-10-22T02:37:33Z",
    "http_status": 200,
    "response_sha256": "ed7e06d017d2b2d2f5467026ad9dd0baf075b645fdae0c6f6c1bc23d679d8246",
    "bytes": 2939,
@@ -2057,7 +3081,7 @@
   {
    "label": "bo3-team-titanflow",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=TitanFlow",
-   "observed_at": "2026-10-22T02:22:20Z",
+   "observed_at": "2026-10-22T02:37:33Z",
    "http_status": 200,
    "response_sha256": "39d6e2606cd7a126c2380eb056167f90dd2badce86ea977add71fd09b7ebb597",
    "bytes": 817,
@@ -2067,7 +3091,7 @@
   {
    "label": "bo3-team-k27",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=K27",
-   "observed_at": "2026-10-22T02:22:22Z",
+   "observed_at": "2026-10-22T02:37:33Z",
    "http_status": 200,
    "response_sha256": "294d1789acf7541ef8a381b1c95c905e08641336ad8d29f1b753552dcc1d45b2",
    "bytes": 5122,
@@ -2077,7 +3101,7 @@
   {
    "label": "bo3-team-nexora",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=NEXORA",
-   "observed_at": "2026-10-22T02:22:22Z",
+   "observed_at": "2026-10-22T02:37:34Z",
    "http_status": 200,
    "response_sha256": "7dda6d8c582459c567249eb27eaf3c9f4d1dfc64e6ced670dd59aeb291204dfa",
    "bytes": 2926,
@@ -2087,7 +3111,7 @@
   {
    "label": "bo3-team-groundzero",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=Ground%20Zero",
-   "observed_at": "2026-10-22T02:22:22Z",
+   "observed_at": "2026-10-22T02:37:34Z",
    "http_status": 200,
    "response_sha256": "b66bca0ee7798d23fd01b4cb664a51cbf4f51c26c996e48163f886e0dae8dc6a",
    "bytes": 2922,
@@ -2097,7 +3121,7 @@
   {
    "label": "bo3-team-offchops",
    "url": "https://api.bo3.gg/api/v1/teams?page[offset]=0&page[limit]=10&filter[teams.name][eq]=Off%20Chops",
-   "observed_at": "2026-10-22T02:22:23Z",
+   "observed_at": "2026-10-22T02:37:34Z",
    "http_status": 200,
    "response_sha256": "e67ad3cda35f9f1d6e16674913ffbd7524705b3a97bcccd7c4500d51ecbe9a63",
    "bytes": 2934,
@@ -2107,16 +3131,14 @@
   {
    "label": "hltv-ranking-attempt",
    "url": "https://www.hltv.org/ranking/teams",
-   "observed_at": "2026-10-22T02:22:23Z",
+   "observed_at": "2026-10-22T02:37:34Z",
    "http_status": 200,
-   "response_sha256": "2a904628024d08e5410fae70be8c12034178f8077146fc978b23148a6311cb71",
-   "bytes": 1060417,
+   "response_sha256": "0f5c91f2f9d491bde1a5ebcc8bd015bc1f63267abad7574ffb677113e5732cf0",
+   "bytes": 1063103,
    "evidence": "data/research/5f6fe71d/evidence/hltv-ranking-attempt.gz",
    "status": "ok"
   }
  ],
- "hard_failures": [
-  "valve standings mismatch: [\"1081600 Banda chuya: published 801 != official 402 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\", \"1079652 ex-6666: no row in the official table https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md\", \"1081871 Chinggis Warriors: published 1084 != official 685 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\", \"1079654 ex-RUSTEC: published 1066 != official 824 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\", \"1079657 BRUTE: published 1116 != official 689 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\", \"1081150 ex-RUSTEC: published 1066 != official 824 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\", \"1082792 The Huns: published 944 != official 701 (https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)\"]"
- ],
- "verdict": "fail"
+ "hard_failures": [],
+ "verdict": "pass"
 }

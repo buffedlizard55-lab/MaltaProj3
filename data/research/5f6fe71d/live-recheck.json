@@ -1,17 +1,17 @@
 {
  "schema_version": 1,
  "session": "arena-5f6fe71d",
- "generated_at": "2026-10-22T02:25:13Z",
- "fresh_generated_at": "2026-10-22T02:22:57Z",
- "published_generated_at": "2026-10-22T02:07:34Z",
+ "generated_at": "2026-10-22T02:39:40Z",
+ "fresh_generated_at": "2026-10-22T02:38:02Z",
+ "published_generated_at": "2026-10-22T02:26:56Z",
  "fresh_counts": {
   "inventory": 97,
   "upcoming": 35,
   "archived": 62,
   "unknown_schedule": 0,
-  "market": 7,
+  "market": 8,
   "bookmaker": 0,
-  "model": 16,
+  "model": 15,
   "unresolved": 12,
   "picks": 22,
   "no_edge": 1
@@ -42,8 +42,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.31,
-     0.69
+     0.355,
+     0.645
     ],
     "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
    },
@@ -53,8 +53,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.355,
-     0.645
+     0.34,
+     0.66
     ],
     "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22"
    },
@@ -101,24 +101,24 @@
    "published": {
     "method": "market",
     "family": null,
-    "source": "Polymarket",
-    "pick_index": 0,
+    "source": "Kalshi",
+    "pick_index": 1,
     "probabilities": [
-     0.59,
-     0.41
+     0.46268657,
+     0.53731343
     ],
-    "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
+    "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct220400tsag1"
    },
    "fresh": {
-    "method": "model",
+    "method": "consensus",
     "family": null,
-    "source": "Valve official standings",
-    "pick_index": 0,
+    "source": "Polymarket + Kalshi",
+    "pick_index": 1,
     "probabilities": [
-     0.7581203,
-     0.2418797
+     0.40833334,
+     0.59166666
     ],
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22"
    },
    "changed": true
   },
@@ -409,15 +409,15 @@
    ],
    "starts_at": "2026-10-23T11:00:00Z",
    "published": {
-    "method": "model",
+    "method": "market",
     "family": null,
-    "source": "Valve official standings",
-    "pick_index": 0,
+    "source": "Polymarket",
+    "pick_index": 1,
     "probabilities": [
-     0.6141524,
-     0.3858476
+     0.475,
+     0.525
     ],
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23"
    },
    "fresh": {
     "method": "market",
@@ -425,8 +425,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.48,
-     0.52
+     0.445,
+     0.555
     ],
     "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23"
    },
@@ -513,17 +513,17 @@
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
    },
    "fresh": {
-    "method": "model",
+    "method": "market",
     "family": null,
-    "source": "Valve official standings",
+    "source": "Polymarket",
     "pick_index": 0,
     "probabilities": [
-     0.5321556,
-     0.4678444
+     0.59,
+     0.41
     ],
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    "source_url": "https://polymarket.com/event/cs2-phanto-fal-2026-10-22"
    },
-   "changed": false
+   "changed": true
   },
   {
    "id": "1081597",
@@ -538,8 +538,8 @@
     "source": "Own network model (bo3.gg results graph)",
     "pick_index": 1,
     "probabilities": [
-     0.22195093748712438,
-     0.7780490625128756
+     0.22105755786076664,
+     0.7789424421392334
     ],
     "source_url": "https://bo3.gg/matches"
    },
@@ -549,8 +549,8 @@
     "source": "Own network model (bo3.gg results graph)",
     "pick_index": 1,
     "probabilities": [
-     0.22026560719795535,
-     0.7797343928020446
+     0.22076033759141514,
+     0.7792396624085849
     ],
     "source_url": "https://bo3.gg/matches/benched-gods-vs-titanflow-22-10-2026"
    },
@@ -569,8 +569,8 @@
     "source": "Polymarket",
     "pick_index": 0,
     "probabilities": [
-     0.645,
-     0.355
+     0.625,
+     0.375
     ],
     "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
    },
@@ -580,8 +580,8 @@
     "source": "Polymarket",
     "pick_index": 0,
     "probabilities": [
-     0.605,
-     0.395
+     0.635,
+     0.365
     ],
     "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22"
    },
@@ -637,17 +637,17 @@
     "source_url": "https://www.hltv.org/ranking/teams"
    },
    "fresh": {
-    "method": "model",
-    "family": "model",
-    "source": "HLTV world ranking",
+    "method": "market",
+    "family": null,
+    "source": "Kalshi",
     "pick_index": 1,
     "probabilities": [
-     0.48417501,
-     0.51582499
+     0.18274112,
+     0.81725888
     ],
-    "source_url": "https://www.hltv.org/ranking/teams"
+    "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor"
    },
-   "changed": false
+   "changed": true
   },
   {
    "id": "1081870",
@@ -662,8 +662,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.3,
-     0.7
+     0.29,
+     0.71
     ],
     "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
    },
@@ -673,12 +673,12 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.26,
-     0.74
+     0.29,
+     0.71
     ],
     "source_url": "https://polymarket.com/event/cs2-va-ra1-2026-10-22"
    },
-   "changed": true
+   "changed": false
   },
   {
    "id": "1081871",
@@ -786,8 +786,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.475,
-     0.525
+     0.465,
+     0.535
     ],
     "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22"
    },
@@ -797,8 +797,8 @@
     "source": "Polymarket",
     "pick_index": 1,
     "probabilities": [
-     0.465,
-     0.535
+     0.47,
+     0.53
     ],
     "source_url": "https://polymarket.com/event/cs2-bst-shin-2026-10-22"
    },
@@ -848,8 +848,8 @@
     "source": "Own network model (bo3.gg results graph)",
     "pick_index": 0,
     "probabilities": [
-     0.983895436934679,
-     0.016104563065321043
+     0.9838863131596313,
+     0.016113686840368735
     ],
     "source_url": "https://bo3.gg/matches"
    },
@@ -1115,7 +1115,7 @@
    "changed": false
   }
  ],
- "changed_rows": 9,
+ "changed_rows": 10,
  "network_repair": [
   {
    "id": "1081597",
