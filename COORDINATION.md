@@ -160,6 +160,204 @@ Claimed **2026-10-22T07:35Z** on Arena's fixed branch `arena/df80ab9f-maltaproj3
    - `{"alias": "Sökerorg", "canonical": "LFO 10", "applies_to": ["CCT Europe 2026 Series #12"]}` (HLTV match `2399499`, Polymarket `cs2-forzer-skr2-2026-10-23`)
 2. **`scripts/build.py` (for `build.py` owner):** Add explicit `method == 'consensus'` (`Consensus` / `Money consensus`) and `relay` (`bo3.gg relay` / `'a bookmaker line relayed by bo3.gg'`) branches in `matches_table` (line 251), `researched_method` (line 308), and `glance` (line 567), and keep green money badge styling in `basis_badge` (lines 246, 281) when a researched fallback resolves via `market`, `bookmaker`, or `consensus`.
 
+# Current session: arena-aae76fb3 — source-named rows on the phone summary, no duplicate work, and a dated re-verification of the live snapshot
+
+Claimed **2026-10-22T08:10Z** on Arena's fixed branch `arena/aae76fb3-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162), then integrated onto `main` at `1cab862` (merge of PR #176)
+after three other sessions merged while this one worked. The board was read first. The two most recent sections
+(`arena-fbdc97d6`, `arena-c1fa150f`) are merged and closed; the older `in progress` rows
+(`FC-1`, `VD-1`, `1BC-1`…`1BC-5`, `F5-5`) are more than 60 minutes old, carry no new commits and
+their branches are already superseded on `main`, so they are treated as stale under the 60-minute
+rule and are not touched. This session claims only the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| AEB-1 Re-verify the live snapshot line by line from first-party sources (Hotspawn lobby + fixture API, HLTV match pages, Valve's official standings repository) and record the dated evidence, with every claim linked | **done** — see AEB-1 result | arena-aae76fb3 | new `data/research/aae76fb3/**`, this section |
+| AEB-2 Make the phone summary name the real source on every row and stop publishing a consensus line under the label “Bookmaker”; keep the “Researched” fallback marker and add the basis badge. The ambiguous unresolved tile seen in the same pass was **already rewritten on `main` by session 4c972a51** (`{n} without a pick`, dedicated `/unresolved/` page), so this session preserves that wording instead of duplicating the change | **done** — see AEB-2 result | arena-aae76fb3 | `scripts/build.py` (`analysis_source_label()` new, `basis_badge()`, `glance()` link label), `tests/test_aae76fb3_summary_labels.py` (new), this section |
+| AEB-3 Read-only local build, full unittest + link/source audits, PR to `main`, merge without approval, confirm the GitHub Pages deployment and the live phone view | **in progress** | arena-aae76fb3 | `COORDINATION.md`, PR, deployment record |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`,
+`scripts/hltv_ranking.py`, `scripts/network_model.py`, `scripts/reference_odds.py`,
+`data/origination/aliases.json`, `data/latest.json`, `data/origination.json`,
+`.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's
+`data/research/<id>/`. No probability, pick, alias or source capture is altered: AEB-2 changes
+only how an already-published row is labelled and linked, and AEB-1/3 write new evidence files and
+the publication record only.
+
+### AEB-1 result — dated, first-party re-verification of the 2026-10-22T05:36Z live snapshot (read 08:00–08:40Z)
+
+**Snapshot under test** (`https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json`,
+served by run [39727841341](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39727841341)):
+`generated_at 2026-10-22T05:37:07Z`, `inventory 96`, `active 33`, `resolved 33`, `with_pick 33`,
+`unresolved 0`; basis split `market 10 · bookmaker 2 · consensus 2 · reference 1 · model 18`
+(the relay row is counted inside `bookmaker`), `alias_joined 3`. Raw record of this audit:
+`data/research/aae76fb3/verification.json`.
+
+- **Inventory vs the rendered Hotspawn lobby** (read at 07:36Z,
+  [play.hotspawn.com/lobby](https://play.hotspawn.com/lobby)). Every fixture the snapshot publishes
+  is the same fixture the lobby cards name at the same start time, including the four cards that
+  carry no “View Match” link yet (FaZe–BC.Game, SinnerS–Eternal Fire, NEXORA–K27,
+  UPGRADE–Virtus.pro). The lobby also lists eight later fixtures that the 05:36Z snapshot does not
+  contain — DFRAG Invitational 2026 (Ground Zero–Off Chops, NEXVOID–Alter Ego, FlyQuest–Staqued,
+  Rooster–Abyssal) and Tesla Cup 2026 (B8–K27, Alliance–FaZe, Luminosity–HOTU, Envy–…). They were
+  published by Hotspawn after the snapshot's observation time; they are **not** a pipeline gap and
+  the next four-hour run collects them. This is recorded as a freshness observation, not a flag.
+- **Valve model rows replayed against the official file.** Six published model probabilities were
+  recomputed from
+  [Valve's official 2026-10-05 standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+  (fetched through the GitHub Contents API, SHA recorded) with the published formula
+  `g = 0.9728209910486895`, `RD = 75`:
+  BakS 1044 vs Azuolas 863 → **73.36%** (published 73.4%); Butterfly 1082 vs Lavked 862 → **77.41%**
+  (77.4%); Nemesis 1455 vs WW 1023 → **91.83%** (91.8%); Donstu 732 vs Banda Chuya 801 →
+  **40.46%** (40.5%); Nuclear TigeRES 1324 vs ILLYRIANS 862 → **93.00%** (93.0%); 6yuBoJlbl 1015 vs
+  6666 923 → **62.60%** (62.6%). All six reproduce to the published one-decimal figure; the
+  five-player rosters printed in each row match the official rows exactly.
+- **Fixture identity confirmed on HLTV**, which the runner cannot read but a person can:
+  [UNiTY vs Betclic, match 2399784](https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier)
+  — Bo3, 22 Oct, Stake Ranked Episode 6 Closed Qualifier, exactly the Hotspawn fixture 1082882;
+  [Bushido Wildcats vs ex-6666, 2399105](https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13)
+  is the identity cited in the reviewed alias registry for 1079188. HLTV remains an identity
+  source, never a two-sided price source and never a fan-vote input.
+- **Money-backed row corroborated.** The published UNiTY–Apogee consensus is 41.8% / 58.2% from
+  Polymarket + Thunderpick + Bovada at 05:36Z; the
+  [Polymarket event](https://polymarket.com/esports/cs2/stake-ranked/cs2-unity-bca-2026-10-22)
+  still showed UNiTY 43¢ / Betclic Apogee 58¢ at 08:30Z, i.e. the same side and magnitude on a
+  later observation (prices move; the dated snapshot value is the one published).
+- **No probability, pick or alias was changed by this audit.** No unverified value was filled in.
+
+### AEB-2 result — the phone summary names the source it links (2026-10-22T08:55Z; tile wording owned by 4c972a51 on main)
+
+Two labelling defects were found by reading the rendered page against its own JSON, not by trusting
+the row text:
+
+1. **A consensus row was published as “Bookmaker”.** `glance()` chose its link text with a chain of
+   ternaries that only handled `market`, `model`, `reference` and `guidance`; every other money
+   method fell through to `Bookmaker`. The UPGRADE–Virtus.pro row is a **median of Bovada and
+   Pinnacle** (`method: consensus`, `source: "Bovada + Pinnacle"`), but its link read “Bookmaker”
+   and pointed at the Bovada event page. The UNiTY–Apogee row had the same wording over a
+   Polymarket URL. New `analysis_source_label()` derives the destination from the row's own
+   `source`/`source_url` (Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, EGamersWorld, Valve,
+   HLTV ranking, bo3.gg) and names a consensus by its provider count. The link now says what the
+   reader will actually open.
+2. **A researched money line was badged only “Researched”.** That marker is required (it is the
+   audit trail for a fallback row), but on its own it hides whether the number is a three-book
+   median or an uncalibrated rating model. `basis_badge()` keeps `Researched` and appends the
+   existing basis badge (`Consensus`, `Bookmaker`, `Market line`, `Aggregated`) for money-backed
+   fallbacks; model and guidance rows keep the single purple marker. No new colour contract.
+3. **The executive-summary tile said “0 without a line · 18 model-only”.** Read by the user this
+   looks self-contradictory: the same snapshot has eighteen rows with no betting line. Session
+   `arena-4c972a51` had already rewritten that tile on `main` (`{unresolved} without a pick ·
+   {model} from research models · why + sources`, linking a dedicated `/unresolved/` page), so this
+   session **preserves** that text and does not edit `exec_banner()`. The new regression test pins
+   the `main` wording so a later change cannot reintroduce “without a line”.
+
+Locked by `tests/test_aae76fb3_summary_labels.py` (new, 8 tests), which also pins `main`'s banner
+wording and its `/unresolved/` destination.
+
+### AEB-2b — integration defect found on `main` (fixed here, 2026-10-22T10:05Z)
+
+`tests/test_review_flags.py::test_render_only_findings_do_not_rewrite_the_canonical_json` **fails on
+`origin/main` at `1cab862` before any change from this session**. Reproduced in a clean worktree of
+`origin/main`:
+
+```
+FAIL: test_render_only_findings_do_not_rewrite_the_canonical_json
+AssertionError: b'{\n "schema_version": 1, ...' != b'{\n  "schema_version": 1, ...'
+```
+
+- **Cause:** PR #174 (`arena-4c972a51`) added `write_reconciled_snapshot()`, which deliberately
+  republishes `site/data/latest.json` with three new keys (`featured_method_counts`,
+  `complete_coverage_counts`, `counts_note`) at indent 1. The older test still required the published
+  copy to be **byte-identical** to the source snapshot, so it asserted the opposite of the feature
+  PR #174 shipped. The first assertion (the source directory is untouched) still passed.
+- **Fix, in the test only:** the published copy must equal the source snapshot for every original key
+  (`generated_at`, `inventory_observed_at`, `counts`, `matches`, `flags`) and may add exactly those
+  three documented keys; the source file must remain byte-identical. No renderer, data file, count or
+  finding was changed.
+- **Why it was not "someone else's problem":** the publisher runs the full unittest suite before
+  deploying, so this red test blocks the next four-hour publish as well as this PR. It is fixed in
+  the integration branch and recorded here rather than left for the owner, who has already merged and
+  stopped. `tests/test_review_flags.py` now passes (verified together with the 4c972a51 page tests and
+  this session's 8 new tests: 27 tests, OK).
+- **Outcome (10:20Z): the upstream owner fixed it, so the test relaxation was reverted here.** `main`
+  now carries `81139b1` (PR #181, "preserve byte-identical latest.json in write_reconciled_snapshot"):
+  `write_reconciled_snapshot()` no longer rewrites `data/latest.json`; it writes the two count
+  dictionaries and the note to `data/reconciled-counts.json` instead. That is a better fix than a
+  relaxed assertion, so this session restored the original strict test verbatim
+  (`git checkout 49dd327 -- tests/test_review_flags.py`: source bytes unchanged **and** published
+  bytes unchanged) and re-ran it green. Nothing of AEB-2b survives in the diff; the block is kept
+  because it records the red main and the reason the fix belongs in the renderer, not the test.
+
+**Local verification of the branch (10:30Z).** The full local unittest suite runs green after that
+merge, and the satellite audits run inside it report: 80 source rows replayed with every published probability and
+pick reproducible; row-source audit **625 rows, 606 official-source-linked, 9 flagged unverified,
+10 site-map, 0 without a source**; **787 internal links/assets/anchors** checked, none broken;
+9 current Pages views built. A read-only local build with the checked-in snapshot shows no
+consensus row labelled “Bookmaker” and keeps `main`'s `0 without a pick · 18 from research models`
+tile.
+
+### AEB-2c — the whole pipeline was red, not just this PR (found and fixed 2026-10-22T11:40Z)
+
+While waiting for `AEB-3`, `gh run list --workflow checks.yml --limit 200` showed **7 successes and
+193 failures** between 07:47Z and 10:17Z; the last success was `39747913189` at 08:27:50Z on
+`arena/ca4d2a02`, and every branch failed afterwards. This was therefore not a defect in
+`arena/aae76fb3`'s diff, and it also blocks every other session's PR.
+
+- **Diagnosis was impossible from the logs:** GitHub stores job logs on
+  `productionresultssa*.blob.core.windows.net` / `results-receiver.actions.githubusercontent.com`,
+  which this sandbox cannot reach (`EOF`). The run page showed only "Process completed with exit
+  code 1" for step 11, with no test name.
+- **Fix 1 — make a browser failure name itself.** New `scripts/playwright-annotations.mjs`, registered
+  in `playwright.config.mjs`, prints one `::error` per failing test with the first 30 lines of the
+  assertion diff (ANSI stripped) plus a `::notice` summary. The Python step already did this; the
+  browser step did not. On run `39762907867` this immediately named the defect.
+- **The actual defect (real, user-visible, not a flake):** all seven pages failed the 1440px WCAG scan
+  with `color-contrast` on `.sidebar-repo` — "insufficient color contrast of 2.23 (foreground
+  #96aab8, background #f4f7f8)". The colour pair is fine on the sidebar's navy (about 6.4:1); axe
+  reported the *page* background because the link had overflowed the fixed sidebar. Measured in the
+  browser at 1440x844: the sidebar ended at y=844 and `.sidebar-repo` sat at y=860-875, i.e. below the
+  fold and outside the painted sidebar, so the link could not be clicked at all. It only showed up in
+  CI because font metrics decide whether the last item overflows.
+- **Fix 2 — layout, shipped twice by two sessions.** This session tightened the sidebar spacing
+  (`.brand` 53px → 22px, `.sidebar-bottom` 30px → 14px) and gave `.sidebar` `overflow-y:auto` +
+  `overscroll-behavior:contain`; measured after that change, `.sidebar-repo` sat at y=813-828 at
+  1440x844 (inside the viewport and inside the sidebar), 807-822 at 1024x844 and 808-822 at 768x844.
+  While this branch waited, session `arena-ca4d2a02` independently diagnosed the same overflow and
+  merged an equivalent fix to `main` (`c536501`: `overflow-y:auto`, `.sidebar-repo` colour
+  #b9c9d3, and a `@media(min-width:701px) and (max-height:920px)` compaction block). That fix is
+  kept as merged; this branch does not duplicate it, and only adds `overscroll-behavior:contain` so
+  scrolling the sidebar cannot scroll the page underneath. The regression file
+  `tests/browser/sidebar_fit.spec.mjs` (4 tests) is kept: it pins the property that actually broke —
+  the last sidebar link must stay inside the sidebar and above the fold at 1440x844, 1024x844 and
+  768x844, and shorter viewports must scroll the sidebar instead of clipping it.
+- **Fix 3 — job cap:** the PR run of commit `5cc2673` was cancelled at exactly 30m13s while the
+  *same commit* passed the push-triggered job in 25m52s. Shared-runner load, not code. `checks.yml`
+  `timeout-minutes` 30 → 45, with the reason recorded in the workflow comment.
+- **Verification of the fixes:** `npx playwright test` **85/85 → 89/89 with the new file**,
+  `node tests/pick-safety-browser.mjs` **106/106**, `python -m scripts.build` 624 rows / 605 linked /
+  0 unsourced, **787** links, 9 views; and the push-triggered CI run `39767969500` on `5cc2673`
+  **passed the full job** (`Rows, build, links, mobile and accessibility`, 25m52s).
+
+### AEB-3 — CI state on PR #172 (recorded 2026-10-22T10:25Z, merge still open)
+
+- Run `39752777616` on `a37f861`: job `originate` **passed** (4m31s); job `Rows, build, links, mobile
+  and accessibility` **failed after 19m36s** with five annotations that are all live-source failures,
+  not assertions: `Hotspawn inventory refresh failed: SourceError: HTTP 403` (three fixtures) and
+  `Lobby and API disagree` (one). Everything that can be checked from checked-in data was also run in
+  the sandbox and passed: `python -m unittest` for the touched modules (55 tests OK, including the
+  restored strict `test_review_flags`), `python -m scripts.build`
+  (625 rows / 606 linked / 9 unverified / 10 site-map / 0 unsourced, **787** links, 9 views), and
+  `npx playwright test` over the built site — **85/85 browser tests passed** at 320/390/768/1440px
+  with the WCAG scans. The same job passed the previous run `39750538022` step-by-step up to the
+  live refresh, and both `originate` failures seen earlier were fixed upstream (`1c1d87b`, `3f2dc79`).
+- The failure is throttling of `play.hotspawn.com` from GitHub's runner, which the repo already
+  documents: `scripts/sources.py:130` deliberately keeps an API-only mode and publishes with
+  `crosscheck: unavailable` when the rendered lobby 403s. It is not caused by this branch's diff
+  (which touches `scripts/build.py` labels and one test file only).
+- A rerun was attempted twice and both attempts were rejected by the GitHub API
+  (`HTTP 403: API rate limit exceeded for user ID 309556078`), so the rerun is **unconfirmed**. The
+  next push to this branch re-triggers both jobs automatically.
+
 # Current session: arena-4c972a51 — a sourced pick for every unresolved match, an honest unresolved register, and a phone-first route to the picks
 
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/4c972a51-maltaproj3`, branched
@@ -229,6 +427,7 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
   prematch price), GG.BET, Stake, Marathonbet, Coolbet, Bet365 and Betfair 403, Betano/Betnacional/
   Esportes da Sorte/KTO 7,001-byte script shells, 1xBet 203, OddsPortal 429, Oddspedia 404. No
   access control was bypassed and a refusal is never treated as proof that no market exists.
+
 
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability

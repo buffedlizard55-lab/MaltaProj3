@@ -18,7 +18,12 @@ jobs:
     # install, 320/390/768/1440px UI checks) and was still cancelled by the
     # job-level cap at exactly 15m0s, which marked PR #112 red for a reason
     # unrelated to the code. The cap is raised, not the checks removed.
-    timeout-minutes: 30
+    # 2026-10-22: the same job took 12-13 minutes when idle but 25m52s on a
+    # loaded runner and was cancelled at exactly 30m13s, which marked PR #172
+    # red while the identical commit passed on the push-triggered run. The cap
+    # is raised again (45 minutes) so shared-runner load cannot fail a check
+    # that has not found a defect.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
