@@ -37,6 +37,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.originate --live
+      - name: Session unit tests for the relayed-bookmaker rung
+        run: python -m unittest tests.test_15fc6bca_relay -v
+      - name: Build every page from the fresh snapshot and audit every row
+        run: |
+          python -m scripts.build
+          python -m scripts.audit_rows --site site --strict
+          cp -r site/index.html site/origination/index.html data/research/15fc6bca/ 2>/dev/null || true
       - name: Record per-fixture coverage and bo3.gg relay state
         run: python -m scripts.15fc6bca_probe
       - name: Restore every tracked data file so only the report is committed

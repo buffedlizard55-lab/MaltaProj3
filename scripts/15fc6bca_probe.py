@@ -152,6 +152,15 @@ def main() -> None:
         origination = json.loads(path.read_text())
     (LIVE / 'latest.json').write_text(json.dumps(latest, indent=1))
     (LIVE / 'origination.json').write_text(json.dumps(origination, indent=1))
+    # Keep the relay document the ladder priced from: it is regenerated in the
+    # evidence directory on every live run, so the copy here is the only durable
+    # record of the exact coefficients behind a published relayed price.
+    relay_doc = ROOT / 'data' / 'origination' / 'evidence' / 'live-bo3-relay.json'
+    if relay_doc.exists():
+        (LIVE / 'live-bo3-relay.json').write_text(relay_doc.read_text())
+    manifest = ROOT / 'data' / 'origination' / 'evidence' / 'live-collection-manifest.json'
+    if manifest.exists():
+        (LIVE / 'live-collection-manifest.json').write_text(manifest.read_text())
 
     registry = json.loads((ROOT / 'data' / 'origination' / 'aliases.json').read_text())
     alias_pairs: dict[str, set[str]] = {}

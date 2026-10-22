@@ -57,6 +57,18 @@ TIME_DISAGREEMENT_SEC = 60  # Beyond this, the disagreement is published as a fl
 #     than 0.15 are still rejected and never become a pick.
 THIN_SPREAD = 0.12
 MAX_ACCEPTED_SPREAD = 0.15
+# bo3.gg relays a named bookmaker's own two-sided prematch decimal prices in the
+# ``bet_updates`` block of the fixtures its pages list. That is a *second-hand*
+# copy of a first-party price, so session 15fc6bca's rung treats it as its own
+# evidence class: it is used only when no first-party market or esportsbook quote
+# resolved the fixture, it is never folded into a first-party consensus (which
+# would double-count the same bookmaker), and every published row names the
+# bookmaker, the bo3.gg page the numbers were read from and the bookmaker match
+# page bo3.gg links to. The join is at least as strict as every other money rung:
+# both team names must resolve exactly or through the reviewed alias registry,
+# and the start time must agree inside the tolerance published below.
+RELAY_START_TOLERANCE_SEC = 900
+RELAY_FAMILY = 'relay'
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
 POLY_INDEX = 'https://polymarket.com/esports/cs2'
@@ -475,6 +487,164 @@ def collect_bo3_results(client, evidence_dir: Path, matches: list, registry: dic
             'samples': sum(len(v['samples']) for v in cache.values())}
 
 
+def relay_join(source_names: list, source_start, match: dict, registry: dict,
+               tolerance: int = RELAY_START_TOLERANCE_SEC) -> tuple[list | None, list, str]:
+    """Join a bo3.gg relay row onto a Hotspawn fixture.
+
+    Identical to ``pair_join`` except for the published relay tolerance: both
+    team names must resolve exactly or through the reviewed alias registry, and
+    the start time must agree within ``RELAY_START_TOLERANCE_SEC``. Returns
+    (canonical names, alias records, status).
+    """
+    if len(source_names) != 2 or not all(isinstance(n, str) and n.strip() for n in source_names):
+        return None, [], 'names'
+    canon, used = [], []
+    for name in source_names:
+        canonical, records = resolve_name(name, registry, match.get('competition'))
+        canon.append(canonical)
+        used.extend(records)
+    wanted = [name_key(t['name']) for t in match['teams'] if t.get('name')]
+    if len(wanted) != 2 or set(canon) != set(wanted) or len(set(canon)) != 2:
+        return None, [], 'names'
+    source_then, match_then = timestamp(source_start), timestamp(match.get('starts_at'))
+    if source_then is None or match_then is None:
+        return None, used, 'time'
+    if abs((source_then - match_then).total_seconds()) > tolerance:
+        return None, used, 'time'
+    return canon, used, 'matched'
+
+
+def collect_bo3_relay(client, evidence_dir: Path, matches: list, registry: dict) -> dict:
+    """Save the two-sided bookmaker prices bo3.gg relays for these fixtures.
+
+    bo3.gg publishes, on the match objects its own pages load, a ``bet_updates``
+    block naming a bookmaker, that bookmaker's match page and both decimal
+    coefficients with an ``active`` flag. The block is copied verbatim: nothing
+    is averaged, de-vigged or defaulted here, and a fixture that cannot be bound
+    by BOTH sides plus a start time inside the relay tolerance is recorded as a
+    rejection instead of being priced.
+    """
+    rows, pages = [], 0
+    while pages < 3:
+        query = ('/matches?page[offset]=' + str(pages * 100) + '&page[limit]=100&sort=start_date'
+                 '&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1'
+                 '&with=teams,tournament')
+        try:
+            body, _ = client.get_json(BO3_API + query, f'live-bo3-relay-upcoming-{pages}',
+                                      headers=BO3_HEADERS, save=False)
+        except RuntimeError:
+            break
+        chunk = body.get('results') or []
+        rows.extend(chunk)
+        pages += 1
+        if len(chunk) < 100:
+            break
+    observed = iso(datetime.now(UTC))
+    fixtures, rejections = [], []
+    for match in matches:
+        if match.get('availability') == 'past':
+            continue
+        start = timestamp(match.get('starts_at'))
+        if start is None:
+            continue
+        bound, near = [], []
+        for row in rows:
+            other = timestamp(row.get('start_date'))
+            if other is None or abs((other - start).total_seconds()) > RELAY_START_TOLERANCE_SEC:
+                continue
+            names = [(row.get('team1') or {}).get('name'), (row.get('team2') or {}).get('name')]
+            _, used, status = relay_join(names, row.get('start_date'), match, registry)
+            near.append({'slug': row.get('slug'), 'start': row.get('start_date'), 'teams': names,
+                         'status': status})
+            if status == 'matched':
+                bound.append((row, used))
+        if len(bound) != 1:
+            if near:
+                rejections.append({'hotspawn_id': str(match['id']),
+                                   'teams': [t.get('name') for t in match.get('teams') or []],
+                                   'reason': ('ambiguous: several bo3.gg fixtures join this fixture'
+                                              if len(bound) > 1 else
+                                              'no single bo3.gg fixture matched both team names and the start time'),
+                                   'candidates': near[:5]})
+            continue
+        row, used = bound[0]
+        relay_block = row.get('bet_updates')
+        record = {'hotspawn_id': str(match['id']),
+                  'bo3_id': row.get('id'),
+                  'bo3_url': 'https://bo3.gg/matches/' + str(row.get('slug')),
+                  'tournament': (row.get('tournament') or {}).get('name'),
+                  'bo_type': row.get('bo_type'),
+                  'start': row.get('start_date'),
+                  'start_delta_sec': int(abs((timestamp(row.get('start_date')) - start).total_seconds())),
+                  'observed_at': observed,
+                  'provider': None, 'book_url': None, 'sides': [],
+                  'aliases_used': [{'alias': a['alias'], 'canonical': a['canonical']} for a in used]}
+        if not isinstance(relay_block, dict):
+            rejections.append({'hotspawn_id': str(match['id']),
+                               'teams': [t.get('name') for t in match.get('teams') or []],
+                               'reason': 'bo3.gg lists the fixture without a bookmaker quote block',
+                               'candidates': [{'slug': row.get('slug'), 'status': 'matched'}]})
+            continue
+        record['provider'] = relay_block.get('provider')
+        record['book_url'] = relay_block.get('path')
+        sides = {}
+        for side, block in (('team1', relay_block.get('team_1') or {}),
+                            ('team2', relay_block.get('team_2') or {})):
+            sides[side] = {'team_id': block.get('team_id'), 'name': block.get('name'),
+                           'coeff': block.get('coeff'), 'active': block.get('active')}
+        # bo3.gg can print the bookmaker's sides in either order. Align them to
+        # bo3.gg's own team1/team2 using the team id when it prints one, and only
+        # then fall back to the name bo3.gg itself uses for the fixture side.
+        team1_id, team2_id = (row.get('team1') or {}).get('id'), (row.get('team2') or {}).get('id')
+        if sides['team1'].get('team_id') and sides['team2'].get('team_id'):
+            if sides['team1']['team_id'] == team2_id and sides['team2']['team_id'] == team1_id:
+                sides['team1'], sides['team2'] = sides['team2'], sides['team1']
+            elif not (sides['team1']['team_id'] == team1_id and sides['team2']['team_id'] == team2_id):
+                rejections.append({'hotspawn_id': str(match['id']),
+                                   'teams': [t.get('name') for t in match.get('teams') or []],
+                                   'reason': 'relayed quote team ids do not match the fixture sides',
+                                   'candidates': [{'slug': row.get('slug'), 'status': 'matched'}]})
+                continue
+        record['sides'] = [sides['team1'], sides['team2']]
+        fixtures.append(record)
+    document = {'source': 'bo3.gg public match API (relayed bookmaker quote)',
+                'api_url': BO3_API + '/matches', 'documentation': 'https://api.bo3.gg/api/v1',
+                'observed_at': observed, 'rows_fetched': len(rows),
+                'policy': ('Verbatim copy of the bookmaker quote bo3.gg relays. No probability, pick or alias '
+                           'is decided here; the ladder validates the pair before it can become an estimate.'),
+                'fixtures': fixtures, 'rejections': rejections}
+    (evidence_dir / 'live-bo3-relay.json').write_text(json.dumps(document, ensure_ascii=False, indent=2) + '\n')
+    return {'fixtures_bound': len(fixtures), 'rows_fetched': len(rows),
+            'with_quote': sum(1 for f in fixtures if f.get('sides')),
+            'rejections': len(rejections)}
+
+
+def bo3_relay_rows(evidence_dir: Path) -> list:
+    """Load the saved relay document as normalized quote rows (never re-priced)."""
+    path = evidence_dir / 'live-bo3-relay.json'
+    if not path.exists():
+        return []
+    try:
+        document = load_json(path)
+    except (ValueError, OSError):
+        return []
+    out = []
+    for entry in document.get('fixtures') or []:
+        sides = entry.get('sides') or []
+        if len(sides) != 2 or any(not s.get('name') for s in sides):
+            continue
+        out.append({'family': RELAY_FAMILY, 'provider': entry.get('provider') or 'Unnamed bookmaker',
+                    'names': [s.get('name') for s in sides],
+                    'odds': [s.get('coeff') for s in sides],
+                    'active': [s.get('active') for s in sides],
+                    'start': entry.get('start'), 'start_delta_sec': entry.get('start_delta_sec'),
+                    'observed_at': entry.get('observed_at'),
+                    'source_url': entry.get('bo3_url'), 'book_url': entry.get('book_url'),
+                    'event_id': entry.get('bo3_id'), 'fixture_id': entry.get('hotspawn_id'),
+                    'evidence_file': 'data/origination/evidence/live-bo3-relay.json'})
+    return out
+
+
 def collect_bo3_graph(client, evidence_dir: Path, *, max_pages: int = 100,
                       max_age_days: int = network_model.WINDOW_DAYS) -> dict:
     """Fetch the finished-series graph the own network model fits on.
@@ -814,6 +984,13 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             out['valve'] = {'snapshot_date': day, 'source_url': content['html_url']}
     except RuntimeError as exc:
         out['valve_error'] = str(exc)
+    # Relayed bookmaker quotes (session 15fc6bca): a stale document must never be
+    # reused, so the previous file is removed before the refetch.
+    (evidence_dir / 'live-bo3-relay.json').unlink(missing_ok=True)
+    try:
+        out['bo3_relay'] = collect_bo3_relay(client, evidence_dir, matches, registry)
+    except Exception as exc:  # noqa: BLE001 - a relay outage prices nothing
+        out['bo3_relay_error'] = f'{type(exc).__name__}: {exc}'[:200]
     try:
         known = set()
         if valve_text:
@@ -1352,6 +1529,48 @@ def bookmaker_estimate(row: dict, match: dict, registry: dict, *, now: datetime 
     return quote, 'Verified paired prematch decimal prices; margin removed by proportional normalization.'
 
 
+def relayed_bookmaker_estimate(row: dict, match: dict, registry: dict, *, now: datetime | None = None):
+    """Price a fixture from the two-sided bookmaker quote bo3.gg relays.
+
+    Fail-closed on every input: stale or future-dated observation, observation
+    that is not prematch, a suspended side, a non-numeric or sub-1.01
+    coefficient, a paired margin outside ``domain.no_vig``'s acceptance band, or
+    a name that cannot be mapped to a Hotspawn side. The returned quote is
+    labelled ``family='relay'`` so it can never be counted as a first-party
+    money vote, and it carries both the bo3.gg page the numbers were read from
+    and the bookmaker page bo3.gg links to.
+    """
+    from scripts.domain import is_fresh
+    now = now or datetime.now(UTC)
+    if not is_fresh(row.get('observed_at'), now):
+        return None, 'Relayed bookmaker observation is missing, future-dated or stale'
+    observed, start = timestamp(row.get('observed_at')), timestamp(row.get('start'))
+    if start and observed and observed >= start:
+        return None, 'Relayed bookmaker observation is not prematch'
+    active = row.get('active') or []
+    if len(active) != 2 or any(value is not True for value in active):
+        return None, 'The relayed quote is suspended on at least one side (active is not true)'
+    try:
+        probs = no_vig(row['odds'])
+        aligned = align_by_name(probs, row['names'], match, registry)
+        odds = align_by_name(row['odds'], row['names'], match, registry)
+    except (ValueError, KeyError, TypeError) as exc:
+        return None, str(exc)
+    implied = [1 / float(o) for o in odds]
+    quote = {'provider': f"{row['provider']} (relayed by bo3.gg)", 'family': RELAY_FAMILY,
+             'probabilities': aligned, 'odds': odds,
+             'overround': round(sum(implied) - 1, 6),
+             'observed_at': row['observed_at'], 'source_url': row['source_url'],
+             'book_url': row.get('book_url'), 'event_id': row.get('event_id'),
+             'start_delta_sec': row.get('start_delta_sec'),
+             'evidence_file': row.get('evidence_file')}
+    detail = (f"Two-sided prematch decimal prices {odds[0]} / {odds[1]} published by {row['provider']} and "
+              f"relayed verbatim by bo3.gg (overround {quote['overround'] * 100:.2f}%); margin removed by "
+              "proportional normalization. The number was read from the bo3.gg relay, not from the bookmaker's "
+              'own page.')
+    return quote, detail
+
+
 def wide_book_quote(row: dict, match: dict, registry: dict, now: datetime):
     """Indicative midpoint of an otherwise-rejected two-sided book (guidance only).
 
@@ -1571,7 +1790,7 @@ def selection(probs) -> int | None:
 
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
                     reference: list | None = None, hltv_rank: list | None = None,
-                    hltv_meta: dict | None = None) -> dict:
+                    hltv_meta: dict | None = None, relay: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -1650,6 +1869,48 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       f'No alias-verified {provider} match-winner line found for these teams and start time.')
             url = rejected[0][1] if rejected and str(rejected[0][1]).startswith('https://') else fallback_url
             trail.append({'stage': stage, 'status': 'unresolved', 'source_url': url, 'detail': detail})
+
+    # 2b. Bookmaker prices bo3.gg relays for fixtures the first-party ladder left
+    # blank (session 15fc6bca). bo3.gg publishes, per upcoming match, a
+    # ``bet_updates`` block naming the bookmaker, its match page and both decimal
+    # coefficients. This is a second-hand copy of a first-party price, so it is
+    # its own evidence class: it never joins a first-party consensus (that would
+    # double count the same book), it is used only when no first-party quote
+    # resolved the fixture, and every published row names the bookmaker, the
+    # bo3.gg page the numbers were read from and the bookmaker page bo3.gg links
+    # to. Rejected relays keep their reason in the trail; nothing is defaulted.
+    relay_quotes = []
+    relay_reasons = []
+    for row in relay or []:
+        # A row bound to a different Hotspawn fixture is never re-used, even when
+        # the team names happen to line up: the collector writes the fixture id it
+        # proved, and this is where that proof is enforced.
+        if row.get('fixture_id') is not None and str(row.get('fixture_id')) != str(match.get('id')):
+            continue
+        quote, detail = relayed_bookmaker_estimate(row, match, registry, now=now)
+        if quote:
+            relay_quotes.append((quote, detail))
+        else:
+            relay_reasons.append((row, detail))
+    relay_quotes.sort(key=lambda item: item[0].get('overround', 1))
+    relay_row = next((r for r, _ in relay_quotes), None)
+    relay_stage = 'Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)'
+    if relay_quotes:
+        quote, detail = relay_quotes[0]
+        trail.append({'stage': relay_stage, 'status': 'resolved',
+                      'source_url': quote['source_url'],
+                      'detail': detail + ('' if not relay_reasons else
+                                          ' Narrowest of ' + str(len(relay_quotes)) + ' relayed pairs.')})
+    elif relay_reasons:
+        row, detail = relay_reasons[0]
+        trail.append({'stage': relay_stage, 'status': 'unresolved',
+                      'source_url': row.get('source_url') or 'https://bo3.gg/matches',
+                      'detail': f"{row.get('provider') or 'Bookmaker'} via bo3.gg: {detail}"})
+    else:
+        trail.append({'stage': relay_stage, 'status': 'unresolved',
+                      'source_url': 'https://bo3.gg/matches',
+                      'detail': 'bo3.gg lists no fixture bound by both team names and the start time, or lists it '
+                                'without a bookmaker quote block, so no relayed price exists for this fixture.'})
 
     # 3. Reviewed aggregated-bookmaker fallback (EGamersWorld averages).
     # Only for fixtures the entire first-party ladder left blank; never used to
@@ -1796,6 +2057,25 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         if len(families) == 1:
             limitations.append('Single independent source; not a multi-source consensus.')
         limitations.append('Margin removed where applicable. Estimate is not a guaranteed outcome.')
+    elif relay_quotes:
+        # Session 15fc6bca: a named bookmaker's own two-sided price, read through
+        # bo3.gg's relay. It outranks the aggregated third-party average and every
+        # research model, and it is labelled as a relay wherever it is published.
+        quote, detail = relay_quotes[0]
+        chosen = dict(quote)
+        chosen.update({'method': 'bookmaker',
+                       'label': f"Esportsbook line relayed by bo3.gg ({quote['provider'].split(' (')[0]}, no-vig)",
+                       'fair_decimal': [round(1 / p, 3) for p in quote['probabilities']],
+                       'quotes': [quote], 'source': quote['provider'],
+                       'model_crosscheck': model})
+        limitations.append(
+            'Bookmaker price relayed by bo3.gg, not read from the bookmaker\'s own page: bo3.gg publishes the '
+            'coefficient pair it receives from the provider, and that page is linked on this row. Confirm the live '
+            'price with the bookmaker before relying on it.')
+        if quote.get('start_delta_sec'):
+            limitations.append(
+                f"bo3.gg's start time for this fixture differs from Hotspawn's by {quote['start_delta_sec']} seconds; "
+                f'the join tolerance for a relayed price is {RELAY_START_TOLERANCE_SEC} seconds.')
     elif reference_quote:
         chosen = dict(reference_quote)
         chosen.update({'method': 'reference',
@@ -1894,6 +2174,16 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
+    if relay_quotes and (chosen or {}).get('family') != RELAY_FAMILY:
+        # A relayed price exists but a first-party quote, the aggregated
+        # reference or a research model already resolved the fixture. Say so,
+        # instead of showing the relay as the source of a number it did not set.
+        for entry in trail:
+            if entry.get('stage') == relay_stage and entry.get('status') == 'resolved':
+                entry['status'] = 'not needed'
+                entry['detail'] = ('A higher-ranked rung resolved this fixture, so the relayed price was not used. '
+                                   + entry['detail'])
+                break
     if reference_quote and (chosen or {}).get('method') != 'reference':
         # The capture exists but a first-party line won; say so instead of
         # presenting an unused fallback as a resolved source.
@@ -1935,7 +2225,7 @@ MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
 
 def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *,
                   reference: list | None = None, hltv_rank: list | None = None,
-                  hltv_meta: dict | None = None) -> dict:
+                  hltv_meta: dict | None = None, relay: list | None = None) -> dict:
     """One fixture's origination row.
 
     Featured estimates from the exact-name collector are preserved unchanged, with two exceptions:
@@ -1959,7 +2249,7 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
     result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'),
-                             reference=reference, hltv_rank=hltv_rank, hltv_meta=hltv_meta)
+                             reference=reference, hltv_rank=hltv_rank, hltv_meta=hltv_meta, relay=relay)
     if not featured:
         return result
     method = (result.get('origination') or {}).get('method')
@@ -1984,6 +2274,10 @@ def run(output: Path, *, live: bool = False) -> dict:
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
     hltv_rank_rows, hltv_meta = hltv_ranking.load(evidence_dir)
+    # Bookmaker prices bo3.gg relays (session 15fc6bca). Loaded from the dated
+    # evidence document whether this run collected live or replayed; the ladder
+    # validates freshness and the join before a single row can be priced.
+    relay_rows = bo3_relay_rows(evidence_dir)
     # Preserve original source observation timestamps. Never stamp retained quotes as new.
     for row in poly_rows:
         if not row.get('observed_at'):
@@ -2022,7 +2316,8 @@ def run(output: Path, *, live: bool = False) -> dict:
         result = resolve_match(dict(match, _hltv_lineup=proof, _form=form, _form_reason=form_reason,
                                     _network=network, _network_reason=network_reason),
                                poly_rows, book_rows, ratings, valve_meta, registry, now,
-                               reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta)
+                               reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta,
+                               relay=relay_rows)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],
@@ -2053,6 +2348,10 @@ def run(output: Path, *, live: bool = False) -> dict:
         'reference': sum((m['origination'] or {}).get('method') == 'reference' for m in matches_out),
         'model': sum((m['origination'] or {}).get('method') == 'model' for m in matches_out),
         'network': sum((m['origination'] or {}).get('family') == 'network' for m in matches_out),
+        # Rows priced from the bookmaker quote bo3.gg relays: a subset of the
+        # 'bookmaker' method, published separately so no reader mistakes a
+        # second-hand copy for a first-party bookmaker observation.
+        'relay': sum((m['origination'] or {}).get('family') == RELAY_FAMILY for m in matches_out),
         'guidance': sum((m['origination'] or {}).get('method') == 'guidance' for m in matches_out),
         'alias_joined': sum(bool(m['aliases_used']) for m in matches_out),
     }
@@ -2088,6 +2387,18 @@ def run(output: Path, *, live: bool = False) -> dict:
                                 'not validated picks and must never be treated as executable prices. See each '
                                 "row's research trail for the exact spreads.",
                       'match_ids': guidance_ids, 'source_urls': [POLY_INDEX, KALSHI_PAGE.rstrip('/')]})
+    relay_ids = [m['id'] for m in matches_out if (m['origination'] or {}).get('family') == RELAY_FAMILY]
+    if relay_ids:
+        flags.append({'id': 'relayed-bookmaker-lines', 'severity': 'notice',
+                      'title': 'Bookmaker prices relayed by bo3.gg used where no first-party quote existed',
+                      'detail': 'These fixtures had no usable first-party Polymarket, Kalshi, Thunderpick, Bovada or '
+                                'Pinnacle quote. Their estimates replay the two-sided decimal coefficients bo3.gg '
+                                'publishes for the fixture, naming the bookmaker and linking both the bo3.gg match '
+                                'page the numbers were read from and the bookmaker page bo3.gg links to. The price is '
+                                'a second-hand copy, not an observation of the bookmaker\'s own feed, and it is '
+                                'never folded into a first-party consensus.',
+                      'match_ids': relay_ids,
+                      'source_urls': ['https://bo3.gg/matches', BO3_API + '/matches']})
     network_ids = [m['id'] for m in matches_out
                    if (m['origination'] or {}).get('family') == 'network']
     if network_ids:
@@ -2130,8 +2441,8 @@ def run(output: Path, *, live: bool = False) -> dict:
         'registry_updated_at': registry.get('updated_at'),
         'live_collection': bool(live),
         'collection': ({key: live_payload.get(key) for key in
-                        ('bo3_results', 'bo3_results_error', 'valve', 'valve_error', 'vrs_mirror_error',
-                         'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
+                        ('bo3_results', 'bo3_results_error', 'bo3_relay', 'bo3_relay_error', 'valve', 'valve_error',
+                         'vrs_mirror_error', 'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
         'network_collection': (None if not live_payload else {
             'graph_edges': len((live_payload.get('bo3_graph') or {}).get('edges') or []),
             'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),
@@ -2155,6 +2466,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             'max_accepted_spread': MAX_ACCEPTED_SPREAD,
             'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias Kalshi CS2 match-winner books',
                        'verified-alias esportsbook paired prices (Thunderpick, Bovada, Pinnacle; no-vig)',
+                       'bookmaker prices relayed by bo3.gg (session 15fc6bca; labelled second-hand copy, used only '
+                       'when no first-party quote exists and never mixed into a first-party consensus)',
                        'median consensus across independent money providers',
                        'reviewed aggregated bookmaker average (EGamersWorld; labelled third-party aggregate, never overrides a first-party price)',
                        'Valve-rating research model fallback',
@@ -2164,6 +2477,8 @@ def run(output: Path, *, live: bool = False) -> dict:
                        'wide-book indicative midpoint, guidance only (session c03ef201; never a validated pick)',
                        'blank + flagged'],
             'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada', 'Pinnacle'],
+            'relay_providers': ['bo3.gg published bookmaker relay (provider named per fixture)'],
+            'relay_start_tolerance_sec': RELAY_START_TOLERANCE_SEC,
             'aggregated_reference': ['EGamersWorld published bookmaker average (manual, dated, hash-checked capture)'],
         },
         'matches': matches_out,
@@ -2177,6 +2492,9 @@ def run(output: Path, *, live: bool = False) -> dict:
             {'name': 'Bovada esportsbook', 'url': BOVADA_SITE, 'api_url': BOVADA_API, 'role': 'original paired prematch series moneylines (money source)'},
             {'name': 'Pinnacle esportsbook', 'url': PINNACLE_PAGE, 'api_url': PINNACLE_API,
              'role': 'public guest board two-way series moneylines (money source; period 0 only, specials rejected)'},
+            {'name': 'bo3.gg relayed bookmaker quotes', 'url': 'https://bo3.gg/matches', 'api_url': BO3_API + '/matches',
+             'role': 'second-hand two-sided bookmaker prices, labelled as a relay, used only when no first-party '
+                     'quote exists (session 15fc6bca)'},
             {'name': 'HLTV.org', 'url': HLTV_EVENT, 'role': 'identity research and published ranks; fan votes never a probability input'},
             {'name': 'HLTV world ranking', 'url': HLTV_RANKING_URL,
              'role': 'uncalibrated ranking research-model fallback only (session c03ef201)'},
