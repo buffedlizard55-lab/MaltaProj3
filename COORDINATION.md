@@ -5282,7 +5282,7 @@ builders and navigation remain untouched unless a verified blocker is logged her
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 5097-1 Compare the current Hotspawn CS2 listing with the newest published inventory; independently verify snapshot coverage, source timestamps, pick/unresolved counts and four-hour schedule; record dated evidence/flags; run local build and validation; request a fresh production refresh only if no refresh is in flight | **in progress** | arena-50976ff1 | new `data/research/50976ff1/`; this appended section of `COORDINATION.md` |
+| 5097-1 Compare the current Hotspawn CS2 listing with the newest published inventory; independently verify snapshot coverage, source timestamps, pick/unresolved counts and four-hour schedule; record dated evidence/flags; run local build and validation; request a fresh production refresh only if no refresh is in flight | **audit done; handoffs pending** | arena-50976ff1 | this section of `COORDINATION.md`; no duplicate research/flag artifact because PR #165 owns the ID-level inventory evidence |
 
 **Non-overlap pledge:** no edits to shared match data, alias registry, collectors, origination,
 site builders, site navigation, workflows, or another session's research files. Existing
@@ -5290,3 +5290,30 @@ open PR #154 is older than 60 minutes and conflicting; its alias joins and Valve
 rows are already present on `main`, as is the network-source label fix. I will verify the
 live tie fixture before deciding whether any unique change remains. No branch switch or
 other-branch push; this session remains on Arena's fixed branch.
+
+### 5097-1 independent audit closeout and handoffs — 2026-10-22T08:15Z
+
+**Rebase conflict resolved:** rebasing this branch onto `origin/main` at `2fb99b0` produced an append/append conflict in this file. Resolution retained both the merged PR #163 closeout and this session's claim; the rebased commit is `aba9564`, with no unresolved conflict. This closeout records the resolution before the next push.
+
+**Inventory and coverage (UTC):**
+
+- During the 07:38–07:45Z audit window, the rendered Hotspawn lobby independently showed **107** CS2 listings (B 47, C 60). The page reader did not expose an exact HTTP receipt time; this is a corroborating total only, not a fixture-ID reconciliation.
+- The published `data/latest.json` snapshot was generated at `2026-10-22T05:36:57Z`: 96 inventory records, 33 upcoming, 63 archived, 23 featured-method picks and 10 featured-method unresolved. Its source snapshot is `2026-10-22T05:36:38Z`.
+- The linked `data/origination.json`, generated at `05:37:07Z`, covers all 33 active fixtures: 33 with picks and 0 unresolved. Do not conflate the featured-only 23/33 metric with complete researched origination coverage of 33/33.
+- **107 vs 96 is not evidence of 11 missing fixtures.** PR [#165](https://github.com/buffedlizard55-lab/MaltaProj3/pull/165) has the raw API capture and fixture-ID crosswalk: 14 newer Hotspawn fixtures and one normally retired fixture. Its more detailed evidence is authoritative; no duplicate inventory report or flag was added here.
+- `/coverage/` currently expresses the featured-method 23/33 count as “Future probabilities”; a clarification request was sent to the owner of PR [#164](https://github.com/buffedlizard55-lab/MaltaProj3/pull/164), which owns the relevant summary builder. The request also distinguishes the full originated list and the featured-only `data/latest.json` download.
+
+**Refresh:** the workflow retains a primary four-hour schedule (`17 */4 * * *`) and catch-up schedule (`47 2-22/4 * * *`). Pages run [39742844302](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39742844302) was already in progress at 08:15Z: the last-verified republish job succeeded, while the fresh `verify-and-deploy` job was still running repository regression tests. No second/manual dispatch was requested.
+
+**Validation on rebased `2fb99b0` (after #163/#167):**
+
+- `.venv/bin/python -m unittest discover -s tests` — **879 passed**.
+- `python -m scripts.build` and `python -m scripts.audit_rows --site site --strict` — build passed; **604** rows, 590 official-linked, 9 flagged unverified, 9 site-map, 0 without a source; **733** internal links/assets/anchors; 0 audit violations.
+- `npm test` — **83/85 passed**. The only failures are `tests/browser/dashboard.spec.mjs` at 320px and 390px: the `#picks-at-a-glance` section begins at y=1598.1px and y=1526.25px respectively, exceeding its `<1500px` assertion. The phone-first jump-bar change in #164 should be checked against the full browser suite; this is recorded for that owner, not changed in this session.
+- `node tests/pick-safety-browser.mjs` — **106 assertions passed** (Python/JS parity, expiry, lock, rollback, no-JS, four widths and accessibility).
+
+**Handoffs, with no shared builder/data edits:**
+
+- Comment [on #164](https://github.com/buffedlizard55-lab/MaltaProj3/pull/164#issuecomment-6336072659) records the two mobile browser failures and asks for an explicit featured-only label/link for the 23/33 coverage metric.
+- Comment [on #165](https://github.com/buffedlizard55-lab/MaltaProj3/pull/165#issuecomment-6336073130) confirms this session did not duplicate its ID-level research and asks whether the documented between-refresh inventory gap should be a sourced review notice or explicitly remain informational.
+- No `data/research/50976ff1` report or duplicate `flags.json` was created: the live inventory details are already owned by #165. Task 5097-1 is complete as an independent audit and handoff; the two owners' responses and the in-progress production run remain downstream items.
