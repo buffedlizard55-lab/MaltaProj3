@@ -4617,3 +4617,107 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+# Current session: arena-c1fa150f — both-team probabilities on the phone summary, a separate "no betting line" register, and an independent re-verification of the live inventory
+
+Claimed **2026-10-22T01:15Z** on the Arena-fixed branch `arena/c1fa150f-maltaproj3`,
+branched from `main` at `d599724`. The board was read before starting. Open claims by
+other sessions live on *their* branches (`fbdc97d6`, `15fc6bca`, `3bad13ea`, `7e8bed83`
+had no claim merged to `main` at claim time); none of them lists a file in the scope
+below, so this claim is non-overlapping.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C1F-1 Show **both** teams' win probabilities on the phone executive summary, label every row's basis (market line vs model), and publish a separate **"picks without a betting line"** register with the limitation behind each one — inside the executive summary, as the brief asks | **in progress** | arena-c1fa150f | `scripts/build.py` (`glance()`, `exec_banner()`, `unresolved_register()` and one new renderer only), `assets/scout.css` (append-only rules), new `tests/test_c1fa150f_glance.py`, new `data/research/c1fa150f/`, this section |
+| C1F-2 Independently re-verify the live Hotspawn CS2 inventory against the published rows and record the dated evidence | **in progress** | arena-c1fa150f | `data/research/c1fa150f/` only |
+
+**Non-overlap pledge:** no change to `scripts/originate.py`, `scripts/collect.py`,
+`scripts/hltv_ranking.py`, `data/origination*`, `data/latest.json`, the alias registry,
+`archive/`, `docs/` or any other session's `data/research/<id>/`. No pick, probability or
+alias value is changed; this session renders only what the pipeline already published.
+
+### C1F-1 result — both-team probabilities and the no-betting-line register (2026-10-22T01:50Z)
+
+**What a phone reader saw before:** each row of *Picks at a glance* printed one
+number — the picked team's probability — and only researched fallbacks carried a
+badge. The other team's published probability and the *basis* of the number were
+two taps away, which is the "it is not obvious what the probabilities are"
+complaint in the brief.
+
+**Changes (all in `scripts/build.py` unless stated):**
+
+1. `glance()` now prints both sides of the same estimate on every resolved row:
+   `[Pick] Rare Atom 73.8% · Vitalem Aerem 26.2%` plus a basis badge —
+   `Market line` / `Bookmaker` / `Consensus` / `Aggregated` (green, money),
+   `Model` or `Researched` (purple), `Wide book` (amber). New helpers
+   `MONEY_METHODS`, `METHOD_BADGES`, `basis_badge()`.
+2. The glance intro now counts the two classes separately
+   ("N from an external betting line, M from a research model") and links the new
+   register. `exec_banner()` shows the model-only count next to the unresolved count.
+3. New `no_line_register()` renderer, called from `unresolved_register()` so it
+   lives inside the executive summary, immediately before the source probe and the
+   global limitations. For every active fixture whose published basis is not a
+   money method it prints: the pick and **both** probabilities, the model label, a
+   plain-language *why there is no line* taken from the first failed money stage in
+   the published research trail, the stages tried as status chips, and links to the
+   failed market, the model source, the Hotspawn fixture and the full trail. Nothing
+   is re-priced; a row without probabilities renders "no side", never a number.
+4. `assets/scout.css` (append-only): `.glance-other`, `.no-line-*`.
+5. Methodology page: one sentence stating that money-line and model picks are
+   counted and badged separately and that model-only rows are published with the
+   sources that failed. `README.md`: the executive-summary row now describes it.
+6. `tests/test_c1fa150f_glance.py` — 10 tests: both probabilities on a row, a basis
+   badge on every row, a researched fallback keeps its own numbers, an unresolved
+   row still shows none, the money/model split, the register's contents (blocker,
+   failed-source link, model link, no double counting of blank rows), its position
+   inside the summary, and that a missing probability is never rendered as a number.
+
+**Verification:** `python -m unittest discover -s tests` — **816 tests, OK**.
+Local build from the checked-in snapshot: row-source audit **557 rows / 543 with an
+official link / 5 flagged / 9 site-map / 0 without a source**, **713 internal
+links/assets/anchors**, mobile landmarks pass. The new anchors (`#no-line-register`)
+are emitted only when the register exists, so the link audit cannot go stale on a
+snapshot with no model-only rows.
+
+### C1F-2 result — the live inventory grew between polls (2026-10-22T01:45Z)
+
+- **Method:** read the exact endpoint `scripts/sources.py` uses
+  (`/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`) directly through a
+  read-only page reader, chunk by chunk, 01:09–01:25Z; transcribed ids, team names,
+  competition and start times by hand. Evidence:
+  [`data/research/c1fa150f/live-api-read-2026-10-22.json`](data/research/c1fa150f/live-api-read-2026-10-22.json).
+- **Finding:** 21 upcoming fixtures present at 01:09Z were absent from the
+  20:39:32Z collection — CCT Europe 2026 Series #11/#12, NODWIN Clutch #13,
+  CIS LAN Championship #9, DraculaN Season 7, VOID Autumn Cup and Stake Ranked
+  Episode 6 qualifiers, the earliest starting 03:00Z.
+- **It is not a collector omission:** that run's own record
+  (`data/research/11be2015/live/latest.json`) shows `records 75`,
+  `crosscheck complete`, `verified_pages [lobby, cs2]` and *"All CS2 fixture IDs
+  reconciled across the lobby, CS2 lobby and public fixture array"* at 20:39:32Z.
+  A three-way reconciliation cannot pass while silently dropping rows, so the
+  fixtures were scheduled after that poll.
+- **Cross-check:** the published permalink
+  <https://www.hotspawn.com/matches/vitalem-aerem-vs-rare-atom-void-autumn-cup-2026-1081870>
+  resolves at 01:40Z with "05:00 22 OCT" and links both neighbouring fixtures
+  (1081869 Morningstar–NEXVOID, 1081871 Lynn Vision–Chinggis Warriors) that the
+  snapshot did not contain.
+- **Published as** finding `c1fa150f-hotspawn-schedule-churn` on *Flagged for Review*
+  (21 affected ids, four source links). It states the consequence plainly: the list
+  is complete for its timestamp but not predictive, and a fixture scheduled inside
+  the refresh interval can reach the site already locked.
+- **Not changed:** the four-hour production cadence. Shortening it would touch the
+  shared publisher while several sessions are queueing runs on the same runners;
+  the trade-off is recorded in the finding instead of being decided unilaterally.
+
+**Irregularities / honesty notes for review**
+
+- The session probe workflow (`.github/workflows/c1fa150f-verify.yml`) was written,
+  pushed and left queued behind other sessions' runs; it never executed, so **no
+  runner-side snapshot exists**. The evidence above is my own direct read of the
+  public endpoint, not a pipeline output, and it is labelled as such.
+- The GitHub REST quota shared by the parallel sessions was exhausted
+  (HTTP 403, `core remaining 0`) for most of this session, so run status was read
+  from git refs instead. No verification claim rests on an unread API response.
+- Mobile layout was verified through the rendered HTML/CSS and the repository's
+  existing phone-width tests, not a screenshot: this sandbox has no browser and no
+  Playwright download path. The CI browser/axe job is the visual check.

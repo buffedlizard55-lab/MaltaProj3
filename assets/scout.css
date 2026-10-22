@@ -265,3 +265,29 @@
 
 .badge.neutral{background:#eef2f4;color:#576b79;border-color:#dfe8ec}
 .review-table>tbody>tr.superseded-flag{background:#ffffff}.review-table>tbody>tr.superseded-flag>td,.review-table>tbody>tr.superseded-flag>th{color:#576b79}
+
+/* ---- Session arena-c1fa150f: both-team probabilities on the phone summary and
+   the "picks without a betting line" register. Append-only; no existing rule is
+   redefined, so other sessions' styles are untouched. ---- */
+.glance-other{font-size:10.5px;color:#576b79;font-weight:500;white-space:nowrap}
+.glance-choice .badge{font-size:8.5px;padding:2px 6px}
+@media(max-width:375px){
+  .glance-other{font-size:9.5px}
+  .glance-choice .badge{font-size:8px;padding:2px 5px}
+}
+.no-line-register{padding-top:2px}
+.no-line-register h3{margin:0;padding:20px 20px 10px;font-size:15px;letter-spacing:-.2px;color:#2e5260}
+.no-line-register .section-intro{padding-bottom:14px}
+.no-line-card{border:1px solid #e2dcec;border-left:4px solid #7a5aa6;border-radius:10px;background:#fdfcff;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.no-line-card h3{margin:0;padding:0;font-size:16px;line-height:1.45;color:#2e5260;overflow-wrap:anywhere}
+.no-line-card h3 .versus{font-weight:400;color:#576b79;font-size:11px;padding-inline:2px}
+.no-line-choice{margin:0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;line-height:1.6}
+.no-line-choice>strong{font-size:15px;color:#2e5260}
+.no-line-model{margin:0;font-size:11px;color:#4a5e6c;line-height:1.7}
+.no-line-why{margin:0;font-size:11px;color:#4a5e6c;line-height:1.85}
+.no-line-why strong{color:#2e5260}
+@media(max-width:620px){
+  .no-line-register h3{padding-inline:12px;font-size:14px}
+  .no-line-card{padding:13px 14px}
+  .no-line-card h3{font-size:15px}
+}
