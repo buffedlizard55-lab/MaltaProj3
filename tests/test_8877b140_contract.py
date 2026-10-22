@@ -195,6 +195,18 @@ class Contract8877Tests(unittest.TestCase):
         # Model-only picks have their own no-betting-line register on the page.
         self.assertIsNotNone(self.index_soup.find(id='no-line-register'))
 
+    def test_dedicated_unresolved_page_is_linked_and_shipshape_when_present(self):
+        page = self.site_dir / 'unresolved' / 'index.html'
+        if not page.exists():
+            self.skipTest('dedicated unresolved page not present in this snapshot')
+        hrefs = {a.get('href') for a in self.index_soup.find_all('a')}
+        self.assertIn('./unresolved/', hrefs)
+        soup = BeautifulSoup(page.read_text(), 'html.parser')
+        self.assertTrue(soup.find('meta', attrs={'name': 'viewport'}))
+        self.assertTrue(soup.find('meta', attrs={'http-equiv': 'Content-Security-Policy'}))
+        for anchor in soup.find_all('a', href=True):
+            self.assertFalse(anchor['href'].startswith('http://'))
+
     def test_every_current_page_has_viewport_and_only_known_csp_gap(self):
         detail = self.by_name['every-page-viewport-csp-https']['detail']
         self.assertEqual(detail['problems'], [])

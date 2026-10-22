@@ -46,6 +46,7 @@ CURRENT_PAGES = [
     'index.html', 'picks/index.html', 'edge/index.html', 'twc-picks/index.html',
     'final-day/index.html', 'coverage/index.html', 'methodology/index.html',
     'review/index.html', 'origination/index.html', 'strategy/index.html',
+    'unresolved/index.html',
 ]
 
 # Pages whose renderer historically omits the CSP <meta>. Every entry must be
@@ -296,10 +297,16 @@ def verify_site_contract(site_dir: Path, data_dir: Path) -> list[dict]:
         f'./{d}' in hrefs for d in required_destinations)
     mobile_status_ok = ('mobile-status-picks' in html and 'mobile-status-blank' in html
                         and './origination/#picks' in hrefs and './origination/#unresolved' in hrefs)
+    # When the dedicated phone-first unresolved page exists (added after the
+    # 2026-10-22 4c972a51 merge), the executive summary must link to it.
+    dedicated_unresolved = (site_dir / 'unresolved' / 'index.html').exists()
+    unresolved_page_linked = './unresolved/' in hrefs if dedicated_unresolved else True
     results.append(_result('executive-summary-one-tap-pick-routes',
-                           banner_ok and start_here_ok and mobile_status_ok,
+                           banner_ok and start_here_ok and mobile_status_ok and unresolved_page_linked,
                            {'exec_banner': banner_ok, 'start_here_nav': start_here_ok,
-                            'mobile_status_strip': mobile_status_ok}))
+                            'mobile_status_strip': mobile_status_ok,
+                            'dedicated_unresolved_page': dedicated_unresolved,
+                            'unresolved_page_linked': unresolved_page_linked}))
 
     # The glance index must include every active fixture id, each with a link
     # to its own origination card, and keep the unresolved register on page.

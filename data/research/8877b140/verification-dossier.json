@@ -1,6 +1,6 @@
 {
   "session": "arena-8877b140",
-  "verified_at": "2026-10-22T08:26:27Z",
+  "verified_at": "2026-10-22T08:39:49Z",
   "read_only": true,
   "official_host_policy_size": 24,
   "checks": [
@@ -107,7 +107,7 @@
       "check": "every-page-viewport-csp-https",
       "ok": true,
       "detail": {
-        "pages_checked": 10,
+        "pages_checked": 11,
         "problems": [],
         "documented_csp_gaps": [
           "origination/index.html"
@@ -120,7 +120,9 @@
       "detail": {
         "exec_banner": true,
         "start_here_nav": true,
-        "mobile_status_strip": true
+        "mobile_status_strip": true,
+        "dedicated_unresolved_page": true,
+        "unresolved_page_linked": true
       }
     },
     {
