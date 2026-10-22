@@ -12,7 +12,9 @@ on:
     - cron: '47 2-22/4 * * *'
   workflow_dispatch:
 permissions:
-  contents: read
+  # Session 96fbe295: the last step publishes the verified build into the branch root,
+  # which is what the legacy Pages builder republishes on every push to main.
+  contents: write
   actions: read
   pages: write
   id-token: write
@@ -334,3 +336,54 @@ jobs:
       - name: Verify the republished site
         if: steps.guard.outcome == 'failure'
         run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
+
+      # Session 96fbe295. `GET /repos/.../pages` reports build_type "legacy" and
+      # source main//, so every push to main makes the platform republish the
+      # checked-in branch root. On 2026-10-22 that legacy build for 2fb99b0 finished
+      # 07:52:31Z, i.e. after this workflow's previous artifact, and the public
+      # data/latest.json then read generated_at 2026-10-15T08:36:13Z: seventeen
+      # fixtures whose start times were already a week in the past. The site's own
+      # data/row-source-audit.json was byte-identical to the tracked file, proving
+      # the served site was the branch root, not the artifact.
+      # `PUT /pages {build_type: workflow}` answers 403 Resource not accessible by
+      # integration, so the source cannot be switched from a workflow token. The
+      # race is therefore closed from the side this repository controls: publish the
+      # build that this run just verified into the root as well. Both publishers then
+      # serve the same, current site, and the root keeps the newest snapshot forever
+      # because scripts/root_publish.py refuses to move backwards or to publish a
+      # snapshot older than twelve hours.
+      # `[skip ci]` stops the commit from starting another workflow run; the legacy
+      # Pages build still runs for the push, which is exactly what we want.
+      - name: Publish the verified build into the branch root (the legacy Pages source)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m scripts.root_publish --output site --root . --paths-file "$RUNNER_TEMP/root-paths.txt"
+          if [ ! -s "$RUNNER_TEMP/root-paths.txt" ]; then
+            echo "Branch root already matches this verified build; nothing to commit." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            # Re-point the checkout at the newest main without touching working-tree
+            # files, re-stage exactly the published paths, and commit again. Re-doing
+            # the sync is safe: the copy is byte-for-byte idempotent.
+            git fetch --depth=1 origin main
+            git reset --mixed FETCH_HEAD
+            git add --pathspec-from-file="$RUNNER_TEMP/root-paths.txt"
+            if git diff --cached --quiet; then
+              echo "Nothing staged after reconciling with main." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            git commit -m 'publish: sync the verified build into the branch root [skip ci]'
+            if git push origin HEAD:main; then
+              echo "Published $(wc -l < "$RUNNER_TEMP/root-paths.txt") file(s) from this verified build into the branch root (attempt $attempt)." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "::warning::root publish push attempt $attempt lost the race to another commit; retrying"
+            sleep $((attempt * 5))
+          done
+          echo "::error::the verified build could not be published into the branch root in three attempts"
+          exit 1

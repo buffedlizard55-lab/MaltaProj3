@@ -357,29 +357,59 @@
   .glance-choice>strong{font-size:15px}
   .glance-prob,.glance-other{font-size:12px}
 }
-
-/* Session 93ba7221 — keep Picks at a Glance above the 1500 px phone budget.
-   75aa5b56's banner copy, aria-labels and 48 px tap targets pushed the picks
-   index to y = 1526.25 px at 390 px wide; its own merge commit reproduces that
-   value, so tests/browser/dashboard.spec.mjs was failing on main before this
-   branch. Nothing a reader needs is removed: the three banner buttons keep a
-   44 px tap target, and the older five-link jump bar below the banner is only
-   tightened (44 px rows, 2-line descriptions, smaller gaps) instead of being
-   dropped. The banner's inventory line duplicates the snapshot line directly
-   above it and is the only element hidden, and only on <=375 px screens. */
+/* Session 4c972a51 — dedicated unresolved page: status cards, the dated source
+   matrix behind the limitations, and the published resolution ladder. */
+.unresolved-metrics{margin:18px 0 26px}
+.unresolved-metrics .metric-card strong{font-size:30px}
+.unresolved-metrics .metric-card p{font-size:10px;line-height:1.7}
+#how-to-read{margin:0 0 24px}
+#how-to-read ul{margin:8px 0 0;padding-left:18px}
+#how-to-read li{font-size:12px;line-height:1.9;margin-bottom:7px}
+.session-probe .probe-observations{margin:0 20px 18px;padding-left:18px}
+.session-probe .probe-observations li{font-size:12px;line-height:1.9;margin-bottom:8px;color:#3f525f}
+.session-probe h3{font-size:15px;margin:22px 20px 4px;color:var(--navy);letter-spacing:-.2px}
+.session-probe>p.tiny.muted{margin:0 20px 10px}
+.probe-source-list{list-style:none;margin:0 20px 18px;padding:0;display:grid;gap:8px}
+.probe-source{border:1px solid var(--border);border-radius:9px;background:#fbfcfd;padding:11px 13px}
+.probe-source-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.probe-source-head .source-link{font-size:12px;font-weight:600}
+.probe-source-url{margin:4px 0 0;font-size:10px;color:#6b7f8c;overflow-wrap:anywhere}
+.probe-source-detail{margin:5px 0 0;font-size:11px;line-height:1.7;color:#3f525f}
+.ladder-list{margin:10px 0 16px;padding-left:20px}
+.ladder-list li{font-size:12px;line-height:1.95;margin-bottom:8px}
 @media(max-width:700px){
-  .exec-banner-actions a{min-height:44px}
-  .exec-banner h3{margin-bottom:6px}
-  .exec-banner-label{margin-bottom:5px}
-  .start-here{padding:10px 12px;margin-bottom:12px}
-  .start-here-label{margin-bottom:6px}
-  .start-here ul{gap:6px}
-  .start-here a{min-height:44px;padding:7px 10px;gap:8px}
-  .start-here .icon{width:15px;height:15px}
-  .start-here strong{font-size:12.5px}
-  .start-here span{font-size:10px;line-height:1.45;margin-top:2px}
+  .unresolved-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .unresolved-metrics .metric-card strong{font-size:26px}
+  .session-probe .probe-observations{margin:0 17px 14px;padding-left:15px}
+  .session-probe .probe-observations li{font-size:11.5px;line-height:1.85}
+  .session-probe h3{margin:18px 17px 4px;font-size:14px}
+  .session-probe>p.tiny.muted{margin:0 17px 9px}
+  .probe-source-list{margin:0 17px 15px}
+  .probe-source{padding:10px 12px}
+  .probe-source-head .source-link{font-size:11.5px}
+  .ladder-list li{font-size:11.5px;line-height:1.9}
+}
+
+/* Session df80ab9f — restore phone above-the-fold budget (< 1500px at 320px/390px)
+   after PRs #163 + #174 while preserving >= 44px touch targets. */
+@media(max-width:700px){
+  .exec-banner{padding:11px 13px;margin-bottom:9px}
+  .exec-banner-label{margin-bottom:3px}
+  .exec-banner h3{margin-bottom:4px}
+  .exec-banner-desc{margin-bottom:7px;line-height:1.42}
+  .exec-banner-actions{gap:6px}
+  .exec-banner-actions a{min-height:44px;padding:6px 10px}
+  .exec-banner-meta{margin-top:6px;line-height:1.38}
+  .start-here{padding:9px 11px;margin-bottom:9px}
+  .start-here-label{margin-bottom:5px}
+  .start-here ul{gap:5px}
+  .start-here a{min-height:44px;padding:6px 10px}
+  .start-here strong{font-size:13px}
+  .start-here span{font-size:10.5px;line-height:1.38}
+  .mobile-status a{min-height:46px}
 }
 @media(max-width:375px){
-  .exec-banner-meta{display:none}
-  .start-here span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .exec-banner-actions a{min-height:44px}
+  .start-here span{font-size:10px;line-height:1.34}
 }
+
