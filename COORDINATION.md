@@ -1,3 +1,25 @@
+# Current session: arena-4c972a51 — a sourced pick for every unresolved match, an honest unresolved register, and a phone-first route to the picks
+
+Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/4c972a51-maltaproj3`, branched
+from `main` at `285a0d9` (merge of PR #162). The board was read first. No other session holds a
+live claim: the four open PRs (#154, #149, #139, #120) were last updated 14:35Z–02:40Z, all more
+than 60 minutes ago, so per the 60-minute rule they are stale and are **not** merged or edited here.
+This session claims only the files in the table below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 4C-1 Diagnose every *currently* unresolved Hotspawn CS2 fixture from a live runner snapshot (the published 05:36Z build showed **10 unresolved of 33 upcoming**), with each blank's exact failed rungs | **done** — 46/46 with a pick at 07:58Z; see the result block | arena-4c972a51 | `data/research/4c972a51/`, `scripts/4c972a51_diag.py` (new, read-only), `.github/workflows/4c972a51-live.yml` (session-only, removed before merge) |
+| 4C-2 Research reachable independent sources for those fixtures (HLTV first, then esportsbooks/aggregators), and add a new pricing rung **only** where a source returns a real two-sided price or a real published rating | **done** — probe + published-rank tie-break; see the result block | arena-4c972a51 | `scripts/originate.py` (rung only — no change to existing rungs' math), `scripts/4c972a51_probe.py` (new, read-only), `data/research/4c972a51/` |
+| 4C-3 Publish the unresolved section: one register that names the limitation for every fixture left blank, linked from the executive summary beside the picks links | **done** — `/unresolved/` + banner + phone nav | arena-4c972a51 | `scripts/build.py` (`exec_banner()`, `unresolved_register()`, `glance()` presentation), `assets/scout.css`, `tests/test_4c972a51*.py` |
+| 4C-4 Phone-first findability review at 320/390/768 px: one tap from the executive summary to the pick list, readable probabilities, no horizontal overflow | **done** — 6-slot nav, 44 px targets, list-not-table probe matrix | arena-4c972a51 | `scripts/build.py`, `assets/scout.css`, `tests/test_4c972a51_mobile.py` |
+| 4C-5 Line-by-line verification, full test suite, PR to `main`, merge, confirm the Pages deploy, record the run id here | **in progress** | arena-4c972a51 | `data/research/4c972a51/`, this section |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/network_model.py`, `scripts/hltv_ranking.py`,
+`scripts/form_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`,
+`archive/`, `docs/`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`.
+Where a defect in one of those files blocks a task, it is requested here instead of edited. The
+branch-scoped workflow `4c972a51-live.yml` is removed before the merge; the read-only probe scripts
+stay in the tree as `scripts/bo3_odds_probe.py` and `scripts/fbdc97d6_probe.py` did.
 # Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
 Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at
 `285a0d9` (merge of PR #162). The board was read first. No other session holds a live claim on
@@ -11,9 +33,41 @@ line, confirms picks for every active match, and deploys to GitHub Pages.
 | V-2 Run the full unittest suite and confirm every test passes | **done** | arena-756eaeea | `tests/` |
 | V-3 Confirm picks for every active Hotspawn CS2 match (17/17 via featured method + researched fallbacks; every row carries an official source link) | **done** | arena-756eaeea | `data/latest.json`, `data/origination.json`, `data/row-source-audit.json` |
 | V-4 Confirm the executive summary links to the updated picks list, shows both teams' probabilities on every phone row, and has a separate unresolved-picks section with limitations | **done** | arena-756eaeea | `scripts/build.py` (`exec_banner`, `start_here`, `glance`, `unresolved_register`), `assets/scout.css` |
-| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **in progress** | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
+| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **done** — PR #167 merged; the follow-up 4C section records the Pages state | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
 
 **Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any needed change in those files is requested here instead of made.
+### 4C-1 … 4C-4 result — every active fixture carried a pick, and the blanks are published (2026-10-22T08:15Z)
+- **Live diagnosis from the runner.** Session workflow `4c972a51-live.yml` ran `scripts.collect` +
+  `scripts.originate --live` on this branch and committed the compact diagnostic. Snapshot
+  `2026-10-22T07:58:42Z`: **46 active fixtures, 46 with a pick, 0 unresolved**. The featured
+  exact-name method left 11 blank (17 market · 3 bookmaker · 15 model · 11 blank); the researched
+  list priced all 46 through Polymarket, Thunderpick, Pinnacle, Bovada, the official Valve rating
+  table, HLTV's published weekly ranking and one documented bo3.gg network fit.
+- **The last fixture without a side.** `1082926` Isurus vs Hacha came out at exactly 50.00%/50.00%
+  because HLTV publishes identical points for both (positions 215 and 229). `ranked_tie_break()` in
+  `scripts/originate.py` now sets the *direction* from HLTV's own published order, changes no
+  probability, and records the rule, both ranks, the winner and the ranking URL on the row.
+  Pinned by `tests/test_4c972a51_tiebreak.py` (8 tests).
+- **New page `/unresolved/`.** Four status cards, the register of every fixture still blank (with
+  the exact failed rungs and the sources tried), the dated 49-surface reachability matrix, the
+  nine-rung resolution ladder, and the tie-break rule. Linked from the executive-summary banner,
+  the phone status strip, the site map, the footer and a sixth phone-nav slot. `tests/test_4c972a51_unresolved_page.py`
+  (11 tests) fails the build if any blank is missing from the register, if a probed surface loses
+  its official link, or if a status code is ever narrated as a price.
+- **A contradiction removed.** `data/latest.json` said "10 unresolved" while the page said "0".
+  Both were true of different lists. The published JSON now carries `featured_method_counts`,
+  `complete_coverage_counts` and a `counts_note`; the coverage card names both; the picks header
+  counts what it shows (the old sentence added the featured-only counters, so 11 + 12 accounted for
+  23 of 33 rows). `write_reconciled_snapshot()` is unit-tested.
+- **Phone.** Six nav slots at ≥44 px, `Unresolved` replaces `Methods`, the exec-banner actions keep
+  their 48–56 px targets, and the probe matrix is a list rather than a table so it cannot force
+  horizontal scroll at 320/375/390 px.
+- **Sources tried and refused, published rather than hidden:** HLTV 403 on match list / ranking /
+  RSS from the runner (its 73 saved match records are used for identity only; HLTV publishes no
+  prematch price), GG.BET, Stake, Marathonbet, Coolbet, Bet365 and Betfair 403, Betano/Betnacional/
+  Esportes da Sorte/KTO 7,001-byte script shells, 1xBet 203, OddsPortal 429, Oddspedia 404. No
+  access control was bypassed and a refusal is never treated as proof that no market exists.
+
 
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
