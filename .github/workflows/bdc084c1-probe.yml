@@ -52,7 +52,21 @@ jobs:
       - name: Compare the fresh snapshot with the published one, fixture by fixture
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python -m scripts.bdc084c1_probe --report data/research/bdc084c1
+        # A failure has to name its own last frames: the runner's log archive is
+        # not readable from a restricted sandbox, annotations are.
+        run: |
+          python - <<'PY'
+          import sys, traceback
+          sys.argv = ['probe', '--report', 'data/research/bdc084c1']
+          from scripts.bdc084c1_probe import main
+          try:
+              main()
+          except Exception:
+              frames = traceback.format_exc().strip().splitlines()[-8:]
+              detail = ' | '.join(frames).replace('%', '%25').replace('\r', '')
+              print(f'::error title=probe failed::{detail}')
+              raise
+          PY
       - name: Publish the probe digest in the step summary
         if: always()
         run: |

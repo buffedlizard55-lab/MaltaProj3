@@ -130,7 +130,9 @@ def write_markdown(report: dict, path: Path) -> None:
         for row in report['new_fixtures']:
             state = ('pick ' + row['pick']) if row['pick'] else (
                 'probabilities, no side' if row['probabilities'] else '**no probability**')
-            lines.append(f"| [{row['id']}]({row['source_url'] if row.get('source_url', '').startswith('http') else 'https://play.hotspawn.com/lobby'}) "
+            link = str(row.get('source_url') or '')
+            link = link if link.startswith('http') else 'https://play.hotspawn.com/lobby'
+            lines.append(f"| [{row['id']}]({link}) "
                          f"| {row['teams'][0]} vs {row['teams'][1]} | {row['starts_at']} | {state} "
                          f"| {row['basis'] or 'unresolved'} | {row['source_host'] or '—'} |")
     else:
