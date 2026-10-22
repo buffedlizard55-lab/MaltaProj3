@@ -1,0 +1,870 @@
+{
+  "probe": "15fc6bca live coverage review",
+  "generated_at": "2026-10-22T03:42:58Z",
+  "policy": "Copies the ladder's own published output for review. No probability, pick, quote or timestamp is manufactured here; a blank stays blank and is named.",
+  "freshness": {
+    "generated_at": "2026-10-15T08:36:13Z",
+    "inventory_observed_at": "2026-10-15T08:36:04Z",
+    "last_attempted_at": "2026-10-15T08:36:03Z",
+    "age_hours": 163.115,
+    "refresh_interval_hours": 4,
+    "stale_after_hours": 8,
+    "fresh": false,
+    "within_contract": false,
+    "coverage_complete": true,
+    "run_status": "partial-picks",
+    "inventory_counts": {
+      "inventory": 80,
+      "upcoming": 17,
+      "archived": 63,
+      "unknown_schedule": 0,
+      "market": 7,
+      "bookmaker": 1,
+      "model": 5,
+      "unresolved": 4,
+      "picks": 13,
+      "no_edge": 0
+    }
+  },
+  "counts": {
+    "active": 17,
+    "resolved": 17,
+    "unresolved": 0,
+    "with_pick": 17,
+    "consensus": 0,
+    "market": 7,
+    "bookmaker": 5,
+    "model": 5,
+    "alias_joined": 4
+  },
+  "rows": [
+    {
+      "id": "1079440",
+      "teams": [
+        "MIBR",
+        "BC.Game"
+      ],
+      "competition": "Stake Pulse Beat III",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "bookmaker",
+      "family": null,
+      "label": "No-vig bookmaker estimate",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "probabilities": [
+        0.54959786,
+        0.45040214
+      ],
+      "pick_index": 0,
+      "pick": "MIBR",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket"
+      ]
+    },
+    {
+      "id": "1079442",
+      "teams": [
+        "Heroic",
+        "Envy"
+      ],
+      "competition": "Stake Pulse Beat III",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+      "probabilities": [
+        0.635,
+        0.365
+      ],
+      "pick_index": 0,
+      "pick": "Heroic",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1080280",
+      "teams": [
+        "ENCE",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T10:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
+      "probabilities": [
+        0.745,
+        0.255
+      ],
+      "pick_index": 0,
+      "pick": "ENCE",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1080202",
+      "teams": [
+        "9z",
+        "Falcons"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T11:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.15709516,
+        0.84290484
+      ],
+      "pick_index": 1,
+      "pick": "Falcons",
+      "money_backed": false,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ]
+    },
+    {
+      "id": "1080281",
+      "teams": [
+        "WROTBERRY",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T12:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "bookmaker",
+      "family": null,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "probabilities": [
+        0.61538462,
+        0.38461538
+      ],
+      "pick_index": 0,
+      "pick": "WROTBERRY",
+      "money_backed": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Betting market (Polymarket series winner)"
+      ]
+    },
+    {
+      "id": "1080203",
+      "teams": [
+        "PARIVISION",
+        "BetBoom"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T13:30:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.26192226,
+        0.73807774
+      ],
+      "pick_index": 1,
+      "pick": "BetBoom",
+      "money_backed": false,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ]
+    },
+    {
+      "id": "1080282",
+      "teams": [
+        "EAC",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T14:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.96095469,
+        0.03904531
+      ],
+      "pick_index": 0,
+      "pick": "EAC",
+      "money_backed": false,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ]
+    },
+    {
+      "id": "1080204",
+      "teams": [
+        "Legacy",
+        "FURIA"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
+      "probabilities": [
+        0.435,
+        0.565
+      ],
+      "pick_index": 1,
+      "pick": "FURIA",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1080283",
+      "teams": [
+        "WROTBERRY",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "bookmaker",
+      "family": null,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "pick_index": 0,
+      "pick": "WROTBERRY",
+      "money_backed": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Betting market (Polymarket series winner)"
+      ]
+    },
+    {
+      "id": "1080284",
+      "teams": [
+        "EAC",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T18:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.51399636,
+        0.48600364
+      ],
+      "pick_index": 0,
+      "pick": "EAC",
+      "money_backed": false,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ]
+    },
+    {
+      "id": "1080285",
+      "teams": [
+        "Voca",
+        "Phantom"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T08:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+      "probabilities": [
+        0.445,
+        0.555
+      ],
+      "pick_index": 1,
+      "pick": "Phantom",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1080286",
+      "teams": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T10:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "bookmaker",
+      "family": null,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "probabilities": [
+        0.76923077,
+        0.23076923
+      ],
+      "pick_index": 0,
+      "pick": "HAVU",
+      "money_backed": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Betting market (Polymarket series winner)"
+      ]
+    },
+    {
+      "id": "1080287",
+      "teams": [
+        "Voca",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T12:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "pick_index": 0,
+      "pick": "Voca",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1080288",
+      "teams": [
+        "Phantom",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
+      "probabilities": [
+        0.92,
+        0.08
+      ],
+      "pick_index": 0,
+      "pick": "Phantom",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    },
+    {
+      "id": "1081120",
+      "teams": [
+        "mellren",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.85989312,
+        0.14010688
+      ],
+      "pick_index": 0,
+      "pick": "mellren",
+      "money_backed": false,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ]
+    },
+    {
+      "id": "1080289",
+      "teams": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T16:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "bookmaker",
+      "family": null,
+      "label": "Originated esportsbook line (no-vig)",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "probabilities": [
+        0.15942029,
+        0.84057971
+      ],
+      "pick_index": 1,
+      "pick": "Voca",
+      "money_backed": true,
+      "limitations": [
+        "Single independent source; not a multi-source consensus.",
+        "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": [
+        "Betting market (Polymarket series winner)"
+      ]
+    },
+    {
+      "id": "1080290",
+      "teams": [
+        "Phantom",
+        "HAVU"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T18:00:00Z",
+      "availability": "open",
+      "state": "picked",
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+      "probabilities": [
+        0.705,
+        0.295
+      ],
+      "pick_index": 0,
+      "pick": "Phantom",
+      "money_backed": true,
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ],
+      "sources_checked": [],
+      "sources_without_price": [],
+      "unresolved_stages": []
+    }
+  ],
+  "totals": {
+    "upcoming": 17,
+    "picked": 17,
+    "even": 0,
+    "unresolved": 0,
+    "money_backed": 12,
+    "own_model": 5,
+    "paid_by_relay": 0
+  },
+  "no_pick": [],
+  "summary_links": {
+    "status": "checked",
+    "links_into_picks": 52,
+    "resolved": [
+      {
+        "href": "./origination/#picks",
+        "text": "Match picks",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "17picks ready of 17",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "0unresolved · why",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Updated picks — all matches17 of 17 with a pick→",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Unresolved & limitations0 without a line · 5 model-only · why + sources→",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "All match picksBoth team win probabilities where sourced; unresolved fixtures st",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Unresolved (0)Fixtures with no compliant external price, and the reason for each",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Full audited list",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#match-1079440",
+        "text": "Full detail",
+        "anchor": "match-1079440"
+      },
+      {
+        "href": "./origination/#match-1079442",
+        "text": "Full detail",
+        "anchor": "match-1079442"
+      },
+      {
+        "href": "./origination/#match-1080280",
+        "text": "Full detail",
+        "anchor": "match-1080280"
+      },
+      {
+        "href": "./origination/#match-1080202",
+        "text": "Full detail",
+        "anchor": "match-1080202"
+      },
+      {
+        "href": "./origination/#match-1080281",
+        "text": "Full detail",
+        "anchor": "match-1080281"
+      },
+      {
+        "href": "./origination/#match-1080203",
+        "text": "Full detail",
+        "anchor": "match-1080203"
+      },
+      {
+        "href": "./origination/#match-1080282",
+        "text": "Full detail",
+        "anchor": "match-1080282"
+      },
+      {
+        "href": "./origination/#match-1080204",
+        "text": "Full detail",
+        "anchor": "match-1080204"
+      },
+      {
+        "href": "./origination/#match-1080283",
+        "text": "Full detail",
+        "anchor": "match-1080283"
+      },
+      {
+        "href": "./origination/#match-1080284",
+        "text": "Full detail",
+        "anchor": "match-1080284"
+      },
+      {
+        "href": "./origination/#match-1080285",
+        "text": "Full detail",
+        "anchor": "match-1080285"
+      },
+      {
+        "href": "./origination/#match-1080286",
+        "text": "Full detail",
+        "anchor": "match-1080286"
+      },
+      {
+        "href": "./origination/#match-1080287",
+        "text": "Full detail",
+        "anchor": "match-1080287"
+      },
+      {
+        "href": "./origination/#match-1080288",
+        "text": "Full detail",
+        "anchor": "match-1080288"
+      },
+      {
+        "href": "./origination/#match-1081120",
+        "text": "Full detail",
+        "anchor": "match-1081120"
+      },
+      {
+        "href": "./origination/#match-1080289",
+        "text": "Full detail",
+        "anchor": "match-1080289"
+      },
+      {
+        "href": "./origination/#match-1080290",
+        "text": "Full detail",
+        "anchor": "match-1080290"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Open the complete audited list →",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Unresolved picks & limitations →",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Full research trails",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#match-1080281",
+        "text": "WROTBERRY vs ENCE",
+        "anchor": "match-1080281"
+      },
+      {
+        "href": "./origination/#match-1080283",
+        "text": "WROTBERRY vs BOJONG",
+        "anchor": "match-1080283"
+      },
+      {
+        "href": "./origination/#match-1080286",
+        "text": "HAVU vs RoundsGG",
+        "anchor": "match-1080286"
+      },
+      {
+        "href": "./origination/#match-1080289",
+        "text": "RoundsGG vs Voca",
+        "anchor": "match-1080289"
+      },
+      {
+        "href": "./origination/#aliases",
+        "text": "alias registry",
+        "anchor": "aliases"
+      },
+      {
+        "href": "./origination/#match-1080202",
+        "text": "Full trail",
+        "anchor": "match-1080202"
+      },
+      {
+        "href": "./origination/#match-1080203",
+        "text": "Full trail",
+        "anchor": "match-1080203"
+      },
+      {
+        "href": "./origination/#match-1080282",
+        "text": "Full trail",
+        "anchor": "match-1080282"
+      },
+      {
+        "href": "./origination/#match-1080284",
+        "text": "Full trail",
+        "anchor": "match-1080284"
+      },
+      {
+        "href": "./origination/#match-1081120",
+        "text": "Full trail",
+        "anchor": "match-1081120"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "All matches, both probabilities & picks →",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Unresolved picks & limitations →",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "See all match picks",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Full updated picks",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "All match picks",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#match-1080281",
+        "text": "Audit trail",
+        "anchor": "match-1080281"
+      },
+      {
+        "href": "./origination/#aliases",
+        "text": "alias registry",
+        "anchor": "aliases"
+      },
+      {
+        "href": "./origination/#match-1080281",
+        "text": "Full researched audit trail →",
+        "anchor": "match-1080281"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Complete-list unresolved picks & limitations →",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Open the full researched picks list",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#unresolved",
+        "text": "Unresolved picks & limitations",
+        "anchor": "unresolved"
+      },
+      {
+        "href": "./origination/#aliases",
+        "text": "identity evidence",
+        "anchor": "aliases"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Complete match picks →",
+        "anchor": "picks"
+      },
+      {
+        "href": "./origination/#picks",
+        "text": "Picks",
+        "anchor": "picks"
+      }
+    ],
+    "broken": [],
+    "picks_anchor_present": true,
+    "unresolved_anchor_present": true
+  },
+  "cards": {
+    "status": "checked",
+    "rows": 17,
+    "cards_present": 17,
+    "missing": []
+  },
+  "expected_refresh_at": "2026-10-22T07:42:58Z"
+}

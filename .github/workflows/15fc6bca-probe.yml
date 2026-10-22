@@ -1,0 +1,69 @@
+# Session arena-15fc6bca — read-only live coverage review (never deploys).
+#
+# The coding sandbox has no egress to Hotspawn, bo3.gg, HLTV or a bookmaker; the
+# GitHub runner does. This workflow runs the repository's own collectors there,
+# then the session review probe, and commits only its dated reports under
+# data/research/15fc6bca/. It never publishes a page, never writes a pick and
+# never touches the deployed artifact.
+#
+# The push guard skips runs whose head commit is the probe's own report commit,
+# so a report push can never re-trigger the probe in a loop. The workflow is
+# deleted before merge; the captured reports stay.
+name: 15fc6bca live coverage review (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/15fc6bca-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: 15fc6bca-review
+  cancel-in-progress: true
+jobs:
+  review:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(15fc6bca)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and every first-party line
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Build the site exactly as the publisher does
+        run: python -m scripts.build
+      - name: Review coverage, named sources, freshness and summary links
+        run: python -m scripts.coverage_review_15fc6bca --live
+      - name: Keep the live snapshot as dated evidence
+        run: |
+          mkdir -p data/research/15fc6bca/live-review
+          cp data/latest.json data/research/15fc6bca/live-review/latest.json
+          cp data/origination.json data/research/15fc6bca/live-review/origination.json
+          cp data/evidence/hotspawn-fixtures.json data/research/15fc6bca/live-review/hotspawn-fixtures.json 2>/dev/null || true
+      - name: Restore every other tracked data file so only the report is committed
+        run: |
+          git checkout -- data/sources.json data/origination data/evidence data/twc-current 2>/dev/null || true
+          git checkout -- data/latest.json data/origination.json 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated report to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/15fc6bca/coverage-review.json data/research/15fc6bca/coverage-review.md \
+                  data/research/15fc6bca/live-review/latest.json \
+                  data/research/15fc6bca/live-review/origination.json \
+                  data/research/15fc6bca/live-review/hotspawn-fixtures.json
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'research(15fc6bca): live coverage review report (never published)'
+          git pull --rebase origin arena/15fc6bca-maltaproj3
+          git push origin arena/15fc6bca-maltaproj3
