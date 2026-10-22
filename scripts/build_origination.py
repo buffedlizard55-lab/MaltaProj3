@@ -663,8 +663,18 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
-        from scripts.originate import selection
-        assert m['pick_index'] == selection(o['probabilities']), 'Fallback pick differs from its probabilities'
+        from scripts.originate import ranked_tie_break, selection
+        expected_pick = selection(o['probabilities'])
+        if expected_pick is None:
+            tie = ranked_tie_break(o)
+            if tie:
+                expected_pick, expected_tie = tie
+                assert o.get('tie_break') == expected_tie, 'Fallback tie-break differs from published ranking order'
+            else:
+                assert o.get('tie_break') is None, 'Unexplained fallback tie-break'
+        else:
+            assert o.get('tie_break') is None, 'Non-tied fallback row must not carry a tie_break'
+        assert m['pick_index'] == expected_pick, 'Fallback pick differs from its probabilities'
         assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
