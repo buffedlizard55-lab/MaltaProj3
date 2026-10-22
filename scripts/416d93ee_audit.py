@@ -315,7 +315,10 @@ def hltv_ranking_points(html: str) -> dict[str, float]:
 def unresolved_section_text(summary_html: str) -> str:
     """Text of the summary's unresolved register, if the page publishes one."""
     soup = BeautifulSoup(summary_html, 'html.parser')
-    section = soup.find(id='unresolved')
+    # The executive summary uses ``unresolved-register``; the dedicated
+    # origination page uses ``unresolved``. Accept both real publication
+    # contracts instead of reporting a false missing-register failure.
+    section = soup.find(id='unresolved-register') or soup.find(id='unresolved')
     return section.get_text(' ', strip=True) if section else ''
 
 
@@ -405,6 +408,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--evidence', default='data/research/416d93ee')
     parser.add_argument('--source', default=None, help='Alternatively audit a local data directory instead of the live site')
+    parser.add_argument('--site', default=None, help='Built Pages root for summary/picks HTML when auditing local data')
     args = parser.parse_args()
     evidence = Path(args.evidence)
     evidence.mkdir(parents=True, exist_ok=True)
@@ -429,6 +433,12 @@ def main() -> int:
         summary_html = reader.get(f'{LIVE}/?cb=416d93ee-{int(now.timestamp())}', 'live-summary').get('text', '')
         picks_html = reader.get(f'{LIVE}/picks/?cb=416d93ee-{int(now.timestamp())}', 'live-picks').get('text', '')
         report['published_source'] = LIVE
+    if args.site:
+        site_root = Path(args.site)
+        summary_path = site_root / 'index.html'
+        picks_path = site_root / 'picks' / 'index.html'
+        summary_html = summary_path.read_text() if summary_path.exists() else ''
+        picks_html = picks_path.read_text() if picks_path.exists() else ''
     report['published'] = {
         'generated_at': latest.get('generated_at'),
         'inventory_observed_at': latest.get('inventory_observed_at'),

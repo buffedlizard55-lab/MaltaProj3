@@ -6,6 +6,7 @@ probabilities are never edited.
 """
 from __future__ import annotations
 
+import importlib
 import json
 import shutil
 import tempfile
@@ -13,6 +14,8 @@ import unittest
 from pathlib import Path
 
 from scripts.a56f3474_live_audit import audit
+
+unresolved_section_text = importlib.import_module('scripts.416d93ee_audit').unresolved_section_text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -41,6 +44,16 @@ class ExportedRowAuditTests(unittest.TestCase):
             report = audit(source)
             self.assertGreater(report['summary']['violations'], 0)
             self.assertIn('pick-direction', {item['code'] for item in report['violations']})
+
+
+class IndependentRenderedRegisterTests(unittest.TestCase):
+    def test_both_published_register_ids_are_read(self):
+        for element_id in ('unresolved-register', 'unresolved'):
+            with self.subTest(element_id=element_id):
+                html = f'<section id="{element_id}">Isurus vs Hacha · no side</section>'
+                text = unresolved_section_text(html)
+                self.assertIn('Isurus', text)
+                self.assertIn('Hacha', text)
 
 
 if __name__ == '__main__':

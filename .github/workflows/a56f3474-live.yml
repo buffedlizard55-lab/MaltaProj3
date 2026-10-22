@@ -44,7 +44,7 @@ jobs:
         # its report for review instead of hiding a disagreement behind set -e.
         run: |
           set +e
-          python -m scripts.416d93ee_audit --source data --evidence data/research/a56f3474
+          python -m scripts.416d93ee_audit --source data --site site --evidence data/research/a56f3474
           status=$?
           printf '%s\n' "$status" > data/research/a56f3474/independent-audit-exit.txt
           exit 0
@@ -92,6 +92,7 @@ jobs:
           Path('data/research/a56f3474/live/pick-index.json').write_text(
               json.dumps(report, ensure_ascii=False, indent=2) + '\n')
           PY
+          python -m scripts.a56f3474_live_audit --source data/research/a56f3474/live --output data/research/a56f3474/live-row-audit.json
       - name: Commit only this session's dated research evidence
         run: |
           git config user.name 'github-actions[bot]'
