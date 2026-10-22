@@ -23,9 +23,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import signal
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -86,6 +89,26 @@ def parse_unittest_output(text: str) -> dict:
     return {"ran": ran, "seconds": seconds, "ok": ok, "summary": summary or ("OK" if ok else None), "failed": failed}
 
 
+def kill_group(process: "subprocess.Popen") -> None:
+    """Kill the child *and* everything it spawned.
+
+    ``subprocess.run(timeout=...)`` kills only the direct child and then waits for
+    its pipes to close, so a grandchild that inherited them keeps the call blocked
+    long after the timeout fired. This suite spawns subprocesses of its own (the
+    gate's own test does, and so do the end-to-end build tests), which is exactly
+    what happened on run 39767437782: the gate step outlived its 1500 s timeout and
+    only the job's 45-minute limit stopped it, so no report was written at all.
+    """
+    try:
+        os.killpg(os.getpgid(process.pid), signal.SIGKILL)
+    except (OSError, ProcessLookupError):  # pragma: no cover - platform dependent
+        process.kill()
+    try:
+        process.wait(timeout=30)
+    except subprocess.TimeoutExpired:  # pragma: no cover - the kernel has it now
+        pass
+
+
 def run_gate(
     *,
     command: list[str],
@@ -94,24 +117,29 @@ def run_gate(
     timeout: float,
     cwd: Path | None = None,
 ) -> dict:
+    """Run a test command, bounded, and report what it printed - including on timeout."""
     started = time.time()
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=str(cwd or Path(".")),
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            check=False,
-        )
-        returncode = completed.returncode
-        stdout, stderr = completed.stdout, completed.stderr
-        error = None
-    except subprocess.TimeoutExpired as exc:
-        returncode = None
-        stdout = (exc.stdout or b"").decode("utf-8", "replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
-        stderr = (exc.stderr or b"").decode("utf-8", "replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
-        error = f"timed out after {timeout}s"
+    returncode, error = None, None
+    with tempfile.TemporaryDirectory(prefix="bc1afd8f-gate-") as temporary:
+        out_path = Path(temporary) / "stdout.txt"
+        err_path = Path(temporary) / "stderr.txt"
+        # Files, not pipes, plus a new session: a killed child can then never leave
+        # this call waiting on a descriptor a grandchild still holds open.
+        with out_path.open("wb") as out, err_path.open("wb") as err:
+            process = subprocess.Popen(
+                command,
+                cwd=str(cwd or Path(".")),
+                stdout=out,
+                stderr=err,
+                start_new_session=True,
+            )
+            try:
+                returncode = process.wait(timeout=timeout)
+            except subprocess.TimeoutExpired:
+                kill_group(process)
+                error = f"timed out after {timeout}s; the whole process group was killed"
+        stdout = out_path.read_text(errors="replace")
+        stderr = err_path.read_text(errors="replace")
     parsed = parse_unittest_output(stderr + "\n" + stdout)
     return {
         "schema_version": SCHEMA_VERSION,

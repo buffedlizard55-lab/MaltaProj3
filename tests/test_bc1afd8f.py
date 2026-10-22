@@ -562,6 +562,27 @@ class GateTests(unittest.TestCase):
         self.assertTrue(parsed["ok"])
         self.assertEqual(parsed["failed"], [])
 
+    def test_a_child_that_outlives_the_timeout_is_killed_with_its_whole_group(self):
+        # Run 39767437782: subprocess.run(timeout=1500) killed unittest but a
+        # grandchild held the pipes open, so the step hung until the job's own
+        # 45-minute limit and no report was written. Output goes to files now and
+        # the process group is killed, so a bounded measurement stays bounded.
+        import sys
+        import time as clock
+
+        command = [
+            sys.executable, "-c",
+            "import subprocess, sys, time;"
+            "subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(90)']);"
+            "print('parent up', flush=True); time.sleep(90)",
+        ]
+        started = clock.time()
+        report = gate.run_gate(command=command, data_dir=ROOT / "data", label="hang", timeout=3, cwd=ROOT)
+        elapsed = clock.time() - started
+        self.assertIsNone(report["returncode"])
+        self.assertIn("timed out after 3s", report["error"])
+        self.assertLess(elapsed, 60, f"the bounded run took {elapsed:.0f}s")
+
     def test_the_gate_records_which_snapshot_it_ran_against(self):
         report = gate.run_gate(
             command=["python3", "-m", "unittest", "-v", "tests.test_validation"],
