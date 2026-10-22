@@ -1248,9 +1248,13 @@ def summary(data, prefix, now=None):
     p = round(100 * resolved / total) if total else 0
     ring = f'<div class="coverage-dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="dial-track"/><circle cx="60" cy="60" r="50" class="dial-progress" stroke-dasharray="{p * 3.14159:.3f} 314.159"/></svg><div><strong>{resolved}<span>/{total}</span></strong><small>with probabilities</small></div></div>'
     out = heading('Counter-Strike 2 intelligence', 'Executive summary', 'Every Hotspawn CS2 fixture, independently researched. Your picks are one tap away.')
-    out += exec_banner(data, prefix)
+    # Session f60683a4: the glance index itself has to sit above the fold on a
+    # phone (Playwright 320/390). The jump bar leads; the banner of extra
+    # destinations follows the picks so #picks-at-a-glance is not buried
+    # under three stacked 44px action rows.
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
+    out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix)
     if complete:
         if not data['coverage_complete']:
