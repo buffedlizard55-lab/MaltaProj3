@@ -1,0 +1,28 @@
+[
+  {
+    "id": "3bad13ea-hotspawn-fixture-api-403",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Hotspawn's public fixture API answered HTTP 403 to the GitHub runner at 01:38Z on 22 October, so that refresh kept the retained snapshot",
+    "detail": "Read on the runner during this session's capture (run 39706851633): GET https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 returned HTTP 403 Forbidden at 2026-10-22T01:38Z, while the same URL returned HTTP 200 with 97 CS2 records at 2026-10-22T01:11Z from the same runner (data/research/3bad13ea/live/sources.json is the 15 October retained manifest, and data/research/3bad13ea/live/snapshot-summary.md records inventory_observed_at 2026-10-15T08:36:04Z for that attempt). The collector does not silently delete the retained data: it keeps the last known records with their ORIGINAL observation times, sets coverage_complete=false, adds its own critical 'inventory-failed' flag, and the site shows the eight-hour staleness warning. Because a refused request could otherwise drop a whole refresh - which is exactly the 'there are no picks for the new matches' symptom - scripts/sources.py now retries this endpoint twice with backoff (20 s, then 45 s) for 403/429/5xx only. Nothing is bypassed and no identity is disguised; a schema error is never retried, and every attempt stays in the request manifest. Whether the 403 is rate-based or a front-end access rule is not established by one observation, and this project does not claim it.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/lobby",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39706851633"
+    ]
+  },
+  {
+    "id": "3bad13ea-tie-break-is-a-direction-not-an-edge",
+    "severity": "notice",
+    "match_ids": ["1079654"],
+    "title": "The one exact-tie fixture is priced by a documented tie-break, which is a direction rather than a measured edge",
+    "detail": "On the 2026-10-22T01:11Z live snapshot, ex-Zero Tenacity vs ex-RUSTEC (Hotspawn fixture 1079654, CCT Europe 2026 Series #11, 08:00Z on 23 October) was the only active fixture with no side. Both official Valve rows carry the same 1066 points (ranks 93 and 92), so the published transform returns exactly 50.0% / 50.0%; HLTV's own world-ranking publication ties them as well at 13.0 points each, so the first tie-break candidate could not separate them either. The side published on the site therefore comes from our own Bradley-Terry network fit over finished bo3.gg series (48.7% / 51.3%, low confidence: the one-sigma interval crosses 50%). It is labelled 'Tie-break estimate' everywhere it appears, the tied 50/50 primary estimate is published next to it for replay, and it must not be read as a market price or a stable edge - the direction can move as results change between four-hour refreshes. If a money line opens for this fixture it replaces the tie-break without any further condition.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/ranking/teams",
+      "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11",
+      "https://bo3.gg/matches",
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654"
+    ]
+  }
+]

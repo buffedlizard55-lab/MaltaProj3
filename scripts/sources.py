@@ -127,6 +127,40 @@ def disagreement(api_ids: set, lobby_ids: set, cs2_ids: set, lobby_req: dict, cs
     return '; '.join(parts)
 
 
+FIXTURE_RETRY_DELAYS = (20, 45)  # seconds; bounded, documented, access responses only
+ACCESS_CODES = ('403', '429', '500', '502', '503', '504')
+
+
+def fixture_array(client: 'Client'):
+    """Read the public fixture array, retrying only a refused request.
+
+    Observed on 2026-10-22 from the same GitHub runner: the fixture host
+    answered HTTP 200 at 01:11Z and HTTP 403 at 01:38Z while the rendered lobby
+    pages stayed readable. One refused request discarded the whole refresh and
+    left the site on a retained snapshot — exactly the "there are no picks"
+    symptom the brief is about, because new fixtures cannot appear in an
+    inventory that was never refreshed.
+
+    Two extra attempts with backoff are made for access, rate-limit and gateway
+    responses only. Nothing is bypassed, no header or identity is disguised, and
+    a schema or contract error is raised immediately: retrying a changed
+    payload would only repeat it. Every attempt stays in the request manifest,
+    so a refresh that needed a retry is visible in source health.
+    """
+    last = None
+    for attempt, delay in enumerate((0,) + FIXTURE_RETRY_DELAYS):
+        if delay:
+            time.sleep(delay)
+        try:
+            return client.json(FIXTURES_API, 'hotspawn-fixtures')
+        except SourceError as exc:
+            text = str(exc)
+            if not any(code in text for code in ACCESS_CODES):
+                raise
+            last = exc
+    raise last
+
+
 def hotspawn(client: Client):
     """Read the public fixture array; use rendered pages only as a cross-check.
 
@@ -171,7 +205,7 @@ def hotspawn(client: Client):
     for attempt in range(2):
         # Observe the API and both rendered pages in the same round so a
         # fixture added between them is a real disagreement, not a stale read.
-        api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
+        api_rows, api_req = fixture_array(client)
         if not isinstance(api_rows, list):
             raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
         official_ids = ids(api_rows)
