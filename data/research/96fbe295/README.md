@@ -22,6 +22,24 @@ previous run, and the public site reverted to the 15 October dashboard:
 integration**, so the source cannot be switched from a workflow token (same finding as session
 `c1fa150f`).
 
+## Second, independent cause: the refresh run never started
+
+GitHub cancels a **pending** run as soon as a newer run enters the same concurrency group (the
+`cancel-in-progress` flag only governs the run already in progress). Every session branch that
+merged into `main` created a new `pages` run, so the four-hour refresh was cancelled while still
+pending — repeatedly:
+
+| Run | Created | Outcome |
+| --- | --- | --- |
+| [39748026849](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39748026849) | 08:28:46Z | cancelled while pending |
+| [39748055891](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39748055891) | 08:29:00Z | cancelled while pending |
+| [39750182735](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39750182735) | 08:45:50Z | cancelled while pending |
+| [39751657137](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39751657137) | 08:57:20Z | cancelled while pending |
+
+The last successful publish before this session was **05:41Z**. `pages.yml` now uses
+`group: pages-${{ github.event_name }}`, so a push can never cancel a scheduled refresh; push runs
+still serialise among themselves.
+
 ## What this session changed
 
 * `scripts/root_publish.py` — copies the verified build over the root: every rendered page,
@@ -29,7 +47,8 @@ integration**, so the source cannot be switched from a workflow token (same find
   and `.nojekyll` (~2 MB). It **refuses** a stub index, a missing/unparseable snapshot, a snapshot
   older than 12 h, or a snapshot older than the one already published, and it writes only files
   whose bytes changed.
-* `.github/workflows/pages.yml` — `contents: write` plus one appended step that runs after the
+* `.github/workflows/pages.yml` — `contents: write`, a per-event concurrency group (pushes can no
+  longer cancel the four-hour refresh while pending), plus one appended step that runs after the
   public site has been verified, commits with `[skip ci]` and retries the push three times against
   a moving `main`.
 * `tests/test_96fbe295.py` — 22 tests covering the copy scope, idempotency, drift repair, every
