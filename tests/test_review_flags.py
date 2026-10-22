@@ -62,17 +62,7 @@ class ReviewFlagsIntegration(unittest.TestCase):
 
     def test_render_only_findings_do_not_rewrite_the_canonical_json(self):
         self.assertEqual((self.source / 'latest.json').read_bytes(), self.original)
-        # Session 4c972a51: the *published* copy deliberately gains the
-        # featured-vs-researched reconciliation keys beside the unchanged raw
-        # counters (write_reconciled_snapshot). Render-only findings must not
-        # change any original key; the only permitted difference is those
-        # three documented additions.
-        original_doc = json.loads(self.original)
-        published_doc = json.loads((self.output / 'data/latest.json').read_text())
-        added = {'featured_method_counts', 'complete_coverage_counts', 'counts_note'}
-        self.assertEqual(set(published_doc) - set(original_doc), added)
-        for key, value in original_doc.items():
-            self.assertEqual(published_doc[key], value, f'original key {key} was rewritten')
+        self.assertEqual((self.output / 'data/latest.json').read_bytes(), self.original)
 
 
 if __name__ == '__main__':
