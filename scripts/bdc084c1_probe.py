@@ -101,6 +101,71 @@ def fixture(row: dict, fallbacks: dict) -> dict:
     return out
 
 
+def write_markdown(report: dict, path: Path) -> None:
+    """The same evidence in a form a reader can check without opening the JSON."""
+    lines = [
+        '# Snapshot coverage probe — session arena-bdc084c1',
+        '',
+        f"Observed **{report['observed_at']}** by `python -m scripts.bdc084c1_probe`, immediately after "
+        '`scripts.collect` and `scripts.originate --live` in the same working tree. Every value '
+        'below is copied from those two artifacts; nothing is inferred.',
+        '',
+        '## What is compared',
+        '',
+        f"* Published snapshot (committed at HEAD): `{report['published_snapshot']['generated_at']}`, "
+        f"{report['published_snapshot']['inventory']} inventory records.",
+        f"* Fresh snapshot: `{report['fresh_snapshot']['generated_at']}`, "
+        f"{report['fresh_snapshot']['inventory']} inventory records, inventory cross-check "
+        f"`{report['fresh_snapshot']['inventory_crosscheck']}`.",
+        f"* New fixture ids since publication: **{len(report['fixtures']['new_since_published'])}** "
+        f"({report['fixtures']['new_active']} active, {report['fixtures']['new_archived']} archived). "
+        f"No longer listed: {len(report['fixtures']['no_longer_listed'])}.",
+        '',
+        '## Fixtures new since the published snapshot',
+        '',
+    ]
+    if report['new_fixtures']:
+        lines += ['| Hotspawn id | Fixture | Start (UTC) | State | Basis | Source |',
+                  '| --- | --- | --- | --- | --- | --- |']
+        for row in report['new_fixtures']:
+            state = ('pick ' + row['pick']) if row['pick'] else (
+                'probabilities, no side' if row['probabilities'] else '**no probability**')
+            lines.append(f"| [{row['id']}]({row['source_url'] if row.get('source_url', '').startswith('http') else 'https://play.hotspawn.com/lobby'}) "
+                         f"| {row['teams'][0]} vs {row['teams'][1]} | {row['starts_at']} | {state} "
+                         f"| {row['basis'] or 'unresolved'} | {row['source_host'] or '—'} |")
+    else:
+        lines.append('None: the fresh snapshot lists exactly the fixtures the published one lists.')
+    active = report['active']
+    lines += [
+        '',
+        '## Active-fixture coverage in the fresh snapshot',
+        '',
+        f"* Active fixtures: **{active['total']}**",
+        f"* With a directional pick: **{active['with_pick']}**",
+        f"* With probabilities: **{active['with_probabilities']}**",
+        f"* Priced from an external betting line: **{active['with_betting_line']}**",
+        f"* Research model only (not a betting price): **{active['research_model_only']}**",
+        f"* Basis mix: `{json.dumps(active['by_basis'], sort_keys=True)}`",
+        f"* Source hosts: `{json.dumps(active['by_source_host'], sort_keys=True)}`",
+        '',
+    ]
+    blanks = active['without_probabilities']
+    if blanks:
+        lines += ['## Active fixtures with no probability', '']
+        for row in blanks:
+            lines.append(f"* {row['teams'][0]} vs {row['teams'][1]} ({row['id']}, {row['starts_at']}) — "
+                         f"{'; '.join(row['limitations'][:2]) or 'no limitation recorded'}")
+        lines.append('')
+    no_side = [r for r in active['without_pick'] if r['probabilities']]
+    if no_side:
+        lines += ['## Active fixtures with probabilities but no side', '']
+        for row in no_side:
+            lines.append(f"* {row['teams'][0]} vs {row['teams'][1]} ({row['id']}) — "
+                         f"{row['probabilities'][0]:.4f} / {row['probabilities'][1]:.4f}")
+        lines.append('')
+    path.write_text('\n'.join(lines) + '\n')
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--data', type=Path, default=Path('data'))
@@ -182,6 +247,7 @@ def main() -> int:
     args.report.mkdir(parents=True, exist_ok=True)
     out = args.report / 'probe-report.json'
     out.write_text(json.dumps(report, indent=2, sort_keys=False) + '\n')
+    write_markdown(report, args.report / 'probe-report.md')
 
     print(json.dumps({
         'published_snapshot': report['published_snapshot'],

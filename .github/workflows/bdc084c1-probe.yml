@@ -14,7 +14,9 @@ on:
       - '.github/workflows/bdc084c1-probe.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  # Write is needed only to commit this session's own probe evidence
+  # (data/research/bdc084c1/) back to the session branch. Nothing else is pushed.
+  contents: write
 concurrency:
   group: bdc084c1-probe
   cancel-in-progress: true
@@ -97,6 +99,23 @@ jobs:
           name: bdc084c1-probe
           path: |
             data/research/bdc084c1/probe-report.json
+            data/research/bdc084c1/probe-report.md
             data/research/bdc084c1/published-latest.json
           retention-days: 14
           if-no-files-found: warn
+      - name: Commit this session's own probe evidence back to the session branch
+        # Only the report files are committed, [skip ci] stops this commit from
+        # starting another run, and the JSON/Markdown are byte-for-byte what the
+        # probe wrote - nothing is retyped.
+        if: always() && github.ref == 'refs/heads/arena/bdc084c1-maltaproj3'
+        run: |
+          if [ ! -f data/research/bdc084c1/probe-report.json ]; then
+            echo "::warning::No probe report to commit."
+            exit 0
+          fi
+          git config user.name "arena-bdc084c1"
+          git config user.email "arena@users.noreply.github.com"
+          git add data/research/bdc084c1/probe-report.json data/research/bdc084c1/probe-report.md
+          git restore --staged data/research/bdc084c1/published-latest.json 2>/dev/null || true
+          git commit -m "evidence(bdc084c1): fresh-snapshot coverage probe [skip ci]" --no-verify
+          git push origin HEAD:arena/bdc084c1-maltaproj3
