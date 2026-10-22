@@ -663,28 +663,18 @@ def validate_origination(data, source):
         if values:
             p0 = median(values)
             assert normalize_pair(p0, 1-p0) == o['probabilities'], 'Fallback combined line changed'
-        from scripts.originate import selection
+        from scripts.originate import ranked_tie_break, selection
         expected_pick = selection(o['probabilities'])
-        if expected_pick is None and m['pick_index'] is not None:
-            # Session 4c972a51's published-rank tie-break: an exactly even
-            # research model (50/50) may carry a direction from the provider's
-            # own published ranking order. It is replayable only when the row
-            # records the rule, the two differing positive ranks and the winner
-            # it produced; any other even-row pick is still a contradiction.
-            tie = o.get('tie_break') or {}
-            inputs = o.get('inputs') or []
-            ranks = [(r.get('rank', r.get('standing')) if isinstance(r, dict) else None)
-                     for r in inputs]
-            assert tie.get('rule') == 'published-rank tie-break', \
-                'Even fallback pick without a recorded published-rank tie-break'
-            assert tie.get('winner') == m['pick_index'], 'Tie-break winner differs from fallback pick'
-            assert tie.get('ranks') == ranks and len(ranks) == 2 \
-                and all(isinstance(r, int) and not isinstance(r, bool) and r > 0 for r in ranks) \
-                and ranks[0] != ranks[1], 'Tie-break ranks differ from the published model inputs'
-            assert m['pick_index'] == (0 if ranks[0] < ranks[1] else 1), \
-                'Tie-break pick is not the higher published rank'
+        if expected_pick is None:
+            tie = ranked_tie_break(o)
+            if tie:
+                expected_pick, expected_tie = tie
+                assert o.get('tie_break') == expected_tie, 'Fallback tie-break differs from published ranking order'
+            else:
+                assert o.get('tie_break') is None, 'Unexplained fallback tie-break'
         else:
-            assert m['pick_index'] == expected_pick, 'Fallback pick differs from its probabilities'
+            assert o.get('tie_break') is None, 'Non-tied fallback row must not carry a tie_break'
+        assert m['pick_index'] == expected_pick, 'Fallback pick differs from its probabilities'
         assert o['fair_decimal'] == [round(1 / p, 3) for p in o['probabilities']], 'Fallback fair lines changed'
         assert abs(sum(o['probabilities']) - 1) < 1e-7, 'Probabilities must sum to one'
         assert all(0 < p < 1 for p in o['probabilities']), 'Invalid probabilities'
