@@ -1,3 +1,17 @@
+# Current session: arena-93ba7221 — live inventory re-verification, picks-summary arithmetic, phone check
+Claimed **2026-10-22T07:55Z** on Arena's fixed branch `arena/93ba7221-maltaproj3`, branched from
+`main` at `285a0d9` (merge of PR #162). The board was read first; every earlier session is merged and
+no other claim is live, so no scope is taken from anyone. Only the files listed below are edited.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 93B-1 Fix the `/picks/` coverage sentence that adds the *featured* market count to the *fallback* count (rendered "33 of 33 … 11 come from an external … line, 12 more from the audited research ladder", i.e. 23 of 33 accounted for) and lock the two summaries together with a regression test | **in progress** | arena-93ba7221 | `scripts/build.py` (`picks()` info strip only), new `tests/test_93ba7221_counts.py`, this section |
+| 93B-2 Re-read Hotspawn's own fixture API and CS2 lobby through the platform reader, measure the inventory delta against the published 05:36Z snapshot, and publish the dated evidence plus one flag | **in progress** | arena-93ba7221 | new `data/research/93ba7221/`, `scripts/review_register.py` (register list only) |
+| 93B-3 After the merge-triggered refresh, verify every newly added fixture carries a pick or an explicit blank, run the phone checks at 320/390 px, open and merge the PR, and confirm the Pages deployment | unclaimed | — | new `data/research/93ba7221/`, this section |
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`,
+`assets/`, `.github/workflows/`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`,
+`archive/`, `docs/` or any other session's `data/research/<id>/`. The only shared file touched is
+`scripts/build.py` (`picks()` info strip), which is unowned because its last owner merged and stopped.
+---
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
