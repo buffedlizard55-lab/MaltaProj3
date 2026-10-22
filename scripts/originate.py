@@ -2003,7 +2003,6 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                 f'({candidate["probabilities"][0] * 100:.1f}% / {candidate["probabilities"][1] * 100:.1f}%). '
                 'This is a low-confidence research lean taken from dated inputs, not an observed money line; '
                 'the even primary estimate is retained on the row for audit.')
-            chosen['tie_break_attempts'] = attempts
         else:
             # Nothing sourced separated the teams. Publish the attempt itself:
             # the fixture stays Even, but the row records every rung that was
@@ -2044,7 +2043,7 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                                 'detail': '; '.join(f"{a['alias']} → {a['canonical']}" for a in deduped)
                                 + '. Competition-scoped registry entries with official evidence links; this supersedes any earlier '
                                   '"equivalence not verified" observation for these names in this competition only.'})
-    return {
+    out = {
         'origination': chosen,
         'pick_index': pick,
         'aliases_used': deduped,
@@ -2052,6 +2051,11 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         'limitations': limitations,
         'time_flags': sorted(set(time_flags)),
     }
+    if tie_break_attempts:
+        # One record shape for both outcomes — the rungs checked and whether one
+        # of them separated the teams. It carries no probability of its own.
+        out['tie_break_attempts'] = tie_break_attempts
+    return out
 
 
 MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
@@ -2099,7 +2103,7 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
             and (result.get('origination') or {}).get('tie_break_of')):
         return dict(result, upgraded_from_featured_model=True)
     kept = keep_featured()
-    attempts = (result.get('origination') or {}).get('tie_break_attempts')
+    attempts = result.get('tie_break_attempts')
     if featured_pick is None and attempts:
         # The featured level estimate stays exactly as published. The record of
         # which documented rungs were checked, and why none supplied a

@@ -135,6 +135,37 @@ class TieBreakLadderTest(unittest.TestCase):
         self.assertIsNone(chosen.get('tie_break_of'))
         self.assertEqual(chosen['probabilities'], [0.5, 0.5])
         self.assertIsNone(result['pick_index'])
+        # The blank is explained, not silent: every documented rung is listed
+        # with the outcome that stopped it from supplying a direction.
+        attempts = result['tie_break_attempts']
+        self.assertEqual([a['rung'] for a in attempts],
+                         ['HLTV world ranking', 'Own network model (bo3.gg results graph)',
+                          'Own results-based model (bo3.gg series results)'])
+        self.assertTrue(all(a['status'] == 'unavailable' for a in attempts))
+        self.assertTrue(any(r['stage'] == 'Tie-break research' and r['status'] == 'unresolved'
+                            for r in result['research']))
+        self.assertTrue(any(x.startswith('Even estimate:') for x in result['limitations']))
+
+    def test_level_rung_is_recorded_as_level_not_as_a_decision(self):
+        # Both official rows are present but identical, so the HLTV publication
+        # in this fixture is level too: it must be reported as level, and the
+        # fixture must stay Even instead of taking a rounding-level side.
+        rows = [dict(r, points=5.0) for r in hltv_rows()]
+        result = resolve_match(fixture(), [], [], level_ratings(), valve_meta(),
+                               {'aliases': []}, NOW, hltv_rank=rows, hltv_meta=hltv_meta())
+        self.assertIsNone(result['pick_index'])
+        self.assertEqual(result['origination']['probabilities'], [0.5, 0.5])
+        status = {a['rung']: a['status'] for a in result['tie_break_attempts']}
+        self.assertEqual(status['HLTV world ranking'], 'level')
+
+    def test_featured_even_row_publishes_its_attempts_without_a_pick(self):
+        match = dict(fixture(), analysis=featured_level_model(), pick_index=None)
+        result = resolve_match(match, [], [], level_ratings(), valve_meta(),
+                               {'aliases': []}, NOW, hltv_rank=[], hltv_meta=None)
+        self.assertIsNone(result['pick_index'])
+        self.assertEqual(result['origination']['probabilities'], [0.5, 0.5])
+        self.assertEqual(len(result['tie_break_attempts']), 3)
+        self.assertTrue(any(r['stage'] == 'Tie-break research' for r in result['research']))
 
     def test_a_money_line_is_never_tie_broken(self):
         result = resolve_match(fixture(), [level_market_row()], [], level_ratings(),
