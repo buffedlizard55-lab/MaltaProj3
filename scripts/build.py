@@ -439,12 +439,6 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
-    # Session bd4f77c6: how many published picks come from a research model
-    # rather than a bookmaker line. Those rows have the least evidence, so the
-    # phone jump bar must reach their limitation register in one tap.
-    model_picks = sum(1 for m in ((complete or {}).get('matches') or [])
-                      if (m.get('origination') or {}).get('method') == 'model'
-                      and m.get('pick_index') is not None)
     items = [
         (prefix + 'origination/#picks', 'All match picks', 'target',
          'Both team win probabilities where sourced; unresolved fixtures stay blank and are listed separately.'),
@@ -457,9 +451,6 @@ def start_here(data, prefix):
         (prefix + '#unresolved-register', 'Unresolved register', 'flag',
          'This summary lists every blank pick, its blocker and the sources actually tried.'),
     ]
-    if model_picks:
-        items.append((prefix + '#no-line-register', f'Research-only picks ({model_picks})', 'trend',
-                      'Picks with no bookmaker line: the model that produced each number and what limits it.'))
     out = ('<nav class="start-here" id="start-here" aria-label="Start here — where the picks are">'
            '<p class="start-here-label">Start here · where the picks are</p><ul>')
     for href, title, sym, detail in items:
@@ -835,7 +826,6 @@ def unresolved_register(data, prefix):
                 names.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">{e(n[0])} vs {e(n[1])}</a>')
             detail = ' · '.join(names)
             more = f' <span class="tiny muted">+{len(closed) - len(names)} more</span>' if len(closed) > len(names) else ''
-            extra = ''
             rungs = {}
             for m in closed:
                 o = m.get('origination') or {}

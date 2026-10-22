@@ -68,6 +68,37 @@ scopes and logs requests here instead of editing a file they own.
 `data/origination.json`, pick values, other sessions' `data/research/<id>/`, or `archive/`.
 Research findings are published as evidence and flags; only BD-1/BD-3 touch code, in the blocks named above, and BD-2's alias rows are two appended entries with their own evidence (logged in the row).
 
+### Results so far (2026-10-22T02:10Z)
+
+- **BD-1 — fixed and pinned.** `scripts/originate.py` no longer assigns the own bo3.gg network
+  quote to `model`; the quote reaches the ladder only through `network_quote`, so it publishes
+  "Own network estimate (bo3.gg results graph)" with its own inputs, sample size, interval and
+  low-confidence note, and it can no longer overwrite a resolved Valve or results model.
+  `tests/test_bd4f77c6_provenance.py` pins both directions plus the executive-summary wording,
+  which now lists the rung that actually produced each featured-blank row instead of the old
+  hardcoded "verified Thunderpick paired-price book".
+- **A tied rung is no longer a missing pick.** Live fixture `1079654` (ex-Zero Tenacity vs
+  ex-RUSTEC) was published as "Even · no side" because the featured Valve model returned
+  0.500/0.500 and the ladder stopped there. The ladder now lets a separating lower rung (HLTV
+  world ranking, then the own bo3.gg network) resolve the side, and `resolve_match` marks the
+  replacement with `upgraded_from_featured_tie`. `scripts/build_origination.py` accepts the
+  marked replacement only when it re-derives from the saved ranking/rating evidence, and the
+  card explains what was replaced.
+- **Live evidence.** `Origination source audit` run
+  [39709434727](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39709434727)
+  (inventory 02:08Z) reports **35 active / 35 resolved / 35 with a pick / 0 unresolved**
+  (1 consensus, 8 market, 26 model of which 4 network, 2 alias-joined).
+- **Local UI checks.** 85/85 Playwright browser checks and 106/106 pick-safety assertions pass,
+  including the 320px/390px "picks above the fold" checks; `python -m scripts.build` passes the
+  571-row source audit and 715 internal links.
+- **BD-2 — done.** Two competition-scoped alias joins (Betclic Apogee Esports, UNiTY esports)
+  committed on this branch (`71769fc` after the rebase); both carry Hotspawn/HLTV/Polymarket evidence.
+- **BD-4 — evidence published.** `data/research/bd4f77c6/verification-2026-10-22.json` (six
+  fixtures read first-hand) and six flags in `data/research/bd4f77c6/flags.json`, including the
+  Polymarket CCT wide-book disagreement and the EGamersWorld 1.8/1.8 placeholders.
+- **Irregularities.** The session-only live workflow failed in `git push` (exit 128) and has been
+  removed before merge; Pages still deploys with `build_type=legacy` (owner-side setting).
+
 # Current session: arena-dbaf7692 — full pick coverage, unresolved register and mobile findability
 
 Claimed **2026-10-21T20:02Z** on the Arena-fixed branch `arena/dbaf7692-maltaproj3`,
