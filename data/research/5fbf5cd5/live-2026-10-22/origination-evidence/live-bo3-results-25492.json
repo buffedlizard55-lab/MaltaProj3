@@ -1,0 +1,56 @@
+{
+  "team_id": 25492,
+  "name": "Off Chops",
+  "source_url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=40&sort=-start_date&filter[matches.status][in]=finished&filter[matches.discipline_id][eq]=1&filter[matches.team_ids][overlap]=25492&with=teams",
+  "observed_at": "2026-10-22T01:14:24Z",
+  "samples": [
+    {
+      "date": "2026-10-18",
+      "opponent": "NEXVOID",
+      "won": false,
+      "bo": 3,
+      "parsed": "done",
+      "source_url": "https://bo3.gg/matches/nexvoid-vs-off-chops-18-10-2026"
+    },
+    {
+      "date": "2026-10-17",
+      "opponent": "Rooster",
+      "won": true,
+      "bo": 3,
+      "parsed": "done",
+      "source_url": "https://bo3.gg/matches/off-chops-vs-rooster-17-10-2026"
+    },
+    {
+      "date": "2026-10-17",
+      "opponent": "NEXVOID",
+      "won": false,
+      "bo": 3,
+      "parsed": "rejected",
+      "source_url": "https://bo3.gg/matches/nexvoid-vs-off-chops-17-10-2026"
+    },
+    {
+      "date": "2026-10-16",
+      "opponent": "Abyssal",
+      "won": true,
+      "bo": 3,
+      "parsed": "done",
+      "source_url": "https://bo3.gg/matches/abyssal-vs-off-chops-16-10-2026"
+    },
+    {
+      "date": "2026-10-16",
+      "opponent": "Ground Zero",
+      "won": true,
+      "bo": 3,
+      "parsed": "done",
+      "source_url": "https://bo3.gg/matches/off-chops-vs-ground-zero-16-10-2026"
+    },
+    {
+      "date": "2026-10-16",
+      "opponent": "FlyQuest",
+      "won": false,
+      "bo": 3,
+      "parsed": "done",
+      "source_url": "https://bo3.gg/matches/flyquest-vs-off-chops-16-10-2026"
+    }
+  ]
+}

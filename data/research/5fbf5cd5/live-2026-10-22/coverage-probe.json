@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "session": "arena-8fa2b226",
+  "generated_at": "2026-10-22T01:15:45Z",
+  "mode": "live",
+  "environment": "github-actions-runner",
+  "source_snapshot_at": "2026-10-22T01:13:35Z",
+  "policy": "Dossier for fixtures the strict ladder leaves blank. It proposes nothing that is applied automatically, records which providers were checked, and publishes the provider error text when a source refuses access. No probability, pick or alias is written by this script.",
+  "excluded_inputs": [
+    "Hotspawn \"% picked\" and offered points",
+    "HLTV fan votes",
+    "outright and map markets",
+    "any price read from a page this script fetched (reachability only)"
+  ],
+  "headline": "No fixture in this snapshot is blank: every live row carries a sourced line.",
+  "counts": {
+    "unresolved_fixtures": 0,
+    "with_provider_lead": 0,
+    "display_name_only": 0
+  },
+  "fixtures": [],
+  "book_probes": [
+    {
+      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+      "method": "GET",
+      "observed_at": "2026-10-22T01:15:45Z",
+      "status": "refused",
+      "role": "reachability check only — this script never turns a page into a probability",
+      "http_status": 403,
+      "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+      "content_type": "text/plain",
+      "bytes": 126,
+      "sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
+      "looks_like_a_fixture_list": false,
+      "name": "GG.BET esportsbook",
+      "why_checked": "Covers many tier-B/academy series; the collector records only a failed page check today."
+    },
+    {
+      "url": "https://www.pinnacle.com/en/esports-hub/cs2",
+      "method": "GET",
+      "observed_at": "2026-10-22T01:15:45Z",
+      "status": "reachable",
+      "role": "reachability check only — this script never turns a page into a probability",
+      "http_status": 200,
+      "final_url": "https://www.pinnacle.com/en/",
+      "content_type": "text/html",
+      "bytes": 6394,
+      "sha256": "3f7de2cdd588e8d6261ec78ff287ca3a195933d4e5c0f2dbe665a07ba7f7db19",
+      "looks_like_a_fixture_list": false,
+      "detail": "Answered, but the body is not a CS2 fixture list; nothing was extracted.",
+      "name": "Pinnacle esportsbook",
+      "why_checked": "Sharp book commonly used as a closing-line reference."
+    },
+    {
+      "url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+      "method": "GET",
+      "observed_at": "2026-10-22T01:15:46Z",
+      "status": "refused",
+      "role": "reachability check only — this script never turns a page into a probability",
+      "http_status": 502,
+      "final_url": "https://api.rivalry.com/sports/public/v1/sports?sport_key=esports_cs2&lang=en&region=ca&timezone=UTC&odds_format=decimal",
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 884,
+      "sha256": "cdd21bc0be05ae21e37c2dbeb9d32d99dfcccde43b3c3668a9f183f0e1b017d8",
+      "looks_like_a_fixture_list": false,
+      "name": "Rivalry esportsbook",
+      "why_checked": "Documented public sports API path rather than the marketing page the collector tries."
+    },
+    {
+      "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+      "method": "GET",
+      "observed_at": "2026-10-22T01:15:47Z",
+      "status": "reachable",
+      "role": "reachability check only — this script never turns a page into a probability",
+      "http_status": 200,
+      "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+      "content_type": "application/json",
+      "bytes": 56814,
+      "sha256": "c8f63463911ef48e24366f62f4ff71cfe5e8d7245a8c35c7ab298022911b0c7f",
+      "looks_like_a_fixture_list": true,
+      "name": "Bovada CS2 coupon",
+      "why_checked": "Already an accepted ladder source; re-checked so the probe can say whether a listing exists at all."
+    },
+    {
+      "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=71&count=25&mode=4&getEmpty=true",
+      "method": "GET",
+      "observed_at": "2026-10-22T01:15:48Z",
+      "status": "refused",
+      "role": "reachability check only — this script never turns a page into a probability",
+      "http_status": 203,
+      "final_url": "https://1xbet.com/en/block?sports=71&count=25&mode=4&getEmpty=true",
+      "content_type": "text/html;charset=utf-8",
+      "bytes": 2605,
+      "sha256": "75de9d535b8e3d15396fd8fbd29d1856ae046ced51d37cdc3778203c28c1397b",
+      "looks_like_a_fixture_list": true,
+      "name": "1xBet line feed",
+      "why_checked": "Lists deep-tier CS2 series, but the operator geo-fences restricted countries."
+    }
+  ],
+  "limitations": [
+    "A lead is a listing that mentions the same words; only the production join decides whether it is the fixture.",
+    "geo-blocked and 403 responses prove nothing about whether a market exists for a given series.",
+    "The probe runs once per pipeline refresh, so a lead can expire before it is reviewed."
+  ],
+  "book_probe_note": "Reachability only. A provider that answers is not therefore usable, and a provider that refuses is not therefore empty; both are published on the review page."
+}
