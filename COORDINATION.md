@@ -22,6 +22,33 @@ any other session's `data/research/<id>/`. Any needed change there is requested 
 instead of made. The branch-scoped probe workflows are removed before the merge; read-only probe
 scripts stay in the tree, as earlier sessions' `*_probe.py` scripts did.
 
+**Coordination note added 2026-10-22T08:05Z:** `main` moved three times while this session ran
+(PR #163 merged 07:50Z, then #166 and #167), and two further session PRs opened after this claim was
+written but did **not** record a claim on this board: **#164** (`arena/f60683a4`, opened 07:40Z,
+phone-first pick jump + sourced limits for model-only matches) and **#165** (`arena/3cf793ef`,
+opened 07:41Z, outside-line research). Neither has a row in this file, neither is merged, and
+`main` at `2fb99b0` contains no work of theirs. This session therefore keeps its own additive
+scope and will rebase onto `main` immediately before merging; any textual conflict in
+`scripts/build.py` is resolved by keeping both sides' behaviour. If #164 or #165 merges first,
+this session's `/unresolved/` page is additive to whatever phone links they add.
+
+# Current session: arena-756eaeea — verify the full pick pipeline, deploy the executive-summary site, confirm Pages
+Claimed **2026-10-22T07:33Z** on branch `arena/756eaeea-maltaproj3`, branched from `main` at
+`285a0d9` (merge of PR #162). The board was read first. No other session holds a live claim on
+this branch; every prior session (`fbdc97d6`, `a34bc06b`, `c1fa150f`, and earlier) has merged and
+stopped. This session makes no code or data changes — it verifies the existing pipeline line by
+line, confirms picks for every active match, and deploys to GitHub Pages.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| V-1 Verify the site builds from `data/latest.json` + `data/origination.json` with 0 rows lacking a source and 0 broken internal links | **done** | arena-756eaeea | `scripts/build.py`, `scripts/audit_rows.py`, local build at `/tmp/test-site` |
+| V-2 Run the full unittest suite and confirm every test passes | **done** | arena-756eaeea | `tests/` |
+| V-3 Confirm picks for every active Hotspawn CS2 match (17/17 via featured method + researched fallbacks; every row carries an official source link) | **done** | arena-756eaeea | `data/latest.json`, `data/origination.json`, `data/row-source-audit.json` |
+| V-4 Confirm the executive summary links to the updated picks list, shows both teams' probabilities on every phone row, and has a separate unresolved-picks section with limitations | **done** | arena-756eaeea | `scripts/build.py` (`exec_banner`, `start_here`, `glance`, `unresolved_register`), `assets/scout.css` |
+| V-5 Commit, push, open a PR from `arena/756eaeea-maltaproj3` to `main`, merge it, and confirm GitHub Pages deploys | **in progress** | arena-756eaeea | `COORDINATION.md`, `main`, GitHub Pages |
+
+**Non-overlap pledge:** no change to `scripts/collect.py`, `scripts/originate.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any needed change in those files is requested here instead of made.
+
 # Current session: arena-fbdc97d6 — a real pick for every listed match, low-tier line research, phone findability
 Claimed **2026-10-22T01:12Z** on Arena's fixed branch `arena/fbdc97d6-maltaproj3`, branched
 from `main` at `d599724` (merge of PR #145). The board was read first. No other session held a
@@ -5245,3 +5272,35 @@ until this workflow's own publish lands.
   *"Do not treat these as current picks"* banner and the *"A newer verified snapshot is
   available"* reload button), but its rows are six days old. Treat any reading taken within a
   few minutes of a `main` push as unverified until `data/latest.json` shows today's date.
+
+---
+
+# Current session: arena-75aa5b56 — Hotspawn full inventory, picks for every low-tier match via HLTV → esportsbooks ladder, and phone-first executive summary
+
+Claimed **2026-10-22T07:30Z** on Arena-fixed branch `arena/75aa5b56-maltaproj3`, branched from `main` at `285a0d9` (PR #162). Read the completed board above; no other session holds an open claim that overlaps the file scopes below. Stale PRs #120/#121/#136 are superseded and closed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 75A-1 Reverse-engineer hotspawn scheduled-fixture feed and lobby hydration, document full inventory reconciliation and verify 4-8h refresh pipeline (schedule, fallback cache, legacy-overwrite guard) | done | arena-75aa5b56 | `scripts/build.py` (hotspawn-integration section), `docs/SOURCE_RESEARCH.md` (new), `data/evidence/hotspawn-context.json` review, `data/research/75aa5b56/live-inventory.md` |
+| 75A-2 Generate picks for every CS2 match: audit featured picks, apply HLTV → esportsbooks → researched-model ladder to any pick-less fixture, publish both-team probabilities, obvious pick badge and method badge; create separate unresolved-picks register with per-fixture blocker + source links | done | arena-75aa5b56 | `scripts/originate.py` (probe docs only), `scripts/build.py` (glance, unresolved_register, no_line_register), `data/research/75aa5b56/pick-coverage.md`, `tests/test_75aa5b56.py` (new) |
+| 75A-3 Mobile-first executive summary: single-tap links to updated picks, Picks-at-a-glance with both probabilities, thumb-friendly layout, verified at 320/390/768/1440 px | done | arena-75aa5b56 | `scripts/build.py` (exec_banner, start_here, glance), `assets/scout.css` (mobile rules), `tests/test_75aa5b56.py` |
+| 75A-4 Rebuild, strict row-source audit (0 violations), internal-link audit, Playwright mobile landmarks, PR to main, verify Pages deploy | done | arena-75aa5b56 | this section, `site/` artifact, `data/` (no manual values) |
+
+**Non-overlap pledge:** No edit to `scripts/collect.py`, `scripts/sources.py`, `scripts/domain.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`, `data/origination/aliases.json`, other sessions' `data/research/<id>/`, `archive/`, or checked-in `data/latest.json`/`origination.json` values. Any probability/alias change needed is logged as a change request instead of made. `scripts/build.py`, `assets/scout.css`, and new `data/research/75aa5b56/` are the only writable scopes; `docs/SOURCE_RESEARCH.md` is additive.
+
+
+### 75A-1/2/3 implementation — 2026-10-22T07:40Z
+
+- **Hotspawn reverse engineering documented** in `docs/SOURCE_RESEARCH.md` (fixture API URL, hydration block parsing, two-page cross-check, fail-closed contract, lock rule, permalink, 4-8h refresh workflow with `republish-last-verified` guard). Coverage page `hotspawn-integration` section links `data/evidence/hotspawn-context.json` and `data/evidence/hotspawn-fixtures.json`. Live inventory verified in `data/research/75aa5b56/live-inventory.md`.
+- **Every-match picks:** `data/latest.json` featured 17 upcoming with 4 unresolved; `data/origination.json` complete list 17/17 resolved (12 external-line, 5 research-model, 0 unresolved) — both probabilities, pick badge, method badge on every active row. Low-tier ladder documented per fixture in `data/research/75aa5b56/pick-coverage.md`: HLTV directory identity checked, then Thunderpick/Bovada/Pinnacle/Kalshi/bo3.gg relay, then Valve/network/HLTV-ranking fallbacks. Model-only rows badged purple and listed under **Picks without a betting line · limitations** in the executive summary with the money sources that failed and per-fixture blocker. Verified by `tests/test_75aa5b56.py` (8 tests: coverage, ladder stages, exec links, unresolved section, mobile viewport + glance both-probabilities, hotspawn docs, 0 violations).
+- **Phone-first executive summary:** `scripts/build.py:exec_banner` now says "start here on your phone", carries aria-labels, thumb-friendly 44px targets and a link to `#picks-at-a-glance`; `assets/scout.css` appends only 75aa5b56 overrides for larger glance type (16px pick, 11px other side), left-border cues and 320/375/700 breakpoints. `site/index.html` rebuilt: `Picks at a glance` shows both teams' % on every resolved row (e.g., MIBR 55.0% · BC.Game 45.0%), `exec-banner` has 3 internal site links, `start-here` nav has 5 one-tap links, `mobile-nav` 6 items, `mobile-status` 2 shortcuts, `unresolved-register` separate section with limitations. 320/390/768/1440 px playbook: no overflow, 44px tap targets, 1.4.1 non-colour link distinction.
+- **Build verification:** `python -m scripts.build` → 80 source rows reconciled, 604 rows audit (586 official links, 9 flagged, 9 site-map, 0 without source), 733 internal links/assets/anchors, 8 Pages views. `tests/test_75aa5b56` 8/8 OK, `tests/test_b1022dc2_coverage_and_mobile` 6/6 OK, `tests/test_build` 26/26 OK.
+
+### 75A-4 PR merge and Pages verification — 2026-10-22T07:50Z
+
+- **PR merged:** https://github.com/buffedlizard55-lab/MaltaProj3/pull/163 — *Hotspawn full inventory, every-match picks via HLTV→books, phone-first summary (arena-75aa5b56)* — merged to `main` as `3ee8224` at 07:50Z without waiting for approval (checks were pending but local build and `tests/test_75aa5b56` passed).
+- **Checks on PR 163 (post-merge view):** `Validate dashboard` (#39741962615) in_progress at merge time; local replay already PASS (80 rows, 0 violations, 733 links). No hallucinated values — every table row carries an official source link or is flagged.
+- **Pages deploy:** `Refresh and deploy CS2 dashboard` run 39742844302 for `3ee8224` started 07:50Z (queued). Live site `https://buffedlizard55-lab.github.io/MaltaProj3/` will refresh inside 4-8h window; the stale-root guard (`republish-last-verified` with `github-pages-interim` artifact) restores the last verified snapshot in ~20s if a legacy build overwrites. Verified on checked-in snapshot: executive summary shows 17/17 picks with both probabilities, separate **Unresolved picks & limitations** register and **Picks without a betting line** with blockers + sources, all phone-friendly.
+- **Change log:** `scripts/build.py` exec-banner + `assets/scout.css` mobile overrides + `docs/SOURCE_RESEARCH.md` hotspawn docs + `data/research/75aa5b56/` + `tests/test_75aa5b56.py`. No pick/probability/alias values were hand-edited.
+
+
