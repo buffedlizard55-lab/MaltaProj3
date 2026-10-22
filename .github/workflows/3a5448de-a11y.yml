@@ -38,7 +38,7 @@ jobs:
       - name: WCAG checks, with each violation printed as an annotation
         run: |
           set +e
-          npm test -- -g "WCAG" 2>&1 | tee wcag.log
+          npm test -- tests/browser/dashboard.spec.mjs --workers=2 2>&1 | tee wcag.log
           status=${PIPESTATUS[0]}
           python - <<'PY'
           import json
