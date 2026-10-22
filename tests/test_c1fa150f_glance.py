@@ -167,6 +167,22 @@ class NoBettingLineRegisterTests(unittest.TestCase):
         self.assertIn('id="picks-at-a-glance"', page)
         self.assertIn('id="no-line-register"', page)
 
+    def test_the_stated_reason_is_the_failed_money_source_not_a_checked_identity(self):
+        # A "checked" HLTV stage is a limitation, but it does not explain a missing
+        # price. The register must quote the failed market stage instead.
+        match = fixture(10, 0.5, method='model')
+        trail = [
+            {'stage': 'HLTV research', 'status': 'checked',
+             'detail': 'Exact teams/time confirmed on HLTV; no original bookmaker price verified.',
+             'source_url': 'https://www.hltv.org/matches/1/x'},
+            {'stage': 'Betting market (Polymarket series winner)', 'status': 'unresolved',
+             'detail': 'No alias-verified Polymarket match-winner line found for these teams and start time.',
+             'source_url': 'https://polymarket.com/event/cs2-x'},
+        ]
+        html = no_line_register(self.data([match], [origination(match, trail=trail)]), '')
+        self.assertIn('No alias-verified Polymarket match-winner line', html)
+        self.assertNotIn('<strong>Why there is no line:</strong> Exact teams/time confirmed', html)
+
     def test_a_missing_probability_never_becomes_a_number(self):
         match = fixture(9, 0.5, method='model')
         row = origination(match)
