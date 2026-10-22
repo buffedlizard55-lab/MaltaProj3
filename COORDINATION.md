@@ -22,6 +22,57 @@ any other session's `data/research/<id>/`. Any needed change there is requested 
 instead of made. The branch-scoped probe workflows are removed before the merge; read-only probe
 scripts stay in the tree, as earlier sessions' `*_probe.py` scripts did.
 
+### EE-1 result — what the deployed snapshot actually said (read 2026-10-22T07:40Z)
+
+The live executive summary (snapshot `generated_at 2026-10-22T05:36:57Z`) showed **33 active fixtures,
+33 with a directional pick — 15 from an external line, 18 from a research model, 0 explicitly
+unresolved**. The 18 model-only rows are the real gap the brief describes: every one has a percentage,
+but none has a betting line behind it. The featured exact-name method itself left 10 of the 33 blank and
+the origination ladder priced them from Valve ratings (4), the HLTV ranking model (2), the bo3.gg results
+network (2), one median of independent money sources and one aggregated bookmaker average. Both teams'
+percentages were present on every glance row, and the earlier sessions' provenance labels matched the
+published rows. No fabricated or sourceless row was found.
+
+### EE-2 result — the line sources, probed twice from the runner
+
+| Surface | 07:32Z | 07:51Z | What it means |
+| --- | --- | --- | --- |
+| EGamersWorld CS2 listing | 403 | 403 | Cloudflare; also 403 in a real headless Chromium context |
+| EGamersWorld match page | 403 | 403 | same |
+| HLTV match listing | 403 | 403 | never an odds source anyway (fan vote, not a price) |
+| Oddspedia CS2 | 410 | 410 | permanently deleted |
+| BetExplorer CS2 | 404 | 404 | no such page |
+| OddsPortal CS2 | 503 | **200** | the 200 is a client-side shell: no coefficient in the delivered HTML |
+| bo3.gg public API | 200 | 200 | a named bookmaker quote for **23 of 100** upcoming fixtures; **14** join the live inventory by exact names |
+| Hotspawn lobby | 200 | 200 | inventory only |
+
+**No new automated two-sided price source exists for the 18 model-only fixtures.** The sweep is published
+as `data/research/ee27e097/line-sources.json` (rendered under the register, newest sweep wins) with a
+dated `probe-summary.md`. One fixture — 6yuBoJlbl–ex-6666, id 1081146 — **did** gain a relayed Thunderpick
+pair (1.72 / 2.00) at 07:51Z while the 05:36Z snapshot still priced it with a Valve model; the relay rung
+outranks every model, so the next live refresh should promote it. That is checked after the merge and the
+outcome is recorded below.
+
+### EE-2 addendum — the EGamersWorld contradiction, published rather than used
+
+A person can load EGamersWorld, so it was read for five of the model-only fixtures between 07:55Z and
+08:10Z. Four print the site's identical **1.8 / 1.8** placeholder. The fifth (Nemesis–WW) printed
+**1.17 / 4.40** in the listing while its own match page printed **1.8 / 1.8** and carried no
+bookmaker-average sentence — the exact self-contradiction an earlier session rejected for a VOID Autumn
+Cup page. Nothing was promoted to a price. The dated record with both URLs and the quoted text is
+`data/research/ee27e097/egamersworld-observation.json`, and the finding is flag
+`ee27e097-egamersworld-contradicts-itself` on the review page.
+
+### EE-3 result — a page of its own, and both gaps on the phone
+
+`/unresolved/` is now a first-class page (`PAGES['unresolved']`) rendered by the same verified
+`unresolved_register()` the summary uses, so no count, price or limitation is computed twice. It is
+linked from the start-here bar, the hero actions, the register heading, the desktop navigation, the phone
+navigation ("Gaps") and the site map. The phone status strip now shows both gaps — on the 05:36Z snapshot
+that is **0 unresolved · 18 no line** — instead of a reassuring zero, and still links to
+`origination/#unresolved`. Local build: **9 Pages views, 609 audited rows, 590 with an official link, 0
+without a source, 795 internal links passing**. `tests/test_ee27e097_unresolved_page.py` adds 9 tests.
+
 **Coordination note added 2026-10-22T08:05Z:** `main` moved three times while this session ran
 (PR #163 merged 07:50Z, then #166 and #167), and two further session PRs opened after this claim was
 written but did **not** record a claim on this board: **#164** (`arena/f60683a4`, opened 07:40Z,
