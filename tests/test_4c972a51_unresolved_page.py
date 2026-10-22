@@ -166,5 +166,57 @@ class PicksHeaderArithmetic(unittest.TestCase):
         self.assertIn(f'{shown} of {shown} matches below carry a pick', text)
 
 
+class BlankFixtureRegister(unittest.TestCase):
+    """A blank must appear by name, with its reason and a source link.
+
+    The checked-in snapshot happens to have no blank rows, so this class forces
+    one from the same record and checks the page a reader would see — the
+    promise the brief makes is that a blank is never silent.
+    """
+
+    def setUp(self):
+        self.data = with_complete()
+        complete = self.data['complete_picks']
+        rows = complete['matches']
+        self.row = next(r for r in rows if r.get('origination'))
+        self.row['origination'] = None
+        self.row['pick_index'] = None
+        self.row['research'] = [{'stage': 'Polymarket', 'status': 'unresolved',
+                                 'detail': 'No CS2 event matched either team name.',
+                                 'source_url': 'https://gamma-api.polymarket.com/events'}]
+        counts = complete['counts']
+        counts['unresolved'] += 1
+        counts['resolved'] -= 1
+        counts['with_pick'] -= 1
+        counts['active'] = len(rows)
+
+    def test_the_blank_is_named_with_a_reason_and_a_source(self):
+        soup = BeautifulSoup(unresolved_page(self.data, './'), 'html.parser')
+        card = soup.select_one(f'#unresolved-summary-{self.row["id"]}')
+        self.assertIsNotNone(card, 'the blank fixture is missing from the register')
+        text = card.get_text(' ', strip=True)
+        for team in self.row['teams']:
+            self.assertIn(team['name'], text)
+        self.assertIn('Polymarket', text)
+        self.assertTrue(card.select('a[href^="https://"]'), 'no source link on the blank card')
+
+    def test_the_status_cards_count_the_blank(self):
+        soup = BeautifulSoup(unresolved_page(self.data, './'), 'html.parser')
+        cards = [c.get_text(' ', strip=True) for c in soup.select('.metric-card')]
+        no_pick = next((c for c in cards if 'No pick' in c), None)
+        self.assertIsNotNone(no_pick, cards)
+        self.assertIn('1', no_pick)
+
+    def test_the_page_no_longer_claims_full_coverage(self):
+        text = BeautifulSoup(unresolved_page(self.data, './'), 'html.parser').get_text(' ', strip=True)
+        self.assertNotIn('has a pick. Nothing is blank', text)
+        self.assertIn('no verified pick', text.lower())
+
+    def test_the_executive_summary_points_at_the_blank(self):
+        text = BeautifulSoup(summary(self.data, './'), 'html.parser').get_text(' ', strip=True)
+        self.assertIn('No pick yet (1)', text)
+        self.assertIn(self.row['teams'][0]['name'], text)
+
+
 if __name__ == '__main__':
     unittest.main()
