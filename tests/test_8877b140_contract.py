@@ -25,7 +25,6 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scripts.audit_rows import is_official
 from scripts.build import build
 
 verify = importlib.import_module('scripts.8877b140_verify')
