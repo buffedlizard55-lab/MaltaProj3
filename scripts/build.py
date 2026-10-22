@@ -693,9 +693,13 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         no_side = []
     total_pickless = len(rows) + len(no_side)
     active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
-    out = ['<span class="anchor-alias" id="unresolved" aria-hidden="true"></span>'
-           '<section class="content-section unresolved-register" id="unresolved-register" '
+    # One section, two anchors: `#unresolved` is the deep link used across the
+    # site and `#unresolved-register` is the long-standing id that older pages,
+    # tests and bookmarks point at. Both must land on the same heading and the
+    # cards must be descendants of both, so the inner wrapper carries the old id.
+    out = ['<section class="content-section unresolved-register" id="unresolved" '
            'aria-labelledby="unresolved-register-title">'
+           '<div id="unresolved-register">'
            '<div class="section-heading"><div><p class="eyebrow">Separate register · no guesswork</p>'
            f'<h2 id="unresolved-register-title">{title}</h2></div>'
            f'<a class="internal-link" href="{prefix}origination/#unresolved">Full research trails {icon("arrow")}</a></div>']
@@ -796,7 +800,7 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                '<li>The Valve-rating fallback is explicitly uncalibrated and is used only when no money source resolves a fixture.</li>'
                '<li>Every four-hour refresh retries all sources, so this register shrinks when a market opens — '
                'reload the page rather than treating this list as permanent.</li>'
-               '</ul></div></section>')
+               '</ul></div></div></section>')
     return ''.join(out)
 
 

@@ -1,10 +1,10 @@
 {
  "session": "arena-5fbf5cd5",
  "archive": "data/research/5fbf5cd5/live-2026-10-22",
- "generated_at": "2026-10-22T01:20:18Z",
- "inventory_observed_at": "2026-10-22T01:20:01Z",
- "run_id": "39704897198",
- "commit": "80e27b0b94c7adfb92f9cbd014f07ff1a809fc40",
+ "generated_at": "2026-10-22T02:06:09Z",
+ "inventory_observed_at": "2026-10-22T02:05:52Z",
+ "run_id": "39709449794",
+ "commit": "42aa541050decec8cf85253f27b9dd88d2f76c91",
  "source": "GitHub Actions runner: python -m scripts.collect && python -m scripts.originate --live && python -m scripts.coverage_5fbf5cd5 --live",
  "inventory": {
   "published_active_ids": [
@@ -45,15 +45,15 @@
    "1082882"
   ],
   "published_count": 35,
-  "snapshot_generated_at": "2026-10-22T01:20:18Z",
+  "snapshot_generated_at": "2026-10-22T02:06:09Z",
   "request": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "status": 200,
-   "observed_at": "2026-10-22T01:21:24Z",
-   "bytes": 77256,
-   "sha256": "d3023ec90f9f1d4d3c97da08bb55fa06d1494003c909ca63c6df9bd62e60daac",
+   "observed_at": "2026-10-22T02:07:08Z",
+   "bytes": 77262,
+   "sha256": "1304a82e59d925e5d57d4c43a5079fe31167bc2774ebb86390e3e8104a329534",
    "content_type": "application/json; charset=utf-8",
-   "elapsed_ms": 655
+   "elapsed_ms": 772
   },
   "result": "ok",
   "api_records": 97,
@@ -104,11 +104,11 @@
    "upcoming": 35,
    "archived": 62,
    "unknown_schedule": 0,
-   "market": 5,
-   "bookmaker": 1,
-   "model": 16,
-   "unresolved": 13,
-   "picks": 21,
+   "market": 8,
+   "bookmaker": 0,
+   "model": 15,
+   "unresolved": 12,
+   "picks": 22,
    "no_edge": 1
   },
   "complete_ladder": {
@@ -117,22 +117,21 @@
    "unresolved": 0,
    "with_pick": 34,
    "consensus": 1,
-   "market": 6,
-   "bookmaker": 1,
+   "market": 8,
+   "bookmaker": 0,
    "reference": 0,
-   "model": 27,
-   "network": 4,
+   "model": 26,
+   "network": 3,
    "guidance": 0,
    "alias_joined": 2
   }
  },
  "method_mix": {
-  "bookmaker": 1,
   "consensus": 1,
-  "market": 6,
-  "model": 27
+  "market": 8,
+  "model": 26
  },
- "money_backed": 8,
+ "money_backed": 9,
  "fixtures": [
   {
    "id": "1081869",
@@ -142,16 +141,16 @@
    ],
    "competition": "VOID Autumn Cup 2026",
    "starts_at": "2026-10-22T03:00:00Z",
-   "method": "market",
-   "family": null,
-   "provider": null,
+   "method": "model",
+   "family": "model",
+   "provider": "HLTV world ranking",
    "probabilities": [
-    0.21319797,
-    0.78680203
+    0.48417501,
+    0.51582499
    ],
    "pick": "NEXVOID",
-   "low_confidence": null,
-   "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct212300nexmor",
+   "low_confidence": true,
+   "source_url": "https://www.hltv.org/ranking/teams",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
@@ -166,7 +165,7 @@
     },
     {
      "stage": "Exchange market (Kalshi CS2 match winner)",
-     "status": "resolved"
+     "status": "unresolved"
     },
     {
      "stage": "Esportsbook line (Thunderpick original prices)",
@@ -214,8 +213,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.345,
-    0.655
+    0.3,
+    0.7
    ],
    "pick": "Rare Atom",
    "low_confidence": null,
@@ -238,62 +237,22 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-22T08:00:00Z",
-   "method": "model",
-   "family": "network",
-   "provider": "Own network model (bo3.gg results graph)",
+   "method": "market",
+   "family": null,
+   "provider": null,
    "probabilities": [
-    0.515106115972348,
-    0.484893884027652
+    0.31,
+    0.69
    ],
-   "pick": "Bushido Wildcats",
-   "low_confidence": true,
-   "source_url": "https://bo3.gg/matches",
+   "pick": "ex-6666",
+   "low_confidence": null,
+   "source_url": "https://polymarket.com/event/cs2-bw-66661-2026-10-22",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
-     "stage": "HLTV research",
-     "status": "checked"
-    },
-    {
-     "stage": "Betting market (Polymarket series winner)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Exchange market (Kalshi CS2 match winner)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Esportsbook line (Thunderpick original prices)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Esportsbook line (Bovada original prices)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Esportsbook line (Pinnacle original prices)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Aggregated bookmaker reference (EGamersWorld)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Research model cross-check (Valve official ratings)",
-     "status": "unresolved"
-    },
-    {
-     "stage": "Results model (own, bo3.gg series results)",
-     "status": "resolved"
-    },
-    {
-     "stage": "Own network model (bo3.gg results graph)",
-     "status": "resolved"
-    },
-    {
-     "stage": "Research model cross-check (HLTV world ranking)",
+     "stage": "Primary: Polymarket",
      "status": "resolved"
     }
    ]
@@ -306,50 +265,22 @@
    ],
    "competition": "CCT Europe 2026 Series #11",
    "starts_at": "2026-10-22T08:00:00Z",
-   "method": "model",
+   "method": "market",
    "family": null,
    "provider": null,
    "probabilities": [
-    0.7581203,
-    0.2418797
+    0.59,
+    0.41
    ],
    "pick": "GenOne",
    "low_confidence": null,
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-g1-tsa-2026-10-22",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [],
    "ladder": [
     {
      "stage": "Primary: Polymarket",
-     "status": "unresolved"
-    },
-    {
-     "stage": "HLTV research",
-     "status": "checked"
-    },
-    {
-     "stage": "Original esportsbook lines",
-     "status": "unresolved"
-    },
-    {
-     "stage": "GG.BET esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Pinnacle esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Rivalry esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Stake esportsbook",
-     "status": "unavailable"
-    },
-    {
-     "stage": "Valve research model",
      "status": "resolved"
     }
    ]
@@ -422,8 +353,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.65,
-    0.35
+    0.665,
+    0.335
    ],
    "pick": "FORZE Reload",
    "low_confidence": null,
@@ -571,8 +502,8 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.22135506461988838,
-    0.7786449353801116
+    0.2203644895995899,
+    0.7796355104004101
    ],
    "pick": "TitanFlow",
    "low_confidence": true,
@@ -691,16 +622,16 @@
    ],
    "competition": "DraculaN Season 7",
    "starts_at": "2026-10-22T13:00:00Z",
-   "method": "bookmaker",
+   "method": "market",
    "family": null,
    "provider": null,
    "probabilities": [
-    0.63909774,
-    0.36090226
+    0.645,
+    0.355
    ],
    "pick": "JiJieHao",
    "low_confidence": null,
-   "source_url": "https://thunderpick.io/api/matches",
+   "source_url": "https://polymarket.com/event/cs2-jjh-nxs1-2026-10-22",
    "hltv_listing_status": 403,
    "bo3_bound_matches": 1,
    "bo3_relayed_price": [
@@ -716,14 +647,6 @@
    "ladder": [
     {
      "stage": "Primary: Polymarket",
-     "status": "unresolved"
-    },
-    {
-     "stage": "HLTV research",
-     "status": "checked"
-    },
-    {
-     "stage": "Original esportsbook lines",
      "status": "resolved"
     }
    ]
@@ -1066,8 +989,8 @@
    "family": null,
    "provider": null,
    "probabilities": [
-    0.535,
-    0.465
+    0.54,
+    0.46
    ],
    "pick": "Sangal",
    "low_confidence": null,
@@ -1227,8 +1150,8 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.9838863131596313,
-    0.016113686840368735
+    0.9838771843003609,
+    0.016122815699639137
    ],
    "pick": "K27",
    "low_confidence": false,
@@ -1775,8 +1698,8 @@
    "family": "network",
    "provider": "Own network model (bo3.gg results graph)",
    "probabilities": [
-    0.44538842676485035,
-    0.5546115732351496
+    0.44524623649171446,
+    0.5547537635082855
    ],
    "pick": "Off Chops",
    "low_confidence": true,

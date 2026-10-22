@@ -191,7 +191,11 @@ test('the upset review is one tap from the phone summary and stays source-linked
   const shortcuts = page.getByRole('navigation', { name: 'Briefing shortcuts' });
   await shortcuts.getByRole('link', { name: 'Upset review & edge' }).click();
   await expect(page).toHaveURL(/\/edge\/$/);
-  await expect(page.locator('.mobile-nav a[aria-current="page"]')).toHaveText('Edge');
+  // Session arena-5fbf5cd5: the phone bar carries Unresolved instead of Edge,
+  // so a page outside the bar has no current marker; the review must still
+  // offer the bar itself and its own source-linked sections.
+  await expect(page.locator('nav.mobile-nav')).toBeVisible();
+  await expect(page.locator('nav.mobile-nav a')).toHaveCount(6);
   for (const anchor of ['day-one', 'rosters', 'rules', 'day-two', 'standings', 'edge-limitations']) {
     await expect(page.locator(`#${anchor}`)).toBeVisible();
   }

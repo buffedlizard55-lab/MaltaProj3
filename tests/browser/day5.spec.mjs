@@ -11,6 +11,10 @@ for (const width of [320, 390, 768, 1440]) {
   test(`final-day entry, data parity and layout at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
+    // Session arena-5fbf5cd5 collapses the dated tournament block so today's
+    // picks sit near the top of the phone summary; its links live behind the
+    // labelled summary row.
+    await page.locator('#archive-twc > summary').click();
     await page.locator('#final-day-summary a[href$="#day-five-picks"]').click();
     await expect(page).toHaveURL(/\/twc-picks\/#day-five-picks$/);
     const d = await (await page.request.get('/data/twc-day5-picks.json')).json();

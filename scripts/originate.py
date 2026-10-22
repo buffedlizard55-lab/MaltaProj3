@@ -1808,8 +1808,14 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     elif model:
         chosen = dict(model)
         results_model = model.get('family') == 'form'
+        # Session arena-5fbf5cd5: `model` is replaced with the bo3.gg network
+        # fit above when that rung exists (family 'network'), so the static
+        # Valve label published a wrong provenance for those fixtures. The
+        # label is now derived from the model's own family; no number changes.
+        network_model = model.get('family') == 'network'
         chosen.update({'method': 'model',
                        'label': ('Own results-based estimate (bo3.gg series results)' if results_model
+                                 else 'Own network estimate (bo3.gg results graph)' if network_model
                                  else 'Research model estimate (Valve official ratings)'),
                        'fair_decimal': [round(1 / p, 3) for p in model['probabilities']],
                        'quotes': [model],
@@ -1826,6 +1832,18 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             if model.get('low_confidence'):
                 limitations.append('Low confidence: the one-sigma interval or the sample size is wide. '
                                    'Treat the direction as indicative only.')
+        elif network_model and model.get('low_confidence'):
+            limitations.append('Low confidence: the interval crosses 50% or a side has fewer than ten '
+                               'finished series. Treat the direction as indicative only.')
+        elif network_model:
+            limitations.append(
+                'Own uncalibrated network model, not observed betting odds: no money line, no aggregated '
+                'reference and no complete official rating row existed for this fixture. Both ratings come '
+                f"from a Bradley–Terry fit over {model.get('graph_matches')} finished bo3.gg series, anchored "
+                f"on Valve's official points for {model.get('graph_anchors')} teams; the rating-difference "
+                f"one-sigma interval is {model.get('rating_sd_diff')} points "
+                f"(probability interval {model.get('interval')[0]:.3f}-{model.get('interval')[1]:.3f}). "
+                'Current lineups, stand-ins and map vetoes are unverified.')
         else:
             limitations.append('Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.')
         for proof in (chosen.get('lineup_disambiguation') or []):
