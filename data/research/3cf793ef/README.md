@@ -174,7 +174,16 @@ What does remain, and is worth fixing:
    own evidence link says **Bookmaker**. Cosmetic, but it is the one visible badge/source mismatch.
 3. **`1081597` is published but no longer listed by Hotspawn** (see §3) — normal retirement, but the
    "33 of 33" figure describes the snapshot, not Hotspawn at read time.
-4. **CIS LAN Championship #9 is invisible to bo3.gg** and five CCT South America fixtures are
+4. **The HLTV-ranking rung compresses low-tier gaps almost to a coin flip.** Rows `1081149`
+   (FORZE Reload vs LFO 10) and `1082860` (FlyQuest vs Staqued) are priced from HLTV's published
+   *ranking points* through a 400-scale logistic. Those points are bunched at the bottom of the
+   table: rank 80 carries 11.0 points, rank 167 carries 4.0, so a team 87 places higher is only
+   **51.0%**, and a rank-61 team against an **unranked** opponent (floor 0.0) is only **52.3%**.
+   The pick side is defensible in both cases, but the number carries almost no information, and it
+   sits beside bookmaker rows that carry real information. Rank *position* (or an explicit
+   wide-uncertainty display and a cap on the confidence this rung may claim) would be more honest
+   than a 400-point scale applied to a scale that is not 400 points wide at the bottom.
+5. **CIS LAN Championship #9 is invisible to bo3.gg** and five CCT South America fixtures are
    unpriced everywhere reachable, so those rows can only ever be research estimates. Their limitation
    text should say so per fixture instead of in one generic sentence.
 

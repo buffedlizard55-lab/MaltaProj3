@@ -124,6 +124,13 @@ model wherever the ladder found one. Two smaller, real issues remain:
    different pick, than the page they are reviewing. Either publish the upgraded record in the
    snapshot or state on the page that the snapshot holds featured-only estimates. **Request to the
    owners of `scripts/originate.py` / `scripts/build.py`.**
+3. **The HLTV-ranking rung compresses low-tier gaps into a coin flip** (`1081149` FORZE Reload
+   vs LFO 10 = 51.0%, `1082860` FlyQuest vs an unranked Staqued = 52.3%). HLTV's published
+   *points* are bunched at the bottom of the table — rank 80 has 11.0, rank 167 has 4.0, the floor
+   is 0.0 — so a 400-scale logistic on them cannot express a large skill gap. The picks are
+   directionally right; the percentages are close to uninformative and should not be read as edge.
+   Request to the owners of `scripts/hltv_ranking.py` / `methodology/`: price off rank position, or
+   display an explicit wide-uncertainty band and stop this rung from claiming a confident number.
 2. **Badge wording on an upgraded row.** Those rows render the purple **Researched** badge although
    their own evidence link says **Bookmaker**. Cosmetic, but it is the one place where the badge and
    the linked source still disagree.
