@@ -5115,3 +5115,37 @@ made one targeted change there and records it here.
 - **Verified:** workflow YAML parses (`yaml.safe_load`), job and step order unchanged,
   republish still deploys first so the site never goes backwards. The merge that carries
   this fix is itself the deployment test; its run is recorded below.
+
+### C1F-4 — the duplicate-artifact fix is live, and the reason the first attempt did not work (2026-10-22T04:10Z)
+
+**Outcome: deploys are green again.** Run
+[39717765225](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39717765225) (`ea1534f`,
+the merge of PR #158) finished **success** at 04:03Z — `republish-last-verified` and
+`verify-and-deploy` both green, `deploy-pages` published, and the in-run public verification
+passed (`{"rows": 750, "ok": 732, "flagged": 9, "navigation": 9, "violation": 0}`, complete-picks
+`{"active": 34, "resolved": 34, "unresolved": 0, "with_pick": 34}`).
+
+- **Why C1F-3 alone did not fix it.** Run
+  [39715837365](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39715837365)
+  (`fcaced9`) still failed at the *fresh* `deploy-pages` with the same
+  *"Artifact count is 2"* error. The cleanup step ran (03:30:08Z) but its DELETE was refused:
+  workflow permissions were `actions: read`, and deleting an artifact needs `actions: write`.
+  The step warned instead of failing, exactly as written, so the interim artifact
+  `12399332743` was still present when the fresh upload `12400545970` landed at 03:49Z
+  (`gh api .../runs/39715837365/artifacts` showed both, 17.8 MB and 18.4 MB).
+- **What fixed it** was PR #158 (`arena-a34bc06b`): the interim republish now uploads as
+  `github-pages-interim` and deploys with `artifact_name: github-pages-interim`, so the run
+  only ever holds one artifact called `github-pages`. `upload-pages-artifact@v5` does accept a
+  `name` input (verified in the action's `action.yml`), so this is the simpler fix and it needs
+  no extra token scope.
+- **This session's superseded change.** Rebased onto `main` at 03:52Z, the C1F-3 commit became
+  empty and was dropped automatically; the branch is now identical to `main`. No conflicting
+  publisher code from this session remains, and no second fix was merged on top of #158.
+- **Live re-check after that deploy** (`buffedlizard55-lab.github.io/MaltaProj3`, 04:05–04:15Z):
+  `data/latest.json` serves `generated_at 2026-10-22T03:58:03Z`, `counts`
+  `{inventory 97, upcoming 35, picks 34, unresolved 0}`; `/` shows 34 of 34 fixtures with a pick,
+  both teams' probabilities on every glance row, and `Market line` / `Model` / `Researched`
+  badges; `/coverage/` and `/review/` are on the same 03:58Z snapshot. The earlier "15 October"
+  root is gone. The two banner strings that still appear in extracted page text
+  (`#stale-warning`, `#new-snapshot`) are `hidden` in the delivered HTML — they are the client
+  side freshness guards, not a claim that the snapshot is stale.
