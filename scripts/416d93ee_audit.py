@@ -181,8 +181,19 @@ def replay_row(record: dict) -> dict:
             if len(inputs) != 2:
                 result['detail'] = 'own-model row does not publish two rating inputs'
                 return result
-            recomputed = ranking_expectation(float(inputs[0]['points']), float(inputs[1]['points']))
-            basis = f"own {origination.get('family')} rating on the 400-point logistic"
+            if origination.get('family') == 'network' or 'network' in str(origination.get('provider')).casefold():
+                recomputed = ranking_expectation(float(inputs[0]['points']), float(inputs[1]['points']))
+                basis = 'own network rating on the 400-point logistic'
+            else:
+                def side_rd(side: dict) -> float:
+                    fit = side.get('fitted') or {}
+                    if not fit.get('n'):
+                        return 75.0
+                    return min(400.0, 150.0 + 300.0 / math.sqrt(int(fit['n'])))
+                rd = max(side_rd(inputs[0]), side_rd(inputs[1]))
+                recomputed = valve_expectation(float(inputs[0]['points']), float(inputs[1]['points']), rd)
+                basis = f'own results-based fit on Valve\'s logistic (RD {rd:.1f})'
+
         elif method == 'model' and 'Valve' in label:
             inputs = origination.get('inputs') or []
             if len(inputs) != 2:
@@ -244,7 +255,7 @@ def replay_row(record: dict) -> dict:
 # Official rating inputs
 # ---------------------------------------------------------------------------
 
-def valve_points(markdown: str) -> dict[str, float]:
+def valve_points(markdown: str) -> dict[str, list[dict]]:
     """Parse Valve's published global standings markdown into {name: points}.
 
     The published column order is ``Standing | Points | Team Name | Roster``;
@@ -252,7 +263,7 @@ def valve_points(markdown: str) -> dict[str, float]:
     empty table (an honest read failure) instead of a wrong number.
     """
     columns = None
-    table: dict[str, float] = {}
+    table: dict[str, list[dict]] = {}
     for line in markdown.splitlines():
         stripped = line.strip()
         if not stripped.startswith('|'):
@@ -269,7 +280,11 @@ def valve_points(markdown: str) -> dict[str, float]:
         name = cells[columns[1]].replace('**', '').strip()
         match = re.fullmatch(r'\**([\d.]+)\**', cells[columns[0]])
         if name and match:
-            table[name.casefold()] = float(match.group(1))
+            roster = ''
+            if len(cells) > columns[1] + 1:
+                roster = cells[columns[1] + 1]
+            table.setdefault(name.casefold(), []).append(
+                {'points': float(match.group(1)), 'roster': roster.casefold()})
     return table
 
 
@@ -514,17 +529,31 @@ def main() -> int:
         origination_row = record['origination']
         label = origination_row.get('label') or ''
         entry = {'id': record['id'], 'label': label, 'checks': []}
-        if 'Valve' in label:
+        provider = str(origination_row.get('provider') or '')
+        if provider.startswith('Own'):
+            entry['checks'].append({'source': 'own-model', 'name': '-', 'row_points': None,
+                                    'valve_points': None,
+                                    'status': 'not-an-official-rating-row',
+                                    'detail': f'priced from {provider}; Valve/HLTV rows are not its inputs'})
+        elif 'Valve' in label:
             date = origination_row.get('snapshot_date') or ''
-            table = valve_tables.get(date)
+            table = valve_tables.get(date) or {}
             for source in origination_row.get('inputs') or []:
                 name, points = source.get('name'), source.get('points')
-                published = table.get((name or '').casefold()) if table else None
+                candidates = table.get((name or '').casefold()) or []
+                roster = ' '.join(source.get('roster') or []).casefold()
+                chosen = next((c for c in candidates if roster and roster in c['roster']), None)
+                if chosen is None and len(candidates) == 1:
+                    chosen = candidates[0]
+                published = chosen['points'] if chosen else None
+                ambiguous = len(candidates) > 1 and chosen is None
                 entry['checks'].append({'source': 'Valve', 'name': name, 'row_points': points,
                                         'valve_points': published,
+                                        'candidates': [c['points'] for c in candidates],
                                         'status': 'match' if published is not None and abs(published - float(points)) < 1e-6
-                                        else ('missing-in-table' if published is None else 'mismatch')})
-        elif 'HLTV' in label:
+                                        else ('ambiguous-name' if ambiguous
+                                              else ('missing-in-table' if published is None else 'mismatch'))})
+        elif 'HLTV' in label and not provider.startswith('Own'):
             for source in origination_row.get('inputs') or []:
                 name, points = source.get('name'), source.get('points')
                 published = hltv_table.get((name or '').casefold())
