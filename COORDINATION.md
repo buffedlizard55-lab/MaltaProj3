@@ -4566,3 +4566,34 @@ notice), and a phone reader had no way to see which one is current. Two session 
 copy, and the same URL with a cache-busting query returned current data. The deployment path
 (`upload-pages-artifact` → `deploy-pages`, with the legacy-overwrite guard and republish already in
 `pages.yml`) was working throughout. No freshness fix was needed and none was added.
+
+---
+
+## Current session: arena-13bdd12a — a pick (or an explicit, sourced limitation) for every Hotspawn CS2 match
+
+Claimed **2026-10-22T01:20Z**. Board read first. Arena fixes this session to the branch
+`arena/13bdd12a-maltaproj3`, so the repo convention of a `session-<id>/<task>` branch cannot be
+used here; every commit in this session goes to that one branch and nowhere else. Scope is kept
+non-overlapping; files owned by another live claim are not rewritten.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 13B-1 Close the remaining pick gaps for low-tier Hotspawn CS2 fixtures (HLTV first, then esportsbooks and esports betting lines), publish an executive-summary section listing every unresolved pick with its limitations, and make the picks findable and readable on a phone | **in progress** | arena-13bdd12a | `scripts/network_model.py`, `scripts/originate.py` (new lowest rung wiring only), `scripts/hltv_ranking.py` (read-only use), `scripts/build.py` (executive-summary pick finder + unresolved section), `assets/scout.css`, `assets/app.js` only if a mobile control is needed, new `tests/test_13bdd12a_*.py`, new `data/research/13bdd12a/**`, temporary `.github/workflows/13bdd12a-live.yml` (deleted before merge), this section, and the final integration merge |
+
+**Non-overlap pledge.** No rewrite of the alias registry, collectors, `pages.yml`, other sessions'
+`data/research/<id>/`, `archive/`, or any probability that already has a sourced basis. New evidence is
+captured under `data/research/13bdd12a/` only. If a change is needed in a file another live claim owns,
+it is logged here instead of edited.
+
+### 13B observation 1 — what is actually missing (2026-10-22T01:15Z)
+
+The published 23:42Z snapshot has 12 active fixtures: 7 with a pick, 5 unresolved. Replaying the
+20:39Z snapshot's own research trails shows the unresolved set is not one problem but four:
+
+1. **One side unranked on HLTV and thinly sampled** — `1082860 FlyQuest vs Staqued`, `1081597 benched gods vs TitanFlow`.
+2. **Both sides present but the results graph gate refuses them** — `1082858 Ground Zero vs Off Chops` (Off Chops has 5 anchored series; the network gate needs 6 and the single-team fit needs 8).
+3. **No official rating row for one side and no reachable two-sided price** — `1082882 UNiTY vs Apogee Betclic` was closed by the single-team results fit once it had 19 series.
+4. **A genuine even estimate** — a pair of identical published ratings; no side is supportable.
+
+The ladder is honest but its **sample-size gates** are what produce most of the blanks, not a lack of
+research. Any change here must therefore publish the uncertainty, not lower a threshold silently.
