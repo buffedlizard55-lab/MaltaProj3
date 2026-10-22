@@ -17,6 +17,7 @@ on:
     paths:
       - '.github/workflows/5fbf5cd5-live.yml'
       - 'scripts/coverage_5fbf5cd5.py'
+      - 'scripts/originate.py'
 permissions:
   contents: write
   actions: read
