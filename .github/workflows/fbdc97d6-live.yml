@@ -8,7 +8,7 @@ on:
     branches: [arena/fbdc97d6-maltaproj3]
     paths:
       - '.github/workflows/fbdc97d6-live.yml'
-      - 'scripts/fbdc97d6_probe.py'
+      - 'scripts/**'
   workflow_dispatch:
 permissions:
   contents: write
