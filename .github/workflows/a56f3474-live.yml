@@ -1,0 +1,103 @@
+name: A56 live pick verification (session only)
+# Runs once when this file is added. It never deploys and never changes the
+# canonical feeds on a branch; it exports dated research evidence only.
+on:
+  push:
+    branches: ['arena/a56f3474-maltaproj3']
+    paths: ['.github/workflows/a56f3474-live.yml']
+permissions:
+  contents: write
+concurrency:
+  group: a56f3474-live-verification
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/arena/a56f3474-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the complete current Hotspawn inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every active fixture through the complete research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Replay every live row and build the site before exporting evidence
+        run: |
+          mkdir -p data/research/a56f3474/live
+          python -m scripts.pipeline_audit --source data --output data/research/a56f3474/pipeline-audit.json
+          python -m scripts.coverage_audit data/origination.json
+          python -m scripts.build --data data --output site
+          python -m scripts.audit_rows --site site --strict
+      - name: Independent arithmetic, source-input, inventory and phone audit
+        # This second implementation may disagree with the publisher. Preserve
+        # its report for review instead of hiding a disagreement behind set -e.
+        run: |
+          set +e
+          python -m scripts.416d93ee_audit --source data --evidence data/research/a56f3474
+          status=$?
+          printf '%s\n' "$status" > data/research/a56f3474/independent-audit-exit.txt
+          exit 0
+      - name: Export the exact audited snapshot and a compact row index
+        run: |
+          cp data/latest.json data/origination.json data/sources.json data/research/a56f3474/live/
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          source = json.loads(Path('data/origination.json').read_text())
+          rows = []
+          for match in source['matches']:
+              estimate = match.get('origination') or {}
+              rows.append({
+                  'id': match['id'],
+                  'teams': [team['name'] for team in match['teams']],
+                  'competition': match.get('competition'),
+                  'starts_at': match.get('starts_at'),
+                  'locks_at': match.get('locks_at'),
+                  'availability': match.get('availability'),
+                  'featured_method': match.get('featured_method'),
+                  'method': estimate.get('method'),
+                  'label': estimate.get('label'),
+                  'source': estimate.get('source'),
+                  'source_url': estimate.get('source_url'),
+                  'observed_at': estimate.get('observed_at'),
+                  'probabilities': estimate.get('probabilities'),
+                  'pick_index': match.get('pick_index'),
+                  'quotes': estimate.get('quotes'),
+                  'inputs': estimate.get('inputs'),
+                  'limitations': match.get('limitations'),
+                  'research': match.get('research'),
+              })
+          report = {
+              'schema_version': 1,
+              'session': 'arena-a56f3474',
+              'exported_at': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+              'source_generated_at': source.get('generated_at'),
+              'source_snapshot_at': source.get('source_snapshot_at'),
+              'counts': source.get('counts'),
+              'policy': source.get('policy'),
+              'rows': rows,
+          }
+          Path('data/research/a56f3474/live/pick-index.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+          PY
+      - name: Commit only this session's dated research evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/a56f3474
+          git diff --cached --quiet && exit 0
+          git commit -m 'research(a56f3474): export independently audited live pick rows'
+          git pull --rebase origin arena/a56f3474-maltaproj3
+          git push origin arena/a56f3474-maltaproj3
