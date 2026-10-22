@@ -5389,10 +5389,10 @@ out of the loop and remain committed from earlier sessions).
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 96F-1 Publish the verified build to the branch root: new `scripts/root_publish.py` (idempotent, scoped copy, refuses a degraded/short build) | in progress | arena-96fbe295 | `scripts/root_publish.py` (new), `tests/test_96fbe295.py` (new), `data/research/96fbe295/` (new) |
-| 96F-2 Wire it into the four-hour publisher so the root can never regress: `pages.yml` step after the artifact deploy, `contents: write`, `[skip ci]` commit, fetch/rebase/retry push | in progress | arena-96fbe295 | `.github/workflows/pages.yml` (one permission line + one appended step), `scripts/root_publish.py` |
-| 96F-3 Re-verify live pick coverage against the Hotspawn lobby and publish the unresolved register with per-fixture limitations and source links | in progress | arena-96fbe295 | `data/research/96fbe295/`, this section |
-| 96F-4 PR to `main`, merge, dispatch/confirm the publisher, and confirm the public site serves today's snapshot | in progress | arena-96fbe295 | `main`, GitHub Pages |
+| 96F-1 Publish the verified build to the branch root: new `scripts/root_publish.py` (idempotent, scoped copy, refuses a degraded/short build) | **done** (PR #176) | arena-96fbe295 | `scripts/root_publish.py` (new), `tests/test_96fbe295.py` (new), `data/research/96fbe295/` (new) |
+| 96F-2 Wire it into the four-hour publisher so the root can never regress: `pages.yml` step, `contents: write`, `[skip ci]` commit, fetch/rebase/retry push | **done** (PR #176 + #183) | arena-96fbe295 | `.github/workflows/pages.yml` (one permission line + one appended step), `scripts/root_publish.py` |
+| 96F-3 Re-verify live pick coverage against the Hotspawn lobby and publish the unresolved register with per-fixture limitations and source links | **done** — see 96F-3 result | arena-96fbe295 | `data/research/96fbe295/`, this section |
+| 96F-4 PR to `main`, merge, dispatch/confirm the publisher, and confirm the public site serves today's snapshot | **done** — run 39762965971 success, bot commit a448de6 | arena-96fbe295 | `main`, GitHub Pages |
 
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
 `scripts/sources.py`, `scripts/hltv_ranking.py`, `scripts/network_model.py`,
@@ -5506,4 +5506,45 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
    every four hours; a row's saved-evidence link can lag its numbers during a legacy-build window.
 4. The 10:05Z deployment's verification failure is published here with its run and check-run ids
    rather than being retried silently.
+
+
+### 96F-4 result — publication verified end to end (2026-10-22T11:05Z)
+
+- **PRs:** [#176](https://github.com/buffedlizard55-lab/MaltaProj3/pull/176) → `1cab862`,
+  [#183](https://github.com/buffedlizard55-lab/MaltaProj3/pull/183) → `49dd327`,
+  [#186](https://github.com/buffedlizard55-lab/MaltaProj3/pull/186) → `cdfed10`. All merged to `main`
+  without waiting for approval; checks were pending, the local suite was green (901 tests).
+- **Publisher green:** run
+  [39762965971](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39762965971) for
+  `cdfed10` finished **success** at 10:52Z. That is the first successful `pages.yml` run since
+  **05:24Z**, after four consecutive pending cancellations. `scripts.verify_live` passed, so the
+  tie-break audit fix is confirmed against the deployed bytes.
+- **Root publish executed:** commit
+  [`a448de6`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/a448de6) *"publish: sync the
+  verified build into the branch root [skip ci]"*, 11 rendered pages (index, coverage, edge,
+  final-day, methodology, origination, picks, review, strategy, twc-picks, unresolved). A legacy
+  Pages build of that commit is what a reader now gets from the branch root.
+- **Live values read back at 11:02-11:05Z** (public URLs, not local files):
+  - `/data/latest.json` → `generated_at 2026-10-22T10:39:55Z`, `inventory_observed_at
+    10:39:32Z`, `coverage_complete true`, counts `{inventory 104, upcoming 43, archived 61,
+    market 19, bookmaker 2, model 12, unresolved 10, picks 33}` (at 08:20Z the same URL returned
+    `2026-10-15T08:36:13Z`, 17 fixtures all already started).
+  - `/data/row-source-audit.json` → `{rows 837, ok 818, flagged 9, navigation 10, violation 0}`.
+  - `/` → *"43 active Hotspawn CS2 fixtures, 42 with a directional pick — 27 from an external
+    betting line, 15 from a research model, 0 explicitly unresolved"*, with one-tap links to
+    `/origination/#picks`, `/picks/` and `/unresolved/`, both teams' percentages on every row, a
+    named pick and the method badge on each (e.g. `FORZE Reload 64.0% / Just Players 36.0% · Market
+    line`, `Donstu 40.5% / Banda chuya 59.5% · Model`), and a source link per row (Hotspawn + the
+    line provider or Valve/HLTV).
+  - The `#stale-warning` block carries `hidden` whenever the snapshot is under eight hours old
+    (`scripts/build.py` renders `'' if stale else 'hidden'`); a text-only fetch still shows its
+    string, which is markup, not a visible banner.
+- **Irregularity fixed, not buried:** `4c972a51`'s even-estimate tie-break (PR #174) contradicted
+  `7e8bed83`'s coverage audit; run `39753880261` failed on fixture `1082926` for exactly that
+  reason. `scripts/coverage_audit.py` now requires the published-rank record, and seven tests pin
+  the contract to the real tie-break output. The failed run and its check-run id stay in this log.
+- **Still true, still published:** Pages remains `build_type: legacy`; only the rendered pages are
+  committed to the root (`data/*.json` stay artifact-served, per `f2b91672`'s narrowing); bulk
+  evidence is not republished every four hours; new fixtures appear between refreshes
+  (`1082919` is the worked example above).
 
