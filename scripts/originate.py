@@ -1569,6 +1569,28 @@ def selection(probs) -> int | None:
     return None if abs(a - b) < 1e-8 else (0 if a > b else 1)
 
 
+def tie_break_quote(chosen, candidates):
+    """Return (source_name, quote) for a documented exact-tie tie-break, or None.
+
+    Fails closed everywhere it is unsure: only a *model* line that is exactly
+    tied (0.500/0.500) may be tie-broken, and only by a candidate that is itself
+    directional. A money, consensus, reference or guidance line is never
+    tie-broken, and a candidate that is also tied is skipped rather than
+    preferred.
+    """
+    if not chosen or chosen.get('method') != 'model':
+        return None
+    if selection(chosen.get('probabilities') or [0.5, 0.5]) is not None:
+        return None
+    for source, quote in candidates:
+        if not quote:
+            continue
+        if selection(quote.get('probabilities') or [0.5, 0.5]) is None:
+            continue
+        return source, quote
+    return None
+
+
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
                     reference: list | None = None, hltv_rank: list | None = None,
                     hltv_meta: dict | None = None) -> dict:
@@ -1902,6 +1924,75 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                                      'aggregated reference was not used. ' + reference_trail['detail'])
     if time_flags:
         limitations.append('Provider start-time disagreement: ' + '; '.join(sorted(set(time_flags))) + '. Times are never silently overwritten.')
+
+    # 5b. Exact-tie tie-break (session arena-3bad13ea).
+    # Two official rating rows can carry *identical* published points (Valve
+    # publishes whole points, so 1066 vs 1066 is a real, observed tie). The
+    # transform then returns exactly 0.5/0.5 and no side is supportable from the
+    # primary source — such a row used to be published as "Even · no side".
+    # The brief asks for a pick on every listed match, so a tie is broken *only*
+    # by a second, independent, already-audited source, in a fixed order:
+    #   1. HLTV's published world ranking (official rating),
+    #   2. our own Bradley–Terry network fit over bo3.gg finished series,
+    #   3. our own results fit for a side with no official row.
+    # The tie-break never touches a money line (an exactly even book quote stays
+    # untouched and is handled by the money-backed upgrade path), never invents a
+    # side when every alternate source is tied too, and keeps the tied primary
+    # estimate published beside it so the row can be replayed.
+    tie = tie_break_quote(chosen, (
+        ('HLTV world ranking', hltv_model),
+        ('Own network model (bo3.gg results graph)', network_quote),
+        ('Own results model (bo3.gg series results)', match.get('_form')),
+    ))
+    if tie:
+        tie_source, tie_source_quote = tie
+        primary = model or {}
+        tied = primary.get('probabilities') or chosen['probabilities']
+        tie_line = dict(tie_source_quote)
+        tie_line.update({
+            'method': 'model',
+            'label': f'Tie-break estimate ({tie_source})',
+            'fair_decimal': [round(1 / p, 3) for p in tie_source_quote['probabilities']],
+            'quotes': [tie_source_quote],
+            'source': tie_source_quote.get('provider') or tie_source,
+            'model_crosscheck': model,
+            'tie_break': {
+                'primary': primary.get('provider') or 'Valve official standings',
+                'primary_probabilities': list(tied),
+                'primary_source_url': primary.get('source_url'),
+                'primary_points': [row.get('points') for row in primary.get('inputs') or []],
+                'chosen': tie_source,
+                'chosen_family': tie_source_quote.get('family'),
+                'chosen_probabilities': list(tie_source_quote['probabilities']),
+                'chosen_source_url': tie_source_quote.get('source_url'),
+                'note': ('The primary official ratings are exactly tied, so they support no side. '
+                         'This side comes from a second independent source and is a direction, not a '
+                         'measured edge.'),
+            },
+        })
+        trail.append({
+            'stage': f'Tie-break ({tie_source})',
+            'status': 'resolved',
+            'source_url': tie_source_quote.get('source_url') or (match.get('source_url') or POLY_INDEX),
+            'detail': (f'The primary rating model is exactly tied '
+                       f'({tied[0] * 100:.1f}% / {tied[1] * 100:.1f}%), so no side is derivable from it. '
+                       f'{tie_source} publishes a different value for these two teams '
+                       f'({tie_source_quote["probabilities"][0] * 100:.1f}% / '
+                       f'{tie_source_quote["probabilities"][1] * 100:.1f}%) and supplies the direction. '
+                       'It is a labelled tie-break, not a market price.'),
+        })
+        limitations.append(
+            f'Tie-break, not a measured edge: the primary official ratings are exactly tied at '
+            f'{tied[0] * 100:.1f}% / {tied[1] * 100:.1f}%, and {tie_source} is the first independent '
+            'source that separates the two sides. The published percentage is that source\'s estimate; '
+            'treat the direction as indicative only, and expect it to move as the underlying results or '
+            'ranking change between refreshes.')
+        if tie_source_quote.get('low_confidence'):
+            limitations.append('Low confidence: this source\'s own one-sigma interval crosses 50%, or a '
+                               'side has fewer than ten finished series. The side is a tie-break, not a '
+                               'favourite.')
+        chosen = tie_line
+
     pick = selection(chosen['probabilities']) if chosen else None
     deduped = []
     seen = set()
@@ -1967,6 +2058,13 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
         return dict(result, upgraded_from_featured_model=True)
     if featured_pick is None and method in MONEY_METHODS and result.get('pick_index') is not None:
         return dict(result, upgraded_from_featured_model=True)
+    # Session arena-3bad13ea: a featured *rating* tie (exactly 50/50, no side)
+    # may be replaced by a documented tie-break that names a side from a second
+    # independent source. It is a separate marker from the money upgrade so the
+    # pages can say plainly that no money line existed.
+    tie_break = (result.get('origination') or {}).get('tie_break')
+    if featured_pick is None and tie_break and result.get('pick_index') is not None:
+        return dict(result, upgraded_from_featured_tie=True)
     return keep_featured()
 
 

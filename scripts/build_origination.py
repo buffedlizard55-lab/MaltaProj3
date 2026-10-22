@@ -130,6 +130,17 @@ def pick_row(m, safety=None, now=None):
             out.append(f'<p class="alias-note">Upgraded from the featured Valve-model estimate ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.</p>')
         else:
             out.append(f'<p class="alias-note">Upgraded from the featured {e(m.get("featured_method") or "equal")} tie ({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%): the alias-aware research found a directional money-backed line.</p>')
+    if m.get('upgraded_from_featured_tie') and m.get('featured_probabilities'):
+        fp = m['featured_probabilities']
+        tb = (m.get('origination') or {}).get('tie_break') or {}
+        out.append(
+            f'<p class="alias-note">Tie-break: the featured rating estimate was exactly tied '
+            f'({fp[0] * 100:.1f}% / {fp[1] * 100:.1f}%), so no side came from it. '
+            f'{e(tb.get("chosen") or "A second independent source")} separates the two teams and supplies the '
+            f'direction ({e(round(tb.get("chosen_probabilities", [0.5, 0.5])[0] * 100, 1))}% / '
+            f'{e(round(tb.get("chosen_probabilities", [0.5, 0.5])[1] * 100, 1))}%). '
+            'This is a labelled tie-break, not a money line: treat the side as indicative and expect it to '
+            'move between refreshes.</p>')
     details = '<details><summary>Research trail &amp; limitations</summary>'
     details += '<ol class="trail">'
     for r in m.get('research', []):
@@ -341,7 +352,7 @@ def page(data, inventory_complete=True, *, now=None):
 
 def validate_origination(data, source):
     """Replay fallback quotes from saved first-party responses before rendering."""
-    from scripts.originate import load_registry, align_by_name
+    from scripts.originate import load_registry, align_by_name, selection
     from scripts.domain import no_vig, normalize_pair
     from statistics import median
     canonical = json.loads((source / 'latest.json').read_text())
@@ -360,14 +371,33 @@ def validate_origination(data, source):
                 raw['analysis'].get('method') == 'model'
                 or (raw.get('pick_index') is None and m.get('pick_index') is not None)
             )
-            if not upgraded:
+            # Session arena-3bad13ea: a featured exact rating tie (50.0% / 50.0%) may be replaced by a
+            # documented tie-break that names a side from a second independent source. It is a distinct
+            # marker so the money upgrade stays unambiguous, and it is replayed below from the same saved
+            # evidence as any other model rung.
+            tie_upgraded = (bool(o) and m.get('upgraded_from_featured_tie') is True
+                            and bool((o or {}).get('tie_break'))
+                            and m.get('pick_index') is not None
+                            and abs(raw['analysis']['probabilities'][0] - raw['analysis']['probabilities'][1]) < 1e-9)
+            if not upgraded and not tie_upgraded:
                 assert o and o['probabilities'] == raw['analysis']['probabilities'], 'Featured probabilities changed'
                 assert m['pick_index'] == raw['pick_index'], 'Featured pick changed'
                 continue
             # Permitted changes to a featured estimate: a verified money-backed line replaces a featured
             # *model* estimate, or a directional money-backed line resolves a featured 50/50 tie.
             # Either must be marked and is replayed from its saved first-party responses below.
-            assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
+            if tie_upgraded:
+                tie = o['tie_break']
+                assert tie.get('primary_probabilities') == raw['analysis']['probabilities'], \
+                    'Tie-break must publish the tied primary estimate it replaced'
+                assert m.get('upgraded_from_featured_model') is not True, \
+                    'Tie-break is not a money upgrade and must not be marked as one'
+                assert o.get('method') == 'model' and (o.get('family') in {'network', 'form', 'model'}
+                                                       or o.get('source') == 'HLTV world ranking'), \
+                    'Tie-break must come from a replayed rating model'
+                assert selection(o['probabilities']) is not None, 'Tie-break must publish a side'
+            else:
+                assert m.get('upgraded_from_featured_model') is True, 'Money-backed line replaced a featured model without being marked'
         if not o:
             assert m['pick_index'] is None
             continue
