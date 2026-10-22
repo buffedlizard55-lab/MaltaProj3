@@ -3,7 +3,7 @@
   "branch": "arena/416d93ee-maltaproj3",
   "review_clock_utc": "2026-10-22T01:17Z-01:45Z",
   "scope": "Independent, read-only verification of what the published site shows: that every CS2 fixture Hotspawn's own scheduled-fixture API lists is published with the same teams and start time, that every published probability is reproducible from the inputs its own row publishes, that each row's method label names the evidence it actually used, and that the executive summary and picks list are reachable and readable on a phone. No probability, pick, alias or fixture in this register is an input to any published number; the audit script that produced it (scripts/416d93ee_audit.py) writes only to its own research directory and never edits data/.",
-  "method": "Each item was reproduced on GitHub's ubuntu-24.04 runner against the public site https://buffedlizard55-lab.github.io/MaltaProj3 and against Hotspawn's own endpoints on 2026-10-22 (audit runs 39704201122, 39704447077, 39704878057, 39705656352). The arithmetic replay is re-implemented inside the audit script rather than imported from scripts/originate.py, so a bug in the publisher cannot validate itself; every request records its HTTP status and response SHA-256, and the full machine-readable report plus the captured source pages are committed under data/research/416d93ee/. Phone layout was checked with the repository's Playwright suite (85 checks at 320/390/768/1440 px, axe WCAG A/AA) and with a 390x844 screenshot of the executive summary. Nothing below is inferred from an unavailable source: a failed read is reported as a failed read.",
+  "method": "Each item was reproduced on GitHub's ubuntu-24.04 runner against the public site https://buffedlizard55-lab.github.io/MaltaProj3 and against Hotspawn's own endpoints on 2026-10-22 (audit runs 39704201122, 39704447077, 39704878057, 39705656352). The arithmetic replay is re-implemented inside the audit script rather than imported from scripts/originate.py, so a bug in the publisher cannot validate itself; every request records its HTTP status and response SHA-256, and the full machine-readable report plus the captured source pages are committed under data/research/416d93ee/ — including the archived audit of the healthy 01:19:44Z snapshot, kept separately from the 01:30:26Z run that caught the stale window. Phone layout was checked with the repository's Playwright suite (85 checks at 320/390/768/1440 px, axe WCAG A/AA) and with a 390x844 screenshot of the executive summary. Nothing below is inferred from an unavailable source: a failed read is reported as a failed read.",
   "items": [
     {
       "id": "VD-01",
@@ -26,7 +26,7 @@
           "detail": "Rendered CS2 lobby counter reads 'All tiers (97)', matching the API record count and the published inventory count."
         },
         {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification-2026-10-22T0119Z.md",
           "detail": "The audit's own report: 'missing from the published site: 0', 'teams match: True; starts within 60 s: True; competitions match: True'."
         }
       ]
@@ -40,7 +40,7 @@
       "handling": "No change to any published number. The audit's own formula was corrected and is pinned in scripts/416d93ee_audit.py so the replay stays independent of the code it checks.",
       "evidence": [
         {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.json",
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification-2026-10-22T0119Z.json",
           "detail": "Machine-readable replay: per-row published vs recomputed probabilities, basis, and the largest absolute deviation."
         },
         {
@@ -85,7 +85,7 @@
       "evidence": [
         {
           "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
-          "detail": "The 01:30:26Z audit recorded generated_at 2026-10-15T08:36:13Z, 80 records and 17 upcoming from the public site, eleven minutes after the merge."
+          "detail": "The 01:30:26Z audit run (retained verbatim as the audit's latest report in this folder) recorded generated_at 2026-10-15T08:36:13Z, 80 records and 17 upcoming from the public site, eleven minutes after the merge."
         },
         {
           "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
@@ -118,7 +118,7 @@
           "detail": "The complete list the summary links to: both teams' percentages, the pick, lock time and source links for every active fixture."
         },
         {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification.md",
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/416d93ee/verification-2026-10-22T0119Z.md",
           "detail": "Audit's phone section: viewport meta true, 5 nav landmarks, pick-index link './origination/#picks', 35 rows on the picks page."
         }
       ]
