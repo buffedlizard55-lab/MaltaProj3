@@ -1,0 +1,544 @@
+{
+  "schema": "arena.hotspawn.live_audit.v1",
+  "session": "arena-52aee465",
+  "captured_at": "2026-10-23T05:18:00Z",
+  "hotspawn_feed": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "fixtures_api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "total_scheduled_rows": 92,
+    "locked_past_start_rows": 62,
+    "active_upcoming_rows": 30,
+    "best_of_field_on_all_92_rows": null,
+    "hotspawn_pick_share_used_for_probability": false,
+    "most_recent_locked_fixture": {
+      "fixture_id": "1081872",
+      "match": "Passion UA vs Gentle Mates",
+      "competition": "StarLadder CIS LAN Championship #9",
+      "start_utc": "2026-10-23T05:00:00Z",
+      "note": "Start time passed before capture window; excluded from active upcoming slate."
+    }
+  },
+  "summary": {
+    "active_upcoming_fixtures": 30,
+    "resolved_with_independent_pick": 30,
+    "unresolved": 0,
+    "by_tier_after_52aee465_aliases": {
+      "consensus_or_market": 16,
+      "bookmaker": 5,
+      "model_valve_vrs": 8,
+      "model_network_bt_1": 1
+    },
+    "aliases_added": 13,
+    "aliases_scope_extended": 3,
+    "flagged_for_review_items": 6
+  },
+  "fixtures": [
+    {
+      "fixture_id": "1081149",
+      "start_utc": "2026-10-23T08:00:00Z",
+      "competition": "CCT Europe 2026 Series #12",
+      "team_a": "FORZE Reload",
+      "team_b": "LFO 10",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "alias_upgrade": "Sokerorg -> LFO 10 (Bovada 32630179 joins Polymarket 1233764)",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+        "https://gamma-api.polymarket.com/events/1233764",
+        "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-12/forze-reload-sokerorg-202610230400"
+      ]
+    },
+    {
+      "fixture_id": "1079654",
+      "start_utc": "2026-10-23T08:00:00Z",
+      "competition": "CCT Europe 2026 Series #11",
+      "team_a": "ex-Zero Tenacity",
+      "team_b": "ex-RUSTEC",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399331/ex-zero-tenacity-vs-ex-rustec-cct-2026-europe-series-11"
+      ]
+    },
+    {
+      "fixture_id": "1081605",
+      "start_utc": "2026-10-23T11:00:00Z",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "team_a": "Phantom Academy",
+      "team_b": "Banda chuya",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "No active market",
+        "bovada_pinnacle": "No active line",
+        "valve_vrs_2026_10_05": "#172 Phantom Academy (783 pts) vs #165 Banda Chuya (801 pts) -> 47.5% / 52.5% (Banda chuya)",
+        "hltv_lineup_and_rank_note": "HLTV 2399699 shows 1/5 roster swap each (La1roN on Phantom Academy, mwlky on Banda chuya) and live HLTV VRS #167 Phantom Academy vs #169 Banda chuya; flagged under 52aee465-model-roster-drift-1081605."
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-season-3-europe-challengers-8",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1081148",
+      "start_utc": "2026-10-23T11:00:00Z",
+      "competition": "CCT Europe 2026 Series #12",
+      "team_a": "Inner Circle Academy",
+      "team_b": "Spirit Academy",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399498/inner-circle-academy-vs-spirit-academy-cct-2026-europe-series-12",
+        "https://gamma-api.polymarket.com/events/1233767"
+      ]
+    },
+    {
+      "fixture_id": "1079655",
+      "start_utc": "2026-10-23T11:00:00Z",
+      "competition": "CCT Europe 2026 Series #11",
+      "team_a": "Nuclear TigeRES",
+      "team_b": "ILLYRIANS",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399332/nuclear-tigeres-vs-illyrians-cct-2026-europe-series-11"
+      ]
+    },
+    {
+      "fixture_id": "1081606",
+      "start_utc": "2026-10-23T13:00:00Z",
+      "competition": "DraculaN Season 7",
+      "team_a": "JiJieHao",
+      "team_b": "Eternal Fire",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "note": "Hotspawn /lobby SSR omits View Match anchor; direct JSON API returns fixture 1081606 cleanly (flagged under 52aee465-hotspawn-lobby-ssr-link-omission-1081606).",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7"
+      ]
+    },
+    {
+      "fixture_id": "1082926",
+      "start_utc": "2026-10-23T13:00:00Z",
+      "competition": "CCT South America 2026 Series #7",
+      "team_a": "Isurus",
+      "team_b": "Hacha",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "bookmaker",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+        "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en"
+      ]
+    },
+    {
+      "fixture_id": "1083014",
+      "start_utc": "2026-10-23T13:00:00Z",
+      "competition": "StarLadder CIS LAN Championship #9",
+      "team_a": "K27",
+      "team_b": "Virtus.pro",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399849/k27-vs-virtuspro-starladder-cis-lan-championship-9"
+      ]
+    },
+    {
+      "fixture_id": "1082924",
+      "start_utc": "2026-10-23T16:00:00Z",
+      "competition": "CCT South America 2026 Series #7",
+      "team_a": "BORRACHEIROS",
+      "team_b": "QUINTESSÊNCIA",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "alias_upgrade": "Quintessencia -> QUINTESSÊNCIA (Bovada 32606587 + Pinnacle 1638942963 consensus)",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399909/borracheiros-vs-quintessncia-cct-2026-south-america-series-7",
+        "https://www.bovada.lv/esports/counter-strike-2/cct-south-america/borracheiros-quintessencia-202610231200",
+        "https://guest.api.arcadia.pinnacle.com/0.1/leagues/237685/matchups"
+      ]
+    },
+    {
+      "fixture_id": "1081150",
+      "start_utc": "2026-10-23T17:00:00Z",
+      "competition": "CCT Europe 2026 Series #12",
+      "team_a": "ex-RUSTEC",
+      "team_b": "Saint Sinners",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399500/ex-rustec-vs-saint-sinners-cct-2026-europe-series-12"
+      ]
+    },
+    {
+      "fixture_id": "1079657",
+      "start_utc": "2026-10-23T17:00:00Z",
+      "competition": "CCT Europe 2026 Series #11",
+      "team_a": "BakS",
+      "team_b": "BRUTE",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399334/baks-vs-brute-cct-2026-europe-series-11",
+        "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en"
+      ]
+    },
+    {
+      "fixture_id": "1082693",
+      "start_utc": "2026-10-23T18:00:00Z",
+      "competition": "Circuit X Curitiba Season 4",
+      "team_a": "BESTIA",
+      "team_b": "Galorys",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399815/bestia-vs-galorys-circuit-x-curitiba-season-4"
+      ]
+    },
+    {
+      "fixture_id": "1082925",
+      "start_utc": "2026-10-23T19:00:00Z",
+      "competition": "CCT South America 2026 Series #7",
+      "team_a": "BESTIA Academy",
+      "team_b": "RED Canids Academy",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "alias_upgrade": "RED Academy -> RED Canids Academy (Bovada 32606588 joins Pinnacle 1638951761)",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+        "https://www.bovada.lv/esports/counter-strike-2/cct-south-america/bestia-academy-red-academy-202610231500",
+        "https://guest.api.arcadia.pinnacle.com/0.1/leagues/237685/matchups"
+      ]
+    },
+    {
+      "fixture_id": "1082923",
+      "start_utc": "2026-10-23T22:00:00Z",
+      "competition": "CCT South America 2026 Series #7",
+      "team_a": "Alka",
+      "team_b": "LOS NINOS",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "bookmaker",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399908/alka-vs-los-ninos-cct-2026-south-america-series-7",
+        "https://guest.api.arcadia.pinnacle.com/0.1/leagues/237685/matchups"
+      ]
+    },
+    {
+      "fixture_id": "1079193",
+      "start_utc": "2026-10-24T08:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "FOKUS",
+      "team_b": "ex-6666",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "alias_upgrade": "FokuS Esports -> FOKUS (Bovada 32627973 joins Polymarket 1237193)",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399108/fokus-vs-ex-6666-nodwin-clutch-series-13",
+        "https://gamma-api.polymarket.com/events/1237193",
+        "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/fokus-esports-ex-6666-202610240400"
+      ]
+    },
+    {
+      "fixture_id": "1079195",
+      "start_utc": "2026-10-24T14:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "Nuclear TigeRES",
+      "team_b": "FORZE Reload",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399110/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13"
+      ]
+    },
+    {
+      "fixture_id": "1082996",
+      "start_utc": "2026-10-25T09:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "Acend",
+      "team_b": "UNiTY",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1238703 exists (UNiTY esports) but is an empty-book stub (spread 0.90, bestBid 0.05 / bestAsk 0.95) rejected by max_spread=0.25",
+        "bovada_pinnacle": "Not yet posted for Oct 25 Round of 16",
+        "valve_vrs_2026_10_05": "#63 Acend (1197 pts) vs #69 UNiTY (1167 pts) -> Acend favored",
+        "alias_ready": "UNiTY esports -> UNiTY extended to NODWIN Clutch Series #13 so Polymarket 1238703 joins automatically once CLOB spread tightens"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "https://gamma-api.polymarket.com/events/1238703",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1079198",
+      "start_utc": "2026-10-25T12:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "Metizport",
+      "team_b": "BakS",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1238705 exists (BakS eSports) as an empty-book stub (spread 0.92, bestBid 0.04 / bestAsk 0.96)",
+        "bovada_pinnacle": "Not yet posted for Oct 25 Round of 16",
+        "valve_vrs_2026_10_05": "#53 Metizport (1290 pts) vs #100 BAKS (1044 pts) -> Metizport strongly favored",
+        "alias_ready": "BakS eSports -> BakS extended to NODWIN Clutch Series #13"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "https://gamma-api.polymarket.com/events/1238705",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1079199",
+      "start_utc": "2026-10-25T15:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "Infinite",
+      "team_b": "BRUTE",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1238706 exists as an empty-book stub (spread 0.92, bestBid 0.04 / bestAsk 0.96)",
+        "bovada_pinnacle": "Not yet posted for Oct 25 Round of 16",
+        "valve_vrs_2026_10_05": "#56 INFINITE (1259 pts) vs #75 BRUTE (1116 pts, verified 5/5 lineup qzr/realzen/w4rden/KAD1M/d1maje excluding #218 roster) -> Infinite favored"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+        "https://gamma-api.polymarket.com/events/1238706",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1079200",
+      "start_utc": "2026-10-25T18:00:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "team_a": "Color",
+      "team_b": "ex-Zero Tenacity",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1238707 exists as an empty-book stub (spread 0.92, bestBid 0.04 / bestAsk 0.96)",
+        "bovada_pinnacle": "Not yet posted for Oct 25 Round of 16",
+        "valve_vrs_2026_10_05": "#57 Color (1249 pts) vs #93 ex-Zero Tenacity (1066 pts) -> Color favored"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "https://gamma-api.polymarket.com/events/1238707",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1082858",
+      "start_utc": "2026-10-26T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "team_a": "Ground Zero",
+      "team_b": "Off Chops",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1237427 prices Ground Zero 27.5% / Off Chops 72.5% ($2,424.81 liquidity) but spread 0.43 > max_spread 0.25",
+        "bovada_pinnacle": "No active line",
+        "valve_vrs_2026_10_05": "Ground Zero #136 (878 pts); Off Chops unranked on 2026-10-05 snapshot",
+        "hltv_and_network_bt_1": "network-bt-1 prices Ground Zero 44.5% / Off Chops 55.5% (low_confidence=true, SE 148.8, 6 Off Chops series); HLTV 2399888 confirms Off Chops (#160 HLTV VRS, savage/ekul/jhd/rekonz/foggers) beat Ground Zero (#170) 2-1 at Haunted Grounds LAN on 2026-10-16; flagged under 52aee465-network-model-thin-pm-1082858."
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "https://gamma-api.polymarket.com/events/1237427"
+      ]
+    },
+    {
+      "fixture_id": "1082859",
+      "start_utc": "2026-10-26T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "team_a": "NEXVOID",
+      "team_b": "Alter Ego",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+        "https://gamma-api.polymarket.com/events/1237428"
+      ]
+    },
+    {
+      "fixture_id": "1082860",
+      "start_utc": "2026-10-27T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "team_a": "FlyQuest",
+      "team_b": "Staqued",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+        "https://gamma-api.polymarket.com/events/1237429"
+      ]
+    },
+    {
+      "fixture_id": "1082861",
+      "start_utc": "2026-10-27T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "team_a": "Rooster",
+      "team_b": "Abyssal",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "Event 1237430 is an empty-book stub (spread 0.92, bestBid 0.04 / bestAsk 0.96)",
+        "bovada_pinnacle": "No active line",
+        "valve_vrs_2026_10_05": "#205 Rooster (718 pts) vs #195 Abyssal (734 pts) -> 47.8% / 52.2% (Abyssal)",
+        "hltv_lineup_and_rank_note": "HLTV 2399891 shows only 3/5 lineup overlap on each side (Rooster fields TjP + ex-Abyssal foggers; Abyssal fields Forleks + zune); flagged under 52aee465-model-roster-drift-1082861."
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "https://gamma-api.polymarket.com/events/1237430",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1082897",
+      "start_utc": "2026-10-27T08:00:00Z",
+      "competition": "Tesla Cup 2026",
+      "team_a": "B8",
+      "team_b": "K27",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026"
+      ]
+    },
+    {
+      "fixture_id": "1082898",
+      "start_utc": "2026-10-27T11:00:00Z",
+      "competition": "Tesla Cup 2026",
+      "team_a": "Alliance",
+      "team_b": "FaZe",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "market",
+      "alias_upgrade": "FaZe Clan -> FaZe extended to Tesla Cup 2026 alongside Polymarket event 1231334",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+        "https://gamma-api.polymarket.com/public-search?q=Alliance%20FaZe&events_status=active"
+      ]
+    },
+    {
+      "fixture_id": "1082900",
+      "start_utc": "2026-10-27T17:00:00Z",
+      "competition": "Tesla Cup 2026",
+      "team_a": "Luminosity",
+      "team_b": "HOTU",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+        "https://guest.api.arcadia.pinnacle.com/0.1/leagues/296105/matchups"
+      ]
+    },
+    {
+      "fixture_id": "1082901",
+      "start_utc": "2026-10-27T20:00:00Z",
+      "competition": "Tesla Cup 2026",
+      "team_a": "Envy",
+      "team_b": "GamerLegion",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "consensus",
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+        "https://guest.api.arcadia.pinnacle.com/0.1/leagues/296105/matchups"
+      ]
+    },
+    {
+      "fixture_id": "1082792",
+      "start_utc": "2026-10-31T09:00:00Z",
+      "competition": "Moscow Cyber Games 2026",
+      "team_a": "HOTU",
+      "team_b": "The Huns",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "No market created yet (8 days out)",
+        "bovada_pinnacle": "No line posted yet",
+        "valve_vrs_2026_10_05": "#31 HOTU (1437 pts) vs #122 The Huns (944 pts, verified 4/5 lineup cobrazera/nin9/xerolte/sk0R excluding #213 roster) -> 94.1% / 5.9% (HOTU)"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-winline-moscow-cyber-games-2026",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "fixture_id": "1082793",
+      "start_utc": "2026-10-31T13:00:00Z",
+      "competition": "Moscow Cyber Games 2026",
+      "team_a": "5star",
+      "team_b": "1WIN",
+      "hotspawn_best_of": null,
+      "hltv_format": "BO3",
+      "expected_tier": "model",
+      "low_tier_research": {
+        "polymarket": "No market created yet (8 days out)",
+        "bovada_pinnacle": "No line posted yet",
+        "valve_vrs_2026_10_05": "#80 5star (1110 pts) vs #38 1win (1383 pts, 5/5 lineup verified on HLTV 2399438) -> 1WIN strongly favored"
+      },
+      "sources": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://www.hltv.org/matches/2399438/5star-vs-1win-winline-moscow-cyber-games-2026",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    }
+  ]
+}
