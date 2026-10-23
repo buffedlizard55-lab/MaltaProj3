@@ -2070,8 +2070,11 @@ def coverage(data, prefix, now=None):
             detail = e(detail)
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
-    out += verification_section(data, prefix)
     out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
+    # Session 3a010437: the dated re-read is its own section, after the ledger
+    # closes. Appending it before the closing tags put a <section> inside the
+    # ledger's <tbody>, which is invalid markup and rendered nested.
+    out += verification_section(data, prefix)
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':

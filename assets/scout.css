@@ -596,3 +596,26 @@
   .start-here li:first-child a span{display:block!important;font-size:10.5px;line-height:1.35}
   .start-here .tiny{display:none!important}
 }
+
+/* Session 3a010437 — the dated re-read strip and table. Phone-first: the one
+   in-prose link to the row-by-row record is a 44 px target, and the four
+   count chips stack with breathing room instead of wrapping mid-sentence. */
+#independent-verification .internal-link{display:inline-flex;align-items:center;min-height:44px;padding:0 2px}
+#independent-verification .line-source-list li{padding:8px 0;border-top:1px solid #eef3f5}
+#independent-verification .line-source-list li:first-child{border-top:0}
+@media(max-width:700px){
+  #independent-verification .line-source-list li{padding:11px 0;line-height:1.7}
+  #independent-verification .line-source-list .tried-chip{margin-bottom:4px}
+  #independent-verification .section-intro{padding-bottom:14px}
+}
+
+/* Session 3a010437 — a count chip and its sentence must not run together on a
+   phone. Measured before this block at 390 px: "identity 30 / 30 rows matched…"
+   rendered as one line, so the chip and the claim read as a single run-on. The
+   chip becomes its own line and the sentence starts on the next one. */
+#independent-verification .line-source-list .tried-chip{display:inline-flex}
+@media(max-width:700px){
+  #independent-verification .line-source-list li>.tried-chip{display:flex;width:max-content;margin-bottom:7px}
+  #independent-verification .line-source-list li>strong{display:block}
+  #independent-verification .line-source-list li>.tiny{display:block;margin-top:3px}
+}
