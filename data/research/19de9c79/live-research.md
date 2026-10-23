@@ -1,7 +1,7 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-23T04:59:59Z (GitHub Actions runner)
-Snapshot: latest 2026-10-23T04:57:59Z · origination 2026-10-23T04:58:14Z · counts {'active': 31, 'resolved': 31, 'unresolved': 0, 'with_pick': 31, 'consensus': 2, 'market': 15, 'bookmaker': 5, 'reference': 0, 'model': 9, 'network': 1, 'relay': 0, 'guidance': 0, 'alias_joined': 3}
+Observed: 2026-10-23T05:41:06Z (GitHub Actions runner)
+Snapshot: latest 2026-10-23T05:39:08Z · origination 2026-10-23T05:39:16Z · counts {'active': 30, 'resolved': 30, 'unresolved': 0, 'with_pick': 30, 'consensus': 2, 'market': 15, 'bookmaker': 4, 'reference': 0, 'model': 9, 'network': 1, 'relay': 0, 'guidance': 0, 'alias_joined': 3}
 Targets (featured-blank or non-money resolution): 9
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)

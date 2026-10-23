@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "session": "arena-3a5448de",
-  "observed_at": "2026-10-23T04:59:59Z",
+  "observed_at": "2026-10-23T05:41:06Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research for fixtures the featured method did not resolve with a first-party money line. HLTV first (identity/ranking; no prematch price, fan vote excluded), then esportsbooks/betting lines. No probability, pick or alias is written here. HTML pages are reachability/name evidence only; no price is scraped from HTML.",
   "snapshot": {
-    "latest_generated_at": "2026-10-23T04:57:59Z",
-    "origination_generated_at": "2026-10-23T04:58:14Z",
+    "latest_generated_at": "2026-10-23T05:39:08Z",
+    "origination_generated_at": "2026-10-23T05:39:16Z",
     "counts": {
-      "active": 31,
-      "resolved": 31,
+      "active": 30,
+      "resolved": 30,
       "unresolved": 0,
-      "with_pick": 31,
+      "with_pick": 30,
       "consensus": 2,
       "market": 15,
-      "bookmaker": 5,
+      "bookmaker": 4,
       "reference": 0,
       "model": 9,
       "network": 1,
@@ -29,7 +29,7 @@
     {
       "name": "HLTV match listing",
       "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-23T04:59:36+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/matches",
       "bytes": 5626,
@@ -45,10 +45,10 @@
     {
       "name": "HLTV world ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-23T04:59:36+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
-      "bytes": 5644,
+      "bytes": 5665,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
@@ -61,10 +61,10 @@
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
-      "observed_at": "2026-10-23T04:59:36+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5774,
+      "bytes": 5775,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -75,10 +75,10 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "observed_at": "2026-10-23T04:59:36+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 404,
       "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257263,
+      "bytes": 257729,
       "challenge_markers": [],
       "teams_listed": [
         "Color",
@@ -88,7 +88,7 @@
     {
       "name": "Stake CS2",
       "url": "https://stake.com/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T04:59:37+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 403,
       "final_url": "https://stake.com/sports/esports/counter-strike-2",
       "bytes": 5737,
@@ -104,7 +104,7 @@
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
-      "observed_at": "2026-10-23T04:59:37+00:00",
+      "observed_at": "2026-10-23T05:40:37+00:00",
       "http_status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
       "bytes": 337038,
@@ -119,7 +119,7 @@
     {
       "name": "Rivalry CS2",
       "url": "https://www.rivalry.com/esports/counter-strike-2-betting",
-      "observed_at": "2026-10-23T04:59:38+00:00",
+      "observed_at": "2026-10-23T05:40:39+00:00",
       "http_status": 200,
       "final_url": "https://www.rivalry.com/",
       "bytes": 60850,
@@ -133,7 +133,7 @@
     {
       "name": "GG.BET CS",
       "url": "https://gg.bet/en/counter-strike",
-      "observed_at": "2026-10-23T04:59:38+00:00",
+      "observed_at": "2026-10-23T05:40:39+00:00",
       "http_status": 403,
       "final_url": "https://gg.bet/en/counter-strike",
       "bytes": 126,
@@ -143,10 +143,10 @@
     {
       "name": "BetBoom CS2",
       "url": "https://betboom.ru/sport/cs2",
-      "observed_at": "2026-10-23T04:59:38+00:00",
+      "observed_at": "2026-10-23T05:40:39+00:00",
       "http_status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1799,
+      "bytes": 1800,
       "challenge_markers": [
         "captcha"
       ],
@@ -155,10 +155,10 @@
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
-      "observed_at": "2026-10-23T04:59:38+00:00",
+      "observed_at": "2026-10-23T05:40:39+00:00",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2619,
+      "bytes": 2620,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -167,10 +167,10 @@
     {
       "name": "Marathonbet CS2",
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "observed_at": "2026-10-23T04:59:39+00:00",
+      "observed_at": "2026-10-23T05:40:40+00:00",
       "http_status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5487,
+      "bytes": 5488,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -181,7 +181,7 @@
     {
       "name": "Betway CS2",
       "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T04:59:39+00:00",
+      "observed_at": "2026-10-23T05:40:40+00:00",
       "http_status": 404,
       "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
       "bytes": 6690,
@@ -193,14 +193,14 @@
     {
       "name": "Luckbox CS2",
       "url": "https://luckbox.com/esports/csgo",
-      "observed_at": "2026-10-23T04:59:39+00:00",
+      "observed_at": "2026-10-23T05:40:40+00:00",
       "http_status": null,
       "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))"
     },
     {
       "name": "Oddspedia CS2",
       "url": "https://www.oddspedia.com/esports/counter-strike-2",
-      "observed_at": "2026-10-23T04:59:39+00:00",
+      "observed_at": "2026-10-23T05:40:40+00:00",
       "http_status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike-2",
       "bytes": 340029,
@@ -217,7 +217,7 @@
     {
       "name": "bo3.gg matches",
       "url": "https://bo3.gg/matches",
-      "observed_at": "2026-10-23T04:59:41+00:00",
+      "observed_at": "2026-10-23T05:40:41+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/matches",
       "bytes": 12789,
@@ -232,7 +232,7 @@
     {
       "name": "bo3.gg teams",
       "url": "https://bo3.gg/teams",
-      "observed_at": "2026-10-23T04:59:41+00:00",
+      "observed_at": "2026-10-23T05:40:41+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/teams",
       "bytes": 12789,
@@ -247,7 +247,7 @@
     {
       "name": "Pinnacle guest leagues (sport 12)",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-      "observed_at": "2026-10-23T04:59:41+00:00",
+      "observed_at": "2026-10-23T05:40:41+00:00",
       "http_status": 200,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
       "bytes": 10627,
@@ -256,7 +256,7 @@
     }
   ],
   "surface_errors": {},
-  "bo3_upcoming_rows": 268,
+  "bo3_upcoming_rows": 269,
   "bo3_error": null,
   "fixtures": [
     {
@@ -1140,7 +1140,7 @@
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251100bruteinf",
-          "detail": "Kalshi event KXCS2GAME-26OCT251100BRUTEINF: Order book spread 0.53 exceeds the 0.15 indicative ceiling (Brute bid/ask 0.42/0.95, Infinite bid/ask 0.06/0.57); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT251100BRUTEINF: Order book spread 0.46 exceeds the 0.15 indicative ceiling (Brute bid/ask 0.49/0.95, Infinite bid/ask 0.06/0.49); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -1719,7 +1719,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-          "detail": "Polymarket event 1237427: Order book spread 0.42 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.07/0.49, Off Chops bid/ask 0.51/0.93); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1237427: Order book spread 0.34 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.11/0.45, Off Chops bid/ask 0.55/0.89); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
