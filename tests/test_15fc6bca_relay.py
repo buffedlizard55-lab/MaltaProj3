@@ -226,18 +226,15 @@ class RelayCollectionTest(unittest.TestCase):
             ]}, {'observed_at': '2026-10-22T00:30:00Z', 'status': 'ok'}
 
     def test_only_the_bound_fixture_is_saved_with_its_quote(self):
-        # The collector stamps the live wall clock on the observation, so a
-        # fixture hardcoded to 2026-10-22 14:00Z stops being prematch once that
-        # time passes: the production guard correctly rejects a post-start
-        # quote and this contract test then fails for a reason that has nothing
-        # to do with the contract under test. Observed in Pages run 39792708185
-        # (2026-10-22) and again in runs 39861117407/39871371551/39881298806
-        # (2026-10-23), where it blocked every scheduled deploy. Keep the
-        # fixture 24 h ahead of the wall clock instead of pinning a date.
+        # This collection record stamps the live wall clock. Keep the fixture
+        # safely in the future so the contract test does not become a post-start
+        # rejection on the date baked into the old fixture (2026-10-22 14:00Z).
+        # Observed in Pages run 39792708185 after the scheduled job ran past 14Z.
         start_dt = datetime.now(UTC).replace(microsecond=0) + timedelta(hours=24)
         start = start_dt.isoformat().replace('+00:00', 'Z')
+        lock = (start_dt - timedelta(minutes=6)).isoformat().replace('+00:00', 'Z')
         future_fixture = fixture(start=start)
-        future_fixture['locks_at'] = (start_dt - timedelta(minutes=6)).isoformat().replace('+00:00', 'Z')
+        future_fixture['locks_at'] = lock
 
         class FutureStartStub(RelayCollectionTest.Stub):
             def get_json(self, url, label, headers=None, save=True):

@@ -131,19 +131,20 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(len(plan.unchanged), len(first))
 
     def test_check_mode_reports_a_current_root_and_then_drift(self):
-        # `main()` has no --now switch: it reads the live clock, so this test
-        # must build and publish a wall-clock-current site instead of the
-        # frozen NOW fixture. With the frozen fixture the snapshot turned
-        # "stale" twelve hours after NOW and the check started returning 3
-        # (PublishRefused) instead of the drift code 2 it asserts; that made the
-        # scheduled Pages run fail at its regression-test gate from
-        # 2026-10-22T21:56Z onward (runs 39845991470/39861117407/39871371551/39881298806).
-        wall_clock = datetime.now(timezone.utc).replace(microsecond=0)
-        self.output = make_site(self.tmp, when=wall_clock - timedelta(minutes=20))
-        self.publish(now=wall_clock)
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 0)
+        # Session arena-308fcaad: the fixture snapshot is pinned at NOW-20min, so
+        # `--check` must be given that same clock. Without it, main() compared the
+        # real wall clock against the pinned stamp and every run more than 12h past
+        # 2026-10-22T08:40Z (Pages runs 39792708185 onward) exited 3 instead of 0,
+        # which stopped the four-hour refresh before it could build or deploy.
+        # Production behaviour is unchanged: the CLI still defaults to the clock.
+        self.publish()
+        self.assertEqual(
+            main(["--output", str(self.output), "--root", str(self.root), "--check"], now=NOW), 0
+        )
         _write(self.root / "picks/index.html", "<title>stale hand edit</title>")
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 2)
+        self.assertEqual(
+            main(["--output", str(self.output), "--root", str(self.root), "--check"], now=NOW), 2
+        )
 
     def test_a_changed_page_is_republished(self):
         self.publish()
