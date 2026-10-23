@@ -51,6 +51,11 @@ OFFICIAL = [
     # Kalshi: CFTC-regulated exchange publishing its own CS2 match prices, its public
     # market-data API and official API docs (added by session c07e1b40 with the source).
     ('kalshi.com', None),
+    # Unibet (Kambi-powered): the operator's own public prematch offering feed, added by
+    # session arena-7c0e457b with the source (scripts/kambi_lines.py). A row links the
+    # operator's own event page; the vendor's offering host is allow-listed so the feed
+    # URL printed in a research trail resolves to the publisher that served it.
+    ('unibet.co.uk', None), ('unibet.com', None), ('kambicdn.com', None),
     # Smarkets: a licensed betting exchange that publishes its own CS2 match-winner
     # board through a public, documented read-only API (added by session 46ade650 with
     # the source, scripts/smarkets_lines.py). The row links the exchange's own event

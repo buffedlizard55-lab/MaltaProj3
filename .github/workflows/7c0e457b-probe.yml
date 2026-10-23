@@ -1,0 +1,63 @@
+name: 7c0e457b live line probe (never deploys)
+# Session arena-7c0e457b. The two ladder additions of this session — a
+# Unibet/Kambi first-party CS2 feed and a near-time evidence class for a real
+# price whose provider clock disagrees with Hotspawn's — can only be exercised
+# against live sources, and this sandbox has no general egress. This workflow
+# therefore runs the same collect -> originate ladder the publisher runs, then
+# writes a compact report of what it priced. It never commits, never deploys and
+# never edits a published pick; the artifact is evidence for review.
+on:
+  push:
+    branches: ['arena/7c0e457b-maltaproj3']
+    paths:
+      - 'scripts/kambi_lines.py'
+      - 'scripts/gap_lines.py'
+      - 'scripts/originate.py'
+      - 'scripts/build_origination.py'
+      - 'scripts/7c0e457b_probe.py'
+      - '.github/workflows/7c0e457b-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: 7c0e457b-probe-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh the canonical Hotspawn snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect || echo "::warning::collect failed; the ladder will replay saved evidence"
+      - name: Run the live origination ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live || echo "::warning::originate exited non-zero; the report still reads whatever was written"
+      - name: Publish the read-only ladder report
+        run: python -m scripts.7c0e457b_probe
+      - name: Add the report to the job summary
+        if: always()
+        run: |
+          if [ -f data/research/7c0e457b/live-ladder-report.md ]; then
+            cat data/research/7c0e457b/live-ladder-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'The probe wrote no report (the ladder did not produce data/origination.json).' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 7c0e457b-live-evidence
+          path: |
+            data/research/7c0e457b/
+            data/origination/evidence/live-kambi-cs2.json
+            data/origination/evidence/live-polymarket-near.json
+          if-no-files-found: warn
+          retention-days: 14

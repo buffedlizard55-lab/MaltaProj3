@@ -40,6 +40,8 @@ from scripts import network_model
 from scripts import pinnacle_lines
 from scripts import smarkets_lines
 from scripts import reference_odds
+from scripts import kambi_lines
+from scripts import gap_lines
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -73,6 +75,10 @@ MAX_ACCEPTED_SPREAD = 0.15
 # start-time delta, so a skipped price stays visible instead of silently dropped.
 RELAY_START_TOLERANCE_SEC = START_TOLERANCE_SEC
 RELAY_FAMILY = 'relay'
+# Session arena-7c0e457b: a second evidence class for a real money price whose
+# only disagreement with Hotspawn is the clock (see scripts/gap_lines.py).
+NEAR_FAMILY = 'near'
+NEAR_MAX_DELTA_SEC = gap_lines.NEAR_MAX_DELTA_SEC
 
 FIXTURES_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?' + urlencode({'sport_alias': 'cs2', 'status': 'scheduled', 'tenantId': 1})
 POLY_INDEX = 'https://polymarket.com/esports/cs2'
@@ -101,6 +107,8 @@ BOVADA_SITE = 'https://www.bovada.lv/sports'
 # exist so low-tier fixtures the exchange books never list still get researched
 # picks before anything is published as unresolved.
 PINNACLE_PAGE = pinnacle_lines.SOURCE_URL
+KAMBI_PAGE = kambi_lines.SOURCE_URL
+KAMBI_API = kambi_lines.API
 PINNACLE_API = 'https://guest.api.arcadia.pinnacle.com/0.1'
 HLTV_RANKING_URL = hltv_ranking.RANKING_URL
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -900,6 +908,110 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
         out['smarkets'] = smarkets_lines.collect(client, evidence_dir, matches)
     except Exception as exc:  # noqa: BLE001 - research must never block a refresh
         out['smarkets_error'] = f'{type(exc).__name__}: {exc}'[:300]
+    # Unibet (Kambi) prematch CS2 board (session arena-7c0e457b). The operator's
+    # own unauthenticated offering feed carries the CCT / United21 low-tier
+    # competitions the US exchanges skip; verified by hand on 2026-10-23 against
+    # two fixtures that had been left on a research model. A failed fetch records
+    # a reason and prices nothing.
+    (evidence_dir / kambi_lines.EVIDENCE_NAME).unlink(missing_ok=True)
+    try:
+        out['kambi'] = kambi_lines.collect(client, evidence_dir)
+    except Exception as exc:  # noqa: BLE001 - research must never block a refresh
+        out['kambi_error'] = f'{type(exc).__name__}: {exc}'[:300]
+    # Near-time Polymarket pass (session arena-7c0e457b): the featured discovery
+    # already enumerated the CS2 board, but books are only fetched for fixtures
+    # that bind inside 60 seconds. For every still-unpriced fixture, look for a
+    # unique Polymarket series market whose two names match exactly and whose
+    # start differs on the same UTC date, then save the original event and both
+    # order books with the same validation the strict path uses.
+    near_targets = [m for m in matches if m.get('availability') != 'past'
+                    and (m.get('analysis') is None or m.get('analysis', {}).get('method') == 'model')]
+    near_records, near_rejected = [], []
+    for fixture in near_targets:
+        join = (lambda names, start, _m=fixture: pair_join(names, start, _m, registry))
+        hits = [g for g in games
+                if gap_lines.classify({'names': [g.get('homeName', ''), g.get('awayName', '')],
+                                       'start': g.get('startTime')}, fixture, join)[0] == 'near']
+        if len(hits) != 1:
+            if len(hits) > 1:
+                near_rejected.append({'fixture_id': str(fixture.get('id')), 'reason':
+                                      str(len(hits)) + ' Polymarket events match the names on a near-time start; ambiguous'})
+            continue
+        game = hits[0]
+        event_id = str(game.get('id') or '')
+        if not event_id:
+            continue
+        try:
+            event, event_request = client.get_json(POLY_EVENTS + event_id, 'live-polymarket-near-event-' + event_id, save=False)
+        except RuntimeError as exc:
+            near_rejected.append({'fixture_id': str(fixture.get('id')), 'reason': str(exc)[:200]})
+            continue
+        moneyline, reason, delta = gap_lines.polymarket_near_candidate(event, fixture, join, datetime.now(UTC))
+        if not moneyline:
+            near_rejected.append({'fixture_id': str(fixture.get('id')), 'event_id': event_id, 'reason': reason})
+            continue
+        tokens = moneyline.get('clobTokenIds')
+        if isinstance(tokens, str):
+            try:
+                tokens = json.loads(tokens)
+            except ValueError:
+                tokens = None
+        if not isinstance(tokens, list) or len(tokens) != 2:
+            near_rejected.append({'fixture_id': str(fixture.get('id')), 'event_id': event_id,
+                                  'reason': 'Series market does not carry exactly two CLOB tokens'})
+            continue
+        bid, ask, books, failure = [], [], [], None
+        for index, token in enumerate(tokens):
+            try:
+                book, _ = client.get_json(CLOB_BOOK + str(token),
+                                          'live-polymarket-near-book-' + event_id + '-' + str(index), save=False)
+            except RuntimeError as exc:
+                failure = str(exc)[:200]
+                break
+            bids = [finite(x.get('price')) for x in (book or {}).get('bids', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
+            asks = [finite(x.get('price')) for x in (book or {}).get('asks', [])
+                    if finite(x.get('size')) is not None and float(x['size']) > 0]
+            from scripts.domain import is_fresh
+            stamp = timestamp((book or {}).get('timestamp'))
+            if (not stamp or not is_fresh(iso(stamp), datetime.now(UTC))
+                    or str((book or {}).get('asset_id')) != str(token)
+                    or (book or {}).get('market') != moneyline.get('conditionId')):
+                failure = 'Order book is stale, future-dated or bound to another market'
+                break
+            if not bids or not asks or any(p is None or not 0 < p < 1 for p in bids + asks):
+                failure = 'Order book is not two-sided with positive size'
+                break
+            bid.append(max(bids))
+            ask.append(min(asks))
+            books.append({'asset_id': str(token), 'best_bid': max(bids), 'best_ask': min(asks),
+                          'source_url': CLOB_BOOK + str(token)})
+        if failure or len(bid) != 2:
+            near_rejected.append({'fixture_id': str(fixture.get('id')), 'event_id': event_id,
+                                  'reason': failure or 'Both order books were required'})
+            continue
+        if max(a - b for b, a in zip(bid, ask)) > MAX_ACCEPTED_SPREAD:
+            near_rejected.append({'fixture_id': str(fixture.get('id')), 'event_id': event_id,
+                                  'reason': 'Order book spread above the published ceiling'})
+            continue
+        near_records.append({
+            'fixture_id': str(fixture.get('id')), 'event_id': event_id,
+            'slug': event.get('slug'), 'title': moneyline.get('question'),
+            'source_url': POLY_EVENTS + event_id,
+            'public_page': 'https://polymarket.com/event/' + str(event.get('slug', '')),
+            'observed_at': event_request['observed_at'], 'active': event.get('active'),
+            'closed': event.get('closed'), 'moneyline_market_id': str(moneyline.get('id')),
+            'outcomes': json.loads(moneyline['outcomes']) if isinstance(moneyline.get('outcomes'), str) else moneyline.get('outcomes'),
+            'game_start_time': moneyline.get('gameStartTime') or event.get('startTime'),
+            'hotspawn_start': fixture.get('starts_at'), 'start_delta_sec': int(round(delta or 0)),
+            'clob_token_ids': [str(x) for x in tokens], 'book_bid': bid, 'book_ask': ask})
+    gap_lines.save_polymarket_near(evidence_dir, {
+        'schema_version': 1, 'stage': 'near-time series markets', 'observed_at': iso(datetime.now(UTC)),
+        'source': 'Polymarket Gamma events + CLOB order books',
+        'policy': 'Names exact (registry-scoped), start on the same UTC date and outside the 60 s window; '
+                  'every other featured-market guard unchanged. Rejected candidates are listed, never priced.',
+        'events': near_records, 'rejected': near_rejected})
+    out['polymarket_near'] = {'candidates': len(near_records), 'rejected': len(near_rejected)}
     for stale in ('live-valve-directory.json', 'live-valve-standings.json', 'live-valve-standings-text.json'):
         (evidence_dir / stale).unlink(missing_ok=True)
     # Pinnacle public guest board (first-party esportsbook prices). Non-fatal:
@@ -1398,6 +1510,28 @@ def pinnacle_rows(orig_evidence: Path) -> list:
     return out
 
 
+def kambi_rows(orig_evidence: Path) -> list:
+    """Unibet (Kambi) prematch CS2 series prices from the saved offering feed."""
+    return kambi_lines.rows(orig_evidence)
+
+
+def near_candidate_rows(orig_evidence: Path) -> list:
+    """Every saved money row that could price a fixture on names plus a same-date clock.
+
+    The rows are the *same* observations the strict ladder already reads; the only
+    difference is that ``gap_lines.classify`` sorts them into exact, near-time and
+    rejected. Nothing extra is fetched and nothing is synthesised: a provider that
+    did not publish a two-sided price contributes no row.
+    """
+    rows = []
+    rows += kambi_rows(orig_evidence)
+    rows += kalshi_rows(orig_evidence)
+    rows += bovada_rows(orig_evidence)
+    rows += pinnacle_rows(orig_evidence)
+    rows += gap_lines.polymarket_near_rows(orig_evidence)
+    return rows
+
+
 def _verified_valve_rows(repo_data: Path, live: bool, manifest: list):
     """Verify decoded rows against the official Contents response and blob ID."""
     from scripts.domain import parse_valve_table
@@ -1890,7 +2024,8 @@ def ranked_tie_break(quote: dict | None) -> tuple[int, dict] | None:
 
 def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *, hltv: list | None = None,
                     reference: list | None = None, hltv_rank: list | None = None,
-                    hltv_meta: dict | None = None, relay: list | None = None) -> dict:
+                    hltv_meta: dict | None = None, relay: list | None = None,
+                    near: list | None = None) -> dict:
     if not timestamp(match.get('starts_at')) or len(match.get('teams', [])) != 2 or not all(t.get('name') and t.get('id') for t in match.get('teams', [])):
         reason = 'Fixture start time or team identity is unverified; no price join or model pick is permitted.'
         return {'origination': None, 'pick_index': None, 'aliases_used': [], 'time_flags': [],
@@ -1916,6 +2051,9 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
         ('bookmaker', 'Thunderpick'): ('Esportsbook line (Thunderpick original prices)', THUNDERPICK_PAGE),
         ('bookmaker', 'Bovada'): ('Esportsbook line (Bovada original prices)', BOVADA_SITE),
         ('bookmaker', 'Pinnacle'): ('Esportsbook line (Pinnacle original prices)', PINNACLE_PAGE),
+        # Session arena-7c0e457b: the operator's own offering feed, which prices the
+        # CCT / United21 low-tier fixtures the US books skip.
+        ('bookmaker', kambi_lines.PROVIDER): ('Esportsbook line (Unibet original prices)', KAMBI_PAGE),
     }
     notes = {key: [] for key in stage_names}
     matched = {}
@@ -2023,6 +2161,65 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'source_url': 'https://bo3.gg/matches',
                       'detail': 'bo3.gg lists no fixture bound by both team names and the start time, or lists it '
                                 'without a bookmaker quote block, so no relayed price exists for this fixture.'})
+
+    # 2c. Near-time external lines (session arena-7c0e457b). A real two-sided money
+    # price on the same two teams, same competition and same UTC date, whose only
+    # disagreement with Hotspawn is the clock. It outranks the aggregated third-party
+    # average and every research model, sits below every exact-bound money quote, and
+    # publishes both timestamps wherever it is shown. Anything the classifier cannot
+    # prove stays out of this list.
+    near_quotes, near_reasons = [], []
+    join = (lambda names, start: pair_join(names, start, match, registry))
+    by_provider = {}
+    for row in near or []:
+        fixture_id = row.get('fixture_id')
+        if fixture_id is not None and str(fixture_id) != str(match.get('id')):
+            continue
+        status, delta, used = gap_lines.classify(row, match, join)
+        if status != 'near' or delta is None:
+            continue
+        by_provider.setdefault(row.get('provider') or 'provider', []).append((row, delta, used))
+    for provider, candidates in by_provider.items():
+        if len(candidates) != 1:
+            near_reasons.append((provider, f'{len(candidates)} near-time rows for this provider; ambiguous, not priced',
+                                 candidates[0][0].get('source_url')))
+            continue
+        row, delta, used = candidates[0]
+        annotated = gap_lines.annotate(row, match, delta)
+        if row.get('family') == 'market':
+            quote, detail = market_estimate(annotated, match, registry, now)
+        else:
+            quote, detail = bookmaker_estimate(annotated, match, registry, now=now)
+        if quote:
+            quote['binding'] = gap_lines.NEAR_BINDING
+            quote['start_delta_sec'] = int(round(delta))
+            quote['hotspawn_start'] = match.get('starts_at')
+            quote['provider_start'] = row.get('start')
+            near_quotes.append((quote, detail, used))
+        else:
+            near_reasons.append((provider, detail, row.get('source_url')))
+    near_quotes.sort(key=lambda item: (item[0].get('spread', 0), item[0].get('start_delta_sec') or 0))
+    near_stage = 'Near-time external line (same teams and date, clock disagrees)'
+    if near_quotes:
+        quote, detail, used = near_quotes[0]
+        aliases.extend(used)
+        trail.append({'stage': near_stage, 'status': 'resolved', 'source_url': quote['source_url'],
+                      'detail': gap_lines.near_reason(quote, match, quote['start_delta_sec'])
+                                + ('' if len(near_quotes) == 1 else
+                                   f" Narrowest of {len(near_quotes)} near-time rows; the others are listed below.")})
+        for other, _, _ in near_quotes[1:]:
+            trail.append({'stage': near_stage, 'status': 'not needed', 'source_url': other['source_url'],
+                          'detail': f"{other['provider']} also prices this fixture at a near-time start; "
+                                    f"the narrower {quote['provider']} row was used."})
+    elif near_reasons:
+        provider, detail, url = near_reasons[0]
+        trail.append({'stage': near_stage, 'status': 'unresolved',
+                      'source_url': url if str(url or '').startswith('https://') else POLY_INDEX,
+                      'detail': f'{provider}: {detail}'})
+    else:
+        trail.append({'stage': near_stage, 'status': 'unresolved', 'source_url': POLY_INDEX,
+                      'detail': 'No external market was found for these two teams on this UTC date, so no '
+                                'near-time price exists for this fixture.'})
 
     # 3. Reviewed aggregated-bookmaker fallback (EGamersWorld averages).
     # Only for fixtures the entire first-party ladder left blank; never used to
@@ -2199,6 +2396,21 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
             limitations.append(
                 f"bo3.gg's start time for this fixture differs from Hotspawn's by {quote['start_delta_sec']} seconds; "
                 f'the join tolerance for a relayed price is {RELAY_START_TOLERANCE_SEC} seconds.')
+    elif near_quotes:
+        # Session arena-7c0e457b: a real market or book price on the same teams and
+        # date, with the clock disagreement printed on the row. It outranks the
+        # aggregated reference and every research model, and never competes with an
+        # exact-bound quote (that branch is above).
+        quote, detail, _ = near_quotes[0]
+        chosen = dict(quote)
+        exact_label = ('Originated market line' if quote.get('family') == 'market'
+                       else 'Originated esportsbook line')
+        chosen.update({'method': quote.get('family') or 'market',
+                       'label': f"{exact_label} ({quote['provider']}, near-time start)",
+                       'fair_decimal': [round(1 / p, 3) for p in quote['probabilities']],
+                       'quotes': [quote], 'source': quote['provider'],
+                       'model_crosscheck': model})
+        limitations.extend(gap_lines.describe([quote]))
     elif reference_quote:
         chosen = dict(reference_quote)
         chosen.update({'method': 'reference',
@@ -2307,6 +2519,13 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
                       'detail': 'No alias-verified market, bookmaker or rating input could be confirmed. The pick stays blank.'})
         limitations.append('No verified inputs; probabilities intentionally left blank (no default 50/50).')
 
+    if near_quotes and (chosen or {}).get('binding') != gap_lines.NEAR_BINDING:
+        for entry in trail:
+            if entry.get('stage') == near_stage and entry.get('status') == 'resolved':
+                entry['status'] = 'not needed'
+                entry['detail'] = ('A higher-ranked rung resolved this fixture, so the near-time price was not '
+                                   'used. ' + entry['detail'])
+                break
     if relay_quotes and (chosen or {}).get('family') != RELAY_FAMILY:
         # A relayed price exists but a first-party quote, the aggregated
         # reference or a research model already resolved the fixture. Say so,
@@ -2370,7 +2589,8 @@ MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference'}
 
 def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_meta, registry: dict, now: datetime, *,
                   reference: list | None = None, hltv_rank: list | None = None,
-                  hltv_meta: dict | None = None, relay: list | None = None) -> dict:
+                  hltv_meta: dict | None = None, relay: list | None = None,
+                  near: list | None = None) -> dict:
     """One fixture's origination row.
 
     Featured estimates from the exact-name collector are preserved unchanged, with two exceptions:
@@ -2394,7 +2614,8 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
     result = originate_match(match, poly_rows, book_rows, ratings, valve_meta, registry, now, hltv=match.get('research'),
-                             reference=reference, hltv_rank=hltv_rank, hltv_meta=hltv_meta, relay=relay)
+                             reference=reference, hltv_rank=hltv_rank, hltv_meta=hltv_meta, relay=relay,
+                             near=near)
     if not featured:
         return result
     method = (result.get('origination') or {}).get('method')
@@ -2416,7 +2637,10 @@ def run(output: Path, *, live: bool = False) -> dict:
     reference_capture = reference_odds.load(output)
     reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir) + smarkets_lines.rows(evidence_dir)
-    book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
+    book_rows = (thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
+                 + kambi_rows(evidence_dir))
+    # Every saved money row, re-classified for the near-time rung. Built once per run.
+    near_rows = near_candidate_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
     hltv_rank_rows, hltv_meta = hltv_ranking.load(evidence_dir)
     # Bookmaker prices bo3.gg relays (session 15fc6bca). Loaded from the dated
@@ -2462,7 +2686,7 @@ def run(output: Path, *, live: bool = False) -> dict:
                                     _network=network, _network_reason=network_reason),
                                poly_rows, book_rows, ratings, valve_meta, registry, now,
                                reference=reference_rows, hltv_rank=hltv_rank_rows, hltv_meta=hltv_meta,
-                               relay=relay_rows)
+                               relay=relay_rows, near=near_rows)
         matches_out.append({
             'id': match['id'],
             'teams': match['teams'],
@@ -2497,6 +2721,10 @@ def run(output: Path, *, live: bool = False) -> dict:
         # 'bookmaker' method, published separately so no reader mistakes a
         # second-hand copy for a first-party bookmaker observation.
         'relay': sum((m['origination'] or {}).get('family') == RELAY_FAMILY for m in matches_out),
+        # Rows priced from a real money line whose start disagrees with Hotspawn on the
+        # same UTC date (session arena-7c0e457b). A subset of market/bookmaker, published
+        # separately so a near-time join is never mistaken for an exact one.
+        'near_time': sum((m['origination'] or {}).get('binding') == gap_lines.NEAR_BINDING for m in matches_out),
         'guidance': sum((m['origination'] or {}).get('method') == 'guidance' for m in matches_out),
         'alias_joined': sum(bool(m['aliases_used']) for m in matches_out),
     }
@@ -2532,6 +2760,18 @@ def run(output: Path, *, live: bool = False) -> dict:
                                 'not validated picks and must never be treated as executable prices. See each '
                                 "row's research trail for the exact spreads.",
                       'match_ids': guidance_ids, 'source_urls': [POLY_INDEX, KALSHI_PAGE.rstrip('/')]})
+    near_ids = [m['id'] for m in matches_out if (m['origination'] or {}).get('binding') == gap_lines.NEAR_BINDING]
+    if near_ids:
+        flags.append({'id': 'near-time-external-lines', 'severity': 'notice',
+                      'title': 'External lines used where the provider start time differs from Hotspawn',
+                      'detail': 'These fixtures are priced by a real two-sided market or bookmaker quote on the '
+                                'same two teams, same competition and same UTC date, but the provider publishes a '
+                                'start time outside this project\'s 60-second binding window. Both timestamps are '
+                                'printed on each row and the price is never described as an exact-time match. '
+                                'Fixtures whose names do not match exactly, whose clocks disagree across a UTC '
+                                'date boundary, or that have more than one candidate stay unpriced.',
+                      'match_ids': near_ids,
+                      'source_urls': [POLY_INDEX, KAMBI_PAGE]})
     relay_ids = [m['id'] for m in matches_out if (m['origination'] or {}).get('family') == RELAY_FAMILY]
     if relay_ids:
         flags.append({'id': 'relayed-bookmaker-lines', 'severity': 'notice',

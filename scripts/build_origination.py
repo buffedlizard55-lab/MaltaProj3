@@ -627,6 +627,57 @@ def validate_origination(data, source):
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])
                 continue
+            if q.get('binding') == 'near-time':
+                # Session arena-7c0e457b: a real money price whose only disagreement
+                # with Hotspawn is the clock. Re-derive the class, the delta and the
+                # price from the saved original response; a changed timestamp, a
+                # changed book or a fixture that no longer qualifies fails the build.
+                from scripts import gap_lines
+                from scripts.originate import (bookmaker_estimate, market_estimate, near_candidate_rows,
+                                               pair_join)
+                evidence = _evidence(source, 'data/origination/evidence')
+                join = (lambda names, start: pair_join(names, start, raw, registry))
+                saved = [r for r in near_candidate_rows(evidence)
+                         if str(r.get('provider')) == str(q.get('provider'))
+                         and str(r.get('event_id')) == str(q.get('event_id'))]
+                assert len(saved) == 1, 'Near-time original response missing or duplicated for this provider'
+                status, delta, _ = gap_lines.classify(saved[0], raw, join)
+                assert status == 'near', 'Saved row no longer qualifies as a near-time join'
+                assert int(round(delta)) == int(q.get('start_delta_sec')), 'Near-time start delta changed'
+                clock = timestamp(data['generated_at'])
+                if saved[0].get('family') == 'market':
+                    expected, reason = market_estimate(saved[0], raw, registry, clock)
+                else:
+                    expected, reason = bookmaker_estimate(saved[0], raw, registry, now=clock)
+                assert expected is not None, 'Near-time row rejected on replay: ' + str(reason)
+                assert expected['probabilities'] == q['probabilities'], 'Near-time probabilities changed'
+                assert expected['event_id'] == q['event_id'], 'Near-time event identity changed'
+                assert expected['observed_at'] == q['observed_at'], 'Near-time observation restamped'
+                if saved[0].get('family') == 'market':
+                    assert expected['bid'] == q['bid'] and expected['ask'] == q['ask'], 'Near-time book changed'
+                else:
+                    assert expected['odds'] == q['odds'], 'Near-time odds changed'
+                values.append(q['probabilities'][0])
+                continue
+            if q.get('provider') == 'Unibet (Kambi)':
+                # Session arena-7c0e457b: replay the operator's own offering feed the
+                # same way Smarkets replays its capture — rebuild the row list, then
+                # re-price with the bookmaker estimator. No generic odds fallback.
+                from scripts import kambi_lines
+                from scripts.originate import bookmaker_estimate, pair_join
+                evidence = _evidence(source, 'data/origination/evidence')
+                saved = [r for r in kambi_lines.rows(evidence)
+                         if str(r.get('event_id')) == str(q.get('event_id'))
+                         and pair_join(r['names'], r['start'], raw, registry)[2] == 'matched']
+                assert len(saved) == 1, 'Unique saved Unibet price missing for this fixture'
+                expected, reason = bookmaker_estimate(saved[0], raw, registry,
+                                                      now=timestamp(data['generated_at']))
+                assert expected is not None, 'Saved Unibet price rejected on replay: ' + str(reason)
+                assert expected['probabilities'] == q['probabilities'], 'Unibet probabilities differ from saved capture'
+                assert expected['odds'] == q['odds'], 'Unibet odds changed'
+                assert expected['observed_at'] == q['observed_at'], 'Unibet observation restamped'
+                values.append(q['probabilities'][0])
+                continue
             if q.get('provider') == 'Smarkets':
                 # Session 46ade650: the public exchange board replays from its own
                 # saved API capture (events, markets, contracts, quotes), and the
