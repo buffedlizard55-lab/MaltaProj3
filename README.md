@@ -574,6 +574,13 @@ and its fix is the one on `main` (`c536501`); this branch keeps that fix, adds
 because the identical commit took 12 minutes idle and 25m52s on a loaded runner. `5cc2673` passed the
 full check job, and the merged head passed it again in 9m32s.
 
+
+### Publisher recovery verified — 23 October 2026, 06:30Z
+
+The four-hour publisher is running again. Scheduled run `39906935915` passed the pre-collection regression step, deployed, and synced the verified build into the branch root; the public site now shows **"Source snapshot available · 23 Oct 2026, 08:17 Europe/Malta"** with 94 inventory records, 32 upcoming fixtures, **32 with a pick and 0 unresolved**. Two independent regressions had stopped it on 22–23 October: the date-bound `tests/test_96fbe295.py` check (PR #191) and a literal `% picked` in the low-tier copy that `tests/test_f4eb8ae3.py` forbids (PR #193).
+
+A read-only runner probe at **06:15:55Z** re-audited every active fixture: 32/32 with a pick, 0 defects, 23 external money lines and 9 model-only estimates. Fresh research at **06:16:13Z** re-checked all nine unpriced fixtures and found no new two-sided prematch price, so no probability, pick or alias changed. The full repository suite on the merged head passes: **1012 tests, OK (675 s)**.
+
 ## 23 October session arena-e7d7a410: a fresh live audit, the unresolved register, and the publisher that stopped on a date
 
 **What was measured, on a runner, not asserted.** The coding sandbox has no egress to Hotspawn,
