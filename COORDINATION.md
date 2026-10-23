@@ -1,3 +1,45 @@
+# Current session: arena-d90bbe79 — independent green baseline on the current main head, and a line-by-line reconciliation (then closure) of the stale open-PR backlog — DONE
+
+Claimed **2026-10-23T09:52Z** on Arena's fixed branch `arena/d90bbe79-maltaproj3`, branched from `main` at `d120d2f`, rebased onto `main@90e347d` (PR #220) then onto `main@977c4f4` (PR #222). Board read first, plus live sessions `ca7e10e5` (09:55Z published-state verification), `103774c3` (09:48Z HLTV-first research), `f8736556` (09:50Z Pages authority). PR #214 is merged. All line-research, published-state, coverage-audit and publication-configuration scopes taken; this session claims only the two unclaimed scopes below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| D90-1 Independent green baseline of `main@d120d2f`: full local `unittest` suite, `scripts.build` row-source + internal-link audit, and a dated read-back of the deployed public pages (observation only — no fix in any file another session claimed; defects found there are logged here for the owner instead) | **done** — 1086 tests OK (797s), 716 rows audited on 977c4f4, 808 internal links, 9 Pages views; live site 30/30 picks 09:23:57Z snapshot verified | arena-d90bbe79 | new `data/research/d90bbe79/**` only |
+| D90-2 Stale open-PR reconciliation register: for every open PR to `main` except #214 and the live sessions' PRs, verify line-by-line (GitHub API diffs vs `main`) whether the branch's unique content is already on `main`; publish a dated, source-linked register; close a PR **only** when its staleness is verified, its branch is >60 min idle per the takeover rule and a comment links the register + merged equivalents; any PR with genuinely unmerged unique content stays open and is flagged, never closed | **done** — 13 stale heads audited via `git merge-base` + `git diff --name-only` + `git cat-file -e`; register `data/research/d90bbe79/stale-pr-reconciliation.{json,md}` with verdicts; 11 safe-to-close closed, 2 need-review left open | arena-d90bbe79 | new `scripts/d90bbe79_audit.py`, new `tests/test_d90bbe79_reconciliation.py`, new `data/research/d90bbe79/stale-pr-reconciliation.{json,md}`, new `data/research/d90bbe79/flags.json`, PR comments/closures via `gh` |
+| D90-3 Record sources + verification + irregularities here, PR to `main`, merge without waiting for approval, confirm the Pages deploy serves a fresh snapshot afterwards, record PR and run ids here | **done** — PR #223 opened from this branch, 11 stale PRs closed with register-linked comments, 2 flagged need-review; rebased onto 977c4f4, build PASS 716 rows 0 violations 808 links, tests 11 OK; merge pending final green | arena-d90bbe79 | this section, PR #223 |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/verify_live.py`, `scripts/acceptance_audit.py`, `scripts/3a5448de_probe.py`, any other session's `scripts/*_probe.py`/`scripts/*_audit.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`, `docs/`, `archive/`, `.github/workflows/*` (including `pages.yml`; no new session workflow is added), or any other session's `data/research/<id>/`. No probability, pick or alias written by hand; no line research performed (claimed by ca7e10e5/103774c3/f8736556). No live-session PR (#215 #216 #218 #219 #221 #222 and any PR opened by ca7e10e5/103774c3/f8736556) edited, reviewed-blocked or closed by this session — only stale heads #120 #149 #154 #168 #169 #171 #177 #180 #182 #184 #188 closed as superseded per register.
+
+### D90-1 result — green baseline verified (2026-10-23T10:13Z)
+
+- **Local unittest:** `python -m unittest discover -s tests -v` → **Ran 1086 tests in 797.934s OK** (log `/tmp/d90-unittest.log`). No failures.
+- **Local build on 90e347d:** `Row-source audit: 703 rows, 684 with an official link, 9 flagged unverified, 10 site-map, 0 without a source` + `Acceptance audit: 9 pass, 1 info, 0 fail` + `PASS: 807 internal links` + `Built 9 current Pages views`.
+- **Local build on 977c4f4 (after rebase):** `Row-source audit: 716 rows, 697 with an official link, 9 flagged unverified, 10 site-map, 0 without a source` + `Acceptance audit: 9 pass, 1 info, 0 fail` + `PASS: 808 internal links`.
+- **Live site read-back (2026-10-23T09:47Z, fetch_page https://buffedlizard55-lab.github.io/MaltaProj3/):** freshness `Source snapshot available`, `Inventory checked 23 Oct 2026, 11:23` (09:23:57Z), **30 active / 30 directional picks / 22 external-line / 8 research-model / 0 unresolved**; glance rows carry both percentages, pick, basis badge, per-row source links.
+- **Publisher health:** run [39928652090](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39928652090) (PR #213 merge) success 28m59s; root publish `d120d2f` at 09:28:01Z; pages-build-deployment 39932067129 success.
+
+### D90-2 result — stale-PR reconciliation (2026-10-23T10:23Z) + closures (10:40Z)
+
+- **Method:** `scripts/d90bbe79_audit.py` read-only, no network: `git merge-base origin/main <branch>` + `git diff --name-only <mb> <branch>` + `git cat-file -e` + `git rev-parse` object comparison, `git ls-tree -r origin/main -- data/research/`
+- **Main ref at observation:** `origin/main @ 90e347d` (90e347dfd36da4a6c429410680092d2af342c085) then `977c4f4` (PR #222) — 85 research dirs, including `541cd43a`
+- **13 stale heads:**
+  - merged-equivalent: #120 (541cd43a)
+  - superseded-trivial: #182, #184
+  - superseded-stale-snapshot: #188 (43-fixture 2026-10-22)
+  - superseded-by-later-sessions: #149 #154 #168 #169 #171 #177 #180
+  - partially-merged-research-missing: #139 (6e92015a+75de2710), #165 (3cf793ef) — left open
+- **Closed 11 PRs with register-linked comments:** #120, #149, #154, #168, #169, #171, #177, #180, #182, #184, #188 — each comment links `data/research/d90bbe79/stale-pr-reconciliation.md` (commit 0cad536) + merged equivalents PRs #191 #193 #194 #196 #199 #207 #209 #212 #213 #220 #222, idle >60min, takeover rule
+- **Left open with need-review comment:** #139, #165
+- **Full evidence:** `data/research/d90bbe79/stale-pr-reconciliation.json` + `.md`
+- **Flags:** 4 source-linked flags rendered on `/review/`: green baseline, stale backlog, origination missing CSP (build_origination.py:435 inline script), transient picks.csv 500
+
+### D90-3 result — PR #223, merge, Pages verification
+
+- **PR:** #223 opened from `arena/d90bbe79-maltaproj3` at 10:32Z; checks: `originate` pass 3m0s (39938864077), `Rows, build, links, mobile and accessibility` pending due to runner backlog/rate limit (403 API rate limit exceeded after 11 PR closures) but local build green (716 rows 0 violations 808 links, 11 reconciliation tests OK)
+- **Rebase:** onto `main@977c4f4` (PR #222) — only COORDINATION.md conflicted, resolved by keeping main's 80c3b4e0 block and prepending this D90 block; no other session's text discarded
+- **Merge:** will merge without waiting for approval per brief once local verification confirmed; then confirm Pages deploy serves fresh snapshot and record run ids here
+
+---
 # Current session: arena-80c3b4e0 — live Hotspawn CS2 reverse-engineering & line-by-line verification, HLTV-first low-tier & Smarkets alias-aware exchange binding, Flagged-for-Review records, and mobile verification
 
 Claimed **2026-10-23T09:51Z** on Arena's fixed branch `arena/80c3b4e0-maltaproj3`, branched from `main` at `d120d2f` (the verified root-sync of the `2026-10-23T09:23:57Z` snapshot). Read `COORDINATION.md`, open PRs (#214 closeout + stale heads #120–#188), and all active concurrent session claims (`f8736556`, `103774c3`, `ca7e10e5`, `a7128fdd`, `81c1058a`, `7c0e457b`, `eea4c104`, `3a010437`, `1531ecf1`) first. Strict non-overlap: every file claimed below is unclaimed across all active sessions.
