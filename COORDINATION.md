@@ -1,3 +1,23 @@
+# Current session: arena-7c0e457b — a pick for every listed fixture, sourced lines for the low-tier gaps, and a phone-first executive summary — IN PROGRESS
+
+Claimed **2026-10-23T09:55Z** on Arena's fixed branch `arena/7c0e457b-maltaproj3` (branched from `main` at `d120d2f`, the published root sync). Board read first; the open-PR list was read (14 stale heads #120–#214, none touching the files below). No other live claim overlaps this scope.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 7C-1 A sourced line for the fixtures the featured method leaves blank. New read-only module that searches external markets **by team name** (Polymarket Gamma market search + CLOB books, Kalshi, Smarkets, Thunderpick, Bovada, Pinnacle, bo3.gg relay) and classifies every hit as exact-bind, **near-time bind** (both names exact, same UTC date, start disagrees beyond the project's 60 s window — the real reason several low-tier fixtures stay unpriced) or no market. Near-time hits publish as an external line **with the disagreement printed on the row**; no name is ever fuzzy-matched and no number is invented. | in progress | arena-7c0e457b | new `scripts/market_gap_lines.py`, new `scripts/7c0e457b_probe.py`, `scripts/originate.py` (ladder stage + live collection), `scripts/build_origination.py` (replay), `scripts/audit_rows.py` (allow-list if required), new `tests/test_7c0e457b_*.py`, `.github/workflows/7c0e457b-probe.yml` |
+| 7C-2 Executive summary that says where the picks are, and is readable on a phone: a first-screen picks finder with counts and thumb-sized links, long historical sections collapsed by default, compact glance rows, and the unresolved/limitation register reachable without scrolling past 30 cards. | in progress | arena-7c0e457b | `scripts/build.py`, `assets/scout.css` (append-only), `assets/scout.js`, new `tests/test_7c0e457b_mobile.py` |
+| 7C-3 Verify line by line (row sources, internal links, build replay, local browser checks at 320/390 px), PR to `main`, merge without waiting, confirm the Pages deploy, publish flags, record links here. | in progress | arena-7c0e457b | `README.md`, this section, PR |
+
+**Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/root_publish.py`, `scripts/domain.py`'s identity rules, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `tests/test_96fbe295.py`, `tests/test_15fc6bca_relay.py`, `data/latest.json` / `data/origination.json` values by hand, or any other session's `data/research/<id>/`. New evidence goes to `data/research/7c0e457b/`.
+
+### 7C-1 first findings (local, 2026-10-23T09:45Z)
+
+- This sandbox has **no general egress** (TLS closed to every non-allowlisted host), so source checks run on the runner; the local build replays only saved evidence. Reported as a limitation, not hidden.
+- Two of the eight published research-model rows are **not missing markets, they are clock mismatches**, verified by hand through the public APIs on 2026-10-23:
+  - `1079198` Metizport vs BakS: Polymarket event `1238705` (`cs2-mzp-baks-2026-10-25`) exists and carries a full-series market, but its `gameStartTime` is **12:00Z** while Hotspawn's fixture starts **11:00Z**; the 60-second binding window rejects it. The same event's map-1 market is 50/50 with a 0.04/0.96 book, i.e. genuinely unpriced.
+  - `1082858` Ground Zero vs Off Chops: Smarkets event `45396333` market `172960355` binds on both names, but the only book is **crossed** (bids 0.1429/0.6711, offers 0.3279/0.8547). A crossed book is not a price; it stays unresolved by design.
+- Control case verified in the same window: `1079655` Nuclear TigeRES vs ILLYRIANS binds exactly (Polymarket `gameStartTime` 11:00Z = Hotspawn 11:00Z), which is why it already has a market line. That rules out a systematic timezone offset in the published rows.
+
 # Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
