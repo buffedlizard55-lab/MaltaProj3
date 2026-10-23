@@ -1,16 +1,16 @@
 # Session arena-a7128fdd — read-only live manifest probe.
 #
-# Dispatch/push only. Never scheduled, never deploys, never feeds the published
-# dashboard. The sandbox has no egress to Hotspawn; the runner does. The push
-# trigger is scoped to this workflow file only, so the research commit this job
-# makes cannot retrigger it.
+# Dispatch only. Never scheduled, never deploys, never feeds the published
+# dashboard. The sandbox has no egress to Hotspawn; the runner does. It was
+# push-triggered on this one workflow file while the manifest was being taken
+# (run 39934809201, snapshot 2026-10-23T09:52:16Z); the push trigger is now
+# removed so the evidence cannot be silently regenerated over the dated record
+# this session's tests and flags cite. Dispatch it explicitly to take a new one.
 name: a7128fdd live manifest probe (dispatch only)
 on:
+  # Manual only. The probe published its manifest and must not push a research
+  # commit onto every later change of the files it reads.
   workflow_dispatch:
-  push:
-    branches: ['arena/a7128fdd-maltaproj3']
-    paths:
-      - '.github/workflows/a7128fdd-probe.yml'
 permissions:
   contents: write
 concurrency:

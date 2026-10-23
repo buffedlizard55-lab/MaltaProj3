@@ -674,3 +674,95 @@ full *Picks at a glance* list showing both teams’ probabilities and a separate
 `#unresolved-register`; the dedicated `/unresolved/` page carries every pickless or model-only row
 with the sources actually tried. Nothing in that layout needed a change to meet the brief; this
 session verified it in the built HTML and left the rendering untouched.
+
+## 23 October session arena-a7128fdd: HLTV is reachable, Polymarket does list the low-tier matches, and four placeholder prices were refused
+
+**The reachability conclusion in the board history was wrong, and it is corrected with a first-hand read.**
+Ten session sweeps recorded HLTV as `403 · automated access refused` and concluded that no external evidence
+exists for the fixtures the featured method cannot price. That is a property of the *GitHub runner's* network
+path. Read directly at 2026-10-23T09:47Z–10:50Z, `https://www.hltv.org/matches` and individual match pages
+answer **HTTP 200** and render in full. Two match pages were read end to end:
+[2399849 K27 vs Virtus.pro](https://www.hltv.org/matches/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9)
+and [2399699 Phantom Academy vs Banda Chuya](https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8).
+To be precise about what was *not* wrong: the site copy already qualifies the runner's status ("HLTV match pages
+are listed with the status the runner received"), so no published sentence misled anyone. What changes is the
+operational conclusion — a session that can read HLTV should read it.
+
+**What HLTV does and does not publish.** It publishes the best-of format Hotspawn leaves `null`, both
+five-player lineups that the Valve-standings identity join needs, both world and VRS ranks, and explicit
+stand-in warnings ("Virtus.pro is playing with stand-in: Patsi instead of F0R3VER"). It publishes **no
+two-sided prematch price**: the Betting block on both pages carried only a Stake social-casino promotion, and
+the betting-analytics page renders the template value `1.23` in every bookmaker cell (labelled eOddset and
+Betway). Its "Pick a winner" widget is a fan vote, excluded by rule 2.
+
+**The brief's "not covered on polymarket" is not quite what is happening.** Read directly,
+[Polymarket's DFRAG Invitational directory](https://polymarket.com/esports/cs2/dfrag-invitational) lists
+exactly three CS2 events and labels all three **$0 vol**. Two bind to Hotspawn fixtures by exact team names
+*and* start time — `cs2-gz1-offcho-2026-10-25` (Ground Zero vs Off Chops, Oct 25 11:00 PM ET =
+2026-10-26T03:00:00Z = Hotspawn 1082858) and `cs2-rstr-abyssa-2026-10-26` (Rooster vs Abyssal, Oct 26
+11:00 PM ET = 2026-10-27T03:00:00Z = Hotspawn 1082861). So these matches *are* covered; they simply have no
+liquidity, which is why rule 3's positive bid/ask and non-crossed-book tests cannot pass. Rooster vs Abyssal
+displays `2.00x / 2.00x` at `50% / 50%` — an unpriced listing default. Adopting it would publish exactly the
+50/50 fabrication the repository forbids, so it was refused.
+
+**Four shapes of fake price were read, quoted verbatim, and refused.** EGamersWorld's `1.8 / 1.8` on both
+sides, HLTV analytics' repeated `1.23`, Polymarket's unpriced `2.00x / 2.00x`, and the HLTV fan votes
+(`33.6% / 66.4%`, `77.6% / 22.4%`) plus esports-news.co.uk's own `43% / 57%` power rating. Any of them would
+have become a fabricated probability under a naive read. `scripts/reference_odds.py`'s identical-price
+rejection and eight-hour freshness test are what already keep the first class out; the rest are kept out by
+rules 2 and 3 and are now documented with their URLs in
+[`data/research/a7128fdd/direct-observations.md`](data/research/a7128fdd/direct-observations.md).
+
+**Nothing was priced, so nothing changed.** Across the 8 model-only fixtures: **0** new two-sided prices,
+**6** fixtures that gained official identity or format evidence, **0** probabilities, **0** picks and **0**
+aliases changed. The new register renders on the executive summary *and* on `/unresolved/` as
+`#direct-observations`, through `scripts/build.py::load_direct_observations` — deliberately the complement of
+the runner-only `load_no_line_research`, and deliberately **ineligible** to feed the priced ladder. Its
+Markdown sibling is generated from its JSON by `python -m scripts.a7128fdd_render_evidence` (`--check` fails on
+drift), so the prose cannot disagree with the numbers.
+
+**Two of this session's own flags were wrong and are corrected on the record, not deleted.**
+1. *"Hotspawn 1081605 says Banda chuya but three surfaces say los kogutos."* Wrong. HLTV 2399699 publishes
+   Phantom Academy vs Banda Chuya, Best of 3 (Online), lower-bracket semi-final; HLTV renders US Eastern and
+   its own countdown (`14m : 37s` at 10:50Z) resolves the `07:00` display to **11:00 UTC**, matching
+   Hotspawn's `starts_at` to the minute. Both HLTV team pages name each other as the 23 Oct opponent. Hotspawn
+   is corroborated; esports-news.co.uk and bo3.gg are the surfaces out of line for that slot.
+2. *"'Team Abyssal' is an unregistered alias."* Wrong, because the registry was not consulted before flagging.
+   [`data/origination/aliases.json`](data/origination/aliases.json) has held `Team Abyssal → Abyssal` scoped to
+   DFRAG Invitational 2026 since 2026-10-23T06:26:00Z, with bo3.gg 132606, HLTV 2399891 and Hotspawn 1082861
+   evidence and `must_not_match` guards. EGamersWorld is now recorded as a **fourth** corroborating surface via
+   its schema.org JSON-LD `startDate 2026-10-27T03:00:00.000Z`. A test pins both corrections against the
+   registry itself so neither wrong claim can return silently.
+
+**Independent re-derivation of published probabilities.** Six priced rows were re-derived from second surfaces
+using the repository's own rule `pᵢ = (1/oᵢ) / Σ(1/o)`, binding both sides through
+`scripts.originate.resolve_name` against the reviewed registry rather than an ad-hoc normaliser — which matters
+because `domain.name_key` deliberately keeps diacritics, so `Los Niños ≠ LOS NINOS` unless the registry says
+otherwise. Result: **6 rows checked, 0 name bindings unresolved, 2 exact four-decimal reproductions** —
+1082923 (bo3.gg ALKA 1.30 / Los Niños 3.20 → 0.7111 / 0.2889) and 1082980 (bo3.gg WBT Academy 1.49 / LPH 2.45
+→ 0.6218 / 0.3782). Those two prove the ladder reads its relay board and de-vigs it exactly as documented. The
+other four agree in direction and differ slightly because they come from a different surface than the one that
+priced the row. **0 published values changed.** See
+[`data/research/a7128fdd/verification.md`](data/research/a7128fdd/verification.md).
+
+**One divergence is flagged and explicitly not adjudicated.** For 1081605 the published Valve-rating estimate
+favours Banda chuya (0.4748 / 0.5252) while HLTV's VRS display puts Phantom Academy 9 points *ahead*
+(777pt #167 vs 768pt #169) and the fan vote says 77.6%. The ladder prices from Valve's own regional-standings
+file at a dated snapshot; HLTV's VRS column is HLTV's rendering on its own refresh; and Banda Chuya being
+HLTV-Unranked with a VRS rank is exactly the case the "unranked floor" rung exists for. Settling the direction
+needs Valve's standings file at the snapshot the ladder used, which this session did not read, so no value was
+changed and no conclusion is drawn. It is on [/review/](https://buffedlizard55-lab.github.io/MaltaProj3/review/)
+as `a7128fdd-1081605-vrs-direction-divergence`.
+
+**Also verified, and now closed:** acceptance-audit check #9 (the rendered page stamp and the downloadable
+`data/latest.json` must be one observation) was the last standing **FAIL** in session `arena-3149e7ae`'s
+published-root audits at 05:05Z, 07:25Z and 08:20Z. Read back from the live published root at 09:45Z, both
+carry `2026-10-23T09:23:57Z`. Local re-run: `9 pass · 1 info · 0 fail`, the single info being the age of the
+checked-in 15 October replay fixture rather than a live defect.
+
+**Live coverage at research time** (runner run
+[39934809201](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39934809201), snapshot
+`2026-10-23T09:52:16Z`): **30 active fixtures, 30 with a directional pick, 0 with no pick**; 22 money-backed
+and 8 model-only. The compact manifest this session added (`python -m scripts.a7128fdd_manifest`) is what
+names those 8 and their exact binding facts; it reads the two feeds the pipeline already produced and prices
+nothing.
