@@ -1,0 +1,88 @@
+[
+  {
+    "id": "eea4c104-kalshi-bo3-alias-banda-chuya-los-kogutos-1081605",
+    "severity": "warning",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "1081605 (Phantom Academy vs Banda chuya): unmapped orgless alias 'los kogutos' hides open Kalshi market KXCS2GAME-26OCT230700LKPHAC and bo3.gg fixture 132217",
+    "detail": "Earlier sweeps reported zero prediction-market listings for CCT Europe 2026 Challengers #8 fixture 1081605 (2026-10-23T11:00:00Z). Direct primary-source cross-verification at 2026-10-23T09:50Z across official HLTV match 2399699, HLTV team pages 13900 (Banda Chuya) and 10854 (los kogutos), api.bo3.gg/api/v1/matches/132217 (phantom-academy-vs-los-kogutos-23-10-2026), and Kalshi Trade API event KXCS2GAME-26OCT230700LKPHAC confirms that the Polish five-man core (AdrieN, maaryy, tomiko, Showk, mwlky) is listed as 'los kogutos' on both Kalshi and bo3.gg. At 2026-10-23T09:50Z Kalshi KXCS2GAME-26OCT230700LKPHAC is open with untraded wide quotes (los kogutos yes_bid 0.31 / yes_ask 0.60, spread 0.29; Phantom Academy yes_bid 0.32 / yes_ask 0.58, spread 0.26; volume_fp 0.00) and bo3.gg 132217 reports bet_updates: null, so neither supplies a tight-spread executable moneyline yet and the published Valve VRS estimate (47.5% / 52.5%) stands. Scoped alias 'los kogutos -> Banda chuya' in CCT Europe 2026 Challengers #8 is logged in COORDINATION.md for data/origination/aliases.json.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/team/13900/banda-chuya",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct230700lkphac",
+      "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026"
+    ]
+  },
+  {
+    "id": "eea4c104-lph-gaming-thunderpick-alias-1082980",
+    "severity": "notice",
+    "match_ids": [
+      "1082980"
+    ],
+    "title": "1082980 (LPH vs WBT Academy): unmapped 'LPH Gaming -> LPH' alias drops first-party Thunderpick rung to second-hand bo3.gg relay (2.45 / 1.49 verified)",
+    "detail": "Fixture 1082980 (ESL Challenger League Season 52: Europe - Cup #9 Semi-final, 2026-10-23T13:00:00Z, confirmed Bo3 on HLTV 2399885) resolves on the second-hand bo3.gg bookmaker relay (api.bo3.gg/api/v1/matches/lph-gaming-vs-wbt-academy-23-10-2026, id 132498) because data/origination/aliases.json has no 'LPH Gaming -> LPH' entry for ESL Challenger League Season 52: Europe - Cup #9, leaving the first-party Thunderpick rung unresolved. Direct API verification of bo3.gg 132498 at 2026-10-23T09:57Z confirms verbatim Thunderpick match 2872919 decimal odds WBT Academy 1.49 / LPH 2.45 (overround 7.93%; proportional no-vig 62.18% / 37.82%, matching the published 62.2% WBT Academy / 37.8% LPH to 0.02 pp). Scoped alias 'LPH Gaming -> LPH' is logged as a cross-scope request in COORDINATION.md.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+      "https://www.hltv.org/matches/2399885/wbt-academy-vs-lph-esl-challenger-league-season-52-europe-cup-9",
+      "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+      "https://thunderpick.io/match/2872919"
+    ]
+  },
+  {
+    "id": "eea4c104-abyssal-alias-evidence-drift-1082861",
+    "severity": "warning",
+    "match_ids": [
+      "1082861"
+    ],
+    "title": "1082861 (Rooster vs Abyssal): data/origination/aliases.json 'Team Abyssal' evidence cites non-existent bo3.gg slug and stale 5-man lineup vs HLTV 2399891",
+    "detail": "Line-by-line review of data/origination/aliases.json against live official APIs at 2026-10-23T09:55Z found two factual discrepancies in the 'Team Abyssal -> Abyssal' entry for DFRAG Invitational 2026 (1082861, 2026-10-27T03:00:00Z): (1) the cited URL bo3.gg/matches/rooster-vs-team-abyssal-27-10-2026 does not match api.bo3.gg record 132606, whose canonical slug is rooster-vs-abyssal-27-10-2026 and whose team2.name is 'Abyssal' ('Team Abyssal' appears only in team_clans id 11326, with bet_updates: null); and (2) the cited HLTV 2399891 Abyssal lineup ('Crunch, gump, mechanical, Mingovi, kyson') disagrees with official HLTV match 2399891, which lists dangeR, blood, vinhy, Forleks, and zune (#128 HLTV / #130 VRS). Recorded for review and logged in COORDINATION.md without editing cross-claimed aliases.json.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+      "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json"
+    ]
+  },
+  {
+    "id": "eea4c104-nodwin-oct25-promotion-and-kalshi-spreads",
+    "severity": "notice",
+    "match_ids": [
+      "1082996",
+      "1079198",
+      "1079199",
+      "1079200"
+    ],
+    "title": "Oct-25 NODWIN Clutch Series #13 Round-of-16 update: 1079199 promoted to tight Polymarket line (44.5% / 55.5%); 1079198 narrowed to 0.29–0.34 untraded spread on Kalshi & Polymarket",
+    "detail": "Re-checking the four Oct-25 NODWIN Round-of-16 fixtures at 2026-10-23T09:58Z confirms that 1079199 (Infinite vs BRUTE, HLTV 2399114, 15:00Z) tightened inside MAX_ACCEPTED_SPREAD (0.25) on Polymarket market 6072808 (cs2-inf6-brute-2026-10-25, $1,127.91 CLOB liquidity, outcomePrices 0.445 / 0.555) and automatically promoted off the Valve fallback to a money-backed line. Meanwhile, 1079198 (Metizport vs BakS, HLTV 2399113, 12:00Z) narrowed from 0.90 stubs to 0.34 spread on Polymarket market 6072799 (cs2-mzp-baks-2026-10-25: 0.54 bid / 0.88 ask, $0 volume) and 0.29–0.33 spread on Kalshi KXCS2GAME-26OCT250800BAKSMZP (Metizport 0.57/0.86, BakS 0.12/0.45, $0 volume), while 1079200 (Color vs ex-Zero Tenacity, HLTV 2399115, 18:00Z) sits at 0.58 Polymarket spread (0.06/0.64) and 0.74–0.80 Kalshi spread ($0 volume), and 1082996 (Acend vs UNiTY, HLTV 2399112, 09:00Z) remains 0.92 Polymarket / 0.88–0.90 Kalshi ($0 volume). All three >0.25-spread fixtures rightly remain on Valve research estimates until executable liquidity arrives.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/markets?slug=cs2-inf6-brute-2026-10-25",
+      "https://gamma-api.polymarket.com/events?slug=cs2-mzp-baks-2026-10-25",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250800baksmzp",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "eea4c104-replayed-1083025-and-hotspawn-ssr-cdn-lag",
+    "severity": "notice",
+    "supersedes": [
+      "f6bfc506-row-1083025-not-replayed"
+    ],
+    "match_ids": [
+      "1083025",
+      "1082792",
+      "1082793"
+    ],
+    "title": "1083025 (paiN vs Imperial) Polymarket moneyline replayed end-to-end; Hotspawn SSR CDN lag (94 vs 92) and Oct-31 GLUCK Moscow LAN zero-market status confirmed",
+    "detail": "Closing the unverified replay note in f6bfc506-row-1083025-not-replayed, direct Gamma API inspection of Polymarket market 6070239 (cs2-pain-imp11-2026-10-23, HLTV 2399816, 2026-10-23T21:00:00Z) at 2026-10-23T09:58Z confirms an active, traded series moneyline ($7,314.22 CLOB liquidity, $1,214.95 volume; current outcomePrices paiN 0.33 / Imperial 0.67 vs the 09:23:57Z snapshot's 36.0% / 64.0%). Separately, comparing play.hotspawn.com/cs2-pickems (94 cached SSR cards) against ?cb=1792749200 (92 fresh SSR cards) and api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 (94 JSON records: 64 past + 30 upcoming, all best_of: null, lock_offset_sec: 360) confirms SSR CDN lag and why JSON API ingestion is authoritative; and checking HLTV 2399437/2399438, Polymarket, Kalshi, bo3.gg, Bovada, Pinnacle, and Smarkets confirms zero open markets at T-8d for Oct-31 GLUCK Moscow LAN Semi-finals 1082792 (HOTU vs The Huns, 09:00Z) and 1082793 (5star vs 1WIN, 13:00Z).",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/markets?slug=cs2-pain-imp11-2026-10-23",
+      "https://www.hltv.org/matches/2399816/imperial-vs-pain-circuit-x-curitiba-season-4",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  }
+]
