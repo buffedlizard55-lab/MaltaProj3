@@ -11,6 +11,11 @@ for (const width of [320, 390, 768, 1440]) {
   test(`final-day entry, data parity and layout at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
+    // Session arena-7c0e457b folds dated reviews on the summary. The final-day
+    // entry is still published with the same link; it is one tap away instead of
+    // 9,000 px down the page, so open the block the way a reader would.
+    const fold = page.locator('details.fold:has(#final-day-summary) > summary');
+    if (await fold.count()) await fold.click();
     await page.locator('#final-day-summary a[href$="#day-five-picks"]').click();
     await expect(page).toHaveURL(/\/twc-picks\/#day-five-picks$/);
     const d = await (await page.request.get('/data/twc-day5-picks.json')).json();

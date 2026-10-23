@@ -596,3 +596,51 @@
   .start-here li:first-child a span{display:block!important;font-size:10.5px;line-height:1.35}
   .start-here .tiny{display:none!important}
 }
+
+/* Session arena-7c0e457b — background on demand.
+   The executive summary carried eight sessions of dated reviews. Measured on the
+   shipped page at 390x844 before this block: 29,001 px tall, with the separate
+   unresolved/limitation register starting ~9,600 px down and roughly 9,600 px of
+   historical sections below it. Those blocks are now <details> elements, closed
+   by default, so the phone path is picks -> register -> everything else. Nothing
+   is deleted: the markup, the anchors and the text are unchanged. */
+.fold{border:1px solid var(--line,#dfe5ec);border-radius:14px;background:var(--surface,#fff);margin:14px 0;overflow:hidden}
+.fold>summary{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:14px 16px;cursor:pointer;list-style:none;min-height:48px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::marker{content:""}
+.fold>summary:focus-visible{outline:3px solid var(--focus,#1f6feb);outline-offset:-3px}
+.fold-kicker{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted,#5a6a7a)}
+.fold>summary strong{font-size:15px;color:var(--ink,#172c3d);flex:1 1 220px;line-height:1.3}
+.fold-hint{font-size:12px;color:var(--muted,#5a6a7a);flex:1 1 100%}
+.fold-action{font-size:12px;font-weight:700;color:var(--accent,#b9401b);border:1px solid currentColor;border-radius:999px;padding:4px 12px}
+.fold[open] .fold-action{color:var(--muted,#5a6a7a)}
+.fold[open]>summary{border-bottom:1px solid var(--line,#dfe5ec)}
+.fold-body{padding:2px 16px 16px}
+.fold-body>.content-section:first-child,.fold-body>.limitations-callout:first-child{margin-top:8px}
+@media(max-width:700px){
+  .fold{margin:12px 0;border-radius:12px}
+  .fold>summary{padding:13px 14px;gap:2px 8px}
+  .fold>summary strong{flex:1 1 100%;font-size:14px}
+  .fold-hint{font-size:11.5px}
+  .fold-action{padding:3px 10px;font-size:11px}
+  .fold-body{padding:0 12px 12px}
+}
+
+/* Session arena-7c0e457b — the near-time marker.
+   A real market price whose published start time disagrees with Hotspawn's is a
+   different evidence class from an exact-time line. It carries its own badge and
+   prints both clocks on the row, so the disagreement cannot be scrolled past. */
+.badge.near{background:#fff4e5;color:#7a4a12;border:1px solid #e7c79b}
+.glance-near{display:block;font-size:11px;line-height:1.35;color:#7a4a12;margin-top:2px}
+
+/* Session arena-7c0e457b — reclaim the last of the fold's headroom.
+   Measured on the built page before this block: the first glance row began at
+   1,006 px on a 390x844 phone and 1,146 px at 320x568 — four pixels inside the
+   budget pinned by phone_summary_17d77cb3.spec.mjs. The "Start here" bar's own
+   caption repeats what its five chips already say and what the <nav aria-label>
+   tells a screen reader, so it is dropped on the narrowest widths to keep real
+   headroom for the budget rather than sitting on the limit. */
+@media(max-width:400px){
+  .start-here-label{display:none}
+  .page-heading .page-description{margin-top:9px}
+}

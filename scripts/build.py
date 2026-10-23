@@ -289,9 +289,40 @@ def basis_badge(analysis, researched=False):
         if method in MONEY_METHODS:
             label, tone = METHOD_BADGES.get(method, ('Source', 'green'))
             extra = f'<span class="badge {tone}">{e(label)}</span>'
-        return '<span class="badge purple">Researched</span>' + extra
+        return '<span class="badge purple">Researched</span>' + extra + near_badge(analysis)
     label, tone = METHOD_BADGES.get(method, ('Model', 'purple'))
-    return f'<span class="badge {tone}">{e(label)}</span>'
+    return f'<span class="badge {tone}">{e(label)}</span>' + near_badge(analysis)
+
+
+def near_badge(analysis):
+    """A marker for a money quote whose provider start time differs (7C-1).
+
+    Only a money method can carry it: a research-model estimate has no provider
+    clock to disagree with, so the marker can never appear on a model row.
+    """
+    a = analysis or {}
+    if a.get('binding') != 'near-time' or a.get('method') not in MONEY_METHODS:
+        return ''
+    return '<span class="badge near">Start time differs</span>'
+
+
+def near_note(analysis):
+    """Print both clocks beside a near-time pick; nothing is recomputed."""
+    a = analysis or {}
+    if a.get('binding') != 'near-time':
+        return ''
+    delta = a.get('start_delta_sec') or 0
+    minutes = abs(int(delta)) / 60
+    shown = f'{minutes:.0f} min'
+    direction = 'later' if delta > 0 else 'earlier'
+    provider = a.get('source') or a.get('provider') or 'The provider'
+    hotspawn_start = a.get('hotspawn_start')
+    provider_start = a.get('provider_start')
+    detail = (f'{e(provider)} lists {e(provider_start)} — {shown} {direction} than Hotspawn\'s '
+              f'{e(hotspawn_start)}. Same teams and UTC date; not an exact-time join.')
+    if hotspawn_start and provider_start:
+        return f'<span class="glance-near">{detail}</span>'
+    return f'<span class="glance-near">{e(provider)} published a different start time for this fixture.</span>'
 
 
 def model_source_label(analysis: dict) -> str:
@@ -513,6 +544,29 @@ def exec_banner(data, prefix):
     )
 
 
+def fold_open(ident, title, kicker='Background', hint=''):
+    """Open a collapsed block on the executive summary (session arena-7c0e457b).
+
+    The page accumulated eight sessions of dated reviews and audit trails. On a
+    390 px phone that pushed *Unresolved picks & limitations* roughly eleven
+    screens down, which is the opposite of what the brief asks for. The content
+    is unchanged and stays in the HTML for search, screen readers and every
+    existing test; it is simply closed until a reader asks for it. ``assets/
+    scout.js`` opens the enclosing block when a deep link points inside it, so
+    every existing ``#anchor`` keeps working.
+    """
+    hint_html = f'<span class="fold-hint">{e(hint)}</span>' if hint else ''
+    return (f'<details class="fold" id="{e(ident)}"><summary>'
+            f'<span class="fold-kicker">{e(kicker)}</span>'
+            f'<strong>{e(title)}</strong>{hint_html}'
+            '<span class="fold-action" aria-hidden="true">Open</span></summary>'
+            '<div class="fold-body">')
+
+
+def fold_close():
+    return '</div></details>'
+
+
 def start_here(data, prefix):
     """A phone-first jump bar directly under the page title.
 
@@ -639,7 +693,7 @@ def glance(data, prefix, now=None):
             choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[other])} {a["probabilities"][other] * 100:.1f}%</span>'
-                      + basis_badge(a, researched))
+                      + basis_badge(a, researched) + near_note(a))
 
         elif a:
             choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
@@ -908,7 +962,10 @@ def no_line_register(data, prefix):
             '<strong>research estimate</strong>: an uncalibrated rating or results model, not a price you could have bet. '
             'The model, the money sources tried and the blocked reason are shown for each. Every four-hour refresh retries '
             'all of them, so a row here can gain a real line later.</p>'
-            '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul></div>')
+            + fold_open('fold-no-line', f'{len(rows)} pick(s) without a betting line',
+                        'Research estimates', 'Model, sources tried and blocked reason for each')
+            + '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul>'
+            + fold_close() + '</div>')
 
 
 def line_sources_block(data, prefix):
@@ -948,7 +1005,9 @@ def line_sources_block(data, prefix):
             'refused, deleted or timed out. A reachable page is never a price by itself — only a two-sided '
             'first-party line or a published official rating may produce a number. '
             f'<a class="internal-link" href="{prefix}data/research/fbdc97d6/line-sources.json">Full record (JSON) ↓</a></p>'
-            f'<ul class="line-source-list">{rows}</ul></div>')
+            + fold_open('fold-line-sources', f'{len(sources)} surfaces checked',
+                        'Dated sweep', f'{len(reachable)} answered HTTP 200')
+            + f'<ul class="line-source-list">{rows}</ul>' + fold_close() + '</div>')
 
 
 def load_no_line_research(source):
@@ -1041,7 +1100,10 @@ def no_line_research_block(data, prefix):
             f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> '
             f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
             f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a></p>'
-            + leads_html + '</div>')
+            + fold_open('fold-no-line-research',
+                        f'{len(fixtures)} fixture(s) re-researched · {len(leads)} lead(s)',
+                        'Dated record', 'Each HTTP response and limitation, per fixture')
+            + leads_html + fold_close() + '</div>')
 
 
 def live_coverage_gaps(data, prefix):
@@ -1082,7 +1144,12 @@ def live_coverage_gaps(data, prefix):
                  f'<span class="line-source-note">{e(note)}</span>{links}</li>')
     empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
              'The next four-hour collect is still the authority for new cards.</p>')
-    body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
+    if rows:
+        body = (fold_open('fold-live-gaps', f'{len(missing)} fixture(s) missing from this build',
+                          'Live lobby', 'Official Hotspawn and HLTV links for each')
+                + f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' + fold_close())
+    else:
+        body = empty
     return (
         f'<section class="content-section" id="live-coverage-gaps">'
         f'<div class="section-heading"><div>'
@@ -1221,7 +1288,10 @@ def session_probe_block(data, prefix):
             'No access control was bypassed.</p>'
             '<ul class="probe-observations">'
             + ''.join(f'<li>{line}</li>' for line in observations)
-            + '</ul>' + ''.join(body) + '</section>')
+            + '</ul>'
+            + fold_open('fold-probe', f'Status matrix · {len(surfaces)} surfaces',
+                        'Dated evidence', 'Grouped by the role each source can play')
+            + ''.join(body) + fold_close() + '</section>')
 
 
 def unresolved_page(data, prefix, now=None):
@@ -1372,7 +1442,9 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                      f'<strong>{len(closed)}</strong> fixture(s) without a pick. Each now carries a researched estimate '
                      f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. {nature} '
                      'Every figure keeps its own source and limitation on the origination card. No line is invented.</p>'
-                     '<ul class="researched-methods">' + ''.join(items) + '</ul>')
+                     + fold_open('fold-researched', f'{len(closed)} researched pick(s) and their sources',
+                                 'Provenance', 'One line per fixture: method, source and link')
+                     + '<ul class="researched-methods">' + ''.join(items) + '</ul>' + fold_close())
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '
@@ -1471,9 +1543,12 @@ def summary(data, prefix, now=None):
     # under three stacked 44px action rows.
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
-    out += live_coverage_gaps(data, prefix)
+    # Session arena-7c0e457b: the separate unresolved/limitation register is the
+    # second thing a phone reader reaches. It used to sit below the live-gap
+    # cards, four thousand pixels further down.
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix)
+    out += live_coverage_gaps(data, prefix)
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
@@ -1522,7 +1597,10 @@ def summary(data, prefix, now=None):
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved-register">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
+        out += fold_open('fold-twc', 'TWC final day · where the picks are',
+                         'Dated review · 18 October', 'Day-5 picks, Days 1–4 results')
         out += final_day_summary(data['_twc_day5'], prefix)
+        out += fold_close()
     day4 = data.get('_twc_day4')
     if day4 is not None:
         confirmed = len(day4['matches'])
@@ -1539,6 +1617,8 @@ def summary(data, prefix, now=None):
                            else 'in the retained Hotspawn snapshot; current coverage is unverified')
         tournament_link = (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Tournament-card lines →</a> '
                            if pending else '')
+        out += fold_open('fold-twc-day4', 'TWC final day · where the picks are',
+                         'Dated review · 18 October', 'Day-4 coverage and tournament-card lines')
         out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
                 f'<p><a href="{prefix}edge/#day-five-card"><strong>Day-5 final-day picks (Sun 18 Oct) →</strong></a> '
                 f'<a href="{prefix}edge/#day-five-guidance">Days 1–4 reviewed → final-day strategy →</a> '
@@ -1550,8 +1630,11 @@ def summary(data, prefix, now=None):
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
                 f'{tournament_link}'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
+        out += fold_close()
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved-register">See unresolved schedules and limitations →</a></div>'
+    out += fold_open('fold-metrics', 'Featured-method metrics and what to know before you pick',
+                     'Background', 'Original featured method only')
     out += '<p class="muted small">The metrics below describe the original featured method only. The next-match preview uses the same selected estimates as the complete list, including researched fallbacks. Featured observations remain available for audit.</p>'
     out += '<div class="metrics">'
     cards = [('Future matches', c['upcoming'], f'{c["inventory"]} source records · {c["archived"]} past starts', 'target', 'coverage/'), ('Featured market', c['market'] + c['bookmaker'], 'Original external market observations', 'layers', 'picks/?basis=market'), ('Featured model', c['model'], 'Valve ratings · higher uncertainty', 'book', 'picks/?basis=model'), ('Featured rejections', c['unresolved'], 'Check complete-list fallbacks above', 'flag', 'review/#unresolved')]
@@ -1560,9 +1643,13 @@ def summary(data, prefix, now=None):
     out += '</div>'
     out += '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">The short version</p><h2>What to know before you pick</h2></div>' + badge('Read-only analysis', 'neutral') + '</div><div class="briefing-notes">'
     out += f'<div><span class="note-number">01</span><p><strong>Start with the full picks list.</strong> Both team probabilities, the suggested team, lock time and original evidence are shown together. {external(LOBBY, "Submit picks on Hotspawn")}</p></div><div><span class="note-number">02</span><p><strong>Know what backs the number.</strong> Green means an external market; purple means an uncalibrated rating model used only when the primary method failed. Neither is a guarantee.</p></div><div><span class="note-number">03</span><p><strong>Check the timestamp.</strong> Automatic checks are scheduled every four hours. GitHub may delay a run. After eight hours without a successful observation, the site warns you not to treat the snapshot as current.</p></div></div></section>'
+    out += fold_close()
     out += '<section class="content-section" id="next-matches-section"><div class="section-heading"><div><p class="eyebrow">On the radar</p><h2>Next matches</h2></div><a class="internal-link" href="' + prefix + 'origination/#picks">All match picks ' + icon('arrow') + '</a></div>'
     out += matches_table(active[:5], prefix, table_id='next-matches', fallbacks=data.get('fallbacks'), now=now) + '</section>'
+    out += fold_open('fold-contrarian', 'Contrarian, not careless · Day 1 review',
+                     'Dated review', 'The 9z–Aurora upset and the bounded watch list')
     out += contrarian_review(data, prefix)
+    out += fold_close()
     # Session arena-3a5448de: this bottom section used to carry the same H2
     # ("Unresolved picks & limitations") and different counts from the separate
     # register near the top (#unresolved-register), and the hero/briefing links
@@ -1570,6 +1657,8 @@ def summary(data, prefix, now=None):
     # the two lists read as two answers. There is now ONE section with that
     # title (the register above); this section is the featured-method audit
     # trail that feeds it, and says so.
+    out += fold_open('fold-audit', 'Featured-method gaps, before research fallback',
+                     'Audit trail', 'Why the exact-name method alone left a fixture blank')
     out += '<section class="content-section" id="unresolved"><div class="section-heading"><div><p class="eyebrow amber-text">Audit trail · feeds the register above</p><h2>Featured-method gaps, before research fallback</h2></div><a class="internal-link" href="' + prefix + 'review/">All review flags ' + icon('arrow') + '</a></div>'
     out += f'<p>These are the fixtures the featured exact-name method alone left blank, with the missing evidence for each. The separate <a class="internal-link" href="#unresolved-register">Unresolved picks &amp; limitations register</a> above is the current answer after research fallback; the <a class="internal-link" href="{prefix}origination/#unresolved">complete-list unresolved section</a> carries every full trail. Original featured-method rejections remain in the <a class="internal-link" href="{prefix}review/#unresolved">audit register</a>; supported fallbacks may resolve them in the complete list.</p>'
     unresolved_data = {'matches': [dict(m, analysis=m['origination']) for m in complete['matches']]} if complete else data
@@ -1596,6 +1685,7 @@ def summary(data, prefix, now=None):
                 + f'</p><p class="tiny">{e((probe.get("policy") or "")[:420])}</p>'
                 + '<p class="tiny">' + e('; '.join((probe.get('limitations') or [])[:2])) + '</p></div>')
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
+    out += fold_close()
     # D866 — explicit low-tier coverage explainer, required by brief: HLTV first, then esportsbooks, then model, with separate unresolved section.
     out += f'''<section class="content-section" id="low-tier-coverage" aria-label="How low-tier and academy matches get a pick">
       <div class="section-heading"><div><p class="eyebrow">Every match, even low-tier</p><h2>How we cover academy & low-tier fixtures</h2></div>{badge('HLTV → esportsbooks → model', 'purple')}</div>
@@ -1610,8 +1700,14 @@ def summary(data, prefix, now=None):
       <p class="tiny muted">If no source has the team (new roster, no Valve row, no HLTV rank, no bo3.gg results), the fixture stays in <a href="{prefix}unresolved/">Unresolved picks &amp; limitations</a> with every source tried and the exact blocker. Model-only rows are badged <span class="badge purple">Model</span> or <span class="badge amber">No line</span> and listed separately under <a href="#no-line-register">Picks without a betting line</a> in this executive summary. No probability is invented as 50/50; every row links its evidence (Hotspawn + line provider or Valve/HLTV).</p>
       <div class="inline-links"><a href="{prefix}origination/#picks">Complete match picks →</a><a href="{prefix}unresolved/">Unresolved &amp; limitations →</a><a href="{prefix}methodology/">Methodology →</a><a href="{prefix}coverage/">Coverage &amp; sources →</a><a href="https://play.hotspawn.com/lobby" target="_blank" rel="noopener noreferrer">Open Hotspawn lobby ↗</a></div>
     </section>'''
+    out += fold_open('fold-fallback', 'Researched fallback picks', 'Background',
+                     'Provider-name discrepancies and the fallback list')
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'
+    out += fold_close()
+    out += fold_open('fold-watchlist', 'Contrarian, not reckless · market-backed alternatives',
+                     'Dated review', 'Where the lines disagree with the default pick')
     out += contrarian_briefing(data, prefix)
+    out += fold_close()
     out += where_everything_lives(data, prefix)
     return out
 

@@ -226,3 +226,34 @@ checkForUpdate();
   const centre = current.offsetLeft - (nav.clientWidth - current.offsetWidth) / 2;
   nav.scrollLeft = Math.max(0, centre);
 })();
+
+// Session arena-7c0e457b: a deep link into a collapsed background block must
+// still land on its target, so open every enclosing <details> first. Without
+// this, #contrarian, #upset-watchlist and the audit trail would point at hidden
+// content on the executive summary.
+(() => {
+  const openAncestors = () => {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    let target = null;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (!target) return;
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  };
+  openAncestors();
+  window.addEventListener('hashchange', openAncestors);
+  // A same-page link to a folded target does not fire hashchange when the hash is
+  // unchanged, so open on click as well.
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest && event.target.closest('a[href^="#"]');
+    if (!link) return;
+    let target = null;
+    try { target = document.getElementById(decodeURIComponent(link.getAttribute('href').slice(1))); } catch { return; }
+    if (!target) return;
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  });
+})();
