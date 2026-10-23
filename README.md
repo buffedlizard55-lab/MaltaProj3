@@ -144,6 +144,40 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   are flagged on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/)
   so the next four-hour live collect can retry the books. No snapshot row was hand-edited.
 
+## 23 October session arena-46ade650: a new exchange line source for the low-tier matches, and a dated sweep for every fixture without a betting line
+
+- **The four-hour publisher stalled for nineteen hours on two date-pinned tests, and is green again.**
+  Scheduled runs [39845991470](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39845991470),
+  [39861117407](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39861117407),
+  [39871371551](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39871371551) and
+  [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806) all failed at the
+  regression-test gate before they could collect, build or deploy: the bo3.gg relay test's fixture had already
+  started, and the root-publish check-mode test was pinned to a snapshot that had crossed the twelve-hour age
+  limit. Session `308fcaad` fixed both on `main` while this session was diagnosing them; this session dropped
+  its duplicate edit and kept `main`'s versions, which are the ones published.
+- **A new independent money source: the Smarkets exchange.** The brief asks for a line rather than a rating
+  model wherever a real betting market exists, including academy and tier-3 matches that Polymarket, Kalshi and
+  the big books skip. [Smarkets](https://smarkets.com/sport/esports/cs-go) publishes a public, documented
+  read-only API ([docs.smarkets.com](https://docs.smarkets.com/)) that lists CS2 as `csgo_match`, including CCT
+  Europe, United21, Circuit X and DFRAG fixtures. `scripts/smarkets_lines.py` binds both team names plus a start
+  inside the same 60-second window, saves the original events/markets/contracts/quotes responses, and converts
+  Smarkets' 1/10000 quotes into 0–1 probabilities. The rung uses the existing ladder rules unchanged: two-sided
+  books only, no wider than 15 cents, anything wider than 12 cents flagged **thin**, one independent vote in the
+  median, and every published quote replays from its saved capture in `scripts/build_origination.py`. An
+  unreachable exchange records a reason and prices nothing. First runner capture (2026-10-23T05:17Z): **11**
+  fixtures bound, **8** with a two-sided quote, e.g. ex-Zero Tenacity–ex-RUSTEC (0.4545/0.578 vs 0.4202/0.5435)
+  and Inner Circle Academy–Spirit Academy; the capture was re-read independently from the exchange's own API and
+  matched exactly.
+- **A fresh, dated sweep for every fixture without a line.** The runner probe (2026-10-23T05:18Z, freshly
+  collected snapshot 05:17:16Z) re-researched the **9** active fixtures that carried only a research-model pick,
+  in brief order: HLTV first, then esportsbooks and aggregators, adding Rivalry, Betano, Betsson, Unibet,
+  Oddspedia, 22bet, Bet365 and the HLTV search endpoint to the surfaces earlier sessions tried. Recorded
+  answers: HLTV 403 (Cloudflare), Bet365 403, EGamersWorld 403, Oddspedia 410, Betsson 202, Unibet 503, Rivalry
+  and 22bet served challenge pages, and the Pinnacle guest board listed none of the nine. No two-sided price was
+  readable on any of them, so those picks remain labelled research estimates with their limitations published.
+  Evidence: [`data/research/46ade650/line-source-research.json`](data/research/46ade650/line-source-research.json),
+  `.md`, and the exchange capture beside them.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.
