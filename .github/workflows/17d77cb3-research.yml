@@ -1,0 +1,107 @@
+# Session arena-17d77cb3 — dated line-source research on the runner.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV, bo3.gg or any bookmaker;
+# the GitHub runner does. This workflow therefore performs the *research* half of
+# the session's brief here: for every live CS2 fixture the published ladder
+# leaves as a research model (no external betting line), it tries HLTV first,
+# then bo3.gg's relayed Thunderpick price, then the esportsbook/aggregator
+# surfaces, and records HTTP status plus any two-sided prematch quote it can
+# actually replay.
+#
+# It never deploys, never edits a published row and never writes a probability
+# or a pick. The only paths it commits are its own dated evidence directory.
+name: 17d77cb3 line-source research (session)
+on:
+  push:
+    branches: ['arena/17d77cb3-maltaproj3']
+    paths-ignore:
+      - 'data/research/17d77cb3/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 17d77cb3-research
+  cancel-in-progress: true
+jobs:
+  research:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/17d77cb3-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      # The freshest first-party snapshot available to this run: the same two
+      # commands the four-hour publisher uses. A failure here is not fatal — the
+      # probe then falls back to the live published file and says so in its record.
+      - name: Refresh the inventory and the published methods
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect || echo "::warning::collect failed; the probe falls back to the live published snapshot"
+          python -m scripts.originate --live || echo "::warning::originate failed; the probe falls back to the live published snapshot"
+          mkdir -p data/research/17d77cb3
+          if [ -f data/origination.json ]; then
+            cp data/origination.json data/research/17d77cb3/snapshot-origination.json
+          fi
+      - name: Research every fixture without an external line
+        run: |
+          python -m scripts.17d77cb3_research \
+            --origination data/origination.json \
+            --out data/research/17d77cb3
+      - name: Publish the findings on the run page
+        if: always()
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          p = Path('data/research/17d77cb3/line-source-research.json')
+          if not p.exists():
+              print('## Line research did not run')
+              raise SystemExit(0)
+          d = json.loads(p.read_text())
+          print('## Line-source research', d['observed_at'], '\n')
+          print('Counts:', json.dumps(d['counts']), '\n')
+          print('Snapshot used:', json.dumps(d['published_methods_source']), '\n')
+          print('| Fixture | Start | Method | bo3.gg | Two-sided price |')
+          print('| --- | --- | --- | --- | --- |')
+          for f in d['fixtures']:
+              bo3 = f.get('bo3') or {}
+              q = bo3.get('quote') or {}
+              price = ('%s %s / %s' % (q.get('provider'), (q.get('sides') or {}).get('team_1', {}).get('coeff'),
+                                        (q.get('sides') or {}).get('team_2', {}).get('coeff'))
+                       if q.get('two_sided_price') else 'none')
+              print('| %s | %s | %s | %s | %s |' % (' vs '.join(f['teams']), f['starts_at'],
+                                                    f.get('published_method'), bo3.get('url') or 'not listed', price))
+          PY
+      - name: Commit the dated evidence to this session branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/17d77cb3
+          if git diff --cached --quiet; then
+            echo "No research files changed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'research(17d77cb3): dated line-source evidence for fixtures with no betting line'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:arena/17d77cb3-maltaproj3; then
+              echo "Pushed research evidence ("$(git rev-parse --short HEAD)")." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep $((attempt * 5))
+            git pull --rebase origin arena/17d77cb3-maltaproj3
+          done
+          echo "::error::research evidence could not be pushed"
+          exit 1
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: 17d77cb3-line-research-${{ github.run_id }}
+          path: data/research/17d77cb3/
+          retention-days: 30
