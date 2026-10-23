@@ -354,9 +354,13 @@ def main(argv: list[str] | None = None) -> int:
     (out / 'published-vs-live.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
     (out / 'row-audit.json').write_text(json.dumps(rows, indent=2, ensure_ascii=False) + '\n')
     existing = out / 'flags.json'
+    generated = {f['id'] for f in flags}
     keep = []
     if existing.exists():
-        keep = [f for f in json.loads(existing.read_text()) if not f['id'].startswith('69438ad1-')]
+        # Hand-authored dated findings from this session survive re-runs; the
+        # reconciliation-owned ids are replaced by the fresh observation.
+        keep = [f for f in json.loads(existing.read_text())
+                if not (f['id'].startswith('69438ad1-') and f['id'] in generated)]
     (out / 'flags.json').write_text(json.dumps(keep + flags, indent=2, ensure_ascii=False) + '\n')
 
     lines = ['# arena-69438ad1 — published site vs live Hotspawn source', '',
