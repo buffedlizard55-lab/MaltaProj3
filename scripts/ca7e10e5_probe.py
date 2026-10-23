@@ -178,8 +178,14 @@ def published_state(live_url: str, evidence_dir: Path | None = None) -> dict:
     rows = parse_rows(orig_page['body']) if orig_page['body'] else {}
     if evidence_dir is not None:
         evidence_dir.mkdir(parents=True, exist_ok=True)
-        for name, record in (('index.html', page), ('origination.html', orig_page),
-                             ('latest.json', data), ('picks.html', picks_page)):
+        # Never save a .html file: scripts.build copies data/ into site/data/
+        # and scripts.validate.check_links walks every *.html under the site,
+        # so a captured page would be parsed as one of ours and its relative
+        # asset URLs would read as broken links (observed on 2026-10-23).
+        for name, record in (('published-index.html.txt', page),
+                             ('published-origination.html.txt', orig_page),
+                             ('published-latest.json', data),
+                             ('published-picks.html.txt', picks_page)):
             if record['body']:
                 (evidence_dir / name).write_text(record['body'])
     return {

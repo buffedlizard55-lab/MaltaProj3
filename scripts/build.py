@@ -1173,10 +1173,22 @@ def no_line_research_block(data, prefix):
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
-    Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
-    official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
-    When the next four-hour collect includes the id, the row drops out of this
-    list automatically.
+    Session 9fd5fbf1, corrected by sessions 9c4b1f7a and ca7e10e5. Dated
+    inventory research only: each missing row keeps its official Hotspawn and
+    HLTV links. No probability, pick or 50/50 is added.
+
+    Two rules keep the section honest, because a stale checklist is worse than
+    none:
+
+    * a lobby card is skipped when this build already resolves the same match,
+      even under a blank Hotspawn id — the research record left the
+      JiJieHao–Eternal Fire id blank, so an id-only comparison published it as
+      "not in this snapshot" while the very same page carried its pick
+      (ca7e10e5 reproduced this from the published page; the merged fix reads
+      both feeds and matches the exact team pair);
+    * the section never claims the cards are live "right now": it prints the
+      record's own observation time and states that the list is a dated
+      observation, not a live claim.
     """
     record = data.get('_live_coverage') or {}
     live = record.get('live_fixtures') or []
@@ -1206,6 +1218,19 @@ def live_coverage_gaps(data, prefix):
             continue
         missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
+    snapshot_at = data.get('generated_at') or data.get('inventory_observed_at')
+    snapshot_time = local_time(snapshot_at) if snapshot_at else blank()
+    record_dt, snapshot_dt = timestamp(record.get('observed_at')), timestamp(snapshot_at)
+    record_is_older = bool(record_dt and snapshot_dt and record_dt < snapshot_dt)
+    if record_is_older:
+        timing = (f'The newest lobby check is dated {observed} and this page\'s snapshot is newer '
+                  f'({snapshot_time}), so a card below may have started, been delisted or been '
+                  f'collected since that check. It is published as a dated check, not as a live '
+                  f'observation.')
+    else:
+        timing = (f'The lobby check ({observed}) is at least as new as this page\'s snapshot '
+                  f'({snapshot_time}).')
+
     rows = ''
     for fixture in missing:
         names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
@@ -1219,11 +1244,13 @@ def live_coverage_gaps(data, prefix):
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
         note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
+        if fixture.get('in_published_snapshot') and not fixture.get('note'):
+            note += ' It was in the published snapshot at the time of that check.'
         rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
                  f'<span class="line-source-note">{e(note)}</span>{links}</li>')
-    empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
+    empty = ('<p class="tiny">Every lobby fixture in that research window is already in this snapshot. '
              'The next four-hour collect is still the authority for new cards.</p>')
     body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
     return (
