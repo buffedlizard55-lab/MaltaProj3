@@ -128,6 +128,21 @@ jobs:
         with:
           name: github-pages-interim
           path: site
+      # Session f8736556: ordering matters inside this interim job too. On the
+      # 2026-10-23T09:54Z push, this job deployed the previous verified artifact
+      # at about 09:54:58Z, but the same commit's legacy Pages build did not
+      # finish until 09:55:18Z and therefore overwrote it. At 10:00:08Z the
+      # public HTML was current while plain /data/latest.json and
+      # /data/origination.json had regressed to the checked-in 15 October
+      # fixtures. Wait for this commit's legacy build before the interim deploy,
+      # so the verified artifact is the last publisher in this phase as well.
+      - name: Wait for this commit's legacy Pages build before interim deployment
+        if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 -m scripts.root_publish --wait-legacy-sha "${{ github.sha }}"
       - id: deployment
         if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
         uses: actions/deploy-pages@v5
