@@ -128,23 +128,31 @@ def disagreement(api_ids: set, lobby_ids: set, cs2_ids: set, lobby_req: dict, cs
 
 
 def hotspawn(client: Client):
-    """Read the public fixture array; use rendered pages only as a cross-check.
+    """Read Hotspawn's public fixture array without hiding the transport route.
 
-    The scheduled-fixture API is the same public array that feeds the Hotspawn
-    client and is the authoritative inventory. The two rendered lobby pages are
-    an independent reconciliation check. On 2026-10-17T07:16Z both rendered
-    pages answered HTTP 403 while the API had answered 200 four hours earlier;
-    failing the whole refresh in that case discarded a usable official inventory
-    and made every otherwise source-backed pick look unusable. When no rendered
-    page can be read, the valid API array is published with an explicit
-    `unavailable` cross-check marker instead of a reconciliation claim. If any
-    rendered page IS readable, a disagreement still fails closed.
+    The direct scheduled-fixture API is tried first. If that request itself is
+    unavailable, the official lobby pages can supply the exact same unpaginated
+    array from their public Angular hydration. This is not a scraper-created
+    inventory: the original HTML and the extracted API-shaped rows are saved,
+    any second readable official page must agree, and empty/duplicate/changed
+    contracts fail closed. Crowd percentages are never read.
     """
     def ids(rows):
         values = [str(x['id']) for x in rows if x.get('sport_alias') == 'cs2']
         if len(values) != len(set(values)):
             raise SourceError('Duplicate CS2 fixture IDs')
         return set(values)
+
+    def facts(rows):
+        # Crowd percentages, points and other pick'em fields are deliberately
+        # excluded. Only source facts consumed by normalize_fixture are
+        # compared when no direct API response can arbitrate two lobby pages.
+        fields = ('sport_alias', 'participants0_id', 'participants0_name',
+                  'participants1_id', 'participants1_name', 'competition_name',
+                  'competition_id', 'scheduled_start_time', 'lock_time', 'status',
+                  'end_time', 'best_of', 'series_format', 'tier', 'lock_offset_sec')
+        return {str(x['id']): tuple(x.get(field) for field in fields)
+                for x in rows if x.get('sport_alias') == 'cs2'}
 
     def page(url, label):
         try:
@@ -168,18 +176,70 @@ def hotspawn(client: Client):
             raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
         return {'html': html, 'req': req, 'rows': rows, 'ids': page_ids, 'links': links, 'error': None}
 
+    api_error = None
+    source_name = None
+    source_page = None
     for attempt in range(2):
         # Observe the API and both rendered pages in the same round so a
         # fixture added between them is a real disagreement, not a stale read.
-        api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
-        if not isinstance(api_rows, list):
-            raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
-        official_ids = ids(api_rows)
-        if not official_ids:
-            raise SourceError('Fixture API returned no CS2 fixtures; refusing an empty inventory claim')
+        # Only the API transport/access exception is recoverable. A readable
+        # response with a changed schema, duplicate IDs or no CS2 rows is not.
+        api_error = None
+        source_name = None
+        source_page = None
+        try:
+            api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
+        except SourceError as exc:
+            api_rows, api_req, api_error = None, None, exc
+        if api_error is None:
+            if not isinstance(api_rows, list):
+                raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
+            official_ids = ids(api_rows)
+            if not official_ids:
+                raise SourceError('Fixture API returned no CS2 fixtures; refusing an empty inventory claim')
         lobby = page(LOBBY, 'hotspawn-lobby')
         cs2 = page(CS2_LOBBY, 'hotspawn-cs2')
         read = [(name, record) for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
+
+        if api_error is not None:
+            if not read:
+                raise SourceError(f'{api_error}; neither official Hotspawn lobby could supply its public fixture array') from api_error
+            if any(not record['ids'] for _, record in read):
+                raise SourceError('Official Hotspawn lobby hydration returned no CS2 fixtures; refusing an empty inventory claim')
+            same_ids = all(read[0][1]['ids'] == record['ids'] for _, record in read[1:])
+            same_facts = all(facts(read[0][1]['rows']) == facts(record['rows']) for _, record in read[1:])
+            if same_ids and same_facts:
+                # Prefer the CS2-specific page when both agree. The body is
+                # still the exact public /api/v1/fixtures payload, not the
+                # visible card subset and never the crowd percentages.
+                source_name, source_page = next((name, record) for name, record in (('cs2', cs2), ('lobby', lobby))
+                                                if record['ids'] is not None)
+                cache_age = source_page['req'].get('cache_age_sec')
+                if cache_age is not None:
+                    try:
+                        too_old = float(cache_age) > 3600
+                    except (TypeError, ValueError) as exc:
+                        raise SourceError('Official lobby recovery has an unreadable cache age; freshness is unverified') from exc
+                    if too_old:
+                        raise SourceError(f'Official lobby recovery is a cached response {cache_age}s old; refusing to restamp it as a current inventory')
+                api_rows = source_page['rows']
+                api_req = source_page['req']
+                official_ids = source_page['ids']
+                break
+            if attempt == 0:
+                time.sleep(5)
+                continue
+            if same_ids:
+                changed = [fixture_id for fixture_id in read[0][1]['ids']
+                           if len({facts(record['rows'])[fixture_id] for _, record in read}) > 1]
+                raise SourceError('Official Hotspawn lobby fixture facts disagree while the direct fixture API is unavailable '
+                                  f'(fixture IDs {sorted(changed)[:12]}); refusing to select arbitrary teams, times or formats') from api_error
+            lobby_ids = lobby['ids'] or set()
+            cs2_ids = cs2['ids'] or set()
+            raise SourceError('Official Hotspawn lobby pages disagree while the direct fixture API is unavailable ('
+                              f'lobby only {sorted(lobby_ids - cs2_ids)[:12]}; CS2 lobby only {sorted(cs2_ids - lobby_ids)[:12]}); '
+                              'refusing to select an arbitrary inventory') from api_error
+
         if not read:
             # API-only mode. A retry here would only repeat a refused HTML
             # request; the API response is already a complete official array.
@@ -193,13 +253,56 @@ def hotspawn(client: Client):
             continue
         raise SourceError('Rendered Hotspawn inventory disagrees with the fixture API; complete coverage cannot be confirmed (' + disagreement(official_ids, lobby['ids'] or set(), cs2['ids'] or set(), lobby['req'] or {}, cs2['req'] or {}) + ')')
 
+    source_document = None
+    inventory_via = 'api'
+    if source_page is not None:
+        # The direct API failed, so its error manifest entry must not be
+        # relabelled as a success. Add a distinct successful observation that
+        # names the official HTML transport and links both original documents.
+        inventory_via = source_name + '-hydration'
+        document_name = 'hotspawn-inventory-' + source_name + '-html'
+        html = source_page['html']
+        page_req = source_page['req']
+        source_document = client.save(document_name, {
+            'url': page_req.get('url') or (LOBBY if source_name == 'lobby' else CS2_LOBBY),
+            'observed_at': page_req['observed_at'],
+            'html': html,
+            'response_sha256': page_req.get('response_sha256'),
+            'html_utf8_sha256': hashlib.sha256(html.encode()).hexdigest(),
+            'cache_age_sec': page_req.get('cache_age_sec'),
+            'cache_status': page_req.get('cache_status'),
+            'final_url': page_req.get('final_url'),
+        })
+        raw_evidence = client.save('hotspawn-fixtures', api_rows)
+        api_req = {
+            'id': 'hotspawn-fixtures', 'url': page_req.get('url') or (LOBBY if source_name == 'lobby' else CS2_LOBBY),
+            'method': 'GET', 'observed_at': page_req['observed_at'],
+            'http_status': page_req.get('http_status'), 'status': 'ok',
+            'evidence': raw_evidence, 'source_document': source_document,
+            'via': 'official-lobby-hydration',
+            'response_sha256': page_req.get('response_sha256'),
+            'cache_age_sec': page_req.get('cache_age_sec'),
+            'cache_status': page_req.get('cache_status'),
+            'final_url': page_req.get('final_url'),
+        }
+        client.manifest.append(api_req)
+
     links = {}
     for record in (lobby, cs2):
         links.update(record['links'])
     verified_pages = [name for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
     crosscheck = 'complete' if len(verified_pages) == 2 else ('partial' if verified_pages else 'unavailable')
     unavailable = [f'{name}: {record["error"]}' for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is None]
-    if crosscheck == 'complete':
+    if source_page is not None:
+        origin = 'CS2 lobby' if source_name == 'cs2' else 'lobby'
+        detail = (f'The direct fixture API was unavailable ({api_error}). The exact unpaginated public fixture array was recovered from '
+                  f'the official Hotspawn {origin} Angular hydration; original HTML and extracted rows are retained. ')
+        if crosscheck == 'complete':
+            detail += 'Both official lobby pages contain the same duplicate-free CS2 ID set. No direct-API reconciliation is claimed.'
+        else:
+            detail += ('The other rendered page was unavailable: ' + '; '.join(unavailable)
+                       + '. Inventory completeness rests on the official unpaginated hydration array; no direct-API reconciliation is claimed.')
+    elif crosscheck == 'complete':
         detail = 'All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.'
     elif crosscheck == 'partial':
         detail = ('The public scheduled-fixture API returned a valid, duplicate-free CS2 array and agrees with the rendered page(s) that could be read ('
@@ -209,9 +312,22 @@ def hotspawn(client: Client):
         detail = ('The public scheduled-fixture API returned a valid, duplicate-free CS2 array. Both rendered lobby pages were unavailable: '
                   + '; '.join(unavailable) + '. The secondary HTML cross-check is unavailable; the API array is published as the complete scheduled inventory and no three-response reconciliation is claimed.')
     visible_ids = re.findall(r'<app-pickem-vs-card\b[^>]*\bid="fixture-(\d+)"', cs2['html'] or '')
-    evidence = client.save('hotspawn-context', {'lobby_url': LOBBY, 'cs2_url': CS2_LOBBY, 'fixture_api': FIXTURES_API, 'observed_at': api_req['observed_at'], 'visible_ids': visible_ids, 'permalinks': links, 'lobby_ids': sorted(lobby['ids'] or []), 'cs2_ids': sorted(cs2['ids'] or []), 'api_ids': sorted(official_ids), 'crosscheck': crosscheck, 'verified_pages': verified_pages, 'unavailable': unavailable})
+    context = {'lobby_url': LOBBY, 'cs2_url': CS2_LOBBY, 'fixture_api': FIXTURES_API,
+               'observed_at': api_req['observed_at'], 'visible_ids': visible_ids,
+               'permalinks': links, 'lobby_ids': sorted(lobby['ids'] or []),
+               'cs2_ids': sorted(cs2['ids'] or []), 'api_ids': sorted(official_ids),
+               'crosscheck': crosscheck, 'verified_pages': verified_pages,
+               'unavailable': unavailable, 'inventory_via': inventory_via,
+               'source_document': source_document,
+               'direct_api_error': str(api_error)[:300] if api_error else None}
+    evidence = client.save('hotspawn-context', context)
     rows = [r for r in api_rows if r.get('sport_alias') == 'cs2']
-    return rows, links, {'status': 'ok', 'name': 'Hotspawn match inventory', 'url': LOBBY, 'api_url': FIXTURES_API, 'observed_at': api_req['observed_at'], 'records': len(rows), 'visible_cards': len(visible_ids), 'crosscheck': crosscheck, 'verified_pages': verified_pages, 'unavailable': unavailable, 'detail': detail, 'evidence': evidence}
+    return rows, links, {'status': 'ok', 'name': 'Hotspawn match inventory', 'url': LOBBY,
+                         'api_url': FIXTURES_API, 'observed_at': api_req['observed_at'],
+                         'records': len(rows), 'visible_cards': len(visible_ids),
+                         'crosscheck': crosscheck, 'verified_pages': verified_pages,
+                         'unavailable': unavailable, 'detail': detail, 'evidence': evidence,
+                         'inventory_via': inventory_via, 'source_document': source_document}
 
 
 def polymarket_games(html: str) -> list:

@@ -27,6 +27,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.collect
+      - name: Refuse a retained or stale fallback before calling the capture fresh
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from scripts.domain import timestamp
+          Path('data/research/19de9c79').mkdir(parents=True, exist_ok=True)
+          d=json.loads(Path('data/latest.json').read_text())
+          now=datetime.now(timezone.utc)
+          observed=timestamp(d.get('inventory_observed_at'))
+          age=(now-observed).total_seconds() if observed else None
+          gate={'checked_at':now.isoformat(timespec='seconds').replace('+00:00','Z'),
+                'coverage_complete':d.get('coverage_complete'),
+                'inventory_observed_at':d.get('inventory_observed_at'),
+                'inventory_age_seconds':age,'inventory_via':d.get('inventory_via','api'),
+                'inventory_crosscheck':d.get('inventory_crosscheck'),
+                'records':len(d.get('matches') or []),'counts':d.get('counts')}
+          Path('data/research/19de9c79/collection-gate.json').write_text(json.dumps(gate,indent=2)+'\n')
+          print('::notice title=19de9c79 inventory gate::'+json.dumps(gate))
+          assert d.get('coverage_complete') is True, 'Retained/degraded inventory is not a fresh capture'
+          assert observed and -300 <= age <= 3600, 'Inventory is not a current one-hour observation'
+          assert len(d.get('matches') or []) == (d.get('counts') or {}).get('inventory') > 0, 'Inventory is empty or inconsistent'
+          PY
       - name: Resolve every fixture through the reviewed external-line ladder
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

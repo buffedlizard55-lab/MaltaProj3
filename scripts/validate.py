@@ -12,7 +12,7 @@ from urllib.parse import urlparse, unquote
 from bs4 import BeautifulSoup
 
 from scripts.collect import counts, normalize_fixture
-from scripts.sources import gamma_games, parse_hltv_matches
+from scripts.sources import CS2_LOBBY, LOBBY, gamma_games, hydration, parse_hltv_matches
 
 from scripts.domain import (array, consensus, iso, market_analysis, parse_valve_table,
                             polymarket_candidate, selection, sportsbook_quote,
@@ -42,10 +42,58 @@ def check_data(root: Path):
     if not data['coverage_complete'] and not rows:
         require(any(f['id'] == 'inventory-failed' for f in data['flags']), 'Empty unverified inventory must have a visible failure flag')
         return data
-    raw = load(evidence / 'hotspawn-fixtures.json')
+    raw_rows = load(evidence / 'hotspawn-fixtures.json')
     context = load(evidence / 'hotspawn-context.json')
     require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
-    raw = {str(r['id']): r for r in raw if r.get('sport_alias') == 'cs2'}
+    inventory_via = context.get('inventory_via', 'api')
+    require(inventory_via in {'api', 'lobby-hydration', 'cs2-hydration'}, 'Unknown inventory transport')
+    require(data.get('inventory_via', inventory_via) == inventory_via, 'Published inventory transport was relabelled')
+    require(data.get('inventory_source_document', context.get('source_document')) == context.get('source_document'),
+            'Published inventory source document was relabelled')
+    if inventory_via != 'api':
+        # A direct-API failure may use only the exact fixture array embedded in
+        # Hotspawn's official public page. Replay that HTML instead of trusting
+        # a derived row file or relabelling the failed API request as successful.
+        source_name = 'lobby' if inventory_via == 'lobby-hydration' else 'cs2'
+        document_ref = f'data/evidence/hotspawn-inventory-{source_name}-html.json'
+        require(context.get('source_document') == document_ref, 'Hydration recovery lacks its original source document')
+        document = load(evidence / f'hotspawn-inventory-{source_name}-html.json')
+        requests_ = [r for r in data.get('requests', [])
+                     if r.get('id') == 'hotspawn-fixtures' and r.get('status') == 'ok'
+                     and r.get('via') == 'official-lobby-hydration']
+        require(len(requests_) == 1, 'Hydration recovery lacks one unambiguous successful official transport')
+        request = requests_[0]
+        expected_page = LOBBY if source_name == 'lobby' else CS2_LOBBY
+        actual = urlparse(request.get('url') or '')
+        expected = urlparse(expected_page)
+        require((actual.scheme, actual.netloc, actual.path) == (expected.scheme, expected.netloc, expected.path),
+                'Hydration recovery URL is not the expected official Hotspawn page')
+        require(request.get('method') == 'GET', 'Hydration recovery method changed')
+        require(request.get('observed_at') == context['observed_at'] == document.get('observed_at'),
+                'Hydration recovery observation timestamp restamped')
+        require(request.get('evidence') == 'data/evidence/hotspawn-fixtures.json',
+                'Hydration recovery does not point to the extracted fixture rows')
+        require(request.get('source_document') == document_ref and document.get('url') == request.get('url'),
+                'Hydration recovery source document does not match its transport')
+        require(isinstance(document.get('response_sha256'), str)
+                and re.fullmatch(r'[0-9a-f]{64}', document['response_sha256'])
+                and document['response_sha256'] == request.get('response_sha256'),
+                'Hydration recovery lacks the original HTTP response hash')
+        cache_age = document.get('cache_age_sec')
+        if cache_age is not None:
+            try:
+                fresh_cache = float(cache_age) <= 3600
+            except (TypeError, ValueError):
+                fresh_cache = False
+            require(fresh_cache and request.get('cache_age_sec') == cache_age,
+                    'Hydration recovery is stale or its cache age does not replay')
+        html = document.get('html')
+        require(isinstance(html, str)
+                and hashlib.sha256(html.encode()).hexdigest() == document.get('html_utf8_sha256'),
+                'Hydration recovery HTML hash does not replay')
+        recovered, _ = hydration(html)
+        require(recovered == raw_rows, 'Hydration recovery rows do not replay from the original official HTML')
+    raw = {str(r['id']): r for r in raw_rows if r.get('sport_alias') == 'cs2'}
     require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
     require(set(raw) == set(context['api_ids']), 'Published inventory omits or invents a Hotspawn API row')
     # Older retained snapshots have no cross-check marker and must keep the

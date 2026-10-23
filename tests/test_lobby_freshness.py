@@ -43,6 +43,8 @@ class FakeClient:
 
     def json(self, url, label, **kw):
         self.urls.append(url)
+        if label in self.block:
+            raise SourceError(label + ': 403 Client Error: Forbidden for url: ' + url)
         rnd = self.rounds[min(self.n, len(self.rounds) - 1)]
         return rnd['api'], {'observed_at': '2026-10-16T08:00:01Z'}
 
@@ -183,6 +185,81 @@ class ApiOnlyFallback(unittest.TestCase):
         empty = {'lobby': [], 'cs2': [], 'api': []}
         with self.assertRaises(SourceError):
             hotspawn(FakeClient([empty], block=('hotspawn-lobby', 'hotspawn-cs2')))
+
+
+class LobbyOnlyRecovery(unittest.TestCase):
+    """A refused direct API may recover only the exact official page payload."""
+
+    def round(self, lobby_ids, cs2_ids=None):
+        lobby = [row(i) for i in lobby_ids]
+        cs2 = [row(i) for i in (lobby_ids if cs2_ids is None else cs2_ids)]
+        return {'lobby': lobby, 'cs2': cs2, 'api': []}
+
+    def test_two_agreeing_official_pages_recover_the_complete_array_and_original_html(self):
+        client = FakeClient([self.round([1, 2, 3])], block=('hotspawn-fixtures',))
+        rows, links, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1', '2', '3'])
+        self.assertEqual(health['crosscheck'], 'complete')
+        self.assertEqual(health['inventory_via'], 'cs2-hydration')
+        self.assertEqual(client.saved['hotspawn-fixtures'], rows)
+        self.assertIn('html', client.saved['hotspawn-inventory-cs2-html'])
+        self.assertEqual(health['source_document'], 'data/evidence/hotspawn-inventory-cs2-html.json')
+        success = [r for r in client.manifest if r.get('id') == 'hotspawn-fixtures' and r.get('status') == 'ok']
+        self.assertEqual(len(success), 1)
+        self.assertEqual(success[0]['via'], 'official-lobby-hydration')
+        self.assertEqual(success[0]['evidence'], 'data/evidence/hotspawn-fixtures.json')
+        self.assertEqual(links.keys(), {'1', '2', '3'})
+
+    def test_one_readable_page_is_explicitly_partial_and_never_claims_api_reconciliation(self):
+        client = FakeClient([self.round([1, 2])], block=('hotspawn-fixtures', 'hotspawn-cs2'))
+        rows, _, health = hotspawn(client)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(health['inventory_via'], 'lobby-hydration')
+        self.assertEqual(health['crosscheck'], 'partial')
+        self.assertIn('direct fixture api was unavailable', health['detail'].lower())
+        self.assertIn('no direct-api reconciliation is claimed', health['detail'].lower())
+
+    def test_no_readable_official_page_still_fails_closed(self):
+        client = FakeClient([self.round([1])], block=('hotspawn-fixtures', 'hotspawn-lobby', 'hotspawn-cs2'))
+        with self.assertRaises(SourceError) as ctx:
+            hotspawn(client)
+        self.assertIn('hotspawn-fixtures', str(ctx.exception))
+        self.assertNotIn('hotspawn-fixtures', client.saved)
+
+    def test_disagreeing_pages_never_select_an_arbitrary_inventory(self):
+        client = FakeClient([self.round([1, 9], [1, 2])], block=('hotspawn-fixtures',))
+        with mock.patch.object(sources.time, 'sleep'):
+            with self.assertRaises(SourceError) as ctx:
+                hotspawn(client)
+        self.assertIn('disagree', str(ctx.exception))
+        self.assertNotIn('hotspawn-fixtures', client.saved)
+
+    def test_empty_hydration_is_not_an_empty_inventory_claim(self):
+        client = FakeClient([self.round([])], block=('hotspawn-fixtures',))
+        with self.assertRaises(SourceError) as ctx:
+            hotspawn(client)
+        self.assertIn('no CS2 fixtures', str(ctx.exception))
+
+    def test_a_stale_cached_page_cannot_be_restamped_as_a_fresh_inventory(self):
+        client = FakeClient([self.round([1])], headers={'cache_age_sec': '5040', 'cache_status': 'HIT'},
+                            block=('hotspawn-fixtures',))
+        with self.assertRaises(SourceError) as ctx:
+            hotspawn(client)
+        self.assertIn('cached', str(ctx.exception).lower())
+        self.assertNotIn('hotspawn-fixtures', client.saved)
+
+    def test_matching_ids_cannot_hide_a_team_or_schedule_disagreement(self):
+        rnd = self.round([1])
+        for field, value in (('participants0_name', 'Different team'), ('scheduled_start_time', '2027-01-01T00:00:00Z')):
+            with self.subTest(field=field):
+                changed = dict(rnd['cs2'][0], **{field: value})
+                client = FakeClient([{'lobby': rnd['lobby'], 'cs2': [changed], 'api': []}],
+                                    block=('hotspawn-fixtures',))
+                with mock.patch.object(sources.time, 'sleep'):
+                    with self.assertRaises(SourceError) as ctx:
+                        hotspawn(client)
+                self.assertIn('facts disagree', str(ctx.exception))
+                self.assertNotIn('hotspawn-fixtures', client.saved)
 
 
 class DisagreementText(unittest.TestCase):

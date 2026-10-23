@@ -118,6 +118,7 @@ def _collect_into(output: Path):
 
     observed = inventory['observed_at']
     crosscheck = inventory.get('crosscheck', 'complete')
+    inventory_via = inventory.get('inventory_via', 'api')
     matches = [normalize_fixture(r, links, observed, now) for r in raw]
     matches.sort(key=lambda m: (m['starts_at'] or '9999', m['id']))
     active = [m for m in matches if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -279,15 +280,23 @@ def _collect_into(output: Path):
     if (output / 'matches.json').exists() or (output / 'picks-model.json').exists():
         flags.append(flag('legacy-snapshots', 'Earlier session snapshots are archived, not the current feed', 'Concurrent sessions used different identity rules, source timestamps and model weights. Their datasets, scripts and pages are retained for provenance. The current dashboard uses only data/latest.json and its replayed first-party evidence. Legacy records are not silently merged, relabeled as current, or independently reverified by this pipeline.', ['https://github.com/buffedlizard55-lab/MaltaProj3', LOBBY, POLY_INDEX], severity='notice'))
     if crosscheck != 'complete':
-        flags.append(flag('inventory-crosscheck', 'Hotspawn lobby HTML cross-check unavailable', inventory['detail'] + ' No rendered page was treated as agreement, and no probability, pick or fixture was invented. Picks tied to this API snapshot remain usable and carry their own source observations.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='warning'))
+        flags.append(flag('inventory-crosscheck', 'Hotspawn lobby HTML cross-check unavailable', inventory['detail'] + ' No rendered page was treated as agreement, and no probability, pick or fixture was invented. Picks tied to this official inventory snapshot remain usable and carry their own source observations.', [LOBBY, CS2_LOBBY, FIXTURES_API], severity='warning'))
+    if inventory_via != 'api':
+        inventory_definition = ('Every CS2 record in Hotspawn’s unpaginated public fixture array, recovered from official '
+                                + ('CS2 lobby' if inventory_via == 'cs2-hydration' else 'lobby')
+                                + ' Angular hydration after the direct API request was unavailable. Original HTML and extracted rows are retained; '
+                                + ('both official lobby payloads agree.' if crosscheck == 'complete' else 'the other lobby cross-check was unavailable.')
+                                + ' No direct-API reconciliation is claimed. Future starts are separate from past-start source anomalies, and crowd percentages are never inputs.')
+    else:
+        inventory_definition = ('Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.' if crosscheck == 'complete' else 'Every CS2 record returned by Hotspawn’s scheduled-fixture API. The rendered lobby HTML cross-check was ' + ('partial' if crosscheck == 'partial' else 'unavailable') + '; the API array is the authoritative scheduled inventory and no three-response reconciliation is claimed. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.')
     snapshot = {
         'schema_version': 1, 'generated_at': iso(datetime.now(timezone.utc)), 'last_attempted_at': iso(now), 'analysis_as_of': iso(now),
         'inventory_observed_at': observed, 'coverage_complete': True, 'inventory_crosscheck': crosscheck,
+        'inventory_via': inventory_via, 'inventory_source_document': inventory.get('source_document'),
         'run_status': 'complete' if not unresolved else 'partial-picks',
         'refresh_interval_hours': 4, 'stale_after_hours': 8,
         'counts': counts(matches), 'matches': matches, 'sources': health, 'flags': flags, 'requests': client.manifest,
-        'evidence_files': sorted(client.saved),
-        'inventory_definition': ('Every CS2 record returned by Hotspawn’s scheduled-fixture API, reconciled with both official lobby payloads. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.' if crosscheck == 'complete' else 'Every CS2 record returned by Hotspawn’s scheduled-fixture API. The rendered lobby HTML cross-check was ' + ('partial' if crosscheck == 'partial' else 'unavailable') + '; the API array is the authoritative scheduled inventory and no three-response reconciliation is claimed. Future starts are separate from past-start source anomalies. Coverage is not a claim that all rows have verified probabilities.'),
+        'evidence_files': sorted(client.saved), 'inventory_definition': inventory_definition,
     }
     write_snapshot(output, snapshot)
     print('::notice title=Hotspawn inventory::' + json.dumps({'records': len(raw), 'crosscheck': crosscheck, 'verified_pages': inventory.get('verified_pages', []), 'unavailable': [x.split(':')[0] for x in inventory.get('unavailable', [])]}))
