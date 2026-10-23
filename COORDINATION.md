@@ -36,7 +36,6 @@ Non-overlap: no edits to other sessions' `data/research/<id>/` (except new `d866
 
 **Verification so far**: local build `python -m scripts.build` — PASS 80 source rows reconciled, 646 rows audited (627 official-source-linked, 9 flagged unverified, 10 site-map, 0 without source), 792 internal links OK, 9 views built. Every table row in generated site has a source link (Hotspawn + line provider or Valve/HLTV).
 
-# Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 # Current session: arena-fd99abd9 — Hotspawn full coverage: every CS2 pick, HLTV→esportsbook research, phone-first executive summary
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3`, branched from `main` at `cd95411` (merge PR #189). Board read first. Live snapshot audited 2026-10-23T05:00Z on checked-in data: `data/latest.json` 17 upcoming / 13 picks / 4 unresolved-featured, `data/origination.json` 17 active / 17 picks (7 market, 5 bookmaker, 5 model) / 0 unresolved after research fallback. Previous sessions `3016b0c6`, `3a5448de`, `f60683a4` merged; open PRs #154/#149/#139/#120 are stale >60 min and untouched (their merged equivalents are on main). No live claim overlaps the files below.
@@ -49,7 +48,6 @@ Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3
 
 Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.
 
-# Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 # Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
 | Task | Status | Owner | File scope |
