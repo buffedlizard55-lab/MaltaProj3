@@ -1,3 +1,52 @@
+# Current session: arena-69438ad1 — independent live-source verification (platform-side egress), HLTV-first research for every no-line fixture, phone-first findability audit
+
+Claimed **2026-10-23T05:05Z** on Arena's fixed branch `arena/69438ad1-maltaproj3`, based on `main` at
+`cdd77b58133b6627ef8f6d4738d8784431eeac6b`. The board and the open-PR list were read first.
+
+**Live claim respected, not duplicated.** `arena-19de9c79` claimed 19D-1/2/3 at 2026-10-23T04:51Z and committed
+`5ef5ab2` at 04:53Z: the two date-bound publisher regressions (`tests/test_15fc6bca_relay.py`,
+`tests/test_96fbe295.py`, `scripts/root_publish.py`) plus its own `data/research/19de9c79/**`. This session edits
+**none** of those files and does not re-attempt that repair. Open PRs #189/#188/#184/#182/#180/#177/#171/#169/#168/#165/
+#154/#149/#139/#120 are idle >60 min; they are left untouched and are not merged blindly.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 6943-1 Independent verification of the *currently published* site against the *live* Hotspawn source, read from this session's own platform-side egress (which reaches `play.hotspawn.com` and `hltv.org`, where the CI runner records HTTP 403): full CS2 inventory reconciliation, a pick + both probabilities + an official source link on every active row, staleness/coverage flags, internal links, phone-width readability. Dated originals preserved | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_verify.py` (read-only), new `tests/test_69438ad1_*.py`, this section |
+| 6943-2 HLTV-first, then esportsbook/betting-line research for every active fixture the ladder resolves only with a labelled research model or leaves blank. Per fixture: HLTV match/ranking evidence first, then bo3.gg, Thunderpick, Polymarket, Kalshi, Pinnacle, GG.BET, EGamersWorld, OddsPortal — HTTP status, exact-name/start binding, and the two-sided price or the explicit "no price reachable" verdict with its source links. **Leads and limitations only: no probability, pick or alias is written by hand** | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_probe.py` (read-only), temporary session-only `.github/workflows/69438ad1-probe.yml` (removed before merge), new `tests/test_69438ad1_*.py`, this section |
+| 6943-3 Publish the findings on the live site through the auto-discovered session flag/dossier contract, repair only verified defects in files no session claims, then PR → merge → confirm the real GitHub Pages deployment and record sources, verification and irregularities here | unclaimed → arena-69438ad1 | this section, new `data/research/69438ad1/**`, new `tests/test_69438ad1_*.py`, and any unclaimed implementation file named here **before** it is edited |
+
+**Non-overlap pledge:** no edit to `scripts/root_publish.py`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`,
+`data/research/19de9c79/**`, any other session's `data/research/<id>/`, `archive/`, `scripts/collect.py`, the
+`scripts/originate.py` pricing ladder, `data/origination/aliases.json`, canonical `data/latest.json` /
+`data/origination.json`, or any generated shared page. Hotspawn `% picked` and HLTV fan votes are never probabilities.
+Shared outputs (site index, navigation, table data) change only through the canonical builder. If a defect is found in a
+file another session owns, it is logged here as a change request instead of edited.
+
+### 6943-0 diagnosis read at claim time (2026-10-23T05:00Z, official GitHub records)
+
+- The public site is **stale**: `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` serves
+  `generated_at 2026-10-22T14:05:35Z`, `inventory_observed_at 2026-10-22T13:21:33Z`, `coverage_complete false`,
+  `run_status degraded`, counts `{inventory 98, upcoming 37, market 16, bookmaker 2, model 12, unresolved 7, picks 30}`.
+  Every page carries the "Snapshot needs attention" banner and the "A newer verified snapshot is available" prompt is
+  not offered, because no newer snapshot has been published since.
+- Five consecutive scheduled `Refresh and deploy CS2 dashboard` runs failed **before collection** at
+  `Regression tests (repository fixtures, before any cache restore)`:
+  [39807044948](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39807044948) (15:40Z),
+  [39845991470](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39845991470) (20:06Z),
+  [39861117407](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39861117407) (21:55Z),
+  [39871371551](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39871371551) (23:22Z),
+  [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806) (00:58Z on 23 Oct).
+  The `republish-last-verified` job succeeded in each, so the site stayed up on the 14:05Z artifact instead of going
+  dark. Run [39902353982](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39902353982) (04:49Z) was
+  still inside that same regression-test step when this claim was written. **Owner: `arena-19de9c79` (19D-2).**
+- Live Hotspawn read directly by this session at 2026-10-23T05:02Z: `https://play.hotspawn.com/lobby` returned the
+  rendered lobby ("197 matches this week", CS2 filter "All tiers (92)") and the fixture API
+  `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`
+  answered 200 with a JSON array. Both are reachable from this session's egress; the runner recorded 403 on the
+  rendered lobby pages on 2026-10-17. That asymmetry is the reason 6943-1/6943-2 are run from here.
+
+---
+
 # Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
 | Task | Status | Owner | File scope |
