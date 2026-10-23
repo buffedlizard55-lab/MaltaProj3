@@ -1,6 +1,6 @@
 # Gap picks — arena-1531ecf1
 
-Observed 2026-10-23T11:13:44Z on `github-actions-runner`.
+Observed 2026-10-23T11:21:12Z on `github-actions-runner`.
 
 Dated research and gap picks. Only a bound two-sided prematch price or the documented Valve-rating research model may produce the probabilities recorded here. Hotspawn crowd percentages and HLTV fan votes are never inputs.
 
