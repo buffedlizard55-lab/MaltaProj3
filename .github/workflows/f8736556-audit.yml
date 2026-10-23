@@ -1,0 +1,65 @@
+# Session arena-f8736556 — public publication parity and fallback-line research.
+#
+# The coding sandbox cannot reach the public Pages host, Hotspawn, HLTV or the
+# bookmaker surfaces. This runner performs a read-only audit of the plain
+# public URLs, then probes only fixtures that do not already carry an external
+# money line. It never deploys and never writes a probability, pick or alias.
+name: f8736556 public coverage audit (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/f8736556-maltaproj3']
+    paths:
+      - '.github/workflows/f8736556-audit.yml'
+      - 'scripts/f8736556_audit.py'
+      - 'scripts/3016b0c6_probe.py'
+      - 'scripts/46ade650_probe.py'
+      - 'scripts/bo3_odds_probe.py'
+      - 'scripts/coverage_audit.py'
+      - 'tests/test_f8736556_audit.py'
+      - 'data/research/f8736556/pages-before.json'
+
+permissions:
+  contents: write
+concurrency:
+  group: f8736556-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/arena/f8736556-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/f8736556-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test the audit joins and no-invention rules
+        run: python -m unittest tests.test_f8736556_audit -v
+      - name: Audit plain public HTML/JSON and research only non-money-line fixtures
+        run: python -m scripts.f8736556_audit --out data/research/f8736556
+      - name: Commit dated evidence to this fixed session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/f8736556
+          if git diff --cached --quiet; then
+            echo 'No audit evidence changed.'
+            exit 0
+          fi
+          git commit -m 'research(f8736556): dated public parity and line-source audit'
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/f8736556-maltaproj3
+            if ! git rebase origin/arena/f8736556-maltaproj3; then
+              git rebase --abort || true
+              sleep 5
+              continue
+            fi
+            git push origin HEAD:arena/f8736556-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
