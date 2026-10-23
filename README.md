@@ -714,19 +714,31 @@ rules 2 and 3 and are now documented with their URLs in
 [`data/research/a7128fdd/direct-observations.md`](data/research/a7128fdd/direct-observations.md).
 
 **Nothing was priced, so nothing changed.** Across the 8 model-only fixtures: **0** new two-sided prices,
-**6** fixtures that gained official identity or format evidence, **0** probabilities, **0** picks and **0**
-aliases changed. The new register renders on the executive summary *and* on `/unresolved/` as
+**7** fixtures that gained official identity or format evidence, **0** probabilities, **0** picks and **0**
+aliases changed — and **0** identity conflicts actually found, against **1** real registry gap
+(`los kogutos` → `Banda Chuya`, below). The new register renders on the executive summary *and* on `/unresolved/` as
 `#direct-observations`, through `scripts/build.py::load_direct_observations` — deliberately the complement of
 the runner-only `load_no_line_research`, and deliberately **ineligible** to feed the priced ladder. Its
 Markdown sibling is generated from its JSON by `python -m scripts.a7128fdd_render_evidence` (`--check` fails on
 drift), so the prose cannot disagree with the numbers.
 
-**Two of this session's own flags were wrong and are corrected on the record, not deleted.**
-1. *"Hotspawn 1081605 says Banda chuya but three surfaces say los kogutos."* Wrong. HLTV 2399699 publishes
-   Phantom Academy vs Banda Chuya, Best of 3 (Online), lower-bracket semi-final; HLTV renders US Eastern and
-   its own countdown (`14m : 37s` at 10:50Z) resolves the `07:00` display to **11:00 UTC**, matching
-   Hotspawn's `starts_at` to the minute. Both HLTV team pages name each other as the 23 Oct opponent. Hotspawn
-   is corroborated; esports-news.co.uk and bo3.gg are the surfaces out of line for that slot.
+**Three of this session's own claims were wrong and are corrected on the record, not deleted.**
+1. *"Hotspawn 1081605 says Banda chuya but three surfaces say los kogutos"* — wrong, and so was the first
+   correction (*"Hotspawn is corroborated and the aggregators are out of line"*). The accurate reading: **`los
+   kogutos` IS `Banda Chuya`.** Read first-hand back to back, [bo3.gg's `los kogutos` team
+   page](https://bo3.gg/teams/los-kogutos) lists starters **maaryy, tomiko, mwlky, AdrieN, showk** (all Poland,
+   coach pako) — the same five players HLTV lists for Banda Chuya on match 2399699 — and the results match
+   exactly (DONSTU 2-1 on 22 Oct, 2-0 ex-6666 on 20 Oct, 2-0 Revise on 17 Oct on both sites). So **no identity
+   conflict exists anywhere**: Hotspawn 1081605, HLTV 2399699 (whose US-Eastern `07:00` display resolves to
+   **11:00 UTC** by its own countdown, matching Hotspawn's `starts_at` to the minute), bo3.gg and
+   esports-news.co.uk all describe one match. The real, actionable finding is a **registry gap**: `los kogutos`
+   appears nowhere in `data/origination/aliases.json`, so `scripts.originate.resolve_name` cannot bind a bo3.gg
+   or esports-news.co.uk quote for this fixture and rule 4's esportsbook rung stays unreachable for it *by name*.
+   Nothing is lost today (bo3.gg shows `All odds are on` with no numbers, `bet_updates=null`), and the registry
+   is another session's reviewed file, so it was **not** edited here — the cross-scope request is logged in
+   `COORDINATION.md` with everything needed to add it in one step. Session `arena-81c1058a` reached the same
+   identity independently from bo3.gg's side and recorded it on the board; this session adds the HLTV-side
+   five-player and three-result corroboration.
 2. *"'Team Abyssal' is an unregistered alias."* Wrong, because the registry was not consulted before flagging.
    [`data/origination/aliases.json`](data/origination/aliases.json) has held `Team Abyssal → Abyssal` scoped to
    DFRAG Invitational 2026 since 2026-10-23T06:26:00Z, with bo3.gg 132606, HLTV 2399891 and Hotspawn 1082861

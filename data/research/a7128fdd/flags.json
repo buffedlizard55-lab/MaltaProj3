@@ -77,24 +77,6 @@
     ]
   },
   {
-    "id": "a7128fdd-phantom-academy-hotspawn-corroborated",
-    "severity": "notice",
-    "match_ids": [
-      "1081605"
-    ],
-    "title": "CORRECTION of this session's own first reading: Hotspawn 1081605 (Phantom Academy vs Banda chuya) is confirmed by HLTV; it is esports-news.co.uk and bo3.gg that list a different opponent for the slot",
-    "detail": "This session first flagged 1081605 as an identity conflict on the strength of two aggregators, and that flag was wrong. Verified first-hand at 2026-10-23T10:50Z by reading https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8: HLTV publishes Phantom Academy vs Banda Chuya, CCT 2026 Challengers Europe Series 8, Best of 3 (Online), Lower bracket semi-final. HLTV's displayed clock (07:00 23 Oct) is US Eastern, and the page's own countdown of '14m : 37s' resolves the start to 11:00 UTC, which is Hotspawn 1081605's published starts_at 2026-10-23T11:00:00Z to the minute - so the fixture binds on exact names AND exact start. Both HLTV team pages independently state their next match is against the other (Phantom Academy '23 Oct vs. Banda Chuya'; Banda Chuya '23 Oct vs. Phantom Academy'). Meanwhile esports-news.co.uk lists 'Phantom Academy vs los kogutos · Today 12:00' (12:00 BST = 11:00 UTC) and bo3.gg lists 'los kogutos vs Phantom Academy' for the same slot in the same event, so those two aggregators disagree with HLTV and with each other's source. Hotspawn is corroborated and was never in error here; the published Valve-rating estimate stands unchanged. Recorded because the wrong version of this claim was written first, and because it demonstrates why the repository joins only on exact names plus start plus the reviewed registry: an aggregator listing is not evidence against the primary feed.",
-    "source_urls": [
-      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
-      "https://www.hltv.org/team/13766/phantom-academy",
-      "https://www.hltv.org/team/13900/banda-chuya",
-      "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
-      "https://esports-news.co.uk/matches/cs2/phantom-academy-vs-los-kogutos-1753600/",
-      "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
-    ]
-  },
-  {
     "id": "a7128fdd-team-abyssal-alias-already-registered",
     "severity": "notice",
     "match_ids": [
@@ -122,6 +104,24 @@
       "https://www.hltv.org/betting/analytics/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
       "https://www.hltv.org/valve-ranking/teams",
       "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-los-kogutos-is-banda-chuya-alias-missing",
+    "severity": "review",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "'los kogutos' on bo3.gg and esports-news.co.uk IS Hotspawn/HLTV's 'Banda Chuya' - same five Polish players, same three results - but that identity is not in data/origination/aliases.json, so the ladder cannot bind a relay quote for 1081605 if one appears",
+    "detail": "This is the second correction of this session's own reading of fixture 1081605, and the accurate one. The first reading called it an identity conflict; the second said Hotspawn was corroborated and that esports-news.co.uk and bo3.gg were 'the surfaces out of line'. Both were wrong. Verified first-hand at 2026-10-23T11:05Z by reading https://bo3.gg/teams/los-kogutos and https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8 back to back: bo3.gg's 'los kogutos' starter roster is maaryy, tomiko, mwlky, AdrieN and showk, all flagged Poland, coached by pako - the same five players HLTV lists for Banda Chuya (tomiko, maaryy, AdrieN, Showk, mwlky). The recent results match exactly too: bo3.gg shows DONSTU 2-1 los kogutos (22 Oct), los kogutos 2-0 ex-6666 (20 Oct) and los kogutos 2-0 Revise (17 Oct); HLTV shows Banda Chuya 1:2 DONSTU (22/10), 2:0 ex-6666 (20/10) and 2:0 Revise (17/10). So there is no conflict anywhere: Hotspawn 1081605 (Phantom Academy vs Banda chuya, 2026-10-23T11:00:00Z), HLTV 2399699 (Phantom Academy vs Banda Chuya, Best of 3 Online, lower-bracket semi-final, its US-Eastern 07:00 display resolving to 11:00 UTC by its own countdown), bo3.gg ('los kogutos vs Phantom Academy', CCT Europe 2026 Challengers 8) and esports-news.co.uk ('Phantom Academy vs los kogutos', 12:00 BST = 11:00 UTC) all describe one match. The actionable gap is the registry: 'los kogutos' does not appear anywhere in data/origination/aliases.json (69 entries, updated_at 2026-10-23T06:26:00Z), so scripts.originate.resolve_name cannot bind a bo3.gg or esports-news.co.uk quote for this fixture, and rule 4's esportsbook rung stays unreachable for it by name even when the fixture itself is found. Nothing is lost today because bo3.gg publishes no numbers for that match ('All odds are on', bet_updates=null) and esports-news.co.uk publishes only its own 43%/57% power rating, which is not an input. The published Valve-rating estimate for 1081605 is unchanged. Session arena-81c1058a independently reached the same identity from bo3.gg's roster and match history and recorded it on the board; this flag adds the HLTV-side five-player and three-result corroboration read first-hand. The registry is another session's reviewed file and was NOT edited here - the cross-scope request is logged in COORDINATION.md with the evidence needed to add it in one step: alias 'los kogutos', canonical 'Banda Chuya', applies_to ['CCT Europe 2026 Challengers #8'], with the two URLs below and a must_not_match guard for any other 'kogutos'-named side.",
+    "source_urls": [
+      "https://bo3.gg/teams/los-kogutos",
+      "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/team/13900/banda-chuya",
+      "https://esports-news.co.uk/matches/cs2/phantom-academy-vs-los-kogutos-1753600/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
     ]
   }

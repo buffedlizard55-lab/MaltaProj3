@@ -338,17 +338,70 @@ class CheckedInRecord(unittest.TestCase):
                       .replace('So no probability should have changed and none did',
                                'no probability should have changed and none did'))
 
-    def test_the_phantom_academy_claim_is_the_corrected_one(self):
-        """Hotspawn was corroborated by HLTV; the aggregators were the ones out of line."""
+    def test_the_phantom_academy_claim_is_the_final_corrected_one(self):
+        """Both earlier readings were wrong; the registry-gap one is the accurate claim."""
         flags = {f['id']: f for f in json.loads(FLAGS.read_text(encoding='utf-8'))}
-        self.assertNotIn('a7128fdd-phantom-academy-opponent-conflict', flags,
-                         'the withdrawn claim must not come back')
-        flag = flags['a7128fdd-phantom-academy-hotspawn-corroborated']
+        for withdrawn in ('a7128fdd-phantom-academy-opponent-conflict',
+                          'a7128fdd-phantom-academy-hotspawn-corroborated'):
+            self.assertNotIn(withdrawn, flags, f'{withdrawn} was withdrawn and must not come back')
+        flag = flags['a7128fdd-los-kogutos-is-banda-chuya-alias-missing']
+        self.assertEqual(flag['severity'], 'review')
         self.assertEqual(flag['match_ids'], ['1081605'])
-        self.assertIn('that flag was wrong', flag['detail'])
-        self.assertIn('2399699', flag['detail'])
-        self.assertIn('Banda Chuya', flag['detail'])
-        self.assertIn('Hotspawn is corroborated', flag['detail'])
+        # It must own both earlier mistakes explicitly rather than bury them.
+        self.assertIn('second correction', flag['detail'])
+        self.assertIn('Both were wrong', flag['detail'])
+        self.assertIn('there is no conflict anywhere', flag['detail'])
+        self.assertIn('not in data/origination/aliases.json', flag['title'] + flag['detail'])
+        self.assertIn('NOT edited here', flag['detail'])
+
+    def test_no_flag_may_claim_an_identity_conflict_that_the_rosters_disprove(self):
+        """1081605 is one match on four surfaces; no flag may *assert* it is disputed.
+
+        Quoting a withdrawn phrase in order to own the mistake is required, not
+        forbidden, so the check is that the phrase appears exactly once and only
+        inside a retraction, and that the flag states the accurate conclusion.
+        """
+        identity = None
+        for f in json.loads(FLAGS.read_text(encoding='utf-8')):
+            if '1081605' not in f['match_ids']:
+                continue
+            self.assertNotIn('different opponent', f['title'])
+            self.assertNotIn('identity conflict', f['title'].lower())
+            detail = f['detail']
+            self.assertLessEqual(detail.count('surfaces out of line'), 1,
+                                 'the withdrawn phrase may be quoted once, as a retraction, never asserted')
+            if 'surfaces out of line' in detail:
+                self.assertIn("'the surfaces out of line'. Both were wrong", detail)
+                identity = f
+        self.assertIsNotNone(identity, 'the identity correction must stay on the record')
+        self.assertEqual(identity['id'], 'a7128fdd-los-kogutos-is-banda-chuya-alias-missing')
+        self.assertIn('there is no conflict anywhere', identity['detail'])
+
+    def test_the_los_kogutos_identity_is_proved_by_roster_and_results_not_by_name(self):
+        rec = json.loads(RECORD.read_text(encoding='utf-8'))
+        obs = next(o for o in rec['observations']
+                   if o['id'] == 'a7128fdd-bo3gg-los-kogutos-roster-identity')
+        pub = obs['published']
+        self.assertTrue(pub['roster_identical_case_insensitively'])
+        bo3 = {p.lower() for p in pub['bo3gg_starters']}
+        hltv = {p.lower() for p in pub['hltv_lineup_from_match_2399699']}
+        self.assertEqual(bo3, hltv)
+        self.assertEqual(len(bo3), 5)
+        self.assertEqual(len(pub['matching_results']), 3)
+        self.assertFalse(pub['in_alias_registry'])
+        self.assertIsNone(obs['two_sided_price'])
+        self.assertFalse(obs['usable_as_price'])
+        self.assertEqual(obs['fixture_ids'], ['1081605'])
+
+    def test_the_registry_gap_is_real_when_checked_against_the_registry_itself(self):
+        """Pinned against the live file, so the flag goes stale visibly if it is filled."""
+        registry = json.loads((ROOT / 'data' / 'origination' / 'aliases.json').read_text(encoding='utf-8'))
+        aliases = {a.get('alias') for a in registry['aliases']}
+        canonical = {a.get('canonical') for a in registry['aliases']}
+        self.assertNotIn('los kogutos', aliases)
+        self.assertNotIn('los kogutos', canonical)
+        self.assertNotIn('Banda Chuya', canonical)
+        self.assertNotIn('Banda chuya', aliases)
 
     def test_no_flag_may_call_team_abyssal_unregistered_while_the_registry_holds_it(self):
         """Pinned against the registry itself, so the correction cannot silently rot."""

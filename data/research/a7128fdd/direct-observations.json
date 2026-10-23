@@ -1,7 +1,7 @@
 {
   "schema": "a7128fdd-direct-observations/1",
   "session": "arena-a7128fdd",
-  "observed_at": "2026-10-23T10:50:00Z",
+  "observed_at": "2026-10-23T11:05:00Z",
   "environment": "authoring-fetch-path",
   "environment_note": "Captured by direct page fetch from the authoring sandbox, NOT from a GitHub Actions runner. This distinction is the finding: ten earlier sessions recorded HLTV, EGamersWorld and the aggregators as 403/410 from the runner and concluded no external evidence existed for the model-only fixtures. On this path HLTV answers HTTP 200. The runner-only loader in scripts/build.py::load_no_line_research deliberately ignores this record, so nothing here can enter the priced ladder; it is published as evidence and as a correction to the reachability claim.",
   "brief_line": "Look for information sources to guide pick selections only for any matches that cannot be resolved in the same way as the featured picks. Try hltv, then try looking at esportsbooks and esports betting lines.",
@@ -702,18 +702,78 @@
       "usable_as_price": false,
       "verdict": "reachable and bound to Hotspawn 1081605 by exact names and exact start; publishes the format, both five-player lineups and both world/VRS ranks, and still no price",
       "reason": "This is the single most useful HLTV read of the sweep, because 1081605 is exactly the brief's low-tier case: a C/B-tier online lower-bracket semi-final that Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle and the bo3.gg relay all leave unpriced. HLTV confirms Hotspawn's opponent (Banda Chuya, not the 'los kogutos' two aggregators list for the slot), supplies the best-of format Hotspawn leaves null, supplies both five-player lineups that the Valve-standings identity join needs, and supplies both rankings - including that Banda Chuya is HLTV-Unranked while still holding VRS #169, which is precisely the case the repository's 'unranked floor' rung exists for. It prices nothing: the Betting block again carries only a Stake social-casino promotion, and the 77.6%/22.4% figure is the 'Pick a winner' fan vote, excluded by rule 2. No probability, pick or alias was changed. The format, lineup and ranking facts are recorded as dated official evidence, and the divergence between HLTV's VRS display and the published estimate's direction is flagged for review rather than adjudicated here."
+    },
+    {
+      "id": "a7128fdd-bo3gg-los-kogutos-roster-identity",
+      "surface": "bo3.gg team page (roster and match history) read against the HLTV match page",
+      "url": "https://bo3.gg/teams/los-kogutos",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081605"
+      ],
+      "teams_as_published": [
+        "los kogutos",
+        "Banda Chuya"
+      ],
+      "excerpt": "bo3.gg 'los kogutos' roster: maaryy (Poland, Starter), tomiko (Poland, Starter), mwlky (Poland, Starter), AdrieN (Poland, Starter), showk (Poland, Starter), coach pako || matches: CCT Europe 2026 Challengers 8, 08:45, los kogutos vs Phantom Academy, 'All odds are on' || ended: DONSTU 2-1 los kogutos (22 Oct), los kogutos 2-0 ex-6666 (20 Oct), los kogutos 2-0 Revise (17 Oct)",
+      "excerpt_sha256": "19cfa3dc52163bc4fb26c2a2ef3467d6d50d5fb73b94cd43d6349bc708024eb6",
+      "published": {
+        "bo3gg_name": "los kogutos",
+        "bo3gg_also_known_as": "Loskogutos",
+        "bo3gg_starters": [
+          "tomiko",
+          "maaryy",
+          "AdrieN",
+          "showk",
+          "mwlky"
+        ],
+        "bo3gg_coach": "pako",
+        "bo3gg_all_flagged": "Poland",
+        "hltv_name": "Banda Chuya",
+        "hltv_lineup_from_match_2399699": [
+          "tomiko",
+          "maaryy",
+          "AdrieN",
+          "Showk",
+          "mwlky"
+        ],
+        "roster_identical_case_insensitively": true,
+        "matching_results": [
+          {
+            "bo3gg": "DONSTU 2-1 los kogutos (22 Oct)",
+            "hltv": "22/10/2026 Banda Chuya 1:2 DONSTU"
+          },
+          {
+            "bo3gg": "los kogutos 2-0 ex-6666 (20 Oct)",
+            "hltv": "20/10/2026 Banda Chuya 2:0 ex-6666"
+          },
+          {
+            "bo3gg": "los kogutos 2-0 Revise (17 Oct)",
+            "hltv": "17/10/2026 Banda Chuya 2:0 Revise"
+          }
+        ],
+        "bo3gg_price_for_1081605": null,
+        "bo3gg_price_displayed": "All odds are on (no numbers)",
+        "in_alias_registry": false
+      },
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "identity established beyond doubt - 'los kogutos' is Banda Chuya - and bo3.gg publishes no price for the fixture",
+      "reason": "Read first-hand against HLTV 2399699, this settles fixture 1081605's identity: the same five Polish starters and the same three results appear under 'los kogutos' on bo3.gg and 'Banda Chuya' on HLTV, so Hotspawn, HLTV, bo3.gg and esports-news.co.uk all describe one match and no conflict exists. It prices nothing: bo3.gg shows 'All odds are on' with no numbers and bet_updates=null. The usable output is the registry gap - 'los kogutos' is absent from data/origination/aliases.json, so the esportsbook rung cannot bind this fixture by name. No probability, pick or alias was changed here; the registry is another session's file and the request is logged in COORDINATION.md instead."
     }
   ],
   "conclusions": {
     "fixtures_in_scope": 8,
     "fixtures_with_a_new_two_sided_price": 0,
-    "fixtures_with_new_official_identity_or_format_evidence": 6,
+    "fixtures_with_new_official_identity_or_format_evidence": 7,
     "probabilities_changed": 0,
     "picks_changed": 0,
     "aliases_added": 0,
     "hltv_http_status_on_this_path": 200,
     "hltv_http_status_on_runner_path": 403,
-    "summary": "No two-sided prematch price exists for any of the 8 model-only fixtures on any surface read at 2026-10-23T09:47Z-10:50Z, so every published estimate stands unchanged and nothing was invented. What IS new: HLTV is reachable on this path and publishes the format, both lineups and both world/VRS ranks for the fixtures checked - including HLTV 2399699, which binds to Hotspawn 1081605 by exact names and exact start and confirms Hotspawn's opponent against two aggregators that list a different one. Polymarket does list two of the eight by exact name and start but at $0 traded volume, which is the precise, source-linked reason the featured method cannot resolve them. And four surfaces publish placeholder or crowd numbers - EGamersWorld 1.8/1.8, the HLTV analytics template 1.23, Polymarket's unpriced 2.00x/2.00x default, and HLTV's fan votes - any of which a naive scraper would have turned into a fabricated probability.",
-    "hltv_match_pages_read_at_200": 2
+    "summary": "No two-sided prematch price exists for any of the 8 model-only fixtures on any surface read at 2026-10-23T09:47Z-11:05Z, so every published estimate stands unchanged and nothing was invented. What IS new: HLTV is reachable on this path and publishes the format, both lineups and both world/VRS ranks - including HLTV 2399699, which binds to Hotspawn 1081605 by exact names and exact start. Polymarket does list two of the eight by exact name and start but at $0 traded volume, which is the precise, source-linked reason the featured method cannot resolve them. Four surfaces publish placeholder or crowd numbers - EGamersWorld 1.8/1.8, the HLTV analytics template 1.23, Polymarket's unpriced 2.00x/2.00x default, and HLTV's fan votes - any of which a naive scraper would have turned into a fabricated probability. And one real gap was found: 'los kogutos' (bo3.gg, esports-news.co.uk) is provably the same team as 'Banda Chuya' (Hotspawn, HLTV) by identical five-player roster and identical results, but that identity is not in the alias registry, so the esportsbook rung cannot bind fixture 1081605 by name. Zero identity conflicts were actually found; two of this session's own claims of a conflict were wrong and are corrected on the record.",
+    "hltv_match_pages_read_at_200": 2,
+    "identity_conflicts_found": 0,
+    "registry_gaps_found": 1
   }
 }
