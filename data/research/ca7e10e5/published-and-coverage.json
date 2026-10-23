@@ -1,12 +1,12 @@
 {
  "schema_version": 1,
  "session": "arena-ca7e10e5",
- "observed_at": "2026-10-23T09:46:42Z",
+ "observed_at": "2026-10-23T09:51:40Z",
  "environment": "github-actions-runner",
  "policy": "Read-only. Reads the public site and probes line sources; writes no probability, pick or alias. A reachable page is not a price.",
  "snapshot": {
-  "generated_at": "2026-10-23T09:45:42Z",
-  "inventory_observed_at": "2026-10-23T09:45:22Z",
+  "generated_at": "2026-10-23T09:50:31Z",
+  "inventory_observed_at": "2026-10-23T09:50:13Z",
   "coverage_complete": true,
   "run_status": "partial-picks",
   "counts": {
@@ -24,14 +24,18 @@
  },
  "published": {
   "live_url": "https://buffedlizard55-lab.github.io/MaltaProj3",
-  "observed_at": "2026-10-23T09:46:43Z",
+  "observed_at": "2026-10-23T09:51:40Z",
   "index": {
    "status": 200,
    "error": null,
    "data_snapshot_generated": "2026-10-23T09:23:57Z",
-   "age_hours": 0.38,
+   "age_hours": 0.46,
    "rendered": {
-    "active": 30
+    "picks_ready": 30,
+    "active": 30,
+    "unresolved": 0,
+    "model_only": 8,
+    "money_backed": 22
    }
   },
   "origination_page": {
@@ -46,7 +50,7 @@
    "status": 200,
    "error": null,
    "generated_at": "2026-10-23T09:23:57Z",
-   "age_hours": 0.38,
+   "age_hours": 0.46,
    "counts": {
     "inventory": 92,
     "upcoming": 30,
@@ -589,10 +593,11 @@
  },
  "coverage": {
   "active_count": 30,
-  "covered_count": 26,
-  "money_backed_count": 19,
-  "model_only_count": 7,
-  "problem_count": 4,
+  "covered_count": 30,
+  "money_backed_count": 21,
+  "model_only_count": 9,
+  "featured_blank_count": 4,
+  "problem_count": 0,
   "rows": [
    {
     "id": "1079655",
@@ -603,6 +608,7 @@
     "competition": "CCT Europe 2026 Series #11",
     "starts_at": "2026-10-23T11:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
@@ -616,6 +622,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -627,6 +640,7 @@
     "competition": "CCT Europe 2026 Series #12",
     "starts_at": "2026-10-23T11:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
@@ -640,6 +654,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -651,6 +672,7 @@
     "competition": "CCT Europe 2026 Challengers #8",
     "starts_at": "2026-10-23T11:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -666,6 +688,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -677,6 +734,7 @@
     "competition": "DraculaN Season 7",
     "starts_at": "2026-10-23T13:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23",
@@ -690,6 +748,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -701,19 +766,54 @@
     "competition": "CCT South America 2026 Series #7",
     "starts_at": "2026-10-23T13:00:00Z",
     "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
+    "feed": "complete list",
+    "method": "consensus",
+    "source": "Polymarket + Thunderpick + Bovada + Pinnacle",
+    "source_url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
+    "probabilities": [
+     0.75861154,
+     0.24138846
     ],
-    "money_backed": false,
-    "limitations": []
+    "pick": "Isurus",
+    "issues": [],
+    "money_backed": true,
+    "limitations": [],
+    "featured_blank": true,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "unresolved"
+     }
+    ]
    },
    {
     "id": "1082980",
@@ -724,6 +824,7 @@
     "competition": "ESL Challenger League Season 52: Europe - Cup #9",
     "starts_at": "2026-10-23T13:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -739,6 +840,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -750,6 +886,7 @@
     "competition": "CIS LAN Championship #9",
     "starts_at": "2026-10-23T13:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
@@ -763,6 +900,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -774,19 +918,27 @@
     "competition": "CCT South America 2026 Series #7",
     "starts_at": "2026-10-23T16:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
     "probabilities": [
-     0.635,
-     0.365
+     0.64,
+     0.36
     ],
     "pick": "BORRACHEIROS",
     "issues": [],
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -798,19 +950,54 @@
     "competition": "CCT Europe 2026 Series #11",
     "starts_at": "2026-10-23T17:00:00Z",
     "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
+    "feed": "complete list",
+    "method": "consensus",
+    "source": "Polymarket + Kalshi + Thunderpick + Bovada + Pinnacle",
+    "source_url": "https://polymarket.com/event/cs2-brute-baks-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/brute-vs-baks-cct-europe-2026-series-11-1079657",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
+    "probabilities": [
+     0.49268422,
+     0.50731578
     ],
-    "money_backed": false,
-    "limitations": []
+    "pick": "BRUTE",
+    "issues": [],
+    "money_backed": true,
+    "limitations": [],
+    "featured_blank": true,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "unresolved"
+     }
+    ]
    },
    {
     "id": "1081150",
@@ -821,6 +1008,7 @@
     "competition": "CCT Europe 2026 Series #12",
     "starts_at": "2026-10-23T17:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-rustec-ssins-2026-10-23",
@@ -834,6 +1022,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -845,6 +1040,7 @@
     "competition": "Circuit X Curitiba #4",
     "starts_at": "2026-10-23T18:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-bst-gls1-2026-10-23",
@@ -858,6 +1054,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -869,6 +1072,7 @@
     "competition": "CCT South America 2026 Series #7",
     "starts_at": "2026-10-23T19:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
@@ -882,6 +1086,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -893,6 +1104,7 @@
     "competition": "Circuit X Curitiba #4",
     "starts_at": "2026-10-23T21:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
@@ -906,6 +1118,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -917,6 +1136,7 @@
     "competition": "CCT South America 2026 Series #7",
     "starts_at": "2026-10-23T22:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "bookmaker",
     "source": "Thunderpick",
     "source_url": "https://thunderpick.io/api/matches",
@@ -930,6 +1150,21 @@
     "money_backed": true,
     "limitations": [
      "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -941,6 +1176,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-24T08:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
@@ -954,6 +1190,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -965,6 +1208,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-24T14:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
@@ -978,6 +1222,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -989,6 +1240,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-25T09:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1004,6 +1256,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1015,6 +1302,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-25T12:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1030,6 +1318,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1041,6 +1364,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-25T15:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
@@ -1054,6 +1378,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1065,6 +1396,7 @@
     "competition": "NODWIN Clutch Series #13",
     "starts_at": "2026-10-25T18:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1080,6 +1412,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1091,19 +1458,54 @@
     "competition": "DFRAG Invitational 2026",
     "starts_at": "2026-10-26T03:00:00Z",
     "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
+    "feed": "complete list",
+    "method": "model",
+    "source": "Own network model (bo3.gg results graph)",
+    "source_url": "https://bo3.gg/matches",
     "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
+    "probabilities": [
+     0.44851883439263457,
+     0.5514811656073655
     ],
+    "pick": "Off Chops",
+    "issues": [],
     "money_backed": false,
-    "limitations": []
+    "limitations": [],
+    "featured_blank": true,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "unresolved"
+     }
+    ]
    },
    {
     "id": "1082859",
@@ -1114,6 +1516,7 @@
     "competition": "DFRAG Invitational 2026",
     "starts_at": "2026-10-26T03:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "bookmaker",
     "source": "Thunderpick",
     "source_url": "https://thunderpick.io/api/matches",
@@ -1127,6 +1530,21 @@
     "money_backed": true,
     "limitations": [
      "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1138,6 +1556,7 @@
     "competition": "DFRAG Invitational 2026",
     "starts_at": "2026-10-27T03:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "bookmaker",
     "source": "Thunderpick",
     "source_url": "https://thunderpick.io/api/matches",
@@ -1151,6 +1570,21 @@
     "money_backed": true,
     "limitations": [
      "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1162,6 +1596,7 @@
     "competition": "DFRAG Invitational 2026",
     "starts_at": "2026-10-27T03:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1177,6 +1612,41 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1188,6 +1658,7 @@
     "competition": "Tesla Cup 2026",
     "starts_at": "2026-10-27T08:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
@@ -1201,6 +1672,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1212,6 +1690,7 @@
     "competition": "Tesla Cup 2026",
     "starts_at": "2026-10-27T11:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
@@ -1225,6 +1704,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1236,6 +1722,7 @@
     "competition": "Tesla Cup 2026",
     "starts_at": "2026-10-27T17:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
@@ -1249,6 +1736,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1260,6 +1754,7 @@
     "competition": "Tesla Cup 2026",
     "starts_at": "2026-10-27T20:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "market",
     "source": "Polymarket",
     "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
@@ -1273,6 +1768,13 @@
     "money_backed": true,
     "limitations": [
      "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "resolved"
+     }
     ]
    },
    {
@@ -1284,19 +1786,54 @@
     "competition": "Moscow Cyber Games 2026",
     "starts_at": "2026-10-31T09:00:00Z",
     "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
+    "feed": "complete list",
+    "method": "model",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
     "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
+    "probabilities": [
+     0.94052062,
+     0.05947938
     ],
+    "pick": "HOTU",
+    "issues": [],
     "money_backed": false,
-    "limitations": []
+    "limitations": [],
+    "featured_blank": true,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "unresolved"
+     }
+    ]
    },
    {
     "id": "1082793",
@@ -1307,6 +1844,7 @@
     "competition": "Moscow Cyber Games 2026",
     "starts_at": "2026-10-31T13:00:00Z",
     "availability": "open",
+    "feed": "featured",
     "method": "model",
     "source": "Valve official standings",
     "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1322,109 +1860,49 @@
      "Research model, not observed betting odds or a verified true win probability.",
      "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
      "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+    ],
+    "featured_blank": false,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "resolved"
+     }
     ]
    }
   ],
-  "problems": [
-   {
-    "id": "1082926",
-    "teams": [
-     "Isurus",
-     "Hacha"
-    ],
-    "competition": "CCT South America 2026 Series #7",
-    "starts_at": "2026-10-23T13:00:00Z",
-    "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
-    "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
-    ],
-    "money_backed": false,
-    "limitations": []
-   },
-   {
-    "id": "1079657",
-    "teams": [
-     "BakS",
-     "BRUTE"
-    ],
-    "competition": "CCT Europe 2026 Series #11",
-    "starts_at": "2026-10-23T17:00:00Z",
-    "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
-    "hotspawn_url": "https://www.hotspawn.com/matches/brute-vs-baks-cct-europe-2026-series-11-1079657",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
-    ],
-    "money_backed": false,
-    "limitations": []
-   },
-   {
-    "id": "1082858",
-    "teams": [
-     "Ground Zero",
-     "Off Chops"
-    ],
-    "competition": "DFRAG Invitational 2026",
-    "starts_at": "2026-10-26T03:00:00Z",
-    "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
-    "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
-    ],
-    "money_backed": false,
-    "limitations": []
-   },
-   {
-    "id": "1082792",
-    "teams": [
-     "HOTU",
-     "The Huns"
-    ],
-    "competition": "Moscow Cyber Games 2026",
-    "starts_at": "2026-10-31T09:00:00Z",
-    "availability": "open",
-    "method": null,
-    "source": null,
-    "source_url": null,
-    "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-    "probabilities": null,
-    "pick": null,
-    "issues": [
-     "no two-value probability pair",
-     "no directional pick",
-     "method None is neither money nor model"
-    ],
-    "money_backed": false,
-    "limitations": []
-   }
-  ]
+  "problems": []
  },
  "model_only_ids": [
   "1081605",
-  "1082926",
   "1082980",
-  "1079657",
   "1082996",
   "1079198",
   "1079200",
@@ -1439,10 +1917,10 @@
    "status": 403,
    "bytes": 5626,
    "error": null,
-   "observed_at": "2026-10-23T09:46:43Z",
+   "observed_at": "2026-10-23T09:51:40Z",
    "challenge": "just a moment",
    "surface": "HLTV matches (official)",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [
     "Color"
    ],
@@ -1455,10 +1933,10 @@
    "status": 200,
    "bytes": 16,
    "error": null,
-   "observed_at": "2026-10-23T09:46:43Z",
+   "observed_at": "2026-10-23T09:51:40Z",
    "challenge": null,
    "surface": "Kalshi esports series",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1467,20 +1945,19 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/markets?status=open&limit=1000",
    "status": 200,
-   "bytes": 5267066,
+   "bytes": 4990644,
    "error": null,
-   "observed_at": "2026-10-23T09:46:43Z",
+   "observed_at": "2026-10-23T09:51:40Z",
    "challenge": null,
    "surface": "Kalshi open CS2 markets",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [
     "1WIN",
     "Color",
-    "Hacha",
     "LPH"
    ],
-   "hit_count": 4,
-   "verbatim_snippet": "d_time\":\"2026-10-23T09:46:37.52044Z\",\"custom_strike\":{\"Associated Events\":\"KXATPCHALLENGERMATCH-26OCT23TRUDOD,KXATPMATCH-26OCT23MEDATM,KXDOTA2GAME-26OCT230400OG1WIN,KXITFWMATCH-26OCT23PAPMAZ,KXWTAMATCH-26OCT23JOVSHN\",\"Associated Market Sides\":\"yes,yes,yes,yes,yes\",\"Associated Markets\":\"KXATPCHALLENGERMATCH-26OCT23TRUDOD-TRU,KXATPMATCH-26OCT23MEDATM-MED,KXDOTA2GAME-26OCT230400OG1WIN-OG,KXITFWMATCH-",
+   "hit_count": 3,
+   "verbatim_snippet": "me\":\"2026-10-23T09:51:06.280903Z\",\"custom_strike\":{\"Associated Events\":\"KXDOTA2GAME-26OCT230700GLLIQUID,KXDOTA2GAME-26OCT231300LEGPARI,KXDOTA2GAME-26OCT240400GL1WIN,KXDOTA2GAME-26OCT240700OGTY,KXDOTA2GAME-26OCT241000BBTS,KXDOTA2GAME-26OCT250400OGLIQUID\",\"Associated Market Sides\":\"yes,yes,yes,yes,yes,yes\",\"Associated Markets\":\"KXDOTA2GAME-26OCT230700GLLIQUID-LIQUID,KXDOTA2GAME-26OCT231300LEGPARI-PA",
    "note": "verbatim evidence only; no price is parsed or converted into a probability"
   },
   {
@@ -1488,10 +1965,10 @@
    "status": 403,
    "bytes": 447,
    "error": null,
-   "observed_at": "2026-10-23T09:46:43Z",
+   "observed_at": "2026-10-23T09:51:40Z",
    "challenge": "access denied",
    "surface": "DraftKings CS2 league feed",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1502,10 +1979,10 @@
    "status": 404,
    "bytes": 14,
    "error": null,
-   "observed_at": "2026-10-23T09:46:43Z",
+   "observed_at": "2026-10-23T09:51:40Z",
    "challenge": null,
    "surface": "FanDuel esports content page",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1514,12 +1991,12 @@
   {
    "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=14&count=100&lng=en&mode=4&country=1&partner=51&getEmpty=true",
    "status": 203,
-   "bytes": 2621,
+   "bytes": 2619,
    "error": null,
-   "observed_at": "2026-10-23T09:46:44Z",
+   "observed_at": "2026-10-23T09:51:41Z",
    "challenge": "challenge-platform",
    "surface": "1xBet CS2 line feed",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1530,10 +2007,10 @@
    "status": 403,
    "bytes": 48,
    "error": null,
-   "observed_at": "2026-10-23T09:46:44Z",
+   "observed_at": "2026-10-23T09:51:41Z",
    "challenge": null,
    "surface": "SofaScore esports schedule (identity only)",
-   "team_names_probed": 21,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
