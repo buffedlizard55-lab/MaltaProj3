@@ -207,8 +207,12 @@ def hotspawn(client: Client):
             if any(not record['ids'] for _, record in read):
                 raise SourceError('Official Hotspawn lobby hydration returned no CS2 fixtures; refusing an empty inventory claim')
             same_ids = all(read[0][1]['ids'] == record['ids'] for _, record in read[1:])
-            same_facts = all(facts(read[0][1]['rows']) == facts(record['rows']) for _, record in read[1:])
-            if same_ids and same_facts:
+            fingerprints = [facts(record['rows']) for _, record in read]
+            same_facts = all(fingerprints[0] == current for current in fingerprints[1:])
+            changed_links = [fixture_id for fixture_id in read[0][1]['ids']
+                             if len({record['links'][fixture_id] for _, record in read
+                                     if isinstance(record['links'].get(fixture_id), str)}) > 1]
+            if same_ids and same_facts and not changed_links:
                 # Prefer the CS2-specific page when both agree. The body is
                 # still the exact public /api/v1/fixtures payload, not the
                 # visible card subset and never the crowd percentages.
@@ -229,9 +233,12 @@ def hotspawn(client: Client):
             if attempt == 0:
                 time.sleep(5)
                 continue
+            if same_ids and same_facts:
+                raise SourceError('Official Hotspawn lobby source links disagree while the direct fixture API is unavailable '
+                                  f'(fixture IDs {sorted(changed_links)[:12]}); refusing to select an arbitrary match permalink') from api_error
             if same_ids:
-                changed = [fixture_id for fixture_id in read[0][1]['ids']
-                           if len({facts(record['rows'])[fixture_id] for _, record in read}) > 1]
+                changed = [fixture_id for fixture_id in fingerprints[0]
+                           if any(current[fixture_id] != fingerprints[0][fixture_id] for current in fingerprints[1:])]
                 raise SourceError('Official Hotspawn lobby fixture facts disagree while the direct fixture API is unavailable '
                                   f'(fixture IDs {sorted(changed)[:12]}); refusing to select arbitrary teams, times or formats') from api_error
             lobby_ids = lobby['ids'] or set()

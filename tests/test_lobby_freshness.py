@@ -261,6 +261,24 @@ class LobbyOnlyRecovery(unittest.TestCase):
                 self.assertIn('facts disagree', str(ctx.exception))
                 self.assertNotIn('hotspawn-fixtures', client.saved)
 
+    def test_matching_ids_cannot_hide_a_permalink_disagreement(self):
+        client = FakeClient([self.round([1])], block=('hotspawn-fixtures',))
+        original_fetch = client.fetch
+
+        def conflicting_link(url, label, **kwargs):
+            html, request = original_fetch(url, label, **kwargs)
+            if label == 'hotspawn-cs2':
+                html = html.replace('https://www.hotspawn.com/matches/m-1',
+                                    'https://www.hotspawn.com/matches/different-1')
+            return html, request
+
+        client.fetch = conflicting_link
+        with mock.patch.object(sources.time, 'sleep'):
+            with self.assertRaises(SourceError) as ctx:
+                hotspawn(client)
+        self.assertIn('source links disagree', str(ctx.exception))
+        self.assertNotIn('hotspawn-fixtures', client.saved)
+
 
 class DisagreementText(unittest.TestCase):
     def test_empty_when_everything_agrees(self):
