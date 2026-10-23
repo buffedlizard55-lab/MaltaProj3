@@ -32,6 +32,14 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory (restored before commit)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published research ladder (restored before commit)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
       - name: Research picks for unresolved fixtures (HLTV first, then esportsbooks)
         run: python -m scripts.1531ecf1_gap_research --live
       - name: Restore every tracked data file so only the research report is committed
