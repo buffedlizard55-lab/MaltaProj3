@@ -1,4 +1,18 @@
-# Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
+# Current session: arena-2016c841 — fresh HLTV-first + esportsbook sweep of every no-external-line fixture, executive-summary unresolved section verification, PR + merge
+
+Claimed **2026-10-23T09:55Z** on Arena's fixed branch `arena/2016c841-maltaproj3`, branched from `main` at `d120d2f`. Board read first (65 prior session blocks); open PR #214 (arena-3149e7ae board close-out, no file overlap) and all remaining open PRs are stale heads or unrelated scopes. Stale `in progress` rows older than 60 minutes without recent commits (9fd5fbf1 05:00Z, e7d7a410, 17d77cb3, fd99abd9, 3016b0c6, 69438ad1, f60683a4, ca4d2a02, 4c972a51, 15fc6bca, 416d93ee, 1bc31e24 and older) were noted; none of the files claimed below are touched by any session with activity in the last hour.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S2016-1 Fresh dated line-source sweep (HLTV first, then esportsbooks/exchanges) for every active fixture the ladder resolves only with a research/network model or leaves unresolved, plus the live-lobby coverage-gap fixtures; verbatim statuses, exact-name + 60 s start binding, two-sided price or explicit "no price reachable" verdict with source links. **No probability, pick or alias is ever hand-filled** | in progress | arena-2016c841 | new `data/research/2016c841/**`, new `scripts/2016c841_research.py` (read-only probe), session-only `.github/workflows/2016c841-research.yml`, new `tests/test_2016c841_sweep.py`, this section |
+| S2016-2 Executive summary: verify the separate "Unresolved picks & limitations" presence (counts sentence, no-line register, live-coverage-gaps) is rendered with per-fixture limitations and internal links on the current snapshot; fix only if an actual defect is found; confirm phone readability at 320/390 px from the built HTML + CI browser suite | in progress | arena-2016c841 | this section; `scripts/build.py` summary register only on a proven defect; `tests/` |
+| S2016-3 Integration: rebuild, row-source/link audits, targeted tests, PR to `main`, merge without waiting, confirm GitHub Pages serves the fresh snapshot, record the run ids here | in progress | arena-2016c841 | `COORDINATION.md`, PR |
+
+Current public snapshot read **2026-10-23T09:44Z**: `data/latest.json` generated `2026-10-23T09:23:57Z` (92 inventory, 30 upcoming) and `data/origination.json` `2026-10-23T09:24:05Z` — 30/30 resolved: 16 market, 4 bookmaker, 2 consensus, 1 relay, **8 research-model + 1 network-model picks without any external betting line**, 0 unresolved. No-line rows: **1081605** Phantom Academy–Banda chuya, **1082996** Acend–UNiTY, **1079198** Metizport–BakS, **1079200** Color–ex-Zero Tenacity, **1082858** Ground Zero–Off Chops, **1082861** Rooster–Abyssal, **1082792** HOTU–The Huns, **1082793** 5star–1WIN; live-lobby gaps (06:58Z record): **1081872** NEXVOID–Rare Atom, **1081149** FORZE Reload–LFO 10.
+
+Non-overlap pledge: no edits to `scripts/collect.py`, `scripts/originate.py` pricing rules, `scripts/root_publish.py`, `data/origination/aliases.json`, `data/latest.json`/`data/origination.json` values, `archive/`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`.
+
+# Previous session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
 
