@@ -36,7 +36,14 @@ price to re-read; that is a limitation, not a failure).
 
 Usage::
 
-    python -m scripts.3a010437_verify [--data data] [--out data/research/3a010437]
+    python -m scripts.3a010437_verify --published          # audit the deployed site
+    python -m scripts.3a010437_verify --data data          # audit a local snapshot
+
+The session that added this ran it from a read-only GitHub workflow. That
+workflow was removed before merge (the repository convention for session-only
+workflows); the module stays so any later run, on a runner with egress, can
+re-produce the same dated record. It never writes a probability, a pick or an
+alias, and `scripts.build` renders the newest record it finds.
 """
 from __future__ import annotations
 
