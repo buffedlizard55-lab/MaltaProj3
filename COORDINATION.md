@@ -18,6 +18,28 @@ Non-overlap pledge: no edit to `scripts/root_publish.py`, `tests/test_96fbe295.p
 - **Whole-repository regression state (local, offline):** `python -m unittest discover -s tests -v` → **995 tests, 1 failure**, exactly that date-bound publisher test (`/tmp/unittest-full.log`). Every other module passed, including the build replay, row-source, link and mobile-contract suites; `python -m scripts.build` → 80 rows replayed, 646-row source audit with 627 official links / 9 flagged / 10 navigation / 0 violations, 792 internal links pass.
 - **E7-3 (phone summary) findings:** the executive summary already carries a phone-first jump bar, a full "Picks at a glance" list with both probabilities, a separate `#unresolved-register`, a per-row no-betting-line register and a dedicated `unresolved/` page — verified rendered at 320–768 px by the existing Playwright suite, not modified here. Defects found: none blocking; the only stale-looking content on the deployed site is the 16-hour-old snapshot itself.
 
+# Current session: arena-52aee465 — line-by-line Hotspawn CS2 verification, HLTV-first low-tier pick & alias research, mobile summary audit & Pages integration — DONE/MERGED
+
+Claimed **2026-10-23T04:58Z** (completed **2026-10-23T06:20Z**) on Arena's fixed branch `arena/52aee465-maltaproj3`, merged to `main` via **PR #202** (`fe3f35e13e502589282bade78ff9e64718991ebf`). Both `main`'s `COORDINATION.md` and all active remote branches were checked before every push:
+- Preserved all merged sessions (`arena-38c53ece` PR #193, `arena-97d4113b` PRs #200/#201, `arena-d866c786` PR #197, `arena-308fcaad` PR #191, `arena-fd99abd9` PR #194) and maintained zero file overlap with concurrent active sessions.
+- Note on branch name: Arena binds this session to fixed branch `arena/52aee465-maltaproj3`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 52A-1 Independent line-by-line repo & live 92-record Hotspawn CS2 inventory verification (`https://play.hotspawn.com/lobby`, `/cs2-pickems`, `/api/v1/fixtures`, 4–8h refresh cadence), HLTV-first then esportsbook/betting-line research for every active fixture not resolved by featured exact-name lines, and source-linked Flagged-for-Review records | **done** — verified all 92 `scheduled` rows (`best_of: null`) and all 30 active upcoming fixtures (`2026-10-23T08:00Z`–`2026-10-31T13:00Z`); researched all 9 model-tier fixtures against HLTV, Polymarket Gamma, Bovada, Pinnacle Arcadia, Kalshi & Valve VRS (`standings_global_2026_10_05.md`); published 6 source-linked flags in `data/research/52aee465/flags.json` + 6 register items in `data/research/52aee465/repo-review.json` | arena-52aee465 | `data/research/52aee465/**`, `scripts/52aee465_audit.py` (read-only), `scripts/review_register.py`, this section of `COORDINATION.md` |
+| 52A-2 Verified competition-scoped alias additions & network-model calibration audit: audit all 30 active upcoming fixtures + PGL Masters Bucharest 2026 against HLTV, Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, bo3.gg & Valve official standings | **done** — added 13 competition-scoped aliases + extended 3 scopes in `data/origination/aliases.json` (`Sokerorg -> LFO 10`, `Quintessencia -> QUINTESSÊNCIA`, `RED Academy -> RED Canids Academy`, `FokuS Esports -> FOKUS`, `UNiTY esports -> UNiTY`, `BakS eSports -> BakS`, `FaZe Clan -> FaZe`, plus 9 `PGL Masters Bucharest 2026` Bovada/Pinnacle joins); live `Origination source audit` run `39908755980` passed (`resolved: 30/30, unresolved: 0, consensus: 3, market: 14, bookmaker: 4, model: 9, alias_joined: 3`, upgrading `1081149` `FORZE Reload vs LFO 10` to `Polymarket + Bovada` consensus `83.6% / 16.4%`) | arena-52aee465 | `data/origination/aliases.json`, `tests/test_52aee465_audit.py`, this section of `COORDINATION.md` |
+| 52A-3 Mobile/phone executive-summary & subpage findability/readability verification (`320px/390px/768px/1440px`, one-tap internal links to updated picks & unresolved/no-line limitations, both-team probabilities, obvious pick badges, strict row-source & link audits), PR to `main`, merge & live GitHub Pages confirmation | **done** — CI `Validate dashboard` run `39908755998` & `Origination source audit` run `39908755980` passed 100%; PR #202 merged to `main` as `fe3f35e`; `pages-build-deployment` run `39910276628` succeeded and `Refresh and deploy CS2 dashboard` (`pages.yml`) verified live | arena-52aee465 | `tests/test_52aee465_audit.py`, `COORDINATION.md`, PR #202 & live Pages verification |
+
+### `arena-52aee465` Results (`2026-10-23`)
+- **PR & Merge**: PR #202 (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/202`) merged to `main` at `2026-10-23T06:14:17Z` as commit `fe3f35e13e502589282bade78ff9e64718991ebf`.
+- **CI Gates Green**:
+  - `Origination source audit`: runs `39908755980` (PR) & `39908752312` (push) — **PASS** (`92` Hotspawn rows, `30/30` active CS2 fixtures resolved, `0` unresolved, `1081149` promoted from model/ranking to `Polymarket + Bovada` consensus `83.6% / 16.4%`).
+  - `Validate dashboard`: run `39908755998` — **PASS** (full `unittest` suite, `scripts.build`, `scripts.audit_rows --site site --strict` with `662` rows / `0` violations, `803` links/anchors, `89/89` Playwright browser tests across `320px`/`390px`/`768px`/`1440px` + `19/19` WCAG A/AA, `106` pick-safety assertions).
+- **Non-overlap & Integrity**: Zero edits to active sessions' files; zero Hotspawn `picked_percent` or HLTV fan votes used as probabilities; all 6 low-margin/roster-drift/stub-book irregularities published with official links on `review/` (`flagged.html`).
+
+---
+
+
 # Current session: arena-97d4113b — WCAG accessibility fix, low-tier pick origination audit, official source verification, mobile executive summary — DONE/MERGED
 
 Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3`, branched from `main` at `f474bcc`. Board read first: prior session `d866c786` merged PR #197 (`631db28`). Live lobby checked 2026-10-23: authoritative Hotspawn fixtures API provides 93 CS2 fixtures; complete researched origination resolves all active fixtures with directional picks, probabilities, or explicit unresolved documentation.
@@ -49,6 +71,8 @@ Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3
   - HLTV matches (`https://www.hltv.org/matches`) and team rankings (`https://www.hltv.org/ranking/teams`) verified.
 - **No Hallucination Contract**: Every row in the site table links to its verified official source. Blanks remain unpopulated with reason documented in `#unresolved-register`.
 - **PR & Merge Confirmation**: PR #200 (https://github.com/buffedlizard55-lab/MaltaProj3/pull/200) successfully merged into `main` as commit `b44595f` via `gh pr merge 200 --merge`. Triggered GitHub Actions Pages workflow run `39906078427` (https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906078427).
+
+---
 
 # Current session: arena-d866c786 — full coverage, picks for every match, mobile-first executive summary, reverse-engineered Hotspawn — DONE/MERGED
 
@@ -123,6 +147,8 @@ Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3
 | FD99-3 Line-by-line verification, row-source audit, link audit, mobile a11y, rebuild, PR to main + merge + Pages confirm | in progress | arena-fd99abd9 | `data/research/fd99abd9/`, this section, PR |
 
 Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.
+
+---
 
 # Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
