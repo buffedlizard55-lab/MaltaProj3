@@ -1,10 +1,9 @@
 # Fixtures without a betting line — dated HLTV/esportsbook research (f8736556)
 
-Observed 2026-10-23T10:55:02Z in github-actions-runner. This record covers only 8 published fixture(s) that did not already carry an external money line. HLTV was probed first for identity/context, then esportsbook and aggregator surfaces. A reachable page, a team mention or a fan vote is not a price, and nothing here changes a published probability or pick.
+Observed 2026-10-23T12:07:06Z in github-actions-runner. This record covers only 7 published fixture(s) that did not already carry an external money line. HLTV was probed first for identity/context, then esportsbook and aggregator surfaces. A reachable page, a team mention or a fan vote is not a price, and nothing here changes a published probability or pick.
 
 | Fixture | Starts (UTC) | Current basis | bo3.gg bound | Two-sided relay coefficients | Pinnacle matchup | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |
-| Phantom Academy vs Banda chuya (CCT Europe 2026 Challengers #8) | 2026-10-23T11:00:00Z | Valve-rating research estimate | — | no | no | No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands |
 | Acend vs UNiTY (NODWIN Clutch Series #13) | 2026-10-25T09:00:00Z | Valve-rating research estimate | https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026 | no | no | No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands |
 | Metizport vs BakS (NODWIN Clutch Series #13) | 2026-10-25T12:00:00Z | Valve-rating research estimate | https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026 | no | no | No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands |
 | Color vs ex-Zero Tenacity (NODWIN Clutch Series #13) | 2026-10-25T18:00:00Z | Valve-rating research estimate | https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026 | no | no | No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands |
@@ -26,7 +25,7 @@ Observed 2026-10-23T10:55:02Z in github-actions-runner. This record covers only 
 | 1xBet CS2 | https://1xbet.com/en/line/counter-strike-2 | 203 | — | challenge-platform |
 | Marathonbet CS2 | https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/ | 403 | — | challenge-platform, attention required, captcha |
 | Betway esports | https://www.betway.com/en/sports/esports/counter-strike-2 | 404 | Color | — |
-| DraftKings CS2 | https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 | 404 | Color | — |
+| DraftKings CS2 | https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 | 200 | Color | — |
 | OddsPortal CS2 | https://www.oddsportal.com/esports/counter-strike/ | 200 | Color | captcha |
 | EGamersWorld CS2 matches | https://egamersworld.com/counterstrike/matches | 403 | — | challenge-platform, attention required, captcha |
 | Pinnacle CS2 page | https://www.pinnacle.com/en/esports/counter-strike-2 | 404 | — | — |
@@ -41,7 +40,7 @@ Observed 2026-10-23T10:55:02Z in github-actions-runner. This record covers only 
 | bo3.gg matches | https://bo3.gg/matches | 200 | Color | captcha |
 | EGamersWorld CS2 odds | https://egamersworld.com/counter-strike/betting | 403 | — | challenge-platform, attention required, captcha |
 
-Pinnacle guest API: 22411 esports matchups observed; 0 target matchup listing(s). No fetch error recorded.
+Pinnacle guest API: 22831 esports matchups observed; 0 target matchup listing(s). No fetch error recorded.
 
 **Verified two-sided relay leads requiring first-party replay: 0.**
 

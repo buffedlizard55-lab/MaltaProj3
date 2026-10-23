@@ -1,51 +1,17 @@
 {
   "schema_version": 1,
   "session": "arena-f8736556",
-  "observed_at": "2026-10-23T10:55:02Z",
+  "observed_at": "2026-10-23T12:07:06Z",
   "environment": "github-actions-runner",
   "policy": "Read-only. Plain public URLs are authoritative for parity. Hotspawn is fixture identity only. HLTV is identity/ranking context, not a price. No probability, pick, alias or 50/50 default is created by this audit.",
   "target_source": {
     "source_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
     "source": "plain published complete-picks snapshot",
-    "snapshot_generated_at": "2026-10-23T10:43:30Z",
-    "targets": 8,
-    "active": 30
+    "snapshot_generated_at": "2026-10-23T11:18:17Z",
+    "targets": 7,
+    "active": 27
   },
   "targets": [
-    {
-      "id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "current_probabilities": [
-        0.47482128,
-        0.52517872
-      ],
-      "current_pick_index": 1,
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
-      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Research model, not observed betting odds or a verified true win probability.",
-        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-      ],
-      "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-      ]
-    },
     {
       "id": "1082996",
       "teams": [
@@ -331,7 +297,7 @@
       "url": "https://betboom.ru/sport/cs2",
       "status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1801,
+      "bytes": 1800,
       "challenge_markers": [
         "captcha"
       ],
@@ -370,7 +336,7 @@
       "url": "https://1xbet.com/en/line/counter-strike-2",
       "status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2621,
+      "bytes": 2620,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -381,7 +347,7 @@
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
       "status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5489,
+      "bytes": 5488,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -403,9 +369,9 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "status": 404,
-      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257263,
+      "status": 200,
+      "final_url": "https://sportsbook.draftkings.com/sports/esports",
+      "bytes": 1685430,
       "challenge_markers": [],
       "teams_found": [
         "Color"
@@ -416,7 +382,7 @@
       "url": "https://www.oddsportal.com/esports/counter-strike/",
       "status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 338117,
+      "bytes": 335225,
       "challenge_markers": [
         "captcha"
       ],
@@ -429,7 +395,7 @@
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5776,
+      "bytes": 5775,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -495,7 +461,7 @@
       "url": "https://oddspedia.com/esports/counter-strike",
       "status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike",
-      "bytes": 340006,
+      "bytes": 340005,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -509,7 +475,7 @@
       "url": "https://22bet.com/line/counter-strike-2",
       "status": 203,
       "final_url": "https://22bet.com/line/counter-strike-2",
-      "bytes": 27146,
+      "bytes": 27145,
       "challenge_markers": [
         "captcha",
         "access denied"
@@ -536,7 +502,7 @@
       "url": "https://www.hltv.org/search?query=counter-strike",
       "status": 403,
       "final_url": "https://www.hltv.org/search?query=counter-strike",
-      "bytes": 5743,
+      "bytes": 5722,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
@@ -564,7 +530,7 @@
       "url": "https://egamersworld.com/counter-strike/betting",
       "status": 403,
       "final_url": "https://egamersworld.com/counter-strike/betting",
-      "bytes": 5776,
+      "bytes": 5775,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -575,34 +541,10 @@
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 22411,
+    "matchups_seen": 22831,
     "fixture_hits": []
   },
   "bo3": [
-    {
-      "id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "bound": null,
-      "bet": null,
-      "lookup": [
-        {
-          "name": "Phantom Academy",
-          "matches": 1,
-          "exact": 1,
-          "id": 22009,
-          "slug": "phantom-academy",
-          "rank": 173
-        },
-        {
-          "name": "Banda chuya",
-          "matches": 0,
-          "exact": 0
-        }
-      ]
-    },
     {
       "id": "1082996",
       "teams": [
@@ -808,47 +750,6 @@
     }
   ],
   "per_fixture": [
-    {
-      "id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "current_probabilities": [
-        0.47482128,
-        0.52517872
-      ],
-      "current_pick_index": 1,
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
-      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Research model, not observed betting odds or a verified true win probability.",
-        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-      ],
-      "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-      ],
-      "bo3_bound_url": null,
-      "bo3_bet_two_sided": false,
-      "bo3_bet": null,
-      "pinnacle_matchup": null,
-      "pages_listing_a_team": [],
-      "money_line_lead": false,
-      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
-    },
     {
       "id": "1082996",
       "teams": [

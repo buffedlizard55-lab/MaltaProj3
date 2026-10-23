@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-23T10:43:14Z",
-  "last_attempted_at": "2026-10-23T10:43:14Z",
-  "analysis_as_of": "2026-10-23T10:14:05Z",
-  "inventory_observed_at": "2026-10-23T10:14:05Z",
-  "coverage_complete": false,
+  "generated_at": "2026-10-23T11:18:01Z",
+  "last_attempted_at": "2026-10-23T11:17:42Z",
+  "analysis_as_of": "2026-10-23T11:17:42Z",
+  "inventory_observed_at": "2026-10-23T11:17:42Z",
+  "coverage_complete": true,
   "inventory_crosscheck": "complete",
-  "run_status": "degraded",
+  "run_status": "partial-picks",
   "refresh_interval_hours": 4,
   "stale_after_hours": 8,
   "counts": {
-    "inventory": 92,
-    "upcoming": 30,
-    "archived": 62,
+    "inventory": 90,
+    "upcoming": 27,
+    "archived": 63,
     "unknown_schedule": 0,
-    "market": 16,
+    "market": 14,
     "bookmaker": 3,
-    "model": 7,
+    "model": 6,
     "unresolved": 4,
-    "picks": 26,
+    "picks": 23,
     "no_edge": 0
   },
   "matches": [
@@ -45,7 +45,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -81,7 +81,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -117,7 +117,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -153,7 +153,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -189,7 +189,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -225,7 +225,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -261,7 +261,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -297,7 +297,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -333,7 +333,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -369,7 +369,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -405,7 +405,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -441,7 +441,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -477,7 +477,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -513,7 +513,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -549,7 +549,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -585,7 +585,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -621,7 +621,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -657,7 +657,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -693,7 +693,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -729,7 +729,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -765,7 +765,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -801,7 +801,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -837,7 +837,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -873,7 +873,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -909,7 +909,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -945,7 +945,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -981,7 +981,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1017,7 +1017,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1053,7 +1053,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1089,7 +1089,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1125,7 +1125,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1161,7 +1161,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1197,7 +1197,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1233,7 +1233,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1269,7 +1269,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1305,7 +1305,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1341,7 +1341,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1377,7 +1377,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1413,7 +1413,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1449,7 +1449,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1485,7 +1485,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1521,7 +1521,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1557,7 +1557,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1593,7 +1593,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1629,7 +1629,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1665,7 +1665,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1701,7 +1701,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1737,7 +1737,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1773,7 +1773,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1809,7 +1809,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1845,7 +1845,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1881,7 +1881,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1917,7 +1917,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1953,7 +1953,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -1989,7 +1989,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2025,7 +2025,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2061,7 +2061,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2097,7 +2097,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2133,7 +2133,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2169,7 +2169,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2205,7 +2205,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2241,7 +2241,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "past",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2251,174 +2251,6 @@
       "research": [],
       "limitations": [
         "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1079655",
-      "teams": [
-        {
-          "id": "192865",
-          "name": "Nuclear TigeRES"
-        },
-        {
-          "id": "64509",
-          "name": "ILLYRIANS"
-        }
-      ],
-      "competition": "CCT Europe 2026 Series #11",
-      "competition_id": "35813",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "locks_at": "2026-10-23T10:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "b",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
-      "source_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079655",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": {
-        "method": "market",
-        "label": "Market-implied estimate",
-        "probabilities": [
-          0.85,
-          0.15
-        ],
-        "fair_decimal": [
-          1.176,
-          6.667
-        ],
-        "observed_at": "2026-10-23T10:14:09Z",
-        "source": "Polymarket",
-        "source_url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
-        "source_api": "https://gamma-api.polymarket.com/events/1233761",
-        "market_id": "6036897",
-        "event_id": "1233761",
-        "source_outcomes": [
-          "Nuclear TigeRES",
-          "ILLYRIANS"
-        ],
-        "quotes": [
-          {
-            "bid": 0.84,
-            "ask": 0.86,
-            "spread": 0.02,
-            "midpoint": 0.85,
-            "timestamp": "2026-10-23T10:14:08Z"
-          },
-          {
-            "bid": 0.14,
-            "ask": 0.16,
-            "spread": 0.02,
-            "midpoint": 0.15000000000000002,
-            "timestamp": "2026-10-23T10:14:08Z"
-          }
-        ],
-        "volume": 427.63568399999997,
-        "liquidity": 1963.2544,
-        "limitations": [
-          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-        ]
-      },
-      "pick_index": 0,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
-          "status": "resolved",
-          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
-        }
-      ],
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
-    {
-      "id": "1081148",
-      "teams": [
-        {
-          "id": "250180",
-          "name": "Inner Circle Academy"
-        },
-        {
-          "id": "32869",
-          "name": "Spirit Academy"
-        }
-      ],
-      "competition": "CCT Europe 2026 Series #12",
-      "competition_id": "35814",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "locks_at": "2026-10-23T10:54:00Z",
-      "source_status": "scheduled",
-      "source_end_at": null,
-      "best_of": null,
-      "series_format": null,
-      "tier": "b",
-      "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
-      "source_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081148",
-      "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": {
-        "method": "market",
-        "label": "Market-implied estimate",
-        "probabilities": [
-          0.445,
-          0.555
-        ],
-        "fair_decimal": [
-          2.247,
-          1.802
-        ],
-        "observed_at": "2026-10-23T10:14:10Z",
-        "source": "Polymarket",
-        "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
-        "source_api": "https://gamma-api.polymarket.com/events/1232959",
-        "market_id": "6033288",
-        "event_id": "1232959",
-        "source_outcomes": [
-          "Inner Circle Academy",
-          "Spirit Academy"
-        ],
-        "quotes": [
-          {
-            "bid": 0.44,
-            "ask": 0.45,
-            "spread": 0.01,
-            "midpoint": 0.445,
-            "timestamp": "2026-10-23T10:14:08Z"
-          },
-          {
-            "bid": 0.55,
-            "ask": 0.56,
-            "spread": 0.01,
-            "midpoint": 0.555,
-            "timestamp": "2026-10-23T10:14:08Z"
-          }
-        ],
-        "volume": 16484.025959000002,
-        "liquidity": 35466.9353,
-        "limitations": [
-          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-        ]
-      },
-      "pick_index": 1,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
-          "status": "resolved",
-          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
-        }
-      ],
-      "limitations": [
         "Hotspawn best-of format is unverified; left blank."
       ]
     },
@@ -2444,124 +2276,17 @@
       "series_format": null,
       "tier": "c",
       "lock_offset_sec": 360,
-      "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
-      "source_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
-      "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081605",
+      "availability": "past",
+      "observed_at": "2026-10-23T11:17:42Z",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "lobby_url": "https://play.hotspawn.com/cs2-pickems",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "evidence": "data/evidence/hotspawn-fixtures.json",
-      "analysis": {
-        "method": "model",
-        "label": "Valve-rating research estimate",
-        "probabilities": [
-          0.47482128,
-          0.52517872
-        ],
-        "fair_decimal": [
-          2.106,
-          1.904
-        ],
-        "observed_at": "2026-10-23T10:14:24Z",
-        "source": "Valve official standings",
-        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "inputs": [
-          {
-            "standing": 172,
-            "points": 783,
-            "name": "Phantom Academy",
-            "roster": [
-              "Ayteel",
-              "Brain47",
-              "Dr3nquu",
-              "kalyambys",
-              "stefienson"
-            ],
-            "snapshot_date": "2026-10-05",
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0172--phantom_academy--ayteel-brain47-dr3nquu-kalyambys-stefienson.md"
-          },
-          {
-            "standing": 165,
-            "points": 801,
-            "name": "Banda Chuya",
-            "roster": [
-              "AdrieN",
-              "ezox",
-              "maaryy",
-              "Showk",
-              "tomiko"
-            ],
-            "snapshot_date": "2026-10-05",
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "detail_path": "details/2026_10_05/0165--banda_chuya--adrien-ezox-maaryy-showk-tomiko.md"
-          }
-        ],
-        "rd_assumption": 75,
-        "g": 0.9728209910486895,
-        "snapshot_date": "2026-10-05",
-        "formula_source": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
-        "limitations": [
-          "Research model, not observed betting odds or a verified true win probability.",
-          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-        ]
-      },
-      "pick_index": 1,
-      "research": [
-        {
-          "stage": "Primary: Polymarket",
-          "source_url": "https://polymarket.com/esports/cs2",
-          "status": "unresolved",
-          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
-        },
-        {
-          "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Original esportsbook lines",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
-          "status": "unresolved",
-          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
-        },
-        {
-          "stage": "GG.BET esportsbook",
-          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
-          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-        },
-        {
-          "stage": "Pinnacle esportsbook",
-          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
-          "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Rivalry esportsbook",
-          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
-          "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Stake esportsbook",
-          "source_url": "https://stake.com/sports/esports/counter-strike",
-          "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
-          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-        },
-        {
-          "stage": "Valve research model",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "status": "resolved",
-          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
-        }
-      ],
+      "analysis": null,
+      "pick_index": null,
+      "research": [],
       "limitations": [
+        "Past scheduled start. Source status is not a verified result; no retrospective prematch probability is manufactured.",
         "Hotspawn best-of format is unverified; left blank."
       ]
     },
@@ -2588,7 +2313,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2597,14 +2322,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.425,
-          0.575
+          0.445,
+          0.555
         ],
         "fair_decimal": [
-          2.353,
-          1.739
+          2.247,
+          1.802
         ],
-        "observed_at": "2026-10-23T10:14:11Z",
+        "observed_at": "2026-10-23T11:17:47Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1237407",
@@ -2616,22 +2341,22 @@
         ],
         "quotes": [
           {
-            "bid": 0.42,
-            "ask": 0.43,
+            "bid": 0.44,
+            "ask": 0.45,
             "spread": 0.01,
-            "midpoint": 0.425,
-            "timestamp": "2026-10-23T10:14:08Z"
+            "midpoint": 0.445,
+            "timestamp": "2026-10-23T11:17:47Z"
           },
           {
-            "bid": 0.57,
-            "ask": 0.58,
+            "bid": 0.55,
+            "ask": 0.56,
             "spread": 0.01,
-            "midpoint": 0.575,
-            "timestamp": "2026-10-23T10:14:11Z"
+            "midpoint": 0.555,
+            "timestamp": "2026-10-23T11:17:47Z"
           }
         ],
-        "volume": 78373.390311,
-        "liquidity": 56999.5023,
+        "volume": 108788.28387300001,
+        "liquidity": 61839.1327,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -2672,7 +2397,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082926",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2702,28 +2427,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2761,7 +2486,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082980",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2777,7 +2502,7 @@
           2.399,
           1.715
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -2846,28 +2571,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2904,7 +2629,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083014",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2913,14 +2638,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.56,
-          0.44
+          0.565,
+          0.435
         ],
         "fair_decimal": [
-          1.786,
-          2.273
+          1.77,
+          2.299
         ],
-        "observed_at": "2026-10-23T10:14:11Z",
+        "observed_at": "2026-10-23T11:17:47Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1237740",
@@ -2932,22 +2657,22 @@
         ],
         "quotes": [
           {
-            "bid": 0.55,
+            "bid": 0.56,
             "ask": 0.57,
-            "spread": 0.02,
-            "midpoint": 0.56,
-            "timestamp": "2026-10-23T10:13:28Z"
+            "spread": 0.01,
+            "midpoint": 0.565,
+            "timestamp": "2026-10-23T11:17:47Z"
           },
           {
             "bid": 0.43,
-            "ask": 0.45,
-            "spread": 0.02,
-            "midpoint": 0.44,
-            "timestamp": "2026-10-23T10:13:28Z"
+            "ask": 0.44,
+            "spread": 0.01,
+            "midpoint": 0.435,
+            "timestamp": "2026-10-23T11:17:47Z"
           }
         ],
-        "volume": 5180.547425999999,
-        "liquidity": 14697.147,
+        "volume": 7594.882378,
+        "liquidity": 15157.5745,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -2988,7 +2713,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082924",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -2997,14 +2722,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.64179104,
-          0.35820896
+          0.64,
+          0.36
         ],
         "fair_decimal": [
-          1.558,
-          2.792
+          1.562,
+          2.778
         ],
-        "observed_at": "2026-10-23T10:14:12Z",
+        "observed_at": "2026-10-23T11:17:48Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1233764",
@@ -3017,21 +2742,21 @@
         "quotes": [
           {
             "bid": 0.63,
-            "ask": 0.66,
-            "spread": 0.03,
-            "midpoint": 0.645,
-            "timestamp": "2026-10-23T10:14:11Z"
+            "ask": 0.65,
+            "spread": 0.02,
+            "midpoint": 0.64,
+            "timestamp": "2026-10-23T11:17:35Z"
           },
           {
             "bid": 0.35,
             "ask": 0.37,
             "spread": 0.02,
             "midpoint": 0.36,
-            "timestamp": "2026-10-23T10:14:12Z"
+            "timestamp": "2026-10-23T11:17:35Z"
           }
         ],
-        "volume": 15.0,
-        "liquidity": 8503.0062,
+        "volume": 22.702703,
+        "liquidity": 8413.7046,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3072,7 +2797,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/brute-vs-baks-cct-europe-2026-series-11-1079657",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079657",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3102,28 +2827,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -3161,7 +2886,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081150",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3177,7 +2902,7 @@
           1.515,
           2.941
         ],
-        "observed_at": "2026-10-23T10:14:12Z",
+        "observed_at": "2026-10-23T11:17:49Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-rustec-ssins-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1233765",
@@ -3193,18 +2918,18 @@
             "ask": 0.67,
             "spread": 0.02,
             "midpoint": 0.66,
-            "timestamp": "2026-10-23T10:13:39Z"
+            "timestamp": "2026-10-23T11:17:05Z"
           },
           {
             "bid": 0.33,
             "ask": 0.35,
             "spread": 0.02,
             "midpoint": 0.33999999999999997,
-            "timestamp": "2026-10-23T10:13:39Z"
+            "timestamp": "2026-10-23T11:17:05Z"
           }
         ],
-        "volume": 1452.5609299999999,
-        "liquidity": 7552.6031,
+        "volume": 1683.1643629999999,
+        "liquidity": 7544.4229,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3245,7 +2970,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082693",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3261,7 +2986,7 @@
           1.77,
           2.299
         ],
-        "observed_at": "2026-10-23T10:14:13Z",
+        "observed_at": "2026-10-23T11:17:49Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-bst-gls1-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1237874",
@@ -3277,18 +3002,18 @@
             "ask": 0.57,
             "spread": 0.01,
             "midpoint": 0.565,
-            "timestamp": "2026-10-23T10:13:33Z"
+            "timestamp": "2026-10-23T11:17:34Z"
           },
           {
             "bid": 0.43,
             "ask": 0.44,
             "spread": 0.01,
             "midpoint": 0.435,
-            "timestamp": "2026-10-23T10:13:33Z"
+            "timestamp": "2026-10-23T11:17:34Z"
           }
         ],
-        "volume": 3297.579451,
-        "liquidity": 36763.5886,
+        "volume": 5970.693837,
+        "liquidity": 36042.541,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3329,7 +3054,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082925",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3345,7 +3070,7 @@
           2.469,
           1.681
         ],
-        "observed_at": "2026-10-23T10:14:14Z",
+        "observed_at": "2026-10-23T11:17:50Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1233767",
@@ -3361,18 +3086,18 @@
             "ask": 0.41,
             "spread": 0.01,
             "midpoint": 0.405,
-            "timestamp": "2026-10-23T10:14:12Z"
+            "timestamp": "2026-10-23T11:17:48Z"
           },
           {
             "bid": 0.59,
             "ask": 0.6,
             "spread": 0.01,
             "midpoint": 0.595,
-            "timestamp": "2026-10-23T10:14:12Z"
+            "timestamp": "2026-10-23T11:17:48Z"
           }
         ],
-        "volume": 472.09539400000006,
-        "liquidity": 10425.2734,
+        "volume": 472.09539399999994,
+        "liquidity": 5753.3044,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3413,7 +3138,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083025",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3422,14 +3147,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.31,
-          0.69
+          0.305,
+          0.695
         ],
         "fair_decimal": [
-          3.226,
-          1.449
+          3.279,
+          1.439
         ],
-        "observed_at": "2026-10-23T10:14:14Z",
+        "observed_at": "2026-10-23T11:17:50Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
         "source_api": "https://gamma-api.polymarket.com/events/1237875",
@@ -3442,21 +3167,21 @@
         "quotes": [
           {
             "bid": 0.3,
-            "ask": 0.32,
-            "spread": 0.02,
-            "midpoint": 0.31,
-            "timestamp": "2026-10-23T10:14:13Z"
+            "ask": 0.31,
+            "spread": 0.01,
+            "midpoint": 0.305,
+            "timestamp": "2026-10-23T11:17:47Z"
           },
           {
-            "bid": 0.68,
+            "bid": 0.69,
             "ask": 0.7,
-            "spread": 0.02,
-            "midpoint": 0.69,
-            "timestamp": "2026-10-23T10:14:13Z"
+            "spread": 0.01,
+            "midpoint": 0.695,
+            "timestamp": "2026-10-23T11:17:47Z"
           }
         ],
-        "volume": 1611.205555,
-        "liquidity": 7613.8864,
+        "volume": 3356.733575,
+        "liquidity": 9622.5323,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3497,7 +3222,7 @@
       "tier": "c",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082923",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3513,7 +3238,7 @@
           1.406,
           3.462
         ],
-        "observed_at": "2026-10-23T10:14:22Z",
+        "observed_at": "2026-10-23T11:17:59Z",
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/api/matches",
         "quotes": [
@@ -3528,7 +3253,7 @@
               0.71111111,
               0.28888889
             ],
-            "observed_at": "2026-10-23T10:14:22Z",
+            "observed_at": "2026-10-23T11:17:59Z",
             "source_url": "https://thunderpick.io/api/matches",
             "event_id": "2868470"
           }
@@ -3585,7 +3310,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079193",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3594,14 +3319,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.765,
-          0.235
+          0.76,
+          0.24
         ],
         "fair_decimal": [
-          1.307,
-          4.255
+          1.316,
+          4.167
         ],
-        "observed_at": "2026-10-23T10:14:15Z",
+        "observed_at": "2026-10-23T11:17:51Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1237193",
@@ -3614,21 +3339,21 @@
         "quotes": [
           {
             "bid": 0.75,
-            "ask": 0.78,
-            "spread": 0.03,
-            "midpoint": 0.765,
-            "timestamp": "2026-10-23T10:13:43Z"
+            "ask": 0.77,
+            "spread": 0.02,
+            "midpoint": 0.76,
+            "timestamp": "2026-10-23T11:17:29Z"
           },
           {
-            "bid": 0.22,
+            "bid": 0.23,
             "ask": 0.25,
-            "spread": 0.03,
-            "midpoint": 0.235,
-            "timestamp": "2026-10-23T10:13:43Z"
+            "spread": 0.02,
+            "midpoint": 0.24,
+            "timestamp": "2026-10-23T11:17:29Z"
           }
         ],
-        "volume": 12.5,
-        "liquidity": 2701.0244,
+        "volume": 17.5,
+        "liquidity": 2614.1968,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3669,7 +3394,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079195",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3678,14 +3403,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.62,
-          0.38
+          0.61,
+          0.39
         ],
         "fair_decimal": [
-          1.613,
-          2.632
+          1.639,
+          2.564
         ],
-        "observed_at": "2026-10-23T10:14:15Z",
+        "observed_at": "2026-10-23T11:17:52Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1237195",
@@ -3697,22 +3422,22 @@
         ],
         "quotes": [
           {
-            "bid": 0.61,
-            "ask": 0.63,
+            "bid": 0.6,
+            "ask": 0.62,
             "spread": 0.02,
-            "midpoint": 0.62,
-            "timestamp": "2026-10-23T10:13:27Z"
+            "midpoint": 0.61,
+            "timestamp": "2026-10-23T11:17:30Z"
           },
           {
-            "bid": 0.37,
-            "ask": 0.39,
+            "bid": 0.38,
+            "ask": 0.4,
             "spread": 0.02,
-            "midpoint": 0.38,
-            "timestamp": "2026-10-23T10:13:27Z"
+            "midpoint": 0.39,
+            "timestamp": "2026-10-23T11:17:30Z"
           }
         ],
-        "volume": 7.299303,
-        "liquidity": 1814.3087,
+        "volume": 15.196605,
+        "liquidity": 2336.3531,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -3753,7 +3478,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082996",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3769,7 +3494,7 @@
           1.845,
           2.183
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -3838,28 +3563,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -3896,7 +3621,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079198",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -3912,7 +3637,7 @@
           1.252,
           4.965
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -3981,28 +3706,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -4039,7 +3764,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079199",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4048,14 +3773,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.445,
-          0.555
+          0.455,
+          0.545
         ],
         "fair_decimal": [
-          2.247,
-          1.802
+          2.198,
+          1.835
         ],
-        "observed_at": "2026-10-23T10:14:16Z",
+        "observed_at": "2026-10-23T11:17:52Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
         "source_api": "https://gamma-api.polymarket.com/events/1238706",
@@ -4067,22 +3792,22 @@
         ],
         "quotes": [
           {
-            "bid": 0.44,
-            "ask": 0.45,
+            "bid": 0.45,
+            "ask": 0.46,
             "spread": 0.01,
-            "midpoint": 0.445,
-            "timestamp": "2026-10-23T10:14:07Z"
+            "midpoint": 0.455,
+            "timestamp": "2026-10-23T11:17:25Z"
           },
           {
-            "bid": 0.55,
-            "ask": 0.56,
+            "bid": 0.54,
+            "ask": 0.55,
             "spread": 0.01,
-            "midpoint": 0.555,
-            "timestamp": "2026-10-23T10:14:07Z"
+            "midpoint": 0.545,
+            "timestamp": "2026-10-23T11:17:25Z"
           }
         ],
-        "volume": null,
-        "liquidity": 1095.6933,
+        "volume": 226.767272,
+        "liquidity": 918.845,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -4123,7 +3848,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079200",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4139,7 +3864,7 @@
           1.359,
           3.787
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -4208,28 +3933,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -4266,7 +3991,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082858",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4296,28 +4021,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -4355,7 +4080,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082859",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4371,7 +4096,7 @@
           1.737,
           2.356
         ],
-        "observed_at": "2026-10-23T10:14:22Z",
+        "observed_at": "2026-10-23T11:17:59Z",
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/api/matches",
         "quotes": [
@@ -4386,7 +4111,7 @@
               0.57559682,
               0.42440318
             ],
-            "observed_at": "2026-10-23T10:14:22Z",
+            "observed_at": "2026-10-23T11:17:59Z",
             "source_url": "https://thunderpick.io/api/matches",
             "event_id": "2870940"
           }
@@ -4443,7 +4168,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082860",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4459,7 +4184,7 @@
           1.083,
           12.988
         ],
-        "observed_at": "2026-10-23T10:14:22Z",
+        "observed_at": "2026-10-23T11:17:59Z",
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/api/matches",
         "quotes": [
@@ -4474,7 +4199,7 @@
               0.92300592,
               0.07699408
             ],
-            "observed_at": "2026-10-23T10:14:22Z",
+            "observed_at": "2026-10-23T11:17:59Z",
             "source_url": "https://thunderpick.io/api/matches",
             "event_id": "2872333"
           }
@@ -4531,7 +4256,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082861",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4547,7 +4272,7 @@
           2.094,
           1.914
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -4616,28 +4341,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -4674,7 +4399,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082897",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4690,7 +4415,7 @@
           1.613,
           2.632
         ],
-        "observed_at": "2026-10-23T10:14:19Z",
+        "observed_at": "2026-10-23T11:17:55Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231333",
@@ -4706,18 +4431,18 @@
             "ask": 0.63,
             "spread": 0.02,
             "midpoint": 0.62,
-            "timestamp": "2026-10-23T10:13:52Z"
+            "timestamp": "2026-10-23T11:16:19Z"
           },
           {
             "bid": 0.37,
             "ask": 0.39,
             "spread": 0.02,
             "midpoint": 0.38,
-            "timestamp": "2026-10-23T10:13:52Z"
+            "timestamp": "2026-10-23T11:16:19Z"
           }
         ],
-        "volume": 920.501081,
-        "liquidity": 6372.1923,
+        "volume": 2726.5010810000003,
+        "liquidity": 5278.2123,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -4758,7 +4483,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082898",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4774,7 +4499,7 @@
           2.941,
           1.515
         ],
-        "observed_at": "2026-10-23T10:14:20Z",
+        "observed_at": "2026-10-23T11:17:56Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231334",
@@ -4790,18 +4515,18 @@
             "ask": 0.37,
             "spread": 0.06,
             "midpoint": 0.33999999999999997,
-            "timestamp": "2026-10-23T10:13:02Z"
+            "timestamp": "2026-10-23T11:17:25Z"
           },
           {
             "bid": 0.63,
             "ask": 0.69,
             "spread": 0.06,
             "midpoint": 0.6599999999999999,
-            "timestamp": "2026-10-23T10:13:02Z"
+            "timestamp": "2026-10-23T11:17:25Z"
           }
         ],
         "volume": null,
-        "liquidity": 9804.506,
+        "liquidity": 9803.6261,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -4842,7 +4567,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082900",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4858,7 +4583,7 @@
           1.818,
           2.222
         ],
-        "observed_at": "2026-10-23T10:14:20Z",
+        "observed_at": "2026-10-23T11:17:56Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231335",
@@ -4874,18 +4599,18 @@
             "ask": 0.56,
             "spread": 0.02,
             "midpoint": 0.55,
-            "timestamp": "2026-10-23T10:09:25Z"
+            "timestamp": "2026-10-23T11:03:03Z"
           },
           {
             "bid": 0.44,
             "ask": 0.46,
             "spread": 0.02,
             "midpoint": 0.45,
-            "timestamp": "2026-10-23T10:09:25Z"
+            "timestamp": "2026-10-23T11:03:03Z"
           }
         ],
         "volume": 7.25,
-        "liquidity": 8373.7183,
+        "liquidity": 8712.974,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -4926,7 +4651,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082901",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -4942,7 +4667,7 @@
           2.151,
           1.869
         ],
-        "observed_at": "2026-10-23T10:14:21Z",
+        "observed_at": "2026-10-23T11:17:57Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1233851",
@@ -4958,18 +4683,18 @@
             "ask": 0.48,
             "spread": 0.03,
             "midpoint": 0.46499999999999997,
-            "timestamp": "2026-10-23T10:01:27Z"
+            "timestamp": "2026-10-23T11:13:41Z"
           },
           {
             "bid": 0.52,
             "ask": 0.55,
             "spread": 0.03,
             "midpoint": 0.535,
-            "timestamp": "2026-10-23T10:01:27Z"
+            "timestamp": "2026-10-23T11:13:41Z"
           }
         ],
         "volume": 302.14720600000004,
-        "liquidity": 8517.2605,
+        "liquidity": 8888.2505,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ]
@@ -5010,7 +4735,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082792",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -5040,28 +4765,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -5099,7 +4824,7 @@
       "tier": "b",
       "lock_offset_sec": 360,
       "availability": "open",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "source_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082793",
       "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -5115,7 +4840,7 @@
           5.613,
           1.217
         ],
-        "observed_at": "2026-10-23T10:14:24Z",
+        "observed_at": "2026-10-23T11:18:00Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -5184,28 +4909,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:17:59Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-23T10:14:23Z",
+          "observed_at": "2026-10-23T11:18:00Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -5222,18 +4947,95 @@
   ],
   "sources": [
     {
+      "status": "ok",
       "name": "Hotspawn match inventory",
       "url": "https://play.hotspawn.com/lobby",
+      "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "observed_at": "2026-10-23T11:17:42Z",
+      "records": 90,
+      "visible_cards": 0,
+      "crosscheck": "complete",
+      "verified_pages": [
+        "lobby",
+        "cs2"
+      ],
+      "unavailable": [],
+      "detail": "All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.",
+      "evidence": "data/evidence/hotspawn-context.json"
+    },
+    {
+      "status": "ok",
+      "name": "Polymarket CS2",
+      "url": "https://polymarket.com/esports/cs2",
+      "observed_at": "2026-10-23T11:17:46Z",
+      "records": 509,
+      "discovery_complete": true,
+      "pages": 5,
+      "detail": "Public directory plus paginated official CS2-tag events used for discovery. Every selected fixture is rechecked against its original Gamma event and both order books; directory/outcome prices are never probability inputs."
+    },
+    {
+      "status": "ok",
+      "name": "HLTV fallback research",
+      "url": "https://www.hltv.org/matches",
+      "observed_at": "2026-10-23T11:17:57Z",
+      "records": 55,
+      "detail": "Split-anchor match cards parsed and saved for replay. Exact fixture identities and independently published series formats only. Fan votes are not probabilities; no bookmaker line is accepted without original-source prices."
+    },
+    {
+      "status": "ok",
+      "name": "Thunderpick esportsbook",
+      "url": "https://thunderpick.io/esports/counter-strike",
+      "api_url": "https://thunderpick.io/api/matches",
+      "observed_at": "2026-10-23T11:17:59Z",
+      "records": 63,
+      "detail": "Only active prematch CS2 match-winner markets with exact team/time alignment and two decimal odds are eligible."
+    },
+    {
+      "name": "GG.BET esportsbook",
+      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "status": "unavailable",
-      "observed_at": "2026-10-23T10:43:15Z",
+      "observed_at": "2026-10-23T11:17:59Z",
       "records": null,
-      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+      "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+    },
+    {
+      "status": "unavailable",
+      "name": "Pinnacle esportsbook",
+      "url": "https://www.pinnacle.com/en/esports-hub/cs2",
+      "observed_at": "2026-10-23T11:17:59Z",
+      "records": 0,
+      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+    },
+    {
+      "status": "unavailable",
+      "name": "Rivalry esportsbook",
+      "url": "https://www.rivalry.com/esports/counter-strike-betting",
+      "observed_at": "2026-10-23T11:18:00Z",
+      "records": 0,
+      "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+    },
+    {
+      "name": "Stake esportsbook",
+      "url": "https://stake.com/sports/esports/counter-strike",
+      "status": "unavailable",
+      "observed_at": "2026-10-23T11:18:00Z",
+      "records": null,
+      "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+    },
+    {
+      "status": "ok",
+      "name": "Valve official rating fallback",
+      "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-23T11:18:00Z",
+      "records": 380,
+      "snapshot_date": "2026-10-05",
+      "detail": "Used only after primary markets, HLTV research and book checks fail to resolve a match. Duplicate team names, incomplete rosters or snapshots older than 35 days are rejected. Probabilities are labeled uncalibrated research estimates."
     },
     {
       "name": "GitHub Pages publication",
       "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
       "status": "limited",
-      "observed_at": "2026-10-23T10:45:12Z",
+      "observed_at": "2026-10-23T11:19:44Z",
       "records": null,
       "detail": "Pages remains in legacy build mode after the configuration attempt (HTTP 403; error: Resource not accessible by integration). The platform still builds the main branch on pushes. This workflow waits for that legacy build to finish, then publishes the verified current artifact last. The old six-hour refresh writer is retired; four-hour refreshes need no user action. Repository-mode restriction is not a source-data verification failure.",
       "evidence": "data/evidence/pages-configuration.json"
@@ -5243,7 +5045,7 @@
     {
       "id": "past-scheduled",
       "title": "Past-start records still marked scheduled",
-      "detail": "62 source records have past scheduled starts but are still labeled scheduled. They are retained in the source archive, not presented as playable matches or verified results.",
+      "detail": "63 source records have past scheduled starts but are still labeled scheduled. They are retained in the source archive, not presented as playable matches or verified results.",
       "source_urls": [
         "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "https://play.hotspawn.com/lobby"
@@ -5310,14 +5112,15 @@
         "1055478",
         "1081105",
         "1079621",
-        "1079654"
+        "1079654",
+        "1081605"
       ],
       "severity": "warning"
     },
     {
       "id": "missing-format",
       "title": "Hotspawn series format is unverified",
-      "detail": "92 fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.",
+      "detail": "90 fixtures have no confirmed Hotspawn best-of value. The field stays blank; market scope must independently confirm a full-series winner.",
       "source_urls": [
         "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
       ],
@@ -5384,8 +5187,6 @@
         "1081105",
         "1079621",
         "1079654",
-        "1079655",
-        "1081148",
         "1081605",
         "1081606",
         "1082926",
@@ -5420,7 +5221,7 @@
     {
       "id": "lock-policy",
       "title": "Published lock rule differs from fixture data",
-      "detail": "Help page says 5 minutes before start; 92 fixture lock offsets differ. Explicit per-fixture lock timestamps take precedence on this dashboard. Submit in Hotspawn before its countdown expires.",
+      "detail": "Help page says 5 minutes before start; 90 fixture lock offsets differ. Explicit per-fixture lock timestamps take precedence on this dashboard. Submit in Hotspawn before its countdown expires.",
       "source_urls": [
         "https://play.hotspawn.com/how-it-works",
         "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
@@ -5488,8 +5289,6 @@
         "1081105",
         "1079621",
         "1079654",
-        "1079655",
-        "1081148",
         "1081605",
         "1081606",
         "1082926",
@@ -5564,13 +5363,12 @@
     {
       "id": "model-limitations",
       "title": "Research estimates are not verified betting odds",
-      "detail": "7 matches use published Valve rating inputs after the primary method and fallback book checks did not resolve them. The estimates are uncalibrated; current lineups, stand-ins and map vetoes are unverified. They do not replace or modify primary market picks.",
+      "detail": "6 matches use published Valve rating inputs after the primary method and fallback book checks did not resolve them. The estimates are uncalibrated; current lineups, stand-ins and map vetoes are unverified. They do not replace or modify primary market picks.",
       "source_urls": [
         "https://github.com/ValveSoftware/counter-strike_regional_standings",
         "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
       ],
       "match_ids": [
-        "1081605",
         "1082980",
         "1082996",
         "1079198",
@@ -5673,18 +5471,6 @@
       "severity": "notice"
     },
     {
-      "id": "inventory-failed",
-      "title": "Hotspawn refresh failed — current coverage unverified",
-      "detail": "hotspawn-fixtures: 403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1. Last-known records are retained with their ORIGINAL observation times. No new inventory or current-pick completeness is claimed.",
-      "source_urls": [
-        "https://play.hotspawn.com/lobby",
-        "https://play.hotspawn.com/cs2-pickems",
-        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
-      ],
-      "match_ids": [],
-      "severity": "critical"
-    },
-    {
       "id": "pages-publication-mode",
       "title": "Legacy Pages mode — publisher ordering enforced",
       "detail": "Pages remains in legacy build mode after the configuration attempt (HTTP 403; error: Resource not accessible by integration). The platform still builds the main branch on pushes. This workflow waits for that legacy build to finish, then publishes the verified current artifact last. The old six-hour refresh writer is retired; four-hour refreshes need no user action. Repository-mode restriction is not a source-data verification failure.",
@@ -5701,40 +5487,40 @@
       "id": "hotspawn-fixtures",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:05 GMT",
-      "response_sha256": "2e872d2b32948e0ee510aa8a12ef8bec8e009b9393f1699acf6c703ce084e51e",
+      "response_date": "Fri, 23 Oct 2026 11:17:42 GMT",
+      "response_sha256": "1a3a9538f858d79c1746cb0972d10de3f54898a4d1fca2f1e908e102703e8a6c",
       "evidence": "data/evidence/hotspawn-fixtures.json"
     },
     {
       "id": "hotspawn-lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792750445",
+      "url": "https://play.hotspawn.com/lobby?cb=1792754262",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:05Z",
+      "observed_at": "2026-10-23T11:17:42Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://play.hotspawn.com/lobby?cb=1792750445",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792754262",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:06 GMT",
-      "response_sha256": "17b7a83eeacea2968b128461af43b2f99e2a45bc778317bcf440cee3781b1dd2",
+      "response_date": "Fri, 23 Oct 2026 11:17:44 GMT",
+      "response_sha256": "d8e82ef483e2b579f6cbd4e300b5d658cb97cd53551e3c7314714b2dc6781b39",
       "cache_age_sec": "0",
       "cache_status": "MISS"
     },
     {
       "id": "hotspawn-cs2",
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792750447",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792754264",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:07Z",
+      "observed_at": "2026-10-23T11:17:44Z",
       "http_status": 200,
       "status": "ok",
-      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792750447",
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792754264",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:07 GMT",
-      "response_sha256": "240dbfcd95cb69276b3bbaed56ebf1b5cd40dc90f6ef0c64f4527bbfc897bc4e",
+      "response_date": "Fri, 23 Oct 2026 11:17:44 GMT",
+      "response_sha256": "39525db7a4ee82033010278a216632bb447988b7b0718e6eea6efaa06f135e64",
       "cache_age_sec": "0",
       "cache_status": "MISS"
     },
@@ -5742,27 +5528,27 @@
       "id": "polymarket-directory",
       "url": "https://polymarket.com/esports/cs2",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:08Z",
+      "observed_at": "2026-10-23T11:17:45Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://polymarket.com/esports/cs2",
       "content_type": "text/html; charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:08 GMT",
-      "response_sha256": "ce3cc9b4e5352203b317ccd9969ea37e6da4026b914d69c002829b87e544d620",
-      "cache_age_sec": "56"
+      "response_date": "Fri, 23 Oct 2026 11:17:45 GMT",
+      "response_sha256": "3e24a92ea2b3627bf2a0f0c9d2d91339415dba4b8f94ad47347cacab9b3fbefc",
+      "cache_age_sec": "16"
     },
     {
       "id": "polymarket-discovery-0",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:08Z",
+      "observed_at": "2026-10-23T11:17:45Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:30 GMT",
-      "response_sha256": "6576454b4c5df559b971be07f22948bb9470ac34697c4c14eaff8d116f940c70",
-      "cache_age_sec": "98",
+      "response_date": "Fri, 23 Oct 2026 11:16:35 GMT",
+      "response_sha256": "70f1b2d3c2d266b137e8bfddc375f59a1078d38601c6a5dabe888252f36af160",
+      "cache_age_sec": "70",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-discovery-0.json"
     },
@@ -5770,14 +5556,14 @@
       "id": "polymarket-discovery-100",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:08Z",
+      "observed_at": "2026-10-23T11:17:45Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:30 GMT",
-      "response_sha256": "75486ddd109eea40b9116c7849936bd8390fc53f046bc0f58e532ded2cd99fc5",
-      "cache_age_sec": "98",
+      "response_date": "Fri, 23 Oct 2026 11:16:36 GMT",
+      "response_sha256": "efe0a572a3597c7de8137779a0ad63c560d8c60edd6b6e18f5cf457b3eb78f9a",
+      "cache_age_sec": "69",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-discovery-100.json"
     },
@@ -5785,14 +5571,14 @@
       "id": "polymarket-discovery-200",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:08Z",
+      "observed_at": "2026-10-23T11:17:46Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:31 GMT",
-      "response_sha256": "cf6896286433ecdf2da4c7d120723ab09bcb2b954f3b3d77cfb7861d0206e03e",
-      "cache_age_sec": "97",
+      "response_date": "Fri, 23 Oct 2026 11:16:37 GMT",
+      "response_sha256": "c005cadfbd4fed0d8dfefc78ba7313ac4d99905e591dd0c27749e2afa00c78ed",
+      "cache_age_sec": "69",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-discovery-200.json"
     },
@@ -5800,14 +5586,14 @@
       "id": "polymarket-discovery-300",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:09Z",
+      "observed_at": "2026-10-23T11:17:46Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:31 GMT",
-      "response_sha256": "24929511fd751a6913daf3e5ba8592ebc92c68296292600b77b6893d76db9ecf",
-      "cache_age_sec": "98",
+      "response_date": "Fri, 23 Oct 2026 11:16:38 GMT",
+      "response_sha256": "04aa0ee874c5fdeef5175b536ae23007e3c3f754505da2a81cc3634f93b32ded",
+      "cache_age_sec": "68",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-discovery-300.json"
     },
@@ -5815,111 +5601,29 @@
       "id": "polymarket-discovery-400",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:09Z",
+      "observed_at": "2026-10-23T11:17:46Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:32 GMT",
-      "response_sha256": "5b27dae6f2928692c1272ca70f86dfcbabc82617878a4fcc8ad7d8b588403d5e",
-      "cache_age_sec": "97",
+      "response_date": "Fri, 23 Oct 2026 11:16:38 GMT",
+      "response_sha256": "6d105657dbdcd1df83d5cf15e94bd3c52412ecfda7721790f0fbdd0e09f8fb73",
+      "cache_age_sec": "68",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-discovery-400.json"
-    },
-    {
-      "id": "polymarket-event-1233761",
-      "url": "https://gamma-api.polymarket.com/events/1233761",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:09Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events/1233761",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "f2e28549167a4ac7a56d69b5fd82c6d9390b70076b9eab39835c2c280432091e",
-      "cache_age_sec": "212",
-      "cache_status": "Hit from cloudfront",
-      "evidence": "data/evidence/polymarket-event-1233761.json"
-    },
-    {
-      "id": "polymarket-book-1233761-0",
-      "url": "https://clob.polymarket.com/book?token_id=112518437736076619512662673350562818909490931160661445540501531339315550809485",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:09Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=112518437736076619512662673350562818909490931160661445540501531339315550809485",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:09 GMT",
-      "response_sha256": "4eba2322ddd8dd46e33daf5f6b7825df2739b09979abe3fe5a6ee2dca63d5482",
-      "evidence": "data/evidence/polymarket-book-1233761-0.json"
-    },
-    {
-      "id": "polymarket-book-1233761-1",
-      "url": "https://clob.polymarket.com/book?token_id=41513373683266400537212722873214225515624821203800688255571282119609283290466",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:09Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=41513373683266400537212722873214225515624821203800688255571282119609283290466",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:09 GMT",
-      "response_sha256": "73cf9b2e318ead3c1019a21797eb11ae2b61a66a2bacfbd3e95282eae7a7f8d4",
-      "evidence": "data/evidence/polymarket-book-1233761-1.json"
-    },
-    {
-      "id": "polymarket-event-1232959",
-      "url": "https://gamma-api.polymarket.com/events/1232959",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:10Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://gamma-api.polymarket.com/events/1232959",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:36 GMT",
-      "response_sha256": "bb3611fe4c4b27dc3088dc0cda230461ad2a1419059adeb5f1e8deefbf324a87",
-      "cache_age_sec": "214",
-      "cache_status": "Hit from cloudfront",
-      "evidence": "data/evidence/polymarket-event-1232959.json"
-    },
-    {
-      "id": "polymarket-book-1232959-0",
-      "url": "https://clob.polymarket.com/book?token_id=27848236807865336294986452840779092991571557366921325326123559024977840940371",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:10Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=27848236807865336294986452840779092991571557366921325326123559024977840940371",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:10 GMT",
-      "response_sha256": "416ebee12795165456314c3863c8c9eac54bd8274386d2bc2a7c2d75f688272a",
-      "evidence": "data/evidence/polymarket-book-1232959-0.json"
-    },
-    {
-      "id": "polymarket-book-1232959-1",
-      "url": "https://clob.polymarket.com/book?token_id=75504523815407715003601123205009105088650551815621797196401811168094885674876",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:14:10Z",
-      "http_status": 200,
-      "status": "ok",
-      "final_url": "https://clob.polymarket.com/book?token_id=75504523815407715003601123205009105088650551815621797196401811168094885674876",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:10 GMT",
-      "response_sha256": "961476cfba9b209f86c2db5b99be85f65f76b545ba5be93b1f40468f7559b4f6",
-      "evidence": "data/evidence/polymarket-book-1232959-1.json"
     },
     {
       "id": "polymarket-event-1237407",
       "url": "https://gamma-api.polymarket.com/events/1237407",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:10Z",
+      "observed_at": "2026-10-23T11:17:46Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237407",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:22 GMT",
-      "response_sha256": "05571f483bf1e4a4db55548621c75ef9d540e2b5c95de4d18bf5d31c93a2cdf4",
-      "cache_age_sec": "228",
+      "response_date": "Fri, 23 Oct 2026 11:17:31 GMT",
+      "response_sha256": "81957445f52731404be179aec84d8fdf6489e974f31eb695c8044d9bee8fe729",
+      "cache_age_sec": "15",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237407.json"
     },
@@ -5927,40 +5631,40 @@
       "id": "polymarket-book-1237407-0",
       "url": "https://clob.polymarket.com/book?token_id=46225169836921243651448471615506936499792659856146664563948643117008677190104",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:10Z",
+      "observed_at": "2026-10-23T11:17:47Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=46225169836921243651448471615506936499792659856146664563948643117008677190104",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:10 GMT",
-      "response_sha256": "e1c65e93530339f78d3ca0c6acf0f0d9fa5ff8cd37ad6331e16896fb9c4e8c3d",
+      "response_date": "Fri, 23 Oct 2026 11:17:47 GMT",
+      "response_sha256": "3ed89e327b45591da57ba4ef148fc9fba66b0dd7c90c3ba754b41281ee48fc68",
       "evidence": "data/evidence/polymarket-book-1237407-0.json"
     },
     {
       "id": "polymarket-book-1237407-1",
       "url": "https://clob.polymarket.com/book?token_id=13051041279401212146719995472799549488593228471637376257740691293906792639823",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:11Z",
+      "observed_at": "2026-10-23T11:17:47Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=13051041279401212146719995472799549488593228471637376257740691293906792639823",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:11 GMT",
-      "response_sha256": "5a9973c99291b2b0e5e098b4713594dd2932a005e4d9a48c06032eec6d9148ec",
+      "response_date": "Fri, 23 Oct 2026 11:17:47 GMT",
+      "response_sha256": "c97408c96a0218b084bcd30dc4e8db46305c4c0eeff04bc7d6b10781d9c2ca62",
       "evidence": "data/evidence/polymarket-book-1237407-1.json"
     },
     {
       "id": "polymarket-event-1237740",
       "url": "https://gamma-api.polymarket.com/events/1237740",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:11Z",
+      "observed_at": "2026-10-23T11:17:47Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237740",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:19 GMT",
-      "response_sha256": "a8116d660dab91f16fbb541681545997359c669d33452239b5025a253be7f38c",
-      "cache_age_sec": "112",
+      "response_date": "Fri, 23 Oct 2026 11:17:33 GMT",
+      "response_sha256": "defa2d636301f9aab181f58e3f2172d2c8d41e93b14fff3aa4c4bf4bb05c50d8",
+      "cache_age_sec": "14",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237740.json"
     },
@@ -5968,40 +5672,40 @@
       "id": "polymarket-book-1237740-0",
       "url": "https://clob.polymarket.com/book?token_id=40328581470716024435927020152258670296796355408196732579069351896180259950772",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:11Z",
+      "observed_at": "2026-10-23T11:17:47Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=40328581470716024435927020152258670296796355408196732579069351896180259950772",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:11 GMT",
-      "response_sha256": "5fef111cc5a3a265aad84ea95f1998da289a13e97f818a51cf19b3b509c8d561",
+      "response_date": "Fri, 23 Oct 2026 11:17:47 GMT",
+      "response_sha256": "8548854a6a203cfdc77bc239e374bac1a7f3a51fd21424adb87b01bfdf33a499",
       "evidence": "data/evidence/polymarket-book-1237740-0.json"
     },
     {
       "id": "polymarket-book-1237740-1",
       "url": "https://clob.polymarket.com/book?token_id=21877290802531411840085774705668393980547024184588565274751658712812294779471",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:11Z",
+      "observed_at": "2026-10-23T11:17:47Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=21877290802531411840085774705668393980547024184588565274751658712812294779471",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:11 GMT",
-      "response_sha256": "9db538aac3c9ff10c92b5131fdcc0a831c09f6de073bddc3b1a57f264028dfc6",
+      "response_date": "Fri, 23 Oct 2026 11:17:48 GMT",
+      "response_sha256": "61177ae6248f9e8e34ca071152bc630caab6a176cef34e0ea9c41d2ad83e6e11",
       "evidence": "data/evidence/polymarket-book-1237740-1.json"
     },
     {
       "id": "polymarket-event-1233764",
       "url": "https://gamma-api.polymarket.com/events/1233764",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:11Z",
+      "observed_at": "2026-10-23T11:17:48Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1233764",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:19 GMT",
-      "response_sha256": "53f817bb364193a4a79e82447b85f43fbafbd006500044049530b1b20fe58b5c",
-      "cache_age_sec": "112",
+      "response_date": "Fri, 23 Oct 2026 11:14:04 GMT",
+      "response_sha256": "57d7904a6d3fe3353091bb20aefa4420262acefc0a13ecd3532fe1b303854bb1",
+      "cache_age_sec": "223",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1233764.json"
     },
@@ -6009,40 +5713,40 @@
       "id": "polymarket-book-1233764-0",
       "url": "https://clob.polymarket.com/book?token_id=53506415700191466523235215762019629439375408795458647765942840989406427595402",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:12Z",
+      "observed_at": "2026-10-23T11:17:48Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=53506415700191466523235215762019629439375408795458647765942840989406427595402",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:12 GMT",
-      "response_sha256": "cd1d3f5ecc3caf4e3a6a6f7c8e3b7d788f16abef93d25c6a5f87ac2ce950980d",
+      "response_date": "Fri, 23 Oct 2026 11:17:48 GMT",
+      "response_sha256": "25c10ad67c3826807cddcbc1042fb7571ab49993f44069fe181570392185761e",
       "evidence": "data/evidence/polymarket-book-1233764-0.json"
     },
     {
       "id": "polymarket-book-1233764-1",
       "url": "https://clob.polymarket.com/book?token_id=47394284374926435258751864171877518351007809077868808829969891693746382847804",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:12Z",
+      "observed_at": "2026-10-23T11:17:48Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=47394284374926435258751864171877518351007809077868808829969891693746382847804",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:12 GMT",
-      "response_sha256": "7baf6f279f6ff35b4af7c11a97b7f157e8ad663b4283e005973fef2e43339260",
+      "response_date": "Fri, 23 Oct 2026 11:17:48 GMT",
+      "response_sha256": "413c28270495964f34cec489b36270a1f4621c08fe70eeae9c92012e098a7b73",
       "evidence": "data/evidence/polymarket-book-1233764-1.json"
     },
     {
       "id": "polymarket-event-1233765",
       "url": "https://gamma-api.polymarket.com/events/1233765",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:12Z",
+      "observed_at": "2026-10-23T11:17:48Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1233765",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:36 GMT",
-      "response_sha256": "9ee4def711a236f3ab95a15e66ef7304487d9ecd3b47fcb9074dff42e1cd316b",
-      "cache_age_sec": "216",
+      "response_date": "Fri, 23 Oct 2026 11:16:58 GMT",
+      "response_sha256": "e72c013202d178a1ab11f586194a605e43a63139ced50c4a58fa8942e4995afb",
+      "cache_age_sec": "50",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1233765.json"
     },
@@ -6050,40 +5754,40 @@
       "id": "polymarket-book-1233765-0",
       "url": "https://clob.polymarket.com/book?token_id=103726741834203734998986423939931329285776966508242973414463092924293637458591",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:12Z",
+      "observed_at": "2026-10-23T11:17:48Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=103726741834203734998986423939931329285776966508242973414463092924293637458591",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:12 GMT",
-      "response_sha256": "5ad1b20aaa5357266ee8488a62dbe4c12c167f5be8f65583d9fb5f4b61a77e79",
+      "response_date": "Fri, 23 Oct 2026 11:17:48 GMT",
+      "response_sha256": "ae0e296c361b40730b842c72e63325c204aa0d3ec5230fc17515c8c54cf4b343",
       "evidence": "data/evidence/polymarket-book-1233765-0.json"
     },
     {
       "id": "polymarket-book-1233765-1",
       "url": "https://clob.polymarket.com/book?token_id=106709268813636986551967498858031028247660023521705025719078994692382501189493",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:12Z",
+      "observed_at": "2026-10-23T11:17:49Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=106709268813636986551967498858031028247660023521705025719078994692382501189493",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:12 GMT",
-      "response_sha256": "101135588145c80ebae32ca89ea0e2f22c9f374db3370f9be878bd2318e6035b",
+      "response_date": "Fri, 23 Oct 2026 11:17:49 GMT",
+      "response_sha256": "b48629397b8d707fd4bb7072b431898cf3d787732960a88a46d5c12f017ff53d",
       "evidence": "data/evidence/polymarket-book-1233765-1.json"
     },
     {
       "id": "polymarket-event-1237874",
       "url": "https://gamma-api.polymarket.com/events/1237874",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:13Z",
+      "observed_at": "2026-10-23T11:17:49Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237874",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "a95ba89b143b23b70604f5a477f1f7cee10cb652657b838a81c95687b49e51b1",
-      "cache_age_sec": "216",
+      "response_date": "Fri, 23 Oct 2026 11:14:17 GMT",
+      "response_sha256": "193718a0bbe25f01979a5d2be7d6170025b90f7654fde457375e0ff6a37fe56e",
+      "cache_age_sec": "212",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237874.json"
     },
@@ -6091,40 +5795,40 @@
       "id": "polymarket-book-1237874-0",
       "url": "https://clob.polymarket.com/book?token_id=67505783622312727683608442378072189331948588201429231112447953227288733680664",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:13Z",
+      "observed_at": "2026-10-23T11:17:49Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=67505783622312727683608442378072189331948588201429231112447953227288733680664",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:13 GMT",
-      "response_sha256": "3340e0979614ab9825d2db4485b0b026b28ec118b5cad9169505070c5b1a5e6f",
+      "response_date": "Fri, 23 Oct 2026 11:17:49 GMT",
+      "response_sha256": "b397716a5f18253d2d8f5d942072b387e7913b1e1e121a1cc3e700bddab36e36",
       "evidence": "data/evidence/polymarket-book-1237874-0.json"
     },
     {
       "id": "polymarket-book-1237874-1",
       "url": "https://clob.polymarket.com/book?token_id=15821014443219855224109123659066818204488861589644657995916562158170003765799",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:13Z",
+      "observed_at": "2026-10-23T11:17:49Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=15821014443219855224109123659066818204488861589644657995916562158170003765799",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:13 GMT",
-      "response_sha256": "06f6056a567c3cafbc1bd31acd3503cffd6a66f8258510075aede1fc78a95c19",
+      "response_date": "Fri, 23 Oct 2026 11:17:49 GMT",
+      "response_sha256": "fb0a0cd97493b6d668f434d40fbb502c563ffae54a85d88b6c22f252edcfe696",
       "evidence": "data/evidence/polymarket-book-1237874-1.json"
     },
     {
       "id": "polymarket-event-1233767",
       "url": "https://gamma-api.polymarket.com/events/1233767",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:13Z",
+      "observed_at": "2026-10-23T11:17:49Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1233767",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:13:19 GMT",
-      "response_sha256": "2dd4df5c596c936ff86dd6dabe703777678a61d812c905e2e9a0507e6d62a7fc",
-      "cache_age_sec": "54",
+      "response_date": "Fri, 23 Oct 2026 11:14:38 GMT",
+      "response_sha256": "2dd93206ec4f565eb55ab6613d1123b545367365387dea533e7802c010693273",
+      "cache_age_sec": "191",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1233767.json"
     },
@@ -6132,40 +5836,40 @@
       "id": "polymarket-book-1233767-0",
       "url": "https://clob.polymarket.com/book?token_id=78079331111159498131136110462104749839822588534613014634672737659778642369267",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:13Z",
+      "observed_at": "2026-10-23T11:17:50Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=78079331111159498131136110462104749839822588534613014634672737659778642369267",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:13 GMT",
-      "response_sha256": "8a9c124a43b43f8b3cec1b7a93c324cdc6f4ed925be6a8b93d5a5f328e699756",
+      "response_date": "Fri, 23 Oct 2026 11:17:50 GMT",
+      "response_sha256": "86faae340a9aefa793253cb8bec44a93733a3e2951fe9ac25f48defc933b25c9",
       "evidence": "data/evidence/polymarket-book-1233767-0.json"
     },
     {
       "id": "polymarket-book-1233767-1",
       "url": "https://clob.polymarket.com/book?token_id=89602013740552849309137052444623725522883406704278032848232276551542247812027",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:14Z",
+      "observed_at": "2026-10-23T11:17:50Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=89602013740552849309137052444623725522883406704278032848232276551542247812027",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:14 GMT",
-      "response_sha256": "48ed2e72ad4bda012c9f190effc16163fab2965db394525f335cb26763b345bb",
+      "response_date": "Fri, 23 Oct 2026 11:17:50 GMT",
+      "response_sha256": "8151a41ac609d47cce9969a61444aa18313ee8a0e75af6fb359ff740e2ae0ef2",
       "evidence": "data/evidence/polymarket-book-1233767-1.json"
     },
     {
       "id": "polymarket-event-1237875",
       "url": "https://gamma-api.polymarket.com/events/1237875",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:14Z",
+      "observed_at": "2026-10-23T11:17:50Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237875",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:13:20 GMT",
-      "response_sha256": "3f4de3d6fe65efd92741678e983ea6beb8a9238f8625bf32ce44104fd16651b8",
-      "cache_age_sec": "54",
+      "response_date": "Fri, 23 Oct 2026 11:17:15 GMT",
+      "response_sha256": "480048ed69b481e01405d795613eb50e3b536d85554f8f0604b00b5ac4a4aebd",
+      "cache_age_sec": "34",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237875.json"
     },
@@ -6173,40 +5877,40 @@
       "id": "polymarket-book-1237875-0",
       "url": "https://clob.polymarket.com/book?token_id=15659599587110148424276581087135559344864546779613649594505968197970875487627",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:14Z",
+      "observed_at": "2026-10-23T11:17:50Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=15659599587110148424276581087135559344864546779613649594505968197970875487627",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:14 GMT",
-      "response_sha256": "1f947acdd5487518da84a4ef6f16e9849987eace2b48b30ed3928d6f9292846f",
+      "response_date": "Fri, 23 Oct 2026 11:17:50 GMT",
+      "response_sha256": "76af2411793d3e5f5dfddf19f7a0e718ec208d22912723e9e8170e6ff314e48a",
       "evidence": "data/evidence/polymarket-book-1237875-0.json"
     },
     {
       "id": "polymarket-book-1237875-1",
       "url": "https://clob.polymarket.com/book?token_id=38189057748740262318731322791159409803306447182770317326619730812176624576551",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:14Z",
+      "observed_at": "2026-10-23T11:17:50Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=38189057748740262318731322791159409803306447182770317326619730812176624576551",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:14 GMT",
-      "response_sha256": "b1339ab858524e7cbde9395bbd2b4f74f35a4d4397855f30dbfc2482c4479d2f",
+      "response_date": "Fri, 23 Oct 2026 11:17:51 GMT",
+      "response_sha256": "ce82b83b69b03a7a2ccd0fe8f46cc9f7e4af6d459c4e9b62b215ee756156ce9a",
       "evidence": "data/evidence/polymarket-book-1237875-1.json"
     },
     {
       "id": "polymarket-event-1237193",
       "url": "https://gamma-api.polymarket.com/events/1237193",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:14Z",
+      "observed_at": "2026-10-23T11:17:51Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237193",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:11:19 GMT",
-      "response_sha256": "03b8e8392e74c86dd34ecf047c49013fafac03b97a7e2b7f8b3c6fabf9e2d364",
-      "cache_age_sec": "175",
+      "response_date": "Fri, 23 Oct 2026 11:17:27 GMT",
+      "response_sha256": "bcb55b4a6e062657ffbcc6a6747107fa782d8267d5d2f6738d1c52407757e285",
+      "cache_age_sec": "24",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237193.json"
     },
@@ -6214,40 +5918,40 @@
       "id": "polymarket-book-1237193-0",
       "url": "https://clob.polymarket.com/book?token_id=21624498992687658089216209353353029109634127821917349081009836897497201400618",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:15Z",
+      "observed_at": "2026-10-23T11:17:51Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=21624498992687658089216209353353029109634127821917349081009836897497201400618",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:15 GMT",
-      "response_sha256": "d00044f0e01cdedb2b9b4f0a6ab38d7b0dfbb5bf5d29e135387b9d6db0ee83ee",
+      "response_date": "Fri, 23 Oct 2026 11:17:51 GMT",
+      "response_sha256": "6804e6c916c835a71b2c3b547b49a070d68b3ca19e3314611a494fc1c08d6546",
       "evidence": "data/evidence/polymarket-book-1237193-0.json"
     },
     {
       "id": "polymarket-book-1237193-1",
       "url": "https://clob.polymarket.com/book?token_id=44844058100787192180989921019927140744743232814840899269634295311095960400255",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:15Z",
+      "observed_at": "2026-10-23T11:17:51Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=44844058100787192180989921019927140744743232814840899269634295311095960400255",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:15 GMT",
-      "response_sha256": "f30ddd60d5b65e674c6ac17b51f7b856186eee2d778d53eb986f5a26d545a393",
+      "response_date": "Fri, 23 Oct 2026 11:17:51 GMT",
+      "response_sha256": "195e50ceb5fa8a3841e081fdaa0bba2f386a94fd7b730803521fe0e1e3648b6d",
       "evidence": "data/evidence/polymarket-book-1237193-1.json"
     },
     {
       "id": "polymarket-event-1237195",
       "url": "https://gamma-api.polymarket.com/events/1237195",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:15Z",
+      "observed_at": "2026-10-23T11:17:51Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237195",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:12:19 GMT",
-      "response_sha256": "705d889b32c19795f55f4888fa67473ecc19c569d2faa1f1e2d7b1ae157ddc8a",
-      "cache_age_sec": "116",
+      "response_date": "Fri, 23 Oct 2026 11:15:23 GMT",
+      "response_sha256": "5040b3919d546f9578313206a32dfe851cc9a9059a889af1b5f2d336b99a2be5",
+      "cache_age_sec": "148",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237195.json"
     },
@@ -6255,40 +5959,40 @@
       "id": "polymarket-book-1237195-0",
       "url": "https://clob.polymarket.com/book?token_id=68013756477632567592141538219817045505145657278069224698446609870829813958556",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:15Z",
+      "observed_at": "2026-10-23T11:17:51Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=68013756477632567592141538219817045505145657278069224698446609870829813958556",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:15 GMT",
-      "response_sha256": "934c1050ff95e180abfc1172d9c8a562e640d2cde6e5edadc8d9527d8c864fa0",
+      "response_date": "Fri, 23 Oct 2026 11:17:52 GMT",
+      "response_sha256": "93f6c3cead1736e931aaa8b229f377d208a81c6084f505e1c2de60f489268d4c",
       "evidence": "data/evidence/polymarket-book-1237195-0.json"
     },
     {
       "id": "polymarket-book-1237195-1",
       "url": "https://clob.polymarket.com/book?token_id=29793056941366111910466896150035692115264742503872182086296506652440490519506",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:15Z",
+      "observed_at": "2026-10-23T11:17:52Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=29793056941366111910466896150035692115264742503872182086296506652440490519506",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:15 GMT",
-      "response_sha256": "aa622fddcebcc56ce3825c3a943bda18b34f463c8730e60717713242c624dfee",
+      "response_date": "Fri, 23 Oct 2026 11:17:52 GMT",
+      "response_sha256": "b304e81a9bb04d8f96086ff9f079bf64fe02fd0c9ae46a2e040e7a124670de8a",
       "evidence": "data/evidence/polymarket-book-1237195-1.json"
     },
     {
       "id": "polymarket-event-1238706",
       "url": "https://gamma-api.polymarket.com/events/1238706",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:16Z",
+      "observed_at": "2026-10-23T11:17:52Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1238706",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "bbaeb17d876e7f2d5630d27c9d12ce65d5192a6dedec5d0f9bc1ed40c1cfd9ac",
-      "cache_age_sec": "219",
+      "response_date": "Fri, 23 Oct 2026 11:15:17 GMT",
+      "response_sha256": "8af4136f79ed01e68834705f8568150ffc901922731b306118d174484ee3157f",
+      "cache_age_sec": "155",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1238706.json"
     },
@@ -6296,40 +6000,40 @@
       "id": "polymarket-book-1238706-0",
       "url": "https://clob.polymarket.com/book?token_id=46165653858277471474699963508168105516694572730153269751021393427535176187355",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:16Z",
+      "observed_at": "2026-10-23T11:17:52Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=46165653858277471474699963508168105516694572730153269751021393427535176187355",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:16 GMT",
-      "response_sha256": "babb7629afaeb251e1ac3841b9cdfe4b6c74fe558c1c9a8c30d6cc26bfc35278",
+      "response_date": "Fri, 23 Oct 2026 11:17:52 GMT",
+      "response_sha256": "4efcf1d78b88c050903395f1fb6da62b0c9c96b360e48b3947e1ae00769edb64",
       "evidence": "data/evidence/polymarket-book-1238706-0.json"
     },
     {
       "id": "polymarket-book-1238706-1",
       "url": "https://clob.polymarket.com/book?token_id=11504208900929904621553328225895514536597777068819825801754019555673559843972",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:16Z",
+      "observed_at": "2026-10-23T11:17:52Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=11504208900929904621553328225895514536597777068819825801754019555673559843972",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:16 GMT",
-      "response_sha256": "25fa5b2aa33a6d749d16a0765d826fc33e60152217d16c33217987413a2cb661",
+      "response_date": "Fri, 23 Oct 2026 11:17:52 GMT",
+      "response_sha256": "531617037db38925be0334efd23cb7b5233f0dd53a7fb8a9d22d8b6e0c75750b",
       "evidence": "data/evidence/polymarket-book-1238706-1.json"
     },
     {
       "id": "polymarket-event-1238707",
       "url": "https://gamma-api.polymarket.com/events/1238707",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:16Z",
+      "observed_at": "2026-10-23T11:17:52Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1238707",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "10a09bcdb8a94a8afb20d8d639d77f0ba18705c4248a731112ccf5102db97a4a",
-      "cache_age_sec": "219",
+      "response_date": "Fri, 23 Oct 2026 11:15:17 GMT",
+      "response_sha256": "1c588b03ceca5fb1484284c61547ae5f77d7755cddfff6d14b32e4a36ecd954a",
+      "cache_age_sec": "155",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1238707.json"
     },
@@ -6337,40 +6041,40 @@
       "id": "polymarket-book-1238707-0",
       "url": "https://clob.polymarket.com/book?token_id=937884535396994257261295329951643492301725296237222537094251419155098302382",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:16Z",
+      "observed_at": "2026-10-23T11:17:53Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=937884535396994257261295329951643492301725296237222537094251419155098302382",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:16 GMT",
-      "response_sha256": "ea08afe6f7a43a9b7fe22a4eb00ccb8d4c141ba1bf0429bc56159fb31298c7bc",
+      "response_date": "Fri, 23 Oct 2026 11:17:53 GMT",
+      "response_sha256": "dccd7dddfa24020616c98aa603356d1697a86a4b4a1446f6867e5c7ea69e4cdc",
       "evidence": "data/evidence/polymarket-book-1238707-0.json"
     },
     {
       "id": "polymarket-book-1238707-1",
       "url": "https://clob.polymarket.com/book?token_id=36139971715817068612905275702160298141365161553000326931891385869387857715662",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:17Z",
+      "observed_at": "2026-10-23T11:17:53Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=36139971715817068612905275702160298141365161553000326931891385869387857715662",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:17 GMT",
-      "response_sha256": "fabbc18769146dc7471c16dadbd37f341d8a6903e53cb3e1a08b4cf96cd4da2f",
+      "response_date": "Fri, 23 Oct 2026 11:17:53 GMT",
+      "response_sha256": "366bd8660a8c0b38c82a17e0469f8e9bdd9951f9fe372257bab0b730e87fcf3e",
       "evidence": "data/evidence/polymarket-book-1238707-1.json"
     },
     {
       "id": "polymarket-event-1237427",
       "url": "https://gamma-api.polymarket.com/events/1237427",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:17Z",
+      "observed_at": "2026-10-23T11:17:53Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237427",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "5ec69eafbae21c6d10102e121184d2eedf135ba5088b9d37b5be5578f4e27239",
-      "cache_age_sec": "220",
+      "response_date": "Fri, 23 Oct 2026 11:15:22 GMT",
+      "response_sha256": "d5c4b908ffdd785a828dee440e8f51573fb6b0ffe708815db5eebc3b90e295b2",
+      "cache_age_sec": "151",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237427.json"
     },
@@ -6378,40 +6082,40 @@
       "id": "polymarket-book-1237427-0",
       "url": "https://clob.polymarket.com/book?token_id=23392161878494733528543908259805136150910607299184518987206538712056573817539",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:17Z",
+      "observed_at": "2026-10-23T11:17:53Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=23392161878494733528543908259805136150910607299184518987206538712056573817539",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:17 GMT",
-      "response_sha256": "5e1c722dcaf67da8eb625b8d9d8b335fe36b62366b86b51ef1c992dfef5cf5a6",
+      "response_date": "Fri, 23 Oct 2026 11:17:53 GMT",
+      "response_sha256": "268b583dda073b09fe8032376e6f05a011b44acd73ebcc6794111286781203d1",
       "evidence": "data/evidence/polymarket-book-1237427-0.json"
     },
     {
       "id": "polymarket-book-1237427-1",
       "url": "https://clob.polymarket.com/book?token_id=31739141092040675224480310843704023633575587558509000454770113859432824173917",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:17Z",
+      "observed_at": "2026-10-23T11:17:53Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=31739141092040675224480310843704023633575587558509000454770113859432824173917",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:17 GMT",
-      "response_sha256": "0f27f78d0f607e62f7fb2d8b83a794f78546395811d24649fdeab04a38d02119",
+      "response_date": "Fri, 23 Oct 2026 11:17:54 GMT",
+      "response_sha256": "f15c6497f2a71c2561b78c55c1123c5c09f92ee7688f076f77d8b2f855fbc7b9",
       "evidence": "data/evidence/polymarket-book-1237427-1.json"
     },
     {
       "id": "polymarket-event-1237429",
       "url": "https://gamma-api.polymarket.com/events/1237429",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:17Z",
+      "observed_at": "2026-10-23T11:17:54Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237429",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "1df3423ee43b15851722444098f0b40ea3ec878336a47426e3cd9ba468b49432",
-      "cache_age_sec": "220",
+      "response_date": "Fri, 23 Oct 2026 11:15:10 GMT",
+      "response_sha256": "2e393aca44ca1d427397b8b4295595cde880e2a5ed7c0d14a85d1365df35f859",
+      "cache_age_sec": "164",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237429.json"
     },
@@ -6419,40 +6123,40 @@
       "id": "polymarket-book-1237429-0",
       "url": "https://clob.polymarket.com/book?token_id=82558548387992096282238680257138525036592090750018106494015032187401922331429",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:18Z",
+      "observed_at": "2026-10-23T11:17:54Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=82558548387992096282238680257138525036592090750018106494015032187401922331429",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:18 GMT",
-      "response_sha256": "180aba8fd39d471937f4eafaeca3947682d1b2cf88e493b9acce5144463abc68",
+      "response_date": "Fri, 23 Oct 2026 11:17:54 GMT",
+      "response_sha256": "7e87a28fadcf9bc75fb7c567503ad03ed6eeee27f1f8cc725526a93d0fef3569",
       "evidence": "data/evidence/polymarket-book-1237429-0.json"
     },
     {
       "id": "polymarket-book-1237429-1",
       "url": "https://clob.polymarket.com/book?token_id=92205679223924696781690368438617182102962185616555008635025962405609467509970",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:18Z",
+      "observed_at": "2026-10-23T11:17:54Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=92205679223924696781690368438617182102962185616555008635025962405609467509970",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:18 GMT",
-      "response_sha256": "87302ab933905072bcb958d12fee6dcfc8a7b890fdc2a338684120bcb1995381",
+      "response_date": "Fri, 23 Oct 2026 11:17:54 GMT",
+      "response_sha256": "4a0a0ee4e117b7c4c9d68adaa9e3689894d7542f981a2b7e32391f9f249e7c5a",
       "evidence": "data/evidence/polymarket-book-1237429-1.json"
     },
     {
       "id": "polymarket-event-1237430",
       "url": "https://gamma-api.polymarket.com/events/1237430",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:18Z",
+      "observed_at": "2026-10-23T11:17:54Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1237430",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "d67364f5f7ddd854d87f57d089e5e5cf016bae981a91e6ee10f5834e86e869a3",
-      "cache_age_sec": "221",
+      "response_date": "Fri, 23 Oct 2026 11:15:13 GMT",
+      "response_sha256": "afa23efdd4e76d520733f8b80208f5d5da471ccdb98f90a39526bd9a48a6fea0",
+      "cache_age_sec": "161",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1237430.json"
     },
@@ -6460,12 +6164,12 @@
       "id": "polymarket-book-1237430-0",
       "url": "https://clob.polymarket.com/book?token_id=27911007308582265498287750298963144287567394309445387682288878574659413660845",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:18Z",
+      "observed_at": "2026-10-23T11:17:54Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=27911007308582265498287750298963144287567394309445387682288878574659413660845",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:18 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:17:55 GMT",
       "response_sha256": "646ebd235d2aa7973cf4759d3067e6523b150ac83e03254a9594b2d6d76a1b5f",
       "evidence": "data/evidence/polymarket-book-1237430-0.json"
     },
@@ -6473,12 +6177,12 @@
       "id": "polymarket-book-1237430-1",
       "url": "https://clob.polymarket.com/book?token_id=82799385793653765172929482902366904527908909773662733327486000953177455866336",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:18Z",
+      "observed_at": "2026-10-23T11:17:55Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=82799385793653765172929482902366904527908909773662733327486000953177455866336",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:18 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:17:55 GMT",
       "response_sha256": "737bd42f0220705c21476713e7213292baf1c4afeb4c72f8a3422c0a564aed82",
       "evidence": "data/evidence/polymarket-book-1237430-1.json"
     },
@@ -6486,14 +6190,14 @@
       "id": "polymarket-event-1231333",
       "url": "https://gamma-api.polymarket.com/events/1231333",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:19Z",
+      "observed_at": "2026-10-23T11:17:55Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1231333",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "eb00b1888c055c8ec00c955fa8b0671891059e79205a3283ad3f8db936801651",
-      "cache_age_sec": "222",
+      "response_date": "Fri, 23 Oct 2026 11:15:36 GMT",
+      "response_sha256": "66b2ddfa7780447b9deaf2e2297505be2111714bc5ac0ee4e63151ff85f29f7b",
+      "cache_age_sec": "139",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1231333.json"
     },
@@ -6501,40 +6205,40 @@
       "id": "polymarket-book-1231333-0",
       "url": "https://clob.polymarket.com/book?token_id=5634128844390371706113430822138802189838775650843322137073353534887752642113",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:19Z",
+      "observed_at": "2026-10-23T11:17:55Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=5634128844390371706113430822138802189838775650843322137073353534887752642113",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:19 GMT",
-      "response_sha256": "5cced9714b51814b19e055aaaffb0b6afa6ba94c2bdf361d3d5b45d1537a26b9",
+      "response_date": "Fri, 23 Oct 2026 11:17:55 GMT",
+      "response_sha256": "24470365d4fd1f5aa0a6d8a7fb2c22582c40f0cf43663731785d0126b63e3826",
       "evidence": "data/evidence/polymarket-book-1231333-0.json"
     },
     {
       "id": "polymarket-book-1231333-1",
       "url": "https://clob.polymarket.com/book?token_id=67574052148959962975421407902463445998153500936503980625871489071503894219542",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:19Z",
+      "observed_at": "2026-10-23T11:17:55Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=67574052148959962975421407902463445998153500936503980625871489071503894219542",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:19 GMT",
-      "response_sha256": "22e841d0172f6fd08218673e9898c37a96ed02442939f110351af0a6c0ea751a",
+      "response_date": "Fri, 23 Oct 2026 11:17:55 GMT",
+      "response_sha256": "c57cb027248bcc6f707646ab4cb6884736eb8a1f492e5f4ba67a07a0311b8838",
       "evidence": "data/evidence/polymarket-book-1231333-1.json"
     },
     {
       "id": "polymarket-event-1231334",
       "url": "https://gamma-api.polymarket.com/events/1231334",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:19Z",
+      "observed_at": "2026-10-23T11:17:55Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1231334",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "7fb54cd73b41fbdef13d35b9e5fa2af61a88c8f3e69d47912de8415aeca8fb20",
-      "cache_age_sec": "222",
+      "response_date": "Fri, 23 Oct 2026 11:15:35 GMT",
+      "response_sha256": "acf21f91d00a32e93558683ae3ad12cef0b35899e1dd63fe102331fe820ad645",
+      "cache_age_sec": "140",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1231334.json"
     },
@@ -6542,40 +6246,40 @@
       "id": "polymarket-book-1231334-0",
       "url": "https://clob.polymarket.com/book?token_id=53820340406478042452290263399005204149021098854583270166044014603559099141827",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:19Z",
+      "observed_at": "2026-10-23T11:17:56Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=53820340406478042452290263399005204149021098854583270166044014603559099141827",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:19 GMT",
-      "response_sha256": "a4ab4551c111240827578197db612479b7cebddf9e1c1f2bb4f9de210bd5f989",
+      "response_date": "Fri, 23 Oct 2026 11:17:56 GMT",
+      "response_sha256": "e2a7ead9db914fb8d80b6292d5d178a4b4bf7ae3674f4c77f34b9aec0a42ac35",
       "evidence": "data/evidence/polymarket-book-1231334-0.json"
     },
     {
       "id": "polymarket-book-1231334-1",
       "url": "https://clob.polymarket.com/book?token_id=34777407261544597388726474943754382223379843436162975501243598062917344472451",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:20Z",
+      "observed_at": "2026-10-23T11:17:56Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=34777407261544597388726474943754382223379843436162975501243598062917344472451",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:20 GMT",
-      "response_sha256": "aaa454f94b5134ca472fb1c2c279a2df0038d400679ec1584a928b1e95f1f73d",
+      "response_date": "Fri, 23 Oct 2026 11:17:56 GMT",
+      "response_sha256": "cc9b9e128f437f4e59aeda69fe4ebb4458dd982b998f68bb7ea7c73ae5800073",
       "evidence": "data/evidence/polymarket-book-1231334-1.json"
     },
     {
       "id": "polymarket-event-1231335",
       "url": "https://gamma-api.polymarket.com/events/1231335",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:20Z",
+      "observed_at": "2026-10-23T11:17:56Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1231335",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "3a79405e3b4ac392591690da44aefb892ff62fceca32524479dc02a75e24e988",
-      "cache_age_sec": "223",
+      "response_date": "Fri, 23 Oct 2026 11:15:35 GMT",
+      "response_sha256": "8d7473fed50ea0a6243018a96c0a661da093f2ccec9afe618fedc081ca26d483",
+      "cache_age_sec": "141",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1231335.json"
     },
@@ -6583,40 +6287,40 @@
       "id": "polymarket-book-1231335-0",
       "url": "https://clob.polymarket.com/book?token_id=101634745796521358149621879324908842224252603731400258316913236984374597402656",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:20Z",
+      "observed_at": "2026-10-23T11:17:56Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=101634745796521358149621879324908842224252603731400258316913236984374597402656",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:20 GMT",
-      "response_sha256": "04f4a8485106039f3cb965d112c1cabe03f2b200cc0b35df509381aebd79a840",
+      "response_date": "Fri, 23 Oct 2026 11:17:56 GMT",
+      "response_sha256": "9a939c6b536c45d2df2d24a337afb314a1f53d2b6630315a8eb96cd309d5985b",
       "evidence": "data/evidence/polymarket-book-1231335-0.json"
     },
     {
       "id": "polymarket-book-1231335-1",
       "url": "https://clob.polymarket.com/book?token_id=46920774657788598483889160481806898480707645737819479084410479538957816144813",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:20Z",
+      "observed_at": "2026-10-23T11:17:56Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=46920774657788598483889160481806898480707645737819479084410479538957816144813",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:20 GMT",
-      "response_sha256": "bb23c3e9ab082d0584de3c4d75f75175cf9184f7520791362befbd328aeafd5b",
+      "response_date": "Fri, 23 Oct 2026 11:17:57 GMT",
+      "response_sha256": "428034f4f411695166b0822eebadcde66d662f3c2ebee91ed6b275ab8ca5929f",
       "evidence": "data/evidence/polymarket-book-1231335-1.json"
     },
     {
       "id": "polymarket-event-1233851",
       "url": "https://gamma-api.polymarket.com/events/1233851",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:20Z",
+      "observed_at": "2026-10-23T11:17:57Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://gamma-api.polymarket.com/events/1233851",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:10:37 GMT",
-      "response_sha256": "aaa7d1237b59893a19d10dc8a195f38ffb5eef095c020e31766bcb6a9b95ff5e",
-      "cache_age_sec": "223",
+      "response_date": "Fri, 23 Oct 2026 11:13:26 GMT",
+      "response_sha256": "63a30403a3967855724fcc70f7083f09305ac087217360d846e2f31d949e53ca",
+      "cache_age_sec": "270",
       "cache_status": "Hit from cloudfront",
       "evidence": "data/evidence/polymarket-event-1233851.json"
     },
@@ -6624,46 +6328,46 @@
       "id": "polymarket-book-1233851-0",
       "url": "https://clob.polymarket.com/book?token_id=15913905314892461099513373287668451378439124015198249305222924191662483355890",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:21Z",
+      "observed_at": "2026-10-23T11:17:57Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=15913905314892461099513373287668451378439124015198249305222924191662483355890",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:21 GMT",
-      "response_sha256": "583664c74c9a1d5a4e8949430e0237b475b9524f422f77546e56a49f6fc880ee",
+      "response_date": "Fri, 23 Oct 2026 11:17:57 GMT",
+      "response_sha256": "b11bdbf8c10388b051cd5c1ae827e8a54e746a7b904d3822162d7202c78ada82",
       "evidence": "data/evidence/polymarket-book-1233851-0.json"
     },
     {
       "id": "polymarket-book-1233851-1",
       "url": "https://clob.polymarket.com/book?token_id=86503771849718349811655533347270437058311747911509461519846289560874988934594",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:21Z",
+      "observed_at": "2026-10-23T11:17:57Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://clob.polymarket.com/book?token_id=86503771849718349811655533347270437058311747911509461519846289560874988934594",
       "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:14:21 GMT",
-      "response_sha256": "de969371001d7b9f0482f22b55adfaefc2b1641ee8979a4a6d2c8aa02c7d342c",
+      "response_date": "Fri, 23 Oct 2026 11:17:57 GMT",
+      "response_sha256": "8b4fbbcf925b27f94b9b2ac88ab433481962da2084a2146446d8d22342ab37d7",
       "evidence": "data/evidence/polymarket-book-1233851-1.json"
     },
     {
       "id": "hltv-matches",
       "url": "https://www.hltv.org/matches",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:21Z",
+      "observed_at": "2026-10-23T11:17:57Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.hltv.org/matches",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:21 GMT",
-      "response_sha256": "0f80875161b1d26b290f5f051a13debb375a65aead1de16c71d7fd8c211db12f",
+      "response_date": "Fri, 23 Oct 2026 11:17:58 GMT",
+      "response_sha256": "15ca18ae7b49e7a5dbafe63a9a82f730b81b0298c9121083e7a767040b3e0f20",
       "evidence": "data/evidence/hltv-page.json"
     },
     {
       "id": "thunderpick-matches",
       "url": "https://thunderpick.io/api/matches",
       "method": "POST",
-      "observed_at": "2026-10-23T10:14:22Z",
+      "observed_at": "2026-10-23T11:17:59Z",
       "http_status": 200,
       "status": "ok",
       "request_body": {
@@ -6673,20 +6377,20 @@
       },
       "final_url": "https://thunderpick.io/api/matches",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:23 GMT",
-      "response_sha256": "5e31d72eccf55fe031ddb04f0878e7f499ca849eecdcd4b9ec84a27c1c3759c1",
+      "response_date": "Fri, 23 Oct 2026 11:17:59 GMT",
+      "response_sha256": "a8c94e2c531778ff2ca64b08622c0ac539e036e14cccc2c8609740ad67394aeb",
       "evidence": "data/evidence/thunderpick-matches.json"
     },
     {
       "id": "ggbet-cs2",
       "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:23Z",
+      "observed_at": "2026-10-23T11:17:59Z",
       "http_status": 403,
       "status": "error",
       "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "content_type": "text/plain",
-      "response_date": "Fri, 23 Oct 2026 10:14:23 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:17:59 GMT",
       "response_sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
       "error": "403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
     },
@@ -6694,51 +6398,51 @@
       "id": "pinnacle-cs2",
       "url": "https://www.pinnacle.com/en/esports-hub/cs2",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:23Z",
+      "observed_at": "2026-10-23T11:17:59Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.pinnacle.com/en/",
       "content_type": "text/html",
-      "response_date": "Fri, 23 Oct 2026 10:14:23 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:18:00 GMT",
       "response_sha256": "3f7de2cdd588e8d6261ec78ff287ca3a195933d4e5c0f2dbe665a07ba7f7db19",
-      "cache_age_sec": "469"
+      "cache_age_sec": "79"
     },
     {
       "id": "rivalry-cs2",
       "url": "https://www.rivalry.com/esports/counter-strike-betting",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:23Z",
+      "observed_at": "2026-10-23T11:18:00Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://www.rivalry.com/",
       "content_type": "text/html;charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:23 GMT",
-      "response_sha256": "8e17bdd096b3cbe350ba788d5128196bdacd14a52c2f891a666f50bb6d5b17f0",
-      "cache_age_sec": "41069"
+      "response_date": "Fri, 23 Oct 2026 11:18:00 GMT",
+      "response_sha256": "2b54e74c86f1d94fab0ba1287e2fdf7dfe10bf2719cabeba2ceab64557fd1b9d",
+      "cache_age_sec": "5916"
     },
     {
       "id": "stake-cs2",
       "url": "https://stake.com/sports/esports/counter-strike",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:23Z",
+      "observed_at": "2026-10-23T11:18:00Z",
       "http_status": 403,
       "status": "error",
       "final_url": "https://stake.com/sports/esports/counter-strike",
       "content_type": "text/html; charset=UTF-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:23 GMT",
-      "response_sha256": "8b8d28c0d38f822d2fdc23a6fa02193c6c767e0975629f2f92ab96c5dc16697e",
+      "response_date": "Fri, 23 Oct 2026 11:18:00 GMT",
+      "response_sha256": "b9a4405d9bdb0f6e8a701437d0f00e56047cc28fbcbce5ea4fff7439a5cc7846",
       "error": "403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
     },
     {
       "id": "valve-directory",
       "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:23Z",
+      "observed_at": "2026-10-23T11:18:00Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:24 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:18:00 GMT",
       "response_sha256": "a0c70433d2727db5d568fa6267b7000a2c15e92a4aa8820cabf07ae84338ee23",
       "evidence": "data/evidence/valve-directory.json"
     },
@@ -6746,12 +6450,12 @@
       "id": "valve-standings-response",
       "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:24Z",
+      "observed_at": "2026-10-23T11:18:00Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
       "content_type": "application/json; charset=utf-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:24 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:18:00 GMT",
       "response_sha256": "06fc3fed312af7d49273a1f7aca9eb7760736d24565ee5945811932251bf5020",
       "evidence": "data/evidence/valve-standings-response.json"
     },
@@ -6759,28 +6463,15 @@
       "id": "hotspawn-rules",
       "url": "https://play.hotspawn.com/how-it-works",
       "method": "GET",
-      "observed_at": "2026-10-23T10:14:24Z",
+      "observed_at": "2026-10-23T11:18:00Z",
       "http_status": 200,
       "status": "ok",
       "final_url": "https://play.hotspawn.com/how-it-works",
       "content_type": "text/html;charset=UTF-8",
-      "response_date": "Fri, 23 Oct 2026 10:14:24 GMT",
+      "response_date": "Fri, 23 Oct 2026 11:18:01 GMT",
       "response_sha256": "9d4f42f9fffb0acb8ec2f3612b3b1c519e766dcd80689fc11e9d2e199893298f",
-      "cache_age_sec": "4062",
+      "cache_age_sec": "7878",
       "cache_status": "HIT"
-    },
-    {
-      "id": "hotspawn-fixtures",
-      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "method": "GET",
-      "observed_at": "2026-10-23T10:43:14Z",
-      "http_status": 403,
-      "status": "error",
-      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "content_type": "application/json",
-      "response_date": "Fri, 23 Oct 2026 10:43:15 GMT",
-      "response_sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
-      "error": "403 Client Error: Forbidden for url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     }
   ],
   "evidence_files": [
@@ -6796,10 +6487,6 @@
     "data/evidence/polymarket-book-1231334-1.json",
     "data/evidence/polymarket-book-1231335-0.json",
     "data/evidence/polymarket-book-1231335-1.json",
-    "data/evidence/polymarket-book-1232959-0.json",
-    "data/evidence/polymarket-book-1232959-1.json",
-    "data/evidence/polymarket-book-1233761-0.json",
-    "data/evidence/polymarket-book-1233761-1.json",
     "data/evidence/polymarket-book-1233764-0.json",
     "data/evidence/polymarket-book-1233764-1.json",
     "data/evidence/polymarket-book-1233765-0.json",
@@ -6838,8 +6525,6 @@
     "data/evidence/polymarket-event-1231333.json",
     "data/evidence/polymarket-event-1231334.json",
     "data/evidence/polymarket-event-1231335.json",
-    "data/evidence/polymarket-event-1232959.json",
-    "data/evidence/polymarket-event-1233761.json",
     "data/evidence/polymarket-event-1233764.json",
     "data/evidence/polymarket-event-1233765.json",
     "data/evidence/polymarket-event-1233767.json",
