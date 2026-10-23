@@ -244,7 +244,14 @@ def probe_bo3(observed_at: str) -> dict:
 
 
 def bo3_binding(fixture: dict, bo3: dict, registry: dict) -> dict:
-    """Bind one fixture onto bo3.gg rows; capture relay quotes and state."""
+    """Bind one fixture onto bo3.gg rows; capture relay quotes and state.
+
+    Mirrors the reviewed ``collect_bo3_relay`` contract exactly: ``bet_updates``
+    is a dict naming one bookmaker, its match page and both sides as
+    ``team_1``/``team_2`` blocks with ``coeff`` + ``active``; sides are aligned
+    to bo3.gg's own team1/team2 by team id before use. Nothing is priced here —
+    the recorded quote is validated later by ``relayed_bookmaker_estimate``.
+    """
     from scripts.domain import timestamp
     from scripts.originate import relay_join
     match = {
@@ -261,26 +268,35 @@ def bo3_binding(fixture: dict, bo3: dict, registry: dict) -> dict:
             continue
         out['bound_url'] = f"https://bo3.gg/matches/{row.get('slug')}" if row.get('slug') else BO3_SITE + '/matches'
         out['state'] = row.get('status')
-        t1, t2 = (row.get('team1') or {}).get('score'), (row.get('team2') or {}).get('score')
+        t1, t2 = row.get('team1_score'), row.get('team2_score')
         if t1 is not None and t2 is not None:
             out['score'] = [t1, t2]
-        updates = row.get('bet_updates') or []
-        for update in updates:
-            prices = update.get('coefficient_values') or update.get('coefficients') or []
-            active = update.get('active')
-            provider = str(update.get('bookmaker') or update.get('provider') or 'bookmaker').strip()
-            if len(prices) == 2 and all(p is not None for p in prices):
-                both_active = (active if isinstance(active, list) else [active, active])
-                out['bet'] = {
-                    'provider': provider,
-                    'team_1': {'name': names[0], 'coeff': prices[0]},
-                    'team_2': {'name': names[1], 'coeff': prices[1]},
-                    'active': both_active,
-                    'path': update.get('path') or update.get('url'),
-                    'observed_at': iso(now()),
-                }
-                out['bet_two_sided'] = all(bool(a) for a in both_active) and \
-                    all(isinstance(p, (int, float)) and float(p) > 1 for p in prices)
+        block = row.get('bet_updates')
+        if not isinstance(block, dict):
+            out['rejections'].append('bo3.gg lists the fixture without a bookmaker quote block')
+            break
+        sides = {'team1': dict(block.get('team_1') or {}),
+                 'team2': dict(block.get('team_2') or {})}
+        team1_id = (row.get('team1') or {}).get('id')
+        team2_id = (row.get('team2') or {}).get('id')
+        if sides['team1'].get('team_id') and sides['team2'].get('team_id'):
+            if sides['team1']['team_id'] == team2_id and sides['team2']['team_id'] == team1_id:
+                sides['team1'], sides['team2'] = sides['team2'], sides['team1']
+            elif not (sides['team1']['team_id'] == team1_id and sides['team2']['team_id'] == team2_id):
+                out['rejections'].append('relayed quote team ids do not match the fixture sides')
+                break
+        names_sides = [sides['team1'].get('name') or names[0], sides['team2'].get('name') or names[1]]
+        coeffs = [sides['team1'].get('coeff'), sides['team2'].get('coeff')]
+        actives = [sides['team1'].get('active'), sides['team2'].get('active')]
+        out['bet'] = {
+            'provider': str(block.get('provider') or 'bookmaker').strip(),
+            'team_1': {'name': names_sides[0], 'coeff': coeffs[0]},
+            'team_2': {'name': names_sides[1], 'coeff': coeffs[1]},
+            'active': actives,
+            'path': block.get('path'),
+            'observed_at': iso(now()),
+        }
+        out['bet_two_sided'] = all(a is True for a in actives) and             all(isinstance(c, (int, float)) and float(c) > 1 for c in coeffs)
         break
     return out
 
@@ -451,7 +467,7 @@ def resolve(fixture: dict, bound: dict, ratings, valve_meta, registry: dict,
                          'detail': detail})
         return quote
 
-    if bound.get('bo3', {}).get('bet'):
+    if bound.get('bo3', {}).get('bet_two_sided'):
         bet = bound['bo3']['bet']
         row = {
             'provider': bet['provider'], 'names': [bet['team_1']['name'], bet['team_2']['name']],

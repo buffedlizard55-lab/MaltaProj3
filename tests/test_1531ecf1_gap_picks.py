@@ -296,3 +296,63 @@ class RunnerRecordSchema(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class Bo3BindingContract(unittest.TestCase):
+    """Regression: bo3.gg publishes bet_updates as ONE dict (team_1/team_2
+    blocks with coeff + active), not a list. The first runner probe iterated it
+    as a list and crashed on real data."""
+
+    def _bo3(self):
+        return {'rows': [{
+            'id': 131973, 'slug': 'inner-circle-academy-vs-spirit-academy-23-10-2026',
+            'status': 'upcoming', 'start_date': '2026-10-23T11:00:00.000+00:00',
+            'team1_score': 0, 'team2_score': 0,
+            'team1': {'id': 22737, 'name': 'Inner Circle Academy'},
+            'team2': {'id': 1309, 'name': 'Spirit Academy'},
+            'bet_updates': {
+                'path': 'https://thunderpick.io/match/2868069',
+                'team_1': {'name': 'Inner Circle Academy', 'coeff': 2.3, 'active': True, 'team_id': 22737},
+                'team_2': {'name': 'Spirit Academy', 'coeff': 1.55, 'active': True, 'team_id': 1309},
+                'provider': 'thunderpick', 'markets_count': 13,
+            },
+        }]}
+
+    def _fixture(self):
+        return {'id': '1081148', 'teams': ['Inner Circle Academy', 'Spirit Academy'],
+                'competition': 'CCT Europe 2026 Series #12',
+                'starts_at': '2026-10-23T11:00:00Z'}
+
+    def test_dict_bet_updates_binds_both_sides(self):
+        out = _gap_mod.bo3_binding(self._fixture(), self._bo3(), {'aliases': []})
+        self.assertTrue(out['bet_two_sided'])
+        self.assertEqual(out['bet']['team_1']['coeff'], 2.3)
+        self.assertEqual(out['bet']['team_2']['coeff'], 1.55)
+        self.assertEqual(out['bet']['path'], 'https://thunderpick.io/match/2868069')
+
+    def test_swapped_team_ids_are_realigned(self):
+        bo3 = self._bo3()
+        # Real case: bo3.gg prints the bookmaker's sides in the opposite order
+        # to its own team1/team2 (Spirit Academy listed first by the book).
+        bet = bo3['rows'][0]['bet_updates']
+        bet['team_1'] = {'name': 'Spirit Academy', 'coeff': 1.55, 'active': True, 'team_id': 1309}
+        bet['team_2'] = {'name': 'Inner Circle Academy', 'coeff': 2.3, 'active': True, 'team_id': 22737}
+        out = _gap_mod.bo3_binding(self._fixture(), bo3, {'aliases': []})
+        self.assertEqual(out['bet']['team_1']['coeff'], 2.3)
+        self.assertEqual(out['bet']['team_1']['name'], 'Inner Circle Academy')
+
+    def test_missing_quote_block_is_a_rejection_not_a_crash(self):
+        bo3 = self._bo3()
+        bo3['rows'][0]['bet_updates'] = None
+        out = _gap_mod.bo3_binding(self._fixture(), bo3, {'aliases': []})
+        self.assertIsNone(out['bet'])
+        self.assertTrue(out['rejections'])
+
+    def test_suspended_side_is_not_two_sided(self):
+        bo3 = self._bo3()
+        bo3['rows'][0]['bet_updates']['team_2']['active'] = False
+        out = _gap_mod.bo3_binding(self._fixture(), bo3, {'aliases': []})
+        self.assertFalse(out['bet_two_sided'])
+
+
+if __name__ == '__main__':
+    unittest.main()
