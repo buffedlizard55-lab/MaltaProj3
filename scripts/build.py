@@ -1280,7 +1280,7 @@ def load_direct_observations(source):
     return max(candidates, key=lambda item: item[:2])[2] if candidates else None
 
 
-def direct_observation_block(data, prefix):
+def direct_observation_block(data, prefix, compact=False):
     """What HLTV and the esportsbooks really published for the model-only fixtures.
 
     The brief asks for the information sources consulted for matches the featured
@@ -1291,6 +1291,12 @@ def direct_observation_block(data, prefix):
 
     It publishes no number of its own. Every price-shaped value here is quoted
     verbatim from the page and marked refused, with the reason.
+
+    ``compact`` is the phone-first executive-summary form: the headline, the
+    in-scope fixtures and a link to the full register on ``/unresolved/``. The
+    per-surface excerpts and reasons stay there, which is the same split the
+    summary's own compact branch already applies to the source-probe matrix and
+    the 22-surface sweep.
     """
     record = data.get('_direct_observations') or {}
     observations = record.get('observations') or []
@@ -1358,6 +1364,32 @@ def direct_observation_block(data, prefix):
     if markdown_path:
         downloads = (f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
                      f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a>')
+
+    refused = sum(1 for o in observations if not o.get('usable_as_price'))
+    if compact:
+        # Phone-first: the headline, what was in scope, and one tap to the full
+        # register. The excerpts and per-surface reasons are long prose and would
+        # push the picks down the screen, which is what the summary's compact
+        # branch exists to prevent.
+        scope_list = (f'<ul class="tiny direct-scope">{scope_rows}</ul>' if scope_rows else '')
+        return ('<div class="line-sources direct-sources-compact" id="direct-observations">'
+                '<h3>What HLTV and the books actually published</h3>'
+                f'<p class="tiny">Read directly at {local_time(record.get("observed_at"))} from '
+                f'{e(environment_label)}, HLTV first and then esportsbooks and betting lines, for the '
+                f'<strong>{len(scope)}</strong> fixture(s) the ladder could only price with a research model. '
+                f'<strong>{conclusions.get("fixtures_with_a_new_two_sided_price", 0)}</strong> gained a '
+                f'two-sided price and <strong>{refused}</strong> of <strong>{len(observations)}</strong> '
+                'surfaces answered but published no usable price — identical numbers on both sides, a template '
+                'value in every bookmaker cell, a zero-volume listing default and fan votes, each quoted '
+                'verbatim and refused. '
+                f'<strong>{conclusions.get("probabilities_changed", 0)}</strong> probabilities, '
+                f'<strong>{conclusions.get("picks_changed", 0)}</strong> picks and '
+                f'<strong>{conclusions.get("aliases_added", 0)}</strong> aliases changed.</p>'
+                + scope_list
+                + f'<p class="tiny"><a class="internal-link" href="{prefix}unresolved/#direct-observations">'
+                  'Every surface, its HTTP status, the quoted excerpt and why it is not a price →</a> '
+                  f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> '
+                  f'{downloads}</p></div>')
 
     return ('<div class="line-sources" id="direct-observations">'
             '<h3>What HLTV and the esportsbooks actually published — dated direct read</h3>'
@@ -1818,6 +1850,11 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # (scripts/eea4c104_audit.py) requires the block here. It is compact;
         # the 22-surface sweep and the source-probe matrix stay on /unresolved/.
         out.append(no_line_research_block(data, prefix))
+        # The companion record: what a surface that DID answer actually
+        # published, for the same no-line fixtures. Same category as the dated
+        # research record above, so it stays on the summary in compact form and
+        # links to its full register on /unresolved/.
+        out.append(direct_observation_block(data, prefix, compact=True))
         observed = complete.get('generated_at') or data.get('generated_at')
         out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                    '<ul>'

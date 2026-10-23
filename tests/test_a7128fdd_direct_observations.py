@@ -607,10 +607,21 @@ class PhoneContractWithoutABrowser(unittest.TestCase):
         cls.block = cls.css[start:]
 
     def test_the_session_css_is_appended_not_interleaved(self):
-        """Append-only, so another session's rules cannot be silently reordered."""
+        """Append-only, so another session's rules cannot be silently reordered.
+
+        This session appended twice (the full register, then its compact form),
+        so the contract is that every occurrence sits in one contiguous region
+        at the end of the file with no other session's rules inside it.
+        """
         self.assertGreater(len(self.css), len(self.block))
-        self.assertEqual(self.css.rfind('Session arena-a7128fdd'),
-                         self.css.find('Session arena-a7128fdd'))
+        first, last = self.css.find('Session arena-a7128fdd'), self.css.rfind('Session arena-a7128fdd')
+        self.assertGreater(last, first, 'expected both appended blocks')
+        between = self.css[first:last]
+        for other in ('Session 9c4b1f7a', 'Session 17d77cb3', 'Session 3016b0c6'):
+            self.assertNotIn(other, between,
+                             f'{other} rules were interleaved between this session\'s two blocks')
+        # Everything after the first occurrence is this session's, to EOF.
+        self.assertEqual(self.css[first:], self.block)
 
     def test_it_only_styles_the_new_register(self):
         for selector in ('.start-here', '.glance-row', '#picks-at-a-glance',
@@ -645,13 +656,83 @@ class PhoneContractWithoutABrowser(unittest.TestCase):
         self.assertIn('.tried-chip{white-space:normal}', self.block)
 
     def test_the_register_renders_on_the_executive_summary_and_the_unresolved_page(self):
-        """The brief asks for the unresolved section inside the executive summary."""
-        for page in ('index.html', 'unresolved/index.html'):
-            built = ROOT / 'site' / page
-            if not built.is_file():
-                self.skipTest(f'{page} has not been built locally')
-            self.assertIn('id="direct-observations"', built.read_text(encoding='utf-8'),
-                          f'#direct-observations missing from {page}')
+        """The brief asks for the unresolved section inside the executive summary.
+
+        The summary renders the compact form and /unresolved/ the full one, which
+        is the same split the summary's own compact branch applies to the source
+        probe matrix and the 22-surface sweep.
+        """
+        summary_page, unresolved_page = ROOT / 'site' / 'index.html', ROOT / 'site' / 'unresolved' / 'index.html'
+        if not (summary_page.is_file() and unresolved_page.is_file()):
+            self.skipTest('the site has not been built locally')
+        s = summary_page.read_text(encoding='utf-8')
+        u = unresolved_page.read_text(encoding='utf-8')
+        self.assertEqual(s.count('id="direct-observations"'), 1)
+        self.assertEqual(u.count('id="direct-observations"'), 1)
+        self.assertIn('direct-sources-compact', s)
+        self.assertNotIn('direct-sources-compact', u)
+        # The full per-surface evidence lives on /unresolved/, not on the phone summary.
+        self.assertIn('Open the page as read', u)
+        self.assertNotIn('Open the page as read', s)
+        # ...and the summary links to it, so it is one tap away.
+        self.assertIn('./unresolved/#direct-observations', s)
+
+
+class CompactFormForThePhoneSummary(unittest.TestCase):
+    """The executive summary must carry the section, not the whole register."""
+
+    def setUp(self):
+        rec = record(fixture_scope=[
+            {'hotspawn_id': '1083014', 'teams': ['K27', 'Virtus.pro'],
+             'competition': 'CIS LAN Championship #9', 'starts_at': '2026-10-23T13:00:00Z',
+             'published_method': 'Market line'},
+        ])
+        rec['observations'] = [observation(), observation(id='x-2', surface='bo3.gg match centre',
+                                                          url='https://bo3.gg/matches/current')]
+        self.data = {'_direct_observations': rec, 'matches': [],
+                     'complete_picks': {'matches': [{'id': '1083014'}]}}
+
+    def html(self, compact):
+        return direct_observation_block(self.data, './', compact=compact)
+
+    def test_compact_is_much_shorter_than_the_full_register(self):
+        self.assertLess(len(self.html(True)), len(self.html(False)) // 2)
+
+    def test_compact_keeps_the_counts_that_matter(self):
+        html = self.html(True)
+        self.assertIn('<strong>0</strong> gained a two-sided price', html)
+        self.assertIn('<strong>2</strong> of <strong>2</strong>', html)
+        self.assertIn('<strong>0</strong> probabilities', html)
+
+    def test_compact_names_the_in_scope_fixtures(self):
+        self.assertIn('K27 vs Virtus.pro', self.html(True))
+
+    def test_compact_links_to_the_full_register_and_the_current_picks(self):
+        html = self.html(True)
+        self.assertIn('./unresolved/#direct-observations', html)
+        self.assertIn('./origination/#picks', html)
+
+    def test_compact_omits_the_long_per_surface_prose(self):
+        html = self.html(True)
+        self.assertNotIn('Why this is not a pick input.', html)
+        self.assertNotIn('Open the page as read', html)
+
+    def test_compact_still_states_the_capture_path_and_the_observation_time(self):
+        html = self.html(True)
+        self.assertIn('authoring fetch path', html)
+        self.assertIn('23 Oct', html)
+
+    def test_compact_still_never_publishes_a_price_or_a_pick(self):
+        for forbidden in ('pick-index', 'data-pick', 'class="pick"', 'probability-bar'):
+            self.assertNotIn(forbidden, self.html(True))
+
+    def test_compact_is_empty_without_a_record(self):
+        self.assertEqual(direct_observation_block({}, './', compact=True), '')
+
+    def test_both_forms_share_the_same_anchor_id(self):
+        """One id, so the summary's link to /unresolved/#direct-observations resolves."""
+        for compact in (True, False):
+            self.assertIn('id="direct-observations"', self.html(compact))
 
     def test_the_executive_summary_still_routes_a_phone_reader_to_the_picks(self):
         built = ROOT / 'site' / 'index.html'

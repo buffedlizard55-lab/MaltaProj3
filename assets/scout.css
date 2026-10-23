@@ -659,3 +659,18 @@
   #direct-observations .line-source-row{gap:5px}
   #direct-observations .tried-chip{white-space:normal}
 }
+
+/* Session arena-a7128fdd — compact form of the same register, for the phone-first
+   executive summary. The summary's compact branch deliberately keeps prose off
+   the screen above the picks, so this variant shows the headline counts and the
+   in-scope fixtures only and links to the full register on /unresolved/. It must
+   not become the tall card the full page uses. */
+.direct-sources-compact{margin-top:10px}
+.direct-sources-compact h3{font-size:14px;margin-bottom:4px}
+.direct-sources-compact .direct-scope{margin:6px 0 4px;gap:3px}
+.direct-sources-compact .direct-scope li{padding:5px 7px;font-size:11.5px}
+@media(max-width:700px){
+  .direct-sources-compact{padding:10px 12px}
+  .direct-sources-compact h3{font-size:13.5px}
+  .direct-sources-compact .direct-scope li{font-size:11px;padding:5px 7px}
+}
