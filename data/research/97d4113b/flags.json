@@ -1,0 +1,26 @@
+[
+  {
+    "id": "97d4113b-source-access-limitations",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Unattended access limitations on HLTV and certain esportsbooks",
+    "detail": "Automated requests to HLTV match/ranking pages and several esportsbook websites return Cloudflare challenges (HTTP 403) or geographic restrictions. These are automated scraping limitations rather than proof that fixtures or betting lines do not exist. To maintain integrity without hallucination, our system gracefully falls back through the documented 5-rung ladder (first-party books -> bo3.gg relay -> Valve official regional standings -> own results network model -> HLTV world ranking logistic model) and explicitly documents any unresolvable fixtures in the separate Unresolved register.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/"
+    ]
+  },
+  {
+    "id": "97d4113b-wcag-accessibility-contrast-resolved",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Accessibility fix: text links in #low-tier-coverage underlined for WCAG 1.4.1 compliance",
+    "detail": "The newly added #low-tier-coverage section in scripts/build.py introduced list links that lacked non-color distinction, failing axe WCAG 1.4.1 (link-in-text-block) automated tests. Session arena-97d4113b updated assets/scout.css to include .ladder-list a with underline styling, resolving the violation across both 390px mobile and 1440px desktop viewports (15/15 a11y tests and 89/89 browser tests passing).",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css"
+    ]
+  }
+]
