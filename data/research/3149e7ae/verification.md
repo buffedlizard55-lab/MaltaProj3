@@ -81,3 +81,22 @@ branch root keeps serving the checked-in `data/latest.json` (`2026-10-15T08:36:1
 `COORDINATION.md` instead of edited here.
 
 Evidence: `acceptance-published-2026-10-23T0725Z.{json,md}` in this directory.
+
+## Final published-root audit — 2026-10-23T08:20Z
+
+Complete tree fetched from `main` (11 rendered pages, `assets/scout.css`, `data/latest.json`),
+audited with `scripts/acceptance_audit.py`: **7 pass · 2 info · 1 fail** of 10 brief-line checks
+(`acceptance-published-2026-10-23T0820Z.{json,md}`).
+
+- Page snapshot `2026-10-23T08:08:15Z`; 30 active fixtures, 30 directional picks, 0 explicitly unresolved.
+- Pass: every listed row names a pick with both percentages summing to 100 and an official source link;
+  the summary's counts match the rows and the reconciled snapshot; the unresolved/limitations register is
+  inside the executive summary; the in-site picks links resolve; the phone viewport and small-screen glance
+  rules are present; the schedule's largest gap is 2.5 h; the dedicated `/unresolved/` page exists.
+- Info (not failures): the row-source audit file is not in the rendered-only root (it ships in the artifact);
+  the branch-root `data/latest.json` is not the page's snapshot.
+- The single failure is the same root `data/latest.json` mismatch, now 191.6 h from the page. Every other
+  brief line is met on the live published root.
+
+Refresh cadence confirmed by successful `pages.yml` runs on `main` at 06:38Z, 07:48Z and 07:57Z, after the
+publisher had been red since 2026-10-22T14:05Z.
