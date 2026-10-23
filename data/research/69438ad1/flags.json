@@ -39,29 +39,6 @@
     ]
   },
   {
-    "id": "69438ad1-published-snapshot-stale",
-    "severity": "warning",
-    "match_ids": [],
-    "title": "Published snapshot is 188.57h old — readers see the explicit stale banner, not current picks",
-    "detail": "Independent read of https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at 2026-10-23T05:10:39Z: generated_at 2026-10-15T08:36:13Z, inventory_observed_at 2026-10-15T08:36:04Z, coverage_complete True, run_status partial-picks. The site's own bound is 8h, so every page shows the 'Snapshot needs attention' banner. This is a publisher problem, not a data problem: the scheduled refresh runs failed before collection, so no newer snapshot exists to publish. The repair is owned by session arena-19de9c79 (task 19D-2); this session records the reader-visible consequence and re-checks after the next run.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
-    ]
-  },
-  {
-    "id": "69438ad1-row-contract-clean",
-    "severity": "notice",
-    "match_ids": [],
-    "detail": "Every one of the 17 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:10:39Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
-    "title": "Independent row audit: 17 active rows, 0 missing pick/probability/source",
-    "source_urls": [
-      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/row-audit.json"
-    ]
-  },
-  {
     "id": "69438ad1-hotspawn-blocks-runner-egress",
     "severity": "warning",
     "match_ids": [],
@@ -83,6 +60,28 @@
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/194",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/published-vs-live.json"
+    ]
+  },
+  {
+    "id": "69438ad1-published-snapshot-stale",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Published snapshot is 15.59h old — readers see the explicit stale banner, not current picks",
+    "detail": "Independent read of https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at 2026-10-23T05:41:16Z: generated_at 2026-10-22T14:05:35Z, inventory_observed_at 2026-10-22T13:21:33Z, coverage_complete False, run_status degraded. The site's own bound is 8h, so every page shows the 'Snapshot needs attention' banner. This is a publisher problem, not a data problem: the scheduled refresh runs failed before collection, so no newer snapshot exists to publish. The repair is owned by session arena-19de9c79 (task 19D-2); this session records the reader-visible consequence and re-checks after the next run.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "69438ad1-row-contract-clean",
+    "severity": "notice",
+    "match_ids": [],
+    "detail": "Every one of the 37 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:41:16Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
+    "title": "Independent row audit: 37 active rows, 0 missing pick/probability/source",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/row-audit.json"
     ]
   }
 ]
