@@ -47,7 +47,12 @@ jobs:
           python -m scripts.collect || echo "::warning::collect failed; the probe continues on the checked-in snapshot"
           python -m scripts.originate --live || echo "::warning::originate failed; the probe continues on the checked-in origination"
       - name: Probe HLTV, esportsbooks and aggregators for every fixture without a line
-        run: python -m scripts.46ade650_probe --out data/research/46ade650
+        run: |
+          # The live collection already pulled the Smarkets board; keep a copy of that
+          # evidence beside the research report so the committed record is replayable.
+          mkdir -p data/research/46ade650
+          cp data/origination/evidence/live-smarkets-cs.json data/research/46ade650/live-smarkets-cs.json 2>/dev/null || echo '::warning::no Smarkets evidence file was produced by this run'
+          python -m scripts.46ade650_probe --out data/research/46ade650
       - name: Summarise the result in the job log
         run: |
           python - <<'PY'
