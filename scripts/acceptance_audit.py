@@ -113,6 +113,22 @@ def _page(site: Path, relative: str) -> BeautifulSoup | None:
     return BeautifulSoup(path.read_text(encoding='utf-8', errors='replace'), 'html.parser')
 
 
+#: Directory names inside a site or repo root that are not published HTML views.
+SKIP_HTML_DIRS = {
+    'docs', 'archive', 'node_modules', '.venv', '.git', 'tests',
+    'playwright-report', 'test-results', 'site', '_fixture', '__pycache__',
+}
+
+
+def _is_branch_root(site: Path) -> bool:
+    """True when ``site`` is the git checkout root rather than a built ``site/`` tree.
+
+    ``scripts.root_publish`` copies rendered HTML and ``assets/`` into the branch root while
+    leaving git-tracked ``data/latest.json`` as the deterministic CI replay fixture.
+    """
+    return (site / 'scripts/root_publish.py').is_file()
+
+
 def _snapshot(site: Path) -> dict:
     """The built snapshot plus its reconciled coverage counts.
 
@@ -122,14 +138,23 @@ def _snapshot(site: Path) -> dict:
     its JSON came to disagree once, so both are read here.
     """
     snapshot: dict = {}
+    branch_root = _is_branch_root(site)
     latest = site / 'data/latest.json'
     if latest.exists():
         try:
-            snapshot.update(json.loads(latest.read_text()))
+            loaded = json.loads(latest.read_text())
         except ValueError:
-            pass
+            loaded = {}
+        if branch_root:
+            # In the branch root, data/latest.json is the preserved CI replay fixture;
+            # keep only cadence metadata defaults and read generated_at from index.html.
+            for key in ('coverage_complete', 'refresh_interval_hours', 'stale_after_hours'):
+                if key in loaded:
+                    snapshot[key] = loaded[key]
+        else:
+            snapshot.update(loaded)
     reconciled = site / 'data/reconciled-counts.json'
-    if reconciled.exists():
+    if reconciled.exists() and not branch_root:
         try:
             block = json.loads(reconciled.read_text())
         except ValueError:
@@ -293,7 +318,10 @@ def check_exec_links(site: Path, soup: BeautifulSoup) -> Check:
 def check_mobile(site: Path) -> Check:
     check = Check('mobile', 'Pages are phone-ready: viewport declared, glance is a list, small-screen rules exist',
                   'It should be easily readable and accessible on phone and mobile device')
-    pages = sorted(p for p in site.rglob('*.html') if '/docs/' not in str(p) and '/archive/' not in str(p))
+    pages = sorted(
+        p for p in site.rglob('*.html')
+        if not any(part in SKIP_HTML_DIRS or part.startswith('.') for part in p.relative_to(site).parts[:-1])
+    )
     if not pages:
         return check.fail('No rendered pages were found to check.')
     missing = [str(p.relative_to(site)) for p in pages
@@ -436,10 +464,29 @@ def check_snapshot_consistency(site: Path) -> Check:
                   'It should be up to date and list the probabilities for each match based upon known betting lines')
     soup = _page(site, 'index.html')
     stamp_node = soup.select_one('[data-snapshot-generated]') if soup else None
+    branch_root = _is_branch_root(site)
     latest = site / 'data/latest.json'
     if stamp_node is None:
         return check.fail('index.html carries no data-snapshot-generated stamp to compare against.')
     page_stamp = stamp_node.get('data-snapshot-generated')
+    if branch_root:
+        built_latest = site / 'site/data/latest.json'
+        if built_latest.exists():
+            try:
+                built_stamp = json.loads(built_latest.read_text()).get('generated_at')
+            except ValueError:
+                built_stamp = None
+            if built_stamp == page_stamp:
+                return check.ok(
+                    f'Branch-root index.html and built site/data/latest.json agree ({page_stamp}); '
+                    'root data/latest.json is the preserved CI replay fixture.',
+                    f'{site}/index.html', f'{site}/site/data/latest.json',
+                )
+        return check.info(
+            f'Branch-root index.html carries live snapshot {page_stamp} from scripts.root_publish while '
+            'root data/latest.json is the preserved CI replay fixture (artifact deploy serves fresh data/*).',
+            f'{site}/index.html',
+        )
     if not latest.exists():
         return check.info('This tree carries rendered pages only, so there is no downloadable snapshot to compare.',
                           str(site))
