@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "session": "arena-46ade650",
-  "observed_at": "2026-10-23T06:19:37Z",
+  "observed_at": "2026-10-23T06:46:53Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research. HLTV first (identity and ranking only — HLTV publishes no two-sided price), then esportsbooks and betting-line aggregators. Nothing here is a probability or a pick; only a bound fixture with both sides priced is a lead.",
   "target_source": {
     "source_url": "data/origination.json",
     "source": "freshly collected in this run",
-    "snapshot_generated_at": "2026-10-23T06:18:46Z",
+    "snapshot_generated_at": "2026-10-23T06:45:22Z",
     "targets": 9,
     "active": 32
   },
@@ -253,12 +253,12 @@
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 20630,
+    "matchups_seen": 20664,
     "fixture_hits": []
   },
   "smarkets": {
     "evidence": "data/origination/evidence/live-smarkets-cs.json",
-    "observed_at": "2026-10-23T06:18:56Z",
+    "observed_at": "2026-10-23T06:45:34Z",
     "events_listed": 12,
     "fixtures_bound": 12,
     "quoted_two_sided": 9,
