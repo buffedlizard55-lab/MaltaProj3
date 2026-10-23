@@ -177,6 +177,24 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   readable on any of them, so those picks remain labelled research estimates with their limitations published.
   Evidence: [`data/research/46ade650/line-source-research.json`](data/research/46ade650/line-source-research.json),
   `.md`, and the exchange capture beside them.
+- **Merged and deployed.** [PR #196](https://github.com/buffedlizard55-lab/MaltaProj3/pull/196) merged as
+  `dddef1c` (2026-10-23T08:21:05Z); the merged head passed `Validate dashboard` and `Origination source audit`
+  on both the push and the pull_request event, and the four-hour `Refresh and deploy CS2 dashboard` run then
+  republished the verified build. The session-only probe workflow was retired in the same merge; its evidence
+  stays under `data/research/46ade650/`.
+- **Completeness audit of the live snapshot (2026-10-23T10:24 Malta / 08:24Z).** The published coverage page
+  reports **92 / 92** CS2 records reconciled across the fixture API, the lobby and the CS2 lobby (the lobby's
+  own CS2 filter reads 94; the difference is fixtures that had already started, and any ID-set mismatch fails
+  the refresh closed). Of those, **30** are still active and **all 30 carry a pick** — 18 from an external money
+  line, 8 from a labelled research model, **none blank**. The 8 research-only rows and the exact reason for each
+  (no exact-name/exact-start listing, or a Polymarket book wider than the 0.15 ceiling) are named on
+  [/unresolved/](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) beside a dated 22-surface sweep of
+  where else was checked, so a reader can see both the pick and why it is not a betting price.
+- **Spot re-check of one research-only fixture against the new exchange.** Ground Zero vs Off Chops is listed on
+  Smarkets (event 45396333) with a two-way winner market; the book reads 0.1429/0.3279 against 0.6711/0.8547, an
+  18.5-cent spread, so the 0.15 ceiling rejects it rather than publishing a thin quote as a pick. The other seven
+  fixtures had no listing on the exchange's upcoming board at the same observation.
+
 
 ## Automatic operation: one publisher, every four hours
 
