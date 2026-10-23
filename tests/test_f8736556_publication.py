@@ -12,6 +12,8 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
+from scripts.root_publish import wait_for_legacy_pages_build
+
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github/workflows/pages.yml"
 
@@ -54,6 +56,71 @@ class PublicationOrderTests(unittest.TestCase):
         self.assertIn("get('data/origination.json')", verifier)
         self.assertNotIn("data//latest.json", verifier)
         self.assertNotIn("data//origination.json", verifier)
+
+    def test_building_pages_status_does_not_treat_delayed_run_listing_as_finished(self):
+        class Response:
+            def __init__(self, body):
+                self._body = body
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self._body
+
+        class Session:
+            def __init__(self, pages_status):
+                self.pages_status = pages_status
+                self.dynamic_calls = 0
+
+            def get(self, url, headers=None, params=None, timeout=20):
+                if url.endswith("/pages"):
+                    return Response(
+                        {"build_type": "legacy", "status": self.pages_status}
+                    )
+                self.dynamic_calls += 1
+                if self.dynamic_calls < 4:
+                    return Response({"workflow_runs": []})
+                return Response(
+                    {
+                        "workflow_runs": [
+                            {
+                                "id": 39935261124,
+                                "name": "pages-build-deployment",
+                                "status": "completed",
+                                "conclusion": "success",
+                                "head_sha": "abc123",
+                            }
+                        ]
+                    }
+                )
+
+        building = Session("building")
+        summary = wait_for_legacy_pages_build(
+            "owner/repo",
+            "abc123",
+            "token",
+            session=building,
+            attempts=6,
+            pause=0,
+            initial_polls=2,
+        )
+        self.assertEqual(summary["pages_status"], "building")
+        self.assertEqual(building.dynamic_calls, 4)
+        self.assertEqual(summary["legacy_runs"][0]["status"], "completed")
+
+        built = Session("built")
+        summary = wait_for_legacy_pages_build(
+            "owner/repo",
+            "abc123",
+            "token",
+            session=built,
+            attempts=6,
+            pause=0,
+            initial_polls=2,
+        )
+        self.assertEqual(summary["legacy_runs"], [])
+        self.assertEqual(built.dynamic_calls, 3)
 
     def test_refresh_cadence_stays_inside_four_to_eight_hours(self):
         self.assertIn("- cron: '17 */4 * * *'", self.text)

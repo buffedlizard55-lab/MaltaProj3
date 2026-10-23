@@ -299,8 +299,15 @@ def wait_for_legacy_pages_build(
     api = f"https://api.github.com/repos/{repository}"
     pages_resp = sess.get(f"{api}/pages", headers=headers, timeout=20)
     pages_resp.raise_for_status()
-    mode = pages_resp.json().get("build_type")
-    summary: dict = {"sha": sha, "build_type": mode, "legacy_runs": []}
+    pages = pages_resp.json()
+    mode = pages.get("build_type")
+    pages_status = pages.get("status")
+    summary: dict = {
+        "sha": sha,
+        "build_type": mode,
+        "pages_status": pages_status,
+        "legacy_runs": [],
+    }
     if mode != "legacy":
         return summary
 
@@ -323,7 +330,12 @@ def wait_for_legacy_pages_build(
         ]
         if legacy and all(r.get("status") == "completed" for r in legacy):
             return summary
-        if not legacy and attempt >= initial_polls:
+        # The dynamic-run listing can lag the Pages platform's own "building"
+        # status. Treating an empty listing as finished in that state would let
+        # an artifact deploy race (and lose to) a legacy build that GitHub has
+        # already said is in progress. Only an idle/built site may use the
+        # short no-run exit; a building site waits for the run to appear.
+        if not legacy and attempt >= initial_polls and pages_status != "building":
             return summary
         if attempt < attempts - 1:
             time.sleep(pause)
