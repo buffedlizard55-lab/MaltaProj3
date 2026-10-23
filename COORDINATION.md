@@ -1,6 +1,6 @@
 # Current session: arena-81c1058a — line-by-line Hotspawn CS2 verification, HLTV-first low-tier & bookmaker line research, acceptance-audit root-tree alignment, Flagged-for-Review register & mobile audit — DONE
 
-Claimed **2026-10-23T09:46Z** on Arena's fixed branch `arena/81c1058a-maltaproj3`, branched from `main` at `d120d2f` (and rebased onto `eeae869`). Board and open PRs read first; all earlier 2026-10-23 sessions (`46ade650`, `92a3e9fb`, `3149e7ae`, `e7d7a410`, `52aee465`, `17d77cb3`, `97d4113b`, `d866c786`, `308fcaad`, `f6bfc506`) are done/merged. Zero file overlap with any active claim.
+Claimed **2026-10-23T09:46Z** on Arena's fixed branch `arena/81c1058a-maltaproj3`, branched from `main` at `d120d2f` (and rebased onto `00dcbba`), opened and merged as **PR #220** (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/220`). Board and open PRs read first; all earlier 2026-10-23 sessions (`46ade650`, `92a3e9fb`, `3149e7ae`, `e7d7a410`, `52aee465`, `17d77cb3`, `97d4113b`, `d866c786`, `308fcaad`, `f6bfc506`) are done/merged. Zero file overlap with any active claim.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
