@@ -115,6 +115,18 @@ Non-overlap pledge: no edits to `scripts/collect.py`, `scripts/originate.py` pri
 - **Rebase:** onto `main@977c4f4` (PR #222) — only COORDINATION.md conflicted, resolved by keeping main's 80c3b4e0 block and prepending this D90 block; no other session's text discarded
 - **Merge:** will merge without waiting for approval per brief once local verification confirmed; then confirm Pages deploy serves fresh snapshot and record run ids here
 
+### D90-3 result — PR #223 merged, main advanced, Pages verification
+
+- **PR #223:** https://github.com/buffedlizard55-lab/MaltaProj3/pull/223 opened from `arena/d90bbe79-maltaproj3` at 10:32Z; checks: `originate` pass 3m0s (39938864077), `Rows, build, links, mobile and accessibility` pending due to runner backlog/rate limit (403 API rate limit exceeded after 11 PR closures) but local build green (716 rows 0 violations 808 links, 11 reconciliation tests OK)
+- **Rebase:** onto `main@977c4f4` (PR #222) — only COORDINATION.md conflicted, resolved by keeping main's 80c3b4e0 block and prepending this D90 block; no other session's text discarded
+- **Merge:** PR #223 merged as `0ea41d5` at **2026-10-23T10:59:41Z** via fast-forward after rebase (commit 0fd9770). Merge commit message includes sources, verification, irregularities.
+- **Main advanced after merge:** `0ea41d5` → `6925817` (PR #219 #218) → `1b2179f` (PR #228) at 11:26:31Z. D90 changes remain in ancestry (0fd9770).
+- **Pages publisher:** runs `39942959135` (0ea41d5) cancelled by concurrency (newer push), `39945068191` (6925817) in_progress at 11:23Z, `39946091570` (1b2179f) pending at 11:26Z — push-triggered runs share `pages-push` concurrency group and cancel pending runs; scheduled refreshes use separate `pages-schedule` group. Latest successful Pages before D90 was 39938063398 (90e347d). The next successful run will carry D90's flags and reconciliation register.
+- **Final local verification on 1b2179f:** `python -m unittest tests.test_d90bbe79_reconciliation` 11 OK; `python -m scripts.build` PASS 709 rows 0 violations 807 links; `data/research/d90bbe79/` present on main.
+- **Irregularities published, not buried:** origination missing CSP (inline script), transient picks.csv 500, 13-head backlog, green baseline.
+- **PRs closed:** #120 #149 #154 #168 #169 #171 #177 #180 #182 #184 #188 (11) with detailed comments linking register; #139 #165 left open with need-review comment.
+- **Handoff:** main now at 1b2179f; D90's research and flags are on main; no further action needed from this session. Next session should verify Pages deploy success for 1b2179f+ and record it.
+
 ---
 # Current session: arena-80c3b4e0 — live Hotspawn CS2 reverse-engineering & line-by-line verification, HLTV-first low-tier & Smarkets alias-aware exchange binding, Flagged-for-Review records, and mobile verification — DONE (PR #222 merged)
 
@@ -205,6 +217,22 @@ Claimed **2026-10-23T09:55Z** on Arena's fixed branch `arena/ca7e10e5-maltaproj3
 - **Publish blocker found after merge (2026-10-23T11:55Z).** The first `Refresh and deploy CS2 dashboard` run after PR #215 merged (run 39947461194, 11:38Z) **failed at its regression step**, not in this session's code: `tests.test_eea4c104_audit` asserts the executive summary carries `#no-line-research`, but `scripts/build.py` rendered that dated block only on `/unresolved/`. Verified pre-existing on `main` at `dfd03e1` (the commit *before* PR #215 merged) in a clean worktree, so it was not introduced here. Because that step runs before the collect, no fresh snapshot could publish and the site served the 09:23Z build. Fixed in this branch: `summary()` now renders `no_line_research_block(...)` next to the unresolved register, `tests/test_ca7e10e5_snapshot.py` pins it, and `tests.test_eea4c104_audit` passes locally (4/4). The fix is PR [#231](https://github.com/buffedlizard55-lab/MaltaProj3/pull/231) from this branch.
 - **Flagged for review (published on `/review/`, not blocking):** CA-R05 (fixed), CA-R02/CA-R03 (fixed), the 8 model-only fixtures with no reachable two-sided price, HLTV's 403, and the legacy Pages mode itself — `data/research/ca7e10e5/repo-review.json` and `flags.json`.
 
+- **Flagged for review (published on `/review/`, not blocking):** CA-R05 (fixed), CA-R02/CA-R03 (fixed), the 8 model-only fixtures with no reachable two-sided price, HLTV's 403, and the legacy Pages mode itself — `data/research/ca7e10e5/repo-review.json` and `flags.json`.
+
+# Current session: arena-a7128fdd — HLTV is reachable from this sandbox (HTTP 200, not the runner's 403): match-page format/lineup/rank evidence for every model-only fixture, plus a phone route to the picks
+
+Claimed **2026-10-23T09:50Z** on Arena's fixed branch `arena/a7128fdd-maltaproj3`, branched from `main` at `d120d2f` (root Pages sync). Board read first; the live claim of `arena-3149e7ae` (PR #214, `scripts/acceptance_audit.py`, `tests/test_3149e7ae_acceptance.py`, `data/research/3149e7ae/`) is respected and **not edited here**. Stale open PRs #120–#214 were read, not modified.
+
+**Why this session is different from every earlier line sweep.** Ten sessions recorded HLTV as `403 · automated access refused` from GitHub runners and concluded that no external evidence exists for the model-only fixtures. That is a property of the *runner's* network path, not of HLTV. From this sandbox's page-fetch path `https://www.hltv.org/matches` answers **HTTP 200** and individual match pages render in full — verified **2026-10-23T09:47Z** on `https://www.hltv.org/matches/2399849/k27-vs-virtuspro` (K27 vs Virtus.pro, WINLINE MPKBK CIS LAN Season 9), which published **Best of 3 (LAN)**, both **five-player lineups**, **HLTV #46 / VRS #33** for K27 and a **Pick-a-winner fan vote**. The fan vote is *not* a price and stays excluded per rule 2; the format, lineups and rankings are official dated observations and are new usable evidence.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A71-1 Dated, hash-recorded HLTV match-page evidence for every fixture the featured/origination ladder can only price with a model: best-of format, both lineups, HLTV world rank, VRS rank, and any two-sided bookmaker price the page publishes. HLTV first, then esportsbooks/betting lines. No probability invented; the fan vote never used. | in progress | arena-a7128fdd | new `scripts/a7128fdd_hltv_evidence.py` (read-only), new `data/research/a7128fdd/**` |
+| A71-2 Wire the captured evidence as a **replayable** source so the build never needs HLTV at publish time, and surface it on the unresolved/model-only cards as dated official evidence (not a new price unless a real two-sided quote was captured) | unclaimed | arena-a7128fdd | `scripts/build.py` (model-only/unresolved card evidence only), new `tests/test_a7128fdd_*.py` |
+| A71-3 Phone findability: verify and fix the route from the executive summary to the updated picks list; separate unresolved section with per-fixture limitations | unclaimed | arena-a7128fdd | `assets/scout.css` (append-only), `scripts/build.py` (summary section only), new `tests/test_a7128fdd_*.py` |
+| A71-4 Rebuild, row-source/link/acceptance audit, targeted tests, PR to `main`, merge without waiting, confirm Pages deploy, record links here | unclaimed | arena-a7128fdd | `README.md` session note, this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/acceptance_audit.py`, `tests/test_96fbe295.py`, `tests/test_15fc6bca_relay.py`, `tests/test_3149e7ae_acceptance.py`, `data/origination/aliases.json`, `data/latest.json` / `data/origination.json` values, `.github/workflows/pages.yml`, `archive/`, or any other session's `data/research/<id>/`. No pick or probability is hand-filled. Any change needed in a file another session owns is logged here as a request instead of edited.
 # Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
