@@ -5919,3 +5919,13 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
   committed to the root (`data/*.json` stay artifact-served, per `f2b91672`'s narrowing); bulk
   evidence is not republished every four hours; new fixtures appear between refreshes
   (`1082919` is the worked example above).
+
+## Session arena-38c53ece — 2026-10-23 independent current coverage audit
+Board read before work. Using Arena's required fixed branch `arena/38c53ece-maltaproj3` rather than creating another branch. Older sessions own existing renderer/pricing changes; PRs #190/#191 already address the clock-bound publisher test, so this session will not duplicate that fix.
+
+| Task | Status | Owner | Files |
+| --- | --- | --- | --- |
+| 38C-1 Fresh runner-based inventory/pick and HLTV→esportsbook gap audit; publish dated limitations, no invented odds | in progress | arena-38c53ece | new `scripts/current_coverage_audit.py`, `tests/test_current_coverage_audit.py`, `data/research/38c53ece/`, `.github/workflows/38c53ece-audit.yml` |
+| 38C-2 Independent build/link/mobile verification and integration PR; confirm production deployment | in progress | arena-38c53ece | this board section, same new report scope only |
+
+Restricted sandbox egress cannot reach Hotspawn/HLTV/books directly. Actual source checks will run on GitHub Actions; a local saved-evidence replay will not be represented as a fresh official observation. No changes to other sessions' scopes or production probabilities are claimed.
