@@ -20,8 +20,11 @@ on:
 permissions:
   contents: write
 concurrency:
+  # A new push must not cancel a sweep that is already collecting evidence:
+  # every push to this branch touches COORDINATION.md and would otherwise kill
+  # the run each time. Queued runs still serialise.
   group: 17d77cb3-research
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   research:
     runs-on: ubuntu-24.04
