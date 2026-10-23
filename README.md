@@ -144,6 +144,45 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   are flagged on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/)
   so the next four-hour live collect can retry the books. No snapshot row was hand-edited.
 
+## 23 October session arena-46ade650: the four-hour publish is running again, and a new exchange line for the low-tier matches
+
+- **The publisher was down for nineteen hours and is now fixed.** Every scheduled `Refresh and deploy
+  CS2 dashboard` run from 2026-10-22T20:07Z failed at the regression-test gate before it could collect,
+  build or deploy: runs [39845991470](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39845991470),
+  [39861117407](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39861117407),
+  [39871371551](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39871371551) and
+  [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806). Two tests were
+  pinned to dates that had already passed: the bo3.gg relay test's fixture started 2026-10-22T14:00Z, so the
+  production prematch guard correctly refused a later quote, and the root-publish check-mode test built its
+  miniature site at a frozen 2026-10-22T09:00Z, so the snapshot crossed the 12-hour age limit and the command
+  returned 3 instead of the drift code the test asserts. Both are now wall-clock-relative; **no production
+  pricing, inventory, probability, alias or deployment rule changed** (`tests/test_15fc6bca_relay.py`,
+  `tests/test_96fbe295.py`).
+- **A new independent money source: the Smarkets exchange.** The brief asks for a line rather than a rating
+  model wherever a real betting market exists, including for academy and tier-3 matches that Polymarket,
+  Kalshi and the big books skip. [Smarkets](https://smarkets.com/sport/esports/cs-go) publishes a public,
+  documented read-only API ([docs.smarkets.com](https://docs.smarkets.com/)) that lists CS2 as `csgo_match`,
+  including CCT Europe, United21 and DFRAG fixtures. `scripts/smarkets_lines.py` binds both team names plus a
+  start inside the same 60-second window, saves the original events/markets/contracts/quotes responses, and
+  converts Smarkets' 1/10000 quotes into 0–1 probabilities. The rung uses the existing ladder rules unchanged:
+  two-sided books only, no wider than 15 cents, anything wider than 12 cents flagged **thin**, and every
+  published quote replays from its saved capture in `scripts/build_origination.py`. It is one independent vote
+  in the median, never a tie-breaker, and an unreachable exchange records a reason and prices nothing.
+- **A fresh, dated sweep for every fixture without a line.** The runner probe (2026-10-23T04:57Z, snapshot
+  2026-10-23T04:57:03Z) re-researched the **9** active fixtures that carried only a research-model pick, in
+  brief order: HLTV first, then esportsbooks and aggregators, adding Rivalry, Betano, Betsson, Unibet,
+  Oddspedia, 22bet, Bet365 and the HLTV search endpoint to the surfaces earlier sessions tried. Result: HLTV
+  answered 403 (Cloudflare), Bet365 403, EGamersWorld 403, Oddspedia 410, Betsson 202, Unibet 503, Rivalry and
+  22bet served challenge pages, and the Pinnacle guest board listed none of the nine. No two-sided price could be
+  read on any of them, so those picks remain labelled research estimates with their limitations published.
+  Evidence: [`data/research/46ade650/line-source-research.json`](data/research/46ade650/line-source-research.json)
+  and `.md`.
+- **The dated limitation block now publishes the freshest sweep.** The executive summary's *Fixtures without a
+  betting line — latest dated research* block used to remember one specific run's HLTV 403 and hardcode
+  session 3016b0c6's evidence links. It now selects the newest record by its own `observed_at`, links the JSON
+  and Markdown of that record, reports the HLTV answer that run actually received, and names the extra surfaces
+  it probed (`tests/test_46ade650_research.py`).
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.
