@@ -1,3 +1,42 @@
+# Current session: arena-9fd5fbf1 — current Hotspawn CS2 coverage vs stale snapshot, HLTV-first lines for missing/low-tier fixtures, phone “still open” pick finder
+
+Claimed **2026-10-23T05:00Z** on Arena’s fixed branch `arena/9fd5fbf1-maltaproj3`. Board and open PRs were read first. Concurrent sessions own publisher tests and other research folders; those files are not edited here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9F-1 Independent 2026-10-23 live Hotspawn CS2 inventory vs the public snapshot; HLTV first then esportsbooks for fixtures the featured method / stale snapshot cannot resolve; dated source-linked limitations; never invent a probability | **done** | arena-9fd5fbf1 | new `data/research/9fd5fbf1/**`, this section |
+| 9F-2 Phone findability: “Still open / Locked” chips on Picks at a glance, client reorder of locked rows to the bottom, executive-summary section for live lobby fixtures missing from this snapshot | **done** | arena-9fd5fbf1 | `scripts/build.py` (`glance()` chips + `live_coverage_gaps()`), `assets/scout.js` (filter), `assets/glance-lock.js` (reorder only), `assets/scout.css` (append-only), new `tests/test_9fd5fbf1.py` |
+| 9F-3 Rebuild, row-source/link audit, targeted tests, PR to main, merge, Pages record | in progress | arena-9fd5fbf1 | this section, PR |
+
+### 9F-1/9F-2 result (2026-10-23T05:10Z)
+- Public snapshot still `generated_at 2026-10-22T14:05:35Z` (degraded, 37/37 complete-picks, featured 7 unresolved). Live lobby CS2 filter **92**, week counter **197**. Missing from that snapshot with official permalinks: **1081605** Phantom Academy vs Banda chuya (HLTV 2399699, #174 vs Unranked), **1083014** K27 vs Virtus.pro (HLTV 2399849, #46 vs #56, VP stand-in Patsi), **1082693** BESTIA vs Galorys (HLTV 2399815), NODWIN 1079193/1079195/1082996/1079198/1079199/1079200. JiJieHao vs Eternal Fire is on the lobby without a permalink (HLTV 2399638); Hotspawn id left blank.
+- HLTV analytics are ranking/form, not prices. bo3.gg NEXVOID–Rare Atom had lineups and no coeff block. Polymarket Gamma slugs for those gaps returned `[]`. No probability invented. Flags auto-load on `/review/`.
+- Phone: Picks at a glance gains **All / Still open / Locked** 44px chips; `glance-lock.js` moves locked rows below still-open ones after the snapshot ages. Executive summary section `#live-coverage-gaps` lists every live lobby fixture this snapshot does not contain, with Hotspawn + HLTV links.
+- Local verification: `tests.test_9fd5fbf1` + glance/summary/review suites **OK**; `test_review_flags` rebuild **650 rows / 0 without a source / 795 internal links**.
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`, `data/origination/aliases.json`, `data/latest.json` / `data/origination.json` values, `.github/workflows/pages.yml`, or any other session’s `data/research/<id>/`. No pick or probability is hand-filled.
+
+# Current session: arena-92a3e9fb — line-by-line official verification, HLTV-first low-tier & bookmaker line research, scoped team aliases, Flagged-for-Review register & mobile audit — DONE / MERGING PR #204
+
+Claimed **2026-10-23T05:05Z** (rebased cleanly onto latest `main` `b33c26b` preserving 100% of `arena-52aee465` PRs #202/#205, `arena-38c53ece` PR #193, `arena-97d4113b` PRs #200/#201, `arena-d866c786` PR #197, `arena-fd99abd9` PR #194, `arena-308fcaad` PR #191, and `ecbc7ae` root Pages sync) on Arena's fixed session branch `arena/92a3e9fb-maltaproj3`, opened and verified as **PR #204** (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/204`).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 92A-1 Line-by-line official verification of the repository snapshot (`80` rows in `data/latest.json`, `17` rows in `data/origination.json`, `41` sources in `data/sources.json`) and live 2026-10-23 Hotspawn CS2 inventory (`93` CS2 records at `05:05Z`, `92` verbatim CS2 records at `05:21Z`, `SHA-256 b75b4ac72876e193adfa4ea3f3bbe10a84a28f02189b22d5dbb32011672cd22f`: `30` open upcoming `2026-10-23T08:00Z..2026-10-31T13:00Z`, `62` past/locked), HLTV-first then esportsbook/betting-line research for all 13 low-tier/new fixtures, and source-linked Flagged-for-Review records | **done** | arena-92a3e9fb | `data/research/92a3e9fb/**`, `scripts/review_register.py`, `data/origination/aliases.json` (`69` lossless merged competition-scoped aliases), this section of `COORDINATION.md` |
+| 92A-2 Deterministic line-by-line audit & mobile/accessibility regression suite verifying complete active-match pick coverage, both-team probabilities + directional picks, executive-summary in-site links & separate unresolved/no-line limitations sections, official `https://` row sources, 320/390/768/1440px phone/desktop findability & WCAG A/AA compliance | **done** | arena-92a3e9fb | `scripts/92a3e9fb_verify.py`, `tests/test_92a3e9fb_verification.py`, `tests/browser/phone_picks_92a3e9fb.spec.mjs`, this section of `COORDINATION.md` |
+| 92A-3 Lossless integration rebase onto `origin/main` (`b33c26b`), full unit + row-source + link + Playwright/axe suite verification, PR #204 merge & live GitHub Pages confirmation | **done** | arena-92a3e9fb | `COORDINATION.md`, PR #204 (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/204`) |
+
+### `arena-92a3e9fb` Verification & Research Summary (`2026-10-23`)
+- **Pull Request & CI**: PR #204 (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/204`); green GitHub Actions validation runs `39908180774`, `39908392279` (`Validate dashboard`) and `39908180747`, `39908392254` (`Origination source audit`), plus post-rebase re-verification preserving all `69` competition-scoped aliases (`4` added + `6` competition-scope extensions on top of `arena-52aee465`), `10` session review registers, `678` audited HTML table rows (`0` violations), `803` internal links/assets/anchors, `91/91` Playwright + axe WCAG A/AA browser specs, and `106/106` pick-safety assertions.
+- **Official Trusted Sources Consulted**:
+  - Hotspawn Lobby (`https://play.hotspawn.com/lobby`), CS2 Pick'ems (`https://play.hotspawn.com/cs2-pickems`), and scheduled fixtures API (`https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`) — `picked_percent` audited as crowd selection data only and excluded from all win-probability calculations.
+  - HLTV official match & analytics pages (`2399112`, `2399113`, `2399114`, `2399115`, `2399437`, `2399438`, `2399699`, `2399888`, `2399889`, `2399890`, `2399891`), Valve Regional Standings (`https://github.com/ValveSoftware/counter-strike_regional_standings`, latest commit `eec4853` on `2026-10-05`), `bo3.gg` match relays (`https://api.bo3.gg/api/v1/matches`), `Thunderpick` real-money books (`2870940`, `2872333`, `2870930`, `2872398`, `2872440`), `Polymarket` Gamma/CLOB APIs, `Kalshi` `KXCS2GAME` series, `Bovada` CS2 moneyline coupons, `Pinnacle` Arcadia guest feed, and GitHub Pages API (`https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages`).
+- **HLTV-First Low-Tier & Bookmaker Line Discoveries & Flagged Irregularities (`/review/`, `92A-R01..92A-R08`)**:
+  - Newly posted `Thunderpick` decimal moneylines captured via `bo3.gg` + HLTV verification: `1082859` (`NEXVOID vs Alter Ego`: `1.61 / 2.14` → `57.07% / 42.93%`), `1082860` (`FlyQuest vs Staqued`: `1.001 / 12.0` → `92.31% / 7.69%`, replacing blank `Staqued` roster), `1079193` (`FOKUS vs ex-6666` via `FOKUS CS -> FOKUS`: `1.17 / 4.40` → `78.97% / 21.03%`), and `1079195` (`Nuclear TigeRES vs FORZE Reload`: `1.58 / 2.20` → `58.18% / 41.82%`).
+  - Flagged active substitute lineups on HLTV where monthly `2026-10-05` Valve CSV lags or omits teams (`Rooster` using subs `TjP` & `foggers` in `1082861`, `Ground Zero` using sub `tucks` in `1082858`, `Alter Ego` using sub `Bloody` in `1082859`, unconfirmed `Banda Chuya` & `Rooster` rosters left blank in Valve CSV rather than guessed), non-overlapping correction of peer `fd99abd9` Oct 15–16 vs Oct 23 date confusion & `sports/29` Soccer API URL, and legacy branch-root `/data/latest.json` split-brain diagnosis.
+
+---
+
 # Current session: arena-e7d7a410 — a pick for every listed match, dated unresolved register, phone-first executive summary, and a verified 4-hour publisher
 Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/e7d7a410-maltaproj3`, branched from `main` at `cd95411` (merge of PR #189). Board read first. Live state observed through the public GitHub API at 05:00–05:10Z: the deployed Pages site is being served by the **legacy `main /` builder**, whose checked-in `data/latest.json` is `2026-10-15T08:36:13Z` (80 records, 17 upcoming) — eight days old — because `pages.yml` `verify-and-deploy` has failed at its pre-collection regression step since 2026-10-22T14:05Z (run [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806) and four later runs). The specific date-bound failure is `tests/test_96fbe295.py::test_check_mode_reports_a_current_root_and_then_drift`, owned by `arena-4ac63e41` in PR [#190](https://github.com/buffedlizard55-lab/MaltaProj3/pull/190); that file pair is out of my scope. PR #188 (`7293b310`) and PR #190 are active; I do not duplicate them.
 | Task | Status | Owner | File scope |
@@ -15,7 +54,7 @@ Non-overlap pledge: no edit to `scripts/root_publish.py`, `tests/test_96fbe295.p
 - **My branch probe ran on a runner at 06:15:55Z** (workflow `e7d7a410-probe.yml`, read-only, commits only dated reports): **32 active / 32 with a pick / 0 defects / 0 orphans / 23 external money lines (16 market, 5 bookmaker, 2 consensus) / 9 model-only**, with 6 featured-method blanks resolved by the complete feed. Freshly regenerated line research at 06:16:13Z re-checked all 9 unpriced fixtures: HLTV listing and ranking 403, EGamersWorld 403, Stake 403, GG.BET 403, BetBoom 401, Marathonbet 403, Betway 404, Oddspedia 410, DraftKings 404, OddsPortal/Rivalry/1xBet/bo3.gg reachable with names but **no new two-sided prematch price**, so no probability, pick or alias changed.
 - **Full repository suite on the merged head: `Ran 1012 tests in 675.6 s`, `OK`** (the two former date-bound failures are gone).
 - **Local build on the merged head:** 655 row-source rows, 636 with an official link, 9 flagged unverified, 10 site-map, **0 without a source**, 801 internal links/assets/anchors pass, 9 current views; `/review/` renders all three `e7d7a410-*` flags.
-- **PR #203** (this branch → `main`) carries the audit tooling, the dated evidence, the strict empty-snapshot guard and the clock-bomb guard extension. Merged without waiting for review per the brief; deploy verified below.
+- **PR #203 merged into `main` at 2026-10-23T06:26:40Z** — merge commit `47933cb` — carrying the audit tooling, the dated 06:15Z runner evidence, the strict empty-snapshot guard and the extended clock-bomb guard. No approval was awaited, per the brief. The merge triggered Pages run 39911513022 on `47933cb`; the site deployed immediately before it (run 39906935915) already served the fresh 06:17Z snapshot, verified public: `/data/latest.json` `generated_at` 2026-10-23T06:17:47Z, 94 inventory / 32 upcoming / `coverage_complete: true`, and `/unresolved/` shows 32/32 picks with the separate 9-row no-betting-line register.
 
 
 ### E7 result — verified 2026-10-23 (arena-e7d7a410)
@@ -139,9 +178,16 @@ Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/308fcaad-maltaproj3
 2. `test_96fbe295.PlanTests.test_check_mode_reports_a_current_root_and_then_drift` — `main(["--check"])` compares the real clock against a snapshot pinned at `2026-10-22T08:40Z` with a 12 h freshness limit, so every run after `2026-10-22T20:40Z` exits 3 instead of 0. **Unfixed anywhere — this session's fix.**
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| S308-1 Merge PR #189 (relay date-bomb, owner 3016b0c6's follow-up; verify its test locally on the merged base first) | in progress | arena-308fcaad | PR #189 only (its own files: `tests/test_15fc6bca_relay.py`, `COORDINATION.md`) |
-| S308-2 Make the `--check`-mode regression test clock-deterministic (inject the clock into `scripts.root_publish.main` instead of comparing against the real wall clock; no CLI/behaviour change) | in progress | arena-308fcaad | `scripts/root_publish.py` (optional `now=` kwarg only), `tests/test_96fbe295.py` |
-| S308-3 Re-run the full refresh in CI after the fixes, confirm a fresh complete snapshot (picks for every active fixture; HLTV-then-esportsbooks research ladder for anything the featured method cannot resolve), then verify the live site: executive-summary in-site links, unresolved/limitations section, phone readability | pending | arena-308fcaad | CI runs; read-only live verification via public URLs; any new dated research goes to new `data/research/308fcaad/` only |
+| S308-1 Merge PR #189 (relay date-bomb, owner 3016b0c6's follow-up; verify its test locally on the merged base first) | **done 2026-10-23T05:0xZ** — 22/22 relay tests re-run green on the PR head before merging; merged as `cd95411` | arena-308fcaad | PR #189 only (its own files: `tests/test_15fc6bca_relay.py`, `COORDINATION.md`) |
+| S308-2 Make the `--check`-mode regression test clock-deterministic (inject the clock into `scripts.root_publish.main` instead of comparing against the real wall clock; no CLI/behaviour change) | **done** — `main(argv, *, now=None)` threads into `build_plan`; test passes its pinned `NOW`. PR [#191](https://github.com/buffedlizard55-lab/MaltaProj3/pull/191) merged as `3104ec7` (fix commit `ee1b677`). Both previously failing suites green locally (31/31, 22/22) and the full `Validate dashboard` suite green on the PR head (run 39904454190, 21m, incl. mobile/a11y) | arena-308fcaad | `scripts/root_publish.py` (optional `now=` kwarg only), `tests/test_96fbe295.py` |
+| S308-3 Re-run the full refresh in CI after the fixes, confirm a fresh complete snapshot (picks for every active fixture; HLTV-then-esportsbooks research ladder for anything the featured method cannot resolve), then verify the live site: executive-summary in-site links, unresolved/limitations section, phone readability | **done 2026-10-23T06:22Z** — see S308-3 result below | arena-308fcaad | CI runs; read-only live verification via public URLs; dated research in `data/research/308fcaad/` |
+
+### S308-3 result (2026-10-23) — publisher unblocked, fresh complete snapshot verified live
+- **The four-hour publisher works again.** After both date-bomb fixes merged, Pages run [39906935915](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906935915) completed **success** at 06:22:42Z — every step green, including *Regression tests (repository fixtures, before any cache restore)* (the step that had failed on every run since 2026-10-22T14:05Z), collect, originate --live, unresolved research, build, deploy, `verify_live`, root-sync and the post-root-sync re-deploy + re-verify.
+- **Fresh live snapshot verified by reading public URLs (not local files):** `/data/latest.json` → `generated_at 2026-10-23T06:17:47Z`, `coverage_complete: true`, `inventory_crosscheck: complete`, counts 94 inventory / 32 upcoming / 26 picks / 6 featured-blanks all researched / **0 unresolved**. `/unresolved/` renders "Every one of the 32 active Hotspawn CS2 fixtures has a pick", the separate **Picks without a betting line · limitations** register (9 model-only rows, each with the money sources tried, the blocker, and links), and the dated runner sweep block (7 of 22 surfaces answered, 06:19Z). `/origination/#picks` renders all 32 fixtures with both probabilities, an obvious ✓ pick, method badge and per-row source links (Hotspawn + provider) — phone-first table, verified by rendering, and CI's browser suite (390px, no-JS, axe WCAG) passed on the PR head. The executive summary's in-site links (updated picks → `/origination/#picks`, unresolved register, coverage, methodology) are generated by the build and audited by its link audit.
+- **Session research sweep (this brief's research ask) — `data/research/308fcaad/line-source-research.{json,md}` + `flags.json` (auto-rendered on /review/):** HLTV first — match pages **readable from the Arena sandbox client** (the CI runner is 403-challenged; both facts published), and HLTV still publishes no prematch price (promo block only; fan vote excluded by policy). Then esportsbooks/exchanges: bo3.gg lists all four NODWIN Oct 25 R16 fixtures and both checked DFRAG openers **without odds** while pricing their near-date siblings (FOKUS–ex-6666 1.17/4.40, Nuclear TigeRES–FORZE Reload 1.58/2.20, NEXVOID–Alter Ego 1.61/2.14, FlyQuest–Staqued 1.00/12.00) — proof the relay rung prices a fixture the moment its book posts odds. Polymarket: event 1238706 (Infinite–BRUTE) book 0.04/0.96 spread 0.92 and event 1237427 (Ground Zero–Off Chops) book 0.06/0.93 spread 0.87 re-observed wide; public search finds **no event** for Phantom Academy–Banda chuya; Moscow Cyber Games has no bo3.gg tournament page (404). **No new two-sided prematch price found; no probability, pick or alias changed.** The 9 model-only rows keep their named-source limitations and are retried every four hours.
+- **Irregularities recorded, not buried:** (1) resolving the #194 board conflict during rebase initially truncated `COORDINATION.md` to the two newest claim blocks; caught by diff-stat review and repaired in commit `ee1b677`'s follow-up (full 5,933-line history restored from `origin/main`, both new claim blocks kept — no other session's text altered). (2) A direct CDN read of `/data/origination.json` at ~07:00Z returned the checked-in 15 October bytes while the rendered pages served the fresh build and `verify_live` had cross-checked that exact URL at deploy time — recorded as a cache-window notice flag (`308fcaad-cdn-origination-json-cache-window`), not a pipeline failure; the next refresh redeploys and re-verifies.
+
 Both files in S308-2 are owned by completed/merged sessions (96fbe295, f2b91672) — unowned per board precedent; no live claim overlaps. Non-overlap pledge: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `archive/`, or other sessions' `data/research/<id>/`. If the fresh snapshot still leaves fixtures unresolved, the dated HLTV→esportsbook research sweep is published as session evidence, never as invented prices.
 
 
@@ -155,7 +201,100 @@ Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3
 | FD99-2 Phone-first executive summary: one-tap links to updated picks, every active row shows both probabilities + obvious pick + method badge + source link; separate "Picks without a betting line" and "Unresolved & limitations" registers inside the summary with per-row blocker | **done** — executive summary verified: Start here bar (Picks on this page → #picks-at-a-glance is first tap, full-width orange on phone), Picks at a glance (every active fixture, both probabilities, pick, Market/Bookmaker/Model badge, source link, Find-a-pick search with live count + sticky on ≤700px), mobile-status strip (17 picks ready of 17 / 0 unresolved), no_line_register + unresolved_register + no_line_research_block (latest dated HLTV→books sweep) all inside `summary()`; links audited by build. No new CSS needed — existing scout.css already thumb-friendly (≥44px, 700px/375px breakpoints) | arena-fd99abd9 | `scripts/build.py` (`glance()`, `no_line_register()`, `unresolved_register()`, `summary()` only), `assets/scout.css` (append-only mobile rules), `assets/scout.js`, `tests/test_fd99abd9_*.py` (new) |
 | FD99-3 Line-by-line verification, row-source audit, link audit, mobile a11y, rebuild, PR to main + merge + Pages confirm | in progress | arena-fd99abd9 | `data/research/fd99abd9/`, this section, PR |
 
-Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.
+Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.# Current session: arena-69438ad1 — independent live-source verification (platform-side egress), HLTV-first research for every no-line fixture, phone-first findability audit
+
+Claimed **2026-10-23T05:05Z** on Arena's fixed branch `arena/69438ad1-maltaproj3`, based on `main` at
+`cdd77b58133b6627ef8f6d4738d8784431eeac6b`. The board and the open-PR list were read first.
+
+**Live claim respected, not duplicated.** `arena-19de9c79` claimed 19D-1/2/3 at 2026-10-23T04:51Z and committed
+`5ef5ab2` at 04:53Z: the two date-bound publisher regressions (`tests/test_15fc6bca_relay.py`,
+`tests/test_96fbe295.py`, `scripts/root_publish.py`) plus its own `data/research/19de9c79/**`. This session edits
+**none** of those files and does not re-attempt that repair. Open PRs #189/#188/#184/#182/#180/#177/#171/#169/#168/#165/
+#154/#149/#139/#120 are idle >60 min; they are left untouched and are not merged blindly.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 6943-1 Independent verification of the *currently published* site against the *live* Hotspawn source, read from this session's own platform-side egress (which reaches `play.hotspawn.com` and `hltv.org`, where the CI runner records HTTP 403): full CS2 inventory reconciliation, a pick + both probabilities + an official source link on every active row, staleness/coverage flags, internal links, phone-width readability. Dated originals preserved | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_verify.py` (read-only), new `tests/test_69438ad1_*.py`, this section |
+| 6943-2 HLTV-first, then esportsbook/betting-line research for every active fixture the ladder resolves only with a labelled research model or leaves blank. Per fixture: HLTV match/ranking evidence first, then bo3.gg, Thunderpick, Polymarket, Kalshi, Pinnacle, GG.BET, EGamersWorld, OddsPortal — HTTP status, exact-name/start binding, and the two-sided price or the explicit "no price reachable" verdict with its source links. **Leads and limitations only: no probability, pick or alias is written by hand** | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_probe.py` (read-only), temporary session-only `.github/workflows/69438ad1-probe.yml` (removed before merge), new `tests/test_69438ad1_*.py`, this section |
+| 6943-3 Publish the findings on the live site through the auto-discovered session flag/dossier contract, repair only verified defects in files no session claims, then PR → merge → confirm the real GitHub Pages deployment and record sources, verification and irregularities here | unclaimed → arena-69438ad1 | this section, new `data/research/69438ad1/**`, new `tests/test_69438ad1_*.py`, and any unclaimed implementation file named here **before** it is edited |
+
+**Non-overlap pledge:** no edit to `scripts/root_publish.py`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`,
+`data/research/19de9c79/**`, any other session's `data/research/<id>/`, `archive/`, `scripts/collect.py`, the
+`scripts/originate.py` pricing ladder, `data/origination/aliases.json`, canonical `data/latest.json` /
+`data/origination.json`, or any generated shared page. Hotspawn `% picked` and HLTV fan votes are never probabilities.
+Shared outputs (site index, navigation, table data) change only through the canonical builder. If a defect is found in a
+file another session owns, it is logged here as a change request instead of edited.
+
+### 6943-0 diagnosis read at claim time (2026-10-23T05:00Z, official GitHub records)
+
+- The public site is **stale**: `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` serves
+  `generated_at 2026-10-22T14:05:35Z`, `inventory_observed_at 2026-10-22T13:21:33Z`, `coverage_complete false`,
+  `run_status degraded`, counts `{inventory 98, upcoming 37, market 16, bookmaker 2, model 12, unresolved 7, picks 30}`.
+  Every page carries the "Snapshot needs attention" banner and the "A newer verified snapshot is available" prompt is
+  not offered, because no newer snapshot has been published since.
+- Five consecutive scheduled `Refresh and deploy CS2 dashboard` runs failed **before collection** at
+  `Regression tests (repository fixtures, before any cache restore)`:
+  [39807044948](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39807044948) (15:40Z),
+  [39845991470](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39845991470) (20:06Z),
+  [39861117407](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39861117407) (21:55Z),
+  [39871371551](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39871371551) (23:22Z),
+  [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806) (00:58Z on 23 Oct).
+  The `republish-last-verified` job succeeded in each, so the site stayed up on the 14:05Z artifact instead of going
+  dark. Run [39902353982](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39902353982) (04:49Z) was
+  still inside that same regression-test step when this claim was written. **Owner: `arena-19de9c79` (19D-2).**
+- Live Hotspawn read directly by this session at 2026-10-23T05:02Z: `https://play.hotspawn.com/lobby` returned the
+  rendered lobby ("197 matches this week", CS2 filter "All tiers (92)") and the fixture API
+  `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`
+  answered 200 with a JSON array. Both are reachable from this session's egress; the runner recorded 403 on the
+  rendered lobby pages on 2026-10-17. That asymmetry is the reason 6943-1/6943-2 are run from here.
+
+---### 6943 results — independent verification, dated research, phone measurements (2026-10-23)
+
+- **Runner verification run** [39904195324](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39904195324)
+  (never deploys): collect + originate + merged HLTV-first probe (`scripts/3a5448de_probe.py`, credited) +
+  new published-vs-live reconciliation (`scripts/69438ad1_verify.py`) all succeeded; only
+  `data/research/69438ad1/` was committed. Conclusions at 05:10:39Z: 9 featured-blank targets, 9 with a
+  directional pick, 0 blank, 0 bo3.gg two-sided relay quote, no new wireable two-sided price (HLTV 403 from
+  the runner; OddsPortal/Rivalry 200 but no verifiable prematch price); published row contract clean
+  (17/17 active rows with two probabilities, a pick, a method badge and an https official source link;
+  published row-source audit 334 rows / 0 violations).
+- **Platform-side reads** (this session's egress, which HLTV and Hotspawn accept while runners get 403):
+  lobby rendered at 05:02Z ("197 matches this week", CS2 "All tiers (92)"); HLTV match page
+  2399587 read at 05:12Z — betting block = affiliate promos + analytics only (no two-sided price on HLTV,
+  now verified from a working read), fan vote 74.5/25.5 excluded, current weekly ranking publication
+  **2026-10-19** (NEXVOID #77 / VRS #71, Rare Atom #127 / VRS #135). Evidence:
+  `data/research/69438ad1/platform-side-hltv.json`.
+- **Two live irregularities, flagged not buried:** (1) at 05:10:39Z Hotspawn answered the runner 403 on both
+  the fixture API and the lobby — fresh runner collection is currently impossible, so absence of runner
+  access must never be read as absence of fixtures; (2) between 05:02Z and 05:10Z the public feed rolled
+  back from the 22 Oct verified artifact to the 15 Oct checked-in root (PR #194's merge push started the
+  legacy Pages build; the artifact re-deploy only runs inside a successful `pages.yml` run). Both are in
+  `data/research/69438ad1/flags.json` and render on `/review/`.
+- **Phone measurements** (390x844 headless Chromium, locally rebuilt site): no horizontal overflow on any
+  audited view; picks index + unresolved register one tap from the top; every glance card shows both
+  percentages, the bold pick and its method badge. Defect change-requested to the next owner of
+  `assets/scout.css` (arena-9fd5fbf1 held it at claim time): inline card links 14-20 px tall, below WCAG
+  2.5.8's 24 px minimum. Screenshots + sample in `data/research/69438ad1/mobile/`.
+- **Verification:** `tests/test_69438ad1_verify.py` 4/4; `tests.test_96fbe295` + `tests.test_15fc6bca_relay`
+  53/53 after merging PR #191; Playwright `summary_navigation.spec.mjs` 4/4 and `dashboard.spec.mjs` 37/37
+  (WCAG A/AA at 390 and 1440 px on all seven pages) against the locally built site; local
+  `python -m scripts.build` replay PASS, row-source audit 646 rows / 0 without a source, 792 internal links.
+- **PR** [#198](https://github.com/buffedlizard55-lab/MaltaProj3/pull/198) opened 05:16Z from this branch.
+- **Concurrency notes:** push-triggered `pages.yml` runs are cancelling each other while sessions merge
+  (39904798351 and 39904508204 cancelled while pending); the schedule group is separate, next slot 06:47Z.
+  After #198 merges this session will trigger `workflow_dispatch` on `pages.yml` (its own concurrency group)
+  so the verified build, the root re-deploy and the public read-back do not depend on the merge burst.
+
+### arena-69438ad1 merge log (2026-10-23T05:2xZ)
+
+Merged `origin/main` at `fa8a4e8` (PR #189 relay-test fix, PR #194 fd99abd9) into this session branch.
+The only conflict was this board's top section: both sessions had prepended their claim. Resolved by
+keeping both verbatim, fd99abd9's 04:57Z claim first (older), this session's 05:05Z claim second. Nothing
+else conflicted; fd99abd9's `scripts/build.py` phone-summary changes and `tests/test_15fc6bca_relay.py`
+fix are retained untouched.
+
+---
+
 
 ---
 

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "session": "arena-308fcaad",
+  "observed_at": "2026-10-23T07:05:00Z",
+  "observation_window": "2026-10-23T06:20Z - 2026-10-23T07:05Z",
+  "environment": "Arena sandbox fetch client (a distinct network path from the GitHub Actions runner: HLTV.org pages were readable here, while the runner's own sweep at 06:19Z recorded 403 Cloudflare challenges. Both observations are true of their respective clients and are published side by side.)",
+  "policy": "Read-only research. HLTV first (identity/ranking only - HLTV publishes no two-sided prematch price; its fan vote is excluded by policy), then esportsbooks and betting exchanges. Nothing here is a probability or a pick. No number on this page may be used as a pick input; a price becomes an input only when the audited ladder in scripts/originate.py re-reads it from its own verified source.",
+  "target_source": {
+    "source": "live published snapshot",
+    "snapshot_generated_at": "2026-10-23T06:17:47Z",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "counts": {"inventory": 94, "upcoming": 32, "market": 15, "bookmaker": 3, "model": 8, "unresolved": 6, "picks": 26},
+    "register": "9 active fixtures carry a research-model pick with 'No betting line' on https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
+  },
+  "targets": [
+    {"id": "1081605", "teams": ["Phantom Academy", "Banda chuya"], "competition": "CCT Europe 2026 Challengers #8", "starts_at": "2026-10-23T11:00:00Z", "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605", "published_pick": "Banda chuya 52.5% (Valve-rating research estimate)"},
+    {"id": "1082996", "teams": ["Acend", "UNiTY"], "competition": "NODWIN Clutch Series #13", "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996", "published_pick": "Acend 54.2% (Valve-rating research estimate)"},
+    {"id": "1079198", "teams": ["Metizport", "BakS"], "competition": "NODWIN Clutch Series #13", "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198", "published_pick": "Metizport 79.9% (Valve-rating research estimate)"},
+    {"id": "1079199", "teams": ["Infinite", "BRUTE"], "competition": "NODWIN Clutch Series #13", "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199", "published_pick": "Infinite 69.0% (Valve-rating research estimate)"},
+    {"id": "1079200", "teams": ["Color", "ex-Zero Tenacity"], "competition": "NODWIN Clutch Series #13", "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200", "published_pick": "Color 73.6% (Valve-rating research estimate)"},
+    {"id": "1082858", "teams": ["Ground Zero", "Off Chops"], "competition": "DFRAG Invitational 2026", "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858", "published_pick": "Off Chops 55.5% (bo3.gg results-network estimate)"},
+    {"id": "1082861", "teams": ["Rooster", "Abyssal"], "competition": "DFRAG Invitational 2026", "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861", "published_pick": "Abyssal 52.2% (Valve-rating research estimate)"},
+    {"id": "1082792", "teams": ["HOTU", "The Huns"], "competition": "Moscow Cyber Games 2026", "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792", "published_pick": "HOTU 94.1% (Valve-rating research estimate)"},
+    {"id": "1082793", "teams": ["5star", "1WIN"], "competition": "Moscow Cyber Games 2026", "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793", "published_pick": "1WIN 82.2% (Valve-rating research estimate)"}
+  ],
+  "per_source": [
+    {
+      "source": "HLTV.org",
+      "finding": "READABLE from this client; still no price.",
+      "detail": "Match page https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13 fetched 2026-10-23T06:20Z-06:30Z: confirms fixture (INFINITE vs BRUTE, NODWIN Clutch Series 13, playoffs round of 16, Best of 3 (Online), 25 October). The page's 'Betting' block contains sponsor/promo links only - HLTV publishes no two-sided prematch odds of its own. The 'Pick a winner' fan vote (INFINITE 40.0% / BRUTE 60.0%) is a community vote and is excluded by policy. HLTV remains an identity/ranking source, never an odds source, exactly as the methodology states.",
+      "urls": ["https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13", "https://www.hltv.org/matches"]
+    },
+    {
+      "source": "bo3.gg (Thunderpick relay surface used by the pipeline's relay rung)",
+      "finding": "All four NODWIN Oct 25 round-of-16 fixtures are LISTED but carry NO odds yet; near-date siblings are already priced, which shows the relay works as soon as a book prices a match.",
+      "detail": "Tournament page https://bo3.gg/tournaments/nodwin-clutch-series-13/matches fetched 2026-10-23T06:35Z: Oct 24 playoff matches FOKUS vs ex-6666 (1.17/4.40) and Nuclear TigeRES vs FORZE Reload (1.58/2.20) carry Thunderpick prices; the Oct 25 fixtures Acend vs UNiTY, Metizport vs BAKS, INFINITE vs BRUTE and Color vs ex-Zero Tenacity show 'All odds are on' with no prices. DFRAG page https://bo3.gg/tournaments/dfrag-invitational-2026/matches fetched 2026-10-23T06:40Z: Ground Zero vs Off Chops (group A opening) and Rooster vs Abyssal (group B opening) listed with no prices, while NEXVOID vs Alter Ego (1.61/2.14) and FlyQuest vs Staqued (1.00/12.00) in the same event are priced. CCT Europe Challengers 8 page fetched 2026-10-23T06:40Z lists Phantom Academy vs los kogutos (no prices); no Phantom Academy vs Banda chuya pairing is listed. Moscow Cyber Games: no tournament page answers under https://bo3.gg/tournaments/moscow-cyber-games-2026/matches (HTTP 404, fetched 2026-10-23T06:45Z).",
+      "urls": ["https://bo3.gg/tournaments/nodwin-clutch-series-13/matches", "https://bo3.gg/tournaments/dfrag-invitational-2026/matches", "https://bo3.gg/tournaments/cct-europe-2026-challengers-8/matches"]
+    },
+    {
+      "source": "Polymarket (Gamma event API + public search)",
+      "finding": "The two events the register records as wide are confirmed wide on a second dated read; no event exists for the CCT pairing.",
+      "detail": "Event 1238706 (cs2-inf6-brute-2026-10-25, 'Counter-Strike: Infinite vs Brute (BO3) - NODWIN Clutch Series Playoffs', created 2026-10-23T04:05Z, active) fetched 2026-10-23T06:45Z: its Map 1 child moneyline (market 6072806) shows spread 0.92, bestBid 0.04, bestAsk 0.96 and outcomePrices 0.5/0.5 - an unfilled, untradeable book, consistent with the register's recorded limitation. Event 1237427 (cs2-gz1-offcho-2026-10-25, 'Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A', created 2026-10-22T21:35Z, active) fetched 2026-10-23T06:50Z: Map 1 child moneyline (market 6066506) shows spread 0.87, bestBid 0.06, bestAsk 0.93, outcomePrices 0.495/0.505 - same conclusion. public-search?q=Phantom+Academy fetched 2026-10-23T06:50Z returns only the CLOSED event cs2-phanto-fal-2026-10-22 (Phantom Academy vs Falcons Force, resolved 1.0/0.0); no event exists for Phantom Academy vs Banda chuya at the time of the sweep.",
+      "urls": ["https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25", "https://gamma-api.polymarket.com/events?slug=cs2-gz1-offcho-2026-10-25", "https://gamma-api.polymarket.com/public-search?q=Phantom%20Academy", "https://polymarket.com/event/cs2-inf6-brute-2026-10-25", "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25"]
+    }
+  ],
+  "leads": [],
+  "conclusion": "No new two-sided prematch price was found for any of the 9 no-betting-line fixtures during this window. The published research-model picks and their per-row limitations stand unchanged. Every source is re-read automatically by the four-hour refresh: the bo3.gg relay rung prices a fixture the moment its book posts two-sided odds (as it already did for NEXVOID-Alter Ego and FlyQuest-Staqued), and the featured Polymarket collector prices a fixture the moment a compliant series-winner book exists. Nothing here needs manual wiring; the limitation is the market's, not the pipeline's.",
+  "irregularities": [
+    "The GitHub Actions runner received HTTP 403 from HLTV.org at 06:19Z while this sandbox client read the same match page minutes later. Access differs by client; neither observation is generalized. The site publishes both.",
+    "A direct CDN read of https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at ~07:00Z returned the checked-in 15 October bytes while the rendered origination page served the fresh 06:17Z build and scripts.verify_live had cross-checked data/origination.json against the rendered rows at deploy time (run 39906935915, all steps green). Recorded as a cache-window observation, not a pipeline failure."
+  ]
+}

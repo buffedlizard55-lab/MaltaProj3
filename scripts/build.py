@@ -496,6 +496,8 @@ def exec_banner(data, prefix):
     unresolved = cc.get('unresolved', data['counts'].get('unresolved', 0))
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
+    gaps = (f' · <a href="{prefix}#live-coverage-gaps">live lobby gaps ↓</a>'
+            if data.get('_live_coverage') else '')
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
@@ -506,7 +508,7 @@ def exec_banner(data, prefix):
         f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} from research models · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a> · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a>{gaps} · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
         f'</section>'
     )
 
@@ -688,6 +690,11 @@ def glance(data, prefix, now=None):
             '<div class="glance-finder"><label for="glance-search">Find a pick — type a team or tournament</label>'
             '<input id="glance-search" type="search" inputmode="search" autocomplete="off" '
             'placeholder="e.g. Spirit Academy" aria-controls="glance-list">'
+            '<div class="glance-status-filters" role="group" aria-label="Show still-open or locked picks">'
+            '<button type="button" class="glance-status" data-glance-status="all" aria-pressed="true">All</button>'
+            '<button type="button" class="glance-status" data-glance-status="open" aria-pressed="false">Still open</button>'
+            '<button type="button" class="glance-status" data-glance-status="locked" aria-pressed="false">Locked</button>'
+            '</div>'
             '<p class="glance-count" id="glance-count" role="status"></p>'
             '<p class="glance-empty" id="glance-empty" hidden>No match in this snapshot uses that name. '
             'Clear the search to see every pick, or open the complete list.</p></div>'
@@ -1035,6 +1042,63 @@ def no_line_research_block(data, prefix):
             f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
             f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a></p>'
             + leads_html + '</div>')
+
+
+def live_coverage_gaps(data, prefix):
+    """Live Hotspawn lobby fixtures that this snapshot does not contain.
+
+    Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
+    official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
+    When the next four-hour collect includes the id, the row drops out of this
+    list automatically.
+    """
+    record = data.get('_live_coverage') or {}
+    live = record.get('live_fixtures') or []
+    if not live:
+        return ''
+    known = {str(m.get('id')) for m in data.get('matches') or [] if m.get('id') is not None}
+    missing = []
+    for fixture in live:
+        identity = fixture.get('id')
+        if identity is None or str(identity) not in known:
+            missing.append(fixture)
+    observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
+    rows = ''
+    for fixture in missing:
+        names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+        identity = fixture.get('id')
+        label = f'Hotspawn {identity}' if identity else 'Hotspawn id unverified'
+        links = ''
+        if fixture.get('hotspawn_url'):
+            links += external(fixture['hotspawn_url'], 'Hotspawn')
+        if fixture.get('hltv_url'):
+            links += external(fixture['hltv_url'], 'HLTV match')
+        if fixture.get('hltv_analytics_url'):
+            links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
+        note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
+        rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
+                 f'<strong>{e(names)}</strong> '
+                 f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
+                 f'<span class="line-source-note">{e(note)}</span>{links}</li>')
+    empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
+             'The next four-hour collect is still the authority for new cards.</p>')
+    body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
+    return (
+        f'<section class="content-section" id="live-coverage-gaps">'
+        f'<div class="section-heading"><div>'
+        f'<p class="eyebrow">Unresolved for this snapshot</p>'
+        f'<h2>Live Hotspawn fixtures missing from this snapshot</h2></div>'
+        f'<span class="muted small">{len(missing)} not in this build</span></div>'
+        f'<p class="section-intro">Compared the live '
+        f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} against this page\'s snapshot '
+        f'at {observed}. These cards are on Hotspawn right now and have no pick <em>in this build</em> '
+        f'because they were scheduled after the last successful collect, or the collect could not run. '
+        f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
+        f'Hotspawn crowd percentages are not used. '
+        f'<a class="internal-link" href="{prefix}data/research/9fd5fbf1/live-coverage.json">Dated record (JSON) ↓</a> '
+        f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
+        + body + '</section>'
+    )
 
 
 #: Session 4c972a51's dated runner sweep. The file is evidence, not a feed: it
@@ -1407,6 +1471,7 @@ def summary(data, prefix, now=None):
     # under three stacked 44px action rows.
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
+    out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix)
     if complete:
@@ -1901,6 +1966,12 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = None
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
+    live_coverage_path = source / 'research/9fd5fbf1/live-coverage.json'
+    if live_coverage_path.exists():
+        try:
+            data['_live_coverage'] = json.loads(live_coverage_path.read_text())
+        except ValueError:
+            data['_live_coverage'] = None
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:

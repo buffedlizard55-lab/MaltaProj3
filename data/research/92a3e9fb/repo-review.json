@@ -1,0 +1,184 @@
+{
+  "session": "arena-92a3e9fb",
+  "scope": "Line-by-line verification of Hotspawn CS2 inventory (live API + /lobby + /cs2-pickems), checked-in snapshots (data/latest.json, data/origination.json, data/origination/aliases.json), HLTV-first low-tier match research, esportsbook odds verification, GitHub Pages deployment audit, and peer-session flag validation.",
+  "review_clock_utc": "2026-10-23T05:26:00Z",
+  "method": "Direct first-party fetches of Hotspawn JSON API (verbatim 92-row capture, SHA-256 b75b4ac72876e193adfa4ea3f3bbe10a84a28f02189b22d5dbb32011672cd22f), 12 HLTV match/analytics pages, Polymarket Gamma/CLOB APIs, Kalshi KXCS2GAME API, bo3.gg match/bookmaker API, Valve official CS2 regional standings GitHub repo, and live GitHub Pages endpoints; deterministic math replay via scripts/92a3e9fb_verify.py.",
+  "items": [
+    {
+      "id": "92A-R01",
+      "area": "Hotspawn lobby & fixtures API inventory",
+      "status": "verified",
+      "finding": "Reverse-engineered play.hotspawn.com/lobby (197 weekly multi-sport rows), play.hotspawn.com/cs2-pickems, and /api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1. Observed transient 92 vs 93 SSR cache lag on /lobby at 05:05Z and captured all 92 CS2 objects verbatim at 05:21Z (62 past/locked including 05:00Z 1081872, 30 upcoming 2026-10-23T08:00Z..2026-10-31T13:00Z). Hotspawn best_of and series_format are null on all 92 rows.",
+      "handling": "Saved byte-exact JSON capture to data/research/92a3e9fb/hotspawn-fixtures-raw-2026-10-23T0521Z.json; collector reads the authoritative fixtures API every 4 hours (cron 17 */4 * * *) with Hotspawn crowd pick shares excluded from all probability calculations and unconfirmed format fields left null unless confirmed on HLTV.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Hotspawn multi-sport lobby hydrated from ng-state SSR cache (observed 197 weekly rows, 92 CS2 rows during 05:05Z edge cache window)."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Hotspawn CS2 Pick'ems view listing all active CS2 competitions and lock countdowns."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Authoritative JSON endpoint returning 93 CS2 records at 05:05Z and 92 CS2 records at 05:21Z (30 open upcoming fixtures)."
+        }
+      ]
+    },
+    {
+      "id": "92A-R02",
+      "area": "Peer review register error (data/research/fd99abd9/flags.json)",
+      "status": "needs review",
+      "finding": "Merged data/research/fd99abd9/flags.json published notices claiming five finished Oct 15–16, 2026 matches (1080202, 1080203, 1080282, 1080284, 1081120) were '5 active fixture(s) with no betting line' on 2026-10-23T05:00:19Z, misclassified sandbox DNS/egress blocks as HTTP None responses, and queried Pinnacle /0.1/sports/29/matchups (Soccer) instead of /0.1/sports/12/matchups (Esports).",
+      "handling": "Respected active-session file non-overlap rule by leaving fd99abd9's directory untouched and publishing a source-linked correction in data/research/92a3e9fb/flags.json, this review register, and COORDINATION.md.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Live 2026-10-23 Hotspawn CS2 API confirms 1080202, 1080203, 1080282, 1080284, and 1081120 concluded a week earlier and are absent from active CS2 fixtures."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+          "detail": "Official Pinnacle guest API uses sport ID 12 for Esports (sport ID 29 is Soccer)."
+        }
+      ]
+    },
+    {
+      "id": "92A-R03",
+      "area": "New DFRAG Invitational fixtures (1082859 & 1082860)",
+      "status": "verified",
+      "finding": "Post-05:00Z Hotspawn additions 1082859 (NEXVOID vs Alter Ego, 2026-10-26T03:00Z) and 1082860 (FlyQuest vs Staqued, 2026-10-27T03:00Z) lack usable Polymarket CLOB liquidity (empty event [] and 0.91 wide stub spread respectively), and Staqued is unranked on both HLTV and Valve VRS with only 2 series on bo3.gg (< MIN_SERIES=3). First-hand HLTV + bo3.gg/Thunderpick research resolved both with real-money decimal odds: NEXVOID 1.61 vs Alter Ego 2.14 (57.1% / 42.9% no-vig) and FlyQuest 1.001 vs Staqued 12.0 (92.3% / 7.7% no-vig).",
+      "handling": "Verified that scripts/originate.py bo3_relay_rows accepts decimal odds > 1.0 (including 1.001 / 12.0) and recorded complete source provenance in data/research/92a3e9fb/unresolved-and-no-line-research.json.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+          "detail": "HLTV match 2399889 confirms BO3 NEXVOID (#77, VRS #71) vs Alter Ego (#132, VRS #145, Bloody Sub) at 2026-10-26T03:00:00Z."
+        },
+        {
+          "url": "https://thunderpick.io/match/2870940",
+          "detail": "Thunderpick Match Winner quote relayed on bo3.gg match 132601 prices NEXVOID 1.61 vs Alter Ego 2.14 (57.1% / 42.9% proportional no-vig)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "detail": "HLTV match 2399890 confirms BO3 FlyQuest (#61, VRS #54) vs Staqued (Unranked, VRS Unranked) at 2026-10-27T03:00:00Z."
+        },
+        {
+          "url": "https://thunderpick.io/match/2872333",
+          "detail": "Thunderpick Match Winner quote relayed on bo3.gg match 132607 prices FlyQuest 1.001 vs Staqued 12.0 (92.3% / 7.7% proportional no-vig)."
+        }
+      ]
+    },
+    {
+      "id": "92A-R04",
+      "area": "Competition-scoped team alias gaps (NODWIN #13, DFRAG, Tesla Cup, CCT S11)",
+      "status": "fixed",
+      "finding": "Line-by-line audit of all 30 live upcoming fixtures against Polymarket, Thunderpick, and bo3.gg identified missing competition scopes for UNiTY esports -> UNiTY, Team UNiTY -> UNiTY, and BakS eSports -> BakS in NODWIN Clutch Series #13, FaZe Clan -> FaZe in Tesla Cup 2026, plus unmapped display names FOKUS CS -> FOKUS (blocking live Thunderpick 1.17/4.40 quote on 1079193), INFINITE Gaming -> Infinite, Team Brute -> BRUTE, and Team Abyssal -> Abyssal.",
+      "handling": "Extended existing competition scopes and added four strictly scoped entries with academy/female exclusions and multi-source https:// evidence in data/origination/aliases.json; all 91 origination & alias unit tests pass.",
+      "evidence": [
+        {
+          "url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+          "detail": "bo3.gg match 131192 schedules FOKUS CS vs ex-6666 at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13 with Thunderpick 1.17 / 4.40 odds."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399112 confirms Acend vs UNiTY at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399113 confirms Metizport vs BAKS at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399114 and bo3.gg match 131198 confirm INFINITE Gaming / Infinite vs Team Brute / BRUTE at 2026-10-25T15:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match 2399891 and bo3.gg match 132606 confirm Rooster vs Team Abyssal / Abyssal at 2026-10-27T03:00:00Z."
+        }
+      ]
+    },
+    {
+      "id": "92A-R05",
+      "area": "Valve monthly standings lag & active substitute lineups",
+      "status": "needs review",
+      "finding": "Official Valve GitHub CS2 regional standings publish monthly (latest commit eec4853 dated 2026-10-05). Direct inspection of 2026-10-23 HLTV match pages found three model-only fixtures where live rolling VRS / HLTV rankings or active substitutes diverge from the Oct 5 snapshot: 1081605 (Phantom Academy HLTV #174 / VRS #167 vs Banda Chuya Unranked / VRS #169, vs Oct 5 Valve 52.5% Banda chuya), 1082861 (Rooster fielding two subs TjP & foggers at Unranked / VRS #154 vs full-roster Abyssal HLTV #128 / VRS #129), and 1079200 (Color VRS #73 / HLTV Unranked vs ex-Zero Tenacity HLTV #67 / VRS #95).",
+      "handling": "Flagged all three model-only fixtures on /review/ with exact HLTV and Valve GitHub links without fabricating synthetic bookmaker odds; scoped aliases ensure real sportsbook odds replace the model automatically when prematch markets open.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/tree/main/live/2026",
+          "detail": "Official Valve regional standings repository showing latest live/2026 commit eec4853 on 2026-10-05."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8",
+          "detail": "HLTV match 2399699 displays Phantom Academy (#174, live VRS #167) vs Banda Chuya (Unranked, live VRS #169)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match 2399891 displays Rooster (Unranked, live VRS #154, subs TjP & foggers) vs Abyssal (#128, live VRS #129)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399115 displays Color (Unranked, live VRS #73) vs ex-Zero Tenacity (#67, live VRS #95)."
+        }
+      ]
+    },
+    {
+      "id": "92A-R06",
+      "area": "Polymarket $0 stub order books & US HLTV bookmaker geo-block",
+      "status": "platform limitation",
+      "finding": "Direct inspection of Polymarket Gamma/CLOB markets for NODWIN #13 and DFRAG low-tier matches confirmed $0 volume shells quoting 0.93–0.96 asks on both sides (spreads 0.43–0.92), while US HLTV pages serve a Stake US sweepstakes promo banner with zero decimal odds.",
+      "handling": "Spread ceilings (<=0.12 featured, <=0.15 fallback) reject unquoted CLOB shells instead of treating 50% midpoints as real market prices, and missing HLTV odds are left null rather than inferred.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+          "detail": "Polymarket event 1237429 ($0 volume) showing non-executable 0.96 / 0.95 CLOB ask stubs (spread 0.91)."
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8",
+          "detail": "HLTV betting analytics page showing head-to-head/form notes with US bookmaker prices geo-restricted."
+        }
+      ]
+    },
+    {
+      "id": "92A-R07",
+      "area": "GitHub Pages legacy build_type HTML vs /data/*.json split",
+      "status": "platform limitation",
+      "finding": "Repository Pages configuration uses build_type='legacy' serving main:/ directly. Because pages.yml syncs live HTML views to main root while preserving checked-in data/latest.json (2026-10-15T08:36:13Z) so pre-cache regression tests pass, live HTML pages and /data/latest.json reflect different snapshots.",
+      "handling": "Documented the exact legacy-mode split with live endpoint links on /review/ and verified that every rendered HTML view and row-source audit reconciles internally with zero broken links.",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages",
+          "detail": "Official GitHub Pages API endpoint reporting build_type='legacy' with source branch 'main' path '/'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "Scheduled 4h publisher syncing refreshed HTML views to main root while keeping checked-in data/latest.json intact for pre-cache unit tests."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Live GitHub Pages executive summary served from branch main:/ index.html."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+          "detail": "Static JSON endpoint serving checked-in main:/data/latest.json regression baseline."
+        }
+      ]
+    },
+    {
+      "id": "92A-R08",
+      "area": "Checked-in snapshots, probability math, row-source links & mobile WCAG audit",
+      "status": "verified",
+      "finding": "Audited all 80 rows in data/latest.json, all 17 rows in data/origination.json, all 56 scoped aliases in data/origination/aliases.json, every rendered HTML table row across all views (0 unlinked rows), all internal links (0 broken links), and mobile viewports (320px/375px/390px/1440px, 0 horizontal overflow, 0 axe WCAG A/AA violations).",
+      "handling": "Locked down with deterministic verification script scripts/92a3e9fb_verify.py, Python unittest suite tests/test_92a3e9fb_verification.py, and Playwright mobile/WCAG spec tests/browser/phone_picks_92a3e9fb.spec.mjs.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3",
+          "detail": "Repository source tree containing scripts/92a3e9fb_verify.py, data/row-source-audit.json, and automated CI workflows."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "Published Flagged for Review page rendering every verified finding and evidence link."
+        }
+      ]
+    }
+  ]
+}

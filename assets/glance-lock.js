@@ -16,6 +16,7 @@
 
   function refresh() {
     var now = Date.now();
+    var list = document.querySelector('#glance-list');
     document.querySelectorAll('li.glance-row[data-glance-locks]').forEach(function (row) {
       var label = row.querySelector('[data-glance-pick]');
       if (!label) return;
@@ -28,7 +29,18 @@
       label.textContent = 'Locked';
       label.classList.add('is-closed');
       row.classList.add('is-closed');
+      row.setAttribute('data-glance-closed', 'true');
     });
+    // Presentation only: after a snapshot ages, locked cards would otherwise
+    // sit at the top of a phone. Move closed rows after still-open ones.
+    // No probability, pick, source or fixture is changed.
+    if (list) {
+      Array.from(list.querySelectorAll('li.glance-row')).forEach(function (row) {
+        if (row.classList.contains('is-closed') || row.getAttribute('data-glance-closed') === 'true') {
+          list.appendChild(row);
+        }
+      });
+    }
   }
 
   refresh();
