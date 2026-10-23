@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "session": "arena-2016c841",
+  "observed_at": "2026-10-23T10:25:00Z",
+  "observer": "Arena workspace egress (platform-side page fetches). The GitHub runner reaches hltv.org only with HTTP 403 (Cloudflare), and egamersworld.com with HTTP 403; this record preserves what those pages actually said at this observation, with links for manual review.",
+  "role": "Dated identity and line research for Hotspawn CS2 fixtures that carry no external betting line in the published snapshot. Nothing here writes a probability, a pick or an alias. HLTV community votes and HLTV tournament-simulation percentages are fan votes / simulations, never a price. EGamersWorld numbers are its published aggregated bookmaker odds (Thunderpick-fed), copied verbatim; the reviewed ladder, not this record, decides if and how they are used.",
+  "sources": {
+    "hltv_matches": "https://www.hltv.org/matches",
+    "hltv_event_nodwin": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+    "hltv_event_mcg": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+    "hltv_event_void": "https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026",
+    "egw_matches": "https://egamersworld.com/counterstrike/matches",
+    "egw_event_nodwin": "https://egamersworld.com/counterstrike/event/nodwin-clutch-series-13-Nk9F-Ov54e",
+    "egw_event_dfrag": "https://egamersworld.com/counterstrike/event/dfrag-invitational-2026-4kaAQWgKEx",
+    "egw_event_mcg": "https://egamersworld.com/counterstrike/event/gluck-moscow-cyber-games-2026-EkalRNMvVx"
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": "1081605",
+      "teams": ["Phantom Academy", "Banda chuya"],
+      "competition_observed": "CCT 2026 Challengers Europe Series 8, lower bracket semi-final, Best of 3",
+      "hotspawn_competition": "CCT Europe 2026 Challengers #8",
+      "published_method_and_pick": "research model: Banda chuya 52.5% / Phantom Academy 47.5% (Valve-rating estimate)",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+        "observed": "Match page verified: Bo3 lower bracket semi-final, countdown 54m at ~10:06Z (start 13:00 Malta / 11:00Z). Betting table lists only a Stake sweepstakes promotion — NO bookmaker odds published by HLTV. Community votes: Phantom Academy 78.0% / Banda Chuya 22.0% (fan votes, never a price). HLTV analytics page exists (ranking/form only).",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/phantom-academy-vs-banda-chuya-SqCDyX7RB",
+        "aggregated_odds_verbatim": [1.8, 1.8],
+        "observed": "EGW ratings #447 (Phantom Academy) vs #900 (banda chuya); aggregated odds 1.8 / 1.8 at ~10:10Z. The same 1.8/1.8 value appears on fixtures that later priced asymmetrically (see Acend-UNiTY), so 1.8/1.8 is at least sometimes a pre-book placeholder, not a real balanced book."
+      },
+      "review_note": "Direction conflict worth a human eye: the research-model pick is Banda chuya 52.5%, while HLTV fan votes run 78/22 for Phantom Academy and EGW shows only the 1.8/1.8 placeholder. No money line contradicts the model; no pick is changed here.",
+      "verbatim_quote": "Pick a winner — Phantom Academy 78.0% / Banda Chuya 22.0%"
+    },
+    {
+      "hotspawn_id": "1082996",
+      "teams": ["Acend", "UNiTY"],
+      "competition_observed": "NODWIN Clutch Series 13, Round of 16, Best of 3 (Online)",
+      "hotspawn_competition": "NODWIN Clutch Series #13",
+      "published_method_and_pick": "research model: Acend 54.2% / UNiTY 45.8%",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "observed": "Match page verified: Bo3, Round of 16, 25 Oct (countdown 1d22h at ~10:15Z). Betting table lists only a Stake sweepstakes promotion — NO bookmaker odds. Community votes: Acend 25.0% / UNiTY 75.0%. Lineups: Acend HLTV #131 / VRS #75.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+        "aggregated_odds_verbatim": [2.37, 1.5],
+        "observed": "EGW #128 Acend vs #111 UNiTY, Bo3, page JSON-LD startDate 2026-10-25T09:00:00.000Z. Aggregated bookmaker odds were 1.8/1.8 at ~10:05Z on the event page and 2.37/1.5 by ~10:25Z on the matches page — a live book engaged during the sweep, making UNiTY the aggregated favourite."
+      },
+      "review_note": "Direction conflict worth a human eye: model picks Acend 54.2%; the aggregated bookmaker board moved to Acend 2.37 / UNiTY 1.50 (UNiTY favoured) and HLTV fan votes are 75/25 UNiTY. The reviewed ladder consumes this source itself (Thunderpick first-party / EGamersWorld aggregate rung); nothing is overridden by this record.",
+      "verbatim_quote": "EGamersWorld aggregated odds: Acend 2.37 / UNITY Esports 1.5"
+    },
+    {
+      "hotspawn_id": "1079198",
+      "teams": ["Metizport", "BakS"],
+      "competition_observed": "NODWIN Clutch Series 13, Round of 16, Best of 3 (Online)",
+      "hotspawn_competition": "NODWIN Clutch Series #13",
+      "published_method_and_pick": "research model: Metizport 79.9% / BakS 20.1%",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "observed": "Match page verified: Bo3, Round of 16, 25 Oct (countdown 2d2h at ~10:17Z). Betting table lists only a Stake sweepstakes promotion — NO bookmaker odds. Community votes: Metizport 75.0% / BAKS 25.0%. Lineups list Metizport at HLTV #59.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq",
+        "aggregated_odds_verbatim": [1.36, 2.85],
+        "observed": "EGW #76 Metizport vs #193 BakS, Bo3, 25.10 08:00 display. Aggregated odds 1.8/1.8 at ~10:05Z on the event page, 1.36/2.85 by ~10:25Z on the matches page — book engaged, Metizport favourite."
+      },
+      "review_note": "All three independent reads agree with the model direction (Metizport favoured): model 79.9%, EGW aggregated 1.36/2.85, HLTV fan votes 75/25.",
+      "verbatim_quote": "EGamersWorld aggregated odds: Metizport 1.36 / BakS eSports 2.85"
+    },
+    {
+      "hotspawn_id": "1079200",
+      "teams": ["Color", "ex-Zero Tenacity"],
+      "competition_observed": "NODWIN Clutch Series 13, Round of 16, Best of 3 (Online)",
+      "hotspawn_competition": "NODWIN Clutch Series #13",
+      "published_method_and_pick": "research model: Color 73.6% / ex-Zero Tenacity 26.4%",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "observed": "Match page verified: Bo3, Round of 16, 25 Oct (countdown 2d8h at ~10:19Z). Betting table lists only a Stake sweepstakes promotion — NO bookmaker odds. Community votes: Color 75.0% / ex-Zero Tenacity 25.0%. Color HLTV Unranked / VRS #73.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/color-vs-ex-zero-tenacity-rvwRf5V1F",
+        "aggregated_odds_verbatim": [1.45, 2.46],
+        "observed": "EGW #342 Color vs #170 ex-Zero Tenacity, Bo3, 25.10 14:00 display. Aggregated odds 1.8/1.8 at ~10:05Z on the event page, 1.45/2.46 by ~10:25Z on the matches page — book engaged, Color favourite."
+      },
+      "review_note": "All three independent reads agree with the model direction (Color favoured): model 73.6%, EGW aggregated 1.45/2.46, HLTV fan votes 75/25.",
+      "verbatim_quote": "EGamersWorld aggregated odds: Color 1.45 / ex-Zero Tenacity 2.46"
+    },
+    {
+      "hotspawn_id": "1082858",
+      "teams": ["Ground Zero", "Off Chops"],
+      "competition_observed": "DFRAG Invitational 2026, Best of 3",
+      "hotspawn_competition": "DFRAG Invitational 2026",
+      "published_method_and_pick": "network results model: Off Chops 55.5% / Ground Zero 44.5% (bo3.gg results graph)",
+      "hltv": {
+        "match_url": null,
+        "observed": "No HLTV match page was found in this sweep for this DFRAG fixture (HLTV event page for DFRAG Invitational 2026 not located via the events listing); identity is instead corroborated by the EGamersWorld DFRAG page and the bo3.gg upcoming board probed by the runner record.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+        "aggregated_odds_verbatim": [3.6, 1.26],
+        "observed": "EGW #416 Ground Zero vs #909 Off Chops, Bo3, 25.10 23:00 display. Aggregated odds 3.6 / 1.26 — Off Chops a clear aggregated favourite."
+      },
+      "review_note": "Direction agrees with the network-model pick (Off Chops), with a much stronger aggregated margin (3.6/1.26) than the model's 55.5%.",
+      "verbatim_quote": "EGamersWorld aggregated odds: Ground Zero 3.6 / Off Chops 1.26"
+    },
+    {
+      "hotspawn_id": "1082861",
+      "teams": ["Rooster", "Abyssal"],
+      "competition_observed": "DFRAG Invitational 2026, Best of 3",
+      "hotspawn_competition": "DFRAG Invitational 2026",
+      "published_method_and_pick": "research model: Abyssal 52.2% / Rooster 47.8%",
+      "hltv": {
+        "match_url": null,
+        "observed": "No HLTV match page was found in this sweep for this DFRAG fixture; identity corroborated by the EGamersWorld DFRAG page (Team Abyssal, #795) and the bo3.gg board probed by the runner record.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+        "aggregated_odds_verbatim": [2.1, 1.66],
+        "observed": "EGW #376 Rooster vs #795 Team Abyssal, Bo3, 26.10 23:00 display. Aggregated odds 2.1 / 1.66 — Abyssal favourite."
+      },
+      "review_note": "Direction agrees with the model pick (Abyssal).",
+      "verbatim_quote": "EGamersWorld aggregated odds: Rooster 2.1 / Team Abyssal 1.66"
+    },
+    {
+      "hotspawn_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition_observed": "GLuck Moscow Cyber Games 2026 (LAN, $181,214), Best of 3",
+      "hotspawn_competition": "Moscow Cyber Games 2026",
+      "published_method_and_pick": "research model: HOTU 94.1% / The Huns 5.9%",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "observed": "Match page verified via HLTV event 9344 (Oct 31 - Nov 1, LAN Moscow). No bookmaker odds published by HLTV for this fixture. HLTV's event simulation ('VRS invite stakes') reads HOTU 51.7% vs The Huns 23.8% — that is a season/invite simulation shown on the event page, not a match moneyline.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+        "aggregated_odds_verbatim": [1.8, 1.8],
+        "observed": "EGW #46 HOTU vs #59 The Huns, Bo3, 31.10 05:00 display (09:00Z). Aggregated odds 1.8/1.8 at ~10:30Z — eight days out, so this is the pre-book placeholder, not an engaged book."
+      },
+      "review_note": "No external line anywhere yet for this 31 Oct LAN match; the four-hour pipeline retries every refresh and books typically engage 24-48h before start.",
+      "verbatim_quote": "EGamersWorld aggregated odds: HOTU 1.8 / The Huns Esports 1.8 (placeholder)"
+    },
+    {
+      "hotspawn_id": "1082793",
+      "teams": ["5star", "1WIN"],
+      "competition_observed": "GLuck Moscow Cyber Games 2026 (LAN, $181,214), Best of 3",
+      "hotspawn_competition": "Moscow Cyber Games 2026",
+      "published_method_and_pick": "research model: 1WIN 82.2% / 5star 17.8%",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "observed": "Match page verified via HLTV event 9344. No bookmaker odds published by HLTV. Community votes: 1win 81.6% / 5star 18.4% (fan votes, never a price).",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-4hTvdd1uN",
+        "aggregated_odds_verbatim": [1.8, 1.8],
+        "observed": "EGW #40 1WIN vs #48 5star, Bo3, 31.10 09:00 display (13:00Z). Aggregated odds 1.8/1.8 at ~10:30Z — pre-book placeholder."
+      },
+      "review_note": "Model direction (1WIN) agrees with HLTV fan votes 81.6/18.4; no engaged book exists yet for this 31 Oct match.",
+      "verbatim_quote": "EGamersWorld aggregated odds: 1WIN 1.8 / 5star eSports 1.8 (placeholder)"
+    },
+    {
+      "hotspawn_id": "1081872",
+      "teams": ["NEXVOID", "Rare Atom"],
+      "competition_observed": "MaceMedia VOID Autumn Cup 2026 (LAN Shanghai), lower bracket final, Best of 3",
+      "hotspawn_competition": "VOID Autumn Cup 2026",
+      "published_method_and_pick": "not in the published snapshot (live-lobby coverage gap, research record 9fd5fbf1 04:58Z)",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
+        "observed": "Match page verified LIVE at ~10:25Z: Bo3 (LAN), Dust2 finished 10-13 for Rare Atom. The fixture started ~09:10Z on 23 Oct, so it is no longer bettable; the coverage gap closed by the match starting, not by a pick.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": "https://egamersworld.com/counterstrike/match/EJcHRdr5Vx/nexvoid-vs-rare-atom-Iom5v3fP5",
+        "aggregated_odds_verbatim": null,
+        "observed": "EGW listed it at 1.8/1.8 before start (#479 NEXVOID vs #61 Rare Atom, startDate 2026-10-23T05:00Z per EGW); post-start no prematch price is meaningful."
+      },
+      "review_note": "Resolves the oldest row in the live-lobby gap register: the match began before any scheduled collect could price it; nothing was missed that could have been bet from this project's observation times.",
+      "verbatim_quote": "HLTV: 'LIVE — MaceMedia VOID Autumn Cup 2026, Best of 3 (LAN), Lower bracket final — Dust2 10-13'"
+    },
+    {
+      "hotspawn_id": "1081149",
+      "teams": ["FORZE Reload", "LFO 10"],
+      "competition_observed": "CCT 2026 Europe Series 12, Best of 3",
+      "hotspawn_competition": "CCT Europe 2026 Series #12",
+      "published_method_and_pick": "not in the published snapshot (live-lobby coverage gap, research record 9fd5fbf1 04:58Z)",
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+        "observed": "HLTV lists it for 23 Oct (10:00 display = 14:00Z) per the event 9457 listing. HLTV betting analytics shows no odds ('- / -'), and notes: FORZE Reload #80 vs LFO 10 Unranked; LFO 10 playing with three stand-ins (dan1, Mann3n, L00m1); FORZE Reload won the H2H in the last 30 days.",
+        "bookmaker_odds_on_hltv": null
+      },
+      "egamersworld": {
+        "match_url": null,
+        "aggregated_odds_verbatim": null,
+        "observed": "No EGamersWorld match page was found for this fixture in this sweep."
+      },
+      "review_note": "If it is still upcoming when the next scheduled collect runs (14:05Z+), it enters the snapshot; the ladder then has ~60 minutes to find a line before the start. No price exists on any surface this sweep could read.",
+      "verbatim_quote": "HLTV betting analytics: FORZE Reload #80 vs LFO 10 Unranked; LFO 10 is playing with stand-ins: dan1, Mann3n, L00m1 instead of flaw"
+    }
+  ],
+  "limitations": [
+    "HLTV is identity/form evidence only: its match pages carry a Betting table, but for every fixture in this sweep that table held only a Stake sweepstakes promotion and no bookmaker odds; community 'Pick a winner' percentages are fan votes and are never a win probability.",
+    "EGamersWorld numbers are its published aggregated bookmaker odds (the page labels the sponsor feed); they are third-party aggregation, copied verbatim here (e.g. Acend 2.37 / UNiTY 1.5 observed 2026-10-23T10:25Z). A value of exactly 1.8/1.8 also appears on unpriced fixtures, so 1.8/1.8 is treated as a placeholder, not an engaged book.",
+    "EGW, HLTV and Hotspawn display match times in different zones and occasionally disagree by an hour; the reviewed ladder only joins sources inside a 60-second start window, which is why some of these verbatim lines remain leads rather than consumed prices.",
+    "No value in this record is a probability computed by this session, and no pick is changed by it. Where an independent read disagrees with the published research-model direction, the row is flagged for human review instead of silently edited."
+  ]
+}

@@ -1,0 +1,49 @@
+# Session arena-2016c841 — read-only HLTV-first / esportsbook / exchange sweep.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV or any bookmaker; the
+# GitHub runner does. This workflow runs scripts/2016c841_research.py there.
+# The probe never writes a probability, pick or alias and never edits a
+# published row: it re-reads the live published snapshot for current methods,
+# tries HLTV first for identity, then the Smarkets exchange and bo3.gg relay
+# for a verbatim two-sided quote, then records HTTP statuses for the wider
+# esportsbook/aggregator surfaces, and finally compares the live Hotspawn
+# lobby inventory against the live published snapshot. It commits only dated
+# reports under data/research/2016c841/ — never the live snapshot into data/,
+# never a deploy.
+#
+# The push guard skips the workflow's own report commit so it cannot loop.
+# Session-only file; removed before the final merge like the convention set by
+# arena-69438ad1.
+name: 2016c841 line-source research (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/2016c841-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: 2016c841-research
+  cancel-in-progress: true
+jobs:
+  research:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(2016c841)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: HLTV-first, then exchange/esportsbook research for every fixture with no external line (read-only)
+        run: python -m scripts.2016c841_research --out data/research/2016c841
+      - name: Commit the dated reports to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/2016c841/
+          if git diff --cached --quiet; then echo 'no report change'; exit 0; fi
+          git commit -m 'research(2016c841): HLTV-first + esportsbook/exchange sweep and live-lobby coverage (never published)'
+          git pull --rebase origin arena/2016c841-maltaproj3
+          git push origin arena/2016c841-maltaproj3

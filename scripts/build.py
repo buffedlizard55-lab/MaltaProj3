@@ -1099,6 +1099,35 @@ def load_no_line_research(source):
     return max(candidates, key=lambda item: item[:2])[2] if candidates else None
 
 
+def load_live_coverage(source):
+    """Newest dated lobby-vs-snapshot observation with at least one compared fixture.
+
+    Session arena-2016c841. The register used to be pinned to one session's
+    record, so a fresher sweep silently never rendered and the JSON link
+    described a different observation than the list. Any session's record is
+    eligible when it (a) carries a parseable ``observed_at`` and (b) compared at
+    least one live fixture — a failed fetch (zero rows) can never replace a
+    real observation. The record keeps its own path so the dated-record links
+    always point at the sweep actually rendered.
+    """
+    candidates = []
+    for path in (source / 'research').glob('*/live-coverage.json'):
+        try:
+            record = json.loads(path.read_text())
+            observed = timestamp(record.get('observed_at'))
+            if (not observed or not isinstance(record.get('live_fixtures'), list)
+                    or not record['live_fixtures']):
+                continue
+            record['_record_path'] = path.relative_to(source).as_posix()
+            markdown = path.with_suffix('.md')
+            record['_markdown_path'] = (markdown.relative_to(source).as_posix()
+                                        if markdown.is_file() else None)
+            candidates.append((observed, record['_record_path'], record))
+        except (ValueError, TypeError, AttributeError):
+            continue
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
 def no_line_research_block(data, prefix):
     """Dated per-fixture research for matches with no betting line (3016b0c6 + fd99abd9).
 
@@ -1109,6 +1138,24 @@ def no_line_research_block(data, prefix):
     reviewed ladder must replay on the next refresh before a pick can change.
     Coefficients are quoted verbatim as evidence, never converted here.
     """
+    if '_no_line_research' in data and not data.get('_no_line_research'):
+        # Session arena-2016c841: with the newest-wins loader a sweep recorded
+        # during the legacy Pages branch-root race can be dropped before it ever
+        # renders, leaving EVERY retained dated record ineligible. Historically
+        # that silently removed the whole block (main pages run 39945068191
+        # failed regression on the missing anchor), so render a dated-records
+        # note instead. The legacy empty-data behaviour stays: with no loader
+        # result key at all, emit nothing (3016b0c6's absence contract).
+        return ('<div class="line-sources" id="no-line-research">'
+                '<h3>Fixtures without a betting line — latest dated research</h3>'
+                '<p class="tiny">No retained dated sweep currently qualifies to render: retained records '
+                'are runner-verified observations with a matching rundown, and the newest of them was '
+                'captured while the public site served its stale legacy branch-root build, so it was '
+                'dropped rather than published as if dated. The sweep is re-run on the next healthy '
+                'publish; the live unresolved register and the current cards stay authoritative here. '
+                f'<a class="internal-link" href="{prefix}#unresolved-register">Blanks in this summary ↓</a> '
+                f'<a class="internal-link" href="{prefix}unresolved/">Unresolved picks &amp; limitations →</a></p>'
+                '</div>')
     record = data.get('_no_line_research') or {}
     fixtures = record.get('per_fixture') or []
     if not fixtures:
@@ -1156,6 +1203,29 @@ def no_line_research_block(data, prefix):
                       f'<strong>{e(" vs ".join(f.get("teams") or []))}</strong> '
                       f'<span class="line-source-note">{detail} · {status_note}</span>{link}</li>')
     leads_html = f'<ul class="line-source-list">{lead_rows}</ul>' if lead_rows else '<p class="tiny">No new money-line lead was found for any of them on that sweep.</p>'
+    # Session arena-2016c841: sweeps now also carry verbatim two-sided exchange
+    # quotes (Smarkets). They are not relay leads — the reviewed ladder already
+    # replays that first-party source itself — but they must not render as
+    # "nothing found". List them separately, verbatim-by-reference, with no
+    # number derived in this block.
+    led_ids = {str(f.get('id')) for f in leads}
+    exchange = [f for f in fixtures
+                if str(f.get('id')) not in led_ids and (f.get('smarkets_evidence') or {}).get('two_sided')]
+    exchange_rows = ''
+    for f in exchange:
+        evidence = f.get('smarkets_evidence') or {}
+        link = external(evidence.get('event_url'), 'Smarkets event') if evidence.get('event_url') else ''
+        if str(f.get('id')) in current_rows:
+            link += f'<a class="internal-link" href="{prefix}origination/#match-{e(f.get("id"))}">Current card →</a>'
+        exchange_rows += (f'<li class="line-source-row"><span class="tried-chip resolved">exchange quote</span>'
+                          f'<strong>{e(" vs ".join(f.get("teams") or []))}</strong> '
+                          f'<span class="line-source-note">A two-sided Smarkets exchange quote was saved verbatim in '
+                          'the dated record at that observation; the reviewed ladder replays this first-party '
+                          'source itself on the next refresh, so no number is derived in this block.</span>'
+                          f'{link}</li>')
+    exchange_html = (f'<p class="tiny"><strong>{len(exchange)}</strong> fixture(s) also had two-sided '
+                     'exchange quote evidence (first-party, replayed by the ladder itself):</p>'
+                     f'<ul class="line-source-list">{exchange_rows}</ul>' if exchange else '')
     return ('<div class="line-sources" id="no-line-research">'
             '<h3>Fixtures without a betting line — latest dated research</h3>'
             f'<p class="tiny">On {local_time(record.get("observed_at"))} every fixture then carrying only a '
@@ -1167,7 +1237,7 @@ def no_line_research_block(data, prefix):
             f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> '
             f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
             f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a></p>'
-            + leads_html + '</div>')
+            + leads_html + exchange_html + '</div>')
 
 
 def live_coverage_gaps(data, prefix):
@@ -1254,8 +1324,10 @@ def live_coverage_gaps(data, prefix):
         f'last successful collect, or the collect could not run. '
         f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
         f'Hotspawn crowd percentages are not used. '
-        f'<a class="internal-link" href="{prefix}data/research/9fd5fbf1/live-coverage.json">Dated record (JSON) ↓</a> '
-        f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
+        f'<a class="internal-link" href="{prefix}data/{e(record.get("_record_path", "research/9fd5fbf1/live-coverage.json"))}">Dated record (JSON) ↓</a> '
+        + (f'<a class="internal-link" href="{prefix}data/{e(record["_markdown_path"])}">Markdown ↓</a> '
+           if record.get('_markdown_path') else '')
+        + f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
         + body + '</section>'
     )
 
@@ -2155,12 +2227,10 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = None
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
-    live_coverage_path = source / 'research/9fd5fbf1/live-coverage.json'
-    if live_coverage_path.exists():
-        try:
-            data['_live_coverage'] = json.loads(live_coverage_path.read_text())
-        except ValueError:
-            data['_live_coverage'] = None
+    # Same newest-wins rule for the live-lobby coverage register (2016c841): any
+    # session's dated record that compared a non-empty lobby can render, and the
+    # dated-record links follow the record actually rendered.
+    data['_live_coverage'] = load_live_coverage(source)
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
