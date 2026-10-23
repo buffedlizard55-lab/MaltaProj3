@@ -1,0 +1,522 @@
+{
+  "session": "arena-80c3b4e0",
+  "verified_at": "2026-10-23T10:05:00Z",
+  "hotspawn_reverse_engineering": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "pickems_url": "https://play.hotspawn.com/cs2-pickems",
+    "fixtures_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "tenant_id": 1,
+    "lock_offset_sec": 360,
+    "scoring_formula": "points = round(base_points * game_multiplier(1.25) * tier_multiplier(B=1.5 -> 3 pts, C=1.0 -> 2 pts))",
+    "weekly_cs2_badge_observed": {
+      "total": 94,
+      "tier_B": 40,
+      "tier_C": 54
+    },
+    "open_scheduled_cs2_fixtures_observed": 30,
+    "published_active_picks_observed": 30,
+    "missing_open_fixtures": 0,
+    "unresolved_future_matches": 0,
+    "refresh_cron": [
+      "17 */4 * * *",
+      "47 2-22/4 * * *"
+    ],
+    "lobby_quirk_noted": "JiJieHao vs Eternal Fire (1081606) renders on /lobby without a [View Match] anchor while exposing canonical match_url https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-cct-europe-2026-challengers-8-1081606 in api/v1/fixtures."
+  },
+  "checked_in_replay_audit": {
+    "snapshot_generated_at": "2026-10-15T08:36:13Z",
+    "total_matches": 80,
+    "upcoming_matches": 17,
+    "archived_matches": 63,
+    "originated_rows": 17,
+    "aliases_count": 69,
+    "sources_count": 41,
+    "prob_sum_errors": [],
+    "missing_source_urls": [],
+    "hotspawn_probability_leaks": [],
+    "invalid_aliases": [],
+    "invalid_sources": []
+  },
+  "published_live_table_audit": {
+    "active_pick_rows": 30,
+    "unlinked_rows": [],
+    "probability_sum_errors": [],
+    "pages_workflow_crons": [
+      "17 */4 * * *",
+      "47 2-22/4 * * *"
+    ]
+  },
+  "smarkets_alias_binding_verification": {
+    "registry_entries_loaded": 69,
+    "all_passed": true,
+    "cases": [
+      {
+        "label": "CCT Europe 2026 Series #11 Brute vs BakS eSports (45394317 -> 1079657)",
+        "expected": true,
+        "actual": true,
+        "passed": true
+      },
+      {
+        "label": "NODWIN Clutch Series #13 Acend vs UNiTY esports (45396351 -> 1082996)",
+        "expected": true,
+        "actual": true,
+        "passed": true
+      },
+      {
+        "label": "CCT South America 2026 Series #7 Isurus vs Hacha Esports (45394416 -> 1082926)",
+        "expected": true,
+        "actual": true,
+        "passed": true
+      },
+      {
+        "label": "Cross-competition guard: BakS eSports alias rejected on unrelated tournament",
+        "expected": false,
+        "actual": false,
+        "passed": true
+      }
+    ]
+  },
+  "hotspawn_crowd_non_use_proofs": [
+    {
+      "match_id": "1082926",
+      "match": "Isurus vs Hacha",
+      "hotspawn_crowd_pct": "Isurus 34% / Hacha 66%",
+      "published_prob": "Isurus 76.2% / Hacha 23.8%",
+      "published_pick": "Isurus",
+      "basis": "Polymarket + Thunderpick de-vigged consensus"
+    },
+    {
+      "match_id": "1081606",
+      "match": "JiJieHao vs Eternal Fire",
+      "hotspawn_crowd_pct": "JiJieHao 82% / Eternal Fire 18%",
+      "published_prob": "JiJieHao 44.5% / Eternal Fire 55.5%",
+      "published_pick": "Eternal Fire",
+      "basis": "Polymarket series_id=10310 two-sided orderbook"
+    },
+    {
+      "match_id": "1083014",
+      "match": "K27 vs Virtus.pro",
+      "hotspawn_crowd_pct": "K27 16% / Virtus.pro 84%",
+      "published_prob": "K27 55.5% / Virtus.pro 44.5%",
+      "published_pick": "K27",
+      "basis": "Polymarket series_id=10310 two-sided orderbook"
+    },
+    {
+      "match_id": "1082923",
+      "match": "Alka vs LOS NINOS",
+      "hotspawn_crowd_pct": "Alka 27% / LOS NINOS 73%",
+      "published_prob": "Alka 71.1% / LOS NINOS 28.9%",
+      "published_pick": "Alka",
+      "basis": "Thunderpick two-sided decimal odds (corroborated by Smarkets 45394321 74.5% / 25.5%)"
+    },
+    {
+      "match_id": "1082858",
+      "match": "Ground Zero vs Off Chops",
+      "hotspawn_crowd_pct": "Ground Zero 93% / Off Chops 7%",
+      "published_prob": "Ground Zero 44.5% / Off Chops 55.5%",
+      "published_pick": "Off Chops",
+      "basis": "Opponent-network model (corroborated by HLTV substitute notice + Smarkets 45396333 ~76.3% Off Chops)"
+    }
+  ],
+  "non_featured_hltv_and_books_audit": {
+    "1081605": {
+      "match": "Phantom Academy vs Banda chuya",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "start_utc": "2026-10-23T11:00:00Z",
+      "hotspawn_crowd_pct": [
+        100,
+        0
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "hltv_format": "Best of 3 (Online) \u00b7 Consolidation final",
+      "hltv_team1": {
+        "name": "Phantom Academy",
+        "world_rank": "#174",
+        "vrs_rank": "#167",
+        "lineup": [
+          "Brain47",
+          "Ayteel",
+          "Dr3nquu",
+          "kalyambys",
+          "La1roN"
+        ]
+      },
+      "hltv_team2": {
+        "name": "Banda Chuya",
+        "world_rank": "Unranked",
+        "vrs_rank": "#169",
+        "lineup": [
+          "tomiko",
+          "maaryy",
+          "AdrieN",
+          "Showk",
+          "mwlky"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines across HLTV, Polymarket, Kalshi, Smarkets, Pinnacle, Bovada, Thunderpick, bo3.gg",
+      "verdict": "flagged_for_review",
+      "note": "Oct 5 Valve file (783 vs 801 -> 52.5% Banda chuya) is inverted on newer HLTV #174 / VRS #167 vs Unranked / VRS #169."
+    },
+    "1082980": {
+      "match": "LPH vs WBT Academy",
+      "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+      "start_utc": "2026-10-23T13:00:00Z",
+      "hotspawn_crowd_pct": [
+        32,
+        68
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399885/wbt-academy-vs-lph-esl-challenger-league-season-52-europe-cup-9",
+      "hltv_format": "Best of 3 (Online) \u00b7 Semi-final",
+      "hltv_team1": {
+        "name": "LPH",
+        "world_rank": "Unranked",
+        "vrs_rank": "Unlisted",
+        "lineup": []
+      },
+      "hltv_team2": {
+        "name": "WBT Academy",
+        "world_rank": "Unranked",
+        "vrs_rank": "Unlisted",
+        "lineup": []
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "bo3.gg Thunderpick relay 2.45 / 1.49 (37.8% / 62.2%) + Smarkets event 45396355 market 172949034 bid 0.3333/0.5435 ask 0.4065/0.6667 (de-vigged 37.9% / 62.1%)",
+      "verdict": "verified_multi_book_agreement",
+      "note": "Two independent pricing venues agree within 0.1pp on WBT Academy (~62.1%-62.2%); LPH Gaming -> LPH scoped alias requested."
+    },
+    "1079657": {
+      "match": "BakS vs BRUTE",
+      "competition": "CCT Europe 2026 Series #11",
+      "start_utc": "2026-10-23T17:00:00Z",
+      "hotspawn_crowd_pct": [
+        52,
+        48
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+      "hltv_format": "Best of 3 (Online) \u00b7 Round of 16",
+      "hltv_team1": {
+        "name": "BAKS",
+        "world_rank": "#99",
+        "vrs_rank": "#96",
+        "lineup": [
+          "des0ut",
+          "k0s",
+          "sayt1x",
+          "zyntx",
+          "fL1T3"
+        ]
+      },
+      "hltv_team2": {
+        "name": "BRUTE",
+        "world_rank": "#135",
+        "vrs_rank": "#119",
+        "lineup": []
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "Polymarket + Thunderpick consensus (49.3% BakS / 50.7% BRUTE) + Smarkets event 45394317 market 172923315 bid 0.4587/0.4167 ask 0.5848/0.5405 (47.8% BakS / 52.2% BRUTE; now auto-bound via BakS eSports -> BakS)",
+      "verdict": "verified_multi_book_agreement",
+      "note": "scripts/smarkets_lines.py fix binds Smarkets 45394317 via verified CCT Europe Series #11 alias BakS eSports -> BakS."
+    },
+    "1082926": {
+      "match": "Isurus vs Hacha",
+      "competition": "CCT South America 2026 Series #7",
+      "start_utc": "2026-10-23T13:00:00Z",
+      "hotspawn_crowd_pct": [
+        34,
+        66
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+      "hltv_format": "Best of 3 (Online) \u00b7 Round of 16",
+      "hltv_team1": {
+        "name": "Isurus",
+        "world_rank": "Listed",
+        "vrs_rank": "Listed",
+        "lineup": []
+      },
+      "hltv_team2": {
+        "name": "Hacha",
+        "world_rank": "Listed",
+        "vrs_rank": "Listed",
+        "lineup": []
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "Polymarket + Thunderpick consensus 76.2% Isurus / 23.8% Hacha; Smarkets 45394416 open with empty book (now auto-bound via Hacha Esports -> Hacha)",
+      "verdict": "verified_multi_book_agreement",
+      "note": "Hotspawn crowd picks Hacha 66%, whereas de-vigged money markets price Isurus at 76.2% \u2014 proving Hotspawn crowd share is never used."
+    },
+    "1082996": {
+      "match": "Acend vs UNiTY",
+      "competition": "NODWIN Clutch Series #13",
+      "start_utc": "2026-10-25T09:00:00Z",
+      "hotspawn_crowd_pct": [
+        0,
+        100
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "hltv_format": "Best of 3 (Online) \u00b7 Round of 16",
+      "hltv_team1": {
+        "name": "Acend",
+        "world_rank": "#131",
+        "vrs_rank": "#75",
+        "lineup": [
+          "AwaykeN",
+          "REDSTAR",
+          "Skrimo",
+          "SHiPZ",
+          "SPELLAN"
+        ]
+      },
+      "hltv_team2": {
+        "name": "UNiTY",
+        "world_rank": "#86",
+        "vrs_rank": "#61",
+        "lineup": [
+          "KWERTZZ",
+          "2high",
+          "M1key",
+          "Sn0w",
+          "Dytor"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "Smarkets event 45396351 market 172971947 open with empty book (bids=[], offers=[]); 0 quotes on HLTV, Polymarket, Kalshi, Pinnacle, Bovada, bo3.gg",
+      "verdict": "flagged_for_review",
+      "note": "Oct 5 Valve (1054 vs 1030 -> 54.2% Acend) is inverted on HLTV Oct 19 (#86 vs #131) and rolling VRS (#61 vs #75) in favor of UNiTY."
+    },
+    "1079198": {
+      "match": "Metizport vs BakS",
+      "competition": "NODWIN Clutch Series #13",
+      "start_utc": "2026-10-25T12:00:00Z",
+      "hotspawn_crowd_pct": [
+        0,
+        0
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "hltv_format": "Best of 3 (Online) \u00b7 Round of 16",
+      "hltv_team1": {
+        "name": "Metizport",
+        "world_rank": "#59",
+        "vrs_rank": "#67",
+        "lineup": [
+          "Plopski",
+          "isak",
+          "Jackinho",
+          "forsyy",
+          "Dragon"
+        ]
+      },
+      "hltv_team2": {
+        "name": "BAKS",
+        "world_rank": "#99",
+        "vrs_rank": "#96",
+        "lineup": [
+          "des0ut",
+          "k0s",
+          "sayt1x",
+          "zyntx",
+          "fL1T3"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines across HLTV, Polymarket, Kalshi, Smarkets, Pinnacle, Bovada, Thunderpick, bo3.gg",
+      "verdict": "verified_model_corroborated",
+      "note": "Oct 5 Valve (79.9% Metizport), HLTV Oct 19 (#59 vs #99), and rolling VRS (#67 vs #96) all agree on Metizport."
+    },
+    "1079200": {
+      "match": "Color vs ex-Zero Tenacity",
+      "competition": "NODWIN Clutch Series #13",
+      "start_utc": "2026-10-25T18:00:00Z",
+      "hotspawn_crowd_pct": [
+        0,
+        0
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "hltv_format": "Best of 3 (Online) \u00b7 Round of 16",
+      "hltv_team1": {
+        "name": "Color",
+        "world_rank": "Unranked",
+        "vrs_rank": "#73",
+        "lineup": [
+          "Patsi",
+          "lattykk",
+          "reyoz",
+          "cronuss",
+          "oz1k"
+        ]
+      },
+      "hltv_team2": {
+        "name": "ex-Zero Tenacity",
+        "world_rank": "#67",
+        "vrs_rank": "#92",
+        "lineup": [
+          "Dragon",
+          "Kind0",
+          "VLDN",
+          "brutmonster",
+          "Cjoffo"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines across HLTV, Polymarket, Kalshi, Smarkets, Pinnacle, Bovada, Thunderpick, bo3.gg",
+      "verdict": "flagged_for_review",
+      "note": "Valve Oct 5 (73.6% Color) and rolling VRS (#73 vs #92) favor Color, whereas HLTV Oct 19 World Rank places ex-Zero Tenacity at #67 vs Unranked."
+    },
+    "1082858": {
+      "match": "Ground Zero vs Off Chops",
+      "competition": "DFRAG Invitational 2026",
+      "start_utc": "2026-10-26T03:00:00Z",
+      "hotspawn_crowd_pct": [
+        93,
+        7
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "hltv_format": "Best of 3 (LAN, Brisbane) \u00b7 Group A opening match",
+      "hltv_team1": {
+        "name": "Ground Zero",
+        "world_rank": "#143",
+        "vrs_rank": "#131",
+        "lineup": [
+          "pz",
+          "vision",
+          "apocdud",
+          "ossy",
+          "tucks (Sub)"
+        ]
+      },
+      "hltv_team2": {
+        "name": "Off Chops",
+        "world_rank": "#142",
+        "vrs_rank": "#132",
+        "lineup": [
+          "viridian",
+          "dexter",
+          "Liazz",
+          "Gratisfaction",
+          "damyo"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "Smarkets event 45396333 market 172960355 bid 0.1429/0.6711 ask 0.3279/0.8547 (18.5pp spread -> guidance-only ~23.5% / ~76.3% Off Chops)",
+      "verdict": "flagged_for_review",
+      "note": "HLTV substitute notice (tucks on Ground Zero), Oct 16 2:1 Off Chops H2H, and wide Smarkets exchange quotes all corroborate Off Chops despite 93% Hotspawn crowd on Ground Zero."
+    },
+    "1082861": {
+      "match": "Rooster vs Abyssal",
+      "competition": "DFRAG Invitational 2026",
+      "start_utc": "2026-10-26T06:00:00Z",
+      "hotspawn_crowd_pct": [
+        88,
+        12
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "hltv_format": "Best of 3 (LAN, Brisbane) \u00b7 Group B opening match",
+      "hltv_team1": {
+        "name": "Rooster",
+        "world_rank": "Unranked",
+        "vrs_rank": "#154",
+        "lineup": [
+          "asap",
+          "chelleos",
+          "DannyG",
+          "TjP (Sub)",
+          "foggers (Sub)"
+        ]
+      },
+      "hltv_team2": {
+        "name": "Abyssal",
+        "world_rank": "#128",
+        "vrs_rank": "#130",
+        "lineup": [
+          "rekonz",
+          "Texta",
+          "WINDCARD",
+          "dpr",
+          "Dro"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines across HLTV, Polymarket, Kalshi, Smarkets, Pinnacle, Bovada, Thunderpick, bo3.gg",
+      "verdict": "flagged_for_review",
+      "note": "Valve Oct 5 (52.2% Abyssal), HLTV Oct 19 (#128 vs Unranked), rolling VRS (#130 vs #154), and two Rooster substitutes (TjP, foggers) all corroborate Abyssal."
+    },
+    "1082792": {
+      "match": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026",
+      "start_utc": "2026-10-30T11:30:00Z",
+      "hotspawn_crowd_pct": [
+        100,
+        0
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "hltv_format": "Best of 3 (LAN, Moscow) \u00b7 Semifinal",
+      "hltv_team1": {
+        "name": "HOTU",
+        "world_rank": "#38",
+        "vrs_rank": "#36",
+        "lineup": [
+          "n0rb3r7",
+          "kade0",
+          "dukefissura",
+          "mizu",
+          "frontales"
+        ]
+      },
+      "hltv_team2": {
+        "name": "The Huns",
+        "world_rank": "#134",
+        "vrs_rank": "#123",
+        "lineup": [
+          "nin9",
+          "xerolte",
+          "cobrazera",
+          "sk0R",
+          "controlez"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines yet (7 days ahead of Oct 30 LAN semifinal)",
+      "verdict": "verified_model_corroborated",
+      "note": "Valve Oct 5 (94.1% HOTU), HLTV Oct 19 (#38 vs #134), and rolling VRS (#36 vs #123) strongly agree."
+    },
+    "1082793": {
+      "match": "5star vs 1WIN",
+      "competition": "Moscow Cyber Games 2026",
+      "start_utc": "2026-10-30T15:00:00Z",
+      "hotspawn_crowd_pct": [
+        0,
+        100
+      ],
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "hltv_format": "Best of 3 (LAN, Moscow) \u00b7 Semifinal",
+      "hltv_team1": {
+        "name": "5star",
+        "world_rank": "#36",
+        "vrs_rank": "#64",
+        "lineup": [
+          "Norwi",
+          "glowiing",
+          "deko",
+          "tN1R",
+          "Lack1"
+        ]
+      },
+      "hltv_team2": {
+        "name": "1win",
+        "world_rank": "#14",
+        "vrs_rank": "#18",
+        "lineup": [
+          "interz",
+          "buster",
+          "lattykk",
+          "HObbit",
+          "cronuss"
+        ]
+      },
+      "hltv_sportsbook_odds": null,
+      "external_books": "0 two-sided lines yet (7 days ahead of Oct 30 LAN semifinal)",
+      "verdict": "verified_model_corroborated",
+      "note": "Valve Oct 5 (82.2% 1WIN), HLTV Oct 19 (#14 vs #36), and rolling VRS (#18 vs #64) strongly agree."
+    }
+  }
+}

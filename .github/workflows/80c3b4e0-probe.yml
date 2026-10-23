@@ -1,0 +1,62 @@
+# Session arena-80c3b4e0 — HLTV-first + Smarkets alias-binding live runner probe.
+#
+# Runs only on arena/80c3b4e0-maltaproj3 (or manual dispatch), never scheduled
+# and never deploys. Executes a fresh live `collect` + `originate --live` pass
+# on GitHub's ubuntu-24.04 runner so our `scripts/smarkets_lines.py`
+# competition-scoped alias binding is proven against live Smarkets/Hotspawn
+# endpoints, then runs `scripts/80c3b4e0_probe.py` and commits ONLY the
+# read-only `data/research/80c3b4e0/line-source-research.{json,md}` report back
+# to `arena/80c3b4e0-maltaproj3` (discarding scratch `data/latest.json` and
+# `data/origination.json` edits so deterministic replay fixtures stay untouched).
+name: 80c3b4e0 line-source & Smarkets alias probe
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/80c3b4e0-maltaproj3']
+    paths:
+      - '.github/workflows/80c3b4e0-probe.yml'
+      - 'scripts/80c3b4e0_probe.py'
+      - 'scripts/smarkets_lines.py'
+
+permissions:
+  contents: write
+concurrency:
+  group: 80c3b4e0-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/80c3b4e0-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/80c3b4e0-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run live collection + origination in scratch workspace to exercise Smarkets alias binding
+        run: |
+          python -m scripts.collect || true
+          python -m scripts.originate --live || true
+          python -m scripts.80c3b4e0_probe --out data/research/80c3b4e0
+      - name: Keep only read-only research dossier and commit to session branch
+        run: |
+          # Discard scratch live-collection edits outside data/research/80c3b4e0
+          git checkout -- data/latest.json data/origination.json data/sources.json data/row-source-audit.json 2>/dev/null || true
+          git checkout -- data/evidence data/origination/evidence 2>/dev/null || true
+          git clean -fd data/evidence data/origination/evidence 2>/dev/null || true
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/80c3b4e0/line-source-research.json data/research/80c3b4e0/line-source-research.md
+          git diff --cached --quiet && echo 'No research change.' && exit 0
+          git commit -m 'research(80c3b4e0): runner-verified HLTV-first & Smarkets alias probe'
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/80c3b4e0-maltaproj3 || true
+            git rebase origin/arena/80c3b4e0-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/80c3b4e0-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
