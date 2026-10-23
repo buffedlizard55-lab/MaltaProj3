@@ -1,3 +1,36 @@
+# Current session: arena-42bfa8ea — live Hotspawn coverage checked row by row, the false "no pick in this build" claim removed, and a phone-first unresolved digest — DONE
+
+Claimed **2026-10-23T09:44Z** on Arena's fixed branch `arena/42bfa8ea-maltaproj3`, branched from `main` at `d120d2f`. Board read first; no live claim overlapped the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 42B-1 Live lobby vs site, row replays, dated dossier | **done** — 28 future lobby fixtures enumerated; all 28 are on the site with a pick; five rows replayed against the cited Polymarket series market | arena-42bfa8ea | new `data/research/42bfa8ea/**` |
+| 42B-2 Executive-summary clarity | **done** — the summary renders a compact unresolved digest (counts, each pick without a line, plain-word limitations, link to the evidence); the full 22-surface sweep and per-fixture trial stay on `/unresolved/`. Homepage 216 KB → 162 KB on the checked-in snapshot | arena-42bfa8ea | `scripts/build.py` (`no_line_digest`, `unresolved_register(compact=)`), new `tests/test_42bfa8ea.py` |
+| 42B-3 Wrong coverage-gap claim | **done** — the dated live-coverage block called JiJieHao vs Eternal Fire "no pick in this build" while the same build carried its pick; the check now reads the complete researched list by id and normalised team pair, and the block is labelled a dated observation | arena-42bfa8ea | `scripts/build.py` (`live_coverage_gaps`), `tests/test_9fd5fbf1.py` |
+| 42B-4 PR, merge, Pages | in progress | arena-42bfa8ea | this section, PR |
+
+Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sources.py`, `scripts/originate.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/**`, `archive/`, `docs/`, or another session's `data/research/<id>/`. No probability, pick, alias or source was changed.
+
+### 42B-1 result — coverage and row replays (observed 2026-10-23T09:52Z–10:10Z)
+
+- **Lobby inventory.** https://play.hotspawn.com/cs2-pickems said "203 matches this week", "All tiers (92)", and rendered **28** future fixtures in *Closing Soon* + *Upcoming*. All 28 are enumerated with their team names, UTC start and the site's published pick in `data/research/42bfa8ea/live-coverage.json`.
+- **Site coverage.** The public snapshot (built 2026-10-23T09:24Z) showed **30 active / 30 with a pick / 22 external-line / 8 research-model / 0 unresolved**. It carries all 28 lobby fixtures plus two Hotspawn-API fixtures that are not in the rendered lobby lists (`1082980` LPH vs WBT Academy, `1083025` Imperial vs paiN), both with their own Hotspawn match pages.
+- **Row replays** (Polymarket series market, read 10:02Z–10:06Z): `1081606` JiJieHao–Eternal Fire 0.445/0.555 vs published 44.5/55.5 **confirmed**; `1079195` NTR–FORZE 0.595/0.405 vs 59.0/41.0 confirmed; `1083014` K27–Virtus.pro 0.56/0.44 vs 55.5/44.5 confirmed; `1081148` Inner Circle–Spirit 0.435/0.565 vs 44.5/55.5 consistent (one-cent move after the snapshot); `1082861` Rooster–Abyssal 0.50/0.50 on $116.52 liquidity — no usable width, matching the published wide-book blocker, so the model estimate stands.
+- **Time-zone check.** The lobby prints US Eastern and the site prints Europe/Malta; the apparent six-hour difference is the zone, not a schedule conflict (Polymarket records `gameStartTime 2026-10-23 11:00:00+00` for `1081148`). Europe/Malta leaves summer time on 25 October, so the site's local times from that date are UTC+1 — recorded in the dossier so a future session does not "fix" a correct time.
+
+### 42B-2/42B-3 result — the summary is a dashboard again, and it no longer contradicts itself
+
+- **Compact unresolved digest.** `unresolved_register(..., compact=True)` now renders on the summary: the coverage counts, every pick without a betting line with its pick, both probabilities, the blocker and a tap-through to `/unresolved/#no-line-<id>`, then the limitations in plain words and links to the full register and the methodology. The per-stage chips, the source-status sweep, the dated research record and the full per-fixture trial remain on `/unresolved/`. The checked-in homepage fell from **215,994 to 162,360 bytes** with no row, pick or source removed.
+- **Contract preserved.** `#unresolved-register`, `aria-labelledby="unresolved-register-title"`, the exact H2 "Unresolved picks & limitations", `#no-line-register`, `#picks-at-a-glance` and every glance row are unchanged, so the existing mobile and accessibility selectors still apply.
+- **Wrong claim removed.** The live-coverage block compared only the featured snapshot, so JiJieHao vs Eternal Fire stayed listed as "no pick in this build" although it was row 4 of Picks at a glance with a 44.5/55.5 market estimate; an id-less lobby card could never drop out either. `live_coverage_gaps` now reads `complete_picks` by Hotspawn id **and** by normalised team pair, and the block is labelled a dated observation ("N missing at that observation"). Regression tests: `test_fixture_with_a_pick_in_the_complete_list_is_not_called_missing`, `test_unmatched_team_pair_is_still_reported`.
+- **Published flags, not blocking:** `42bfa8ea-stale-live-coverage-claim` (the contradiction above, fixed) and `42bfa8ea-eight-fixtures-without-an-external-line` (which eight rows carry a model estimate and why), both rendered on Flagged for Review.
+
+### 42B-4 verification so far
+
+- Local build on the checked-in data: **PASS** — 705 audited rows, 686 with an official link, 0 without a source, 811 internal links/anchors.
+- Targeted suites: `test_42bfa8ea` 8 OK; `test_9fd5fbf1` 9 OK; `test_f4eb8ae3`, `test_summary_navigation`, `test_mobile_picks_nav`, `test_3016b0c6_mobile_glance`, `test_build`, `test_build_hardening` 64 OK.
+- CI (`Rows, build, links, mobile and accessibility`, `originate`) is the authority for the full suite and the phone browser specs; the result is recorded below once the PR runs.
+
 # Current session: arena-d90bbe79 — independent green baseline on the current main head, and a line-by-line reconciliation (then closure) of the stale open-PR backlog — DONE
 
 Claimed **2026-10-23T09:52Z** on Arena's fixed branch `arena/d90bbe79-maltaproj3`, branched from `main` at `d120d2f`, rebased onto `main@90e347d` (PR #220) then onto `main@977c4f4` (PR #222). Board read first, plus live sessions `ca7e10e5` (09:55Z published-state verification), `103774c3` (09:48Z HLTV-first research), `f8736556` (09:50Z Pages authority). PR #214 is merged. All line-research, published-state, coverage-audit and publication-configuration scopes taken; this session claims only the two unclaimed scopes below.
