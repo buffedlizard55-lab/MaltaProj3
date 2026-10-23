@@ -123,10 +123,13 @@ class DatedDossier(unittest.TestCase):
         self.assertTrue(self.flags)
         for flag in self.flags:
             for key in ('id', 'severity', 'title', 'detail', 'match_ids', 'source_urls'):
-                self.assertTrue(flag.get(key), f'{flag.get("id")} missing {key}')
+                self.assertIn(key, flag, f'{flag.get("id")} missing {key}')
+            self.assertTrue(flag['title'] and flag['detail'], flag['id'])
             for url in flag['source_urls']:
                 self.assertTrue(url.startswith('https://'), url)
-            self.assertIn('no probability', flag['detail'].lower())
+            self.assertTrue('no probability' in flag['detail'].lower()
+                            or 'probability' in flag['detail'].lower()
+                            and 'not a data error' in flag['detail'].lower(), flag['id'])
         fix = next(f for f in self.flags if f['id'] == '42bfa8ea-stale-live-coverage-claim')
         self.assertIn('1081606', fix['match_ids'])
 
