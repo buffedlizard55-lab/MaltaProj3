@@ -1,7 +1,7 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-23T05:10:39Z (GitHub Actions runner)
-Snapshot: latest 2026-10-23T05:09:54Z · origination 2026-10-23T05:09:55Z · counts {'active': 17, 'resolved': 17, 'unresolved': 0, 'with_pick': 17, 'consensus': 0, 'market': 7, 'bookmaker': 1, 'reference': 0, 'model': 9, 'network': 0, 'relay': 0, 'guidance': 0, 'alias_joined': 4}
+Observed: 2026-10-23T05:41:16Z (GitHub Actions runner)
+Snapshot: latest 2026-10-23T05:40:17Z · origination 2026-10-23T05:40:18Z · counts {'active': 17, 'resolved': 17, 'unresolved': 0, 'with_pick': 17, 'consensus': 0, 'market': 7, 'bookmaker': 1, 'reference': 0, 'model': 9, 'network': 0, 'relay': 0, 'guidance': 0, 'alias_joined': 4}
 Targets (featured-blank or non-money resolution): 9
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)
@@ -9,9 +9,9 @@ Targets (featured-blank or non-money resolution): 9
 - **HLTV match listing** — HTTP 403 — https://www.hltv.org/matches — teams listed: 9z
 - **HLTV world ranking** — HTTP 403 — https://www.hltv.org/ranking/teams — teams listed: 9z
 - **EGamersWorld CS2 matches** — HTTP 403 — https://egamersworld.com/counterstrike/matches — teams listed: —
-- **DraftKings CS2** — HTTP 404 — https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 — teams listed: EAC, ENCE
+- **DraftKings CS2** — HTTP 200 — https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 — teams listed: 9z, EAC, ENCE, Falcons
 - **Stake CS2** — HTTP 403 — https://stake.com/sports/esports/counter-strike-2 — teams listed: 9z
-- **OddsPortal CS2** — HTTP 200 — https://www.oddsportal.com/esports/counter-strike/ — teams listed: 9z, EAC, ENCE
+- **OddsPortal CS2** — HTTP 429 — https://www.oddsportal.com/esports/counter-strike/ — teams listed: —
 - **Rivalry CS2** — HTTP 200 — https://www.rivalry.com/esports/counter-strike-2-betting — teams listed: 9z, ENCE
 - **GG.BET CS** — HTTP 403 — https://gg.bet/en/counter-strike — teams listed: —
 - **BetBoom CS2** — HTTP 401 — https://betboom.ru/sport/cs2 — teams listed: BetBoom
