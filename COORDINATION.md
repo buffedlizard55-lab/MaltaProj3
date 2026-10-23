@@ -70,9 +70,9 @@ Claimed **2026-10-23T05:05Z** on Arena's fixed branch `arena/69438ad1-maltaproj3
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 6943-1 Independent verification of the *currently published* site against the *live* Hotspawn source, read from this session's own platform-side egress (which reaches `play.hotspawn.com` and `hltv.org`, where the CI runner records HTTP 403): full CS2 inventory reconciliation, a pick + both probabilities + an official source link on every active row, staleness/coverage flags, internal links, phone-width readability. Dated originals preserved | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_verify.py` (read-only), new `tests/test_69438ad1_*.py`, this section |
-| 6943-2 HLTV-first, then esportsbook/betting-line research for every active fixture the ladder resolves only with a labelled research model or leaves blank. Per fixture: HLTV match/ranking evidence first, then bo3.gg, Thunderpick, Polymarket, Kalshi, Pinnacle, GG.BET, EGamersWorld, OddsPortal — HTTP status, exact-name/start binding, and the two-sided price or the explicit "no price reachable" verdict with its source links. **Leads and limitations only: no probability, pick or alias is written by hand** | in progress | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_probe.py` (read-only), temporary session-only `.github/workflows/69438ad1-probe.yml` (removed before merge), new `tests/test_69438ad1_*.py`, this section |
-| 6943-3 Publish the findings on the live site through the auto-discovered session flag/dossier contract, repair only verified defects in files no session claims, then PR → merge → confirm the real GitHub Pages deployment and record sources, verification and irregularities here | unclaimed → arena-69438ad1 | this section, new `data/research/69438ad1/**`, new `tests/test_69438ad1_*.py`, and any unclaimed implementation file named here **before** it is edited |
+| 6943-1 Independent verification of the *currently published* site against the *live* Hotspawn source, read from this session's own platform-side egress (which reaches `play.hotspawn.com` and `hltv.org`, where the CI runner records HTTP 403): full CS2 inventory reconciliation, a pick + both probabilities + an official source link on every active row, staleness/coverage flags, internal links, phone-width readability. Dated originals preserved | **done** — see 6943 final result | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_verify.py` (read-only), new `tests/test_69438ad1_*.py`, this section |
+| 6943-2 HLTV-first, then esportsbook/betting-line research for every active fixture the ladder resolves only with a labelled research model or leaves blank. Per fixture: HLTV match/ranking evidence first, then bo3.gg, Thunderpick, Polymarket, Kalshi, Pinnacle, GG.BET, EGamersWorld, OddsPortal — HTTP status, exact-name/start binding, and the two-sided price or the explicit "no price reachable" verdict with its source links. **Leads and limitations only: no probability, pick or alias is written by hand** | **done** — see 6943 final result | arena-69438ad1 | new `data/research/69438ad1/**`, new `scripts/69438ad1_probe.py` (read-only), temporary session-only `.github/workflows/69438ad1-probe.yml` (removed before merge), new `tests/test_69438ad1_*.py`, this section |
+| 6943-3 Publish the findings on the live site through the auto-discovered session flag/dossier contract, repair only verified defects in files no session claims, then PR → merge → confirm the real GitHub Pages deployment and record sources, verification and irregularities here | **done** — PR #198 merged, Pages run 39912686322 verified | this section, new `data/research/69438ad1/**`, new `tests/test_69438ad1_*.py`, and any unclaimed implementation file named here **before** it is edited |
 
 **Non-overlap pledge:** no edit to `scripts/root_publish.py`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`,
 `data/research/19de9c79/**`, any other session's `data/research/<id>/`, `archive/`, `scripts/collect.py`, the
@@ -104,7 +104,40 @@ file another session owns, it is logged here as a change request instead of edit
   answered 200 with a JSON array. Both are reachable from this session's egress; the runner recorded 403 on the
   rendered lobby pages on 2026-10-17. That asymmetry is the reason 6943-1/6943-2 are run from here.
 
----### 6943 results — independent verification, dated research, phone measurements (2026-10-23)
+---### 6943 final result — PR merged, publication verified end to end (2026-10-23)
+
+- **PR [#198](https://github.com/buffedlizard55-lab/MaltaProj3/pull/198) merged to `main` as `c615080`**
+  at about 06:35Z after `Validate dashboard` on the final head `e8e206f` completed **success**
+  (run 39907476160's successor on `e8e206f`, finished 06:34Z). Two earlier head failures were this
+  session's own defect, caught by CI and fixed here: session flags rendered on `/review/` are table rows,
+  and rows whose only links are this project's github.io URLs violate `scripts/audit_rows.py`
+  (runs 39905107686 and 39907476160). Generated and hand-authored flags now always lead with an
+  allow-listed official source, and `tests/test_69438ad1_verify.py` pins both the registry and the
+  generator to that rule (6 tests).
+- **Publication:** push run [39912686322](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39912686322)
+  (head `d278854`, which contains `c615080`) finished **success** at 07:23Z: collect, originate, coverage
+  probe, line-source sweep, build, deploy-pages, public verification, root-sync, legacy re-deploy and
+  post-re-deploy verification all succeeded. (Hotspawn accepted runner egress again by then; the 05:10Z
+  403 window is flagged separately.)
+- **Public read-back 07:28-07:33Z:** `/review/` renders the 07:07Z-inventory build ("Source snapshot
+  available · Inventory checked 23 Oct 2026, 09:07 Europe/Malta") and this session's seven flags are live at
+  `/data/research/69438ad1/flags.json` and in the findings table. `/data/latest.json` read in the same
+  window still served `generated_at 2026-10-15T08:36:13Z`.
+- **New irregularity, logged as a change request (not edited — `scripts/root_publish.py` is claimed by
+  arena-19de9c79/19D-2 and was touched by PRs #190/#191):** the branch root keeps the checked-in
+  15 October `data/latest.json`, and every push to main starts a legacy Pages build of that root, so the
+  JSON endpoints flip back to 15 October between artifact deployments while the rendered HTML is current —
+  a reader can see a fresh page over a six-day-old JSON. Requested change: have the root-sync step publish
+  the verified `data/latest.json` / `data/origination.json` / `data/row-source-audit.json` into the root
+  alongside the rendered pages (they are ~300 KB total), or delete them from the root so the legacy build
+  cannot serve a stale copy. Evidence: this session's 05:02Z vs the runner's 05:10Z reads, and the 07:28Z
+  HTML-vs-JSON pair above; `data/research/69438ad1/published-vs-live.json`.
+- Local verification total for this session: 6 offline reconciliation/flag-contract tests, 53 publisher
+  regression tests, 68 Playwright checks (summary navigation 4, dashboard 37 incl. WCAG A/AA at 390/1440px
+  on all seven pages, origination/sidebar/strategy/edge 27), local build row-source audit 655 rows /
+  0 violations / 802 internal links, runner verification run 39904195324 and its 05:41/05:50 refreshes.
+
+### 6943 results — independent verification, dated research, phone measurements (2026-10-23)
 
 - **Runner verification run** [39904195324](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39904195324)
   (never deploys): collect + originate + merged HLTV-first probe (`scripts/3a5448de_probe.py`, credited) +
