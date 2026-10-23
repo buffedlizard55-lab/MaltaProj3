@@ -196,8 +196,8 @@ def hotspawn(client: Client):
         cs2 = page(CS2_LOBBY, 'hotspawn-cs2')
         read = [(name, record) for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
         if api_rows is None:
-            if not read:
-                raise SourceError(f'Hotspawn fixture API and both lobby pages were unavailable ({api_unavailable})')
+            if len(read) < 2:
+                raise SourceError(f'Hotspawn fixture API unavailable and fewer than two independent lobby pages responded ({api_unavailable})')
             first_record = read[0][1]
             if any(record['ids'] != first_record['ids'] for _, record in read[1:]):
                 if attempt == 0:

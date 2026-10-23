@@ -2375,12 +2375,6 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
         selection(featured.get('probabilities')) if featured else None)
 
     def keep_featured(extra_research=None, extra_time_flags=None):
-        merged_research = list(match.get('research', []))
-        seen_stages = {r.get('stage') for r in merged_research}
-        for r in (extra_research or []):
-            if r.get('stage') not in seen_stages:
-                merged_research.append(r)
-                seen_stages.add(r.get('stage'))
         return {
             'origination': dict(
                 featured,
@@ -2389,7 +2383,8 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
             ),
             'pick_index': match.get('pick_index'),
             'aliases_used': [],
-            'research': merged_research,
+            'research': list(match.get('research', [])),
+            'alias_research': list(extra_research or []),
             'limitations': match.get('limitations', []),
             'time_flags': list(extra_time_flags or []),
         }

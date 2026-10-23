@@ -537,9 +537,13 @@
   text-decoration: underline;
   text-underline-offset: .16em;
 }
-.internal-link, .source-link, .stale-banner a, .prose a, .ladder-list a, .glance-meta a, .row-source a, .source-links a {
+.internal-link, .source-link, .mini-table .source-link, .stale-warning a, .hero-secondary, a[href]:not([class]), footer a, .prose a, .ladder-list a, .glance-meta a, .row-source a, .source-links a {
   display: inline-flex;
   align-items: center;
+  min-height: 24px;
+  min-width: 24px;
+}
+button, summary, input, select {
   min-height: 24px;
   min-width: 24px;
 }

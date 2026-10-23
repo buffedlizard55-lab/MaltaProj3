@@ -218,3 +218,14 @@ footer .src { font-size: .82rem; }
 .line-time { font-size: .78rem; color: var(--muted); margin: 4px 0 8px; }
 .availability-summary { font-size: .92rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* WCAG 2.2 SC 2.5.8 target size minimum (24x24 CSS px) */
+a[href]:not([class]), .src, header a, footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 24px;
+}
+button, summary, input, select {
+  min-height: 24px;
+  min-width: 24px;
+}

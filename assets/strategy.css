@@ -139,3 +139,14 @@ footer { max-width: 980px; margin: 0 auto; padding: 18px 14px 40px; color: var(-
 .pick-card.is-historical { border-left-color: var(--amber); box-shadow: none; }
 .pick-card.is-historical .prob.default .bar i { background: #7fa0ba; }
 .pick-card.is-historical .prob.default .who { font-weight: 600; }
+/* WCAG 2.2 SC 2.5.8 target size minimum (24x24 CSS px) */
+a[href]:not([class]), .src, header a, footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 24px;
+}
+button, summary, input, select {
+  min-height: 24px;
+  min-width: 24px;
+}

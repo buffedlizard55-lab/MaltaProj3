@@ -47,7 +47,7 @@ jobs:
   # It is best-effort: if it fails, the publisher below still runs (`always()`)
   # and publishes the fresh snapshot exactly as before.
   republish-last-verified:
-    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     environment:
@@ -78,26 +78,37 @@ jobs:
           run-id: ${{ steps.previous.outputs.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract it and refuse anything that is not a full site
+        id: check_freshness
         if: steps.previous.outputs.skip == 'false'
         run: |
           mkdir -p site && tar -xf previous/artifact.tar -C site
           test -f site/index.html
           test -f site/data/latest.json
-          python3 - <<'PY'
-          import json
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, urllib.request
           snapshot = json.load(open('site/data/latest.json'))
-          print('republishing snapshot generated_at', snapshot['generated_at'], snapshot['counts'])
+          cand_ts = snapshot['generated_at']
+          live_ts = ''
+          try:
+              with urllib.request.urlopen('https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json', timeout=8) as r:
+                  live_ts = json.loads(r.read().decode('utf-8')).get('generated_at') or ''
+          except Exception:
+              pass
+          if live_ts and live_ts >= cand_ts:
+              print('deploy_interim=false')
+          else:
+              print('deploy_interim=true')
           PY
       - uses: actions/configure-pages@v6
-        if: steps.previous.outputs.skip == 'false'
+        if: steps.previous.outputs.skip == 'false' && steps.check_freshness.outputs.deploy_interim == 'true'
       - id: upload
         uses: actions/upload-pages-artifact@v5
-        if: steps.previous.outputs.skip == 'false'
+        if: steps.previous.outputs.skip == 'false' && steps.check_freshness.outputs.deploy_interim == 'true'
         with:
           name: github-pages-interim
           path: site
       - id: deployment
-        if: steps.previous.outputs.skip == 'false'
+        if: steps.previous.outputs.skip == 'false' && steps.check_freshness.outputs.deploy_interim == 'true'
         uses: actions/deploy-pages@v5
         with:
           artifact_name: github-pages-interim
@@ -107,7 +118,7 @@ jobs:
       # artifact name without needing `actions: write`, and best-effort cleanup
       # removes it after deployment returns.
       - name: Remove the republished artifact before the fresh publish
-        if: always() && steps.previous.outputs.skip == 'false'
+        if: always() && steps.previous.outputs.skip == 'false' && steps.check_freshness.outputs.deploy_interim == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
@@ -228,7 +239,7 @@ jobs:
             echo "::warning::coverage probe failed; unresolved sections keep the collector's own reasons"
           fi
       - name: Record which line sources actually answered this refresh (read-only, non-fatal)
-        # Session fbdc97d6: the executive summary publishes this sweep beside the
+        # Session fbdc97d6 + f7a94082: the executive summary publishes this sweep beside the
         # unresolved register so the source limitations are dated and reviewable.
         # It writes status codes and notes only - never a probability, a pick or
         # an alias - and a failure keeps the previous dated record.
@@ -237,6 +248,11 @@ jobs:
             echo "line-source sweep recorded"
           else
             echo "::warning::line-source sweep failed; the register keeps the last dated record"
+          fi
+          if python -m scripts.f7a94082_probe --timeout 10 --out data/research/f7a94082; then
+            echo "f7a94082 multi-source sweep recorded"
+          else
+            echo "::warning::f7a94082 multi-source sweep failed; keeping last dated record"
           fi
       - name: Refresh dated TWC Day-3 results, Day-4 and Day-5 research (no pricing override)
         run: python -m scripts.twc_research

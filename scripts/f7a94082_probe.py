@@ -175,7 +175,7 @@ def probe_surface(
             'teams_found': teams,
             'error': None,
         }
-    except requests.RequestException as exc:
+    except Exception as exc:
         return {
             'name': name,
             'url': url,
@@ -264,7 +264,7 @@ def probe_pinnacle_cs2(sess: requests.Session, timeout: int = 15) -> dict[str, A
                     'matchups_url': f'{base}/leagues/{lid}/matchups',
                     'markets_url': f'{base}/leagues/{lid}/markets/straight',
                 })
-    except (requests.RequestException, ValueError, KeyError) as exc:
+    except Exception as exc:
         out['error'] = f'{type(exc).__name__}: {str(exc)[:220]}'
     return out
 
@@ -299,7 +299,9 @@ def probe_smarkets_cs2(sess: requests.Session, timeout: int = 15) -> dict[str, A
                 continue
             mids: list[str] = []
             for mk in (mr.json() or {}).get('markets') or []:
-                slug = (mk.get('market_type') or {}).get('name') or mk.get('slug') or ''
+                mtype = mk.get('market_type')
+                mtype_name = mtype.get('name') if isinstance(mtype, dict) else str(mtype or '')
+                slug = mtype_name or mk.get('slug') or ''
                 if 'winner' in slug.lower() or mk.get('name', '').lower() in {'winner', 'match winner', 'full-time result'}:
                     eid = str(mk['event_id'])
                     if eid not in markets_by_event:
@@ -347,7 +349,7 @@ def probe_smarkets_cs2(sess: requests.Session, timeout: int = 15) -> dict[str, A
                 'two_sided': two_sided,
                 'contracts': contract_rows,
             })
-    except (requests.RequestException, ValueError, KeyError) as exc:
+    except Exception as exc:
         out['error'] = f'{type(exc).__name__}: {str(exc)[:220]}'
     return out
 
@@ -396,7 +398,7 @@ def probe_bo3_upcoming(sess: requests.Session, timeout: int = 15) -> dict[str, A
                 'bet_updates': bet if two else None,
                 'two_sided_bet': two,
             })
-    except (requests.RequestException, ValueError, KeyError) as exc:
+    except Exception as exc:
         out['error'] = f'{type(exc).__name__}: {str(exc)[:220]}'
     return out
 
@@ -464,7 +466,7 @@ def raw_board_near_matches(
             if not new_any or len(batch) < 100:
                 break
             offset += 100
-    except requests.RequestException:
+    except Exception:
         pass
 
     # 2. Kalshi CS2 open events
@@ -492,7 +494,7 @@ def raw_board_near_matches(
                         for mk in mks
                     ],
                 })
-    except requests.RequestException:
+    except Exception:
         pass
 
     # 3. Thunderpick POST /api/matches
@@ -521,7 +523,7 @@ def raw_board_near_matches(
                         (mk.get('away') or {}).get('odds') if isinstance(mk.get('away'), dict) else None,
                     ],
                 })
-    except requests.RequestException:
+    except Exception:
         pass
 
     # 4. Bovada CS2 coupon
@@ -543,7 +545,7 @@ def raw_board_near_matches(
                     st = iso(datetime.fromtimestamp(ev['startTime'] / 1000.0, tz=timezone.utc)) if ev.get('startTime') else None
                     decs = None
                     for dg in ev.get('displayGroups') or []:
-                        for mk in dg.get('markets') or []:
+                        for mk in dg.get('markets') or [] :
                             if (mk.get('description') or '').lower() == 'moneyline' and (mk.get('period') or {}).get('description') in {'Match', 'Game', 'Live Match', None}:
                                 outs = mk.get('outcomes') or []
                                 if len(outs) == 2:
@@ -558,7 +560,7 @@ def raw_board_near_matches(
                         'teams': [comps[0].get('name'), comps[1].get('name')],
                         'decimal_odds': decs,
                     })
-    except requests.RequestException:
+    except Exception:
         pass
 
     # Match active Hotspawn fixtures by token overlap across all boards
@@ -666,7 +668,8 @@ def build_sweep_record(
         pin_listed = bool(pin_match and pin_match.get('decimal_odds'))
         smk_two_sided = bool(smk_match and smk_match.get('two_sided'))
         src_lm = latest_by_id.get(str(m['id'])) or {}
-        hltv_stage = next((r for r in (m.get('research') or src_lm.get('research') or []) if 'hltv' in str(r.get('stage') or '').lower()), None)
+        combined_research = (m.get('alias_research') or []) + (m.get('research') or []) + (src_lm.get('research') or [])
+        hltv_stage = next((r for r in combined_research if 'hltv' in str(r.get('stage') or '').lower()), None)
 
         fixture_records.append({
             'id': str(m['id']),
@@ -877,6 +880,7 @@ def run_full_audit(work_dir: Path, out_dir: Path, timeout: int = 12) -> dict[str
         'row_source_audit_totals': row_audit.get('totals'),
         'hotspawn_other_statuses': extra_hotspawn,
         'public_pages_before_fix': public_audit,
+        'featured_active_matches': active_matches,
         'active_matches': origination.get('matches'),
     }, indent=2, ensure_ascii=False) + '\n')
     return sweep
@@ -908,4 +912,10 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except Exception as exc:
+        import traceback
+        tb = ' | '.join(line.strip() for line in traceback.format_exc().splitlines()[-8:])
+        print(f'::error title=f7a94082_probe::{type(exc).__name__}: {exc} ({tb})')
+        raise
