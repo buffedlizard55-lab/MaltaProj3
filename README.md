@@ -573,3 +573,59 @@ and its fix is the one on `main` (`c536501`); this branch keeps that fix, adds
 [`tests/browser/sidebar_fit.spec.mjs`](tests/browser/sidebar_fit.spec.mjs). The job cap is 45 minutes
 because the identical commit took 12 minutes idle and 25m52s on a loaded runner. `5cc2673` passed the
 full check job, and the merged head passed it again in 9m32s.
+
+## 23 October session arena-e7d7a410: a fresh live audit, the unresolved register, and the publisher that stopped on a date
+
+**What was measured, on a runner, not asserted.** The coding sandbox has no egress to Hotspawn,
+HLTV or any bookmaker, so this session added a read-only workflow
+([`.github/workflows/e7d7a410-probe.yml`](.github/workflows/e7d7a410-probe.yml), removed before
+merge) that runs the repository’s own collectors and then
+[`scripts/e7d7a410_audit.py`](scripts/e7d7a410_audit.py). At **2026-10-23T05:08:16Z**, against the
+live inventory observed at 05:07:07Z:
+
+| Check | Result |
+| --- | --- |
+| Active Hotspawn CS2 fixtures | **30** |
+| With a directional pick | **30** |
+| Without a pick / defective rows | **0 / 0** |
+| Resolved by an external money line | **21** (14 market, 5 bookmaker, 2 consensus) |
+| Resolved by a labelled research model | **9** (8 Valve standings, 1 own bo3.gg results network) |
+| Rows with two probabilities that sum to 1 and an official `https` source | **30 of 30** |
+
+The featured exact-name method alone left **6** of those 30 blank (`data/latest.json`: 24 picks,
+6 unresolved). The published ladder resolved all six — **no price was invented and no probability
+was shifted**. The dated snapshot and the line-by-line table are published in
+[`data/research/e7d7a410/live-coverage-audit.md`](data/research/e7d7a410/live-coverage-audit.md)
+with the raw `latest.json` / `origination.json` beside it.
+
+**HLTV first, then esportsbooks — for the nine fixtures with no betting line.** The audited
+read-only probe was reused unchanged; its runner observations at 05:08:38Z are in
+[`data/research/e7d7a410/line-sources/live-research.md`](data/research/e7d7a410/line-sources/live-research.md).
+HLTV’s match listing and ranking both answered **403** to the runner (it publishes no prematch price
+in any case), EGamersWorld 403, DraftKings 404, Stake 403, OddsPortal 200 with the teams listed,
+Rivalry 200 with the teams listed, GG.BET 403, BetBoom 401, 1xBet 203, Marathonbet 403, Betway 404,
+Oddspedia 410, bo3.gg 200 with **8 of 9 fixtures bound by both names and start but a two-sided
+relay quote for none**, and Pinnacle’s guest API 200 with **no price for any target fixture**.
+**No new two-sided prematch price existed, so no probability, pick or alias changed.** All nine keep
+their model estimate, its source link and this limitation, listed one row at a time on the
+executive summary under *Picks without a betting line*.
+
+**Why the deployed site looked incomplete.** The last successful publish (`2026-10-22T13:21Z`)
+carried 37 fixtures; the fresh inventory carries 30 active fixtures, six of today’s having appeared
+after that observation — Phantom Academy vs Banda chuya (1081605), JiJieHao vs Eternal Fire,
+Isurus vs Hacha (1082926), K27 vs Virtus.pro (1083014), BESTIA vs Galorys and BESTIA Academy vs RED
+Canids — plus the later FOKUS vs ex-6666 and 24–31 October card. The cause was not the pick method:
+`pages.yml`’s `verify-and-deploy` job has failed **before collection** since 14:05Z on 22 October
+(runs 39792708185, 39807044948, 39845991470, 39861117407, 39871371551, 39881298806) on a single
+date-bound assertion, `tests/test_96fbe295.py::test_check_mode_reports_a_current_root_and_then_drift`.
+That test pins a build to 2026-10-22T08:40Z and calls the publisher without a clock, so the
+publisher’s correct twelve-hour guard refuses it once the calendar moves on. PR #190 (session
+`arena-4ac63e41`) fixes it by injecting `now`; this session verified that head locally (31/31
+tests pass) and did not edit its files. The whole repository suite otherwise passes offline:
+**995 tests, 1 failure — exactly that test**.
+
+**Phone summary and unresolved section.** The executive summary already leads with a jump bar, a
+full *Picks at a glance* list showing both teams’ probabilities and a separate
+`#unresolved-register`; the dedicated `/unresolved/` page carries every pickless or model-only row
+with the sources actually tried. Nothing in that layout needed a change to meet the brief; this
+session verified it in the built HTML and left the rendering untouched.
