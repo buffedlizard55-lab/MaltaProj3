@@ -1,3 +1,17 @@
+# Current session: arena-f8736556 — authoritative Pages publication, fresh every-fixture source audit, phone pick findability
+
+Claimed **2026-10-23T09:50Z** on Arena's fixed branch `arena/f8736556-maltaproj3`, based on `main` at `d120d2f`. Read the board, open PRs and latest publisher runs first. Earlier source-research/presentation scopes are merged or inactive; PR #214 is a close-out record only and is not edited. This session follows Arena's fixed-branch requirement rather than creating a `session-*` branch.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F873-1 Resolve the proved public HTML/JSON publication split without overwriting deterministic CI fixtures: inspect repository Pages permissions, prefer one authoritative Actions publisher, enforce the deployment's original-data/HTML parity and record any remaining cache limitation | **in progress** | arena-f8736556 | repository Pages configuration; `scripts/verify_live.py`, `.github/workflows/pages.yml`, new `tests/test_f8736556_publication.py` only if required; this section |
+| F873-2 Independently check current Hotspawn inventory and all current pick rows, replay saved evidence, then HLTV first / esportsbooks only for featured-method or external-line gaps; dated source-linked findings and unresolved limitations, never an invented probability | **in progress** | arena-f8736556 | new `scripts/f8736556_audit.py`, new `tests/test_f8736556_audit.py`, new `.github/workflows/f8736556-audit.yml`, new `data/research/f8736556/` |
+| F873-3 Verify mobile executive-summary navigation and every-row probabilities/pick/source, build/link/row/a11y tests, integration PR to `main`, merge on green and verify successful Pages publication | **in progress** | arena-f8736556 | new session browser test if needed; `README.md` session record; this section; generated `site/` only (not tracked) |
+
+**Non-overlap:** no edits to `data/latest.json`, `data/origination.json`, aliases, pricing rules, collector, other research directories, archive or hand-maintained generated root HTML. Shared generated outputs are rebuilt by the established integration/publish workflow only. No other session's active branch/PR is modified. All remote writes stay on `arena/f8736556-maltaproj3`; Pages settings are changed only to fulfill the user's publication request and are verified with the official GitHub API.
+
+---
+
 # Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
