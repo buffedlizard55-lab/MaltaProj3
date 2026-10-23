@@ -360,6 +360,60 @@ def verdict(row: dict) -> str:
     return 'source_unreadable'
 
 
+BASE = 'https://buffedlizard55-lab.github.io/MaltaProj3/'
+
+
+def fetch_published(out_dir: Path, base: str = BASE) -> Path:
+    """Download exactly what the public site serves, and audit that copy.
+
+    Auditing the deployment (not a fresh local collect) is the point: the brief
+    asks whether the rows a reader can open are backed by the sources they name.
+    """
+    target = out_dir / 'published-snapshot'
+    target.mkdir(parents=True, exist_ok=True)
+    for name in ('latest.json', 'origination.json'):
+        page = get(base + 'data/' + name, as_json=True)
+        if page.get('http_status') != 200 or not isinstance(page.get('json'), (dict, list)):
+            raise SystemExit(f'published {name} unreadable: {page.get("http_status")} {page.get("error")}')
+        (target / name).write_text(json.dumps(page['json'], ensure_ascii=False, indent=2) + '\n')
+    return target
+
+
+def inventory_delta(data_dir: Path) -> dict:
+    """Compare the audited snapshot's active ids with the live Hotspawn API.
+
+    A live id the snapshot does not contain is a coverage gap at this
+    observation time; it is recorded, never turned into a pick here.
+    """
+    latest = json.loads((data_dir / 'latest.json').read_text())
+    api = next((m.get('source_api') for m in latest.get('matches') or [] if m.get('source_api')), None)
+    if not api:
+        return {'checked': False, 'reason': 'snapshot publishes no fixture API URL'}
+    page = get(api, as_json=True)
+    official = page.get('json')
+    if not isinstance(official, list) or not official:
+        return {'checked': False, 'api': api, 'observed_at': page.get('observed_at'),
+                'http_status': page.get('http_status'), 'error': page.get('error'),
+                'challenge': page.get('challenge')}
+    snapshot_ids = {str(m['id']) for m in latest.get('matches') or []}
+    official_ids = {str(m.get('id')) for m in official if isinstance(m, dict) and m.get('id')}
+    active_ids = {str(m['id']) for m in latest.get('matches') or [] if m.get('availability') != 'past'}
+    missing = [m for m in official if isinstance(m, dict) and str(m.get('id')) not in snapshot_ids]
+    return {
+        'checked': True, 'api': api, 'observed_at': page.get('observed_at'),
+        'http_status': page.get('http_status'),
+        'official_records': len(official_ids), 'snapshot_records': len(snapshot_ids),
+        'active_in_audited_snapshot': len(active_ids),
+        'not_in_snapshot': [
+            {'id': str(m.get('id')), 'teams': [m.get('participants0_name'), m.get('participants1_name')],
+             'competition': m.get('competition_name'),
+             'starts_at': m.get('scheduled_start_time')}
+            for m in missing],
+        'note': 'Raw official inventory is an observation later than the published snapshot. A difference '
+                'is a dated coverage finding, not proof that a row was missed at collection time.',
+    }
+
+
 def verify(data_dir: Path, out_dir: Path) -> dict:
     latest = json.loads((data_dir / 'latest.json').read_text())
     complete = json.loads((data_dir / 'origination.json').read_text())
@@ -403,6 +457,12 @@ def verify(data_dir: Path, out_dir: Path) -> dict:
     summary = {}
     for row in rows:
         summary[row['verdict']] = summary.get(row['verdict'], 0) + 1
+    money_rows = [r for r in rows if r['method'] in MONEY_METHODS]
+    unreadable = [r for r in money_rows if r['verdict'] == 'source_unreadable']
+    # A sandbox with no egress fails every request. That is a fact about the
+    # auditor, not about the picks, so it is stated separately and the run is
+    # marked inconclusive instead of accusing every row.
+    inconclusive = bool(money_rows) and len(unreadable) == len(money_rows) and not inventory.get('checked')
     report = {
         'schema_version': 1,
         'session': 'arena-3a010437',
@@ -421,6 +481,9 @@ def verify(data_dir: Path, out_dir: Path) -> dict:
                                f'{DRIFT_OK:.2f} of it is reported as confirmed agreement, a larger '
                                'drift as a move. Only a price that now favours the other side is a conflict.'},
         'totals': summary,
+        'inconclusive': inconclusive,
+        'inconclusive_reason': ('every price request and the official inventory request failed; this run '
+                                'cannot confirm or contradict a row' if inconclusive else None),
         'rows': rows,
         'hotspawn_inventory': {key: value for key, value in inventory.items() if key != 'by_id'},
         'page_probe': page_probe(rows[0]['hotspawn_url']) if rows and rows[0].get('hotspawn_url') else {},
@@ -439,6 +502,9 @@ def markdown(report: dict) -> str:
     s = report['snapshot']
     lines = [
         '# Independent verification of every published pick (session arena-3a010437)',
+        '',
+        ('> **This run was inconclusive.** ' + str(report.get('inconclusive_reason')))
+        if report.get('inconclusive') else '',
         '',
         f"Re-read started **{report['started_at']}** and finished **{report['finished_at']}** against the "
         f"snapshot collected at **{s['inventory_generated_at']}** ({s['active_rows']} active rows).",
@@ -525,6 +591,8 @@ def main() -> int:
     data_dir = fetch_published(args.out, args.base) if args.published else args.data
     report = verify(data_dir, args.out)
     print(f"Verified {report['snapshot']['active_rows']} rows: {report['totals']}")
+    if report.get('inconclusive'):
+        print(f"::warning title=Verification inconclusive::{report['inconclusive_reason']}")
     for row in report['rows']:
         if row['verdict'] in BAD:
             print(f"::warning title=Row does not match its own source::"
