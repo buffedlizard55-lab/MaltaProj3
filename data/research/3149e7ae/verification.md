@@ -52,3 +52,32 @@ python -m scripts.build                                    # writes site/ plus d
 python -m scripts.acceptance_audit --site site --strict    # exit 1 if a brief line is not met
 python -m unittest tests.test_3149e7ae_acceptance           # the audit's own failure modes
 ```
+
+## Post-refresh re-verification — 2026-10-23T07:25Z
+
+The four-hour publisher recovered after the date-bound test fix reached `main`: run
+[39912686322](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39912686322)
+(`Refresh and deploy CS2 dashboard`) finished **success**, both jobs green
+(`republish-last-verified` and `verify-and-deploy`), and the root-sync commit
+`99c7b768` published a fresh build. Reading `main` back through the official contents
+API at 07:25Z:
+
+| Check | Before (04:58Z) | After (07:25Z) |
+| --- | --- | --- |
+| Page snapshot | `2026-10-22T14:05:35Z` (14.9 h old, warned) | `2026-10-23T07:08:13Z` (17 min old) |
+| Active fixtures / directional picks / unresolved | 37 / 37 / 0 | **32 / 32 / 0** |
+| Glance rows with both percentages + official source | 37/37 | **32/32** |
+| Unresolved register inside the executive summary | 5 limitations | 5 limitations |
+| In-site picks links resolve | yes | yes |
+| Phone viewport declared | 11 pages | 11 pages |
+| Largest cron gap | 2.5 h | 2.5 h |
+| Page vs downloadable JSON | **FAIL — 173.5 h apart** | **FAIL — 190.5 h apart** |
+
+The one remaining failure is the same defect, and it is not fixed by a refresh: the
+branch root keeps serving the checked-in `data/latest.json` (`2026-10-15T08:36:13Z`,
+17 upcoming, 13 picks) under a page that prints `2026-10-23T07:08:13Z`. Reported as
+`3149e7ae-downloadable-json-disagrees-with-page`; the fix belongs to
+`scripts/root_publish.py`, which a live session owns, so it is requested in
+`COORDINATION.md` instead of edited here.
+
+Evidence: `acceptance-published-2026-10-23T0725Z.{json,md}` in this directory.
