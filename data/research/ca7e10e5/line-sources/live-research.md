@@ -1,7 +1,7 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-23T10:19:20Z (GitHub Actions runner)
-Snapshot: latest 2026-10-23T10:16:59Z · origination 2026-10-23T10:17:14Z · counts {'active': 30, 'resolved': 30, 'unresolved': 0, 'with_pick': 30, 'consensus': 2, 'market': 16, 'bookmaker': 4, 'reference': 0, 'model': 8, 'network': 1, 'relay': 1, 'guidance': 0, 'alias_joined': 2}
+Observed: 2026-10-23T12:18:34Z (GitHub Actions runner)
+Snapshot: latest 2026-10-23T12:16:48Z · origination 2026-10-23T12:17:03Z · counts {'active': 28, 'resolved': 28, 'unresolved': 0, 'with_pick': 28, 'consensus': 2, 'market': 14, 'bookmaker': 4, 'reference': 0, 'model': 8, 'network': 1, 'relay': 1, 'guidance': 0, 'alias_joined': 2}
 Targets (featured-blank or non-money resolution): 8
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)
@@ -26,12 +26,12 @@ Targets (featured-blank or non-money resolution): 8
 
 ## Per-fixture
 
-### Phantom Academy vs Banda chuya (CCT Europe 2026 Challengers #8, 2026-10-23T11:00:00Z)
-- Hotspawn: https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605
-- Featured method: model · current: model Valve-rating research estimate pick_index=1 probs=[0.47482128, 0.52517872]
-- Unresolved stages: Primary: Polymarket, Original esportsbook lines, GG.BET esportsbook, Pinnacle esportsbook, Rivalry esportsbook, Stake esportsbook
-- bo3.gg bound: 0 · two-sided relay quote: False
-- Limitations: Hotspawn best-of format is unverified; left blank.
+### Chinggis Warriors vs Rare Atom (VOID Autumn Cup 2026, 2026-10-24T03:00:00Z)
+- Hotspawn: https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045
+- Featured method: None · current: model Research model estimate (Valve official ratings) pick_index=0 probs=[0.73042923, 0.26957077]
+- Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Exchange market (Smarkets CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld)
+- bo3.gg bound: 1 · two-sided relay quote: False
+- Limitations: Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified. | Chinggis Warriors: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified.
 
 ### Acend vs UNiTY (NODWIN Clutch Series #13, 2026-10-25T09:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996
@@ -56,10 +56,10 @@ Targets (featured-blank or non-money resolution): 8
 
 ### Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858
-- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.4492308690416069, 0.5507691309583931]
+- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.4495157413356839, 0.5504842586643162]
 - Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Exchange market (Smarkets CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld), Research model cross-check (Valve official ratings), Results model (own, bo3.gg series results)
 - bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4682 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
+- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4684 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.0 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
 
 ### Rooster vs Abyssal (DFRAG Invitational 2026, 2026-10-27T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861
