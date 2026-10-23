@@ -25,6 +25,10 @@ REGISTERS = (
     'research/52aee465/repo-review.json',
     'research/92a3e9fb/repo-review.json',
     'research/81c1058a/repo-review.json',
+    # Session 9c4b1f7a: independent re-verification of the 2026-10-23T09:23Z
+    # snapshot (inventory, coverage, ratings arithmetic, line provenance) plus
+    # the observed-price chip added to the phone summary.
+    'research/9c4b1f7a/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
