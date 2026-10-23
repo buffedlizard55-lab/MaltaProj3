@@ -3,12 +3,12 @@
  "schema_version": 1,
  "environment": "github-actions-runner",
  "purpose": "Dated, source-linked research for Hotspawn CS2 fixtures the published ladder leaves as a research model (no external betting line). HLTV is tried first for identity, then the Smarkets exchange, bo3.gg (which relays Thunderpick prices) and the esportsbook/aggregator surfaces.",
- "observed_at": "2026-10-23T12:06:41Z",
+ "observed_at": "2026-10-23T12:14:37Z",
  "policy": "Evidence only. A joined bo3.gg row is a lead, not a pick: this script writes no probability, no pick and no alias. Only a two-sided, active, prematch bookmaker quote is recorded as a lead, copied verbatim. Smarkets raw 1/10000 quotes are copied verbatim and never divided out here. An HTTP 200 on a book landing page is never treated as a price.",
  "hotspawn_source": {
   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "method": "GET",
-  "observed_at": "2026-10-23T12:06:41Z",
+  "observed_at": "2026-10-23T12:14:37Z",
   "http_status": 200,
   "content_type": "application/json; charset=utf-8",
   "bytes": 71010,
@@ -25,26 +25,26 @@
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:41Z",
+   "observed_at": "2026-10-23T12:14:38Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 232970
+   "bytes": 232967
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=100&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:42Z",
+   "observed_at": "2026-10-23T12:14:42Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 206561
+   "bytes": 206560
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=200&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:42Z",
+   "observed_at": "2026-10-23T12:14:44Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 207267
+   "bytes": 207268
   }
  ],
  "smarkets_board": {
@@ -52,7 +52,7 @@
   "events_attempt": {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:55Z",
+   "observed_at": "2026-10-23T12:14:57Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 20850
@@ -60,7 +60,7 @@
   "markets_attempt": {
    "url": "https://api.smarkets.com/v3/events/45396333/markets/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:55Z",
+   "observed_at": "2026-10-23T12:14:57Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 526
@@ -68,7 +68,7 @@
   "contracts_attempt": {
    "url": "https://api.smarkets.com/v3/markets/172960355/contracts/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:56Z",
+   "observed_at": "2026-10-23T12:14:57Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 677
@@ -76,7 +76,7 @@
   "quotes_attempt": {
    "url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:56Z",
+   "observed_at": "2026-10-23T12:14:57Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 226
@@ -250,7 +250,7 @@
   {
    "url": "https://www.hltv.org/matches",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:42Z",
+   "observed_at": "2026-10-23T12:14:45Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5605,
@@ -260,7 +260,7 @@
   {
    "url": "https://www.hltv.org/ranking/teams",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:43Z",
+   "observed_at": "2026-10-23T12:14:45Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5644,
@@ -270,7 +270,7 @@
   {
    "url": "https://thunderpick.io/esports/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:43Z",
+   "observed_at": "2026-10-23T12:14:46Z",
    "http_status": 200,
    "content_type": "text/html",
    "bytes": 14610,
@@ -280,7 +280,7 @@
   {
    "url": "https://gg.bet/en/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:44Z",
+   "observed_at": "2026-10-23T12:14:46Z",
    "http_status": 403,
    "content_type": "text/plain",
    "bytes": 126,
@@ -290,7 +290,7 @@
   {
    "url": "https://stake.com/sports/esports/cs2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:44Z",
+   "observed_at": "2026-10-23T12:14:47Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5656,
@@ -300,7 +300,7 @@
   {
    "url": "https://bc.game/sports/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:44Z",
+   "observed_at": "2026-10-23T12:14:47Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 10680,
@@ -310,7 +310,7 @@
   {
    "url": "https://www.bet365.com/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:45Z",
+   "observed_at": "2026-10-23T12:14:47Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5586,
@@ -320,7 +320,7 @@
   {
    "url": "https://www.rivalry.com/esports/csgo-betting",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:45Z",
+   "observed_at": "2026-10-23T12:14:47Z",
    "http_status": 200,
    "content_type": "text/html;charset=utf-8",
    "bytes": 60850,
@@ -330,7 +330,7 @@
   {
    "url": "https://betano.com/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:46Z",
+   "observed_at": "2026-10-23T12:14:48Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 29481,
@@ -340,7 +340,7 @@
   {
    "url": "https://www.betsson.com/en",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:46Z",
+   "observed_at": "2026-10-23T12:14:49Z",
    "http_status": 202,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 0,
@@ -350,7 +350,7 @@
   {
    "url": "https://www.unibet.com/betting#filter/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:46Z",
+   "observed_at": "2026-10-23T12:14:49Z",
    "http_status": 503,
    "content_type": "text/html",
    "bytes": 592,
@@ -360,7 +360,7 @@
   {
    "url": "https://22bet.com/line/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:47Z",
+   "observed_at": "2026-10-23T12:14:50Z",
    "http_status": 203,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 26543,
@@ -370,7 +370,7 @@
   {
    "url": "https://betboom.ru/sport/cs2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:48Z",
+   "observed_at": "2026-10-23T12:14:50Z",
    "http_status": 401,
    "content_type": "text/html",
    "bytes": 1801,
@@ -380,7 +380,7 @@
   {
    "url": "https://1xbet.com/en/line/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:49Z",
+   "observed_at": "2026-10-23T12:14:51Z",
    "http_status": 203,
    "content_type": "text/html;charset=utf-8",
    "bytes": 2621,
@@ -390,7 +390,7 @@
   {
    "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:49Z",
+   "observed_at": "2026-10-23T12:14:51Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5489,
@@ -400,7 +400,7 @@
   {
    "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:50Z",
+   "observed_at": "2026-10-23T12:14:51Z",
    "http_status": 404,
    "content_type": "text/html; charset=utf-8",
    "bytes": 6690,
@@ -410,17 +410,17 @@
   {
    "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:50Z",
+   "observed_at": "2026-10-23T12:14:52Z",
    "http_status": 404,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 257944,
+   "bytes": 257263,
    "challenge_page": false,
    "label": "DraftKings CS2"
   },
   {
    "url": "https://www.oddsportal.com/esports/counter-strike/",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:50Z",
+   "observed_at": "2026-10-23T12:14:52Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 335225,
@@ -430,17 +430,17 @@
   {
    "url": "https://oddspedia.com/esports/cs-go",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:52Z",
+   "observed_at": "2026-10-23T12:14:54Z",
    "http_status": 410,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 339987,
+   "bytes": 339988,
    "challenge_page": false,
    "label": "Oddspedia CS2"
   },
   {
    "url": "https://egamersworld.com/counterstrike/matches",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:53Z",
+   "observed_at": "2026-10-23T12:14:54Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5776,
@@ -450,7 +450,7 @@
   {
    "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:53Z",
+   "observed_at": "2026-10-23T12:14:55Z",
    "http_status": 404,
    "content_type": "text/html",
    "bytes": 307,
@@ -460,7 +460,7 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXCS2GAME",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:54Z",
+   "observed_at": "2026-10-23T12:14:55Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 2061,
@@ -470,17 +470,17 @@
   {
    "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=1",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:54Z",
+   "observed_at": "2026-10-23T12:14:55Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 5948,
+   "bytes": 5952,
    "challenge_page": false,
    "label": "Polymarket CS2 tag"
   },
   {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=1&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:54Z",
+   "observed_at": "2026-10-23T12:14:56Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 957,
@@ -490,7 +490,7 @@
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[limit]=1&filter[matches.discipline_id][eq]=1",
    "method": "GET",
-   "observed_at": "2026-10-23T12:06:55Z",
+   "observed_at": "2026-10-23T12:14:56Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
    "bytes": 1275,

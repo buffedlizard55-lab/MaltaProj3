@@ -1,4 +1,4 @@
-# Line-source research — 2026-10-23T12:06:41Z
+# Line-source research — 2026-10-23T12:14:37Z
 
 Source snapshot: `https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json` (generated 2026-10-23T11:18:17Z); 91 Hotspawn fixtures, 8 with no external line.
 
