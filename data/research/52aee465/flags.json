@@ -1,0 +1,92 @@
+[
+  {
+    "id": "52aee465-model-roster-drift-1081605",
+    "severity": "warning",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "1081605 (Phantom Academy vs Banda chuya): 18-pt Oct-5 Valve VRS margin with 4/5 roster changes and inverted live HLTV VRS (#167 vs #169)",
+    "detail": "Direct line-by-line verification at 2026-10-23T05:10Z across Hotspawn API, HLTV match 2399699, Polymarket Gamma, Bovada, Pinnacle, and Valve standings_global_2026_10_05.md found zero published bookmaker or prediction-market lines for CCT Europe 2026 Challengers #8 fixture 1081605 (2026-10-23T11:00:00Z). The published model estimate (47.5% Phantom Academy / 52.5% Banda chuya; pick: Banda chuya) derives from Valve's 2026-10-05 snapshot (#172 Phantom Academy, 783 pts: Ayteel, Brain47, Dr3nquu, kalyambys, stefienson vs #165 Banda Chuya, 801 pts: AdrieN, ezox, maaryy, Showk, tomiko). However, HLTV match 2399699 confirms 1/5 lineup changes on both rosters (La1roN replacing stefienson on Phantom Academy; mwlky replacing ezox on Banda Chuya) and reports live HLTV VRS positions inverted at #167 Phantom Academy vs #169 Banda Chuya. No uncalibrated override is fabricated; flagged for low-margin roster drift.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "52aee465-model-roster-drift-1082861",
+    "severity": "warning",
+    "match_ids": [
+      "1082861"
+    ],
+    "title": "1082861 (Rooster vs Abyssal): both DFRAG LAN lineups carry only 3/5 overlap with the Oct-5 Valve VRS snapshot (including cross-team stand-in foggers)",
+    "detail": "Direct verification at 2026-10-23T05:10Z for DFRAG Invitational 2026 Group B fixture 1082861 (2026-10-27T03:00:00Z) confirmed zero esportsbook lines on HLTV match 2399891, Bovada, or Pinnacle, while Polymarket event 1237430 (cs2-rst-aby2-2026-10-27) is an unquoted 0.04/0.96 stub (spread 0.92 > 0.25). Valve's 2026-10-05 global snapshot (#205 Rooster, 718 pts: ADK, chelleos, damyo, rekonz, SkulL vs #195 Abyssal, 734 pts: blood, dangeR, foggers, gump, vinhy) favors Abyssal (~47.8% / 52.2%), directionally matching HLTV 2399891's live display (#128 / VRS #129 Abyssal vs Unranked / VRS #154 Rooster). However, HLTV 2399891 lists only 3/5 Oct-5 overlap on each side: Rooster fields SkulL, rekonz, chelleos plus substitutes TjP and foggers (listed on Abyssal's Oct-5 Valve row), while Abyssal fields blood, dangeR, vinhy plus Forleks and zune. Flagged for 2-player roster drift on both teams.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://gamma-api.polymarket.com/events/1237430",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "52aee465-network-model-thin-pm-1082858",
+    "severity": "notice",
+    "match_ids": [
+      "1082858"
+    ],
+    "title": "1082858 (Ground Zero vs Off Chops): low-confidence bo3.gg network-model pick (55.5% Off Chops) corroborated by wide Polymarket CLOB (spread 0.43) and Oct-16 LAN head-to-head",
+    "detail": "Off Chops (HLTV #142, VRS #131: viridian, dexter, Liazz, Gratisfaction, damyo) has no row in Valve's 2026-10-05 global standings, and zero bookmaker odds are posted on HLTV match 2399888, Bovada, or Pinnacle for DFRAG Invitational 2026 Group A fixture 1082858 (2026-10-26T03:00:00Z). Polymarket event 1237427 market 6066508 (cs2-gzg-offcho-2026-10-26, $2,424.81 CLOB liquidity) prices Ground Zero 27.5% / Off Chops 72.5% (bestBid 0.06, bestAsk 0.49), which originate.py rightly rejects from the compliant market rung because spread 0.43 exceeds MAX_ACCEPTED_SPREAD (0.25). The fixture resolves on the own network Bradley-Terry model (network-bt-1: Ground Zero 44.5% [866.8 pts, SE 50.5, 31 series, anchored at Valve #136 = 878 pts] vs Off Chops 55.5% [905.3 pts, SE 148.8, 6 series, unanchored], 1-sigma interval [11.6%, 83.0%], low_confidence: true). HLTV 2399888 also confirms tucks [Substitute] standing in on Ground Zero and Off Chops's 2:1 LAN win over Ground Zero on 2026-10-16.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://gamma-api.polymarket.com/events/1237427",
+      "https://bo3.gg/teams/25492",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "52aee465-nodwin-polymarket-stubs-2026-10-25",
+    "severity": "notice",
+    "match_ids": [
+      "1082996",
+      "1079198",
+      "1079199",
+      "1079200"
+    ],
+    "title": "Oct-25 NODWIN Clutch Series #13 Round-of-16 fixtures (1082996, 1079198, 1079199, 1079200): Polymarket books are 0.90-0.92 spread stubs; Valve VRS fallback active",
+    "detail": "Polymarket Gamma created Round-of-16 events 1238703 (Acend vs UNiTY esports), 1238705 (Metizport vs BakS eSports), 1238706 (INFINITE vs BRUTE), and 1238707 (Color vs ex-Zero Tenacity) at 2026-10-23T04:05Z, but as of 2026-10-23T05:10Z all four moneyline order books sit at 0.04-0.05 bid / 0.95-0.96 ask (spread 0.90-0.92 > 0.25) and neither Bovada nor Pinnacle lists Oct-25 NODWIN lines yet (only Oct-24 Round-of-16 matches 1079193 and 1079194 have tight books). Session arena-52aee465 extended 'UNiTY esports -> UNiTY' and 'BakS eSports -> BakS' in data/origination/aliases.json to 'NODWIN Clutch Series #13' so all four fixtures automatically promote from Valve VRS model estimates to market/consensus lines as soon as spreads tighten <= 0.25.",
+    "source_urls": [
+      "https://www.hltv.org/events/9440/matches",
+      "https://gamma-api.polymarket.com/events/1238703",
+      "https://gamma-api.polymarket.com/events/1238705",
+      "https://gamma-api.polymarket.com/events/1238706",
+      "https://gamma-api.polymarket.com/events/1238707"
+    ]
+  },
+  {
+    "id": "52aee465-hotspawn-lobby-1081606-and-null-bo",
+    "severity": "notice",
+    "match_ids": [
+      "1081606"
+    ],
+    "title": "Hotspawn upstream omissions: best_of is null on all 92 scheduled CS2 API rows and /lobby omits the View Match permalink on 1081606 (JiJieHao vs Eternal Fire)",
+    "detail": "Direct inspection of https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 (92 scheduled CS2 records at 2026-10-23T05:10Z) confirmed best_of: null on every row; series format is never guessed from Hotspawn and is checked only against HLTV match/event pages where needed. On https://play.hotspawn.com/lobby SSR HTML, DraculaN Season 7 fixture 1081606 (JiJieHao vs Eternal Fire, 2026-10-23T13:00:00Z, HLTV match 2399638) renders team names without a /matches/... anchor href; unconfirmed fields remain blank rather than inferred.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7"
+    ]
+  },
+  {
+    "id": "52aee465-published-pages-snapshot-lag",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Published GitHub Pages snapshot lagged ~15h behind live Hotspawn inventory due to date-boundary regression test in pages.yml (resolved on main via PR #191)",
+    "detail": "Five consecutive scheduled Publish Hotspawn picks runs on main between 2026-10-22T17:17Z and 2026-10-23T04:53Z (runs 39845991470, 39861117407, 39871371551, 39881298806, 39902332028) failed in tests/test_96fbe295.py because a synthetic 2026-10-22 fixture crossed midnight UTC, while live origination (run 39903082746 at 2026-10-23T05:12Z) resolved 30/30 active CS2 fixtures. Concurrent session arena-308fcaad merged PR #191 to main, restoring clock-deterministic --check testing so scheduled 4-hour refreshes resume cleanly.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/191",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39903082746"
+    ]
+  }
+]
