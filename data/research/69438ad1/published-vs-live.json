@@ -1,338 +1,98 @@
 {
-  "observed_at": "2026-10-23T05:50:52Z",
+  "observed_at": "2026-10-23T06:21:09Z",
   "published": {
-    "generated_at": "2026-10-22T14:05:35Z",
-    "inventory_observed_at": "2026-10-22T13:21:33Z",
-    "coverage_complete": false,
-    "run_status": "degraded",
+    "generated_at": "2026-10-23T06:17:47Z",
+    "inventory_observed_at": "2026-10-23T06:17:26Z",
+    "coverage_complete": true,
+    "run_status": "partial-picks",
     "counts": {
-      "inventory": 98,
-      "upcoming": 37,
-      "archived": 61,
+      "inventory": 94,
+      "upcoming": 32,
+      "archived": 62,
       "unknown_schedule": 0,
-      "market": 16,
-      "bookmaker": 2,
-      "model": 12,
-      "unresolved": 7,
-      "picks": 30,
+      "market": 15,
+      "bookmaker": 3,
+      "model": 8,
+      "unresolved": 6,
+      "picks": 26,
       "no_edge": 0
     },
-    "active_published": 37,
-    "age_hours": 15.75,
-    "inventory_age_hours": 16.49,
-    "stale": true
+    "active_published": 32,
+    "age_hours": 0.06,
+    "inventory_age_hours": 0.06,
+    "stale": false
   },
   "live": {
-    "source_records": 92,
-    "upcoming": 30
+    "source_records": 94,
+    "upcoming": 32
   },
-  "missing_from_published": [
-    {
-      "id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605"
-    },
-    {
-      "id": "1081606",
-      "teams": [
-        "JiJieHao",
-        "Eternal Fire"
-      ],
-      "competition": "DraculaN Season 7",
-      "starts_at": "2026-10-23T13:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606"
-    },
-    {
-      "id": "1083014",
-      "teams": [
-        "K27",
-        "Virtus.pro"
-      ],
-      "competition": "CIS LAN Championship #9",
-      "starts_at": "2026-10-23T13:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014"
-    },
-    {
-      "id": "1082693",
-      "teams": [
-        "BESTIA",
-        "Galorys"
-      ],
-      "competition": "Circuit X Curitiba #4",
-      "starts_at": "2026-10-23T18:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693"
-    },
-    {
-      "id": "1079193",
-      "teams": [
-        "FOKUS",
-        "ex-6666"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-24T08:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193"
-    },
-    {
-      "id": "1079195",
-      "teams": [
-        "Nuclear TigeRES",
-        "FORZE Reload"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-24T14:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195"
-    },
-    {
-      "id": "1082996",
-      "teams": [
-        "Acend",
-        "UNiTY"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T09:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996"
-    },
-    {
-      "id": "1079198",
-      "teams": [
-        "Metizport",
-        "BakS"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T12:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198"
-    },
-    {
-      "id": "1079199",
-      "teams": [
-        "Infinite",
-        "BRUTE"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T15:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199"
-    },
-    {
-      "id": "1079200",
-      "teams": [
-        "Color",
-        "ex-Zero Tenacity"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T18:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200"
-    }
-  ],
-  "missing_from_active_list": [
-    {
-      "id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605"
-    },
-    {
-      "id": "1081606",
-      "teams": [
-        "JiJieHao",
-        "Eternal Fire"
-      ],
-      "competition": "DraculaN Season 7",
-      "starts_at": "2026-10-23T13:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606"
-    },
-    {
-      "id": "1083014",
-      "teams": [
-        "K27",
-        "Virtus.pro"
-      ],
-      "competition": "CIS LAN Championship #9",
-      "starts_at": "2026-10-23T13:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014"
-    },
-    {
-      "id": "1082693",
-      "teams": [
-        "BESTIA",
-        "Galorys"
-      ],
-      "competition": "Circuit X Curitiba #4",
-      "starts_at": "2026-10-23T18:00:00Z",
-      "tier": "c",
-      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693"
-    },
-    {
-      "id": "1079193",
-      "teams": [
-        "FOKUS",
-        "ex-6666"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-24T08:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193"
-    },
-    {
-      "id": "1079195",
-      "teams": [
-        "Nuclear TigeRES",
-        "FORZE Reload"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-24T14:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195"
-    },
-    {
-      "id": "1082996",
-      "teams": [
-        "Acend",
-        "UNiTY"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T09:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996"
-    },
-    {
-      "id": "1079198",
-      "teams": [
-        "Metizport",
-        "BakS"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T12:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198"
-    },
-    {
-      "id": "1079199",
-      "teams": [
-        "Infinite",
-        "BRUTE"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T15:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199"
-    },
-    {
-      "id": "1079200",
-      "teams": [
-        "Color",
-        "ex-Zero Tenacity"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T18:00:00Z",
-      "tier": "b",
-      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200"
-    }
-  ],
-  "published_active_not_in_live_source": [
-    "1079652",
-    "1079653",
-    "1081145",
-    "1081146",
-    "1081600",
-    "1081603",
-    "1081871",
-    "1081872",
-    "1082180",
-    "1082688",
-    "1082689",
-    "1082769",
-    "1082770",
-    "1082882",
-    "1082920",
-    "1082921",
-    "1082922"
-  ],
+  "missing_from_published": [],
+  "missing_from_active_list": [],
+  "published_active_not_in_live_source": [],
   "sources": {
     "published_latest": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=1792734652",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=1792736469",
       "http_status": 200,
       "ok": true,
-      "sha256": "c275334fca5133e3703a2c4eca407aabe4220f39032831caeb60f6eaf479f890",
+      "sha256": "cd7d1a47c4d6d31c7b4a3da44ae506b99c8aa8132b2e44b9d85f12775797aca3",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T05:50:52Z",
+      "observed_at": "2026-10-23T06:21:09Z",
       "error": null
     },
     "published_origination": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=1792734652",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=1792736469",
       "http_status": 200,
       "ok": true,
-      "sha256": "f33c2c94f46657fe8fe05d7bd32a52ff54ce32bb244a50464ef0be86f8c40c51",
+      "sha256": "bdb73a0048c2fa7782fe8245984a8a7e732a3d2b592163b9e04417201e765fdf",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T05:50:52Z",
+      "observed_at": "2026-10-23T06:21:10Z",
       "error": null
     },
     "published_row_audit": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=1792734652",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=1792736469",
       "http_status": 200,
       "ok": true,
-      "sha256": "3bb352e17c765db2eb494200d1bbe19b31bedda23a947473b0dbceaf2c24671b",
+      "sha256": "72fbb62e25ee3fdb24dcda9d2f0b95e42950d1e6ef4e3052ebed8ee676fc9004",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T05:50:52Z",
+      "observed_at": "2026-10-23T06:21:10Z",
       "error": null
     },
     "live_lobby": {
-      "url": "https://play.hotspawn.com/lobby?cb=1792734652",
+      "url": "https://play.hotspawn.com/lobby?cb=1792736469",
       "http_status": 200,
       "ok": true,
-      "sha256": "89c796cb5e60b7acbf87239002b2434300daa061bdc555e35b345bded7fb60ed",
+      "sha256": "9c19e407e041c802632065d4118700024fe13ebc43b2a71645577d90fe2a9faa",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T05:50:53Z",
+      "observed_at": "2026-10-23T06:21:10Z",
       "error": null
     },
     "live_cs2_lobby": {
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792734652",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792736469",
       "http_status": 200,
       "ok": true,
-      "sha256": "1ddbb26648124cca4137e3b1106fac17b378d2ddb7f4474fe8b3eb959b30f3e1",
+      "sha256": "1feb09581cedef194b4092dd83060fb0c844773cdafb8c1b9923e414204cf7e8",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T05:50:54Z",
+      "observed_at": "2026-10-23T06:21:11Z",
       "error": null
     },
     "live_fixtures_api": {
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "http_status": 200,
       "ok": true,
-      "sha256": "4341be819f046412412d6881b1346c8d0f6166f5a366e648171949955f0756d2",
+      "sha256": "4f08ea11e16d9755dac8c9aa51a3c95a144d186ae5e8bff96278890de4704ad1",
       "x_cache": null,
-      "observed_at": "2026-10-23T05:50:55Z",
+      "observed_at": "2026-10-23T06:21:13Z",
       "error": null
     }
   },
   "row_audit_totals": {
-    "active_rows": 37,
-    "with_pick": 37,
+    "active_rows": 32,
+    "with_pick": 32,
     "even_no_side": 0,
     "problems": 0,
     "published_row_source_audit": {
-      "rows": 774,
-      "ok": 755,
+      "rows": 777,
+      "ok": 758,
       "flagged": 9,
       "navigation": 10,
       "violation": 0
