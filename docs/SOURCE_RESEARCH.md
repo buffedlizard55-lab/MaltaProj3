@@ -65,3 +65,106 @@ Research date: 2026-10-14 UTC (updated 2026-10-22 UTC). Only public, unauthentic
 
 Direct requests to Hotspawn, HLTV and Polymarket from the coding sandbox failed at TLS because outbound hosts are restricted. Source verification runs on GitHub Actions with ordinary public HTTP access. Web-retrieval tools were used to inspect the official lobby, HLTV match pages and Polymarket documentation independently. Source artifacts/Actions log downloads also use hosts unavailable to this sandbox, so temporary diagnostic evidence is exported to this session's fixed branch for review; it is not a new source of truth.
 
+
+## D866 — full coverage, picks for every match, mobile-first exec summary (2026-10-23)
+
+### Live lobby reverse engineering (2026-10-23)
+
+Fetched via fetch_page tool (allowed host, not via restricted python requests):
+
+- **Lobby**: https://play.hotspawn.com/lobby
+  - Header: "This week 197 matches this week" (all games), "Tier All tiers (92) B (40) C (52)" and later "93" with Chinggis Warriors added — count fluctuates as Hotspawn adds fixtures.
+  - Closing Soon: fixtures with lock countdown (e.g., "Locking soon 00:01:49", "Locks in 03:01:49"), points (2 pts Tier C, 3 pts Tier B ×1.5), stage "Waiting For Information", multiplier ×1.25, "Sign in for streaks", View Match link to https://www.hotspawn.com/matches/{slug}-{id}, team logos from https://phpstack-1372681-6459848.cloudwaysapps.com/teams/{id}.svg, % picked (community, never used for probability — e.g., NEXVOID 76% vs Rare Atom 24%, FORZE Reload 97% vs LFO 10 3%).
+  - Upcoming: similar with "Locks in 1d 3h 1m" etc.
+  - Filters: Tier, Tournament (CCT Europe Challengers #4 (8), CCT South America Series #3 (8), DraculaN Season 7 (7), NODWIN Clutch Series #13 (6), Urban Riga Open #5 (12), VOID Autumn Cup (2), etc.), Team (list with counts: 6666 (3), Acend (4), FORZE Reload (2), etc.).
+  - Leaderboard and prizes.
+
+- **CS2 lobby**: https://play.hotspawn.com/cs2-pickems — same, CS2-only, 93 fixtures observed on 2026-10-23.
+
+- **How we get full list**: the public scheduled-fixture API `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` is the same array Hotspawn's own client fetches. The collector in `scripts/sources.py:hotspawn()` reads both lobby pages' Angular `ng-state` hydration block (`id='ng-state'`) which contains the fixture array and `permalinks` dict mapping fixture_id → hotspawn.com match URL. It uses cache-busting `?cb=timestamp` to avoid CDN stale (X-Cache HIT Age 4000-5000s observed). It requires same ID set as API; disagreement fails closed. When both pages 403 (observed 2026-10-17T07:16Z), API-only mode publishes with `crosscheck: unavailable` instead of discarding usable inventory. New matches are rediscovered every 4h refresh.
+
+- **Why counts differ**: lobby header says 68 matches this week but tier/tournament counts sum to 88 in old snapshot; live 197 total, 92-93 CS2. The discrepancy is because Hotspawn counts all games, not just CS2, and filters are dynamic. Our inventory uses the API array, not the header count, so we have full coverage of CS2 records returned by the API.
+
+- **Lock times**: per-fixture explicit `lock_time` from API, not assumed 5-minute rule, and browser re-checks lock/start before displaying "Pick" vs "Locked" (`assets/scout.js`, `assets/glance-lock.js`).
+
+### Picks for every match — ladder verified 2026-10-23
+
+The ladder already resolves every active fixture in checked-in snapshot (17/17) and live snapshot 2026-10-22 (43 active, 42 picks, 0 unresolved, 1 even no-side). For 93 live fixtures, refresh will re-discover.
+
+**Additional esportsbook sources probed for low-tier (this session + prior probes)**:
+
+- GG.BET https://gg.bet/en/counter-strike — 403 Cloudflare → 200 flaky on re-run, no fixture/price found, flagged not relied. Prior probe 3016b0c6, 3a5448de.
+- BetBoom https://betboom.ru/sport/cs2 — 401/403 blocked.
+- Stake https://stake.com/sports/esports/cs2 — 403 blocked.
+- BC.Game https://bc.game/sports/esports — 200 landing, no price.
+- 1xBet https://1xbet.com/en/line/counter-strike-2 — 203/404.
+- Marathonbet https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/ — 403.
+- Betway https://www.betway.com/en/sports/esports/counter-strike-2 — 404.
+- DraftKings https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 — 200 landing, no price.
+- OddsPortal https://www.oddsportal.com/esports/counter-strike/ — 200 landing, no structured price.
+- EGamersWorld https://egamersworld.com/counterstrike/matches — 403 blocked.
+- Pinnacle page https://www.pinnacle.com/en/esports/counter-strike-2 — 404, guest API used instead: https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups (16,201 matchups seen in prior probe, 0 target fixtures at that moment, but used when it does match).
+- Rivalry https://www.rivalry.com/esports/counter-strike-betting — refused.
+- Odds aggregators (OddsPapi, odds-api.io) — third-party, not first-party, not used as primary per policy. Documented for manual review: https://oddspapi.io/blog/esports-odds-api-guide-how-to-get-pinnacle-cs2-lol-data-for-free/ (median 86 books per CS2 fixture sampled Aug 2026, Pinnacle sharp, Polymarket tightest margin 0.99%).
+
+**Why low-tier still needs model**: many academy/CCT Play-In/Elisa BreakOut fixtures never appear on any first-party bookmaker or exchange. No two-sided prematch price exists anywhere reachable. In those cases, Valve rating or HLTV ranking provides researched estimate with explicit limitation, never default 50/50.
+
+### Mobile-first executive summary — improvements (D866)
+
+- Viewport meta already present: width=device-width, initial-scale=1.
+- New CSS in assets/scout.css (D866 block):
+  - glance-row border-left 4px color-coded (green #b5d5c5 for market/bookmaker/consensus, purple #d9c8f0 for model, orange default), hover orange, pick team highlighted with #fff6ef background + bold orange-dark.
+  - glance-prob 14px bold with background, glance-other 11px with muted background, both larger on phone.
+  - exec-banner override: label/desc/meta now visible on phone (previously hidden to keep above fold), sub visible, 48px tap targets.
+  - start-here jump bar: on phone, grid 1 column, descriptions visible, first card full-width orange (Picks on this page), 48-56px tap targets, no horizontal overflow (main overflow-x hidden).
+  - mobile-status shortcuts: 56px min-height, 12px padding, border-radius 12px, box-shadow, orange for picks, amber for unresolved.
+  - tables: on phone, rows as cards with border-radius 12px, box-shadow, overflow-x auto touch.
+
+- Executive summary now contains:
+  - exec-banner: "Executive summary — start here on your phone", "Every Hotspawn CS2 pick, one tap away", description, 3 actions (Updated picks — all matches with count, Featured picks feed, Unresolved & limitations with counts), meta with inventory time, snapshot, refresh cadence, links to coverage, methodology, picks at a glance, research trails.
+  - start-here: 5 links (Picks on this page, All match picks, Leaderboard plan, Unresolved, Blanks in this summary) with icons, descriptions visible on phone.
+  - picks-at-a-glance: phone-first index of every active fixture with both win probabilities, pick, method badge, source links, Find a pick search (sticky on phone, 48px input, live count, empty-state).
+  - low-tier-coverage section: new, explains HLTV → esportsbooks → Valve → own models → HLTV ranking ladder, with official links, and notes unresolved handling.
+  - unresolved-register: canonical register with title, counts, per-fixture blocker.
+  - no-line-register: picks without betting line, with why no line exists.
+  - hero: "All the matches. One clear view." with counts and buttons.
+  - briefing-links: shortcuts to full picks, leaderboard, final day review, next matches, contrarian, upset review, Day 5, market-backed alternatives, unresolved.
+  - site-map: table of every page and what it contains, one tap from here.
+
+- Verification: build passes 646 rows audited (627 official-source-linked, 9 flagged unverified, 10 site-map, 0 without source), 798 internal links OK, 9 views.
+
+### Unresolved picks & limitations — separate section
+
+- Every active fixture without a pick is listed in `/unresolved/` with exact blocker, every source tried, dated reachability matrix, order resolver works through.
+- Executive summary contains `#unresolved-register` (featured-method gaps before fallback) and `#no-line-register` (model-only picks without betting line, with why).
+- Each unresolved row in complete_picks (origination.json) has `research` array with stage, source_url, status, detail, observed_at.
+
+### Refresh every 4-8 hours
+
+- Workflow `.github/workflows/pages.yml` already runs every 4h (cron 17 */4 * * *) plus catch-up 47 2-22/4 * * *. Verified in repo.
+- Browser freshness guard shows "Snapshot needs attention" after 8h and "newer snapshot available" reload prompt.
+
+### Sources — official verified trusted
+
+- Hotspawn lobby: https://play.hotspawn.com/lobby
+- CS2 lobby: https://play.hotspawn.com/cs2-pickems
+- Fixtures API: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1
+- How it works: https://play.hotspawn.com/how-it-works
+- Polymarket CS2: https://polymarket.com/esports/cs2
+- Polymarket Gamma: https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0
+- Polymarket CLOB: https://clob.polymarket.com/book?token_id=
+- Polymarket docs: https://docs.polymarket.com/api-reference/events/list-events
+- HLTV matches: https://www.hltv.org/matches
+- HLTV ranking: https://www.hltv.org/ranking/teams and https://www.hltv.org/ranking/teams/2026/october/12
+- Thunderpick API: https://thunderpick.io/api/matches
+- Thunderpick page: https://thunderpick.io/esports/counter-strike
+- Valve standings repo: https://github.com/ValveSoftware/counter-strike_regional_standings
+- bo3.gg API: https://api.bo3.gg/api/v1 and https://bo3.gg/matches/
+- Kalshi events: https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME
+- Kalshi docs: https://docs.kalshi.com/api-reference/market/get-markets
+- Bovada coupon: https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en
+- Pinnacle guest: https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups
+- Pinnacle esports hub: https://www.pinnacle.com/en/esports-hub/cs2
+- Pinnacle API: https://www.pinnacle.com/en/api
+- Odds aggregator reference (manual review, not primary): https://oddspapi.io/blog/esports-odds-api-guide-how-to-get-pinnacle-cs2-lol-data-for-free/
+
