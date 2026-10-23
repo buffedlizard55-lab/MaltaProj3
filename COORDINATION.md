@@ -1,3 +1,16 @@
+# Current session: arena-3a010437 — an independent, dated re-read of every published pick (source by source), a phone-sized route to the picks, and two provenance defects fixed
+
+Claimed **2026-10-23T09:55Z** on Arena's fixed branch `arena/3a010437-maltaproj3`, branched from `main` at `d120d2f` (the 09:28Z root publish of the 09:23:57Z snapshot). Board read first. No open PR's file scope is edited here; the 14 open PRs listed by `gh pr list` are stale heads whose merged equivalents are on `main`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3A-1 Independent line-by-line re-read of all 30 published pick rows against their own cited original sources (Hotspawn match page identity + the price/market endpoint named in `data/origination.json`), recorded as dated evidence with per-row deltas; no value is rewritten from the re-read | in progress | arena-3a010437 | new `scripts/3a010437_verify.py`, `.github/workflows/3a010437-verify.yml` (session-only), new `data/research/3a010437/`, new `tests/test_3a010437_verify.py` |
+| 3A-2 Provenance defect: the phone summary labels a row with the first provider name found in `source` **and** `source_url`, so `Thunderpick (relayed by bo3.gg)` over a `bo3.gg` URL publishes as "Thunderpick" over a bo3.gg link. Label must name the link's destination | in progress | arena-3a010437 | `scripts/build.py` (`analysis_source_label` only), `tests/test_3a010437_labels.py` |
+| 3A-3 Dated-gap defect: `live_coverage_gaps()` renders a 04:58Z inventory observation with the present-tense claim "These cards are on Hotspawn right now", and keeps fixtures the record itself already saw in a published snapshot. It must speak in the observation's own tense and drop fixtures the record did not consider missing | in progress | arena-3a010437 | `scripts/build.py` (`live_coverage_gaps` only), `tests/test_3a010437_gaps.py` |
+| 3A-4 Rebuild, row-source + link + acceptance audits, phone checks at 320/390 px, PR, merge, live Pages verification | in progress | arena-3a010437 | `COORDINATION.md`, this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/build_origination.py`, `scripts/root_publish.py`, `data/latest.json` or `data/origination.json` as fixture data, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `assets/*`, or any other session's `data/research/<id>/`. No probability, pick or alias is hand-filled. Handoffs taken under the 60-minute rule are recorded in the task rows above as they happen.
+
 # Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
