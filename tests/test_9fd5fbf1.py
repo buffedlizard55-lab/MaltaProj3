@@ -102,11 +102,18 @@ class LiveCoverageGaps(unittest.TestCase):
         self.assertIn('Hotspawn id unverified', html)
         self.assertIn('JiJieHao vs Eternal Fire', html)
 
-    def test_banner_only_links_the_section_when_the_record_is_loaded(self):
+    def test_banner_only_links_the_section_when_the_section_renders(self):
+        # Session 3a010437: the banner link must never point at an anchor that
+        # the page does not render. A record with no live fixtures produces no
+        # section (`live_coverage_gaps` returns ''), so the link is omitted too.
         empty = {'counts': {'upcoming': 1, 'unresolved': 0, 'model': 0},
                  'inventory_observed_at': '2026-10-22T13:21:33Z'}
         self.assertNotIn('live-coverage-gaps', exec_banner(empty, ''))
-        loaded = dict(empty, _live_coverage={'observed_at': '2026-10-23T04:58:00Z'})
+        no_fixtures = dict(empty, _live_coverage={'observed_at': '2026-10-23T04:58:00Z'})
+        self.assertNotIn('#live-coverage-gaps', exec_banner(no_fixtures, ''))
+        loaded = dict(empty, _live_coverage={'observed_at': '2026-10-23T04:58:00Z', 'live_fixtures': [{
+            'id': '999', 'teams': ['A', 'B'], 'competition': 'CCT Test',
+            'hotspawn_url': 'https://www.hotspawn.com/matches/x-999'}]})
         self.assertIn('#live-coverage-gaps', exec_banner(loaded, ''))
 
     def test_research_record_has_source_urls_and_no_invented_picks(self):

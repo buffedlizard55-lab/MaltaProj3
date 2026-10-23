@@ -317,14 +317,50 @@ PROVIDER_LABELS = (
 )
 
 
+#: Host fragments, keyed by the destination a row's link actually opens.
+HOST_LABELS = (
+    ('polymarket', 'Polymarket'),
+    ('kalshi', 'Kalshi'),
+    ('thunderpick', 'Thunderpick'),
+    ('bovada', 'Bovada'),
+    ('pinnacle', 'Pinnacle'),
+    ('smarkets', 'Smarkets'),
+    ('egamersworld', 'EGamersWorld'),
+    ('bo3.gg', 'bo3.gg'),
+)
+
+
+def _destination_label(url: str) -> str | None:
+    from urllib.parse import urlparse
+    host = urlparse(str(url or '')).netloc.casefold()
+    for needle, label in HOST_LABELS:
+        if needle in host:
+            return label
+    return None
+
+
+def _named_provider(text: str) -> str | None:
+    haystack = str(text or '').casefold()
+    for needle, label in PROVIDER_LABELS:
+        if needle in haystack:
+            return label
+    return None
+
+
 def analysis_source_label(analysis: dict) -> str:
     """Name the destination of a row's source link, from that row's own data.
 
     Session aae76fb3: the phone summary used a ternary chain that only handled
     market, model, reference and guidance, so every other money method — most
     visibly a median of two esportsbooks — was published as "Bookmaker" over a
-    single provider's URL. This helper reads the row's published ``source`` and
-    ``source_url`` and never guesses a provider the record does not name.
+    single provider's URL.
+
+    Session 3a010437: the label also has to name the page the link *opens*.
+    The 2026-10-23 build published a row whose source read
+    ``Thunderpick (relayed by bo3.gg)`` and whose ``source_url`` is a bo3.gg
+    match page as "Thunderpick" over a bo3.gg link. The provider is read from
+    the URL host first; when the row's own text names a different provider, the
+    label says it is a relay instead of choosing one of the two silently.
     """
     a = analysis or {}
     method = a.get('method')
@@ -335,10 +371,14 @@ def analysis_source_label(analysis: dict) -> str:
     if method == 'consensus':
         providers = [part.strip() for part in source.split('+') if part.strip()]
         return f'Consensus ({len(providers)} sources)' if len(providers) > 1 else 'Consensus'
-    haystack = f'{source} {url}'.casefold()
-    for needle, label in PROVIDER_LABELS:
-        if needle in haystack:
-            return label
+    destination = _destination_label(url)
+    named = _named_provider(source)
+    if destination and named and destination != named:
+        return f'{destination} ({named} relay)'
+    if destination:
+        return destination
+    if named:
+        return named
     return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
@@ -497,7 +537,7 @@ def exec_banner(data, prefix):
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
     gaps = (f' · <a href="{prefix}#live-coverage-gaps">live lobby gaps ↓</a>'
-            if data.get('_live_coverage') else '')
+            if (data.get('_live_coverage') or {}).get('live_fixtures') else '')
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
@@ -1044,24 +1084,75 @@ def no_line_research_block(data, prefix):
             + leads_html + '</div>')
 
 
+def _fold_name(text) -> str:
+    """Exact-name comparison key: case, accents and punctuation only.
+
+    Deliberately *not* an alias or sponsor-tag match. Session 3a010437 uses this
+    only to recognise that a lobby card recorded without a Hotspawn id is the
+    same two teams as a row this snapshot already publishes.
+    """
+    import unicodedata
+    text = unicodedata.normalize('NFKD', str(text or ''))
+    text = ''.join(ch for ch in text if not unicodedata.combining(ch))
+    return ''.join(ch for ch in text.casefold() if ch.isalnum())
+
+
+def live_coverage_missing(data):
+    """(record, missing) for the dated lobby inventory.
+
+    Session 9fd5fbf1 rendered every recorded card the snapshot did not contain.
+    Session 3a010437 fixes two defects in that rule, both visible on the
+    2026-10-23 build:
+
+    * a card the research record itself saw *inside a published snapshot*
+      (``in_published_snapshot: true``) is not a coverage gap now — if the
+      current snapshot no longer lists it, the card has left the inventory
+      (started or was removed), and a prematch pick is no longer possible;
+    * a card recorded without a Hotspawn id is matched to a published row by
+      the exact two team names (and the competition when both are known) before
+      it is called missing.
+    """
+    record = data.get('_live_coverage') or {}
+    live = record.get('live_fixtures') or []
+    rows = [m for m in data.get('matches') or [] if m.get('id') is not None]
+    known = {str(m.get('id')) for m in rows}
+    by_pair = {}
+    for m in rows:
+        names = [_fold_name(t.get('name')) for t in m.get('teams') or [] if t.get('name')]
+        if len(names) == 2:
+            by_pair[frozenset(names)] = m
+    missing = []
+    for fixture in live:
+        if fixture.get('in_published_snapshot') is True:
+            continue
+        identity = fixture.get('id')
+        if identity is not None and str(identity) in known:
+            continue
+        names = [_fold_name(name) for name in fixture.get('teams') or [] if name]
+        if len(names) == 2:
+            row = by_pair.get(frozenset(names))
+            if row is not None:
+                competition = _fold_name(fixture.get('competition'))
+                if not competition or not row.get('competition') or competition == _fold_name(row.get('competition')):
+                    continue
+        missing.append(fixture)
+    return record, missing
+
+
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
     Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
     official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
     When the next four-hour collect includes the id, the row drops out of this
-    list automatically.
+    list automatically. Session 3a010437 makes the copy speak in the
+    observation's own tense, so a five-hour-old inventory read is not published
+    as "right now".
     """
-    record = data.get('_live_coverage') or {}
+    record, missing = live_coverage_missing(data)
     live = record.get('live_fixtures') or []
     if not live:
         return ''
-    known = {str(m.get('id')) for m in data.get('matches') or [] if m.get('id') is not None}
-    missing = []
-    for fixture in live:
-        identity = fixture.get('id')
-        if identity is None or str(identity) not in known:
-            missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
     rows = ''
     for fixture in missing:
@@ -1075,13 +1166,15 @@ def live_coverage_gaps(data, prefix):
             links += external(fixture['hltv_url'], 'HLTV match')
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
-        note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
+        note = fixture.get('note') or ('Not in the snapshot this page builds from. '
+                                       'No probability is invented.')
         rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
                  f'<span class="line-source-note">{e(note)}</span>{links}</li>')
-    empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
-             'The next four-hour collect is still the authority for new cards.</p>')
+    empty = ('<p class="tiny">At that observation time every CS2 card the researcher recorded on the '
+             'lobby is already published in this snapshot. The next four-hour collect remains the '
+             'authority for new cards.</p>')
     body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
     return (
         f'<section class="content-section" id="live-coverage-gaps">'
@@ -1089,12 +1182,14 @@ def live_coverage_gaps(data, prefix):
         f'<p class="eyebrow">Unresolved for this snapshot</p>'
         f'<h2>Live Hotspawn fixtures missing from this snapshot</h2></div>'
         f'<span class="muted small">{len(missing)} not in this build</span></div>'
-        f'<p class="section-intro">Compared the live '
-        f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} against this page\'s snapshot '
-        f'at {observed}. These cards are on Hotspawn right now and have no pick <em>in this build</em> '
-        f'because they were scheduled after the last successful collect, or the collect could not run. '
-        f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
-        f'Hotspawn crowd percentages are not used. '
+        f'<p class="section-intro">The live '
+        f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} was compared with the '
+        f'snapshot this page builds from at {observed}. A card listed below was on the lobby at that '
+        f'observation time and had no row here then. This is <strong>not</strong> a claim that the '
+        f'card is on the lobby now: if it has started since, no prematch pick exists for it, and the '
+        f'next four-hour collect is the authority. HLTV was checked first for identity; a '
+        f'ranking/form page is not converted into a win probability. Hotspawn crowd percentages are '
+        f'not used. '
         f'<a class="internal-link" href="{prefix}data/research/9fd5fbf1/live-coverage.json">Dated record (JSON) ↓</a> '
         f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
         + body + '</section>'
