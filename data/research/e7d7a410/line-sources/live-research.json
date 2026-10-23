@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
   "session": "arena-3a5448de",
-  "observed_at": "2026-10-23T05:31:08Z",
+  "observed_at": "2026-10-23T06:16:13Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research for fixtures the featured method did not resolve with a first-party money line. HLTV first (identity/ranking; no prematch price, fan vote excluded), then esportsbooks/betting lines. No probability, pick or alias is written here. HTML pages are reachability/name evidence only; no price is scraped from HTML.",
   "snapshot": {
-    "latest_generated_at": "2026-10-23T05:29:35Z",
-    "origination_generated_at": "2026-10-23T05:29:49Z",
+    "latest_generated_at": "2026-10-23T06:14:39Z",
+    "origination_generated_at": "2026-10-23T06:14:49Z",
     "counts": {
-      "active": 30,
-      "resolved": 30,
+      "active": 32,
+      "resolved": 32,
       "unresolved": 0,
-      "with_pick": 30,
+      "with_pick": 32,
       "consensus": 2,
-      "market": 15,
-      "bookmaker": 4,
+      "market": 16,
+      "bookmaker": 5,
       "reference": 0,
       "model": 9,
       "network": 1,
-      "relay": 0,
+      "relay": 1,
       "guidance": 0,
       "alias_joined": 3
     }
@@ -29,7 +29,7 @@
     {
       "name": "HLTV match listing",
       "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-23T05:30:48+00:00",
+      "observed_at": "2026-10-23T06:15:56+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/matches",
       "bytes": 5626,
@@ -45,7 +45,7 @@
     {
       "name": "HLTV world ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-23T05:30:48+00:00",
+      "observed_at": "2026-10-23T06:15:56+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
       "bytes": 5665,
@@ -61,10 +61,10 @@
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
-      "observed_at": "2026-10-23T05:30:48+00:00",
+      "observed_at": "2026-10-23T06:15:56+00:00",
       "http_status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5775,
+      "bytes": 5776,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -75,22 +75,20 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "observed_at": "2026-10-23T05:30:48+00:00",
-      "http_status": 200,
-      "final_url": "https://sportsbook.draftkings.com/sports/esports",
-      "bytes": 1657658,
+      "observed_at": "2026-10-23T06:15:56+00:00",
+      "http_status": 404,
+      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "bytes": 257729,
       "challenge_markers": [],
       "teams_listed": [
         "Color",
-        "HOTU",
-        "Infinite",
-        "UNiTY"
+        "Infinite"
       ]
     },
     {
       "name": "Stake CS2",
       "url": "https://stake.com/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T05:30:50+00:00",
+      "observed_at": "2026-10-23T06:15:56+00:00",
       "http_status": 403,
       "final_url": "https://stake.com/sports/esports/counter-strike-2",
       "bytes": 5737,
@@ -106,10 +104,10 @@
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
-      "observed_at": "2026-10-23T05:30:50+00:00",
+      "observed_at": "2026-10-23T06:15:56+00:00",
       "http_status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 336900,
+      "bytes": 334189,
       "challenge_markers": [
         "captcha"
       ],
@@ -121,7 +119,7 @@
     {
       "name": "Rivalry CS2",
       "url": "https://www.rivalry.com/esports/counter-strike-2-betting",
-      "observed_at": "2026-10-23T05:30:51+00:00",
+      "observed_at": "2026-10-23T06:15:58+00:00",
       "http_status": 200,
       "final_url": "https://www.rivalry.com/",
       "bytes": 60850,
@@ -135,7 +133,7 @@
     {
       "name": "GG.BET CS",
       "url": "https://gg.bet/en/counter-strike",
-      "observed_at": "2026-10-23T05:30:52+00:00",
+      "observed_at": "2026-10-23T06:15:58+00:00",
       "http_status": 403,
       "final_url": "https://gg.bet/en/counter-strike",
       "bytes": 126,
@@ -145,10 +143,10 @@
     {
       "name": "BetBoom CS2",
       "url": "https://betboom.ru/sport/cs2",
-      "observed_at": "2026-10-23T05:30:52+00:00",
+      "observed_at": "2026-10-23T06:15:58+00:00",
       "http_status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1800,
+      "bytes": 1801,
       "challenge_markers": [
         "captcha"
       ],
@@ -157,10 +155,10 @@
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
-      "observed_at": "2026-10-23T05:30:52+00:00",
+      "observed_at": "2026-10-23T06:15:59+00:00",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2620,
+      "bytes": 2621,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -169,10 +167,10 @@
     {
       "name": "Marathonbet CS2",
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "observed_at": "2026-10-23T05:30:52+00:00",
+      "observed_at": "2026-10-23T06:15:59+00:00",
       "http_status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5488,
+      "bytes": 5489,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -183,7 +181,7 @@
     {
       "name": "Betway CS2",
       "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T05:30:52+00:00",
+      "observed_at": "2026-10-23T06:15:59+00:00",
       "http_status": 404,
       "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
       "bytes": 6690,
@@ -195,17 +193,17 @@
     {
       "name": "Luckbox CS2",
       "url": "https://luckbox.com/esports/csgo",
-      "observed_at": "2026-10-23T05:30:53+00:00",
+      "observed_at": "2026-10-23T06:16:00+00:00",
       "http_status": null,
       "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))"
     },
     {
       "name": "Oddspedia CS2",
       "url": "https://www.oddspedia.com/esports/counter-strike-2",
-      "observed_at": "2026-10-23T05:30:53+00:00",
+      "observed_at": "2026-10-23T06:16:00+00:00",
       "http_status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike-2",
-      "bytes": 340033,
+      "bytes": 340029,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -219,7 +217,7 @@
     {
       "name": "bo3.gg matches",
       "url": "https://bo3.gg/matches",
-      "observed_at": "2026-10-23T05:30:54+00:00",
+      "observed_at": "2026-10-23T06:16:00+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/matches",
       "bytes": 12789,
@@ -234,7 +232,7 @@
     {
       "name": "bo3.gg teams",
       "url": "https://bo3.gg/teams",
-      "observed_at": "2026-10-23T05:30:54+00:00",
+      "observed_at": "2026-10-23T06:16:01+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/teams",
       "bytes": 12789,
@@ -249,7 +247,7 @@
     {
       "name": "Pinnacle guest leagues (sport 12)",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-      "observed_at": "2026-10-23T05:30:55+00:00",
+      "observed_at": "2026-10-23T06:16:01+00:00",
       "http_status": 200,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
       "bytes": 10627,
@@ -1142,7 +1140,7 @@
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251100bruteinf",
-          "detail": "Kalshi event KXCS2GAME-26OCT251100BRUTEINF: Order book spread 0.46 exceeds the 0.15 indicative ceiling (Brute bid/ask 0.49/0.95, Infinite bid/ask 0.06/0.49); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT251100BRUTEINF: Order book spread 0.42 exceeds the 0.15 indicative ceiling (Brute bid/ask 0.53/0.95, Infinite bid/ask 0.06/0.47); observation recorded, not used as a pick input."
         },
         {
           "stage": "Esportsbook line (Thunderpick original prices)",
@@ -1707,7 +1705,7 @@
         ],
         "pick_index": 1,
         "limitations": [
-          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4677 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.1 points (probability interval 0.116-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4677 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.2 points (probability interval 0.116-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
         ]
       },
       "sources_tried_from_published_trail": [
@@ -1721,7 +1719,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-          "detail": "Polymarket event 1237427: Order book spread 0.34 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.11/0.45, Off Chops bid/ask 0.55/0.89); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1237427: Order book spread 0.32 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.13/0.45, Off Chops bid/ask 0.55/0.87); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
@@ -1775,7 +1773,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4677 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 157.1 points."
+          "detail": "Own Bradley–Terry network fit over 4677 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 157.2 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -2037,7 +2035,7 @@
         }
       },
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4677 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.1 points (probability interval 0.116-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4677 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.2 points (probability interval 0.116-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
       ]
     },
     {

@@ -1,54 +1,56 @@
 # arena-e7d7a410 — live coverage audit (read-only)
 
-Observed: **2026-10-23T05:58:48Z** (local-sandbox-host).
-Snapshot: live inventory **2026-10-23T05:29:35Z**, picks feed **2026-10-23T05:29:49Z**, run status `partial-picks`.
+Observed: **2026-10-23T06:15:55Z** (github-actions-runner).
+Snapshot: live inventory **2026-10-23T06:14:39Z**, picks feed **2026-10-23T06:14:49Z**, run status `partial-picks`.
 
 ## Summary
 
 | Metric | Count |
 | --- | --- |
-| Active Hotspawn CS2 fixtures | 30 |
-| With a directional pick | 30 |
+| Active Hotspawn CS2 fixtures | 32 |
+| With a directional pick | 32 |
 | Without a pick | 0 |
-| Rows passing every check | 30 |
+| Rows passing every check | 32 |
 | Rows with a defect | 0 |
-| Resolved by an external money line | 21 |
+| Resolved by an external money line | 23 |
 | Model-only (no betting line found) | 9 |
 
 ## Every active fixture, line by line
 
 | # | Match | Start (UTC) | Method | Probabilities | Pick | Source | Covered |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | ex-Zero Tenacity vs ex-RUSTEC | 2026-10-23T08:00:00Z | market | 0.5550 / 0.4450 | ex-Zero Tenacity | [source](https://polymarket.com/event/cs2-zerote-rustec-2026-10-23) | yes |
-| 2 | FORZE Reload vs LFO 10 | 2026-10-23T08:00:00Z | market | 0.8200 / 0.1800 | FORZE Reload | [source](https://polymarket.com/event/cs2-forzer-skr2-2026-10-23) | yes |
-| 3 | Nuclear TigeRES vs ILLYRIANS | 2026-10-23T11:00:00Z | market | 0.7200 / 0.2800 | Nuclear TigeRES | [source](https://polymarket.com/event/cs2-ntr-ill4-2026-10-23) | yes |
+| 1 | ex-Zero Tenacity vs ex-RUSTEC | 2026-10-23T08:00:00Z | market | 0.5400 / 0.4600 | ex-Zero Tenacity | [source](https://polymarket.com/event/cs2-zerote-rustec-2026-10-23) | yes |
+| 2 | FORZE Reload vs LFO 10 | 2026-10-23T08:00:00Z | market | 0.8550 / 0.1450 | FORZE Reload | [source](https://polymarket.com/event/cs2-forzer-skr2-2026-10-23) | yes |
+| 3 | Nuclear TigeRES vs ILLYRIANS | 2026-10-23T11:00:00Z | market | 0.8250 / 0.1750 | Nuclear TigeRES | [source](https://polymarket.com/event/cs2-ntr-ill4-2026-10-23) | yes |
 | 4 | Inner Circle Academy vs Spirit Academy | 2026-10-23T11:00:00Z | market | 0.4250 / 0.5750 | Spirit Academy | [source](https://polymarket.com/event/cs2-innerc-tsa-2026-10-23) | yes |
 | 5 | Phantom Academy vs Banda chuya | 2026-10-23T11:00:00Z | model | 0.4748 / 0.5252 | Banda chuya | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
 | 6 | JiJieHao vs Eternal Fire | 2026-10-23T13:00:00Z | market | 0.4400 / 0.5600 | Eternal Fire | [source](https://polymarket.com/event/cs2-jjh-ef1-2026-10-23) | yes |
 | 7 | Isurus vs Hacha | 2026-10-23T13:00:00Z | consensus | 0.8105 / 0.1895 | Isurus | [source](https://polymarket.com/event/cs2-isg-hachae-2026-10-23) | yes |
-| 8 | K27 vs Virtus.pro | 2026-10-23T13:00:00Z | market | 0.5550 / 0.4450 | K27 | [source](https://polymarket.com/event/cs2-k271-vp-2026-10-23) | yes |
-| 9 | BORRACHEIROS vs QUINTESSÊNCIA | 2026-10-23T16:00:00Z | market | 0.6000 / 0.4000 | BORRACHEIROS | [source](https://polymarket.com/event/cs2-chama-quin-2026-10-23) | yes |
-| 10 | BakS vs BRUTE | 2026-10-23T17:00:00Z | consensus | 0.4665 / 0.5335 | BRUTE | [source](https://polymarket.com/event/cs2-brute-baks-2026-10-23) | yes |
-| 11 | ex-RUSTEC vs Saint Sinners | 2026-10-23T17:00:00Z | bookmaker | 0.7162 / 0.2838 | ex-RUSTEC | [source](https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-12/ex-rustec-saint-sinners-202610231300) | yes |
-| 12 | BESTIA vs Galorys | 2026-10-23T18:00:00Z | market | 0.5550 / 0.4450 | BESTIA | [source](https://polymarket.com/event/cs2-bst-gls1-2026-10-23) | yes |
-| 13 | BESTIA Academy vs RED Canids Academy | 2026-10-23T19:00:00Z | market | 0.3550 / 0.6450 | RED Canids Academy | [source](https://polymarket.com/event/cs2-bsta-reda-2026-10-23) | yes |
-| 14 | Alka vs LOS NINOS | 2026-10-23T22:00:00Z | bookmaker | 0.7111 / 0.2889 | Alka | [source](https://thunderpick.io/api/matches) | yes |
-| 15 | FOKUS vs ex-6666 | 2026-10-24T08:00:00Z | market | 0.7800 / 0.2200 | FOKUS | [source](https://polymarket.com/event/cs2-fokus-66661-2026-10-24) | yes |
-| 16 | Nuclear TigeRES vs FORZE Reload | 2026-10-24T14:00:00Z | market | 0.5900 / 0.4100 | Nuclear TigeRES | [source](https://polymarket.com/event/cs2-ntr-forzer-2026-10-24) | yes |
-| 17 | Acend vs UNiTY | 2026-10-25T09:00:00Z | model | 0.5419 / 0.4581 | Acend | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 18 | Metizport vs BakS | 2026-10-25T12:00:00Z | model | 0.7986 / 0.2014 | Metizport | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 19 | Infinite vs BRUTE | 2026-10-25T15:00:00Z | model | 0.6901 / 0.3099 | Infinite | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 20 | Color vs ex-Zero Tenacity | 2026-10-25T18:00:00Z | model | 0.7359 / 0.2641 | Color | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 21 | Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | model | 0.4447 / 0.5553 | Off Chops | [source](https://bo3.gg/matches) | yes |
-| 22 | NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | bookmaker | 0.5707 / 0.4293 | NEXVOID | [source](https://thunderpick.io/api/matches) | yes |
-| 23 | FlyQuest vs Staqued | 2026-10-27T03:00:00Z | bookmaker | 0.9230 / 0.0770 | FlyQuest | [source](https://thunderpick.io/api/matches) | yes |
-| 24 | Rooster vs Abyssal | 2026-10-27T03:00:00Z | model | 0.4776 / 0.5224 | Abyssal | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 25 | B8 vs K27 | 2026-10-27T08:00:00Z | market | 0.6250 / 0.3750 | B8 | [source](https://polymarket.com/event/cs2-b8-k271-2026-10-27) | yes |
-| 26 | Alliance vs FaZe | 2026-10-27T11:00:00Z | market | 0.3400 / 0.6600 | FaZe | [source](https://polymarket.com/event/cs2-all-faze-2026-10-27) | yes |
-| 27 | Luminosity vs HOTU | 2026-10-27T17:00:00Z | market | 0.5500 / 0.4500 | Luminosity | [source](https://polymarket.com/event/cs2-lg6-hotu-2026-10-27) | yes |
-| 28 | Envy vs GamerLegion | 2026-10-27T20:00:00Z | market | 0.4700 / 0.5300 | GamerLegion | [source](https://polymarket.com/event/cs2-envy-gl1-2026-10-27) | yes |
-| 29 | HOTU vs The Huns | 2026-10-31T09:00:00Z | model | 0.9405 / 0.0595 | HOTU | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
-| 30 | 5star vs 1WIN | 2026-10-31T13:00:00Z | model | 0.1782 / 0.8218 | 1WIN | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 8 | LPH vs WBT Academy | 2026-10-23T13:00:00Z | bookmaker | 0.3827 / 0.6173 | WBT Academy | [source](https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026) | yes |
+| 9 | K27 vs Virtus.pro | 2026-10-23T13:00:00Z | market | 0.5550 / 0.4450 | K27 | [source](https://polymarket.com/event/cs2-k271-vp-2026-10-23) | yes |
+| 10 | BORRACHEIROS vs QUINTESSÊNCIA | 2026-10-23T16:00:00Z | market | 0.5850 / 0.4150 | BORRACHEIROS | [source](https://polymarket.com/event/cs2-chama-quin-2026-10-23) | yes |
+| 11 | BakS vs BRUTE | 2026-10-23T17:00:00Z | consensus | 0.5076 / 0.4924 | BakS | [source](https://polymarket.com/event/cs2-brute-baks-2026-10-23) | yes |
+| 12 | ex-RUSTEC vs Saint Sinners | 2026-10-23T17:00:00Z | bookmaker | 0.7162 / 0.2838 | ex-RUSTEC | [source](https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-12/ex-rustec-saint-sinners-202610231300) | yes |
+| 13 | BESTIA vs Galorys | 2026-10-23T18:00:00Z | market | 0.5650 / 0.4350 | BESTIA | [source](https://polymarket.com/event/cs2-bst-gls1-2026-10-23) | yes |
+| 14 | BESTIA Academy vs RED Canids Academy | 2026-10-23T19:00:00Z | market | 0.3550 / 0.6450 | RED Canids Academy | [source](https://polymarket.com/event/cs2-bsta-reda-2026-10-23) | yes |
+| 15 | paiN vs Imperial | 2026-10-23T21:00:00Z | market | 0.3950 / 0.6050 | Imperial | [source](https://polymarket.com/event/cs2-pain-imp11-2026-10-23) | yes |
+| 16 | Alka vs LOS NINOS | 2026-10-23T22:00:00Z | bookmaker | 0.7111 / 0.2889 | Alka | [source](https://thunderpick.io/api/matches) | yes |
+| 17 | FOKUS vs ex-6666 | 2026-10-24T08:00:00Z | market | 0.7800 / 0.2200 | FOKUS | [source](https://polymarket.com/event/cs2-fokus-66661-2026-10-24) | yes |
+| 18 | Nuclear TigeRES vs FORZE Reload | 2026-10-24T14:00:00Z | market | 0.5900 / 0.4100 | Nuclear TigeRES | [source](https://polymarket.com/event/cs2-ntr-forzer-2026-10-24) | yes |
+| 19 | Acend vs UNiTY | 2026-10-25T09:00:00Z | model | 0.5419 / 0.4581 | Acend | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 20 | Metizport vs BakS | 2026-10-25T12:00:00Z | model | 0.7986 / 0.2014 | Metizport | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 21 | Infinite vs BRUTE | 2026-10-25T15:00:00Z | model | 0.6901 / 0.3099 | Infinite | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 22 | Color vs ex-Zero Tenacity | 2026-10-25T18:00:00Z | model | 0.7359 / 0.2641 | Color | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 23 | Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | model | 0.4447 / 0.5553 | Off Chops | [source](https://bo3.gg/matches) | yes |
+| 24 | NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | bookmaker | 0.5707 / 0.4293 | NEXVOID | [source](https://thunderpick.io/api/matches) | yes |
+| 25 | FlyQuest vs Staqued | 2026-10-27T03:00:00Z | bookmaker | 0.9230 / 0.0770 | FlyQuest | [source](https://thunderpick.io/api/matches) | yes |
+| 26 | Rooster vs Abyssal | 2026-10-27T03:00:00Z | model | 0.4776 / 0.5224 | Abyssal | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 27 | B8 vs K27 | 2026-10-27T08:00:00Z | market | 0.6200 / 0.3800 | B8 | [source](https://polymarket.com/event/cs2-b8-k271-2026-10-27) | yes |
+| 28 | Alliance vs FaZe | 2026-10-27T11:00:00Z | market | 0.3350 / 0.6650 | FaZe | [source](https://polymarket.com/event/cs2-all-faze-2026-10-27) | yes |
+| 29 | Luminosity vs HOTU | 2026-10-27T17:00:00Z | market | 0.5500 / 0.4500 | Luminosity | [source](https://polymarket.com/event/cs2-lg6-hotu-2026-10-27) | yes |
+| 30 | Envy vs GamerLegion | 2026-10-27T20:00:00Z | market | 0.4650 / 0.5350 | GamerLegion | [source](https://polymarket.com/event/cs2-envy-gl1-2026-10-27) | yes |
+| 31 | HOTU vs The Huns | 2026-10-31T09:00:00Z | model | 0.9405 / 0.0595 | HOTU | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
+| 32 | 5star vs 1WIN | 2026-10-31T13:00:00Z | model | 0.1782 / 0.8218 | 1WIN | [source](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | yes |
 
 ## Unresolved rows (a pick is missing or invalid)
 
