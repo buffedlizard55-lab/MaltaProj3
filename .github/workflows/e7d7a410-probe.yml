@@ -1,99 +1,71 @@
-name: e7d7a410 live coverage audit
-
-# Session-only, read-only evidence collection for arena-e7d7a410.
-# It publishes nothing: every fresh snapshot is copied under
-# data/research/e7d7a410/ and the tracked pricing data is restored before the
-# commit, so the site's numbers and picks cannot change from this workflow.
-# It triggers on itself only, so a data commit can never start a loop.
-
+# Session arena-e7d7a410 — read-only live coverage audit + HLTV-first line research.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV or any bookmaker; the
+# GitHub runner does. This workflow runs the repository's own collectors there,
+# then:
+#   1. audits every active fixture line by line (pick, two probabilities,
+#      source link, arithmetic) — scripts/e7d7a410_audit.py;
+#   2. re-runs the already-reviewed HLTV-first / esportsbook probe for every
+#      fixture the featured method could not resolve — scripts/3a5448de_probe.py
+#      (read-only: it writes no probability, pick or alias);
+#   3. commits only dated reports under data/research/e7d7a410/ — never the
+#      live snapshot into data/, never a deploy.
+#
+# The push guard skips the workflow's own report commit so it cannot loop.
+name: e7d7a410 live coverage audit (never deploys)
 on:
   workflow_dispatch:
   push:
-    branches: [arena/e7d7a410-maltaproj3]
-    paths: ['.github/workflows/e7d7a410-probe.yml']
-
+    branches: ['arena/e7d7a410-maltaproj3']
 permissions:
   contents: write
-
 concurrency:
   group: e7d7a410-probe
-  cancel-in-progress: false
-
+  cancel-in-progress: true
 jobs:
   audit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(e7d7a410)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          ref: arena/e7d7a410-maltaproj3
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+          python-version: '3.12'
           cache: pip
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Collect the live Hotspawn inventory and originate picks
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn CS2 inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Audit every active fixture line by line (pick, probabilities, source)
+        run: python -m scripts.e7d7a410_audit --data data --out data/research/e7d7a410
+      - name: Preserve the dated live snapshot this audit describes
         run: |
-          python -m scripts.collect
-          python -m scripts.originate --live
-
-      - name: Keep the fresh snapshot outside the working tree
-        run: |
-          mkdir -p "$RUNNER_TEMP/fresh"
-          cp data/latest.json data/origination.json "$RUNNER_TEMP/fresh/"
-
-      - name: HLTV-first, then esportsbook research for every unpriced fixture
+          mkdir -p data/research/e7d7a410/live
+          cp data/latest.json data/research/e7d7a410/live/latest.json
+          cp data/origination.json data/research/e7d7a410/live/origination.json
+          cp data/sources.json data/research/e7d7a410/live/sources.json
+          date -u +%Y-%m-%dT%H:%M:%SZ > data/research/e7d7a410/live/OBSERVED_AT.txt
+      - name: HLTV-first, then esportsbook research for every unresolved fixture (read-only)
         continue-on-error: true
-        run: python -m scripts.3a5448de_probe --out data/research/e7d7a410/line-sources --timeout 15
-
-      - name: Restore the tracked pricing data the site publishes
+        run: python -m scripts.3a5448de_probe --data data --out data/research/e7d7a410/line-sources --timeout 15
+      - name: Restore every tracked data file so only the reports are committed
         run: |
-          git checkout -- data
-          git clean -fdq data/evidence data/origination/evidence || true
-          git status --short
-
-      - name: Save the fresh snapshot as dated evidence
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated reports to this session branch
         run: |
-          cp "$RUNNER_TEMP/fresh/latest.json" data/research/e7d7a410/live/latest.json
-          cp "$RUNNER_TEMP/fresh/origination.json" data/research/e7d7a410/live/origination.json
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          d = json.loads(Path('data/research/e7d7a410/live/latest.json').read_text())
-          Path('data/research/e7d7a410/live/sources.json').write_text(json.dumps({
-              'observed_at': d.get('inventory_observed_at'),
-              'inventory_definition': d.get('inventory_definition'),
-              'inventory_crosscheck': d.get('inventory_crosscheck'),
-              'coverage_complete': d.get('coverage_complete'),
-              'run_status': d.get('run_status'),
-              'counts': d.get('counts'),
-              'sources': d.get('sources', []),
-              'flags': d.get('flags', []),
-          }, indent=2) + '\n')
-          Path('data/research/e7d7a410/live/OBSERVED_AT.txt').write_text(
-              (d.get('inventory_observed_at') or 'unknown') + '\n')
-          print(d.get('inventory_observed_at'), d.get('counts'))
-          PY
-
-      - name: Audit every active fixture against the complete picks feed
-        run: |
-          python -m scripts.e7d7a410_audit \
-            --latest data/research/e7d7a410/live/latest.json \
-            --origination data/research/e7d7a410/live/origination.json \
-            --out data/research/e7d7a410 --strict
-
-      - name: Commit only the dated evidence
-        run: |
-          git config user.name 'arena-agent'
-          git config user.email '297053741+arena-agent@users.noreply.github.com'
-          git add data/research/e7d7a410
-          if git diff --cached --quiet; then
-            echo 'No new evidence to commit.'
-            exit 0
-          fi
-          git commit -m "e7d7a410: dated live coverage audit ($(date -u +%Y-%m-%dT%H:%MZ))"
-          git push origin HEAD:arena/e7d7a410-maltaproj3
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/e7d7a410/
+          if git diff --cached --quiet; then echo 'no report change'; exit 0; fi
+          git commit -m 'research(e7d7a410): live coverage audit + line-source research (never published)'
+          git pull --rebase origin arena/e7d7a410-maltaproj3
+          git push origin arena/e7d7a410-maltaproj3
