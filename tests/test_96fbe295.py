@@ -132,9 +132,12 @@ class PlanTests(unittest.TestCase):
 
     def test_check_mode_reports_a_current_root_and_then_drift(self):
         self.publish()
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 0)
+        # Pin the publisher clock to this test fixture's snapshot date; running
+        # this suite on a later day must not make a valid build age past its guard.
+        args = ["--output", str(self.output), "--root", str(self.root), "--check"]
+        self.assertEqual(main(args, now=NOW), 0)
         _write(self.root / "picks/index.html", "<title>stale hand edit</title>")
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 2)
+        self.assertEqual(main(args, now=NOW), 2)
 
     def test_a_changed_page_is_republished(self):
         self.publish()
