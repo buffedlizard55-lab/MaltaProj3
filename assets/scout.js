@@ -182,21 +182,39 @@ checkForUpdate();
 (() => {
   const input = document.querySelector('#glance-search');
   const list = document.querySelector('#glance-list');
-  if (!input || !list) return;
+  if (!list) return;
   const glance_rows = Array.from(list.querySelectorAll('.glance-row'));
   const count = document.querySelector('#glance-count');
   const empty = document.querySelector('#glance-empty');
+  const buttons = Array.from(document.querySelectorAll('[data-glance-status]'));
+  let status = 'all';
+  function rowClosed(row) {
+    return row.classList.contains('is-closed') || row.getAttribute('data-glance-closed') === 'true';
+  }
   function applyGlanceFilter() {
-    const term = input.value.trim().normalize('NFKC').toLowerCase();
+    const term = input ? input.value.trim().normalize('NFKC').toLowerCase() : '';
     let visible = 0;
     glance_rows.forEach(row => {
-      row.hidden = Boolean(term) && !(row.dataset.search || '').includes(term);
+      const matchesTerm = !term || (row.dataset.search || '').includes(term);
+      const matchesStatus = status === 'all' || (status === 'locked' ? rowClosed(row) : !rowClosed(row));
+      row.hidden = !(matchesTerm && matchesStatus);
       if (!row.hidden) visible += 1;
     });
-    if (count) count.textContent = term ? `${visible} of ${glance_rows.length} picks shown` : '';
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.glanceStatus === status)));
+    if (count) {
+      const bits = [];
+      if (term) bits.push(`name “${term}”`);
+      if (status === 'open') bits.push('still open');
+      if (status === 'locked') bits.push('locked');
+      count.textContent = bits.length ? `${visible} of ${glance_rows.length} picks shown` : '';
+    }
     if (empty) empty.hidden = visible !== 0;
   }
-  input.addEventListener('input', applyGlanceFilter);
+  input?.addEventListener('input', applyGlanceFilter);
+  buttons.forEach(button => button.addEventListener('click', () => {
+    status = button.dataset.glanceStatus || 'all';
+    applyGlanceFilter();
+  }));
   applyGlanceFilter();
 })();
 

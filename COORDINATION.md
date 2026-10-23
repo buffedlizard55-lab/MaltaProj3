@@ -1,3 +1,21 @@
+# Current session: arena-9fd5fbf1 — current Hotspawn CS2 coverage vs stale snapshot, HLTV-first lines for missing/low-tier fixtures, phone “still open” pick finder
+
+Claimed **2026-10-23T05:00Z** on Arena’s fixed branch `arena/9fd5fbf1-maltaproj3`. Board and open PRs were read first. Concurrent sessions own publisher tests and other research folders; those files are not edited here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9F-1 Independent 2026-10-23 live Hotspawn CS2 inventory vs the public snapshot; HLTV first then esportsbooks for fixtures the featured method / stale snapshot cannot resolve; dated source-linked limitations; never invent a probability | **done** | arena-9fd5fbf1 | new `data/research/9fd5fbf1/**`, this section |
+| 9F-2 Phone findability: “Still open / Locked” chips on Picks at a glance, client reorder of locked rows to the bottom, executive-summary section for live lobby fixtures missing from this snapshot | **done** | arena-9fd5fbf1 | `scripts/build.py` (`glance()` chips + `live_coverage_gaps()`), `assets/scout.js` (filter), `assets/glance-lock.js` (reorder only), `assets/scout.css` (append-only), new `tests/test_9fd5fbf1.py` |
+| 9F-3 Rebuild, row-source/link audit, targeted tests, PR to main, merge, Pages record | in progress | arena-9fd5fbf1 | this section, PR |
+
+### 9F-1/9F-2 result (2026-10-23T05:10Z)
+- Public snapshot still `generated_at 2026-10-22T14:05:35Z` (degraded, 37/37 complete-picks, featured 7 unresolved). Live lobby CS2 filter **92**, week counter **197**. Missing from that snapshot with official permalinks: **1081605** Phantom Academy vs Banda chuya (HLTV 2399699, #174 vs Unranked), **1083014** K27 vs Virtus.pro (HLTV 2399849, #46 vs #56, VP stand-in Patsi), **1082693** BESTIA vs Galorys (HLTV 2399815), NODWIN 1079193/1079195/1082996/1079198/1079199/1079200. JiJieHao vs Eternal Fire is on the lobby without a permalink (HLTV 2399638); Hotspawn id left blank.
+- HLTV analytics are ranking/form, not prices. bo3.gg NEXVOID–Rare Atom had lineups and no coeff block. Polymarket Gamma slugs for those gaps returned `[]`. No probability invented. Flags auto-load on `/review/`.
+- Phone: Picks at a glance gains **All / Still open / Locked** 44px chips; `glance-lock.js` moves locked rows below still-open ones after the snapshot ages. Executive summary section `#live-coverage-gaps` lists every live lobby fixture this snapshot does not contain, with Hotspawn + HLTV links.
+- Local verification: `tests.test_9fd5fbf1` + glance/summary/review suites **OK**; `test_review_flags` rebuild **650 rows / 0 without a source / 795 internal links**.
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`, `data/origination/aliases.json`, `data/latest.json` / `data/origination.json` values, `.github/workflows/pages.yml`, or any other session’s `data/research/<id>/`. No pick or probability is hand-filled.
+
 # Current session: arena-92a3e9fb — line-by-line official verification, HLTV-first low-tier & bookmaker line research, scoped team aliases, Flagged-for-Review register & mobile audit — DONE / MERGING PR #204
 
 Claimed **2026-10-23T05:05Z** (rebased cleanly onto latest `main` `b33c26b` preserving 100% of `arena-52aee465` PRs #202/#205, `arena-38c53ece` PR #193, `arena-97d4113b` PRs #200/#201, `arena-d866c786` PR #197, `arena-fd99abd9` PR #194, `arena-308fcaad` PR #191, and `ecbc7ae` root Pages sync) on Arena's fixed session branch `arena/92a3e9fb-maltaproj3`, opened and verified as **PR #204** (`https://github.com/buffedlizard55-lab/MaltaProj3/pull/204`).
