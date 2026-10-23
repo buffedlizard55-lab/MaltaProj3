@@ -57,6 +57,12 @@ Read back from <https://buffedlizard55-lab.github.io/MaltaProj3/> at 07:05Z:
   feed), `/unresolved/` (unresolved & limitations), `/methodology/`, `/coverage/`, and a per-row
   `Full detail` anchor `/origination/#match-<id>`.
 
+Later read of the same deployment (deployed root HTML, 08:31Z, snapshot `2026-10-23T08:24:59Z`):
+**30 active, 30 directional picks — 22 external-line, 8 research-model, 0 explicitly unresolved**; two
+fixtures had left the active list because their start time passed. The stale banner is confirmed hidden
+in that HTML (`<div id="stale-warning" … hidden>`) and all six `f6bfc506-*` review flags are present on
+the deployed `/review/` page.
+
 ## Coverage cross-check against Hotspawn
 
 Read directly from <https://play.hotspawn.com/cs2-pickems> at 07:05Z: **197 matches this week**, **93**
