@@ -216,11 +216,19 @@ def published_methods(session, local: Path | None = None) -> tuple[dict, dict]:
         methods = {}
         for match in payload.get('matches') or []:
             origin = match.get('origination') or {}
+            probability = origin.get('probability')
+            if probability is None:
+                # The published shape is a [home, away] probabilities pair in
+                # the match's own team order; the scalar is the home side.
+                probs = origin.get('probabilities')
+                if (isinstance(probs, list) and len(probs) >= 2
+                        and all(isinstance(p, (int, float)) for p in probs[:2])):
+                    probability = probs[0]
             methods[str(match.get('hotspawn_id') or match.get('id'))] = {
                 'method': origin.get('method'),
                 'label': origin.get('label'),
                 'featured': bool(match.get('featured_method')),
-                'probability': origin.get('probability'),
+                'probability': probability,
                 'source_url': origin.get('source_url'),
                 'generated_at': payload.get('generated_at')}
         return methods, {'source': source, 'url': url, 'http_status': 200,

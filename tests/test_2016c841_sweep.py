@@ -187,6 +187,20 @@ class ProbeRecordEligibilityTests(unittest.TestCase):
         self.assertIn("'environment': environment_name()", source)
         self.assertIn("'per_fixture': [compatible(record) for record in findings]", source)
 
+    def test_published_probability_pair_is_read_in_team_order(self):
+        """origination.json publishes a [home, away] pair; the home scalar is kept."""
+        import tempfile
+        payload = {'generated_at': '2026-10-23T10:14:39Z',
+                   'matches': [{'id': '1082926', 'teams': [{'name': 'A'}, {'name': 'B'}],
+                                'origination': {'method': 'market',
+                                                'probabilities': [0.762, 0.238]}}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / 'origination.json'
+            target.write_text(json.dumps(payload))
+            methods, source = probe.published_methods(object(), Path(target))
+        self.assertEqual(methods['1082926']['method'], 'market')
+        self.assertEqual(methods['1082926']['probability'], 0.762)
+
 
 class LiveCoverageLoaderTests(unittest.TestCase):
     """The coverage-gap register promotes the newest real observation only."""
