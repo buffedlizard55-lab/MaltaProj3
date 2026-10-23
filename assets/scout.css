@@ -79,7 +79,7 @@
 @media(max-width:375px){.mobile-nav>a{font-size:7.5px;padding:2px 1px;gap:2px}.mobile-nav .icon{width:17px;height:17px}}
 
 /* Inline text links keep a non-colour distinction (WCAG 1.4.1) inside prose blocks */
-.prose a:not(.source-link):not(.button),.section-intro a:not(.source-link),.limitations-callout p>a,.info-strip span>a,.unresolved-table td p>a,.evidence-box p>a,.briefing-notes p>a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.ladder-list a,.prose a:not(.source-link):not(.button),.section-intro a:not(.source-link),.limitations-callout p>a,.info-strip span>a,.unresolved-table td p>a,.evidence-box p>a,.briefing-notes p>a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 .prose a:hover,.section-intro a:hover,.limitations-callout p>a:hover,.info-strip span>a:hover{text-decoration-thickness:2px}
 
 /* Find-a-pick filter on the executive summary (session 3016b0c6). */
@@ -528,11 +528,8 @@
   .simple-table>tbody>tr{border-radius:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(20,37,52,.05)}
 }
 
-/* Session arena-f6bfc506 (integration, 2026-10-23): the low-tier explainer merged in D866 puts
-   plain inline links inside .ladder-list. axe's `link-in-text-block` rule failed on the executive
-   summary at 390px and 1440px: link #b9401b against body text #172c3d is 2.6:1 (needs 3:1) and the
-   links carried no distinguishing style. Underlining them is the rule's own remedy and matches the
-   treatment already used for links inside .stale-warning / .new-snapshot. No colour is changed, so
-   nothing about the audit's contrast pairs moves. */
-.ladder-list a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1.5px}
-.ladder-list a:hover{text-decoration-thickness:2.5px}
+/* Source links in explanatory prose must not rely on color alone (WCAG 1.4.1). */
+.ladder-list a {
+  text-decoration: underline;
+  text-underline-offset: .16em;
+}
