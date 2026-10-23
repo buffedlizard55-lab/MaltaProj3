@@ -6441,3 +6441,17 @@ Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sour
 1. Do not treat `data/latest.json` as current; judge freshness by the page's `data-snapshot-generated` stamp or the `github-pages` artifact.
 2. If the Pages workflow runs, `scripts.collect` will fail on Hotspawn and retain the Oct 15 snapshot with a visible stale warning — this is the designed degraded mode, not a crash.
 3. The next session should run a fresh Hotspawn collection from an environment with general egress, then re-run `scripts.build` and `scripts.root_publish`, then merge and confirm Pages serves a sub-8-hour snapshot.
+
+### 5BF-3 result — PR merged, Pages deploy triggered but not confirmable in-session
+
+- **PR:** [#217](https://github.com/buffedlizard55-lab/MaltaProj3/pull/217) "Verify dashboard, flag stale-data irregularity, close out 5bf31a25 session"
+- **Merge:** `gh pr merge 217 --merge` → merged **2026-10-23T10:07:37Z** into `main` as commit `00dcbba` (no approval waited for). Local `main` is now behind origin; `data/*` untouched by this change (COORDINATION.md only).
+- **Pages deploy:** the merge push triggered workflow run **39936868856** (push to main, created 10:07:40Z). It remained **pending** for the full session (shared-runner queue saturated; never started). **Could not confirm a successful Pages deploy.**
+- **Why the deploy cannot be confirmed or refreshed in-session:** (1) Hotspawn's API and `play.hotspawn.com` are unreachable from this sandbox (TLS closed; outbound egress limited to GitHub/npm/PyPI), so `scripts.collect` cannot gather a current inventory and would retain the Oct 15 snapshot; (2) `scripts.root_publish --check` refuses data older than 12h (`data/latest.json` is ~193h old, exit 3); (3) `buffedlizard55-lab.github.io/MaltaProj3/` itself is unreachable from this sandbox (HTTP 000), so the live deploy cannot be read back.
+- **Net effect:** the branch root HTML remains the last verified snapshot (10-23, 30 fixtures, 30 picks, 0 unresolved) with a complete executive summary and unresolved register. `data/latest.json` remains the checked-in Oct 15 fixture. A repository owner with general egress (or Pages admin to switch `build_type` from legacy to workflow) must run a fresh Hotspawn collection (`scripts.collect`), rebuild (`scripts.build`), and republish (`scripts.root_publish`) to clear the stale-data flag and restore sub-8-hour freshness.
+
+### Handoff notes for the next session (updated)
+
+1. Do not treat `data/latest.json` as current; judge freshness by the page's `data-snapshot-generated` stamp or the `github-pages` artifact.
+2. Workflow run 39936868856 is pending; if it eventually starts, `scripts.collect` will fail on Hotspawn and the publish will run in degraded mode (stale warning visible). `root_publish` will refuse the >12h-stale snapshot at the root-sync step.
+3. Next session: run from an environment with general egress — collect fresh inventory, rebuild, verify (`scripts.build` + targeted tests), merge, and confirm Pages serves a sub-8-hour snapshot.
