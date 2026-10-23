@@ -388,6 +388,59 @@ def smarkets_sweep(session, targets: list) -> tuple[dict, dict]:
     return board, per_fixture
 
 
+PUBLISHED_MAX_AGE_HOURS = 6
+
+
+def healthy_methods(methods: dict, method_source: dict, *, now: datetime | None = None) -> tuple[bool, str]:
+    """Whether the published snapshot read is trustworthy enough to date a sweep.
+
+    The live site has a documented publishing race: the legacy Pages builder can
+    temporarily serve the repository's legacy branch root, whose
+    ``data/latest.json``/``data/origination.json`` are eight days old at this
+    writing. A sweep recorded against that read would (a) research fixtures that
+    already carry real market lines and (b) call 30/30 fixtures "missing from
+    the snapshot" — both false. The rule: the read is healthy only when fixtures
+    carry methods and the snapshot is younger than ``PUBLISHED_MAX_AGE_HOURS``.
+    An unhealthy read must never replace a good dated record; main() writes a
+    ``sweep-degraded.*`` note instead, which the executive-summary loaders do
+    not glob, so the previous healthy record keeps rendering.
+    """
+    if not methods or not any((v or {}).get('method') for v in methods.values()):
+        return False, 'no published methods could be read (empty or unreachable snapshot)'
+    generated = stamp(method_source.get('generated_at'))
+    if generated is None:
+        return False, 'published snapshot carries no parseable generated_at'
+    reference = now or datetime.now(UTC)
+    if generated < reference - timedelta(hours=PUBLISHED_MAX_AGE_HOURS):
+        return False, (f'published snapshot generated {iso(generated)} is older than '
+                       f'{PUBLISHED_MAX_AGE_HOURS} h (legacy branch-root read)')
+    return True, ''
+
+
+def write_degraded(out: Path, observed_at: str, reason: str, method_source: dict,
+                   hotspawn_attempt: dict, providers: list) -> None:
+    document = {'session': 'arena-2016c841', 'schema_version': 1,
+                'environment': environment_name(), 'observed_at': observed_at,
+                'degraded_window': True, 'reason': reason,
+                'published_methods_source': method_source,
+                'hotspawn_source': {'url': HOTSPAWN_API, **hotspawn_attempt},
+                'providers': providers,
+                'note': ('This observation window is poisoned for research publishing: the published '
+                         'snapshot read was unusable, so no line-source-research or live-coverage record '
+                         'was written — the previous healthy dated record keeps rendering. Raw provider '
+                         'statuses from this window are kept here for review.'),
+                }
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'sweep-degraded.json').write_text(json.dumps(document, indent=1, ensure_ascii=False) + '\n')
+    (out / 'sweep-degraded.md').write_text(
+        f'# Degraded sweep window — {observed_at}\n\n'
+        f'{reason}\n\n'
+        'No `line-source-research` or `live-coverage` record was written from this observation: '
+        'publishing against a degraded site read would misstate which fixtures carry real lines. '
+        'The previous healthy dated record keeps rendering. Provider HTTP statuses from this window '
+        'are preserved in `sweep-degraded.json`.\n')
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, default=Path('data/research/2016c841'))
@@ -409,6 +462,12 @@ def main(argv: list[str] | None = None) -> int:
         attempt['label'] = label
         providers.append(attempt)
         time.sleep(0.2)
+
+    healthy, reason = healthy_methods(methods, method_source)
+    if not healthy:
+        write_degraded(args.out, observed_at, reason, method_source, hotspawn_attempt, providers)
+        print(f'degraded window: {reason}')
+        return 0
 
     findings, unresolved = [], []
     skipped_past = 0

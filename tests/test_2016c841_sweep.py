@@ -29,12 +29,14 @@ from __future__ import annotations
 import importlib
 import json
 import os
+import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest import mock
 
-from scripts.build import load_live_coverage, live_coverage_gaps, no_line_research_block
+from scripts.build import (load_live_coverage, load_no_line_research,
+                           live_coverage_gaps, no_line_research_block)
 
 probe = importlib.import_module('scripts.2016c841_research')
 
@@ -292,6 +294,46 @@ class NoLineBlockExchangeEvidenceTests(unittest.TestCase):
         html = no_line_research_block(data, '')
         self.assertIn('No new money-line lead was found', html)
         self.assertNotIn('exchange quote', html)
+
+
+class TestDegradedGate(unittest.TestCase):
+    """A sweep observed during the legacy branch-root publishing race must
+    never replace a healthy dated record."""
+
+    def _fresh(self, now):
+        src = {'generated_at': probe.iso(now), 'source': 'live'}
+        return {'id1': {'method': 'market'}}, src
+
+    def test_a_fresh_snapshot_with_methods_is_healthy(self):
+        now = datetime(2026, 10, 23, 11, 0, tzinfo=timezone.utc)
+        methods, src = self._fresh(now)
+        healthy, reason = probe.healthy_methods(methods, src, now=now)
+        self.assertTrue(healthy, reason)
+
+    def test_an_eight_day_old_snapshot_is_the_legacy_branch_root(self):
+        now = datetime(2026, 10, 23, 11, 0, tzinfo=timezone.utc)
+        src = {'generated_at': '2026-10-15T08:36:13Z', 'source': 'live'}
+        healthy, reason = probe.healthy_methods({'id1': {'method': 'market'}}, src, now=now)
+        self.assertFalse(healthy)
+        self.assertIn('older than', reason)
+
+    def test_no_method_read_at_all_is_not_healthy(self):
+        healthy, _reason = probe.healthy_methods({}, {'generated_at': '2026-10-23T10:00:00Z'})
+        self.assertFalse(healthy)
+
+    def test_degraded_note_uses_files_the_loaders_never_glob(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            out = root / 'research' / '2016c841'
+            out.mkdir(parents=True)
+            probe.write_degraded(out, '2026-10-23T10:30:00Z', 'stale read',
+                                 {'source': 'live', 'generated_at': '2026-10-15T08:36:13Z'},
+                                 {'status': 200}, [{'label': 'HLTV', 'status': 403}])
+            self.assertTrue((out / 'sweep-degraded.json').exists())
+            self.assertFalse((out / 'line-source-research.json').exists())
+            self.assertFalse((out / 'live-coverage.json').exists())
+            self.assertIsNone(load_no_line_research(root))
+            self.assertIsNone(load_live_coverage(root))
 
 
 if __name__ == '__main__':
