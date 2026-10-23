@@ -38,6 +38,7 @@ from scripts import form_model
 from scripts import hltv_ranking
 from scripts import network_model
 from scripts import pinnacle_lines
+from scripts import smarkets_lines
 from scripts import reference_odds
 
 UTC = timezone.utc
@@ -891,6 +892,14 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             out['bovada_error'] = 'Bovada coupon contract unrecognized'
     except RuntimeError as exc:
         out['bovada_error'] = str(exc)
+    # Smarkets exchange board (session 46ade650). Public documented read-only
+    # API; it lists academy/tier-3 CS2 fixtures the other exchanges skip. An
+    # outage records a reason and prices nothing — never a guessed quote.
+    (evidence_dir / smarkets_lines.EVIDENCE_NAME).unlink(missing_ok=True)
+    try:
+        out['smarkets'] = smarkets_lines.collect(client, evidence_dir, matches)
+    except Exception as exc:  # noqa: BLE001 - research must never block a refresh
+        out['smarkets_error'] = f'{type(exc).__name__}: {exc}'[:300]
     for stale in ('live-valve-directory.json', 'live-valve-standings.json', 'live-valve-standings-text.json'):
         (evidence_dir / stale).unlink(missing_ok=True)
     # Pinnacle public guest board (first-party esportsbook prices). Non-fatal:
@@ -1901,6 +1910,9 @@ def originate_match(match: dict, poly_rows: list, book_rows: list, ratings, valv
     stage_names = {
         ('market', 'Polymarket'): ('Betting market (Polymarket series winner)', POLY_INDEX),
         ('market', 'Kalshi'): ('Exchange market (Kalshi CS2 match winner)', KALSHI_PAGE.rstrip('/')),
+        # Session 46ade650: a public exchange board that lists academy and
+        # tier-3 CS2 matches the US exchanges and big books skip.
+        ('market', 'Smarkets'): ('Exchange market (Smarkets CS2 match winner)', smarkets_lines.SOURCE_URL),
         ('bookmaker', 'Thunderpick'): ('Esportsbook line (Thunderpick original prices)', THUNDERPICK_PAGE),
         ('bookmaker', 'Bovada'): ('Esportsbook line (Bovada original prices)', BOVADA_SITE),
         ('bookmaker', 'Pinnacle'): ('Esportsbook line (Pinnacle original prices)', PINNACLE_PAGE),
@@ -2403,7 +2415,7 @@ def run(output: Path, *, live: bool = False) -> dict:
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
     reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
-    poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir)
+    poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir) + smarkets_lines.rows(evidence_dir)
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
     hltv_rank_rows, hltv_meta = hltv_ranking.load(evidence_dir)
@@ -2598,6 +2610,8 @@ def run(output: Path, *, live: bool = False) -> dict:
             'thin_spread': THIN_SPREAD,
             'max_accepted_spread': MAX_ACCEPTED_SPREAD,
             'ladder': ['verified-alias Polymarket series-winner books', 'verified-alias Kalshi CS2 match-winner books',
+                       'verified-alias Smarkets CS2 match-winner exchange books (session 46ade650; public documented API, '
+                       'bid/ask midpoints, spread ceiling 0.15, flagged thin above 0.12)',
                        'verified-alias esportsbook paired prices (Thunderpick, Bovada, Pinnacle; no-vig)',
                        'bookmaker prices relayed by bo3.gg (session 15fc6bca; labelled second-hand copy, used only '
                        'when no first-party quote exists and never mixed into a first-party consensus)',
@@ -2609,7 +2623,7 @@ def run(output: Path, *, live: bool = False) -> dict:
                        'HLTV world-ranking research model fallback (session c03ef201)',
                        'wide-book indicative midpoint, guidance only (session c03ef201; never a validated pick)',
                        'blank + flagged'],
-            'money_providers': ['Polymarket', 'Kalshi', 'Thunderpick', 'Bovada', 'Pinnacle'],
+            'money_providers': ['Polymarket', 'Kalshi', 'Smarkets', 'Thunderpick', 'Bovada', 'Pinnacle'],
             'relay_providers': ['bo3.gg published bookmaker relay (provider named per fixture)'],
             'relay_start_tolerance_sec': RELAY_START_TOLERANCE_SEC,
             'aggregated_reference': ['EGamersWorld published bookmaker average (manual, dated, hash-checked capture)'],

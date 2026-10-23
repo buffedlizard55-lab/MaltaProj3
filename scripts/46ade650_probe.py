@@ -135,6 +135,32 @@ def main() -> int:
                         'its limitation stand'),
         })
 
+    # The live collection in this workflow also queries the Smarkets exchange
+    # board (scripts/smarkets_lines.py). Record exactly what it bound and quoted
+    # so a reviewer can see whether the new rung priced any of these fixtures.
+    smarkets = {'evidence': 'data/origination/evidence/live-smarkets-cs.json'}
+    smarkets_path = Path('data/origination/evidence/live-smarkets-cs.json')
+    if smarkets_path.exists():
+        try:
+            saved = json.loads(smarkets_path.read_text())
+            binds = saved.get('bindings') or []
+            rows = importlib.import_module('scripts.smarkets_lines').rows(
+                Path('data/origination/evidence'))
+            smarkets.update({
+                'observed_at': saved.get('observed_at'),
+                'events_listed': len(saved.get('events') or []),
+                'fixtures_bound': len(binds),
+                'quoted_two_sided': len(rows),
+                'bound_fixtures': [{'hotspawn_id': b.get('hotspawn_id'), 'event_id': b.get('event_id'),
+                                    'event_name': b.get('event_name'), 'event_url': b.get('event_url')}
+                                   for b in binds],
+                'errors': saved.get('errors') or [],
+            })
+        except (ValueError, TypeError) as exc:
+            smarkets['error'] = f'{type(exc).__name__}: {exc}'[:200]
+    else:
+        smarkets['status'] = 'the live collection produced no Smarkets evidence file'
+
     doc = {
         'schema_version': 1,
         'session': 'arena-46ade650',
@@ -147,6 +173,7 @@ def main() -> int:
         'targets': targets,
         'extra_pages': pages,
         'pinnacle_guest_api': pinnacle,
+        'smarkets': smarkets,
         'bo3': bo3,
         'per_fixture': per_fixture,
         'leads': [f for f in per_fixture if f['money_line_lead']],
@@ -169,6 +196,14 @@ def main() -> int:
         lines.append(f"| {p['name']} ({p['url']}) | {p.get('status') or p.get('error', '—')} | "
                      f"{', '.join(p.get('teams_found') or []) or '—'} | "
                      f"{', '.join(p.get('challenge_markers') or []) or '—'} |")
+    lines += ['', '## Smarkets exchange board', '',
+              f"Evidence: `{smarkets['evidence']}`"
+              + (f" (observed {smarkets['observed_at']})" if smarkets.get('observed_at') else '')
+              + (f" — {smarkets.get('fixtures_bound')} fixture(s) bound, "
+                 f"{smarkets.get('quoted_two_sided')} with a two-sided quote." if 'fixtures_bound' in smarkets
+                 else f" — {smarkets.get('status') or smarkets.get('error')}")]
+    for b in smarkets.get('bound_fixtures') or []:
+        lines.append(f"- `{b.get('hotspawn_id')}` {b.get('event_name')} — {b.get('event_url')}")
     lines += ['', f"Pinnacle guest API: {pinnacle.get('matchups_seen')} esports matchups, "
                   f"{len(pinnacle.get('fixture_hits') or [])} target-fixture hits"
                   + (f", error: {pinnacle['error']}" if pinnacle.get('error') else ''), '',
