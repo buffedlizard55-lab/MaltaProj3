@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import json
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -226,8 +226,24 @@ class RelayCollectionTest(unittest.TestCase):
             ]}, {'observed_at': '2026-10-22T00:30:00Z', 'status': 'ok'}
 
     def test_only_the_bound_fixture_is_saved_with_its_quote(self):
+        # This collection record stamps the live wall clock. Keep the fixture
+        # safely in the future so the contract test does not become a post-start
+        # rejection on the date baked into the old fixture (2026-10-22 14:00Z).
+        # Observed in Pages run 39792708185 after the scheduled job ran past 14Z.
+        start_dt = datetime.now(UTC).replace(microsecond=0) + timedelta(hours=24)
+        start = start_dt.isoformat().replace('+00:00', 'Z')
+        lock = (start_dt - timedelta(minutes=6)).isoformat().replace('+00:00', 'Z')
+        future_fixture = fixture(start=start)
+        future_fixture['locks_at'] = lock
+
+        class FutureStartStub(RelayCollectionTest.Stub):
+            def get_json(self, url, label, headers=None, save=True):
+                body, entry = super().get_json(url, label, headers, save)
+                body['results'][0]['start_date'] = start
+                return body, entry
+
         with TemporaryDirectory() as tmp:
-            summary = collect_bo3_relay(self.Stub(), Path(tmp), [fixture()], REGISTRY)
+            summary = collect_bo3_relay(FutureStartStub(), Path(tmp), [future_fixture], REGISTRY)
             self.assertEqual(summary['fixtures_bound'], 1)
             document = json.loads((Path(tmp) / 'live-bo3-relay.json').read_text())
             record = document['fixtures'][0]
@@ -239,7 +255,7 @@ class RelayCollectionTest(unittest.TestCase):
             rows = bo3_relay_rows(Path(tmp))
             self.assertEqual(rows[0]['fixture_id'], '1082688')
             # The collector stamps the wall clock, so replay against it.
-            quote, _ = relayed_bookmaker_estimate(rows[0], fixture(), REGISTRY)
+            quote, _ = relayed_bookmaker_estimate(rows[0], future_fixture, REGISTRY)
             self.assertIsNotNone(quote)
 
     def test_bookmaker_sides_in_reverse_order_are_aligned_by_team_id(self):
