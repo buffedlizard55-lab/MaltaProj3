@@ -33,8 +33,36 @@ class PublicationOrderTests(unittest.TestCase):
         self.assertLess(wait, deploy)
         wait_block = self.republish[wait:deploy]
         self.assertIn("scripts.root_publish --wait-legacy-sha", wait_block)
-        self.assertIn("${{ github.sha }}", wait_block)
+        self.assertIn("/branches/main", wait_block)
+        self.assertIn("${{ github.sha }}", wait_block, "the current SHA remains the fallback")
         self.assertIn("continue-on-error: true", wait_block)
+
+    def test_fresh_artifact_deploy_waits_for_latest_main_and_recovers_once(self):
+        verify_job = self.text.split("  verify-and-deploy:", 1)[1]
+        wait = verify_job.index(
+            "name: Wait for latest main legacy Pages build before artifact deployment"
+        )
+        configure = verify_job.index("uses: actions/configure-pages@v6", wait)
+        upload = verify_job.index("uses: actions/upload-pages-artifact@v5", wait)
+        deploy = verify_job.index("id: deployment", wait)
+        self.assertLess(wait, configure)
+        self.assertLess(configure, upload)
+        self.assertLess(upload, deploy)
+
+        initial = verify_job.index("id: initial_verify")
+        recovery_wait = verify_job.index(
+            "name: Wait for latest main legacy Pages build after a failed first verification"
+        )
+        redeploy = verify_job.index("name: Re-deploy the verified artifact after a legacy overwrite")
+        reverify = verify_job.index("name: Verify the public site after legacy-overwrite recovery")
+        self.assertLess(initial, recovery_wait)
+        self.assertLess(recovery_wait, redeploy)
+        self.assertLess(redeploy, reverify)
+        initial_block = verify_job[initial:recovery_wait]
+        self.assertIn("continue-on-error: true", initial_block)
+        recovery_block = verify_job[recovery_wait:reverify]
+        self.assertIn("steps.initial_verify.outcome == 'failure'", recovery_block)
+        self.assertIn("/branches/main", recovery_block)
 
     def test_final_root_sync_still_redeploys_and_reverifies_after_its_legacy_build(self):
         publish = self.text.index("name: Publish the verified build into the branch root")
@@ -44,6 +72,9 @@ class PublicationOrderTests(unittest.TestCase):
         self.assertLess(publish, wait)
         self.assertLess(wait, redeploy)
         self.assertLess(redeploy, verify)
+        wait_block = self.text[wait:redeploy]
+        self.assertIn("/branches/main", wait_block)
+        self.assertIn("steps.root_sync.outputs.pushed_sha", wait_block)
 
     def test_root_sync_never_copies_deterministic_data_fixtures(self):
         publisher = (ROOT / "scripts/root_publish.py").read_text()
