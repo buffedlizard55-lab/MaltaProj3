@@ -342,6 +342,70 @@ def analysis_source_label(analysis: dict) -> str:
     return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
+def observed_price_label(analysis: dict) -> str:
+    """The literal price that produced a row's probability, or an empty string.
+
+    Session 9c4b1f7a. Every row already links its evidence, but the phone
+    summary showed only a method badge ("Market line", "Bookmaker"), so a
+    reader could not see the quoted price without opening the audit card. This
+    helper renders exactly the numbers stored in the row's own ``quotes`` and
+    never re-prices, rounds into a probability, or names a provider the record
+    does not carry:
+
+    * a featured prediction-market row stores one quote per outcome with scalar
+      ``bid``/``ask`` (0-1 cents);
+    * a featured esportsbook row stores one quote with two decimal ``odds``;
+    * an origination row stores one quote per provider, whose ``odds`` or
+      ``bid``/``ask`` are two-element lists;
+    * a consensus row keeps one quote per contributing provider, so the honest
+      summary is its contributor count, not one provider's price.
+
+    Research models carry no market price and correctly return an empty string.
+    """
+    a = analysis or {}
+    method = a.get('method')
+    quotes = a.get('quotes') or []
+    if method == 'consensus':
+        contributors = len(quotes) or len([p for p in str(a.get('source') or '').split('+') if p.strip()])
+        return f'median of {contributors} books' if contributors > 1 else ''
+    if method not in MONEY_METHODS:
+        return ''
+
+    def _decimal(odds):
+        if not isinstance(odds, (list, tuple)) or len(odds) != 2:
+            return ''
+        try:
+            first, second = float(odds[0]), float(odds[1])
+        except (TypeError, ValueError):
+            return ''
+        return f'{first:.2f} / {second:.2f}' if first > 1 and second > 1 else ''
+
+    def _cents(pair, key):
+        values = []
+        for quote in pair:
+            value = quote.get(key) if isinstance(quote, dict) else None
+            if not isinstance(value, (int, float)):
+                return ''
+            values.append(value)
+        return values
+
+    # Featured market: one quote per outcome, scalar bid and ask.
+    if len(quotes) == 2 and all(isinstance(q, dict) and 'bid' in q and 'ask' in q for q in quotes):
+        bids, asks = _cents(quotes, 'bid'), _cents(quotes, 'ask')
+        if bids and asks:
+            return (f'{bids[0] * 100:.0f}–{asks[0] * 100:.0f}¢ / '
+                    f'{bids[1] * 100:.0f}–{asks[1] * 100:.0f}¢')
+    if quotes:
+        quote = quotes[0]
+        odds = _decimal(quote.get('odds'))
+        if odds:
+            return f'line {odds}'
+        bids, asks = quote.get('bid'), quote.get('ask')
+        if isinstance(bids, (list, tuple)) and isinstance(asks, (list, tuple)) and len(bids) == len(asks) == 2:
+            return f'{bids[0] * 100:.0f}–{asks[0] * 100:.0f}¢ / {bids[1] * 100:.0f}–{asks[1] * 100:.0f}¢'
+    return ''
+
+
 def researched_method(match: dict) -> tuple[str, str, str]:
     """Short, data-derived provenance for one researched (featured-blank) row.
 
@@ -620,10 +684,15 @@ def glance(data, prefix, now=None):
         names = [t['name'] or 'Unverified team' for t in m['teams']]
         a, pick, researched = basis(m)
         detail = f'{prefix}origination/#match-{e(m["id"])}'
-        links = external(m['source_url'], 'Hotspawn')
+        # "Hotspawn fixture" rather than a bare "Hotspawn": the chip is the
+        # source of the *fixture listing*, never an input to the probability.
+        links = external(m['source_url'], 'Hotspawn fixture')
         if a:
             links += external(a['source_url'], analysis_source_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
+        line = observed_price_label(a) if a else ''
+        line_chip = (f'<span class="glance-line" title="Observed price behind this estimate; '
+                     f'not a guarantee of execution">Observed: {e(line)}</span>' if line else '')
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
             start = timestamp(m.get('starts_at'))
@@ -658,7 +727,7 @@ def glance(data, prefix, now=None):
         rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}" data-search="{e(search_text)}"{closed_attr}{method_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
                  f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
-                 f'<div class="glance-choice">{choice}</div>'
+                 f'<div class="glance-choice">{choice}{line_chip}</div>'
                  f'<div class="glance-links">{links}</div></li>')
     note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'

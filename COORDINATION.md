@@ -6465,3 +6465,90 @@ Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sour
 1. Do not treat `data/latest.json` as current; judge freshness by the page's `data-snapshot-generated` stamp or the `github-pages` artifact.
 2. If the Pages workflow runs, `scripts.collect` will fail on Hotspawn and retain the Oct 15 snapshot with a visible stale warning — this is the designed degraded mode, not a crash.
 3. The next session should run a fresh Hotspawn collection from an environment with general egress, then re-run `scripts.build` and `scripts.root_publish`, then merge and confirm Pages serves a sub-8-hour snapshot.
+
+## Session arena-9c4b1f7a — snapshot re-verification + the betting line on the phone (2026-10-23T10:05Z)
+
+**Claim.** Branch `arena/1045efed-maltaproj3`. File scope: `scripts/build.py`,
+`assets/scout.css`, `scripts/review_register.py`, `tests/test_9c4b1f7a_glance_lines.py`,
+`data/research/9c4b1f7a/` (new), this section and the one executive-summary row in
+`README.md`. No edit to `scripts/collect.py`, `scripts/originate.py`,
+`data/origination/**`, `data/latest.json`, `data/origination.json`, `archive/`, or any
+other session's `data/research/<id>/`.
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| 9C4-1 Re-verify the published snapshot line by line (inventory, coverage, ratings arithmetic, money-line provenance) | done | arena-9c4b1f7a | `data/research/9c4b1f7a/verification-2026-10-23.json` |
+| 9C4-2 Show the observed betting price in the phone summary, without changing a probability | done | arena-9c4b1f7a | `scripts/build.py`, `assets/scout.css`, `tests/test_9c4b1f7a_glance_lines.py` |
+| 9C4-3 Publish provider irregularities on Flagged for Review | done | arena-9c4b1f7a | `data/research/9c4b1f7a/flags.json`, `repo-review.json` |
+| 9C4-4 PR, merge, confirm the Pages deploy carries the change | in progress | arena-9c4b1f7a | PR |
+
+### What was checked, and against what
+
+| Check | Outcome | Source |
+| --- | --- | --- |
+| Lobby → snapshot reconciliation | The published snapshot (generated **2026-10-23T09:23:57Z**, inventory 92 / upcoming 30 / archived 62) covers all 30 future CS2 cards rendered at 09:42Z–09:47Z. 29 lobbied IDs match exactly; the 30th card (JiJieHao vs Eternal Fire, DraculaN Season 7) has no permalink and is matched by first-party fixture **1081606** at 2026-10-23T13:00:00Z. The two fixtures the earlier 06:58Z gap banner listed (`1081149`, `1081872`) are no longer in the scheduled feed. | [lobby](https://play.hotspawn.com/lobby), [cs2-pickems](https://play.hotspawn.com/cs2-pickems), [fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) |
+| A pick for every active fixture | 30 / 30 directional: 22 external-line (16 market, 3 bookmaker, 3 consensus), 8 research-model, 0 blank; both probabilities on every row. The invariant is already enforced by `scripts/coverage_audit.py` and re-run by `scripts.verify_live` after each deploy. | [published data](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [unresolved page](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) |
+| Ratings arithmetic | All six ratings-only picks recompute exactly from the official **2026-10-05** global standings (blob `2aa2805…`, committed 2026-10-05T16:36:11Z) with fixed RD 75: Phantom 47.5/52.5, Acend 54.2/45.8, Metizport 79.9/20.1, Color 73.6/26.4, Rooster 47.8/52.2, HOTU 94.1/5.9. `The Huns` uses the 944-point row selected by the documented four-of-five roster join, not the 701-point same-name row. | [Valve standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md), [model/fit.js](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js) |
+| Money-line provenance | Isurus–Hacha consensus re-derived from its four stored prices (Polymarket mid 0.670/0.330, Thunderpick 1.22/3.80, Bovada 1.210526/4.15, Pinnacle 1.1927/3.93 → median 0.762) = published **76.2/23.8**, exact. NTR–ILL snapshot 84.5/15.5 vs live 86¢/16¢ at 09:58Z — drift, not a discrepancy. | [picks audit](https://buffedlizard55-lab.github.io/MaltaProj3/picks/), [Isurus event](https://polymarket.com/event/cs2-isg-hachae-2026-10-23), [NTR event](https://polymarket.com/event/cs2-ntr-ill4-2026-10-23) |
+| Lock-time display | Hotspawn shows **11:00 UTC** for 1079655; the site publishes 13:00 Europe/Malta for the same instant; the lobby's 07:00 is US Eastern. No timezone defect. | [Hotspawn fixture](https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655) |
+
+### What changed
+
+`scripts/build.py` now carries `observed_price_label()`, rendered as a muted
+`.glance-line` chip on each money-backed row of *Picks at a glance*: bid/ask in
+cents for an exchange, the two decimal prices for a bookmaker, `median of N books`
+for a consensus, and **nothing** for a research model. It restates the row's own
+stored quote, never re-prices, and cannot name a provider the record does not
+carry. The fixture chip is relabelled **“Hotspawn fixture”** so it is never read as
+a probability source. CSS is one appended rule; no existing rule was edited.
+`tests/test_9c4b1f7a_glance_lines.py` adds 11 tests (both quote shapes, consensus,
+model, malformed odds, rendered chip, unchanged percentages).
+
+Local verification on this head: `scripts.build` **PASS** — 714 audited rows, 695
+with an official link, **0 without a source**, 808 internal links; 115 existing
+summary/glance/row-source tests plus the 11 new tests **OK**.
+
+### Irregularities (published, not buried)
+
+1. **Polymarket's Isurus–Hacha rule text** says the fixture was “initially scheduled
+   … 6:00 PM ET”, while its own countdown, the Hotspawn card and the Hotspawn API all
+   give 13:00Z (09:00 ET). The join used the API start and the event slug, never the
+   sentence. → `9c4b1f7a-polymarket-rule-text-start-conflict`
+2. **A consensus chip opens one constituent.** “Consensus (4 sources)” links to
+   Polymarket; the other three prices are printed on the audit card. The median is
+   reproducible from those four numbers. → `9c4b1f7a-consensus-chip-opens-one-constituent`
+3. **One lobby card has no permalink.** The DraculaN JiJieHao–Eternal Fire card is
+   rendered without *View Match*, so the row links `cs2-pickems#fixture-1081606`; a
+   reconstructed slug answers Hotspawn's 404 page and is not published.
+   → `9c4b1f7a-jijiehao-card-has-no-permalink`
+4. **Shell egress is unavailable here.** Hotspawn/HLTV/Polymarket TLS handshakes fail
+   and `gh run download` hits an unreachable Azure host; every non-GitHub page above
+   was read through the agent's page fetcher and its content is reproduced in the
+   dossier. No value was inferred from a page that could not be opened.
+   → `9c4b1f7a-no-general-egress-in-review-environment`
+
+All four render on **Flagged for Review** with their sources, alongside the session
+review register (`9C4-R01`…`9C4-R07`).
+
+### Cross-session reconciliation (arena-5bf31a25's stale-data finding)
+
+Session 5bf31a25 recorded that `data/latest.json` is `2026-10-15T08:36:13Z` and that
+"a push-to-main Pages run would collect stale/degraded data". Both statements were
+checked again here and only the first is true of the file:
+
+* **The checked-in `data/latest.json` really is the 15 October fixture** — it is the
+  deterministic CI replay fixture, and `scripts/root_publish` deliberately never
+  copies `data/*` into the branch root.
+* **The deployed `/data/latest.json` is not stale.** Read directly at
+  2026-10-23T09:52Z it returns
+  `generated_at 2026-10-23T09:23:57Z`, inventory 92 / upcoming 30 / archived 62 —
+  the same snapshot the pages render. The live site is therefore current; the
+  mismatch is file-vs-deployment, not a stale site.
+* **The Actions runner does have egress.** The scheduled publisher collected and
+  deployed fresh Hotspawn data three times this morning (runs 39927476995,
+  39928652090 and the 09:23Z root sync), which is where that snapshot came from; a
+  shell without egress (both this session and 5bf31a25) cannot collect, but the
+  workflow can. No egress intervention by the repository owner is required.
+
+No file owned by 5bf31a25 was edited; this note is a record correction with its
+source, not a re-claim of their task.
