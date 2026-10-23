@@ -1790,7 +1790,7 @@ def coverage(data, prefix, now=None):
             detail = e(detail)
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
-    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a></div></section>'
+    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -2096,6 +2096,27 @@ def build(source: Path, output: Path, now=None):
             print(f"::warning title=Rows without an official source::{totals['violation']} table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json")
     except Exception as exc:  # the audit is a report; it must never stop a data refresh
         print(f'::warning title=Row-source audit not run::{type(exc).__name__}: {exc}')
+    # Session arena-3149e7ae: the brief is about the *rendered* pages (a pick for
+    # every listed fixture, a separate unresolved/limitations section inside the
+    # executive summary, in-site links to the updated picks, a phone layout, and
+    # the 4-8 hour cadence). This audit walks those brief lines against the site
+    # that was just written and publishes the result beside the row-source audit.
+    # Like that audit it reports and never blocks: a fresh snapshot with a
+    # documented gap must still reach the reader.
+    try:
+        from scripts.acceptance_audit import audit as acceptance_audit, markdown as acceptance_markdown
+        acceptance = acceptance_audit(Path(__file__).resolve().parents[1], output)
+        (output / 'data').mkdir(parents=True, exist_ok=True)
+        (output / 'data/acceptance-audit.json').write_text(
+            json.dumps(acceptance, indent=2, ensure_ascii=False) + '\n')
+        (output / 'data/acceptance-audit.md').write_text(acceptance_markdown(acceptance) + '\n')
+        totals = acceptance['totals']
+        print(f"Acceptance audit: {totals['pass']} pass, {totals['info']} info, "
+              f"{totals['fail']} fail of {totals['checks']} brief-line checks")
+        for failed in (c for c in acceptance['checks'] if c['status'] == 'fail'):
+            print(f"::warning title=Brief line not met::{failed['title']}: {failed['detail']}")
+    except Exception as exc:  # the audit is a report; it must never stop a data refresh
+        print(f'::warning title=Acceptance audit not run::{type(exc).__name__}: {exc}')
     check_links(output)
     print(f'Built {len(PAGES)} current Pages views, compatible old URLs and explicitly archived session views in {output}')
 

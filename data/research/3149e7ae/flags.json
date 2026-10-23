@@ -1,0 +1,37 @@
+[
+  {
+    "id": "3149e7ae-published-page-stale-15h",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Published site carried a 15-hour-old snapshot at 2026-10-23T05:00Z and told readers not to treat it as current",
+    "detail": "Read back from the branch root through the official contents API at 2026-10-23T04:58Z: index.html carries data-snapshot-generated=\"2026-10-22T14:05:35Z\", renders 37 active fixtures with 37 directional picks and 0 explicitly unresolved, and shows the required warning (\"Do not treat these as current picks\"). That is 14.9 h old, outside the site's own eight-hour bound. Cause is recorded, not inferred: every scheduled pages.yml run after 2026-10-22T14:05Z failed at the 'Regression tests (repository fixtures, before any cache restore)' step (runs 39845991470, 39861117407, 39871371551, 39881298806), so no fresh snapshot could be collected or deployed; two scheduled runs were in progress again at 2026-10-23T05:04Z (39902353982 on cdd77b5, 39902880612 on cd95411). This is a freshness observation, not a data or pricing defect: the 14:05Z snapshot's picks and probabilities are still the values that were verified at that time. The date-bound regression tests are claimed and being fixed by other sessions (arena-46ade650, arena-308fcaad) and are not edited here.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "3149e7ae-downloadable-json-disagrees-with-page",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "data/latest.json in the published branch root is the 15 October fixture: 173.5 h behind the page it sits under",
+    "detail": "Verified at 2026-10-23T05:03Z through the official contents API. The root index.html prints snapshot 2026-10-22T14:05:35Z, but the root data/latest.json carries generated_at 2026-10-15T08:36:13Z with 17 upcoming records and 13 picks. GitHub Pages is in legacy mode, so every push to main republishes the checked-in root — including that data file — while the artifact deploy is what serves the fresh data/ tree; whenever the artifact deploy is the older publisher, a reader who downloads the JSON gets a seven-day-old observation that contradicts the page above it. This is now a permanent check in scripts/acceptance_audit.py (`snapshot_consistency`, run on every build), which is how the defect was found. The fix belongs in scripts/root_publish.py, which this session does not own (live claim arena-308fcaad); the request is logged in COORDINATION.md instead of being edited here.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+    ]
+  },
+  {
+    "id": "3149e7ae-model-only-picks-no-line",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "12 of 37 listed fixtures had no external betting line at the 2026-10-22T14:05Z snapshot and carry uncalibrated research estimates",
+    "detail": "Read from the published root at 2026-10-23T04:58Z: the executive summary states 37 active fixtures, 37 with a directional pick, of which 25 come from an external betting line and 12 from a research model, with 0 explicitly unresolved. The 12 model rows are the low-tier class the brief names (no Polymarket market and no reachable esportsbook two-sided prematch price); each is published with both teams' percentages, the model that produced them and the sources actually tried, and the summary carries a separate 'Picks without a betting line - limitations' register. They are labelled estimates, never presented as a price that could be bet, and no 50/50 default is substituted. Recorded here so the limitation is visible next to the picks rather than implied to be a market line.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3016b0c6/line-source-research.md"
+    ]
+  }
+]
