@@ -1240,6 +1240,143 @@ def no_line_research_block(data, prefix):
             + leads_html + exchange_html + '</div>')
 
 
+def load_direct_observations(source):
+    """Newest dated direct-observation record, from whichever fetch path read it.
+
+    ``load_no_line_research`` is deliberately runner-only: a four-hour pipeline
+    observation is the thing that may feed a later priced refresh. This loader
+    is the complement, not a competitor. A session whose authoring path can read
+    a surface the runner is refused (HLTV answered HTTP 200 here after ten
+    sweeps recorded 403) records what that surface *actually published*, with
+    the URL, the HTTP status and a hash-checked verbatim excerpt.
+
+    Fail-closed on every axis, so a malformed or unaccompanied file is inert:
+
+    * the record must be a dict with a parseable ``observed_at``;
+    * ``observations`` must be a non-empty list;
+    * the sibling ``.md`` must exist, so the numbers and the prose cannot drift;
+    * ``environment`` is kept verbatim and rendered, never normalised to
+      ``github-actions-runner`` — the capture path *is* the finding.
+
+    Nothing this returns can enter the priced ladder. It renders as evidence.
+    """
+    candidates = []
+    for path in sorted((source / 'research').glob('*/direct-observations.json')):
+        try:
+            record = json.loads(path.read_text())
+        except (ValueError, OSError):
+            continue
+        if not isinstance(record, dict):
+            continue
+        observed = timestamp(record.get('observed_at'))
+        observations = record.get('observations')
+        if not observed or not isinstance(observations, list) or not observations:
+            continue
+        if not path.with_suffix('.md').is_file():
+            continue
+        record = dict(record)
+        record['_record_path'] = path.relative_to(source).as_posix()
+        candidates.append((observed, record['_record_path'], record))
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
+def direct_observation_block(data, prefix):
+    """What HLTV and the esportsbooks really published for the model-only fixtures.
+
+    The brief asks for the information sources consulted for matches the featured
+    method cannot resolve, and for the limitations of each. The runner sweep
+    above answers "which surfaces refused"; this answers "what did a surface that
+    *answered* actually say" — including the placeholder prices that a naive read
+    would have turned into fabricated probabilities.
+
+    It publishes no number of its own. Every price-shaped value here is quoted
+    verbatim from the page and marked refused, with the reason.
+    """
+    record = data.get('_direct_observations') or {}
+    observations = record.get('observations') or []
+    if not observations:
+        return ''
+    record_path = record.get('_record_path', '')
+    markdown_path = str(Path(record_path).with_suffix('.md')) if record_path else ''
+    scope = record.get('fixture_scope') or []
+    conclusions = record.get('conclusions') or {}
+    environment = record.get('environment') or 'an authoring fetch path'
+    # Keep the capture path visible but readable on a phone: the path *is* the
+    # finding, so it is never normalised away, only phrased for a human.
+    environment_label = {
+        'authoring-fetch-path': 'the authoring fetch path (not the four-hour runner)',
+        'github-actions-runner': 'a GitHub Actions runner',
+    }.get(environment, environment)
+
+    rows = ''
+    for o in observations:
+        price = o.get('two_sided_price')
+        usable = bool(o.get('usable_as_price'))
+        chip = 'resolved' if usable else 'unresolved'
+        chip_text = 'two-sided price' if usable else 'no usable price'
+        status = o.get('http_status')
+        status_text = f'HTTP {status}' if status is not None else 'no response'
+        fixtures = ', '.join(str(f) for f in (o.get('fixture_ids') or []))
+        excerpt = o.get('excerpt') or ''
+        digest = (o.get('excerpt_sha256') or '')[:16]
+        rows += (
+            '<li class="line-source-row">'
+            f'<span class="tried-chip {chip}">{e(chip_text)}</span>'
+            f'<span class="tried-chip {"resolved" if status == 200 else "unresolved"}">{e(status_text)}</span>'
+            f'<strong>{e(o.get("surface") or "surface")}</strong>'
+            + (f' <span class="tiny muted">· Hotspawn {e(fixtures)}</span>' if fixtures else '')
+            + f'<span class="line-source-note">{e(o.get("verdict") or "")}</span>'
+            + (f'<blockquote class="tiny muted direct-quote">{e(excerpt)}'
+               + (f' <span class="tiny">excerpt SHA-256 {e(digest)}…</span>' if digest else '')
+               + '</blockquote>' if excerpt else '')
+            + f'<p class="tiny direct-why"><strong>Why this is not a pick input.</strong> {e(o.get("reason") or "")}</p>'
+            + external(o.get('url'), 'Open the page as read')
+            + '</li>')
+
+    scope_rows = ''
+    # Only link a fixture that this build actually rendered. The live manifest
+    # can name fixtures the checked-in replay snapshot predates, and an in-site
+    # link to a missing anchor is a broken link, not a convenience.
+    rendered_ids = {str(m.get('id')) for m in (data.get('matches') or [])}
+    rendered_ids |= {str(m.get('id'))
+                     for m in ((data.get('complete_picks') or {}).get('matches') or [])}
+    for f in scope:
+        fid = str(f.get('hotspawn_id') or '')
+        label = ' vs '.join(f.get('teams') or [])
+        head = (f'<a class="internal-link" href="{prefix}origination/#match-{e(fid)}">{e(label)}</a>'
+                if fid in rendered_ids else f'<strong>{e(label)}</strong>')
+        scope_rows += (f'<li>{head} <span class="tiny muted">'
+                       f'{e(f.get("competition") or "")} · {e(f.get("starts_at") or "")} · '
+                       f'{e(f.get("published_method") or "")}</span></li>')
+
+    downloads = ''
+    if markdown_path:
+        downloads = (f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
+                     f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a>')
+
+    return ('<div class="line-sources" id="direct-observations">'
+            '<h3>What HLTV and the esportsbooks actually published — dated direct read</h3>'
+            f'<p class="tiny">Read directly at {local_time(record.get("observed_at"))} from {e(environment_label)}, '
+            'HLTV first and then esportsbooks and betting lines, for the '
+            f'<strong>{len(scope)}</strong> fixture(s) the live ladder could only price with a research model. '
+            f'<strong>{conclusions.get("fixtures_with_a_new_two_sided_price", 0)}</strong> gained a two-sided '
+            f'price, <strong>{conclusions.get("fixtures_with_new_official_identity_or_format_evidence", 0)}</strong> '
+            'gained official identity or format evidence, and '
+            f'<strong>{conclusions.get("probabilities_changed", 0)}</strong> probabilities, '
+            f'<strong>{conclusions.get("picks_changed", 0)}</strong> picks and '
+            f'<strong>{conclusions.get("aliases_added", 0)}</strong> aliases changed. '
+            'A page that answers is not a price: identical numbers on both sides, a template value repeated in '
+            'every bookmaker cell, a zero-volume listing default and a fan vote are all quoted below exactly as '
+            'published and all refused. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> {downloads}</p>'
+            + (f'<p class="tiny muted"><strong>In scope:</strong></p><ul class="tiny direct-scope">{scope_rows}</ul>'
+               if scope_rows else '')
+            + f'<ul class="line-source-list">{rows}</ul>'
+            + (f'<p class="tiny muted"><strong>Conclusion.</strong> {e(conclusions.get("summary") or "")}</p>'
+               if conclusions.get('summary') else '')
+            + '</div>')
+
+
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
@@ -1698,6 +1835,7 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
     out.append(source_probe_block(data, prefix))
     out.append(line_sources_block(data, prefix))
     out.append(no_line_research_block(data, prefix))
+    out.append(direct_observation_block(data, prefix))
     out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                '<ul>'
                '<li>Only a two-sided first-party price or official rating can produce a number. Hotspawn '
@@ -2233,6 +2371,10 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = None
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
+    # Complementary record: what a surface that DID answer actually published,
+    # read from whichever fetch path could reach it. Evidence only; it is not
+    # eligible to feed the priced ladder.
+    data['_direct_observations'] = load_direct_observations(source)
     # Same newest-wins rule for the live-lobby coverage register (2016c841): any
     # session's dated record that compared a non-empty lobby can render, and the
     # dated-record links follow the record actually rendered.
