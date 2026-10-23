@@ -1,4 +1,4 @@
-# Degraded sweep window — 2026-10-23T11:20:20Z
+# Degraded sweep window — 2026-10-23T12:00:40Z
 
 published snapshot generated 2026-10-15T09:31:24Z is older than 6 h (legacy branch-root read)
 
