@@ -596,3 +596,15 @@
   .start-here li:first-child a span{display:block!important;font-size:10.5px;line-height:1.35}
   .start-here .tiny{display:none!important}
 }
+
+/* Session arena-1531ecf1 — the closed-since list under the gap register: a
+   thumb-friendly disclosure, muted rows, and a summary target that meets the
+   44 px minimum used everywhere else on the phone. */
+.coverage-gap-closed-list{margin-top:12px;border:1px solid var(--border);border-radius:10px;padding:2px 12px}
+.coverage-gap-closed-list>summary{min-height:44px;display:flex;align-items:center;font-size:12.5px;color:#576b79;cursor:pointer}
+.coverage-gap-closed .tried-chip.resolved{background:#eef6ee;color:#2e5260}
+.coverage-gap-closed .line-source-note{color:#576b79}
+@media(max-width:700px){
+  .coverage-gap-closed-list{padding:2px 10px}
+  .coverage-gap-closed-list>summary{font-size:12px}
+}

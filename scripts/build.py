@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from scripts.domain import timestamp, is_fresh
+from scripts.domain import timestamp, is_fresh, name_key
 from scripts.validate import check_data, check_links
 from scripts.contrarian import derive_context, load_review, validate_context
 from scripts.briefing import render as contrarian_briefing, review_note, audit_register
@@ -497,7 +497,7 @@ def exec_banner(data, prefix):
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
     gaps = (f' · <a href="{prefix}#live-coverage-gaps">live lobby gaps ↓</a>'
-            if data.get('_live_coverage') else '')
+            if data.get('_live_coverage') or data.get('_gap_picks') else '')
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
@@ -973,6 +973,31 @@ def load_no_line_research(source):
     return max(candidates, key=lambda item: item[:2])[2] if candidates else None
 
 
+def load_gap_picks(source):
+    """Newest dated gap-picks research record (session arena-1531ecf1).
+
+    Each record is a dated observation of the live Hotspawn lobby diffed against
+    the published snapshot, with a researched pick for every missing fixture the
+    evidence supports and an explicit limitation for every fixture it does not.
+    The environment label is shown to the reader; unlike the runner-only
+    line-source loader this one accepts any honest observer. A record is
+    evidence, never a feed: the newest ``observed_at`` wins so a stale sweep can
+    never shadow a fresher one.
+    """
+    candidates = []
+    for path in (source / 'research').glob('*/gap-picks.json'):
+        try:
+            record = json.loads(path.read_text())
+            observed = timestamp(record.get('observed_at'))
+            if not observed or not isinstance(record.get('lobby_fixtures'), list):
+                continue
+            record['_record_path'] = path.relative_to(source).as_posix()
+            candidates.append((observed, record['_record_path'], record))
+        except (ValueError, TypeError, AttributeError):
+            continue
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
 def no_line_research_block(data, prefix):
     """Dated per-fixture research for matches with no betting line (3016b0c6 + fd99abd9).
 
@@ -1044,28 +1069,59 @@ def no_line_research_block(data, prefix):
             + leads_html + '</div>')
 
 
+def pair_key(names):
+    """Sort-normalised exact team-name pair for gap/snapshot dedupe (1531ecf1)."""
+    return tuple(sorted(name_key(n) for n in names if n))
+
+
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
-    Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
-    official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
-    When the next four-hour collect includes the id, the row drops out of this
-    list automatically.
+    Session 9fd5fbf1 opened this register as dated inventory research with no
+    probability. Session arena-1531ecf1 answers the brief's follow-up — "these
+    need to have picks as well... try hltv, then try looking at esportsbooks and
+    esports betting lines" — so a missing fixture now carries a researched pick
+    when the dated evidence supports one, or an explicit limitation when it
+    does not. Rules that never change:
+
+    * a lobby card already in this snapshot (by id, or by the exact team-name
+      pair) is not a gap and is not listed as missing;
+    * a fixture that already started or finished has no remaining pick window:
+      it gets a dated closed note and no manufactured probability;
+    * only a bound two-sided prematch price or the documented research model
+      may produce the rendered probabilities, and they are labelled as such;
+    * Hotspawn crowd percentages and HLTV fan votes are never inputs.
     """
-    record = data.get('_live_coverage') or {}
-    live = record.get('live_fixtures') or []
+    record = data.get('_gap_picks') or data.get('_live_coverage') or {}
+    modern = record.get('lobby_fixtures')
+    live = modern if isinstance(modern, list) else record.get('live_fixtures') or []
     if not live:
         return ''
-    known = {str(m.get('id')) for m in data.get('matches') or [] if m.get('id') is not None}
-    missing = []
+    rows = data.get('matches') or []
+    known = {str(m.get('id')) for m in rows if m.get('id') is not None}
+    known_pairs = {pair_key([t.get('name') or '' for t in m.get('teams') or []])
+                   for m in rows if len(m.get('teams') or []) == 2}
+    missing, closed, covered = [], [], 0
     for fixture in live:
         identity = fixture.get('id')
-        if identity is None or str(identity) not in known:
+        names = fixture.get('teams') or []
+        if (identity is not None and str(identity) in known) or fixture.get('status') == 'covered':
+            covered += 1
+            continue
+        if len(names) == 2 and all(names) and pair_key(names) in known_pairs:
+            covered += 1
+            continue
+        if fixture.get('status') in {'started', 'finished'}:
+            closed.append(fixture)
+        else:
             missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
-    rows = ''
+    environment = record.get('environment')
+    seen_note = (f' Observer: {e(environment)}.' if environment else '')
+    rows_html = ''
     for fixture in missing:
-        names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+        names = fixture.get('teams') or []
+        title = ' vs '.join(names) or 'Unverified pairing'
         identity = fixture.get('id')
         label = f'Hotspawn {identity}' if identity else 'Hotspawn id unverified'
         links = ''
@@ -1075,29 +1131,88 @@ def live_coverage_gaps(data, prefix):
             links += external(fixture['hltv_url'], 'HLTV match')
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
-        note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
-        rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
-                 f'<strong>{e(names)}</strong> '
-                 f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
-                 f'<span class="line-source-note">{e(note)}</span>{links}</li>')
-    empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
-             'The next four-hour collect is still the authority for new cards.</p>')
-    body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
+        pick = fixture.get('pick')
+        if pick and pick.get('probabilities') and len(pick['probabilities']) == 2:
+            probs = pick['probabilities']
+            side = pick.get('pick_index')
+            if side in (0, 1):
+                choice = (f'<span class="glance-pick-label">Research pick</span>'
+                          f'<strong>{e(names[side])}</strong>'
+                          f'<span class="glance-prob">{probs[side] * 100:.1f}%</span>'
+                          f'<span class="glance-other">{e(names[1 - side])} {probs[1 - side] * 100:.1f}%</span>')
+            else:
+                choice = ('<span class="glance-pick-label">Even estimate</span><strong>No side</strong>'
+                          '<span class="glance-prob">research model</span>')
+            if pick.get('source_url'):
+                links = external(pick['source_url'], pick.get('source') or 'Research source') + links
+            if pick.get('book_url'):
+                links += external(pick['book_url'], 'Bookmaker market')
+            rows_html += (
+                f'<li class="no-line-card coverage-gap-row" id="gap-{e(identity or "pair")}">'
+                f'<div class="unresolved-summary-head"><span class="comp">{e(fixture.get("competition") or "Unverified tournament")}'
+                f'{(" · " + local_time(fixture.get("starts_at"))) if fixture.get("starts_at") else ""}</span>'
+                f'<span class="badge purple">Missing fixture · researched pick</span></div>'
+                f'<h3>{e(title)}</h3>'
+                f'<p class="no-line-choice">{choice}</p>'
+                f'<p class="no-line-model">{e(pick.get("label") or "Research estimate")} '
+                f'<span class="tiny muted">· {e(fixture.get("limitation") or "")}</span></p>'
+                f'<p class="unresolved-links"><span class="tried-chip unresolved">{e(label)}</span>{links}</p>'
+                '</li>')
+        else:
+            note = fixture.get('note') or fixture.get('limitation') or 'Not in this build. No probability is invented.'
+            reason = '<span class="badge amber">Unresolved pick</span>' if modern else ''
+            rows_html += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
+                          f'{reason}'
+                          f'<strong>{e(title)}</strong> '
+                          f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
+                          f'<span class="line-source-note">{e(note)}</span>{links}</li>')
+    if not rows_html:
+        rows_html = ('<p class="tiny">No live lobby fixture is missing from this snapshot in the latest '
+                     'dated comparison. The next four-hour collect is still the authority for new cards.</p>')
+    else:
+        rows_html = f'<ul class="line-source-list no-line-list" id="live-coverage-gap-list">{rows_html}</ul>'
+    closed_html = ''
+    for fixture in closed:
+        names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+        identity = fixture.get('id')
+        label = f'Hotspawn {identity}' if identity else 'Hotspawn id unverified'
+        links = ''
+        if fixture.get('hotspawn_url'):
+            links += external(fixture['hotspawn_url'], 'Hotspawn')
+        if fixture.get('hltv_url'):
+            links += external(fixture['hltv_url'], 'HLTV match')
+        prior = fixture.get('prior_published_pick') or ''
+        prior_note = f' Earlier prematch pick: {e(prior)}.' if prior else ''
+        closed_html += (f'<li class="coverage-gap-row coverage-gap-closed">'
+                        f'<span class="tried-chip resolved">{e(label)} · closed</span>'
+                        f'<strong>{e(names)}</strong> '
+                        f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
+                        f'<span class="line-source-note">Pick window closed - this fixture is already running or '
+                        f'finished, so no prematch pick can be generated now.{prior_note} '
+                        f'Nothing is manufactured after lock.</span>{links}</li>')
+    closed_block = (f'<details class="coverage-gap-closed-list"><summary>'
+                    f'{len(closed)} fixture(s) closed since the last collect - dated note, no new pick</summary>'
+                    f'<ul class="line-source-list">{closed_html}</ul></details>') if closed_html else ''
+    covered_note = (f' {covered} lobby card(s) matched fixtures already in this snapshot and are not listed '
+                    'as missing.' if covered else '')
     return (
         f'<section class="content-section" id="live-coverage-gaps">'
         f'<div class="section-heading"><div>'
-        f'<p class="eyebrow">Unresolved for this snapshot</p>'
-        f'<h2>Live Hotspawn fixtures missing from this snapshot</h2></div>'
-        f'<span class="muted small">{len(missing)} not in this build</span></div>'
+        f'<p class="eyebrow">Separate register · picks for missing lobby fixtures</p>'
+        f'<h2>Picks researched for lobby fixtures missing from this snapshot</h2></div>'
+        f'<span class="muted small">{len(missing)} without a snapshot row</span></div>'
         f'<p class="section-intro">Compared the live '
         f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} against this page\'s snapshot '
-        f'at {observed}. These cards are on Hotspawn right now and have no pick <em>in this build</em> '
-        f'because they were scheduled after the last successful collect, or the collect could not run. '
-        f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
-        f'Hotspawn crowd percentages are not used. '
-        f'<a class="internal-link" href="{prefix}data/research/9fd5fbf1/live-coverage.json">Dated record (JSON) ↓</a> '
-        f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
-        + body + '</section>'
+        f'at {observed}.{seen_note}{covered_note} '
+        'Each card below is on Hotspawn but not in this build\'s table. Per the brief these get researched '
+        'picks too: HLTV first for identity and state, then esportsbooks and esports betting lines. '
+        'A pick appears only from a bound two-sided prematch price or the documented research model - '
+        'never from Hotspawn crowd percentages or HLTV fan votes - and every card keeps its sources and '
+        'the limitation behind it. Any fixture that cannot be resolved stays listed as an '
+        '<strong>unresolved pick</strong> with the reason, under '
+        f'<a class="internal-link" href="{prefix}#unresolved-register">Unresolved picks &amp; limitations ↓</a>. '
+        f'<a class="internal-link" href="{prefix}unresolved/">Unresolved page →</a></p>'
+        + rows_html + closed_block + '</section>'
     )
 
 
@@ -1966,6 +2081,9 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = None
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
+    # Session arena-1531ecf1: dated gap-pick research (researched picks for
+    # lobby fixtures the published snapshot does not contain).
+    data['_gap_picks'] = load_gap_picks(source)
     live_coverage_path = source / 'research/9fd5fbf1/live-coverage.json'
     if live_coverage_path.exists():
         try:
