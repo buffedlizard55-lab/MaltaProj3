@@ -39,5 +39,8 @@ jobs:
           git add data/research/38c53ece/
           git diff --cached --quiet && exit 0
           git commit -m 'research: save 38C dated live coverage and line-source observations'
+          # Collectors changed tracked runtime fixtures in this disposable runner.
+          # The report is committed; restore only the runner worktree before rebase.
+          git restore --worktree .
           git pull --rebase origin arena/38c53ece-maltaproj3
           git push origin arena/38c53ece-maltaproj3
