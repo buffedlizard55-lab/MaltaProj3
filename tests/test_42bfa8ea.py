@@ -81,6 +81,22 @@ class CompactSummaryRegister(unittest.TestCase):
         self.assertNotIn('id="line-sources"', compact)
         self.assertIn('id="no-line-register"', compact)
 
+    def test_dated_research_record_stays_inside_the_summary(self):
+        # Cross-session contract: `scripts/eea4c104_audit.py` requires the
+        # #no-line-research block on the Executive Summary, because it is the
+        # evidence behind each no-line blocker. Compacting the register must not
+        # drop it, and the audit must still pass on a real build.
+        data = load_data()
+        data['_no_line_research'] = {
+            'observed_at': '2026-10-23T09:08:00Z', 'environment': 'github-actions-runner',
+            '_record_path': 'research/3016b0c6/line-source-research.json',
+            'per_fixture': [{'id': '1081605', 'teams': ['Phantom Academy', 'Banda chuya'],
+                             'money_line_lead': None}],
+        }
+        html = summary(data, './')
+        self.assertIn('id="no-line-research"', html)
+        self.assertIn('latest dated research', html)
+
 
 class DatedDossier(unittest.TestCase):
     def setUp(self):

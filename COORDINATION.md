@@ -48,6 +48,12 @@ Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sour
 - **Wrong claim removed.** The live-coverage block compared only the featured snapshot, so JiJieHao vs Eternal Fire stayed listed as "no pick in this build" although it was row 4 of Picks at a glance with a 44.5/55.5 market estimate; an id-less lobby card could never drop out either. `live_coverage_gaps` now reads `complete_picks` by Hotspawn id **and** by normalised team pair, and the block is labelled a dated observation ("N missing at that observation"). Regression tests: `test_fixture_with_a_pick_in_the_complete_list_is_not_called_missing`, `test_unmatched_team_pair_is_still_reported`.
 - **Published flags, not blocking:** `42bfa8ea-stale-live-coverage-claim` (the contradiction above, fixed) and `42bfa8ea-eight-fixtures-without-an-external-line` (which eight rows carry a model estimate and why), both rendered on Flagged for Review.
 
+### 42B-5 hotfix — the compact register must keep `#no-line-research` (2026-10-23T12:10Z)
+
+- **Caught by another session's audit, not by this session's tests.** After #218 merged, `main`'s publisher failed at `Regression tests` with `FAIL: test_built_site_passes_eea4c104_and_strict_row_audit_plus_mutations` → `Executive Summary missing #no-line-research dated research block`. `scripts/eea4c104_audit.py` requires that block on the summary because it is the evidence behind each no-line blocker. The first version of the compact digest dropped it.
+- **Fix:** `unresolved_register(..., compact=True)` now appends `no_line_research_block(...)` before the limitations. The 22-surface reachability sweep and the source-probe matrix still live only on `/unresolved/`. Verified by running `tests.test_eea4c104_audit` **and** `tests.test_42bfa8ea` on a clean extraction of `origin/main` with this `scripts/build.py` copied in: both pass, and the built site's link check is green.
+- **Lesson recorded for the next session:** removing a block from the executive summary is a cross-session contract change. `scripts/eea4c104_audit.py` and the browser specs in `tests/browser/` are the authority for what the summary must keep.
+
 ### 42B-4 verification so far
 
 - Local build on the checked-in data: **PASS** — 705 audited rows, 686 with an official link, 0 without a source, 811 internal links/anchors.
