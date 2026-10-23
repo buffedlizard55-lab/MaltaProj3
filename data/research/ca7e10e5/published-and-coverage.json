@@ -1,35 +1,35 @@
 {
  "schema_version": 1,
  "session": "arena-ca7e10e5",
- "observed_at": "2026-10-23T11:40:48Z",
+ "observed_at": "2026-10-23T12:18:18Z",
  "environment": "github-actions-runner",
  "policy": "Read-only. Reads the public site and probes line sources; writes no probability, pick or alias. A reachable page is not a price.",
  "snapshot": {
-  "generated_at": "2026-10-23T11:39:41Z",
-  "inventory_observed_at": "2026-10-23T11:39:22Z",
+  "generated_at": "2026-10-23T12:16:48Z",
+  "inventory_observed_at": "2026-10-23T12:16:28Z",
   "coverage_complete": true,
   "run_status": "partial-picks",
   "counts": {
-   "inventory": 90,
-   "upcoming": 27,
+   "inventory": 91,
+   "upcoming": 28,
    "archived": 63,
    "unknown_schedule": 0,
    "market": 14,
    "bookmaker": 3,
    "model": 6,
-   "unresolved": 4,
+   "unresolved": 5,
    "picks": 23,
    "no_edge": 0
   }
  },
  "published": {
   "live_url": "https://buffedlizard55-lab.github.io/MaltaProj3",
-  "observed_at": "2026-10-23T11:40:49Z",
+  "observed_at": "2026-10-23T12:18:19Z",
   "index": {
    "status": 200,
    "error": null,
    "data_snapshot_generated": "2026-10-23T11:18:01Z",
-   "age_hours": 0.38,
+   "age_hours": 1.01,
    "rendered": {
     "picks_ready": 27,
     "active": 27,
@@ -49,22 +49,22 @@
   "data_latest_json": {
    "status": 200,
    "error": null,
-   "generated_at": "2026-10-15T08:36:13Z",
-   "age_hours": 195.08,
+   "generated_at": "2026-10-23T11:18:01Z",
+   "age_hours": 1.01,
    "counts": {
-    "inventory": 80,
-    "upcoming": 17,
+    "inventory": 90,
+    "upcoming": 27,
     "archived": 63,
     "unknown_schedule": 0,
-    "market": 7,
-    "bookmaker": 1,
-    "model": 5,
+    "market": 14,
+    "bookmaker": 3,
+    "model": 6,
     "unresolved": 4,
-    "picks": 13,
+    "picks": 23,
     "no_edge": 0
    },
    "run_status": "partial-picks",
-   "page_vs_json_hours": 194.7
+   "page_vs_json_hours": 0.0
   },
   "rendered_sample": {
    "1081606": {
@@ -541,11 +541,11 @@
   }
  },
  "coverage": {
-  "active_count": 27,
-  "covered_count": 27,
+  "active_count": 28,
+  "covered_count": 28,
   "money_backed_count": 19,
-  "model_only_count": 8,
-  "featured_blank_count": 4,
+  "model_only_count": 9,
+  "featured_blank_count": 5,
   "problem_count": 0,
   "rows": [
    {
@@ -715,8 +715,8 @@
     "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
     "probabilities": [
-     0.565,
-     0.435
+     0.555,
+     0.445
     ],
     "pick": "K27",
     "issues": [],
@@ -747,8 +747,8 @@
     "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
     "probabilities": [
-     0.64,
-     0.36
+     0.665,
+     0.335
     ],
     "pick": "BORRACHEIROS",
     "issues": [],
@@ -933,8 +933,8 @@
     "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
     "probabilities": [
-     0.315,
-     0.685
+     0.31,
+     0.69
     ],
     "pick": "Imperial",
     "issues": [],
@@ -991,6 +991,64 @@
     ]
    },
    {
+    "id": "1083045",
+    "teams": [
+     "Chinggis Warriors",
+     "Rare Atom"
+    ],
+    "competition": "VOID Autumn Cup 2026",
+    "starts_at": "2026-10-24T03:00:00Z",
+    "availability": "open",
+    "feed": "complete list",
+    "method": "model",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "hotspawn_url": "https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045",
+    "probabilities": [
+     0.73042923,
+     0.26957077
+    ],
+    "pick": "Chinggis Warriors",
+    "issues": [],
+    "money_backed": false,
+    "limitations": [],
+    "featured_blank": true,
+    "research_stages": [
+     {
+      "stage": "Primary: Polymarket",
+      "status": "unresolved"
+     },
+     {
+      "stage": "HLTV research",
+      "status": "checked"
+     },
+     {
+      "stage": "Original esportsbook lines",
+      "status": "unresolved"
+     },
+     {
+      "stage": "GG.BET esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Pinnacle esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Rivalry esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Stake esportsbook",
+      "status": "unavailable"
+     },
+     {
+      "stage": "Valve research model",
+      "status": "unresolved"
+     }
+    ]
+   },
+   {
     "id": "1079193",
     "teams": [
      "FOKUS",
@@ -1005,8 +1063,8 @@
     "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
     "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
     "probabilities": [
-     0.76,
-     0.24
+     0.75,
+     0.25
     ],
     "pick": "FOKUS",
     "issues": [],
@@ -1193,8 +1251,8 @@
     "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
     "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
     "probabilities": [
-     0.45,
-     0.55
+     0.475,
+     0.525
     ],
     "pick": "BRUTE",
     "issues": [],
@@ -1287,8 +1345,8 @@
     "source_url": "https://bo3.gg/matches",
     "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
     "probabilities": [
-     0.4493733010376189,
-     0.5506266989623811
+     0.4495157413356839,
+     0.5504842586643162
     ],
     "pick": "Off Chops",
     "issues": [],
@@ -1487,8 +1545,8 @@
     "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
     "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
     "probabilities": [
-     0.625,
-     0.375
+     0.62,
+     0.38
     ],
     "pick": "B8",
     "issues": [],
@@ -1551,8 +1609,8 @@
     "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
     "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
     "probabilities": [
-     0.55,
-     0.45
+     0.53,
+     0.47
     ],
     "pick": "Luminosity",
     "issues": [],
@@ -1725,6 +1783,7 @@
  },
  "model_only_ids": [
   "1082980",
+  "1083045",
   "1082996",
   "1079198",
   "1079200",
@@ -1739,10 +1798,10 @@
    "status": 403,
    "bytes": 5626,
    "error": null,
-   "observed_at": "2026-10-23T11:40:49Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": "just a moment",
    "surface": "HLTV matches (official)",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [
     "Color"
    ],
@@ -1755,10 +1814,10 @@
    "status": 200,
    "bytes": 16,
    "error": null,
-   "observed_at": "2026-10-23T11:40:49Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": null,
    "surface": "Kalshi esports series",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1767,18 +1826,18 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/markets?status=open&limit=1000",
    "status": 200,
-   "bytes": 5019704,
+   "bytes": 4685966,
    "error": null,
-   "observed_at": "2026-10-23T11:40:49Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": null,
    "surface": "Kalshi open CS2 markets",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [
     "Color",
     "LPH"
    ],
    "hit_count": 2,
-   "verbatim_snippet": "0000\",\"no_sub_title\":\"yes Alexander Bublik,yes Milwaukee,yes Atlanta,yes Indiana,yes Golden State,yes Toronto,yes Tulsa,yes Virginia,yes UConn,yes Montreal,yes Colorado\",\"notional_value_dollars\":\"1.0000\",\"open_interest_fp\":\"0.00\",\"open_time\":\"2026-10-23T11:40:16Z\",\"previous_price_dollars\":\"0.0000\",\"previous_yes_ask_dollars\":\"0.0000\",\"previous_yes_bid_dollars\":\"0.0000\",\"price_level_structure\":\"cent",
+   "verbatim_snippet": "scored,no Nice wins by more than 2.5 goals,yes Over 0.5 goals scored,yes Miami,no Atlanta wins by more than 2.5 goals,no Toronto wins by more than 2.5 goals,no Colorado wins by more than 2.5 goals,no San Jose wins by more than 2.5 goals,no Minnesota wins by more than 2.5 goals,no Montreal wins by more than 2.5 goals,no New York City wins by more than 2.5 goals,no New England wins by more than 2.5 ",
    "note": "verbatim evidence only; no price is parsed or converted into a probability"
   },
   {
@@ -1786,10 +1845,10 @@
    "status": 403,
    "bytes": 447,
    "error": null,
-   "observed_at": "2026-10-23T11:40:49Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": "access denied",
    "surface": "DraftKings CS2 league feed",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1800,10 +1859,10 @@
    "status": 404,
    "bytes": 14,
    "error": null,
-   "observed_at": "2026-10-23T11:40:49Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": null,
    "surface": "FanDuel esports content page",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1812,12 +1871,12 @@
   {
    "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=14&count=100&lng=en&mode=4&country=1&partner=51&getEmpty=true",
    "status": 203,
-   "bytes": 2619,
+   "bytes": 2621,
    "error": null,
-   "observed_at": "2026-10-23T11:40:50Z",
+   "observed_at": "2026-10-23T12:18:19Z",
    "challenge": "challenge-platform",
    "surface": "1xBet CS2 line feed",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1828,10 +1887,10 @@
    "status": 403,
    "bytes": 48,
    "error": null,
-   "observed_at": "2026-10-23T11:40:50Z",
+   "observed_at": "2026-10-23T12:18:20Z",
    "challenge": null,
    "surface": "SofaScore esports schedule (identity only)",
-   "team_names_probed": 16,
+   "team_names_probed": 18,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,

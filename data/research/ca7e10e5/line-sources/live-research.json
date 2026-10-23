@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "session": "arena-3a5448de",
-  "observed_at": "2026-10-23T11:41:06Z",
+  "observed_at": "2026-10-23T12:18:34Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research for fixtures the featured method did not resolve with a first-party money line. HLTV first (identity/ranking; no prematch price, fan vote excluded), then esportsbooks/betting lines. No probability, pick or alias is written here. HTML pages are reachability/name evidence only; no price is scraped from HTML.",
   "snapshot": {
-    "latest_generated_at": "2026-10-23T11:39:41Z",
-    "origination_generated_at": "2026-10-23T11:39:52Z",
+    "latest_generated_at": "2026-10-23T12:16:48Z",
+    "origination_generated_at": "2026-10-23T12:17:03Z",
     "counts": {
-      "active": 27,
-      "resolved": 27,
+      "active": 28,
+      "resolved": 28,
       "unresolved": 0,
-      "with_pick": 27,
+      "with_pick": 28,
       "consensus": 2,
       "market": 14,
       "bookmaker": 4,
       "reference": 0,
-      "model": 7,
+      "model": 8,
       "network": 1,
       "relay": 1,
       "guidance": 0,
@@ -24,12 +24,12 @@
     }
   },
   "target_definition": "active fixtures where featured_method is null, or the complete-list resolution is not a first-party money line (model/guidance/blank)",
-  "target_count": 7,
+  "target_count": 8,
   "surfaces": [
     {
       "name": "HLTV match listing",
       "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-23T11:40:50+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/matches",
       "bytes": 5626,
@@ -45,10 +45,10 @@
     {
       "name": "HLTV world ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-23T11:40:50+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
-      "bytes": 5644,
+      "bytes": 5665,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
@@ -61,10 +61,10 @@
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
-      "observed_at": "2026-10-23T11:40:50+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5774,
+      "bytes": 5776,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -75,10 +75,10 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "observed_at": "2026-10-23T11:40:51+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 404,
       "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257729,
+      "bytes": 257263,
       "challenge_markers": [],
       "teams_listed": [
         "Color"
@@ -87,7 +87,7 @@
     {
       "name": "Stake CS2",
       "url": "https://stake.com/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T11:40:51+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 403,
       "final_url": "https://stake.com/sports/esports/counter-strike-2",
       "bytes": 5737,
@@ -103,7 +103,7 @@
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
-      "observed_at": "2026-10-23T11:40:51+00:00",
+      "observed_at": "2026-10-23T12:18:20+00:00",
       "http_status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
       "bytes": 338117,
@@ -118,7 +118,7 @@
     {
       "name": "Rivalry CS2",
       "url": "https://www.rivalry.com/esports/counter-strike-2-betting",
-      "observed_at": "2026-10-23T11:40:52+00:00",
+      "observed_at": "2026-10-23T12:18:21+00:00",
       "http_status": 200,
       "final_url": "https://www.rivalry.com/",
       "bytes": 60850,
@@ -132,7 +132,7 @@
     {
       "name": "GG.BET CS",
       "url": "https://gg.bet/en/counter-strike",
-      "observed_at": "2026-10-23T11:40:52+00:00",
+      "observed_at": "2026-10-23T12:18:21+00:00",
       "http_status": 403,
       "final_url": "https://gg.bet/en/counter-strike",
       "bytes": 126,
@@ -142,10 +142,10 @@
     {
       "name": "BetBoom CS2",
       "url": "https://betboom.ru/sport/cs2",
-      "observed_at": "2026-10-23T11:40:52+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1799,
+      "bytes": 1801,
       "challenge_markers": [
         "captcha"
       ],
@@ -154,10 +154,10 @@
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
-      "observed_at": "2026-10-23T11:40:53+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2619,
+      "bytes": 2621,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -166,10 +166,10 @@
     {
       "name": "Marathonbet CS2",
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "observed_at": "2026-10-23T11:40:53+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5487,
+      "bytes": 5489,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -180,7 +180,7 @@
     {
       "name": "Betway CS2",
       "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T11:40:53+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": 404,
       "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
       "bytes": 6690,
@@ -192,17 +192,17 @@
     {
       "name": "Luckbox CS2",
       "url": "https://luckbox.com/esports/csgo",
-      "observed_at": "2026-10-23T11:40:54+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": null,
       "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))"
     },
     {
       "name": "Oddspedia CS2",
       "url": "https://www.oddspedia.com/esports/counter-strike-2",
-      "observed_at": "2026-10-23T11:40:54+00:00",
+      "observed_at": "2026-10-23T12:18:22+00:00",
       "http_status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike-2",
-      "bytes": 340009,
+      "bytes": 340010,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -215,7 +215,7 @@
     {
       "name": "bo3.gg matches",
       "url": "https://bo3.gg/matches",
-      "observed_at": "2026-10-23T11:40:54+00:00",
+      "observed_at": "2026-10-23T12:18:23+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/matches",
       "bytes": 12789,
@@ -229,7 +229,7 @@
     {
       "name": "bo3.gg teams",
       "url": "https://bo3.gg/teams",
-      "observed_at": "2026-10-23T11:40:55+00:00",
+      "observed_at": "2026-10-23T12:18:23+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/teams",
       "bytes": 12789,
@@ -243,7 +243,7 @@
     {
       "name": "Pinnacle guest leagues (sport 12)",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-      "observed_at": "2026-10-23T11:40:55+00:00",
+      "observed_at": "2026-10-23T12:18:24+00:00",
       "http_status": 200,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
       "bytes": 10053,
@@ -252,9 +252,386 @@
     }
   ],
   "surface_errors": {},
-  "bo3_upcoming_rows": 294,
+  "bo3_upcoming_rows": 293,
   "bo3_error": null,
   "fixtures": [
+    {
+      "hotspawn_id": "1083045",
+      "teams": [
+        "Chinggis Warriors",
+        "Rare Atom"
+      ],
+      "competition": "VOID Autumn Cup 2026",
+      "starts_at": "2026-10-24T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045",
+      "featured_method": null,
+      "current_resolution": {
+        "method": "model",
+        "label": "Research model estimate (Valve official ratings)",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.73042923,
+          0.26957077
+        ],
+        "inputs": [
+          {
+            "name": "Chinggis Warriors",
+            "points": 1084,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "Rare Atom",
+            "points": 906,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+          "Chinggis Warriors: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399588/chinggis-warriors-vs-rare-atom-macemedia-void-autumn-cup-2026",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "HLTV four-of-five roster identity",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399588/chinggis-warriors-vs-rare-atom-macemedia-void-autumn-cup-2026",
+          "detail": "Chinggis Warriors: four of five listed players match Valve standing 87 (ROUX, sk0R, cool4st, tikuak, fury5k); one current HLTV player differs. The selected row is a historical rating, not a current-lineup rating or a quantified roster-change adjustment."
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/event/cs2-cw-ra1-2026-10-23",
+          "detail": "Polymarket event 1240203: Order book spread 0.90 exceeds the 0.15 indicative ceiling (Chinggis Warriors bid/ask 0.05/0.95, Rare Atom bid/ask 0.05/0.95); observation recorded, not used as a pick input."
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct232300racw",
+          "detail": "Kalshi event KXCS2GAME-26OCT232300RACW: Order book spread 0.82 exceeds the 0.15 indicative ceiling (Rare Atom bid/ask 0.11/0.93, Chinggis Warriors bid/ask 0.11/0.93); observation recorded, not used as a pick input."
+        },
+        {
+          "stage": "Exchange market (Smarkets CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://smarkets.com/sport/esports/cs-go",
+          "detail": "No alias-verified Smarkets match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.bovada.lv/sports",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+          "status": "unresolved",
+          "source_url": "https://bo3.gg/matches",
+          "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture."
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "source_url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). One ambiguous name was selected by a four-of-five roster core with the linked, freshly observed HLTV lineup; one current player differs from the historical Valve row (roster change). This is an identity join, not a current-lineup adjustment. Cross-check only unless no market or bookmaker line exists."
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        }
+      ],
+      "unresolved_stages": [
+        "Betting market (Polymarket series winner)",
+        "Exchange market (Kalshi CS2 match winner)",
+        "Exchange market (Smarkets CS2 match winner)",
+        "Esportsbook line (Thunderpick original prices)",
+        "Esportsbook line (Bovada original prices)",
+        "Esportsbook line (Pinnacle original prices)",
+        "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+        "Aggregated bookmaker reference (EGamersWorld)"
+      ],
+      "bo3_fixture": {
+        "bound": [
+          {
+            "bo3_id": 132190,
+            "slug": "chinggis-warriors-vs-rare-atom-24-10-2026",
+            "url": "https://bo3.gg/matches/chinggis-warriors-vs-rare-atom-24-10-2026",
+            "start": "2026-10-24T03:00:00.000+00:00",
+            "start_delta_sec": 0.0,
+            "tournament": "VOID Autumn Cup 2026",
+            "bo_type": 3
+          }
+        ],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "Chinggis Warriors": {
+          "query_name": "Chinggis Warriors",
+          "matches": [
+            {
+              "id": 9974,
+              "name": "Chinggis Warriors",
+              "slug": "chinggis-warriors"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "CW",
+            "country_id": 68,
+            "created_at": "2024-01-14T22:41:13.951+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 9974,
+            "image_data": "{\"id\":\"team/9974/image/dddfaacb9008b431450f6bcab786525a\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":88464,\"mime_type\":\"image/png\",\"width\":1605,\"height\":1619},\"derivatives\":{\"webp\":{\"id\":\"team/9974/image/webp-13470ab4ee340469f4a8784168a5e295.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260331-1-rsrtye.webp\",\"size\":26554,\"mime_type\":null,\"width\":1605,\"height\":1619}},\"20x20\":{\"id\":\"team/9974/image/20x20-ddc6f93160ce3a19c4b61a2465784325.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260331-1-s28mmt.webp\",\"size\":518,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/9974/image/50x50-38b27220f0bc492853841e7b382223a9.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260331-1-udl7f6.webp\",\"size\":1186,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/9974/image/150x150-9d2df2573b3f6c3960b035dc24f3894f.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260331-1-9bbd6c.webp\",\"size\":2856,\"mime_type\":null,\"width\":149,\"height\":150}},\"400x400\":{\"id\":\"team/9974/image/400x400-eb9ad9995900d901c79cdd637595b019.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260331-1-8q4p35.webp\",\"size\":6690,\"mime_type\":null,\"width\":397,\"height\":400}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/9974/image/webp-13470ab4ee340469f4a8784168a5e295.webp",
+            "name": "Chinggis Warriors",
+            "rank": 87,
+            "six_month_earned": 3000,
+            "slug": "chinggis-warriors",
+            "updated_at": "2026-10-23T09:30:30.582+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/9974"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "CW",
+              "country_id": 68,
+              "created_at": "2024-01-14T22:41:13.951+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 9974,
+              "image_url": "https://files.bo3.gg/uploads/team/9974/image/webp-13470ab4ee340469f4a8784168a5e295.webp",
+              "name": "Chinggis Warriors",
+              "rank": 87,
+              "rank_diff": 63,
+              "six_month_earned": 3000,
+              "slug": "chinggis-warriors",
+              "updated_at": "2026-10-23T09:30:30.582+00:00"
+            }
+          }
+        },
+        "Rare Atom": {
+          "query_name": "Rare Atom",
+          "matches": [
+            {
+              "id": 2506,
+              "name": "Rare Atom",
+              "slug": "rare-atom"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "country_id": 61,
+            "created_at": "2022-02-04T08:45:55.803+00:00",
+            "discipline_id": 1,
+            "est_date": "2017-02-14",
+            "gallery_presence": false,
+            "id": 2506,
+            "image_data": "{\"id\":\"team/2506/image/0953fcf0cbcdfb2817eb106fdf5f14ae.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"162px_rare_atom_allmode.png\",\"size\":27662,\"mime_type\":\"image/png\",\"width\":500,\"height\":454},\"derivatives\":{\"20x20\":{\"id\":\"team/2506/image/20x20-1bea51142be53a77199827d62ddd065f.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20220204-1-1i3g7v3.png\",\"size\":1066,\"mime_type\":null,\"width\":20,\"height\":18}},\"50x50\":{\"id\":\"team/2506/image/50x50-463790ea1454add52553836bca100846.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20220204-1-9gw7n6.png\",\"size\":1889,\"mime_type\":null,\"width\":50,\"height\":45}},\"150x150\":{\"id\":\"team/2506/image/150x150-01b2daa3b05b14c5a8de435654dc32d9.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20220204-1-1wm8fd5.png\",\"size\":4711,\"mime_type\":null,\"width\":150,\"height\":136}},\"400x400\":{\"id\":\"team/2506/image/400x400-fd15c8f4d1e6c5cce39e0588015f3269.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20220204-1-12s0u7y.png\",\"size\":21140,\"mime_type\":null,\"width\":400,\"height\":363}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/2506/image/0953fcf0cbcdfb2817eb106fdf5f14ae.png",
+            "name": "Rare Atom",
+            "ps_id": 130329,
+            "rank": 132,
+            "six_month_earned": 1433,
+            "slug": "rare-atom",
+            "tshirt_image_data": "{\"id\":\"team/2506/tshirt_image/1948128a7ee1bf551526f789a3172859\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":136551,\"mime_type\":\"image/png\",\"width\":354,\"height\":455},\"derivatives\":{\"webp\":{\"id\":\"team/2506/tshirt_image/webp-e4da93d604b9505b9cc547d0eaa66819.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251118-1-hzfp3g.webp\",\"size\":10086,\"mime_type\":null,\"width\":354,\"height\":455}},\"20x20\":{\"id\":\"team/2506/tshirt_image/20x20-9f4118f4385229db66612106aec69e11.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251118-1-j6qdp.webp\",\"size\":326,\"mime_type\":null,\"width\":16,\"height\":20}},\"50x50\":{\"id\":\"team/2506/tshirt_image/50x50-10f92ac966fe869e6695c5cae125abea.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251118-1-jkei7.webp\",\"size\":804,\"mime_type\":null,\"width\":39,\"height\":50}},\"150x150\":{\"id\":\"team/2506/tshirt_image/150x150-afb4694cbc6ed5616d58369d03d85e7e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251118-1-f66j3n.webp\",\"size\":2628,\"mime_type\":null,\"width\":117,\"height\":150}},\"400x400\":{\"id\":\"team/2506/tshirt_image/400x400-7d76fa91f47ab9a972f6b6638b9670da.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251118-1-pqq8oe.webp\",\"size\":8380,\"mime_type\":null,\"width\":311,\"height\":400}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/2506/tshirt_image/webp-e4da93d604b9505b9cc547d0eaa66819.webp",
+            "updated_at": "2026-07-25T21:30:46.264+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/2506"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "country_id": 61,
+              "created_at": "2022-02-04T08:45:55.803+00:00",
+              "discipline_id": 1,
+              "est_date": "2017-02-14",
+              "gallery_presence": false,
+              "id": 2506,
+              "image_url": "https://files.bo3.gg/uploads/team/2506/image/0953fcf0cbcdfb2817eb106fdf5f14ae.png",
+              "name": "Rare Atom",
+              "rank": 132,
+              "rank_diff": 21,
+              "six_month_earned": 1433,
+              "slug": "rare-atom",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/2506/tshirt_image/webp-e4da93d604b9505b9cc547d0eaa66819.webp",
+              "updated_at": "2026-07-25T21:30:46.264+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+        "Chinggis Warriors: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+      ]
+    },
     {
       "hotspawn_id": "1082996",
       "teams": [
@@ -1200,26 +1577,26 @@
         "source": "Own network model (bo3.gg results graph)",
         "source_url": "https://bo3.gg/matches",
         "probabilities": [
-          0.4493733010376189,
-          0.5506266989623811
+          0.4495157413356839,
+          0.5504842586643162
         ],
         "inputs": [
           {
             "name": "Ground Zero",
-            "points": 866.7,
+            "points": 867.0,
             "rank": null,
             "source_url": "https://bo3.gg/teams/584"
           },
           {
             "name": "Off Chops",
-            "points": 902.0,
+            "points": 902.2,
             "rank": null,
             "source_url": "https://bo3.gg/teams/25492"
           }
         ],
         "pick_index": 1,
         "limitations": [
-          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4684 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.0 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
         ]
       },
       "sources_tried_from_published_trail": [
@@ -1233,7 +1610,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-          "detail": "Polymarket event 1237427: Order book spread 0.34 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.11/0.45, Off Chops bid/ask 0.55/0.89); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1237427: Order book spread 0.38 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.07/0.45, Off Chops bid/ask 0.55/0.93); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
@@ -1293,7 +1670,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4683 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.9 points."
+          "detail": "Own Bradley–Terry network fit over 4684 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 157.0 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -1556,7 +1933,7 @@
         }
       },
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4684 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.0 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
       ]
     },
     {
@@ -2506,7 +2883,7 @@
     }
   ],
   "conclusions": {
-    "with_directional_pick": 7,
+    "with_directional_pick": 8,
     "resolved_no_pick_even": 0,
     "still_blank": 0,
     "bo3_relay_two_sided": 0
