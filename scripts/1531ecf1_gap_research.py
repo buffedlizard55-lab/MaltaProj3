@@ -49,6 +49,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import urllib.error
@@ -284,20 +285,25 @@ def bo3_binding(fixture: dict, bo3: dict, registry: dict) -> dict:
     return out
 
 
-def probe_smarkets(fixture: dict, observed_at: str) -> dict:
+def probe_smarkets_page() -> dict:
     """Smarkets exchange CS:GO match events (verified endpoints from
     scripts/smarkets_lines.py: type=csgo_match, states=upcoming, 60s bind)."""
-    from scripts.smarkets_lines import events_url, event_url, split_names, binds
-    status, body, evidence, error = fetch(
-        events_url(),
-        f'smarkets-{slug(fixture["teams"][0])}-vs-{slug(fixture["teams"][1])}',
-        headers={'Accept': 'application/json'})
+    from scripts.smarkets_lines import events_url
+    status, body, evidence, error = fetch(events_url(), 'smarkets-events-page',
+                                          headers={'Accept': 'application/json'})
     events = (body or {}).get('events') if isinstance(body, dict) else None
-    result = {'http_status': status, 'error': error, 'evidence': evidence,
-              'bound': False, 'quote': None, 'url': SMARKETS_SITE, 'docs': SMARKETS_DOCS}
+    return {'http_status': status, 'error': error, 'evidence': evidence,
+            'events': events or [], 'url': SMARKETS_SITE, 'docs': SMARKETS_DOCS}
+
+
+def smarkets_binding(fixture: dict, page: dict) -> dict:
+    from scripts.smarkets_lines import binds, event_url
+    result = {'http_status': page.get('http_status'), 'error': page.get('error'),
+              'evidence': page.get('evidence'), 'bound': False, 'quote': None,
+              'url': page.get('url') or SMARKETS_SITE, 'docs': SMARKETS_DOCS}
     match = {'teams': [{'name': n} for n in fixture['teams']],
              'starts_at': fixture.get('starts_at')}
-    for ev in events or []:
+    for ev in page.get('events') or []:
         if binds(ev, match):
             result['bound'] = True
             result['url'] = event_url(ev)
@@ -306,27 +312,33 @@ def probe_smarkets(fixture: dict, observed_at: str) -> dict:
     return result
 
 
-def probe_thunderpick(fixture: dict, observed_at: str) -> dict:
+def probe_thunderpick_page(observed_at: str) -> dict:
     """Thunderpick's public match list, parsed by the reviewed
     ``originate.thunderpick_rows`` contract (match-winner market, both sides
     active, gameId 6, not live)."""
     status, body, evidence, error = fetch(THUNDERPICK_API, 'thunderpick-matches-live')
     result = {'http_status': status, 'error': error, 'evidence': evidence,
-              'bound': False, 'quote': None, 'url': THUNDERPICK_SITE}
+              'rows': [], 'url': THUNDERPICK_SITE}
     try:
         from scripts.originate import thunderpick_rows
         live = {'thunderpick': body if isinstance(body, dict) else {'ok': False},
                 'requests': [{'id': 'live-thunderpick-matches', 'status': 'ok',
                               'observed_at': observed_at}]}
-        rows = thunderpick_rows(ROOT / 'data', live)
+        result['rows'] = thunderpick_rows(ROOT / 'data', live)
     except Exception as exc:  # noqa: BLE001 - recorded, never fatal
         result['error'] = f'{type(exc).__name__}: {exc}'[:160]
-        return result
+    return result
+
+
+def thunderpick_binding(fixture: dict, page: dict, observed_at: str) -> dict:
+    from scripts.domain import timestamp as ts
+    result = {'http_status': page.get('http_status'), 'error': page.get('error'),
+              'evidence': page.get('evidence'), 'bound': False, 'quote': None,
+              'url': page.get('url') or THUNDERPICK_SITE}
     wanted = pair_key(fixture['teams'])
-    for row in rows:
+    for row in page.get('rows') or []:
         if pair_key(row.get('names') or []) != wanted:
             continue
-        from scripts.domain import timestamp as ts
         start, row_start = ts(fixture.get('starts_at')), ts(row.get('start'))
         if start and row_start and abs((row_start - start).total_seconds()) > 300:
             continue
@@ -360,22 +372,30 @@ def probe_pinnacle(fixture: dict, observed_at: str) -> dict:
     return result
 
 
-def probe_hltv(fixture: dict, observed_at: str) -> dict:
-    """HLTV first: identity, state, format. Never a probability source."""
-    out = {'matches_page_status': None, 'match_url': fixture.get('hltv_url'),
-           'match_status': None, 'state': None, 'detail': '', 'evidence': None}
-    status, body, evidence, error = fetch(HLTV_MATCHES, f'hltv-matches-{slug(fixture["teams"][0])}')
-    out['matches_page_status'] = status
-    out['evidence'] = evidence
+def probe_hltv_matches_page() -> dict:
+    """HLTV first: one fetch of hltv.org/matches for identity/state evidence."""
+    status, body, evidence, error = fetch(HLTV_MATCHES, 'hltv-matches-page')
     text = body if isinstance(body, str) else json.dumps(body or {})
+    return {'status': status, 'error': error, 'evidence': evidence, 'text': text}
+
+
+def probe_hltv(fixture: dict, matches_page: dict) -> dict:
+    """HLTV first for one fixture. Identity and state only — HLTV publishes no
+    two-sided price, and its 'Pick a winner' fan votes are never a probability
+    input."""
+    text = matches_page.get('text') or ''
     listed = all(name.lower() in text.lower() for name in fixture['teams'] if name)
-    out['detail'] = ('both teams listed on hltv.org/matches' if listed
-                     else 'teams not seen on the fetched HLTV matches page')
+    out = {'matches_page_status': matches_page.get('status'),
+           'match_url': fixture.get('hltv_url'), 'match_status': None, 'state': None,
+           'evidence': matches_page.get('evidence'),
+           'detail': ('both teams listed on hltv.org/matches' if listed
+                      else 'teams not seen on the fetched HLTV matches page')}
     if fixture.get('hltv_url'):
-        st2, body2, ev2, err2 = fetch(fixture['hltv_url'], f'hltv-match-{fixture.get("id") or slug(fixture["teams"][0])}')
+        st2, body2, ev2, err2 = fetch(fixture['hltv_url'],
+                                      f'hltv-match-{fixture.get("id") or slug(fixture["teams"][0])}')
         out['match_status'] = st2
-        text2 = body2 if isinstance(body2, str) else json.dumps(body2 or {})
-        if st2 == 200 and isinstance(body2, str):
+        text2 = body2 if isinstance(body2, str) else ''
+        if st2 == 200 and text2:
             if re.search(r'\bFinished\b', text2):
                 out['state'] = 'finished'
             elif re.search(r'\bLive\b', text2):
@@ -384,16 +404,28 @@ def probe_hltv(fixture: dict, observed_at: str) -> dict:
     return out
 
 
-def probe_books(fixture: dict, observed_at: str) -> list:
-    """Reachability sweep of esportsbooks and betting-line aggregators."""
-    want = pair_key(fixture['teams'])
-    rows = []
+def probe_book_surfaces() -> dict:
+    """One reachability sweep of esportsbooks and betting-line aggregators.
+
+    A reachable page is never a price; only a readable two-sided pair prices a
+    fixture. Fetched once per run and re-used for every target fixture."""
+    pages = {}
     for name, url in BOOK_SURFACES:
-        status, body, evidence, error = fetch(url, f'book-{slug(name)}-{slug(fixture["teams"][0])}')
+        status, body, evidence, error = fetch(url, f'book-{slug(name)}')
         text = body if isinstance(body, str) else json.dumps(body or {})
+        pages[name] = {'name': name, 'url': url, 'http_status': status, 'error': error,
+                       'evidence': evidence, 'text': text}
+    return pages
+
+
+def book_rows_for(fixture: dict, pages: dict) -> list:
+    rows = []
+    for name, page in pages.items():
+        text = page.get('text') or ''
         listed = all(str(n).lower() in text.lower() for n in fixture['teams'] if n)
-        rows.append({'name': name, 'url': url, 'http_status': status, 'error': error,
-                     'teams_listed': listed, 'evidence': evidence})
+        rows.append({'name': name, 'url': page['url'], 'http_status': page['http_status'],
+                     'error': page.get('error'), 'teams_listed': listed,
+                     'evidence': page.get('evidence')})
     return rows
 
 
@@ -585,7 +617,12 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
             lobby_rows.append(row)
             continue
 
-        resolved = resolve(fixture, facts, ratings, valve_meta, registry, observed_at)
+        try:
+            resolved = resolve(fixture, facts, ratings, valve_meta, registry, observed_at)
+        except Exception as exc:  # noqa: BLE001 - fail closed to "unresolved"
+            resolved = {'method': None, 'attempts': [
+                {'stage': 'Resolution', 'status': 'unresolved',
+                 'detail': f'{type(exc).__name__}: {exc}'[:180]}]}
         row['research'].extend(resolved.get('attempts') or [])
         if resolved.get('method'):
             row['pick'] = {k: resolved[k] for k in (
@@ -623,7 +660,12 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
         }
         row = base_row(fixture, 'open')
         facts = bound.get(ident) or bound.get(pair_key(fixture['teams'])) or {}
-        resolved = resolve(fixture, facts, ratings, valve_meta, registry, observed_at)
+        try:
+            resolved = resolve(fixture, facts, ratings, valve_meta, registry, observed_at)
+        except Exception as exc:  # noqa: BLE001 - fail closed to "unresolved"
+            resolved = {'method': None, 'attempts': [
+                {'stage': 'Resolution', 'status': 'unresolved',
+                 'detail': f'{type(exc).__name__}: {exc}'[:180]}]}
         row['research'] = list(resolved.get('attempts') or [])
         current = orig.get('origination') or {}
         current_probs = current.get('probabilities')
@@ -808,7 +850,8 @@ def main() -> int:
         environment = 'arena-session-replay'
     else:
         inventory = hotspawn_inventory(observed)
-        environment = 'github-actions-runner' if args.live else 'arena-session-fetch'
+        environment = ('github-actions-runner'
+                       if os.environ.get('GITHUB_ACTIONS') == 'true' else 'arena-session-fetch')
 
     published = published_state()
     from scripts.originate import load_registry, valve_rows
@@ -817,13 +860,20 @@ def main() -> int:
     bo3 = probe_bo3(observed) if args.live else {'rows': [], 'status_log': []}
     bound = {}
     ratings, valve_meta = None, None
+    shared = {'hltv': {'status': None, 'text': '', 'evidence': None},
+              'books': {}, 'smarkets': {'events': []}, 'thunderpick': {'rows': []}}
     if args.live:
         try:
             ratings, valve_meta = valve_rows(ROOT / 'data', {'live': True})
         except Exception as exc:  # noqa: BLE001
-            valve_meta = {'error': f'{type(exc).__name__}: {exc}'[:160],
-                          'source_url': VALVE_STANDINGS, 'snapshot_date': '2026-10-05',
-                          'evidence_file': 'valve-standings'}
+            ratings, valve_meta = None, {'error': f'{type(exc).__name__}: {exc}'[:160],
+                                         'source_url': VALVE_STANDINGS,
+                                         'snapshot_date': '2026-10-05',
+                                         'evidence_file': 'valve-standings'}
+        shared['hltv'] = probe_hltv_matches_page()
+        shared['books'] = probe_book_surfaces()
+        shared['smarkets'] = probe_smarkets_page()
+        shared['thunderpick'] = probe_thunderpick_page(observed)
 
     targets = []
     seen = set()
@@ -853,12 +903,19 @@ def main() -> int:
         seen.add(key)
         facts = {}
         if args.live:
-            facts['hltv'] = probe_hltv(fixture, observed)
-            facts['bo3'] = bo3_binding(fixture, bo3, registry)
-            facts['smarkets'] = probe_smarkets(fixture, observed)
-            facts['thunderpick'] = probe_thunderpick(fixture, observed)
-            facts['pinnacle'] = probe_pinnacle(fixture, observed)
-            facts['books'] = probe_books(fixture, observed)
+            # Every probe failure is evidence, never fatal: one broken surface
+            # must not stop the remaining fixtures from being researched.
+            for stage, fn in (
+                    ('hltv', lambda: probe_hltv(fixture, shared['hltv'])),
+                    ('bo3', lambda: bo3_binding(fixture, bo3, registry)),
+                    ('smarkets', lambda: smarkets_binding(fixture, shared['smarkets'])),
+                    ('thunderpick', lambda: thunderpick_binding(fixture, shared['thunderpick'], observed)),
+                    ('pinnacle', lambda: probe_pinnacle(fixture, observed)),
+                    ('books', lambda: book_rows_for(fixture, shared['books']))):
+                try:
+                    facts[stage] = fn()
+                except Exception as exc:  # noqa: BLE001 - recorded, never fatal
+                    facts[stage] = {'error': f'{type(exc).__name__}: {exc}'[:180]}
         bound[key] = facts
 
     gap_picks, line_research = build_record(inventory, published, bound, ratings, valve_meta,
@@ -867,7 +924,7 @@ def main() -> int:
     (OUT_DIR / 'line-source-research.json').write_text(json.dumps(line_research, indent=1, ensure_ascii=False))
     write_markdown(gap_picks, line_research)
     print(json.dumps(gap_picks['counts'], indent=1))
-    print(f"wrote data/research/{SESSION}/gap-picks.json + line-source-research.json "
+    print(f"wrote data/research/1531ecf1/gap-picks.json + line-source-research.json "
           f"({environment}, {observed})")
     return 0
 
