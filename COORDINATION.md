@@ -1,3 +1,50 @@
+# Current session: arena-42bfa8ea — live Hotspawn coverage checked row by row, the false "no pick in this build" claim removed, and a phone-first unresolved digest — DONE
+
+Claimed **2026-10-23T09:44Z** on Arena's fixed branch `arena/42bfa8ea-maltaproj3`, branched from `main` at `d120d2f`. Board read first; no live claim overlapped the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 42B-1 Live lobby vs site, row replays, dated dossier | **done** — 28 future lobby fixtures enumerated; all 28 are on the site with a pick; five rows replayed against the cited Polymarket series market | arena-42bfa8ea | new `data/research/42bfa8ea/**` |
+| 42B-2 Executive-summary clarity | **done** — the summary renders a compact unresolved digest (counts, each pick without a line, plain-word limitations, link to the evidence); the full 22-surface sweep and per-fixture trial stay on `/unresolved/`. Homepage 216 KB → 162 KB on the checked-in snapshot | arena-42bfa8ea | `scripts/build.py` (`no_line_digest`, `unresolved_register(compact=)`), new `tests/test_42bfa8ea.py` |
+| 42B-3 Wrong coverage-gap claim | **done** — the dated live-coverage block called JiJieHao vs Eternal Fire "no pick in this build" while the same build carried its pick; the check now reads the complete researched list by id and normalised team pair, and the block is labelled a dated observation | arena-42bfa8ea | `scripts/build.py` (`live_coverage_gaps`), `tests/test_9fd5fbf1.py` |
+| 42B-4 PR, merge, Pages | **done** — PR [#218](https://github.com/buffedlizard55-lab/MaltaProj3/pull/218) → `3796b0d`; hotfix PR [#230](https://github.com/buffedlizard55-lab/MaltaProj3/pull/230) → `d371892`; publisher run [39948422168](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39948422168) completed **success** end to end (regression tests, collect, build, deploy, verify, root publish, re-deploy, re-verify) | arena-42bfa8ea | this section, PR |
+
+Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sources.py`, `scripts/originate.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/**`, `archive/`, `docs/`, or another session's `data/research/<id>/`. No probability, pick, alias or source was changed.
+
+### 42B-1 result — coverage and row replays (observed 2026-10-23T09:52Z–10:10Z)
+
+- **Lobby inventory.** https://play.hotspawn.com/cs2-pickems said "203 matches this week", "All tiers (92)", and rendered **28** future fixtures in *Closing Soon* + *Upcoming*. All 28 are enumerated with their team names, UTC start and the site's published pick in `data/research/42bfa8ea/live-coverage.json`.
+- **Site coverage.** The public snapshot (built 2026-10-23T09:24Z) showed **30 active / 30 with a pick / 22 external-line / 8 research-model / 0 unresolved**. It carries all 28 lobby fixtures plus two Hotspawn-API fixtures that are not in the rendered lobby lists (`1082980` LPH vs WBT Academy, `1083025` Imperial vs paiN), both with their own Hotspawn match pages.
+- **Row replays** (Polymarket series market, read 10:02Z–10:06Z): `1081606` JiJieHao–Eternal Fire 0.445/0.555 vs published 44.5/55.5 **confirmed**; `1079195` NTR–FORZE 0.595/0.405 vs 59.0/41.0 confirmed; `1083014` K27–Virtus.pro 0.56/0.44 vs 55.5/44.5 confirmed; `1081148` Inner Circle–Spirit 0.435/0.565 vs 44.5/55.5 consistent (one-cent move after the snapshot); `1082861` Rooster–Abyssal 0.50/0.50 on $116.52 liquidity — no usable width, matching the published wide-book blocker, so the model estimate stands.
+- **Time-zone check.** The lobby prints US Eastern and the site prints Europe/Malta; the apparent six-hour difference is the zone, not a schedule conflict (Polymarket records `gameStartTime 2026-10-23 11:00:00+00` for `1081148`). Europe/Malta leaves summer time on 25 October, so the site's local times from that date are UTC+1 — recorded in the dossier so a future session does not "fix" a correct time.
+
+### 42B-2/42B-3 result — the summary is a dashboard again, and it no longer contradicts itself
+
+- **Compact unresolved digest.** `unresolved_register(..., compact=True)` now renders on the summary: the coverage counts, every pick without a betting line with its pick, both probabilities, the blocker and a tap-through to `/unresolved/#no-line-<id>`, then the limitations in plain words and links to the full register and the methodology. The per-stage chips, the source-status sweep, the dated research record and the full per-fixture trial remain on `/unresolved/`. The checked-in homepage fell from **215,994 to 162,360 bytes** with no row, pick or source removed.
+- **Contract preserved.** `#unresolved-register`, `aria-labelledby="unresolved-register-title"`, the exact H2 "Unresolved picks & limitations", `#no-line-register`, `#picks-at-a-glance` and every glance row are unchanged, so the existing mobile and accessibility selectors still apply.
+- **Wrong claim removed.** The live-coverage block compared only the featured snapshot, so JiJieHao vs Eternal Fire stayed listed as "no pick in this build" although it was row 4 of Picks at a glance with a 44.5/55.5 market estimate; an id-less lobby card could never drop out either. `live_coverage_gaps` now reads `complete_picks` by Hotspawn id **and** by normalised team pair, and the block is labelled a dated observation ("N missing at that observation"). Regression tests: `test_fixture_with_a_pick_in_the_complete_list_is_not_called_missing`, `test_unmatched_team_pair_is_still_reported`.
+- **Published flags, not blocking:** `42bfa8ea-stale-live-coverage-claim` (the contradiction above, fixed) and `42bfa8ea-eight-fixtures-without-an-external-line` (which eight rows carry a model estimate and why), both rendered on Flagged for Review.
+
+### 42B-5 hotfix — the compact register must keep `#no-line-research` (2026-10-23T12:10Z)
+
+- **Caught by another session's audit, not by this session's tests.** After #218 merged, `main`'s publisher failed at `Regression tests` with `FAIL: test_built_site_passes_eea4c104_and_strict_row_audit_plus_mutations` → `Executive Summary missing #no-line-research dated research block`. `scripts/eea4c104_audit.py` requires that block on the summary because it is the evidence behind each no-line blocker. The first version of the compact digest dropped it.
+- **Fix:** `unresolved_register(..., compact=True)` now appends `no_line_research_block(...)` before the limitations. The 22-surface reachability sweep and the source-probe matrix still live only on `/unresolved/`. Verified by running `tests.test_eea4c104_audit` **and** `tests.test_42bfa8ea` on a clean extraction of `origin/main` with this `scripts/build.py` copied in: both pass, and the built site's link check is green.
+- **Lesson recorded for the next session:** removing a block from the executive summary is a cross-session contract change. `scripts/eea4c104_audit.py` and the browser specs in `tests/browser/` are the authority for what the summary must keep.
+
+
+### 42B-6 final — merged, deployed, and the board block restored (2026-10-23T13:30Z)
+
+- **PRs and merges.** [#218](https://github.com/buffedlizard55-lab/MaltaProj3/pull/218) merged as `3796b0d` after `Rows, build, links, mobile and accessibility` (22m27s) and `originate` (3m10s) were green on the rebased head. [#230](https://github.com/buffedlizard55-lab/MaltaProj3/pull/230) (the `#no-line-research` restore that unblocked the publisher) merged as `d371892`.
+- **Deployment verified, not assumed.** Publisher run [39948422168](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39948422168) completed **success** through every step, including `Verify the public site`, the root publish and the post-root re-deploy. The deployed summary reads **28 active fixtures, all 28 with a pick**, renders the compact digest, and the dated coverage block now reads "4 missing at that observation" — all four are cards that have since started, and none is claimed to have a pick missing.
+- **This board block was lost and has been restored.** Between #218 and #230 another session resolved a `COORDINATION.md` conflict by taking its own copy, which dropped this entire `arena-42bfa8ea` section. It is restored here with the final results. This is the failure mode the brief warns about: prepending to one shared file is a guaranteed conflict on every concurrent merge, and "take mine" silently deletes the other session's record. Recorded on Flagged for Review as `42bfa8ea-board-block-dropped-in-merge`.
+- **Flagged for review, not blocking:** the two dossier flags above plus `42bfa8ea-board-block-dropped-in-merge`.
+
+### 42B-4 verification so far
+
+- Local build on the checked-in data: **PASS** — 705 audited rows, 686 with an official link, 0 without a source, 811 internal links/anchors.
+- Targeted suites: `test_42bfa8ea` 8 OK; `test_9fd5fbf1` 9 OK; `test_f4eb8ae3`, `test_summary_navigation`, `test_mobile_picks_nav`, `test_3016b0c6_mobile_glance`, `test_build`, `test_build_hardening` 64 OK.
+- CI (`Rows, build, links, mobile and accessibility`, `originate`) is the authority for the full suite and the phone browser specs; the result is recorded below once the PR runs.
+
 # Current session: arena-2016c841 — fresh HLTV-first + esportsbook sweep of every no-external-line fixture, executive-summary unresolved section verification, PR + merge
 
 Claimed **2026-10-23T09:55Z** on Arena's fixed branch `arena/2016c841-maltaproj3`, branched from `main` at `d120d2f`. Board read first (65 prior session blocks); open PR #214 (arena-3149e7ae board close-out, no file overlap) and all remaining open PRs are stale heads or unrelated scopes. Stale `in progress` rows older than 60 minutes without recent commits (9fd5fbf1 05:00Z, e7d7a410, 17d77cb3, fd99abd9, 3016b0c6, 69438ad1, f60683a4, ca4d2a02, 4c972a51, 15fc6bca, 416d93ee, 1bc31e24 and older) were noted; none of the files claimed below are touched by any session with activity in the last hour.
