@@ -1,7 +1,7 @@
 {
   "schema": "a7128fdd-direct-observations/1",
   "session": "arena-a7128fdd",
-  "observed_at": "2026-10-23T10:05:00Z",
+  "observed_at": "2026-10-23T10:50:00Z",
   "environment": "authoring-fetch-path",
   "environment_note": "Captured by direct page fetch from the authoring sandbox, NOT from a GitHub Actions runner. This distinction is the finding: ten earlier sessions recorded HLTV, EGamersWorld and the aggregators as 403/410 from the runner and concluded no external evidence existed for the model-only fixtures. On this path HLTV answers HTTP 200. The runner-only loader in scripts/build.py::load_no_line_research deliberately ignores this record, so nothing here can enter the priced ladder; it is published as evidence and as a correction to the reachability claim.",
   "brief_line": "Look for information sources to guide pick selections only for any matches that cannot be resolved in the same way as the featured picks. Try hltv, then try looking at esportsbooks and esports betting lines.",
@@ -641,17 +641,79 @@
       "verdict": "a reachable aggregator that names five bookmakers per match, but it carries no price for the model-only fixtures, and its own power rating is not an input",
       "reason": "This surface was not in any earlier session's ladder. It publishes decimal prices inline for fixtures the repository already prices from first-party sources (corroboration only) and a per-match 'Match odds (5 bookmakers)' table naming Bet365, 1xbet, Betway, Stake and GG.bet. For Hotspawn 1081605's slot it publishes no odds, only the site's own 43%/57% power rating, which is that site's model and is excluded exactly like Hotspawn participation percentages. Operational limitation verified: the finished match page /matches/cs2/6yubojlbl-vs-ex-6666-1746763/ renders no odds table at all, so the bookmaker table is prematch-only and must be captured before the start, or it is gone.",
       "excerpt_sha256": "94b45e6828a6da5f911c9c6965ac739d39b155815f678ea6b11a39ea9fe72244"
+    },
+    {
+      "id": "a7128fdd-hltv-2399699-phantom-academy",
+      "surface": "HLTV match page (the model-only fixture the brief's low-tier class describes)",
+      "url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081605"
+      ],
+      "teams_as_published": [
+        "Phantom Academy",
+        "Banda Chuya"
+      ],
+      "excerpt": "Phantom Academy 07:00 23 Oct Banda Chuya · CCT 2026 Challengers Europe Series 8 · countdown '14m : 37s' · Best of 3 (Online) · * Lower bracket semi-final · Betting: Stake social-casino promotion, 'No promocode available' · Pick a winner: Phantom Academy 77.6% / Banda Chuya 22.4% · Phantom Academy HLTV: #174 VRS: #167 · Banda Chuya HLTV: Unranked VRS: #169",
+      "excerpt_sha256": "032f9e9c1d2de383615a0a50fde7b2d8b00527f5324f1c4077cf0777c507dc9e",
+      "published": {
+        "hltv_match_id": 2399699,
+        "event": "CCT 2026 Challengers Europe Series 8",
+        "event_url": "https://www.hltv.org/events/9453/cct-2026-challengers-europe-series-8",
+        "format": "Best of 3 (Online)",
+        "stage": "Lower bracket semi-final",
+        "displayed_clock": "07:00 23 Oct (HLTV renders US Eastern; countdown '14m : 37s' read at 10:50Z resolves the start to 11:00 UTC)",
+        "resolves_to_utc": "2026-10-23T11:00:00Z",
+        "hotspawn_starts_at": "2026-10-23T11:00:00Z",
+        "start_agrees_with_hotspawn": true,
+        "phantom_academy": {
+          "hltv_rank": 174,
+          "vrs_rank": 167,
+          "vrs_points": 777,
+          "lineup": [
+            "Brain47",
+            "Ayteel",
+            "Dr3nquu",
+            "kalyambys",
+            "La1roN"
+          ],
+          "team_url": "https://www.hltv.org/team/13766/phantom-academy"
+        },
+        "banda_chuya": {
+          "hltv_rank": null,
+          "hltv_rank_note": "HLTV: Unranked",
+          "vrs_rank": 169,
+          "vrs_points": 768,
+          "lineup": [
+            "tomiko",
+            "maaryy",
+            "AdrieN",
+            "Showk",
+            "mwlky"
+          ],
+          "team_url": "https://www.hltv.org/team/13900/banda-chuya"
+        },
+        "fan_vote_percent": [
+          77.6,
+          22.4
+        ]
+      },
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "reachable and bound to Hotspawn 1081605 by exact names and exact start; publishes the format, both five-player lineups and both world/VRS ranks, and still no price",
+      "reason": "This is the single most useful HLTV read of the sweep, because 1081605 is exactly the brief's low-tier case: a C/B-tier online lower-bracket semi-final that Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle and the bo3.gg relay all leave unpriced. HLTV confirms Hotspawn's opponent (Banda Chuya, not the 'los kogutos' two aggregators list for the slot), supplies the best-of format Hotspawn leaves null, supplies both five-player lineups that the Valve-standings identity join needs, and supplies both rankings - including that Banda Chuya is HLTV-Unranked while still holding VRS #169, which is precisely the case the repository's 'unranked floor' rung exists for. It prices nothing: the Betting block again carries only a Stake social-casino promotion, and the 77.6%/22.4% figure is the 'Pick a winner' fan vote, excluded by rule 2. No probability, pick or alias was changed. The format, lineup and ranking facts are recorded as dated official evidence, and the divergence between HLTV's VRS display and the published estimate's direction is flagged for review rather than adjudicated here."
     }
   ],
   "conclusions": {
     "fixtures_in_scope": 8,
     "fixtures_with_a_new_two_sided_price": 0,
-    "fixtures_with_new_official_identity_or_format_evidence": 5,
+    "fixtures_with_new_official_identity_or_format_evidence": 6,
     "probabilities_changed": 0,
     "picks_changed": 0,
     "aliases_added": 0,
     "hltv_http_status_on_this_path": 200,
     "hltv_http_status_on_runner_path": 403,
-    "summary": "No two-sided prematch price exists for any of the 8 model-only fixtures on any surface read at 2026-10-23T09:47Z-10:05Z, so every published estimate stands unchanged and nothing was invented. What IS new: HLTV is reachable on this path and publishes the format, both lineups and both world/VRS ranks for the fixtures checked; Polymarket does list two of them by exact name and start but at $0 traded volume, which is the precise, source-linked reason the featured method cannot resolve them; and three surfaces publish placeholder prices (EGamersWorld 1.8/1.8, HLTV analytics 1.23, Polymarket 2.00x/2.00x) that a naive scraper would have turned into fabricated probabilities."
+    "summary": "No two-sided prematch price exists for any of the 8 model-only fixtures on any surface read at 2026-10-23T09:47Z-10:50Z, so every published estimate stands unchanged and nothing was invented. What IS new: HLTV is reachable on this path and publishes the format, both lineups and both world/VRS ranks for the fixtures checked - including HLTV 2399699, which binds to Hotspawn 1081605 by exact names and exact start and confirms Hotspawn's opponent against two aggregators that list a different one. Polymarket does list two of the eight by exact name and start but at $0 traded volume, which is the precise, source-linked reason the featured method cannot resolve them. And four surfaces publish placeholder or crowd numbers - EGamersWorld 1.8/1.8, the HLTV analytics template 1.23, Polymarket's unpriced 2.00x/2.00x default, and HLTV's fan votes - any of which a naive scraper would have turned into a fabricated probability.",
+    "hltv_match_pages_read_at_200": 2
   }
 }

@@ -327,19 +327,255 @@ class CheckedInRecord(unittest.TestCase):
             for url in f['source_urls']:
                 self.assertTrue(url.startswith('https://'), f'{f["id"]}: {url}')
 
-    def test_the_hltv_reachability_correction_is_flagged_for_review(self):
+    def test_the_hltv_reachability_correction_is_published_and_does_not_overstate(self):
+        """A notice, not a defect: the site copy already qualifies the runner's 403."""
         flags = {f['id']: f for f in json.loads(FLAGS.read_text(encoding='utf-8'))}
-        self.assertIn('a7128fdd-hltv-reachable-not-403', flags)
-        self.assertEqual(flags['a7128fdd-hltv-reachable-not-403']['severity'], 'review')
+        flag = flags['a7128fdd-hltv-reachable-not-403']
+        self.assertEqual(flag['severity'], 'notice')
+        self.assertIn('HTTP 200', flag['detail'])
+        self.assertIn('the site copy is NOT wrong', flag['detail'])
+        self.assertIn('no probability should have changed and none did', flag['detail'].lower()
+                      .replace('So no probability should have changed and none did',
+                               'no probability should have changed and none did'))
 
-    def test_the_phantom_academy_identity_conflict_is_not_silently_joined(self):
+    def test_the_phantom_academy_claim_is_the_corrected_one(self):
+        """Hotspawn was corroborated by HLTV; the aggregators were the ones out of line."""
         flags = {f['id']: f for f in json.loads(FLAGS.read_text(encoding='utf-8'))}
-        flag = flags['a7128fdd-phantom-academy-opponent-conflict']
+        self.assertNotIn('a7128fdd-phantom-academy-opponent-conflict', flags,
+                         'the withdrawn claim must not come back')
+        flag = flags['a7128fdd-phantom-academy-hotspawn-corroborated']
         self.assertEqual(flag['match_ids'], ['1081605'])
-        self.assertIn('Banda chuya', flag['detail'])
-        self.assertIn('los kogutos', flag['detail'])
-        self.assertIn('NOT joined', flag['detail'])
+        self.assertIn('that flag was wrong', flag['detail'])
+        self.assertIn('2399699', flag['detail'])
+        self.assertIn('Banda Chuya', flag['detail'])
+        self.assertIn('Hotspawn is corroborated', flag['detail'])
+
+    def test_no_flag_may_call_team_abyssal_unregistered_while_the_registry_holds_it(self):
+        """Pinned against the registry itself, so the correction cannot silently rot."""
+        registry = json.loads((ROOT / 'data' / 'origination' / 'aliases.json').read_text(encoding='utf-8'))
+        registered = {(a.get('alias'), a.get('canonical')) for a in registry['aliases']}
+        self.assertIn(('Team Abyssal', 'Abyssal'), registered)
+        self.assertIn(('Los Niños', 'LOS NINOS'), registered)
+        flags = json.loads(FLAGS.read_text(encoding='utf-8'))
+        ids = {f['id'] for f in flags}
+        self.assertNotIn('a7128fdd-team-abyssal-unregistered-alias', ids)
+        for f in flags:
+            self.assertNotIn('is not in data/origination/aliases.json', f['detail'])
+            self.assertNotIn('the alias is unregistered', f['title'].lower())
+        self.assertIn('a7128fdd-team-abyssal-alias-already-registered', ids)
+
+    def test_the_vrs_direction_divergence_is_review_and_changes_nothing(self):
+        flags = {f['id']: f for f in json.loads(FLAGS.read_text(encoding='utf-8'))}
+        flag = flags['a7128fdd-1081605-vrs-direction-divergence']
+        self.assertEqual(flag['severity'], 'review')
+        self.assertEqual(flag['match_ids'], ['1081605'])
+        # It must say plainly that it did not adjudicate and did not change a value.
+        self.assertIn('this session did not do', flag['detail'])
+        self.assertIn('no value was changed and no', flag['detail'])
+
+    def test_the_hltv_capture_of_2399699_binds_by_start_time_not_just_names(self):
+        rec = json.loads(RECORD.read_text(encoding='utf-8'))
+        obs = next(o for o in rec['observations']
+                   if o['id'] == 'a7128fdd-hltv-2399699-phantom-academy')
+        self.assertEqual(obs['fixture_ids'], ['1081605'])
+        self.assertEqual(obs['http_status'], 200)
+        self.assertTrue(obs['published']['start_agrees_with_hotspawn'])
+        self.assertEqual(obs['published']['resolves_to_utc'], obs['published']['hotspawn_starts_at'])
+        self.assertIsNone(obs['published']['banda_chuya']['hltv_rank'])
+        self.assertIsNone(obs['two_sided_price'])
+        self.assertFalse(obs['usable_as_price'])
+        for side in ('phantom_academy', 'banda_chuya'):
+            self.assertEqual(len(obs['published'][side]['lineup']), 5,
+                             'a partial lineup must not be published as a five-player record')
+
+    def test_no_observation_in_the_record_claims_a_price_for_the_model_only_class(self):
+        rec = json.loads(RECORD.read_text(encoding='utf-8'))
+        for o in rec['observations']:
+            self.assertIsNone(o['two_sided_price'], o['id'])
+            self.assertFalse(o['usable_as_price'], o['id'])
+
+
+class VerificationRecord(unittest.TestCase):
+    """The re-derivation of published probabilities from independent surfaces."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.rec = json.loads((ROOT / 'data' / 'research' / 'a7128fdd'
+                              / 'verification.json').read_text(encoding='utf-8'))
+        cls.manifest = json.loads((ROOT / 'data' / 'research' / 'a7128fdd'
+                                   / 'live-manifest.json').read_text(encoding='utf-8'))
+        cls.byid = {r['id']: r for r in cls.manifest['active']}
+
+    def test_every_row_binds_through_the_reviewed_registry(self):
+        self.assertTrue(self.rec['rows'])
+        self.assertEqual(self.rec['conclusions']['name_bindings_unresolved'], 0)
+        for r in self.rec['rows']:
+            self.assertEqual(r['name_binding'], 'resolved via data/origination/aliases.json', r['hotspawn_id'])
+            for b in r['binding_detail']:
+                self.assertIsNotNone(b['hotspawn_index'], f"{r['hotspawn_id']}: {b['published']} did not bind")
+
+    def test_the_de_vig_arithmetic_is_reproducible_from_the_published_odds(self):
+        for r in self.rec['rows']:
+            a, b = r['odds_as_published'].values()
+            ia, ib = 1.0 / a, 1.0 / b
+            total = ia + ib
+            self.assertAlmostEqual(r['overround'], round(total, 4), places=4, msg=r['hotspawn_id'])
+            self.assertGreater(total, 1.0, 'a book with no overround is not a book')
+            for side, implied in zip((ia / total, ib / total),
+                                     (r['devigged'][k] for k in r['odds_as_published'])):
+                self.assertAlmostEqual(side, implied, places=4, msg=r['hotspawn_id'])
+
+    def test_the_exact_rows_really_do_match_the_published_manifest_values(self):
+        exact = [r for r in self.rec['rows'] if r['exact_match']]
+        self.assertGreaterEqual(len(exact), 2)
+        for r in exact:
+            published = self.byid[r['hotspawn_id']]['probabilities']
+            self.assertEqual(r['published_probabilities'], published)
+            # The manifest keeps full precision; the re-derivation is rounded to
+            # four decimals, so agreement is the documented 5e-5 tolerance and
+            # never an equality of floats at different precisions.
+            for got, want in zip(r['devigged_aligned_to_hotspawn'], published):
+                self.assertLess(abs(got - want), 5e-5, r['hotspawn_id'])
+
+    def test_no_row_claims_exactness_it_does_not_have(self):
+        for r in self.rec['rows']:
+            al, pub = r['devigged_aligned_to_hotspawn'], r['published_probabilities']
+            really = all(abs(x - y) < 5e-5 for x, y in zip(al, pub))
+            self.assertEqual(r['exact_match'], really, r['hotspawn_id'])
+
+    def test_it_admits_that_it_changed_nothing(self):
+        self.assertEqual(self.rec['conclusions']['published_values_changed'], 0)
+
+    def test_the_snapshot_consistency_claim_is_stated_with_its_sources(self):
+        snap = self.rec['published_snapshot_verified']
+        self.assertTrue(snap['agree'])
+        self.assertEqual(snap['live_root_data_latest_json_generated_at'],
+                         snap['live_root_page_snapshot_generated'])
+        self.assertTrue(snap['source_urls'])
+        for url in snap['source_urls']:
+            self.assertTrue(url.startswith('https://'))
+
+    def test_the_inventory_claim_matches_the_manifest_it_cites(self):
+        inv = self.rec['inventory_verified']
+        self.assertTrue(inv['agree'])
+        self.assertEqual(inv['published_counts']['upcoming'], self.manifest['counts']['active'])
+        self.assertIn('sport_alias=cs2', inv['hotspawn_api'])
+
+
+class RenderedMarkdownIsDerived(unittest.TestCase):
+    """The loader requires an .md sibling; this proves the sibling is generated."""
+
+    def test_check_mode_passes_on_the_committed_files(self):
+        from scripts.a7128fdd_render_evidence import main
+        self.assertEqual(main(['--check']), 0)
+
+    def test_regenerating_is_byte_identical(self):
+        from scripts.a7128fdd_render_evidence import render_observations, render_verification
+        obs = json.loads(RECORD.read_text(encoding='utf-8'))
+        ver = json.loads((ROOT / 'data' / 'research' / 'a7128fdd'
+                          / 'verification.json').read_text(encoding='utf-8'))
+        self.assertEqual(render_observations(obs), MARKDOWN.read_text(encoding='utf-8'))
+        self.assertEqual(render_verification(ver),
+                         (ROOT / 'data' / 'research' / 'a7128fdd' / 'verification.md')
+                         .read_text(encoding='utf-8'))
+
+    def test_the_markdown_says_it_is_generated(self):
+        self.assertIn('Generated from `direct-observations.json`', MARKDOWN.read_text(encoding='utf-8'))
+
+    def test_the_markdown_carries_the_refused_placeholder_table(self):
+        text = MARKDOWN.read_text(encoding='utf-8')
+        for needle in ('1.8 / 1.8', '1.23', '2.00x / 2.00x', 'Pick a winner', 'power rating'):
+            self.assertIn(needle, text)
+
+    def test_drift_is_detected_not_rewritten_in_check_mode(self):
+        import shutil
+        import tempfile
+        from scripts.a7128fdd_render_evidence import OUT, write
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        target = tmp / 'x.md'
+        target.write_text('stale hand-written prose\n', encoding='utf-8')
+        self.assertFalse(write(target, 'the derived text\n', check=True))
+        self.assertEqual(target.read_text(encoding='utf-8'), 'stale hand-written prose\n',
+                         '--check must not write')
+        self.assertTrue(write(target, 'the derived text\n', check=False))
+        self.assertEqual(target.read_text(encoding='utf-8'), 'the derived text\n')
+        self.assertTrue(OUT.is_dir())
 
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PhoneContractWithoutABrowser(unittest.TestCase):
+    """The register lands on the executive summary, which is read on a phone.
+
+    CI renders these pages at 320/390/768/1440 px with Playwright. These checks
+    are the structural half that does not need a browser: nothing in the new CSS
+    may fix a width, open a nested horizontal scroll region, or leave a long
+    unbroken token (a slug, a hash, a URL) able to push the page past 320 px.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.css = (ROOT / 'assets' / 'scout.css').read_text(encoding='utf-8')
+        start = cls.css.find('Session arena-a7128fdd')
+        assert start != -1, 'the appended session block is missing from scout.css'
+        cls.block = cls.css[start:]
+
+    def test_the_session_css_is_appended_not_interleaved(self):
+        """Append-only, so another session's rules cannot be silently reordered."""
+        self.assertGreater(len(self.css), len(self.block))
+        self.assertEqual(self.css.rfind('Session arena-a7128fdd'),
+                         self.css.find('Session arena-a7128fdd'))
+
+    def test_it_only_styles_the_new_register(self):
+        for selector in ('.start-here', '.glance-row', '#picks-at-a-glance',
+                         '.mobile-nav', '#unresolved-register'):
+            self.assertNotIn(selector, self.block,
+                             f'the appended block must not restyle {selector}')
+
+    def test_no_fixed_width_and_no_nested_horizontal_scroll(self):
+        self.assertNotIn('overflow-x', self.block)
+        # A @media(max-width:700px) breakpoint is a query, not an element width,
+        # so media lines are excluded; what must not appear is a fixed px width
+        # or a min-width on an element, either of which can exceed 320 px.
+        for line in self.block.splitlines():
+            stripped = line.strip()
+            if stripped.startswith('@media') or stripped.startswith('/*') or stripped.startswith('*'):
+                continue
+            for prop in ('min-width:', 'flex-basis:'):
+                self.assertNotIn(prop, stripped, f'a fixed {prop} can exceed a 320 px viewport')
+            for declaration in stripped.split(';'):
+                if 'width:' in declaration and 'max-width:' not in declaration:
+                    self.fail(f'a fixed width can exceed a 320 px viewport: {declaration.strip()}')
+
+    def test_long_tokens_are_allowed_to_break(self):
+        for selector in ('.direct-quote', '.direct-why', '.direct-scope li'):
+            self.assertIn(selector, self.block)
+        self.assertIn('overflow-wrap:anywhere', self.block)
+
+    def test_a_small_screen_media_query_exists_at_the_phone_widths_ci_renders(self):
+        self.assertIn('@media(max-width:700px)', self.block)
+
+    def test_chips_may_wrap_instead_of_forcing_width(self):
+        self.assertIn('.tried-chip{white-space:normal}', self.block)
+
+    def test_the_register_renders_on_the_executive_summary_and_the_unresolved_page(self):
+        """The brief asks for the unresolved section inside the executive summary."""
+        for page in ('index.html', 'unresolved/index.html'):
+            built = ROOT / 'site' / page
+            if not built.is_file():
+                self.skipTest(f'{page} has not been built locally')
+            self.assertIn('id="direct-observations"', built.read_text(encoding='utf-8'),
+                          f'#direct-observations missing from {page}')
+
+    def test_the_executive_summary_still_routes_a_phone_reader_to_the_picks(self):
+        built = ROOT / 'site' / 'index.html'
+        if not built.is_file():
+            self.skipTest('index.html has not been built locally')
+        html = built.read_text(encoding='utf-8')
+        self.assertIn('id="start-here"', html)
+        self.assertIn('href="./#picks-at-a-glance"', html)
+        self.assertIn('href="./origination/#picks"', html)
+        self.assertIn('width=device-width, initial-scale=1', html)
