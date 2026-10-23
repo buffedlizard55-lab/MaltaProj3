@@ -1738,6 +1738,12 @@ def summary(data, prefix, now=None):
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix, compact=True)
+    # Session ca7e10e5: the dated no-line research block was rendered only on
+    # /unresolved/, while scripts/eea4c104_audit.py (and its regression test)
+    # requires it on the executive summary the brief names. Without this call
+    # `tests.test_eea4c104_audit` failed on main and the four-hour publisher
+    # stopped at its regression step, so the deployed site went stale.
+    out += no_line_research_block(data, prefix)
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
