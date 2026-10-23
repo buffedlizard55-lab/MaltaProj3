@@ -131,10 +131,20 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(len(plan.unchanged), len(first))
 
     def test_check_mode_reports_a_current_root_and_then_drift(self):
+        # Session arena-308fcaad: the fixture snapshot is pinned at NOW-20min, so
+        # `--check` must be given that same clock. Without it, main() compared the
+        # real wall clock against the pinned stamp and every run more than 12h past
+        # 2026-10-22T08:40Z (Pages runs 39792708185 onward) exited 3 instead of 0,
+        # which stopped the four-hour refresh before it could build or deploy.
+        # Production behaviour is unchanged: the CLI still defaults to the clock.
         self.publish()
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 0)
+        self.assertEqual(
+            main(["--output", str(self.output), "--root", str(self.root), "--check"], now=NOW), 0
+        )
         _write(self.root / "picks/index.html", "<title>stale hand edit</title>")
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 2)
+        self.assertEqual(
+            main(["--output", str(self.output), "--root", str(self.root), "--check"], now=NOW), 2
+        )
 
     def test_a_changed_page_is_republished(self):
         self.publish()

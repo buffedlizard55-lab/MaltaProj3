@@ -1,0 +1,57 @@
+# Session arena-fd99abd9 — HLTV-first line-source research for low-tier fixtures.
+#
+# Dispatch only. Never scheduled, never deploys, never writes a probability,
+# a pick or an alias. The sandbox this session runs in has no egress to
+# Hotspawn/HLTV/books; the runner does. This workflow re-runs the read-only
+# probe against the live published snapshot and commits the dated JSON/MD
+# evidence to this session branch so it can be reviewed before merge.
+#
+# It writes no probability, no pick and no alias of its own. Every value in
+# the report is copied from first-party sources or their absence is recorded.
+name: fd99abd9 line-source research (dispatch only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/fd99abd9-maltaproj3']
+    paths:
+      - '.github/workflows/fd99abd9-probe.yml'
+      - 'scripts/fd99abd9_probe.py'
+      - 'scripts/bo3_odds_probe.py'
+
+permissions:
+  contents: write
+concurrency:
+  group: fd99abd9-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/fd99abd9-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/fd99abd9-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: HLTV-first line-source research for model-only fixtures (live snapshot when reachable)
+        run: python -m scripts.fd99abd9_probe --live --out data/research/fd99abd9
+      - name: Commit the dated report to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/fd99abd9
+          git diff --cached --quiet && echo 'No research change.' && exit 0
+          git commit -m 'research(fd99abd9): HLTV-first line-source sweep — dated evidence'
+          # Rebase against the moving branch head (push race), keep only the research.
+          git stash push --keep-index --include-untracked -m 'fd99abd9 probe scratch' || true
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/fd99abd9-maltaproj3 || true
+            git rebase origin/arena/fd99abd9-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/fd99abd9-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
