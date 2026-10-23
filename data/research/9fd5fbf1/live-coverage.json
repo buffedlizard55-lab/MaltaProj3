@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "session": "arena-9fd5fbf1",
+  "observed_at": "2026-10-23T04:58:00Z",
+  "observer": "human-readable page fetch, not the GitHub runner",
+  "role": "Dated inventory and identity research only. No value here is a probability or a pick.",
+  "published_site": {
+    "latest_json": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "generated_at": "2026-10-22T14:05:35Z",
+    "inventory_observed_at": "2026-10-22T13:21:33Z",
+    "run_status": "degraded",
+    "coverage_complete": false,
+    "featured_counts": {
+      "inventory": 98,
+      "upcoming": 37,
+      "picks": 30,
+      "unresolved": 7
+    },
+    "complete_picks": {
+      "generated_at": "2026-10-22T14:05:51Z",
+      "active": 37,
+      "resolved": 37,
+      "with_pick": 37,
+      "unresolved": 0,
+      "market": 16,
+      "bookmaker": 4,
+      "consensus": 5,
+      "model": 12,
+      "network": 1
+    },
+    "note": "The public executive summary shows 37/37 directional picks from that snapshot and a visible stale banner (inventory older than eight hours). Pages schedule runs 39807044948 through 39881298806 failed at Regression tests before collection."
+  },
+  "hotspawn": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "lobby_week_matches": 197,
+    "lobby_cs2_filter": 92,
+    "note": "Lobby filter All tiers (92) is the CS2 subset of the weekly 197-match counter. The API still returns June-2026 rows marked scheduled; those are past-start, not current pick'ems. Crowd '% picked' is recorded only as lobby text and is never a win probability."
+  },
+  "live_fixtures": [
+    {
+      "id": "1081872",
+      "teams": ["NEXVOID", "Rare Atom"],
+      "competition": "VOID Autumn Cup 2026",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-rare-atom-void-autumn-cup-2026-1081872",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "NEXVOID 62.2%"
+    },
+    {
+      "id": "1081149",
+      "teams": ["FORZE Reload", "LFO 10"],
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
+      "hltv_url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "published_method": "HLTV world ranking",
+      "published_pick": "FORZE Reload 51.0%"
+    },
+    {
+      "id": "1079654",
+      "teams": ["ex-Zero Tenacity", "ex-RUSTEC"],
+      "competition": "CCT Europe 2026 Series #11",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
+      "in_published_snapshot": true,
+      "published_method": "consensus",
+      "published_pick": "ex-Zero Tenacity 51.7%"
+    },
+    {
+      "id": "1081605",
+      "teams": ["Phantom Academy", "Banda chuya"],
+      "competition": "CCT Europe 2026 Challengers #8",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
+      "hltv_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1081148",
+      "teams": ["Inner Circle Academy", "Spirit Academy"],
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+      "hltv_url": "https://www.hltv.org/matches/2399498/inner-circle-academy-vs-spirit-academy-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "published_method": "Polymarket",
+      "published_pick": "Spirit Academy 55.0%"
+    },
+    {
+      "id": "1079655",
+      "teams": ["Nuclear TigeRES", "ILLYRIANS"],
+      "competition": "CCT Europe 2026 Series #11",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+      "hltv_url": "https://www.hltv.org/matches/2399332/nuclear-tigeres-vs-illyrians-cct-2026-europe-series-11",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "Nuclear TigeRES 93.0%"
+    },
+    {
+      "id": null,
+      "teams": ["JiJieHao", "Eternal Fire"],
+      "competition": "DraculaN Season 7",
+      "hotspawn_url": null,
+      "hltv_url": "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7",
+      "in_published_snapshot": false,
+      "note": "Rendered on the Hotspawn lobby Closing Soon list without a View Match permalink at observation time, so the Hotspawn fixture id is left blank rather than guessed."
+    },
+    {
+      "id": "1082926",
+      "teams": ["Isurus", "Hacha"],
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "hltv_url": "https://www.hltv.org/matches/2399911/isurus-vs-hacha-cct-2026-south-america-series-7",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1083014",
+      "teams": ["K27", "Virtus.pro"],
+      "competition": "CIS LAN Championship #9",
+      "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
+      "hltv_url": "https://www.hltv.org/matches/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1082924",
+      "teams": ["BORRACHEIROS", "QUINTESSÊNCIA"],
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
+      "hltv_url": "https://www.hltv.org/matches/2399909/borracheiros-vs-quintessncia-cct-2026-south-america-series-7",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1081150",
+      "teams": ["ex-RUSTEC", "Saint Sinners"],
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+      "hltv_url": "https://www.hltv.org/matches/2399500/ex-rustec-vs-saint-sinners-cct-2026-europe-series-12",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1079657",
+      "teams": ["BakS", "BRUTE"],
+      "competition": "CCT Europe 2026 Series #11",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+      "hltv_url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1082693",
+      "teams": ["BESTIA", "Galorys"],
+      "competition": "Circuit X Curitiba #4",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+      "hltv_url": "https://www.hltv.org/matches/2399815/bestia-vs-galorys-circuit-x-curitiba-season-4",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1082925",
+      "teams": ["BESTIA Academy", "RED Canids Academy"],
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+      "hltv_url": "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1082923",
+      "teams": ["Alka", "LOS NINOS"],
+      "competition": "CCT South America 2026 Series #7",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+      "in_published_snapshot": true
+    },
+    {
+      "id": "1079193",
+      "teams": ["FOKUS", "ex-6666"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1079195",
+      "teams": ["Nuclear TigeRES", "FORZE Reload"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1082996",
+      "teams": ["Acend", "UNiTY"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1079198",
+      "teams": ["Metizport", "BakS"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1079199",
+      "teams": ["Infinite", "BRUTE"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+      "in_published_snapshot": false
+    },
+    {
+      "id": "1079200",
+      "teams": ["Color", "ex-Zero Tenacity"],
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "in_published_snapshot": false
+    }
+  ],
+  "line_research": [
+    {
+      "id": "1081872",
+      "hltv_first": "HLTV match listing confirms NEXVOID vs Rare Atom at VOID Autumn Cup 2026. HLTV analytics/form is ranking context, not a two-sided prematch price.",
+      "books": "bo3.gg match page https://bo3.gg/matches/nexvoid-vs-rare-atom-23-10-2026 loaded 2026-10-23T04:58Z with lineups (NEXVOID: erkaSt, xerolte, MiQ, AccuracyTG, Zesta; Rare Atom: Summer, Kaze, ChildKing, L1haNg, 3gl) and no named two-sided bookmaker coeff block — only an 'All odds are on' Thunderpick affiliate control. Polymarket Gamma ?slug=cs2-nexvo-ra1-2026-10-23 returned []. EGamersWorld match page did not yield a verified two-sided pair in this read (a 1.8 figure on that surface is treated as the project's documented placeholder, not a price).",
+      "outcome": "No new money line originated. The published Valve-model pick stays the snapshot value until the four-hour collector replays a first-party book."
+    },
+    {
+      "id": "1081605",
+      "hltv_first": "HLTV 2399699 Phantom Academy vs Banda Chuya, CCT 2026 Challengers Europe Series 8, bo3, 23 Oct. Analytics page lists Phantom Academy HLTV #174 vs Banda Chuya Unranked; form ranking is not a price. Fan votes unused.",
+      "books": "No two-sided Polymarket event found under guessed slugs. HLTV betting module is affiliate/ranking copy, not a bookmaker pair.",
+      "outcome": "Fixture is on the live lobby and absent from the 14:05Z snapshot. No probability invented."
+    },
+    {
+      "id": "1083014",
+      "hltv_first": "HLTV 2399849 K27 vs Virtus.pro, WINLINE MPKBK CIS LAN Season 9 semifinal, LAN bo3, 23 Oct. Analytics: K27 #46 vs Virtus.pro #56; Virtus.pro listed with stand-in Patsi instead of F0R3VER. Ranking/form only.",
+      "books": "Polymarket Gamma ?slug=cs2-k27-vp-2026-10-23 returned []. No first-party decimal pair verified.",
+      "outcome": "Identity confirmed. No pick invented. Next live collect should add Hotspawn 1083014."
+    },
+    {
+      "id": "1082693",
+      "hltv_first": "HLTV 2399815 BESTIA vs Galorys, Circuit X Curitiba Season 4 playoffs, bo3, 23 Oct.",
+      "books": "Polymarket Gamma ?slug=cs2-bst-gal-2026-10-23 returned [].",
+      "outcome": "Identity confirmed. No pick invented."
+    }
+  ],
+  "limitations": [
+    "HLTV match pages are readable by a person; they are not a two-sided prematch odds feed. Analytics pages publish ranking/form, not executable moneylines.",
+    "Hotspawn '% picked' is crowd participation and is never used as a win probability.",
+    "The four-hour GitHub Pages publisher has been failing since 2026-10-22T14:05Z at the repository-fixture regression step; concurrent session arena-19de9c79 owns that test repair.",
+    "A missing snapshot row is a coverage gap, not proof that no market exists.",
+    "JiJieHao vs Eternal Fire is listed on the lobby without a permalink in this observation, so its Hotspawn id is unverified and left blank."
+  ],
+  "source_urls": [
+    "https://play.hotspawn.com/lobby",
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+    "https://www.hltv.org/matches",
+    "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+    "https://www.hltv.org/matches/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+    "https://www.hltv.org/matches/2399815/bestia-vs-galorys-circuit-x-curitiba-season-4",
+    "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7",
+    "https://bo3.gg/matches/nexvoid-vs-rare-atom-23-10-2026",
+    "https://gamma-api.polymarket.com/events?slug=cs2-nexvo-ra1-2026-10-23"
+  ]
+}
