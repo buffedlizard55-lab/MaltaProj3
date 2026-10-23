@@ -1670,15 +1670,11 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # published on /unresolved/; the summary keeps the separate section the
         # brief asks for and links straight to that evidence rather than
         # reproducing ~40 KB of tables above the picks. The compact dated
-        # research block itself stays here: it is the summary's dated,
-        # source-linked record of the newest HLTV-first sweep and only expands
-        # any lead rows, while the full source matrix remains on /unresolved/.
+        # research block is appended once by summary() immediately after this
+        # register; it is the summary's dated, source-linked record of the
+        # newest HLTV-first sweep and only expands any lead rows, while the
+        # full source matrix remains on /unresolved/.
         out.append(no_line_digest(data, prefix))
-        # The dated per-fixture research record stays on the summary: it is the
-        # evidence behind each no-line blocker and the cross-session audit
-        # (scripts/eea4c104_audit.py) requires the block here. It is compact;
-        # the 22-surface sweep and the source-probe matrix stay on /unresolved/.
-        out.append(no_line_research_block(data, prefix))
         observed = complete.get('generated_at') or data.get('generated_at')
         out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                    '<ul>'
