@@ -18,6 +18,9 @@ on:
       - '.github/workflows/origination.yml'
 permissions:
   contents: read
+concurrency:
+  group: origination-audit-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   originate:
     runs-on: ubuntu-24.04

@@ -54,7 +54,10 @@ def check_data(root: Path):
     verified_pages = context.get('verified_pages', ['lobby', 'cs2'])
     crosscheck = context.get('crosscheck', 'complete')
     require(crosscheck in {'complete', 'partial', 'unavailable'}, 'Unknown inventory cross-check state')
-    require(crosscheck == ('complete' if len(verified_pages) == 2 else 'partial' if len(verified_pages) == 1 else 'unavailable'), 'Inventory cross-check marker does not match the pages actually read')
+    api_degraded = any(str(u).startswith('api:') for u in context.get('unavailable', []))
+    expected_crosscheck = 'partial' if (api_degraded and verified_pages) else (
+        'complete' if len(verified_pages) == 2 else 'partial' if len(verified_pages) == 1 else 'unavailable')
+    require(crosscheck == expected_crosscheck, 'Inventory cross-check marker does not match the pages actually read')
     for page in verified_pages:
         require(page in {'lobby', 'cs2'}, 'Unknown rendered inventory page')
         require(set(raw) == set(context[page + '_ids']), 'A rendered Hotspawn inventory did not agree with the API')
@@ -165,8 +168,26 @@ def check_data(root: Path):
 
 def check_links(site: Path):
     checked = 0
+    soups: dict[Path, BeautifulSoup] = {}
+    ids_by_file: dict[Path, set[str]] = {}
+
+    def get_soup(html_path: Path) -> BeautifulSoup:
+        resolved = html_path.resolve()
+        if resolved not in soups:
+            parsed = BeautifulSoup(resolved.read_text(), 'html.parser')
+            soups[resolved] = parsed
+            ids_by_file[resolved] = {tag['id'] for tag in parsed.find_all(id=True)}
+        return soups[resolved]
+
+    def get_ids(html_path: Path) -> set[str]:
+        resolved = html_path.resolve()
+        if resolved not in ids_by_file:
+            get_soup(resolved)
+        return ids_by_file[resolved]
+
+    site_resolved = site.resolve()
     for path in site.rglob('*.html'):
-        soup = BeautifulSoup(path.read_text(), 'html.parser')
+        soup = get_soup(path)
         require(soup.find('main') is not None, f'{path}: no main landmark')
         require(soup.find('meta', attrs={'name': 'viewport'}) is not None, f'{path}: missing mobile viewport')
         for el in soup.select('[href], [src]'):
@@ -180,10 +201,9 @@ def check_links(site: Path):
             if target.is_dir():
                 target /= 'index.html'
             require(target.is_file(), f'{path}: broken local link {value}')
-            require(target.is_relative_to(site.resolve()), f'{path}: link escapes output directory')
+            require(target.is_relative_to(site_resolved), f'{path}: link escapes output directory')
             if url.fragment and target.suffix == '.html':
-                dest = BeautifulSoup(target.read_text(), 'html.parser')
-                require(dest.find(id=unquote(url.fragment)) is not None, f'{path}: missing anchor {value}')
+                require(unquote(url.fragment) in get_ids(target), f'{path}: missing anchor {value}')
             checked += 1
     require(checked > 0, 'No generated pages/links validated')
     print(f'PASS: {checked} internal links/assets/anchors; project-subpath routing and mobile landmarks checked.')

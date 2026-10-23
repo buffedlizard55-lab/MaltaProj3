@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -681,8 +682,10 @@ def build_sweep_record(
             'pick_index': m.get('pick_index'),
             'pick': m['teams'][m['pick_index']]['name'] if m.get('pick_index') is not None else None,
             'source_urls': oa.get('source_urls') or ([oa['source_url']] if oa.get('source_url') else []),
+            'money_line_lead': bool(two_sided_relay or pin_listed or smk_two_sided),
             'bo3_bound': bool(bo3_match),
             'bo3_bound_url': bo3_match.get('url') if bo3_match else None,
+            'bo3_bet': bo3_match.get('bet_updates') if two_sided_relay else None,
             'bo3_bet_updates': bo3_match.get('bet_updates') if two_sided_relay else None,
             'two_sided_relay_price': two_sided_relay,
             'pinnacle_listed': pin_listed,
@@ -693,9 +696,11 @@ def build_sweep_record(
         })
 
     hltv_surfaces = [s for s in surfaces if s['kind'] == 'hltv']
+    env_label = 'github-actions-runner' if os.environ.get('GITHUB_ACTIONS') == 'true' else 'local-sandbox'
     return {
         'schema_version': 2,
         'session': 'arena-f7a94082',
+        'environment': env_label,
         'observed_at': observed_at,
         'snapshot_generated_at': origination.get('generated_at') or latest.get('generated_at'),
         'inventory_observed_at': latest.get('inventory_observed_at'),
@@ -728,6 +733,7 @@ def build_sweep_record(
             'error': bo3['error'],
         },
         'surfaces': surfaces,
+        'per_fixture': fixture_records,
         'fixtures': fixture_records,
     }
 
@@ -824,14 +830,14 @@ def run_full_audit(work_dir: Path, out_dir: Path, timeout: int = 12) -> dict[str
         shutil.rmtree(data_dir)
     shutil.copytree(Path('data'), data_dir)
 
-    subprocess.run([sys.executable, '-m', 'scripts.collect', '--output', str(data_dir)], check=True)
-    subprocess.run([sys.executable, '-m', 'scripts.originate', '--source', str(data_dir), '--live'], check=True)
-    subprocess.run([sys.executable, '-m', 'scripts.build', '--data', str(data_dir), '--output', str(site_dir)], check=True)
-    subprocess.run([sys.executable, '-m', 'scripts.audit_rows', '--site', str(site_dir), '--strict'], check=True)
+    subprocess.run([sys.executable, '-m', 'scripts.collect', '--output', str(data_dir)], check=True, env=os.environ.copy())
+    subprocess.run([sys.executable, '-m', 'scripts.originate', '--source', str(data_dir), '--live'], check=True, env=os.environ.copy())
+    build_proc = subprocess.run([sys.executable, '-m', 'scripts.build', '--data', str(data_dir), '--output', str(site_dir)], capture_output=True, text=True)
+    audit_proc = subprocess.run([sys.executable, '-m', 'scripts.audit_rows', '--site', str(site_dir), '--strict'], capture_output=True, text=True) if (site_dir / 'index.html').exists() else None
 
     latest = json.loads((data_dir / 'latest.json').read_text())
     origination = json.loads((data_dir / 'origination.json').read_text())
-    row_audit = json.loads((site_dir / 'data/row-source-audit.json').read_text())
+    row_audit = json.loads((site_dir / 'data/row-source-audit.json').read_text()) if (site_dir / 'data/row-source-audit.json').exists() else {'totals': None, 'build_returncode': build_proc.returncode, 'build_stderr': build_proc.stderr[-1500:], 'build_stdout': build_proc.stdout[-1500:]}
 
     sess = requests.Session()
     sess.headers.update({'User-Agent': UA, 'Accept': 'application/json,text/html;q=0.9'})

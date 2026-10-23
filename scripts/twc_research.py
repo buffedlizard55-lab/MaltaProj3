@@ -205,8 +205,12 @@ def collect_pinnacle(folder: Path, rows: list, now) -> dict:
     return out
 
 
+_PARSED_FACTS_CACHE: dict[str, dict] = {}
+
+
 def load(source: Path):
     """Replay originals, not stored extracted facts. Fail closed on tampering."""
+    import copy
     folder = source / FOLDER
     path = folder / 'source-report.json'
     if not path.exists():
@@ -224,11 +228,14 @@ def load(source: Path):
         if original.resolve().parent != folder.resolve():
             raise ValueError('TWC current original path escapes research folder')
         raw = gzip.decompress(original.read_bytes())
-        if hashlib.sha256(raw).hexdigest() != page.get('stored_sha256'):
+        digest = hashlib.sha256(raw).hexdigest()
+        if digest != page.get('stored_sha256'):
             raise ValueError('TWC current original hash mismatch')
         if not re.fullmatch(r'https://www\.hltv\.org/matches/\d+/[a-z0-9-]*thunderpick-world-championship-2026', request['url']):
             continue
-        facts = parse_match(raw.decode('utf-8'))
+        if digest not in _PARSED_FACTS_CACHE:
+            _PARSED_FACTS_CACHE[digest] = parse_match(raw.decode('utf-8'))
+        facts = copy.deepcopy(_PARSED_FACTS_CACHE[digest])
         # A malformed or unrelated page cannot introduce a fixture/result.
         if facts.get('event_url') != EVENT_URL or not all(facts.get('teams', [])):
             continue

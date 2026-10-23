@@ -12,15 +12,19 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: f7a94082-probe
+  cancel-in-progress: true
+
 jobs:
   probe:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: arena/f7a94082-maltaproj3
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -28,6 +32,8 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Run full read-only live audit & raw-board discovery
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m scripts.f7a94082_probe --full-audit /tmp/f7a94082-work --out data/research/f7a94082
 
       - name: Commit verified research artifacts to arena/f7a94082-maltaproj3

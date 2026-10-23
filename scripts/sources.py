@@ -209,7 +209,17 @@ def hotspawn(client: Client):
             api_rows = first_record['rows']
             api_req = first_record['req'] or {'observed_at': iso(datetime.now(timezone.utc))}
             official_ids = first_record['ids']
-            client.save('hotspawn-fixtures', api_rows)
+            ev_path = client.save('hotspawn-fixtures', api_rows)
+            if isinstance(getattr(client, 'manifest', None), list):
+                client.manifest.append({
+                    'id': 'hotspawn-fixtures',
+                    'url': FIXTURES_API,
+                    'method': 'GET',
+                    'observed_at': api_req['observed_at'],
+                    'status': 'ok',
+                    'evidence': ev_path,
+                    'note': 'Recovered verbatim /api/v1/fixtures array from verified SSR ng-state hydration',
+                })
             break
         if not read:
             # API-only mode. A retry here would only repeat a refused HTML

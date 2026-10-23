@@ -529,7 +529,11 @@
 }
 /* Source links in explanatory prose must not rely on color alone (WCAG 1.4.1),
    and inline text/source links maintain >=24px target height (WCAG 2.2 SC 2.5.8). */
-.ladder-list a, .prose a {
+.ladder-list a {
+  text-decoration: underline;
+  text-underline-offset: .16em;
+}
+.prose a {
   text-decoration: underline;
   text-underline-offset: .16em;
 }

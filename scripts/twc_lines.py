@@ -470,6 +470,9 @@ def _evidence_path(folder: Path, name: str) -> Path:
     return path
 
 
+_EVIDENCE_JSON_CACHE: dict[tuple[Path, int, int], tuple[str, object]] = {}
+
+
 def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) -> dict:
     """Re-derive one collected fixture from its hash-verified originals."""
     saved_fixture = fixture_record(record['fixture'])
@@ -484,10 +487,17 @@ def _replay_record(record: dict, folder: Path, registry: dict, now: datetime) ->
             path = _evidence_path(folder, item['file'])
             if not path.exists():
                 raise ValueError('TWC line evidence missing: ' + item['file'])
-            raw = path.read_bytes()
-            if hashlib.sha256(raw).hexdigest() != item.get('sha256'):
+            st = path.stat()
+            cache_key = (path, st.st_mtime_ns, st.st_size)
+            cached = _EVIDENCE_JSON_CACHE.get(cache_key)
+            if cached is None:
+                raw = path.read_bytes()
+                cached = (hashlib.sha256(raw).hexdigest(), json.loads(raw.decode()))
+                _EVIDENCE_JSON_CACHE[cache_key] = cached
+            digest, parsed = cached
+            if digest != item.get('sha256'):
                 raise ValueError('TWC line evidence hash mismatch: ' + item['file'])
-            payloads[item['label']] = json.loads(raw.decode())
+            payloads[item['label']] = parsed
             original_observations[item['label']] = item.get('observed_at')
         quote, reason = None, provider.get('reason')
         if provider['provider'] == 'Polymarket' and payloads:
@@ -531,6 +541,9 @@ def _movement(row: dict, earlier: dict | None) -> dict | None:
             'label': 'Change against the previous validated read of the same fixture.'}
 
 
+_LOAD_CACHE: dict[tuple, dict] = {}
+
+
 def load(source: Path, now: datetime, registry: dict | None = None, *, report_file=REPORT) -> dict:
     """Replay retained originals and return validated Day-4 lines.
 
@@ -552,6 +565,12 @@ def load(source: Path, now: datetime, registry: dict | None = None, *, report_fi
              'matches': [], 'reasons': {}, 'report_path': None, 'policy': POLICY}
     if not report_path.exists():
         return empty
+    ev_dir = folder / 'evidence'
+    ev_sig = tuple(sorted((p.name, p.stat().st_mtime_ns, p.stat().st_size) for p in ev_dir.glob('*') if p.is_file())) if ev_dir.is_dir() else ()
+    rp_st = report_path.stat()
+    cache_key = (report_path.resolve(), rp_st.st_mtime_ns, rp_st.st_size, ev_sig, now.isoformat())
+    if registry is None and cache_key in _LOAD_CACHE:
+        return copy.deepcopy(_LOAD_CACHE[cache_key])
     report = json.loads(report_path.read_text())
     # Evidence paths are stored relative to the research folder, which is the
     # report's own folder minus the report's relative path.
@@ -581,12 +600,15 @@ def load(source: Path, now: datetime, registry: dict | None = None, *, report_fi
         if row['movement'] is None:
             row['movement_note'] = ('No earlier validated read of this fixture is retained yet; movement is published '
                                     'once a second observation of the same book is verified.')
-    return {'schema_version': report.get('schema_version', 1), 'available': True, 'day': report.get('day'),
-            'days': report.get('days') or ([report.get('day')] if report.get('day') else []),
-            'observed_at': report.get('observed_at'), 'matches': matches, 'reasons': reasons,
-            'report_path': _relative_report(source, report_path), 'policy': POLICY,
-            'earlier_reads': len(earlier), 'read_sources': [r.get('observed_at') for r in report.get('history') or []],
-            'unverifiable_reads': dropped}
+    result = {'schema_version': report.get('schema_version', 1), 'available': True, 'day': report.get('day'),
+              'days': report.get('days') or ([report.get('day')] if report.get('day') else []),
+              'observed_at': report.get('observed_at'), 'matches': matches, 'reasons': reasons,
+              'report_path': _relative_report(source, report_path), 'policy': POLICY,
+              'earlier_reads': len(earlier), 'read_sources': [r.get('observed_at') for r in report.get('history') or []],
+              'unverifiable_reads': dropped}
+    if registry is None:
+        _LOAD_CACHE[cache_key] = copy.deepcopy(result)
+    return result
 
 
 _REGISTRY: dict | None = None

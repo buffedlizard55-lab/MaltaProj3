@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: dashboard-checks-${{ github.ref }}
+  group: dashboard-checks-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   verify:

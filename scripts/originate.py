@@ -2374,10 +2374,25 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     featured_pick = match.get('pick_index') if match.get('pick_index') is not None else (
         selection(featured.get('probabilities')) if featured else None)
 
-    def keep_featured():
-        return {'origination': dict(featured, quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])], model_crosscheck=None),
-                      'pick_index': match.get('pick_index'), 'aliases_used': [],
-                      'research': match.get('research', []), 'limitations': match.get('limitations', []), 'time_flags': []}
+    def keep_featured(extra_research=None, extra_time_flags=None):
+        merged_research = list(match.get('research', []))
+        seen_stages = {r.get('stage') for r in merged_research}
+        for r in (extra_research or []):
+            if r.get('stage') not in seen_stages:
+                merged_research.append(r)
+                seen_stages.add(r.get('stage'))
+        return {
+            'origination': dict(
+                featured,
+                quotes=[dict(q, source_url=q.get('source_url') or featured['source_url'], provider=q.get('provider') or featured['source'], family=q.get('family') or featured['method']) for q in featured.get('quotes', [])],
+                model_crosscheck=None,
+            ),
+            'pick_index': match.get('pick_index'),
+            'aliases_used': [],
+            'research': merged_research,
+            'limitations': match.get('limitations', []),
+            'time_flags': list(extra_time_flags or []),
+        }
 
     if featured and featured.get('method') != 'model' and featured_pick is not None:
         return keep_featured()
@@ -2390,7 +2405,7 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
         return dict(result, upgraded_from_featured_model=True)
     if featured_pick is None and method in MONEY_METHODS and result.get('pick_index') is not None:
         return dict(result, upgraded_from_featured_model=True)
-    return keep_featured()
+    return keep_featured(result.get('research'), result.get('time_flags'))
 
 
 def run(output: Path, *, live: bool = False) -> dict:
