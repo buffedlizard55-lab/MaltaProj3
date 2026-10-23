@@ -588,7 +588,7 @@ live inventory observed at 05:07:07Z:
 | Active Hotspawn CS2 fixtures | **30** |
 | With a directional pick | **30** |
 | Without a pick / defective rows | **0 / 0** |
-| Resolved by an external money line | **21** (14 market, 5 bookmaker, 2 consensus) |
+| Resolved by an external money line | **21** (15 market, 4 bookmaker, 2 consensus) |
 | Resolved by a labelled research model | **9** (8 Valve standings, 1 own bo3.gg results network) |
 | Rows with two probabilities that sum to 1 and an official `https` source | **30 of 30** |
 
@@ -599,10 +599,10 @@ was shifted**. The dated snapshot and the line-by-line table are published in
 with the raw `latest.json` / `origination.json` beside it.
 
 **HLTV first, then esportsbooks — for the nine fixtures with no betting line.** The audited
-read-only probe was reused unchanged; its runner observations at 05:08:38Z are in
+read-only probe was reused unchanged; its runner observations at 05:31:08Z are in
 [`data/research/e7d7a410/line-sources/live-research.md`](data/research/e7d7a410/line-sources/live-research.md).
 HLTV’s match listing and ranking both answered **403** to the runner (it publishes no prematch price
-in any case), EGamersWorld 403, DraftKings 404, Stake 403, OddsPortal 200 with the teams listed,
+in any case), EGamersWorld 403, DraftKings 200 with no target price, Stake 403, OddsPortal 200 with the teams listed,
 Rivalry 200 with the teams listed, GG.BET 403, BetBoom 401, 1xBet 203, Marathonbet 403, Betway 404,
 Oddspedia 410, bo3.gg 200 with **8 of 9 fixtures bound by both names and start but a two-sided
 relay quote for none**, and Pinnacle’s guest API 200 with **no price for any target fixture**.
