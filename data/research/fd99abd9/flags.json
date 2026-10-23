@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fd99abd9-hltv-and-book-access-limitations",
+    "severity": "notice",
+    "match_ids": [
+      "1080202",
+      "1080203",
+      "1080282",
+      "1080284",
+      "1081120"
+    ],
+    "title": "Runner access limitations: HLTV and several esportsbook pages refuse automated requests",
+    "detail": "The 2026-10-23T05:00:19+00:00 sweep for 5 active fixture(s) with no betting line was read-only. HLTV matches/ranking returned None, None with Cloudflare markers; 0 of 16 book/aggregator pages refused or redirected. Pinnacle guest API returned 0 rows with 0 hits for target fixtures; bo3.gg bound 0 of 5 fixtures. These are access/extraction limitations, not proof no market exists; all model-only rows remain labelled as research estimates and are retried on the scheduled refresh. Per-source responses are in the linked JSON.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://gg.bet/en/counter-strike",
+      "https://stake.com/sports/esports/cs2",
+      "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.json"
+    ]
+  },
+  {
+    "id": "fd99abd9-no-new-money-line-lead",
+    "severity": "notice",
+    "match_ids": [
+      "1080202",
+      "1080203",
+      "1080282",
+      "1080284",
+      "1081120"
+    ],
+    "title": "No new two-sided price found for 5 model-only fixture(s) on this sweep",
+    "detail": "On 2026-10-23T05:00:19+00:00 every active fixture carrying only a research-model pick (5) was re-checked: HLTV first (identity/ranking, no price — blocked with 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, OddsPortal, EGamersWorld, Pinnacle, Rivalry, Thunderpick, Bovada and the bo3.gg relay. No two-sided prematch price was found on any reachable surface, so model picks and limitations stand. A later market can still close these rows on the next four-hour refresh.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.md"
+    ]
+  }
+]
