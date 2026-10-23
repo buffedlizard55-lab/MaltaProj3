@@ -2,56 +2,53 @@
 
 
 
-Re-read started **2026-10-23T10:50:03Z** and finished **2026-10-23T10:50:14Z** against the snapshot collected at **2026-10-23T10:43:14Z** (30 active rows).
+Re-read started **2026-10-23T10:55:33Z** and finished **2026-10-23T10:55:36Z** against the snapshot collected at **2026-10-15T08:36:13Z** (17 active rows).
 
 Each row is compared with the original source that row itself cites. Nothing is corrected here: the deltas are published so a reader can see them.
 
 | Verdict | Rows |
 | --- | --- |
-| `confirmed` | 16 |
-| `model_not_a_line` | 8 |
-| `source_reachable` | 6 |
+| `identity_mismatch` | 12 |
+| `model_not_a_line` | 5 |
 
 ## Sources used for this re-read
 
-- Official Hotspawn fixtures API: `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` — 92 records at 2026-10-23T10:50:02Z (HTTP 200). Every row's fixture id, both team names and scheduled start time are compared with this response.
+- Official Hotspawn fixtures API: `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` — 92 records at 2026-10-23T10:55:32Z (HTTP 200). Every row's fixture id, both team names and scheduled start time are compared with this response.
 - Price rows: the row's own published `source_api` (Polymarket Gamma event) or its cited URL. A reachable non-Polymarket surface is reported as reachability only; its price is not re-derived here.
-- Rendered Hotspawn match page (one probe, `https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655`): HTTP 200, title "Nuclear TigeRES Vs ILLYRIANS Counter-Strike 2 Match At CCT Europe 2026 Series #11 - 1079655 - Hotspawn", readable. Identity therefore comes from the fixture API, not from the rendered page.
-- Live inventory delta: 92 official records vs 92 in the audited snapshot; 0 id(s) in the API are not in the snapshot (observed 2026-10-23T10:50:14Z).
+- Rendered Hotspawn match page (one probe, `https://www.hotspawn.com/matches/mibr-vs-bc-game-stake-pulse-beat-iii-1079440`): HTTP 200, title "MIBR Vs BC.Game Counter-Strike 2 Match At Stake Pulse Beat III - 1079440 - Hotspawn", readable. Identity therefore comes from the fixture API, not from the rendered page.
+- Live inventory delta: 92 official records vs 80 in the audited snapshot; 31 id(s) in the API are not in the snapshot (observed 2026-10-23T10:55:37Z).
 
 | # | Match | Method | Pick | Published | Identity (official API) | Re-read from the row's own source | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Nuclear TigeRES vs ILLYRIANS | market | Nuclear TigeRES | 0.850 / 0.150 | confirmed (id, both teams, start 2026-10-23T11:00:00Z) | Nuclear TigeRES 0.845 (-0.005 vs published); ILLYRIANS 0.155 (+0.005 vs published) · `https://gamma-api.polymarket.com/events/1233761` @ 2026-10-23T10:50:03Z | `confirmed` |
-| 2 | Inner Circle Academy vs Spirit Academy | market | Spirit Academy | 0.445 / 0.555 | confirmed (id, both teams, start 2026-10-23T11:00:00Z) | Inner Circle Academy 0.445 (+0.000 vs published); Spirit Academy 0.555 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1232959` @ 2026-10-23T10:50:03Z | `confirmed` |
-| 3 | Phantom Academy vs Banda chuya | model | Banda chuya | 0.475 / 0.525 | confirmed (id, both teams, start 2026-10-23T11:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 4 | JiJieHao vs Eternal Fire | market | Eternal Fire | 0.425 / 0.575 | confirmed (id, both teams, start 2026-10-23T13:00:00Z) | JiJieHao 0.435 (+0.010 vs published); Eternal Fire 0.565 (-0.010 vs published) · `https://gamma-api.polymarket.com/events/1237407` @ 2026-10-23T10:50:03Z | `confirmed` |
-| 5 | Isurus vs Hacha | consensus | Isurus | 0.755 / 0.245 | confirmed (id, both teams, start 2026-10-23T13:00:00Z) | 200 reachability only · https://polymarket.com/event/cs2-isg-hachae-2026-10-23 @ 2026-10-23T10:50:03Z | `source_reachable` |
-| 6 | LPH vs WBT Academy | bookmaker | WBT Academy | 0.378 / 0.622 | confirmed (id, both teams, start 2026-10-23T13:00:00Z) | 200 reachability only · https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026 @ 2026-10-23T10:50:07Z | `source_reachable` |
-| 7 | K27 vs Virtus.pro | market | K27 | 0.560 / 0.440 | confirmed (id, both teams, start 2026-10-23T13:00:00Z) | K27 0.545 (-0.015 vs published); Virtus.pro 0.455 (+0.015 vs published) · `https://gamma-api.polymarket.com/events/1237740` @ 2026-10-23T10:50:08Z | `confirmed` |
-| 8 | BORRACHEIROS vs QUINTESSÊNCIA | market | BORRACHEIROS | 0.642 / 0.358 | confirmed (id, both teams, start 2026-10-23T16:00:00Z) | BORRACHEIROS 0.64 (-0.002 vs published); QUINTESSÊNCIA 0.36 (+0.002 vs published) · `https://gamma-api.polymarket.com/events/1233764` @ 2026-10-23T10:50:08Z | `confirmed` |
-| 9 | BakS vs BRUTE | consensus | BRUTE | 0.495 / 0.505 | confirmed (id, both teams, start 2026-10-23T17:00:00Z) | 200 reachability only · https://polymarket.com/event/cs2-brute-baks-2026-10-23 @ 2026-10-23T10:50:08Z | `source_reachable` |
-| 10 | ex-RUSTEC vs Saint Sinners | market | ex-RUSTEC | 0.660 / 0.340 | confirmed (id, both teams, start 2026-10-23T17:00:00Z) | ex-RUSTEC 0.665 (+0.005 vs published); Saint Sinners 0.335 (-0.005 vs published) · `https://gamma-api.polymarket.com/events/1233765` @ 2026-10-23T10:50:12Z | `confirmed` |
-| 11 | BESTIA vs Galorys | market | BESTIA | 0.565 / 0.435 | confirmed (id, both teams, start 2026-10-23T18:00:00Z) | BESTIA 0.565 (+0.000 vs published); Galorys 0.435 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1237874` @ 2026-10-23T10:50:12Z | `confirmed` |
-| 12 | BESTIA Academy vs RED Canids Academy | market | RED Canids Academy | 0.405 / 0.595 | confirmed (id, both teams, start 2026-10-23T19:00:00Z) | BESTIA Academy 0.405 (+0.000 vs published); RED Canids Academy 0.595 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1233767` @ 2026-10-23T10:50:12Z | `confirmed` |
-| 13 | paiN vs Imperial | market | Imperial | 0.310 / 0.690 | confirmed (id, both teams, start 2026-10-23T21:00:00Z) | paiN 0.33 (+0.020 vs published); Imperial 0.67 (-0.020 vs published) · `https://gamma-api.polymarket.com/events/1237875` @ 2026-10-23T10:50:12Z | `confirmed` |
-| 14 | Alka vs LOS NINOS | bookmaker | Alka | 0.711 / 0.289 | confirmed (id, both teams, start 2026-10-23T22:00:00Z) | 200 reachability only · https://thunderpick.io/api/matches @ 2026-10-23T10:50:12Z | `source_reachable` |
-| 15 | FOKUS vs ex-6666 | market | FOKUS | 0.765 / 0.235 | confirmed (id, both teams, start 2026-10-24T08:00:00Z) | FOKUS 0.76 (-0.005 vs published); ex-6666 0.24 (+0.005 vs published) · `https://gamma-api.polymarket.com/events/1237193` @ 2026-10-23T10:50:13Z | `confirmed` |
-| 16 | Nuclear TigeRES vs FORZE Reload | market | Nuclear TigeRES | 0.620 / 0.380 | confirmed (id, both teams, start 2026-10-24T14:00:00Z) | Nuclear TigeRES 0.61 (-0.010 vs published); FORZE Reload 0.39 (+0.010 vs published) · `https://gamma-api.polymarket.com/events/1237195` @ 2026-10-23T10:50:13Z | `confirmed` |
-| 17 | Acend vs UNiTY | model | Acend | 0.542 / 0.458 | confirmed (id, both teams, start 2026-10-25T09:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 18 | Metizport vs BakS | model | Metizport | 0.799 / 0.201 | confirmed (id, both teams, start 2026-10-25T12:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 19 | Infinite vs BRUTE | market | BRUTE | 0.445 / 0.555 | confirmed (id, both teams, start 2026-10-25T15:00:00Z) | Infinite 0.445 (+0.000 vs published); Brute 0.555 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1238706` @ 2026-10-23T10:50:13Z | `confirmed` |
-| 20 | Color vs ex-Zero Tenacity | model | Color | 0.736 / 0.264 | confirmed (id, both teams, start 2026-10-25T18:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 21 | Ground Zero vs Off Chops | model | Off Chops | 0.449 / 0.551 | confirmed (id, both teams, start 2026-10-26T03:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 22 | NEXVOID vs Alter Ego | bookmaker | NEXVOID | 0.576 / 0.424 | confirmed (id, both teams, start 2026-10-26T03:00:00Z) | 200 reachability only · https://thunderpick.io/api/matches @ 2026-10-23T10:50:13Z | `source_reachable` |
-| 23 | FlyQuest vs Staqued | bookmaker | FlyQuest | 0.923 / 0.077 | confirmed (id, both teams, start 2026-10-27T03:00:00Z) | 200 reachability only · https://thunderpick.io/api/matches @ 2026-10-23T10:50:13Z | `source_reachable` |
-| 24 | Rooster vs Abyssal | model | Abyssal | 0.478 / 0.522 | confirmed (id, both teams, start 2026-10-27T03:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 25 | B8 vs K27 | market | B8 | 0.620 / 0.380 | confirmed (id, both teams, start 2026-10-27T08:00:00Z) | B8 0.625 (+0.005 vs published); K27 0.375 (-0.005 vs published) · `https://gamma-api.polymarket.com/events/1231333` @ 2026-10-23T10:50:14Z | `confirmed` |
-| 26 | Alliance vs FaZe | market | FaZe | 0.340 / 0.660 | confirmed (id, both teams, start 2026-10-27T11:00:00Z) | Alliance 0.345 (+0.005 vs published); FaZe 0.655 (-0.005 vs published) · `https://gamma-api.polymarket.com/events/1231334` @ 2026-10-23T10:50:14Z | `confirmed` |
-| 27 | Luminosity vs HOTU | market | Luminosity | 0.550 / 0.450 | confirmed (id, both teams, start 2026-10-27T17:00:00Z) | Luminosity 0.55 (+0.000 vs published); HOTU 0.45 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1231335` @ 2026-10-23T10:50:14Z | `confirmed` |
-| 28 | Envy vs GamerLegion | market | GamerLegion | 0.465 / 0.535 | confirmed (id, both teams, start 2026-10-27T20:00:00Z) | Envy 0.465 (+0.000 vs published); GamerLegion 0.535 (+0.000 vs published) · `https://gamma-api.polymarket.com/events/1233851` @ 2026-10-23T10:50:14Z | `confirmed` |
-| 29 | HOTU vs The Huns | model | HOTU | 0.941 / 0.059 | confirmed (id, both teams, start 2026-10-31T09:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
-| 30 | 5star vs 1WIN | model | 1WIN | 0.178 / 0.822 | confirmed (id, both teams, start 2026-10-31T13:00:00Z) | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 1 | MIBR vs BC.Game | bookmaker | MIBR | 0.550 / 0.450 | not_in_inventory | 200 reachability only · https://thunderpick.io/api/matches @ 2026-10-23T10:55:33Z | `identity_mismatch` |
+| 2 | Heroic vs Envy | market | Heroic | 0.635 / 0.365 | not_in_inventory | Heroic 1.0 (+0.365 vs published); Envy 0.0 (-0.365 vs published) · `https://gamma-api.polymarket.com/events/1140039` @ 2026-10-23T10:55:33Z | `identity_mismatch` |
+| 3 | ENCE vs BOJONG | market | ENCE | 0.745 / 0.255 | not_in_inventory | ENCE 1.0 (+0.255 vs published); BOJONG 0.0 (-0.255 vs published) · `https://gamma-api.polymarket.com/events/1173312` @ 2026-10-23T10:55:33Z | `identity_mismatch` |
+| 4 | 9z vs Falcons | model | Falcons | 0.157 / 0.843 | not_in_inventory | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 5 | WROTBERRY vs ENCE | bookmaker | WROTBERRY | 0.615 / 0.385 | not_in_inventory | 200 reachability only · https://thunderpick.io/esports/counter-strike @ 2026-10-23T10:55:34Z | `identity_mismatch` |
+| 6 | PARIVISION vs BetBoom | model | BetBoom | 0.262 / 0.738 | not_in_inventory | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 7 | EAC vs BOJONG | model | EAC | 0.961 / 0.039 | not_in_inventory | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 8 | Legacy vs FURIA | market | FURIA | 0.435 / 0.565 | not_in_inventory | Legacy 0.0 (-0.435 vs published); FURIA 1.0 (+0.435 vs published) · `https://gamma-api.polymarket.com/events/1190748` @ 2026-10-23T10:55:34Z | `identity_mismatch` |
+| 9 | WROTBERRY vs BOJONG | bookmaker | WROTBERRY | 0.769 / 0.231 | not_in_inventory | 200 reachability only · https://thunderpick.io/esports/counter-strike @ 2026-10-23T10:55:34Z | `identity_mismatch` |
+| 10 | EAC vs ENCE | model | EAC | 0.514 / 0.486 | not_in_inventory | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 11 | Voca vs Phantom | market | Phantom | 0.445 / 0.555 | not_in_inventory | Voca 0.0 (-0.445 vs published); Phantom 1.0 (+0.445 vs published) · `https://gamma-api.polymarket.com/events/1173317` @ 2026-10-23T10:55:34Z | `identity_mismatch` |
+| 12 | HAVU vs RoundsGG | bookmaker | HAVU | 0.769 / 0.231 | not_in_inventory | 200 reachability only · https://thunderpick.io/esports/counter-strike @ 2026-10-23T10:55:34Z | `identity_mismatch` |
+| 13 | Voca vs HAVU | market | Voca | 0.655 / 0.345 | not_in_inventory | Voca 0.0 (-0.655 vs published); HAVU 1.0 (+0.655 vs published) · `https://gamma-api.polymarket.com/events/1173319` @ 2026-10-23T10:55:35Z | `identity_mismatch` |
+| 14 | Phantom vs RoundsGG | market | Phantom | 0.920 / 0.080 | not_in_inventory | Phantom 1.0 (+0.080 vs published); RoundsGG 0.0 (-0.080 vs published) · `https://gamma-api.polymarket.com/events/1173321` @ 2026-10-23T10:55:35Z | `identity_mismatch` |
+| 15 | mellren vs Privateer | model | mellren | 0.860 / 0.140 | not_in_inventory | research-model estimate: there is no published price to re-read | `model_not_a_line` |
+| 16 | RoundsGG vs Voca | bookmaker | Voca | 0.159 / 0.841 | not_in_inventory | 200 reachability only · https://thunderpick.io/esports/counter-strike @ 2026-10-23T10:55:35Z | `identity_mismatch` |
+| 17 | Phantom vs HAVU | market | Phantom | 0.705 / 0.295 | not_in_inventory | Phantom 1.0 (+0.295 vs published); HAVU 0.0 (-0.295 vs published) · `https://gamma-api.polymarket.com/events/1173323` @ 2026-10-23T10:55:35Z | `identity_mismatch` |
 
 ## Flagged for review
 
-No row conflicts with a re-read of its own source in this window. This is a dated observation, not a guarantee: a research-model row has no price to re-read, and a non-Polymarket money row is confirmed only as reachable.
+- **MIBR vs BC.Game** (`1079440`, `identity_mismatch`) — https://thunderpick.io/api/matches
+- **Heroic vs Envy** (`1079442`, `identity_mismatch`) — https://polymarket.com/event/cs2-hero-envy-2026-10-15
+- **ENCE vs BOJONG** (`1080280`, `identity_mismatch`) — https://polymarket.com/event/cs2-ence-bojong-2026-10-15
+- **WROTBERRY vs ENCE** (`1080281`, `identity_mismatch`) — https://thunderpick.io/esports/counter-strike
+- **Legacy vs FURIA** (`1080204`, `identity_mismatch`) — https://polymarket.com/event/cs2-lgc-furia-2026-10-15
+- **WROTBERRY vs BOJONG** (`1080283`, `identity_mismatch`) — https://thunderpick.io/esports/counter-strike
+- **Voca vs Phantom** (`1080285`, `identity_mismatch`) — https://polymarket.com/event/cs2-voc-pha-2026-10-16
+- **HAVU vs RoundsGG** (`1080286`, `identity_mismatch`) — https://thunderpick.io/esports/counter-strike
+- **Voca vs HAVU** (`1080287`, `identity_mismatch`) — https://polymarket.com/event/cs2-voc-havu-2026-10-16
+- **Phantom vs RoundsGG** (`1080288`, `identity_mismatch`) — https://polymarket.com/event/cs2-pha-rgg-2026-10-16
+- **RoundsGG vs Voca** (`1080289`, `identity_mismatch`) — https://thunderpick.io/esports/counter-strike
+- **Phantom vs HAVU** (`1080290`, `identity_mismatch`) — https://polymarket.com/event/cs2-pha-havu-2026-10-16
