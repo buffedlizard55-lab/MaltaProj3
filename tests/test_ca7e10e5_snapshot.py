@@ -151,3 +151,29 @@ class NoStaleFixtureIsLinkedFromAnyRenderedPage(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ExecutiveSummaryCarriesTheDatedNoLineResearch(unittest.TestCase):
+    """The brief's separate no-line section must be on the executive summary.
+
+    `scripts/eea4c104_audit.py` requires `#no-line-research` on `index.html`, but
+    the block was only rendered on `/unresolved/`. `tests.test_eea4c104_audit`
+    therefore failed on `main` from 2026-10-23T11:31Z, which stopped the
+    four-hour publisher at its regression step (run 39947461194). The block is
+    now rendered in `summary()` as well; this pins it so the publisher cannot go
+    red for the same reason again.
+    """
+
+    def test_summary_renders_the_block_next_to_the_unresolved_register(self):
+        source = Path('scripts/build.py').read_text()
+        summary_start = source.index('def summary(data, prefix, now=None):')
+        summary_body = source[summary_start:source.index('\ndef ', summary_start + 10)]
+        self.assertIn('no_line_research_block(data, prefix)', summary_body)
+        self.assertEqual(summary_body.count('no_line_research_block(data, prefix)'), 1)
+
+    def test_the_built_executive_summary_contains_it_once(self):
+        site = Path('site/index.html')
+        if not site.exists():
+            self.skipTest('run python -m scripts.build first')
+        html = site.read_text()
+        self.assertEqual(html.count('id="no-line-research"'), 1)
