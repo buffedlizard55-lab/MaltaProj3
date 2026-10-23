@@ -1,0 +1,54 @@
+# Session arena-a7128fdd — read-only live manifest probe.
+#
+# Dispatch/push only. Never scheduled, never deploys, never feeds the published
+# dashboard. The sandbox has no egress to Hotspawn; the runner does. The push
+# trigger is scoped to this workflow file only, so the research commit this job
+# makes cannot retrigger it.
+name: a7128fdd live manifest probe (dispatch only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/a7128fdd-maltaproj3']
+    paths:
+      - '.github/workflows/a7128fdd-probe.yml'
+permissions:
+  contents: write
+concurrency:
+  group: a7128fdd-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/a7128fdd-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh inventory and current picks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect || echo "::warning::collect failed; probe continues on the checked-in snapshot"
+          python -m scripts.originate --live || echo "::warning::originate failed; probe continues on the checked-in origination"
+      - name: Write the compact live manifest
+        run: python -m scripts.a7128fdd_manifest
+      - name: Commit the dated manifest to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/a7128fdd
+          git diff --cached --quiet && exit 0
+          git commit -m 'research: a7128fdd live manifest of every active CS2 fixture'
+          git stash push --keep-index --include-untracked -m 'a7128fdd probe scratch' || true
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/a7128fdd-maltaproj3 || true
+            git rebase origin/arena/a7128fdd-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/a7128fdd-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
