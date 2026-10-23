@@ -1,0 +1,74 @@
+# Session arena-ca7e10e5 — published-state verification + line research (never deploys).
+#
+# The coding sandbox can only reach github.com; Hotspawn, HLTV, the bookmakers
+# and the public Pages site are reachable only from a GitHub runner. This
+# workflow therefore does the live work there and commits ONLY dated reports
+# under data/research/ca7e10e5/:
+#
+#   1. collect the live Hotspawn CS2 inventory (scripts.collect);
+#   2. resolve every fixture with the published ladder (scripts.originate --live);
+#   3. read the public site as a visitor would — page stamp, data/latest.json,
+#      rendered counts — and audit every active fixture for pick, both
+#      probabilities and an https source (scripts.ca7e10e5_probe);
+#   4. re-run the reviewed HLTV-first / esportsbook probe for fixtures that only
+#      a research model resolves (scripts.3a5448de_probe, read-only).
+#
+# It never writes a probability, pick or alias, never commits data/, never
+# pushes to main and never deploys. The push guard skips its own report commit.
+name: ca7e10e5 published-state verification (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/ca7e10e5-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: ca7e10e5-probe
+  cancel-in-progress: true
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(ca7e10e5)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn CS2 inventory
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Verify the public site and audit every active fixture
+        run: python -m scripts.ca7e10e5_probe --data data --out data/research/ca7e10e5
+      - name: HLTV-first, then esportsbook research for model-only fixtures (read-only)
+        continue-on-error: true
+        run: python -m scripts.3a5448de_probe --data data --out data/research/ca7e10e5/line-sources --timeout 15
+      - name: Preserve the dated live snapshot this report describes
+        run: |
+          mkdir -p data/research/ca7e10e5/live
+          cp data/latest.json data/research/ca7e10e5/live/latest.json
+          cp data/origination.json data/research/ca7e10e5/live/origination.json
+          cp data/sources.json data/research/ca7e10e5/live/sources.json
+          date -u +%Y-%m-%dT%H:%M:%SZ > data/research/ca7e10e5/live/OBSERVED_AT.txt
+      - name: Restore every tracked data file so only the reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated reports to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/ca7e10e5/
+          if git diff --cached --quiet; then echo 'no report change'; exit 0; fi
+          git commit -m 'research(ca7e10e5): published-state verification + line research (never published)'
+          git pull --rebase origin arena/ca7e10e5-maltaproj3
+          git push origin arena/ca7e10e5-maltaproj3
