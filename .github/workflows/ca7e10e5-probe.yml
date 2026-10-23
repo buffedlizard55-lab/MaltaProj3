@@ -14,12 +14,12 @@
 #      a research model resolves (scripts.3a5448de_probe, read-only).
 #
 # It never writes a probability, pick or alias, never commits data/, never
-# pushes to main and never deploys. The push guard skips its own report commit.
-name: ca7e10e5 published-state verification (never deploys)
+# pushes to main and never deploys. Kept after this session's merge as a manual
+# "verify the live site" action: it is the only way to read the public Pages
+# site from CI, because the coding sandbox has no egress to it.
+name: Verify the published site (never deploys)
 on:
   workflow_dispatch:
-  push:
-    branches: ['arena/ca7e10e5-maltaproj3']
 permissions:
   contents: write
 concurrency:
@@ -27,7 +27,6 @@ concurrency:
   cancel-in-progress: true
 jobs:
   verify:
-    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(ca7e10e5)')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
