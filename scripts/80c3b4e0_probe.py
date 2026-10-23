@@ -69,7 +69,7 @@ def main() -> int:
             saved = json.loads(smarkets_path.read_text())
             binds = saved.get('bindings') or []
             rows = smarkets_lines.rows(Path('data/origination/evidence'))
-            rows_by_id = {str(r.get('hotspawn_id')): r for r in rows}
+            rows_by_id = {str(r.get('fixture_id') or r.get('hotspawn_id')): r for r in rows}
             bound_records = []
             for b in binds:
                 hid = str(b.get('hotspawn_id'))
