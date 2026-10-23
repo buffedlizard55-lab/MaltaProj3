@@ -31,7 +31,11 @@ for (const vp of VIEWPORTS) {
     expect(pctHits.length).toBeGreaterThanOrEqual(2);
 
     await expect(page.locator('#unresolved-register, #unresolved').first()).toBeVisible();
-    await expect(page.locator('#no-line-research')).toBeVisible();
+    // arena-42bfa8ea (PR #218, merged) compacted the summary: the dated sweep
+    // block `#no-line-research` now renders in full on /unresolved/ and the
+    // executive summary carries the compact `#no-line-register` digest.
+    // Assert each block on the page that intentionally renders it.
+    await expect(page.locator('#no-line-register')).toBeVisible();
 
     const homeAxe = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa'])
@@ -45,6 +49,8 @@ for (const vp of VIEWPORTS) {
       innerWidth: window.innerWidth,
     }));
     expect(unresMetrics.scrollWidth).toBeLessThanOrEqual(unresMetrics.innerWidth);
+    // The dated line-source sweep block lives here in full (see note above).
+    await expect(page.locator('#no-line-research')).toBeVisible();
 
     // 3. Flagged for Review (`/review/`): all 5 eea4c104 flags + supersede link + WCAG A/AA
     await page.goto('/review/');
