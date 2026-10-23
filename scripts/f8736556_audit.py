@@ -1121,7 +1121,9 @@ def main(argv: list[str] | None = None) -> int:
         ),
         "publication": {
             "page_snapshot_generated": page_stamp,
-            "observations": [root_obs, latest_obs, complete_obs],
+            "observations": [root_obs, latest_obs, complete_obs]
+            + ([snapshot_obs] if snapshot_obs is not None else []),
+            "inventory_used_for_row_audit": inventory_source_name,
             "cache_diagnostics_not_used_for_pass": diagnostics,
             "checks": checks,
         },
