@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "session": "arena-e7d7a410",
-  "observed_at": "2026-10-23T06:15:55Z",
+  "observed_at": "2026-10-23T06:36:41Z",
   "environment": "github-actions-runner",
   "snapshot": {
-    "latest_generated_at": "2026-10-23T06:14:39Z",
-    "latest_inventory_observed_at": "2026-10-23T06:14:18Z",
-    "origination_generated_at": "2026-10-23T06:14:49Z",
+    "latest_generated_at": "2026-10-23T06:35:32Z",
+    "latest_inventory_observed_at": "2026-10-23T06:35:12Z",
+    "origination_generated_at": "2026-10-23T06:35:45Z",
     "latest_counts": {
       "inventory": 94,
       "upcoming": 32,
@@ -24,8 +24,8 @@
       "resolved": 32,
       "unresolved": 0,
       "with_pick": 32,
-      "consensus": 2,
-      "market": 16,
+      "consensus": 3,
+      "market": 15,
       "bookmaker": 5,
       "reference": 0,
       "model": 9,
@@ -46,9 +46,9 @@
     "money_line_resolved": 23,
     "model_only_no_betting_line": 9,
     "methods": {
-      "market": 16,
+      "market": 15,
+      "consensus": 3,
       "model": 9,
-      "consensus": 2,
       "bookmaker": 5
     },
     "featured_blank_active": 6,
@@ -171,8 +171,8 @@
       "competition": "DFRAG Invitational 2026",
       "method": "model",
       "probabilities": [
-        0.4446775652567238,
-        0.5553224347432761
+        0.44553062597832394,
+        0.5544693740216761
       ],
       "pick": "Off Chops",
       "source_url": "https://bo3.gg/matches",
@@ -259,14 +259,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.54,
-        0.46
+        0.585,
+        0.415
       ],
       "pick": "ex-Zero Tenacity",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-zerote-rustec-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:24Z",
+      "observed_at": "2026-10-23T06:35:17Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-ex-rustec-cct-europe-2026-series-11-1079654",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -285,17 +285,17 @@
       "availability": "open",
       "tier": "b",
       "featured_method": null,
-      "method": "market",
+      "method": "consensus",
       "method_family": "money-line",
       "probabilities": [
-        0.855,
-        0.145
+        0.83875001,
+        0.16124999
       ],
       "pick": "FORZE Reload",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-forzer-skr2-2026-10-23",
-      "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:51Z",
+      "source": "Polymarket + Bovada",
+      "observed_at": "2026-10-23T06:35:48Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -318,14 +318,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.825,
-        0.175
+        0.84,
+        0.16
       ],
       "pick": "Nuclear TigeRES",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:24Z",
+      "observed_at": "2026-10-23T06:35:17Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -354,7 +354,7 @@
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:25Z",
+      "observed_at": "2026-10-23T06:35:18Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -383,7 +383,7 @@
       "pick_index": 1,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
@@ -407,14 +407,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.44,
-        0.56
+        0.445,
+        0.555
       ],
       "pick": "Eternal Fire",
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:25Z",
+      "observed_at": "2026-10-23T06:35:19Z",
       "hotspawn_url": null,
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -436,14 +436,14 @@
       "method": "consensus",
       "method_family": "money-line",
       "probabilities": [
-        0.81048257,
-        0.18951743
+        0.78504945,
+        0.21495055
       ],
       "pick": "Isurus",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
       "source": "Polymarket + Thunderpick + Bovada + Pinnacle",
-      "observed_at": "2026-10-23T06:14:51Z",
+      "observed_at": "2026-10-23T06:35:47Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -473,7 +473,7 @@
       "pick_index": 1,
       "source_url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
       "source": "Thunderpick (relayed by bo3.gg)",
-      "observed_at": "2026-10-23T06:15:10Z",
+      "observed_at": "2026-10-23T06:36:03Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank."
@@ -495,14 +495,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.555,
-        0.445
+        0.55,
+        0.45
       ],
       "pick": "K27",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:26Z",
+      "observed_at": "2026-10-23T06:35:19Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -524,14 +524,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.585,
-        0.415
+        0.625,
+        0.375
       ],
       "pick": "BORRACHEIROS",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:27Z",
+      "observed_at": "2026-10-23T06:35:20Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -553,14 +553,14 @@
       "method": "consensus",
       "method_family": "money-line",
       "probabilities": [
-        0.50761421,
-        0.49238579
+        0.49268422,
+        0.50731578
       ],
-      "pick": "BakS",
-      "pick_index": 0,
+      "pick": "BRUTE",
+      "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-brute-baks-2026-10-23",
       "source": "Polymarket + Kalshi + Thunderpick + Bovada + Pinnacle",
-      "observed_at": "2026-10-23T06:14:51Z",
+      "observed_at": "2026-10-23T06:35:47Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/brute-vs-baks-cct-europe-2026-series-11-1079657",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -590,7 +590,7 @@
       "pick_index": 0,
       "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-12/ex-rustec-saint-sinners-202610231300",
       "source": "Bovada",
-      "observed_at": "2026-10-23T06:14:58Z",
+      "observed_at": "2026-10-23T06:35:56Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank."
@@ -612,14 +612,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.565,
-        0.435
+        0.585,
+        0.415
       ],
       "pick": "BESTIA",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-bst-gls1-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:28Z",
+      "observed_at": "2026-10-23T06:35:21Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -648,7 +648,7 @@
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:28Z",
+      "observed_at": "2026-10-23T06:35:22Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -677,7 +677,7 @@
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:29Z",
+      "observed_at": "2026-10-23T06:35:22Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -706,7 +706,7 @@
       "pick_index": 0,
       "source_url": "https://thunderpick.io/api/matches",
       "source": "Thunderpick",
-      "observed_at": "2026-10-23T06:14:37Z",
+      "observed_at": "2026-10-23T06:35:30Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
       "limitations": [
         "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
@@ -735,7 +735,7 @@
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:30Z",
+      "observed_at": "2026-10-23T06:35:23Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -764,7 +764,7 @@
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:30Z",
+      "observed_at": "2026-10-23T06:35:23Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -793,7 +793,7 @@
       "pick_index": 0,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
@@ -824,7 +824,7 @@
       "pick_index": 0,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
@@ -855,7 +855,7 @@
       "pick_index": 0,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:15:03Z",
+      "observed_at": "2026-10-23T06:36:02Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -885,7 +885,7 @@
       "pick_index": 0,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
@@ -909,14 +909,14 @@
       "method": "model",
       "method_family": "model",
       "probabilities": [
-        0.4446775652567238,
-        0.5553224347432761
+        0.44553062597832394,
+        0.5544693740216761
       ],
       "pick": "Off Chops",
       "pick_index": 1,
       "source_url": "https://bo3.gg/matches",
       "source": "Own network model (bo3.gg results graph)",
-      "observed_at": "2026-10-23T06:14:49Z",
+      "observed_at": "2026-10-23T06:35:45Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -946,7 +946,7 @@
       "pick_index": 0,
       "source_url": "https://thunderpick.io/api/matches",
       "source": "Thunderpick",
-      "observed_at": "2026-10-23T06:14:37Z",
+      "observed_at": "2026-10-23T06:35:30Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
       "limitations": [
         "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
@@ -975,7 +975,7 @@
       "pick_index": 0,
       "source_url": "https://thunderpick.io/api/matches",
       "source": "Thunderpick",
-      "observed_at": "2026-10-23T06:14:37Z",
+      "observed_at": "2026-10-23T06:35:30Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
       "limitations": [
         "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
@@ -1004,7 +1004,7 @@
       "pick_index": 1,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
@@ -1028,14 +1028,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.62,
-        0.38
+        0.625,
+        0.375
       ],
       "pick": "B8",
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:34Z",
+      "observed_at": "2026-10-23T06:35:27Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -1057,14 +1057,14 @@
       "method": "market",
       "method_family": "money-line",
       "probabilities": [
-        0.335,
-        0.665
+        0.34,
+        0.66
       ],
       "pick": "FaZe",
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:35Z",
+      "observed_at": "2026-10-23T06:35:28Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -1093,7 +1093,7 @@
       "pick_index": 0,
       "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:35Z",
+      "observed_at": "2026-10-23T06:35:28Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -1122,7 +1122,7 @@
       "pick_index": 1,
       "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
       "source": "Polymarket",
-      "observed_at": "2026-10-23T06:14:36Z",
+      "observed_at": "2026-10-23T06:35:29Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
       "limitations": [
         "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -1151,7 +1151,7 @@
       "pick_index": 0,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:15:03Z",
+      "observed_at": "2026-10-23T06:36:02Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -1181,7 +1181,7 @@
       "pick_index": 1,
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "source": "Valve official standings",
-      "observed_at": "2026-10-23T06:14:39Z",
+      "observed_at": "2026-10-23T06:35:32Z",
       "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
       "limitations": [
         "Research model, not observed betting odds or a verified true win probability.",
