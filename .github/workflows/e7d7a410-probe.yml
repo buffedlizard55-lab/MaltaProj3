@@ -1,0 +1,99 @@
+name: e7d7a410 live coverage audit
+
+# Session-only, read-only evidence collection for arena-e7d7a410.
+# It publishes nothing: every fresh snapshot is copied under
+# data/research/e7d7a410/ and the tracked pricing data is restored before the
+# commit, so the site's numbers and picks cannot change from this workflow.
+# It triggers on itself only, so a data commit can never start a loop.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [arena/e7d7a410-maltaproj3]
+    paths: ['.github/workflows/e7d7a410-probe.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: e7d7a410-probe
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/e7d7a410-maltaproj3
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Collect the live Hotspawn inventory and originate picks
+        run: |
+          python -m scripts.collect
+          python -m scripts.originate --live
+
+      - name: Keep the fresh snapshot outside the working tree
+        run: |
+          mkdir -p "$RUNNER_TEMP/fresh"
+          cp data/latest.json data/origination.json "$RUNNER_TEMP/fresh/"
+
+      - name: HLTV-first, then esportsbook research for every unpriced fixture
+        continue-on-error: true
+        run: python -m scripts.3a5448de_probe --out data/research/e7d7a410/line-sources --timeout 15
+
+      - name: Restore the tracked pricing data the site publishes
+        run: |
+          git checkout -- data
+          git clean -fdq data/evidence data/origination/evidence || true
+          git status --short
+
+      - name: Save the fresh snapshot as dated evidence
+        run: |
+          cp "$RUNNER_TEMP/fresh/latest.json" data/research/e7d7a410/live/latest.json
+          cp "$RUNNER_TEMP/fresh/origination.json" data/research/e7d7a410/live/origination.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path('data/research/e7d7a410/live/latest.json').read_text())
+          Path('data/research/e7d7a410/live/sources.json').write_text(json.dumps({
+              'observed_at': d.get('inventory_observed_at'),
+              'inventory_definition': d.get('inventory_definition'),
+              'inventory_crosscheck': d.get('inventory_crosscheck'),
+              'coverage_complete': d.get('coverage_complete'),
+              'run_status': d.get('run_status'),
+              'counts': d.get('counts'),
+              'sources': d.get('sources', []),
+              'flags': d.get('flags', []),
+          }, indent=2) + '\n')
+          Path('data/research/e7d7a410/live/OBSERVED_AT.txt').write_text(
+              (d.get('inventory_observed_at') or 'unknown') + '\n')
+          print(d.get('inventory_observed_at'), d.get('counts'))
+          PY
+
+      - name: Audit every active fixture against the complete picks feed
+        run: |
+          python -m scripts.e7d7a410_audit \
+            --latest data/research/e7d7a410/live/latest.json \
+            --origination data/research/e7d7a410/live/origination.json \
+            --out data/research/e7d7a410 --strict
+
+      - name: Commit only the dated evidence
+        run: |
+          git config user.name 'arena-agent'
+          git config user.email '297053741+arena-agent@users.noreply.github.com'
+          git add data/research/e7d7a410
+          if git diff --cached --quiet; then
+            echo 'No new evidence to commit.'
+            exit 0
+          fi
+          git commit -m "e7d7a410: dated live coverage audit ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push origin HEAD:arena/e7d7a410-maltaproj3

@@ -1,185 +1,183 @@
-"""Session arena-e7d7a410 — the live coverage audit must be strict and truthful.
+"""Pin the arena-e7d7a410 coverage audit.
 
-These tests use synthetic snapshots only. They lock the three properties the
-brief depends on: a row is covered only when it carries a pick, two valid
-probabilities and an official https source; an even split is an explicit
-team-0 default rather than a missing pick; and the audit never mutates the
-snapshot it reads.
+The first draft of this audit read the *featured* `analysis` block in
+`data/latest.json` and reported four fixtures as unpicked. That block is only the
+featured exact-name method; the published pick lives in the complete feed
+(`data/origination.json`). These tests keep the join on the complete feed, keep
+fail-closed behaviour, and pin the arithmetic that the published rows rely on.
 """
-from __future__ import annotations
-
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
-from scripts import e7d7a410_audit
+from scripts.e7d7a410_audit import build_report, main, render_markdown
 
 
-def match(match_id, teams, *, method='model', probabilities=(0.7, 0.3), pick=0,
-          availability='open', source='https://example.com/odds'):
-    analysis = None
-    if method is not None:
-        analysis = {
-            'method': method,
-            'label': method,
-            'probabilities': list(probabilities),
-            'observed_at': '2026-10-23T05:00:00Z',
-            'source': 'synthetic',
-            'source_url': source,
-        }
+def match(fixture_id='1', teams=('Alpha', 'Beta'), start='2026-10-23T12:00:00Z', analysis=None):
     return {
-        'id': str(match_id),
-        'teams': [{'id': str(index), 'name': name} for index, name in enumerate(teams)],
-        'competition': 'Synthetic Cup',
-        'starts_at': '2026-10-23T12:00:00Z',
-        'availability': availability,
-        'analysis': analysis,
-        'pick_index': pick,
-        'source_url': f'https://www.hotspawn.com/matches/x-{match_id}',
-        'featured_method': None,
-        'limitations': ['synthetic'],
-    }
-
-
-def original(match_id, teams, *, method='model', pick=0, probabilities=(0.6, 0.4),
-             starts_at='2026-10-23T12:00:00Z', featured_method='market'):
-    analysis = {
-        'method': method,
-        'probabilities': list(probabilities),
-        'source_url': 'https://example.com/odds',
-    }
-    return {
-        'id': str(match_id),
-        'teams': [{'id': str(index), 'name': name} for index, name in enumerate(teams)],
+        'id': fixture_id,
+        'competition': 'Test Cup',
+        'teams': [{'id': str(i), 'name': name} for i, name in enumerate(teams)],
+        'starts_at': start,
+        'locks_at': start,
         'availability': 'open',
-        'starts_at': starts_at,
-        'featured_method': featured_method,
-        'source_url': 'https://www.hotspawn.com/matches/x',
-        'origination': analysis,
-        'pick_index': pick,
+        'analysis': analysis,
     }
 
 
-class AuditTests(unittest.TestCase):
-    def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory()
-        self.data = Path(self.temporary.name)
+def completed(fixture_id='1', teams=('Alpha', 'Beta'), start='2026-10-23T12:00:00Z',
+              probabilities=(0.6, 0.4), pick_index=0, method='market',
+              source_url='https://polymarket.com/event/test'):
+    return {
+        'id': fixture_id,
+        'teams': [{'name': name} for name in teams],
+        'starts_at': start,
+        'pick_index': pick_index,
+        'origination': {
+            'method': method,
+            'family': 'model' if method in {'model', 'network'} else 'money',
+            'label': 'Market-implied estimate',
+            'probabilities': list(probabilities),
+            'source': 'Polymarket',
+            'source_url': source_url,
+            'observed_at': '2026-10-23T05:29:19Z',
+            'limitation': 'No unique exact-name fixture on any external book.',
+        },
+    }
 
-    def tearDown(self):
-        self.temporary.cleanup()
 
-    def write(self, matches, origination):
-        (self.data / 'latest.json').write_text(json.dumps({
-            'schema_version': 1, 'generated_at': '2026-10-23T05:00:00Z',
-            'inventory_observed_at': '2026-10-23T05:00:00Z',
-            'run_status': 'complete', 'coverage_complete': True,
-            'counts': {'inventory': len(matches)}, 'matches': matches,
-        }))
-        (self.data / 'origination.json').write_text(json.dumps({
-            'generated_at': '2026-10-23T05:00:01Z', 'counts': {'active': len(origination)},
-            'matches': origination,
-        }))
+def snapshot(*matches):
+    return {'generated_at': '2026-10-23T05:29:35Z', 'inventory_observed_at': '2026-10-23T05:29:12Z',
+            'inventory_definition': 'All Hotspawn CS2 fixtures', 'inventory_crosscheck': 'complete',
+            'counts': {'inventory': 92}, 'matches': list(matches)}
 
-    def test_every_valid_row_is_covered_and_keeps_its_pick(self):
-        self.write([match(1, ('A', 'B'), method='market', probabilities=(0.62, 0.38), pick=0)],
-                   [original(1, ('A', 'B'), method='market', probabilities=(0.62, 0.38))])
-        report = e7d7a410_audit.build_report(self.data)
+
+def feed(*rows, generated_at='2026-10-23T05:29:49Z'):
+    return {'generated_at': generated_at, 'matches': list(rows)}
+
+
+class AuditRowTests(unittest.TestCase):
+    def test_a_complete_money_line_row_passes(self):
+        report = build_report(snapshot(match()), feed(completed()))
         self.assertEqual(report['summary']['active_fixtures'], 1)
-        self.assertEqual(report['summary']['covered'], 1)
+        self.assertEqual(report['summary']['with_pick'], 1)
+        self.assertEqual(report['summary']['defective_rows'], 0)
         self.assertEqual(report['summary']['money_line_resolved'], 1)
-        self.assertEqual(report['fixtures'][0]['pick'], 'A')
-        self.assertEqual(report['unresolved'], [])
+        self.assertTrue(report['rows'][0]['money_line'])
 
-    def test_an_inverted_pick_is_a_defect(self):
-        self.write([match(1, ('A', 'B'), probabilities=(0.2, 0.8), pick=0)],
-                   [original(1, ('A', 'B'), probabilities=(0.2, 0.8))])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 0)
-        self.assertIn('pick points at the less likely team', report['unresolved'][0]['problems'])
-
-    def test_missing_resolution_and_pick_are_reported_not_filled(self):
-        self.write([match(1, ('A', 'B'), method=None, pick=None)],
-                   [dict(original(1, ('A', 'B')), origination=None, pick_index=None)])
-        report = e7d7a410_audit.build_report(self.data)
+    def test_missing_complete_row_is_a_defect_not_a_blank(self):
+        report = build_report(snapshot(match()), feed())
         self.assertEqual(report['summary']['without_pick'], 1)
-        self.assertEqual(report['fixtures'][0]['probabilities'], None)
-        self.assertEqual(report['unresolved'][0]['hotspawn_id'], '1')
+        self.assertEqual(report['summary']['defective_rows'], 1)
+        self.assertIn('no complete-picks row', report['defects'][0]['defects'][0])
+
+    def test_featured_block_alone_never_counts_as_coverage(self):
+        featured = {'method': 'market', 'probabilities': [0.7, 0.3]}
+        report = build_report(snapshot(match(analysis=featured)), feed())
+        self.assertEqual(report['summary']['with_pick'], 0)
+        self.assertEqual(report['summary']['featured_blank_active'], 0)
+        self.assertEqual(report['summary']['defective_rows'], 1)
 
     def test_probabilities_must_sum_to_one(self):
-        self.write([match(1, ('A', 'B'), probabilities=(0.7, 0.7))],
-                   [original(1, ('A', 'B'), probabilities=(0.7, 0.7))])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 0)
-        self.assertIn('not 1', report['unresolved'][0]['problems'][0])
+        report = build_report(snapshot(match()), feed(completed(probabilities=(0.6, 0.5))))
+        self.assertTrue(any('sum to' in d for d in report['defects'][0]['defects']))
 
-    def test_an_even_line_defaults_to_team_zero_and_still_covers(self):
-        self.write([match(1, ('A', 'B'), probabilities=(0.5, 0.5), pick=0)],
-                   [original(1, ('A', 'B'), probabilities=(0.5, 0.5))])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 1)
-        self.assertEqual(report['fixtures'][0]['pick'], 'A')
+    def test_probabilities_must_stay_inside_the_open_interval(self):
+        report = build_report(snapshot(match()), feed(completed(probabilities=(1.0, 0.0))))
+        self.assertTrue(any('outside (0, 1)' in d for d in report['defects'][0]['defects']))
 
-    def test_model_only_rows_are_listed_as_no_betting_line(self):
-        self.write([match(1, ('A', 'B'), method='model')],
-                   [original(1, ('A', 'B'), method='model')])
-        report = e7d7a410_audit.build_report(self.data)
+    def test_pick_must_point_at_the_favourite(self):
+        report = build_report(snapshot(match()), feed(completed(probabilities=(0.6, 0.4), pick_index=1)))
+        self.assertTrue(any('not the favourite' in d for d in report['defects'][0]['defects']))
+
+    def test_exact_tie_must_still_use_the_published_tie_break(self):
+        report = build_report(snapshot(match()), feed(completed(probabilities=(0.5, 0.5), pick_index=0)))
+        self.assertEqual(report['summary']['defective_rows'], 0)
+
+    def test_source_must_be_https(self):
+        report = build_report(snapshot(match()), feed(completed(source_url='http://example.test/x')))
+        self.assertTrue(any('https' in d for d in report['defects'][0]['defects']))
+
+    def test_team_names_and_start_time_must_match_the_inventory(self):
+        report = build_report(snapshot(match()),
+                              feed(completed(teams=('Alpha', 'Gamma'),
+                                             start='2026-10-23T13:00:00Z')))
+        joined = ' '.join(report['defects'][0]['defects'])
+        self.assertIn('team names differ', joined)
+        self.assertIn('start time differs', joined)
+
+    def test_feed_rows_without_an_active_fixture_are_reported(self):
+        report = build_report(snapshot(match()), feed(completed(), completed(fixture_id='999')))
+        self.assertEqual(report['summary']['orphan_picks_feed_rows'], 1)
+        self.assertEqual(report['orphan_picks_feed_rows'], ['999'])
+
+    def test_model_only_rows_keep_their_limitation_and_are_counted_separately(self):
+        model = completed(method='model', source_url='https://www.hltv.org/ranking/teams')
+        report = build_report(snapshot(match()), feed(model))
         self.assertEqual(report['summary']['model_only_no_betting_line'], 1)
-        self.assertEqual(report['no_betting_line'][0]['hotspawn_id'], '1')
+        self.assertEqual(report['summary']['money_line_resolved'], 0)
+        self.assertEqual(report['model_only_no_line'][0]['limitation'],
+                         'No unique exact-name fixture on any external book.')
 
-    def test_past_fixtures_are_not_counted_as_active(self):
-        self.write([match(1, ('A', 'B'), availability='past')], [])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['active_fixtures'], 0)
+    def test_an_unrecognised_method_is_a_defect(self):
+        report = build_report(snapshot(match()), feed(completed(method='vibes')))
+        self.assertTrue(any('unrecognised method' in d for d in report['defects'][0]['defects']))
 
-    def test_an_orphan_origination_row_is_a_defect(self):
-        self.write([], [original(9, ('A', 'B'))])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['orphan_origination_rows'], 1)
 
-    def test_audit_never_mutates_its_inputs(self):
-        matches = [match(1, ('A', 'B'))]
-        self.write(matches, [dict(original(1, ('A', 'B')), origination=None, pick_index=None)])
-        before = (self.data / 'latest.json').read_bytes(), (self.data / 'origination.json').read_bytes()
-        e7d7a410_audit.build_report(self.data)
-        after = (self.data / 'latest.json').read_bytes(), (self.data / 'origination.json').read_bytes()
-        self.assertEqual(before, after)
+class RenderTests(unittest.TestCase):
+    def test_markdown_states_the_counts_and_names_every_no_line_fixture(self):
+        report = build_report(snapshot(match()), feed(completed(method='model',
+                                                                source_url='https://www.hltv.org/ranking/teams')))
+        text = render_markdown(report)
+        self.assertIn('| Active Hotspawn CS2 fixtures | **1** |', text)
+        self.assertIn('Alpha vs Beta', text)
+        self.assertIn('https://www.hltv.org/ranking/teams', text)
+        self.assertIn('No unique exact-name fixture', text)
 
-    def test_a_researched_fallback_in_the_complete_picks_feed_is_the_published_pick(self):
-        # The featured analysis is blank, but the complete-picks feed resolved
-        # the fixture with a researched fallback. That is a covered row; reading
-        # only the featured block would have reported a false gap.
-        self.write([match(1, ('A', 'B'), method=None, pick=None)],
-                   [original(1, ('A', 'B'), method='bookmaker', pick=1, probabilities=(0.3, 0.7),
-                             featured_method=None)])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 1)
-        self.assertEqual(report['fixtures'][0]['pick'], 'B')
-        self.assertEqual(report['summary']['featured_blank_active'], 1)
-        self.assertEqual(report['summary']['resolved_by_fallback'], 1)
-        self.assertEqual(report['summary']['money_line_resolved'], 1)
+    def test_markdown_says_so_when_every_fixture_has_a_money_line(self):
+        report = build_report(snapshot(match()), feed(completed()))
+        self.assertIn('None: every active fixture had an external two-sided price', render_markdown(report))
 
-    def test_a_fixture_missing_from_the_complete_picks_feed_is_uncovered(self):
-        self.write([match(1, ('A', 'B'))], [])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 0)
-        self.assertIn('active fixture missing from the complete-picks feed',
-                      report['unresolved'][0]['problems'])
 
-    def test_identity_drift_between_the_two_feeds_is_a_defect(self):
-        self.write([match(1, ('A', 'B'))], [dict(original(1, ('A', 'C')), origination=None, pick_index=None)])
-        report = e7d7a410_audit.build_report(self.data)
-        self.assertEqual(report['summary']['covered'], 0)
-        self.assertIn('team names differ between the inventory and the complete-picks feed',
-                      report['unresolved'][0]['problems'])
+class CommandTests(unittest.TestCase):
+    def write(self, directory, latest, origination):
+        latest_path = Path(directory) / 'latest.json'
+        origination_path = Path(directory) / 'origination.json'
+        latest_path.write_text(json.dumps(latest))
+        origination_path.write_text(json.dumps(origination))
+        return latest_path, origination_path
 
-    def test_markdown_lists_every_row_with_its_source(self):
-        self.write([match(1, ('A', 'B'), method='market')],
-                   [original(1, ('A', 'B'), method='market')])
-        text = e7d7a410_audit.markdown(e7d7a410_audit.build_report(self.data))
-        self.assertIn('https://example.com/odds', text)
-        self.assertIn('A vs B', text)
-        self.assertIn('Every active fixture', text)
+    def test_strict_exits_one_on_a_defect_and_zero_when_clean(self):
+        with tempfile.TemporaryDirectory() as directory:
+            latest_path, origination_path = self.write(directory, snapshot(match()), feed())
+            args = ['--latest', str(latest_path), '--origination', str(origination_path),
+                    '--out', directory, '--strict']
+            self.assertEqual(main(args), 1)
+            self.assertTrue((Path(directory) / 'live-coverage-audit.md').exists())
+            self.assertTrue((Path(directory) / 'live-coverage-audit.json').exists())
+            origination_path.write_text(json.dumps(feed(completed())))
+            self.assertEqual(main(args), 0)
+
+    def test_strict_refuses_an_incomplete_or_empty_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            latest_path, origination_path = self.write(directory, snapshot(), feed())
+            args = ['--latest', str(latest_path), '--origination', str(origination_path),
+                    '--out', directory, '--strict']
+            self.assertEqual(main(args), 1)
+            empty = snapshot()
+            empty['coverage_complete'] = False
+            latest_path.write_text(json.dumps(empty))
+            self.assertEqual(main(args), 1)
+
+    def test_checked_in_snapshot_has_no_defective_row(self):
+        root = Path(__file__).resolve().parent.parent
+        latest = json.loads((root / 'data/latest.json').read_text())
+        origination = json.loads((root / 'data/origination.json').read_text())
+        report = build_report(latest, origination)
+        self.assertGreater(report['summary']['active_fixtures'], 0)
+        self.assertEqual(report['summary']['defective_rows'], 0, report['defects'])
+        self.assertEqual(report['summary']['without_pick'], 0)
 
 
 if __name__ == '__main__':

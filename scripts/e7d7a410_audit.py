@@ -1,310 +1,275 @@
-"""Session arena-e7d7a410 — line-by-line coverage audit of one live snapshot.
+"""Read-only coverage audit for session arena-e7d7a410.
 
-The coding sandbox cannot reach Hotspawn, HLTV or any bookmaker; the GitHub
-Actions runner can. This read-only audit runs there, immediately after
-``scripts.collect`` and ``scripts.originate --live``, and answers the brief's
-core question with dated, per-row evidence:
+Why this exists
+---------------
+The brief asks for a pick and a source for *every* Hotspawn CS2 fixture, never a
+filled-in default, and a separate register for whatever cannot be priced. The
+published site already enforces that per row, but nothing compared the complete
+picks feed (`data/origination.json`) with the inventory snapshot that the site
+actually lists. This audit performs that join by Hotspawn fixture id and fails
+closed:
 
-    For every CS2 fixture Hotspawn lists, is there a pick and are there two
-    team win probabilities, and if not, exactly which row is missing what?
+  * a fixture with no complete-feed row is a defect, not a blank;
+  * the row's team names and scheduled start must match the inventory;
+  * probabilities must be two numbers in (0, 1) summing to 1;
+  * `pick_index` must point at the favourite (an exact tie is allowed, and the
+    published tie-break must be the one on the row);
+  * every row needs an https source;
+  * external money lines and model estimates are counted separately, and every
+    model-only row is reprinted with the reason it has no line.
 
-It never writes a probability, a pick, an alias or a price. It only reports
-what the already-published collectors produced, re-checks the arithmetic, and
-records the source of every row so a human can replay it.
-
-Checks (each must pass for a fixture to be counted as covered):
-
-* the fixture is in the live Hotspawn inventory (``data/latest.json``);
-* it is active (``availability`` in open/locked/unknown_lock);
-* both teams are named;
-* a probabilities pair exists, is 2 long, is inside (0, 1) and sums to 1;
-* a ``pick_index`` exists in {0, 1} and points at the larger probability
-  (or at team 0 when the two probabilities are exactly equal — an explicit
-  even-line default, never an invention);
-* the row names an https source URL that is also reachable in the snapshot's
-  own request log, or is the repo's Valve reference file.
-
-Usage: python -m scripts.e7d7a410_audit [--data data] [--out data/research/e7d7a410]
+It never writes to the data the site publishes. `--strict` exits 1 on any defect
+so a workflow can stop before publication.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
-UTC = timezone.utc
-MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference', 'relay', 'network'}
-PROBABILITY_EPSILON = 1e-6
-
-
-def load(path: Path) -> dict:
-    return json.loads(path.read_text())
+MONEY_METHODS = frozenset({'market', 'bookmaker', 'consensus', 'reference'})
+MODEL_METHODS = frozenset({'model', 'network'})
+TOL = 1e-6
 
 
-def cash(value):
-    return value if isinstance(value, (int, float)) else None
+def _iso_now() -> str:
+    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
-def analysis_of(match: dict) -> dict | None:
-    """Return the resolution block the site publishes, whichever schema carries it."""
-    block = match.get('origination')
-    if isinstance(block, dict) and block.get('probabilities'):
-        return block
-    block = match.get('analysis')
-    if isinstance(block, dict) and block.get('probabilities'):
-        return block
-    return None
+def _probabilities(row: dict[str, Any]) -> list[float] | None:
+    values = row.get('probabilities')
+    if not isinstance(values, list) or len(values) != 2:
+        return None
+    out = []
+    for value in values:
+        if not isinstance(value, (int, float)) or isinstance(value, bool):
+            return None
+        out.append(float(value))
+    return out
 
 
-def probabilities_ok(probabilities) -> tuple[bool, str]:
-    if not isinstance(probabilities, list) or len(probabilities) != 2:
-        return False, 'probabilities must be a two-item list'
-    if not all(isinstance(value, (int, float)) for value in probabilities):
-        return False, 'probabilities must be numbers'
-    if any(not 0.0 < value < 1.0 for value in probabilities):
-        return False, 'each probability must be strictly between 0 and 1'
-    total = sum(probabilities)
-    if abs(total - 1.0) > PROBABILITY_EPSILON:
-        return False, f'probabilities sum to {total:.9f}, not 1'
-    return True, ''
+def _pick_from(probabilities: list[float]) -> int:
+    """The published rule: favourite wins, exact tie goes to team 0."""
+    return 0 if probabilities[0] >= probabilities[1] else 1
 
 
-def pick_problem(pick_index, probabilities) -> str:
-    if pick_index not in (0, 1):
-        return 'no directional pick (pick_index is absent or not 0/1)'
-    if probabilities[pick_index] < probabilities[1 - pick_index]:
-        return 'pick points at the less likely team'
-    return ''
+def audit_fixture(match: dict[str, Any], completed: dict[str, Any] | None) -> dict[str, Any]:
+    """Audit one inventory fixture against its complete-feed row.
 
-
-def source_of(match: dict, analysis: dict) -> str:
-    for candidate in (analysis.get('source_url'), match.get('source_url'),
-                      (match.get('research') or [{}])[-1].get('source_url')):
-        if isinstance(candidate, str) and candidate.startswith('https://'):
-            return candidate
-    return ''
-
-
-def audit_fixture(match: dict, completed_row: dict | None) -> dict:
-    """Audit one active fixture against the complete-picks feed it publishes.
-
-    The site's authoritative pick is the *complete-picks* resolution
-    (``data/origination.json`` → ``origination``), not the featured-only
-    ``analysis`` block in ``data/latest.json``; the featured block is the
-    first method and may legitimately be blank while a researched fallback
-    resolved the row. Reading the wrong feed here would report false gaps —
-    exactly the defect this audit exists to catch in the site, so the join is
-    done first and the two feeds are cross-checked for identity drift.
+    `match` is an entry from data/latest.json, `completed` the same id from
+    data/origination.json (or None). Pure function so tests can pin every rule.
     """
-    completed_row = completed_row or {}
-    featured = match.get('analysis') if isinstance(match.get('analysis'), dict) else None
-    resolution = completed_row.get('origination') if isinstance(completed_row.get('origination'), dict) else None
-    if not resolution:
-        resolution = featured
-    probabilities = (resolution or {}).get('probabilities')
-    method = (resolution or {}).get('method')
-    pick_index = completed_row.get('pick_index')
-    problems: list[str] = []
-    if not completed_row:
-        problems.append('active fixture missing from the complete-picks feed')
-    if not resolution:
-        problems.append('no resolution block in the complete-picks feed')
-    if probabilities:
-        ok, probability_problem = probabilities_ok(probabilities)
-    else:
-        ok, probability_problem = False, 'no probabilities'
-    if not ok:
-        problems.append(probability_problem)
-    if ok:
-        pick_issue = pick_problem(pick_index, probabilities)
-        if pick_issue:
-            problems.append(pick_issue)
-    source = source_of(completed_row or match, resolution or {})
-    if not source:
-        problems.append('no official https source link')
-    teams = [team.get('name') for team in match.get('teams') or []]
-    if len(teams) != 2 or not all(teams):
-        problems.append('both teams are not named')
-    completed_teams = [team.get('name') for team in completed_row.get('teams') or []]
-    if completed_row and completed_teams != teams:
-        problems.append('team names differ between the inventory and the complete-picks feed')
-    if completed_row and completed_row.get('starts_at') != match.get('starts_at'):
-        problems.append('start time differs between the inventory and the complete-picks feed')
-    return {
-        'hotspawn_id': str(match.get('id')),
-        'teams': teams,
+    row: dict[str, Any] = {
+        'id': match['id'],
         'competition': match.get('competition'),
+        'teams': [t.get('name') for t in match.get('teams', [])],
         'starts_at': match.get('starts_at'),
+        'locks_at': match.get('locks_at'),
         'availability': match.get('availability'),
-        'tier': match.get('tier'),
-        'featured_method': completed_row.get('featured_method'),
-        'method': method,
-        'method_family': 'money-line' if method in MONEY_METHODS else ('model' if method else None),
-        'probabilities': probabilities,
-        'pick': teams[pick_index] if pick_index in (0, 1) and len(teams) == 2 else None,
-        'pick_index': pick_index if pick_index in (0, 1) else None,
-        'source_url': source,
-        'source': (resolution or {}).get('source'),
-        'observed_at': (resolution or {}).get('observed_at'),
-        'hotspawn_url': match.get('source_url') if str(match.get('source_url', '')).startswith('https://www.hotspawn.com/') else None,
-        'limitations': (resolution or {}).get('limitations') or match.get('limitations') or [],
-        'covered': not problems,
-        'problems': problems,
+        'featured_method': (match.get('analysis') or {}).get('method'),
+        'defects': [],
     }
+    if completed is None:
+        row['defects'].append('no complete-picks row for this fixture')
+        return row
+
+    origination = completed.get('origination') or {}
+    probabilities = _probabilities(origination)
+    row.update(
+        method=origination.get('method'),
+        family=origination.get('family'),
+        label=origination.get('label'),
+        source=origination.get('source'),
+        source_url=origination.get('source_url'),
+        observed_at=origination.get('observed_at'),
+        probabilities=probabilities,
+        pick_index=completed.get('pick_index'),
+        pick=(row['teams'][completed['pick_index']] if completed.get('pick_index') in (0, 1) and len(row['teams']) == 2 else None),
+        money_line=origination.get('method') in MONEY_METHODS,
+    )
+
+    if not origination:
+        row['defects'].append('complete row has no origination block')
+    if probabilities is None:
+        row['defects'].append('probabilities are not two numeric values')
+    else:
+        if not all(0.0 < p < 1.0 for p in probabilities):
+            row['defects'].append('probability outside (0, 1)')
+        if abs(sum(probabilities) - 1.0) > TOL:
+            row['defects'].append(f'probabilities sum to {sum(probabilities):.6f}')
+        expected = _pick_from(probabilities)
+        if completed.get('pick_index') != expected:
+            row['defects'].append(f'pick_index {completed.get("pick_index")} is not the favourite ({expected})')
+    if completed.get('pick_index') not in (0, 1):
+        row['defects'].append('missing pick_index')
+
+    url = str(origination.get('source_url') or '')
+    if not url.startswith('https://'):
+        row['defects'].append('source_url is not https')
+
+    inventory_teams = row['teams']
+    feed_teams = [t.get('name') for t in completed.get('teams', [])]
+    if feed_teams != inventory_teams:
+        row['defects'].append(f'team names differ: inventory {inventory_teams} vs feed {feed_teams}')
+    if str(completed.get('starts_at')) != str(match.get('starts_at')):
+        row['defects'].append(f'start time differs: inventory {match.get("starts_at")} vs feed {completed.get("starts_at")}')
+
+    method = origination.get('method')
+    if method not in MONEY_METHODS and method not in MODEL_METHODS:
+        row['defects'].append(f'unrecognised method {method!r}')
+    if method in MODEL_METHODS:
+        row['no_line_reason'] = origination.get('limitation') or origination.get('detail')
+        row['no_line_research'] = origination.get('research')
+    return row
 
 
-def build_report(data_dir: Path) -> dict:
-    latest = load(data_dir / 'latest.json')
-    origination = load(data_dir / 'origination.json')
-    active = [m for m in latest.get('matches') or []
+def build_report(latest: dict[str, Any], completed: dict[str, Any]) -> dict[str, Any]:
+    active = [m for m in latest.get('matches', [])
               if m.get('availability') in {'open', 'locked', 'unknown_lock'}]
-    completed = {str(m.get('id')): m for m in origination.get('matches') or []}
-    rows = [audit_fixture(match, completed.get(str(match.get('id')))) for match in active]
+    feed = {str(m['id']): m for m in completed.get('matches', [])}
+    rows = [audit_fixture(match, feed.get(str(match['id']))) for match in active]
+    active_ids = {str(m['id']) for m in active}
+    orphans = sorted(set(feed) - active_ids)
 
-    # An origination row with no matching live inventory row is a defect too.
-    latest_ids = {str(m.get('id')) for m in latest.get('matches') or []}
-    orphans = [str(m.get('id')) for m in origination.get('matches') or []
-               if str(m.get('id')) not in latest_ids]
-
-    by_method: dict[str, int] = {}
-    for row in rows:
-        key = row['method'] or 'none'
-        by_method[key] = by_method.get(key, 0) + 1
-
-    money = [row for row in rows if row['method_family'] == 'money-line']
-    model = [row for row in rows if row['method_family'] == 'model']
-    uncovered = [row for row in rows if not row['covered']]
-    blank_pick = [row for row in rows if not row['pick']]
-    no_line = [row for row in rows if row['method_family'] == 'model']
+    defects = [{'id': row['id'], 'teams': row.get('teams'), 'defects': row['defects']}
+               for row in rows if row['defects']]
+    money = [r for r in rows if r.get('money_line')]
+    model = [r for r in rows if r.get('method') in MODEL_METHODS]
 
     return {
         'schema_version': 1,
         'session': 'arena-e7d7a410',
-        'observed_at': datetime.now(UTC).isoformat(timespec='seconds').replace('+00:00', 'Z'),
-        'environment': ('github-actions-runner' if os.environ.get('GITHUB_ACTIONS') == 'true'
-                        else 'local-sandbox-host'),
-        'snapshot': {
-            'latest_generated_at': latest.get('generated_at'),
-            'latest_inventory_observed_at': latest.get('inventory_observed_at'),
-            'origination_generated_at': origination.get('generated_at'),
-            'latest_counts': latest.get('counts'),
-            'origination_counts': origination.get('counts'),
-            'run_status': latest.get('run_status'),
-            'coverage_complete': latest.get('coverage_complete'),
-        },
+        'audited_at': _iso_now(),
+        'inventory_generated_at': latest.get('generated_at'),
+        'picks_feed_generated_at': completed.get('generated_at'),
+        'inventory_observed_at': latest.get('inventory_observed_at'),
+        'inventory_definition': latest.get('inventory_definition'),
+        'inventory_crosscheck': latest.get('inventory_crosscheck'),
+        'inventory_counts': latest.get('counts'),
         'summary': {
-            'active_fixtures': len(rows),
-            'with_pick': len(rows) - len(blank_pick),
-            'without_pick': len(blank_pick),
-            'covered': len(rows) - len(uncovered),
-            'uncovered': len(uncovered),
+            'active_fixtures': len(active),
+            'with_pick': sum(1 for r in rows if r.get('pick') and not r['defects']),
+            'without_pick': sum(1 for r in rows if not r.get('pick')),
+            'defective_rows': len(defects),
             'money_line_resolved': len(money),
             'model_only_no_betting_line': len(model),
-            'methods': by_method,
-            'featured_blank_active': sum(1 for row in rows if not row['featured_method']),
-            'resolved_by_fallback': sum(1 for row in rows
-                                        if not row['featured_method'] and row['method']),
-            'orphan_origination_rows': len(orphans),
+            'featured_blank_active': sum(1 for m in active if not m.get('analysis')),
+            'no_line_share': round(len(model) / len(active), 4) if active else None,
+            'orphan_picks_feed_rows': len(orphans),
         },
-        'unresolved': [
-            {'hotspawn_id': row['hotspawn_id'], 'teams': row['teams'], 'starts_at': row['starts_at'],
-             'competition': row['competition'], 'problems': row['problems'],
-             'method': row['method'], 'source_url': row['source_url']}
-            for row in uncovered
-        ],
-        'no_betting_line': [
-            {'hotspawn_id': row['hotspawn_id'], 'teams': row['teams'], 'starts_at': row['starts_at'],
-             'competition': row['competition'], 'method': row['method'],
-             'probabilities': row['probabilities'], 'pick': row['pick'],
-             'source_url': row['source_url'], 'limitations': row['limitations']}
-            for row in no_line
-        ],
-        'fixtures': rows,
-        'orphans': orphans,
+        'methods': {method: sum(1 for r in rows if r.get('method') == method)
+                    for method in sorted({r.get('method') for r in rows if r.get('method')})},
+        'orphan_picks_feed_rows': orphans,
+        'defects': defects,
+        'no_pick': [{'id': r['id'], 'competition': r.get('competition'), 'teams': r.get('teams'),
+                     'starts_at': r.get('starts_at'), 'defects': r['defects']}
+                    for r in rows if not r.get('pick')],
+        'model_only_no_line': [{'id': r['id'], 'competition': r.get('competition'), 'teams': r.get('teams'),
+                                'starts_at': r.get('starts_at'), 'pick': r.get('pick'),
+                                'probabilities': r.get('probabilities'), 'label': r.get('label'),
+                                'source': r.get('source'), 'source_url': r.get('source_url'),
+                                'limitation': r.get('no_line_reason')}
+                               for r in model],
+        'rows': rows,
     }
 
 
-def markdown(report: dict) -> str:
-    summary = report['summary']
-    snapshot = report['snapshot']
+def render_markdown(report: dict[str, Any]) -> str:
+    s = report['summary']
     lines = [
-        '# arena-e7d7a410 — live coverage audit (read-only)',
+        '# arena-e7d7a410 — live coverage audit',
         '',
-        f"Observed: **{report['observed_at']}** on a GitHub Actions runner.",
-        f"Snapshot: live inventory **{snapshot['latest_generated_at']}**, picks feed "
-        f"**{snapshot['origination_generated_at']}**, run status `{snapshot['run_status']}`.",
+        f"Audited **{report['audited_at']}** against the inventory observed "
+        f"**{report['inventory_observed_at']}** (snapshot {report['inventory_generated_at']}, "
+        f"picks feed {report['picks_feed_generated_at']}).",
         '',
-        '## Summary',
-        '',
-        '| Metric | Count |',
+        '| Check | Result |',
         '| --- | --- |',
-        f"| Active Hotspawn CS2 fixtures | {summary['active_fixtures']} |",
-        f"| With a directional pick | {summary['with_pick']} |",
-        f"| Without a pick | {summary['without_pick']} |",
-        f"| Rows passing every check | {summary['covered']} |",
-        f"| Rows with a defect | {summary['uncovered']} |",
-        f"| Resolved by an external money line | {summary['money_line_resolved']} |",
-        f"| Model-only (no betting line found) | {summary['model_only_no_betting_line']} |",
+        f"| Active Hotspawn CS2 fixtures | **{s['active_fixtures']}** |",
+        f"| With a pick and no defect | **{s['with_pick']}** |",
+        f"| Without a pick | **{s['without_pick']}** |",
+        f"| Defective rows | **{s['defective_rows']}** |",
+        f"| Resolved by an external money line | **{s['money_line_resolved']}** |",
+        f"| Model-only estimate (no betting line) | **{s['model_only_no_betting_line']}** |",
+        f"| Featured exact-name method left blank (resolved by the complete feed) | **{s['featured_blank_active']}** |",
+        f"| Complete-feed rows with no active fixture | **{s['orphan_picks_feed_rows']}** |",
         '',
-        '## Every active fixture, line by line',
+        'Money methods: ' + ', '.join(f'{k} {v}' for k, v in report['methods'].items() if k in MONEY_METHODS)
+        + '. Model methods: ' + ', '.join(f'{k} {v}' for k, v in report['methods'].items() if k in MODEL_METHODS) + '.',
         '',
-        '| # | Match | Start (UTC) | Method | Probabilities | Pick | Source | Covered |',
-        '| --- | --- | --- | --- | --- | --- | --- | --- |',
     ]
-    for index, row in enumerate(report['fixtures'], 1):
-        probabilities = row['probabilities']
-        rendered = ' / '.join(f'{value:.4f}' for value in probabilities) if probabilities else '—'
-        source = f"[source]({row['source_url']})" if row['source_url'] else '—'
-        lines.append(
-            f"| {index} | {row['teams'][0] if row['teams'] else '—'} vs "
-            f"{row['teams'][1] if len(row['teams']) > 1 else '—'} | {row['starts_at'] or '—'} | "
-            f"{row['method'] or '—'} | {rendered} | {row['pick'] or '—'} | {source} | "
-            f"{'yes' if row['covered'] else 'NO — ' + '; '.join(row['problems'])} |")
-    lines += ['', '## Unresolved rows (a pick is missing or invalid)', '']
-    if not report['unresolved']:
-        lines.append('None: every active fixture carries a pick, two valid probabilities and a source link.')
-    for row in report['unresolved']:
-        lines.append(f"- **{row['teams'][0]} vs {row['teams'][1]}** ({row['starts_at']}, "
-                     f"{row['competition']}) — {'; '.join(row['problems'])} — {row['source_url'] or 'no source'}")
-    lines += ['', '## Fixtures with a model pick and no external betting line', '']
-    if not report['no_betting_line']:
-        lines.append('None.')
-    for row in report['no_betting_line']:
-        probabilities = row['probabilities'] or []
-        rendered = ' / '.join(f'{value:.4f}' for value in probabilities)
-        lines.append(f"- **{row['teams'][0]} vs {row['teams'][1]}** ({row['starts_at']}) — "
-                     f"model {rendered} → pick {row['pick']} — {row['source_url']}")
-        for limitation in row['limitations']:
-            lines.append(f"  - limitation: {limitation}")
-    lines += ['', '## Method', '',
-              'Read-only. The audit re-checks arithmetic and source links against the snapshot the '
-              'collectors just wrote; it never creates, shifts or fills a probability or pick. '
-              'Money-line methods are market/bookmaker/consensus/reference/relay/network; '
-              '`model` means no external two-sided prematch line was found and the published '
-              'research model produced the number.', '']
+    if report['defects']:
+        lines += ['## Defects', '']
+        for d in report['defects']:
+            lines.append(f"- `{d['id']}` {d['teams']}: " + '; '.join(d['defects']))
+        lines.append('')
+    else:
+        lines += ['No defective row: every active fixture has two probabilities in (0, 1) summing to 1, '
+                  'a pick at the favourite, an https source, and the same team names and start time as the inventory.', '']
+    lines += ['## Picks without an external betting line', '',
+              'Each row keeps a labelled research estimate, the source actually used and the reason no market was bound. '
+              'It is never presented as a betting price.', '']
+    if report['model_only_no_line']:
+        lines += ['| Fixture | Competition | Start | Pick | Estimate | Source |',
+                  '| --- | --- | --- | --- | --- | --- |']
+        for r in report['model_only_no_line']:
+            teams = ' vs '.join(t or '?' for t in r['teams'])
+            probs = r['probabilities'] or []
+            pick = r['pick'] or '—'
+            estimate = f"{pick} {probs[r['probabilities'].index(max(probs))] * 100:.1f}%" if probs else '—'
+            lines.append(f"| {teams} | {r['competition']} | {r['starts_at']} | {pick} | {estimate} | "
+                         f"[{r['source']}]({r['source_url']}) |")
+        lines.append('')
+        for r in report['model_only_no_line']:
+            lines.append(f"- `{r['id']}` {' vs '.join(t or '?' for t in r['teams'])}: {r['limitation']}")
+        lines.append('')
+    else:
+        lines += ['None: every active fixture had an external two-sided price at this observation.', '']
+    if report['no_pick']:
+        lines += ['## Fixtures with no pick at all', '']
+        for r in report['no_pick']:
+            lines.append(f"- `{r['id']}` {' vs '.join(t or '?' for t in r['teams'])}: " + '; '.join(r['defects']))
+        lines.append('')
+    lines += ['## Inventory basis', '',
+              f"{report['inventory_definition'] or 'Hotspawn public fixture inventory'}. "
+              f"Cross-check: {report['inventory_crosscheck']}.", '']
     return '\n'.join(lines)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--data', type=Path, default=Path('data'))
-    parser.add_argument('--out', type=Path, default=Path('data/research/e7d7a410'))
-    parser.add_argument('--strict', action='store_true',
-                        help='exit 1 when an active fixture lacks a valid pick (CI gate)')
-    args = parser.parse_args()
-    args.out.mkdir(parents=True, exist_ok=True)
-    report = build_report(args.data)
-    (args.out / 'live-coverage-audit.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
-    (args.out / 'live-coverage-audit.md').write_text(markdown(report))
-    summary = report['summary']
-    print(json.dumps(summary, indent=2))
-    if summary['uncovered'] or summary['orphan_origination_rows']:
-        message = (f"{summary['uncovered']} active fixture(s) lack a valid pick; "
-                   f"{summary['orphan_origination_rows']} orphan row(s). See live-coverage-audit.md")
-        print(f"::error title=Coverage audit::{message}")
-        return 1 if args.strict else 0
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument('--latest', default='data/latest.json')
+    parser.add_argument('--origination', default='data/origination.json')
+    parser.add_argument('--out', default='data/research/e7d7a410')
+    parser.add_argument('--strict', action='store_true')
+    args = parser.parse_args(argv)
+
+    latest = json.loads(Path(args.latest).read_text())
+    completed = json.loads(Path(args.origination).read_text())
+    report = build_report(latest, completed)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'live-coverage-audit.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
+    (out / 'live-coverage-audit.md').write_text(render_markdown(report))
+
+    s = report['summary']
+    print(f"active {s['active_fixtures']} | picks {s['with_pick']} | without {s['without_pick']} | "
+          f"defects {s['defective_rows']} | money {s['money_line_resolved']} | model-only {s['model_only_no_betting_line']}")
+    for defect in report['defects']:
+        print(f"DEFECT {defect['id']}: {'; '.join(defect['defects'])}")
+    if not args.strict:
+        return 0
+    if report['defects']:
+        return 1
+    if not latest.get('coverage_complete', True):
+        print('STRICT: the inventory snapshot is marked incomplete')
+        return 1
+    if not report['summary']['active_fixtures']:
+        print('STRICT: no active fixture in the snapshot — zero coverage is not evidence of coverage')
+        return 1
     return 0
 
 
