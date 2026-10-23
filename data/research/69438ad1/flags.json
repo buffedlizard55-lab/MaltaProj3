@@ -66,18 +66,49 @@
     "id": "69438ad1-published-snapshot-stale",
     "severity": "warning",
     "match_ids": [],
-    "title": "Published snapshot is 15.59h old — readers see the explicit stale banner, not current picks",
-    "detail": "Independent read of https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at 2026-10-23T05:41:16Z: generated_at 2026-10-22T14:05:35Z, inventory_observed_at 2026-10-22T13:21:33Z, coverage_complete False, run_status degraded. The site's own bound is 8h, so every page shows the 'Snapshot needs attention' banner. This is a publisher problem, not a data problem: the scheduled refresh runs failed before collection, so no newer snapshot exists to publish. The repair is owned by session arena-19de9c79 (task 19D-2); this session records the reader-visible consequence and re-checks after the next run.",
+    "title": "Published snapshot is 15.75h old — readers see the explicit stale banner, not current picks",
+    "detail": "Independent read of https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at 2026-10-23T05:50:52Z: generated_at 2026-10-22T14:05:35Z, inventory_observed_at 2026-10-22T13:21:33Z, coverage_complete False, run_status degraded. The site's own bound is 8h, so every page shows the 'Snapshot needs attention' banner. This is a publisher problem, not a data problem: the scheduled refresh runs failed before collection, so no newer snapshot exists to publish. The repair is owned by session arena-19de9c79 (task 19D-2); this session records the reader-visible consequence and re-checks after the next run.",
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
     ]
   },
   {
+    "id": "69438ad1-coverage-gap",
+    "severity": "warning",
+    "match_ids": [
+      "1081605",
+      "1081606",
+      "1083014",
+      "1082693",
+      "1079193",
+      "1079195",
+      "1082996",
+      "1079198",
+      "1079199",
+      "1079200"
+    ],
+    "title": "10 live prematch Hotspawn fixture(s) absent from the published active list",
+    "detail": "Fixtures the live scheduled-fixture API lists as still prematch at 2026-10-23T05:50:52Z but that the published complete-picks feed does not carry: 1081605 Phantom Academy vs Banda chuya (CCT Europe 2026 Challengers #8, 2026-10-23T11:00:00Z); 1081606 JiJieHao vs Eternal Fire (DraculaN Season 7, 2026-10-23T13:00:00Z); 1083014 K27 vs Virtus.pro (CIS LAN Championship #9, 2026-10-23T13:00:00Z); 1082693 BESTIA vs Galorys (Circuit X Curitiba #4, 2026-10-23T18:00:00Z); 1079193 FOKUS vs ex-6666 (NODWIN Clutch Series #13, 2026-10-24T08:00:00Z); 1079195 Nuclear TigeRES vs FORZE Reload (NODWIN Clutch Series #13, 2026-10-24T14:00:00Z); 1082996 Acend vs UNiTY (NODWIN Clutch Series #13, 2026-10-25T09:00:00Z); 1079198 Metizport vs BakS (NODWIN Clutch Series #13, 2026-10-25T12:00:00Z); 1079199 Infinite vs BRUTE (NODWIN Clutch Series #13, 2026-10-25T15:00:00Z); 1079200 Color vs ex-Zero Tenacity (NODWIN Clutch Series #13, 2026-10-25T18:00:00Z). New fixtures appear on Hotspawn between four-hour refreshes; until the next successful publish they have no published pick here. Full list in the session dossier.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/published-vs-live.json",
+      "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
+      "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
+      "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
+      "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+      "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198"
+    ]
+  },
+  {
     "id": "69438ad1-row-contract-clean",
     "severity": "notice",
     "match_ids": [],
-    "detail": "Every one of the 37 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:41:16Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
+    "detail": "Every one of the 37 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:50:52Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
     "title": "Independent row audit: 37 active rows, 0 missing pick/probability/source",
     "source_urls": [
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
