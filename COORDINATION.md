@@ -5943,3 +5943,11 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
 
 - Sandbox egress is restricted to github/pypi/npm only — HLTV/books return `SSLError TLS closed` in local sweep; runner has full egress and is queued separately. Flagged, not hidden.
 - `data/latest.json`/`origination.json` still dated 2026-10-15 (80 inventory, 17 upcoming) — stale until next `pages.yml` run; published with `Snapshot needs attention` warning, not as current.
+
+# Current session: arena-4ac63e41 — unblock production refresh verification after time-bound test drift
+Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/4ac63e41-maltaproj3`. Board read first. The requested full-coverage research, resolved-picks list, separate unresolved limitations, phone-first executive summary, source-linked rows, and four-hour scheduled collector are already present in the merged baseline. I will not duplicate the overlapping active work in PR #188 (current-snapshot/full-coverage UI) or PR #189 (bo3 relay test). The production `pages.yml` run on 2026-10-23 failed before collection/deploy because a fixed-time publisher regression fixture aged past its 12-hour guard; this separate failure is not in either PR's file scope.
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A4-1 Make root publisher check test deterministic across dates; verify the specific failure and run the relevant suite; record official run/check evidence | **in progress** | arena-4ac63e41 | `scripts/root_publish.py`, `tests/test_96fbe295.py`, this section of `COORDINATION.md` |
+
+Non-overlap pledge: no edit to `scripts/build.py`, `tests/test_build.py`, `tests/test_15fc6bca_relay.py`, `.github/workflows/pages.yml`, snapshot/data files, or other sessions' files. Do not claim the full publisher/deploy recovered until a current scheduled run passes and the live site is independently re-read.
