@@ -944,6 +944,28 @@ def line_sources_block(data, prefix):
             f'<ul class="line-source-list">{rows}</ul></div>')
 
 
+def load_no_line_research(source):
+    """Newest dated runner observation, not newest directory name or local failure.
+
+    Keep the actual paths with the record so numbers and download links cannot
+    describe different sweeps. A report is historical evidence, never a feed.
+    """
+    candidates = []
+    for path in (source / 'research').glob('*/line-source-research.json'):
+        try:
+            record = json.loads(path.read_text())
+            observed = timestamp(record.get('observed_at'))
+            if (record.get('environment') != 'github-actions-runner' or not observed
+                    or not isinstance(record.get('per_fixture'), list)
+                    or not path.with_suffix('.md').is_file()):
+                continue
+            record['_record_path'] = path.relative_to(source).as_posix()
+            candidates.append((observed, record['_record_path'], record))
+        except (ValueError, TypeError, AttributeError):
+            continue
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
 def no_line_research_block(data, prefix):
     """Dated per-fixture research for matches with no betting line (3016b0c6 + fd99abd9).
 
@@ -958,6 +980,8 @@ def no_line_research_block(data, prefix):
     fixtures = record.get('per_fixture') or []
     if not fixtures:
         return ''
+    record_path = record.get('_record_path', 'research/3016b0c6/line-source-research.json')
+    markdown_path = str(Path(record_path).with_suffix('.md'))
     leads = [f for f in fixtures if f.get('money_line_lead')]
     # A dated sweep is never allowed to override the current complete-picks
     # snapshot. If the four-hour resolver has since consumed the lead, say so
@@ -1003,15 +1027,13 @@ def no_line_research_block(data, prefix):
             '<h3>Fixtures without a betting line — latest dated research</h3>'
             f'<p class="tiny">On {local_time(record.get("observed_at"))} every fixture then carrying only a '
             f'research-model pick (<strong>{len(fixtures)}</strong>) was re-researched in brief order: '
-            'HLTV first (identity/ranking; it publishes no two-sided price and answered the runner with a '
-            'Cloudflare 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, '
-            'OddsPortal, EGamersWorld, the Pinnacle guest board and the bo3.gg bookmaker relay. '
-            f'<strong>{len(leads)}</strong> new money-line lead(s) found; the rest had no two-sided prematch '
-            'price on any reachable surface, so their model picks and limitations stand. '
-            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.md">Full dated record ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.json">JSON ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Prior sweep ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">Prior JSON ↓</a></p>'
+            'HLTV first, then esportsbooks and esports betting-line services. The dated record lists '
+            'each HTTP response and fixture limitation; a blocked page or a team mention is not a price. '
+            f'<strong>{len(leads)}</strong> new money-line lead(s) found. '
+            'This is historical research, not the current pick list: model estimates are not bookmaker odds. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> '
+            f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a></p>'
             + leads_html + '</div>')
 
 
@@ -1512,11 +1534,11 @@ def summary(data, prefix, now=None):
     # D866 — explicit low-tier coverage explainer, required by brief: HLTV first, then esportsbooks, then model, with separate unresolved section.
     out += f'''<section class="content-section" id="low-tier-coverage" aria-label="How low-tier and academy matches get a pick">
       <div class="section-heading"><div><p class="eyebrow">Every match, even low-tier</p><h2>How we cover academy & low-tier fixtures</h2></div>{badge('HLTV → esportsbooks → model', 'purple')}</div>
-      <p class="section-intro">Featured picks use strict exact-name joins against Polymarket and Thunderpick. Low-tier fixtures (CCT Play-In, Elisa BreakOut, DFRAG, VRS academy, Urban Riga, VOID Autumn Cup) often have no market because the exchange never listed them. For those, we research in order, never using Hotspawn % picked:</p>
+      <p class="section-intro">Featured picks use strict exact-name joins against Polymarket and Thunderpick. Low-tier fixtures (CCT Play-In, Elisa BreakOut, DFRAG, VRS academy, Urban Riga, VOID Autumn Cup) may lack a verified market in the sources we can access. Absence of a retrieved line is not proof no market exists. For those, we research in order; community participation never enters our win estimates:</p>
       <ol class="ladder-list">
         <li><strong>HLTV identity</strong> — <a href="https://www.hltv.org/matches" target="_blank" rel="noopener noreferrer">HLTV match directory</a> confirms the fixture exists elsewhere (time/team). HTML saved for replay. No price is taken from HLTV listing.</li>
         <li><strong>Esportsbook lines</strong> — first-party prices from <a href="https://thunderpick.io/esports/counter-strike" target="_blank" rel="noopener noreferrer">Thunderpick</a> (POST api/matches), <a href="https://www.bovada.lv/sports/esports/counter-strike-2" target="_blank" rel="noopener noreferrer">Bovada coupon</a>, <a href="https://www.pinnacle.com/en/esports-hub/cs2" target="_blank" rel="noopener noreferrer">Pinnacle guest board</a> (guest.api.arcadia.pinnacle.com), <a href="https://polymarket.com/esports/cs2" target="_blank" rel="noopener noreferrer">Polymarket</a> (CLOB books), <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener noreferrer">Kalshi exchange</a> (CFTC-regulated), and relayed <a href="https://bo3.gg/matches" target="_blank" rel="noopener noreferrer">bo3.gg</a> bookmaker blocks. Each requires exact team names (or reviewed alias) + 60s start tolerance + prematch two-way winner. Decimal odds de-vigged: pᵢ=(1/oᵢ)/Σ(1/o).</li>
-        <li><strong>Valve official ratings</strong> — <a href="https://github.com/ValveSoftware/counter-strike_regional_standings" target="_blank" rel="noopener noreferrer">Valve regional standings</a> (official repo, blob SHA verified, ≤35 days). Glicko expectation with RD 75: p=1/(1+10**((pts_b-pts_a)/400)). Exactly one complete five-player roster per team.</li>
+        <li><strong>Valve official ratings</strong> — <a href="https://github.com/ValveSoftware/counter-strike_regional_standings" target="_blank" rel="noopener noreferrer">Valve regional standings</a> (official repo, blob SHA verified, ≤35 days). Glicko expectation with fixed RD 75, including its uncertainty adjustment; see the <a href="methodology/">calculation methodology</a>. Each team must resolve to a unique complete five-player rating record.</li>
         <li><strong>Own results models</strong> — <a href="https://bo3.gg/matches" target="_blank" rel="noopener noreferrer">bo3.gg results</a> fitted to Valve anchors: form model (one side unrated) and network model (neither side rated, Bradley-Terry MAP, 120-day window, fail-closed gates).</li>
         <li><strong>HLTV world ranking</strong> — <a href="https://www.hltv.org/ranking/teams" target="_blank" rel="noopener noreferrer">HLTV ranking</a> (e.g., <a href="https://www.hltv.org/ranking/teams/2026/october/12" target="_blank" rel="noopener noreferrer">12 Oct 2026: Spirit 972 pts #1</a>), ≤14 days old, same dated publication for both sides, 400-scale logistic. Unranked side gets floor 0.0 with low-confidence label. Last rung before unresolved.</li>
       </ol>
@@ -1877,21 +1899,8 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = json.loads(line_sources_path.read_text())
         except ValueError:
             data['_line_sources'] = None
-    # Session fd99abd9 (current) then 3016b0c6: per-fixture research for matches with no betting line
-    # (HLTV first, then esportsbooks/aggregators). Dated evidence only; a lead
-    # recorded there is not a price and never becomes a pick in this renderer.
-    # The newest session directory is preferred so the runner's latest sweep is
-    # always what the executive summary publishes.
-    for candidate in ['research/fd99abd9/line-source-research.json', 'research/3016b0c6/line-source-research.json']:
-        no_line_path = source / candidate
-        if no_line_path.exists():
-            try:
-                data['_no_line_research'] = json.loads(no_line_path.read_text())
-                break
-            except ValueError:
-                data['_no_line_research'] = None
-    else:
-        data['_no_line_research'] = data.get('_no_line_research')
+    # A local blocked probe must not replace newer runner-verified observations.
+    data['_no_line_research'] = load_no_line_research(source)
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
