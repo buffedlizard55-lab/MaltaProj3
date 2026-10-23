@@ -135,10 +135,16 @@ class Verdicts(unittest.TestCase):
         self.assertEqual(verifier.verdict(self.row(arithmetic={'sums_to_one': False, 'pick_is_larger': True})),
                          'arithmetic_error')
 
-    def test_a_hotspawn_title_without_both_teams_is_an_identity_mismatch(self):
-        self.assertEqual(verifier.verdict(self.row(identity={'checked': True, 'http_status': 200,
-                                                             'both_present': False})),
+    def test_an_official_api_record_with_other_names_is_an_identity_mismatch(self):
+        self.assertEqual(verifier.verdict(self.row(identity={'checked': True, 'status': 'team_name_mismatch'})),
                          'identity_mismatch')
+
+    def test_a_cloudflare_interstitial_is_never_read_as_an_identity_mismatch(self):
+        """The runner receives `One moment, please...` with HTTP 200."""
+        row = self.row(identity={'checked': True, 'status': 'unverifiable'})
+        self.assertEqual(verifier.verdict(row), 'confirmed')
+        self.assertTrue(verifier.looks_like_challenge('<title>One moment, please...</title>'))
+        self.assertFalse(verifier.looks_like_challenge('<title>Alpha vs Beta</title>'))
 
     def test_a_dead_source_is_unreadable(self):
         self.assertEqual(verifier.verdict(self.row(price={'checked': True, 'http_status': 403})),

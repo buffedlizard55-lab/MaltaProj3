@@ -58,7 +58,13 @@ TIMEOUT = 20
 #: looking. Only a price that now favours the *other* side is a real conflict.
 DRIFT_OK = 0.05
 MONEY_METHODS = {'market', 'bookmaker', 'consensus', 'reference', 'relay', 'network'}
-HEADERS = {'User-Agent': 'SpawnScout-verify/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'}
+HEADERS = {'User-Agent': 'HotspawnCS2Coverage/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)',
+           'Accept': 'application/json,text/html;q=0.9'}
+#: A bot-protection interstitial answers 200 with this kind of text. It is not a
+#: page that names teams, so it can never be read as an identity mismatch.
+CHALLENGE_MARKERS = ('one moment, please', 'just a moment', 'attention required',
+                     'cf-browser-verification', 'challenge-platform', 'verify you are human',
+                     'enable javascript and cookies')
 
 
 def now_iso() -> str:
@@ -81,18 +87,27 @@ def get(url: str, *, as_json: bool = False):
         record = {'url': url, 'observed_at': started, 'finished_at': now_iso(),
                   'http_status': response.status_code, 'final_url': response.url,
                   'bytes': len(body or '')}
+        record['content_type'] = response.headers.get('Content-Type')
         if as_json:
             try:
                 record['json'] = response.json()
             except ValueError:
                 record['json'] = None
                 record['error'] = 'response was not JSON'
+                record['body_prefix'] = (body or '')[:160]
+                record['challenge'] = looks_like_challenge(body)
         else:
             record['text'] = body
+            record['challenge'] = looks_like_challenge(body)
         return record
     except requests.RequestException as exc:
         return {'url': url, 'observed_at': started, 'finished_at': now_iso(),
                 'http_status': None, 'error': f'{type(exc).__name__}: {exc}'}
+
+
+def looks_like_challenge(text: str) -> bool:
+    folded = (text or '').casefold()
+    return any(marker in folded for marker in CHALLENGE_MARKERS)
 
 
 def page_title(html: str) -> str:
@@ -100,19 +115,80 @@ def page_title(html: str) -> str:
     return re.sub(r'\s+', ' ', match.group(1)).strip() if match else ''
 
 
-def identity_check(match: dict, team_names: list[str]) -> dict:
-    """The row's own Hotspawn match page: does it name both teams?"""
-    url = match.get('source_url')
-    if not url:
-        return {'checked': False, 'reason': 'row publishes no Hotspawn match URL'}
+def fetch_inventory(api_url: str) -> dict:
+    """The official Hotspawn scheduled-fixture API, keyed by fixture id."""
+    if not api_url:
+        return {'checked': False, 'reason': 'snapshot publishes no fixture API URL'}
+    page = get(api_url, as_json=True)
+    records = page.get('json')
+    if not isinstance(records, list):
+        return {'checked': False, 'api': api_url, 'observed_at': page.get('observed_at'),
+                'http_status': page.get('http_status'), 'error': page.get('error') or 'not a list',
+                'challenge': page.get('challenge'), 'body_prefix': page.get('body_prefix')}
+    by_id = {}
+    for record in records:
+        if isinstance(record, dict) and record.get('id') is not None:
+            by_id[str(record['id'])] = record
+    return {'checked': True, 'api': api_url, 'observed_at': page.get('observed_at'),
+            'http_status': page.get('http_status'), 'records': len(by_id), 'by_id': by_id}
+
+
+def _epoch_ms_to_iso(value):
+    try:
+        return datetime.fromtimestamp(int(value) / 1000, UTC).strftime('%Y-%m-%dT%H:%M:%SZ')
+    except (TypeError, ValueError, OSError):
+        return None
+
+
+def identity_check(match: dict, team_names: list[str], inventory: dict) -> dict:
+    """Identity from the official Hotspawn fixture API, not a rendered page.
+
+    The rendered match page answers a runner with a Cloudflare interstitial
+    ("One moment, please...", HTTP 200), which names no team at all — so a page
+    probe is recorded as *unverifiable*, never as a mismatch. The fixture API is
+    the same first-party source the collector uses and carries the team names
+    and the scheduled start time.
+    """
+    fixture_id = str(match.get('id')) if match.get('id') is not None else None
+    published_start = match.get('starts_at')
+    out = {'source': 'official Hotspawn fixtures API', 'fixture_id': fixture_id,
+           'published_start': published_start,
+           'api_observed_at': inventory.get('observed_at'), 'api_url': inventory.get('api')}
+    if not inventory.get('checked'):
+        out.update({'checked': False, 'status': 'unverifiable',
+                    'reason': inventory.get('reason') or inventory.get('error') or 'inventory unavailable'})
+        return out
+    record = (inventory.get('by_id') or {}).get(fixture_id or '')
+    if not record:
+        out.update({'checked': True, 'status': 'not_in_inventory',
+                    'reason': 'fixture id is not in the official scheduled-fixture API response'})
+        return out
+    api_names = [record.get('participants0_name'), record.get('participants1_name')]
+    folded_api = [fold(name) for name in api_names if name]
+    teams = []
+    for name in team_names:
+        key = fold(name)
+        teams.append({'team': name, 'present': any(key and (key in other or other in key) for other in folded_api)})
+    api_start = _epoch_ms_to_iso(record.get('scheduled_start_time'))
+    out.update({'checked': True, 'api_teams': api_names, 'api_start': api_start,
+                'teams': teams, 'competition': record.get('competition_name'),
+                'start_matches': bool(api_start and published_start and api_start == published_start),
+                'both_present': all(team['present'] for team in teams)})
+    if not out['both_present']:
+        out['status'] = 'team_name_mismatch'
+    elif not out['start_matches']:
+        out['status'] = 'start_time_mismatch'
+    else:
+        out['status'] = 'confirmed'
+    return out
+
+
+def page_probe(url: str) -> dict:
+    """One documented page probe: can a runner read a Hotspawn match page?"""
     page = get(url)
-    title = page_title(page.get('text') or '')
-    folded = fold(title)
-    names = [{'team': name, 'present_in_title': fold(name) in folded} for name in team_names]
-    return {'checked': True, 'url': url, 'observed_at': page['observed_at'],
-            'http_status': page.get('http_status'), 'title': title,
-            'teams': names, 'both_present': all(n['present_in_title'] for n in names),
-            'error': page.get('error')}
+    return {'url': url, 'observed_at': page.get('observed_at'), 'http_status': page.get('http_status'),
+            'title': page_title(page.get('text') or ''), 'challenge': page.get('challenge'),
+            'readable': bool(page.get('http_status') == 200 and not page.get('challenge'))}
 
 
 def _series_market(event: dict, team_names: list[str]) -> dict | None:
@@ -257,89 +333,39 @@ def arithmetic(match: dict, analysis: dict) -> dict:
 
 
 def verdict(row: dict) -> str:
+    """One word for what the re-read found. Order matters.
+
+    A price that is present and agrees is the strongest evidence, so it is read
+    first; an unreadable rendered page never overrides it. Identity is only a
+    *conflict* when the official API returned a record whose team names or start
+    time do not match the published row.
+    """
     if row['method'] not in MONEY_METHODS:
         return 'model_not_a_line'
     if not row['arithmetic']['sums_to_one'] or not row['arithmetic']['pick_is_larger']:
         return 'arithmetic_error'
-    identity = row['identity']
-    if identity.get('checked') and identity.get('http_status') == 200 and not identity.get('both_present'):
+    identity = row.get('identity') or {}
+    if identity.get('status') in {'team_name_mismatch', 'start_time_mismatch', 'not_in_inventory'}:
+        # The official fixture record itself contradicts the row: no price can
+        # repair a row that is about a different match.
         return 'identity_mismatch'
     price = row['price']
-    if not price.get('checked'):
-        return 'source_unreadable'
-    if price.get('http_status') != 200:
-        return 'source_unreadable'
-    if 'comparisons' in price:
+    readable = bool(price.get('checked')) and price.get('http_status') == 200
+    if readable and 'comparisons' in price:
         if price.get('pick_still_favoured') is False:
             return 'pick_disagrees'
-        if price.get('price_survives'):
-            return 'confirmed'
-        return 'price_moved'
-    # A reachable non-Polymarket surface: the row's quote record is the price
-    # evidence, so this is a provenance confirmation, not a price re-read.
-    return 'source_reachable'
-
-
-BASE = 'https://buffedlizard55-lab.github.io/MaltaProj3/'
-
-
-def fetch_published(out_dir: Path, base: str = BASE) -> Path:
-    """Download exactly what the public site serves, and audit that copy.
-
-    Auditing the deployment (not a fresh local collect) is the point: the brief
-    asks whether the rows a reader can open are backed by the sources they name.
-    """
-    target = out_dir / 'published-snapshot'
-    target.mkdir(parents=True, exist_ok=True)
-    for name in ('latest.json', 'origination.json'):
-        page = get(base + 'data/' + name, as_json=True)
-        if page.get('http_status') != 200 or not isinstance(page.get('json'), (dict, list)):
-            raise SystemExit(f'published {name} unreadable: {page.get("http_status")} {page.get("error")}')
-        (target / name).write_text(json.dumps(page['json'], ensure_ascii=False, indent=2) + '\n')
-    return target
-
-
-def inventory_delta(data_dir: Path) -> dict:
-    """Compare the audited snapshot's active ids with the live Hotspawn API.
-
-    A live id the snapshot does not contain is a coverage gap at this
-    observation time; it is recorded, never turned into a pick here.
-    """
-    latest = json.loads((data_dir / 'latest.json').read_text())
-    api = next((m.get('source_api') for m in latest.get('matches') or [] if m.get('source_api')), None)
-    if not api:
-        return {'checked': False, 'reason': 'snapshot publishes no fixture API URL'}
-    page = get(api, as_json=True)
-    official = page.get('json')
-    if not isinstance(official, list) or not official:
-        return {'checked': False, 'api': api, 'observed_at': page['observed_at'],
-                'http_status': page.get('http_status'), 'error': page.get('error')}
-    snapshot_ids = [str(m['id']) for m in latest.get('matches') or []]
-    official_ids = [str(m.get('id')) for m in official if isinstance(m, dict) and m.get('id')]
-    active = [m for m in official if isinstance(m, dict)
-              and str(m.get('id')) in {str(x['id']) for x in latest.get('matches') or []
-                                       if x.get('availability') != 'past'}]
-    missing = [m for m in official if isinstance(m, dict) and str(m.get('id')) not in set(snapshot_ids)]
-    return {
-        'checked': True, 'api': api, 'observed_at': page['observed_at'],
-        'http_status': page.get('http_status'),
-        'official_records': len(official_ids),
-        'snapshot_records': len(snapshot_ids),
-        'active_in_audited_snapshot': len(active),
-        'not_in_snapshot': [
-            {'id': str(m.get('id')), 'teams': [m.get('participants0_name'), m.get('participants1_name')],
-             'competition': m.get('competition_name'),
-             'starts_at': m.get('scheduled_start_time')}
-            for m in missing],
-        'note': 'Raw official inventory is an observation later than the published snapshot. A difference '
-                'is a dated coverage finding, not proof that a row was missed at collection time.',
-    }
+        return 'confirmed' if price.get('price_survives') else 'price_moved'
+    if readable:
+        return 'source_reachable'
+    return 'source_unreadable'
 
 
 def verify(data_dir: Path, out_dir: Path) -> dict:
     latest = json.loads((data_dir / 'latest.json').read_text())
     complete = json.loads((data_dir / 'origination.json').read_text())
     published = {str(m['id']): m for m in latest.get('matches') or []}
+    api_url = next((m.get('source_api') for m in latest.get('matches') or [] if m.get('source_api')), None)
+    inventory = fetch_inventory(api_url)
     started = now_iso()
     rows = []
     for match in complete.get('matches') or []:
@@ -364,8 +390,7 @@ def verify(data_dir: Path, out_dir: Path) -> dict:
             'in_inventory_snapshot': str(match.get('id')) in published,
         }
         row['arithmetic'] = arithmetic(match, analysis)
-        row['identity'] = identity_check(match, team_names) if match.get('source_url') else {
-            'checked': False, 'reason': 'row publishes no Hotspawn match URL'}
+        row['identity'] = identity_check(match, team_names, inventory)
         if not is_market_row:
             row['price'] = {'checked': False, 'reason':
                             'research-model estimate: there is no published price to re-read'}
@@ -397,6 +422,8 @@ def verify(data_dir: Path, out_dir: Path) -> dict:
                                'drift as a move. Only a price that now favours the other side is a conflict.'},
         'totals': summary,
         'rows': rows,
+        'hotspawn_inventory': {key: value for key, value in inventory.items() if key != 'by_id'},
+        'page_probe': page_probe(rows[0]['hotspawn_url']) if rows and rows[0].get('hotspawn_url') else {},
         'live_inventory': inventory_delta(data_dir),
     }
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -424,20 +451,47 @@ def markdown(report: dict) -> str:
     ]
     for verdict_name, count in sorted(report['totals'].items()):
         lines.append(f'| `{verdict_name}` | {count} |')
-    lines += ['', '| # | Match | Method | Pick | Published | Re-read from the row\'s own source | Verdict |',
-              '| --- | --- | --- | --- | --- | --- | --- |']
+    inventory = report.get('hotspawn_inventory') or {}
+    lines += ['', '## Sources used for this re-read', '',
+              f"- Official Hotspawn fixtures API: `{inventory.get('api')}` — "
+              f"{inventory.get('records', '—')} records at {inventory.get('observed_at')} "
+              f"(HTTP {inventory.get('http_status')}). Every row's fixture id, both team names and "
+              'scheduled start time are compared with this response.',
+              '- Price rows: the row\'s own published `source_api` (Polymarket Gamma event) or its cited URL. '
+              'A reachable non-Polymarket surface is reported as reachability only; its price is not re-derived here.']
+    probe = report.get('page_probe') or {}
+    if probe:
+        readable = 'readable' if probe.get('readable') else 'not readable'
+        lines.append(f"- Rendered Hotspawn match page (one probe, `{probe.get('url')}`): HTTP "
+                     f"{probe.get('http_status')}, title \"{probe.get('title')}\", {readable}"
+                     f"{' (bot-protection interstitial)' if probe.get('challenge') else ''}. "
+                     'Identity therefore comes from the fixture API, not from the rendered page.')
+    live = report.get('live_inventory') or {}
+    if live.get('checked'):
+        lines.append(f"- Live inventory delta: {live.get('official_records')} official records vs "
+                     f"{live.get('snapshot_records')} in the audited snapshot; "
+                     f"{len(live.get('not_in_snapshot') or [])} id(s) in the API are not in the snapshot "
+                     f"(observed {live.get('observed_at')}).")
+    else:
+        lines.append(f"- Live inventory delta: not checked — {live.get('error') or live.get('reason')}.")
+    lines += ['', '| # | Match | Method | Pick | Published | Identity (official API) | Re-read from the row\'s own source | Verdict |',
+              '| --- | --- | --- | --- | --- | --- | --- | --- |']
     for index, row in enumerate(report['rows'], 1):
         probs = row.get('published_probabilities') or []
         pick = row.get('published_pick_index')
         pick_team = row['teams'][pick] if pick in (0, 1) and len(row['teams']) == 2 else '—'
         published = ' / '.join(f'{float(p):.3f}' for p in probs) if len(probs) == 2 else '—'
+        identity = row.get('identity') or {}
+        identity_text = identity.get('status') or ('not checked' if not identity.get('checked') else '—')
+        if identity.get('status') == 'confirmed':
+            identity_text = f"confirmed (id, both teams, start {identity.get('api_start')})"
         price = row.get('price') or {}
         if 'comparisons' in price:
             detail = '; '.join(
                 f"{c['outcome']} {c.get('price')} ({c.get('delta'):+.3f} vs published)"
                 if c.get('delta') is not None else f"{c['outcome']} {c.get('price')} (unmatched)"
                 for c in price['comparisons'])
-            detail += f" · Polymarket `{price.get('api')}` @ {price.get('observed_at')}"
+            detail += f" · `{price.get('api')}` @ {price.get('observed_at')}"
         elif price.get('checked'):
             status = price.get('http_status') if price.get('http_status') is not None else 'no response'
             detail = f"{status} reachability only · {price.get('api') or price.get('url')} @ {price.get('observed_at')}"
@@ -446,7 +500,7 @@ def markdown(report: dict) -> str:
         else:
             detail = price.get('reason') or 'not checked'
         lines.append(f"| {index} | {row['teams'][0]} vs {row['teams'][1]} | {row['method'] or '—'} | "
-                     f"{pick_team} | {published} | {detail} | `{row['verdict']}` |")
+                     f"{pick_team} | {published} | {identity_text} | {detail} | `{row['verdict']}` |")
     conflicts = [r for r in report['rows'] if r['verdict'] in BAD]
     lines += ['', '## Flagged for review', '']
     if conflicts:
