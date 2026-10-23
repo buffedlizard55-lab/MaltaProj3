@@ -385,10 +385,19 @@ def probe_pinnacle(fixture: dict, observed_at: str) -> dict:
     except Exception as exc:  # noqa: BLE001
         result['error'] = f'{type(exc).__name__}: {exc}'[:120]
         return result
-    result['http_status'] = 200 if found else 200
-    if found:
+    # pinnacle_lines.quote returns [quote_or_None, error_or_None] — an error
+    # list is truthy, so unpack it instead of testing the container.
+    if isinstance(found, (list, tuple)):
+        matchup = found[0] if found else None
+        err = found[1] if len(found) > 1 else None
+    else:
+        matchup, err = found, None
+    result['http_status'] = 200 if matchup else None
+    if matchup:
         result['bound'] = True
-        result['matchup'] = found
+        result['matchup'] = matchup
+    else:
+        result['error'] = str(err or 'no bound matchup on the guest board')[:120]
     return result
 
 
