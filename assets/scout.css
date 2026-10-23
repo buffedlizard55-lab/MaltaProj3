@@ -606,3 +606,71 @@
 @media(max-width:700px){
   .glance-line{font-size:10px;line-height:1.65}
 }
+
+/* Session arena-a7128fdd — the "What HLTV and the esportsbooks actually
+   published" register on /unresolved/. It reuses .line-sources and
+   .line-source-row so it inherits the existing card, chip and link styles, and
+   adds only the three elements that did not exist before: the verbatim quoted
+   excerpt, the per-row "why this is not a pick input" explanation, and the
+   in-scope fixture list.
+
+   Phone-first on purpose. The quoted excerpt is the evidence a reviewer has to
+   be able to read without zooming, so it gets a left rule, a slightly larger
+   line-height than the surrounding .tiny copy, and horizontal wrapping rather
+   than overflow scrolling (a nested scroll region inside a page scroll is a
+   trap on touch). The scope list is a single column at every width because each
+   row carries three facts (matchup, competition, start, published method) that
+   cannot be halved. Long unbroken tokens — slugs, hashes, URLs — are allowed to
+   break so nothing can force the page wider than the viewport at 320 px. */
+#direct-observations .direct-quote{
+  margin:6px 0 0;
+  padding:6px 0 6px 9px;
+  border-left:2px solid rgba(255,255,255,.16);
+  font-size:11.5px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+#direct-observations .direct-why{
+  margin:5px 0 0;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+#direct-observations .direct-scope{
+  list-style:none;
+  margin:4px 0 10px;
+  padding:0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:4px;
+}
+#direct-observations .direct-scope li{
+  padding:6px 8px;
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  line-height:1.4;
+  overflow-wrap:anywhere;
+}
+#direct-observations .line-source-row{overflow-wrap:anywhere}
+@media(max-width:700px){
+  #direct-observations{padding:12px}
+  #direct-observations h3{font-size:15px;line-height:1.3}
+  #direct-observations .direct-quote{font-size:11px}
+  #direct-observations .line-source-row{gap:5px}
+  #direct-observations .tried-chip{white-space:normal}
+}
+
+/* Session arena-a7128fdd — compact form of the same register, for the phone-first
+   executive summary. The summary's compact branch deliberately keeps prose off
+   the screen above the picks, so this variant shows the headline counts and the
+   in-scope fixtures only and links to the full register on /unresolved/. It must
+   not become the tall card the full page uses. */
+.direct-sources-compact{margin-top:10px}
+.direct-sources-compact h3{font-size:14px;margin-bottom:4px}
+.direct-sources-compact .direct-scope{margin:6px 0 4px;gap:3px}
+.direct-sources-compact .direct-scope li{padding:5px 7px;font-size:11.5px}
+@media(max-width:700px){
+  .direct-sources-compact{padding:10px 12px}
+  .direct-sources-compact h3{font-size:13.5px}
+  .direct-sources-compact .direct-scope li{font-size:11px;padding:5px 7px}
+}
