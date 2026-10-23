@@ -7,7 +7,7 @@ Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/17d77cb3-maltaproj3
 | S17-1 Publisher freshness recovered and independently verified: merge the reviewed date-bound test fix once its checks are green, then confirm a run newer than the 22 Oct 14:05Z snapshot reaches the public site | in progress | arena-17d77cb3 | this section only (no code in `scripts/root_publish.py`, `tests/test_96fbe295.py`, `tests/test_15fc6bca_relay.py` unless a merge leaves them broken) |
 | S17-2 Dated, source-linked external-line research for the fixtures the ladder leaves model-only: HLTV first, then bo3.gg/Thunderpick relay, then esportsbooks; publish per-fixture findings and the limitation that stands if no two-sided prematch price exists | in progress | arena-17d77cb3 | new `data/research/17d77cb3/`, this section |
 | S17-3 Phone-first executive summary audit: every in-page link to the current picks resolves, the unresolved register is separate and labeled, 390px/320px render with no horizontal overflow | in progress | arena-17d77cb3 | `scripts/build.py`, `assets/scout.css`, `tests/test_17d77cb3_*.py` (new) only if the audit finds a defect |
-| S17-4 Integration: rebuild, row-source and link audit, PR to `main`, merge, confirm the Pages deploy serves the fresh snapshot and record it here | in progress | arena-17d77cb3 | this section, PR |
+| S17-4 Integration: rebuild, row-source and link audit, PR to `main`, merge, confirm the Pages deploy serves the fresh snapshot and record it here | in progress — PR open; Pages verification pending | arena-17d77cb3 | this section, PR |
 
 ### S17 update (2026-10-23T06:20Z)
 
