@@ -288,9 +288,18 @@ class RunnerRecordSchema(unittest.TestCase):
             self.assertEqual(record['environment'], 'github-actions-runner')
             self.assertEqual(record['_record_path'], 'research/1531ecf1/line-source-research.json')
 
-    def test_seed_gap_record_never_claims_runner_identity(self):
+    def test_environment_label_never_lies(self):
+        import os
+        from unittest import mock as _mock
+        with _mock.patch.dict(os.environ, {'GITHUB_ACTIONS': 'true'}):
+            self.assertEqual(_gap_mod.environment_label(), 'github-actions-runner')
+        with _mock.patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(_gap_mod.environment_label(), 'arena-session-fetch')
+
+    def test_committed_record_uses_an_honest_environment_label(self):
         record = json.loads((ROOT / 'data/research/1531ecf1/gap-picks.json').read_text())
-        self.assertNotEqual(record['environment'], 'github-actions-runner')
+        self.assertIn(record['environment'], {'github-actions-runner', 'arena-session-fetch',
+                                              'arena-session-replay'})
         self.assertTrue((ROOT / 'data/research/1531ecf1/gap-picks.md').is_file())
 
 

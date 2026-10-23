@@ -118,6 +118,11 @@ def now() -> datetime:
     return datetime.now(UTC)
 
 
+def environment_label() -> str:
+    """Only an actual GitHub Actions run may claim 'github-actions-runner'."""
+    return 'github-actions-runner' if os.environ.get('GITHUB_ACTIONS') == 'true' else 'arena-session-fetch'
+
+
 def iso(value: datetime) -> str:
     return value.astimezone(UTC).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
@@ -182,9 +187,8 @@ def hotspawn_inventory(observed_at: str) -> dict:
             'started': row.get('start_time') is not None,
             'finished': row.get('end_time') is not None,
             'score': [row.get('participants0_score'), row.get('participants1_score')],
-            'hotspawn_url': (f'https://www.hotspawn.com/matches/'
-                             f'{slug(row.get("participants0_name"))}-vs-{slug(row.get("participants1_name"))}'
-                             f'-{row.get("id")}'),
+            'hotspawn_url': (f'https://play.hotspawn.com/cs2-pickems#fixture-{row.get("id")}'
+                             if row.get('id') is not None else None),
             'source_api': HOTSPAWN_API,
         })
     return {'status': status, 'error': error, 'evidence': evidence,
@@ -664,8 +668,11 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
         if method in {'market', 'bookmaker', 'consensus', 'reference', 'guidance'}:
             continue
         match = published['rows'].get(ident)
-        if not match or match.get('availability') == 'past':
+        if not match:
             continue
+        start = ts(match.get('starts_at'))
+        if match.get('availability') == 'past' or (start and start < now_dt):
+            continue  # no remaining pick window: never re-researched, never re-priced
         fixture = {
             'id': ident,
             'teams': [t.get('name') or '' for t in match.get('teams') or []],
@@ -866,8 +873,7 @@ def main() -> int:
         environment = 'arena-session-replay'
     else:
         inventory = hotspawn_inventory(observed)
-        environment = ('github-actions-runner'
-                       if os.environ.get('GITHUB_ACTIONS') == 'true' else 'arena-session-fetch')
+        environment = environment_label()
 
     published = published_state()
     from scripts.originate import load_registry, valve_rows
