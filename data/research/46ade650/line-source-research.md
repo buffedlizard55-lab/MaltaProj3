@@ -1,6 +1,6 @@
 # Line-source research for fixtures without a betting line — arena-46ade650
 
-Observed 2026-10-23T05:18:21Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T05:17:16Z (freshly collected in this run).
+Observed 2026-10-23T06:19:37Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T06:18:46Z (freshly collected in this run).
 
 HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
@@ -33,7 +33,7 @@ HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
 ## Smarkets exchange board
 
-Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23T05:17:28Z) — 11 fixture(s) bound, 8 with a two-sided quote.
+Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23T06:18:56Z) — 12 fixture(s) bound, 9 with a two-sided quote.
 - `1079654` ex-Zero Tenacity vs ex-RUSTEC — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/08-00/ex-zero-tenacity-vs-ex-rustec
 - `1079655` Nuclear TigeRES vs ILLYRIANS — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians
 - `1081148` Inner Circle Academy vs Spirit Academy — https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy
@@ -43,9 +43,10 @@ Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23
 - `1081150` ex-RUSTEC vs Saint Sinners — https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/17-00/ex-rustec-vs-saint-sinners
 - `1082693` BESTIA vs Galorys — https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys
 - `1082925` BESTIA Academy vs RED Canids Academy — https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy
+- `1083025` paiN vs Imperial — https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/21-00/pain-vs-imperial
 - `1079193` FOKUS vs ex-6666 — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666
 - `1079195` Nuclear TigeRES vs FORZE Reload — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload
 
-Pinnacle guest API: 20409 esports matchups, 0 target-fixture hits
+Pinnacle guest API: 20630 esports matchups, 0 target-fixture hits
 
 **New money-line leads: 0** of 9 target fixtures.

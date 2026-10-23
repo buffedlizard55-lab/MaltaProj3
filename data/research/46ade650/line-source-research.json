@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "session": "arena-46ade650",
-  "observed_at": "2026-10-23T05:18:21Z",
+  "observed_at": "2026-10-23T06:19:37Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research. HLTV first (identity and ranking only — HLTV publishes no two-sided price), then esportsbooks and betting-line aggregators. Nothing here is a probability or a pick; only a bound fixture with both sides priced is a lead.",
   "target_source": {
     "source_url": "data/origination.json",
     "source": "freshly collected in this run",
-    "snapshot_generated_at": "2026-10-23T05:17:16Z",
+    "snapshot_generated_at": "2026-10-23T06:18:46Z",
     "targets": 9,
-    "active": 30
+    "active": 32
   },
   "targets": [
     {
@@ -171,7 +171,7 @@
       "url": "https://oddspedia.com/esports/counter-strike",
       "status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike",
-      "bytes": 340025,
+      "bytes": 340029,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -186,7 +186,7 @@
       "url": "https://22bet.com/line/counter-strike-2",
       "status": 203,
       "final_url": "https://22bet.com/line/counter-strike-2",
-      "bytes": 27144,
+      "bytes": 27146,
       "challenge_markers": [
         "captcha",
         "access denied"
@@ -213,7 +213,7 @@
       "url": "https://www.hltv.org/search?query=counter-strike",
       "status": 403,
       "final_url": "https://www.hltv.org/search?query=counter-strike",
-      "bytes": 5722,
+      "bytes": 5743,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
@@ -242,7 +242,7 @@
       "url": "https://egamersworld.com/counter-strike/betting",
       "status": 403,
       "final_url": "https://egamersworld.com/counter-strike/betting",
-      "bytes": 5774,
+      "bytes": 5776,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -253,15 +253,15 @@
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 20409,
+    "matchups_seen": 20630,
     "fixture_hits": []
   },
   "smarkets": {
     "evidence": "data/origination/evidence/live-smarkets-cs.json",
-    "observed_at": "2026-10-23T05:17:28Z",
-    "events_listed": 11,
-    "fixtures_bound": 11,
-    "quoted_two_sided": 8,
+    "observed_at": "2026-10-23T06:18:56Z",
+    "events_listed": 12,
+    "fixtures_bound": 12,
+    "quoted_two_sided": 9,
     "bound_fixtures": [
       {
         "hotspawn_id": "1079654",
@@ -316,6 +316,12 @@
         "event_id": "45394415",
         "event_name": "BESTIA Academy vs RED Canids Academy",
         "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy"
+      },
+      {
+        "hotspawn_id": "1083025",
+        "event_id": "45396232",
+        "event_name": "paiN vs Imperial",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/21-00/pain-vs-imperial"
       },
       {
         "hotspawn_id": "1079193",
