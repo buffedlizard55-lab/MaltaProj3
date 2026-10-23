@@ -79,7 +79,7 @@
 @media(max-width:375px){.mobile-nav>a{font-size:7.5px;padding:2px 1px;gap:2px}.mobile-nav .icon{width:17px;height:17px}}
 
 /* Inline text links keep a non-colour distinction (WCAG 1.4.1) inside prose blocks */
-.prose a:not(.source-link):not(.button),.section-intro a:not(.source-link),.limitations-callout p>a,.info-strip span>a,.unresolved-table td p>a,.evidence-box p>a,.briefing-notes p>a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.ladder-list a,.prose a:not(.source-link):not(.button),.section-intro a:not(.source-link),.limitations-callout p>a,.info-strip span>a,.unresolved-table td p>a,.evidence-box p>a,.briefing-notes p>a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 .prose a:hover,.section-intro a:hover,.limitations-callout p>a:hover,.info-strip span>a:hover{text-decoration-thickness:2px}
 
 /* Find-a-pick filter on the executive summary (session 3016b0c6). */
