@@ -9,9 +9,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
-concurrency:
-  group: research-19de9c79
-  cancel-in-progress: false
 jobs:
   capture:
     runs-on: ubuntu-24.04
