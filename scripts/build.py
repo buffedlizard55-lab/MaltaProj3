@@ -944,6 +944,28 @@ def line_sources_block(data, prefix):
             f'<ul class="line-source-list">{rows}</ul></div>')
 
 
+def load_no_line_research(source):
+    """Newest dated runner observation, not newest directory name or local failure.
+
+    Keep the actual paths with the record so numbers and download links cannot
+    describe different sweeps. A report is historical evidence, never a feed.
+    """
+    candidates = []
+    for path in (source / 'research').glob('*/line-source-research.json'):
+        try:
+            record = json.loads(path.read_text())
+            observed = timestamp(record.get('observed_at'))
+            if (record.get('environment') != 'github-actions-runner' or not observed
+                    or not isinstance(record.get('per_fixture'), list)
+                    or not path.with_suffix('.md').is_file()):
+                continue
+            record['_record_path'] = path.relative_to(source).as_posix()
+            candidates.append((observed, record['_record_path'], record))
+        except (ValueError, TypeError, AttributeError):
+            continue
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
 def no_line_research_block(data, prefix):
     """Dated per-fixture research for matches with no betting line (3016b0c6 + fd99abd9).
 
@@ -958,6 +980,8 @@ def no_line_research_block(data, prefix):
     fixtures = record.get('per_fixture') or []
     if not fixtures:
         return ''
+    record_path = record.get('_record_path', 'research/3016b0c6/line-source-research.json')
+    markdown_path = str(Path(record_path).with_suffix('.md'))
     leads = [f for f in fixtures if f.get('money_line_lead')]
     # A dated sweep is never allowed to override the current complete-picks
     # snapshot. If the four-hour resolver has since consumed the lead, say so
@@ -1003,15 +1027,13 @@ def no_line_research_block(data, prefix):
             '<h3>Fixtures without a betting line — latest dated research</h3>'
             f'<p class="tiny">On {local_time(record.get("observed_at"))} every fixture then carrying only a '
             f'research-model pick (<strong>{len(fixtures)}</strong>) was re-researched in brief order: '
-            'HLTV first (identity/ranking; it publishes no two-sided price and answered the runner with a '
-            'Cloudflare 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, '
-            'OddsPortal, EGamersWorld, the Pinnacle guest board and the bo3.gg bookmaker relay. '
-            f'<strong>{len(leads)}</strong> new money-line lead(s) found; the rest had no two-sided prematch '
-            'price on any reachable surface, so their model picks and limitations stand. '
-            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.md">Full dated record ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.json">JSON ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Prior sweep ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">Prior JSON ↓</a></p>'
+            'HLTV first, then esportsbooks and esports betting-line services. The dated record lists '
+            'each HTTP response and fixture limitation; a blocked page or a team mention is not a price. '
+            f'<strong>{len(leads)}</strong> new money-line lead(s) found. '
+            'This is historical research, not the current pick list: model estimates are not bookmaker odds. '
+            f'<a class="internal-link" href="{prefix}origination/#picks">Current picks →</a> '
+            f'<a class="internal-link" href="{prefix}data/{e(markdown_path)}">Full dated record ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/{e(record_path)}">JSON ↓</a></p>'
             + leads_html + '</div>')
 
 
@@ -1877,21 +1899,8 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = json.loads(line_sources_path.read_text())
         except ValueError:
             data['_line_sources'] = None
-    # Session fd99abd9 (current) then 3016b0c6: per-fixture research for matches with no betting line
-    # (HLTV first, then esportsbooks/aggregators). Dated evidence only; a lead
-    # recorded there is not a price and never becomes a pick in this renderer.
-    # The newest session directory is preferred so the runner's latest sweep is
-    # always what the executive summary publishes.
-    for candidate in ['research/fd99abd9/line-source-research.json', 'research/3016b0c6/line-source-research.json']:
-        no_line_path = source / candidate
-        if no_line_path.exists():
-            try:
-                data['_no_line_research'] = json.loads(no_line_path.read_text())
-                break
-            except ValueError:
-                data['_no_line_research'] = None
-    else:
-        data['_no_line_research'] = data.get('_no_line_research')
+    # A local blocked probe must not replace newer runner-verified observations.
+    data['_no_line_research'] = load_no_line_research(source)
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
