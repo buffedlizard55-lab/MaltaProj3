@@ -102,6 +102,51 @@ class LiveCoverageGaps(unittest.TestCase):
         self.assertIn('Hotspawn id unverified', html)
         self.assertIn('JiJieHao vs Eternal Fire', html)
 
+    def test_fixture_with_a_pick_in_the_complete_list_is_not_called_missing(self):
+        """A dated gap must drop out once the researched list carries the row.
+
+        The public summary advertised JiJieHao vs Eternal Fire as "no pick in
+        this build" while the same build carried its pick on the complete list,
+        because only the featured snapshot was consulted. A gap that is present
+        in `complete_picks` is not a gap.
+        """
+        complete_row = {'id': '1081606', 'pick_index': 1,
+                        'teams': [{'name': 'JiJieHao'}, {'name': 'Eternal Fire'}],
+                        'origination': {'method': 'market', 'probabilities': [0.445, 0.555]}}
+        data = {
+            'matches': [match(1, 'A', 'B')],
+            'complete_picks': {'matches': [complete_row]},
+            '_live_coverage': {
+                'observed_at': '2026-10-23T04:58:00Z',
+                'live_fixtures': [
+                    {'id': '1081606', 'teams': ['JiJieHao', 'Eternal Fire'],
+                     'competition': 'DraculaN Season 7',
+                     'hltv_url': 'https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7'},
+                    {'id': None, 'teams': ['JiJieHao', 'Eternal Fire'],
+                     'competition': 'DraculaN Season 7',
+                     'hltv_url': 'https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7'},
+                ],
+            },
+        }
+        html = live_coverage_gaps(data, '')
+        self.assertNotIn('JiJieHao vs Eternal Fire', html)
+        self.assertIn('0 missing at that observation', html)
+        self.assertIn('Every live lobby fixture in that research window is already in this snapshot', html)
+
+    def test_unmatched_team_pair_is_still_reported(self):
+        data = {
+            'matches': [],
+            'complete_picks': {'matches': [{'id': '1', 'teams': [{'name': 'A'}, {'name': 'B'}]}]},
+            '_live_coverage': {
+                'observed_at': '2026-10-23T04:58:00Z',
+                'live_fixtures': [{'id': None, 'teams': ['C', 'D'],
+                                   'hltv_url': 'https://www.hltv.org/matches/1/x'}],
+            },
+        }
+        html = live_coverage_gaps(data, '')
+        self.assertIn('C vs D', html)
+        self.assertIn('1 missing at that observation', html)
+
     def test_banner_only_links_the_section_when_the_record_is_loaded(self):
         empty = {'counts': {'upcoming': 1, 'unresolved': 0, 'model': 0},
                  'inventory_observed_at': '2026-10-22T13:21:33Z'}

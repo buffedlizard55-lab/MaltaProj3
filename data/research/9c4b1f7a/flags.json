@@ -1,0 +1,57 @@
+[
+  {
+    "id": "9c4b1f7a-polymarket-rule-text-start-conflict",
+    "severity": "notice",
+    "title": "Polymarket's Isurus-Hacha rule text names a start time nine hours later than its own countdown and the Hotspawn fixture",
+    "detail": "The published Polymarket event cs2-isg-hachae-2026-10-23 resolves the CCT South America Series 7 Round of 16 match between Isurus and Hacha Esports, but its boilerplate says the fixture was 'initially scheduled ... October 23, 2026 at 6:00 PM ET'. Its own page countdown, the Hotspawn lobby card (09:00 ET) and the first-party Hotspawn fixture API (scheduled_start_time 1792760400000 = 2026-10-23T13:00:00Z) all agree on 13:00Z, i.e. 09:00 ET. The site joined the market to the fixture on the API start time and the daily event slug, not on that sentence, and publishes no probability from the sentence. Recorded so a reviewer comparing the event text with our lock time is not left guessing; if Polymarket later corrects the text, this flag is superseded.",
+    "match_ids": [
+      "1082926"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+      "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "9c4b1f7a-consensus-chip-opens-one-constituent",
+    "severity": "notice",
+    "title": "The 'Consensus (N sources)' chip opens one contributing venue; the other prices live on the audit card",
+    "detail": "The phone summary labels a consensus row 'Consensus (4 sources)' or 'Consensus (5 sources)' and its source chip opens the primary constituent's page (for Isurus vs Hacha, Polymarket). The four contributing prices - Polymarket midpoints 0.650/0.690 vs 0.310/0.350, Thunderpick 1.22/3.80, Bovada 1.210526/4.15, Pinnacle 1.1927/3.93 - are printed with their event IDs on the row's audit card at /picks/ and /origination/#match-1082926. This session re-derived the published median 76.2% from those four prices exactly. The label is kept because it names the method rather than a single venue, but a reader must open 'Full detail' to see all four; no consensus number is presented as a single book's quote.",
+    "match_ids": [
+      "1082926",
+      "1079657"
+    ],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082926",
+      "https://polymarket.com/event/cs2-isg-hachae-2026-10-23"
+    ]
+  },
+  {
+    "id": "9c4b1f7a-jijiehao-card-has-no-permalink",
+    "severity": "notice",
+    "title": "One rendered lobby card has no View Match permalink, so the published Hotspawn link is the pick'ems anchor",
+    "detail": "The DraculaN Season 7 card JiJieHao vs Eternal Fire is rendered in the Hotspawn 'Closing Soon' list without a 'View Match' link (checked at 09:42Z on both /lobby and /cs2-pickems). The published row therefore links https://play.hotspawn.com/cs2-pickems#fixture-1081606 rather than an unverified match URL; a guessed slug (for example .../jijiehao-vs-eternal-fire-draculan-season-7-1081606) returns Hotspawn's 404 page and is not used. The fixture identity, tournament and 2026-10-23T13:00:00Z start come from Hotspawn's own fixture array, where id 1081606 is JiJieHao vs Eternal Fire.",
+    "match_ids": [
+      "1081606"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606"
+    ]
+  },
+  {
+    "id": "9c4b1f7a-no-general-egress-in-review-environment",
+    "severity": "notice",
+    "title": "This review could not use shell egress; every quoted page was read through the agent's page fetcher",
+    "detail": "In this environment curl to play.hotspawn.com, www.hltv.org, polymarket.com and the Hotspawn fixture API fails at the TLS handshake (exit 000), and gh run download fails on productionresultssa*.blob.core.windows.net. github.com and api.github.com are reachable, so the Valve standings file and its blob SHA were read directly; every Hotspawn, Polymarket and deployment page quoted in this session's dossier was read through the agent's page-retrieval tool and its content is reproduced in data/research/9c4b1f7a/verification-2026-10-23.json. No value in this dossier was inferred from a page that could not be opened.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://play.hotspawn.com/lobby",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  }
+]

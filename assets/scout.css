@@ -596,3 +596,13 @@
   .start-here li:first-child a span{display:block!important;font-size:10.5px;line-height:1.35}
   .start-here .tiny{display:none!important}
 }
+
+/* Session 9c4b1f7a. The observed price behind each glance estimate.
+   The brief asks for the betting-line analysis to be visible, not only linked:
+   a reader on a phone should see the quoted price that produced the number.
+   The chip never adds a probability; it restates the row's own stored quote. */
+.glance-line{flex-basis:100%;font-size:10px;line-height:1.6;color:#576b79;letter-spacing:.1px}
+.glance-line:before{content:"·";margin-right:6px;color:#9eafb9}
+@media(max-width:700px){
+  .glance-line{font-size:10px;line-height:1.65}
+}
