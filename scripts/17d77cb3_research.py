@@ -36,7 +36,7 @@ import json
 import os
 import re
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
@@ -290,12 +290,21 @@ def main(argv: list[str] | None = None) -> int:
         time.sleep(0.2)
 
     findings, unresolved = [], []
+    skipped_past = 0
+    opener = datetime.now(UTC) - timedelta(minutes=2)
     for fixture in fixtures:
         start = stamp(fixture['starts_at'])
         published = methods.get(fixture['id']) or {}
         method = published.get('method')
         needs_research = (not published or method is None or method in MODEL_METHODS)
         if not needs_research:
+            continue
+        # Hotspawn's scheduled feed also returns long-past fixtures that the
+        # source never retired (June 2026 records observed on 23 October 2026).
+        # A past start cannot be bet, so it is counted and skipped instead of
+        # being offered as a research target or a "lead".
+        if start is None or start < opener:
+            skipped_past += 1
             continue
         bound, near = bind(fixture['teams'], start, rows)
         quote = relay_block(bound) if bound else None
@@ -311,6 +320,7 @@ def main(argv: list[str] | None = None) -> int:
                   'tier': fixture['tier'], 'published_method': method,
                   'published_label': published.get('label'),
                   'published_probability': published.get('probability'),
+                  'published_source_url': published.get('source_url'),
                   'hotspawn_url': hotspawn_match_url(fixture['teams'], fixture['competition'],
                                                      fixture['id']),
                   'bo3': bo3,
@@ -369,6 +379,7 @@ def main(argv: list[str] | None = None) -> int:
                    'no_external_line': len(findings),
                    'two_sided_lead': sum(1 for f in findings if f['lead']),
                    'still_unresolved': len(unresolved),
+                   'skipped_past_start': skipped_past,
                    'bo3_rows_fetched': len(rows)},
         'sources_tried': [{'label': p['label'], 'url': p['url'],
                            'http_status': p.get('http_status'),
