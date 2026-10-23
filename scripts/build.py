@@ -944,7 +944,7 @@ def line_sources_block(data, prefix):
 
 
 def no_line_research_block(data, prefix):
-    """Dated per-fixture research for matches with no betting line (3016b0c6).
+    """Dated per-fixture research for matches with no betting line (3016b0c6 + fd99abd9).
 
     HLTV was tried first, then esportsbooks/aggregators, for every fixture the
     featured method left on a research model. This block publishes the dated
@@ -1007,8 +1007,10 @@ def no_line_research_block(data, prefix):
             'OddsPortal, EGamersWorld, the Pinnacle guest board and the bo3.gg bookmaker relay. '
             f'<strong>{len(leads)}</strong> new money-line lead(s) found; the rest had no two-sided prematch '
             'price on any reachable surface, so their model picks and limitations stand. '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Full dated record ↓</a> '
-            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">JSON ↓</a></p>'
+            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.md">Full dated record ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/research/fd99abd9/line-source-research.json">JSON ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.md">Prior sweep ↓</a> '
+            f'<a class="internal-link" href="{prefix}data/research/3016b0c6/line-source-research.json">Prior JSON ↓</a></p>'
             + leads_html + '</div>')
 
 
@@ -1860,15 +1862,21 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = json.loads(line_sources_path.read_text())
         except ValueError:
             data['_line_sources'] = None
-    # Session 3016b0c6: per-fixture research for matches with no betting line
+    # Session fd99abd9 (current) then 3016b0c6: per-fixture research for matches with no betting line
     # (HLTV first, then esportsbooks/aggregators). Dated evidence only; a lead
     # recorded there is not a price and never becomes a pick in this renderer.
-    no_line_path = source / 'research/3016b0c6/line-source-research.json'
-    if no_line_path.exists():
-        try:
-            data['_no_line_research'] = json.loads(no_line_path.read_text())
-        except ValueError:
-            data['_no_line_research'] = None
+    # The newest session directory is preferred so the runner's latest sweep is
+    # always what the executive summary publishes.
+    for candidate in ['research/fd99abd9/line-source-research.json', 'research/3016b0c6/line-source-research.json']:
+        no_line_path = source / candidate
+        if no_line_path.exists():
+            try:
+                data['_no_line_research'] = json.loads(no_line_path.read_text())
+                break
+            except ValueError:
+                data['_no_line_research'] = None
+    else:
+        data['_no_line_research'] = data.get('_no_line_research')
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
